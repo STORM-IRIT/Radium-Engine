@@ -54,13 +54,18 @@ class RA_ENGINE_API SkeletonComponent : public Component
     /// \name Component interface
     /// \{
 
-    void initialize() override {}
+    void initialize() override { setupIO(); }
 
     bool canEdit( const Core::Utils::Index& roIdx ) const override;
 
     Core::Transform getTransform( const Core::Utils::Index& roIdx ) const override;
+    Core::Transform getBoneTransform( uint boneIdx,
+                                      const Ra::Core::Animation::HandleArray::SpaceType MODE );
 
     void setTransform( const Core::Utils::Index& roIdx, const Core::Transform& transform ) override;
+    void setBoneTransform( uint boneIdx,
+                           const Core::Transform& transform,
+                           const Ra::Core::Animation::HandleArray::SpaceType MODE );
     /// \}
 
     /// \name Build from fileData

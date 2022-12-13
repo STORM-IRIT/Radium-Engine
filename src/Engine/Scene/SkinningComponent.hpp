@@ -106,6 +106,10 @@ class RA_ENGINE_API SkinningComponent : public Component
     /// Returns the name of the skinned mesh.
     const std::string& getMeshName() const;
 
+    /// Set the associated mesh name, usefull if component setup is not done using
+    /// handleSkinDataLoading
+    void setMeshName( const std::string& name ) { m_meshName = name; }
+
     /// Returns the name of the skeleton skinning the mesh.
     const std::string& getSkeletonName() const;
 
@@ -134,6 +138,20 @@ class RA_ENGINE_API SkinningComponent : public Component
     /// Set the bone to show the weights of.
     void setWeightBone( uint bone );
     /// \}
+
+    /// Set the associated weight for named bones.
+    /// Each pair is a vertex index from the skinned mesh (uint) and a weight (Scalar).
+    void setPerBoneWeight( std::map<std::string, std::vector<std::pair<uint, Scalar>>>&& w ) {
+        m_loadedWeights = w;
+    }
+
+    /// Set the associated bind matrix of named bones.
+    /// A bind matrix is used to transform a vertex from object space to rest pose bone space.
+    /// Typical value is obtained from skeleton getTransform( boneId, Skeleton::SpaceType::MODEL
+    /// ).inverse();
+    void setPerBoneMatrix( std::map<std::string, Core::Transform>&& m ) {
+        m_loadedBindMatrices = m;
+    }
 
   private:
     /// Setup Component Communication.
