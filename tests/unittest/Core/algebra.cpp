@@ -87,4 +87,35 @@ TEST_CASE( "Core/Math/Algebra", "[Core][Core/Math][Algebra]" ) {
                                              Vector3::Constant( min ),
                                              Vector3::Constant( max ) ) ) );
     }
+
+    SECTION( "smootsteop" ) {
+        using Math::smoothstep;
+        Scalar min = -12_ra;
+        Scalar max = +27_ra;
+        Scalar s   = 0.6_ra;
+
+        REQUIRE( Math::areApproxEqual( 0_ra, smoothstep( min, max, min ) ) );
+        REQUIRE( Math::areApproxEqual( 1_ra, smoothstep( min, max, max ) ) );
+        REQUIRE( Math::areApproxEqual( 1_ra, smoothstep( min, max, max + s ) ) );
+        REQUIRE( Math::areApproxEqual( 0_ra, smoothstep( min, max, min - s ) ) );
+
+        REQUIRE( Math::areApproxEqual( 0.5f, smoothstep( -1.f, 1.f, 0.f ) ) );
+        REQUIRE( Math::areApproxEqual( 1.f, smoothstep( 0.f, 0.f, 1.f ) ) );
+        REQUIRE( Math::areApproxEqual( 0.f, smoothstep( 1.f, -1.f, 1.f ) ) );
+
+        REQUIRE( Math::areApproxEqual( 0.5f, smoothstep( -1.0f, 1.0f, 0.0f ) ) );
+        REQUIRE( Math::areApproxEqual( 1.0f, smoothstep( 0.0f, 0.0f, 1.0f ) ) );
+        REQUIRE( Math::areApproxEqual( 0.0f, smoothstep( 1.0f, -1.0f, 1.0f ) ) );
+
+        Vector3 v { 0_ra, 0_ra, 0_ra };
+        auto v2 = smoothstep( -1_ra, 1_ra, v );
+        REQUIRE( v2.isApprox( Vector3 { 0.5_ra, 0.5_ra, 0.5_ra } ) );
+
+        Matrix2 m;
+        m << 0_ra, 0_ra, 0_ra, 0_ra;
+        Matrix2 m2;
+        m2 << 0.5_ra, 0.5_ra, 0.5_ra, 0.5_ra;
+        auto m3 = smoothstep( -1_ra, 1_ra, m );
+        REQUIRE( m3.isApprox( m2 ) );
+    }
 }

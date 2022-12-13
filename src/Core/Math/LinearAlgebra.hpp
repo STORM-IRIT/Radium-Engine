@@ -53,14 +53,14 @@ template <typename Derived>
 inline typename Derived::PlainMatrix
 clamp( const Eigen::MatrixBase<Derived>& v, const Scalar& min, const Scalar& max );
 
-/// Call std::isnormal on quaternion entries.
+/// Call std::isfinite on quaternion entries.
 template <typename S>
 inline bool checkInvalidNumbers( Eigen::Ref<Eigen::Quaternion<S>> q,
                                  const bool FAIL_ON_ASSERT = false ) {
     return checkInvalidNumbers( q.coeffs(), FAIL_ON_ASSERT );
 }
 
-/// Call std::isnormal on matrix entry.
+/// Call std::isfinite on matrix entry.
 /// Dense version
 template <typename Matrix_>
 inline bool checkInvalidNumbers( Eigen::Ref<const Matrix_> matrix,
