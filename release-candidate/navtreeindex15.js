@@ -1,5 +1,12 @@
 var NAVTREEINDEX15 =
 {
+"classRa_1_1Gui_1_1Widgets_1_1MatrixEditor.html#a39552f56daf3d4a13adc31c3eafa320e":[10,0,0,2,0,2,6],
+"classRa_1_1Gui_1_1Widgets_1_1MatrixEditor.html#a3d060c920ba16cc465d8b2446a68f741":[10,0,0,2,0,2,3],
+"classRa_1_1Gui_1_1Widgets_1_1MatrixEditor.html#a52c080308766415cc689db0e06a5b200":[10,0,0,2,0,2,7],
+"classRa_1_1Gui_1_1Widgets_1_1MatrixEditor.html#ab1b928e37610f4cedaf5491a217dc0a6":[10,0,0,2,0,2,0],
+"classRa_1_1Gui_1_1Widgets_1_1MatrixEditor.html#ab5ece8dd1e1c1a407451c0ab127b630e":[10,0,0,2,0,2,2],
+"classRa_1_1Gui_1_1Widgets_1_1MatrixEditor.html#ac1bf02f0390f1ff2a3e27e974c91e968":[10,0,0,2,0,2,1],
+"classRa_1_1Gui_1_1Widgets_1_1MatrixEditor.html#ae33e21f537d131e60c457b2f241be29a":[10,0,0,2,0,2,5],
 "classRa_1_1Gui_1_1Widgets_1_1VectorEditor.html":[10,0,0,2,0,3],
 "classRa_1_1Gui_1_1Widgets_1_1VectorEditor.html#a015444f2b75210480fc8ae790b50d792":[10,0,0,2,0,3,7],
 "classRa_1_1Gui_1_1Widgets_1_1VectorEditor.html#a1957a5c3aed9c29b64cac7a182829cfb":[10,0,0,2,0,3,3],
@@ -242,12 +249,5 @@ var NAVTREEINDEX15 =
 "develmaterials.html#autotoc_md86":[4,5,1,1,2,2],
 "develmaterials.html#autotoc_md87":[4,5,1,1,3],
 "develmaterials.html#autotoc_md88":[4,5,1,1,3,0],
-"develmaterials.html#bsdf-interface":[4,5,1,1,2,2,2],
-"develmaterials.html#cpp-mtl-lib":[4,5,1,1,2,0],
-"develmaterials.html#editable-interface":[4,5,1,1,2,0,0],
-"develmaterials.html#emissivity-interface":[4,5,1,1,2,2,3],
-"develmaterials.html#extend-mtl-lib":[4,5,1,1,2],
-"develmaterials.html#glsl-mtl-lib":[4,5,1,1,2,1],
-"develmaterials.html#microgeometry-interface":[4,5,1,1,2,2,1],
-"develmaterials.html#non-bsdf-rendering":[4,5,1,1,2,4]
+"develmaterials.html#bsdf-interface":[4,5,1,1,2,2,2]
 };

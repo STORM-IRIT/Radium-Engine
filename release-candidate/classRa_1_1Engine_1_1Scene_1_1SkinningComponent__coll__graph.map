@@ -1,5 +1,5 @@
 <map id="Ra::Engine::Scene::SkinningComponent" name="Ra::Engine::Scene::SkinningComponent">
-<area shape="rect" id="node1" title="The SkinningComponent class is responsible for applying Geometric Skinning Methods on an animated obj..." alt="" coords="97,1044,299,1649"/>
+<area shape="rect" id="node1" title="The SkinningComponent class is responsible for applying Geometric Skinning Methods on an animated obj..." alt="" coords="97,1044,299,1708"/>
 <area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Scene_1_1Component.html" title="A component is an element that can be updated by a system. It is also linked to some other components..." alt="" coords="87,639,309,995"/>
 <area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Scene_1_1System.html" title=" " alt="" coords="5,286,217,495"/>
 <area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Scene_1_1Entity.html" title="An entity is an scene element. It ties together components with a transform." alt="" coords="241,205,451,576"/>

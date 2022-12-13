@@ -52,7 +52,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.3.14</span>
+   &#160;<span id="projectnumber">1.3.15</span>
    </div>
   </td>
  </tr>
@@ -167,10 +167,16 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 Core::Transform&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html#a548d2775f8d29a2a4c06d5296511bd6f">getTransform</a> (const Core::Utils::Index &amp;roIdx) const override</td></tr>
 <tr class="memdesc:a548d2775f8d29a2a4c06d5296511bd6f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the transform associated with the given RO index key. <br /></td></tr>
 <tr class="separator:a548d2775f8d29a2a4c06d5296511bd6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0ecf97b3899438cf3c1cf043dc71b76e"><td class="memItemLeft" align="right" valign="top"><a id="a0ecf97b3899438cf3c1cf043dc71b76e"></a>
+Core::Transform&#160;</td><td class="memItemRight" valign="bottom"><b>getBoneTransform</b> (uint boneIdx, const <a class="el" href="classRa_1_1Core_1_1Animation_1_1HandleArray.html#a8d51faa3b4fa49a0056d28c830860c4d">Ra::Core::Animation::HandleArray::SpaceType</a> MODE)</td></tr>
+<tr class="separator:a0ecf97b3899438cf3c1cf043dc71b76e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad433b21c088063f7804cbbbe06b7ebc8"><td class="memItemLeft" align="right" valign="top"><a id="ad433b21c088063f7804cbbbe06b7ebc8"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html#ad433b21c088063f7804cbbbe06b7ebc8">setTransform</a> (const Core::Utils::Index &amp;roIdx, const Core::Transform &amp;transform) override</td></tr>
 <tr class="memdesc:ad433b21c088063f7804cbbbe06b7ebc8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the new transform associated with the RO index key. <br /></td></tr>
 <tr class="separator:ad433b21c088063f7804cbbbe06b7ebc8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ba53525379c5d2fbbd90a546dfa0903"><td class="memItemLeft" align="right" valign="top"><a id="a1ba53525379c5d2fbbd90a546dfa0903"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setBoneTransform</b> (uint boneIdx, const Core::Transform &amp;transform, const <a class="el" href="classRa_1_1Core_1_1Animation_1_1HandleArray.html#a8d51faa3b4fa49a0056d28c830860c4d">Ra::Core::Animation::HandleArray::SpaceType</a> MODE)</td></tr>
+<tr class="separator:a1ba53525379c5d2fbbd90a546dfa0903"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Build from fileData</div></td></tr>
 <tr class="memitem:a599cb76c6d9ae5532bec0d6831bdbcd7"><td class="memItemLeft" align="right" valign="top"><a id="a599cb76c6d9ae5532bec0d6831bdbcd7"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html#a599cb76c6d9ae5532bec0d6831bdbcd7">handleSkeletonLoading</a> (const <a class="el" href="classRa_1_1Core_1_1Asset_1_1HandleData.html">Core::Asset::HandleData</a> *data)</td></tr>
@@ -396,7 +402,7 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><b>m_name</b> {}<
 </div><div class="memdoc">
 <p>Turns xray display on/off for the skeleton bones. </p><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000078">Todo:</a></b></dt><dd>the way skeletons will be displayed will be changed. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="SkeletonComponent_8cpp_source.html#l00237">237</a> of file <a class="el" href="SkeletonComponent_8cpp_source.html">SkeletonComponent.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="SkeletonComponent_8cpp_source.html#l00249">249</a> of file <a class="el" href="SkeletonComponent_8cpp_source.html">SkeletonComponent.cpp</a>.</p>
 
 </div>
 </div>
@@ -410,7 +416,7 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><b>m_name</b> {}<
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><b>Engine</b></li><li class="navelem"><b>Scene</b></li><li class="navelem"><a class="el" href="classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html">SkeletonComponent</a></li>
-    <li class="footer">Generated on Thu Nov 17 2022 15:37:31 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Tue Dec 13 2022 09:59:33 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

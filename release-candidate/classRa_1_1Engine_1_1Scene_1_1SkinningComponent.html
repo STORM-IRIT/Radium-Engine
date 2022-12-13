@@ -52,7 +52,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.3.14</span>
+   &#160;<span id="projectnumber">1.3.15</span>
    </div>
   </td>
  </tr>
@@ -161,6 +161,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:abca9a3ebe8935278645755c13d6a57ed"><td class="memItemLeft" align="right" valign="top"><a id="abca9a3ebe8935278645755c13d6a57ed"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>SkinningComponent</b> (const std::string &amp;name, <a class="el" href="classRa_1_1Engine_1_1Scene_1_1SkinningComponent.html#a2304cfec1e381ad97319b39a6b897f7c">SkinningType</a> type, <a class="el" href="classRa_1_1Engine_1_1Scene_1_1Entity.html">Entity</a> *entity)</td></tr>
 <tr class="separator:abca9a3ebe8935278645755c13d6a57ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7be5cf660d796046b52b2c7023f802b6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Scene_1_1SkinningComponent.html#a7be5cf660d796046b52b2c7023f802b6">setPerBoneWeight</a> (std::map&lt; std::string, std::vector&lt; std::pair&lt; uint, Scalar &gt;&gt;&gt; &amp;&amp;w)</td></tr>
+<tr class="separator:a7be5cf660d796046b52b2c7023f802b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a15cea3b8defea94801c093d915d60f13"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Scene_1_1SkinningComponent.html#a15cea3b8defea94801c093d915d60f13">setPerBoneMatrix</a> (std::map&lt; std::string, Core::Transform &gt; &amp;&amp;m)</td></tr>
+<tr class="separator:a15cea3b8defea94801c093d915d60f13"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Component Communication (CC)</div></td></tr>
 <tr class="memitem:ae713060be15a959aaa74e81c6d3be657"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Scene_1_1SkinningComponent.html#ae713060be15a959aaa74e81c6d3be657">initialize</a> () override</td></tr>
 <tr class="memdesc:ae713060be15a959aaa74e81c6d3be657"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pure virtual method to be overridden by any component. When this method is called you are guaranteed that all other startup systems have been loaded.  <a href="classRa_1_1Engine_1_1Scene_1_1SkinningComponent.html#ae713060be15a959aaa74e81c6d3be657">More...</a><br /></td></tr>
@@ -198,6 +202,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Scene_1_1SkinningComponent.html#aa4ba7bc665b94e9374e7582de6de7730">getMeshName</a> () const</td></tr>
 <tr class="memdesc:aa4ba7bc665b94e9374e7582de6de7730"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the name of the skinned mesh. <br /></td></tr>
 <tr class="separator:aa4ba7bc665b94e9374e7582de6de7730"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3ec3bf321a3ee71f3b12f54cc1ba1c5a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Scene_1_1SkinningComponent.html#a3ec3bf321a3ee71f3b12f54cc1ba1c5a">setMeshName</a> (const std::string &amp;name)</td></tr>
+<tr class="separator:a3ec3bf321a3ee71f3b12f54cc1ba1c5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4117a55a3724dfb7d59794decf09ad51"><td class="memItemLeft" align="right" valign="top"><a id="a4117a55a3724dfb7d59794decf09ad51"></a>
 const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Scene_1_1SkinningComponent.html#a4117a55a3724dfb7d59794decf09ad51">getSkeletonName</a> () const</td></tr>
 <tr class="memdesc:a4117a55a3724dfb7d59794decf09ad51"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the name of the skeleton skinning the mesh. <br /></td></tr>
@@ -476,6 +482,93 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><b>m_name</b> {}<
 
 </div>
 </div>
+<a id="a3ec3bf321a3ee71f3b12f54cc1ba1c5a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3ec3bf321a3ee71f3b12f54cc1ba1c5a">&#9670;&nbsp;</a></span>setMeshName()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Ra::Engine::Scene::SkinningComponent::setMeshName </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>name</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Set the associated mesh name, usefull if component setup is not done using handleSkinDataLoading </p>
+
+<p class="definition">Definition at line <a class="el" href="SkinningComponent_8hpp_source.html#l00111">111</a> of file <a class="el" href="SkinningComponent_8hpp_source.html">SkinningComponent.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a15cea3b8defea94801c093d915d60f13"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a15cea3b8defea94801c093d915d60f13">&#9670;&nbsp;</a></span>setPerBoneMatrix()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Ra::Engine::Scene::SkinningComponent::setPerBoneMatrix </td>
+          <td>(</td>
+          <td class="paramtype">std::map&lt; std::string, Core::Transform &gt; &amp;&amp;&#160;</td>
+          <td class="paramname"><em>m</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Set the associated bind matrix of named bones. A bind matrix is used to transform a vertex from object space to rest pose bone space. Typical value is obtained from skeleton getTransform( boneId, Skeleton::SpaceType::MODEL ).inverse(); </p>
+
+<p class="definition">Definition at line <a class="el" href="SkinningComponent_8hpp_source.html#l00152">152</a> of file <a class="el" href="SkinningComponent_8hpp_source.html">SkinningComponent.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a7be5cf660d796046b52b2c7023f802b6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7be5cf660d796046b52b2c7023f802b6">&#9670;&nbsp;</a></span>setPerBoneWeight()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Ra::Engine::Scene::SkinningComponent::setPerBoneWeight </td>
+          <td>(</td>
+          <td class="paramtype">std::map&lt; std::string, std::vector&lt; std::pair&lt; uint, Scalar &gt;&gt;&gt; &amp;&amp;&#160;</td>
+          <td class="paramname"><em>w</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Set the associated weight for named bones. Each pair is a vertex index from the skinned mesh (uint) and a weight (Scalar). </p>
+
+<p class="definition">Definition at line <a class="el" href="SkinningComponent_8hpp_source.html#l00144">144</a> of file <a class="el" href="SkinningComponent_8hpp_source.html">SkinningComponent.hpp</a>.</p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/src/Engine/Scene/<a class="el" href="SkinningComponent_8hpp_source.html">SkinningComponent.hpp</a></li>
 <li>/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/src/Engine/Scene/<a class="el" href="SkinningComponent_8cpp_source.html">SkinningComponent.cpp</a></li>
@@ -486,7 +579,7 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><b>m_name</b> {}<
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><b>Engine</b></li><li class="navelem"><b>Scene</b></li><li class="navelem"><a class="el" href="classRa_1_1Engine_1_1Scene_1_1SkinningComponent.html">SkinningComponent</a></li>
-    <li class="footer">Generated on Thu Nov 17 2022 15:37:31 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Tue Dec 13 2022 09:59:33 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>
