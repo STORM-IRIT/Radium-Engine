@@ -52,7 +52,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.3.16</span>
+   &#160;<span id="projectnumber">1.4.2</span>
    </div>
   </td>
  </tr>
@@ -155,7 +155,7 @@ $(document).ready(function(){initNavTree('PolyLine_8inl_source.html',''); initRe
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
 <div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Geometry_1_1PolyLine.html#a539e5019c716986159e445fcbb09e9fc">   42</a></span>&#160;uint <a class="code" href="classRa_1_1Core_1_1Geometry_1_1PolyLine.html#a539e5019c716986159e445fcbb09e9fc">PolyLine::getSegmentIndex</a>( Scalar t )<span class="keyword"> const </span>{</div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="comment">// This could be optimized by dichotomy</span></div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    Scalar param = <a class="code" href="classRa_1_1Core_1_1Geometry_1_1PolyLine.html#ad9ec64926bd98bb0417655c31e639a67">length</a>() * Math::saturate( t );</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    Scalar param = <a class="code" href="classRa_1_1Core_1_1Geometry_1_1PolyLine.html#ad9ec64926bd98bb0417655c31e639a67">length</a>() * <a class="code" href="namespaceRa_1_1Core_1_1Math.html#ac59d3507a0a632719542d21a16a11bba">Math::saturate</a>( t );</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    uint i       = 0;</div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keywordflow">while</span> ( m_lengths[i] &lt; param ) {</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        ++i;</div>
@@ -173,6 +173,7 @@ $(document).ready(function(){initNavTree('PolyLine_8inl_source.html',''); initRe
 <div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1PolyLine_html_aae02568a84d24193c5f129f4dd60933c"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1PolyLine.html#aae02568a84d24193c5f129f4dd60933c">Ra::Core::Geometry::PolyLine::getLineParameter</a></div><div class="ttdeci">Scalar getLineParameter(uint segment, Scalar tSegment) const</div><div class="ttdef"><b>Definition:</b> <a href="PolyLine_8inl_source.html#l00025">PolyLine.inl:25</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1PolyLine_html_ad9ec64926bd98bb0417655c31e639a67"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1PolyLine.html#ad9ec64926bd98bb0417655c31e639a67">Ra::Core::Geometry::PolyLine::length</a></div><div class="ttdeci">Scalar length() const</div><div class="ttdoc">Get the total length of the line .</div><div class="ttdef"><b>Definition:</b> <a href="PolyLine_8inl_source.html#l00013">PolyLine.inl:13</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1PolyLine_html_aea6eff907b3b5ac247f34644f4378c81"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1PolyLine.html#aea6eff907b3b5ac247f34644f4378c81">Ra::Core::Geometry::PolyLine::getSegmentVectors</a></div><div class="ttdeci">const Vector3Array &amp; getSegmentVectors() const</div><div class="ttdoc">Get the segment vector ( Pi+1 - Pi)</div><div class="ttdef"><b>Definition:</b> <a href="PolyLine_8inl_source.html#l00038">PolyLine.inl:38</a></div></div>
+<div class="ttc" id="anamespaceRa_1_1Core_1_1Math_html_ac59d3507a0a632719542d21a16a11bba"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Math.html#ac59d3507a0a632719542d21a16a11bba">Ra::Core::Math::saturate</a></div><div class="ttdeci">constexpr T saturate(T v)</div><div class="ttdoc">Clamps the value between 0 and 1.</div><div class="ttdef"><b>Definition:</b> <a href="Math_8inl_source.html#l00084">Math.inl:84</a></div></div>
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdef"><b>Definition:</b> <a href="Cage_8cpp_source.html#l00003">Cage.cpp:3</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
@@ -180,7 +181,7 @@ $(document).ready(function(){initNavTree('PolyLine_8inl_source.html',''); initRe
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_cb2b5dfd43482fb277f6333d539f1f06.html">Geometry</a></li><li class="navelem"><b>PolyLine.inl</b></li>
-    <li class="footer">Generated on Tue Dec 13 2022 14:37:49 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Wed Dec 14 2022 17:47:48 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

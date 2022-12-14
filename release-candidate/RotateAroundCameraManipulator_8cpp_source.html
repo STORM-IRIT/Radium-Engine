@@ -52,7 +52,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.3.16</span>
+   &#160;<span id="projectnumber">1.4.2</span>
    </div>
   </td>
  </tr>
@@ -304,7 +304,7 @@ $(document).ready(function(){initNavTree('RotateAroundCameraManipulator_8cpp_sou
 <div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;    Ra::Core::Vector3 axis = p2.cross( p1 );</div>
 <div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160; </div>
 <div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;    <span class="keywordflow">if</span> ( axis.norm() &gt; 10_ra * Ra::Core::Math::machineEps ) {</div>
-<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;        <span class="keyword">const</span> Scalar angle =</div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;        <span class="keyword">const</span> Scalar <a class="code" href="namespaceRa_1_1Core_1_1Math.html#a5306cf8ea65c31d4bbe0560ec7bb6bb4">angle</a> =</div>
 <div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;            5.0_ra *</div>
 <div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;            std::asin( std::sqrt( axis.squaredNorm() / p1.squaredNorm() / p2.squaredNorm() ) );</div>
 <div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;        <span class="keywordflow">return</span> Ra::Core::Quaternion( Ra::Core::AngleAxis( angle, axis.normalized() ) );</div>
@@ -346,6 +346,7 @@ $(document).ready(function(){initNavTree('RotateAroundCameraManipulator_8cpp_sou
 <div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1Camera_html_aec6212574317a5395be2b49c19a90466"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1Camera.html#aec6212574317a5395be2b49c19a90466">Ra::Core::Asset::Camera::getDirection</a></div><div class="ttdeci">Core::Vector3 getDirection() const</div><div class="ttdoc">Return the direction the camera is looking at.</div><div class="ttdef"><b>Definition:</b> <a href="Camera_8inl_source.html#l00027">Camera.inl:27</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1KeyMappingManager_html_a41a05099c01660b695cdb70be3eb1655"><div class="ttname"><a href="classRa_1_1Gui_1_1KeyMappingManager.html#a41a05099c01660b695cdb70be3eb1655">Ra::Gui::KeyMappingManager::KeyMappingAction</a></div><div class="ttdeci">Ra::Core::Utils::Index KeyMappingAction</div><div class="ttdoc">handle to an action</div><div class="ttdef"><b>Definition:</b> <a href="KeyMappingManager_8hpp_source.html#l00078">KeyMappingManager.hpp:78</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1Viewer_html"><div class="ttname"><a href="classRa_1_1Gui_1_1Viewer.html">Ra::Gui::Viewer</a></div><div class="ttdef"><b>Definition:</b> <a href="Viewer_8hpp_source.html#l00053">Viewer.hpp:54</a></div></div>
+<div class="ttc" id="anamespaceRa_1_1Core_1_1Math_html_a5306cf8ea65c31d4bbe0560ec7bb6bb4"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Math.html#a5306cf8ea65c31d4bbe0560ec7bb6bb4">Ra::Core::Math::angle</a></div><div class="ttdeci">Scalar angle(const Vector_ &amp;v1, const Vector_ &amp;v2)</div><div class="ttdef"><b>Definition:</b> <a href="LinearAlgebra_8inl_source.html#l00057">LinearAlgebra.inl:57</a></div></div>
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdef"><b>Definition:</b> <a href="Cage_8cpp_source.html#l00003">Cage.cpp:3</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
@@ -353,7 +354,7 @@ $(document).ready(function(){initNavTree('RotateAroundCameraManipulator_8cpp_sou
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b5ac5e964c12a6b13a9d28feb9f3d3ed.html">Gui</a></li><li class="navelem"><a class="el" href="dir_b04feb2291820e8d3d098807c21e4559.html">Viewer</a></li><li class="navelem"><b>RotateAroundCameraManipulator.cpp</b></li>
-    <li class="footer">Generated on Tue Dec 13 2022 14:37:50 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Wed Dec 14 2022 17:47:49 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

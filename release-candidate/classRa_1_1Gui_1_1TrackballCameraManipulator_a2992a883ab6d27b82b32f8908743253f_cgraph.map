@@ -1,10 +1,11 @@
 <map id="Ra::Gui::TrackballCameraManipulator::updateCamera" name="Ra::Gui::TrackballCameraManipulator::updateCamera">
-<area shape="rect" id="node1" title=" " alt="" coords="5,140,209,182"/>
-<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#aec6212574317a5395be2b49c19a90466" title="Return the direction the camera is looking at." alt="" coords="516,111,696,152"/>
-<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#ae879404ea174280161cec397fb1710b7" title=" " alt="" coords="273,42,453,83"/>
-<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a773a6d2a393cf8ec195afffe2030ed22" title="Return the position." alt="" coords="273,107,453,148"/>
-<area shape="rect" id="node5" href="$classRa_1_1Engine_1_1Scene_1_1Light.html#ae0f8f50409ee68466a207b46f6f82fb7" title=" " alt="" coords="289,172,436,214"/>
-<area shape="rect" id="node6" href="$classRa_1_1Engine_1_1Scene_1_1Light.html#aff5fe72f3c665098c2c985a22ed46e6f" title=" " alt="" coords="289,238,436,279"/>
-<area shape="rect" id="node7" href="$classRa_1_1Gui_1_1TrackballCameraManipulator.html#ad7880fb45a56841fd743fb3ad80c2592" title="Update the polar coordinates of the Camera w.r.t. the trackball center." alt="" coords="257,303,468,344"/>
-<area shape="rect" id="node8" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a857b2f451204f40344a4f0eb8a44c496" title="Return the up vector." alt="" coords="516,303,696,344"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,139,209,180"/>
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#aec6212574317a5395be2b49c19a90466" title="Return the direction the camera is looking at." alt="" coords="523,92,703,134"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#ae879404ea174280161cec397fb1710b7" title=" " alt="" coords="273,40,453,82"/>
+<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a773a6d2a393cf8ec195afffe2030ed22" title="Return the position." alt="" coords="273,106,453,147"/>
+<area shape="rect" id="node5" href="$classRa_1_1Engine_1_1Scene_1_1Light.html#ae0f8f50409ee68466a207b46f6f82fb7" title=" " alt="" coords="289,171,436,212"/>
+<area shape="rect" id="node6" href="$classRa_1_1Engine_1_1Scene_1_1Light.html#aff5fe72f3c665098c2c985a22ed46e6f" title=" " alt="" coords="289,236,436,278"/>
+<area shape="rect" id="node7" href="$classRa_1_1Gui_1_1TrackballCameraManipulator.html#ad7880fb45a56841fd743fb3ad80c2592" title="Update the polar coordinates of the Camera w.r.t. the trackball center." alt="" coords="257,302,468,343"/>
+<area shape="rect" id="node8" href="$namespaceRa_1_1Core_1_1Math.html#a46540d56930b4c1ff3b115872cde4893" title="Compare two numbers such that |x&#45;y| &lt; espilon*epsilonBoostFactor." alt="" coords="516,268,709,310"/>
+<area shape="rect" id="node9" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a857b2f451204f40344a4f0eb8a44c496" title="Return the up vector." alt="" coords="523,334,703,375"/>
 </map>

@@ -52,7 +52,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.3.16</span>
+   &#160;<span id="projectnumber">1.4.2</span>
    </div>
   </td>
  </tr>
@@ -163,7 +163,7 @@ $(document).ready(function(){initNavTree('SkeletonBasedAnimationSystem_8cpp_sour
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keywordflow">for</span> ( <span class="keyword">auto</span> compEntry : <a class="code" href="classRa_1_1Engine_1_1Scene_1_1System.html#a0a7b80f0ecac124ebd13139cb6d3178e">m_components</a> ) {</div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        <span class="comment">// deal with AnimationComponents</span></div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        <span class="keywordflow">if</span> ( <span class="keyword">auto</span> animComp = <span class="keyword">dynamic_cast&lt;</span><a class="code" href="classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html">SkeletonComponent</a>*<span class="keyword">&gt;</span>( compEntry.second ) ) {</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;            <span class="keywordflow">if</span> ( !Core::Math::areApproxEqual( m_time, frameInfo.<a class="code" href="structRa_1_1Engine_1_1FrameInfo.html#a09910b87c87eb70b18d9ea1e74274b9f">m_animationTime</a> ) ) {</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;            <span class="keywordflow">if</span> ( !<a class="code" href="namespaceRa_1_1Core_1_1Math.html#a46540d56930b4c1ff3b115872cde4893">Core::Math::areApproxEqual</a>( m_time, frameInfo.<a class="code" href="structRa_1_1Engine_1_1FrameInfo.html#a09910b87c87eb70b18d9ea1e74274b9f">m_animationTime</a> ) ) {</div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;                <span class="comment">// here we update the skeleton w.r.t. the animation</span></div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;                <span class="keyword">auto</span> animFunc =</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;                    std::bind( &amp;<a class="code" href="classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html#a007d18aff30eb0bc9400e55c684a9c55">SkeletonComponent::update</a>, animComp, frameInfo.<a class="code" href="structRa_1_1Engine_1_1FrameInfo.html#a09910b87c87eb70b18d9ea1e74274b9f">m_animationTime</a> );</div>
@@ -291,6 +291,7 @@ $(document).ready(function(){initNavTree('SkeletonBasedAnimationSystem_8cpp_sour
 <div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1System_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1System.html">Ra::Engine::Scene::System</a></div><div class="ttdef"><b>Definition:</b> <a href="System_8hpp_source.html#l00030">System.hpp:31</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1System_html_a0a7b80f0ecac124ebd13139cb6d3178e"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1System.html#a0a7b80f0ecac124ebd13139cb6d3178e">Ra::Engine::Scene::System::m_components</a></div><div class="ttdeci">std::vector&lt; std::pair&lt; const Entity *, Component * &gt; &gt; m_components</div><div class="ttdoc">List of active components.</div><div class="ttdef"><b>Definition:</b> <a href="System_8hpp_source.html#l00103">System.hpp:103</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1System_html_a8d1f1cfd2c615e58b4155154206afece"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1System.html#a8d1f1cfd2c615e58b4155154206afece">Ra::Engine::Scene::System::registerComponent</a></div><div class="ttdeci">virtual void registerComponent(const Entity *entity, Component *component)</div><div class="ttdef"><b>Definition:</b> <a href="System_8cpp_source.html#l00010">System.cpp:10</a></div></div>
+<div class="ttc" id="anamespaceRa_1_1Core_1_1Math_html_a46540d56930b4c1ff3b115872cde4893"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Math.html#a46540d56930b4c1ff3b115872cde4893">Ra::Core::Math::areApproxEqual</a></div><div class="ttdeci">std::enable_if&lt;!std::numeric_limits&lt; T &gt;::is_integer, bool &gt;::type areApproxEqual(T x, T y, T espilonBoostFactor=T(10))</div><div class="ttdoc">Compare two numbers such that |x-y| &lt; espilon*epsilonBoostFactor.</div><div class="ttdef"><b>Definition:</b> <a href="Math_8inl_source.html#l00091">Math.inl:91</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Core_1_1Resources_html_af434c5b44164970395428b4a00e7729c"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Resources.html#af434c5b44164970395428b4a00e7729c">Ra::Core::Resources::getRadiumResourcesPath</a></div><div class="ttdeci">optional&lt; std::string &gt; getRadiumResourcesPath()</div><div class="ttdoc">Get the path of Radium internal resources.</div><div class="ttdef"><b>Definition:</b> <a href="Resources_8cpp_source.html#l00035">Resources.cpp:35</a></div></div>
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdef"><b>Definition:</b> <a href="Cage_8cpp_source.html#l00003">Cage.cpp:3</a></div></div>
 <div class="ttc" id="astructRa_1_1Engine_1_1FrameInfo_html"><div class="ttname"><a href="structRa_1_1Engine_1_1FrameInfo.html">Ra::Engine::FrameInfo</a></div><div class="ttdoc">Structure passed to each system before they fill the task queue.</div><div class="ttdef"><b>Definition:</b> <a href="FrameInfo_8hpp_source.html#l00008">FrameInfo.hpp:8</a></div></div>
@@ -301,7 +302,7 @@ $(document).ready(function(){initNavTree('SkeletonBasedAnimationSystem_8cpp_sour
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_89bb22796d297d82305d45a42e7934d2.html">Scene</a></li><li class="navelem"><b>SkeletonBasedAnimationSystem.cpp</b></li>
-    <li class="footer">Generated on Tue Dec 13 2022 14:37:50 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Wed Dec 14 2022 17:47:49 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

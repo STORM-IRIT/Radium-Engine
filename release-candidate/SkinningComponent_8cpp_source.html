@@ -52,7 +52,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.3.16</span>
+   &#160;<span id="projectnumber">1.4.2</span>
    </div>
   </td>
  </tr>
@@ -234,7 +234,7 @@ $(document).ready(function(){initNavTree('SkinningComponent_8cpp_source.html',''
 <div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;            Vector3Array bitangents( normals.size() );</div>
 <div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;<span class="preprocessor">#pragma omp parallel for</span></div>
 <div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;            <span class="keywordflow">for</span> ( <span class="keywordtype">int</span> i = 0; i &lt; int( normals.size() ); ++i ) {</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;                Core::Math::getOrthogonalVectors( normals[i], tangents[i], bitangents[i] );</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;                <a class="code" href="namespaceRa_1_1Core_1_1Math.html#a5f25a31a29b0688e349dc35a353b9766">Core::Math::getOrthogonalVectors</a>( normals[i], tangents[i], bitangents[i] );</div>
 <div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;            }</div>
 <div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;            m_refData.m_referenceMesh.addAttrib( tangentName, std::move( tangents ) );</div>
 <div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;            m_refData.m_referenceMesh.addAttrib( bitangentName, std::move( bitangents ) );</div>
@@ -368,7 +368,7 @@ $(document).ready(function(){initNavTree('SkinningComponent_8cpp_source.html',''
 <div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;            m_topoMesh.updateTriangleMeshNormals( m_frameData.m_currentNormal );</div>
 <div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;<span class="preprocessor">#pragma omp parallel for</span></div>
 <div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;            <span class="keywordflow">for</span> ( <span class="keywordtype">int</span> i = 0; i &lt; int( m_frameData.m_currentNormal.size() ); ++i ) {</div>
-<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;                Core::Math::getOrthogonalVectors( m_frameData.m_currentNormal[i],</div>
+<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;                <a class="code" href="namespaceRa_1_1Core_1_1Math.html#a5f25a31a29b0688e349dc35a353b9766">Core::Math::getOrthogonalVectors</a>( m_frameData.m_currentNormal[i],</div>
 <div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;                                                  m_frameData.m_currentTangent[i],</div>
 <div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;                                                  m_frameData.m_currentBitangent[i] );</div>
 <div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;            }</div>
@@ -583,6 +583,7 @@ $(document).ready(function(){initNavTree('SkinningComponent_8cpp_source.html',''
 <div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1SkinningComponent_html_a2304cfec1e381ad97319b39a6b897f7c"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1SkinningComponent.html#a2304cfec1e381ad97319b39a6b897f7c">Ra::Engine::Scene::SkinningComponent::SkinningType</a></div><div class="ttdeci">SkinningType</div><div class="ttdoc">The Geometric Skinning Method.</div><div class="ttdef"><b>Definition:</b> <a href="SkinningComponent_8hpp_source.html#l00038">SkinningComponent.hpp:38</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1SkinningComponent_html_a781b95ed9ba0c8fc4357b53e263c7427"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1SkinningComponent.html#a781b95ed9ba0c8fc4357b53e263c7427">Ra::Engine::Scene::SkinningComponent::WeightType</a></div><div class="ttdeci">WeightType</div><div class="ttdoc">The skinning weight type.</div><div class="ttdef"><b>Definition:</b> <a href="SkinningComponent_8hpp_source.html#l00051">SkinningComponent.hpp:51</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1SkinningComponent_html_af8581b918ec6ccc25f15a4c016e4decf"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1SkinningComponent.html#af8581b918ec6ccc25f15a4c016e4decf">Ra::Engine::Scene::SkinningComponent::NormalSkinning</a></div><div class="ttdeci">NormalSkinning</div><div class="ttdoc">How to skin the normal, tangent and binormal vectors.</div><div class="ttdef"><b>Definition:</b> <a href="SkinningComponent_8hpp_source.html#l00045">SkinningComponent.hpp:45</a></div></div>
+<div class="ttc" id="anamespaceRa_1_1Core_1_1Math_html_a5f25a31a29b0688e349dc35a353b9766"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Math.html#a5f25a31a29b0688e349dc35a353b9766">Ra::Core::Math::getOrthogonalVectors</a></div><div class="ttdeci">void getOrthogonalVectors(const Vector3 &amp;fx, Eigen::Ref&lt; Vector3 &gt; fy, Eigen::Ref&lt; Vector3 &gt; fz)</div><div class="ttdef"><b>Definition:</b> <a href="LinearAlgebra_8inl_source.html#l00110">LinearAlgebra.inl:110</a></div></div>
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdef"><b>Definition:</b> <a href="Cage_8cpp_source.html#l00003">Cage.cpp:3</a></div></div>
 <div class="ttc" id="astructRa_1_1Core_1_1Animation_1_1SkinningFrameData_html"><div class="ttname"><a href="structRa_1_1Core_1_1Animation_1_1SkinningFrameData.html">Ra::Core::Animation::SkinningFrameData</a></div><div class="ttdoc">Pose data for one frame.</div><div class="ttdef"><b>Definition:</b> <a href="SkinningData_8hpp_source.html#l00038">SkinningData.hpp:38</a></div></div>
 <div class="ttc" id="astructRa_1_1Core_1_1Animation_1_1SkinningRefData_html"><div class="ttname"><a href="structRa_1_1Core_1_1Animation_1_1SkinningRefData.html">Ra::Core::Animation::SkinningRefData</a></div><div class="ttdoc">Skinning data that get set at startup including the &quot;reference state&quot;.</div><div class="ttdef"><b>Definition:</b> <a href="SkinningData_8hpp_source.html#l00014">SkinningData.hpp:14</a></div></div>
@@ -594,7 +595,7 @@ $(document).ready(function(){initNavTree('SkinningComponent_8cpp_source.html',''
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_89bb22796d297d82305d45a42e7934d2.html">Scene</a></li><li class="navelem"><b>SkinningComponent.cpp</b></li>
-    <li class="footer">Generated on Tue Dec 13 2022 14:37:50 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Wed Dec 14 2022 17:47:49 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

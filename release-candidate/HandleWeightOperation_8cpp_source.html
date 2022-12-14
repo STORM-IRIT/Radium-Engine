@@ -52,7 +52,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.3.16</span>
+   &#160;<span id="projectnumber">1.4.2</span>
    </div>
   </td>
  </tr>
@@ -170,7 +170,7 @@ $(document).ready(function(){initNavTree('HandleWeightOperation_8cpp_source.html
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="keywordtype">bool</span> checkWeightMatrix( Eigen::Ref&lt;const WeightMatrix&gt; matrix,</div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;                        <span class="keyword">const</span> <span class="keywordtype">bool</span> FAIL_ON_ASSERT,</div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;                        <span class="keyword">const</span> <span class="keywordtype">bool</span> MT ) {</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keywordtype">bool</span> ok = Math::checkInvalidNumbers( matrix, FAIL_ON_ASSERT ) &amp;&amp;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keywordtype">bool</span> ok = <a class="code" href="namespaceRa_1_1Core_1_1Math.html#ae18c7b57c072ca801413a45e8944b15d">Math::checkInvalidNumbers</a>( matrix, FAIL_ON_ASSERT ) &amp;&amp;</div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;              checkNoWeightVertex( matrix, FAIL_ON_ASSERT, MT );</div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keywordflow">if</span> ( !ok ) { LOG( logDEBUG ) &lt;&lt; <span class="stringliteral">&quot;Matrix is not good.&quot;</span>; }</div>
@@ -223,8 +223,8 @@ $(document).ready(function(){initNavTree('HandleWeightOperation_8cpp_source.html
 <div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;<span class="preprocessor">#pragma omp parallel for if ( MT )</span></div>
 <div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    <span class="keywordflow">for</span> ( <span class="keywordtype">int</span> k = 0; k &lt; matrix.innerSize(); ++k ) {</div>
 <div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        <span class="keyword">const</span> Scalar sum = matrix.row( k ).sum();</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;        <span class="keywordflow">if</span> ( !Ra::Core::Math::areApproxEqual( sum, 0_ra ) ) {</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;            <span class="keywordflow">if</span> ( !Ra::Core::Math::areApproxEqual( sum, 1_ra ) ) {</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;        <span class="keywordflow">if</span> ( !<a class="code" href="namespaceRa_1_1Core_1_1Math.html#a46540d56930b4c1ff3b115872cde4893">Ra::Core::Math::areApproxEqual</a>( sum, 0_ra ) ) {</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;            <span class="keywordflow">if</span> ( !<a class="code" href="namespaceRa_1_1Core_1_1Math.html#a46540d56930b4c1ff3b115872cde4893">Ra::Core::Math::areApproxEqual</a>( sum, 1_ra ) ) {</div>
 <div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;                skinningWeightOk = <span class="keyword">false</span>;</div>
 <div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;                matrix.row( k ) /= sum;</div>
 <div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;            }</div>
@@ -236,6 +236,8 @@ $(document).ready(function(){initNavTree('HandleWeightOperation_8cpp_source.html
 <div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;} <span class="comment">// namespace Animation</span></div>
 <div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;} <span class="comment">// Namespace Core</span></div>
 <div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;} <span class="comment">// Namespace Ra</span></div>
+<div class="ttc" id="anamespaceRa_1_1Core_1_1Math_html_a46540d56930b4c1ff3b115872cde4893"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Math.html#a46540d56930b4c1ff3b115872cde4893">Ra::Core::Math::areApproxEqual</a></div><div class="ttdeci">std::enable_if&lt;!std::numeric_limits&lt; T &gt;::is_integer, bool &gt;::type areApproxEqual(T x, T y, T espilonBoostFactor=T(10))</div><div class="ttdoc">Compare two numbers such that |x-y| &lt; espilon*epsilonBoostFactor.</div><div class="ttdef"><b>Definition:</b> <a href="Math_8inl_source.html#l00091">Math.inl:91</a></div></div>
+<div class="ttc" id="anamespaceRa_1_1Core_1_1Math_html_ae18c7b57c072ca801413a45e8944b15d"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Math.html#ae18c7b57c072ca801413a45e8944b15d">Ra::Core::Math::checkInvalidNumbers</a></div><div class="ttdeci">bool checkInvalidNumbers(Eigen::Ref&lt; Eigen::Quaternion&lt; S &gt;&gt; q, const bool FAIL_ON_ASSERT=false)</div><div class="ttdoc">Call std::isfinite on quaternion entries.</div><div class="ttdef"><b>Definition:</b> <a href="LinearAlgebra_8hpp_source.html#l00058">LinearAlgebra.hpp:58</a></div></div>
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdef"><b>Definition:</b> <a href="Cage_8cpp_source.html#l00003">Cage.cpp:3</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
@@ -243,7 +245,7 @@ $(document).ready(function(){initNavTree('HandleWeightOperation_8cpp_source.html
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_721a74ea40d2768c46a3c9514389a16b.html">Animation</a></li><li class="navelem"><b>HandleWeightOperation.cpp</b></li>
-    <li class="footer">Generated on Tue Dec 13 2022 14:37:49 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Wed Dec 14 2022 17:47:48 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

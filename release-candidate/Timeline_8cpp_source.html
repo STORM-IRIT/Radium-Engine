@@ -52,7 +52,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.3.16</span>
+   &#160;<span id="projectnumber">1.4.2</span>
    </div>
   </td>
  </tr>
@@ -414,7 +414,7 @@ $(document).ready(function(){initNavTree('Timeline_8cpp_source.html',''); initRe
 <div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;}</div>
 <div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160; </div>
 <div class="line"><a name="l00302"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1Timeline.html#adcb5e1872f1ec8c4e18b8e8200acebd7">  302</a></span>&#160;<span class="keywordtype">void</span> Timeline::onChangeCursor( Scalar time ) {</div>
-<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;    <span class="keywordflow">if</span> ( Ra::Core::Math::areApproxEqual( time, Scalar( ui-&gt;m_cursorSpin-&gt;value() ) ) ) { <span class="keywordflow">return</span>; }</div>
+<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;    <span class="keywordflow">if</span> ( <a class="code" href="namespaceRa_1_1Core_1_1Math.html#a46540d56930b4c1ff3b115872cde4893">Ra::Core::Math::areApproxEqual</a>( time, Scalar( ui-&gt;m_cursorSpin-&gt;value() ) ) ) { <span class="keywordflow">return</span>; }</div>
 <div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;    ui-&gt;frame_selector-&gt;onChangeCursor( time, <span class="keyword">false</span> );</div>
 <div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;    updateKeyFrames( time );</div>
 <div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;}</div>
@@ -480,7 +480,7 @@ $(document).ready(function(){initNavTree('Timeline_8cpp_source.html',''); initRe
 <div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160; </div>
 <div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;<span class="keywordtype">void</span> Timeline::onMovingKeyFrame( <span class="keywordtype">size_t</span> i, Scalar time1 ) {</div>
 <div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;    <span class="keywordflow">if</span> ( m_current.m_value ) {</div>
-<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;        <span class="keywordflow">if</span> ( !Ra::Core::Math::areApproxEqual( m_current.m_value-&gt;getTimes()[i], time1 ) ) {</div>
+<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;        <span class="keywordflow">if</span> ( !<a class="code" href="namespaceRa_1_1Core_1_1Math.html#a46540d56930b4c1ff3b115872cde4893">Ra::Core::Math::areApproxEqual</a>( m_current.m_value-&gt;getTimes()[i], time1 ) ) {</div>
 <div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160;            m_current.m_value-&gt;moveKeyFrame( i, time1 );</div>
 <div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160;            m_current.updateKeyFrame( time1 );</div>
 <div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160;            emit keyFrameMoved( i, time1 );</div>
@@ -610,6 +610,7 @@ $(document).ready(function(){initNavTree('Timeline_8cpp_source.html',''); initRe
 <div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1Component_html_a60e3234670ccfb680405445f06d2854e"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1Component.html#a60e3234670ccfb680405445f06d2854e">Ra::Engine::Scene::Component::getName</a></div><div class="ttdeci">virtual const std::string &amp; getName() const</div><div class="ttdoc">Return the component's name.</div><div class="ttdef"><b>Definition:</b> <a href="Component_8inl_source.html#l00016">Component.inl:16</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1Component_html_aaaac457b6b1c62d618f626c9c6771ad2"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1Component.html#aaaac457b6b1c62d618f626c9c6771ad2">Ra::Engine::Scene::Component::getEntity</a></div><div class="ttdeci">virtual Entity * getEntity() const</div><div class="ttdoc">Return the entity the component belongs to.</div><div class="ttdef"><b>Definition:</b> <a href="Component_8inl_source.html#l00012">Component.inl:12</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1Entity_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1Entity.html">Ra::Engine::Scene::Entity</a></div><div class="ttdoc">An entity is an scene element. It ties together components with a transform.</div><div class="ttdef"><b>Definition:</b> <a href="Entity_8hpp_source.html#l00022">Entity.hpp:23</a></div></div>
+<div class="ttc" id="anamespaceRa_1_1Core_1_1Math_html_a46540d56930b4c1ff3b115872cde4893"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Math.html#a46540d56930b4c1ff3b115872cde4893">Ra::Core::Math::areApproxEqual</a></div><div class="ttdeci">std::enable_if&lt;!std::numeric_limits&lt; T &gt;::is_integer, bool &gt;::type areApproxEqual(T x, T y, T espilonBoostFactor=T(10))</div><div class="ttdoc">Compare two numbers such that |x-y| &lt; espilon*epsilonBoostFactor.</div><div class="ttdef"><b>Definition:</b> <a href="Math_8inl_source.html#l00091">Math.inl:91</a></div></div>
 <div class="ttc" id="astructRa_1_1Engine_1_1Scene_1_1ItemEntry_html"><div class="ttname"><a href="structRa_1_1Engine_1_1Scene_1_1ItemEntry.html">Ra::Engine::Scene::ItemEntry</a></div><div class="ttdef"><b>Definition:</b> <a href="ItemEntry_8hpp_source.html#l00025">ItemEntry.hpp:25</a></div></div>
 <div class="ttc" id="astructRa_1_1Engine_1_1Scene_1_1ItemEntry_html_a29667eec05160fa0296216cdc38b06e0"><div class="ttname"><a href="structRa_1_1Engine_1_1Scene_1_1ItemEntry.html#a29667eec05160fa0296216cdc38b06e0">Ra::Engine::Scene::ItemEntry::m_roIndex</a></div><div class="ttdeci">Ra::Core::Utils::Index m_roIndex</div><div class="ttdoc">RO index of the represented object.</div><div class="ttdef"><b>Definition:</b> <a href="ItemEntry_8hpp_source.html#l00067">ItemEntry.hpp:67</a></div></div>
 <div class="ttc" id="astructRa_1_1Engine_1_1Scene_1_1ItemEntry_html_a50018166fe6777de51b2b8f858498d03"><div class="ttname"><a href="structRa_1_1Engine_1_1Scene_1_1ItemEntry.html#a50018166fe6777de51b2b8f858498d03">Ra::Engine::Scene::ItemEntry::m_component</a></div><div class="ttdeci">Component * m_component</div><div class="ttdef"><b>Definition:</b> <a href="ItemEntry_8hpp_source.html#l00064">ItemEntry.hpp:64</a></div></div>
@@ -620,7 +621,7 @@ $(document).ready(function(){initNavTree('Timeline_8cpp_source.html',''); initRe
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b5ac5e964c12a6b13a9d28feb9f3d3ed.html">Gui</a></li><li class="navelem"><a class="el" href="dir_c11d904bd882c8440c506ccb3c29fbe5.html">Timeline</a></li><li class="navelem"><b>Timeline.cpp</b></li>
-    <li class="footer">Generated on Tue Dec 13 2022 14:37:50 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Wed Dec 14 2022 17:47:49 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

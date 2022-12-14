@@ -52,7 +52,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.3.16</span>
+   &#160;<span id="projectnumber">1.4.2</span>
    </div>
   </td>
  </tr>
@@ -173,7 +173,7 @@ $(document).ready(function(){initNavTree('RayCast_8cpp_source.html',''); initRes
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="comment">// Ignore negative t (box behind the origin), and points outside the aabb.</span></div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keywordflow">if</span> ( t &gt;= 0 &amp;&amp; !inFace.any() ) {</div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        hitOut    = t;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        normalOut = -s * Math::sign( r.direction()[i] );</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        normalOut = -s * <a class="code" href="namespaceRa_1_1Core_1_1Math.html#a90f0fe9079f5bb86c721ea4b61738470">Math::sign</a>( r.direction()[i] );</div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    }</div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
@@ -450,6 +450,7 @@ $(document).ready(function(){initNavTree('RayCast_8cpp_source.html',''); initRes
 <div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;} <span class="comment">// namespace Geometry</span></div>
 <div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;} <span class="comment">// namespace Core</span></div>
 <div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;} <span class="comment">// namespace Ra</span></div>
+<div class="ttc" id="anamespaceRa_1_1Core_1_1Math_html_a90f0fe9079f5bb86c721ea4b61738470"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Math.html#a90f0fe9079f5bb86c721ea4b61738470">Ra::Core::Math::sign</a></div><div class="ttdeci">constexpr int sign(const T &amp;val)</div><div class="ttdoc">Returns the sign of any numeric type as { -1, 0, 1}.</div><div class="ttdef"><b>Definition:</b> <a href="Math_8inl_source.html#l00074">Math.inl:74</a></div></div>
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdef"><b>Definition:</b> <a href="Cage_8cpp_source.html#l00003">Cage.cpp:3</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
@@ -457,7 +458,7 @@ $(document).ready(function(){initNavTree('RayCast_8cpp_source.html',''); initRes
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_cb2b5dfd43482fb277f6333d539f1f06.html">Geometry</a></li><li class="navelem"><b>RayCast.cpp</b></li>
-    <li class="footer">Generated on Tue Dec 13 2022 14:37:49 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Wed Dec 14 2022 17:47:48 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

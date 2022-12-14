@@ -52,7 +52,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.3.16</span>
+   &#160;<span id="projectnumber">1.4.2</span>
    </div>
   </td>
  </tr>
@@ -258,7 +258,7 @@ $(document).ready(function(){initNavTree('TrackballCameraManipulator_8cpp_source
 <div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;<span class="keywordtype">void</span> TrackballCameraManipulator::mousePressSaveData( <span class="keyword">const</span> QMouseEvent* mouseEvent ) {</div>
 <div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;    <a class="code" href="classRa_1_1Gui_1_1TrackballCameraManipulator.html#a56c21d2c8c450a41d7db95cc869dc5d0">m_lastMouseX</a> = mouseEvent-&gt;pos().x();</div>
 <div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;    <a class="code" href="classRa_1_1Gui_1_1TrackballCameraManipulator.html#a6adc3a15bef8e2b4b0fccbeaadda6461">m_lastMouseY</a> = mouseEvent-&gt;pos().y();</div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;    <a class="code" href="classRa_1_1Gui_1_1TrackballCameraManipulator.html#a3730cd42ac7af4322a29412f8b3dee64">m_phiDir</a>     = -Core::Math::signNZ( m_theta );</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;    <a class="code" href="classRa_1_1Gui_1_1TrackballCameraManipulator.html#a3730cd42ac7af4322a29412f8b3dee64">m_phiDir</a>     = -<a class="code" href="namespaceRa_1_1Core_1_1Math.html#a810d6d50b61cc01cda1d54527de864d0">Core::Math::signNZ</a>( m_theta );</div>
 <div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;}</div>
 <div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160; </div>
 <div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;std::tuple&lt;Scalar, Scalar&gt;</div>
@@ -320,7 +320,7 @@ $(document).ready(function(){initNavTree('TrackballCameraManipulator_8cpp_source
 <div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160; </div>
 <div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;    <a class="code" href="classRa_1_1Gui_1_1TrackballCameraManipulator.html#a56c21d2c8c450a41d7db95cc869dc5d0">m_lastMouseX</a> = <span class="keyword">event</span>-&gt;pos().x();</div>
 <div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;    <a class="code" href="classRa_1_1Gui_1_1TrackballCameraManipulator.html#a6adc3a15bef8e2b4b0fccbeaadda6461">m_lastMouseY</a> = <span class="keyword">event</span>-&gt;pos().y();</div>
-<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;    <a class="code" href="classRa_1_1Gui_1_1TrackballCameraManipulator.html#a3730cd42ac7af4322a29412f8b3dee64">m_phiDir</a>     = -Core::Math::signNZ( m_theta );</div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;    <a class="code" href="classRa_1_1Gui_1_1TrackballCameraManipulator.html#a3730cd42ac7af4322a29412f8b3dee64">m_phiDir</a>     = -<a class="code" href="namespaceRa_1_1Core_1_1Math.html#a810d6d50b61cc01cda1d54527de864d0">Core::Math::signNZ</a>( m_theta );</div>
 <div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160; </div>
 <div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;    <span class="keywordtype">bool</span> handled = m_keyMappingCallbackManager.<a class="code" href="classRa_1_1Gui_1_1KeyMappingCallbackManager.html#a80b3750145c2d398caf7d5dc8f402243">triggerEventCallback</a>( event, key );</div>
 <div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160; </div>
@@ -489,7 +489,7 @@ $(document).ready(function(){initNavTree('TrackballCameraManipulator_8cpp_source
 <div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;}</div>
 <div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160; </div>
 <div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160;<span class="keywordtype">void</span> TrackballCameraManipulator::handleCameraMoveForward( Scalar dx, Scalar dy ) {</div>
-<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;    handleCameraMoveForward( Ra::Core::Math::sign( dy ) * Ra::Core::Vector2 { dx, dy }.norm() );</div>
+<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;    handleCameraMoveForward( <a class="code" href="namespaceRa_1_1Core_1_1Math.html#a90f0fe9079f5bb86c721ea4b61738470">Ra::Core::Math::sign</a>( dy ) * Ra::Core::Vector2 { dx, dy }.norm() );</div>
 <div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;}</div>
 <div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160; </div>
 <div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;<span class="keywordtype">void</span> TrackballCameraManipulator::handleCameraMoveForward( Scalar z ) {</div>
@@ -505,7 +505,7 @@ $(document).ready(function(){initNavTree('TrackballCameraManipulator_8cpp_source
 <div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;}</div>
 <div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160; </div>
 <div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;<span class="keywordtype">void</span> TrackballCameraManipulator::handleCameraZoom( Scalar dx, Scalar dy ) {</div>
-<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;    handleCameraZoom( Ra::Core::Math::sign( dy ) * Ra::Core::Vector2 { dx, dy }.norm() );</div>
+<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;    handleCameraZoom( <a class="code" href="namespaceRa_1_1Core_1_1Math.html#a90f0fe9079f5bb86c721ea4b61738470">Ra::Core::Math::sign</a>( dy ) * Ra::Core::Vector2 { dx, dy }.norm() );</div>
 <div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;}</div>
 <div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160; </div>
 <div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;<span class="keywordtype">void</span> TrackballCameraManipulator::handleCameraZoom( Scalar z ) {</div>
@@ -514,7 +514,7 @@ $(document).ready(function(){initNavTree('TrackballCameraManipulator_8cpp_source
 <div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;}</div>
 <div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160; </div>
 <div class="line"><a name="l00403"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1TrackballCameraManipulator.html#ad7880fb45a56841fd743fb3ad80c2592">  403</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Gui_1_1TrackballCameraManipulator.html#ad7880fb45a56841fd743fb3ad80c2592">TrackballCameraManipulator::updatePhiTheta</a>() {</div>
-<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;    <span class="keyword">using</span> Core::Math::areApproxEqual;</div>
+<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;    <span class="keyword">using</span> <a class="code" href="namespaceRa_1_1Core_1_1Math.html#a46540d56930b4c1ff3b115872cde4893">Core::Math::areApproxEqual</a>;</div>
 <div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;    <span class="keyword">const</span> Core::Vector3 R = <a class="code" href="classRa_1_1Gui_1_1TrackballCameraManipulator.html#a90a70ef24ee43f56981aea3f28d7d552">m_referenceFrame</a>.linear().inverse() * ( -<a class="code" href="classRa_1_1Gui_1_1CameraManipulator.html#a52f8a96fcee5296152ce974d5dedceb3">m_camera</a>-&gt;<a class="code" href="classRa_1_1Core_1_1Asset_1_1Camera.html#aec6212574317a5395be2b49c19a90466">getDirection</a>() );</div>
 <div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160; </div>
 <div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160;    m_theta = std::acos( R.y() );</div>
@@ -612,6 +612,9 @@ $(document).ready(function(){initNavTree('TrackballCameraManipulator_8cpp_source
 <div class="ttc" id="aclassRa_1_1Gui_1_1TrackballCameraManipulator_html_ac98a71dfff950f2bfe7ed218c7187e89"><div class="ttname"><a href="classRa_1_1Gui_1_1TrackballCameraManipulator.html#ac98a71dfff950f2bfe7ed218c7187e89">Ra::Gui::TrackballCameraManipulator::setTrackballRadius</a></div><div class="ttdeci">void setTrackballRadius(Scalar rad)</div><div class="ttdef"><b>Definition:</b> <a href="TrackballCameraManipulator_8cpp_source.html#l00127">TrackballCameraManipulator.cpp:127</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1TrackballCameraManipulator_html_ad7880fb45a56841fd743fb3ad80c2592"><div class="ttname"><a href="classRa_1_1Gui_1_1TrackballCameraManipulator.html#ad7880fb45a56841fd743fb3ad80c2592">Ra::Gui::TrackballCameraManipulator::updatePhiTheta</a></div><div class="ttdeci">void updatePhiTheta()</div><div class="ttdoc">Update the polar coordinates of the Camera w.r.t. the trackball center.</div><div class="ttdef"><b>Definition:</b> <a href="TrackballCameraManipulator_8cpp_source.html#l00403">TrackballCameraManipulator.cpp:403</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1TrackballCameraManipulator_html_aec03675d675074abd0e41d3dee92d01b"><div class="ttname"><a href="classRa_1_1Gui_1_1TrackballCameraManipulator.html#aec03675d675074abd0e41d3dee92d01b">Ra::Gui::TrackballCameraManipulator::m_distFromCenter</a></div><div class="ttdeci">Scalar m_distFromCenter</div><div class="ttdoc">The distance from the camera to the trackball center.</div><div class="ttdef"><b>Definition:</b> <a href="TrackballCameraManipulator_8hpp_source.html#l00110">TrackballCameraManipulator.hpp:110</a></div></div>
+<div class="ttc" id="anamespaceRa_1_1Core_1_1Math_html_a46540d56930b4c1ff3b115872cde4893"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Math.html#a46540d56930b4c1ff3b115872cde4893">Ra::Core::Math::areApproxEqual</a></div><div class="ttdeci">std::enable_if&lt;!std::numeric_limits&lt; T &gt;::is_integer, bool &gt;::type areApproxEqual(T x, T y, T espilonBoostFactor=T(10))</div><div class="ttdoc">Compare two numbers such that |x-y| &lt; espilon*epsilonBoostFactor.</div><div class="ttdef"><b>Definition:</b> <a href="Math_8inl_source.html#l00091">Math.inl:91</a></div></div>
+<div class="ttc" id="anamespaceRa_1_1Core_1_1Math_html_a810d6d50b61cc01cda1d54527de864d0"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Math.html#a810d6d50b61cc01cda1d54527de864d0">Ra::Core::Math::signNZ</a></div><div class="ttdeci">constexpr T signNZ(const T &amp;val)</div><div class="ttdef"><b>Definition:</b> <a href="Math_8inl_source.html#l00079">Math.inl:79</a></div></div>
+<div class="ttc" id="anamespaceRa_1_1Core_1_1Math_html_a90f0fe9079f5bb86c721ea4b61738470"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Math.html#a90f0fe9079f5bb86c721ea4b61738470">Ra::Core::Math::sign</a></div><div class="ttdeci">constexpr int sign(const T &amp;val)</div><div class="ttdoc">Returns the sign of any numeric type as { -1, 0, 1}.</div><div class="ttdef"><b>Definition:</b> <a href="Math_8inl_source.html#l00074">Math.inl:74</a></div></div>
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdef"><b>Definition:</b> <a href="Cage_8cpp_source.html#l00003">Cage.cpp:3</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
@@ -619,7 +622,7 @@ $(document).ready(function(){initNavTree('TrackballCameraManipulator_8cpp_source
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b5ac5e964c12a6b13a9d28feb9f3d3ed.html">Gui</a></li><li class="navelem"><a class="el" href="dir_b04feb2291820e8d3d098807c21e4559.html">Viewer</a></li><li class="navelem"><b>TrackballCameraManipulator.cpp</b></li>
-    <li class="footer">Generated on Tue Dec 13 2022 14:37:50 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Wed Dec 14 2022 17:47:49 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>
