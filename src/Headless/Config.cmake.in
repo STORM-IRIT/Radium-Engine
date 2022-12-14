@@ -35,6 +35,8 @@ if(Configure_Headless)
         TARGET PROPERTY HEADLESS_HAS_EGL BRIEF_DOCS "Radium::Headless has EGL support."
         FULL_DOCS "Identify if Radium::Headless was compiled with EGL support."
     )
+    include("${CMAKE_CURRENT_LIST_DIR}/HeadlessTargets.cmake")
+
     if(@HEADLESS_HAS_GLFW@)
         set_target_properties(Radium::Headless PROPERTIES HEADLESS_HAS_GLFW TRUE)
         if (NOT glfw3_FOUND)
@@ -47,5 +49,4 @@ if(Configure_Headless)
             find_dependency(OpenGL COMPONENTS EGL REQUIRED)
         endif()
     endif()
-    include("${CMAKE_CURRENT_LIST_DIR}/HeadlessTargets.cmake")
 endif()
