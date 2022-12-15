@@ -27,7 +27,7 @@ The Radium Material Library defines two default material :
 
 The _Radium Material Library_ can be used as this by any Radium Application or can be extended by an application or a
 Radium Plugin by implementing the corresponding interfaces as described in the
-[Extending the _Radium Material Library](#extend-mtl-lib).
+[Extending the Radium Material Library](#extend-mtl-lib).
 
 For each material of the library, a default Ra::Engine::Rendering::RenderTechnique, corresponding to the standard usage of the
 material by the Ra::engine::ForwardRenderer and an optional Ra::Engine::Data::EngineMaterialConverters::ConverterFunction,
