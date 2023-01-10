@@ -34,9 +34,7 @@ TEST_CASE( "Core/Geometry/RayCast", "[Core][Core/Geometry][RayCast]" ) {
                             // Wrong hit point
                             REQUIRE( Math::areApproxEqual( r.pointAt( t )[i], Scalar( sig ) ) );
                         }
-                        else {
-                            REQUIRE( !result );
-                        } // The ray should have missed
+                        else { REQUIRE( !result ); } // The ray should have missed
                     }
 
                     // Fire a ray on the other direction (which should miss)

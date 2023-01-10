@@ -31,7 +31,7 @@ class DualQuaternion
     explicit inline DualQuaternion( const Core::Transform& tr );
 
     /// Default copy constructor and assignment operator.
-    DualQuaternion( const DualQuaternion& other ) = default;
+    DualQuaternion( const DualQuaternion& other )      = default;
     DualQuaternion& operator=( const DualQuaternion& ) = default;
 
     /// Getters and setters

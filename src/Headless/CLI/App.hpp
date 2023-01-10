@@ -325,7 +325,7 @@ class App
         set_help_flag( "-h,--help", "Print this help message and exit" );
     }
 
-    App( const App& ) = delete;
+    App( const App& )            = delete;
     App& operator=( const App& ) = delete;
 
     /// virtual destructor
@@ -339,9 +339,7 @@ class App
     /// to get a pointer to App if needed.
     App* callback( std::function<void()> app_callback ) {
         if ( immediate_callback_ ) { parse_complete_callback_ = std::move( app_callback ); }
-        else {
-            final_callback_ = std::move( app_callback );
-        }
+        else { final_callback_ = std::move( app_callback ); }
         return this;
     }
 
@@ -379,9 +377,7 @@ class App
                     OptionAlreadyAdded( app_name + " conflicts with existing subcommand names" ) );
             }
         }
-        else {
-            name_ = app_name;
-        }
+        else { name_ = app_name; }
         has_automatic_name_ = false;
         return this;
     }
@@ -401,9 +397,7 @@ class App
                                            app_name ) );
             }
         }
-        else {
-            aliases_.push_back( app_name );
-        }
+        else { aliases_.push_back( app_name ); }
 
         return this;
     }
@@ -480,9 +474,7 @@ class App
             allow_config_extras_ = config_extras_mode::capture;
             allow_extras_        = true;
         }
-        else {
-            allow_config_extras_ = config_extras_mode::error;
-        }
+        else { allow_config_extras_ = config_extras_mode::error; }
         return this;
     }
 
@@ -1318,9 +1310,7 @@ class App
             }
             commandline = std::move( nstr.second );
         }
-        else {
-            detail::trim( commandline );
-        }
+        else { detail::trim( commandline ); }
         // the next section of code is to deal with quoted arguments after an '=' or ':' for windows
         // like operations
         if ( !commandline.empty() ) {
@@ -1977,9 +1967,7 @@ class App
     /// enable or disable makes sure parent is set correctly
     void _configure() {
         if ( default_startup == startup_mode::enabled ) { disabled_ = false; }
-        else if ( default_startup == startup_mode::disabled ) {
-            disabled_ = true;
-        }
+        else if ( default_startup == startup_mode::disabled ) { disabled_ = true; }
         for ( const App_p& app : subcommands_ ) {
             if ( app->has_automatic_name_ ) { app->name_.clear(); }
             if ( app->name_.empty() ) {
@@ -2153,12 +2141,8 @@ class App
 
             // Only the final subcommand should call for help. All help wins over help.
         }
-        else if ( trigger_all_help ) {
-            throw CallForAllHelp();
-        }
-        else if ( trigger_help ) {
-            throw CallForHelp();
-        }
+        else if ( trigger_all_help ) { throw CallForAllHelp(); }
+        else if ( trigger_help ) { throw CallForHelp(); }
     }
 
     /// Verify required options and cross requirements. Subcommands too (only if selected).
@@ -2462,9 +2446,7 @@ class App
             args.pop_back();
             positional_only = true;
             if ( ( !_has_remaining_positionals() ) && ( parent_ != nullptr ) ) { retval = false; }
-            else {
-                _move_to_missing( classifier, "--" );
-            }
+            else { _move_to_missing( classifier, "--" ); }
             break;
         case detail::Classifier::SUBCOMMAND_TERMINATOR:
             // treat this like a positional mark if in the parent app
@@ -2931,13 +2913,9 @@ class App
                 app->options_.push_back( std::move( *iterator ) );
                 options_.erase( iterator );
             }
-            else {
-                throw OptionAlreadyAdded( "option was not located: " + opt->get_name() );
-            }
+            else { throw OptionAlreadyAdded( "option was not located: " + opt->get_name() ); }
         }
-        else {
-            throw OptionNotFound( "could not locate the given Option" );
-        }
+        else { throw OptionNotFound( "could not locate the given Option" ); }
     }
 }; // namespace CLI
 

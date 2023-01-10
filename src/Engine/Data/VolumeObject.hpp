@@ -24,7 +24,7 @@ class RA_ENGINE_API VolumeObject : public Displayable
 
   public:
     explicit VolumeObject( const std::string& name );
-    VolumeObject( const VolumeObject& rhs ) = delete;
+    VolumeObject( const VolumeObject& rhs )   = delete;
     void operator=( const VolumeObject& rhs ) = delete;
 
     ~VolumeObject() override;

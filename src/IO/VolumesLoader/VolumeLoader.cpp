@@ -195,9 +195,7 @@ Ra::Core::Asset::FileData* VolumeLoader::loadPvmFile( const std::string& filenam
 Ra::Core::Asset::FileData* VolumeLoader::loadFile( const std::string& filename ) {
     std::string extension = filename.substr( filename.find_last_of( '.' ) + 1 );
     if ( extension.compare( volFileExtension ) == 0 ) { return loadVolFile( filename ); }
-    else if ( extension.compare( pvmFileExtension ) == 0 ) {
-        return loadPvmFile( filename );
-    }
+    else if ( extension.compare( pvmFileExtension ) == 0 ) { return loadPvmFile( filename ); }
     LOG( logWARNING ) << "VolumeLoader : unsupported file format : " << filename;
     return nullptr;
 }

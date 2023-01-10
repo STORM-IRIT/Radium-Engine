@@ -49,9 +49,7 @@ void LightManager::handleAssetLoading( Entity* entity, const FileData* filedata 
     for ( size_t i = 0; i < m_data->size(); ) {
         auto l = ( *m_data )[i];
         if ( l->getEntity() == SystemEntity::getInstance() ) { m_data->remove( l ); }
-        else {
-            ++i;
-        }
+        else { ++i; }
     }
 
     for ( const auto& data : lightData ) {

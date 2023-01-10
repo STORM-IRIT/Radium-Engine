@@ -9,7 +9,7 @@ class WindowQt::ScopedGLContext
   public:
     explicit ScopedGLContext( WindowQt* window ) : m_window( window ) { window->makeCurrent(); }
     ~ScopedGLContext() { m_window->doneCurrent(); }
-    ScopedGLContext( const ScopedGLContext& ) = delete;
+    ScopedGLContext( const ScopedGLContext& )            = delete;
     ScopedGLContext& operator=( ScopedGLContext const& ) = delete;
 
   private:

@@ -36,6 +36,6 @@
 #include <memory>
 #include <vector>
 // raise name resolution issue with glbinding, can be added if gl:: namespace is added everywhere
-//#include <QOpenGLContext>
+// #include <QOpenGLContext>
 // and ensure include this before
-//#include <glbinding/gl/gl.h>
+// #include <glbinding/gl/gl.h>

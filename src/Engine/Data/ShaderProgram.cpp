@@ -124,9 +124,7 @@ void ShaderProgram::loadShader( ShaderType type,
                                               "    float gl_ClipDistance[];\n"
                                               "};\n\n" );
     }
-    else {
-        shaderHeader = std::string( version + "\n\n" );
-    }
+    else { shaderHeader = std::string( version + "\n\n" ); }
 
     // Add properties at the beginning of the file.
     shaderHeader = std::accumulate(
@@ -141,9 +139,7 @@ void ShaderProgram::loadShader( ShaderType type,
         shaderHeader,
         [type]( std::string a, const std::pair<std::string, ShaderType>& b ) -> std::string {
             if ( b.second == type ) { return std::move( a ) + b.first + std::string( "\n" ); }
-            else {
-                return a;
-            }
+            else { return a; }
         } );
 
     std::unique_ptr<globjects::StaticStringSource> fullsource { nullptr };
@@ -151,9 +147,7 @@ void ShaderProgram::loadShader( ShaderType type,
         auto loadedSource = globjects::Shader::sourceFromFile( name );
         fullsource = globjects::Shader::sourceFromString( shaderHeader + loadedSource->string() );
     }
-    else {
-        fullsource = globjects::Shader::sourceFromString( shaderHeader + name );
-    }
+    else { fullsource = globjects::Shader::sourceFromString( shaderHeader + name ); }
 
     // Radium V2 : allow to define global replacement per renderer, shader, rendertechnique ...
     auto shaderSource = globjects::Shader::applyGlobalReplacements( fullsource.get() );

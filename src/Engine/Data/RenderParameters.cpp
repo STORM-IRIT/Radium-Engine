@@ -35,17 +35,13 @@ Core::Utils::optional<std::shared_ptr<RenderParameters::AbstractEnumConverter>>
 RenderParameters::getEnumConverter( const std::string& name ) {
     auto it = m_enumConverters.find( name );
     if ( it != m_enumConverters.end() ) { return it->second; }
-    else {
-        return {};
-    }
+    else { return {}; }
 }
 
 std::string RenderParameters::getEnumString( const std::string& name, int value ) {
     auto it = m_enumConverters.find( name );
     if ( it != m_enumConverters.end() ) { return it->second->getEnumerator( value ); }
-    else {
-        return {};
-    }
+    else { return {}; }
 }
 
 void RenderParameters::addParameter( const std::string& name, bool value ) {
