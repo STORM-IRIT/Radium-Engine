@@ -77,6 +77,7 @@ TEST_CASE( "Dataflow/Core/Graph", "[Dataflow][Core][Graph]" ) {
         REQUIRE( n->getInstanceName() == "validation value" );
         c = g.removeNode( n );
         REQUIRE( c == true );
+        REQUIRE( n == nullptr );
         c = g.compile();
         REQUIRE( c == true );
         // Simplified graph after compilation
