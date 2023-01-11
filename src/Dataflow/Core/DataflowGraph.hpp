@@ -75,7 +75,8 @@ class RA_DATAFLOW_API DataflowGraph : public Node
     /// Removes a node from the render graph. Removes input and output ports of the graph
     /// corresponding to interface ports of the node.
     /// \param node The node to remove from the render graph.
-    virtual bool removeNode( Node* node );
+    /// \return true if the node was removed and the given pointer is set to nullptr, false else
+    virtual bool removeNode( Node*& node );
     /// Connects two nodes of the render graph.
     /// The two nodes must already be in the render graph (with the addNode(Node* newNode)
     /// function), the first node's in port must be free and the connected in port and out port must

@@ -270,7 +270,7 @@ bool DataflowGraph::addNode( Node* newNode ) {
     }
 }
 
-bool DataflowGraph::removeNode( Node* node ) {
+bool DataflowGraph::removeNode( Node*& node ) {
     // This is to prevent graph destruction from the graph editor, depending on how it is used
     if ( m_nodesAndLinksProtected ) { return false; }
 
@@ -305,6 +305,7 @@ bool DataflowGraph::removeNode( Node* node ) {
             }
         }
         m_nodes.erase( m_nodes.begin() + index );
+        node            = nullptr;
         m_ready         = false;
         m_shouldBeSaved = true;
         return true;
