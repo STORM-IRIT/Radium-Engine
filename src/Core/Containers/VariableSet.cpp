@@ -12,32 +12,40 @@ namespace Core {
 VariableSet& VariableSet::operator=( const VariableSet& other ) {
     clear();
     m_clearFunctions        = other.m_clearFunctions;
-    m_copyFunctions         = other.m_copyFunctions;
-    m_moveFunctions         = other.m_moveFunctions;
     m_mergeKeepFunctions    = other.m_mergeKeepFunctions;
     m_mergeReplaceFunctions = other.m_mergeReplaceFunctions;
     m_sizeFunctions         = other.m_sizeFunctions;
     m_visitFunctions        = other.m_visitFunctions;
     m_storedType            = other.m_storedType;
+#ifdef STORAGE_AS_TEMPLATE_MEMBER
+    m_copyFunctions = other.m_copyFunctions;
+    m_moveFunctions = other.m_moveFunctions;
     for ( auto&& copyFunction : m_copyFunctions ) {
         copyFunction( other, *this );
     }
+#else
+    m_variables = other.m_variables;
+#endif
     return *this;
 }
 
 VariableSet& VariableSet::operator=( VariableSet&& other ) {
     clear();
     m_clearFunctions        = std::move( other.m_clearFunctions );
-    m_copyFunctions         = std::move( other.m_copyFunctions );
-    m_moveFunctions         = std::move( other.m_moveFunctions );
     m_mergeKeepFunctions    = std::move( other.m_mergeKeepFunctions );
     m_mergeReplaceFunctions = std::move( other.m_mergeReplaceFunctions );
     m_sizeFunctions         = std::move( other.m_sizeFunctions );
     m_visitFunctions        = std::move( other.m_visitFunctions );
     m_storedType            = std::move( other.m_storedType );
+#ifdef STORAGE_AS_TEMPLATE_MEMBER
+    m_copyFunctions = std::move( other.m_copyFunctions );
+    m_moveFunctions = std::move( other.m_moveFunctions );
     for ( auto&& moveFunction : m_moveFunctions ) {
         moveFunction( other, *this );
     }
+#else
+    m_variables = std::move( other.m_variables );
+#endif
     return *this;
 }
 
@@ -46,13 +54,17 @@ void VariableSet::clear() {
         clearFunc( *this );
     }
     m_clearFunctions.clear();
-    m_copyFunctions.clear();
-    m_moveFunctions.clear();
     m_mergeKeepFunctions.clear();
     m_mergeReplaceFunctions.clear();
     m_sizeFunctions.clear();
     m_visitFunctions.clear();
     m_storedType.clear();
+#ifdef STORAGE_AS_TEMPLATE_MEMBER
+    m_copyFunctions.clear();
+    m_moveFunctions.clear();
+#else
+    m_variables.clear();
+#endif
 }
 
 void VariableSet::mergeKeepVariables( const VariableSet& from ) {
@@ -68,7 +80,7 @@ void VariableSet::mergeReplaceVariables( const VariableSet& from ) {
 }
 
 size_t VariableSet::size() const {
-    size_t sum = 0;
+    size_t sum { 0 };
     for ( auto&& sizeFunc : m_sizeFunctions ) {
         sum += sizeFunc( *this );
     }
