@@ -319,7 +319,7 @@ void FlightCameraManipulator::handleCameraPan( Scalar dx, Scalar dy ) {
 }
 
 void FlightCameraManipulator::handleCameraZoom( Scalar dx, Scalar dy ) {
-    handleCameraZoom( Ra::Core::Math::sign( dx ) * ( std::abs( dx ) + std::abs( dy ) ) );
+    handleCameraZoom( Ra::Core::Math::sign( dy ) * ( std::abs( dx ) + std::abs( dy ) ) );
 }
 
 void FlightCameraManipulator::handleCameraZoom( Scalar z ) {
