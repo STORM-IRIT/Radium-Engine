@@ -18,7 +18,6 @@
   <keymap context="FlightManipulatorContext" action="FLIGHTMODECAMERA_PAN" key="" modifiers="ShiftModifier" buttons="LeftButton"/>
   <keymap context="FlightManipulatorContext" action="FLIGHTMODECAMERA_ZOOM" key="" modifiers="ControlModifier" buttons="LeftButton"/>
   <keymap context="FlightManipulatorContext" action="FLIGHTMODECAMERA_ZOOM" key="" modifiers="" buttons="" wheel="true"/>
-  <keymap context="FlightManipulatorContext" action="FLIGHTMODECAMERA_ROTATE_AROUND" key="Key_A" modifiers="" buttons=""/>
   <keymap context="GizmoContext" action="GIZMOMANAGER_MANIPULATION" key="" modifiers="" buttons="LeftButton"/>
   <keymap context="GizmoContext" action="GIZMOMANAGER_STEP" key="" modifiers="ControlModifier" buttons="LeftButton"/>
   <keymap context="GizmoContext" action="GIZMOMANAGER_WHOLE" key="" modifiers="ShiftModifier" buttons="LeftButton"/>
@@ -34,5 +33,5 @@
   <keymap context="ViewerContext" action="VIEWER_RAYCAST" key="Key_R" modifiers="AltModifier" buttons="LeftButton"/>
   <keymap context="ViewerContext" action="VIEWER_RELOAD_SHADERS" key="Key_R" modifiers="CtrlModifier" buttons=""/>
   <keymap context="ViewerContext" action="VIEWER_SCALE_BRUSH" key="" modifiers="ShiftModifier" buttons="" wheel="true"/>
-    <keymap context="ViewerContext" action="VIEWER_HELP" buttons="" modifiers="" key="Key_F1" />
+  <keymap context="ViewerContext" action="VIEWER_HELP" buttons="" modifiers="" key="Key_F1" />
 </keymaps>
