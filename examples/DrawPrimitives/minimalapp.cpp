@@ -1,8 +1,10 @@
-#include <Engine/Data/ShaderConfigFactory.hpp>
-#include <Engine/Rendering/ForwardRenderer.hpp>
 #include <minimalapp.hpp>
 
+#include <Engine/Data/ShaderConfigFactory.hpp>
+#include <Engine/Rendering/ForwardRenderer.hpp>
 #include <Gui/Utils/KeyMappingManager.hpp>
+#include <Gui/Viewer/FlightCameraManipulator.hpp>
+#include <Gui/Viewer/Gizmo/GizmoManager.hpp>
 #include <Gui/Viewer/RotateAroundCameraManipulator.hpp>
 #include <Gui/Viewer/TrackballCameraManipulator.hpp>
 
@@ -11,6 +13,7 @@
 
 using namespace Ra;
 using namespace Ra::Gui;
+using namespace Ra::Core::Utils;
 
 MinimalApp::MinimalApp( int& argc, char** argv ) : QApplication( argc, argv ) {
 
@@ -52,6 +55,12 @@ void MinimalApp::initialize() {
 
     m_viewer->setupKeyMappingCallbacks();
 
+    m_viewer->addCustomAction( "changeCameraManipulator",
+                               KeyMappingManager::createEventBindingFromStrings( "", "", "Key_N" ),
+                               [=]( QEvent* e ) {
+                                   if ( e->type() == QEvent::KeyPress ) changeCameraManipulator();
+                               } );
+
     connect( m_viewer.get(),
              &Viewer::requestEngineOpenGLInitialization,
              this,
@@ -84,6 +93,28 @@ void MinimalApp::onGLInitialized() {
         *( m_viewer->getCameraManipulator() ), m_viewer.get() ) );
 
     connect( m_frameTimer, &QTimer::timeout, this, &MinimalApp::frame );
+}
+
+void MinimalApp::changeCameraManipulator() {
+    m_manipulatorIndex = ( m_manipulatorIndex + 1 ) % 3;
+    switch ( m_manipulatorIndex ) {
+    case 0:
+        LOG( logINFO ) << "select RotateAroundCameraManipulator";
+        m_viewer->setCameraManipulator( new RotateAroundCameraManipulator(
+            *( m_viewer->getCameraManipulator() ), m_viewer.get() ) );
+        break;
+    case 1:
+        LOG( logINFO ) << "select TrackballCameraManipulator";
+        m_viewer->setCameraManipulator(
+            new TrackballCameraManipulator( *( m_viewer->getCameraManipulator() ) ) );
+        break;
+    case 2:
+    default:
+        LOG( logINFO ) << "select FlightCameraManipulator";
+        m_viewer->setCameraManipulator(
+            new FlightCameraManipulator( *( m_viewer->getCameraManipulator() ) ) );
+        break;
+    }
 }
 
 void MinimalApp::onRequestEngineOpenGLInitialization() {
