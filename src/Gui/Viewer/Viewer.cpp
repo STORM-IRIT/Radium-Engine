@@ -10,16 +10,14 @@
 
 #include <globjects/globjects.h>
 
-#include <Engine/RadiumEngine.hpp>
-
-#include <Core/Asset/FileData.hpp>
-#include <Core/Utils/StringUtils.hpp>
+// include radium engine here to prevent glbinding incompatibility with gl.h
 #include <Gui/Viewer/Viewer.hpp>
 
 #include <iostream>
 
 #include <QOpenGLContext>
 
+#include <QApplication>
 #include <QMouseEvent>
 #include <QPainter>
 #include <QTimer>
@@ -27,12 +25,13 @@
 #define STB_IMAGE_WRITE_IMPLEMENTATION
 #include <stb/stb_image_write.h>
 
+#include <Core/Asset/Camera.hpp>
+#include <Core/Asset/FileData.hpp>
 #include <Core/Containers/MakeShared.hpp>
 #include <Core/Math/Math.hpp>
 #include <Core/Utils/Color.hpp>
 #include <Core/Utils/Log.hpp>
 #include <Core/Utils/StringUtils.hpp>
-
 #include <Engine/Data/ShaderProgramManager.hpp>
 #include <Engine/Data/ViewingParameters.hpp>
 #include <Engine/Rendering/ForwardRenderer.hpp>
@@ -43,17 +42,13 @@
 #include <Engine/Scene/DirLight.hpp>
 #include <Engine/Scene/EntityManager.hpp>
 #include <Engine/Scene/SystemDisplay.hpp>
-
 #include <Gui/Utils/KeyMappingManager.hpp>
 #include <Gui/Utils/Keyboard.hpp>
 #include <Gui/Utils/PickingManager.hpp>
-
-#include <Core/Asset/Camera.hpp>
-#include <Engine/Scene/CameraComponent.hpp>
+#include <Gui/Viewer/FlightCameraManipulator.hpp>
 #include <Gui/Viewer/Gizmo/GizmoManager.hpp>
+#include <Gui/Viewer/RotateAroundCameraManipulator.hpp>
 #include <Gui/Viewer/TrackballCameraManipulator.hpp>
-
-#include <QApplication>
 
 namespace Ra {
 namespace Gui {
@@ -74,6 +69,9 @@ void Viewer::setupKeyMappingCallbacks() {
 
     // Add default manipulator listener
     keyMappingManager->addListener( TrackballCameraManipulator::configureKeyMapping );
+    keyMappingManager->addListener( FlightCameraManipulator::configureKeyMapping );
+    keyMappingManager->addListener(
+        RotateAroundCameraManipulator::KeyMapping::configureKeyMapping );
     // add viewer related listener
     keyMappingManager->addListener( GizmoManager::configureKeyMapping );
     keyMappingManager->addListener( configureKeyMapping );

@@ -51,9 +51,6 @@ void MinimalApp::initialize() {
     CORE_ASSERT( m_viewer != nullptr, "GUI was not initialized" );
 
     m_viewer->setupKeyMappingCallbacks();
-    auto keyMappingManager = KeyMappingManager::getInstance();
-    keyMappingManager->addListener(
-        RotateAroundCameraManipulator::KeyMapping::configureKeyMapping );
 
     connect( m_viewer.get(),
              &Viewer::requestEngineOpenGLInitialization,
