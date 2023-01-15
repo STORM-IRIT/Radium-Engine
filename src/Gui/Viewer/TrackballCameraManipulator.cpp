@@ -157,12 +157,6 @@ void TrackballCameraManipulator::mousePressSaveData( const QMouseEvent* mouseEve
     m_phiDir     = -Core::Math::signNZ( m_theta );
 }
 
-std::tuple<Scalar, Scalar>
-TrackballCameraManipulator::computeDeltaMouseMove( const QMouseEvent* mouseEvent ) {
-    return { ( mouseEvent->pos().x() - m_lastMouseX ) / m_camera->getWidth(),
-             ( mouseEvent->pos().y() - m_lastMouseY ) / m_camera->getHeight() };
-}
-
 void TrackballCameraManipulator::rotateCallback( QEvent* event ) {
     if ( event->type() == QEvent::MouseMove ) {
         auto mouseEvent = reinterpret_cast<QMouseEvent*>( event );
