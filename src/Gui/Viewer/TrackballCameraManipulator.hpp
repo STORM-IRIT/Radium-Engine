@@ -87,12 +87,6 @@ class RA_GUI_API TrackballCameraManipulator
   protected:
     // the center of the trackball is defined by the m_referenceFrame.translation()
 
-    /// x-position of the mouse on the screen at the manipulation start.
-    Scalar m_lastMouseX { 0_ra };
-
-    /// y-position of the mouse on the screen at the manipulation start.
-    Scalar m_lastMouseY { 0_ra };
-
     /// Spherical coordinates   (ISO 80000-2:2019 convention)
     /// https://en.wikipedia.org/wiki/Spherical_coordinate_system
     /// phi is azimutal
@@ -121,7 +115,6 @@ class RA_GUI_API TrackballCameraManipulator
     void moveForwardCallback( QEvent* event );
     void zoomCallback( QEvent* event );
     void mousePressSaveData( const QMouseEvent* mouseEvent );
-    std::tuple<Scalar, Scalar> computeDeltaMouseMove( const QMouseEvent* mouseEvent );
 
   protected:
     ///\todo move CAMERA_ to CameraManipulator, will be done soon ;)
