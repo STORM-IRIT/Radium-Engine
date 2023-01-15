@@ -62,16 +62,6 @@ class RA_GUI_API FlightCameraManipulator : public CameraManipulator,
     void panCallback( QEvent* event );
     void rotateCallback( QEvent* event );
     void zoomCallback( QEvent* event );
-    /// x-position of the mouse on the screen at the manipulation start.
-    Scalar m_lastMouseX { 0_ra };
-
-    /// y-position of the mouse on the screen at the manipulation start.
-    Scalar m_lastMouseY { 0_ra };
-
-    /// Whether the corresponding camera movement is active or not.
-    bool m_cameraRotateMode { false };
-    bool m_cameraPanMode { false };
-    bool m_cameraZoomMode { false };
 
     KeyMappingCallbackManager m_keyMappingCallbackManager;
 
