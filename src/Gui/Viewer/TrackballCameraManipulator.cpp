@@ -46,23 +46,14 @@ void TrackballCameraManipulator::configureKeyMapping_impl() {
 
 void TrackballCameraManipulator::setupKeyMappingCallbacks() {
 
-    m_keyMappingCallbackManager.addEventCallback( TRACKBALLCAMERA_ROTATE, [=]( QEvent* event ) {
-        m_currentAction = TRACKBALLCAMERA_ROTATE;
-        rotateCallback( event );
-    } );
-    m_keyMappingCallbackManager.addEventCallback( TRACKBALLCAMERA_PAN, [=]( QEvent* event ) {
-        m_currentAction = TRACKBALLCAMERA_PAN;
-        panCallback( event );
-    } );
-    m_keyMappingCallbackManager.addEventCallback( TRACKBALLCAMERA_ZOOM, [=]( QEvent* event ) {
-        m_currentAction = TRACKBALLCAMERA_ZOOM;
-        zoomCallback( event );
-    } );
     m_keyMappingCallbackManager.addEventCallback(
-        TRACKBALLCAMERA_MOVE_FORWARD, [=]( QEvent* event ) {
-            m_currentAction = TRACKBALLCAMERA_MOVE_FORWARD;
-            moveForwardCallback( event );
-        } );
+        TRACKBALLCAMERA_ROTATE, [=]( QEvent* event ) { rotateCallback( event ); } );
+    m_keyMappingCallbackManager.addEventCallback( TRACKBALLCAMERA_PAN,
+                                                  [=]( QEvent* event ) { panCallback( event ); } );
+    m_keyMappingCallbackManager.addEventCallback( TRACKBALLCAMERA_ZOOM,
+                                                  [=]( QEvent* event ) { zoomCallback( event ); } );
+    m_keyMappingCallbackManager.addEventCallback(
+        TRACKBALLCAMERA_MOVE_FORWARD, [=]( QEvent* event ) { moveForwardCallback( event ); } );
 
     m_keyMappingCallbackManager.addEventCallback( TRACKBALLCAMERA_PROJ_MODE, [=]( QEvent* ) {
         using ProjType = Ra::Core::Asset::Camera::ProjType;
@@ -204,8 +195,8 @@ void TrackballCameraManipulator::moveForwardCallback( QEvent* event ) {
 }
 
 bool TrackballCameraManipulator::handleMousePressEvent( QMouseEvent* event,
-                                                        const Qt::MouseButtons& buttons,
-                                                        const Qt::KeyboardModifiers& modifiers,
+                                                        const Qt::MouseButtons&,
+                                                        const Qt::KeyboardModifiers&,
                                                         int key ) {
 
     m_lastMouseX = event->pos().x();
@@ -218,8 +209,8 @@ bool TrackballCameraManipulator::handleMousePressEvent( QMouseEvent* event,
 }
 
 bool TrackballCameraManipulator::handleMouseMoveEvent( QMouseEvent* event,
-                                                       const Qt::MouseButtons& buttons,
-                                                       const Qt::KeyboardModifiers& modifiers,
+                                                       const Qt::MouseButtons&,
+                                                       const Qt::KeyboardModifiers&,
                                                        int key ) {
     bool handled = m_keyMappingCallbackManager.triggerEventCallback( event, key );
 
@@ -235,14 +226,13 @@ bool TrackballCameraManipulator::handleMouseMoveEvent( QMouseEvent* event,
 }
 
 bool TrackballCameraManipulator::handleMouseReleaseEvent( QMouseEvent* /*event*/ ) {
-    m_currentAction = KeyMappingManager::KeyMappingAction::Invalid();
 
-    return true;
+    return false;
 }
 
 bool TrackballCameraManipulator::handleWheelEvent( QWheelEvent* event,
-                                                   const Qt::MouseButtons& buttons,
-                                                   const Qt::KeyboardModifiers& modifiers,
+                                                   const Qt::MouseButtons&,
+                                                   const Qt::KeyboardModifiers&,
                                                    int key
 
 ) {

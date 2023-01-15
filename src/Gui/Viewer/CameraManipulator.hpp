@@ -150,9 +150,6 @@ class RA_GUI_API CameraManipulator : public QObject
     /// could be used as a "focus" point by a manipulator.
     Core::Vector3 m_target { 0_ra, 0_ra, 0_ra };
 
-    /// Whether the corresponding camera movement is active or not.
-    KeyMappingManager::KeyMappingAction m_currentAction {};
-
     Core::Asset::Camera* m_camera { nullptr }; ///< The Camera.
     Engine::Scene::Light* m_light { nullptr }; ///< The light attached to the Camera.
 };
