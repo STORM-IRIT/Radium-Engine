@@ -14,6 +14,7 @@ class RA_GUI_API RotateAroundCameraManipulator
 
   public:
     using KeyMapping = KeyMappingManageable<RotateAroundCameraManipulator>;
+    RotateAroundCameraManipulator( Ra::Gui::Viewer* viewer );
     RotateAroundCameraManipulator( const CameraManipulator& cm, Ra::Gui::Viewer* viewer );
 
     /// @copydoc TrackballCameraManipulator::handleMouseMoveEvent()
@@ -49,9 +50,18 @@ class RA_GUI_API RotateAroundCameraManipulator
     Scalar projectOnBall( Scalar x, Scalar y );
 
   private:
-    Ra::Core::Vector3 m_pivot { 0.0_ra, 0.0_ra, 0.0_ra };
+    void setupKeyMappingCallbacks();
+    void alignWithClosestAxisCallback( QEvent* event );
+    void moveForwardCallback( QEvent* event );
+    void panCallback( QEvent* event );
+    void rotateCallback( QEvent* event );
+    void setPivotCallback( QEvent* event );
+    void zoomCallback( QEvent* event );
 
+    KeyMappingCallbackManager m_keyMappingCallbackManager;
     Ra::Gui::Viewer* m_viewer;
+
+    Ra::Core::Vector3 m_pivot { 0.0_ra, 0.0_ra, 0.0_ra };
 
     static void configureKeyMapping_impl();
 
