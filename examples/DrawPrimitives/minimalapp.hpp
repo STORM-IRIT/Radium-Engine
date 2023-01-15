@@ -46,4 +46,8 @@ class MinimalApp : public QApplication
     // Our framerate
     uint m_targetFps { 60 };
 
+    uint m_manipulatorIndex { 0 };
+
+    void changeCameraManipulator();
+
 }; // end class
