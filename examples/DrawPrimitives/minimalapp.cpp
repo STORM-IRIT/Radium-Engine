@@ -102,17 +102,20 @@ void MinimalApp::changeCameraManipulator() {
         LOG( logINFO ) << "select RotateAroundCameraManipulator";
         m_viewer->setCameraManipulator( new RotateAroundCameraManipulator(
             *( m_viewer->getCameraManipulator() ), m_viewer.get() ) );
+        m_viewer->fitCamera();
         break;
     case 1:
         LOG( logINFO ) << "select TrackballCameraManipulator";
         m_viewer->setCameraManipulator(
             new TrackballCameraManipulator( *( m_viewer->getCameraManipulator() ) ) );
+        m_viewer->fitCamera();
         break;
     case 2:
     default:
         LOG( logINFO ) << "select FlightCameraManipulator";
         m_viewer->setCameraManipulator(
             new FlightCameraManipulator( *( m_viewer->getCameraManipulator() ) ) );
+        m_viewer->fitCamera();
         break;
     }
 }
