@@ -12,12 +12,15 @@
 #include <QApplication>
 #include <QMessageBox>
 #include <algorithm>
+#include <functional>
 #include <iostream>
+#include <utility>
 
 namespace Ra {
 namespace Gui {
 
 using Core::Math::Pi;
+using namespace Core::Utils;
 
 //! [Implement KeyMappingManageable]
 using FlightCameraKeyMapping = Ra::Gui::KeyMappingManageable<FlightCameraManipulator>;
@@ -30,23 +33,13 @@ void FlightCameraManipulator::configureKeyMapping_impl() {
 
     FlightCameraKeyMapping::setContext(
         Gui::KeyMappingManager::getInstance()->getContext( "FlightManipulatorContext" ) );
-    if ( FlightCameraKeyMapping::getContext().isInvalid() ) {
-        LOG( Ra::Core::Utils::logWARNING ) << "FlightManipulatorContext not defined (maybe the "
-                                              "configuration file do not contains it). Adding "
-                                              "default configuration for FlightManipulatorContext.";
 
-        auto mgr     = Gui::KeyMappingManager::getInstance();
-        auto context = mgr->addContext( "FlightManipulatorContext" );
-        FlightCameraKeyMapping::setContext( context );
-        mgr->addAction( context,
-                        mgr->createEventBindingFromStrings( "LeftButton", "ShiftModifier" ),
-                        "FLIGHTMODECAMERA_PAN" );
-        mgr->addAction( context,
-                        mgr->createEventBindingFromStrings( "LeftButton" ),
-                        "FLIGHTMODECAMERA_ROTATE" );
-        mgr->addAction( context,
-                        mgr->createEventBindingFromStrings( "LeftButton", "ControlModifier" ),
-                        "FLIGHTMODECAMERA_ZOOM" );
+    if ( KeyMapping::getContext().isInvalid() ) {
+        LOG( logWARNING )
+            << "CameraContext not defined (maybe the configuration file do not contains "
+               "it). Add it for default key mapping.";
+        FlightCameraKeyMapping::setContext(
+            Gui::KeyMappingManager::getInstance()->addContext( "FlightManipulatorContext" ) );
     }
 
 #define KMA_VALUE( XX )                                                                          \
@@ -54,6 +47,41 @@ void FlightCameraManipulator::configureKeyMapping_impl() {
                                                            #XX );
     KeyMappingFlightManipulator
 #undef KMA_VALUE
+
+    auto mgr     = Gui::KeyMappingManager::getInstance();
+    auto context = FlightCameraKeyMapping::getContext();
+
+    // use wrapper to have reference in pair
+    using ActionBindingPair = std::pair<std::reference_wrapper<KeyMappingManager::KeyMappingAction>,
+                                        KeyMappingManager::EventBinding>;
+
+    // don't use [] since reference don't have a default value. use at and insert instead.
+    std::map<std::string, ActionBindingPair> defaultBinding;
+
+    defaultBinding.insert(
+        std::make_pair( std::string { "FLIGHTMODECAMERA_PAN" },
+                        ActionBindingPair { FLIGHTMODECAMERA_PAN,
+                                            mgr->createEventBindingFromStrings(
+                                                "LeftButton", "ShiftModifier" ) } ) );
+
+    defaultBinding.insert( std::make_pair(
+        std::string { "FLIGHTMODECAMERA_ROTATE" },
+        ActionBindingPair { FLIGHTMODECAMERA_ROTATE,
+                            mgr->createEventBindingFromStrings( "LeftButton" ) } ) );
+
+    defaultBinding.insert(
+        std::make_pair( std::string { "FLIGHTMODECAMERA_ZOOM" },
+                        ActionBindingPair { FLIGHTMODECAMERA_ZOOM,
+                                            mgr->createEventBindingFromStrings(
+                                                "LeftButton", "ControlModifier" ) } ) );
+
+    for ( auto& [actionName, actionBinding] : defaultBinding ) {
+        if ( actionBinding.first.get().isInvalid() ) {
+            LOG( logWARNING ) << "FlightManipulator action " << actionName
+                              << " not defined in configuration file. Adding default keymapping.";
+            actionBinding.first.get() = mgr->addAction( context, actionBinding.second, actionName );
+        }
+    }
 }
 //! [Implement KeyMappingManageable]
 
