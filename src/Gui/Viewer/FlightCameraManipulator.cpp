@@ -134,6 +134,7 @@ FlightCameraManipulator::FlightCameraManipulator() :
     CameraManipulator(), m_keyMappingCallbackManager { KeyMapping::getContext() } {
     resetCamera();
     setupKeyMappingCallbacks();
+    m_cameraSensitivity = 2_ra;
 }
 
 //! [Constructor]
@@ -142,6 +143,7 @@ FlightCameraManipulator::FlightCameraManipulator( const CameraManipulator& other
     m_flightSpeed = ( m_target - m_camera->getPosition() ).norm() / 10_ra;
     initializeFixedUpVector();
     setupKeyMappingCallbacks();
+    m_cameraSensitivity = 2_ra;
 }
 //! [Constructor]
 
@@ -190,10 +192,6 @@ bool FlightCameraManipulator::handleMouseMoveEvent( QMouseEvent* event,
                                                     int key ) {
 
     bool handled = m_keyMappingCallbackManager.triggerEventCallback( event, key );
-    if ( event->modifiers().testFlag( Qt::AltModifier ) ) { m_quickCameraModifier = 10.0_ra; }
-    else {
-        m_quickCameraModifier = 2.0_ra;
-    }
 
     m_lastMouseX = event->pos().x();
     m_lastMouseY = event->pos().y();

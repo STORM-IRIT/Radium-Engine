@@ -75,6 +75,7 @@ TrackballCameraManipulator::TrackballCameraManipulator() :
     CameraManipulator(), m_keyMappingCallbackManager { KeyMapping::getContext() } {
     resetCamera();
     setupKeyMappingCallbacks();
+    m_cameraSensitivity = 1.5_ra;
 }
 
 TrackballCameraManipulator::TrackballCameraManipulator( const CameraManipulator& other ) :
@@ -87,6 +88,7 @@ TrackballCameraManipulator::TrackballCameraManipulator( const CameraManipulator&
     updatePhiTheta();
 
     setupKeyMappingCallbacks();
+    m_cameraSensitivity = 1.5_ra;
 }
 
 TrackballCameraManipulator::~TrackballCameraManipulator() {};
@@ -284,7 +286,6 @@ void TrackballCameraManipulator::setCameraTarget( const Core::Vector3& target ) 
 }
 
 void TrackballCameraManipulator::fitScene( const Core::Aabb& aabb ) {
-
     Scalar f = m_camera->getFOV();
     Scalar a = m_camera->getAspect();
 

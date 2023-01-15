@@ -105,6 +105,7 @@ RotateAroundCameraManipulator::RotateAroundCameraManipulator( Ra::Gui::Viewer* v
     m_keyMappingCallbackManager { KeyMapping::getContext() },
     m_viewer( viewer ) {
     setupKeyMappingCallbacks();
+    m_cameraSensitivity = 0.5_ra;
 }
 
 RotateAroundCameraManipulator::RotateAroundCameraManipulator( const CameraManipulator& cm,
@@ -113,6 +114,7 @@ RotateAroundCameraManipulator::RotateAroundCameraManipulator( const CameraManipu
     m_keyMappingCallbackManager { KeyMapping::getContext() },
     m_viewer( viewer ) {
     setupKeyMappingCallbacks();
+    m_cameraSensitivity = 0.5_ra;
 }
 
 bool RotateAroundCameraManipulator::handleMouseMoveEvent(
