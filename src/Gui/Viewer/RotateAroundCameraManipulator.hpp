@@ -14,8 +14,8 @@ class RA_GUI_API RotateAroundCameraManipulator
 
   public:
     using KeyMapping = KeyMappingManageable<RotateAroundCameraManipulator>;
-    RotateAroundCameraManipulator( Ra::Gui::Viewer* viewer );
-    RotateAroundCameraManipulator( const CameraManipulator& cm, Ra::Gui::Viewer* viewer );
+    explicit RotateAroundCameraManipulator( Ra::Gui::Viewer* viewer );
+    explicit RotateAroundCameraManipulator( const CameraManipulator& cm, Ra::Gui::Viewer* viewer );
 
     /// @copydoc TrackballCameraManipulator::handleMouseMoveEvent()
     bool handleMouseMoveEvent( QMouseEvent* event,
