@@ -109,10 +109,8 @@ Enhancement suggestions are tracked as [GitHub issues](https://guides.github.com
 
 Unsure where to begin contributing to Radium? You can start by looking through these `beginner` and `help-wanted` issues:
 
-* [Beginner issues][beginner] - issues which should only require a few lines of code, and a test or two.
-* [Help wanted issues][help-wanted] - issues which should be a bit more involved than `beginner` issues.
-
-Both issue lists are sorted by total number of comments. While not perfect, number of comments is a reasonable proxy for impact a given change will have.
+* [Beginner issues](https://github.com/STORM-IRIT/Radium-Engine/issues?q=is%3Aissue+is%3Aopen+label%3Abeginner) - issues which should only require a few lines of code, and a test or two.
+* [Help wanted issues](https://github.com/STORM-IRIT/Radium-Engine/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22)- issues which should be a bit more involved than `beginner` issues.
 
 ### Pull Requests
 
