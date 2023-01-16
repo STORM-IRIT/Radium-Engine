@@ -445,19 +445,20 @@ class RA_CORE_API VariableSet
 
     /// \brief Callable profile of F for variable of type T and user parameter of type U&&
     template <typename F, typename T, typename U>
-    using VisitFunctionUP =
+    using VisitFunctionWithUserParam =
         decltype( std::declval<F>().operator()( std::declval<const std::string&>(),
                                                 std::declval<T&>(),
                                                 std::declval<U&&>() ) );
 
     /// \brief test if the type F has a callable operator with the right profile
     template <typename F, typename T>
-    static constexpr bool has_visit_v = Ra::Core::Utils::is_detected<VisitFunction, F, T>::value;
+    static constexpr bool has_visit_callable_v =
+        Ra::Core::Utils::is_detected<VisitFunction, F, T>::value;
 
     /// \brief test if the type F has a callable operator with the right profile
     template <typename F, typename T, typename U>
-    static constexpr bool has_visit_up_v =
-        Ra::Core::Utils::is_detected<VisitFunctionUP, F, T, U>::value;
+    static constexpr bool has_visit_callable_with_user_param_v =
+        Ra::Core::Utils::is_detected<VisitFunctionWithUserParam, F, T, U>::value;
 
     /// unfold type list to generate visitor func call
     template <typename F, template <typename...> typename TYPESLIST, typename... TYPES>
@@ -468,10 +469,10 @@ class RA_CORE_API VariableSet
 
     /// unfold type list to generate visitor func call
     template <typename F, typename U, template <typename...> typename TYPESLIST, typename... TYPES>
-    void visitImplUp( F&& visitor, U&& userParam, TYPESLIST<TYPES...> ) const;
+    void visitImplUserParam( F&& visitor, U&& userParam, TYPESLIST<TYPES...> ) const;
 
     template <typename F, typename U, typename T>
-    void visitImplHelperUp( F& visitor, U&& userParams ) const;
+    void visitImplHelperUserParam( F& visitor, U&& userParams ) const;
 
     /// \}
 
@@ -695,7 +696,7 @@ void VariableSet::visitImpl( F&& visitor, TYPESLIST<TYPES...> ) const {
 
 template <typename F, typename T>
 void VariableSet::visitImplHelper( F& visitor ) const {
-    static_assert( has_visit_v<F, T>,
+    static_assert( has_visit_callable_v<F, T>,
                    "Static visitors must provide a function with profile "
                    "void( const std::string& name, [const ]T[&] value) for each "
                    "declared visitable type T" );
@@ -707,22 +708,26 @@ void VariableSet::visitImplHelper( F& visitor ) const {
 
 template <typename F, typename U>
 void VariableSet::visit( F&& visitor, U& userParams ) const {
-    visitImplUp( visitor, std::forward<U>( userParams ), typename std::decay_t<F>::types {} );
+    visitImplUserParam(
+        visitor, std::forward<U>( userParams ), typename std::decay_t<F>::types {} );
 }
 
 template <typename F, typename U>
 void VariableSet::visit( F&& visitor, U&& userParams ) const {
-    visitImplUp( visitor, std::forward<U>( userParams ), typename std::decay_t<F>::types {} );
+    visitImplUserParam(
+        visitor, std::forward<U>( userParams ), typename std::decay_t<F>::types {} );
 }
 
 template <typename F, typename U, template <typename...> typename TYPESLIST, typename... TYPES>
-void VariableSet::visitImplUp( F&& visitor, U&& userParam, TYPESLIST<TYPES...> ) const {
-    ( ..., visitImplHelperUp<std::decay_t<F>, U, TYPES>( visitor, std::forward<U>( userParam ) ) );
+void VariableSet::visitImplUserParam( F&& visitor, U&& userParam, TYPESLIST<TYPES...> ) const {
+    ( ...,
+      visitImplHelperUserParam<std::decay_t<F>, U, TYPES>( visitor,
+                                                           std::forward<U>( userParam ) ) );
 }
 
 template <typename F, typename U, typename T>
-void VariableSet::visitImplHelperUp( F& visitor, U&& userParams ) const {
-    static_assert( has_visit_up_v<F, T, U>,
+void VariableSet::visitImplHelperUserParam( F& visitor, U&& userParams ) const {
+    static_assert( has_visit_callable_with_user_param_v<F, T, U>,
                    "Static visitors must provide a function with profile "
                    "void( const std::string& name, [const ]T[&] value, [const] U&&) for each "
                    "declared visitable type T" );
