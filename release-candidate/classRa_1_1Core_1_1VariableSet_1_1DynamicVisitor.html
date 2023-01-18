@@ -52,7 +52,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.4.3</span>
+   &#160;<span id="projectnumber">1.4.4</span>
    </div>
   </td>
  </tr>
@@ -116,28 +116,39 @@ $(document).ready(function(){initNavTree('classRa_1_1Core_1_1VariableSet_1_1Dyna
 </div><!--header-->
 <div class="contents">
 
-<p>Base class for visitors with dynamic supported types. Visiting will be prepared at running time by dynamically adding visitor operators for each type one want to visit in the container. The visitor operators should be any callable that accept to be called using f(const std::string&amp;, T&amp;)  
+<p>Base class for visitors with configurable per-type callbacks. Visiting will be prepared at running time by dynamically adding visitor operators for each type one want to visit in the container. The visitor accept type based on either the added operators or an external acceptance functor which can be associated/changed at runtime. This functor is only allowed to reduce the number of visited type as only type for which a visitor operator is registered can be visited. The visitor operators should be any callable that accept to be called using f(const std::string&amp;, T&amp;[, std::any&amp;&amp;])  
  <a href="classRa_1_1Core_1_1VariableSet_1_1DynamicVisitor.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="VariableSet_8hpp_source.html">Core/Containers/VariableSet.hpp</a>&gt;</code></p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Collaboration diagram for Ra::Core::VariableSet::DynamicVisitor:</div>
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for Ra::Core::VariableSet::DynamicVisitor:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Core_1_1VariableSet_1_1DynamicVisitor__coll__graph.svg" width="206" height="176"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Core_1_1VariableSet_1_1DynamicVisitor__inherit__graph.svg" width="206" height="360"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
+</div>
+<div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-1-trigger" src="closed.png" alt="+"/> Collaboration diagram for Ra::Core::VariableSet::DynamicVisitor:</div>
+<div id="dynsection-1-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-1-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Core_1_1VariableSet_1_1DynamicVisitor__coll__graph.svg" width="206" height="360"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:acf99596d53c28fb86904ef0732412949"><td class="memItemLeft" align="right" valign="top"><a id="acf99596d53c28fb86904ef0732412949"></a>
-virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1VariableSet_1_1DynamicVisitor.html#acf99596d53c28fb86904ef0732412949">~DynamicVisitor</a> ()=default</td></tr>
-<tr class="memdesc:acf99596d53c28fb86904ef0732412949"><td class="mdescLeft">&#160;</td><td class="mdescRight">allows the class to be derived <br /></td></tr>
-<tr class="separator:acf99596d53c28fb86904ef0732412949"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac0d67a4d60930599551a64684ffa4f04"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1VariableSet_1_1DynamicVisitor.html#ac0d67a4d60930599551a64684ffa4f04">operator()</a> (std::any &amp;&amp;in) const</td></tr>
-<tr class="memdesc:ac0d67a4d60930599551a64684ffa4f04"><td class="mdescLeft">&#160;</td><td class="mdescRight">Execute a visiting operator on accepted types.  <a href="classRa_1_1Core_1_1VariableSet_1_1DynamicVisitor.html#ac0d67a4d60930599551a64684ffa4f04">More...</a><br /></td></tr>
-<tr class="separator:ac0d67a4d60930599551a64684ffa4f04"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7768c6dc90b7ff0aa981ee7d963783a8"><td class="memItemLeft" align="right" valign="top"><a id="a7768c6dc90b7ff0aa981ee7d963783a8"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1VariableSet_1_1DynamicVisitor.html#a7768c6dc90b7ff0aa981ee7d963783a8">~DynamicVisitor</a> () override=default</td></tr>
+<tr class="memdesc:a7768c6dc90b7ff0aa981ee7d963783a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">allows the class to be derived <br /></td></tr>
+<tr class="separator:a7768c6dc90b7ff0aa981ee7d963783a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5a1fc295c10873a01a4251232bd5bd6e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1VariableSet_1_1DynamicVisitor.html#a5a1fc295c10873a01a4251232bd5bd6e">operator()</a> (std::any &amp;&amp;in, std::any &amp;&amp;userParam) const override</td></tr>
+<tr class="memdesc:a5a1fc295c10873a01a4251232bd5bd6e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Execute a visiting operator on accepted types.  <a href="classRa_1_1Core_1_1VariableSet_1_1DynamicVisitor.html#a5a1fc295c10873a01a4251232bd5bd6e">More...</a><br /></td></tr>
+<tr class="separator:a5a1fc295c10873a01a4251232bd5bd6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0cf47417de334f65b449b157689cb844"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1VariableSet_1_1DynamicVisitor.html#a0cf47417de334f65b449b157689cb844">accept</a> (const std::type_index &amp;id) const override</td></tr>
+<tr class="memdesc:a0cf47417de334f65b449b157689cb844"><td class="mdescLeft">&#160;</td><td class="mdescRight">Acceptance function for the visitor.  <a href="classRa_1_1Core_1_1VariableSet_1_1DynamicVisitor.html#a0cf47417de334f65b449b157689cb844">More...</a><br /></td></tr>
+<tr class="separator:a0cf47417de334f65b449b157689cb844"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeb5b4f8b353e27e04df097ec38095772"><td class="memTemplParams" colspan="2">template&lt;typename T , typename F &gt; </td></tr>
 <tr class="memitem:aeb5b4f8b353e27e04df097ec38095772"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1VariableSet_1_1DynamicVisitor.html#aeb5b4f8b353e27e04df097ec38095772">addOperator</a> (F &amp;&amp;f)</td></tr>
 <tr class="memdesc:aeb5b4f8b353e27e04df097ec38095772"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a visiting operator.  <a href="classRa_1_1Core_1_1VariableSet_1_1DynamicVisitor.html#aeb5b4f8b353e27e04df097ec38095772">More...</a><br /></td></tr>
@@ -156,10 +167,49 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 <tr class="separator:a27683975806e7e57a7b1880bd021762c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Base class for visitors with dynamic supported types. Visiting will be prepared at running time by dynamically adding visitor operators for each type one want to visit in the container. The visitor operators should be any callable that accept to be called using f(const std::string&amp;, T&amp;) </p>
+<div class="textblock"><p>Base class for visitors with configurable per-type callbacks. Visiting will be prepared at running time by dynamically adding visitor operators for each type one want to visit in the container. The visitor accept type based on either the added operators or an external acceptance functor which can be associated/changed at runtime. This functor is only allowed to reduce the number of visited type as only type for which a visitor operator is registered can be visited. The visitor operators should be any callable that accept to be called using f(const std::string&amp;, T&amp;[, std::any&amp;&amp;]) </p>
 
-<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00288">288</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00347">347</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a0cf47417de334f65b449b157689cb844"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0cf47417de334f65b449b157689cb844">&#9670;&nbsp;</a></span>accept()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Ra::Core::VariableSet::DynamicVisitor::accept </td>
+          <td>(</td>
+          <td class="paramtype">const std::type_index &amp;&#160;</td>
+          <td class="paramname"><em>id</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Acceptance function for the visitor. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">id</td><td>The type to test </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if the type is visitable, false if not </dd></dl>
+
+<p>Implements <a class="el" href="classRa_1_1Core_1_1VariableSet_1_1DynamicVisitorBase.html#a2c83efad6ba607f9ec1dd64538dc442a">Ra::Core::VariableSet::DynamicVisitorBase</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="VariableSet_8cpp_source.html#l00078">78</a> of file <a class="el" href="VariableSet_8cpp_source.html">VariableSet.cpp</a>.</p>
+
+</div>
+</div>
 <a id="aeb5b4f8b353e27e04df097ec38095772"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aeb5b4f8b353e27e04df097ec38095772">&#9670;&nbsp;</a></span>addOperator()</h2>
 
@@ -182,7 +232,7 @@ template&lt;typename T , typename F &gt; </div>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">T</td><td>The accepted type for the visit. </td></tr>
-    <tr><td class="paramname">F</td><td>The operator type, a callable with profile void(const std::string&amp;, [const ]T[&amp;]). </td></tr>
+    <tr><td class="paramname">F</td><td>The operator type, a callable with profile void(const std::string&amp;, [const ]T[&amp;], std::any&amp;&amp;). </td></tr>
   </table>
   </dd>
 </dl>
@@ -194,7 +244,7 @@ template&lt;typename T , typename F &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true if the operator was added, false if not (e.g. there is already an operator associated with the type T) </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00587">587</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00744">744</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
 
 </div>
 </div>
@@ -231,7 +281,7 @@ template&lt;typename T , typename F &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00598">598</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00755">755</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
 
 </div>
 </div>
@@ -261,12 +311,12 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd></dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00593">593</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00750">750</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
 
 </div>
 </div>
-<a id="ac0d67a4d60930599551a64684ffa4f04"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac0d67a4d60930599551a64684ffa4f04">&#9670;&nbsp;</a></span>operator()()</h2>
+<a id="a5a1fc295c10873a01a4251232bd5bd6e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5a1fc295c10873a01a4251232bd5bd6e">&#9670;&nbsp;</a></span>operator()()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -278,13 +328,23 @@ template&lt;typename T &gt; </div>
           <td class="memname">void Ra::Core::VariableSet::DynamicVisitor::operator() </td>
           <td>(</td>
           <td class="paramtype">std::any &amp;&amp;&#160;</td>
-          <td class="paramname"><em>in</em></td><td>)</td>
-          <td> const</td>
+          <td class="paramname"><em>in</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::any &amp;&amp;&#160;</td>
+          <td class="paramname"><em>userParam</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -292,12 +352,15 @@ template&lt;typename T &gt; </div>
 <p>Execute a visiting operator on accepted types. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">in</td><td>The variable to process The variable in contains a wrapping of the association name-&gt;value whose visit is accepted if there exists an operator for this type in the Visitor. Visiting the association is done by calling this operator. </td></tr>
+    <tr><td class="paramname">in</td><td>The variable to process </td></tr>
+    <tr><td class="paramname">userParam</td><td>The optional user define parameter to forward to type associated functor The variable <b>in</b> contains a wrapping of the association name-&gt;value whose visit is accepted. Visiting the association is done by calling the visit operator associated with the underlying type of the variable <b>in</b>. </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="VariableSet_8cpp_source.html#l00078">78</a> of file <a class="el" href="VariableSet_8cpp_source.html">VariableSet.cpp</a>.</p>
+<p>Implements <a class="el" href="classRa_1_1Core_1_1VariableSet_1_1DynamicVisitorBase.html#af39468f17f80e8dd3e467db737106355">Ra::Core::VariableSet::DynamicVisitorBase</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="VariableSet_8cpp_source.html#l00082">82</a> of file <a class="el" href="VariableSet_8cpp_source.html">VariableSet.cpp</a>.</p>
 
 </div>
 </div>
@@ -328,7 +391,7 @@ template&lt;typename T &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd></dd></dl>
 <dl class="section pre"><dt>Precondition</dt><dd>The type <b>T</b> must be accepted by an operator. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00604">604</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00761">761</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
 
 </div>
 </div>
@@ -342,7 +405,7 @@ template&lt;typename T &gt; </div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><b>Core</b></li><li class="navelem"><a class="el" href="classRa_1_1Core_1_1VariableSet.html">VariableSet</a></li><li class="navelem"><a class="el" href="classRa_1_1Core_1_1VariableSet_1_1DynamicVisitor.html">DynamicVisitor</a></li>
-    <li class="footer">Generated on Thu Dec 15 2022 05:20:59 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Wed Jan 18 2023 11:46:26 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

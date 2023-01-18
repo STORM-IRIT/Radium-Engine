@@ -147,7 +147,9 @@ var hierarchy =
       [ "Ra::Engine::Data::VolumeObject", "classRa_1_1Engine_1_1Data_1_1VolumeObject.html", null ]
     ] ],
     [ "Ra::Core::DualQuaternion", "classRa_1_1Core_1_1DualQuaternion.html", null ],
-    [ "Ra::Core::VariableSet::DynamicVisitor", "classRa_1_1Core_1_1VariableSet_1_1DynamicVisitor.html", null ],
+    [ "Ra::Core::VariableSet::DynamicVisitorBase", "classRa_1_1Core_1_1VariableSet_1_1DynamicVisitorBase.html", [
+      [ "Ra::Core::VariableSet::DynamicVisitor", "classRa_1_1Core_1_1VariableSet_1_1DynamicVisitor.html", null ]
+    ] ],
     [ "Ra::Engine::Data::EnvironmentTexture", "classRa_1_1Engine_1_1Data_1_1EnvironmentTexture.html", null ],
     [ "Ra::Gui::KeyMappingManager::EventBinding", "classRa_1_1Gui_1_1KeyMappingManager_1_1EventBinding.html", null ],
     [ "Ra::IO::FileManager< DATA, Binary >", "classRa_1_1IO_1_1FileManager.html", null ],

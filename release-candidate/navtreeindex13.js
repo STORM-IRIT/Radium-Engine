@@ -1,17 +1,5 @@
 var NAVTREEINDEX13 =
 {
-"classRa_1_1Gui_1_1Gizmo.html#ae733abf00f867def770eb5605f0f320c":[10,0,0,2,21,16],
-"classRa_1_1Gui_1_1GizmoManager.html":[10,0,0,2,22],
-"classRa_1_1Gui_1_1GizmoManager.html#a2733d1f2a992c50e41b93790b5323fe1":[10,0,0,2,22,11],
-"classRa_1_1Gui_1_1GizmoManager.html#a31c8f9d25b05837a6ffac974a788f68b":[10,0,0,2,22,4],
-"classRa_1_1Gui_1_1GizmoManager.html#a3dbe77dfc116c4f4954ae97e64832fde":[10,0,0,2,22,12],
-"classRa_1_1Gui_1_1GizmoManager.html#a5c2e1214324db2600d7c4e9d9e6145d8":[10,0,0,2,22,5],
-"classRa_1_1Gui_1_1GizmoManager.html#a60455e2e9251df426fcce50654d8a579":[10,0,0,2,22,6],
-"classRa_1_1Gui_1_1GizmoManager.html#a8dc34f80346739e5c33338a5efa39e5b":[10,0,0,2,22,7],
-"classRa_1_1Gui_1_1GizmoManager.html#aa411ecefa315bb3979e6aa305f76f074":[10,0,0,2,22,10],
-"classRa_1_1Gui_1_1GizmoManager.html#aa7760db4989497dec299372c3226055c":[10,0,0,2,22,0],
-"classRa_1_1Gui_1_1GizmoManager.html#aa7760db4989497dec299372c3226055ca06e7801889c6c80dcd725fbea0056095":[10,0,0,2,22,0,2],
-"classRa_1_1Gui_1_1GizmoManager.html#aa7760db4989497dec299372c3226055ca62b5dc971b69003fb3d9eb109b850016":[10,0,0,2,22,0,3],
 "classRa_1_1Gui_1_1GizmoManager.html#aa7760db4989497dec299372c3226055ca64f8d16f1ed7329e7ca81232c714a29d":[10,0,0,2,22,0,0],
 "classRa_1_1Gui_1_1GizmoManager.html#aa7760db4989497dec299372c3226055caa1791576dbb4a62b9862d8d5c428a46a":[10,0,0,2,22,0,1],
 "classRa_1_1Gui_1_1GizmoManager.html#ab301e49cefa769ce5d2d69a3f0ab4b59":[10,0,0,2,22,1],
@@ -249,5 +237,17 @@ var NAVTREEINDEX13 =
 "classRa_1_1Gui_1_1TimelineSlider.html#a5db0a7cbfab209a759b00f09f029911d":[10,0,0,2,11,4],
 "classRa_1_1Gui_1_1TimelineSlider.html#a76cee7e6d997d8f479e1654e4c3173c7":[10,0,0,2,11,2],
 "classRa_1_1Gui_1_1TimelineSlider.html#ad6ba72411623a838c69463e8c7943823":[10,0,0,2,11,1],
-"classRa_1_1Gui_1_1TimelineSlider.html#af3ad12d5b4efb5bacfe55b5abc161ea4":[10,0,0,2,11,0]
+"classRa_1_1Gui_1_1TimelineSlider.html#af3ad12d5b4efb5bacfe55b5abc161ea4":[10,0,0,2,11,0],
+"classRa_1_1Gui_1_1TimelineTimeScale.html":[10,0,0,2,12],
+"classRa_1_1Gui_1_1TimelineTimeScale.html#a254823f2b9c52dc33a607e71cf0df842":[10,0,0,2,12,1],
+"classRa_1_1Gui_1_1TimelineTimeScale.html#a4ebbeb34adeeadce19d9cc12005bd466":[10,0,0,2,12,2],
+"classRa_1_1Gui_1_1TimelineTimeScale.html#ac31c7de147891bba4a421c75f4bf9b7a":[10,0,0,2,12,0],
+"classRa_1_1Gui_1_1TrackballCameraManipulator.html":[10,0,0,2,26],
+"classRa_1_1Gui_1_1TrackballCameraManipulator.html#a02cc1184f6a81c2bff9f044262fbc084":[10,0,0,2,26,0],
+"classRa_1_1Gui_1_1TrackballCameraManipulator.html#a073412555738e6128d3a557e44734f48":[10,0,0,2,26,5],
+"classRa_1_1Gui_1_1TrackballCameraManipulator.html#a0a160af972e5593fbd69bb0622e26b29":[10,0,0,2,26,3],
+"classRa_1_1Gui_1_1TrackballCameraManipulator.html#a0b0eaa22ace41441f143a871ef3b1148":[10,0,0,2,26,18],
+"classRa_1_1Gui_1_1TrackballCameraManipulator.html#a19d30b9cfb4cc8dd942a40cfd689b3dd":[10,0,0,2,26,17],
+"classRa_1_1Gui_1_1TrackballCameraManipulator.html#a1a32a812f552b3a424539018ef3681fa":[10,0,0,2,26,7],
+"classRa_1_1Gui_1_1TrackballCameraManipulator.html#a200632859970fd7cf0288525833734d9":[10,0,0,2,26,6]
 };

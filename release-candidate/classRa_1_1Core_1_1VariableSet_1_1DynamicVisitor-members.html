@@ -52,7 +52,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.4.3</span>
+   &#160;<span id="projectnumber">1.4.4</span>
    </div>
   </td>
  </tr>
@@ -115,18 +115,20 @@ $(document).ready(function(){initNavTree('classRa_1_1Core_1_1VariableSet_1_1Dyna
 
 <p>This is the complete list of members for <a class="el" href="classRa_1_1Core_1_1VariableSet_1_1DynamicVisitor.html">Ra::Core::VariableSet::DynamicVisitor</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="classRa_1_1Core_1_1VariableSet_1_1DynamicVisitor.html#aeb5b4f8b353e27e04df097ec38095772">addOperator</a>(F &amp;&amp;f)</td><td class="entry"><a class="el" href="classRa_1_1Core_1_1VariableSet_1_1DynamicVisitor.html">Ra::Core::VariableSet::DynamicVisitor</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="classRa_1_1Core_1_1VariableSet_1_1DynamicVisitor.html#aac62a0cb141a6d4b59788d717c94c3dc">addOrReplaceOperator</a>(F &amp;&amp;f)</td><td class="entry"><a class="el" href="classRa_1_1Core_1_1VariableSet_1_1DynamicVisitor.html">Ra::Core::VariableSet::DynamicVisitor</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="classRa_1_1Core_1_1VariableSet_1_1DynamicVisitor.html#aa27f700e836fe5beb2927640c292fa2a">hasOperator</a>()</td><td class="entry"><a class="el" href="classRa_1_1Core_1_1VariableSet_1_1DynamicVisitor.html">Ra::Core::VariableSet::DynamicVisitor</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="classRa_1_1Core_1_1VariableSet_1_1DynamicVisitor.html#ac0d67a4d60930599551a64684ffa4f04">operator()</a>(std::any &amp;&amp;in) const</td><td class="entry"><a class="el" href="classRa_1_1Core_1_1VariableSet_1_1DynamicVisitor.html">Ra::Core::VariableSet::DynamicVisitor</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="classRa_1_1Core_1_1VariableSet_1_1DynamicVisitor.html#a27683975806e7e57a7b1880bd021762c">removeOperator</a>()</td><td class="entry"><a class="el" href="classRa_1_1Core_1_1VariableSet_1_1DynamicVisitor.html">Ra::Core::VariableSet::DynamicVisitor</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="classRa_1_1Core_1_1VariableSet_1_1DynamicVisitor.html#acf99596d53c28fb86904ef0732412949">~DynamicVisitor</a>()=default</td><td class="entry"><a class="el" href="classRa_1_1Core_1_1VariableSet_1_1DynamicVisitor.html">Ra::Core::VariableSet::DynamicVisitor</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classRa_1_1Core_1_1VariableSet_1_1DynamicVisitor.html#a0cf47417de334f65b449b157689cb844">accept</a>(const std::type_index &amp;id) const override</td><td class="entry"><a class="el" href="classRa_1_1Core_1_1VariableSet_1_1DynamicVisitor.html">Ra::Core::VariableSet::DynamicVisitor</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="classRa_1_1Core_1_1VariableSet_1_1DynamicVisitor.html#aeb5b4f8b353e27e04df097ec38095772">addOperator</a>(F &amp;&amp;f)</td><td class="entry"><a class="el" href="classRa_1_1Core_1_1VariableSet_1_1DynamicVisitor.html">Ra::Core::VariableSet::DynamicVisitor</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classRa_1_1Core_1_1VariableSet_1_1DynamicVisitor.html#aac62a0cb141a6d4b59788d717c94c3dc">addOrReplaceOperator</a>(F &amp;&amp;f)</td><td class="entry"><a class="el" href="classRa_1_1Core_1_1VariableSet_1_1DynamicVisitor.html">Ra::Core::VariableSet::DynamicVisitor</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="classRa_1_1Core_1_1VariableSet_1_1DynamicVisitor.html#aa27f700e836fe5beb2927640c292fa2a">hasOperator</a>()</td><td class="entry"><a class="el" href="classRa_1_1Core_1_1VariableSet_1_1DynamicVisitor.html">Ra::Core::VariableSet::DynamicVisitor</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classRa_1_1Core_1_1VariableSet_1_1DynamicVisitor.html#a5a1fc295c10873a01a4251232bd5bd6e">operator()</a>(std::any &amp;&amp;in, std::any &amp;&amp;userParam) const override</td><td class="entry"><a class="el" href="classRa_1_1Core_1_1VariableSet_1_1DynamicVisitor.html">Ra::Core::VariableSet::DynamicVisitor</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="classRa_1_1Core_1_1VariableSet_1_1DynamicVisitor.html#a27683975806e7e57a7b1880bd021762c">removeOperator</a>()</td><td class="entry"><a class="el" href="classRa_1_1Core_1_1VariableSet_1_1DynamicVisitor.html">Ra::Core::VariableSet::DynamicVisitor</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classRa_1_1Core_1_1VariableSet_1_1DynamicVisitor.html#a7768c6dc90b7ff0aa981ee7d963783a8">~DynamicVisitor</a>() override=default</td><td class="entry"><a class="el" href="classRa_1_1Core_1_1VariableSet_1_1DynamicVisitor.html">Ra::Core::VariableSet::DynamicVisitor</a></td><td class="entry"></td></tr>
+  <tr bgcolor="#f0f0f0"><td class="entry"><b>~DynamicVisitorBase</b>()=default (defined in <a class="el" href="classRa_1_1Core_1_1VariableSet_1_1DynamicVisitorBase.html">Ra::Core::VariableSet::DynamicVisitorBase</a>)</td><td class="entry"><a class="el" href="classRa_1_1Core_1_1VariableSet_1_1DynamicVisitorBase.html">Ra::Core::VariableSet::DynamicVisitorBase</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
 </table></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Thu Dec 15 2022 05:20:59 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Wed Jan 18 2023 11:46:26 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>
