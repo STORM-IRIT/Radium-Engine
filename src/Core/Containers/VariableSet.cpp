@@ -75,11 +75,12 @@ size_t VariableSet::size() const {
     return sum;
 }
 
-void VariableSet::DynamicVisitor::operator()( std::any&& in ) const {
-    if ( auto it = m_visitorOperator.find( std::type_index( in.type() ) );
-         it != m_visitorOperator.cend() ) {
-        it->second( in );
-    }
+bool VariableSet::DynamicVisitor::accept( const std::type_index& id ) const {
+    return m_visitorOperator.find( id ) != m_visitorOperator.cend();
+}
+
+void VariableSet::DynamicVisitor::operator()( std::any&& in, std::any&& userParam ) const {
+    m_visitorOperator.at( std::type_index( in.type() ) )( in, std::forward<std::any>( userParam ) );
 }
 
 } // namespace Core

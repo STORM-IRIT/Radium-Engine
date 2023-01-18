@@ -27,7 +27,7 @@ class MyParameterVisitor : public VariableSet::DynamicVisitor
     }
 
     template <typename T>
-    void operator()( const std::string& name, T& _in ) {
+    void operator()( const std::string& name, T& _in, std::any&& ) {
         std::cout << "\t(MyParameterVisitor : ( " << Utils::demangleType<T>() << " ) " << name
                   << " --> " << _in << " // ";
         _in /= 2;
@@ -35,7 +35,7 @@ class MyParameterVisitor : public VariableSet::DynamicVisitor
         ++m_counter;
     }
 
-    void operator()( const std::string& name, std::string& _in ) {
+    void operator()( const std::string& name, std::string& _in, std::any&& ) {
         std::cout << "\t(MyParameterVisitor : ( std::string ) " << name << " --> " << _in << "\n";
         ++m_counter;
     }
@@ -56,6 +56,7 @@ TEST_CASE( "Core/Container/VariableSet", "[Core][Container][VariableSet]" ) {
 
     SECTION( "Construction, access and removal to and from a variable set" ) {
         VariableSet params;
+        REQUIRE( params.existsVariableType<int>() == false );
         int i { 0 };
         float x { 1.f };
 
@@ -131,6 +132,7 @@ TEST_CASE( "Core/Container/VariableSet", "[Core][Container][VariableSet]" ) {
 
     SECTION( "Visiting and modifying variable set using static visitor" ) {
         VariableSet params;
+        REQUIRE( params.existsVariableType<int>() == false );
         int i { 0 };
 
         float x { 1.f };
@@ -160,6 +162,7 @@ TEST_CASE( "Core/Container/VariableSet", "[Core][Container][VariableSet]" ) {
 
     SECTION( "Visiting and modifying variable set using dynamic visitor" ) {
         VariableSet params;
+        REQUIRE( params.existsVariableType<int>() == false );
         int i { 1 };
 
         float x { 1.f };
@@ -180,7 +183,7 @@ TEST_CASE( "Core/Container/VariableSet", "[Core][Container][VariableSet]" ) {
 
         VariableSet::DynamicVisitor vf;
         // Adding a visitor operator on ints
-        vf.addOperator<int>( []( const std::string& name, auto& value ) {
+        vf.addOperator<int>( []( const std::string& name, auto& value, std::any&& ) {
             std::cout << "\tDoubling the int " << name << " (equal to " << value << ")\n";
             value *= 2;
         } );
@@ -191,7 +194,7 @@ TEST_CASE( "Core/Container/VariableSet", "[Core][Container][VariableSet]" ) {
         REQUIRE( params.getVariable<float>( "x" ) == 1 );
 
         // Changing the visitor operator on ints
-        vf.addOrReplaceOperator<int>( []( const std::string& name, auto& value ) {
+        vf.addOrReplaceOperator<int>( []( const std::string& name, auto& value, std::any&& ) {
             std::cout << "\tHalving the int " << name << " (equal to " << value << ")\n";
             value /= 2;
         } );
@@ -210,6 +213,7 @@ TEST_CASE( "Core/Container/VariableSet", "[Core][Container][VariableSet]" ) {
 
     SECTION( "Visiting and modifying variable set using standard range for" ) {
         VariableSet params;
+        REQUIRE( params.existsVariableType<int>() == false );
         int i { 1 };
         float x { 1.f };
 
@@ -258,9 +262,10 @@ TEST_CASE( "Core/Container/VariableSet", "[Core][Container][VariableSet]" ) {
 
     SECTION( "General visit using a custom visitor" ) {
         VariableSet params;
+        REQUIRE( params.existsVariableType<int>() == false );
         int i { 1 };
         float x { 1.f };
-
+        std::cout << "General visit using a custom visitor" << std::endl;
         std::cout << "Adding parameters" << std::endl;
         params.insertVariable( "i", i );             // i added by value
         params.insertVariable( "j", std::ref( i ) ); // j is a reference on i
@@ -292,6 +297,7 @@ TEST_CASE( "Core/Container/VariableSet", "[Core][Container][VariableSet]" ) {
 
     SECTION( "Merging, copying, moving" ) {
         VariableSet params;
+        REQUIRE( params.existsVariableType<int>() == false );
         params.insertVariable( "a", 1 );
         params.insertVariable( "b", 2 );
         print_container( "initial params ", params );
@@ -346,12 +352,25 @@ TEST_CASE( "Core/Container/VariableSet", "[Core][Container][VariableSet]" ) {
         REQUIRE( removed == false );
 
         print_container( "Copied params into newparams", *newparams );
-
+        delete newparams;
+        auto sp = params.size();
         auto paramsMoved { std::move( params ) };
         REQUIRE( params.size() == 0 );
-        REQUIRE( paramsMoved.size() == newparams->size() );
+        REQUIRE( paramsMoved.size() == sp );
         print_container( "Moved params into paramsMoved", paramsMoved );
         print_container( "params is empty", params );
-        delete newparams;
+        REQUIRE( params.existsVariableType<int>() == false );
+    }
+
+    SECTION( "Verifying all" ) {
+        VariableSet pa;
+        REQUIRE( pa.existsVariableType<int>() == false );
+        REQUIRE( pa.existsVariableType<std::string>() == false );
+        pa.insertVariable( "a", 1 );
+        pa.insertVariable( "b", 2 );
+        pa.insertVariable( "s1", std::string { "String 1" } );
+        REQUIRE( pa.existsVariableType<int>() == true );
+        REQUIRE( pa.existsVariableType<std::string>() == true );
+        print_container( "initial params ", pa );
     }
 }

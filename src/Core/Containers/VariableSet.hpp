@@ -4,7 +4,6 @@
 #include <Core/Utils/StdExperimentalTypeTraits.hpp>
 
 #include <any>
-#include <assert.h>
 #include <functional>
 #include <map>
 #include <typeindex>
@@ -44,6 +43,21 @@ namespace Core {
 /// as template parameters, and the visit is pre-processed by the compiler.
 ///  - using a dynamically configurable visitor where functor accepting types can be added/removed
 /// at runtime. This kind of visit is a little more expensive while being more configurable.
+/// Tests using empty processing (to evaluate only the cost of visiting the collection) on different
+/// types showed a visit from 5 to 8 times slower. This penalty becomes quite low as soon as the
+/// processing during the visit is more complex
+///
+/// The visiting of the collection can accept one user parameter to forward to each visit function.
+/// This parameter could be of any type, knowing the same parameter will be forwarded to all
+/// processing method when visiting a  variable.
+/// Some constraints on user provided parameter depends on the visiting strategy
+///   - For static visitors, this parameter is strongly typed and ALL the visiting function should
+///     be called with the profile void(const std::string&, [const]T[&], [const]U&&), for any
+///     variable type T and the user parameter type U.
+///   - For dynamic visitors, as they rely on type erasure pattern, the user parameter should be of
+///     any type U but this type is erased when calling the visiting function. So, visiting
+///     functions must be callable with the profile void(const std::string&, [const]T[&],
+///     [const]std::anyU&&) knowing that the std::any contains a parameter of type U.
 ///
 /// \note relies on C++ standard libraries extensions, version 2 or recommended implementation on
 /// compilers that do not provide this extension
@@ -55,7 +69,15 @@ class RA_CORE_API VariableSet
   public:
     /// \brief Container type for the mapping name->value of variables with type T.
     template <typename T>
-    using BaseContainer = std::map<std::string, T>;
+    using VariableContainer = std::map<std::string, T>;
+
+    /// \brief Variable type as stored in the VariableSet
+    template <typename T>
+    using Variable = typename VariableContainer<T>::value_type;
+
+    /// \brief Type of the variable value
+    template <typename T>
+    using VariableType = typename Variable<T>::second_type;
 
     /// \brief Handle of a variable
     /// A handle on a variable with type T is an iterator into the BaseContainer.
@@ -63,11 +85,13 @@ class RA_CORE_API VariableSet
     /// <const std::string, T> (BaseContainer<T>::value_type).
     /// VariableHandle validity follows the rules of BaseContainer<T>::iterator validity.
     template <typename T>
-    using VariableHandle = typename BaseContainer<T>::iterator;
+    using VariableHandle = typename VariableContainer<T>::iterator;
 
     /// \brief Type of the variable referenced by a VariableHandle
+    /// \note This is the same as the one denoted by the type T in VariableHandle<T> or in
+    /// VariableType<T>
     template <typename H>
-    using HandledType = typename std::iterator_traits<H>::value_type::second_type;
+    using VariableTypeFromHandle = typename std::iterator_traits<H>::value_type::second_type;
 
     /// \brief CRTP based Type list for statically typed visitors.
     template <class...>
@@ -82,8 +106,28 @@ class RA_CORE_API VariableSet
         using types = TypeList<TYPES...>;
     };
 
-    // Pre declare base class for all dynamic visitors.
-    class DynamicVisitor;
+    /// \brief Base class for dynamically configurable visitors
+    /// Users can implement this interface to build custom visitors without any restriction.
+    /// To ease visitor configuration, see class DynamicVisitor
+    /// \see DynamicVisitor
+    class DynamicVisitorBase
+    {
+      public:
+        virtual ~DynamicVisitorBase() = default;
+
+        /// \brief Execute a visiting operator on accepted types
+        /// \param in The variable to process
+        /// \param userParam The optional user define parameter to forward to type associated
+        /// functor The variable \b in contains a wrapping of the association name->value whose
+        /// visit is accepted. Visiting the association is done by calling the visit operator
+        /// associated with the underlying type of the variable \b in.
+        virtual void operator()( std::any&& in, std::any&& userParam ) const = 0;
+
+        /// \brief Acceptance function for the visitor
+        /// \param id the std::type_index associated to the type to visit
+        /// \return true if the type is visitable, false if not
+        virtual bool accept( const std::type_index& id ) const = 0;
+    };
 
     // ----------------------------------------------------------
     /// Constructors, destructors
@@ -196,7 +240,6 @@ class RA_CORE_API VariableSet
     // ------------------------------------------------------------------------------------------
     /// Operators acting on a per type basis
     /// \{
-  public:
     /// \brief Test if the storage supports a given variable type
     /// \tparam T The type of variable to test
     /// \return true if the type is managed by the storage
@@ -216,7 +259,7 @@ class RA_CORE_API VariableSet
     /// \return a reference to the storage of the mapping name->value for the given type.
     /// \pre existsVariableType<T>()
     template <typename T>
-    BaseContainer<T>& getAllVariables();
+    VariableContainer<T>& getAllVariables() const;
 
     /// \brief Get the whole container for variables of the same type than the given handled
     /// variable. \tparam H Type of the variable handle, should be VariableHandle<T> for some type T
@@ -225,7 +268,8 @@ class RA_CORE_API VariableSet
     /// \pre existsVariableType<HandledType<H>>()
     /// variable.
     template <typename H>
-    auto getAllVariablesFromHandle( const H& handle ) -> BaseContainer<HandledType<H>>&;
+    auto getAllVariablesFromHandle( const H& handle )
+        -> VariableContainer<VariableTypeFromHandle<H>>&;
 
     /// \brief Get the number of variables of the given type
     /// \tparam T The type to test
@@ -238,28 +282,30 @@ class RA_CORE_API VariableSet
     /// \{
 
     /// \brief Visit the container using a dynamically typed visitor
-    /// \tparam F The type of the visitor to use (see below)
+    /// \tparam P The type of the parameter to pass to visitor operators (see below)
     /// \param visitor The visitor to use
+    /// \param params  optional parameter to forward to visitor functor
     ///
     /// This visiting method is adapted when the types to visit are only known at running time.
     /// At running time, this visiting approach relies on two loops.
-    ///   - The first loop, done by the visiting logic in the class VariableSet iterate over ALL
-    ///     the stored mapping name->value to build a type-safe container for single values.
-    ///   - The second loop, done by the visitor, loop over visiting operators to find how to
-    ///     process the given type-safe container (https://en.cppreference.com/w/cpp/utility/any)
-    /// This visitor then iterate over all the managed type, and, for each of them, over all stored
-    /// variables then search for a compatible visiting operator.
+    ///   - The first loop, done by the visiting logic in the class VariableSet iterate over
+    ///     the types stored for the mappings name->value to identify the accepted types by the
+    ///     visitor.
+    ///   - The second loop, done by the visiting logic for accepted types, loop over
+    ///     name->value mappings and call the visitor functor for each pair
     ///
     /// The type of the visiting functor F should be
     ///   - either derived from VariableSet::DynamicVisitor with the needed visiting operators
     ///     registered (\see see VariableSet::DynamicVisitor)
-    ///   - either a full user define callable
-    ///     (\see https://en.cppreference.com/w/cpp/named_req/Callable) object with profile
-    ///     void op(std::any&& param). In this case, the given std::any rvalue reference wraps a
-    ///     reference to a std::pair<const std::string, T> such that the first element of the pair
-    ///     is the name of the variable, and the second its value of type T.
-    template <typename F>
-    void visitDynamic( F&& visitor ) const;
+    ///   - either derived directly from DynamicVisitorBase to build a full custom visitor. In this
+    ///     case, the first given std::any rvalue reference wraps a reference to a
+    ///     std::pair<const std::string, T> such
+    ///     that the first element of the pair is the name of the variable, and the second its
+    ///     value of type T. The second std::any&& rvalue reference contains an optional parameter
+    ///     to pass to the visiting functors (the same for all types) if the accept to be called
+    ///     with such a parameter.
+    template <typename P = bool>
+    void visitDynamic( DynamicVisitorBase& visitor, P&& params = P {} ) const;
 
     /// \brief Visit the container using a statically typed visitor
     /// \tparam F The type of the visitor to use (see below)
@@ -281,27 +327,46 @@ class RA_CORE_API VariableSet
     template <typename F>
     void visit( F&& visitor ) const;
 
-    /// \brief Base class for visitors with dynamic supported types.
+    /// \brief overload of the static visit method to allow a parameter pass by reference
+    template <typename F, typename T>
+    void visit( F&& visitor, T& userParams ) const;
+
+    /// \brief overload of the static visit method to allow a parameter pass by rvalue reference
+    template <typename F, typename T>
+    void visit( F&& visitor, T&& userParams ) const;
+
+    /// \brief Base class for visitors with configurable per-type callbacks.
     /// Visiting will be prepared at running time by dynamically adding visitor operators for each
-    /// type one want to visit in the container. The visitor operators should be any callable that
-    /// accept to be called using f(const std::string&, T&)
-    class RA_CORE_API DynamicVisitor
+    /// type one want to visit in the container.
+    /// The visitor accept type based on either the added operators or an external acceptance
+    /// functor which can be associated/changed at runtime. This functor is only allowed to reduce
+    /// the number of visited type as only type for which a visitor operator is registered can be
+    /// visited.
+    /// The visitor operators should be any callable that accept to be called using
+    /// f(const std::string&, T&[, std::any&&])
+    class RA_CORE_API DynamicVisitor : public DynamicVisitorBase
     {
       public:
         /// allows the class to be derived
-        virtual ~DynamicVisitor() = default;
+        ~DynamicVisitor() override = default;
 
         /// \brief Execute a visiting operator on accepted types
         /// \param in The variable to process
-        /// The variable in contains a wrapping of the association name->value whose visit is
-        /// accepted if there exists an operator for this type in the Visitor. Visiting the
-        /// association is done by calling this operator.
-        virtual void operator()( std::any&& in ) const;
+        /// \param userParam The optional user define parameter to forward to type associated
+        /// functor The variable \b in contains a wrapping of the association name->value whose
+        /// visit is accepted. Visiting the association is done by calling the visit operator
+        /// associated with the underlying type of the variable \b in.
+        void operator()( std::any&& in, std::any&& userParam ) const override;
+
+        /// \brief Acceptance function for the visitor
+        /// \param id The type to test
+        /// \return true if the type is visitable, false if not
+        bool accept( const std::type_index& id ) const override;
 
         /// \brief Add a visiting operator.
         /// \tparam T The accepted type for the visit.
         /// \tparam F The operator type, a callable with profile void(const std::string&, [const
-        /// ]T[&]).
+        /// ]T[&], std::any&&).
         /// \param f The operator object.
         /// \return true if the operator was added, false if not (e.g. there is already an operator
         /// associated with the type T)
@@ -331,24 +396,34 @@ class RA_CORE_API VariableSet
         bool removeOperator();
 
       private:
-        template <typename T>
-        using VisitedType = typename VariableSet::BaseContainer<T>::value_type;
+        /// \brief Type of the callback function that type-erased the user registered operators
+        using CallbackFunction = std::function<void( std::any&, std::any&& )>;
 
-        template <typename T>
-        auto getTypeIndex() -> std::type_index;
+        /// \brief Storage of the type erased operators
+        using OperatorsStorageType = std::unordered_map<std::type_index, CallbackFunction>;
 
-        template <class T, class F>
-        inline std::pair<const std::type_index, std::function<void( std::any& )>>
-        makeVisitorOperator( F& f );
+        /// \brief Helper struct to build type-erased operators (allowing to test calling profile)
+        template <typename T, typename F, bool WithUserParam>
+        struct MakeVisitOperatorHelper {
+            OperatorsStorageType::value_type makeOperator( F& f );
+        };
 
-        using OperatorsStorageType =
-            std::unordered_map<std::type_index, std::function<void( std::any& )>>;
+        /// \brief construct a type-erased operator from a user define functor with profile
+        /// void(const std::string, [const]T[&] [, [const] std::any&&])
+        template <typename T, typename F>
+        OperatorsStorageType::value_type makeVisitorOperator( F& f );
 
+        /// \brief The type erased operators
         OperatorsStorageType m_visitorOperator;
     };
 
   private:
-  private:
+    /// \brief Helper function that associate an index to a type
+    /// \tparam T The type to index
+    /// \return the identifier index of the type
+    template <typename T>
+    static auto getTypeIndex() -> std::type_index;
+
     /// \brief Add support for a given type.
     /// \tparam T The type to manage
     /// \return true if the type was correctly inserted
@@ -359,35 +434,65 @@ class RA_CORE_API VariableSet
 
     /// The core of a container logic : a template member variable
     template <typename T>
-    static std::unordered_map<const VariableSet*, BaseContainer<T>> m_variables;
+    static std::unordered_map<const VariableSet*, VariableContainer<T>> m_variables;
 
-    /// \brief test if the type F has a callable operator with the right profile
+    /// Implementation of static visitor
+    /// \{
+    /// \brief Callable profile of F for variable of type T
     template <typename F, typename T>
     using VisitFunction = decltype(
         std::declval<F>().operator()( std::declval<const std::string&>(), std::declval<T&>() ) );
 
-    /// Implementation of static visitor
-    /// \{
-    template <typename F, typename T>
-    static constexpr bool has_visit_v = Ra::Core::Utils::is_detected<VisitFunction, F, T>::value;
+    /// \brief Callable profile of F for variable of type T and user parameter of type U&&
+    template <typename F, typename T, typename U>
+    using VisitFunctionWithUserParam =
+        decltype( std::declval<F>().operator()( std::declval<const std::string&>(),
+                                                std::declval<T&>(),
+                                                std::declval<U&&>() ) );
 
+    /// \brief test if the type F has a callable operator with the right profile
+    template <typename F, typename T>
+    static constexpr bool has_visit_callable_v =
+        Ra::Core::Utils::is_detected<VisitFunction, F, T>::value;
+
+    /// \brief test if the type F has a callable operator with the right profile
+    template <typename F, typename T, typename U>
+    static constexpr bool has_visit_callable_with_user_param_v =
+        Ra::Core::Utils::is_detected<VisitFunctionWithUserParam, F, T, U>::value;
+
+    /// unfold type list to generate visitor func call
     template <typename F, template <typename...> typename TYPESLIST, typename... TYPES>
     void visitImpl( F&& visitor, TYPESLIST<TYPES...> ) const;
 
     template <typename F, typename T>
     void visitImplHelper( F& visitor ) const;
+
+    /// unfold type list to generate visitor func call
+    template <typename F, typename U, template <typename...> typename TYPESLIST, typename... TYPES>
+    void visitImplUserParam( F&& visitor, U&& userParam, TYPESLIST<TYPES...> ) const;
+
+    template <typename F, typename U, typename T>
+    void visitImplHelperUserParam( F& visitor, U&& userParams ) const;
+
     /// \}
 
     /// Storage for the data management functions
     /// \{
+    /// Type of the constructed visit function that returns a lambda
+    using VisitFunctorType =
+        std::function<std::pair<bool, std::function<void( DynamicVisitorBase&, std::any&& )>>(
+            const VariableSet&,
+            const DynamicVisitorBase& )>;
+
     std::vector<std::function<void( VariableSet& )>> m_clearFunctions;
     std::vector<std::function<void( const VariableSet&, VariableSet& )>> m_copyFunctions;
     std::vector<std::function<void( VariableSet&, VariableSet& )>> m_moveFunctions;
     std::vector<std::function<void( const VariableSet&, VariableSet& )>> m_mergeKeepFunctions;
     std::vector<std::function<void( const VariableSet&, VariableSet& )>> m_mergeReplaceFunctions;
     std::vector<std::function<size_t( const VariableSet& )>> m_sizeFunctions;
-    std::vector<std::function<void( const VariableSet&, DynamicVisitor& )>> m_visitFunctions;
+    std::vector<VisitFunctorType> m_visitFunctions;
     std::vector<std::type_index> m_storedType;
+
     /// \}
 };
 
@@ -420,8 +525,10 @@ VariableSet::VariableHandle<T> VariableSet::getVariableHandle( const std::string
 
 template <typename H>
 bool VariableSet::isHandleValid( const H& handle ) const {
-    auto iter = m_variables<HandledType<H>>.find( this );
-    if ( iter != m_variables<HandledType<H>>.end() ) { return handle != iter->second.end(); }
+    auto iter = m_variables<VariableTypeFromHandle<H>>.find( this );
+    if ( iter != m_variables<VariableTypeFromHandle<H>>.end() ) {
+        return handle != iter->second.end();
+    }
     return false;
 }
 
@@ -438,9 +545,7 @@ bool VariableSet::deleteVariable( const std::string& name ) {
     assert( existsVariable<T>( name ) );
     auto iter    = m_variables<T>.find( this );
     auto removed = iter->second.erase( name ) > 0;
-
-    // do we want to remove the type related function when the container has no more data of
-    // this type ?
+    // remove the type related function when the container has no more data of this type
     if ( numberOf<T>() == 0 ) { deleteAllVariables<T>(); }
 
     return removed;
@@ -450,8 +555,8 @@ template <typename H>
 bool VariableSet::deleteVariable( H& handle ) {
     assert( isHandleValid( handle ) );
     auto varname = handle->first;
-    handle       = m_variables<HandledType<H>>[this].end();
-    deleteVariable<HandledType<H>>( varname );
+    handle       = m_variables<VariableTypeFromHandle<H>>[this].end();
+    deleteVariable<VariableTypeFromHandle<H>>( varname );
     return !isHandleValid( handle );
 }
 
@@ -466,6 +571,13 @@ bool VariableSet::existsVariable( const std::string& name ) const {
 }
 
 template <typename T>
+auto VariableSet::getTypeIndex() -> std::type_index {
+    static std::type_index idT(
+        typeid( std::reference_wrapper<typename VariableSet::VariableContainer<T>::value_type> ) );
+    return idT;
+}
+
+template <typename T>
 void VariableSet::addVariableType() {
     assert( !existsVariableType<T>() );
     // used to remove all stored data at deletion time
@@ -476,6 +588,7 @@ void VariableSet::addVariableType() {
     } );
     m_moveFunctions.emplace_back( []( VariableSet& from, VariableSet& to ) {
         m_variables<T>[&to] = std::move( m_variables<T>[&from] );
+        m_variables<T>.erase( &from );
     } );
     // used to merge (keep) the stored data from container "from" to container "to"
     m_mergeKeepFunctions.emplace_back( []( const VariableSet& from, VariableSet& to ) {
@@ -494,12 +607,23 @@ void VariableSet::addVariableType() {
     // use to compute gauge on the stored data
     m_sizeFunctions.emplace_back(
         []( const VariableSet& c ) { return m_variables<T>[&c].size(); } );
-    // used to call dynamically typed visitors
-    m_visitFunctions.emplace_back( []( const VariableSet& c, DynamicVisitor& v ) {
-        for ( auto&& t : m_variables<T>[&c] ) {
-            v( { std::ref( t ) } );
-        }
-    } );
+    m_visitFunctions.emplace_back(
+        []( const VariableSet& c, const DynamicVisitorBase& v )
+            -> std::pair<bool, std::function<void( DynamicVisitorBase&, std::any && )>> {
+            auto id = getTypeIndex<T>();
+            if ( v.accept( id ) ) {
+                auto coll = std::ref( m_variables<T>[&c] );
+                return { true, [coll]( DynamicVisitorBase& visitor, std::any&& userParam ) {
+                            for ( auto&& t : coll.get() ) {
+                                visitor( { std::ref( t ) }, std::forward<std::any>( userParam ) );
+                            }
+                        } };
+            }
+            else {
+                return { false, nullptr };
+            }
+        } );
+
     // remember the stored type and its rank
     m_storedType.emplace_back( std::type_index( typeid( T ) ) );
 }
@@ -532,16 +656,17 @@ bool VariableSet::deleteAllVariables() {
 }
 
 template <typename T>
-VariableSet::BaseContainer<T>& VariableSet::getAllVariables() {
+VariableSet::VariableContainer<T>& VariableSet::getAllVariables() const {
     assert( existsVariableType<T>() );
     auto iter = m_variables<T>.find( this );
     return iter->second;
 }
 
 template <typename H>
-auto VariableSet::getAllVariablesFromHandle( const H& ) -> BaseContainer<HandledType<H>>& {
-    assert( existsVariableType<HandledType<H>>() );
-    return getAllVariables<HandledType<H>>();
+auto VariableSet::getAllVariablesFromHandle( const H& )
+    -> VariableContainer<VariableTypeFromHandle<H>>& {
+    assert( existsVariableType<VariableTypeFromHandle<H>>() );
+    return getAllVariables<VariableTypeFromHandle<H>>();
 }
 
 template <typename T>
@@ -551,10 +676,11 @@ size_t VariableSet::numberOf() const {
     return 0;
 }
 
-template <typename F>
-void VariableSet::visitDynamic( F&& visitor ) const {
+template <typename P>
+void VariableSet::visitDynamic( DynamicVisitorBase& visitor, P&& params ) const {
     for ( auto&& visitFunc : m_visitFunctions ) {
-        visitFunc( *this, visitor );
+        auto [accepted, loop] = visitFunc( *this, visitor );
+        if ( accepted ) { loop( visitor, std::forward<P>( params ) ); }
     }
 }
 
@@ -570,7 +696,7 @@ void VariableSet::visitImpl( F&& visitor, TYPESLIST<TYPES...> ) const {
 
 template <typename F, typename T>
 void VariableSet::visitImplHelper( F& visitor ) const {
-    static_assert( has_visit_v<F, T>,
+    static_assert( has_visit_callable_v<F, T>,
                    "Static visitors must provide a function with profile "
                    "void( const std::string& name, [const ]T[&] value) for each "
                    "declared visitable type T" );
@@ -580,8 +706,39 @@ void VariableSet::visitImplHelper( F& visitor ) const {
     }
 }
 
+template <typename F, typename U>
+void VariableSet::visit( F&& visitor, U& userParams ) const {
+    visitImplUserParam(
+        visitor, std::forward<U>( userParams ), typename std::decay_t<F>::types {} );
+}
+
+template <typename F, typename U>
+void VariableSet::visit( F&& visitor, U&& userParams ) const {
+    visitImplUserParam(
+        visitor, std::forward<U>( userParams ), typename std::decay_t<F>::types {} );
+}
+
+template <typename F, typename U, template <typename...> typename TYPESLIST, typename... TYPES>
+void VariableSet::visitImplUserParam( F&& visitor, U&& userParam, TYPESLIST<TYPES...> ) const {
+    ( ...,
+      visitImplHelperUserParam<std::decay_t<F>, U, TYPES>( visitor,
+                                                           std::forward<U>( userParam ) ) );
+}
+
+template <typename F, typename U, typename T>
+void VariableSet::visitImplHelperUserParam( F& visitor, U&& userParams ) const {
+    static_assert( has_visit_callable_with_user_param_v<F, T, U>,
+                   "Static visitors must provide a function with profile "
+                   "void( const std::string& name, [const ]T[&] value, [const] U&&) for each "
+                   "declared visitable type T" );
+    if ( !existsVariableType<T>() ) { return; }
+    for ( auto& element : m_variables<T>[this] ) {
+        visitor( element.first, element.second, std::forward<U>( userParams ) );
+    }
+}
+
 template <typename T>
-std::unordered_map<const VariableSet*, std::map<std::string, T>> VariableSet::m_variables;
+std::unordered_map<const VariableSet*, VariableSet::VariableContainer<T>> VariableSet::m_variables;
 
 template <typename T, typename F>
 bool VariableSet::DynamicVisitor::addOperator( F&& f ) {
@@ -607,19 +764,35 @@ bool VariableSet::DynamicVisitor::removeOperator() {
     return res;
 }
 
-template <typename T>
-auto VariableSet::DynamicVisitor::getTypeIndex() -> std::type_index {
-    return std::type_index( typeid( std::reference_wrapper<VisitedType<T>> ) );
-}
+template <typename T, typename F>
+struct VariableSet::DynamicVisitor::MakeVisitOperatorHelper<T, F, true> {
+    inline OperatorsStorageType::value_type makeOperator( F& f ) {
+        return { getTypeIndex<T>(), [&f]( std::any& a, std::any&& userParam ) {
+                    auto rp = std::any_cast<std::reference_wrapper<VariableSet::Variable<T>>&>( a );
+                    auto& p = rp.get();
+                    f( p.first, p.second, std::forward<std::any>( userParam ) );
+                } };
+    }
+};
+
+template <typename T, typename F>
+struct VariableSet::DynamicVisitor::MakeVisitOperatorHelper<T, F, false> {
+    inline OperatorsStorageType::value_type makeOperator( F& f ) {
+        return { getTypeIndex<T>(), [&f]( std::any& a, std::any&& ) {
+                    auto rp = std::any_cast<std::reference_wrapper<VariableSet::Variable<T>>&>( a );
+                    auto& p = rp.get();
+                    f( p.first, p.second );
+                } };
+    }
+};
 
 template <class T, class F>
-inline std::pair<const std::type_index, std::function<void( std::any& )>>
+inline VariableSet::DynamicVisitor::OperatorsStorageType::value_type
 VariableSet::DynamicVisitor::makeVisitorOperator( F& f ) {
-    return { getTypeIndex<T>(), [&f]( std::any& a ) {
-                auto rp = std::any_cast<std::reference_wrapper<VisitedType<T>>&>( a );
-                auto& p = rp.get();
-                f( p.first, p.second );
-            } };
+    auto opBuilder = MakeVisitOperatorHelper < T, F,
+         std::is_invocable<F, const std::string&, T, std::any&&>::value ||
+             std::is_invocable<F, const std::string&, T&, std::any&&>::value > {};
+    return opBuilder.makeOperator( f );
 }
 
 } // namespace Core
