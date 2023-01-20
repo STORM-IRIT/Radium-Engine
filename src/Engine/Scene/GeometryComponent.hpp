@@ -63,6 +63,9 @@ class SurfaceMeshComponent : public GeometryComponent
     inline SurfaceMeshComponent( const std::string& name,
                                  Entity* entity,
                                  const Ra::Core::Asset::GeometryData* data );
+    inline SurfaceMeshComponent( const std::string& name,
+                                 Entity* entity,
+                                 std::shared_ptr<RenderMeshType> data );
 
     /*!
      * Constructor from an existing mesh
