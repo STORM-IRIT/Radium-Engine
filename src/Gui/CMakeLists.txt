@@ -20,11 +20,12 @@ set(Qt_LIBRARIES Qt::Core Qt::Widgets Qt::OpenGL Qt::Xml)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
+set(CMAKE_AUTOUIC_SEARCH_PATHS "${CMAKE_CURRENT_SOURCE_DIR}/")
+set(CMAKE_AUTOUIC ON)
+
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 include_directories(${CMAKE_CURRENT_BINARY_DIR} # Moc
 )
-
-qt_wrap_ui(gui_uis ${gui_uis})
 
 add_library(
     ${ra_gui_target} SHARED ${gui_sources} ${gui_headers} ${gui_inlines} ${gui_uis}
