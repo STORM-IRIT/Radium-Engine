@@ -1,7 +1,8 @@
-#include "ui_AboutDialog.h"
 #include <Gui/AboutDialog/AboutDialog.hpp>
 #include <QFile>
 #include <QPushButton>
+
+#include "ui_AboutDialog.h"
 
 namespace Ra {
 namespace Gui {
