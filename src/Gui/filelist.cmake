@@ -86,9 +86,8 @@ set(gui_headers
     Widgets/VectorEditor.hpp
 )
 
-set(gui_inlines
-    Utils/KeyMappingManager.inl Viewer/WindowQt.inl Widgets/ConstrainedNumericSpinBox.inl
-    Widgets/ControlPanel.inl Widgets/VectorEditor.inl
+set(gui_inlines Viewer/WindowQt.inl Widgets/ConstrainedNumericSpinBox.inl Widgets/ControlPanel.inl
+                Widgets/VectorEditor.inl
 )
 
 set(gui_uis
