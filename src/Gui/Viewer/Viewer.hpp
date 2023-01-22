@@ -13,7 +13,6 @@
 #include <atomic>
 #include <memory>
 
-#include <QMessageBox>
 #include <QThread>
 #include <QWindow>
 
@@ -26,6 +25,7 @@ namespace Gui {
 class CameraManipulator;
 class GizmoManager;
 class PickingManager;
+class RadiumHelpDialog;
 } // namespace Gui
 } // namespace Ra
 
@@ -281,7 +281,7 @@ class RA_GUI_API Viewer : public WindowQt, public KeyMappingManageable<Viewer>
                          bool wheel );
 
     Scalar m_depthUnderMouse;
-    std::unique_ptr<QMessageBox> m_helpDialog { nullptr };
+    std::unique_ptr<RadiumHelpDialog> m_helpDialog { nullptr };
 
   protected:
     ///\todo make the following  private:
