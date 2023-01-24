@@ -30,7 +30,7 @@ MultiIndexedGeometry& MultiIndexedGeometry::operator=( const MultiIndexedGeometr
 MultiIndexedGeometry& MultiIndexedGeometry::operator=( MultiIndexedGeometry&& other ) {
     invalidateAabb();
     AttribArrayGeometry::operator=( std::move( other ) );
-    m_indices                    = std::move( other.m_indices );
+    m_indices = std::move( other.m_indices );
     notify();
     return *this;
 }

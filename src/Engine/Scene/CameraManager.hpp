@@ -30,7 +30,7 @@ class RA_ENGINE_API CameraManager : public System
     CameraManager();
 
     // Make copies impossible
-    CameraManager( const CameraManager& ) = delete;
+    CameraManager( const CameraManager& )            = delete;
     CameraManager& operator=( const CameraManager& ) = delete;
 
     /// Virtual destructor

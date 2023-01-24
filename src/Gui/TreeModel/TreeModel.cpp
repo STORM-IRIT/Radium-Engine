@@ -47,9 +47,7 @@ bool TreeModel::setData( const QModelIndex& index, const QVariant& value, int ro
             setAllItemsChecked( false );
             setItemChecked( index, true );
         }
-        else {
-            setItemChecked( index, value.toBool() );
-        }
+        else { setItemChecked( index, value.toBool() ); }
         return true;
     }
     return false;
@@ -59,9 +57,7 @@ QVariant TreeModel::headerData( int section, Qt::Orientation orientation, int ro
     if ( section == 0 && orientation == Qt::Horizontal && role == Qt::DisplayRole ) {
         return QVariant( QString::fromStdString( getHeaderString() ) );
     }
-    else {
-        return QVariant();
-    }
+    else { return QVariant(); }
 }
 
 QModelIndex TreeModel::index( int row, int column, const QModelIndex& parent ) const {
@@ -73,9 +69,7 @@ QModelIndex TreeModel::index( int row, int column, const QModelIndex& parent ) c
     if ( parentItem && size_t( row ) < parentItem->m_children.size() ) {
         return createIndex( row, column, parentItem->m_children[row].get() );
     }
-    else {
-        return QModelIndex();
-    }
+    else { return QModelIndex(); }
 }
 
 QModelIndex TreeModel::parent( const QModelIndex& child ) const {

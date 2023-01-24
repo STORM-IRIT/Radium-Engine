@@ -696,9 +696,7 @@ TEST_CASE( "Core/Geometry/TopologicalMesh/Manifold", "[Core][Core/Geometry][Topo
                                                  0_ra ) ) {
                 REQUIRE( !topo.isManifold( *itr ) );
             }
-            else {
-                REQUIRE( topo.isManifold( *itr ) );
-            }
+            else { REQUIRE( topo.isManifold( *itr ) ); }
         }
     }
     SECTION( "Non manifold vertex : Double pyramid" ) {
@@ -1229,9 +1227,7 @@ TEST_CASE( "Core/TopologicalMesh/CollapseWedge" ) {
                     REQUIRE(
                         Math::areApproxEqual( ( psplit - wd.m_position ).squaredNorm(), 0_ra ) );
                 }
-                else {
-                    REQUIRE( topo.getWedgeIndex( he1 ).isInvalid() );
-                }
+                else { REQUIRE( topo.getWedgeIndex( he1 ).isInvalid() ); }
             }
             std::swap( from, to );
         }

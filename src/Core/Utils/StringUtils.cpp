@@ -37,12 +37,8 @@ std::string getDirName( const std::string& path ) {
     // The directory is actually "/" because the last slash is in first position.
     // In that case we should return "/"
     if ( pos == 0 ) { res = "/"; }
-    else if ( pos < res.length() ) {
-        res = res.substr( 0, pos );
-    }
-    else {
-        res = ".";
-    }
+    else if ( pos < res.length() ) { res = res.substr( 0, pos ); }
+    else { res = "."; }
 
     return res;
 }
