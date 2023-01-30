@@ -30,37 +30,38 @@ void VolumetricMaterial::updateGL() {
 }
 
 void VolumetricMaterial::updateFromParameters() {
+    auto& renderParamaters = getParameters();
     m_sigma_a =
-        m_renderParameters.getParameter<RenderParameters::ColorParameter>( "material.sigma_a" )
+        renderParamaters.getParameter<RenderParameters::ColorParameter>( "material.sigma_a" )
             .m_value;
     m_sigma_s =
-        m_renderParameters.getParameter<RenderParameters::ColorParameter>( "material.sigma_s" )
+        renderParamaters.getParameter<RenderParameters::ColorParameter>( "material.sigma_s" )
             .m_value;
-    m_g =
-        m_renderParameters.getParameter<RenderParameters::ScalarParameter>( "material.g" ).m_value;
-    m_scale = m_renderParameters.getParameter<RenderParameters::ScalarParameter>( "material.scale" )
+    m_g = renderParamaters.getParameter<RenderParameters::ScalarParameter>( "material.g" ).m_value;
+    m_scale = renderParamaters.getParameter<RenderParameters::ScalarParameter>( "material.scale" )
                   .m_value;
     m_stepsize =
-        m_renderParameters.getParameter<RenderParameters::ScalarParameter>( "material.stepsize" )
+        renderParamaters.getParameter<RenderParameters::ScalarParameter>( "material.stepsize" )
             .m_value;
 }
 
 void VolumetricMaterial::updateRenderingParameters() {
-    m_renderParameters.addParameter( "material.sigma_a", m_sigma_a );
-    m_renderParameters.addParameter( "material.sigma_s", m_sigma_s );
-    m_renderParameters.addParameter( "material.g", m_g );
-    m_renderParameters.addParameter( "material.scale", m_scale );
+    auto& renderParamaters = getParameters();
+    renderParamaters.addParameter( "material.sigma_a", m_sigma_a );
+    renderParamaters.addParameter( "material.sigma_s", m_sigma_s );
+    renderParamaters.addParameter( "material.g", m_g );
+    renderParamaters.addParameter( "material.scale", m_scale );
     if ( m_stepsize < 0 ) {
         auto dim = std::sqrt( Scalar( m_texture->width() * m_texture->width() +
                                       m_texture->height() * m_texture->height() +
                                       m_texture->depth() * m_texture->depth() ) );
-        m_renderParameters.addParameter( "material.stepsize", 1._ra / dim );
+        renderParamaters.addParameter( "material.stepsize", 1._ra / dim );
     }
     else {
-        m_renderParameters.addParameter( "material.stepsize", m_stepsize );
+        renderParamaters.addParameter( "material.stepsize", m_stepsize );
     }
-    m_renderParameters.addParameter( "material.density", m_texture );
-    m_renderParameters.addParameter( "material.modelToDensity", m_modelToMedium.matrix() );
+    renderParamaters.addParameter( "material.density", m_texture );
+    renderParamaters.addParameter( "material.modelToDensity", m_modelToMedium.matrix() );
 }
 
 bool VolumetricMaterial::isTransparent() const {
