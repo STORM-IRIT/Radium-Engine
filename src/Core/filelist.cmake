@@ -168,5 +168,4 @@ set(core_inlines
     Utils/CircularIndex.inl
     Utils/Index.inl
     Utils/IndexMap.inl
-    Utils/TypesUtils.inl
 )
