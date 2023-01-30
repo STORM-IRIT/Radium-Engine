@@ -261,7 +261,6 @@ void setupLineMesh( std::shared_ptr<Data::LineMesh>& disp, CoreGeometry& core ) 
 }
 
 void ForwardRenderer::renderInternal( const Data::ViewingParameters& renderData ) {
-
     m_fbo->bind();
 
     GL_ASSERT( glEnable( GL_DEPTH_TEST ) );
@@ -300,16 +299,16 @@ void ForwardRenderer::renderInternal( const Data::ViewingParameters& renderData 
 
     // Set in RenderParam the configuration about ambiant lighting (instead of hard constant
     // direclty in shaders)
-    Data::RenderParameters zprepassParams;
+    static Data::RenderParameters lightParams;
     for ( const auto& ro : m_fancyRenderObjects ) {
-        ro->render( zprepassParams, renderData, DefaultRenderingPasses::Z_PREPASS );
+        ro->render( lightParams, renderData, DefaultRenderingPasses::Z_PREPASS );
     }
     // Transparent objects are rendered in the Z-prepass, but only their fully opaque fragments
     // (if any) might influence the z-buffer.
     // Rendering transparent objects assuming that they
     // discard all their non-opaque fragments
     for ( const auto& ro : m_transparentRenderObjects ) {
-        ro->render( zprepassParams, renderData, DefaultRenderingPasses::Z_PREPASS );
+        ro->render( lightParams, renderData, DefaultRenderingPasses::Z_PREPASS );
     }
     // Volumetric objects are not rendered in the Z-prepass
 
@@ -329,20 +328,20 @@ void ForwardRenderer::renderInternal( const Data::ViewingParameters& renderData 
         // for ( const auto& l : m_lights )
         for ( size_t i = 0; i < m_lightmanagers[0]->count(); ++i ) {
             const auto l = m_lightmanagers[0]->getLight( i );
-            Data::RenderParameters lightingpassParams;
-            l->getRenderParameters( lightingpassParams );
 
+            lightParams.addParameter( "light_source", l->getRenderParameters() );
             for ( const auto& ro : m_fancyRenderObjects ) {
-                ro->render(
-                    lightingpassParams, renderData, DefaultRenderingPasses::LIGHTING_OPAQUE );
+                ro->render( lightParams, renderData, DefaultRenderingPasses::LIGHTING_OPAQUE );
             }
             // Rendering transparent objects assuming that they discard all their non-opaque
             // fragments
             for ( const auto& ro : m_transparentRenderObjects ) {
-                ro->render(
-                    lightingpassParams, renderData, DefaultRenderingPasses::LIGHTING_OPAQUE );
+                ro->render( lightParams, renderData, DefaultRenderingPasses::LIGHTING_OPAQUE );
             }
         }
+        // TODO make this more simpler
+        lightParams.getModifiableStorage()
+            .deleteVariable<std::reference_wrapper<Data::RenderParameters>>( "light_source" );
     }
     else {
         LOG( logINFO ) << "Opaque : no light sources, unable to render";
@@ -369,15 +368,16 @@ void ForwardRenderer::renderInternal( const Data::ViewingParameters& renderData 
             // for ( const auto& l : m_lights )
             for ( size_t i = 0; i < m_lightmanagers[0]->count(); ++i ) {
                 const auto l = m_lightmanagers[0]->getLight( i );
-                Data::RenderParameters trasparencypassParams;
-                l->getRenderParameters( trasparencypassParams );
 
+                lightParams.addParameter( "light_source", l->getRenderParameters() );
                 for ( const auto& ro : m_transparentRenderObjects ) {
-                    ro->render( trasparencypassParams,
-                                renderData,
-                                DefaultRenderingPasses::LIGHTING_TRANSPARENT );
+                    ro->render(
+                        lightParams, renderData, DefaultRenderingPasses::LIGHTING_TRANSPARENT );
                 }
             }
+            // TODO make this more simpler
+            lightParams.getModifiableStorage()
+                .deleteVariable<std::reference_wrapper<Data::RenderParameters>>( "light_source" );
         }
         else {
             LOG( logINFO ) << "Transparent : no light sources, unable to render";
@@ -404,42 +404,50 @@ void ForwardRenderer::renderInternal( const Data::ViewingParameters& renderData 
     // Z-test is enabled but z-write must be disable to allow access to the z-buffer in the
     // shader.
     // This pass render in its own FBO and copy the result to the main colortexture
-    if ( !m_volumetricRenderObjects.empty() ) {
-        m_volumeFbo->bind();
-        GL_ASSERT( glDrawBuffers( 1, buffers ) );
-        auto alpha = Core::Utils::Color::Alpha().cast<GL_SCALAR_PLAIN>().eval();
-        GL_ASSERT( glClearBufferfv( GL_COLOR, 0, alpha.data() ) );
-        GL_ASSERT( glDisable( GL_BLEND ) );
-        // for ( const auto& l : m_lights )
-        for ( size_t i = 0; i < m_lightmanagers[0]->count(); ++i ) {
-            const auto l = m_lightmanagers[0]->getLight( i );
-            Data::RenderParameters passParams;
-            l->getRenderParameters( passParams );
-            passParams.addParameter( "imageColor", m_textures[RendererTextures_HDR].get() );
-            passParams.addParameter( "imageDepth", m_textures[RendererTextures_Depth].get() );
+    if ( m_lightmanagers[0]->count() > 0 ) {
+        if ( !m_volumetricRenderObjects.empty() ) {
+            m_volumeFbo->bind();
+            GL_ASSERT( glDrawBuffers( 1, buffers ) );
+            auto alpha = Core::Utils::Color::Alpha().cast<GL_SCALAR_PLAIN>().eval();
+            GL_ASSERT( glClearBufferfv( GL_COLOR, 0, alpha.data() ) );
+            GL_ASSERT( glDisable( GL_BLEND ) );
+            lightParams.addParameter( "imageColor", m_textures[RendererTextures_HDR].get() );
+            lightParams.addParameter( "imageDepth", m_textures[RendererTextures_Depth].get() );
+            // for ( const auto& l : m_lights )
+            for ( size_t i = 0; i < m_lightmanagers[0]->count(); ++i ) {
+                const auto l = m_lightmanagers[0]->getLight( i );
 
-            for ( const auto& ro : m_volumetricRenderObjects ) {
-                ro->render( passParams, renderData, DefaultRenderingPasses::LIGHTING_VOLUMETRIC );
+                lightParams.addParameter( "light_source", l->getRenderParameters() );
+
+                for ( const auto& ro : m_volumetricRenderObjects ) {
+                    ro->render(
+                        lightParams, renderData, DefaultRenderingPasses::LIGHTING_VOLUMETRIC );
+                }
             }
+            // TODO make this more simpler
+            lightParams.getModifiableStorage()
+                .deleteVariable<std::reference_wrapper<Data::RenderParameters>>( "light_source" );
+            lightParams.getModifiableStorage()
+                .deleteVariable<Data::RenderParameters::TextureParameter>( "imageColor" );
+            lightParams.getModifiableStorage()
+                .deleteVariable<Data::RenderParameters::TextureParameter>( "imageDepth" );
+            m_volumeFbo->unbind();
+            m_fbo->bind();
+            GL_ASSERT( glDrawBuffers( 1, buffers ) );
+            GL_ASSERT( glDisable( GL_DEPTH_TEST ) );
+            GL_ASSERT( glEnable( GL_BLEND ) );
+            GL_ASSERT( glBlendFunc( GL_ONE_MINUS_SRC_ALPHA, GL_SRC_ALPHA ) );
+            {
+                auto shader = m_shaderProgramManager->getShaderProgram( "ComposeVolume" );
+                shader->bind();
+                shader->setUniform( "volumeImage", m_textures[RendererTextures_Volume].get(), 0 );
+                m_quadMesh->render( shader );
+            }
+            GL_ASSERT( glEnable( GL_DEPTH_TEST ) );
         }
-        m_volumeFbo->unbind();
-
-        m_fbo->bind();
-        GL_ASSERT( glDrawBuffers( 1, buffers ) );
-        GL_ASSERT( glDisable( GL_DEPTH_TEST ) );
-        GL_ASSERT( glEnable( GL_BLEND ) );
-        GL_ASSERT( glBlendFunc( GL_ONE_MINUS_SRC_ALPHA, GL_SRC_ALPHA ) );
-        {
-            auto shader = m_shaderProgramManager->getShaderProgram( "ComposeVolume" );
-            shader->bind();
-            shader->setUniform( "volumeImage", m_textures[RendererTextures_Volume].get(), 0 );
-            m_quadMesh->render( shader );
-        }
-        GL_ASSERT( glEnable( GL_DEPTH_TEST ) );
     }
 
     if ( m_wireframe ) {
-
         m_fbo->bind();
 
         glDisable( GL_POLYGON_OFFSET_FILL );
@@ -518,6 +526,7 @@ void ForwardRenderer::renderInternal( const Data::ViewingParameters& renderData 
 
 // Draw debug stuff, do not overwrite depth map but do depth testing
 void ForwardRenderer::debugInternal( const Data::ViewingParameters& renderData ) {
+    // TODO improve by limiting the creation/destruction of RenderParameters
     if ( m_drawDebug ) {
         m_postprocessFbo->bind();
         GL_ASSERT( glDisable( GL_BLEND ) );
@@ -700,8 +709,9 @@ class PointCloudParameterProvider : public Data::ShaderParameterProvider
     ~PointCloudParameterProvider() override = default;
     void updateGL() override {
         m_displayMaterial->updateGL();
-        m_renderParameters = m_displayMaterial->getParameters();
-        m_renderParameters.addParameter( "pointCloudSplatRadius", m_component->getSplatSize() );
+        auto& renderParamaters = getParameters();
+        renderParamaters.mergeReplaceParameters( m_displayMaterial->getParameters() );
+        renderParamaters.addParameter( "pointCloudSplatRadius", m_component->getSplatSize() );
     }
 
   private:
