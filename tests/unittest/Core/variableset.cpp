@@ -9,7 +9,7 @@ using namespace Ra::Core;
 
 struct printThemAll {
     using types =
-        VariableSet::TypeList<int, size_t, float, double, std::reference_wrapper<int>, std::string>;
+        Utils::TypeList<int, size_t, float, double, std::reference_wrapper<int>, std::string>;
 
     template <typename T>
     void operator()( const std::string& name, T& value ) {
