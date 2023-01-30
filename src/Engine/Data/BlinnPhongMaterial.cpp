@@ -27,27 +27,28 @@ BlinnPhongMaterial::~BlinnPhongMaterial() {
 
 void BlinnPhongMaterial::updateRenderingParameters() {
     // update the rendering parameters
-    m_renderParameters.addParameter( "material.kd", m_kd );
-    m_renderParameters.addParameter( "material.hasPerVertexKd", m_perVertexColor );
-    m_renderParameters.addParameter( "material.renderAsSplat", m_renderAsSplat );
-    m_renderParameters.addParameter( "material.ks", m_ks );
-    m_renderParameters.addParameter( "material.ns", m_ns );
-    m_renderParameters.addParameter( "material.alpha", std::min( m_alpha, m_kd[3] ) );
+    auto& renderParamaters = getParameters();
+    renderParamaters.addParameter( "material.kd", m_kd );
+    renderParamaters.addParameter( "material.hasPerVertexKd", m_perVertexColor );
+    renderParamaters.addParameter( "material.renderAsSplat", m_renderAsSplat );
+    renderParamaters.addParameter( "material.ks", m_ks );
+    renderParamaters.addParameter( "material.ns", m_ns );
+    renderParamaters.addParameter( "material.alpha", std::min( m_alpha, m_kd[3] ) );
     Texture* tex = getTexture( BlinnPhongMaterial::TextureSemantic::TEX_DIFFUSE );
-    if ( tex != nullptr ) { m_renderParameters.addParameter( "material.tex.kd", tex ); }
-    m_renderParameters.addParameter( "material.tex.hasKd", tex != nullptr );
+    if ( tex != nullptr ) { renderParamaters.addParameter( "material.tex.kd", tex ); }
+    renderParamaters.addParameter( "material.tex.hasKd", tex != nullptr );
     tex = getTexture( BlinnPhongMaterial::TextureSemantic::TEX_SPECULAR );
-    if ( tex != nullptr ) { m_renderParameters.addParameter( "material.tex.ks", tex ); }
-    m_renderParameters.addParameter( "material.tex.hasKs", tex != nullptr );
+    if ( tex != nullptr ) { renderParamaters.addParameter( "material.tex.ks", tex ); }
+    renderParamaters.addParameter( "material.tex.hasKs", tex != nullptr );
     tex = getTexture( BlinnPhongMaterial::TextureSemantic::TEX_NORMAL );
-    if ( tex != nullptr ) { m_renderParameters.addParameter( "material.tex.normal", tex ); }
-    m_renderParameters.addParameter( "material.tex.hasNormal", tex != nullptr );
+    if ( tex != nullptr ) { renderParamaters.addParameter( "material.tex.normal", tex ); }
+    renderParamaters.addParameter( "material.tex.hasNormal", tex != nullptr );
     tex = getTexture( BlinnPhongMaterial::TextureSemantic::TEX_SHININESS );
-    if ( tex != nullptr ) { m_renderParameters.addParameter( "material.tex.ns", tex ); }
-    m_renderParameters.addParameter( "material.tex.hasNs", tex != nullptr );
+    if ( tex != nullptr ) { renderParamaters.addParameter( "material.tex.ns", tex ); }
+    renderParamaters.addParameter( "material.tex.hasNs", tex != nullptr );
     tex = getTexture( BlinnPhongMaterial::TextureSemantic::TEX_ALPHA );
-    if ( tex != nullptr ) { m_renderParameters.addParameter( "material.tex.alpha", tex ); }
-    m_renderParameters.addParameter( "material.tex.hasAlpha", tex != nullptr );
+    if ( tex != nullptr ) { renderParamaters.addParameter( "material.tex.alpha", tex ); }
+    renderParamaters.addParameter( "material.tex.hasAlpha", tex != nullptr );
 }
 
 void BlinnPhongMaterial::updateGL() {
@@ -72,20 +73,18 @@ void BlinnPhongMaterial::updateGL() {
 }
 
 void BlinnPhongMaterial::updateFromParameters() {
-    m_kd =
-        m_renderParameters.getParameter<RenderParameters::ColorParameter>( "material.kd" ).m_value;
+    auto& renderParamaters = getParameters();
+    m_kd = renderParamaters.getParameter<RenderParameters::ColorParameter>( "material.kd" ).m_value;
     m_perVertexColor =
-        m_renderParameters
-            .getParameter<RenderParameters::BoolParameter>( "material.hasPerVertexKd" )
+        renderParamaters.getParameter<RenderParameters::BoolParameter>( "material.hasPerVertexKd" )
             .m_value;
     m_renderAsSplat =
-        m_renderParameters.getParameter<RenderParameters::BoolParameter>( "material.renderAsSplat" )
+        renderParamaters.getParameter<RenderParameters::BoolParameter>( "material.renderAsSplat" )
             .m_value;
-    m_ks =
-        m_renderParameters.getParameter<RenderParameters::ColorParameter>( "material.ks" ).m_value;
+    m_ks = renderParamaters.getParameter<RenderParameters::ColorParameter>( "material.ks" ).m_value;
     m_ns =
-        m_renderParameters.getParameter<RenderParameters::ScalarParameter>( "material.ns" ).m_value;
-    m_alpha = m_renderParameters.getParameter<RenderParameters::ScalarParameter>( "material.alpha" )
+        renderParamaters.getParameter<RenderParameters::ScalarParameter>( "material.ns" ).m_value;
+    m_alpha = renderParamaters.getParameter<RenderParameters::ScalarParameter>( "material.alpha" )
                   .m_value;
 }
 

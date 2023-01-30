@@ -17,15 +17,16 @@ SimpleMaterial::~SimpleMaterial() {
 }
 
 void SimpleMaterial::updateRenderingParameters() {
+    auto& renderParamaters = getParameters();
     // update the rendering paramaters
-    m_renderParameters.addParameter( "material.color", m_color );
-    m_renderParameters.addParameter( "material.perVertexColor", m_perVertexColor );
+    renderParamaters.addParameter( "material.color", m_color );
+    renderParamaters.addParameter( "material.perVertexColor", m_perVertexColor );
     Texture* tex = getTexture( SimpleMaterial::TextureSemantic::TEX_COLOR );
-    if ( tex != nullptr ) { m_renderParameters.addParameter( "material.tex.color", tex ); }
-    m_renderParameters.addParameter( "material.tex.hasColor", tex != nullptr );
+    if ( tex != nullptr ) { renderParamaters.addParameter( "material.tex.color", tex ); }
+    renderParamaters.addParameter( "material.tex.hasColor", tex != nullptr );
     tex = getTexture( SimpleMaterial::TextureSemantic::TEX_MASK );
-    if ( tex != nullptr ) { m_renderParameters.addParameter( "material.tex.mask", tex ); }
-    m_renderParameters.addParameter( "material.tex.hasMask", tex != nullptr );
+    if ( tex != nullptr ) { renderParamaters.addParameter( "material.tex.mask", tex ); }
+    renderParamaters.addParameter( "material.tex.hasMask", tex != nullptr );
 }
 
 void SimpleMaterial::updateGL() {
