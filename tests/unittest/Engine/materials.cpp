@@ -15,6 +15,13 @@
 using namespace Ra::Headless;
 using namespace Ra::Engine::Data;
 
+struct PrintThemAll {
+    using types = RenderParameters::BindableTypes;
+    template <typename T>
+    void operator()( const std::string& name, const T& ) {
+        std::cout << name << " with type " << typeid( T ).name() << "\n";
+    }
+};
 TEST_CASE( "Engine/Data/Materials", "[Engine][Engine/Data][Materials]" ) {
 
     // Get the Engine and materials initialized
@@ -28,6 +35,7 @@ TEST_CASE( "Engine/Data/Materials", "[Engine][Engine/Data][Materials]" ) {
     auto code            = viewer.init( 1, &testName );
 
     SECTION( "Blinn-Phong material" ) {
+        LOG( Ra::Core::Utils::logINFO ) << "Testing Blinn-Phong material";
         REQUIRE( code == 0 );
         BlinnPhongMaterial bp( "testBlinnPhong" );
 
@@ -36,10 +44,23 @@ TEST_CASE( "Engine/Data/Materials", "[Engine][Engine/Data][Materials]" ) {
         REQUIRE( !bp.isColoredByVertexAttrib() );
 
         bp.setColoredByVertexAttrib( true );
-        REQUIRE( bp.isColoredByVertexAttrib() );
+        REQUIRE( bp.isColoredByVertexAttrib() == true );
         /* Setting GL Parameters */
         bp.updateGL();
         auto& bpParameters = bp.getParameters();
+        auto& bpstorage    = bpParameters.getStorage();
+
+        std::cout << "Number of parameter : " << bpstorage.size() << "\n";
+        auto& tps = bpstorage.getStoredTypes();
+        for ( const auto& tp : tps ) {
+            std::cout << "\tStored type : " << tp.name() << "\n";
+        }
+
+        bpstorage.visit( PrintThemAll {} );
+
+        std::cout << "Number of " << typeid( RenderParameters::BoolParameter ).name()
+                  << " parameter : " << bpstorage.numberOf<RenderParameters::BoolParameter>()
+                  << "\n";
 
         REQUIRE( bpParameters.containsParameter<RenderParameters::BoolParameter>(
             "material.hasPerVertexKd" ) );
@@ -64,9 +85,11 @@ TEST_CASE( "Engine/Data/Materials", "[Engine][Engine/Data][Materials]" ) {
         bp.updateFromParameters();
         REQUIRE( pvc.m_value == bp.isColoredByVertexAttrib() );
         REQUIRE( alp.m_value == bp.m_alpha );
+        LOG( Ra::Core::Utils::logINFO ) << "Blinn-Phong material tested.\n";
     }
 
     SECTION( "Lambertian material" ) {
+        LOG( Ra::Core::Utils::logINFO ) << "Testing Lambertian material";
         REQUIRE( code == 0 );
         LambertianMaterial mat( "test LambertianMaterial" );
 
@@ -91,9 +114,11 @@ TEST_CASE( "Engine/Data/Materials", "[Engine][Engine/Data][Materials]" ) {
         /* Updating material parameters from GL parameters */
         mat.updateFromParameters();
         REQUIRE( pvc.m_value == mat.isColoredByVertexAttrib() );
+        LOG( Ra::Core::Utils::logINFO ) << "Lambertian material tested.\n";
     }
 
     SECTION( "Plain material" ) {
+        LOG( Ra::Core::Utils::logINFO ) << "Testing Plain material";
         REQUIRE( code == 0 );
         PlainMaterial mat( "test PlainMaterial" );
 
@@ -118,9 +143,11 @@ TEST_CASE( "Engine/Data/Materials", "[Engine][Engine/Data][Materials]" ) {
         /* Updating material parameters from GL parameters */
         mat.updateFromParameters();
         REQUIRE( pvc.m_value == mat.isColoredByVertexAttrib() );
+        LOG( Ra::Core::Utils::logINFO ) << "Plain material tested.\n";
     }
 
     SECTION( "Volumetric material" ) {
+        LOG( Ra::Core::Utils::logINFO ) << "Testing Volumetric material";
         REQUIRE( code == 0 );
         VolumetricMaterial mat( "test VolumetricMaterial" );
         float d = 1.f;
@@ -157,6 +184,7 @@ TEST_CASE( "Engine/Data/Materials", "[Engine][Engine/Data][Materials]" ) {
         /* Updating material parameters from GL parameters */
         mat.updateFromParameters();
         REQUIRE( g.m_value == mat.m_g );
+        LOG( Ra::Core::Utils::logINFO ) << "Volumetric material tested.\n";
     }
 
     SECTION( "Metadata verification" ) {
