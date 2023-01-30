@@ -293,15 +293,19 @@ void RenderObject::render( const Data::RenderParameters& lightParams,
 void RenderObject::render( const Data::RenderParameters& lightParams,
                            const Data::ViewingParameters& viewParams,
                            Core::Utils::Index passId ) {
+    static Data::RenderParameters noParams;
     if ( m_visible ) {
         auto shader = getRenderTechnique()->getShader( passId );
         if ( !shader ) { return; }
 
         auto paramsProvider = getRenderTechnique()->getParametersProvider( passId );
-        render( lightParams,
-                viewParams,
-                shader,
-                paramsProvider ? paramsProvider->getParameters() : Data::RenderParameters() );
+        // Do not copy the provider parameters if it exists
+        if ( paramsProvider != nullptr ) {
+            render( lightParams, viewParams, shader, paramsProvider->getParameters() );
+        }
+        else {
+            render( lightParams, viewParams, shader, noParams );
+        }
     }
 }
 
