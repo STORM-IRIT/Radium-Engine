@@ -137,13 +137,13 @@ DataflowGraph* buildgraph( const std::string& name ) {
     auto fl = new Functionals::FilterNode<Ra::Core::VectorArray<DataType>>( "fl" );
 
     auto g = new DataflowGraph( name );
-    g->addNode( ds );
-    g->addNode( rs );
-    g->addNode( ts );
-    g->addNode( ss );
-    g->addNode( nm );
-    g->addNode( fs );
-    g->addNode( fl );
+    g->addNode( std::unique_ptr<Node>( ds ) );
+    g->addNode( std::unique_ptr<Node>( rs ) );
+    g->addNode( std::unique_ptr<Node>( ts ) );
+    g->addNode( std::unique_ptr<Node>( ss ) );
+    g->addNode( std::unique_ptr<Node>( nm ) );
+    g->addNode( std::unique_ptr<Node>( fs ) );
+    g->addNode( std::unique_ptr<Node>( fl ) );
 
     bool ok;
     ok = g->addLink( ds, "to", fl, "in" );
