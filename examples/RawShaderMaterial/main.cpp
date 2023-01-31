@@ -70,9 +70,9 @@ class MyParameterProvider : public Ra::Engine::Data::ShaderParameterProvider
     void updateGL() override {
         // Method called before drawing each frame in Renderer::updateRenderObjectsInternal.
         // The name of the parameter corresponds to the shader's uniform name.
-        auto& renderParamaters = getParameters();
-        renderParamaters.addParameter( "aColorUniform", m_colorParameter );
-        renderParamaters.addParameter( "aScalarUniform", m_scalarParameter );
+        auto& renderParameters = getParameters();
+        renderParameters.addParameter( "aColorUniform", m_colorParameter );
+        renderParameters.addParameter( "aScalarUniform", m_scalarParameter );
     }
     void setOrComputeTheParameterValues() {
         // client side computation of the parameters, e.g.
