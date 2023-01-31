@@ -24,7 +24,10 @@ Node* NodeFactory::createNode( std::string& nodeType,
     auto it = m_nodesCreators.find( nodeType );
     if ( it != m_nodesCreators.end() ) {
         auto node = it->second.first( data );
-        if ( owningGraph != nullptr ) { owningGraph->addNode( node ); }
+        if ( owningGraph != nullptr ) {
+            auto [added, n] = owningGraph->addNode( std::unique_ptr<Node>( node ) );
+            return n;
+        }
         return node;
     }
     return nullptr;

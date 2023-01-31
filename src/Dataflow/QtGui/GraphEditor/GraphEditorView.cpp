@@ -88,7 +88,7 @@ void GraphEditorView::buildAdapterRegistry( const NodeFactorySet& factories ) {
                 [f, this, creatorFactory]() -> std::unique_ptr<QtNodes::NodeDataModel> {
                     nlohmann::json data;
                     auto node = f( data );
-                    this->m_dataflowGraph->addNode( node );
+                    this->m_dataflowGraph->addNode( std::unique_ptr<Node>( node ) );
                     this->m_dataflowGraph->addFactory( creatorFactory );
                     return std::make_unique<NodeAdapterModel>( this->m_dataflowGraph, node );
                 },
