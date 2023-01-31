@@ -26,7 +26,7 @@ struct RA_DATAFLOW_API EditableParameterBase {
     EditableParameterBase& operator=( const EditableParameterBase& ) = delete;
 
     /// Construct an base editable parameter from its name and type hash
-    EditableParameterBase( std::string& name, size_t hashedType );
+    EditableParameterBase( const std::string& name, size_t hashedType );
     ///@}
 
     virtual ~EditableParameterBase() = default;
@@ -45,7 +45,7 @@ struct EditableParameter : public EditableParameterBase {
     EditableParameter& operator=( const EditableParameter& ) = delete;
 
     /// Construct an editable parameter from its name and type hash
-    EditableParameter( std::string name, T& data );
+    EditableParameter( const std::string& name, T& data );
     ///@}
 
     /// Add constraints or associated data to the editable.
@@ -65,11 +65,11 @@ struct EditableParameter : public EditableParameterBase {
 // -----------------------------------------------------------------
 // ---------------------- inline methods ---------------------------
 
-inline EditableParameterBase::EditableParameterBase( std::string& name, size_t hashedType ) :
+inline EditableParameterBase::EditableParameterBase( const std::string& name, size_t hashedType ) :
     m_name( name ), m_hashedType( hashedType ) {}
 
 template <typename T>
-EditableParameter<T>::EditableParameter( std::string name, T& data ) :
+EditableParameter<T>::EditableParameter( const std::string& name, T& data ) :
     EditableParameterBase( name, typeid( T ).hash_code() ), m_data( data ) {}
 
 template <typename T>
