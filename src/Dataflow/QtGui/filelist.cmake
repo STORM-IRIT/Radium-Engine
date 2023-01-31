@@ -12,6 +12,4 @@ set(dataflow_qtgui_headers
     GraphEditor/WidgetFactory.hpp
 )
 
-set(dataflow_qtgui_inlines)
-
 set(dataflow_qtgui_resources GraphEditor/GraphEditor.qrc)
