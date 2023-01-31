@@ -16,10 +16,9 @@ template <typename T>
 void testGraph( const std::string& name, T in, T& out ) {
     auto g      = new DataflowGraph { name };
     auto source = new Sources::SingleDataSourceNode<T>( "in" );
-
-    auto sink = new Sinks::SinkNode<T>( "out" );
-    g->addNode( source );
-    g->addNode( sink );
+    auto sink   = new Sinks::SinkNode<T>( "out" );
+    g->addNode( std::unique_ptr<Node>( source ) );
+    g->addNode( std::unique_ptr<Node>( sink ) );
     auto linked = g->addLink( source, "to", sink, "from" );
     if ( !linked ) { std::cerr << "Error linking source and sink nodes.\n"; }
     REQUIRE( linked );

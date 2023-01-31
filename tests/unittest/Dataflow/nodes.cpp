@@ -22,23 +22,23 @@ createGraph(
     auto g         = new DataflowGraph { name };
 
     auto source_a = new Sources::SingleDataSourceNode<DataType_a>( "a" );
-    g->addNode( source_a );
+    g->addNode( std::unique_ptr<Node>( source_a ) );
     auto a = g->getDataSetter( "a_to" );
     REQUIRE( a->getNode() == g );
 
     auto source_b = new Sources::SingleDataSourceNode<DataType_b>( "b" );
-    g->addNode( source_b );
+    g->addNode( std::unique_ptr<Node>( source_b ) );
     auto b = g->getDataSetter( "b_to" );
     REQUIRE( b->getNode() == g );
 
     auto sink = new Sinks::SinkNode<DataType_r>( "r" );
-    g->addNode( sink );
+    g->addNode( std::unique_ptr<Node>( sink ) );
     auto r = g->getDataGetter( "r_from" );
     REQUIRE( r->getNode() == g );
 
     auto op = new TestNode( "operator", f );
     // op->setOperator( f );
-    g->addNode( op );
+    g->addNode( std::unique_ptr<Node>( op ) );
 
     REQUIRE( g->addLink( source_a, "to", op, "a" ) );
     REQUIRE( g->addLink( op, "r", sink, "from" ) );
@@ -196,9 +196,9 @@ TEST_CASE( "Dataflow/Core/Nodes", "[Dataflow][Core][Nodes]" ) {
         auto opNode = dynamic_cast<TestNode*>( g->getNode( "operator" ) );
         REQUIRE( opNode != nullptr );
         if ( opNode ) {
-            typename TestNode::BinaryOperator f = []( typename TestNode::Arg1_type a,
-                                                      typename TestNode::Arg2_type b ) ->
-                typename TestNode::Res_type { return a / b; };
+            typename TestNode::BinaryOperator f = []( typename TestNode::Arg1_type arg1,
+                                                      typename TestNode::Arg2_type arg2 ) ->
+                typename TestNode::Res_type { return arg1 / arg2; };
             opNode->setOperator( f );
         }
         g->execute();
@@ -318,15 +318,15 @@ TEST_CASE( "Dataflow/Core/Nodes", "[Dataflow][Core][Nodes]" ) {
         // Node for coparing the results of the computation graph
         auto validator = new Functionals::BinaryOpNode<Scalar, Scalar, bool>( "validator" );
 
-        g->addNode( nodeS );
-        g->addNode( nodeD );
-        g->addNode( nodeN );
-        g->addNode( nodeM );
-        g->addNode( nodeR );
-        g->addNode( meanCalculator );
-        g->addNode( doubleMeanCalculator );
-        g->addNode( nodeT );
-        g->addNode( nodeRD );
+        g->addNode( std::unique_ptr<Node>( nodeS ) );
+        g->addNode( std::unique_ptr<Node>( nodeD ) );
+        g->addNode( std::unique_ptr<Node>( nodeN ) );
+        g->addNode( std::unique_ptr<Node>( nodeM ) );
+        g->addNode( std::unique_ptr<Node>( nodeR ) );
+        g->addNode( std::unique_ptr<Node>( meanCalculator ) );
+        g->addNode( std::unique_ptr<Node>( doubleMeanCalculator ) );
+        g->addNode( std::unique_ptr<Node>( nodeT ) );
+        g->addNode( std::unique_ptr<Node>( nodeRD ) );
 
         bool linkAdded;
         linkAdded = g->addLink( nodeS, "to", meanCalculator, "in" );
@@ -348,9 +348,9 @@ TEST_CASE( "Dataflow/Core/Nodes", "[Dataflow][Core][Nodes]" ) {
         linkAdded = g->addLink( nodeM, "f", doubleMeanCalculator, "f" );
         REQUIRE( linkAdded == true );
 
-        g->addNode( nodePred );
-        g->addNode( sinkB );
-        g->addNode( validator );
+        g->addNode( std::unique_ptr<Node>( nodePred ) );
+        g->addNode( std::unique_ptr<Node>( sinkB ) );
+        g->addNode( std::unique_ptr<Node>( validator ) );
         linkAdded = g->addLink( meanCalculator, "out", validator, "a" );
         REQUIRE( linkAdded == true );
         linkAdded = g->addLink( doubleMeanCalculator, "out", validator, "b" );
