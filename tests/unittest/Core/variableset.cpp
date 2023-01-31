@@ -131,6 +131,7 @@ TEST_CASE( "Core/Container/VariableSet", "[Core][Container][VariableSet]" ) {
     }
 
     SECTION( "Visiting and modifying variable set using static visitor" ) {
+        REQUIRE( printThemAll::types::Size == 6 );
         VariableSet params;
         REQUIRE( params.existsVariableType<int>() == false );
         int i { 0 };
