@@ -29,22 +29,6 @@ set(dataflow_core_headers
     TypeDemangler.hpp
 )
 
-set(dataflow_core_inlines
-    DataflowGraph.inl
-    EditableParameter.inl
-    Enumerator.inl
-    Node.inl
-    NodeFactory.inl
-    Nodes/Functionals/FilterNode.inl
-    Nodes/Functionals/ReduceNode.inl
-    Nodes/Functionals/TransformNode.inl
-    Nodes/Sinks/SinkNode.inl
-    Nodes/Sources/FunctionSource.inl
-    Nodes/Sources/SingleDataSourceNode.inl
-    Port.inl
-    TypeDemangler.inl
-)
-
 set(dataflow_core_private
     Nodes/Private/FunctionalsNodeFactory.hpp Nodes/Private/FunctionalsNodeFactory.cpp
     Nodes/Private/SinksNodeFactory.hpp Nodes/Private/SinksNodeFactory.cpp
