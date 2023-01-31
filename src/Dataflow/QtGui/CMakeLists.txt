@@ -25,7 +25,7 @@ find_package(PowerSlider REQUIRED)
 
 add_library(
     ${ra_dataflowqtgui_target} SHARED ${dataflow_qtgui_sources} ${dataflow_qtgui_headers}
-                                      ${dataflow_qtgui_inlines} ${dataflow_qtgui_resources}
+                                      ${dataflow_qtgui_resources}
 )
 
 # This one should be extracted directly from parent project properties.
@@ -47,7 +47,7 @@ configure_radium_target(${ra_dataflowqtgui_target})
 # configure the library only. The package is a sub-package and should be configured independently
 configure_radium_library(
     TARGET ${ra_dataflowqtgui_target} COMPONENT TARGET_DIR "Dataflow/QtGui"
-    FILES "${dataflow_qtgui_headers};${dataflow_qtgui_inlines}"
+    FILES "${dataflow_qtgui_headers}"
 )
 # Generate cmake package
 configure_radium_package(
