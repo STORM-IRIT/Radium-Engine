@@ -37,12 +37,12 @@ int main( int argc, char* argv[] ) {
     //! [Creating Nodes]
 
     //! [Adding Nodes to the graph]
-    g.addNode( sourceNode );
-    g.addNode( mapSource );
-    g.addNode( transformNode );
-    g.addNode( reduceNode );
-    g.addNode( sinkNode );
-    g.addNode( scalarSinkNode );
+    g.addNode( std::unique_ptr<Node>( sourceNode ) );
+    g.addNode( std::unique_ptr<Node>( mapSource ) );
+    g.addNode( std::unique_ptr<Node>( transformNode ) );
+    g.addNode( std::unique_ptr<Node>( reduceNode ) );
+    g.addNode( std::unique_ptr<Node>( sinkNode ) );
+    g.addNode( std::unique_ptr<Node>( scalarSinkNode ) );
     //! [Adding Nodes to the graph]
 
     //! [Creating links between Nodes]

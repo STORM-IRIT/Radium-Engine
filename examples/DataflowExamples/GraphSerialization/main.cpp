@@ -51,9 +51,9 @@ int main( int argc, char* argv[] ) {
         //! [Creating Nodes]
 
         //! [Adding Nodes to the graph]
-        g.addNode( sourceNode );
-        g.addNode( filterNode );
-        g.addNode( sinkNode );
+        g.addNode( std::unique_ptr<Node>( sourceNode ) );
+        g.addNode( std::unique_ptr<Node>( filterNode ) );
+        g.addNode( std::unique_ptr<Node>( sinkNode ) );
         //! [Adding Nodes to the graph]
 
         //! [Creating links between Nodes]
