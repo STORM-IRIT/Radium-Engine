@@ -7,7 +7,7 @@ include(filelist.cmake)
 
 add_library(
     ${ra_dataflowcore_target} SHARED ${dataflow_core_sources} ${dataflow_core_headers}
-                                     ${dataflow_core_inlines} ${dataflow_core_private}
+                                     ${dataflow_core_private}
 )
 
 find_package(stduuid REQUIRED NO_DEFAULT_PATH)
@@ -28,7 +28,7 @@ configure_radium_target(${ra_dataflowcore_target})
 # configure the library only. The package is a sub-package and should be configured independently
 configure_radium_library(
     TARGET ${ra_dataflowcore_target} COMPONENT TARGET_DIR "Dataflow/Core"
-    FILES "${dataflow_core_headers};${dataflow_core_inlines}"
+    FILES "${dataflow_core_headers}"
 )
 # Generate cmake package
 configure_radium_package(
