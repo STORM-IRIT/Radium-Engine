@@ -1,8 +1,6 @@
 #include <Engine/Rendering/RenderTechnique.hpp>
 
 #include <Engine/Data/BlinnPhongMaterial.hpp>
-#include <Engine/Data/RenderParameters.hpp>
-#include <Engine/Data/ShaderConfigFactory.hpp>
 #include <Engine/Data/ShaderProgramManager.hpp>
 #include <Engine/RadiumEngine.hpp>
 
