@@ -15,18 +15,18 @@ void RenderingGraph::init() {
     DataflowGraph::init();
 }
 
-bool RenderingGraph::addNode( Node* newNode ) {
-    auto added = DataflowGraph::addNode( newNode );
+std::pair<bool, Node*> RenderingGraph::addNode( std::unique_ptr<Node> newNode ) {
+    auto [added, node] = DataflowGraph::addNode( std::move( newNode ) );
     if ( added ) {
         // Todo : is there something to do ?
     }
-    return added;
+    return { added, node };
 }
 
-bool RenderingGraph::removeNode( Node* node ) {
+bool RenderingGraph::removeNode( Node*& node ) {
     auto removed = DataflowGraph::removeNode( node );
     if ( removed ) {
-        // Todo : is there something to do ?
+        // Todo : is there something to do ? (node is already deleted by DataflowGraph::removeNode)
     }
     return removed;
 }

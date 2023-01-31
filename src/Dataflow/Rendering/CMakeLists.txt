@@ -7,9 +7,8 @@ include(filelist.cmake)
 
 # configure library
 add_library(
-    ${ra_dataflowrendering_target} SHARED ${dataflow_rendering_sources}
-                                          ${dataflow_rendering_headers}
-                                          ${dataflow_rendering_resources}
+    ${ra_dataflowrendering_target} SHARED
+    ${dataflow_rendering_sources} ${dataflow_rendering_headers} ${dataflow_rendering_resources}
 )
 
 # This one should be extracted directly from parent project properties.

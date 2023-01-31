@@ -20,8 +20,8 @@ class RA_DATAFLOW_API RenderingGraph : public DataflowGraph
 
     // Remove the 3 following methods if there is no need to specialize
     void init() override;
-    bool addNode( Node* newNode ) override;
-    bool removeNode( Node* node ) override;
+    std::pair<bool, Node*> addNode( std::unique_ptr<Node> newNode ) override;
+    bool removeNode( Node*& node ) override;
 
     // These methods are specialized to identify rendering nodes (and those who needs
     // rendertechnique)
@@ -53,8 +53,14 @@ class RA_DATAFLOW_API RenderingGraph : public DataflowGraph
     std::vector<RenderingNode*> m_rtIndexedNodes; // associate an index and buildRenderTechnique
 };
 
+// -----------------------------------------------------------------
+// ---------------------- inline methods ---------------------------
+
 inline RenderingGraph::RenderingGraph( const std::string& name ) :
-    DataflowGraph( name, getTypename() ) {}
+    DataflowGraph( name, getTypename() ) {
+    // A rendering graph always use the builtin RenderingNodes factory
+    addFactory( NodeFactoriesManager::getFactory( "RenderingNodes" ) );
+}
 
 inline const std::string& RenderingGraph::getTypename() {
     static std::string demangledTypeName { "Rendering Graph" };
@@ -67,27 +73,17 @@ inline void RenderingGraph::resize( uint32_t width, uint32_t height ) {
     }
 }
 
-inline void RenderingGraph::setDataSources( std::vector<RenderObjectType>* ros,
-                                            std::vector<LightType>* lights ) {
-#if 0
-    for(auto sn : m_dataProviders) {
-        sn->setScene(ros, lights);
-    }
-#endif
+inline bool RenderingGraph::fromJsonInternal( const nlohmann::json& data ) {
+    auto r = DataflowGraph::fromJsonInternal( data );
+    // todo, extract RenderingGraph specific data
+    return r;
 }
 
-inline void RenderingGraph::setCameras( std::vector<CameraType>* cameras ) {
-#if 0
-    for(auto sn : m_dataProviders) {
-        sn->setCameras(cameras);
-    }
-#endif
+inline void RenderingGraph::toJsonInternal( nlohmann::json& data ) const {
+    DataflowGraph::toJsonInternal( data );
+    // todo, add RenderingGraph specific data
 }
 
-inline void RenderingGraph::fromJsonInternal( const nlohmann::json& ) {}
-inline void RenderingGraph::toJsonInternal( nlohmann::json& ) const {}
-
-} // namespace Renderer
 } // namespace Rendering
 } // namespace Dataflow
 } // namespace Ra
