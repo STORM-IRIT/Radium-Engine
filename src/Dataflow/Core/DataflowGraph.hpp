@@ -69,9 +69,8 @@ class RA_DATAFLOW_API DataflowGraph : public Node
     /// Adds a node to the render graph. Adds interface ports to the node newNode and the
     /// corresponding input and output ports to the graph.
     /// \param newNode The node to add to the render graph.
-    /// ownership of the node is transfered to the graph
-    /// \todo move ine unique_ptr and return an optional with the raw pointer
-    virtual bool addNode( Node* newNode );
+    /// ownership of the node is transferred to the graph
+    virtual std::pair<bool, Node*> addNode( std::unique_ptr<Node> newNode );
     /// Removes a node from the render graph. Removes input and output ports of the graph
     /// corresponding to interface ports of the node.
     /// \param node The node to remove from the render graph.

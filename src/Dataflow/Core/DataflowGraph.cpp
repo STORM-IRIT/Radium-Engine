@@ -242,31 +242,32 @@ bool DataflowGraph::canAdd( const Node* newNode ) const {
     return findNode( newNode ) == -1;
 };
 
-bool DataflowGraph::addNode( Node* newNode ) {
+std::pair<bool, Node*> DataflowGraph::addNode( std::unique_ptr<Node> newNode ) {
     std::map<std::string, std::string> m_mapInputs;
     // Check if the new node already exists (= same name and type)
-    if ( findNode( newNode ) == -1 ) {
-        if ( newNode->getInputs().empty() ) {
+    if ( canAdd( newNode.get() ) ) {
+        auto addedNode = newNode.get();
+        m_nodes.emplace_back( std::move( newNode ) );
+        if ( addedNode->getInputs().empty() ) {
             // it is a source node, add its interface port as input and data setter to the graph
-            auto& interfaces = newNode->buildInterfaces( this );
+            auto& interfaces = addedNode->buildInterfaces( this );
             for ( auto p : interfaces ) {
                 addSetter( p );
             }
         }
-        if ( newNode->getOutputs().empty() ) {
+        if ( addedNode->getOutputs().empty() ) {
             // it is a sink node, add its interface port as output to the graph
-            auto& interfaces = newNode->buildInterfaces( this );
+            auto& interfaces = addedNode->buildInterfaces( this );
             for ( auto p : interfaces ) {
                 addGetter( p );
             }
         }
-        m_nodes.emplace_back( newNode );
         m_ready         = false;
         m_shouldBeSaved = true;
-        return true;
+        return { true, addedNode };
     }
     else {
-        return false;
+        return { false, newNode.get() };
     }
 }
 
