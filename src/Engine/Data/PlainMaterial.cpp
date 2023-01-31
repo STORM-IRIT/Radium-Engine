@@ -62,11 +62,11 @@ void PlainMaterial::unregisterMaterial() {
 }
 
 void PlainMaterial::updateFromParameters() {
-    auto& renderParamaters = getParameters();
+    auto& renderParameters = getParameters();
     m_color =
-        renderParamaters.getParameter<RenderParameters::ColorParameter>( "material.color" ).m_value;
+        renderParameters.getParameter<RenderParameters::ColorParameter>( "material.color" ).m_value;
     m_perVertexColor =
-        renderParamaters.getParameter<RenderParameters::BoolParameter>( "material.perVertexColor" )
+        renderParameters.getParameter<RenderParameters::BoolParameter>( "material.perVertexColor" )
             .m_value;
 }
 
