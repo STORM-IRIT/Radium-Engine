@@ -235,16 +235,16 @@ class MyRendererController : public RenderGraphController
             m_renderGraph = std::make_unique<RenderingGraph>( "Demonstration graph" );
             m_renderGraph->setShaderProgramManager( m_shaderMngr );
             auto sceneNode = new SceneNode( "Scene" );
-            m_renderGraph->addNode( sceneNode );
+            m_renderGraph->addNode( std::unique_ptr<Node>( sceneNode ) );
             auto resultNode = new DisplaySinkNode( "Images" );
-            m_renderGraph->addNode( resultNode );
+            m_renderGraph->addNode( std::unique_ptr<Node>( resultNode ) );
             auto geomAovs = new GeometryAovsNode( "Geometry Aovs" );
-            m_renderGraph->addNode( geomAovs );
+            m_renderGraph->addNode( std::unique_ptr<Node>( geomAovs ) );
 #if 0
             auto textureSource = new ColorTextureNode( "Beauty" );
-            m_renderGraph->addNode( textureSource );
+            m_renderGraph->addNode( std::unique_ptr<Node>( textureSource ) );
             auto clearNode = new ClearColorNode( " Clear" );
-            m_renderGraph->addNode( clearNode );
+            m_renderGraph->addNode( std::unique_ptr<Node>( clearNode ) );
 
             bool linksOK = true;
             linksOK      = m_renderGraph->addLink(
@@ -252,7 +252,7 @@ class MyRendererController : public RenderGraphController
             linksOK = linksOK && m_renderGraph->addLink( clearNode, "image", resultNode, "Beauty" );
 #endif
             auto simpleRenderNode = new SimpleRenderNode( "renderOperator" );
-            m_renderGraph->addNode( simpleRenderNode );
+            m_renderGraph->addNode( std::unique_ptr<Node>( simpleRenderNode ) );
             bool linksOK = true;
             linksOK      = linksOK &&
                       m_renderGraph->addLink( sceneNode, "objects", simpleRenderNode, "objects" );
