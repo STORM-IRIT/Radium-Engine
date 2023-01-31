@@ -20,13 +20,13 @@ TEST_CASE( "Dataflow/Core/DataflowGraph", "[Dataflow][Core][DataflowGraph]" ) {
         DataflowGraph g { "original graph" };
 
         auto source_a = new Sources::SingleDataSourceNode<DataType>( "a" );
-        g.addNode( source_a );
+        g.addNode( std::unique_ptr<Node>( source_a ) );
         auto a        = g.getDataSetter( "a_to" );
         auto source_b = new Sources::SingleDataSourceNode<DataType>( "b" );
-        g.addNode( source_b );
+        g.addNode( std::unique_ptr<Node>( source_b ) );
         auto b    = g.getDataSetter( "b_to" );
         auto sink = new Sinks::SinkNode<DataType>( "r" );
-        g.addNode( sink );
+        g.addNode( std::unique_ptr<Node>( sink ) );
         auto r                       = g.getDataGetter( "r_from" );
         using TestNode               = Functionals::BinaryOpNode<DataType, DataType, DataType>;
         TestNode::BinaryOperator add = []( TestNode::Arg1_type a,
@@ -35,7 +35,7 @@ TEST_CASE( "Dataflow/Core/DataflowGraph", "[Dataflow][Core][DataflowGraph]" ) {
         };
         auto op = new TestNode( "addition" );
         op->setOperator( add );
-        g.addNode( op );
+        g.addNode( std::unique_ptr<Node>( op ) );
         g.addLink( source_a, "to", op, "a" );
         g.addLink( op, "r", sink, "from" );
         g.addLink( source_b, "to", op, "b" );
