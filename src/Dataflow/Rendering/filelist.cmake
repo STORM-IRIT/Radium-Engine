@@ -6,6 +6,7 @@ set(dataflow_rendering_sources
     Renderer/ControllableRenderer.cpp
     Renderer/RenderGraphController.cpp
     RenderingGraph.cpp
+    Nodes/AntiAliasing/FxaaNode.cpp
     Nodes/RenderingBuiltInsNodes.cpp
     Nodes/Sinks/DisplaySinkNode.cpp
     Nodes/Sources/TextureSourceNode.cpp
@@ -24,6 +25,7 @@ set(dataflow_rendering_sources
 set(dataflow_rendering_headers
     Nodes/RenderingBuiltInsNodes.hpp
     Nodes/RenderingNode.hpp
+    Nodes/AntiAliasing/FxaaNode.hpp
     Nodes/RenderNodes/ClearColorNode.hpp
     Nodes/RenderNodes/EmissivityRenderNode.hpp
     Nodes/RenderNodes/EnvironmentLightingNode.hpp

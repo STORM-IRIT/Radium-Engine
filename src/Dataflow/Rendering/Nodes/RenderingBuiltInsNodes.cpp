@@ -17,6 +17,8 @@ DATAFLOW_LIBRARY_INITIALIZER_DECL( RenderingNodes );
 #include <Dataflow/Rendering/Nodes/RenderNodes/VolumeLocalLightingNode.hpp>
 #include <Dataflow/Rendering/Nodes/RenderNodes/WireframeRenderingNode.hpp>
 
+#include <Dataflow/Rendering/Nodes/AntiAliasing/FxaaNode.hpp>
+
 #include <Dataflow/Rendering/RenderingGraph.hpp>
 
 #include <Core/Resources/Resources.hpp>
@@ -154,6 +156,14 @@ std::string registerRenderingNodesFactories() {
             return node;
         },
         "Render" );
+
+    /* --- Image processing --- */
+    renderingFactory->registerNodeCreator<FxaaNode>(
+        [resourcesPath, renderingFactory]( const nlohmann::json& ) {
+            auto node = new FxaaNode( "Fxaa_" + std::to_string( renderingFactory->nextNodeId() ) );
+            return node;
+        },
+        "Image processing" );
 
     /* --- Graphs --- */
     renderingFactory->registerNodeCreator<RenderingGraph>( RenderingGraph::getTypename() + "_",
