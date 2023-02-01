@@ -30,9 +30,6 @@ class RA_DATAFLOW_API SsaoNode : public RenderingNode
     void resize( uint32_t width, uint32_t height ) override;
     bool initInternalShaders() override;
 
-    // SSao does not need rendertechnique
-    bool hasRenderTechnique() override { return false; }
-
     static const std::string getTypename() { return "SSAO Node"; }
 
   protected:
