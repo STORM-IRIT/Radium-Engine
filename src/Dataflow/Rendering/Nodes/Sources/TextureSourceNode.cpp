@@ -18,8 +18,8 @@ TextureSourceNode::TextureSourceNode( const std::string& instanceName,
 }
 
 bool TextureSourceNode::execute() {
-    auto interface = static_cast<PortIn<TextureType>*>( m_interface[0] );
-    if ( interface->isLinked() ) { m_texture = &interface->getData(); }
+    auto interfacePort = static_cast<PortIn<TextureType>*>( m_interface[0] );
+    if ( interfacePort->isLinked() ) { m_texture = &interfacePort->getData(); }
     m_portOut->setData( m_texture );
     return true;
 }
