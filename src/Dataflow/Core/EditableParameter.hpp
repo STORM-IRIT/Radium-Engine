@@ -2,8 +2,10 @@
 #include <Dataflow/RaDataflow.hpp>
 
 #include <string>
-#include <typeinfo>
+#include <typeindex>
 #include <vector>
+
+#include <nlohmann/json.hpp>
 
 namespace Ra {
 namespace Dataflow {
@@ -26,13 +28,24 @@ struct RA_DATAFLOW_API EditableParameterBase {
     EditableParameterBase& operator=( const EditableParameterBase& ) = delete;
 
     /// Construct an base editable parameter from its name and type hash
-    EditableParameterBase( const std::string& name, size_t hashedType );
+    EditableParameterBase( const std::string& name, std::type_index typeIdx );
     ///@}
 
     virtual ~EditableParameterBase() = default;
-    std::string getName();
+    std::string getName() const;
+    std::type_index getType() const;
+    /// Constraints on the edited data : json object describing the constraints
+    /// Add constraints or associated data to the editable.
+    void setConstraints( const nlohmann::json& constraints );
+    /// get the constraints or the associated data from the editable.
+    const nlohmann::json& getConstraints() const;
+
+  private:
     std::string m_name { "" };
-    size_t m_hashedType { 0 };
+    std::type_index m_typeIdx;
+
+    /// Constraints on the edited data
+    nlohmann::json m_constraints;
 };
 
 template <typename T>
@@ -48,39 +61,37 @@ struct EditableParameter : public EditableParameterBase {
     EditableParameter( const std::string& name, T& data );
     ///@}
 
-    /// Add constraints or associated data to the editable.
-    /// \todo, replace this with a json object describing the constraints
-    /// with value convertible to T ....
-    void addAdditionalData( T newData );
-
     /// The data to edit.
     /// This is a reference to any data stored in a node and that the user could change
     T& m_data;
-
-    /// Constraints on the edited data
-    /// \todo, replace by a json desc of the constraints.
-    std::vector<T> additionalData;
 };
 
 // -----------------------------------------------------------------
 // ---------------------- inline methods ---------------------------
 
-inline EditableParameterBase::EditableParameterBase( const std::string& name, size_t hashedType ) :
-    m_name( name ), m_hashedType( hashedType ) {}
+inline EditableParameterBase::EditableParameterBase( const std::string& name,
+                                                     std::type_index typeIdx ) :
+    m_name( name ), m_typeIdx( typeIdx ) {}
 
 template <typename T>
 EditableParameter<T>::EditableParameter( const std::string& name, T& data ) :
-    EditableParameterBase( name, typeid( T ).hash_code() ), m_data( data ) {}
+    EditableParameterBase( name, typeid( T ) ), m_data( data ) {}
 
-template <typename T>
-void EditableParameter<T>::addAdditionalData( T newData ) {
-    additionalData.push_back( newData );
-}
-
-inline std::string EditableParameterBase::getName() {
+inline std::string EditableParameterBase::getName() const {
     return m_name;
 }
 
+inline std::type_index EditableParameterBase::getType() const {
+    return m_typeIdx;
+}
+
+inline void EditableParameterBase::setConstraints( const nlohmann::json& constraints ) {
+    m_constraints = constraints;
+}
+
+inline const nlohmann::json& EditableParameterBase::getConstraints() const {
+    return m_constraints;
+}
 } // namespace Core
 } // namespace Dataflow
 } // namespace Ra
