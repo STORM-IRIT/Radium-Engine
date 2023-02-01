@@ -123,17 +123,14 @@ void initializeWidgetFactory() {
             auto editable    = dynamic_cast<EditableParameter<Scalar>*>( editableParameter );
             auto powerSlider = new PowerSlider();
             powerSlider->setObjectName( editable->getName().c_str() );
-            editable->m_data = 0.0;
+            editable->m_data = 0.0_ra;
             powerSlider->setValue( editable->m_data );
-            // todo : manage constraints
-            /*
-            if ( editable->additionalData.size() >= 2 ) {
-                powerSlider->setRange( editable->additionalData[0], editable->additionalData[1] );
-            }
-            else {
-                powerSlider->setRange( 0.0, 9999.0 );
-            }
-            */
+            const auto& constraints = editable->getConstraints();
+            Scalar minValue         = 0_ra;
+            Scalar maxValue         = 1000_ra;
+            if ( constraints.contains( "min" ) ) { minValue = Scalar( constraints["min"] ); }
+            if ( constraints.contains( "max" ) ) { maxValue = Scalar( constraints["max"] ); }
+            powerSlider->setRange( minValue, maxValue );
             PowerSlider::connect( powerSlider,
                                   &PowerSlider::valueChanged,
                                   [editable]( Scalar value ) { editable->m_data = value; } );
