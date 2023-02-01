@@ -200,8 +200,8 @@ QWidget* getWidget( Node* node ) {
         QWidget* newWidget = WidgetFactory::createWidget( edtParam );
         if ( newWidget ) {
             newWidget->setParent( controlPanel );
-            newWidget->setObjectName( edtParam->m_name.c_str() );
-            controlPanel->addLabel( edtParam->m_name );
+            newWidget->setObjectName( edtParam->getName().c_str() );
+            controlPanel->addLabel( edtParam->getName() );
             controlPanel->addWidget( newWidget );
 
             if ( i != node->getEditableParameters().size() - 1 ) { controlPanel->addSeparator(); }
@@ -218,7 +218,7 @@ void updateWidget( Node* node, QWidget* widget ) {
     for ( size_t i = 0; i < node->getEditableParameters().size(); i++ ) {
         auto edtParam = node->getEditableParameters()[i].get();
         if ( !WidgetFactory::updateWidget( widget, edtParam ) ) {
-            std::cerr << "Unable to update parameter " << edtParam->m_name << "\n";
+            std::cerr << "Unable to update parameter " << edtParam->getName() << "\n";
         }
     }
 }
