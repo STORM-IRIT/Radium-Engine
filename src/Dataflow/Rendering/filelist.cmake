@@ -16,6 +16,7 @@ set(dataflow_rendering_sources
     Nodes/RenderNodes/LocalLightingNode.cpp
     Nodes/RenderNodes/SimpleRenderNode.cpp
     Nodes/RenderNodes/SsaoRenderNode.cpp
+    Nodes/RenderNodes/TransparentLocalLightingNode.cpp
 )
 
 set(dataflow_rendering_headers
@@ -28,6 +29,7 @@ set(dataflow_rendering_headers
     Nodes/RenderNodes/LocalLightingNode.hpp
     Nodes/RenderNodes/SimpleRenderNode.hpp
     Nodes/RenderNodes/SsaoRenderNode.hpp
+    Nodes/RenderNodes/TransparentLocalLightingNode.hpp
     Nodes/Sinks/DisplaySinkNode.hpp
     Nodes/Sources/Scene.hpp
     Nodes/Sources/EnvMapSourceNode.hpp
