@@ -64,7 +64,7 @@ void LocalLightingNode::destroy() {
     delete m_nodeState;
 }
 
-void LocalLightingNode::resize( uint32_t width, uint32_t height ) {}
+void LocalLightingNode::resize( uint32_t, uint32_t ) {}
 
 void LocalLightingNode::buildRenderTechnique( const Ra::Engine::Rendering::RenderObject* ro,
                                               Ra::Engine::Rendering::RenderTechnique& rt ) const {
@@ -130,7 +130,8 @@ bool LocalLightingNode::execute() {
     if ( lights.size() > 0 ) {
         for ( const auto& l : lights ) {
             Ra::Engine::Data::RenderParameters inPassParams;
-            inPassParams.addParameter( "amb_occ_sampler", m_blankAO );
+            // Ambient occlusion is not really meaningful for local lighting
+            inPassParams.addParameter( "amb_occ_sampler", /* aoTexture->texture() */ m_blankAO );
             l->getRenderParameters( inPassParams );
             for ( const auto& ro : renderObjects ) {
                 ro->render( inPassParams, camera, m_idx );
