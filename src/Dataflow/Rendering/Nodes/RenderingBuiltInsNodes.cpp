@@ -14,6 +14,7 @@ DATAFLOW_LIBRARY_INITIALIZER_DECL( RenderingNodes );
 #include <Dataflow/Rendering/Nodes/RenderNodes/SimpleRenderNode.hpp>
 #include <Dataflow/Rendering/Nodes/RenderNodes/SsaoRenderNode.hpp>
 #include <Dataflow/Rendering/Nodes/RenderNodes/TransparentLocalLightingNode.hpp>
+#include <Dataflow/Rendering/Nodes/RenderNodes/VolumeLocalLightingNode.hpp>
 
 #include <Dataflow/Rendering/RenderingGraph.hpp>
 
@@ -108,6 +109,16 @@ std::string registerRenderingNodesFactories() {
         [resourcesPath, renderingFactory]( const nlohmann::json& data ) {
             auto node = new LocalLightingNode( "LocalLighting_" +
                                                std::to_string( renderingFactory->nextNodeId() ) );
+            node->fromJson( data );
+            node->setResourcesDir( resourcesPath );
+            return node;
+        },
+        "Render" );
+
+    renderingFactory->registerNodeCreator<VolumeLocalLightingNode>(
+        [resourcesPath, renderingFactory]( const nlohmann::json& data ) {
+            auto node = new VolumeLocalLightingNode(
+                "VolumeLocalLighting_" + std::to_string( renderingFactory->nextNodeId() ) );
             node->fromJson( data );
             node->setResourcesDir( resourcesPath );
             return node;
