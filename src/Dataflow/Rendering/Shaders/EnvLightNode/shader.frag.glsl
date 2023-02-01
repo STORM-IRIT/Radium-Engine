@@ -113,7 +113,7 @@ void main() {
         vec3 spec   = clamp( specular * cosTi * OneOverPi * 0.5, 0.001, 1. );
         float r     = getGGXRoughness( material, getPerVertexTexCoord() ) * numLod;
         bc.rgb += textureLod( envTexture, rfl, r ).rgb * spec;
-        bc.rgb *= ao * envStrength;
+        bc.rgb *= ao * envStrength * OneOverPi * 0.5 ;
     }
     else
     { bc.rgb = vec3( 0 ); }
