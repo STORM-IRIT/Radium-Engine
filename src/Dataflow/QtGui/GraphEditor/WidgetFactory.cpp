@@ -5,12 +5,8 @@
 #include <Core/Utils/Color.hpp>
 #include <Gui/Widgets/ControlPanel.hpp>
 
-// #include <RadiumAddons/Gui/Widgets/TransferEditor.hpp>
-
 #include <Dataflow/Core/DataflowGraph.hpp>
 #include <Dataflow/Core/Enumerator.hpp>
-// #include <Dataflow/Core/Nodes/Color/ColorTransformNode.hpp>
-// #include <Dataflow/Core/Nodes/RegisterStandardNodes.hpp>
 
 #include <Engine/Data/EnvironmentTexture.hpp>
 #include <PowerSlider/PowerSlider.hpp>
@@ -33,40 +29,40 @@ using namespace Ra::Engine::Data;
 namespace WidgetFactory {
 using WidgetFunctionPair = std::pair<WidgetCreatorFunc, WidgetUpdaterFunc>;
 
-std::unordered_map<size_t, WidgetFunctionPair> widgetsfunctions;
+std::unordered_map<std::type_index, WidgetFunctionPair> widgetsfunctions;
 
-void registerWidgetInternal( size_t hashedType,
+void registerWidgetInternal( std::type_index typeIdx,
                              WidgetCreatorFunc widgetCreator,
                              WidgetUpdaterFunc widgetUpdater ) {
-    if ( widgetsfunctions.find( hashedType ) == widgetsfunctions.end() ) {
-        widgetsfunctions[hashedType] = { std::move( widgetCreator ), std::move( widgetUpdater ) };
+    if ( widgetsfunctions.find( typeIdx ) == widgetsfunctions.end() ) {
+        widgetsfunctions[typeIdx] = { std::move( widgetCreator ), std::move( widgetUpdater ) };
     }
     else {
-        std::cerr
-            << "WidgetFactory: trying to add an already existing widget builder for hashed type "
-            << hashedType << "." << std::endl;
+        // TODO, when PR #1027 will be merged, demangle the type name
+        std::cerr << "WidgetFactory: trying to add an already existing widget builder for type "
+                  << typeIdx.name() << "." << std::endl;
     }
 }
 
 QWidget* createWidget( EditableParameterBase* editableParameter ) {
-    if ( widgetsfunctions.find( editableParameter->m_hashedType ) != widgetsfunctions.end() ) {
-        return widgetsfunctions[editableParameter->m_hashedType].first( editableParameter );
+    if ( widgetsfunctions.find( editableParameter->getType() ) != widgetsfunctions.end() ) {
+        return widgetsfunctions[editableParameter->getType()].first( editableParameter );
     }
     else {
+        // TODO, when PR #1027 will be merged, demangle the type name
         std::cerr << "WidgetFactory: no defined widget builder for hashed type "
-                  << editableParameter->m_hashedType << "." << std::endl;
+                  << editableParameter->getType().name() << "." << std::endl;
     }
     return nullptr;
 }
 
 bool updateWidget( QWidget* widget, EditableParameterBase* editableParameter ) {
-    if ( widgetsfunctions.find( editableParameter->m_hashedType ) != widgetsfunctions.end() ) {
-        return widgetsfunctions[editableParameter->m_hashedType].second( widget,
-                                                                         editableParameter );
+    if ( widgetsfunctions.find( editableParameter->getType() ) != widgetsfunctions.end() ) {
+        return widgetsfunctions[editableParameter->getType()].second( widget, editableParameter );
     }
     else {
         std::cerr << "WidgetFactory: no defined widget updater for hashed type "
-                  << editableParameter->m_hashedType << "." << std::endl;
+                  << editableParameter->getType().name() << "." << std::endl;
     }
     return false;
 }
@@ -80,7 +76,7 @@ void initializeWidgetFactory() {
             auto editable = dynamic_cast<EditableParameter<std::shared_ptr<EnvironmentTexture>>*>(
                 editableParameter );
 
-            auto controlPanel = new ControlPanel( editable->m_name, false );
+            auto controlPanel = new ControlPanel( editable->getName(), false );
             auto envmpClbck   = [editable, controlPanel]( const std::string& files ) {
                 if ( files.empty() ) { editable->m_data = nullptr; }
                 else {
@@ -124,13 +120,18 @@ void initializeWidgetFactory() {
         []( EditableParameterBase* editableParameter ) {
             auto editable    = dynamic_cast<EditableParameter<Scalar>*>( editableParameter );
             auto powerSlider = new PowerSlider();
-            powerSlider->setObjectName( editable->m_name.c_str() );
+            powerSlider->setObjectName( editable->getName().c_str() );
             editable->m_data = 0.0;
             powerSlider->setValue( editable->m_data );
+            // todo : manage constraints
+            /*
             if ( editable->additionalData.size() >= 2 ) {
                 powerSlider->setRange( editable->additionalData[0], editable->additionalData[1] );
             }
-            else { powerSlider->setRange( 0.0, 9999.0 ); }
+            else {
+                powerSlider->setRange( 0.0, 9999.0 );
+            }
+            */
             PowerSlider::connect( powerSlider,
                                   &PowerSlider::valueChanged,
                                   [editable]( Scalar value ) { editable->m_data = value; } );
@@ -138,7 +139,7 @@ void initializeWidgetFactory() {
         },
         []( QWidget* widget, EditableParameterBase* editableParameter ) -> bool {
             auto editable = dynamic_cast<EditableParameter<Scalar>*>( editableParameter );
-            auto slider   = widget->findChild<PowerSlider*>( editableParameter->m_name.c_str() );
+            auto slider   = widget->findChild<PowerSlider*>( editableParameter->getName().c_str() );
             if ( slider ) {
                 slider->setValue( editable->m_data );
                 return true;
@@ -153,7 +154,7 @@ void initializeWidgetFactory() {
         []( EditableParameterBase* editableParameter ) {
             auto editable = dynamic_cast<EditableParameter<bool>*>( editableParameter );
             auto checkBox = new QCheckBox();
-            checkBox->setObjectName( editable->m_name.c_str() );
+            checkBox->setObjectName( editable->getName().c_str() );
             checkBox->setCheckState( editable->m_data ? Qt::CheckState::Checked
                                                       : Qt::CheckState::Unchecked );
             QCheckBox::connect( checkBox, &QCheckBox::stateChanged, [editable]( int state ) {
@@ -164,7 +165,7 @@ void initializeWidgetFactory() {
         },
         []( QWidget* widget, EditableParameterBase* editableParameter ) -> bool {
             auto editable = dynamic_cast<EditableParameter<bool>*>( editableParameter );
-            auto checkBox = widget->findChild<QCheckBox*>( editableParameter->m_name.c_str() );
+            auto checkBox = widget->findChild<QCheckBox*>( editableParameter->getName().c_str() );
             if ( checkBox ) {
                 checkBox->setCheckState( editable->m_data ? Qt::Checked : Qt::Unchecked );
                 return true;
@@ -179,7 +180,7 @@ void initializeWidgetFactory() {
         []( EditableParameterBase* editableParameter ) {
             auto editable =
                 dynamic_cast<EditableParameter<Ra::Core::Utils::Color>*>( editableParameter );
-            auto controlPanel = new ControlPanel( editable->m_name, false );
+            auto controlPanel = new ControlPanel( editable->getName(), false );
             auto clrCbk       = [editable]( const Ra::Core::Utils::Color& clr ) {
                 editable->m_data = clr;
             };
@@ -206,7 +207,7 @@ void initializeWidgetFactory() {
         []( EditableParameterBase* editableParameter ) {
             auto editable = dynamic_cast<EditableParameter<DataflowGraph>*>( editableParameter );
             auto button   = new QPushButton( "Show graph" );
-            button->setObjectName( editableParameter->m_name.c_str() );
+            button->setObjectName( editableParameter->getName().c_str() );
             QPushButton::connect( button, &QPushButton::clicked, [editable]() {
                 // Display a window to see the graph
                 /*auto graph = reinterpret_cast<DataflowGraph*>( editable );
@@ -224,7 +225,7 @@ void initializeWidgetFactory() {
         },
         []( QWidget* widget, EditableParameterBase* editableParameter ) -> bool {
             auto editable = dynamic_cast<EditableParameter<DataflowGraph>*>( editableParameter );
-            auto button   = widget->findChild<QPushButton*>( editable->m_name.c_str() );
+            auto button   = widget->findChild<QPushButton*>( editable->getName().c_str() );
             if ( button ) { return true; }
             else { return false; }
         } );
@@ -273,7 +274,7 @@ void initializeWidgetFactory() {
             auto editable =
                 dynamic_cast<EditableParameter<Enumerator<std::string>>*>( editableParameter );
             auto selector = new QComboBox();
-            selector->setObjectName( editable->m_name.c_str() );
+            selector->setObjectName( editable->getName().c_str() );
             for ( const auto& e : editable->m_data ) {
                 selector->addItem( e.c_str() );
             }
@@ -286,7 +287,7 @@ void initializeWidgetFactory() {
         []( QWidget* widget, EditableParameterBase* editableParameter ) -> bool {
             auto editable =
                 dynamic_cast<EditableParameter<Enumerator<std::string>>*>( editableParameter );
-            auto comboBox = widget->findChild<QComboBox*>( editable->m_name.c_str() );
+            auto comboBox = widget->findChild<QComboBox*>( editable->getName().c_str() );
             if ( comboBox ) {
                 comboBox->setCurrentText( editable->m_data.get().c_str() );
                 return true;
@@ -301,7 +302,7 @@ void initializeWidgetFactory() {
         []( EditableParameterBase* editableParameter ) {
             auto editable = dynamic_cast<EditableParameter<std::string>*>( editableParameter );
             auto line     = new QLineEdit();
-            line->setObjectName( editable->m_name.c_str() );
+            line->setObjectName( editable->getName().c_str() );
             QLineEdit::connect( line, &QLineEdit::textEdited, [editable]( const QString& string ) {
                 editable->m_data = string.toStdString();
             } );
@@ -309,7 +310,7 @@ void initializeWidgetFactory() {
         },
         []( QWidget* widget, EditableParameterBase* editableParameter ) -> bool {
             auto editable = dynamic_cast<EditableParameter<std::string>*>( editableParameter );
-            auto line     = widget->findChild<QLineEdit*>( editable->m_name.c_str() );
+            auto line     = widget->findChild<QLineEdit*>( editable->getName().c_str() );
             if ( line ) {
                 line->setText( editable->m_data.c_str() );
                 return true;
