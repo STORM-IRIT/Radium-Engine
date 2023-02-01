@@ -4,11 +4,11 @@
 
 #include <Dataflow/Core/Nodes/Sources/SingleDataSourceNode.hpp>
 
+#include <Core/Utils/StdFilesystem.hpp>
 #include <Engine/Data/EnvironmentTexture.hpp>
 
 namespace Ra {
 namespace Dataflow {
-using namespace Ra::Dataflow;
 
 namespace Rendering {
 using namespace Ra::Engine::Data;

@@ -114,7 +114,7 @@ bool SsaoNode::execute() {
     if ( m_aoRadius->isLinked() ) { aoRadius = m_aoRadius->getData(); }
 
     // AO Samples
-    unsigned int samples = m_editableSamples;
+    auto samples = m_editableSamples;
     if ( m_aoSamples->isLinked() ) { samples = m_aoSamples->getData(); }
     if ( m_currentSamples != samples ) {
         m_currentSamples = samples;

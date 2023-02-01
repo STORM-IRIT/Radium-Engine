@@ -47,7 +47,7 @@ class RA_DATAFLOW_API ClearColorNode : public RenderingNode
     Ra::Engine::Data::Texture* m_colorTexture { nullptr };
     globjects::Framebuffer* m_framebuffer { nullptr };
 
-    ColorType m_editableClearColor { ColorType::Grey( 0.12 ) };
+    ColorType m_editableClearColor { ColorType::Grey( 0.12_ra ) };
 
     PortIn<TextureType>* m_portInColorTex {
         new PortIn<TextureType>( "colorTextureToClear", this ) };
