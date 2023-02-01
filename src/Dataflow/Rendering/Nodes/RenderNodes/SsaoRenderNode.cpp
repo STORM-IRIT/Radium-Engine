@@ -39,14 +39,14 @@ SsaoNode::SsaoNode( const std::string& name ) : RenderingNode( name, getTypename
 
     addOutput( m_ssao, m_AO );
 
-    auto editableRadius = new EditableParameter( "radius", m_editableAORadius );
-    editableRadius->addAdditionalData( 0. );
-    editableRadius->addAdditionalData( 100. );
+    auto editableRadius              = new EditableParameter( "radius", m_editableAORadius );
+    nlohmann::json radiusConstraints = { { "min", 0. }, { "max", 100. } };
+    editableRadius->setConstraints( radiusConstraints );
     addEditableParameter( editableRadius );
 
-    auto editableSamples = new EditableParameter( "samples", m_editableSamples );
-    editableSamples->addAdditionalData( 0 );
-    editableSamples->addAdditionalData( 4096 );
+    auto editableSamples             = new EditableParameter( "samples", m_editableSamples );
+    nlohmann::json sampleConstraints = { { "min", 0 }, { "max", 4096 } };
+    editableSamples->setConstraints( sampleConstraints );
     addEditableParameter( editableSamples );
 }
 
