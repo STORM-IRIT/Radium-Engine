@@ -36,7 +36,7 @@ using WidgetUpdaterFunc = std::function<bool( QWidget*, EditableParameterBase* )
 
 /** private method to manage the factory
  */
-RA_DATAFLOW_API void registerWidgetInternal( size_t hashedType,
+RA_DATAFLOW_API void registerWidgetInternal( std::type_index typeIdx,
                                              WidgetCreatorFunc widgetCreator,
                                              WidgetUpdaterFunc widgetUpdater );
 
@@ -47,8 +47,7 @@ RA_DATAFLOW_API void registerWidgetInternal( size_t hashedType,
  */
 template <typename T>
 void registerWidget( WidgetCreatorFunc widgetCreator, WidgetUpdaterFunc widgetUpdater ) {
-    registerWidgetInternal(
-        typeid( T ).hash_code(), std::move( widgetCreator ), std::move( widgetUpdater ) );
+    registerWidgetInternal( typeid( T ), std::move( widgetCreator ), std::move( widgetUpdater ) );
 }
 
 /**
