@@ -11,6 +11,7 @@ set(dataflow_rendering_sources
     Nodes/Sources/TextureSourceNode.cpp
     Nodes/RenderNodes/ClearColorNode.cpp
     Nodes/RenderNodes/EmissivityRenderNode.cpp
+    Nodes/RenderNodes/EnvironmentLightingNode.cpp
     Nodes/RenderNodes/GeometryAovsNode.cpp
     Nodes/RenderNodes/SimpleRenderNode.cpp
     Nodes/RenderNodes/SsaoRenderNode.cpp
@@ -21,6 +22,7 @@ set(dataflow_rendering_headers
     Nodes/RenderingNode.hpp
     Nodes/RenderNodes/ClearColorNode.hpp
     Nodes/RenderNodes/EmissivityRenderNode.hpp
+    Nodes/RenderNodes/EnvironmentLightingNode.hpp
     Nodes/RenderNodes/GeometryAovsNode.hpp
     Nodes/RenderNodes/SimpleRenderNode.hpp
     Nodes/RenderNodes/SsaoRenderNode.hpp
