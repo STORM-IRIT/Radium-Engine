@@ -177,10 +177,11 @@ bool DataflowGraph::fromJsonInternal( const nlohmann::json& data ) {
             Node* nodeTo { nullptr };
             std::string toInput { "" };
 
-            if ( nodeById.find( l["out_id"] ) != nodeById.end() ) {
-                nodeFrom      = nodeById[l["out_id"]];
+            auto nodeId = l["out_id"];
+            auto itNode = nodeById.find( nodeId );
+            if ( itNode != nodeById.end() ) {
+                nodeFrom      = itNode->second;
                 int fromIndex = l["out_index"];
-
                 if ( fromIndex >= 0 && fromIndex < int( nodeFrom->getOutputs().size() ) ) {
                     fromOutput = nodeFrom->getOutputs()[fromIndex]->getName();
                 }
@@ -195,13 +196,15 @@ bool DataflowGraph::fromJsonInternal( const nlohmann::json& data ) {
             }
             else {
                 LOG( logERROR ) << "Error when reading JSON file \""
-                                << "\": Could not find a node associated with id " << l["out_id"]
+                                << "\": Could not find a node associated with id " << nodeId
                                 << ". Link not added.";
                 return false;
             }
 
-            if ( nodeById.find( l["in_id"] ) != nodeById.end() ) {
-                nodeTo      = nodeById[l["in_id"]];
+            nodeId = l["in_id"];
+            itNode = nodeById.find( nodeId );
+            if ( itNode != nodeById.end() ) {
+                nodeTo      = itNode->second;
                 int toIndex = l["in_index"];
 
                 if ( toIndex >= 0 && toIndex < int( nodeTo->getInputs().size() ) ) {
@@ -218,15 +221,12 @@ bool DataflowGraph::fromJsonInternal( const nlohmann::json& data ) {
             }
             else {
                 LOG( logERROR ) << "Error when reading JSON file \""
-                                << "\": Could not find a node associated with id " << l["in_id"]
+                                << "\": Could not find a node associated with id " << nodeId
                                 << ". Link not added.";
                 return false;
             }
 
-            if ( nodeFrom && ( fromOutput != "" ) && nodeTo && ( toInput != "" ) ) {
-                addLink( nodeFrom, fromOutput, nodeTo, toInput );
-            }
-            else {
+            if ( !addLink( nodeFrom, fromOutput, nodeTo, toInput ) ) {
                 LOG( logERROR )
                     << "Error when reading JSON file \""
                     << "\": Could not add a link (missing or wrong information, please refer to "
@@ -342,7 +342,7 @@ bool DataflowGraph::addLink( Node* nodeFrom,
     if ( foundFrom == -1 ) {
         LOG( logERROR ) << "DataflowGraph::addLink Unable to find output port "
                         << nodeFromOutputName << " from initial node "
-                        << nodeFrom->getInstanceName();
+                        << nodeFrom->getInstanceName() << " (" << nodeFrom->getTypeName() << ")";
         return false;
     }
 
@@ -358,21 +358,41 @@ bool DataflowGraph::addLink( Node* nodeFrom,
     }
     if ( foundTo == -1 ) {
         LOG( logERROR ) << "DataflowGraph::addLink Unable to find input port " << nodeFromOutputName
-                        << " from destination node " << nodeTo->getInstanceName();
+                        << " from destination node " << nodeTo->getInstanceName() << " ("
+                        << nodeTo->getTypeName() << ")";
         return false;
     }
 
     // Compare types
-    // TODO fix the variable naming ...
     if ( nodeTo->getInputs()[foundTo]->getType() != nodeFrom->getOutputs()[foundFrom]->getType() ) {
+        LOG( logERROR ) << "DataflowGraph::addLink type mismatch from "
+                        << nodeFrom->getInstanceName() << " (" << nodeFrom->getTypeName() << ") /"
+                        << nodeFrom->getOutputs()[foundFrom]->getName() << " (" << foundFrom
+                        << " ++ " << nodeFrom->getOutputs()[foundFrom]->getType() << ")"
+                        << " to " << nodeTo->getInstanceName() << " (" << nodeTo->getTypeName()
+                        << ") / " << nodeTo->getInputs()[foundTo]->getName() << " (" << foundTo
+                        << " ++ " << nodeTo->getInputs()[foundTo]->getType() << ") ";
         return false;
     }
 
     // Check if input is connected
-    if ( nodeTo->getInputs()[foundTo]->isLinked() ) { return false; }
+    if ( nodeTo->getInputs()[foundTo]->isLinked() ) {
+        LOG( logERROR )
+            << "DataflowGraph::addLink destination port not available (already linked) for "
+            << nodeTo->getInstanceName() << " (" << nodeFrom->getTypeName() << "), port "
+            << nodeTo->getInputs()[foundTo]->getName();
+        return false;
+    }
 
     // Try to connect ports
     if ( !nodeTo->getInputs()[foundTo]->connect( nodeFrom->getOutputs()[foundFrom].get() ) ) {
+        LOG( logERROR ) << "DataflowGraph::addLink unable to connect from "
+                        << nodeFrom->getInstanceName() << " (" << nodeFrom->getTypeName() << ") /"
+                        << nodeFrom->getOutputs()[foundFrom]->getName() << " (" << foundFrom
+                        << " ++ " << nodeFrom->getOutputs()[foundFrom]->getType() << ")"
+                        << " to " << nodeTo->getInstanceName() << " (" << nodeTo->getTypeName()
+                        << ") / " << nodeTo->getInputs()[foundTo]->getName() << " (" << foundTo
+                        << " ++ " << nodeTo->getInputs()[foundTo]->getType() << ") ";
         return false;
     }
     // The state of the graph changes, set it to not ready
@@ -406,12 +426,13 @@ bool DataflowGraph::removeLink( Node* node, const std::string& nodeInputName ) {
     return true;
 }
 
-// Todo, rewrite this method using std::find_if ?
 int DataflowGraph::findNode( const Node* node ) const {
-    for ( size_t i = 0; i < m_nodes.size(); i++ ) {
-        if ( *m_nodes[i] == *node ) { return i; }
+    auto foundIt = std::find_if(
+        m_nodes.begin(), m_nodes.end(), [node]( const auto& p ) { return *p == *node; } );
+    if ( foundIt != m_nodes.end() ) { return std::distance( m_nodes.begin(), foundIt ); }
+    else {
+        return -1;
     }
-    return -1;
 }
 
 bool DataflowGraph::compile() {
@@ -436,8 +457,7 @@ bool DataflowGraph::compile() {
     int maxLevel = 0;
     for ( auto& infNode : infoNodes ) {
         auto n = infNode.first;
-        // n->setResourcesDir( m_resourceDir ); // --> This must be configured per node, e.g. by the
-        // factory Compute the nodes' level starting from sources
+        // Compute the nodes' level starting from sources
         if ( n->getInputs().empty() ) {
             // Tag successors
             for ( auto const successor : infNode.second.second ) {
@@ -550,7 +570,7 @@ bool DataflowGraph::addSetter( PortBase* in ) {
 
 inline bool DataflowGraph::addGetter( PortBase* out ) {
     if ( out->is_input() ) { return false; }
-    // This is very similar than addOutput, except the data can't be set, they will be in the init
+    // This is very similar to addOutput, except the data can't be set, they will be in the init
     // of any Sink
     bool found = false;
     // TODO check if this verification is needed ?
@@ -561,7 +581,7 @@ inline bool DataflowGraph::addGetter( PortBase* out ) {
     return !found;
 }
 
-bool DataflowGraph::releaseDataSetter( std::string portName ) {
+bool DataflowGraph::releaseDataSetter( const std::string& portName ) {
     auto setter = m_dataSetters.find( portName );
     if ( setter != m_dataSetters.end() ) {
         auto [desc, in] = setter->second;
@@ -572,11 +592,11 @@ bool DataflowGraph::releaseDataSetter( std::string portName ) {
 }
 
 // Why is this method useful if it is the same than getDataSetter ?
-bool DataflowGraph::activateDataSetter( std::string portName ) {
+bool DataflowGraph::activateDataSetter( const std::string& portName ) {
     return getDataSetter( portName ) != nullptr;
 }
 
-std::shared_ptr<PortBase> DataflowGraph::getDataSetter( std::string portName ) {
+std::shared_ptr<PortBase> DataflowGraph::getDataSetter( const std::string& portName ) {
     auto setter = m_dataSetters.find( portName );
     if ( setter != m_dataSetters.end() ) {
         auto [desc, in] = setter->second;
@@ -597,13 +617,11 @@ std::vector<DataflowGraph::DataSetterDesc> DataflowGraph::getAllDataSetters() {
     return r;
 }
 
-/// Not sure this method do the right thing ... if we want to get data from the port, it must be an
-/// output port ...
-
-PortBase* DataflowGraph::getDataGetter( std::string portName ) {
-    for ( auto& portOut : m_outputs ) {
-        if ( portOut->getName() == portName ) { return portOut.get(); }
-    }
+PortBase* DataflowGraph::getDataGetter( const std::string& portName ) {
+    auto portIt = std::find_if( m_outputs.begin(), m_outputs.end(), [portName]( const auto& p ) {
+        return p->getName() == portName;
+    } );
+    if ( portIt != m_outputs.end() ) { return portIt->get(); }
     return nullptr;
 }
 
@@ -617,9 +635,11 @@ std::vector<DataflowGraph::DataGetterDesc> DataflowGraph::getAllDataGetters() {
 }
 
 Node* DataflowGraph::getNode( const std::string& instanceNameNode ) const {
-    for ( const auto& node : m_nodes ) {
-        if ( node->getInstanceName() == instanceNameNode ) { return node.get(); }
-    }
+    auto nodeIt =
+        std::find_if( m_nodes.begin(), m_nodes.end(), [instanceNameNode]( const auto& n ) {
+            return n->getInstanceName() == instanceNameNode;
+        } );
+    if ( nodeIt != m_nodes.end() ) { return nodeIt->get(); }
     LOG( logERROR ) << "DataflowGraph::getNode : The node with the instance name "
                     << instanceNameNode << " has not been found";
     return nullptr;

@@ -128,26 +128,35 @@ class RA_DATAFLOW_API DataflowGraph : public Node
     /// \note As ownership is shared with the caller, the graph must survive the returned
     /// pointer to be able to use the dataSetter..
     /// \params portName The name of the input port of the graph
-    std::shared_ptr<PortBase> getDataSetter( std::string portName );
+    std::shared_ptr<PortBase> getDataSetter( const std::string& portName );
 
     /// \brief disconnect the data setting port from its inputs.
-    bool releaseDataSetter( std::string portName );
+    bool releaseDataSetter( const std::string& portName );
     /// \brief connect the data setting port from its inputs.
-    bool activateDataSetter( std::string portName );
+    bool activateDataSetter( const std::string& portName );
 
     /// Returns an alias to the named output port of the graph.
     /// Allows to get the data stored at this port after the execution of the graph.
     /// \note ownership is left to the graph. The graph must survive the returned
     /// pointer to be able to use the dataGetter..
     /// \params portName the name of the output port
-    PortBase* getDataGetter( std::string portName );
+    PortBase* getDataGetter( const std::string& portName );
 
+    /// \brief Data setter descriptor.
+    /// A Data setter descriptor is composed of an output port (linked by construction to an input
+    /// port of the graph), its name and its type.
+    /// Use setData on the output port to pass data to the graph
     using DataSetterDesc = std::tuple<std::shared_ptr<PortBase>, std::string, std::string>;
+
+    /// \brief Data getter descriptor.
+    /// A Data getter descriptor is composed of an output port (belonging to any node of the graph),
+    /// its name and its type.
+    /// Use getData on the output port to extract data from the graph
     using DataGetterDesc = std::tuple<PortBase*, std::string, std::string>;
 
     /// Creates a vector that stores all the DataSetters (\see getDataSetter) of the graph.
-    /// A tuple is composed of an output port connected to an input port of the graph, its name its
-    /// type. \note If called multiple times for the same port, only the last returned result is
+
+    /// \note If called multiple times for the same port, only the last returned result is
     /// usable.
     /// TODO : Verify why, when listing the data setters, they are connected ...
     std::vector<DataSetterDesc> getAllDataSetters();
