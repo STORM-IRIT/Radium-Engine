@@ -131,7 +131,7 @@ bool LocalLightingNode::execute() {
         for ( const auto& l : lights ) {
             Ra::Engine::Data::RenderParameters inPassParams;
             // Ambient occlusion is not really meaningful for local lighting
-            inPassParams.addParameter( "amb_occ_sampler", /* aoTexture->texture() */ m_blankAO );
+            inPassParams.addParameter( "amb_occ_sampler", aoTexture );
             l->getRenderParameters( inPassParams );
             for ( const auto& ro : renderObjects ) {
                 ro->render( inPassParams, camera, m_idx );

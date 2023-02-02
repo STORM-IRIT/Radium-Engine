@@ -49,11 +49,11 @@ class RA_DATAFLOW_API ClearColorNode : public RenderingNode
 
     ColorType m_editableClearColor { ColorType::Grey( 0.12_ra ) };
 
-    PortIn<TextureType>* m_portInColorTex { new PortIn<TextureType>( "textureToClear", this ) };
-    PortIn<ColorType>* m_portInClearColor { new PortIn<ColorType>( "clearColor", this ) };
+    PortIn<TextureType>* m_portInColorTex { new PortIn<TextureType>( "texture", this ) };
+    PortIn<ColorType>* m_portInClearColor { new PortIn<ColorType>( "clear color", this ) };
     PortIn<EnvironmentType>* m_portInEnvmap { new PortIn<EnvironmentType>( "environment", this ) };
     PortIn<CameraType>* m_portInCamera { new PortIn<CameraType>( "camera", this ) };
-    PortOut<TextureType>* m_portOutColorTex { new PortOut<TextureType>( "image", this ) };
+    PortOut<TextureType>* m_portOutColorTex { new PortOut<TextureType>( "Beauty", this ) };
 };
 
 } // namespace Nodes

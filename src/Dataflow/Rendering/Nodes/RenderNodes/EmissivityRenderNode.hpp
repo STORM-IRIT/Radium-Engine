@@ -56,9 +56,9 @@ class RA_DATAFLOW_API EmissivityNode : public RenderingNode
 
     PortIn<TextureType>* m_inDepth { new PortIn<TextureType>( "depth", this ) };
     PortIn<TextureType>* m_inColor { new PortIn<TextureType>( "color", this ) };
-    PortIn<TextureType>* m_inAo { new PortIn<TextureType>( "ssao", this ) };
+    PortIn<TextureType>* m_inAo { new PortIn<TextureType>( "AO", this ) };
 
-    PortOut<TextureType>* m_outColor { new PortOut<TextureType>( "beauty", this ) };
+    PortOut<TextureType>* m_outColor { new PortOut<TextureType>( "Beauty", this ) };
 };
 
 } // namespace Nodes
