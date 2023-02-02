@@ -116,7 +116,8 @@ class FilterSelector final : public Node
     std::map<std::string, function_type> m_functions {
         { "true", []( const T& ) { return true; } },
         { "false", []( const T& ) { return false; } },
-        { "<", [this]( const T& v ) { return v < this->m_threshold; } } };
+        { "<", [this]( const T& v ) { return v < this->m_threshold; } },
+        { ">", [this]( const T& v ) { return v > this->m_threshold; } } };
 
     std::string m_operatorName { "true" };
     function_type m_currentFunction = m_functions[m_operatorName];
@@ -206,11 +207,13 @@ TEST_CASE( "Dataflow/Core/Custom nodes", "[Dataflow][Core][Custom nodes]" ) {
 
         // execute the graph that filter out nothing
         // execute
-        g->execute();
-        // Get results as references (ne need to get them again later)
+        r = g->execute();
+        REQUIRE( r );
+        // Get results as references (no need to get them again later)
         auto& vres = filteredCollection->getData<CollectionType>();
         auto& vop  = generatedOperator->getData<std::string>();
 
+        REQUIRE( vop == "true" );
         REQUIRE( vres.size() == testVector.size() );
         std::cout << "Result after applying operator " << vop << " (from " << op
                   << " ) and threshold " << threshold << ": \n\t";
@@ -221,7 +224,9 @@ TEST_CASE( "Dataflow/Core/Custom nodes", "[Dataflow][Core][Custom nodes]" ) {
 
         // change operator to filter out everything
         op = "false";
-        g->execute();
+        r  = g->execute();
+        REQUIRE( r );
+        REQUIRE( vop == "false" );
         REQUIRE( vres.size() == 0 );
 
         std::cout << "Result after applying operator " << vop << " (from " << op
@@ -233,7 +238,8 @@ TEST_CASE( "Dataflow/Core/Custom nodes", "[Dataflow][Core][Custom nodes]" ) {
 
         // Change operator to keep element less than threshold
         op = "<";
-        g->execute();
+        r  = g->execute();
+        REQUIRE( r );
 
         std::cout << "Result after applying operator " << vop << " (from " << op
                   << " ) and threshold " << threshold << ": \n\t";
@@ -242,11 +248,23 @@ TEST_CASE( "Dataflow/Core/Custom nodes", "[Dataflow][Core][Custom nodes]" ) {
         }
         std::cout << '\n';
         REQUIRE( *( std::max_element( vres.begin(), vres.end() ) ) < threshold );
+
+        // Change operator to keep element greater than threshold
+        op = ">";
+        r  = g->execute();
+        REQUIRE( r );
+
+        std::cout << "Result after applying operator " << vop << " (from " << op
+                  << " ) and threshold " << threshold << ": \n\t";
+        for ( auto ord : vres ) {
+            std::cout << ord << ' ';
+        }
+        std::cout << '\n';
+        REQUIRE( *( std::max_element( vres.begin(), vres.end() ) ) > threshold );
     }
     SECTION( "Serialization of a custom graph" ) {
         // Create and fill the factory for the custom nodes
-        NodeFactorySet::mapped_type customFactory {
-            new NodeFactorySet::mapped_type::element_type( "CustomNodesUnitTests" ) };
+        auto customFactory = NodeFactoriesManager::createFactory( "CustomNodesUnitTests" );
 
         // add node creators to the factory
         bool registered;
