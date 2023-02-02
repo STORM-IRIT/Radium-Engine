@@ -77,7 +77,7 @@ bool ClearColorNode::execute() {
 
 void ClearColorNode::toJsonInternal( nlohmann::json& data ) const {
     auto c = ColorType ::linearRGBTosRGB( m_editableClearColor );
-    std::array<Scalar, 3> color { c.x(), c.y(), c.z() };
+    std::array<Scalar, 3> color { { c.x(), c.y(), c.z() } };
     data["clearColor"] = color;
 }
 

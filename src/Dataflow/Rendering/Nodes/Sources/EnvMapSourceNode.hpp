@@ -40,9 +40,9 @@ template <>
 inline void
 SingleDataSourceNode<Rendering::EnvmapPtrType>::toJsonInternal( nlohmann::json& data ) const {
     auto envTex = getData();
-    if ( envTex ) {
-        data["files"]    = ( *envTex )->getImageName().c_str();
-        data["strength"] = ( *envTex )->getStrength() * 100.;
+    if ( envTex->get() ) {
+        data["files"]    = envTex->get()->getImageName().c_str();
+        data["strength"] = envTex->get()->getStrength() * 100.;
     }
 }
 
@@ -69,11 +69,13 @@ SingleDataSourceNode<Rendering::EnvmapPtrType>::fromJsonInternal( const nlohmann
             setData( envmp );
         }
         else {
-            setData( nullptr );
+            Rendering::EnvmapPtrType nullEnvMap { nullptr };
+            setData( nullEnvMap );
         }
     }
     else {
-        setData( nullptr );
+        Rendering::EnvmapPtrType nullEnvMap { nullptr };
+        setData( nullEnvMap );
     }
     return true;
 }
