@@ -9,15 +9,17 @@ namespace Core {
 using namespace Ra::Core::Utils;
 
 bool Node::s_uuidGeneratorInitialized { false };
-uuids::uuid_random_generator* Node::s_uidGenerator { nullptr };
+std::unique_ptr<uuids::uuid_random_generator> Node::s_uidGenerator { nullptr };
+std::unique_ptr<std::mt19937> Node::s_uuidSeeds { nullptr };
 
 void Node::createUuidGenerator() {
     std::random_device rd;
     auto seed_data = std::array<int, std::mt19937::state_size> {};
     std::generate( std::begin( seed_data ), std::end( seed_data ), std::ref( rd ) );
     std::seed_seq seq( std::begin( seed_data ), std::end( seed_data ) );
-    auto generator             = new std::mt19937( seq );
-    s_uidGenerator             = new uuids::uuid_random_generator( *generator );
+    s_uuidSeeds    = std::make_unique<std::mt19937>( seq );
+    s_uidGenerator = std::make_unique<uuids::uuid_random_generator>( s_uuidSeeds.get() );
+    // delete generator;
     s_uuidGeneratorInitialized = true;
 }
 
