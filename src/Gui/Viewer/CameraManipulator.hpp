@@ -123,7 +123,7 @@ class RA_GUI_API CameraManipulator : public QObject
   signals:
 
   protected:
-    std::tuple<Scalar, Scalar> computeDeltaMouseMove( const QMouseEvent* mouseEvent ) {
+    std::pair<Scalar, Scalar> computeDeltaMouseMove( const QMouseEvent* mouseEvent ) {
         return { ( mouseEvent->pos().x() - m_lastMouseX ) / m_camera->getWidth(),
                  ( mouseEvent->pos().y() - m_lastMouseY ) / m_camera->getHeight() };
     }
