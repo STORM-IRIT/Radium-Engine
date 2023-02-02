@@ -47,10 +47,8 @@ bool DataflowGraph::execute() {
 }
 
 void DataflowGraph::destroy() {
-    std::for_each( m_nodesByLevel.begin(), m_nodesByLevel.end(), []( auto& level ) {
-        std::for_each( level.begin(), level.end(), []( auto node ) { node->destroy(); } );
-        level.clear();
-    } );
+    std::for_each(
+        m_nodesByLevel.begin(), m_nodesByLevel.end(), []( auto& level ) { level.clear(); } );
     m_nodesByLevel.clear();
     m_nodes.clear();
     m_factories.reset();
