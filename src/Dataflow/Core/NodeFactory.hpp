@@ -216,6 +216,14 @@ RA_DATAFLOW_API NodeFactorySet& getFactoryManager();
 RA_DATAFLOW_API bool registerFactory( NodeFactorySet::mapped_type factory );
 
 /**
+ * \brief Create a factory to be customized and later added to the manager
+ * \param name The name of the factory to create
+ * \return a configurable factory.
+ * \note The created factory is not registered into the manager.
+ */
+RA_DATAFLOW_API NodeFactorySet::mapped_type createFactory( const std::string& name );
+
+/**
  * \brief Gets the given factory from the manager
  * \param factoryName
  * \return  a shared_ptr to the requested factory, nullptr if the factory does not exist.
