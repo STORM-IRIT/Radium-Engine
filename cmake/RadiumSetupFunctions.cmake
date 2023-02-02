@@ -976,7 +976,7 @@ function(configure_radium_library)
 
     if(CMAKE_BUILD_TYPE STREQUAL "Debug")
         target_compile_definitions(${ARGS_TARGET} ${PropertyQualifier} _DEBUG)
-        if(MSVC OR MSVC_IDE)
+        if((MSVC OR MSVC_IDE) AND NOT (TargetType STREQUAL INTERFACE_LIBRARY))
             install(FILES $<TARGET_PDB_FILE:${ARGS_TARGET}> DESTINATION bin)
         endif()
     endif()
