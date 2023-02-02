@@ -12,8 +12,7 @@ namespace Core {
 namespace NodeFactoriesManager {
 
 void registerStandardFactories() {
-    NodeFactorySet::mapped_type coreFactory { new NodeFactorySet::mapped_type::element_type(
-        NodeFactoriesManager::dataFlowBuiltInsFactoryName ) };
+    auto coreFactory = createFactory( NodeFactoriesManager::dataFlowBuiltInsFactoryName );
     /* --- Sources --- */
     Private::registerSourcesFactories( coreFactory );
 
