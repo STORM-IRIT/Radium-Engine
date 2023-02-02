@@ -42,8 +42,8 @@ bool NodeFactory::registerNodeCreator( std::string nodeType,
         return true;
     }
     LOG( Ra::Core::Utils::logWARNING )
-        << "NodeFactory: trying to add an already existing node creator for type " << nodeType
-        << ".";
+        << "NodeFactory (" << getName()
+        << ") : trying to add an already existing node creator for type " << nodeType << ".";
     return false;
 }
 
@@ -78,6 +78,10 @@ bool registerFactory( NodeFactorySet::mapped_type factory ) {
     auto& fctMngr    = getFactoryManager();
     auto factoryName = factory->getName();
     return fctMngr.addFactory( std::move( factoryName ), std::move( factory ) );
+}
+
+NodeFactorySet::mapped_type createFactory( const std::string& name ) {
+    return NodeFactorySet::mapped_type { new NodeFactorySet::mapped_type::element_type( name ) };
 }
 
 NodeFactorySet::mapped_type getFactory( NodeFactorySet::key_type factoryName ) {
