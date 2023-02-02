@@ -46,8 +46,7 @@ std::string registerRenderingNodesFactories() {
     }
     auto resourcesPath { *resourcesCheck };
 
-    Core::NodeFactorySet::mapped_type renderingFactory {
-        new Core::NodeFactorySet::mapped_type::element_type( "RenderingNodes" ) };
+    auto renderingFactory = Core::NodeFactoriesManager::createFactory( "RenderingNodes" );
 
     /* --- Sources --- */
     renderingFactory->registerNodeCreator<Nodes::SceneNode>( Nodes::SceneNode::getTypename() + "_",
