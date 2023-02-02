@@ -238,6 +238,7 @@ void GraphEditorWindow::loadFile( const QString& fileName ) {
         loaded  = ( m_graph != nullptr );
     }
     else {
+        m_graphEdit->editGraph( nullptr );
         m_graph->destroy();
         loaded = m_graph->loadFromJson( fileName.toStdString() );
     }
