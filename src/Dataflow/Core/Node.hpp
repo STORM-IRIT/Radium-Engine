@@ -216,7 +216,8 @@ class RA_DATAFLOW_API Node
 
     /// generator for uuid
     static bool s_uuidGeneratorInitialized;
-    static uuids::uuid_random_generator* s_uidGenerator;
+    static std::unique_ptr<uuids::uuid_random_generator> s_uidGenerator;
+    static std::unique_ptr<std::mt19937> s_uuidSeeds;
     static void createUuidGenerator();
 
   public:
