@@ -32,7 +32,7 @@ set(test_src
     Core/variableset.cpp
     Core/vectorarray.cpp
     Dataflow/customnodes.cpp
-    Dataflow/graphinspect.cpp
+    Dataflow/graph.cpp
     Dataflow/nodes.cpp
     Dataflow/serialization.cpp
     Dataflow/sourcesandsinks.cpp
