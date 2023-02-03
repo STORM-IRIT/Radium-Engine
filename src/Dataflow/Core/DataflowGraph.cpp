@@ -184,8 +184,8 @@ bool DataflowGraph::fromJsonInternal( const nlohmann::json& data ) {
                     fromOutput = nodeFrom->getOutputs()[fromIndex]->getName();
                 }
                 else {
-                    LOG( logERROR ) << "Error when reading JSON file \""
-                                    << "\": Output index " << fromIndex << " for node \""
+                    LOG( logERROR ) << "DataflowGraph::loadFromJson: error when parsing JSON"
+                                    << ": Output index " << fromIndex << " for node \""
                                     << nodeFrom->getInstanceName() << " ("
                                     << nodeFrom->getTypeName() << ")\" must be between 0 and "
                                     << nodeFrom->getOutputs().size() - 1 << ". Link not added.";
@@ -193,8 +193,8 @@ bool DataflowGraph::fromJsonInternal( const nlohmann::json& data ) {
                 }
             }
             else {
-                LOG( logERROR ) << "Error when reading JSON file \""
-                                << "\": Could not find a node associated with id " << nodeId
+                LOG( logERROR ) << "DataflowGraph::loadFromJson: error when parsing JSON"
+                                << ": Could not find a node associated with id " << nodeId
                                 << ". Link not added.";
                 return false;
             }
@@ -209,25 +209,25 @@ bool DataflowGraph::fromJsonInternal( const nlohmann::json& data ) {
                     toInput = nodeTo->getInputs()[toIndex]->getName();
                 }
                 else {
-                    LOG( logERROR ) << "Error when reading JSON file \""
-                                    << "\": Input index " << toIndex << " for node \""
-                                    << nodeFrom->getInstanceName() << " ("
-                                    << nodeFrom->getTypeName() << ")\" must be between 0 and "
+                    LOG( logERROR ) << "DataflowGraph::loadFromJson: error when parsing JSON"
+                                    << ": Input index " << toIndex << " for node \""
+                                    << nodeTo->getInstanceName() << " (" << nodeTo->getTypeName()
+                                    << ")\" must be between 0 and "
                                     << nodeTo->getInputs().size() - 1 << ". Link not added.";
                     return false;
                 }
             }
             else {
-                LOG( logERROR ) << "Error when reading JSON file \""
-                                << "\": Could not find a node associated with id " << nodeId
+                LOG( logERROR ) << "DataflowGraph::loadFromJson: error when parsing JSON"
+                                << ": Could not find a node associated with id " << nodeId
                                 << ". Link not added.";
                 return false;
             }
 
             if ( !addLink( nodeFrom, fromOutput, nodeTo, toInput ) ) {
                 LOG( logERROR )
-                    << "Error when reading JSON file \""
-                    << "\": Could not add a link (missing or wrong information, please refer to "
+                    << "DataflowGraph::loadFromJson: error when parsing JSON"
+                    << ": Could not add a link (missing or wrong information, please refer to "
                        "the previous error messages). Link not added.";
                 return false;
             }
@@ -265,7 +265,7 @@ std::pair<bool, Node*> DataflowGraph::addNode( std::unique_ptr<Node> newNode ) {
         return { true, addedNode };
     }
     else {
-        return { false, newNode.get() };
+        return { false, newNode.release() };
     }
 }
 
@@ -317,13 +317,15 @@ bool DataflowGraph::addLink( Node* nodeFrom,
                              const std::string& nodeToInputName ) {
     // Check node "from" existence in the graph
     if ( findNode( nodeFrom ) == -1 ) {
-        LOG( logERROR ) << "DataflowGraph::addLink Unable to find initial node.";
+        LOG( logERROR ) << "DataflowGraph::addLink Unable to find initial node "
+                        << nodeFrom->getInstanceName();
         return false;
     }
 
     // Check node "to" existence in the graph
     if ( findNode( nodeTo ) == -1 ) {
-        LOG( logERROR ) << "DataflowGraph::addLink Unable to find destination node.";
+        LOG( logERROR ) << "DataflowGraph::addLink Unable to find destination node "
+                        << nodeTo->getInstanceName();
         return false;
     }
 
@@ -364,12 +366,12 @@ bool DataflowGraph::addLink( Node* nodeFrom,
     // Compare types
     if ( nodeTo->getInputs()[foundTo]->getType() != nodeFrom->getOutputs()[foundFrom]->getType() ) {
         LOG( logERROR ) << "DataflowGraph::addLink type mismatch from "
-                        << nodeFrom->getInstanceName() << " (" << nodeFrom->getTypeName() << ") /"
+                        << nodeFrom->getInstanceName() << " (" << nodeFrom->getTypeName() << ") / "
                         << nodeFrom->getOutputs()[foundFrom]->getName() << " (" << foundFrom
-                        << " ++ " << nodeFrom->getOutputs()[foundFrom]->getType() << ")"
+                        << " with type " << nodeFrom->getOutputs()[foundFrom]->getType() << ")"
                         << " to " << nodeTo->getInstanceName() << " (" << nodeTo->getTypeName()
                         << ") / " << nodeTo->getInputs()[foundTo]->getName() << " (" << foundTo
-                        << " ++ " << nodeTo->getInputs()[foundTo]->getType() << ") ";
+                        << " with type " << nodeTo->getInputs()[foundTo]->getType() << ") ";
         return false;
     }
 
@@ -382,17 +384,8 @@ bool DataflowGraph::addLink( Node* nodeFrom,
         return false;
     }
 
-    // Try to connect ports
-    if ( !nodeTo->getInputs()[foundTo]->connect( nodeFrom->getOutputs()[foundFrom].get() ) ) {
-        LOG( logERROR ) << "DataflowGraph::addLink unable to connect from "
-                        << nodeFrom->getInstanceName() << " (" << nodeFrom->getTypeName() << ") /"
-                        << nodeFrom->getOutputs()[foundFrom]->getName() << " (" << foundFrom
-                        << " ++ " << nodeFrom->getOutputs()[foundFrom]->getType() << ")"
-                        << " to " << nodeTo->getInstanceName() << " (" << nodeTo->getTypeName()
-                        << ") / " << nodeTo->getInputs()[foundTo]->getName() << " (" << foundTo
-                        << " ++ " << nodeTo->getInputs()[foundTo]->getType() << ") ";
-        return false;
-    }
+    // port can be connected
+    nodeTo->getInputs()[foundTo]->connect( nodeFrom->getOutputs()[foundFrom].get() );
     // The state of the graph changes, set it to not ready
     m_ready         = false;
     m_shouldBeSaved = true;
