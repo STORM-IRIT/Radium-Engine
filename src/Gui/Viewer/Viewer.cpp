@@ -522,8 +522,8 @@ bool Viewer::initializeGL() {
 }
 
 void Viewer::resizeGL( QResizeEvent* event ) {
-    int width  = event->size().width();
-    int height = event->size().height();
+    int width  = event->size().width() * devicePixelRatio();
+    int height = event->size().height() * devicePixelRatio();
     // Renderer should have been locked by previous events.
 #ifndef OS_MACOS
     gl::glViewport( 0, 0, width, height );
