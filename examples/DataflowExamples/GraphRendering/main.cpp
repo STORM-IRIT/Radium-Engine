@@ -195,28 +195,33 @@ class MyRendererController : public RenderGraphController
         }
 
         // Nodes by level after the compilation
-        auto c  = g.compile();
-        auto cn = g.getNodesByLevel();
-        std::cout << "Nodes of the graph, sorted by level when compiling the graph :\n";
-        for ( size_t i = 0; i < cn->size(); ++i ) {
-            std::cout << "\tLevel " << i << " :\n";
-            for ( const auto n : ( *cn )[i] ) {
-                std::cout << "\t\t\"" << n->getInstanceName() << "\"\n";
+        auto c = g.compile();
+        if ( c ) {
+            auto cn = g.getNodesByLevel();
+            std::cout << "Nodes of the graph, sorted by level when compiling the graph :\n";
+            for ( size_t i = 0; i < cn->size(); ++i ) {
+                std::cout << "\tLevel " << i << " :\n";
+                for ( const auto n : ( *cn )[i] ) {
+                    std::cout << "\t\t\"" << n->getInstanceName() << "\"\n";
+                }
+            }
+
+            // describe the graph interface : inputs and outputs port of the whole graph (not of the
+            // nodes)
+            std::cout << "Inputs and output nodes of the graph " << g.getInstanceName() << " :\n";
+            auto inputs = g.getAllDataSetters();
+            std::cout << "\tInput ports (" << inputs.size() << ") are :\n";
+            for ( auto& [ptrPort, portName, portType] : inputs ) {
+                std::cout << "\t\t\"" << portName << "\" accepting type \"" << portType << "\"\n";
+            }
+            auto outputs = g.getAllDataGetters();
+            std::cout << "\tOutput ports (" << outputs.size() << ") are :\n";
+            for ( auto& [ptrPort, portName, portType] : outputs ) {
+                std::cout << "\t\t\"" << portName << "\" generating type \"" << portType << "\"\n";
             }
         }
-
-        // describe the graph interface : inputs and outputs port of the whole graph (not of the
-        // nodes)
-        std::cout << "Inputs and output nodes of the graph " << g.getInstanceName() << " :\n";
-        auto inputs = g.getAllDataSetters();
-        std::cout << "\tInput ports (" << inputs.size() << ") are :\n";
-        for ( auto& [ptrPort, portName, portType] : inputs ) {
-            std::cout << "\t\t\"" << portName << "\" accepting type \"" << portType << "\"\n";
-        }
-        auto outputs = g.getAllDataGetters();
-        std::cout << "\tOutput ports (" << outputs.size() << ") are :\n";
-        for ( auto& [ptrPort, portName, portType] : outputs ) {
-            std::cout << "\t\t\"" << portName << "\" generating type \"" << portType << "\"\n";
+        else {
+            std::cerr << "Unable to compile the graph " << g.getInstanceName() << "\n";
         }
     }
 
