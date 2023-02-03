@@ -8,7 +8,17 @@ using namespace Ra::Dataflow::Core;
 using namespace Ra::Dataflow::Rendering;
 
 TEST_CASE( "Dataflow/Rendering/RenderingGraph", "[Dataflow][Rendering][RenderingGraph]" ) {
-
+#if defined( OS_LINUX )
+    {
+        // This is required on Linux to force loading the libDataflowRendering.so so that the
+        // node factory for Rendering is initialized.
+        // If not present, as no symbols are explicitly used from this lib, the linker
+        // optimize out the lib.
+        // All the test below use only the general interface of a DataflowGraph, the dependency to
+        // symbols exported by the rendering lib is only managed by the node factory.
+        RenderingGraph gr( "Forcing libDataflowRendering.so to be loaded" );
+    }
+#endif
     SECTION( "Loads and inspect a rendering graph graph" ) {
         auto g = DataflowGraph::loadGraphFromJsonFile( "data/Dataflow/fullRenderingGraph.json" );
 
