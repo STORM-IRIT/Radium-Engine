@@ -15,6 +15,8 @@ const char* simplifiedDemangledType() noexcept;
 template <typename T>
 const char* simplifiedDemangledType( const T& ) noexcept;
 
+std::string simplifiedDemangledType( const std::type_index& typeName ) noexcept;
+
 // -----------------------------------------------------------------
 // ---------------------- inline methods ---------------------------
 
@@ -35,6 +37,10 @@ const char* simplifiedDemangledType() noexcept {
 template <typename T>
 const char* simplifiedDemangledType( const T& ) noexcept {
     return simplifiedDemangledType<T>();
+}
+
+inline std::string simplifiedDemangledType( const std::type_index& typeName ) noexcept {
+    return TypeInternal::makeTypeReadable( Ra::Core::Utils::demangleType( typeName ) );
 }
 
 } // namespace Core
