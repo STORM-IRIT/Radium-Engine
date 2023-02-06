@@ -15,7 +15,7 @@ const char* simplifiedDemangledType() noexcept;
 template <typename T>
 const char* simplifiedDemangledType( const T& ) noexcept;
 
-std::string simplifiedDemangledType( const std::type_index& typeName ) noexcept;
+RA_DATAFLOW_API std::string simplifiedDemangledType( const std::type_index& typeName ) noexcept;
 
 // -----------------------------------------------------------------
 // ---------------------- inline methods ---------------------------
