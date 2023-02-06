@@ -1,6 +1,5 @@
 #pragma once
-
-#include <Core/CoreMacros.hpp>
+#include <Core/RaCore.hpp>
 #include <Core/Utils/StringUtils.hpp>
 
 #ifndef _WIN32
