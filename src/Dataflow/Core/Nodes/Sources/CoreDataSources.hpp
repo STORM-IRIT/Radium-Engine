@@ -23,7 +23,7 @@ namespace Sources {
     using PREFIX##UnaryFunctionSource   = FunctionSourceNode<TYPE, const TYPE&>;              \
     using PREFIX##BinaryFunctionSource  = FunctionSourceNode<TYPE, const TYPE&, const TYPE&>; \
     using PREFIX##UnaryPredicateSource  = FunctionSourceNode<bool, const TYPE&>;              \
-    using PREFIX##BinaryPredicateSource = FunctionSourceNode<bool, const TYPE&, const TYPE&>
+    using PREFIX##BinaryPredicateSource = FunctionSourceNode<bool, const TYPE&, const TYPE&>;
 
 using namespace Ra::Core;
 
@@ -32,24 +32,24 @@ using namespace Ra::Core;
 // https://en.cppreference.com/w/cpp/container/vector_bool Right now, there is no
 // Ra::Core::VectorArray of bool
 using BooleanSource = SingleDataSourceNode<bool>;
-DECLARE_COREDATA_SOURCES( Float, float );
-DECLARE_COREDATA_SOURCES( Double, double );
-DECLARE_COREDATA_SOURCES( Scalar, Scalar );
-DECLARE_COREDATA_SOURCES( Int, int );
-DECLARE_COREDATA_SOURCES( UInt, unsigned int );
-DECLARE_COREDATA_SOURCES( Color, Utils::Color );
-DECLARE_COREDATA_SOURCES( Vector2f, Vector2f );
-DECLARE_COREDATA_SOURCES( Vector2d, Vector2d );
-DECLARE_COREDATA_SOURCES( Vector3f, Vector3f );
-DECLARE_COREDATA_SOURCES( Vector3d, Vector3d );
-DECLARE_COREDATA_SOURCES( Vector4f, Vector4f );
-DECLARE_COREDATA_SOURCES( Vector4d, Vector4d );
-DECLARE_COREDATA_SOURCES( Vector2i, Vector2i );
-DECLARE_COREDATA_SOURCES( Vector3i, Vector3i );
-DECLARE_COREDATA_SOURCES( Vector4i, Vector4i );
-DECLARE_COREDATA_SOURCES( Vector2ui, Vector2ui );
-DECLARE_COREDATA_SOURCES( Vector3ui, Vector3ui );
-DECLARE_COREDATA_SOURCES( Vector4ui, Vector4ui );
+DECLARE_COREDATA_SOURCES( Float, float )
+DECLARE_COREDATA_SOURCES( Double, double )
+DECLARE_COREDATA_SOURCES( Scalar, Scalar )
+DECLARE_COREDATA_SOURCES( Int, int )
+DECLARE_COREDATA_SOURCES( UInt, unsigned int )
+DECLARE_COREDATA_SOURCES( Color, Utils::Color )
+DECLARE_COREDATA_SOURCES( Vector2f, Vector2f )
+DECLARE_COREDATA_SOURCES( Vector2d, Vector2d )
+DECLARE_COREDATA_SOURCES( Vector3f, Vector3f )
+DECLARE_COREDATA_SOURCES( Vector3d, Vector3d )
+DECLARE_COREDATA_SOURCES( Vector4f, Vector4f )
+DECLARE_COREDATA_SOURCES( Vector4d, Vector4d )
+DECLARE_COREDATA_SOURCES( Vector2i, Vector2i )
+DECLARE_COREDATA_SOURCES( Vector3i, Vector3i )
+DECLARE_COREDATA_SOURCES( Vector4i, Vector4i )
+DECLARE_COREDATA_SOURCES( Vector2ui, Vector2ui )
+DECLARE_COREDATA_SOURCES( Vector3ui, Vector3ui )
+DECLARE_COREDATA_SOURCES( Vector4ui, Vector4ui )
 
 #undef DECLARE_COREDATA_SOURCES
 
@@ -75,11 +75,11 @@ DECLARE_COREDATA_SOURCES( Vector4ui, Vector4ui );
         return true;                                                                         \
     }
 
-SPECIALIZE_EDITABLE_SOURCE( bool, boolean );
-SPECIALIZE_EDITABLE_SOURCE( float, number );
-SPECIALIZE_EDITABLE_SOURCE( double, number );
-SPECIALIZE_EDITABLE_SOURCE( int, value );
-SPECIALIZE_EDITABLE_SOURCE( unsigned int, value );
+SPECIALIZE_EDITABLE_SOURCE( bool, boolean )
+SPECIALIZE_EDITABLE_SOURCE( float, number )
+SPECIALIZE_EDITABLE_SOURCE( double, number )
+SPECIALIZE_EDITABLE_SOURCE( int, value )
+SPECIALIZE_EDITABLE_SOURCE( unsigned int, value )
 
 // Color specialization need different implementation (as well as any Ra::Vectorxx)
 template <>
