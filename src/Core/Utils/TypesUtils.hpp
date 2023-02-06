@@ -1,6 +1,5 @@
 #pragma once
-
-#include <Core/CoreMacros.hpp>
+#include <Core/RaCore.hpp>
 
 #ifndef _WIN32
 #    include <cxxabi.h>
@@ -20,14 +19,14 @@ namespace Utils {
 
 /// Return the human readable version of the type name T
 template <typename T>
-const char* demangleType() noexcept;
+std::string demangleType() noexcept;
 
 /// Return the human readable version of the given object's type
 template <typename T>
-const char* demangleType( const T& ) noexcept;
+std::string demangleType( const T& ) noexcept;
 
 /// Return the human readable version of the given type name
-RA_CORE_API std::string demangleType( const std::type_index& typeName ) noexcept;
+std::string demangleType( const std::type_index& typeIndex ) noexcept;
 
 // Check if a type is a container with access to its element type and number
 // adapted from https://stackoverflow.com/questions/13830158/check-if-a-variable-type-is-iterable
