@@ -4,7 +4,7 @@ namespace Ra {
 namespace Core {
 namespace Random {
 
-FibonacciSequence::FibonacciSequence( size_t number ) : n { std::max( size_t( 5 ), number ) } {};
+FibonacciSequence::FibonacciSequence( size_t number ) : n { std::max( size_t( 5 ), number ) } {}
 
 size_t FibonacciSequence::range() {
     return n;
@@ -22,7 +22,7 @@ Scalar VanDerCorputSequence::operator()( unsigned int bits ) {
     return Scalar( float( bits ) * 2.3283064365386963e-10 ); // / 0x100000000
 }
 
-FibonacciPointSet::FibonacciPointSet( size_t n ) : seq( n ) {};
+FibonacciPointSet::FibonacciPointSet( size_t n ) : seq( n ) {}
 
 size_t FibonacciPointSet::range() {
     return seq.range();
@@ -31,7 +31,7 @@ Ra::Core::Vector2 FibonacciPointSet::operator()( size_t i ) {
     return { seq( i ), Scalar( i ) / Scalar( range() ) };
 }
 
-HammersleyPointSet::HammersleyPointSet( size_t number ) : n( number ) {};
+HammersleyPointSet::HammersleyPointSet( size_t number ) : n( number ) {}
 
 size_t HammersleyPointSet::range() {
     return n;
@@ -42,7 +42,7 @@ Ra::Core::Vector2 HammersleyPointSet::operator()( size_t i ) {
 }
 
 MersenneTwisterPointSet::MersenneTwisterPointSet( size_t number ) :
-    gen( 0 ), seq( 0., 1. ), n( number ) {};
+    gen( 0 ), seq( 0., 1. ), n( number ) {}
 
 size_t MersenneTwisterPointSet::range() {
     return n;
