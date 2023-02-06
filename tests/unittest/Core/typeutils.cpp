@@ -21,6 +21,9 @@ TEST_CASE( "Core/Utils/TypesUtils", "[unittests][Core][Core/Utils][TypesUtils]" 
 
         demangledName = std::string( demangleType<TypeTests::TypeName_struct>() );
         REQUIRE( demangledName == "TypeTests::TypeName_struct" );
+
+        demangledName = demangleType( std::type_index( typeid( std::vector<float> ) ) );
+        REQUIRE( demangledName == "std::vector<float, std::allocator<float>>" );
     }
 
     SECTION( "Demangle from instance" ) {
