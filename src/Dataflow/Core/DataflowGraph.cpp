@@ -238,7 +238,7 @@ bool DataflowGraph::fromJsonInternal( const nlohmann::json& data ) {
 
 bool DataflowGraph::canAdd( const Node* newNode ) const {
     return findNode( newNode ) == -1;
-};
+}
 
 std::pair<bool, Node*> DataflowGraph::addNode( std::unique_ptr<Node> newNode ) {
     std::map<std::string, std::string> m_mapInputs;
