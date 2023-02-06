@@ -364,14 +364,15 @@ bool DataflowGraph::addLink( Node* nodeFrom,
     }
 
     // Compare types
-    if ( nodeTo->getInputs()[foundTo]->getType() != nodeFrom->getOutputs()[foundFrom]->getType() ) {
+    if ( !( nodeTo->getInputs()[foundTo]->getType() ==
+            nodeFrom->getOutputs()[foundFrom]->getType() ) ) {
         LOG( logERROR ) << "DataflowGraph::addLink type mismatch from "
                         << nodeFrom->getInstanceName() << " (" << nodeFrom->getTypeName() << ") / "
                         << nodeFrom->getOutputs()[foundFrom]->getName() << " (" << foundFrom
-                        << " with type " << nodeFrom->getOutputs()[foundFrom]->getType() << ")"
+                        << " with type " << nodeFrom->getOutputs()[foundFrom]->getTypeName() << ")"
                         << " to " << nodeTo->getInstanceName() << " (" << nodeTo->getTypeName()
                         << ") / " << nodeTo->getInputs()[foundTo]->getName() << " (" << foundTo
-                        << " with type " << nodeTo->getInputs()[foundTo]->getType() << ") ";
+                        << " with type " << nodeTo->getInputs()[foundTo]->getTypeName() << ") ";
         return false;
     }
 
