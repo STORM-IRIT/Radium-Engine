@@ -13,6 +13,7 @@ std::unique_ptr<uuids::uuid_random_generator> Node::s_uidGenerator { nullptr };
 std::unique_ptr<std::mt19937> Node::s_uuidSeeds { nullptr };
 
 void Node::createUuidGenerator() {
+    if ( s_uuidGeneratorInitialized ) { return; }
     std::random_device rd;
     auto seed_data = std::array<int, std::mt19937::state_size> {};
     std::generate( std::begin( seed_data ), std::end( seed_data ), std::ref( rd ) );
