@@ -74,7 +74,7 @@ RA_DATAFLOW_API bool updateWidget( QWidget* widget, EditableParameterBase* edita
  */
 RA_DATAFLOW_API void initializeWidgetFactory();
 
-}; // namespace WidgetFactory
+} // namespace WidgetFactory
 
 } // namespace GraphEditor
 } // namespace QtGui
