@@ -219,7 +219,7 @@ inline std::type_index PortBase::getType() {
 }
 
 inline std::string PortBase::getTypeName() {
-    return TypeInternal::makeTypeReadable( m_type.name() );
+    return simplifiedDemangledType( m_type );
 }
 
 inline Node* PortBase::getNode() {
