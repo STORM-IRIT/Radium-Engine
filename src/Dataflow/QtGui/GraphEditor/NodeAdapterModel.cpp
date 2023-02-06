@@ -106,12 +106,12 @@ QtNodes::NodeDataType NodeAdapterModel::dataType( QtNodes::PortType portType,
     switch ( portType ) {
     case QtNodes::PortType::In: {
         std::string mandatory = ( m_node->getInputs()[portIndex]->isLinkMandatory() ) ? "*" : "";
-        return IOToDataType( m_node->getInputs()[portIndex]->getType(),
+        return IOToDataType( m_node->getInputs()[portIndex]->getTypeName(),
                              m_node->getInputs()[portIndex]->getName() + mandatory );
     }
 
     case QtNodes::PortType::Out: {
-        return IOToDataType( m_node->getOutputs()[portIndex]->getType(),
+        return IOToDataType( m_node->getOutputs()[portIndex]->getTypeName(),
                              m_node->getOutputs()[portIndex]->getName() );
     }
     default:
@@ -145,9 +145,9 @@ void NodeAdapterModel::setInData( std::shared_ptr<QtNodes::NodeData> data, int p
     checkConnections();
 }
 
-QtNodes::NodeDataType NodeAdapterModel::IOToDataType( size_t hashType,
+QtNodes::NodeDataType NodeAdapterModel::IOToDataType( const std::string& typeName,
                                                       const std::string& ioName ) const {
-    return QtNodes::NodeDataType { std::to_string( hashType ).c_str(), ioName.c_str() };
+    return QtNodes::NodeDataType { typeName.c_str(), ioName.c_str() };
 }
 
 void NodeAdapterModel::updateState() {
