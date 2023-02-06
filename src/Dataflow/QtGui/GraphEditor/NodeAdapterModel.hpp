@@ -43,7 +43,8 @@ class RA_DATAFLOW_API NodeAdapterModel : public QtNodes::NodeDataModel
     void addMetaData( QJsonObject& json ) override;
 
   private:
-    QtNodes::NodeDataType IOToDataType( size_t hashType, const std::string& ioName ) const;
+    QtNodes::NodeDataType IOToDataType( const std::string& typeName,
+                                        const std::string& ioName ) const;
 
     void checkConnections() const;
 

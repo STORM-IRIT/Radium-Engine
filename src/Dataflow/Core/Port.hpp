@@ -33,8 +33,8 @@ class RA_DATAFLOW_API PortBase
   private:
     /// The name of the port.
     std::string m_name { "" };
-    /// The port's data's type's hash.
-    size_t m_type { 0 };
+    /// The port's data's type's index.
+    std::type_index m_type;
     /// A pointer to the node this port belongs to.
     Node* m_node { nullptr };
 
@@ -57,7 +57,7 @@ class RA_DATAFLOW_API PortBase
     /// @param name The name of the port.
     /// @param type The data's type's hash.
     /// @param node The pointer to the node associated with the port.
-    PortBase( const std::string& name, size_t type, Node* node );
+    PortBase( const std::string& name, std::type_index type, Node* node );
     /// @}
 
     /// \brief make PortBase a base abstract class
@@ -65,8 +65,8 @@ class RA_DATAFLOW_API PortBase
 
     /// Gets the port's name.
     const std::string& getName();
-    /// Gets the hash of the type of the data.
-    size_t getType();
+    /// Gets the type of the data (efficient for comparisons).
+    std::type_index getType();
     /// Gets a pointer to the node this port belongs to.
     Node* getNode();
     virtual bool hasData();
@@ -105,7 +105,7 @@ class RA_DATAFLOW_API PortBase
     template <typename T>
     void setData( T* data );
 
-    virtual std::string getTypeName() = 0;
+    std::string getTypeName();
 };
 
 /**
@@ -154,8 +154,6 @@ class PortOut : public PortBase
     bool disconnect() override;
     /// Returns a portIn of the same type
     PortBase* reflect( Node* node, std::string name ) override;
-
-    std::string getTypeName() override;
 };
 
 /**
@@ -204,22 +202,24 @@ class PortIn : public PortBase,
     PortBase* reflect( Node* node, std::string name ) override;
     /// Returns true if the port is an input port
     bool is_input() override;
-
-    std::string getTypeName() override;
 };
 
 // -----------------------------------------------------------------
 // ---------------------- inline methods ---------------------------
 
-inline PortBase::PortBase( const std::string& name, size_t type, Node* node ) :
+inline PortBase::PortBase( const std::string& name, std::type_index type, Node* node ) :
     m_name( name ), m_type( type ), m_node( node ) {}
 
 inline const std::string& PortBase::getName() {
     return m_name;
 }
 
-inline size_t PortBase::getType() {
+inline std::type_index PortBase::getType() {
     return m_type;
+}
+
+inline std::string PortBase::getTypeName() {
+    return TypeInternal::makeTypeReadable( m_type.name() );
 }
 
 inline Node* PortBase::getNode() {
@@ -247,8 +247,7 @@ inline bool PortBase::accept( PortBase* other ) {
 }
 
 template <typename T>
-PortOut<T>::PortOut( const std::string& name, Node* node ) :
-    PortBase( name, typeid( T ).hash_code(), node ) {}
+PortOut<T>::PortOut( const std::string& name, Node* node ) : PortBase( name, typeid( T ), node ) {}
 
 template <typename T>
 T& PortOut<T>::getData() {
@@ -279,16 +278,6 @@ template <typename T>
 bool PortOut<T>::connect( PortBase* o ) {
     m_isLinked = o->connect( this );
     return m_isLinked;
-}
-
-template <typename T>
-std::string PortOut<T>::getTypeName() {
-    return simplifiedDemangledType<T>();
-}
-
-template <typename T>
-std::string PortIn<T>::getTypeName() {
-    return simplifiedDemangledType<T>();
 }
 
 template <typename T>
@@ -357,8 +346,7 @@ PortBase* PortOut<T>::reflect( Node* node, std::string name ) {
  * @tparam T
  */
 template <typename T>
-PortIn<T>::PortIn( const std::string& name, Node* node ) :
-    PortBase( name, typeid( T ).hash_code(), node ) {}
+PortIn<T>::PortIn( const std::string& name, Node* node ) : PortBase( name, typeid( T ), node ) {}
 
 template <typename T>
 PortBase* PortIn<T>::getLink() {
