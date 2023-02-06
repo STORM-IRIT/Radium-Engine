@@ -10,6 +10,7 @@
 #endif
 
 #include <string>
+#include <typeindex>
 
 #include <Core/Utils/StringUtils.hpp>
 
@@ -24,6 +25,9 @@ const char* demangleType() noexcept;
 /// Return the human readable version of the given object's type
 template <typename T>
 const char* demangleType( const T& ) noexcept;
+
+/// Return the human readable version of the given type name
+std::string demangleType( const std::type_index& typeName ) noexcept;
 
 // Check if a type is a container with access to its element type and number
 // adapted from https://stackoverflow.com/questions/13830158/check-if-a-variable-type-is-iterable
