@@ -138,3 +138,38 @@ set(core_headers
     Utils/TypesUtils.hpp
     Utils/Version.hpp
 )
+
+set(core_inlines
+    Animation/HandleArray.inl
+    Animation/Sequence.inl
+    Asset/AnimationData.inl
+    Asset/BlinnPhongMaterialData.inl
+    Asset/Camera.inl
+    Asset/FileData.inl
+    Asset/GeometryData.inl
+    Asset/HandleData.inl
+    Asset/LightData.inl
+    Asset/MaterialData.inl
+    Containers/AdjacencyList.inl
+    Containers/Grid.inl
+    Containers/Tex.inl
+    Geometry/Curve2D.inl
+    Geometry/DistanceQueries.inl
+    Geometry/IndexedGeometry.inl
+    Geometry/MeshPrimitives.inl
+    Geometry/PolyLine.inl
+    Geometry/Spline.inl
+    Geometry/TopologicalMesh.inl
+    Geometry/TriangleMesh.inl
+    Geometry/deprecated/TopologicalMesh.inl
+    Math/DualQuaternion.inl
+    Math/LinearAlgebra.inl
+    Math/Math.inl
+    Math/Quadric.inl
+    Random/RandomPointSet.inl
+    Utils/Attribs.inl
+    Utils/BijectiveAssociation.inl
+    Utils/CircularIndex.inl
+    Utils/Index.inl
+    Utils/IndexMap.inl
+)
