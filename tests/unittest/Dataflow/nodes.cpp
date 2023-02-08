@@ -43,9 +43,9 @@ createGraph(
     REQUIRE( g->addLink( source_a, "to", op, "a" ) );
     REQUIRE( g->addLink( op, "r", sink, "from" ) );
     REQUIRE( !g->compile() );
-    // this will not execute the graph as it do not compiles
+    // this will not execute the graph as it does not compile
     g->execute();
-    REQUIRE( !g->m_ready );
+    REQUIRE( !g->isCompiled() );
     // add missing link
     REQUIRE( g->addLink( source_b, "to", op, "b" ) );
 
