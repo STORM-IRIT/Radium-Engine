@@ -81,6 +81,8 @@ SPECIALIZE_EDITABLE_SOURCE( double, number )
 SPECIALIZE_EDITABLE_SOURCE( int, value )
 SPECIALIZE_EDITABLE_SOURCE( unsigned int, value )
 
+#undef SPECIALIZE_EDITABLE_SOURCE
+
 // Color specialization need different implementation (as well as any Ra::Vectorxx)
 template <>
 inline SingleDataSourceNode<Ra::Core::Utils::Color>::SingleDataSourceNode(
@@ -92,7 +94,7 @@ inline SingleDataSourceNode<Ra::Core::Utils::Color>::SingleDataSourceNode(
 template <>
 inline void
 SingleDataSourceNode<Ra::Core::Utils::Color>::toJsonInternal( nlohmann::json& data ) const {
-    data["color"] = *getData();
+    data["color"] = Ra::Core::Utils::Color::linearRGBTosRGB( *getData() );
 }
 
 template <>
@@ -107,7 +109,74 @@ SingleDataSourceNode<Ra::Core::Utils::Color>::fromJsonInternal( const nlohmann::
     return true;
 }
 
-#undef SPECIALIZE_EDITABLE_SOURCE
+// Ra::Core::Vector4 specialization
+template <>
+inline SingleDataSourceNode<Ra::Core::Vector4>::SingleDataSourceNode( const std::string& name ) :
+    SingleDataSourceNode( name, SingleDataSourceNode<Ra::Core::Vector4>::getTypename() ) {
+    setEditable( "vector" );
+}
+
+template <>
+inline void SingleDataSourceNode<Ra::Core::Vector4>::toJsonInternal( nlohmann::json& data ) const {
+    data["vector"] = *getData();
+}
+
+template <>
+inline bool
+SingleDataSourceNode<Ra::Core::Vector4>::fromJsonInternal( const nlohmann::json& data ) {
+    if ( data.contains( "vector" ) ) {
+        std::array<Scalar, 4> v = data["vector"];
+        auto vec                = Ra::Core::Vector4( v[0], v[1], v[2], v[3] );
+        setData( vec );
+    }
+    return true;
+}
+
+// Ra::Core::Vector3 specialization
+template <>
+inline SingleDataSourceNode<Ra::Core::Vector3>::SingleDataSourceNode( const std::string& name ) :
+    SingleDataSourceNode( name, SingleDataSourceNode<Ra::Core::Vector3>::getTypename() ) {
+    setEditable( "vector" );
+}
+
+template <>
+inline void SingleDataSourceNode<Ra::Core::Vector3>::toJsonInternal( nlohmann::json& data ) const {
+    data["vector"] = *getData();
+}
+
+template <>
+inline bool
+SingleDataSourceNode<Ra::Core::Vector3>::fromJsonInternal( const nlohmann::json& data ) {
+    if ( data.contains( "vector" ) ) {
+        std::array<Scalar, 3> v = data["vector"];
+        auto vec                = Ra::Core::Vector3( v[0], v[1], v[2] );
+        setData( vec );
+    }
+    return true;
+}
+
+// Ra::Core::Vector2 specialization
+template <>
+inline SingleDataSourceNode<Ra::Core::Vector2>::SingleDataSourceNode( const std::string& name ) :
+    SingleDataSourceNode( name, SingleDataSourceNode<Ra::Core::Vector2>::getTypename() ) {
+    setEditable( "vector" );
+}
+
+template <>
+inline void SingleDataSourceNode<Ra::Core::Vector2>::toJsonInternal( nlohmann::json& data ) const {
+    data["vector"] = *getData();
+}
+
+template <>
+inline bool
+SingleDataSourceNode<Ra::Core::Vector2>::fromJsonInternal( const nlohmann::json& data ) {
+    if ( data.contains( "vector" ) ) {
+        std::array<Scalar, 2> v = data["vector"];
+        auto vec                = Ra::Core::Vector2( v[0], v[1] );
+        setData( vec );
+    }
+    return true;
+}
 
 } // namespace Sources
 } // namespace Core
