@@ -52,7 +52,7 @@ void DataflowGraph::destroy() {
     m_nodesByLevel.clear();
     m_nodes.clear();
     m_factories.reset();
-    m_dataSetters.clear();
+    m_dataSetters.erase( m_dataSetters.begin(), m_dataSetters.end() );
     Node::destroy();
     m_ready         = false;
     m_shouldBeSaved = true;
@@ -244,22 +244,22 @@ std::pair<bool, Node*> DataflowGraph::addNode( std::unique_ptr<Node> newNode ) {
     std::map<std::string, std::string> m_mapInputs;
     // Check if the new node already exists (= same name and type)
     if ( canAdd( newNode.get() ) ) {
-        auto addedNode = newNode.get();
-        m_nodes.emplace_back( std::move( newNode ) );
-        if ( addedNode->getInputs().empty() ) {
+        if ( newNode->getInputs().empty() ) {
             // it is a source node, add its interface port as input and data setter to the graph
-            auto& interfaces = addedNode->buildInterfaces( this );
+            auto& interfaces = newNode->buildInterfaces( this );
             for ( auto p : interfaces ) {
                 addSetter( p );
             }
         }
-        if ( addedNode->getOutputs().empty() ) {
+        if ( newNode->getOutputs().empty() ) {
             // it is a sink node, add its interface port as output to the graph
-            auto& interfaces = addedNode->buildInterfaces( this );
+            auto& interfaces = newNode->buildInterfaces( this );
             for ( auto p : interfaces ) {
                 addGetter( p );
             }
         }
+        auto addedNode = newNode.get();
+        m_nodes.emplace_back( std::move( newNode ) );
         m_ready         = false;
         m_shouldBeSaved = true;
         return { true, addedNode };
@@ -278,29 +278,13 @@ bool DataflowGraph::removeNode( Node*& node ) {
     if ( ( index = findNode( node ) ) == -1 ) { return false; }
     else {
         if ( node->getInputs().empty() ) { // Check if it is a source node
-            for ( auto& port :
-                  node->getInterfaces() ) { // Erase input ports of the graph associated
-                                            // to the interface ports of the node
-                for ( auto itG = m_inputs.begin(); itG != m_inputs.end(); ++itG ) {
-                    if ( port->getName() ==
-                         ( *itG )->getName() ) { // Check if these ports are the same
-                        m_inputs.erase( itG );
-                    }
-                    break;
-                }
+            for ( auto& port : node->getInterfaces() ) {
+                removeSetter( port->getName() );
             }
         }
         if ( node->getOutputs().empty() ) { // Check if it is a sink node
-            for ( auto& port :
-                  node->getInterfaces() ) { // Erase input ports of the graph associated
-                                            // to the interface ports of the node
-                for ( auto itG = m_outputs.begin(); itG != m_outputs.end(); ++itG ) {
-                    if ( port->getName() ==
-                         ( *itG )->getName() ) { // Check if these ports are the same
-                        m_outputs.erase( itG );
-                        break;
-                    }
-                }
+            for ( auto& port : node->getInterfaces() ) {
+                removeGetter( port->getName() );
             }
         }
         m_nodes.erase( m_nodes.begin() + index );
@@ -495,6 +479,11 @@ void DataflowGraph::clearNodes() {
     m_nodesByLevel.shrink_to_fit();
     m_nodes.erase( m_nodes.begin(), m_nodes.end() );
     m_nodes.shrink_to_fit();
+    m_inputs.erase( m_inputs.begin(), m_inputs.end() );
+    m_inputs.shrink_to_fit();
+    m_outputs.erase( m_outputs.begin(), m_outputs.end() );
+    m_outputs.shrink_to_fit();
+    m_dataSetters.erase( m_dataSetters.begin(), m_dataSetters.end() );
     m_shouldBeSaved = true;
 }
 
@@ -560,7 +549,18 @@ bool DataflowGraph::addSetter( PortBase* in ) {
     return false;
 }
 
-inline bool DataflowGraph::addGetter( PortBase* out ) {
+bool DataflowGraph::removeSetter( const std::string& setterName ) {
+    auto itS = m_dataSetters.find( setterName );
+    if ( itS != m_dataSetters.end() ) {
+        auto& [desPort, in] = itS->second;
+        removeInput( in );
+        m_dataSetters.erase( itS );
+        return true;
+    }
+    return false;
+}
+
+bool DataflowGraph::addGetter( PortBase* out ) {
     if ( out->is_input() ) { return false; }
     // This is very similar to addOutput, except the data can't be set, they will be in the init
     // of any Sink
@@ -571,6 +571,17 @@ inline bool DataflowGraph::addGetter( PortBase* out ) {
     }
     if ( !found ) { m_outputs.emplace_back( out ); }
     return !found;
+}
+
+bool DataflowGraph::removeGetter( const std::string& getterName ) {
+    auto getterP = std::find_if( m_outputs.begin(), m_outputs.end(), [getterName]( const auto& p ) {
+        return p->getName() == getterName;
+    } );
+    if ( getterP != m_outputs.end() ) {
+        m_outputs.erase( getterP );
+        return true;
+    }
+    return false;
 }
 
 bool DataflowGraph::releaseDataSetter( const std::string& portName ) {
@@ -600,7 +611,7 @@ std::shared_ptr<PortBase> DataflowGraph::getDataSetter( const std::string& portN
     return nullptr;
 }
 
-std::vector<DataflowGraph::DataSetterDesc> DataflowGraph::getAllDataSetters() {
+std::vector<DataflowGraph::DataSetterDesc> DataflowGraph::getAllDataSetters() const {
     std::vector<DataflowGraph::DataSetterDesc> r;
     r.reserve( m_dataSetters.size() );
     for ( auto& s : m_dataSetters ) {
@@ -617,7 +628,7 @@ PortBase* DataflowGraph::getDataGetter( const std::string& portName ) {
     return nullptr;
 }
 
-std::vector<DataflowGraph::DataGetterDesc> DataflowGraph::getAllDataGetters() {
+std::vector<DataflowGraph::DataGetterDesc> DataflowGraph::getAllDataGetters() const {
     std::vector<DataflowGraph::DataGetterDesc> r;
     r.reserve( m_outputs.size() );
     for ( auto& portOut : m_outputs ) {
