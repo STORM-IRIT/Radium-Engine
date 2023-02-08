@@ -16,15 +16,15 @@ TEST_CASE( "Core/Utils/TypesUtils", "[Core][Utils][TypesUtils]" ) {
     SECTION( "Demangle from typename" ) {
         using Ra::Core::Utils::demangleType;
 
-        REQUIRE( std::string( demangleType<int>() ) == "int" );
-        REQUIRE( std::string( demangleType<float>() ) == "float" );
-        REQUIRE( std::string( demangleType<uint>() ) == "unsigned int" );
-        REQUIRE( std::string( demangleType<size_t>() ) == "unsigned long" );
+        REQUIRE( demangleType<int>() == "int" );
+        REQUIRE( demangleType<float>() == "float" );
+        REQUIRE( demangleType<uint>() == "unsigned int" );
+        REQUIRE( demangleType<size_t>() == "unsigned long" );
 
-        auto demangledName = std::string( demangleType<std::vector<int>>() );
+        auto demangledName = demangleType<std::vector<int>>();
         REQUIRE( demangledName == "std::vector<int, std::allocator<int>>" );
 
-        demangledName = std::string( demangleType<TypeTests::TypeName_struct>() );
+        demangledName = demangleType<TypeTests::TypeName_struct>();
         REQUIRE( demangledName == "TypeTests::TypeName_struct" );
 
         demangledName = demangleType( std::type_index( typeid( std::vector<float> ) ) );
@@ -39,19 +39,19 @@ TEST_CASE( "Core/Utils/TypesUtils", "[Core][Utils][TypesUtils]" ) {
         unsigned int u { 3 };
         size_t s { 4 };
 
-        REQUIRE( std::string( demangleType( i ) ) == "int" );
-        REQUIRE( std::string( demangleType( f ) ) == "float" );
-        REQUIRE( std::string( demangleType( u ) ) == "unsigned int" );
-        REQUIRE( std::string( demangleType( s ) ) == "unsigned long" );
+        REQUIRE( demangleType( i ) == "int" );
+        REQUIRE( demangleType( f ) == "float" );
+        REQUIRE( demangleType( u ) == "unsigned int" );
+        REQUIRE( demangleType( s ) == "unsigned long" );
 
 #ifndef _WIN32
         // this segfault on windows due to out_of_bound exception. why ???
         std::vector<int> v;
-        auto demangledName = std::string( demangleType( v ) );
+        auto demangledName = demangleType( v );
         REQUIRE( demangledName == "std::vector<int, std::allocator<int>>" );
 #endif
         TypeTests::TypeName_struct tns;
-        auto demangledNameFromStruct = std::string( demangleType( tns ) );
+        auto demangledNameFromStruct = demangleType( tns );
         REQUIRE( demangledNameFromStruct == "TypeTests::TypeName_struct" );
     }
 
