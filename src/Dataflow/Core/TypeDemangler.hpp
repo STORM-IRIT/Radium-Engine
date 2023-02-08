@@ -21,7 +21,7 @@ RA_DATAFLOW_API std::string simplifiedDemangledType( const std::type_index& type
 // ---------------------- inline methods ---------------------------
 
 namespace TypeInternal {
-RA_DATAFLOW_API std::string makeTypeReadable( std::string );
+RA_DATAFLOW_API std::string makeTypeReadable( const std::string& );
 }
 
 template <typename T>
