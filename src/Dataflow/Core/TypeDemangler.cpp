@@ -13,7 +13,7 @@ namespace TypeInternal {
 /** \todo verify windows specific type demangling needs.
  *
  */
-RA_DATAFLOW_API std::string makeTypeReadable( std::string fullType ) {
+RA_DATAFLOW_API std::string makeTypeReadable( const std::string& fullType ) {
     static std::map<std::string, std::string> knownTypes {
         { "std::", "" },
         { ", std::allocator<float>", "" },
@@ -38,10 +38,11 @@ RA_DATAFLOW_API std::string makeTypeReadable( std::string fullType ) {
         // Windows (visual studio 2022) specific name fix
         { " __ptr64", "" } };
 
+    auto processedType = fullType;
     for ( const auto& [key, value] : knownTypes ) {
-        Ra::Core::Utils::replaceAllInString( fullType, key, value );
+        Ra::Core::Utils::replaceAllInString( processedType, key, value );
     }
-    return fullType;
+    return processedType;
 }
 
 } // namespace TypeInternal
