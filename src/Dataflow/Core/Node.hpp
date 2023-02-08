@@ -79,11 +79,11 @@ class RA_DATAFLOW_API Node
     /// @{
     /// \brief Gets the in ports of the node.
     /// Input ports are own to the node.
-    const std::vector<std::unique_ptr<PortBase>>& getInputs();
+    const std::vector<std::unique_ptr<PortBase>>& getInputs() const;
 
     /// \brief Gets the out ports of the node.
     /// Output ports are own to the node.
-    const std::vector<std::unique_ptr<PortBase>>& getOutputs();
+    const std::vector<std::unique_ptr<PortBase>>& getOutputs() const;
 
     /// \brief Build the interface ports of the node
     /// Derived node can override the default implementation that build an interface port for each
@@ -138,7 +138,7 @@ class RA_DATAFLOW_API Node
     /// \brief Flag that checks if the node is already initialized
     bool m_initialized { false };
 
-    /// \brief Sets the filesystem (real or virtual) location for the pass resources
+    /// \brief Sets the filesystem (real or virtual) location for the node resources
     inline void setResourcesDir( std::string resourcesRootDir );
 
   protected:
@@ -165,6 +165,11 @@ class RA_DATAFLOW_API Node
     /// \param in The in port to add.
     bool addInput( PortBase* in );
 
+    /// \brief remove the given input port from the managed input ports
+    /// \param in the port to remove
+    /// \return true if the port was removed (the in pointer is the set to nullptr), false else
+    bool removeInput( PortBase*& in );
+
     /// Adds an out port to the node and the data associated with it.
     /// This function checks if there is no out port with the same name already associated with this
     /// node.
@@ -172,6 +177,11 @@ class RA_DATAFLOW_API Node
     /// \param data The data associated with the port.
     template <typename T>
     void addOutput( PortOut<T>* out, T* data );
+
+    /// \brief remove the given output port from the managed input ports
+    /// \param out the port to remove
+    /// \return true if the port was removed (the out pointer is the set to nullptr), false else
+    bool removeOutput( PortBase*& out );
 
     /// \brief Adds an editable parameter to the node if it does not already exist.
     /// \note the node will take ownership of the editable object.
@@ -258,11 +268,11 @@ inline void Node::setInstanceName( const std::string& newName ) {
     m_instanceName = newName;
 }
 
-inline const std::vector<std::unique_ptr<PortBase>>& Node::getInputs() {
+inline const std::vector<std::unique_ptr<PortBase>>& Node::getInputs() const {
     return m_inputs;
 }
 
-inline const std::vector<std::unique_ptr<PortBase>>& Node::getOutputs() {
+inline const std::vector<std::unique_ptr<PortBase>>& Node::getOutputs() const {
     return m_outputs;
 }
 
@@ -304,6 +314,17 @@ inline bool Node::addInput( PortBase* in ) {
     return !found;
 }
 
+inline bool Node::removeInput( PortBase*& in ) {
+    auto itP = std::find_if(
+        m_inputs.begin(), m_inputs.end(), [in]( const auto& p ) { return p.get() == in; } );
+    if ( itP != m_inputs.end() ) {
+        m_inputs.erase( itP );
+        in = nullptr;
+        return true;
+    }
+    return false;
+}
+
 template <typename T>
 void Node::addOutput( PortOut<T>* out, T* data ) {
     bool found = false;
@@ -314,6 +335,17 @@ void Node::addOutput( PortOut<T>* out, T* data ) {
         m_outputs.emplace_back( out );
         out->setData( data );
     }
+}
+
+inline bool Node::removeOutput( PortBase*& out ) {
+    auto outP = std::find_if(
+        m_outputs.begin(), m_outputs.end(), [out]( const auto& p ) { return p.get() == out; } );
+    if ( outP != m_outputs.end() ) {
+        m_outputs.erase( outP );
+        out = nullptr;
+        return true;
+    }
+    return false;
 }
 
 inline bool Node::addEditableParameter( EditableParameterBase* editableParameter ) {
