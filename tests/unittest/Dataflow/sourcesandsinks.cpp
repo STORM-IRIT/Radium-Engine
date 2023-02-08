@@ -40,9 +40,18 @@ void testGraph( const std::string& name, T in, T& out ) {
     T r = output->getData<T>();
     out = r;
 
+    g->releaseDataSetter( "in_to" );
+    source->setData( &in );
+
     nlohmann::json graphData;
     g->toJson( graphData );
     g->destroy();
+    delete g;
+
+    g = new DataflowGraph { name };
+    g->fromJson( graphData );
+    auto ok = g->execute();
+    REQUIRE( ok );
     delete g;
 }
 //! [Create a source to sink graph for type T]
@@ -108,12 +117,32 @@ TEST_CASE( "Dataflow/Core/Sources and Sinks", "[Dataflow][Core][Sources and Sink
         REQUIRE( x == y );
         std::cout << " ... DONE!\n";
     }
+    SECTION( "Operations on base type : Vector2" ) {
+        using DataType = Ra::Core::Vector2;
+        std::cout << "Test on " << simplifiedDemangledType<DataType>() << " ... ";
+        DataType x { 1_ra, 2_ra };
+        DataType y;
+        testGraph<DataType>( "Test on Vector2", x, y );
+
+        REQUIRE( x == y );
+        std::cout << " ... DONE!\n";
+    }
     SECTION( "Operations on base type : Vector3" ) {
         using DataType = Ra::Core::Vector3;
         std::cout << "Test on " << simplifiedDemangledType<DataType>() << " ... ";
         DataType x { 1_ra, 2_ra, 3_ra };
         DataType y;
         testGraph<DataType>( "Test on Vector3", x, y );
+
+        REQUIRE( x == y );
+        std::cout << " ... DONE!\n";
+    }
+    SECTION( "Operations on base type : Vector4" ) {
+        using DataType = Ra::Core::Vector4;
+        std::cout << "Test on " << simplifiedDemangledType<DataType>() << " ... ";
+        DataType x { 1_ra, 2_ra, 3_ra, 4_ra };
+        DataType y;
+        testGraph<DataType>( "Test on Vector4", x, y );
 
         REQUIRE( x == y );
         std::cout << " ... DONE!\n";
