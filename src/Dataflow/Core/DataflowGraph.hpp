@@ -66,16 +66,19 @@ class RA_DATAFLOW_API DataflowGraph : public Node
     /// \param newNode const naked pointer to the candidate node
     /// \return true if ownership could be transferred to the graph.
     virtual bool canAdd( const Node* newNode ) const;
+
     /// Adds a node to the render graph. Adds interface ports to the node newNode and the
     /// corresponding input and output ports to the graph.
     /// \param newNode The node to add to the render graph.
     /// ownership of the node is transferred to the graph
     virtual std::pair<bool, Node*> addNode( std::unique_ptr<Node> newNode );
+
     /// Removes a node from the render graph. Removes input and output ports of the graph
     /// corresponding to interface ports of the node.
     /// \param node The node to remove from the render graph.
     /// \return true if the node was removed and the given pointer is set to nullptr, false else
     virtual bool removeNode( Node*& node );
+
     /// Connects two nodes of the render graph.
     /// The two nodes must already be in the render graph (with the addNode(Node* newNode)
     /// function), the first node's in port must be free and the connected in port and out port must
@@ -88,6 +91,7 @@ class RA_DATAFLOW_API DataflowGraph : public Node
                   const std::string& nodeFromOutputName,
                   Node* nodeTo,
                   const std::string& nodeToInputName );
+
     /// Removes the link connected to this node's input port
     bool removeLink( Node* node, const std::string& nodeInputName );
 
@@ -114,9 +118,8 @@ class RA_DATAFLOW_API DataflowGraph : public Node
     /// Deletes all nodes from the render graph.
     virtual void clearNodes();
 
-    /// Flag set after successful compilation indicating graph is ready to be executed
-    /// This flag is reset as soon as the graph is modified.
-    bool m_ready { false };
+    /// Test if the graph is compiled
+    bool isCompiled() const;
 
     /// Flag that indicates if the graph should be saved to a file
     /// This flag is useless outside an load/edit/save scenario
@@ -159,11 +162,11 @@ class RA_DATAFLOW_API DataflowGraph : public Node
     /// \note If called multiple times for the same port, only the last returned result is
     /// usable.
     /// TODO : Verify why, when listing the data setters, they are connected ...
-    std::vector<DataSetterDesc> getAllDataSetters();
+    std::vector<DataSetterDesc> getAllDataSetters() const;
 
     /// Creates a vector that stores all the DataGetters (\see getDataGetter) of the graph.
     /// A tuple is composed of an output port belonging to the graph, its name its type.
-    std::vector<DataGetterDesc> getAllDataGetters();
+    std::vector<DataGetterDesc> getAllDataGetters() const;
 
   protected:
     /** Allow derived class to construct the graph with their own static type
@@ -174,6 +177,10 @@ class RA_DATAFLOW_API DataflowGraph : public Node
     void toJsonInternal( nlohmann::json& ) const override;
 
   private:
+    /// Flag set after successful compilation indicating graph is ready to be executed
+    /// This flag is reset as soon as the graph is modified.
+    bool m_ready { false };
+
     /// The node factory to use for loading
     std::shared_ptr<NodeFactorySet> m_factories;
     /// The unordered list of nodes.
@@ -208,11 +215,17 @@ class RA_DATAFLOW_API DataflowGraph : public Node
     /// activateDataSetter/releaseDataSetter
     using DataSetter = std::pair<DataSetterDesc, PortBase*>;
     std::map<std::string, DataSetter> m_dataSetters;
+
     /// \brief Adds an input port to the graph and associate it with a dataSetter.
     /// This port is aliased as an interface port in a source node of the graph.
     /// This function checks if there is no input port with the same name already
     /// associated with the graph.
     bool addSetter( PortBase* in );
+
+    /// \brief Remove the given setter from the graph
+    /// \param setterName
+    /// \return true if the setter was removed, false else.
+    bool removeSetter( const std::string& setterName );
 
     /// \brief Adds an out port for a Graph and register it as a dataGetter.
     /// This port is aliased as an interface port in a sink node of the graph.
@@ -220,6 +233,11 @@ class RA_DATAFLOW_API DataflowGraph : public Node
     /// associated with the graph.
     /// \param out The port to add.
     bool addGetter( PortBase* out );
+
+    /// \brief Remove the given getter from the graph
+    /// \param getterName
+    /// \return true if the getter was removed, false else.
+    bool removeGetter( const std::string& getterName );
 
   public:
     static const std::string& getTypename();
@@ -251,10 +269,14 @@ class RA_DATAFLOW_API DataflowGraph : public Node
 
 // -----------------------------------------------------------------
 // ---------------------- inline methods ---------------------------
+inline bool DataflowGraph::isCompiled() const {
+    return m_ready;
+}
 
 inline void DataflowGraph::setNodeFactories( std::shared_ptr<NodeFactorySet> factories ) {
     m_factories = factories;
 }
+
 inline std::shared_ptr<NodeFactorySet> DataflowGraph::getNodeFactories() const {
     return m_factories;
 }
