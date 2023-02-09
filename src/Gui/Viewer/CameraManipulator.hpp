@@ -123,6 +123,17 @@ class RA_GUI_API CameraManipulator : public QObject
   signals:
 
   protected:
+    std::pair<Scalar, Scalar> computeDeltaMouseMove( const QMouseEvent* mouseEvent ) {
+        return { ( mouseEvent->pos().x() - m_lastMouseX ) / m_camera->getWidth(),
+                 ( mouseEvent->pos().y() - m_lastMouseY ) / m_camera->getHeight() };
+    }
+
+    /// x-position of the mouse on the screen at the manipulation start.
+    Scalar m_lastMouseX { 0_ra };
+
+    /// y-position of the mouse on the screen at the manipulation start.
+    Scalar m_lastMouseY { 0_ra };
+
     /// the Camera sensitivity to manipulation.
     Scalar m_cameraSensitivity { 1_ra };
     /// Additional factor for camera sensitivity.
@@ -138,9 +149,6 @@ class RA_GUI_API CameraManipulator : public QObject
     /// Be aware that m_target must always be on the line of sight of the camera so that it
     /// could be used as a "focus" point by a manipulator.
     Core::Vector3 m_target { 0_ra, 0_ra, 0_ra };
-
-    /// Whether the corresponding camera movement is active or not.
-    KeyMappingManager::KeyMappingAction m_currentAction {};
 
     Core::Asset::Camera* m_camera { nullptr }; ///< The Camera.
     Engine::Scene::Light* m_light { nullptr }; ///< The light attached to the Camera.

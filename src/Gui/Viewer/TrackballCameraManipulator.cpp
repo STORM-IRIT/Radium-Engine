@@ -75,6 +75,7 @@ TrackballCameraManipulator::TrackballCameraManipulator() :
     CameraManipulator(), m_keyMappingCallbackManager { KeyMapping::getContext() } {
     resetCamera();
     setupKeyMappingCallbacks();
+    m_cameraSensitivity = 1.5_ra;
 }
 
 TrackballCameraManipulator::TrackballCameraManipulator( const CameraManipulator& other ) :
@@ -87,6 +88,7 @@ TrackballCameraManipulator::TrackballCameraManipulator( const CameraManipulator&
     updatePhiTheta();
 
     setupKeyMappingCallbacks();
+    m_cameraSensitivity = 1.5_ra;
 }
 
 TrackballCameraManipulator::~TrackballCameraManipulator() {};
@@ -148,12 +150,6 @@ void TrackballCameraManipulator::mousePressSaveData( const QMouseEvent* mouseEve
     m_phiDir     = -Core::Math::signNZ( m_theta );
 }
 
-std::tuple<Scalar, Scalar>
-TrackballCameraManipulator::computeDeltaMouseMove( const QMouseEvent* mouseEvent ) {
-    return { ( mouseEvent->pos().x() - m_lastMouseX ) / m_camera->getWidth(),
-             ( mouseEvent->pos().y() - m_lastMouseY ) / m_camera->getHeight() };
-}
-
 void TrackballCameraManipulator::rotateCallback( QEvent* event ) {
     if ( event->type() == QEvent::MouseMove ) {
         auto mouseEvent = reinterpret_cast<QMouseEvent*>( event );
@@ -201,8 +197,8 @@ void TrackballCameraManipulator::moveForwardCallback( QEvent* event ) {
 }
 
 bool TrackballCameraManipulator::handleMousePressEvent( QMouseEvent* event,
-                                                        const Qt::MouseButtons& buttons,
-                                                        const Qt::KeyboardModifiers& modifiers,
+                                                        const Qt::MouseButtons&,
+                                                        const Qt::KeyboardModifiers&,
                                                         int key ) {
 
     m_lastMouseX = event->pos().x();
@@ -215,8 +211,8 @@ bool TrackballCameraManipulator::handleMousePressEvent( QMouseEvent* event,
 }
 
 bool TrackballCameraManipulator::handleMouseMoveEvent( QMouseEvent* event,
-                                                       const Qt::MouseButtons& buttons,
-                                                       const Qt::KeyboardModifiers& modifiers,
+                                                       const Qt::MouseButtons&,
+                                                       const Qt::KeyboardModifiers&,
                                                        int key ) {
     bool handled = m_keyMappingCallbackManager.triggerEventCallback( event, key );
 
@@ -232,14 +228,13 @@ bool TrackballCameraManipulator::handleMouseMoveEvent( QMouseEvent* event,
 }
 
 bool TrackballCameraManipulator::handleMouseReleaseEvent( QMouseEvent* /*event*/ ) {
-    m_currentAction = KeyMappingManager::KeyMappingAction::Invalid();
 
-    return true;
+    return false;
 }
 
 bool TrackballCameraManipulator::handleWheelEvent( QWheelEvent* event,
-                                                   const Qt::MouseButtons& buttons,
-                                                   const Qt::KeyboardModifiers& modifiers,
+                                                   const Qt::MouseButtons&,
+                                                   const Qt::KeyboardModifiers&,
                                                    int key
 
 ) {
@@ -291,7 +286,6 @@ void TrackballCameraManipulator::setCameraTarget( const Core::Vector3& target ) 
 }
 
 void TrackballCameraManipulator::fitScene( const Core::Aabb& aabb ) {
-
     Scalar f = m_camera->getFOV();
     Scalar a = m_camera->getAspect();
 
