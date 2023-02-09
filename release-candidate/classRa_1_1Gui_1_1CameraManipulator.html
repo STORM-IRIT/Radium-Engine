@@ -52,7 +52,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.4.4</span>
+   &#160;<span id="projectnumber">1.4.5</span>
    </div>
   </td>
  </tr>
@@ -111,6 +111,7 @@ $(document).ready(function(){initNavTree('classRa_1_1Gui_1_1CameraManipulator.ht
   <div class="summary">
 <a href="#pub-slots">Public Slots</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="classRa_1_1Gui_1_1CameraManipulator-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -225,8 +226,22 @@ const <a class="el" href="classRa_1_1Core_1_1Asset_1_1Camera.html">Core::Asset::
 <tr class="memdesc:ac868cb733644189efe4d20e026305f8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">pointer acces to the attached light if it exists, returns nullptr otherwise. <br /></td></tr>
 <tr class="separator:ac868cb733644189efe4d20e026305f8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:a8eee02e463699005d24b93ec8b6a119d"><td class="memItemLeft" align="right" valign="top"><a id="a8eee02e463699005d24b93ec8b6a119d"></a>
+std::pair&lt; Scalar, Scalar &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>computeDeltaMouseMove</b> (const QMouseEvent *mouseEvent)</td></tr>
+<tr class="separator:a8eee02e463699005d24b93ec8b6a119d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
+<tr class="memitem:a011cb1eed1a5703a9e4d5efd0b172fe6"><td class="memItemLeft" align="right" valign="top"><a id="a011cb1eed1a5703a9e4d5efd0b172fe6"></a>
+Scalar&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html#a011cb1eed1a5703a9e4d5efd0b172fe6">m_lastMouseX</a> { 0_ra }</td></tr>
+<tr class="memdesc:a011cb1eed1a5703a9e4d5efd0b172fe6"><td class="mdescLeft">&#160;</td><td class="mdescRight">x-position of the mouse on the screen at the manipulation start. <br /></td></tr>
+<tr class="separator:a011cb1eed1a5703a9e4d5efd0b172fe6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a69920046829f6cbb82cdcc74ee6a7e81"><td class="memItemLeft" align="right" valign="top"><a id="a69920046829f6cbb82cdcc74ee6a7e81"></a>
+Scalar&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html#a69920046829f6cbb82cdcc74ee6a7e81">m_lastMouseY</a> { 0_ra }</td></tr>
+<tr class="memdesc:a69920046829f6cbb82cdcc74ee6a7e81"><td class="mdescLeft">&#160;</td><td class="mdescRight">y-position of the mouse on the screen at the manipulation start. <br /></td></tr>
+<tr class="separator:a69920046829f6cbb82cdcc74ee6a7e81"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:add774422ef4383531ab5f0f73551c981"><td class="memItemLeft" align="right" valign="top"><a id="add774422ef4383531ab5f0f73551c981"></a>
 Scalar&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html#add774422ef4383531ab5f0f73551c981">m_cameraSensitivity</a> { 1_ra }</td></tr>
 <tr class="memdesc:add774422ef4383531ab5f0f73551c981"><td class="mdescLeft">&#160;</td><td class="mdescRight">the Camera sensitivity to manipulation. <br /></td></tr>
@@ -253,10 +268,6 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="separator:a31102b2e3d599001f824da47dfd10916"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab26f9a3697f068a1ccaf1a1bb5ddc5a0"><td class="memItemLeft" align="right" valign="top">Core::Vector3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html#ab26f9a3697f068a1ccaf1a1bb5ddc5a0">m_target</a> { 0_ra, 0_ra, 0_ra }</td></tr>
 <tr class="separator:ab26f9a3697f068a1ccaf1a1bb5ddc5a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:affce981649adb59548c919e78b3d9206"><td class="memItemLeft" align="right" valign="top"><a id="affce981649adb59548c919e78b3d9206"></a>
-<a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html#a41a05099c01660b695cdb70be3eb1655">KeyMappingManager::KeyMappingAction</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html#affce981649adb59548c919e78b3d9206">m_currentAction</a> {}</td></tr>
-<tr class="memdesc:affce981649adb59548c919e78b3d9206"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether the corresponding camera movement is active or not. <br /></td></tr>
-<tr class="separator:affce981649adb59548c919e78b3d9206"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a52f8a96fcee5296152ce974d5dedceb3"><td class="memItemLeft" align="right" valign="top"><a id="a52f8a96fcee5296152ce974d5dedceb3"></a>
 <a class="el" href="classRa_1_1Core_1_1Asset_1_1Camera.html">Core::Asset::Camera</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html#a52f8a96fcee5296152ce974d5dedceb3">m_camera</a> { nullptr }</td></tr>
 <tr class="memdesc:a52f8a96fcee5296152ce974d5dedceb3"><td class="mdescLeft">&#160;</td><td class="mdescRight">The Camera. <br /></td></tr>
@@ -680,7 +691,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>the mapping context for keymapping, Index::Invalid() if no mapping is available </dd></dl>
 
-<p>Reimplemented in <a class="el" href="classRa_1_1Gui_1_1TrackballCameraManipulator.html#a0b0eaa22ace41441f143a871ef3b1148">Ra::Gui::TrackballCameraManipulator</a>, and <a class="el" href="classRa_1_1Gui_1_1FlightCameraManipulator.html#ac37903d1f49046183be6f465c9ef5d3c">Ra::Gui::FlightCameraManipulator</a>.</p>
+<p>Reimplemented in <a class="el" href="classRa_1_1Gui_1_1TrackballCameraManipulator.html#a0b0eaa22ace41441f143a871ef3b1148">Ra::Gui::TrackballCameraManipulator</a>, and <a class="el" href="classRa_1_1Gui_1_1FlightCameraManipulator.html#ae14d70608842a2f6bfa0c6e8c3cf94ea">Ra::Gui::FlightCameraManipulator</a>.</p>
 
 <p class="definition">Definition at line <a class="el" href="CameraManipulator_8cpp_source.html#l00071">71</a> of file <a class="el" href="CameraManipulator_8cpp_source.html">CameraManipulator.cpp</a>.</p>
 
@@ -738,7 +749,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 </div><div class="memdoc">
 <p>Target point of the camera (usefull for most of the manipulator metaphor) Be aware that m_target must always be on the line of sight of the camera so that it could be used as a "focus" point by a manipulator. </p>
 
-<p class="definition">Definition at line <a class="el" href="CameraManipulator_8hpp_source.html#l00140">140</a> of file <a class="el" href="CameraManipulator_8hpp_source.html">CameraManipulator.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CameraManipulator_8hpp_source.html#l00151">151</a> of file <a class="el" href="CameraManipulator_8hpp_source.html">CameraManipulator.hpp</a>.</p>
 
 </div>
 </div>
@@ -752,7 +763,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><b>Gui</b></li><li class="navelem"><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html">CameraManipulator</a></li>
-    <li class="footer">Generated on Wed Jan 18 2023 11:46:27 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Thu Feb 9 2023 15:47:11 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

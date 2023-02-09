@@ -1,5 +1,5 @@
 <map id="Ra::Gui::CameraManipulator" name="Ra::Gui::CameraManipulator">
-<area shape="rect" id="node1" title="The CameraManipulator class is the generic class for camera manipulators." alt="" coords="198,1888,454,2523"/>
+<area shape="rect" id="node1" title="The CameraManipulator class is the generic class for camera manipulators." alt="" coords="198,1888,454,2552"/>
 <area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Scene_1_1Light.html" title=" " alt="" coords="75,1323,263,1547"/>
 <area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Scene_1_1Component.html" title="A component is an element that can be updated by a system. It is also linked to some other components..." alt="" coords="58,639,279,995"/>
 <area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Scene_1_1System.html" title=" " alt="" coords="5,286,217,495"/>

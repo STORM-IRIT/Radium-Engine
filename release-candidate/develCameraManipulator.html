@@ -52,7 +52,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.4.4</span>
+   &#160;<span id="projectnumber">1.4.5</span>
    </div>
   </td>
  </tr>
@@ -129,14 +129,12 @@ Implementing a CameraManipulator</h1>
 <div class="line">{</div>
 <div class="line">    Q_OBJECT</div>
 </div><!-- fragment --></li>
-<li>Implement the constructors (default, copy). Note that it is also very important to implement a constructor that will take any <code><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html" title="The CameraManipulator class is the generic class for camera manipulators.">Ra::Gui::CameraManipulator</a></code> and will copy the base class before initializing the current manipulator. <div class="fragment"><div class="line">Gui::FlightCameraManipulator::FlightCameraManipulator( <span class="keyword">const</span> CameraManipulator&amp; other ) :</div>
-<div class="line">    CameraManipulator( other ),</div>
-<div class="line">    m_rotateAround( true ),</div>
-<div class="line">    m_cameraRotateMode( false ),</div>
-<div class="line">    m_cameraPanMode( false ),</div>
-<div class="line">    m_cameraZoomMode( false ) {</div>
+<li>Implement the constructors (default, copy). Note that it is also very important to implement a constructor that will take any <code><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html" title="The CameraManipulator class is the generic class for camera manipulators.">Ra::Gui::CameraManipulator</a></code> and will copy the base class before initializing the current manipulator. <div class="fragment"><div class="line">FlightCameraManipulator::FlightCameraManipulator( <span class="keyword">const</span> CameraManipulator&amp; other ) :</div>
+<div class="line">    CameraManipulator( other ), m_keyMappingCallbackManager { KeyMapping::getContext() } {</div>
 <div class="line">    m_flightSpeed = ( m_target - m_camera-&gt;getPosition() ).norm() / 10_ra;</div>
 <div class="line">    initializeFixedUpVector();</div>
+<div class="line">    setupKeyMappingCallbacks();</div>
+<div class="line">    m_cameraSensitivity = 2_ra;</div>
 <div class="line">}</div>
 </div><!-- fragment --></li>
 <li>Implement the <code><a class="el" href="classRa_1_1Gui_1_1KeyMappingManageable.html" title="KeyMappingManageable decorator to use as CRTP.">Ra::Gui::KeyMappingManageable</a></code> part of the class. This implies defining the method <code>void FlightCameraManipulator::configureKeyMapping_impl()</code> according to the semantic imposed by <code><a class="el" href="classRa_1_1Gui_1_1KeyMappingManageable.html" title="KeyMappingManageable decorator to use as CRTP.">Ra::Gui::KeyMappingManageable</a></code>. It is recommended that, when implementing this keymapping initialisation callback, a default configuration is defined and saved to the xml keymapping configuration file if this later does not already contains a configuration. This will allow the users to edit and customize the proposed keymapping configuration. <div class="fragment"><div class="line"><span class="keyword">using</span> FlightCameraKeyMapping = <a class="code" href="classRa_1_1Gui_1_1KeyMappingManageable.html">Ra::Gui::KeyMappingManageable&lt;FlightCameraManipulator&gt;</a>;</div>
@@ -145,30 +143,17 @@ Implementing a CameraManipulator</h1>
 <div class="line">KeyMappingFlightManipulator</div>
 <div class="line"><span class="preprocessor">#undef KMA_VALUE</span></div>
 <div class="line"> </div>
-<div class="line"><span class="keywordtype">void</span> Gui::FlightCameraManipulator::configureKeyMapping_impl() {</div>
+<div class="line"><span class="keywordtype">void</span> FlightCameraManipulator::configureKeyMapping_impl() {</div>
 <div class="line"> </div>
 <div class="line">    FlightCameraKeyMapping::setContext(</div>
 <div class="line">        Gui::KeyMappingManager::getInstance()-&gt;getContext( <span class="stringliteral">&quot;FlightManipulatorContext&quot;</span> ) );</div>
-<div class="line">    <span class="keywordflow">if</span> ( FlightCameraKeyMapping::getContext().isInvalid() ) {</div>
-<div class="line">        LOG( Ra::Core::Utils::logWARNING ) &lt;&lt; <span class="stringliteral">&quot;FlightManipulatorContext not defined (maybe the &quot;</span></div>
-<div class="line">                                              <span class="stringliteral">&quot;configuration file do not contains it). Adding &quot;</span></div>
-<div class="line">                                              <span class="stringliteral">&quot;default configuration for FlightManipulatorContext.&quot;</span>;</div>
 <div class="line"> </div>
-<div class="line">        <span class="keyword">auto</span> mgr     = Gui::KeyMappingManager::getInstance();</div>
-<div class="line">        <span class="keyword">auto</span> context = mgr-&gt;addContext( <span class="stringliteral">&quot;FlightManipulatorContext&quot;</span> );</div>
-<div class="line">        FlightCameraKeyMapping::setContext( context );</div>
-<div class="line">        mgr-&gt;addAction( context,</div>
-<div class="line">                        mgr-&gt;createEventBindingFromStrings( <span class="stringliteral">&quot;LeftButton&quot;</span> ),</div>
-<div class="line">                        <span class="stringliteral">&quot;FLIGHTMODECAMERA_ROTATE&quot;</span> );</div>
-<div class="line">        mgr-&gt;addAction( context,</div>
-<div class="line">                        mgr-&gt;createEventBindingFromStrings( <span class="stringliteral">&quot;LeftButton&quot;</span>, <span class="stringliteral">&quot;ShiftModifier&quot;</span> ),</div>
-<div class="line">                        <span class="stringliteral">&quot;FLIGHTMODECAMERA_PAN&quot;</span> );</div>
-<div class="line">        mgr-&gt;addAction( context,</div>
-<div class="line">                        mgr-&gt;createEventBindingFromStrings( <span class="stringliteral">&quot;LeftButton&quot;</span>, <span class="stringliteral">&quot;ControlModifier&quot;</span> ),</div>
-<div class="line">                        <span class="stringliteral">&quot;FLIGHTMODECAMERA_ZOOM&quot;</span> );</div>
-<div class="line">        mgr-&gt;addAction( context,</div>
-<div class="line">                        mgr-&gt;createEventBindingFromStrings( <span class="stringliteral">&quot;&quot;</span>, <span class="stringliteral">&quot;&quot;</span>, <span class="stringliteral">&quot;Key_A&quot;</span> ),</div>
-<div class="line">                        <span class="stringliteral">&quot;FLIGHTMODECAMERA_ROTATE_AROUND&quot;</span> );</div>
+<div class="line">    <span class="keywordflow">if</span> ( KeyMapping::getContext().isInvalid() ) {</div>
+<div class="line">        LOG( logWARNING )</div>
+<div class="line">            &lt;&lt; <span class="stringliteral">&quot;CameraContext not defined (maybe the configuration file do not contains &quot;</span></div>
+<div class="line">               <span class="stringliteral">&quot;it). Add it for default key mapping.&quot;</span>;</div>
+<div class="line">        FlightCameraKeyMapping::setContext(</div>
+<div class="line">            Gui::KeyMappingManager::getInstance()-&gt;addContext( <span class="stringliteral">&quot;FlightManipulatorContext&quot;</span> ) );</div>
 <div class="line">    }</div>
 <div class="line"> </div>
 <div class="line"><span class="preprocessor">#define KMA_VALUE( XX )                                                                          \</span></div>
@@ -176,6 +161,41 @@ Implementing a CameraManipulator</h1>
 <div class="line"><span class="preprocessor">                                                           #XX );</span></div>
 <div class="line">    KeyMappingFlightManipulator</div>
 <div class="line"><span class="preprocessor">#undef KMA_VALUE</span></div>
+<div class="line"> </div>
+<div class="line">    <span class="keyword">auto</span> mgr     = Gui::KeyMappingManager::getInstance();</div>
+<div class="line">    <span class="keyword">auto</span> context = FlightCameraKeyMapping::getContext();</div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">// use wrapper to have reference in pair</span></div>
+<div class="line">    <span class="keyword">using</span> ActionBindingPair = std::pair&lt;std::reference_wrapper&lt;KeyMappingManager::KeyMappingAction&gt;,</div>
+<div class="line">                                        KeyMappingManager::EventBinding&gt;;</div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">// don&#39;t use [] since reference don&#39;t have a default value. use at and insert instead.</span></div>
+<div class="line">    std::map&lt;std::string, ActionBindingPair&gt; defaultBinding;</div>
+<div class="line"> </div>
+<div class="line">    defaultBinding.insert(</div>
+<div class="line">        std::make_pair( std::string { <span class="stringliteral">&quot;FLIGHTMODECAMERA_PAN&quot;</span> },</div>
+<div class="line">                        ActionBindingPair { FLIGHTMODECAMERA_PAN,</div>
+<div class="line">                                            mgr-&gt;createEventBindingFromStrings(</div>
+<div class="line">                                                <span class="stringliteral">&quot;LeftButton&quot;</span>, <span class="stringliteral">&quot;ShiftModifier&quot;</span> ) } ) );</div>
+<div class="line"> </div>
+<div class="line">    defaultBinding.insert( std::make_pair(</div>
+<div class="line">        std::string { <span class="stringliteral">&quot;FLIGHTMODECAMERA_ROTATE&quot;</span> },</div>
+<div class="line">        ActionBindingPair { FLIGHTMODECAMERA_ROTATE,</div>
+<div class="line">                            mgr-&gt;createEventBindingFromStrings( <span class="stringliteral">&quot;LeftButton&quot;</span> ) } ) );</div>
+<div class="line"> </div>
+<div class="line">    defaultBinding.insert(</div>
+<div class="line">        std::make_pair( std::string { <span class="stringliteral">&quot;FLIGHTMODECAMERA_ZOOM&quot;</span> },</div>
+<div class="line">                        ActionBindingPair { FLIGHTMODECAMERA_ZOOM,</div>
+<div class="line">                                            mgr-&gt;createEventBindingFromStrings(</div>
+<div class="line">                                                <span class="stringliteral">&quot;LeftButton&quot;</span>, <span class="stringliteral">&quot;ControlModifier&quot;</span> ) } ) );</div>
+<div class="line"> </div>
+<div class="line">    <span class="keywordflow">for</span> ( <span class="keyword">auto</span>&amp; [actionName, actionBinding] : defaultBinding ) {</div>
+<div class="line">        <span class="keywordflow">if</span> ( actionBinding.first.get().isInvalid() ) {</div>
+<div class="line">            LOG( logWARNING ) &lt;&lt; <span class="stringliteral">&quot;FlightManipulator action &quot;</span> &lt;&lt; actionName</div>
+<div class="line">                              &lt;&lt; <span class="stringliteral">&quot; not defined in configuration file. Adding default keymapping.&quot;</span>;</div>
+<div class="line">            actionBinding.first.get() = mgr-&gt;addAction( context, actionBinding.second, actionName );</div>
+<div class="line">        }</div>
+<div class="line">    }</div>
 <div class="line">}</div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1KeyMappingManageable_html"><div class="ttname"><a href="classRa_1_1Gui_1_1KeyMappingManageable.html">Ra::Gui::KeyMappingManageable&lt; FlightCameraManipulator &gt;</a></div></div>
 </div><!-- fragment --></li>
@@ -188,35 +208,15 @@ Extending/Specializing an existing CameraManipulator</h1>
 <div class="line"><span class="keyword">class </span>CameraManipulator2D : <span class="keyword">public</span> <a class="code" href="classRa_1_1Gui_1_1TrackballCameraManipulator.html">Ra::Gui::TrackballCameraManipulator</a></div>
 <div class="line">{</div>
 <div class="line">  <span class="keyword">public</span>:</div>
-<div class="line">    <span class="keyword">inline</span> CameraManipulator2D() : <a class="code" href="namespaceRa.html">Ra</a>::Gui::TrackballCameraManipulator() {}</div>
-<div class="line"> </div>
+<div class="line">    <span class="keyword">inline</span> CameraManipulator2D() : <a class="code" href="namespaceRa.html">Ra</a>::Gui::TrackballCameraManipulator() {</div>
+<div class="line">        m_keyMappingCallbackManager.addEventCallback( TRACKBALLCAMERA_ROTATE, []( QEvent* ) {} );</div>
+<div class="line">    }</div>
 <div class="line">    <span class="keyword">inline</span> <span class="keyword">explicit</span> CameraManipulator2D( <span class="keyword">const</span> CameraManipulator&amp; other ) :</div>
-<div class="line">        <a class="code" href="namespaceRa.html">Ra</a>::Gui::TrackballCameraManipulator( other ) {}</div>
-<div class="line"> </div>
-<div class="line">    <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code" href="classRa_1_1Gui_1_1TrackballCameraManipulator.html#a7a6555b6bf0c1ad891b915c18366fba4">handleMousePressEvent</a>( QMouseEvent* event,</div>
-<div class="line">                                       <span class="keyword">const</span> Qt::MouseButtons&amp; buttons,</div>
-<div class="line">                                       <span class="keyword">const</span> Qt::KeyboardModifiers&amp; modifiers,</div>
-<div class="line">                                       <span class="keywordtype">int</span> key ) {</div>
-<div class="line">        m_lastMouseX = <span class="keyword">event</span>-&gt;pos().x();</div>
-<div class="line">        m_lastMouseY = <span class="keyword">event</span>-&gt;pos().y();</div>
-<div class="line"> </div>
-<div class="line">        m_currentAction = Ra::Gui::KeyMappingManager::getInstance()-&gt;getAction(</div>
-<div class="line">            Ra::Gui::TrackballCameraManipulator::KeyMapping::getContext(),</div>
-<div class="line">            buttons,</div>
-<div class="line">            modifiers,</div>
-<div class="line">            key,</div>
-<div class="line">            <span class="keyword">false</span> );</div>
-<div class="line"> </div>
-<div class="line">        <span class="comment">// ignore rotate</span></div>
-<div class="line">        <span class="keywordflow">if</span> ( m_currentAction == TRACKBALLCAMERA_ROTATE ) {</div>
-<div class="line">            m_currentAction = Ra::Core::Utils::Index::Invalid();</div>
-<div class="line">        }</div>
-<div class="line"> </div>
-<div class="line">        <span class="keywordflow">return</span> m_currentAction.isValid();</div>
+<div class="line">        <a class="code" href="namespaceRa.html">Ra</a>::Gui::TrackballCameraManipulator( other ) {</div>
+<div class="line">        m_keyMappingCallbackManager.addEventCallback( TRACKBALLCAMERA_ROTATE, []( QEvent* ) {} );</div>
 <div class="line">    }</div>
 <div class="line">};</div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1TrackballCameraManipulator_html"><div class="ttname"><a href="classRa_1_1Gui_1_1TrackballCameraManipulator.html">Ra::Gui::TrackballCameraManipulator</a></div><div class="ttdoc">A Trackball manipulator for Cameras.</div><div class="ttdef"><b>Definition:</b> <a href="TrackballCameraManipulator_8hpp_source.html#l00013">TrackballCameraManipulator.hpp:16</a></div></div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1TrackballCameraManipulator_html_a7a6555b6bf0c1ad891b915c18366fba4"><div class="ttname"><a href="classRa_1_1Gui_1_1TrackballCameraManipulator.html#a7a6555b6bf0c1ad891b915c18366fba4">Ra::Gui::TrackballCameraManipulator::handleMousePressEvent</a></div><div class="ttdeci">bool handleMousePressEvent(QMouseEvent *event, const Qt::MouseButtons &amp;buttons, const Qt::KeyboardModifiers &amp;modifiers, int key) override</div><div class="ttdef"><b>Definition:</b> <a href="TrackballCameraManipulator_8cpp_source.html#l00203">TrackballCameraManipulator.cpp:203</a></div></div>
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdef"><b>Definition:</b> <a href="Cage_8cpp_source.html#l00003">Cage.cpp:3</a></div></div>
 </div><!-- fragment --> <h1><a class="anchor" id="autotoc_md48"></a>
 Using a CameraManipulator</h1>
@@ -235,7 +235,7 @@ Using a CameraManipulator</h1>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="develmanual.html">Developer manual</a></li><li class="navelem"><a class="el" href="api.html">API</a></li><li class="navelem"><a class="el" href="gui.html">Gui</a></li>
-    <li class="footer">Generated on Wed Jan 18 2023 11:46:26 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Thu Feb 9 2023 15:47:10 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

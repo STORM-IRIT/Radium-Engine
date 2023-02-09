@@ -1,13 +1,13 @@
 <map id="Ra::Gui::TrackballCameraManipulator" name="Ra::Gui::TrackballCameraManipulator">
-<area shape="rect" id="node1" title="A Trackball manipulator for Cameras." alt="" coords="519,2585,765,3117"/>
-<area shape="rect" id="node2" href="$classRa_1_1Gui_1_1CameraManipulator.html" title="The CameraManipulator class is the generic class for camera manipulators." alt="" coords="242,1888,498,2523"/>
+<area shape="rect" id="node1" title="A Trackball manipulator for Cameras." alt="" coords="519,2615,765,3117"/>
+<area shape="rect" id="node2" href="$classRa_1_1Gui_1_1CameraManipulator.html" title="The CameraManipulator class is the generic class for camera manipulators." alt="" coords="242,1888,498,2552"/>
 <area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Scene_1_1Light.html" title=" " alt="" coords="75,1323,263,1547"/>
 <area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Scene_1_1Component.html" title="A component is an element that can be updated by a system. It is also linked to some other components..." alt="" coords="58,639,279,995"/>
 <area shape="rect" id="node5" href="$classRa_1_1Engine_1_1Scene_1_1System.html" title=" " alt="" coords="5,286,217,495"/>
 <area shape="rect" id="node6" href="$classRa_1_1Engine_1_1Scene_1_1Entity.html" title="An entity is an scene element. It ties together components with a transform." alt="" coords="241,205,451,576"/>
 <area shape="rect" id="node7" href="$classRa_1_1Core_1_1Utils_1_1IndexedObject.html" title=" " alt="" coords="259,5,433,156"/>
 <area shape="rect" id="node8" href="$classRa_1_1Core_1_1Asset_1_1Camera.html" title="Camera class storing the Camera frame and the projection properties The view direction is &#45;z in camer..." alt="" coords="287,1044,472,1825"/>
-<area shape="rect" id="node9" href="$classRa_1_1Gui_1_1KeyMappingManageable.html" title=" " alt="" coords="523,2137,761,2273"/>
+<area shape="rect" id="node9" href="$classRa_1_1Gui_1_1KeyMappingManageable.html" title=" " alt="" coords="523,2152,761,2288"/>
 <area shape="rect" id="node10" href="$classRa_1_1Gui_1_1KeyMappingManageable.html" title="KeyMappingManageable decorator to use as CRTP." alt="" coords="505,1374,779,1495"/>
-<area shape="rect" id="node11" href="$classRa_1_1Gui_1_1KeyMappingCallbackManager.html" title="This class manage a collection of binding/callback associated with a context." alt="" coords="786,2130,1026,2281"/>
+<area shape="rect" id="node11" href="$classRa_1_1Gui_1_1KeyMappingCallbackManager.html" title="This class manage a collection of binding/callback associated with a context." alt="" coords="786,2145,1026,2295"/>
 </map>

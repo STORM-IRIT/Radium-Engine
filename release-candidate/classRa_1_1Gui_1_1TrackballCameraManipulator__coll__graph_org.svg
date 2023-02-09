@@ -13,12 +13,10 @@
 <g id="node1" class="node">
 <title>Node1</title>
 <g id="a_node1"><a xlink:title="A Trackball manipulator for Cameras.">
-<polygon fill="#bfbfbf" stroke="black" points="385.5,-0.5 385.5,-398.5 569.5,-398.5 569.5,-0.5 385.5,-0.5"/>
-<text text-anchor="start" x="393.5" y="-386.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Gui::TrackballCamera</text>
-<text text-anchor="middle" x="477.5" y="-375.5" font-family="Helvetica,sans-Serif" font-size="10.00">Manipulator</text>
-<polyline fill="none" stroke="black" points="385.5,-368.5 569.5,-368.5 "/>
-<text text-anchor="start" x="393.5" y="-356.5" font-family="Helvetica,sans-Serif" font-size="10.00"># m_lastMouseX</text>
-<text text-anchor="start" x="393.5" y="-345.5" font-family="Helvetica,sans-Serif" font-size="10.00"># m_lastMouseY</text>
+<polygon fill="#bfbfbf" stroke="black" points="385.5,-0.5 385.5,-376.5 569.5,-376.5 569.5,-0.5 385.5,-0.5"/>
+<text text-anchor="start" x="393.5" y="-364.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Gui::TrackballCamera</text>
+<text text-anchor="middle" x="477.5" y="-353.5" font-family="Helvetica,sans-Serif" font-size="10.00">Manipulator</text>
+<polyline fill="none" stroke="black" points="385.5,-346.5 569.5,-346.5 "/>
 <text text-anchor="start" x="393.5" y="-334.5" font-family="Helvetica,sans-Serif" font-size="10.00"># m_phi</text>
 <text text-anchor="start" x="393.5" y="-323.5" font-family="Helvetica,sans-Serif" font-size="10.00"># m_theta</text>
 <text text-anchor="start" x="393.5" y="-312.5" font-family="Helvetica,sans-Serif" font-size="10.00"># m_phiDir</text>
@@ -57,58 +55,60 @@
 <g id="node2" class="node">
 <title>Node2</title>
 <g id="a_node2"><a xlink:href="classRa_1_1Gui_1_1CameraManipulator.html" target="_top" xlink:title="The CameraManipulator class is the generic class for camera manipulators.">
-<polygon fill="white" stroke="black" points="177.5,-446.5 177.5,-921.5 369.5,-921.5 369.5,-446.5 177.5,-446.5"/>
+<polygon fill="white" stroke="black" points="177.5,-424.5 177.5,-921.5 369.5,-921.5 369.5,-424.5 177.5,-424.5"/>
 <text text-anchor="middle" x="273.5" y="-909.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Gui::CameraManipulator</text>
 <polyline fill="none" stroke="black" points="177.5,-902.5 369.5,-902.5 "/>
-<text text-anchor="start" x="185.5" y="-890.5" font-family="Helvetica,sans-Serif" font-size="10.00"># m_cameraSensitivity</text>
-<text text-anchor="start" x="185.5" y="-879.5" font-family="Helvetica,sans-Serif" font-size="10.00"># m_quickCameraModifier</text>
-<text text-anchor="start" x="185.5" y="-868.5" font-family="Helvetica,sans-Serif" font-size="10.00"># m_wheelSpeedModifier</text>
-<text text-anchor="start" x="185.5" y="-857.5" font-family="Helvetica,sans-Serif" font-size="10.00"># m_targetedAabb</text>
-<text text-anchor="start" x="185.5" y="-846.5" font-family="Helvetica,sans-Serif" font-size="10.00"># m_targetedAabbVolume</text>
-<text text-anchor="start" x="185.5" y="-835.5" font-family="Helvetica,sans-Serif" font-size="10.00"># m_mapCameraBahaviourToAabb</text>
-<text text-anchor="start" x="185.5" y="-824.5" font-family="Helvetica,sans-Serif" font-size="10.00"># m_target</text>
-<text text-anchor="start" x="185.5" y="-813.5" font-family="Helvetica,sans-Serif" font-size="10.00"># m_currentAction</text>
-<polyline fill="none" stroke="black" points="177.5,-806.5 369.5,-806.5 "/>
-<text text-anchor="start" x="185.5" y="-794.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ CameraManipulator()</text>
+<text text-anchor="start" x="185.5" y="-890.5" font-family="Helvetica,sans-Serif" font-size="10.00"># m_lastMouseX</text>
+<text text-anchor="start" x="185.5" y="-879.5" font-family="Helvetica,sans-Serif" font-size="10.00"># m_lastMouseY</text>
+<text text-anchor="start" x="185.5" y="-868.5" font-family="Helvetica,sans-Serif" font-size="10.00"># m_cameraSensitivity</text>
+<text text-anchor="start" x="185.5" y="-857.5" font-family="Helvetica,sans-Serif" font-size="10.00"># m_quickCameraModifier</text>
+<text text-anchor="start" x="185.5" y="-846.5" font-family="Helvetica,sans-Serif" font-size="10.00"># m_wheelSpeedModifier</text>
+<text text-anchor="start" x="185.5" y="-835.5" font-family="Helvetica,sans-Serif" font-size="10.00"># m_targetedAabb</text>
+<text text-anchor="start" x="185.5" y="-824.5" font-family="Helvetica,sans-Serif" font-size="10.00"># m_targetedAabbVolume</text>
+<text text-anchor="start" x="185.5" y="-813.5" font-family="Helvetica,sans-Serif" font-size="10.00"># m_mapCameraBahaviourToAabb</text>
+<text text-anchor="start" x="185.5" y="-802.5" font-family="Helvetica,sans-Serif" font-size="10.00"># m_target</text>
+<polyline fill="none" stroke="black" points="177.5,-795.5 369.5,-795.5 "/>
 <text text-anchor="start" x="185.5" y="-783.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ CameraManipulator()</text>
-<text text-anchor="start" x="185.5" y="-772.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ ~CameraManipulator()</text>
-<text text-anchor="start" x="185.5" y="-761.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ mappingContext()</text>
-<text text-anchor="start" x="185.5" y="-750.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ handleMousePressEvent()</text>
-<text text-anchor="start" x="185.5" y="-739.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ handleMouseReleaseEvent()</text>
-<text text-anchor="start" x="185.5" y="-728.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ handleMouseMoveEvent()</text>
-<text text-anchor="start" x="185.5" y="-717.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ handleWheelEvent()</text>
-<text text-anchor="start" x="185.5" y="-706.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ handleKeyPressEvent()</text>
-<text text-anchor="start" x="185.5" y="-695.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ handleKeyReleaseEvent()</text>
-<text text-anchor="start" x="185.5" y="-684.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getCamera()</text>
+<text text-anchor="start" x="185.5" y="-772.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ CameraManipulator()</text>
+<text text-anchor="start" x="185.5" y="-761.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ ~CameraManipulator()</text>
+<text text-anchor="start" x="185.5" y="-750.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ mappingContext()</text>
+<text text-anchor="start" x="185.5" y="-739.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ handleMousePressEvent()</text>
+<text text-anchor="start" x="185.5" y="-728.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ handleMouseReleaseEvent()</text>
+<text text-anchor="start" x="185.5" y="-717.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ handleMouseMoveEvent()</text>
+<text text-anchor="start" x="185.5" y="-706.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ handleWheelEvent()</text>
+<text text-anchor="start" x="185.5" y="-695.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ handleKeyPressEvent()</text>
+<text text-anchor="start" x="185.5" y="-684.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ handleKeyReleaseEvent()</text>
 <text text-anchor="start" x="185.5" y="-673.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getCamera()</text>
-<text text-anchor="start" x="185.5" y="-662.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ updateCamera()</text>
-<text text-anchor="start" x="185.5" y="-651.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ attachLight()</text>
-<text text-anchor="start" x="185.5" y="-640.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ hasLightAttached()</text>
-<text text-anchor="start" x="185.5" y="-629.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getLight()</text>
-<text text-anchor="start" x="185.5" y="-618.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ mapCameraBehaviourToAabb()</text>
-<text text-anchor="start" x="185.5" y="-607.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ unmapCameraBehaviourToAabb()</text>
-<text text-anchor="start" x="185.5" y="-596.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ fitScene()</text>
-<text text-anchor="start" x="185.5" y="-585.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ setCameraPosition()</text>
-<text text-anchor="start" x="185.5" y="-574.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ setCameraTarget()</text>
-<text text-anchor="start" x="185.5" y="-563.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ resetCamera()</text>
-<text text-anchor="start" x="185.5" y="-552.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ setCameraSensitivity()</text>
-<text text-anchor="start" x="185.5" y="-541.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ setCameraFov()</text>
-<text text-anchor="start" x="185.5" y="-530.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ setCameraFovInDegrees()</text>
-<text text-anchor="start" x="185.5" y="-519.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ setCameraZNear()</text>
-<text text-anchor="start" x="185.5" y="-508.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ setCameraZFar()</text>
-<text text-anchor="start" x="185.5" y="-497.5" font-family="Helvetica,sans-Serif" font-size="10.00">* setCameraSensitivity()</text>
-<text text-anchor="start" x="185.5" y="-486.5" font-family="Helvetica,sans-Serif" font-size="10.00">* setCameraFov()</text>
-<text text-anchor="start" x="185.5" y="-475.5" font-family="Helvetica,sans-Serif" font-size="10.00">* setCameraFovInDegrees()</text>
-<text text-anchor="start" x="185.5" y="-464.5" font-family="Helvetica,sans-Serif" font-size="10.00">* setCameraZNear()</text>
-<text text-anchor="start" x="185.5" y="-453.5" font-family="Helvetica,sans-Serif" font-size="10.00">* setCameraZFar()</text>
+<text text-anchor="start" x="185.5" y="-662.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getCamera()</text>
+<text text-anchor="start" x="185.5" y="-651.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ updateCamera()</text>
+<text text-anchor="start" x="185.5" y="-640.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ attachLight()</text>
+<text text-anchor="start" x="185.5" y="-629.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ hasLightAttached()</text>
+<text text-anchor="start" x="185.5" y="-618.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getLight()</text>
+<text text-anchor="start" x="185.5" y="-607.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ mapCameraBehaviourToAabb()</text>
+<text text-anchor="start" x="185.5" y="-596.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ unmapCameraBehaviourToAabb()</text>
+<text text-anchor="start" x="185.5" y="-585.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ fitScene()</text>
+<text text-anchor="start" x="185.5" y="-574.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ setCameraPosition()</text>
+<text text-anchor="start" x="185.5" y="-563.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ setCameraTarget()</text>
+<text text-anchor="start" x="185.5" y="-552.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ resetCamera()</text>
+<text text-anchor="start" x="185.5" y="-541.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ setCameraSensitivity()</text>
+<text text-anchor="start" x="185.5" y="-530.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ setCameraFov()</text>
+<text text-anchor="start" x="185.5" y="-519.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ setCameraFovInDegrees()</text>
+<text text-anchor="start" x="185.5" y="-508.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ setCameraZNear()</text>
+<text text-anchor="start" x="185.5" y="-497.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ setCameraZFar()</text>
+<text text-anchor="start" x="185.5" y="-486.5" font-family="Helvetica,sans-Serif" font-size="10.00"># computeDeltaMouseMove()</text>
+<text text-anchor="start" x="185.5" y="-475.5" font-family="Helvetica,sans-Serif" font-size="10.00">* setCameraSensitivity()</text>
+<text text-anchor="start" x="185.5" y="-464.5" font-family="Helvetica,sans-Serif" font-size="10.00">* setCameraFov()</text>
+<text text-anchor="start" x="185.5" y="-453.5" font-family="Helvetica,sans-Serif" font-size="10.00">* setCameraFovInDegrees()</text>
+<text text-anchor="start" x="185.5" y="-442.5" font-family="Helvetica,sans-Serif" font-size="10.00">* setCameraZNear()</text>
+<text text-anchor="start" x="185.5" y="-431.5" font-family="Helvetica,sans-Serif" font-size="10.00">* setCameraZFar()</text>
 </a>
 </g>
 </g>
 <!-- Node2&#45;&gt;Node1 -->
 <g id="edge1" class="edge">
 <title>Node2&#45;&gt;Node1</title>
-<path fill="none" stroke="midnightblue" d="M373.5,-446.49C380.24,-430.53 387,-414.54 393.66,-398.81"/>
-<polygon fill="none" stroke="midnightblue" points="370.2,-445.3 369.53,-455.88 376.64,-448.03 370.2,-445.3"/>
+<path fill="none" stroke="midnightblue" d="M373.49,-435.5C381.85,-415.74 390.22,-395.94 398.38,-376.63"/>
+<polygon fill="none" stroke="midnightblue" points="370.2,-434.3 369.53,-444.88 376.64,-437.03 370.2,-434.3"/>
 </g>
 <!-- Node3 -->
 <g id="node3" class="node">
@@ -136,9 +136,9 @@
 <!-- Node3&#45;&gt;Node2 -->
 <g id="edge2" class="edge">
 <title>Node3&#45;&gt;Node2</title>
-<path fill="none" stroke="#404040" d="M144.13,-1178.47C160.99,-1114.17 185.33,-1021.35 208.35,-933.52"/>
-<polygon fill="none" stroke="#404040" points="208.4,-933.33 206.05,-926.51 211.44,-921.72 213.79,-928.54 208.4,-933.33"/>
-<text text-anchor="middle" x="230" y="-943" font-family="Helvetica,sans-Serif" font-size="10.00"> #m_light</text>
+<path fill="none" stroke="#404040" d="M143.73,-1178.45C160.22,-1114.38 184.01,-1021.88 206.74,-933.53"/>
+<polygon fill="none" stroke="#404040" points="206.8,-933.28 204.42,-926.48 209.79,-921.66 212.17,-928.47 206.8,-933.28"/>
+<text text-anchor="middle" x="228" y="-943" font-family="Helvetica,sans-Serif" font-size="10.00"> #m_light</text>
 </g>
 <!-- Node4 -->
 <g id="node4" class="node">
@@ -335,32 +335,32 @@
 <!-- Node8&#45;&gt;Node2 -->
 <g id="edge7" class="edge">
 <title>Node8&#45;&gt;Node2</title>
-<path fill="none" stroke="#404040" d="M276.95,-969.2C276.81,-957.41 276.67,-945.63 276.53,-933.93"/>
-<polygon fill="none" stroke="#404040" points="276.52,-933.77 272.45,-927.82 276.38,-921.78 280.45,-927.73 276.52,-933.77"/>
+<path fill="none" stroke="#404040" d="M277.02,-969.22C276.88,-957.47 276.74,-945.73 276.6,-934.05"/>
+<polygon fill="none" stroke="#404040" points="276.6,-933.91 272.53,-927.95 276.46,-921.91 280.53,-927.86 276.6,-933.91"/>
 <text text-anchor="middle" x="309.5" y="-943" font-family="Helvetica,sans-Serif" font-size="10.00"> #m_camera</text>
 </g>
 <!-- Node9 -->
 <g id="node9" class="node">
 <title>Node9</title>
 <g id="a_node9"><a xlink:href="classRa_1_1Gui_1_1KeyMappingManageable.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="388,-633.5 388,-734.5 567,-734.5 567,-633.5 388,-633.5"/>
-<text text-anchor="start" x="396" y="-722.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Gui::KeyMappingManageable</text>
-<text text-anchor="middle" x="477.5" y="-711.5" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; TrackballCameraManipulator &gt;</text>
-<polyline fill="none" stroke="black" points="388,-704.5 567,-704.5 "/>
-<text text-anchor="middle" x="477.5" y="-692.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<polyline fill="none" stroke="black" points="388,-685.5 567,-685.5 "/>
-<text text-anchor="start" x="396" y="-673.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getContext()</text>
-<text text-anchor="start" x="396" y="-662.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ configureKeyMapping()</text>
-<text text-anchor="start" x="396" y="-651.5" font-family="Helvetica,sans-Serif" font-size="10.00"># self()</text>
-<text text-anchor="start" x="396" y="-640.5" font-family="Helvetica,sans-Serif" font-size="10.00"># setContext()</text>
+<polygon fill="white" stroke="black" points="388,-622.5 388,-723.5 567,-723.5 567,-622.5 388,-622.5"/>
+<text text-anchor="start" x="396" y="-711.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Gui::KeyMappingManageable</text>
+<text text-anchor="middle" x="477.5" y="-700.5" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; TrackballCameraManipulator &gt;</text>
+<polyline fill="none" stroke="black" points="388,-693.5 567,-693.5 "/>
+<text text-anchor="middle" x="477.5" y="-681.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polyline fill="none" stroke="black" points="388,-674.5 567,-674.5 "/>
+<text text-anchor="start" x="396" y="-662.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getContext()</text>
+<text text-anchor="start" x="396" y="-651.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ configureKeyMapping()</text>
+<text text-anchor="start" x="396" y="-640.5" font-family="Helvetica,sans-Serif" font-size="10.00"># self()</text>
+<text text-anchor="start" x="396" y="-629.5" font-family="Helvetica,sans-Serif" font-size="10.00"># setContext()</text>
 </a>
 </g>
 </g>
 <!-- Node9&#45;&gt;Node1 -->
 <g id="edge8" class="edge">
 <title>Node9&#45;&gt;Node1</title>
-<path fill="none" stroke="midnightblue" d="M477.5,-623.05C477.5,-566.78 477.5,-479.44 477.5,-398.73"/>
-<polygon fill="none" stroke="midnightblue" points="474,-623.18 477.5,-633.18 481,-623.18 474,-623.18"/>
+<path fill="none" stroke="midnightblue" d="M477.5,-611.96C477.5,-553.1 477.5,-460.28 477.5,-376.62"/>
+<polygon fill="none" stroke="midnightblue" points="474,-612.18 477.5,-622.18 481,-612.18 474,-612.18"/>
 </g>
 <!-- Node10 -->
 <g id="node10" class="node">
@@ -381,34 +381,34 @@
 <!-- Node10&#45;&gt;Node9 -->
 <g id="edge9" class="edge">
 <title>Node10&#45;&gt;Node9</title>
-<path fill="none" stroke="orange" d="M477.5,-1206.74C477.5,-1095.3 477.5,-842.08 477.5,-734.66"/>
-<polygon fill="orange" stroke="orange" points="474,-1206.76 477.5,-1216.76 481,-1206.76 474,-1206.76"/>
+<path fill="none" stroke="orange" d="M477.5,-1206.7C477.5,-1093.28 477.5,-832.75 477.5,-723.57"/>
+<polygon fill="orange" stroke="orange" points="474,-1206.88 477.5,-1216.88 481,-1206.88 474,-1206.88"/>
 <text text-anchor="middle" x="560.5" y="-943" font-family="Helvetica,sans-Serif" font-size="10.00"> &lt; TrackballCameraManipulator &gt;</text>
 </g>
 <!-- Node11 -->
 <g id="node11" class="node">
 <title>Node11</title>
 <g id="a_node11"><a xlink:href="classRa_1_1Gui_1_1KeyMappingCallbackManager.html" target="_top" xlink:title="This class manage a collection of binding/callback associated with a context.">
-<polygon fill="white" stroke="black" points="585.5,-628 585.5,-740 765.5,-740 765.5,-628 585.5,-628"/>
-<text text-anchor="start" x="593.5" y="-728" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Gui::KeyMappingCallback</text>
-<text text-anchor="middle" x="675.5" y="-717" font-family="Helvetica,sans-Serif" font-size="10.00">Manager</text>
-<polyline fill="none" stroke="black" points="585.5,-710 765.5,-710 "/>
-<text text-anchor="middle" x="675.5" y="-698" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<polyline fill="none" stroke="black" points="585.5,-691 765.5,-691 "/>
-<text text-anchor="start" x="593.5" y="-679" font-family="Helvetica,sans-Serif" font-size="10.00">+ KeyMappingCallbackManager()</text>
-<text text-anchor="start" x="593.5" y="-668" font-family="Helvetica,sans-Serif" font-size="10.00">+ addEventCallback()</text>
-<text text-anchor="start" x="593.5" y="-657" font-family="Helvetica,sans-Serif" font-size="10.00">+ addActionAndCallback()</text>
-<text text-anchor="start" x="593.5" y="-646" font-family="Helvetica,sans-Serif" font-size="10.00">+ triggerEventCallback()</text>
+<polygon fill="white" stroke="black" points="585.5,-617 585.5,-729 765.5,-729 765.5,-617 585.5,-617"/>
+<text text-anchor="start" x="593.5" y="-717" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Gui::KeyMappingCallback</text>
+<text text-anchor="middle" x="675.5" y="-706" font-family="Helvetica,sans-Serif" font-size="10.00">Manager</text>
+<polyline fill="none" stroke="black" points="585.5,-699 765.5,-699 "/>
+<text text-anchor="middle" x="675.5" y="-687" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polyline fill="none" stroke="black" points="585.5,-680 765.5,-680 "/>
+<text text-anchor="start" x="593.5" y="-668" font-family="Helvetica,sans-Serif" font-size="10.00">+ KeyMappingCallbackManager()</text>
+<text text-anchor="start" x="593.5" y="-657" font-family="Helvetica,sans-Serif" font-size="10.00">+ addEventCallback()</text>
+<text text-anchor="start" x="593.5" y="-646" font-family="Helvetica,sans-Serif" font-size="10.00">+ addActionAndCallback()</text>
 <text text-anchor="start" x="593.5" y="-635" font-family="Helvetica,sans-Serif" font-size="10.00">+ triggerEventCallback()</text>
+<text text-anchor="start" x="593.5" y="-624" font-family="Helvetica,sans-Serif" font-size="10.00">+ triggerEventCallback()</text>
 </a>
 </g>
 </g>
 <!-- Node11&#45;&gt;Node1 -->
 <g id="edge10" class="edge">
 <title>Node11&#45;&gt;Node1</title>
-<path fill="none" stroke="#404040" d="M652.79,-627.65C630.81,-574.1 596.12,-489.55 563.37,-409.75"/>
-<polygon fill="none" stroke="#404040" points="563.32,-409.63 557.34,-405.6 558.76,-398.53 564.74,-402.56 563.32,-409.63"/>
-<text text-anchor="middle" x="657" y="-420" font-family="Helvetica,sans-Serif" font-size="10.00"> #m_keyMappingCallbackManager</text>
+<path fill="none" stroke="#404040" d="M653.46,-616.76C633.32,-566.45 602.65,-490.14 575.5,-424 570.66,-412.2 565.66,-400.08 560.6,-387.86"/>
+<polygon fill="none" stroke="#404040" points="560.53,-387.69 554.54,-383.68 555.94,-376.61 561.93,-380.62 560.53,-387.69"/>
+<text text-anchor="middle" x="654" y="-398" font-family="Helvetica,sans-Serif" font-size="10.00"> #m_keyMappingCallbackManager</text>
 </g>
 </g>
 </svg>

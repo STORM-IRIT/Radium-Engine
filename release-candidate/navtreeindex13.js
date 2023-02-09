@@ -1,10 +1,5 @@
 var NAVTREEINDEX13 =
 {
-"classRa_1_1Gui_1_1GizmoManager.html#aa7760db4989497dec299372c3226055ca64f8d16f1ed7329e7ca81232c714a29d":[10,0,0,2,22,0,0],
-"classRa_1_1Gui_1_1GizmoManager.html#aa7760db4989497dec299372c3226055caa1791576dbb4a62b9862d8d5c428a46a":[10,0,0,2,22,0,1],
-"classRa_1_1Gui_1_1GizmoManager.html#ab301e49cefa769ce5d2d69a3f0ab4b59":[10,0,0,2,22,1],
-"classRa_1_1Gui_1_1GizmoManager.html#ab63207c7a3d7afb2dfd735ecf5bd3005":[10,0,0,2,22,8],
-"classRa_1_1Gui_1_1GizmoManager.html#ad206715d5804a9833e03c7cba57d3738":[10,0,0,2,22,3],
 "classRa_1_1Gui_1_1GizmoManager.html#ae44aff06a4dba2adf2c0ba63db4f7c39":[10,0,0,2,22,2],
 "classRa_1_1Gui_1_1GizmoManager.html#af578858d4a8f8b20e35a7aee9a1518ed":[10,0,0,2,22,9],
 "classRa_1_1Gui_1_1Gizmo_1_1UiSelectionControler.html":[10,0,0,2,21,0],
@@ -249,5 +244,10 @@ var NAVTREEINDEX13 =
 "classRa_1_1Gui_1_1TrackballCameraManipulator.html#a0b0eaa22ace41441f143a871ef3b1148":[10,0,0,2,26,18],
 "classRa_1_1Gui_1_1TrackballCameraManipulator.html#a19d30b9cfb4cc8dd942a40cfd689b3dd":[10,0,0,2,26,17],
 "classRa_1_1Gui_1_1TrackballCameraManipulator.html#a1a32a812f552b3a424539018ef3681fa":[10,0,0,2,26,7],
-"classRa_1_1Gui_1_1TrackballCameraManipulator.html#a200632859970fd7cf0288525833734d9":[10,0,0,2,26,6]
+"classRa_1_1Gui_1_1TrackballCameraManipulator.html#a200632859970fd7cf0288525833734d9":[10,0,0,2,26,6],
+"classRa_1_1Gui_1_1TrackballCameraManipulator.html#a21bfdf8a04a9846e34ae3abdfb71a5ab":[10,0,0,2,26,13],
+"classRa_1_1Gui_1_1TrackballCameraManipulator.html#a22dba6c9099405a4b34a185e7eca56b1":[10,0,0,2,26,12],
+"classRa_1_1Gui_1_1TrackballCameraManipulator.html#a2992a883ab6d27b82b32f8908743253f":[10,0,0,2,26,24],
+"classRa_1_1Gui_1_1TrackballCameraManipulator.html#a2e0ad51d15edb28c78e5af6ef72c35fc":[10,0,0,2,26,4],
+"classRa_1_1Gui_1_1TrackballCameraManipulator.html#a32dd812e2bf249b55b37f15d6b180d59":[10,0,0,2,26,16]
 };
