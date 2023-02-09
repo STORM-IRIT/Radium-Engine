@@ -16,34 +16,16 @@
 class CameraManipulator2D : public Ra::Gui::TrackballCameraManipulator
 {
   public:
-    /// Default constructor
-    inline CameraManipulator2D() : Ra::Gui::TrackballCameraManipulator() {}
-
+    /// Default constructor, remove rotate callback
+    inline CameraManipulator2D() : Ra::Gui::TrackballCameraManipulator() {
+        m_keyMappingCallbackManager.addEventCallback( TRACKBALLCAMERA_ROTATE, []( QEvent* ) {} );
+    }
     /// Copy constructor used when switching camera manipulator
     /// Requires that m_target is on the line of sight of the camera.
+    /// remove rotate callback
     inline explicit CameraManipulator2D( const CameraManipulator& other ) :
-        Ra::Gui::TrackballCameraManipulator( other ) {}
-
-    inline bool handleMousePressEvent( QMouseEvent* event,
-                                       const Qt::MouseButtons& buttons,
-                                       const Qt::KeyboardModifiers& modifiers,
-                                       int key ) {
-        m_lastMouseX = event->pos().x();
-        m_lastMouseY = event->pos().y();
-
-        m_currentAction = Ra::Gui::KeyMappingManager::getInstance()->getAction(
-            Ra::Gui::TrackballCameraManipulator::KeyMapping::getContext(),
-            buttons,
-            modifiers,
-            key,
-            false );
-
-        // ignore rotate
-        if ( m_currentAction == TRACKBALLCAMERA_ROTATE ) {
-            m_currentAction = Ra::Core::Utils::Index::Invalid();
-        }
-
-        return m_currentAction.isValid();
+        Ra::Gui::TrackballCameraManipulator( other ) {
+        m_keyMappingCallbackManager.addEventCallback( TRACKBALLCAMERA_ROTATE, []( QEvent* ) {} );
     }
 };
 //! [extend trackball]
@@ -85,13 +67,8 @@ int main( int argc, char* argv[] ) {
     //! [Install new manipulator]
     auto viewer = app.m_mainWindow->getViewer();
     viewer->setCameraManipulator( new CameraManipulator2D( *( viewer->getCameraManipulator() ) ) );
+    viewer->fitCamera();
     //! [Install new manipulator]
-
-    // terminate the app after 4 second (approximatively). Camera can be moved using mouse moves.
-    auto close_timer = new QTimer( &app );
-    close_timer->setInterval( 4000 );
-    QObject::connect( close_timer, &QTimer::timeout, [&app]() { app.appNeedsToQuit(); } );
-    close_timer->start();
 
     return app.exec();
 }

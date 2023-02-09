@@ -18,8 +18,9 @@ class RA_GUI_API FlightCameraManipulator : public CameraManipulator,
     friend class KeyMappingManageable<FlightCameraManipulator>;
 
   public:
+    using KeyMapping = KeyMappingManageable<FlightCameraManipulator>;
+
     FlightCameraManipulator();
-    explicit FlightCameraManipulator( const FlightCameraManipulator& other );
     explicit FlightCameraManipulator( const CameraManipulator& other );
     virtual ~FlightCameraManipulator();
 
@@ -41,7 +42,6 @@ class RA_GUI_API FlightCameraManipulator : public CameraManipulator,
     bool handleKeyPressEvent( QKeyEvent* event,
                               const KeyMappingManager::KeyMappingAction& action ) override;
 
-    void toggleRotateAround();
     void updateCamera() override;
 
   public slots:
@@ -57,20 +57,14 @@ class RA_GUI_API FlightCameraManipulator : public CameraManipulator,
     virtual void handleCameraZoom( Scalar dx, Scalar dy );
     virtual void handleCameraZoom( Scalar z );
 
-  protected:
-    /// x-position of the mouse on the screen at the manipulation start.
-    Scalar m_lastMouseX { 0_ra };
-
-    /// y-position of the mouse on the screen at the manipulation start.
-    Scalar m_lastMouseY { 0_ra };
-
-    /// Whether the corresponding camera movement is active or not.
-    bool m_rotateAround;
-    bool m_cameraRotateMode;
-    bool m_cameraPanMode;
-    bool m_cameraZoomMode;
-
   private:
+    void setupKeyMappingCallbacks();
+    void panCallback( QEvent* event );
+    void rotateCallback( QEvent* event );
+    void zoomCallback( QEvent* event );
+
+    KeyMappingCallbackManager m_keyMappingCallbackManager;
+
     void initializeFixedUpVector();
     Ra::Core::Vector3 m_fixUpVector { 0_ra, 1_ra, 0_ra };
     Scalar m_flightSpeed { 1._ra };
@@ -78,10 +72,9 @@ class RA_GUI_API FlightCameraManipulator : public CameraManipulator,
 
   protected:
 #define KeyMappingFlightManipulator      \
-    KMA_VALUE( FLIGHTMODECAMERA_ROTATE ) \
     KMA_VALUE( FLIGHTMODECAMERA_PAN )    \
-    KMA_VALUE( FLIGHTMODECAMERA_ZOOM )   \
-    KMA_VALUE( FLIGHTMODECAMERA_ROTATE_AROUND )
+    KMA_VALUE( FLIGHTMODECAMERA_ROTATE ) \
+    KMA_VALUE( FLIGHTMODECAMERA_ZOOM )
 
 #define KMA_VALUE( XX ) static KeyMappingManager::KeyMappingAction XX;
     KeyMappingFlightManipulator
