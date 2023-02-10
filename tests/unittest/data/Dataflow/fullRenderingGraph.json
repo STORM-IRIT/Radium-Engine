@@ -1,283 +1,283 @@
 {
-    "id": "{3e0a0063-f7f9-4713-a32b-51d0b65de0c3}",
+    "instance": "fullRenderingGraph",
     "model": {
         "graph": {
             "connections": [
                 {
-                    "in_id": "{58e9c197-5eeb-42ba-adac-039dcbffe421}",
-                    "in_index": 0,
-                    "out_id": "{29aabf46-1ef2-4811-9959-fb733b1748f5}",
-                    "out_index": 0
+                    "in_node": "Display Node",
+                    "in_port": "Beauty",
+                    "out_node": "wireframe_14",
+                    "out_port": "Beauty"
                 },
                 {
-                    "in_id": "{58e9c197-5eeb-42ba-adac-039dcbffe421}",
-                    "in_index": 1,
-                    "out_id": "{48a14abf-2bb4-46b8-8a40-5bac6db698b6}",
-                    "out_index": 2
+                    "in_node": "Display Node",
+                    "in_port": "AOV_0",
+                    "out_node": "geometryAovs_6",
+                    "out_port": "world normal"
                 },
                 {
-                    "in_id": "{58e9c197-5eeb-42ba-adac-039dcbffe421}",
-                    "in_index": 2,
-                    "out_id": "{48a14abf-2bb4-46b8-8a40-5bac6db698b6}",
-                    "out_index": 1
+                    "in_node": "Display Node",
+                    "in_port": "AOV_1",
+                    "out_node": "geometryAovs_6",
+                    "out_port": "world pos"
                 },
                 {
-                    "in_id": "{58e9c197-5eeb-42ba-adac-039dcbffe421}",
-                    "in_index": 3,
-                    "out_id": "{b69b4a4e-17a7-487a-a894-68314a6e0207}",
-                    "out_index": 1
+                    "in_node": "Display Node",
+                    "in_port": "AOV_2",
+                    "out_node": "transparency_11",
+                    "out_port": "revealage"
                 },
                 {
-                    "in_id": "{58e9c197-5eeb-42ba-adac-039dcbffe421}",
-                    "in_index": 4,
-                    "out_id": "{b69b4a4e-17a7-487a-a894-68314a6e0207}",
-                    "out_index": 2
+                    "in_node": "Display Node",
+                    "in_port": "AOV_3",
+                    "out_node": "transparency_11",
+                    "out_port": "accum"
                 },
                 {
-                    "in_id": "{58e9c197-5eeb-42ba-adac-039dcbffe421}",
-                    "in_index": 5,
-                    "out_id": "{24cb2152-909b-4bf9-a381-d49115fb2bb4}",
-                    "out_index": 0
+                    "in_node": "Display Node",
+                    "in_port": "AOV_4",
+                    "out_node": "ssao_12",
+                    "out_port": "ssao"
                 },
                 {
-                    "in_id": "{c64a1c27-477d-46bb-9174-3e2072cf7557}",
-                    "in_index": 0,
-                    "out_id": "{378b6823-55c8-4052-ab91-98336c5a59b5}",
-                    "out_index": 0
+                    "in_node": "clearFrame_9",
+                    "in_port": "texture",
+                    "out_node": "colorTex_8",
+                    "out_port": "texture"
                 },
                 {
-                    "in_id": "{c64a1c27-477d-46bb-9174-3e2072cf7557}",
-                    "in_index": 1,
-                    "out_id": "{c27ba749-f756-47a4-8205-c3c62201694b}",
-                    "out_index": 0
+                    "in_node": "clearFrame_9",
+                    "in_port": "clear color",
+                    "out_node": "Source<Color>_1",
+                    "out_port": "to"
                 },
                 {
-                    "in_id": "{c64a1c27-477d-46bb-9174-3e2072cf7557}",
-                    "in_index": 2,
-                    "out_id": "{0a9935e7-e7df-4f91-bd19-56ddc25ba0ec}",
-                    "out_index": 0
+                    "in_node": "clearFrame_9",
+                    "in_port": "environment",
+                    "out_node": "envmap_10",
+                    "out_port": "to"
                 },
                 {
-                    "in_id": "{c64a1c27-477d-46bb-9174-3e2072cf7557}",
-                    "in_index": 3,
-                    "out_id": "{c18f9b5c-a685-4964-b5a6-1d41b4036bcc}",
-                    "out_index": 2
+                    "in_node": "clearFrame_9",
+                    "in_port": "camera",
+                    "out_node": "scene_6",
+                    "out_port": "camera"
                 },
                 {
-                    "in_id": "{48a14abf-2bb4-46b8-8a40-5bac6db698b6}",
-                    "in_index": 0,
-                    "out_id": "{c18f9b5c-a685-4964-b5a6-1d41b4036bcc}",
-                    "out_index": 0
+                    "in_node": "geometryAovs_6",
+                    "in_port": "objects",
+                    "out_node": "scene_6",
+                    "out_port": "objects"
                 },
                 {
-                    "in_id": "{48a14abf-2bb4-46b8-8a40-5bac6db698b6}",
-                    "in_index": 1,
-                    "out_id": "{c18f9b5c-a685-4964-b5a6-1d41b4036bcc}",
-                    "out_index": 2
+                    "in_node": "geometryAovs_6",
+                    "in_port": "camera",
+                    "out_node": "scene_6",
+                    "out_port": "camera"
                 },
                 {
-                    "in_id": "{37b719c8-5ab1-4b6b-b7ad-293f292be419}",
-                    "in_index": 0,
-                    "out_id": "{c18f9b5c-a685-4964-b5a6-1d41b4036bcc}",
-                    "out_index": 0
+                    "in_node": "emissivity_7",
+                    "in_port": "objects",
+                    "out_node": "scene_6",
+                    "out_port": "objects"
                 },
                 {
-                    "in_id": "{37b719c8-5ab1-4b6b-b7ad-293f292be419}",
-                    "in_index": 1,
-                    "out_id": "{c18f9b5c-a685-4964-b5a6-1d41b4036bcc}",
-                    "out_index": 2
+                    "in_node": "emissivity_7",
+                    "in_port": "camera",
+                    "out_node": "scene_6",
+                    "out_port": "camera"
                 },
                 {
-                    "in_id": "{37b719c8-5ab1-4b6b-b7ad-293f292be419}",
-                    "in_index": 2,
-                    "out_id": "{c64a1c27-477d-46bb-9174-3e2072cf7557}",
-                    "out_index": 0
+                    "in_node": "emissivity_7",
+                    "in_port": "color",
+                    "out_node": "clearFrame_9",
+                    "out_port": "Beauty"
                 },
                 {
-                    "in_id": "{37b719c8-5ab1-4b6b-b7ad-293f292be419}",
-                    "in_index": 3,
-                    "out_id": "{48a14abf-2bb4-46b8-8a40-5bac6db698b6}",
-                    "out_index": 0
+                    "in_node": "emissivity_7",
+                    "in_port": "depth",
+                    "out_node": "geometryAovs_6",
+                    "out_port": "depth"
                 },
                 {
-                    "in_id": "{37b719c8-5ab1-4b6b-b7ad-293f292be419}",
-                    "in_index": 4,
-                    "out_id": "{24cb2152-909b-4bf9-a381-d49115fb2bb4}",
-                    "out_index": 0
+                    "in_node": "emissivity_7",
+                    "in_port": "AO",
+                    "out_node": "ssao_12",
+                    "out_port": "ssao"
                 },
                 {
-                    "in_id": "{24cb2152-909b-4bf9-a381-d49115fb2bb4}",
-                    "in_index": 0,
-                    "out_id": "{48a14abf-2bb4-46b8-8a40-5bac6db698b6}",
-                    "out_index": 1
+                    "in_node": "ssao_12",
+                    "in_port": "worldPosition",
+                    "out_node": "geometryAovs_6",
+                    "out_port": "world pos"
                 },
                 {
-                    "in_id": "{24cb2152-909b-4bf9-a381-d49115fb2bb4}",
-                    "in_index": 1,
-                    "out_id": "{48a14abf-2bb4-46b8-8a40-5bac6db698b6}",
-                    "out_index": 2
+                    "in_node": "ssao_12",
+                    "in_port": "worldNormal",
+                    "out_node": "geometryAovs_6",
+                    "out_port": "world normal"
                 },
                 {
-                    "in_id": "{24cb2152-909b-4bf9-a381-d49115fb2bb4}",
-                    "in_index": 2,
-                    "out_id": "{c18f9b5c-a685-4964-b5a6-1d41b4036bcc}",
-                    "out_index": 2
+                    "in_node": "ssao_12",
+                    "in_port": "camera",
+                    "out_node": "scene_6",
+                    "out_port": "camera"
                 },
                 {
-                    "in_id": "{b6e84af0-b6ad-4a35-b8ac-c914fe5b4b5d}",
-                    "in_index": 0,
-                    "out_id": "{c18f9b5c-a685-4964-b5a6-1d41b4036bcc}",
-                    "out_index": 0
+                    "in_node": "envlight_8",
+                    "in_port": "objects",
+                    "out_node": "scene_6",
+                    "out_port": "objects"
                 },
                 {
-                    "in_id": "{b6e84af0-b6ad-4a35-b8ac-c914fe5b4b5d}",
-                    "in_index": 1,
-                    "out_id": "{c18f9b5c-a685-4964-b5a6-1d41b4036bcc}",
-                    "out_index": 2
+                    "in_node": "envlight_8",
+                    "in_port": "camera",
+                    "out_node": "scene_6",
+                    "out_port": "camera"
                 },
                 {
-                    "in_id": "{b6e84af0-b6ad-4a35-b8ac-c914fe5b4b5d}",
-                    "in_index": 2,
-                    "out_id": "{0a9935e7-e7df-4f91-bd19-56ddc25ba0ec}",
-                    "out_index": 0
+                    "in_node": "envlight_8",
+                    "in_port": "envmap",
+                    "out_node": "envmap_10",
+                    "out_port": "to"
                 },
                 {
-                    "in_id": "{b6e84af0-b6ad-4a35-b8ac-c914fe5b4b5d}",
-                    "in_index": 3,
-                    "out_id": "{37b719c8-5ab1-4b6b-b7ad-293f292be419}",
-                    "out_index": 0
+                    "in_node": "envlight_8",
+                    "in_port": "color",
+                    "out_node": "emissivity_7",
+                    "out_port": "Beauty"
                 },
                 {
-                    "in_id": "{b6e84af0-b6ad-4a35-b8ac-c914fe5b4b5d}",
-                    "in_index": 4,
-                    "out_id": "{48a14abf-2bb4-46b8-8a40-5bac6db698b6}",
-                    "out_index": 0
+                    "in_node": "envlight_8",
+                    "in_port": "depth",
+                    "out_node": "geometryAovs_6",
+                    "out_port": "depth"
                 },
                 {
-                    "in_id": "{9e1c3de2-e14e-4e0c-b4a4-d5baf1766a26}",
-                    "in_index": 0,
-                    "out_id": "{fa8ffab8-45f4-4a2d-aa55-176d62a2c18a}",
-                    "out_index": 0
+                    "in_node": "localLight_9",
+                    "in_port": "objects",
+                    "out_node": "scene_10",
+                    "out_port": "objects"
                 },
                 {
-                    "in_id": "{9e1c3de2-e14e-4e0c-b4a4-d5baf1766a26}",
-                    "in_index": 1,
-                    "out_id": "{fa8ffab8-45f4-4a2d-aa55-176d62a2c18a}",
-                    "out_index": 1
+                    "in_node": "localLight_9",
+                    "in_port": "lights",
+                    "out_node": "scene_10",
+                    "out_port": "lights"
                 },
                 {
-                    "in_id": "{9e1c3de2-e14e-4e0c-b4a4-d5baf1766a26}",
-                    "in_index": 2,
-                    "out_id": "{fa8ffab8-45f4-4a2d-aa55-176d62a2c18a}",
-                    "out_index": 2
+                    "in_node": "localLight_9",
+                    "in_port": "camera",
+                    "out_node": "scene_10",
+                    "out_port": "camera"
                 },
                 {
-                    "in_id": "{9e1c3de2-e14e-4e0c-b4a4-d5baf1766a26}",
-                    "in_index": 3,
-                    "out_id": "{b6e84af0-b6ad-4a35-b8ac-c914fe5b4b5d}",
-                    "out_index": 0
+                    "in_node": "localLight_9",
+                    "in_port": "color",
+                    "out_node": "envlight_8",
+                    "out_port": "Beauty"
                 },
                 {
-                    "in_id": "{9e1c3de2-e14e-4e0c-b4a4-d5baf1766a26}",
-                    "in_index": 4,
-                    "out_id": "{48a14abf-2bb4-46b8-8a40-5bac6db698b6}",
-                    "out_index": 0
+                    "in_node": "localLight_9",
+                    "in_port": "depth",
+                    "out_node": "geometryAovs_6",
+                    "out_port": "depth"
                 },
                 {
-                    "in_id": "{9e1c3de2-e14e-4e0c-b4a4-d5baf1766a26}",
-                    "in_index": 5,
-                    "out_id": "{24cb2152-909b-4bf9-a381-d49115fb2bb4}",
-                    "out_index": 0
+                    "in_node": "localLight_9",
+                    "in_port": "AO",
+                    "out_node": "ssao_12",
+                    "out_port": "ssao"
                 },
                 {
-                    "in_id": "{b69b4a4e-17a7-487a-a894-68314a6e0207}",
-                    "in_index": 0,
-                    "out_id": "{fa8ffab8-45f4-4a2d-aa55-176d62a2c18a}",
-                    "out_index": 0
+                    "in_node": "transparency_11",
+                    "in_port": "objects",
+                    "out_node": "scene_10",
+                    "out_port": "objects"
                 },
                 {
-                    "in_id": "{b69b4a4e-17a7-487a-a894-68314a6e0207}",
-                    "in_index": 1,
-                    "out_id": "{fa8ffab8-45f4-4a2d-aa55-176d62a2c18a}",
-                    "out_index": 1
+                    "in_node": "transparency_11",
+                    "in_port": "lights",
+                    "out_node": "scene_10",
+                    "out_port": "lights"
                 },
                 {
-                    "in_id": "{b69b4a4e-17a7-487a-a894-68314a6e0207}",
-                    "in_index": 2,
-                    "out_id": "{fa8ffab8-45f4-4a2d-aa55-176d62a2c18a}",
-                    "out_index": 2
+                    "in_node": "transparency_11",
+                    "in_port": "camera",
+                    "out_node": "scene_10",
+                    "out_port": "camera"
                 },
                 {
-                    "in_id": "{b69b4a4e-17a7-487a-a894-68314a6e0207}",
-                    "in_index": 3,
-                    "out_id": "{9e1c3de2-e14e-4e0c-b4a4-d5baf1766a26}",
-                    "out_index": 0
+                    "in_node": "transparency_11",
+                    "in_port": "color",
+                    "out_node": "localLight_9",
+                    "out_port": "Beauty"
                 },
                 {
-                    "in_id": "{b69b4a4e-17a7-487a-a894-68314a6e0207}",
-                    "in_index": 4,
-                    "out_id": "{48a14abf-2bb4-46b8-8a40-5bac6db698b6}",
-                    "out_index": 0
+                    "in_node": "transparency_11",
+                    "in_port": "depth",
+                    "out_node": "geometryAovs_6",
+                    "out_port": "depth"
                 },
                 {
-                    "in_id": "{a5d6abaf-8f66-496e-8fe4-3ae89e5ac43d}",
-                    "in_index": 0,
-                    "out_id": "{fa8ffab8-45f4-4a2d-aa55-176d62a2c18a}",
-                    "out_index": 0
+                    "in_node": "volumeLighting_13",
+                    "in_port": "objects",
+                    "out_node": "scene_10",
+                    "out_port": "objects"
                 },
                 {
-                    "in_id": "{a5d6abaf-8f66-496e-8fe4-3ae89e5ac43d}",
-                    "in_index": 1,
-                    "out_id": "{fa8ffab8-45f4-4a2d-aa55-176d62a2c18a}",
-                    "out_index": 1
+                    "in_node": "volumeLighting_13",
+                    "in_port": "lights",
+                    "out_node": "scene_10",
+                    "out_port": "lights"
                 },
                 {
-                    "in_id": "{a5d6abaf-8f66-496e-8fe4-3ae89e5ac43d}",
-                    "in_index": 2,
-                    "out_id": "{fa8ffab8-45f4-4a2d-aa55-176d62a2c18a}",
-                    "out_index": 2
+                    "in_node": "volumeLighting_13",
+                    "in_port": "camera",
+                    "out_node": "scene_10",
+                    "out_port": "camera"
                 },
                 {
-                    "in_id": "{a5d6abaf-8f66-496e-8fe4-3ae89e5ac43d}",
-                    "in_index": 3,
-                    "out_id": "{b69b4a4e-17a7-487a-a894-68314a6e0207}",
-                    "out_index": 0
+                    "in_node": "volumeLighting_13",
+                    "in_port": "color",
+                    "out_node": "transparency_11",
+                    "out_port": "Beauty"
                 },
                 {
-                    "in_id": "{a5d6abaf-8f66-496e-8fe4-3ae89e5ac43d}",
-                    "in_index": 4,
-                    "out_id": "{48a14abf-2bb4-46b8-8a40-5bac6db698b6}",
-                    "out_index": 0
+                    "in_node": "volumeLighting_13",
+                    "in_port": "depth",
+                    "out_node": "geometryAovs_6",
+                    "out_port": "depth"
                 },
                 {
-                    "in_id": "{29aabf46-1ef2-4811-9959-fb733b1748f5}",
-                    "in_index": 0,
-                    "out_id": "{fa8ffab8-45f4-4a2d-aa55-176d62a2c18a}",
-                    "out_index": 0
+                    "in_node": "wireframe_14",
+                    "in_port": "objects",
+                    "out_node": "scene_10",
+                    "out_port": "objects"
                 },
                 {
-                    "in_id": "{29aabf46-1ef2-4811-9959-fb733b1748f5}",
-                    "in_index": 1,
-                    "out_id": "{fa8ffab8-45f4-4a2d-aa55-176d62a2c18a}",
-                    "out_index": 2
+                    "in_node": "wireframe_14",
+                    "in_port": "camera",
+                    "out_node": "scene_10",
+                    "out_port": "camera"
                 },
                 {
-                    "in_id": "{29aabf46-1ef2-4811-9959-fb733b1748f5}",
-                    "in_index": 2,
-                    "out_id": "{a5d6abaf-8f66-496e-8fe4-3ae89e5ac43d}",
-                    "out_index": 0
+                    "in_node": "wireframe_14",
+                    "in_port": "color",
+                    "out_node": "volumeLighting_13",
+                    "out_port": "Beauty"
                 },
                 {
-                    "in_id": "{29aabf46-1ef2-4811-9959-fb733b1748f5}",
-                    "in_index": 3,
-                    "out_id": "{48a14abf-2bb4-46b8-8a40-5bac6db698b6}",
-                    "out_index": 0
+                    "in_node": "wireframe_14",
+                    "in_port": "depth",
+                    "out_node": "geometryAovs_6",
+                    "out_port": "depth"
                 },
                 {
-                    "in_id": "{29aabf46-1ef2-4811-9959-fb733b1748f5}",
-                    "in_index": 4,
-                    "out_id": "{c6109613-71d9-4bad-89e7-298baf21290a}",
-                    "out_index": 0
+                    "in_node": "wireframe_14",
+                    "in_port": "activate",
+                    "out_node": "Source<bool>_2",
+                    "out_port": "to"
                 }
             ],
             "factories": [
@@ -285,9 +285,8 @@
             ],
             "nodes": [
                 {
-                    "id": "{c18f9b5c-a685-4964-b5a6-1d41b4036bcc}",
+                    "instance": "scene_6",
                     "model": {
-                        "instance": "scene_6",
                         "name": "Scene data provider"
                     },
                     "position": {
@@ -296,7 +295,7 @@
                     }
                 },
                 {
-                    "id": "{c27ba749-f756-47a4-8205-c3c62201694b}",
+                    "instance": "Source<Color>_1",
                     "model": {
                         "color": [
                             1.7104668586398475e-05,
@@ -304,7 +303,6 @@
                             1.7104668586398475e-05,
                             1.0
                         ],
-                        "instance": "Source<Color>_1",
                         "name": "Source<Color>"
                     },
                     "position": {
@@ -313,9 +311,8 @@
                     }
                 },
                 {
-                    "id": "{fa8ffab8-45f4-4a2d-aa55-176d62a2c18a}",
+                    "instance": "scene_10",
                     "model": {
-                        "instance": "scene_10",
                         "name": "Scene data provider"
                     },
                     "position": {
@@ -324,10 +321,9 @@
                     }
                 },
                 {
-                    "id": "{c6109613-71d9-4bad-89e7-298baf21290a}",
+                    "instance": "Source<bool>_2",
                     "model": {
                         "boolean": false,
-                        "instance": "Source<bool>_2",
                         "name": "Source<bool>"
                     },
                     "position": {
@@ -336,9 +332,8 @@
                     }
                 },
                 {
-                    "id": "{58e9c197-5eeb-42ba-adac-039dcbffe421}",
+                    "instance": "Display Node",
                     "model": {
-                        "instance": "sink_7",
                         "name": "Display Sink"
                     },
                     "position": {
@@ -347,9 +342,8 @@
                     }
                 },
                 {
-                    "id": "{378b6823-55c8-4052-ab91-98336c5a59b5}",
+                    "instance": "colorTex_8",
                     "model": {
-                        "instance": "colorTex_8",
                         "name": "Color Texture"
                     },
                     "position": {
@@ -358,14 +352,13 @@
                     }
                 },
                 {
-                    "id": "{c64a1c27-477d-46bb-9174-3e2072cf7557}",
+                    "instance": "clearFrame_9",
                     "model": {
                         "clearColor": [
                             0.45098042488098145,
                             0.45098042488098145,
                             0.45098042488098145
                         ],
-                        "instance": "clearFrame_9",
                         "name": "Clear Color Pass"
                     },
                     "position": {
@@ -374,12 +367,9 @@
                     }
                 },
                 {
-                    "id": "{0a9935e7-e7df-4f91-bd19-56ddc25ba0ec}",
+                    "instance": "envmap_10",
                     "model": {
-                        "files": "data/studio_garden_2k.exr",
-                        "instance": "envmap_10",
-                        "name": "Source<Environment>",
-                        "strength": 100.0
+                        "name": "Source<Environment>"
                     },
                     "position": {
                         "x": 51.3619384765625,
@@ -387,9 +377,8 @@
                     }
                 },
                 {
-                    "id": "{48a14abf-2bb4-46b8-8a40-5bac6db698b6}",
+                    "instance": "geometryAovs_6",
                     "model": {
-                        "instance": "geometryAovs_6",
                         "name": "Geometry AOVs"
                     },
                     "position": {
@@ -398,9 +387,8 @@
                     }
                 },
                 {
-                    "id": "{37b719c8-5ab1-4b6b-b7ad-293f292be419}",
+                    "instance": "emissivity_7",
                     "model": {
-                        "instance": "emissivity_7",
                         "name": "Emissivity Render Node"
                     },
                     "position": {
@@ -409,11 +397,10 @@
                     }
                 },
                 {
-                    "id": "{24cb2152-909b-4bf9-a381-d49115fb2bb4}",
+                    "instance": "ssao_12",
                     "model": {
-                        "instance": "ssao_12",
                         "name": "SSAO Node",
-                        "radius": 10.0
+                        "radius": 0.0
                     },
                     "position": {
                         "x": 802.4400024414063,
@@ -421,9 +408,8 @@
                     }
                 },
                 {
-                    "id": "{b6e84af0-b6ad-4a35-b8ac-c914fe5b4b5d}",
+                    "instance": "envlight_8",
                     "model": {
-                        "instance": "envlight_8",
                         "name": "Env Lighting Node"
                     },
                     "position": {
@@ -432,9 +418,8 @@
                     }
                 },
                 {
-                    "id": "{9e1c3de2-e14e-4e0c-b4a4-d5baf1766a26}",
+                    "instance": "localLight_9",
                     "model": {
-                        "instance": "localLight_9",
                         "name": "Local Lighting Node"
                     },
                     "position": {
@@ -443,9 +428,8 @@
                     }
                 },
                 {
-                    "id": "{b69b4a4e-17a7-487a-a894-68314a6e0207}",
+                    "instance": "transparency_11",
                     "model": {
-                        "instance": "transparency_11",
                         "name": "Transparency Local Lighting Node"
                     },
                     "position": {
@@ -454,9 +438,8 @@
                     }
                 },
                 {
-                    "id": "{a5d6abaf-8f66-496e-8fe4-3ae89e5ac43d}",
+                    "instance": "volumeLighting_13",
                     "model": {
-                        "instance": "volumeLighting_13",
                         "name": "Volume Local Lighting Node"
                     },
                     "position": {
@@ -465,10 +448,9 @@
                     }
                 },
                 {
-                    "id": "{29aabf46-1ef2-4811-9959-fb733b1748f5}",
+                    "instance": "wireframe_14",
                     "model": {
                         "activated": false,
-                        "instance": "wireframe_14",
                         "name": "Wireframe Node"
                     },
                     "position": {
@@ -478,7 +460,6 @@
                 }
             ]
         },
-        "instance": "fullGraph",
         "name": "Rendering Graph"
     }
 }
