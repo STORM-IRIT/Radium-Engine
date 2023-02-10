@@ -26,6 +26,14 @@ SurfaceMeshComponent<CoreMeshType>::SurfaceMeshComponent(
 template <typename CoreMeshType>
 SurfaceMeshComponent<CoreMeshType>::SurfaceMeshComponent( const std::string& name,
                                                           Entity* entity,
+                                                          std::shared_ptr<RenderMeshType> data ) :
+    GeometryComponent( name, entity ), m_displayMesh( data ) {
+    finalizeROFromGeometry( nullptr, Core::Transform::Identity() );
+}
+
+template <typename CoreMeshType>
+SurfaceMeshComponent<CoreMeshType>::SurfaceMeshComponent( const std::string& name,
+                                                          Entity* entity,
                                                           CoreMeshType&& mesh,
                                                           Core::Asset::MaterialData* mat ) :
     GeometryComponent( name, entity ),
