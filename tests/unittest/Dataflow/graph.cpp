@@ -394,8 +394,11 @@ TEST_CASE( "Dataflow/Core/Graph", "[Dataflow][Core][Graph]" ) {
         REQUIRE( nodes->size() == g->getNodesCount() );
         auto c = g->compile();
         REQUIRE( c == true );
+        REQUIRE( g->isCompiled() );
         // Prints the graph content
         inspectGraph( *g );
+        g->needsRecompile();
+        REQUIRE( !g->isCompiled() );
 
         // removing the boolean sink from the graph
         auto n = g->getNode( "validation value" );
@@ -405,6 +408,7 @@ TEST_CASE( "Dataflow/Core/Graph", "[Dataflow][Core][Graph]" ) {
         REQUIRE( n == nullptr );
         c = g->compile();
         REQUIRE( c == true );
+
         // Simplified graph after compilation
         auto cn = g->getNodesByLevel();
         // the source "Validator" is no more in level 0 as it is not reachable from a sink in the
