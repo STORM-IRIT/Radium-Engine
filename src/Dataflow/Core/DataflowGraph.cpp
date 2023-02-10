@@ -89,31 +89,24 @@ void DataflowGraph::toJsonInternal( nlohmann::json& data ) const {
         nlohmann::json nodeData;
         n->toJson( nodeData );
         nodes.push_back( nodeData );
-        int numPort = 0;
         for ( const auto& input : n->getInputs() ) {
             if ( input->isLinked() ) {
                 nlohmann::json link = nlohmann::json::object();
-                link["in_id"]       = n->getUuid();
-                link["in_index"]    = numPort;
                 auto portOut        = input->getLink();
                 auto nodeOut        = portOut->getNode();
-                int outPortIndex    = 0;
-                for ( const auto& p : nodeOut->getOutputs() ) {
-                    if ( p.get() == portOut ) { break; }
-                    outPortIndex++;
-                }
-                link["out_id"]    = nodeOut->getUuid();
-                link["out_index"] = outPortIndex;
+                link["out_node"]    = nodeOut->getInstanceName();
+                link["out_port"]    = portOut->getName();
+                link["in_node"]     = n->getInstanceName();
+                link["in_port"]     = input->getName();
                 connections.push_back( link );
             }
-            numPort++;
         }
     }
 
     // write the common content of the Node to the json data
     graph["nodes"]       = nodes;
     graph["connections"] = connections;
-    // Fill the specific concrete node informations
+    // Fill the specific concrete node information
     data.emplace( "graph", graph );
 }
 
@@ -129,6 +122,52 @@ bool DataflowGraph::loadFromJson( const std::string& jsonFilePath ) {
     file >> j;
     m_shouldBeSaved = false;
     return fromJson( j );
+}
+
+std::pair<Node*, std::string> getLinkInfo( const std::string& which,
+                                           const nlohmann::json& linkData,
+                                           const std::unordered_map<std::string, Node*>& nodeById,
+                                           const std::map<std::string, Node*>& nodeByName ) {
+    std::string field = which + "_node";
+    Node* node { nullptr };
+    if ( linkData.contains( field ) ) {
+        auto itNode = nodeByName.find( linkData[field] );
+        if ( itNode != nodeByName.end() ) { node = itNode->second; }
+    }
+    else {
+        // try to find the node by id
+        field = which + "_id";
+        if ( linkData.contains( field ) ) {
+            auto itNode = nodeById.find( linkData[field] );
+            if ( itNode != nodeById.end() ) { node = itNode->second; }
+        }
+    }
+    if ( node == nullptr ) {
+        // Error, could not find the node
+        std::string msg =
+            std::string { "Node " } + which + " not found in cache " + " : " + linkData.dump();
+        return { nullptr, msg };
+    }
+
+    std::string port;
+    field = which + "_port";
+    if ( linkData.contains( field ) ) {
+        auto p = node->getPortByName( which, linkData[field] );
+        if ( p != nullptr ) { port = p->getName(); }
+    }
+    else {
+        field = which + "_index";
+        if ( linkData.contains( field ) ) {
+            auto p = node->getPortByIndex( which, linkData[field] );
+            if ( p != nullptr ) { port = p->getName(); }
+        }
+    }
+    if ( port.empty() ) {
+        std::string msg = std::string { "Port " } + which + " not found in node " +
+                          node->getInstanceName() + " : " + linkData.dump();
+        return { nullptr, msg };
+    }
+    return { node, port };
 }
 
 bool DataflowGraph::fromJsonInternal( const nlohmann::json& data ) {
@@ -154,76 +193,70 @@ bool DataflowGraph::fromJsonInternal( const nlohmann::json& data ) {
             }
         }
         std::unordered_map<std::string, Node*> nodeById;
-
+        std::map<std::string, Node*> nodeByName;
         auto nodes = data["graph"]["nodes"];
         for ( auto& n : nodes ) {
-            std::string name = n["model"]["name"];
-            std::string id   = n["id"];
-
-            auto newNode = m_factories->createNode( name, n, this );
-            if ( newNode ) { nodeById.emplace( id, newNode ); }
+            if ( !n["model"].contains( "name" ) ) {
+                LOG( logERROR ) << "Found a node without model description." << n.dump()
+                                << "Unable to build an instance.";
+                return false;
+            }
+            std::string nodeTypeName = n["model"]["name"];
+            std::string instanceName, id;
+            bool nodeIsIdentified = false;
+            if ( n.contains( "instance" ) ) {
+                instanceName     = n["instance"];
+                nodeIsIdentified = true;
+            }
+            if ( n.contains( "id" ) ) {
+                id               = n["id"];
+                nodeIsIdentified = true;
+            }
+            if ( !nodeIsIdentified ) {
+                LOG( logERROR ) << "Found a node of type " << nodeTypeName
+                                << " without identification ";
+                return false;
+            }
+            auto newNode = m_factories->createNode( nodeTypeName, n, this );
+            if ( newNode ) {
+                if ( !instanceName.empty() ) {
+                    auto [it, inserted] = nodeByName.insert( { instanceName, newNode } );
+                    if ( !inserted ) {
+                        LOG( logERROR ) << "DataflowGraph::loadFromJson : duplicated node name "
+                                        << nodeTypeName;
+                        return false;
+                    }
+                }
+                if ( !id.empty() ) {
+                    auto [it, inserted] = nodeById.insert( { id, newNode } );
+                    if ( !inserted ) {
+                        LOG( logERROR )
+                            << "DataflowGraph::loadFromJson : duplicated node uuid " << id;
+                        return false;
+                    }
+                }
+            }
             else {
-                LOG( logERROR ) << "Unable to create the node " << name;
+                LOG( logERROR ) << "Unable to create the node " << nodeTypeName;
                 return false;
             }
         }
-
         auto links = data["graph"]["connections"];
         for ( auto& l : links ) {
-            Node* nodeFrom { nullptr };
-            std::string fromOutput { "" };
-            Node* nodeTo { nullptr };
-            std::string toInput { "" };
-
-            auto nodeId = l["out_id"];
-            auto itNode = nodeById.find( nodeId );
-            if ( itNode != nodeById.end() ) {
-                nodeFrom      = itNode->second;
-                int fromIndex = l["out_index"];
-                if ( fromIndex >= 0 && fromIndex < int( nodeFrom->getOutputs().size() ) ) {
-                    fromOutput = nodeFrom->getOutputs()[fromIndex]->getName();
-                }
-                else {
-                    LOG( logERROR ) << "DataflowGraph::loadFromJson: error when parsing JSON"
-                                    << ": Output index " << fromIndex << " for node \""
-                                    << nodeFrom->getInstanceName() << " ("
-                                    << nodeFrom->getTypeName() << ")\" must be between 0 and "
-                                    << nodeFrom->getOutputs().size() - 1 << ". Link not added.";
-                    return false;
-                }
-            }
-            else {
-                LOG( logERROR ) << "DataflowGraph::loadFromJson: error when parsing JSON"
-                                << ": Could not find a node associated with id " << nodeId
-                                << ". Link not added.";
+            auto [nodeFrom, fromOutput] = getLinkInfo( "out", l, nodeById, nodeByName );
+            if ( nodeFrom == nullptr ) {
+                LOG( logERROR ) << "DataflowGraph::loadFromJson: error when parsing JSON."
+                                << " Could not find the link source (" << fromOutput
+                                << "). Link not added.";
                 return false;
             }
-
-            nodeId = l["in_id"];
-            itNode = nodeById.find( nodeId );
-            if ( itNode != nodeById.end() ) {
-                nodeTo      = itNode->second;
-                int toIndex = l["in_index"];
-
-                if ( toIndex >= 0 && toIndex < int( nodeTo->getInputs().size() ) ) {
-                    toInput = nodeTo->getInputs()[toIndex]->getName();
-                }
-                else {
-                    LOG( logERROR ) << "DataflowGraph::loadFromJson: error when parsing JSON"
-                                    << ": Input index " << toIndex << " for node \""
-                                    << nodeTo->getInstanceName() << " (" << nodeTo->getTypeName()
-                                    << ")\" must be between 0 and "
-                                    << nodeTo->getInputs().size() - 1 << ". Link not added.";
-                    return false;
-                }
-            }
-            else {
-                LOG( logERROR ) << "DataflowGraph::loadFromJson: error when parsing JSON"
-                                << ": Could not find a node associated with id " << nodeId
-                                << ". Link not added.";
+            auto [nodeTo, toInput] = getLinkInfo( "in", l, nodeById, nodeByName );
+            if ( nodeTo == nullptr ) {
+                LOG( logERROR ) << "DataflowGraph::loadFromJson: error when parsing JSON."
+                                << " Could not find the link source (" << toInput
+                                << "). Link not added.";
                 return false;
             }
-
             if ( !addLink( nodeFrom, fromOutput, nodeTo, toInput ) ) {
                 LOG( logERROR )
                     << "DataflowGraph::loadFromJson: error when parsing JSON"
@@ -537,27 +570,29 @@ int DataflowGraph::goThroughGraph(
 }
 
 bool DataflowGraph::addSetter( PortBase* in ) {
-    addInput( in );
+    bool found = false;
     if ( m_dataSetters.find( in->getName() ) == m_dataSetters.end() ) {
+        addInput( in );
         auto portOut = std::shared_ptr<PortBase>( in->reflect( this, in->getName() ) );
         m_dataSetters.emplace( std::make_pair(
             in->getName(),
             DataSetter { DataSetterDesc { portOut, portOut->getName(), portOut->getTypeName() },
                          in } ) );
-        return true;
+        found = true;
     }
-    return false;
+    return found;
 }
 
 bool DataflowGraph::removeSetter( const std::string& setterName ) {
-    auto itS = m_dataSetters.find( setterName );
+    bool removed = false;
+    auto itS     = m_dataSetters.find( setterName );
     if ( itS != m_dataSetters.end() ) {
         auto& [desPort, in] = itS->second;
         removeInput( in );
         m_dataSetters.erase( itS );
-        return true;
+        removed = true;
     }
-    return false;
+    return removed;
 }
 
 bool DataflowGraph::addGetter( PortBase* out ) {
@@ -577,21 +612,23 @@ bool DataflowGraph::removeGetter( const std::string& getterName ) {
     auto getterP = std::find_if( m_outputs.begin(), m_outputs.end(), [getterName]( const auto& p ) {
         return p->getName() == getterName;
     } );
+    bool found   = false;
     if ( getterP != m_outputs.end() ) {
         m_outputs.erase( getterP );
-        return true;
+        found = true;
     }
-    return false;
+    return found;
 }
 
 bool DataflowGraph::releaseDataSetter( const std::string& portName ) {
     auto setter = m_dataSetters.find( portName );
+    bool found  = false;
     if ( setter != m_dataSetters.end() ) {
         auto [desc, in] = setter->second;
         in->disconnect();
-        return true;
+        found = true;
     }
-    return false;
+    return found;
 }
 
 // Why is this method useful if it is the same than getDataSetter ?
@@ -601,14 +638,14 @@ bool DataflowGraph::activateDataSetter( const std::string& portName ) {
 
 std::shared_ptr<PortBase> DataflowGraph::getDataSetter( const std::string& portName ) {
     auto setter = m_dataSetters.find( portName );
+    std::shared_ptr<PortBase> p { nullptr };
     if ( setter != m_dataSetters.end() ) {
         auto [desc, in] = setter->second;
-        auto p          = std::get<0>( desc );
+        p               = std::get<0>( desc );
         in->disconnect();
         p->connect( in );
-        return p;
     }
-    return nullptr;
+    return p;
 }
 
 std::vector<DataflowGraph::DataSetterDesc> DataflowGraph::getAllDataSetters() const {
@@ -624,8 +661,9 @@ PortBase* DataflowGraph::getDataGetter( const std::string& portName ) {
     auto portIt = std::find_if( m_outputs.begin(), m_outputs.end(), [portName]( const auto& p ) {
         return p->getName() == portName;
     } );
-    if ( portIt != m_outputs.end() ) { return portIt->get(); }
-    return nullptr;
+    PortBase* g { nullptr };
+    if ( portIt != m_outputs.end() ) { g = portIt->get(); }
+    return g;
 }
 
 std::vector<DataflowGraph::DataGetterDesc> DataflowGraph::getAllDataGetters() const {
@@ -643,8 +681,8 @@ Node* DataflowGraph::getNode( const std::string& instanceNameNode ) const {
             return n->getInstanceName() == instanceNameNode;
         } );
     if ( nodeIt != m_nodes.end() ) { return nodeIt->get(); }
-    LOG( logERROR ) << "DataflowGraph::getNode : The node with the instance name "
-                    << instanceNameNode << " has not been found";
+    LOG( logERROR ) << "DataflowGraph::getNode : The node with the instance name \""
+                    << instanceNameNode << "\" has not been found";
     return nullptr;
 }
 
@@ -659,15 +697,15 @@ DataflowGraph* DataflowGraph::loadGraphFromJsonFile( const std::string& filename
     jsonFile >> j;
 
     bool valid = false;
-    if ( j.contains( "model" ) ) {
-        if ( j["model"].contains( "name" ) && j["model"].contains( "instance" ) ) { valid = true; }
+    if ( j.contains( "instance" ) && j.contains( "model" ) ) {
+        valid = j["model"].contains( "name" );
     }
     if ( !valid ) {
         LOG( logERROR ) << "loadGraphFromJsonFile :" << filename
                         << " does not contain a valid json NodeGraph\n";
         return nullptr;
     }
-    std::string instanceName = j["model"]["instance"];
+    std::string instanceName = j["instance"];
     std::string graphType    = j["model"]["name"];
     LOG( logINFO ) << "Loading the graph " << instanceName << ", with type " << graphType << "\n";
 
