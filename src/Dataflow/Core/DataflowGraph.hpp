@@ -121,6 +121,9 @@ class RA_DATAFLOW_API DataflowGraph : public Node
     /// Test if the graph is compiled
     bool isCompiled() const;
 
+    /// Mark the graph as needing recompilation (useful to force recompilation and resources update)
+    void needsRecompile();
+
     /// Flag that indicates if the graph should be saved to a file
     /// This flag is useless outside an load/edit/save scenario
     bool m_shouldBeSaved { false };
@@ -271,6 +274,10 @@ class RA_DATAFLOW_API DataflowGraph : public Node
 // ---------------------- inline methods ---------------------------
 inline bool DataflowGraph::isCompiled() const {
     return m_ready;
+}
+
+inline void DataflowGraph::needsRecompile() {
+    m_ready = false;
 }
 
 inline void DataflowGraph::setNodeFactories( std::shared_ptr<NodeFactorySet> factories ) {
