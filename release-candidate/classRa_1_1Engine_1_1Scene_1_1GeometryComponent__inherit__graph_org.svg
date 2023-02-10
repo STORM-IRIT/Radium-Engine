@@ -61,27 +61,28 @@
 <g id="node4" class="node">
 <title>Node4</title>
 <g id="a_node4"><a xlink:href="classRa_1_1Engine_1_1Scene_1_1SurfaceMeshComponent.html" target="_top" xlink:title="Main class to convert Ra::Core::Asset::GeometryData to Ra::Engine::Mesh.">
-<polygon fill="white" stroke="black" points="170.5,-11.5 170.5,-156.5 333.5,-156.5 333.5,-11.5 170.5,-11.5"/>
-<text text-anchor="start" x="178.5" y="-144.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Scene::</text>
-<text text-anchor="start" x="178.5" y="-133.5" font-family="Helvetica,sans-Serif" font-size="10.00">SurfaceMeshComponent</text>
-<text text-anchor="middle" x="252" y="-122.5" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; CoreMeshType &gt;</text>
-<polyline fill="none" stroke="black" points="170.5,-115.5 333.5,-115.5 "/>
-<text text-anchor="middle" x="252" y="-103.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<polyline fill="none" stroke="black" points="170.5,-96.5 333.5,-96.5 "/>
-<text text-anchor="start" x="178.5" y="-84.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ SurfaceMeshComponent()</text>
-<text text-anchor="start" x="178.5" y="-73.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ SurfaceMeshComponent()</text>
-<text text-anchor="start" x="178.5" y="-62.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ ~SurfaceMeshComponent()</text>
-<text text-anchor="start" x="178.5" y="-51.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getCoreGeometry()</text>
-<text text-anchor="start" x="178.5" y="-40.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getDisplayable()</text>
-<text text-anchor="start" x="178.5" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ setupIO()</text>
-<text text-anchor="start" x="178.5" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ setDeformable()</text>
+<polygon fill="white" stroke="black" points="170.5,-6 170.5,-162 333.5,-162 333.5,-6 170.5,-6"/>
+<text text-anchor="start" x="178.5" y="-150" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Scene::</text>
+<text text-anchor="start" x="178.5" y="-139" font-family="Helvetica,sans-Serif" font-size="10.00">SurfaceMeshComponent</text>
+<text text-anchor="middle" x="252" y="-128" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; CoreMeshType &gt;</text>
+<polyline fill="none" stroke="black" points="170.5,-121 333.5,-121 "/>
+<text text-anchor="middle" x="252" y="-109" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polyline fill="none" stroke="black" points="170.5,-102 333.5,-102 "/>
+<text text-anchor="start" x="178.5" y="-90" font-family="Helvetica,sans-Serif" font-size="10.00">+ SurfaceMeshComponent()</text>
+<text text-anchor="start" x="178.5" y="-79" font-family="Helvetica,sans-Serif" font-size="10.00">+ SurfaceMeshComponent()</text>
+<text text-anchor="start" x="178.5" y="-68" font-family="Helvetica,sans-Serif" font-size="10.00">+ SurfaceMeshComponent()</text>
+<text text-anchor="start" x="178.5" y="-57" font-family="Helvetica,sans-Serif" font-size="10.00">+ ~SurfaceMeshComponent()</text>
+<text text-anchor="start" x="178.5" y="-46" font-family="Helvetica,sans-Serif" font-size="10.00">+ getCoreGeometry()</text>
+<text text-anchor="start" x="178.5" y="-35" font-family="Helvetica,sans-Serif" font-size="10.00">+ getDisplayable()</text>
+<text text-anchor="start" x="178.5" y="-24" font-family="Helvetica,sans-Serif" font-size="10.00">+ setupIO()</text>
+<text text-anchor="start" x="178.5" y="-13" font-family="Helvetica,sans-Serif" font-size="10.00">+ setDeformable()</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node4 -->
 <g id="edge3" class="edge">
 <title>Node1&#45;&gt;Node4</title>
-<path fill="none" stroke="midnightblue" d="M198.12,-195.21C204.31,-182.56 210.77,-169.34 216.98,-156.63"/>
+<path fill="none" stroke="midnightblue" d="M198.09,-195.27C203.41,-184.38 208.94,-173.07 214.34,-162.03"/>
 <polygon fill="none" stroke="midnightblue" points="194.92,-193.79 193.67,-204.31 201.21,-196.86 194.92,-193.79"/>
 </g>
 <!-- Node2 -->

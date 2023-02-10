@@ -1,5 +1,6 @@
 var NAVTREEINDEX14 =
 {
+"classRa_1_1Gui_1_1TrackballCameraManipulator.html#a32dd812e2bf249b55b37f15d6b180d59":[10,0,0,2,26,16],
 "classRa_1_1Gui_1_1TrackballCameraManipulator.html#a3730cd42ac7af4322a29412f8b3dee64":[10,0,0,2,26,30],
 "classRa_1_1Gui_1_1TrackballCameraManipulator.html#a421bcdd8baa1ce2ee1238645e29a4213":[10,0,0,2,26,29],
 "classRa_1_1Gui_1_1TrackballCameraManipulator.html#a444c16eee68dd981e45ae60399e27c1f":[10,0,0,2,26,8],
@@ -248,6 +249,5 @@ var NAVTREEINDEX14 =
 "classRa_1_1IO_1_1AssimpAnimationDataLoader.html":[10,0,0,4,0],
 "classRa_1_1IO_1_1AssimpAnimationDataLoader.html#a3418a4388826275e05fb600e4769d9d7":[10,0,0,4,0,1],
 "classRa_1_1IO_1_1AssimpAnimationDataLoader.html#a613aa15b88bec1218b7078b6de2353dd":[10,0,0,4,0,5],
-"classRa_1_1IO_1_1AssimpAnimationDataLoader.html#a652fe809115e90cbf6c254454f14ce49":[10,0,0,4,0,3],
-"classRa_1_1IO_1_1AssimpAnimationDataLoader.html#a7fd20fa230b2d20ca4725fffe9a10fd9":[10,0,0,4,0,9]
+"classRa_1_1IO_1_1AssimpAnimationDataLoader.html#a652fe809115e90cbf6c254454f14ce49":[10,0,0,4,0,3]
 };

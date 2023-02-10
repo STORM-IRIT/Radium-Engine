@@ -1,6 +1,6 @@
 <map id="Ra::Engine::Scene::GeometryComponent" name="Ra::Engine::Scene::GeometryComponent">
 <area shape="rect" id="node1" title="Abstract interface of a geometric compoennet in the Engine." alt="" coords="125,439,323,604"/>
 <area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Scene_1_1PointCloudComponent.html" title=" " alt="" coords="5,652,208,876"/>
-<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Scene_1_1SurfaceMeshComponent.html" title="Main class to convert Ra::Core::Asset::GeometryData to Ra::Engine::Mesh." alt="" coords="233,667,450,861"/>
+<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Scene_1_1SurfaceMeshComponent.html" title="Main class to convert Ra::Core::Asset::GeometryData to Ra::Engine::Mesh." alt="" coords="233,659,450,869"/>
 <area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Scene_1_1Component.html" title="A component is an element that can be updated by a system. It is also linked to some other components..." alt="" coords="113,5,335,391"/>
 </map>

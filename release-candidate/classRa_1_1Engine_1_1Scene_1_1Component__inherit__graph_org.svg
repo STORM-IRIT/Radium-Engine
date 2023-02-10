@@ -385,27 +385,28 @@
 <g id="node6" class="node">
 <title>Node6</title>
 <g id="a_node6"><a xlink:href="classRa_1_1Engine_1_1Scene_1_1SurfaceMeshComponent.html" target="_top" xlink:title="Main class to convert Ra::Core::Asset::GeometryData to Ra::Engine::Mesh.">
-<polygon fill="white" stroke="black" points="283.5,-50 283.5,-195 446.5,-195 446.5,-50 283.5,-50"/>
-<text text-anchor="start" x="291.5" y="-183" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Scene::</text>
-<text text-anchor="start" x="291.5" y="-172" font-family="Helvetica,sans-Serif" font-size="10.00">SurfaceMeshComponent</text>
-<text text-anchor="middle" x="365" y="-161" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; CoreMeshType &gt;</text>
-<polyline fill="none" stroke="black" points="283.5,-154 446.5,-154 "/>
-<text text-anchor="middle" x="365" y="-142" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<polyline fill="none" stroke="black" points="283.5,-135 446.5,-135 "/>
-<text text-anchor="start" x="291.5" y="-123" font-family="Helvetica,sans-Serif" font-size="10.00">+ SurfaceMeshComponent()</text>
-<text text-anchor="start" x="291.5" y="-112" font-family="Helvetica,sans-Serif" font-size="10.00">+ SurfaceMeshComponent()</text>
-<text text-anchor="start" x="291.5" y="-101" font-family="Helvetica,sans-Serif" font-size="10.00">+ ~SurfaceMeshComponent()</text>
-<text text-anchor="start" x="291.5" y="-90" font-family="Helvetica,sans-Serif" font-size="10.00">+ getCoreGeometry()</text>
-<text text-anchor="start" x="291.5" y="-79" font-family="Helvetica,sans-Serif" font-size="10.00">+ getDisplayable()</text>
-<text text-anchor="start" x="291.5" y="-68" font-family="Helvetica,sans-Serif" font-size="10.00">+ setupIO()</text>
-<text text-anchor="start" x="291.5" y="-57" font-family="Helvetica,sans-Serif" font-size="10.00">+ setDeformable()</text>
+<polygon fill="white" stroke="black" points="283.5,-44.5 283.5,-200.5 446.5,-200.5 446.5,-44.5 283.5,-44.5"/>
+<text text-anchor="start" x="291.5" y="-188.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Scene::</text>
+<text text-anchor="start" x="291.5" y="-177.5" font-family="Helvetica,sans-Serif" font-size="10.00">SurfaceMeshComponent</text>
+<text text-anchor="middle" x="365" y="-166.5" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; CoreMeshType &gt;</text>
+<polyline fill="none" stroke="black" points="283.5,-159.5 446.5,-159.5 "/>
+<text text-anchor="middle" x="365" y="-147.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polyline fill="none" stroke="black" points="283.5,-140.5 446.5,-140.5 "/>
+<text text-anchor="start" x="291.5" y="-128.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ SurfaceMeshComponent()</text>
+<text text-anchor="start" x="291.5" y="-117.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ SurfaceMeshComponent()</text>
+<text text-anchor="start" x="291.5" y="-106.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ SurfaceMeshComponent()</text>
+<text text-anchor="start" x="291.5" y="-95.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ ~SurfaceMeshComponent()</text>
+<text text-anchor="start" x="291.5" y="-84.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getCoreGeometry()</text>
+<text text-anchor="start" x="291.5" y="-73.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getDisplayable()</text>
+<text text-anchor="start" x="291.5" y="-62.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ setupIO()</text>
+<text text-anchor="start" x="291.5" y="-51.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ setDeformable()</text>
 </a>
 </g>
 </g>
 <!-- Node4&#45;&gt;Node6 -->
 <g id="edge5" class="edge">
 <title>Node4&#45;&gt;Node6</title>
-<path fill="none" stroke="midnightblue" d="M371.2,-672.83C369.86,-553.87 367.16,-314.89 365.81,-195.22"/>
+<path fill="none" stroke="midnightblue" d="M371.2,-672.63C369.88,-555.38 367.24,-321.96 365.87,-200.68"/>
 <polygon fill="none" stroke="midnightblue" points="367.7,-672.96 371.32,-682.92 374.7,-672.88 367.7,-672.96"/>
 </g>
 <!-- Node8 -->
