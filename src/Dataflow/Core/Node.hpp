@@ -77,6 +77,19 @@ class RA_DATAFLOW_API Node
 
     /// \name Control the interfaces of the nodes (inputs, outputs, internal data, ...)
     /// @{
+
+    /// \brief Get an input port by its name
+    /// \param type either "in" or "out", the directional type of the port
+    /// \param name
+    /// \return an alias pointer on the requested port if it exists, nullptr else
+    PortBase* getPortByName( const std::string& type, const std::string& name ) const;
+
+    /// \brief Get an input port by its index
+    /// \param type either "in" or "out", the directional type of the port
+    /// \param idx
+    /// \return an alias pointer on the requested port if it exists, nullptr else
+    PortBase* getPortByIndex( const std::string& type, int idx ) const;
+
     /// \brief Gets the in ports of the node.
     /// Input ports are own to the node.
     const std::vector<std::unique_ptr<PortBase>>& getInputs() const;
