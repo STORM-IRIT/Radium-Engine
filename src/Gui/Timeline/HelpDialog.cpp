@@ -1,5 +1,7 @@
-#include "ui_HelpDialog.h"
+
 #include <Gui/Timeline/HelpDialog.hpp>
+
+#include "ui_HelpDialog.h"
 
 namespace Ra::Gui {
 
