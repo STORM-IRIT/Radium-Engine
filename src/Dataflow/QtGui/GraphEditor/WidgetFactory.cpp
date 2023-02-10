@@ -11,7 +11,6 @@
 #include <Engine/Data/EnvironmentTexture.hpp>
 #include <PowerSlider/PowerSlider.hpp>
 #include <QCheckBox>
-#include <QColorDialog>
 #include <QComboBox>
 #include <QLineEdit>
 #include <QPushButton>
@@ -38,9 +37,9 @@ void registerWidgetInternal( std::type_index typeIdx,
         widgetsfunctions[typeIdx] = { std::move( widgetCreator ), std::move( widgetUpdater ) };
     }
     else {
-        // TODO, when PR #1027 will be merged, demangle the type name
-        std::cerr << "WidgetFactory: trying to add an already existing widget builder for type "
-                  << typeIdx.name() << "." << std::endl;
+        LOG( Ra::Core::Utils::logWARNING )
+            << "WidgetFactory: trying to add an already existing widget builder for type "
+            << simplifiedDemangledType( typeIdx ) << ".";
     }
 }
 
@@ -50,8 +49,9 @@ QWidget* createWidget( EditableParameterBase* editableParameter ) {
     }
     else {
         // TODO, when PR #1027 will be merged, demangle the type name
-        std::cerr << "WidgetFactory: no defined widget builder for hashed type "
-                  << editableParameter->getType().name() << "." << std::endl;
+        LOG( Ra::Core::Utils::logWARNING )
+            << "WidgetFactory : no defined widget builder for hashed type "
+            << editableParameter->getType().name() << ".";
     }
     return nullptr;
 }
@@ -61,8 +61,9 @@ bool updateWidget( QWidget* widget, EditableParameterBase* editableParameter ) {
         return widgetsfunctions[editableParameter->getType()].second( widget, editableParameter );
     }
     else {
-        std::cerr << "WidgetFactory: no defined widget updater for hashed type "
-                  << editableParameter->getType().name() << "." << std::endl;
+        LOG( Ra::Core::Utils::logWARNING )
+            << "WidgetFactory: no defined widget updater for hashed type "
+            << editableParameter->getType().name() << ".";
     }
     return false;
 }
