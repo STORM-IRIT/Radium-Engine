@@ -13,12 +13,12 @@
 #include <Dataflow/Core/Nodes/Sources/CoreDataSources.hpp>
 
 TEST_CASE( "Dataflow/Core/DataflowGraph", "[Dataflow][Core][DataflowGraph]" ) {
-    SECTION( "Serialization of a graph" ) {
-
+    SECTION( "Execution and modification of a graph" ) {
         using namespace Ra::Dataflow::Core;
         using DataType = Scalar;
         DataflowGraph g { "original graph" };
-
+        g.addJsonMetaData(
+            { { "extra", { { "info", "missing operators on functional node" } } } } );
         auto source_a = new Sources::SingleDataSourceNode<DataType>( "a" );
         g.addNode( std::unique_ptr<Node>( source_a ) );
         auto a        = g.getDataSetter( "a_to" );
@@ -33,9 +33,10 @@ TEST_CASE( "Dataflow/Core/DataflowGraph", "[Dataflow][Core][DataflowGraph]" ) {
                                            TestNode::Arg2_type b ) -> TestNode::Res_type {
             return a + b;
         };
-        auto op = new TestNode( "addition" );
-        op->setOperator( add );
-        g.addNode( std::unique_ptr<Node>( op ) );
+        auto op_unique = std::make_unique<TestNode>( "addition" );
+        op_unique->setOperator( add );
+        auto [added, op] = g.addNode( std::move( op_unique ) );
+        REQUIRE( added );
         g.addLink( source_a, "to", op, "a" );
         g.addLink( op, "r", sink, "from" );
         g.addLink( source_b, "to", op, "b" );
@@ -52,8 +53,6 @@ TEST_CASE( "Dataflow/Core/DataflowGraph", "[Dataflow][Core][DataflowGraph]" ) {
 
         // Save the graph
         std::string tmpdir { "tmpDir4Tests" };
-
-        std::cout << "Graph tmp dir : " << tmpdir << "\n";
         std::filesystem::create_directories( tmpdir );
         g.saveToJson( tmpdir + "/GraphSerializationTest.json" );
         g.destroy();

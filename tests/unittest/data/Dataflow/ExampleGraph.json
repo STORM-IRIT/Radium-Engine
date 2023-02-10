@@ -1,94 +1,93 @@
 {
-    "id": "{d3c4d86a-49d9-496e-b01b-1c142538d8ef}",
+    "instance": "Example graph",
     "model": {
         "graph": {
             "connections": [
                 {
-                    "in_id": "{016829fe-65fc-4b09-aaaf-04b76813e9bd}",
-                    "in_index": 0,
-                    "out_id": "{d1ac47fc-a128-4dea-8542-6303acc77688}",
-                    "out_index": 0
+                    "in_node": "reduced vector",
+                    "in_port": "from",
+                    "out_node": "Collection reducer - original collection",
+                    "out_port": "out"
                 },
                 {
-                    "in_id": "{d1ac47fc-a128-4dea-8542-6303acc77688}",
-                    "in_index": 0,
-                    "out_id": "{564cd37a-5d99-45cd-a642-8743a7b10adc}",
-                    "out_index": 0
+                    "in_node": "Collection reducer - original collection",
+                    "in_port": "in",
+                    "out_node": "Vector",
+                    "out_port": "to"
                 },
                 {
-                    "in_id": "{d1ac47fc-a128-4dea-8542-6303acc77688}",
-                    "in_index": 1,
-                    "out_id": "{5bd5b929-acf2-461b-a7da-73e662d61962}",
-                    "out_index": 0
+                    "in_node": "Collection reducer - original collection",
+                    "in_port": "f",
+                    "out_node": "Reducer",
+                    "out_port": "f"
                 },
                 {
-                    "in_id": "{d1ac47fc-a128-4dea-8542-6303acc77688}",
-                    "in_index": 2,
-                    "out_id": "{7a0c688e-c785-4849-ad34-89abd1473f4c}",
-                    "out_index": 0
+                    "in_node": "Collection reducer - original collection",
+                    "in_port": "init",
+                    "out_node": "Neutral",
+                    "out_port": "to"
                 },
                 {
-                    "in_id": "{22dfcafb-9581-40be-b269-a17cf1e948d6}",
-                    "in_index": 0,
-                    "out_id": "{b9a33fe7-4ada-4a8e-a104-81341912f6ef}",
-                    "out_index": 0
+                    "in_node": "Collection reducer - transformed collection",
+                    "in_port": "in",
+                    "out_node": "Collection transformer",
+                    "out_port": "out"
                 },
                 {
-                    "in_id": "{22dfcafb-9581-40be-b269-a17cf1e948d6}",
-                    "in_index": 1,
-                    "out_id": "{5bd5b929-acf2-461b-a7da-73e662d61962}",
-                    "out_index": 0
+                    "in_node": "Collection reducer - transformed collection",
+                    "in_port": "f",
+                    "out_node": "Reducer",
+                    "out_port": "f"
                 },
                 {
-                    "in_id": "{b9a33fe7-4ada-4a8e-a104-81341912f6ef}",
-                    "in_index": 0,
-                    "out_id": "{564cd37a-5d99-45cd-a642-8743a7b10adc}",
-                    "out_index": 0
+                    "in_node": "Collection transformer",
+                    "in_port": "in",
+                    "out_node": "Vector",
+                    "out_port": "to"
                 },
                 {
-                    "in_id": "{b9a33fe7-4ada-4a8e-a104-81341912f6ef}",
-                    "in_index": 1,
-                    "out_id": "{6d442201-7e25-44f4-81cc-4dcea78780b2}",
-                    "out_index": 0
+                    "in_node": "Collection transformer",
+                    "in_port": "f",
+                    "out_node": "Doubler",
+                    "out_port": "f"
                 },
                 {
-                    "in_id": "{465d2861-dcbe-4717-a70d-c75e1042a730}",
-                    "in_index": 0,
-                    "out_id": "{22dfcafb-9581-40be-b269-a17cf1e948d6}",
-                    "out_index": 0
+                    "in_node": "transformed/reduced vector",
+                    "in_port": "from",
+                    "out_node": "Collection reducer - transformed collection",
+                    "out_port": "out"
                 },
                 {
-                    "in_id": "{0b74b010-2bc6-4b56-914d-ddbf30701946}",
-                    "in_index": 0,
-                    "out_id": "{22a6cb27-a0c9-4ac4-8adb-5c4b70beb6d4}",
-                    "out_index": 0
+                    "in_node": "validation value",
+                    "in_port": "from",
+                    "out_node": "Validator : evaluate the validation predicate",
+                    "out_port": "r"
                 },
                 {
-                    "in_id": "{22a6cb27-a0c9-4ac4-8adb-5c4b70beb6d4}",
-                    "in_index": 0,
-                    "out_id": "{d1ac47fc-a128-4dea-8542-6303acc77688}",
-                    "out_index": 0
+                    "in_node": "Validator : evaluate the validation predicate",
+                    "in_port": "a",
+                    "out_node": "Collection reducer - original collection",
+                    "out_port": "out"
                 },
                 {
-                    "in_id": "{22a6cb27-a0c9-4ac4-8adb-5c4b70beb6d4}",
-                    "in_index": 1,
-                    "out_id": "{22dfcafb-9581-40be-b269-a17cf1e948d6}",
-                    "out_index": 0
+                    "in_node": "Validator : evaluate the validation predicate",
+                    "in_port": "b",
+                    "out_node": "Collection reducer - transformed collection",
+                    "out_port": "out"
                 },
                 {
-                    "in_id": "{22a6cb27-a0c9-4ac4-8adb-5c4b70beb6d4}",
-                    "in_index": 2,
-                    "out_id": "{f920fe05-221d-4549-819a-f24dce92d9db}",
-                    "out_index": 0
+                    "in_node": "Validator : evaluate the validation predicate",
+                    "in_port": "f",
+                    "out_node": "Validator",
+                    "out_port": "f"
                 }
             ],
             "factories": [],
             "nodes": [
                 {
-                    "id": "{564cd37a-5d99-45cd-a642-8743a7b10adc}",
+                    "instance": "Vector",
                     "model": {
                         "comment": "Unable to save data when serializing a SingleDataSourceNode<RaVector<float>>.",
-                        "instance": "Vector",
                         "name": "Source<RaVector<float>>"
                     },
                     "position": {
@@ -97,10 +96,9 @@
                     }
                 },
                 {
-                    "id": "{6d442201-7e25-44f4-81cc-4dcea78780b2}",
+                    "instance": "Doubler",
                     "model": {
                         "comment": "Unable to save data when serializing a FunctionSourceNode<function<float (float const&)>>.",
-                        "instance": "Doubler",
                         "name": "Source<function<float (float const&)>>"
                     },
                     "position": {
@@ -109,9 +107,8 @@
                     }
                 },
                 {
-                    "id": "{7a0c688e-c785-4849-ad34-89abd1473f4c}",
+                    "instance": "Neutral",
                     "model": {
-                        "instance": "Neutral",
                         "name": "Source<float>",
                         "number": 0.0
                     },
@@ -121,10 +118,9 @@
                     }
                 },
                 {
-                    "id": "{5bd5b929-acf2-461b-a7da-73e662d61962}",
+                    "instance": "Reducer",
                     "model": {
                         "comment": "Unable to save data when serializing a FunctionSourceNode<function<float (float const&, float const&)>>.",
-                        "instance": "Reducer",
                         "name": "Source<function<float (float const&, float const&)>>"
                     },
                     "position": {
@@ -133,9 +129,8 @@
                     }
                 },
                 {
-                    "id": "{016829fe-65fc-4b09-aaaf-04b76813e9bd}",
+                    "instance": "reduced vector",
                     "model": {
-                        "instance": "reduced vector",
                         "name": "Sink<float>"
                     },
                     "position": {
@@ -144,10 +139,9 @@
                     }
                 },
                 {
-                    "id": "{d1ac47fc-a128-4dea-8542-6303acc77688}",
+                    "instance": "Collection reducer - original collection",
                     "model": {
                         "comment": "Reduce operator could not be serialized for Reduce<RaVector<float>>",
-                        "instance": "Collection reducer - original collection",
                         "name": "Reduce<RaVector<float>>"
                     },
                     "position": {
@@ -156,10 +150,9 @@
                     }
                 },
                 {
-                    "id": "{22dfcafb-9581-40be-b269-a17cf1e948d6}",
+                    "instance": "Collection reducer - transformed collection",
                     "model": {
                         "comment": "Reduce operator could not be serialized for Reduce<RaVector<float>>",
-                        "instance": "Collection reducer - transformed collection",
                         "name": "Reduce<RaVector<float>>"
                     },
                     "position": {
@@ -168,10 +161,9 @@
                     }
                 },
                 {
-                    "id": "{b9a33fe7-4ada-4a8e-a104-81341912f6ef}",
+                    "instance": "Collection transformer",
                     "model": {
                         "comment": "Transform operator could not be serialized for Transform<RaVector<float>>",
-                        "instance": "Collection transformer",
                         "name": "Transform<RaVector<float>>"
                     },
                     "position": {
@@ -180,9 +172,8 @@
                     }
                 },
                 {
-                    "id": "{465d2861-dcbe-4717-a70d-c75e1042a730}",
+                    "instance": "transformed/reduced vector",
                     "model": {
-                        "instance": "transformed/reduced vector",
                         "name": "Sink<float>"
                     },
                     "position": {
@@ -191,10 +182,9 @@
                     }
                 },
                 {
-                    "id": "{f920fe05-221d-4549-819a-f24dce92d9db}",
+                    "instance": "Validator",
                     "model": {
                         "comment": "Unable to save data when serializing a FunctionSourceNode<function<bool (float const&, float const&)>>.",
-                        "instance": "Validator",
                         "name": "Source<function<bool (float const&, float const&)>>"
                     },
                     "position": {
@@ -203,9 +193,8 @@
                     }
                 },
                 {
-                    "id": "{0b74b010-2bc6-4b56-914d-ddbf30701946}",
+                    "instance": "validation value",
                     "model": {
-                        "instance": "validation value",
                         "name": "Sink<bool>"
                     },
                     "position": {
@@ -214,10 +203,9 @@
                     }
                 },
                 {
-                    "id": "{22a6cb27-a0c9-4ac4-8adb-5c4b70beb6d4}",
+                    "instance": "Validator : evaluate the validation predicate",
                     "model": {
                         "comment": "Binary operator could not be serialized for BinaryOp<float x float -> bool>",
-                        "instance": "Validator : evaluate the validation predicate",
                         "name": "BinaryOp<float x float -> bool>"
                     },
                     "position": {
@@ -227,7 +215,6 @@
                 }
             ]
         },
-        "instance": "Example graph",
         "name": "Core DataflowGraph"
     }
 }

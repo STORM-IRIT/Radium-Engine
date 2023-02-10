@@ -22,7 +22,7 @@ void inspectGraph( const DataflowGraph& g ) {
     std::cout << "Nodes of the graph " << g.getInstanceName() << " (" << nodes->size() << ") :\n";
     for ( const auto& n : *( nodes ) ) {
         std::cout << "\t\"" << n->getInstanceName() << "\" of type \"" << n->getTypeName()
-                  << "\"\n";
+                  << "\" with uuid \"" << n->getUuid() << "\n";
         // Inspect input, output and interfaces of the node
         std::cout << "\t\tInput ports :\n";
         for ( const auto& p : n->getInputs() ) {
@@ -82,174 +82,211 @@ void inspectGraph( const DataflowGraph& g ) {
 TEST_CASE( "Dataflow/Core/Graph", "[Dataflow][Core][Graph]" ) {
     SECTION( "Creation of a graph" ) {
         DataflowGraph g( "Test Graph" );
+        // Test not a json error detection
         auto result = g.loadFromJson( "data/Dataflow/NotAJsonFile.json" );
         REQUIRE( !result );
+        // Test loading empty graph
         nlohmann::json emptyJson = {};
         result                   = g.fromJson( emptyJson );
         REQUIRE( result );
+
+        // missing identification of the graph (either id or instance)
         nlohmann::json noId = { { "model", { "name", "Core DataflowGraph" } } };
         result              = g.fromJson( noId );
         REQUIRE( !result );
         g.destroy();
 
-        nlohmann::json noModel = { { "id", "{d3c4d86a-49d9-496e-b01b-1c142538d8ef}" } };
+        // missing model of the graph
+        nlohmann::json noModel = { { "instance", "No model in this node" } };
         result                 = g.fromJson( noModel );
         REQUIRE( !result );
         g.destroy();
 
-        nlohmann::json noGraph = { { "id", "{d3c4d86a-49d9-496e-b01b-1c142538d8ef}" },
+        // missing instance data  --> loads an empty graph
+        nlohmann::json noGraph = { { "instance", "Missing instance data for model" },
                                    { "model", { "name", "Core DataflowGraph" } } };
         result                 = g.fromJson( noGraph );
         REQUIRE( result );
         g.destroy();
 
+        // Requesting unknown factory
         nlohmann::json wrongFactory = {
-            { "id", "{d3c4d86a-49d9-496e-b01b-1c142538d8ef}" },
+            { "instance", "unknown factory" },
             { "model",
-              { { "instance", "Test Graph Inline" },
-                { "name", "Core DataflowGraph" },
+              { { "name", "Core DataflowGraph" },
                 { "graph", { { "factories", { "NotAFactory" } } } } } } };
         result = g.fromJson( wrongFactory );
         REQUIRE( !result );
         g.destroy();
 
-        nlohmann::json NotANode = { { "id", "{d3c4d86a-49d9-496e-b01b-1c142538d8ef}" },
-                                    { "model",
-                                      { { "instance", "Test Graph Inline" },
-                                        { "name", "Core DataflowGraph" },
-                                        { "graph",
-                                          { { "factories", {} },
-                                            { "nodes",
-                                              { { { "id", "tototo" },
-                                                  { "model",
-                                                    { { "instance", "NotANode" },
-                                                      { "name", "NotANode" } } } } } } } } } } };
-        result                  = g.fromJson( NotANode );
+        // trying to instance an unknown node type
+        nlohmann::json NotANode = {
+            { "instance", "graph with unknown node" },
+            { "model",
+              { { "name", "Core DataflowGraph" },
+                { "graph",
+                  { { "factories", {} },
+                    { "nodes",
+                      { { { "instance", "NotANode" },
+                          { "model", { { "name", "NotANode" } } } } } } } } } } };
+        result = g.fromJson( NotANode );
         REQUIRE( !result );
         g.destroy();
 
+        // trying to instance an unknown node type
+        nlohmann::json NoModelName = {
+            { "instance", "graph with missing node model information" },
+            { "model",
+              { { "name", "Core DataflowGraph" },
+                { "graph",
+                  { { "factories", {} },
+                    { "nodes",
+                      { { { "instance", "Unknown model" },
+                          { "model", { { "extra", "NotaTypeName" } } } } } } } } } } };
+        result = g.fromJson( NoModelName );
+        REQUIRE( !result );
+        g.destroy();
+
+        // trying to instance an unknown node type
+        nlohmann::json noInstanceIdentification = {
+            { "instance", "graph with missing node model information" },
+            { "model",
+              { { "name", "Core DataflowGraph" },
+                { "graph",
+                  { { "factories", {} },
+                    { "nodes", { { { "model", { { "name", "Source<float>" } } } } } } } } } } };
+        result = g.fromJson( noInstanceIdentification );
+        REQUIRE( !result );
+        g.destroy();
+
+        // errors in the connection description
+        nlohmann::json reusingNodeIdentification = {
+            { "instance", "graph with wrong connection" },
+            { "model",
+              { { "name", "Core DataflowGraph" },
+                { "graph",
+                  { { "factories", {} },
+                    { "nodes",
+                      { { { "instance", "Source" }, { "model", { { "name", "Source<float>" } } } },
+                        { { "instance", "Source" }, { "model", { { "name", "Sink<int>" } } } } } },
+                    { "connections", { { { "out_node", "wrongId" } } } } } } } } };
+        result = g.fromJson( reusingNodeIdentification );
+        REQUIRE( !result );
+        g.destroy();
+        reusingNodeIdentification = {
+            { "instance", "graph with wrong connection" },
+            { "model",
+              { { "name", "Core DataflowGraph" },
+                { "graph",
+                  { { "factories", {} },
+                    { "nodes",
+                      { { { "id", "{1111111b-2222-3333-4444-555555555555}" },
+                          { "model", { { "name", "Source<float>" } } } },
+                        { { "id", "{1111111b-2222-3333-4444-555555555555}" },
+                          { "model", { { "name", "Sink<int>" } } } } } },
+                    { "connections", { { { "out_node", "wrongId" } } } } } } } } };
+        result = g.fromJson( reusingNodeIdentification );
+        REQUIRE( !result );
+        g.destroy();
+
+        // errors in the connection description
         nlohmann::json wrongConnection = {
-            { "id", "{d3c4d86a-49d9-496e-b01b-1c142538d8ef}" },
+            { "instance", "graph with wrong connection" },
             { "model",
-              { { "instance", "Test Graph Inline" },
-                { "name", "Core DataflowGraph" },
+              { { "name", "Core DataflowGraph" },
                 { "graph",
                   { { "factories", {} },
                     { "nodes",
-                      { { { "id", "{1111111a-2222-3333-4444-555555555555}" },
-                          { "model",
-                            { { "instance", "SourceFloat" }, { "name", "Source<float>" } } } },
-                        { { "id", "{1111111b-2222-3333-4444-555555555555}" },
-                          { "model", { { "instance", "SinkInt" }, { "name", "Sink<int>" } } } } } },
-                    { "connections", { { { "out_id", "wrongId" } } } } } } } } };
+                      { { { "instance", "SourceFloat" },
+                          { "model", { { "name", "Source<float>" } } } },
+                        { { "instance", "SinkInt" }, { "model", { { "name", "Sink<int>" } } } } } },
+                    { "connections", { { { "out_node", "wrongId" } } } } } } } } };
         result = g.fromJson( wrongConnection );
         REQUIRE( !result );
         g.destroy();
 
-        wrongConnection = {
-            { "id", "{d3c4d86a-49d9-496e-b01b-1c142538d8ef}" },
-            { "model",
-              { { "instance", "Test Graph Inline" },
-                { "name", "Core DataflowGraph" },
-                { "graph",
-                  { { "factories", {} },
-                    { "nodes",
-                      { { { "id", "{1111111a-2222-3333-4444-555555555555}" },
-                          { "model",
-                            { { "instance", "SourceFloat" }, { "name", "Source<float>" } } } },
-                        { { "id", "{1111111b-2222-3333-4444-555555555555}" },
-                          { "model", { { "instance", "SinkInt" }, { "name", "Sink<int>" } } } } } },
-                    { "connections",
-                      { { { "out_id", "{1111111a-2222-3333-4444-555555555555}" },
-                          { "out_index", 2 } } } } } } } } };
-        result = g.fromJson( wrongConnection );
+        wrongConnection = { { "id", "{d3c4d86a-49d9-496e-b01b-1c142538d8ef}" },
+                            { "instance", "Test Graph Inline" },
+                            { "model",
+                              { { "name", "Core DataflowGraph" },
+                                { "graph",
+                                  { { "factories", {} },
+                                    { "nodes",
+                                      { { { "id", "{1111111a-2222-3333-4444-555555555555}" },
+                                          { "instance", "SourceFloat" },
+                                          { "model", { { "name", "Source<float>" } } } },
+                                        { { "id", "{1111111b-2222-3333-4444-555555555555}" },
+                                          { "instance", "SinkInt" },
+                                          { "model", { { "name", "Sink<int>" } } } } } },
+                                    { "connections",
+                                      { { { "out_id", "{1111111a-2222-3333-4444-555555555555}" },
+                                          { "out_index", 2 } } } } } } } } };
+        result          = g.fromJson( wrongConnection );
         REQUIRE( !result );
         g.destroy();
 
-        wrongConnection = {
-            { "id", "{d3c4d86a-49d9-496e-b01b-1c142538d8ef}" },
-            { "model",
-              { { "instance", "Test Graph Inline" },
-                { "name", "Core DataflowGraph" },
-                { "graph",
-                  { { "factories", {} },
-                    { "nodes",
-                      { { { "id", "{1111111a-2222-3333-4444-555555555555}" },
-                          { "model",
-                            { { "instance", "SourceFloat" }, { "name", "Source<float>" } } } },
-                        { { "id", "{1111111b-2222-3333-4444-555555555555}" },
-                          { "model", { { "instance", "SinkInt" }, { "name", "Sink<int>" } } } } } },
-                    { "connections",
-                      { { { "out_id", "{1111111a-2222-3333-4444-555555555555}" },
-                          { "out_index", 0 },
-                          { "in_id", "wrongId" },
-                          { "in_index", 2 } } } } } } } } };
-        result = g.fromJson( wrongConnection );
+        wrongConnection = { { "id", "{d3c4d86a-49d9-496e-b01b-1c142538d8ef}" },
+                            { "instance", "Test Graph Inline" },
+                            { "model",
+                              { { "name", "Core DataflowGraph" },
+                                { "graph",
+                                  { { "factories", {} },
+                                    { "nodes",
+                                      { { { "id", "{1111111a-2222-3333-4444-555555555555}" },
+                                          { "instance", "SourceFloat" },
+                                          { "model", { { "name", "Source<float>" } } } },
+                                        { { "id", "{1111111b-2222-3333-4444-555555555555}" },
+                                          { "instance", "SinkInt" },
+                                          { "model", { { "name", "Sink<int>" } } } } } },
+                                    { "connections",
+                                      { { { "out_id", "{1111111a-2222-3333-4444-555555555555}" },
+                                          { "out_index", 0 },
+                                          { "in_node", "Sink" },
+                                          { "in_port", "from" } } } } } } } } };
+        result          = g.fromJson( wrongConnection );
         REQUIRE( !result );
         g.destroy();
 
-        wrongConnection = {
-            { "id", "{d3c4d86a-49d9-496e-b01b-1c142538d8ef}" },
-            { "model",
-              { { "instance", "Test Graph Inline" },
-                { "name", "Core DataflowGraph" },
-                { "graph",
-                  { { "factories", {} },
-                    { "nodes",
-                      { { { "id", "{1111111a-2222-3333-4444-555555555555}" },
-                          { "model",
-                            { { "instance", "SourceFloat" }, { "name", "Source<float>" } } } },
-                        { { "id", "{1111111b-2222-3333-4444-555555555555}" },
-                          { "model", { { "instance", "SinkInt" }, { "name", "Sink<int>" } } } } } },
-                    { "connections",
-                      { { { "out_id", "{1111111a-2222-3333-4444-555555555555}" },
-                          { "out_index", 0 },
-                          { "in_id", "{1111111b-2222-3333-4444-555555555555}" },
-                          { "in_index", 2 } } } } } } } } };
-        result = g.fromJson( wrongConnection );
+        wrongConnection = { { "id", "{d3c4d86a-49d9-496e-b01b-1c142538d8ef}" },
+                            { "instance", "Test Graph Inline" },
+                            { "model",
+                              { { "name", "Core DataflowGraph" },
+                                { "graph",
+                                  { { "factories", {} },
+                                    { "nodes",
+                                      { { { "id", "{1111111a-2222-3333-4444-555555555555}" },
+                                          { "instance", "SourceFloat" },
+                                          { "model", { { "name", "Source<float>" } } } },
+                                        { { "id", "{1111111b-2222-3333-4444-555555555555}" },
+                                          { "instance", "SinkInt" },
+                                          { "model", { { "name", "Sink<int>" } } } } } },
+                                    { "connections",
+                                      { { { "out_id", "{1111111a-2222-3333-4444-555555555555}" },
+                                          { "out_index", 0 },
+                                          { "in_node", "SinkInt" },
+                                          { "in_port", "from" } } } } } } } } };
+        result          = g.fromJson( wrongConnection );
         REQUIRE( !result );
         g.destroy();
 
-        wrongConnection = {
-            { "id", "{d3c4d86a-49d9-496e-b01b-1c142538d8ef}" },
-            { "model",
-              { { "instance", "Test Graph Inline" },
-                { "name", "Core DataflowGraph" },
-                { "graph",
-                  { { "factories", {} },
-                    { "nodes",
-                      { { { "id", "{1111111a-2222-3333-4444-555555555555}" },
-                          { "model",
-                            { { "instance", "SourceFloat" }, { "name", "Source<float>" } } } },
-                        { { "id", "{1111111b-2222-3333-4444-555555555555}" },
-                          { "model", { { "instance", "SinkInt" }, { "name", "Sink<int>" } } } } } },
-                    { "connections",
-                      { { { "out_id", "{1111111a-2222-3333-4444-555555555555}" },
-                          { "out_index", 0 },
-                          { "in_id", "{1111111b-2222-3333-4444-555555555555}" },
-                          { "in_index", 0 } } } } } } } } };
-        result = g.fromJson( wrongConnection );
-        REQUIRE( !result );
-        g.destroy();
-
+        // Constructed a correct graph
         nlohmann::json goodSimpleGraph = {
             { "id", "{d3c4d86a-49d9-496e-b01b-1c142538d8ef}" },
+            { "instance", "Test Graph Inline" },
             { "model",
-              { { "instance", "Test Graph Inline" },
-                { "name", "Core DataflowGraph" },
+              { { "name", "Core DataflowGraph" },
                 { "graph",
                   { { "factories", {} },
                     { "nodes",
                       { { { "id", "{1111111a-2222-3333-4444-555555555555}" },
-                          { "model",
-                            { { "instance", "SourceFloat" }, { "name", "Source<float>" } } } },
-                        { { "id", "{1111111b-2222-3333-4444-555555555555}" },
-                          { "model",
-                            { { "instance", "SinkFloat" }, { "name", "Sink<float>" } } } } } },
+                          { "instance", "SourceFloat" },
+                          { "model", { { "name", "Source<float>" } } } },
+                        { { "instance", "SinkFloat" },
+                          { "model", { { "name", "Sink<float>" } } } } } },
                     { "connections",
                       { { { "out_id", "{1111111a-2222-3333-4444-555555555555}" },
-                          { "out_index", 0 },
-                          { "in_id", "{1111111b-2222-3333-4444-555555555555}" },
+                          { "out_port", "to" },
+                          { "in_node", "SinkFloat" },
                           { "in_index", 0 } } } } } } } } };
         result = g.fromJson( goodSimpleGraph );
         REQUIRE( result );
@@ -346,6 +383,7 @@ TEST_CASE( "Dataflow/Core/Graph", "[Dataflow][Core][Graph]" ) {
     }
 
     SECTION( "Inspection of a graph" ) {
+        std::cout << "Loading graph data/Dataflow/ExampleGraph.json\n";
         auto g = DataflowGraph::loadGraphFromJsonFile( "data/Dataflow/ExampleGraph.json" );
 
         // Factories used by the graph
