@@ -4,7 +4,6 @@
 
 #include <Gui/Widgets/ControlPanel.hpp>
 
-#include <QCheckBox>
 #include <QColorDialog>
 #include <QJsonArray>
 #include <QObject>
@@ -216,7 +215,8 @@ void updateWidget( Node* node, QWidget* widget ) {
     for ( size_t i = 0; i < node->getEditableParameters().size(); i++ ) {
         auto edtParam = node->getEditableParameters()[i].get();
         if ( !WidgetFactory::updateWidget( widget, edtParam ) ) {
-            std::cerr << "Unable to update parameter " << edtParam->getName() << "\n";
+            LOG( Ra::Core::Utils::logWARNING )
+                << "NodeAdapterModel : unable to update parameter " << edtParam->getName();
         }
     }
 }
