@@ -20,9 +20,7 @@ jobs:
           # checkout branch head instead of merge commit to have the potientially commited change from formatter
           ref: ${{ github.event.pull_request.head.sha }}
       - name: Check up to date linear history, without merges
-        uses: skx/github-action-tester@master
-        with:
-          script: scripts/is-history-pr-compatible.sh
+        run: bash ./scripts/is-history-pr-compatible.sh
       - name: Status report README PLEASE
         if: ${{ failure() && github.event.pull_request.head.repo.full_name != github.repository }}
         run: |

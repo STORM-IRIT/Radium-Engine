@@ -18,10 +18,6 @@ class Framebuffer;
 }
 
 namespace Ra {
-namespace Asset {
-class FileData;
-}
-
 namespace Engine {
 
 namespace Data {

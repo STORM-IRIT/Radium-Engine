@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include <Gui/Widgets/VectorEditor.inl>
+#include <Gui/Widgets/VectorEditor.hpp>
 
 #include <Gui/Widgets/QtTypeWrapper.hpp>
 
