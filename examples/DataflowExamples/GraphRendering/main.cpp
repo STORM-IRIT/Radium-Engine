@@ -283,7 +283,7 @@ class MyRendererController : public RenderGraphController
             inspectGraph( *m_renderGraph );
 
             // force recompilation and introspection of the graph by the renderer
-            m_renderGraph->m_ready = false;
+            m_renderGraph->isCompiled() = false;
             notify();
         }
     };

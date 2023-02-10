@@ -38,7 +38,7 @@ void RenderGraphController::resize( int w, int h ) {
 }
 
 void RenderGraphController::compile( bool notifyObservers ) const {
-    if ( !m_renderGraph->m_ready ) {
+    if ( !m_renderGraph->isCompiled() ) {
         // compile the model
         m_renderGraph->compile();
         // notify the view the model changes
@@ -80,7 +80,7 @@ RenderGraphController::render( std::vector<RenderObjectPtrType>* ros,
 
     bool status = false;
 
-    if ( m_renderGraph && m_renderGraph->m_ready ) {
+    if ( m_renderGraph && m_renderGraph->isCompiled() ) {
         // set input data
         for ( const auto& [ptr, name, type] : m_renderGraphInputs ) {
             if ( type == simplifiedDemangledType( *ros ) ) {
