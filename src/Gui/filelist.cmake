@@ -6,6 +6,7 @@
 
 set(gui_sources
     AboutDialog/AboutDialog.cpp
+    AboutDialog/RadiumHelpDialog.cpp
     BaseApplication.cpp
     ParameterSetEditor/MaterialParameterEditor.cpp
     ParameterSetEditor/ParameterSetEditor.cpp
@@ -42,6 +43,7 @@ set(gui_sources
 
 set(gui_headers
     AboutDialog/AboutDialog.hpp
+    AboutDialog/RadiumHelpDialog.hpp
     BaseApplication.hpp
     MainWindowInterface.hpp
     ParameterSetEditor/MaterialParameterEditor.hpp
@@ -84,13 +86,13 @@ set(gui_headers
     Widgets/VectorEditor.hpp
 )
 
-set(gui_inlines
-    Utils/KeyMappingManager.inl Viewer/WindowQt.inl Widgets/ConstrainedNumericSpinBox.inl
-    Widgets/ControlPanel.inl Widgets/VectorEditor.inl
+set(gui_inlines Viewer/WindowQt.inl Widgets/ConstrainedNumericSpinBox.inl Widgets/ControlPanel.inl
+                Widgets/VectorEditor.inl
 )
 
-set(gui_uis AboutDialog/AboutDialog.ui SkeletonBasedAnimation/SkeletonBasedAnimationUI.ui
-            Timeline/HelpDialog.ui Timeline/Timeline.ui
+set(gui_uis
+    AboutDialog/AboutDialog.ui AboutDialog/RadiumHelpDialog.ui
+    SkeletonBasedAnimation/SkeletonBasedAnimationUI.ui Timeline/HelpDialog.ui Timeline/Timeline.ui
 )
 
 set(gui_resources QtResources/RadiumQtResources.qrc

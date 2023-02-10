@@ -42,6 +42,7 @@
 #include <Engine/Scene/DirLight.hpp>
 #include <Engine/Scene/EntityManager.hpp>
 #include <Engine/Scene/SystemDisplay.hpp>
+#include <Gui/AboutDialog/RadiumHelpDialog.hpp>
 #include <Gui/Utils/KeyMappingManager.hpp>
 #include <Gui/Utils/Keyboard.hpp>
 #include <Gui/Utils/PickingManager.hpp>
@@ -49,6 +50,12 @@
 #include <Gui/Viewer/Gizmo/GizmoManager.hpp>
 #include <Gui/Viewer/RotateAroundCameraManipulator.hpp>
 #include <Gui/Viewer/TrackballCameraManipulator.hpp>
+#include <Gui/Viewer/Viewer.hpp>
+
+#include <QApplication>
+#include <QMouseEvent>
+#include <QPainter>
+#include <QTimer>
 
 namespace Ra {
 namespace Gui {
@@ -836,13 +843,7 @@ bool Viewer::prepareDisplay() {
 }
 
 void Viewer::displayHelpDialog() {
-    if ( !m_helpDialog ) { m_helpDialog.reset( new QMessageBox() ); }
-    auto kmappingMngr = Gui::KeyMappingManager::getInstance();
-    std::string keyMappingHelp { "<h1> UI action mapping </h1>\n" };
-    keyMappingHelp += kmappingMngr->getHelpText();
-    keyMappingHelp += "<br/>\n";
-    m_helpDialog->setText( keyMappingHelp.c_str() );
-    m_helpDialog->setModal( false );
+    if ( !m_helpDialog ) { m_helpDialog.reset( new RadiumHelpDialog() ); }
     m_helpDialog->show();
     m_helpDialog->raise();
     m_helpDialog->activateWindow();
