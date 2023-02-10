@@ -8,12 +8,15 @@ namespace GraphEditor {
 using namespace Ra::Dataflow::Core;
 
 GraphEditorWindow::~GraphEditorWindow() {
-    // Prevent graph destruction if the editor is used to work with active graphs.
-    auto graphProtection = m_graph->getNodesAndLinksProtection();
-    if ( !m_ownGraph ) { m_graph->setNodesAndLinksProtection( true ); }
-    delete m_graphEdit;
-    if ( !m_ownGraph ) { m_graph->setNodesAndLinksProtection( graphProtection ); }
-    else { delete m_graph; }
+    if ( m_graph ) {
+        // Prevent graph destruction if the editor is used to work with active graphs.
+        auto graphProtection = m_graph->getNodesAndLinksProtection();
+        if ( !m_ownGraph ) { m_graph->setNodesAndLinksProtection( true ); }
+        delete m_graphEdit;
+        if ( !m_ownGraph ) { m_graph->setNodesAndLinksProtection( graphProtection ); }
+        else { delete m_graph; }
+    }
+    else { delete m_graphEdit; }
 }
 
 GraphEditorWindow::GraphEditorWindow( DataflowGraph* graph ) :
@@ -91,6 +94,7 @@ bool GraphEditorWindow::saveAs() {
     QFileDialog dialog( this );
     dialog.setWindowModality( Qt::WindowModal );
     dialog.setAcceptMode( QFileDialog::AcceptSave );
+    dialog.setDefaultSuffix( "json" );
     if ( dialog.exec() != QDialog::Accepted ) return false;
     return saveFile( dialog.selectedFiles().first() );
 }
