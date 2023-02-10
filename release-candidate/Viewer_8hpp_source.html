@@ -52,7 +52,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.4.6</span>
+   &#160;<span id="projectnumber">1.4.7</span>
    </div>
   </td>
  </tr>
@@ -127,19 +127,19 @@ $(document).ready(function(){initNavTree('Viewer_8hpp_source.html',''); initResi
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;atomic&gt;</span></div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span></div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &lt;QMessageBox&gt;</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#include &lt;QThread&gt;</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#include &lt;QWindow&gt;</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">// Forward declarations</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">class </span>QOpenGLContext;</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">class </span>QSurfaceFormat;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keyword">namespace </span>Gui {</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keyword">class </span>CameraManipulator;</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="keyword">class </span>GizmoManager;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="keyword">class </span>PickingManager;</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &lt;QThread&gt;</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#include &lt;QWindow&gt;</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">// Forward declarations</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">class </span>QOpenGLContext;</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">class </span>QSurfaceFormat;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">namespace </span>Gui {</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keyword">class </span>CameraManipulator;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keyword">class </span>GizmoManager;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="keyword">class </span>PickingManager;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="keyword">class </span>RadiumHelpDialog;</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;} <span class="comment">// namespace Gui</span></div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;} <span class="comment">// namespace Ra</span></div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
@@ -296,7 +296,7 @@ $(document).ready(function(){initNavTree('Viewer_8hpp_source.html',''); initResi
 <div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;                         <span class="keywordtype">bool</span> wheel );</div>
 <div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160; </div>
 <div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;    Scalar m_depthUnderMouse;</div>
-<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;    std::unique_ptr&lt;QMessageBox&gt; m_helpDialog { <span class="keyword">nullptr</span> };</div>
+<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;    std::unique_ptr&lt;RadiumHelpDialog&gt; m_helpDialog { <span class="keyword">nullptr</span> };</div>
 <div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160; </div>
 <div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;  <span class="keyword">protected</span>:</div>
 <div class="line"><a name="l00289"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1Viewer.html#a61128f2f8e5b13fbcaa5d4e30db3b7e8">  289</a></span>&#160;    std::vector&lt;std::shared_ptr&lt;Engine::Rendering::Renderer&gt;&gt; <a class="code" href="classRa_1_1Gui_1_1Viewer.html#a61128f2f8e5b13fbcaa5d4e30db3b7e8">m_renderers</a>;</div>
@@ -378,7 +378,7 @@ $(document).ready(function(){initNavTree('Viewer_8hpp_source.html',''); initResi
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b5ac5e964c12a6b13a9d28feb9f3d3ed.html">Gui</a></li><li class="navelem"><a class="el" href="dir_b04feb2291820e8d3d098807c21e4559.html">Viewer</a></li><li class="navelem"><b>Viewer.hpp</b></li>
-    <li class="footer">Generated on Fri Feb 10 2023 05:45:21 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Fri Feb 10 2023 09:19:38 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

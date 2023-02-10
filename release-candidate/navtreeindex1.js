@@ -13,7 +13,6 @@ var NAVTREEINDEX1 =
 "KeyMappingManager_8cpp.html#ad6430f87946fe8122845adcb028aec0d":[9,0,3,2,38],
 "KeyMappingManager_8cpp_source.html":[11,0,0,2,9,2],
 "KeyMappingManager_8hpp_source.html":[11,0,0,2,9,3],
-"KeyMappingManager_8inl_source.html":[11,0,0,2,9,4],
 "Keyboard_8cpp.html#a16216a10542e2c52714e3487f4501e53":[9,0,3,2,35],
 "Keyboard_8cpp.html#a284a7353da7c360f6ff24c07ebb3f815":[9,0,3,2,33],
 "Keyboard_8cpp.html#a781ddb04b65d32de151f68c6b4b6c725":[9,0,3,2,39],
@@ -118,8 +117,8 @@ var NAVTREEINDEX1 =
 "ParameterSetEditor_8cpp.html#a5dec371beb74fa01c704f779f0c53762":[9,0,3,2,31],
 "ParameterSetEditor_8cpp_source.html":[11,0,0,2,1,2],
 "ParameterSetEditor_8hpp_source.html":[11,0,0,2,1,3],
-"PickingManager_8cpp_source.html":[11,0,0,2,9,5],
-"PickingManager_8hpp_source.html":[11,0,0,2,9,6],
+"PickingManager_8cpp_source.html":[11,0,0,2,9,4],
+"PickingManager_8hpp_source.html":[11,0,0,2,9,5],
 "PlainMaterial_8cpp.html#ab14deb10a6a9567429937cd824f5be57":[9,0,3,1,0,50],
 "PlainMaterial_8cpp_source.html":[11,0,0,1,0,19],
 "PlainMaterial_8hpp_source.html":[11,0,0,1,0,20],
@@ -157,6 +156,8 @@ var NAVTREEINDEX1 =
 "RadiumEngine_8cpp.html#a7c2980d8b8dbd863a5d995e7572cb3cf":[9,0,3,1,5],
 "RadiumEngine_8cpp_source.html":[11,0,0,1,6],
 "RadiumEngine_8hpp_source.html":[11,0,0,1,7],
+"RadiumHelpDialog_8cpp_source.html":[11,0,0,2,0,2],
+"RadiumHelpDialog_8hpp_source.html":[11,0,0,2,0,3],
 "RadiumPluginInterface_8cpp_source.html":[11,0,0,5,1],
 "RadiumPluginInterface_8hpp_source.html":[11,0,0,5,2],
 "RawShaderMaterial_8cpp_source.html":[11,0,0,1,0,21],
@@ -248,6 +249,5 @@ var NAVTREEINDEX1 =
 "SignalManager_8cpp_source.html":[11,0,0,1,2,41],
 "SignalManager_8hpp_source.html":[11,0,0,1,2,42],
 "SimpleMaterial_8cpp_source.html":[11,0,0,1,0,36],
-"SimpleMaterial_8hpp_source.html":[11,0,0,1,0,37],
-"SimpleMaterial_8inl_source.html":[11,0,0,1,0,38]
+"SimpleMaterial_8hpp_source.html":[11,0,0,1,0,37]
 };

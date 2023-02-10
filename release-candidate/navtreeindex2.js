@@ -1,5 +1,6 @@
 var NAVTREEINDEX2 =
 {
+"SimpleMaterial_8inl_source.html":[11,0,0,1,0,38],
 "SimpleWindowFactory_8hpp_source.html":[11,0,0,2,2,2],
 "SimpleWindow_8cpp_source.html":[11,0,0,2,2,0],
 "SimpleWindow_8hpp_source.html":[11,0,0,2,2,1],
@@ -248,6 +249,5 @@ var NAVTREEINDEX2 =
 "VolumeData_8hpp_source.html":[11,0,0,0,1,30],
 "VolumeLoader_8cpp.html#a16e0985f6e096e1f25c9b80cdcde5a9e":[9,0,3,4,17],
 "VolumeLoader_8cpp.html#a3603c4bddbb383304c19001adf6acfca":[9,0,3,4,24],
-"VolumeLoader_8cpp.html#a70057cb9eb22e208c7ce739e550d72ec":[9,0,3,4,25],
-"VolumeLoader_8cpp.html#ad8e4be9c84e05bf9058ccdf8529d9093":[9,0,3,4,23]
+"VolumeLoader_8cpp.html#a70057cb9eb22e208c7ce739e550d72ec":[9,0,3,4,25]
 };
