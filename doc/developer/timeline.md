@@ -118,7 +118,7 @@ struct MyTimeDependantSystem : public Ra::Engine::Scene::System
        {
            auto comp = static_cast<MyComponentWithKeyFrame*>( compEntry.second );
            auto func = std::bind( &MyComponentWithKeyFrame::setTime, comp, frameInfo.m_animationTime );
-           auto task = new Ra::Core::FunctionTask( func, "MyUpdateTask" );
+           auto task = std::make_unique<Ra::Core::FunctionTask>( func, "MyUpdateTask" );
            taskQueue->registerTask( task );
        }
    }
