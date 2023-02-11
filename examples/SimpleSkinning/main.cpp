@@ -36,7 +36,7 @@ class SkinningSystem : public Scene::System
 
         m_t = info.m_animationTime;
 
-        auto animTaskId = q->registerTask( new Ra::Core::FunctionTask(
+        auto animTaskId = q->registerTask( std::make_unique<Ra::Core::FunctionTask>(
             [this]() {
                 Transform transform;
                 transform =
@@ -52,12 +52,14 @@ class SkinningSystem : public Scene::System
             "AnimTask_" + m_skin->getMeshName() ) );
 
         auto skinFunc = std::bind( &SkinningComponent::skin, m_skin );
-        auto skinTask = new Core::FunctionTask( skinFunc, "SkinnerTask_" + m_skin->getMeshName() );
-        auto endFunc  = std::bind( &SkinningComponent::endSkinning, m_skin );
-        auto endTask = new Core::FunctionTask( endFunc, "SkinnerEndTask_" + m_skin->getMeshName() );
+        auto skinTask = std::make_unique<Core::FunctionTask>(
+            skinFunc, "SkinnerTask_" + m_skin->getMeshName() );
+        auto endFunc = std::bind( &SkinningComponent::endSkinning, m_skin );
+        auto endTask = std::make_unique<Core::FunctionTask>(
+            endFunc, "SkinnerEndTask_" + m_skin->getMeshName() );
 
-        auto skinTaskId = q->registerTask( skinTask );
-        auto endTaskId  = q->registerTask( endTask );
+        auto skinTaskId = q->registerTask( std::move( skinTask ) );
+        auto endTaskId  = q->registerTask( std::move( endTask ) );
         q->addDependency( animTaskId, skinTaskId );
         q->addDependency( skinTaskId, endTaskId );
     }
