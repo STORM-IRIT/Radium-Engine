@@ -19,7 +19,11 @@ Texture::Texture( const TextureParameters& texParameters ) :
     m_isMipMapped { false },
     m_isLinear { false } {}
 
-Texture::~Texture() = default;
+Texture::~Texture() {
+    if ( m_updateDataTaskId.isValid() ) {
+        RadiumEngine::getInstance()->removeGpuTask( m_updateDataTaskId );
+    }
+}
 
 void Texture::initializeGL( bool linearize ) {
     if ( ( m_textureParameters.target != GL_TEXTURE_1D ) &&
@@ -324,8 +328,8 @@ void Texture::resize( size_t w, size_t h, size_t d, void* pix ) {
 
 void Texture::linearizeCubeMap( uint numComponent, bool hasAlphaChannel ) {
     if ( m_textureParameters.type == gl::GLenum::GL_UNSIGNED_BYTE ) {
-        /// Only unsigned byte texture could be linearized. Considering other formats where already
-        /// linear
+        /// Only unsigned byte texture could be linearized. Considering other formats where
+        /// already linear
         for ( int i = 0; i < 6; ++i ) {
             sRGBToLinearRGB(
                 reinterpret_cast<uint8_t*>( ( (void**)m_textureParameters.texels )[i] ),
