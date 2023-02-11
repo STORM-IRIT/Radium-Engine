@@ -46,6 +46,11 @@ TaskQueue::TaskId TaskQueue::registerTask( std::unique_ptr<Task> task ) {
 
 void TaskQueue::removeTask( TaskId taskId ) {
 
+    if ( taskId.isInvalid() || taskId > m_tasks.size() ) {
+        LOG( Utils::logDEBUG ) << "try to remove task " << taskId << " which is out of bounds "
+                               << m_tasks.size();
+        return;
+    }
     std::lock_guard<std::mutex> lock( m_taskMutex );
 
     // set task as dummy noop
