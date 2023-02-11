@@ -134,6 +134,10 @@ TEST_CASE( "Core/TaskQueue", "[Core][TaskQueue]" ) {
         taskQueue.removeTask( tids[0] );
         taskQueue.removeTask( tids[6] );
 
+        // remove invalid task id, silently
+        taskQueue.removeTask( TaskQueue::TaskId {} );
+        taskQueue.removeTask( 100 );
+
         SECTION( "parallel run" ) {
             taskQueue.startTasks();
             taskQueue.waitForTasks();
