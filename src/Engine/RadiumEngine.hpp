@@ -325,8 +325,21 @@ class RA_ENGINE_API RadiumEngine
 
     std::string getResourcesDir() { return m_resourcesRootDir; }
 
+    /**
+     * run (and flush) gpu task queue
+     */
     void runGpuTasks();
+
+    /**
+     * Add a task to the gpu task queue, will be run once runGpuTasks() is called.
+     * \returns the task id of the added task
+     */
     Core::TaskQueue::TaskId addGpuTask( std::unique_ptr<Core::Task> );
+
+    /**
+     * remove a previously added task according to its taskId (invalid taskId silently ignored)
+     */
+    void removeGpuTask( Core::TaskQueue::TaskId taskId );
 
   private:
     RadiumEngine();

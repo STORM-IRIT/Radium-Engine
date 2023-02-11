@@ -480,5 +480,9 @@ Core::TaskQueue::TaskId RadiumEngine::addGpuTask( std::unique_ptr<Core::Task> ta
     return m_gpuTaskQueue->registerTask( std::move( task ) );
 }
 
+void RadiumEngine::removeGpuTask( Core::TaskQueue::TaskId taskId ) {
+    m_gpuTaskQueue->removeTask( taskId );
+}
+
 } // namespace Engine
 } // namespace Ra
