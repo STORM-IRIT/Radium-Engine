@@ -129,22 +129,38 @@ class FilterSelector final : public Node
 // Reusable function to create a graph
 template <typename DataType>
 DataflowGraph* buildgraph( const std::string& name ) {
-    auto ds = new Sources::SingleDataSourceNode<Ra::Core::VectorArray<DataType>>( "ds" );
-    auto rs = new Sinks::SinkNode<Ra::Core::VectorArray<DataType>>( "rs" );
-    auto ts = new Sources::SingleDataSourceNode<DataType>( "ts" );
-    auto ss = new Customs::CustomStringSource( "ss" );
-    auto nm = new Customs::CustomStringSink( "nm" );
-    auto fs = new Customs::FilterSelector<DataType>( "fs" );
-    auto fl = new Functionals::FilterNode<Ra::Core::VectorArray<DataType>>( "fl" );
-
     auto g = new DataflowGraph( name );
-    g->addNode( std::unique_ptr<Node>( ds ) );
-    g->addNode( std::unique_ptr<Node>( rs ) );
-    g->addNode( std::unique_ptr<Node>( ts ) );
-    g->addNode( std::unique_ptr<Node>( ss ) );
-    g->addNode( std::unique_ptr<Node>( nm ) );
-    g->addNode( std::unique_ptr<Node>( fs ) );
-    g->addNode( std::unique_ptr<Node>( fl ) );
+
+    auto addedNode = g->addNode(
+        std::make_unique<Sources::SingleDataSourceNode<Ra::Core::VectorArray<DataType>>>( "ds" ) );
+    REQUIRE( addedNode.first );
+    auto ds = addedNode.second;
+
+    addedNode =
+        g->addNode( std::make_unique<Sinks::SinkNode<Ra::Core::VectorArray<DataType>>>( "rs" ) );
+    REQUIRE( addedNode.first );
+    auto rs = addedNode.second;
+
+    addedNode = g->addNode( std::make_unique<Sources::SingleDataSourceNode<DataType>>( "ts" ) );
+    REQUIRE( addedNode.first );
+    auto ts = addedNode.second;
+
+    addedNode = g->addNode( std::make_unique<Customs::CustomStringSource>( "ss" ) );
+    REQUIRE( addedNode.first );
+    auto ss = addedNode.second;
+
+    addedNode = g->addNode( std::make_unique<Customs::CustomStringSink>( "nm" ) );
+    REQUIRE( addedNode.first );
+    auto nm = addedNode.second;
+
+    addedNode = g->addNode( std::make_unique<Customs::FilterSelector<DataType>>( "fs" ) );
+    REQUIRE( addedNode.first );
+    auto fs = addedNode.second;
+
+    addedNode = g->addNode(
+        std::make_unique<Functionals::FilterNode<Ra::Core::VectorArray<DataType>>>( "fl" ) );
+    REQUIRE( addedNode.first );
+    auto fl = addedNode.second;
 
     bool ok;
     ok = g->addLink( ds, "to", fl, "in" );
@@ -205,16 +221,13 @@ TEST_CASE( "Dataflow/Core/Custom nodes", "[Dataflow][Core][Custom nodes]" ) {
         }
         std::cout << '\n';
 
-        /// Getters are usable only after successful compilation/execution of the graph
-        auto r = g->compile();
-        REQUIRE( r );
-
         // execute the graph that filter out nothing
         // execute
-        r = g->execute();
+        auto r = g->execute();
         REQUIRE( r );
 
-        // Get results as references (no need to get them again later)
+        // Getters are usable only after successful compilation/execution of the graph
+        // Get results as references (no need to get them again later if the graph does not change)
         auto& vres = filteredCollection->getData<CollectionType>();
         auto& vop  = generatedOperator->getData<std::string>();
 
@@ -240,7 +253,6 @@ TEST_CASE( "Dataflow/Core/Custom nodes", "[Dataflow][Core][Custom nodes]" ) {
             std::cout << ord << ' ';
         }
         std::cout << '\n';
-
         // Change operator to keep element less than threshold
         op = "<";
         r  = g->execute();
