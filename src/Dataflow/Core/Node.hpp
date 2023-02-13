@@ -292,14 +292,10 @@ inline const std::vector<std::unique_ptr<PortBase>>& Node::getOutputs() const {
 inline const std::vector<PortBase*>& Node::buildInterfaces( Node* parent ) {
     m_interface.clear();
     m_interface.shrink_to_fit();
-    std::vector<std::unique_ptr<PortBase>>* readFrom;
-    if ( m_inputs.empty() ) { readFrom = &m_outputs; }
-    else {
-        readFrom = &m_inputs;
-    }
+    const std::vector<std::unique_ptr<PortBase>>* readFrom =
+        m_inputs.empty() ? &m_outputs : &m_inputs;
     m_interface.reserve( readFrom->size() );
     for ( const auto& p : *readFrom ) {
-        // Todo, ensure thereis no twice the same port ....
         m_interface.emplace_back( p->reflect( parent, getInstanceName() + '_' + p->getName() ) );
     }
     return m_interface;
