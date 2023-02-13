@@ -274,21 +274,15 @@ bool DataflowGraph::canAdd( const Node* newNode ) const {
 }
 
 std::pair<bool, Node*> DataflowGraph::addNode( std::unique_ptr<Node> newNode ) {
-    std::map<std::string, std::string> m_mapInputs;
     // Check if the new node already exists (= same name and type)
     if ( canAdd( newNode.get() ) ) {
-        if ( newNode->getInputs().empty() ) {
-            // it is a source node, add its interface port as input and data setter to the graph
-            auto& interfaces = newNode->buildInterfaces( this );
+        if ( newNode->getInputs().empty() || newNode->getOutputs().empty() ) {
+            bool ( DataflowGraph::*addGraphIOPort )( PortBase* ) = newNode->getInputs().empty()
+                                                                       ? &DataflowGraph::addSetter
+                                                                       : &DataflowGraph::addGetter;
+            auto& interfaces                                     = newNode->buildInterfaces( this );
             for ( auto p : interfaces ) {
-                addSetter( p );
-            }
-        }
-        if ( newNode->getOutputs().empty() ) {
-            // it is a sink node, add its interface port as output to the graph
-            auto& interfaces = newNode->buildInterfaces( this );
-            for ( auto p : interfaces ) {
-                addGetter( p );
+                ( this->*addGraphIOPort )( p );
             }
         }
         auto addedNode = newNode.get();
@@ -310,14 +304,12 @@ bool DataflowGraph::removeNode( Node*& node ) {
     int index = -1;
     if ( ( index = findNode( node ) ) == -1 ) { return false; }
     else {
-        if ( node->getInputs().empty() ) { // Check if it is a source node
-            for ( auto& port : node->getInterfaces() ) {
-                removeSetter( port->getName() );
-            }
-        }
-        if ( node->getOutputs().empty() ) { // Check if it is a sink node
-            for ( auto& port : node->getInterfaces() ) {
-                removeGetter( port->getName() );
+        if ( node->getInputs().empty() || node->getOutputs().empty() ) {
+            bool ( DataflowGraph::*removeGraphIOPort )( const std::string& ) =
+                node->getInputs().empty() ? &DataflowGraph::removeSetter
+                                          : &DataflowGraph::removeGetter;
+            for ( auto& p : node->getInterfaces() ) {
+                ( this->*removeGraphIOPort )( p->getName() );
             }
         }
         m_nodes.erase( m_nodes.begin() + index );
@@ -597,12 +589,16 @@ bool DataflowGraph::removeSetter( const std::string& setterName ) {
 
 bool DataflowGraph::addGetter( PortBase* out ) {
     if ( out->is_input() ) { return false; }
-    // This is very similar to addOutput, except the data can't be set, they will be in the init
-    // of any Sink
+    // This is very similar to addOutput, except the data can't be set.
+    // Data pointer must be set by any sink at compile time, in the init function to refer to the
+    // data fetched from the associated input link
     bool found = false;
     // TODO check if this verification is needed ?
     for ( auto& output : m_outputs ) {
-        if ( output->getName() == out->getName() ) { found = true; }
+        if ( output->getName() == out->getName() ) {
+            found = true;
+            break;
+        }
     }
     if ( !found ) { m_outputs.emplace_back( out ); }
     return !found;
