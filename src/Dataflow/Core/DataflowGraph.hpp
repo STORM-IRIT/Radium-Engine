@@ -128,9 +128,10 @@ class RA_DATAFLOW_API DataflowGraph : public Node
     /// This flag is useless outside an load/edit/save scenario
     bool m_shouldBeSaved { false };
 
-    /// \brief Creates an output port connected to the named input port of the graph.
+    /// \brief Gets an output port connected to the named input port of the graph.
     /// Return the connected output port if success, sharing the ownership with the caller.
-    /// Allows to set data to the graph from the caller .
+    /// This output port could then be used through setter->setData( ptr ) to set the graph input
+    /// from the data pointer owned by the caller.
     /// \note As ownership is shared with the caller, the graph must survive the returned
     /// pointer to be able to use the dataSetter..
     /// \params portName The name of the input port of the graph
@@ -141,10 +142,10 @@ class RA_DATAFLOW_API DataflowGraph : public Node
     /// \brief connect the data setting port from its inputs.
     bool activateDataSetter( const std::string& portName );
 
-    /// Returns an alias to the named output port of the graph.
+    /// \brief Returns an alias to the named output port of the graph.
     /// Allows to get the data stored at this port after the execution of the graph.
-    /// \note ownership is left to the graph. The graph must survive the returned
-    /// pointer to be able to use the dataGetter..
+    /// \note ownership is left to the graph, not shared. The graph must survive the returned
+    /// pointer to be able to use the dataGetter.
     /// \params portName the name of the output port
     PortBase* getDataGetter( const std::string& portName );
 
@@ -157,17 +158,17 @@ class RA_DATAFLOW_API DataflowGraph : public Node
     /// \brief Data getter descriptor.
     /// A Data getter descriptor is composed of an output port (belonging to any node of the graph),
     /// its name and its type.
-    /// Use getData on the output port to extract data from the graph
+    /// Use getData on the output port to extract data from the graph.
+    /// \note, a dataGetter is valid only after successful compilation of the graph.
+    /// \todo find a way to test the validity of the getter (invalid if no path exists from any
+    /// source port to the associated sink port)
     using DataGetterDesc = std::tuple<PortBase*, std::string, std::string>;
 
-    /// Creates a vector that stores all the DataSetters (\see getDataSetter) of the graph.
-
-    /// \note If called multiple times for the same port, only the last returned result is
-    /// usable.
+    /// Creates a vector that stores all the existing DataSetters (\see getDataSetter) of the graph.
     /// TODO : Verify why, when listing the data setters, they are connected ...
     std::vector<DataSetterDesc> getAllDataSetters() const;
 
-    /// Creates a vector that stores all the DataGetters (\see getDataGetter) of the graph.
+    /// Creates a vector that stores all the existing DataGetters (\see getDataGetter) of the graph.
     /// A tuple is composed of an output port belonging to the graph, its name its type.
     std::vector<DataGetterDesc> getAllDataGetters() const;
 
