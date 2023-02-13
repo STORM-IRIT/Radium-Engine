@@ -67,17 +67,20 @@ SinkNode<T>::SinkNode( const std::string& instanceName, const std::string& typeN
 template <typename T>
 void SinkNode<T>::init() {
     // this should be done only once (or when the address of local data changes)
-    // What if interfaces were not created before init (e.g. call of init on a node not added to a
-    // graph) Todo : assert on the existence of the interface
-    auto interfacePort = static_cast<PortOut<T>*>( m_interface[0] );
-    interfacePort->setData( &m_data );
+    if ( m_interface[0] != nullptr ) {
+        auto interfacePort = static_cast<PortOut<T>*>( m_interface[0] );
+        interfacePort->setData( &m_data );
+    }
     Node::init();
 }
 
 template <typename T>
 bool SinkNode<T>::execute() {
-    m_data = m_portIn->getData();
-    return true;
+    if ( m_portIn->hasData() ) {
+        m_data = m_portIn->getData();
+        return true;
+    }
+    return false;
 }
 
 template <typename T>
