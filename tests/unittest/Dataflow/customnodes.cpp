@@ -177,10 +177,10 @@ TEST_CASE( "Dataflow/Core/Custom nodes", "[Dataflow][Core][Custom nodes]" ) {
         REQUIRE( inputThreshold != nullptr );
 
         auto filteredCollection = g->getDataGetter( "rs_from" );
-        auto generatedOperator  = g->getDataGetter( "nm_from" );
+        REQUIRE( filteredCollection != nullptr );
+        auto generatedOperator = g->getDataGetter( "nm_from" );
+        REQUIRE( generatedOperator != nullptr );
 
-        auto r = g->compile();
-        REQUIRE( r );
         // parameterise the graph
         using CollectionType = Ra::Core::VectorArray<Scalar>;
         CollectionType testVector;
@@ -205,10 +205,15 @@ TEST_CASE( "Dataflow/Core/Custom nodes", "[Dataflow][Core][Custom nodes]" ) {
         }
         std::cout << '\n';
 
+        /// Getters are usable only after successful compilation/execution of the graph
+        auto r = g->compile();
+        REQUIRE( r );
+
         // execute the graph that filter out nothing
         // execute
         r = g->execute();
         REQUIRE( r );
+
         // Get results as references (no need to get them again later)
         auto& vres = filteredCollection->getData<CollectionType>();
         auto& vop  = generatedOperator->getData<std::string>();
