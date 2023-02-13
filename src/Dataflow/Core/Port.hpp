@@ -14,11 +14,6 @@ namespace Core {
 
 class Node;
 
-template <typename T>
-class PortOut;
-template <typename T>
-class PortIn;
-
 /**
  * \brief Base class for nodes' ports
  * A port is a strongly typed extremity of connections between nodes.
@@ -186,7 +181,10 @@ class PortIn : public PortBase,
 
     /// Gets the out port this port is connected to.
     PortBase* getLink() override;
+    /// Returns true if the port is linked to an output port that has data.
+    bool hasData() override;
     /// Gets a reference to the data pointed by the connected out port.
+    /// \note no verification is made about the availability of the data.
     T& getData();
     /// Checks if there is not out port already connected and if the data types are the same.
     /// @param o The other port to test the connection
@@ -356,6 +354,12 @@ PortBase* PortIn<T>::getLink() {
 template <typename T>
 T& PortIn<T>::getData() {
     return m_from->getData();
+}
+
+template <typename T>
+inline bool PortIn<T>::hasData() {
+    if ( isLinked() ) { return m_from->hasData(); }
+    return false;
 }
 
 template <typename T>
