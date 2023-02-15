@@ -588,12 +588,10 @@ void Viewer::mousePressEvent( QMouseEvent* event ) {
         return;
     }
 
-    m_currentRenderer->setMousePosition(
-        m_toDevice( { event->position().x(), event->position().y() } ) );
+    m_currentRenderer->setMousePosition( m_toDevice( { event->pos().x(), event->pos().y() } ) );
 
     // get what's under the mouse
-    auto result =
-        pickAtPosition( m_toDevice( { event->position().x(), height() - event->position().y() } ) );
+    auto result = pickAtPosition( m_toDevice( { event->pos().x(), height() - event->pos().y() } ) );
     m_depthUnderMouse = result.getDepth();
 
     handleMousePressEvent( event, result );
@@ -613,11 +611,9 @@ void Viewer::mouseMoveEvent( QMouseEvent* event ) {
         return;
     }
 
-    m_currentRenderer->setMousePosition(
-        m_toDevice( { event->position().x(), event->position().y() } ) );
+    m_currentRenderer->setMousePosition( m_toDevice( { event->pos().x(), event->pos().y() } ) );
 
-    auto result =
-        pickAtPosition( m_toDevice( { event->position().x(), height() - event->position().y() } ) );
+    auto result = pickAtPosition( m_toDevice( { event->pos().x(), height() - event->pos().y() } ) );
     m_depthUnderMouse = result.getDepth();
 
     handleMouseMoveEvent( event, result );
