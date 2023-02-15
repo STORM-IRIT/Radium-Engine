@@ -65,6 +65,12 @@ void WindowQt::screenChanged() {
 
 void WindowQt::physicalDpiChanged( qreal /*dpi*/ ) {
     emit dpiChanged();
+#ifdef OS_WINDOWS
+    // on windows, no resize event generated when dpi change, force resize
+    QSize s { size().width(), size().height() };
+    QResizeEvent patchEvent { s, s };
+    resizeInternal( &patchEvent );
+#endif
 }
 
 QOpenGLContext* WindowQt::context() {
