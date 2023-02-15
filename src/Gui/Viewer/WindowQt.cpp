@@ -42,6 +42,8 @@ WindowQt::WindowQt( QScreen* screen ) :
         QApplication::quit();
     }
 
+    m_screenObserver = connect(
+        this->screen(), &QScreen::physicalDotsPerInchChanged, this, &WindowQt::physicalDpiChanged );
     connect( this, &QWindow::screenChanged, this, &WindowQt::screenChanged );
 
     // cleanup connection is set in BaseApplication
@@ -52,9 +54,17 @@ WindowQt::~WindowQt() {
 }
 
 void WindowQt::screenChanged() {
+    disconnect( m_screenObserver );
+    m_screenObserver = connect(
+        this->screen(), &QScreen::physicalDotsPerInchChanged, this, &WindowQt::physicalDpiChanged );
+    emit dpiChanged();
     QSize s { size().width(), size().height() };
     QResizeEvent patchEvent { s, s };
     resizeInternal( &patchEvent );
+}
+
+void WindowQt::physicalDpiChanged( qreal /*dpi*/ ) {
+    emit dpiChanged();
 }
 
 QOpenGLContext* WindowQt::context() {

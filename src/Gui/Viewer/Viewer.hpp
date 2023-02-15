@@ -205,6 +205,8 @@ class RA_GUI_API Viewer : public WindowQt, public KeyMappingManageable<Viewer>
     void onResized();
     void onFrameSwapped();
 
+    void devicePixelRatioChanged();
+
   protected:
     /// create gizmos
     void createGizmoManager();
@@ -331,6 +333,19 @@ class RA_GUI_API Viewer : public WindowQt, public KeyMappingManageable<Viewer>
 #define KMA_VALUE( x ) static KeyMappingManager::KeyMappingAction x;
     KeyMappingViewer
 #undef KMA_VALUE
+
+    class LogicalToDeviceCoordinateTransformer
+    {
+      private:
+        Scalar m_devPixelsRatio;
+
+      public:
+        explicit LogicalToDeviceCoordinateTransformer( Scalar r = 1_ra ) : m_devPixelsRatio( r ) {}
+        void setPixelRatio( Scalar r ) { m_devPixelsRatio = r; }
+        Scalar getPixelRatio() { return m_devPixelsRatio; }
+        Ra::Core::Vector2 operator()( const Ra::Core::Vector2& l ) { return l * m_devPixelsRatio; }
+    };
+    LogicalToDeviceCoordinateTransformer m_toDevice;
 };
 
 } // namespace Gui

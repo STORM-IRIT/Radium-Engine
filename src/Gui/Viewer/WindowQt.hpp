@@ -26,6 +26,7 @@ namespace Gui {
  */
 class RA_GUI_API WindowQt : public QWindow
 {
+    Q_OBJECT
   private:
     class ScopedGLContext;
 
@@ -88,10 +89,17 @@ class RA_GUI_API WindowQt : public QWindow
 
     bool isOpenGlInitialized() const { return m_glInitialized.load(); }
 
+  signals:
+    /// Emitted when physical device changes. Useful for tracking devicePixelRatio() change.
+    void dpiChanged();
+
   public slots:
     /// call deinitializeGL if needed, with context activated
     void cleanupGL();
     void screenChanged();
+
+  private slots:
+    void physicalDpiChanged( qreal dpi );
 
   protected:
     // OpenglContext used with this widget
@@ -127,9 +135,25 @@ class RA_GUI_API WindowQt : public QWindow
 
     static WindowQt* s_getProcAddressHelper;
     int m_contextActivationCount { 0 };
+
+    QMetaObject::Connection m_screenObserver;
 };
+
+class WindowQt::ScopedGLContext
+{
+  public:
+    explicit ScopedGLContext( WindowQt* window ) : m_window( window ) { window->makeCurrent(); }
+    ~ScopedGLContext() { m_window->doneCurrent(); }
+    ScopedGLContext( const ScopedGLContext& ) = delete;
+    ScopedGLContext& operator=( ScopedGLContext const& ) = delete;
+
+  private:
+    WindowQt* m_window;
+};
+
+inline WindowQt::ScopedGLContext WindowQt::activateScopedContext() {
+    return ScopedGLContext { this };
+}
 
 } // namespace Gui
 } // namespace Ra
-
-#include "WindowQt.inl"
