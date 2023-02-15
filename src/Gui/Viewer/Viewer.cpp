@@ -145,7 +145,16 @@ Viewer::Viewer( QScreen* screen ) :
     m_brushRadius( 10 ),
     m_camera( nullptr ),
     m_gizmoManager( nullptr ),
-    m_keyMappingCallbackManager { ViewerMapping::getContext() } {}
+    m_keyMappingCallbackManager { ViewerMapping::getContext() },
+    m_toDevice( devicePixelRatio() ) {
+    connect( this, &WindowQt::dpiChanged, this, &Viewer::devicePixelRatioChanged );
+}
+
+// TODO add a functor that translate to physical device unit, initialized in the constructor,
+// modified here
+void Viewer::devicePixelRatioChanged() {
+    m_toDevice.setPixelRatio( devicePixelRatio() );
+}
 
 Viewer::~Viewer() {
     if ( m_glInitialized.load() ) {
@@ -385,7 +394,8 @@ bool Viewer::changeRenderer( int index ) {
 
         m_currentRenderer = m_renderers[index].get();
         // renderers in m_renderers are supposed to be locked
-        m_currentRenderer->resize( width(), height() );
+        auto deviceSize = m_toDevice( { width(), height() } );
+        m_currentRenderer->resize( deviceSize.x(), deviceSize.y() );
         // Configure the renderObjects for this renderer
         m_currentRenderer->buildAllRenderTechniques();
         m_currentRenderer->unlockRendering();
@@ -393,7 +403,7 @@ bool Viewer::changeRenderer( int index ) {
         LOG( logINFO ) << "[Viewer] Set active renderer: " << m_currentRenderer->getRendererName();
 
         // resize camera viewport since the one in show event might have 0x0
-        if ( m_camera ) { m_camera->getCamera()->setViewport( width(), height() ); }
+        if ( m_camera ) { m_camera->getCamera()->setViewport( deviceSize.x(), deviceSize.y() ); }
 
         doneCurrent();
         emit rendererReady();
@@ -448,12 +458,13 @@ void Viewer::createGizmoManager() {
 }
 
 void Viewer::initializeRenderer( Engine::Rendering::Renderer* renderer ) {
+    auto deviceSize = m_toDevice( { width(), height() } );
+
     // see issue #261 Qt Event order and default viewport management (Viewer.cpp)
     // https://github.com/STORM-IRIT/Radium-Engine/issues/261
-#ifndef OS_MACOS
-    gl::glViewport( 0, 0, width(), height() );
-#endif
-    renderer->initialize( width(), height() );
+    gl::glViewport( 0, 0, deviceSize.x(), deviceSize.y() );
+
+    renderer->initialize( deviceSize.x(), deviceSize.y() );
     renderer->setBackgroundColor( m_backgroundColor );
     renderer->lockRendering();
 }
@@ -478,9 +489,10 @@ bool Viewer::initializeGL() {
     emit requestEngineOpenGLInitialization();
 
     // Configure the viewer services
+    auto deviceSize = m_toDevice( { width(), height() } );
     // create default camera interface : trackball
     m_camera = std::make_unique<TrackballCameraManipulator>();
-    m_camera->getCamera()->setViewport( width(), height() );
+    m_camera->getCamera()->setViewport( deviceSize.x(), deviceSize.y() );
     auto headlight = new Engine::Scene::DirectionalLight(
         Ra::Engine::Scene::SystemEntity::getInstance(), "headlight" );
     headlight->setColor( Ra::Core::Utils::Color::Grey( 1.0_ra ) );
@@ -490,10 +502,11 @@ bool Viewer::initializeGL() {
     // Register to the camera manager active camera changes
     auto cameraManager = static_cast<Ra::Engine::Scene::CameraManager*>(
         Engine::RadiumEngine::getInstance()->getSystem( "DefaultCameraManager" ) );
-    cameraManager->activeCameraObservers().attach( [this]( Core::Utils::Index /*idx*/ ) {
-        m_camera->updateCamera();
-        m_camera->getCamera()->setViewport( width(), height() );
-    } );
+    cameraManager->activeCameraObservers().attach(
+        [this, size = deviceSize]( Core::Utils::Index /*idx*/ ) {
+            m_camera->updateCamera();
+            m_camera->getCamera()->setViewport( size.x(), size.y() );
+        } );
 
     // Initialize renderers added to the viewer before initializeGL
     for ( auto& rptr : m_pendingRenderers ) {
@@ -522,14 +535,11 @@ bool Viewer::initializeGL() {
 }
 
 void Viewer::resizeGL( QResizeEvent* event ) {
-    int width  = event->size().width() * devicePixelRatio();
-    int height = event->size().height() * devicePixelRatio();
+    auto deviceSize = m_toDevice( { width(), height() } );
     // Renderer should have been locked by previous events.
-#ifndef OS_MACOS
-    gl::glViewport( 0, 0, width, height );
-#endif
-    m_camera->getCamera()->setViewport( width, height );
-    m_currentRenderer->resize( width, height );
+    gl::glViewport( 0, 0, deviceSize.x(), deviceSize.y() );
+    m_camera->getCamera()->setViewport( deviceSize.x(), deviceSize.y() );
+    m_currentRenderer->resize( deviceSize.x(), deviceSize.y() );
     emit needUpdate();
 }
 
@@ -578,10 +588,12 @@ void Viewer::mousePressEvent( QMouseEvent* event ) {
         return;
     }
 
-    m_currentRenderer->setMousePosition( Ra::Core::Vector2( event->x(), event->y() ) );
+    m_currentRenderer->setMousePosition(
+        m_toDevice( { event->position().x(), event->position().y() } ) );
 
     // get what's under the mouse
-    auto result       = pickAtPosition( { event->x(), height() - event->y() } );
+    auto result =
+        pickAtPosition( m_toDevice( { event->position().x(), height() - event->position().y() } ) );
     m_depthUnderMouse = result.getDepth();
 
     handleMousePressEvent( event, result );
@@ -601,9 +613,11 @@ void Viewer::mouseMoveEvent( QMouseEvent* event ) {
         return;
     }
 
-    m_currentRenderer->setMousePosition( Ra::Core::Vector2( event->x(), event->y() ) );
+    m_currentRenderer->setMousePosition(
+        m_toDevice( { event->position().x(), event->position().y() } ) );
 
-    auto result       = pickAtPosition( { event->x(), height() - event->y() } );
+    auto result =
+        pickAtPosition( m_toDevice( { event->position().x(), height() - event->position().y() } ) );
     m_depthUnderMouse = result.getDepth();
 
     handleMouseMoveEvent( event, result );
@@ -625,8 +639,8 @@ void Viewer::wheelEvent( QWheelEvent* event ) {
 
 void Viewer::showEvent( QShowEvent* ev ) {
     WindowQt::showEvent( ev );
-
-    m_camera->getCamera()->setViewport( width(), height() );
+    auto deviceSize = m_toDevice( { width(), height() } );
+    m_camera->getCamera()->setViewport( deviceSize.x(), deviceSize.y() );
 
     emit needUpdate();
 }
@@ -742,7 +756,7 @@ void Viewer::handleMousePressEvent( QMouseEvent* event,
             if ( pickingMode != Ra::Engine::Rendering::Renderer::NONE ) {
                 // Push query, we may also do it here ...
                 Engine::Rendering::Renderer::PickingQuery query = {
-                    Core::Vector2( event->x(), ( height() - event->y() ) ),
+                    m_toDevice( { event->x(), height() - event->y() } ),
                     Engine::Rendering::Renderer::PickingPurpose::MANIPULATION,
                     pickingMode };
                 m_currentRenderer->addPickingRequest( query );
@@ -783,7 +797,7 @@ void Viewer::handleMouseMoveEvent( QMouseEvent* event,
         auto pickingMode = getPickingMode( action );
         if ( pickingMode != Ra::Engine::Rendering::Renderer::NONE ) {
             Engine::Rendering::Renderer::PickingQuery query = {
-                Core::Vector2( event->x(), ( height() - event->y() ) ),
+                m_toDevice( { event->x(), height() - event->y() } ),
                 Engine::Rendering::Renderer::PickingPurpose::MANIPULATION,
                 pickingMode };
             m_currentRenderer->addPickingRequest( query );
