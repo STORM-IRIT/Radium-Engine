@@ -712,80 +712,81 @@ var sectionId = 'dynsection-0';
 <g id="node16" class="node">
 <title>Node16</title>
 <g id="a_node16"><a xlink:href="classRa_1_1Engine_1_1RadiumEngine.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="0,-953 0,-1604 169,-1604 169,-953 0,-953"/>
-<text text-anchor="middle" x="84.5" y="-1592" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::RadiumEngine</text>
-<polyline fill="none" stroke="black" points="0,-1585 169,-1585 "/>
-<text text-anchor="middle" x="84.5" y="-1573" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<polyline fill="none" stroke="black" points="0,-1566 169,-1566 "/>
-<text text-anchor="start" x="8" y="-1554" font-family="Helvetica,sans-Serif" font-size="10.00">+ initialize()</text>
-<text text-anchor="start" x="8" y="-1543" font-family="Helvetica,sans-Serif" font-size="10.00">+ initializeGL()</text>
-<text text-anchor="start" x="8" y="-1532" font-family="Helvetica,sans-Serif" font-size="10.00">+ getOpenGLVersion()</text>
-<text text-anchor="start" x="8" y="-1521" font-family="Helvetica,sans-Serif" font-size="10.00">+ cleanup()</text>
-<text text-anchor="start" x="8" y="-1510" font-family="Helvetica,sans-Serif" font-size="10.00">+ getTasks()</text>
-<text text-anchor="start" x="8" y="-1499" font-family="Helvetica,sans-Serif" font-size="10.00">+ registerSystem()</text>
-<text text-anchor="start" x="8" y="-1488" font-family="Helvetica,sans-Serif" font-size="10.00">+ getSystem()</text>
-<text text-anchor="start" x="8" y="-1477" font-family="Helvetica,sans-Serif" font-size="10.00">+ getMesh()</text>
-<text text-anchor="start" x="8" y="-1466" font-family="Helvetica,sans-Serif" font-size="10.00">+ loadFile()</text>
-<text text-anchor="start" x="8" y="-1455" font-family="Helvetica,sans-Serif" font-size="10.00">+ getFileData()</text>
-<text text-anchor="start" x="8" y="-1444" font-family="Helvetica,sans-Serif" font-size="10.00">+ releaseFile()</text>
-<text text-anchor="start" x="8" y="-1433" font-family="Helvetica,sans-Serif" font-size="10.00">+ endFrameSync()</text>
-<text text-anchor="start" x="8" y="-1422" font-family="Helvetica,sans-Serif" font-size="10.00">+ getRenderObjectManager()</text>
-<text text-anchor="start" x="8" y="-1411" font-family="Helvetica,sans-Serif" font-size="10.00">+ getEntityManager()</text>
-<text text-anchor="start" x="8" y="-1400" font-family="Helvetica,sans-Serif" font-size="10.00">+ getSignalManager()</text>
-<text text-anchor="start" x="8" y="-1389" font-family="Helvetica,sans-Serif" font-size="10.00">+ getTextureManager()</text>
-<text text-anchor="start" x="8" y="-1378" font-family="Helvetica,sans-Serif" font-size="10.00">+ getShaderProgramManager()</text>
-<text text-anchor="start" x="8" y="-1367" font-family="Helvetica,sans-Serif" font-size="10.00">+ registerFileLoader()</text>
-<text text-anchor="start" x="8" y="-1356" font-family="Helvetica,sans-Serif" font-size="10.00">+ getFileLoaders()</text>
-<text text-anchor="start" x="8" y="-1345" font-family="Helvetica,sans-Serif" font-size="10.00">+ computeSceneAabb()</text>
-<text text-anchor="start" x="8" y="-1334" font-family="Helvetica,sans-Serif" font-size="10.00">+ pushFboAndViewport()</text>
-<text text-anchor="start" x="8" y="-1323" font-family="Helvetica,sans-Serif" font-size="10.00">+ popFboAndViewport()</text>
-<text text-anchor="start" x="8" y="-1312" font-family="Helvetica,sans-Serif" font-size="10.00">+ getResourcesDir()</text>
-<text text-anchor="start" x="8" y="-1301" font-family="Helvetica,sans-Serif" font-size="10.00">+ runGpuTasks()</text>
-<text text-anchor="start" x="8" y="-1290" font-family="Helvetica,sans-Serif" font-size="10.00">+ addGpuTask()</text>
-<text text-anchor="start" x="8" y="-1279" font-family="Helvetica,sans-Serif" font-size="10.00">+ setRealTime()</text>
-<text text-anchor="start" x="8" y="-1268" font-family="Helvetica,sans-Serif" font-size="10.00">+ isRealTime()</text>
-<text text-anchor="start" x="8" y="-1257" font-family="Helvetica,sans-Serif" font-size="10.00">+ isConstantTime()</text>
-<text text-anchor="start" x="8" y="-1246" font-family="Helvetica,sans-Serif" font-size="10.00">+ setConstantTimeStep()</text>
-<text text-anchor="start" x="8" y="-1235" font-family="Helvetica,sans-Serif" font-size="10.00">+ setForwardBackward()</text>
-<text text-anchor="start" x="8" y="-1224" font-family="Helvetica,sans-Serif" font-size="10.00">+ play()</text>
-<text text-anchor="start" x="8" y="-1213" font-family="Helvetica,sans-Serif" font-size="10.00">+ step()</text>
-<text text-anchor="start" x="8" y="-1202" font-family="Helvetica,sans-Serif" font-size="10.00">+ resetTime()</text>
-<text text-anchor="start" x="8" y="-1191" font-family="Helvetica,sans-Serif" font-size="10.00">+ setTime()</text>
-<text text-anchor="start" x="8" y="-1180" font-family="Helvetica,sans-Serif" font-size="10.00">+ setStartTime()</text>
-<text text-anchor="start" x="8" y="-1169" font-family="Helvetica,sans-Serif" font-size="10.00">+ getStartTime()</text>
-<text text-anchor="start" x="8" y="-1158" font-family="Helvetica,sans-Serif" font-size="10.00">+ setEndTime()</text>
-<text text-anchor="start" x="8" y="-1147" font-family="Helvetica,sans-Serif" font-size="10.00">+ getEndTime()</text>
-<text text-anchor="start" x="8" y="-1136" font-family="Helvetica,sans-Serif" font-size="10.00">+ getTime()</text>
-<text text-anchor="start" x="8" y="-1125" font-family="Helvetica,sans-Serif" font-size="10.00">+ getFrame()</text>
-<text text-anchor="start" x="8" y="-1114" font-family="Helvetica,sans-Serif" font-size="10.00">* setRealTime()</text>
-<text text-anchor="start" x="8" y="-1103" font-family="Helvetica,sans-Serif" font-size="10.00">* isRealTime()</text>
-<text text-anchor="start" x="8" y="-1092" font-family="Helvetica,sans-Serif" font-size="10.00">* isConstantTime()</text>
-<text text-anchor="start" x="8" y="-1081" font-family="Helvetica,sans-Serif" font-size="10.00">* setConstantTimeStep()</text>
-<text text-anchor="start" x="8" y="-1070" font-family="Helvetica,sans-Serif" font-size="10.00">* setForwardBackward()</text>
-<text text-anchor="start" x="8" y="-1059" font-family="Helvetica,sans-Serif" font-size="10.00">* play()</text>
-<text text-anchor="start" x="8" y="-1048" font-family="Helvetica,sans-Serif" font-size="10.00">* step()</text>
-<text text-anchor="start" x="8" y="-1037" font-family="Helvetica,sans-Serif" font-size="10.00">* resetTime()</text>
-<text text-anchor="start" x="8" y="-1026" font-family="Helvetica,sans-Serif" font-size="10.00">* setTime()</text>
-<text text-anchor="start" x="8" y="-1015" font-family="Helvetica,sans-Serif" font-size="10.00">* setStartTime()</text>
-<text text-anchor="start" x="8" y="-1004" font-family="Helvetica,sans-Serif" font-size="10.00">* getStartTime()</text>
-<text text-anchor="start" x="8" y="-993" font-family="Helvetica,sans-Serif" font-size="10.00">* setEndTime()</text>
-<text text-anchor="start" x="8" y="-982" font-family="Helvetica,sans-Serif" font-size="10.00">* getEndTime()</text>
-<text text-anchor="start" x="8" y="-971" font-family="Helvetica,sans-Serif" font-size="10.00">* getTime()</text>
-<text text-anchor="start" x="8" y="-960" font-family="Helvetica,sans-Serif" font-size="10.00">* getFrame()</text>
+<polygon fill="white" stroke="black" points="0,-947.5 0,-1609.5 169,-1609.5 169,-947.5 0,-947.5"/>
+<text text-anchor="middle" x="84.5" y="-1597.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::RadiumEngine</text>
+<polyline fill="none" stroke="black" points="0,-1590.5 169,-1590.5 "/>
+<text text-anchor="middle" x="84.5" y="-1578.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polyline fill="none" stroke="black" points="0,-1571.5 169,-1571.5 "/>
+<text text-anchor="start" x="8" y="-1559.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ initialize()</text>
+<text text-anchor="start" x="8" y="-1548.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ initializeGL()</text>
+<text text-anchor="start" x="8" y="-1537.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getOpenGLVersion()</text>
+<text text-anchor="start" x="8" y="-1526.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ cleanup()</text>
+<text text-anchor="start" x="8" y="-1515.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getTasks()</text>
+<text text-anchor="start" x="8" y="-1504.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ registerSystem()</text>
+<text text-anchor="start" x="8" y="-1493.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getSystem()</text>
+<text text-anchor="start" x="8" y="-1482.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getMesh()</text>
+<text text-anchor="start" x="8" y="-1471.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ loadFile()</text>
+<text text-anchor="start" x="8" y="-1460.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getFileData()</text>
+<text text-anchor="start" x="8" y="-1449.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ releaseFile()</text>
+<text text-anchor="start" x="8" y="-1438.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ endFrameSync()</text>
+<text text-anchor="start" x="8" y="-1427.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getRenderObjectManager()</text>
+<text text-anchor="start" x="8" y="-1416.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getEntityManager()</text>
+<text text-anchor="start" x="8" y="-1405.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getSignalManager()</text>
+<text text-anchor="start" x="8" y="-1394.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getTextureManager()</text>
+<text text-anchor="start" x="8" y="-1383.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getShaderProgramManager()</text>
+<text text-anchor="start" x="8" y="-1372.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ registerFileLoader()</text>
+<text text-anchor="start" x="8" y="-1361.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getFileLoaders()</text>
+<text text-anchor="start" x="8" y="-1350.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ computeSceneAabb()</text>
+<text text-anchor="start" x="8" y="-1339.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ pushFboAndViewport()</text>
+<text text-anchor="start" x="8" y="-1328.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ popFboAndViewport()</text>
+<text text-anchor="start" x="8" y="-1317.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getResourcesDir()</text>
+<text text-anchor="start" x="8" y="-1306.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ runGpuTasks()</text>
+<text text-anchor="start" x="8" y="-1295.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ addGpuTask()</text>
+<text text-anchor="start" x="8" y="-1284.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ removeGpuTask()</text>
+<text text-anchor="start" x="8" y="-1273.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ setRealTime()</text>
+<text text-anchor="start" x="8" y="-1262.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ isRealTime()</text>
+<text text-anchor="start" x="8" y="-1251.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ isConstantTime()</text>
+<text text-anchor="start" x="8" y="-1240.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ setConstantTimeStep()</text>
+<text text-anchor="start" x="8" y="-1229.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ setForwardBackward()</text>
+<text text-anchor="start" x="8" y="-1218.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ play()</text>
+<text text-anchor="start" x="8" y="-1207.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ step()</text>
+<text text-anchor="start" x="8" y="-1196.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ resetTime()</text>
+<text text-anchor="start" x="8" y="-1185.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ setTime()</text>
+<text text-anchor="start" x="8" y="-1174.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ setStartTime()</text>
+<text text-anchor="start" x="8" y="-1163.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getStartTime()</text>
+<text text-anchor="start" x="8" y="-1152.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ setEndTime()</text>
+<text text-anchor="start" x="8" y="-1141.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getEndTime()</text>
+<text text-anchor="start" x="8" y="-1130.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getTime()</text>
+<text text-anchor="start" x="8" y="-1119.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getFrame()</text>
+<text text-anchor="start" x="8" y="-1108.5" font-family="Helvetica,sans-Serif" font-size="10.00">* setRealTime()</text>
+<text text-anchor="start" x="8" y="-1097.5" font-family="Helvetica,sans-Serif" font-size="10.00">* isRealTime()</text>
+<text text-anchor="start" x="8" y="-1086.5" font-family="Helvetica,sans-Serif" font-size="10.00">* isConstantTime()</text>
+<text text-anchor="start" x="8" y="-1075.5" font-family="Helvetica,sans-Serif" font-size="10.00">* setConstantTimeStep()</text>
+<text text-anchor="start" x="8" y="-1064.5" font-family="Helvetica,sans-Serif" font-size="10.00">* setForwardBackward()</text>
+<text text-anchor="start" x="8" y="-1053.5" font-family="Helvetica,sans-Serif" font-size="10.00">* play()</text>
+<text text-anchor="start" x="8" y="-1042.5" font-family="Helvetica,sans-Serif" font-size="10.00">* step()</text>
+<text text-anchor="start" x="8" y="-1031.5" font-family="Helvetica,sans-Serif" font-size="10.00">* resetTime()</text>
+<text text-anchor="start" x="8" y="-1020.5" font-family="Helvetica,sans-Serif" font-size="10.00">* setTime()</text>
+<text text-anchor="start" x="8" y="-1009.5" font-family="Helvetica,sans-Serif" font-size="10.00">* setStartTime()</text>
+<text text-anchor="start" x="8" y="-998.5" font-family="Helvetica,sans-Serif" font-size="10.00">* getStartTime()</text>
+<text text-anchor="start" x="8" y="-987.5" font-family="Helvetica,sans-Serif" font-size="10.00">* setEndTime()</text>
+<text text-anchor="start" x="8" y="-976.5" font-family="Helvetica,sans-Serif" font-size="10.00">* getEndTime()</text>
+<text text-anchor="start" x="8" y="-965.5" font-family="Helvetica,sans-Serif" font-size="10.00">* getTime()</text>
+<text text-anchor="start" x="8" y="-954.5" font-family="Helvetica,sans-Serif" font-size="10.00">* getFrame()</text>
 </a>
 </g>
 </g>
 <!-- Node16&#45;&gt;Node1 -->
 <g id="edge18" class="edge">
 <title>Node16&#45;&gt;Node1</title>
-<path fill="none" stroke="#404040" d="M98.99,-952.83C106.71,-869.45 118.5,-780.35 136.5,-699 146.42,-654.14 160.31,-607.32 175.42,-562.62"/>
+<path fill="none" stroke="#404040" d="M99.52,-947.14C107.25,-865.41 118.91,-778.51 136.5,-699 146.42,-654.14 160.31,-607.32 175.42,-562.62"/>
 <polygon fill="none" stroke="#404040" points="175.51,-562.35 173.67,-555.38 179.39,-550.99 181.24,-557.96 175.51,-562.35"/>
 <text text-anchor="middle" x="166.5" y="-736.5" font-family="Helvetica,sans-Serif" font-size="10.00"> +m_engine</text>
 </g>
 <!-- Node16&#45;&gt;Node14 -->
 <g id="edge17" class="edge">
 <title>Node16&#45;&gt;Node14</title>
-<path fill="none" stroke="#404040" d="M127.42,-952.71C140.05,-908.66 156.38,-865.19 177.5,-826 185.15,-811.81 196.04,-798.69 207.7,-787.2"/>
+<path fill="none" stroke="#404040" d="M128.97,-947.37C141.38,-905.15 157.24,-863.6 177.5,-826 185.15,-811.81 196.04,-798.69 207.7,-787.2"/>
 <polygon fill="none" stroke="#404040" points="207.97,-786.95 209.6,-779.92 216.72,-778.73 215.08,-785.76 207.97,-786.95"/>
 <text text-anchor="middle" x="227.5" y="-800" font-family="Helvetica,sans-Serif" font-size="10.00"> +m_engine</text>
 </g>

@@ -52,7 +52,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.4.7</span>
+   &#160;<span id="projectnumber">1.4.8</span>
    </div>
   </td>
  </tr>
@@ -610,7 +610,7 @@ $(document).ready(function(){initNavTree('BaseApplication_8cpp_source.html','');
 <div class="line"><a name="l00500"></a><span class="lineno">  500</span>&#160; </div>
 <div class="line"><a name="l00501"></a><span class="lineno">  501</span>&#160;    <span class="comment">// run engine gpu tasks (need active context)</span></div>
 <div class="line"><a name="l00503"></a><span class="lineno">  503</span>&#160;<span class="comment"></span>    <a class="code" href="classRa_1_1Gui_1_1BaseApplication.html#ad0fdcf0d615e734439f4a19681d8afb8">m_viewer</a>-&gt;<a class="code" href="classRa_1_1Gui_1_1WindowQt.html#a78476baacd2df24a260f604d02c8ddc4">makeCurrent</a>();</div>
-<div class="line"><a name="l00504"></a><span class="lineno">  504</span>&#160;    <a class="code" href="classRa_1_1Gui_1_1BaseApplication.html#a098ff405a2d50686339bc3a619edd7ba">m_engine</a>-&gt;runGpuTasks();</div>
+<div class="line"><a name="l00504"></a><span class="lineno">  504</span>&#160;    <a class="code" href="classRa_1_1Gui_1_1BaseApplication.html#a098ff405a2d50686339bc3a619edd7ba">m_engine</a>-&gt;<a class="code" href="classRa_1_1Engine_1_1RadiumEngine.html#a64e514bd01c52fe4b8a67c570615ff06">runGpuTasks</a>();</div>
 <div class="line"><a name="l00505"></a><span class="lineno">  505</span>&#160;    <a class="code" href="classRa_1_1Gui_1_1BaseApplication.html#ad0fdcf0d615e734439f4a19681d8afb8">m_viewer</a>-&gt;<a class="code" href="classRa_1_1Gui_1_1WindowQt.html#acd31b9e580f049491d13c16ef954d964">doneCurrent</a>();</div>
 <div class="line"><a name="l00506"></a><span class="lineno">  506</span>&#160; </div>
 <div class="line"><a name="l00507"></a><span class="lineno">  507</span>&#160;    <span class="comment">// also update gizmo manager to deal with annimation playing / reset</span></div>
@@ -899,6 +899,7 @@ $(document).ready(function(){initNavTree('BaseApplication_8cpp_source.html','');
 <div class="ttc" id="aclassRa_1_1Engine_1_1RadiumEngine_html_a1a93b0c75d22abb85f2e03ac658db21b"><div class="ttname"><a href="classRa_1_1Engine_1_1RadiumEngine.html#a1a93b0c75d22abb85f2e03ac658db21b">Ra::Engine::RadiumEngine::loadFile</a></div><div class="ttdeci">bool loadFile(const std::string &amp;file)</div><div class="ttdef"><b>Definition:</b> <a href="RadiumEngine_8cpp_source.html#l00233">RadiumEngine.cpp:233</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1RadiumEngine_html_a2980ef582a2e985abf53e51d147ac489"><div class="ttname"><a href="classRa_1_1Engine_1_1RadiumEngine.html#a2980ef582a2e985abf53e51d147ac489">Ra::Engine::RadiumEngine::cleanup</a></div><div class="ttdeci">void cleanup()</div><div class="ttdef"><b>Definition:</b> <a href="RadiumEngine_8cpp_source.html#l00141">RadiumEngine.cpp:141</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1RadiumEngine_html_a35e421132933b7c8d1a977ec3ea0b744"><div class="ttname"><a href="classRa_1_1Engine_1_1RadiumEngine.html#a35e421132933b7c8d1a977ec3ea0b744">Ra::Engine::RadiumEngine::getTasks</a></div><div class="ttdeci">void getTasks(Core::TaskQueue *taskQueue, Scalar dt)</div><div class="ttdef"><b>Definition:</b> <a href="RadiumEngine_8cpp_source.html#l00168">RadiumEngine.cpp:168</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1RadiumEngine_html_a64e514bd01c52fe4b8a67c570615ff06"><div class="ttname"><a href="classRa_1_1Engine_1_1RadiumEngine.html#a64e514bd01c52fe4b8a67c570615ff06">Ra::Engine::RadiumEngine::runGpuTasks</a></div><div class="ttdeci">void runGpuTasks()</div><div class="ttdef"><b>Definition:</b> <a href="RadiumEngine_8cpp_source.html#l00475">RadiumEngine.cpp:475</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1RadiumEngine_html_a8d2085dbc31206d0bbdfc6014d247471"><div class="ttname"><a href="classRa_1_1Engine_1_1RadiumEngine.html#a8d2085dbc31206d0bbdfc6014d247471">Ra::Engine::RadiumEngine::initialize</a></div><div class="ttdeci">void initialize()</div><div class="ttdef"><b>Definition:</b> <a href="RadiumEngine_8cpp_source.html#l00044">RadiumEngine.cpp:44</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1RadiumEngine_html_a90204861f4fe8ed044208eb05695afe0"><div class="ttname"><a href="classRa_1_1Engine_1_1RadiumEngine.html#a90204861f4fe8ed044208eb05695afe0">Ra::Engine::RadiumEngine::registerFileLoader</a></div><div class="ttdeci">void registerFileLoader(std::shared_ptr&lt; Core::Asset::FileLoaderInterface &gt; fileLoader)</div><div class="ttdef"><b>Definition:</b> <a href="RadiumEngine_8cpp_source.html#l00301">RadiumEngine.cpp:301</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1RadiumEngine_html_ad52558a6a92db22bb4e24eedd00705e0"><div class="ttname"><a href="classRa_1_1Engine_1_1RadiumEngine.html#ad52558a6a92db22bb4e24eedd00705e0">Ra::Engine::RadiumEngine::setConstantTimeStep</a></div><div class="ttdeci">bool setConstantTimeStep(Scalar dt, bool forceConstantTime=false)</div><div class="ttdoc">Sets the time delta between two frames for Constant-time time flow.</div><div class="ttdef"><b>Definition:</b> <a href="RadiumEngine_8cpp_source.html#l00377">RadiumEngine.cpp:377</a></div></div>
@@ -969,7 +970,7 @@ $(document).ready(function(){initNavTree('BaseApplication_8cpp_source.html','');
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b5ac5e964c12a6b13a9d28feb9f3d3ed.html">Gui</a></li><li class="navelem"><b>BaseApplication.cpp</b></li>
-    <li class="footer">Generated on Fri Feb 10 2023 09:19:37 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Fri Feb 17 2023 09:28:19 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

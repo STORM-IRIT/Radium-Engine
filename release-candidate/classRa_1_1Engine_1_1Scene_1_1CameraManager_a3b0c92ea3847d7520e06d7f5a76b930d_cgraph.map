@@ -1,4 +1,4 @@
 <map id="Ra::Engine::Scene::CameraManager::generateTasks" name="Ra::Engine::Scene::CameraManager::generateTasks">
 <area shape="rect" id="node1" title="Pure virtual method to be overridden by any system. Must register in taskQueue the operations that mu..." alt="" coords="5,5,237,47"/>
-<area shape="rect" id="node2" href="$classRa_1_1Core_1_1TaskQueue.html#a9dfa226458ca9f60b19d54277583977a" title=" " alt="" coords="285,5,441,47"/>
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1TaskQueue.html#ad0082015fff6570c90c7c06da147d20c" title=" " alt="" coords="285,5,441,47"/>
 </map>

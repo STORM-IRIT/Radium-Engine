@@ -52,7 +52,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.4.7</span>
+   &#160;<span id="projectnumber">1.4.8</span>
    </div>
   </td>
  </tr>
@@ -177,12 +177,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aa2584c15750fd8403df49d8b7fdaf902"><td class="memItemLeft" align="right" valign="top"><a id="aa2584c15750fd8403df49d8b7fdaf902"></a>
 std::string&#160;</td><td class="memItemRight" valign="bottom"><b>getResourcesDir</b> ()</td></tr>
 <tr class="separator:aa2584c15750fd8403df49d8b7fdaf902"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a64e514bd01c52fe4b8a67c570615ff06"><td class="memItemLeft" align="right" valign="top"><a id="a64e514bd01c52fe4b8a67c570615ff06"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>runGpuTasks</b> ()</td></tr>
+<tr class="memitem:a64e514bd01c52fe4b8a67c570615ff06"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1RadiumEngine.html#a64e514bd01c52fe4b8a67c570615ff06">runGpuTasks</a> ()</td></tr>
 <tr class="separator:a64e514bd01c52fe4b8a67c570615ff06"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abaad8b112c9e7ff8b559d301deeac96e"><td class="memItemLeft" align="right" valign="top"><a id="abaad8b112c9e7ff8b559d301deeac96e"></a>
-<a class="el" href="classRa_1_1Core_1_1TaskQueue.html#a95e06345125fdbfe4c0960fcff50246a">Core::TaskQueue::TaskId</a>&#160;</td><td class="memItemRight" valign="bottom"><b>addGpuTask</b> (std::unique_ptr&lt; <a class="el" href="classRa_1_1Core_1_1Task.html">Core::Task</a> &gt;)</td></tr>
+<tr class="memitem:abaad8b112c9e7ff8b559d301deeac96e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classRa_1_1Core_1_1TaskQueue.html#a95e06345125fdbfe4c0960fcff50246a">Core::TaskQueue::TaskId</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1RadiumEngine.html#abaad8b112c9e7ff8b559d301deeac96e">addGpuTask</a> (std::unique_ptr&lt; <a class="el" href="classRa_1_1Core_1_1Task.html">Core::Task</a> &gt;)</td></tr>
 <tr class="separator:abaad8b112c9e7ff8b559d301deeac96e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab48e401ded045e3a1592c0d03604d207"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1RadiumEngine.html#ab48e401ded045e3a1592c0d03604d207">removeGpuTask</a> (<a class="el" href="classRa_1_1Core_1_1TaskQueue.html#a95e06345125fdbfe4c0960fcff50246a">Core::TaskQueue::TaskId</a> taskId)</td></tr>
+<tr class="separator:ab48e401ded045e3a1592c0d03604d207"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Time Management.</div></td></tr>
 <tr class="memitem:a415971178b10dccaf642d77b7bfe51e3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1RadiumEngine.html#a415971178b10dccaf642d77b7bfe51e3">setRealTime</a> (bool realTime)</td></tr>
 <tr class="memdesc:a415971178b10dccaf642d77b7bfe51e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Toggles Real-time (on) or Constant (off) time flow.  <a href="classRa_1_1Engine_1_1RadiumEngine.html#a415971178b10dccaf642d77b7bfe51e3">More...</a><br /></td></tr>
@@ -225,6 +225,27 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>runGpuTasks</b> ()</t
 
 <p class="definition">Definition at line <a class="el" href="RadiumEngine_8hpp_source.html#l00049">49</a> of file <a class="el" href="RadiumEngine_8hpp_source.html">RadiumEngine.hpp</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="abaad8b112c9e7ff8b559d301deeac96e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abaad8b112c9e7ff8b559d301deeac96e">&#9670;&nbsp;</a></span>addGpuTask()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classRa_1_1Core_1_1TaskQueue.html#a95e06345125fdbfe4c0960fcff50246a">Core::TaskQueue::TaskId</a> Ra::Engine::RadiumEngine::addGpuTask </td>
+          <td>(</td>
+          <td class="paramtype">std::unique_ptr&lt; <a class="el" href="classRa_1_1Core_1_1Task.html">Core::Task</a> &gt;&#160;</td>
+          <td class="paramname"><em>task</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Add a task to the gpu task queue, will be run once <a class="el" href="classRa_1_1Engine_1_1RadiumEngine.html#a64e514bd01c52fe4b8a67c570615ff06">runGpuTasks()</a> is called. </p><dl class="section return"><dt>Returns</dt><dd>the task id of the added task </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="RadiumEngine_8cpp_source.html#l00479">479</a> of file <a class="el" href="RadiumEngine_8cpp_source.html">RadiumEngine.cpp</a>.</p>
+
+</div>
+</div>
 <a id="a2980ef582a2e985abf53e51d147ac489"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2980ef582a2e985abf53e51d147ac489">&#9670;&nbsp;</a></span>cleanup()</h2>
 
@@ -935,6 +956,27 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>runGpuTasks</b> ()</t
 
 </div>
 </div>
+<a id="ab48e401ded045e3a1592c0d03604d207"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab48e401ded045e3a1592c0d03604d207">&#9670;&nbsp;</a></span>removeGpuTask()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Ra::Engine::RadiumEngine::removeGpuTask </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classRa_1_1Core_1_1TaskQueue.html#a95e06345125fdbfe4c0960fcff50246a">Core::TaskQueue::TaskId</a>&#160;</td>
+          <td class="paramname"><em>taskId</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>remove a previously added task according to its taskId (invalid taskId silently ignored) </p>
+
+<p class="definition">Definition at line <a class="el" href="RadiumEngine_8cpp_source.html#l00483">483</a> of file <a class="el" href="RadiumEngine_8cpp_source.html">RadiumEngine.cpp</a>.</p>
+
+</div>
+</div>
 <a id="a8888a6daf92a9d593c5b9392c11b2b75"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8888a6daf92a9d593c5b9392c11b2b75">&#9670;&nbsp;</a></span>resetTime()</h2>
 
@@ -952,6 +994,26 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>runGpuTasks</b> ()</t
 <p>Resets time to the <code>start</code> time of the time window. </p><dl class="section note"><dt>Note</dt><dd>Also stops time flow. </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="RadiumEngine_8cpp_source.html#l00391">391</a> of file <a class="el" href="RadiumEngine_8cpp_source.html">RadiumEngine.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a64e514bd01c52fe4b8a67c570615ff06"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a64e514bd01c52fe4b8a67c570615ff06">&#9670;&nbsp;</a></span>runGpuTasks()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Ra::Engine::RadiumEngine::runGpuTasks </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>run (and flush) gpu task queue </p>
+
+<p class="definition">Definition at line <a class="el" href="RadiumEngine_8cpp_source.html#l00475">475</a> of file <a class="el" href="RadiumEngine_8cpp_source.html">RadiumEngine.cpp</a>.</p>
 
 </div>
 </div>
@@ -1138,7 +1200,7 @@ If the <code>start</code> time comes after the <code>end</code> time, then time 
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><b>Engine</b></li><li class="navelem"><a class="el" href="classRa_1_1Engine_1_1RadiumEngine.html">RadiumEngine</a></li>
-    <li class="footer">Generated on Fri Feb 10 2023 09:19:38 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Fri Feb 17 2023 09:28:19 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

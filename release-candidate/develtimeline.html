@@ -52,7 +52,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.4.7</span>
+   &#160;<span id="projectnumber">1.4.8</span>
    </div>
   </td>
  </tr>
@@ -217,8 +217,8 @@ Display animated data using the Timeline</h2>
 <div class="line">       {</div>
 <div class="line">           <span class="keyword">auto</span> comp = <span class="keyword">static_cast&lt;</span>MyComponentWithKeyFrame*<span class="keyword">&gt;</span>( compEntry.second );</div>
 <div class="line">           <span class="keyword">auto</span> func = std::bind( &amp;MyComponentWithKeyFrame::setTime, comp, frameInfo.m_animationTime );</div>
-<div class="line">           <span class="keyword">auto</span> task = <span class="keyword">new</span> <a class="code" href="classRa_1_1Core_1_1FunctionTask.html">Ra::Core::FunctionTask</a>( func, <span class="stringliteral">&quot;MyUpdateTask&quot;</span> );</div>
-<div class="line">           taskQueue-&gt;<a class="code" href="classRa_1_1Core_1_1TaskQueue.html#a9dfa226458ca9f60b19d54277583977a">registerTask</a>( task );</div>
+<div class="line">           <span class="keyword">auto</span> task = std::make_unique&lt;Ra::Core::FunctionTask&gt;( func, <span class="stringliteral">&quot;MyUpdateTask&quot;</span> );</div>
+<div class="line">           taskQueue-&gt;<a class="code" href="classRa_1_1Core_1_1TaskQueue.html#ad0082015fff6570c90c7c06da147d20c">registerTask</a>( std::move( task ) );</div>
 <div class="line">       }</div>
 <div class="line">   }</div>
 <div class="line"> </div>
@@ -226,9 +226,8 @@ Display animated data using the Timeline</h2>
 <div class="line">};</div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Animation_1_1KeyFramedValueController_html"><div class="ttname"><a href="classRa_1_1Core_1_1Animation_1_1KeyFramedValueController.html">Ra::Core::Animation::KeyFramedValueController</a></div><div class="ttdef"><b>Definition:</b> <a href="KeyFramedValueController_8hpp_source.html#l00016">KeyFramedValueController.hpp:17</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Animation_1_1KeyFramedValue_html"><div class="ttname"><a href="classRa_1_1Core_1_1Animation_1_1KeyFramedValue.html">Ra::Core::Animation::KeyFramedValue</a></div><div class="ttdef"><b>Definition:</b> <a href="KeyFramedValue_8hpp_source.html#l00062">KeyFramedValue.hpp:63</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1FunctionTask_html"><div class="ttname"><a href="classRa_1_1Core_1_1FunctionTask.html">Ra::Core::FunctionTask</a></div><div class="ttdef"><b>Definition:</b> <a href="Task_8hpp_source.html#l00029">Task.hpp:30</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1TaskQueue_html"><div class="ttname"><a href="classRa_1_1Core_1_1TaskQueue.html">Ra::Core::TaskQueue</a></div><div class="ttdef"><b>Definition:</b> <a href="TaskQueue_8hpp_source.html#l00031">TaskQueue.hpp:32</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1TaskQueue_html_a9dfa226458ca9f60b19d54277583977a"><div class="ttname"><a href="classRa_1_1Core_1_1TaskQueue.html#a9dfa226458ca9f60b19d54277583977a">Ra::Core::TaskQueue::registerTask</a></div><div class="ttdeci">TaskId registerTask(Task *task)</div><div class="ttdef"><b>Definition:</b> <a href="TaskQueue_8cpp_source.html#l00029">TaskQueue.cpp:29</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1TaskQueue_html_ad0082015fff6570c90c7c06da147d20c"><div class="ttname"><a href="classRa_1_1Core_1_1TaskQueue.html#ad0082015fff6570c90c7c06da147d20c">Ra::Core::TaskQueue::registerTask</a></div><div class="ttdeci">TaskId registerTask(std::unique_ptr&lt; Task &gt; task)</div><div class="ttdef"><b>Definition:</b> <a href="TaskQueue_8cpp_source.html#l00030">TaskQueue.cpp:30</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1Component_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1Component.html">Ra::Engine::Scene::Component</a></div><div class="ttdoc">A component is an element that can be updated by a system. It is also linked to some other components...</div><div class="ttdef"><b>Definition:</b> <a href="Component_8hpp_source.html#l00030">Component.hpp:31</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1Component_html_a6314dec2b1d03680ad80ec3adf6dd8f9"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1Component.html#a6314dec2b1d03680ad80ec3adf6dd8f9">Ra::Engine::Scene::Component::initialize</a></div><div class="ttdeci">virtual void initialize()=0</div><div class="ttdoc">Pure virtual method to be overridden by any component. When this method is called you are guaranteed ...</div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1Entity_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1Entity.html">Ra::Engine::Scene::Entity</a></div><div class="ttdoc">An entity is an scene element. It ties together components with a transform.</div><div class="ttdef"><b>Definition:</b> <a href="Entity_8hpp_source.html#l00022">Entity.hpp:23</a></div></div>
@@ -363,7 +362,7 @@ Display animated data using the Timeline</h2>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="develmanual.html">Developer manual</a></li><li class="navelem"><a class="el" href="api.html">API</a></li><li class="navelem"><a class="el" href="engine.html">Engine</a></li>
-    <li class="footer">Generated on Fri Feb 10 2023 09:19:38 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Fri Feb 17 2023 09:28:19 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>
