@@ -4,6 +4,7 @@
 
 #include <algorithm>
 #include <iostream>
+#include <memory>
 #include <mutex>
 #include <stack>
 
@@ -26,10 +27,6 @@ TaskQueue::~TaskQueue() {
     }
 }
 
-TaskQueue::TaskId TaskQueue::registerTask( Task* task ) {
-    return registerTask( std::unique_ptr<Task>( task ) );
-}
-
 TaskQueue::TaskId TaskQueue::registerTask( std::unique_ptr<Task> task ) {
     std::lock_guard<std::mutex> lock( m_taskMutex );
     TimerData tdata;
@@ -45,6 +42,32 @@ TaskQueue::TaskId TaskQueue::registerTask( std::unique_ptr<Task> task ) {
     CORE_ASSERT( m_tasks.size() == m_remainingDependencies.size(), "Inconsistent task list" );
     CORE_ASSERT( m_tasks.size() == m_timerData.size(), "Inconsistent task list" );
     return TaskId { m_tasks.size() - 1 };
+}
+
+void TaskQueue::removeTask( TaskId taskId ) {
+
+    if ( taskId.isInvalid() || taskId > m_tasks.size() ) {
+        LOG( Utils::logDEBUG ) << "try to remove task " << taskId << " which is out of bounds "
+                               << m_tasks.size();
+        return;
+    }
+    std::lock_guard<std::mutex> lock( m_taskMutex );
+
+    // set task as dummy noop
+    m_tasks[taskId] = std::make_unique<FunctionTask>( []() {}, m_timerData[taskId].taskName );
+
+    CORE_ASSERT( m_tasks.size() == m_dependencies.size(), "Inconsistent task list" );
+    CORE_ASSERT( m_tasks.size() == m_remainingDependencies.size(), "Inconsistent task list" );
+    CORE_ASSERT( m_tasks.size() == m_timerData.size(), "Inconsistent task list" );
+}
+
+TaskQueue::TaskId TaskQueue::getTaskId( const std::string& taskName ) const {
+    auto itr = std::find_if( m_tasks.begin(), m_tasks.end(), [taskName]( const auto& task ) {
+        return task->getName() == taskName;
+    } );
+
+    if ( itr == m_tasks.end() ) return {};
+    return TaskId { itr - m_tasks.begin() };
 }
 
 void TaskQueue::addDependency( TaskQueue::TaskId predecessor, TaskQueue::TaskId successor ) {
@@ -64,24 +87,25 @@ void TaskQueue::addDependency( TaskQueue::TaskId predecessor, TaskQueue::TaskId 
     ++m_remainingDependencies[successor];
 }
 
-bool TaskQueue::addDependency( const std::string& predecessors, TaskQueue::TaskId successor ) {
+bool TaskQueue::addDependency( const std::string& predecessor, TaskQueue::TaskId successor ) {
     bool added = false;
-    for ( uint i = 0; i < m_tasks.size(); ++i ) {
-        if ( m_tasks[i]->getName() == predecessors ) {
-            added = true;
-            addDependency( TaskId { i }, successor );
-        }
+
+    auto predecessorId = getTaskId( predecessor );
+
+    if ( predecessorId.isValid() ) {
+        added = true;
+        addDependency( predecessorId, successor );
     }
     return added;
 }
 
-bool TaskQueue::addDependency( TaskQueue::TaskId predecessor, const std::string& successors ) {
+bool TaskQueue::addDependency( TaskQueue::TaskId predecessor, const std::string& successor ) {
     bool added = false;
-    for ( uint i = 0; i < m_tasks.size(); ++i ) {
-        if ( m_tasks[i]->getName() == successors ) {
-            added = true;
-            addDependency( predecessor, TaskId { i } );
-        }
+
+    auto successorId = getTaskId( successor );
+    if ( successorId.isValid() ) {
+        added = true;
+        addDependency( predecessor, successorId );
     }
     return added;
 }
@@ -168,7 +192,8 @@ void TaskQueue::startTasks() {
 
     // Enqueue all tasks with no dependencies.
     for ( uint t = 0; t < m_tasks.size(); ++t ) {
-        if ( m_remainingDependencies[t] == 0 ) { queueTask( TaskId { t } ); }
+        // only queue non null m_tasks
+        if ( m_tasks[t] && m_remainingDependencies[t] == 0 ) { queueTask( TaskId { t } ); }
     }
 
     // Wake up all threads.
@@ -188,7 +213,8 @@ void TaskQueue::runTasksInThisThread() {
 
     // Enqueue all tasks with no dependencies.
     for ( uint t = 0; t < m_tasks.size(); ++t ) {
-        if ( m_remainingDependencies[t] == 0 ) { queueTask( TaskId { t } ); }
+        // only queue non null m_tasks
+        if ( m_tasks[t] && m_remainingDependencies[t] == 0 ) { queueTask( TaskId { t } ); }
     }
     while ( !m_taskQueue.empty() ) {
         TaskId task { m_taskQueue.back() };

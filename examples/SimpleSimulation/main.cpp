@@ -32,7 +32,7 @@ class SimpleSimulationSystem : public Ra::Engine::Scene::System
                                 const Ra::Engine::FrameInfo& /*info*/ ) override {
 
         // Random motion + color update wrt to position
-        q->registerTask( new Ra::Core::FunctionTask(
+        q->registerTask( std::make_unique<Ra::Core::FunctionTask>(
             [/*info,*/ this]() {
                 //            auto dt = info.m_dt;
                 auto& vbuf = m_cloud->getCoreGeometry().verticesWithLock();

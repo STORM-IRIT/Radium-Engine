@@ -119,7 +119,7 @@ class SimpleAnimationSystem : public Ra::Engine::Scene::System
             static_cast<KeyFramedGeometryComponent*>( m_components[0].second );
 
         // Create a new task which wil call c->spin() when executed.
-        q->registerTask( new Ra::Core::FunctionTask(
+        q->registerTask( std::make_unique<Ra::Core::FunctionTask>(
             std::bind( &KeyFramedGeometryComponent::update, c, info.m_animationTime ), "spin" ) );
     }
 };

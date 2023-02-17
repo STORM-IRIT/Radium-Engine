@@ -1,6 +1,9 @@
 #pragma once
 
 #include <Core/RaCore.hpp>
+#include <Core/Utils/Index.hpp>
+#include <Core/Utils/Timer.hpp> // Ra::Core::TimePoint
+
 #include <condition_variable>
 #include <deque>
 #include <memory>
@@ -8,9 +11,6 @@
 #include <string>
 #include <thread>
 #include <vector>
-
-#include <Core/Utils/Index.hpp>
-#include <Core/Utils/Timer.hpp> // Ra::Core::TimePoint
 
 namespace Ra {
 namespace Core {
@@ -57,8 +57,14 @@ class RA_CORE_API TaskQueue
     /// Registers a task to be executed.
     /// Task must have been created with new and be initialized with its parameter.
     /// The task queue assumes ownership of the task.
-    TaskId registerTask( Task* task );
     TaskId registerTask( std::unique_ptr<Task> task );
+
+    /// remove a task, in fact simply replace the task by a dummy empty one.
+    /// hence do not affect dependencies
+    /// don't affect other task id's
+    void removeTask( TaskId taskId );
+
+    TaskId getTaskId( const std::string& taskName ) const;
 
     /// Add dependency between two tasks. The successor task will be executed only when all
     /// its predecessor completed.
