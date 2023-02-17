@@ -11,15 +11,17 @@ using namespace Ra::Core::Utils;
 TEST_CASE( "Core/TaskQueue", "[Core][TaskQueue]" ) {
     TaskQueue taskQueue( 4 );
 
-    const int arraySize = 7; // if changed, update test values also
-    int array[arraySize];
+    const int arraySize  = 7; // if changed, update test values also
+    int array[arraySize] = { -1, -1, -1, -1, -1, -1, -1 };
 
     SECTION( "no dependency" ) {
         for ( int tidx = 0; tidx < arraySize; ++tidx ) {
             auto task =
                 std::make_unique<FunctionTask>( [&array, tidx]() { array[tidx] = tidx; },
                                                 std::string( "task " ) + std::to_string( tidx ) );
-            taskQueue.registerTask( std::move( task ) );
+            auto tid = taskQueue.registerTask( std::move( task ) );
+            REQUIRE( tid ==
+                     taskQueue.getTaskId( std::string( "task " ) + std::to_string( tidx ) ) );
         }
         std::ostringstream oss;
         taskQueue.printTaskGraph( oss );
@@ -50,6 +52,8 @@ TEST_CASE( "Core/TaskQueue", "[Core][TaskQueue]" ) {
                 std::make_unique<FunctionTask>( [&array, tidx]() { array[tidx] = tidx; },
                                                 std::string( "task " ) + std::to_string( tidx ) );
             tids[tidx] = taskQueue.registerTask( std::move( task ) );
+            REQUIRE( tids[tidx] ==
+                     taskQueue.getTaskId( std::string( "task " ) + std::to_string( tidx ) ) );
             if ( tidx < 2 ) {
                 taskQueue.addPendingDependency( tids[tidx],
                                                 std::string( "task " ) + std::to_string( 4 ) );
@@ -90,5 +94,64 @@ TEST_CASE( "Core/TaskQueue", "[Core][TaskQueue]" ) {
         REQUIRE( array[4] == 1 ); // 0+1
         REQUIRE( array[5] == 5 ); // 2+3
         REQUIRE( array[6] == 6 ); // 5+1
+    }
+
+    SECTION( "remove with dependencies" ) {
+        TaskQueue::TaskId tids[arraySize];
+        for ( int tidx = 0; tidx < 4; ++tidx ) {
+            auto task =
+                std::make_unique<FunctionTask>( [&array, tidx]() { array[tidx] = tidx; },
+                                                std::string( "task " ) + std::to_string( tidx ) );
+            tids[tidx] = taskQueue.registerTask( std::move( task ) );
+            REQUIRE( tids[tidx] ==
+                     taskQueue.getTaskId( std::string( "task " ) + std::to_string( tidx ) ) );
+            if ( tidx < 2 ) {
+                taskQueue.addPendingDependency( tids[tidx],
+                                                std::string( "task " ) + std::to_string( 4 ) );
+            }
+        }
+        for ( int tidx = 4; tidx < 6; ++tidx ) {
+            int pred1 = 2 * ( tidx - 4 );
+            int pred2 = 2 * ( tidx - 4 ) + 1;
+            auto task = std::make_unique<FunctionTask>(
+                [&array, tidx, pred1, pred2]() { array[tidx] = array[pred1] + array[pred2]; },
+                std::string( "task " ) + std::to_string( tidx ) );
+            auto tid   = taskQueue.registerTask( std::move( task ) );
+            tids[tidx] = tid;
+            if ( tidx == 5 ) {
+                taskQueue.addDependency( std::string( "task " ) + std::to_string( pred1 ), tid );
+                taskQueue.addDependency( std::string( "task " ) + std::to_string( pred2 ), tid );
+            }
+        }
+        {
+            auto task =
+                std::make_unique<FunctionTask>( [&array]() { array[6] = array[4] + array[5]; },
+                                                std::string( "task " ) + std::to_string( 6 ) );
+            tids[6] = taskQueue.registerTask( std::move( task ) );
+            taskQueue.addDependency( tids[4], std::string( "task " ) + std::to_string( 6 ) );
+            taskQueue.addDependency( tids[5], std::string( "task " ) + std::to_string( 6 ) );
+        }
+        taskQueue.removeTask( tids[0] );
+        taskQueue.removeTask( tids[6] );
+
+        // remove invalid task id, silently
+        taskQueue.removeTask( TaskQueue::TaskId {} );
+        taskQueue.removeTask( 100 );
+
+        SECTION( "parallel run" ) {
+            taskQueue.startTasks();
+            taskQueue.waitForTasks();
+            taskQueue.flushTaskQueue();
+        }
+
+        SECTION( "one thread run" ) { taskQueue.runTasksInThisThread(); }
+
+        REQUIRE( array[0] == -1 ); // task 0 removed
+        REQUIRE( array[1] == 1 );
+        REQUIRE( array[2] == 2 );
+        REQUIRE( array[3] == 3 );
+        REQUIRE( array[4] == 0 );  // 0+1
+        REQUIRE( array[5] == 5 );  // 2+3
+        REQUIRE( array[6] == -1 ); // task 6 removed
     }
 }

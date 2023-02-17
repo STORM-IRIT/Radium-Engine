@@ -48,7 +48,7 @@ class EntityAnimationSystem : public Scene::System
         auto t = info.m_animationTime;
         for ( auto e : m_animatedEntities ) {
             // Transform the entity
-            q->registerTask( new Ra::Core::FunctionTask(
+            q->registerTask( std::make_unique<Ra::Core::FunctionTask>(
                 [e, t]() {
                     Transform T = e->getTransform();
                     T.translate(
