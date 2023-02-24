@@ -126,23 +126,13 @@ bool DataflowGraph::loadFromJson( const std::string& jsonFilePath ) {
 
 std::pair<Node*, std::string> getLinkInfo( const std::string& which,
                                            const nlohmann::json& linkData,
-                                           const std::unordered_map<std::string, Node*>& nodeById,
                                            const std::map<std::string, Node*>& nodeByName ) {
     std::string field = which + "_node";
     Node* node { nullptr };
-    if ( linkData.contains( field ) ) {
-        auto itNode = nodeByName.find( linkData[field] );
-        if ( itNode != nodeByName.end() ) { node = itNode->second; }
-    }
+
+    auto itNode = nodeByName.find( linkData[field] );
+    if ( itNode != nodeByName.end() ) { node = itNode->second; }
     else {
-        // try to find the node by id
-        field = which + "_id";
-        if ( linkData.contains( field ) ) {
-            auto itNode = nodeById.find( linkData[field] );
-            if ( itNode != nodeById.end() ) { node = itNode->second; }
-        }
-    }
-    if ( node == nullptr ) {
         // Error, could not find the node
         std::string msg =
             std::string { "Node " } + which + " not found in cache " + " : " + linkData.dump();
@@ -192,7 +182,6 @@ bool DataflowGraph::fromJsonInternal( const nlohmann::json& data ) {
                 }
             }
         }
-        std::unordered_map<std::string, Node*> nodeById;
         std::map<std::string, Node*> nodeByName;
         auto nodes = data["graph"]["nodes"];
         for ( auto& n : nodes ) {
@@ -202,17 +191,10 @@ bool DataflowGraph::fromJsonInternal( const nlohmann::json& data ) {
                 return false;
             }
             std::string nodeTypeName = n["model"]["name"];
-            std::string instanceName, id;
-            bool nodeIsIdentified = false;
-            if ( n.contains( "instance" ) ) {
-                instanceName     = n["instance"];
-                nodeIsIdentified = true;
-            }
-            if ( n.contains( "id" ) ) {
-                id               = n["id"];
-                nodeIsIdentified = true;
-            }
-            if ( !nodeIsIdentified ) {
+            std::string instanceName;
+
+            if ( n.contains( "instance" ) ) { instanceName = n["instance"]; }
+            else {
                 LOG( logERROR ) << "Found a node of type " << nodeTypeName
                                 << " without identification ";
                 return false;
@@ -227,14 +209,6 @@ bool DataflowGraph::fromJsonInternal( const nlohmann::json& data ) {
                         return false;
                     }
                 }
-                if ( !id.empty() ) {
-                    auto [it, inserted] = nodeById.insert( { id, newNode } );
-                    if ( !inserted ) {
-                        LOG( logERROR )
-                            << "DataflowGraph::loadFromJson : duplicated node uuid " << id;
-                        return false;
-                    }
-                }
             }
             else {
                 LOG( logERROR ) << "Unable to create the node " << nodeTypeName;
@@ -243,14 +217,14 @@ bool DataflowGraph::fromJsonInternal( const nlohmann::json& data ) {
         }
         auto links = data["graph"]["connections"];
         for ( auto& l : links ) {
-            auto [nodeFrom, fromOutput] = getLinkInfo( "out", l, nodeById, nodeByName );
+            auto [nodeFrom, fromOutput] = getLinkInfo( "out", l, nodeByName );
             if ( nodeFrom == nullptr ) {
                 LOG( logERROR ) << "DataflowGraph::loadFromJson: error when parsing JSON."
                                 << " Could not find the link source (" << fromOutput
                                 << "). Link not added.";
                 return false;
             }
-            auto [nodeTo, toInput] = getLinkInfo( "in", l, nodeById, nodeByName );
+            auto [nodeTo, toInput] = getLinkInfo( "in", l, nodeByName );
             if ( nodeTo == nullptr ) {
                 LOG( logERROR ) << "DataflowGraph::loadFromJson: error when parsing JSON."
                                 << " Could not find the link source (" << toInput

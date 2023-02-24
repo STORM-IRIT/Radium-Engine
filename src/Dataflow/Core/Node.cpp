@@ -8,59 +8,21 @@ namespace Core {
 
 using namespace Ra::Core::Utils;
 
-bool Node::s_uuidGeneratorInitialized { false };
-std::unique_ptr<uuids::uuid_random_generator> Node::s_uidGenerator { nullptr };
-std::unique_ptr<std::mt19937> Node::s_uuidSeeds { nullptr };
-
-void Node::createUuidGenerator() {
-    if ( s_uuidGeneratorInitialized ) { return; }
-    std::random_device rd;
-    auto seed_data = std::array<int, std::mt19937::state_size> {};
-    std::generate( std::begin( seed_data ), std::end( seed_data ), std::ref( rd ) );
-    std::seed_seq seq( std::begin( seed_data ), std::end( seed_data ) );
-    s_uuidSeeds    = std::make_unique<std::mt19937>( seq );
-    s_uidGenerator = std::make_unique<uuids::uuid_random_generator>( s_uuidSeeds.get() );
-    // delete generator;
-    s_uuidGeneratorInitialized = true;
-}
-
-/// Generates the uuid of the node
-void Node::generateUuid() {
-    if ( !s_uuidGeneratorInitialized ) { createUuidGenerator(); }
-    m_uuid = ( *s_uidGenerator )();
-}
-/// Gets the UUID of the node as a string
-std::string Node::getUuid() const {
-    return std::string { "{" } + uuids::to_string( m_uuid ) + "}";
-}
-
 Node::Node( const std::string& instanceName, const std::string& typeName ) :
-    m_typeName { typeName }, m_instanceName { instanceName } {
-    generateUuid();
-}
+    m_typeName { typeName }, m_instanceName { instanceName } {}
 
 bool Node::fromJson( const nlohmann::json& data ) {
     if ( data.empty() ) {
         // This is to avoid wrong error message when creating node from the editor
         return true;
     }
-    bool hasIdOrName = false;
-    if ( data.contains( "instance" ) ) {
-        hasIdOrName    = true;
-        m_instanceName = data["instance"];
-    }
-    // get the common content of the Node from the json data
-    if ( data.contains( "id" ) ) {
-        hasIdOrName         = true;
-        std::string struuid = data["id"];
-        m_uuid              = uuids::uuid::from_string( struuid ).value();
-    }
-    if ( !hasIdOrName ) {
-        LOG( logERROR ) << "Missing required uuid or instance name when loading node "
-                        << m_instanceName;
+
+    if ( data.contains( "instance" ) ) { m_instanceName = data["instance"]; }
+    else {
+        LOG( logERROR ) << "Missing required instance name when loading node " << m_instanceName;
         return false;
     }
-
+    // get the common content of the Node from the json data
     bool loaded = false;
     if ( data.contains( "model" ) ) {
         // get the specific concrete node information
@@ -73,9 +35,7 @@ bool Node::fromJson( const nlohmann::json& data ) {
     }
     // get the supplemental information related to application/gui/...
     for ( auto& [key, value] : data.items() ) {
-        if ( key != "id" && key != "instance" && key != "model" ) {
-            m_extraJsonData.emplace( key, value );
-        }
+        if ( key != "instance" && key != "model" ) { m_extraJsonData.emplace( key, value ); }
     }
     return loaded;
 }
@@ -83,11 +43,6 @@ bool Node::fromJson( const nlohmann::json& data ) {
 void Node::toJson( nlohmann::json& data ) const {
 
     // write the common content of the Node to the json data
-#if 0
-    // id is only needed for QtNodeEditor, do not save it, it will be regenerated when needed
-    std::string struuid = "{" + uuids::to_string( m_uuid ) + "}";
-    data["id"]          = struuid;
-#endif
     data["instance"] = m_instanceName;
 
     nlohmann::json model;
@@ -99,7 +54,7 @@ void Node::toJson( nlohmann::json& data ) const {
 
     // store the supplemental information related to application/gui/...
     for ( auto& [key, value] : m_extraJsonData.items() ) {
-        if ( key != "id" && key != "instance" && key != "model" ) { data.emplace( key, value ); }
+        if ( key != "instance" && key != "model" ) { data.emplace( key, value ); }
     }
 }
 

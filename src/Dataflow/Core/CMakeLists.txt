@@ -10,8 +10,6 @@ add_library(
                                      ${dataflow_core_private}
 )
 
-find_package(stduuid REQUIRED NO_DEFAULT_PATH)
-
 # This one should be extracted directly from parent project properties.
 target_compile_definitions(${ra_dataflowcore_target} PRIVATE RA_DATAFLOW_EXPORTS)
 
@@ -21,7 +19,7 @@ if("${CMAKE_CXX_COMPILER_ID}" MATCHES "MSVC")
 endif()
 
 add_dependencies(${ra_dataflowcore_target} Core)
-target_link_libraries(${ra_dataflowcore_target} PUBLIC Core stduuid)
+target_link_libraries(${ra_dataflowcore_target} PUBLIC Core)
 
 message(STATUS "Configuring library ${ra_dataflowcore_target} with standard settings")
 configure_radium_target(${ra_dataflowcore_target})

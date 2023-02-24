@@ -46,6 +46,7 @@ using namespace Ra::Gui::Widgets;
 
 NodeAdapterModel::NodeAdapterModel( DataflowGraph* graph, Node* n ) :
     m_node { n }, m_dataflowGraph { graph } {
+    m_uuid = QUuid::createUuid();
     m_inputsConnected.resize( m_node->getInputs().size() );
     m_widget = NodeDataModelTools::getWidget( m_node );
     NodeDataModelTools::updateWidget( m_node, m_widget );

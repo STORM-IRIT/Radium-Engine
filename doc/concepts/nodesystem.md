@@ -160,7 +160,7 @@ Output ports (1) are :
 
 ### 2. Compiling the graph and getting input/output accessors
 
-In order to use the graph as a function actiing on its input, it should be first compiled by
+In order to use the graph as a function acting on its input, it should be first compiled by
 \snippet examples/DataflowExamples/HelloGraph/main.cpp Verifying the graph can be compiled
 
 If the compilation success the accessors for the input data and the output result might be fetched from the graph

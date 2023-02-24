@@ -17,27 +17,6 @@ set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 add_custom_target(DataflowExternals ALL)
 
-if(NOT DEFINED stduuid_DIR)
-    check_externals_prerequisite()
-    status_message("" "stduuid" "remote git")
-    ExternalProject_Add(
-        stduuid
-        GIT_TAG 3afe7193facd5d674de709fccc44d5055e144d7a
-        GIT_REPOSITORY https://github.com/mariusbancila/stduuid
-        GIT_SHALLOW TRUE
-        GIT_PROGRESS TRUE
-        PATCH_COMMAND git reset --hard && git apply -v --ignore-whitespace
-                      "${CMAKE_CURRENT_LIST_DIR}/patches/stduuid.patch"
-        INSTALL_DIR "${CMAKE_INSTALL_PREFIX}"
-        CMAKE_ARGS ${RADIUM_EXTERNAL_CMAKE_OPTIONS} -DUUID_BUILD_TESTS=OFF -DUUID_ENABLE_INSTALL=ON
-                   -DCMAKE_INSTALL_PREFIX=<INSTALL_DIR> "-DCMAKE_MESSAGE_INDENT=${indent_string}\;"
-    )
-    set_external_dir(stduuid "lib/cmake/stduuid/")
-    add_dependencies(DataflowExternals stduuid)
-else()
-    status_message("" "stduuid" ${stduuid_DIR})
-endif()
-
 if(NOT DEFINED RadiumNodeEditor_DIR)
     check_externals_prerequisite()
     status_message("" "RadiumNodeEditor" "remote git")
