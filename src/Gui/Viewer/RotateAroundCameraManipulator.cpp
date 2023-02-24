@@ -1,6 +1,11 @@
 #include <Core/Types.hpp>
+#include <Core/Utils/Color.hpp>
+#include <Engine/RadiumEngine.hpp>
+#include <Engine/Rendering/RenderObject.hpp>
+#include <Engine/Rendering/RenderObjectManager.hpp>
 #include <Engine/Rendering/Renderer.hpp>
 #include <Engine/Scene/Light.hpp>
+#include <Engine/Scene/SystemDisplay.hpp>
 #include <Gui/Utils/KeyMappingManager.hpp>
 #include <Gui/Viewer/RotateAroundCameraManipulator.hpp>
 #include <Gui/Viewer/Viewer.hpp>
@@ -147,6 +152,7 @@ void RotateAroundCameraManipulator::setPivot( Ra::Core::Vector3 pivot ) {
 }
 
 void RotateAroundCameraManipulator::setPivotFromPixel( Scalar x, Scalar y ) {
+    using Ra::Core::Vector3;
     using Ra::Core::Utils::Color;
 
     auto dc = m_viewer->toDevice( { x, y } );
@@ -158,6 +164,15 @@ void RotateAroundCameraManipulator::setPivotFromPixel( Scalar x, Scalar y ) {
     auto pivotPoint = m_camera->unProjectFromScreen( Vector3( dc[0], dc[1], z ) );
 
     setPivot( pivotPoint );
+
+    // draw a 5 logical pixel sphere, shift lc by 5 pixels
+    auto dcs          = m_viewer->toDevice( { x + 5, y } );
+    auto pivotShifted = m_camera->unProjectFromScreen( Vector3( dcs[0], dcs[1], z ) );
+    auto radius       = ( pivotPoint - pivotShifted ).norm();
+
+    auto id = RA_DISPLAY_SPHERE( pivotPoint, radius, Color::Yellow() );
+    auto ro = Engine::RadiumEngine::getInstance()->getRenderObjectManager()->getRenderObject( id );
+    ro->setLifetime( 100 );
 }
 
 void RotateAroundCameraManipulator::alignOnClosestAxis() {
