@@ -5,6 +5,8 @@
 #include <Dataflow/Core/Nodes/Sources/FunctionSource.hpp>
 #include <Dataflow/Core/Nodes/Sources/SingleDataSourceNode.hpp>
 
+#include <random>
+
 using namespace Ra::Dataflow::Core;
 
 /* ----------------------------------------------------------------------------------- */

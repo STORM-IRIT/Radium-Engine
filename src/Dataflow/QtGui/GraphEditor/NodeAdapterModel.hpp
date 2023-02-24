@@ -34,7 +34,7 @@ class RA_DATAFLOW_API NodeAdapterModel : public QtNodes::NodeDataModel
 
     QString name() const override { return m_node->getTypeName().c_str(); }
 
-    QString uuid() const override { return m_node->getUuid().c_str(); }
+    QString uuid() const override { return m_uuid.toString(); }
 
     bool isDeletable() override { return true; } // Assume all nodes belong to the graph
 
@@ -73,6 +73,8 @@ class RA_DATAFLOW_API NodeAdapterModel : public QtNodes::NodeDataModel
     std::vector<bool> m_inputsConnected;
     mutable QtNodes::NodeValidationState m_validationState = QtNodes::NodeValidationState::Valid;
     mutable QString m_validationError                      = QString( "" );
+
+    QUuid m_uuid;
 
   public:
     QJsonObject save() const override;

@@ -113,9 +113,13 @@ void GraphEditorView::editGraph( DataflowGraph* g ) {
     if ( m_dataflowGraph ) {
         buildAdapterRegistry( NodeFactoriesManager::getFactoryManager() );
         const auto& nodes = *( m_dataflowGraph->getNodes() );
+        // NodeToUuid mapping
+        std::map<Node*, QString> nodeToUuid;
         // inserting nodes
         for ( const auto& n : nodes ) {
-            scene->importNode( std::make_unique<NodeAdapterModel>( m_dataflowGraph, n.get() ) );
+            auto nodeAdapter = std::make_unique<NodeAdapterModel>( m_dataflowGraph, n.get() );
+            nodeToUuid.insert( { n.get(), nodeAdapter->uuid() } );
+            scene->importNode( std::move( nodeAdapter ) );
         }
         // inserting connections
         for ( const auto& n : nodes ) {
@@ -130,7 +134,7 @@ void GraphEditorView::editGraph( DataflowGraph* g ) {
                         outPortIndex++;
                     }
                     scene->importConnection(
-                        nodeOut->getUuid().c_str(), outPortIndex, n->getUuid().c_str(), numPort );
+                        nodeToUuid[nodeOut], outPortIndex, nodeToUuid[n.get()], numPort );
                 }
                 numPort++;
             }
