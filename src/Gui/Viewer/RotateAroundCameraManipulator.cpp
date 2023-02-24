@@ -147,10 +147,17 @@ void RotateAroundCameraManipulator::setPivot( Ra::Core::Vector3 pivot ) {
 }
 
 void RotateAroundCameraManipulator::setPivotFromPixel( Scalar x, Scalar y ) {
+    using Ra::Core::Utils::Color;
+
+    auto dc = m_viewer->toDevice( { x, y } );
+
     m_viewer->makeCurrent();
     Scalar z = m_viewer->getDepthUnderMouse();
-    setPivot( m_camera->unProjectFromScreen( Ra::Core::Vector3( x, y, z ) ) );
     m_viewer->doneCurrent();
+
+    auto pivotPoint = m_camera->unProjectFromScreen( Vector3( dc[0], dc[1], z ) );
+
+    setPivot( pivotPoint );
 }
 
 void RotateAroundCameraManipulator::alignOnClosestAxis() {
