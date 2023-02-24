@@ -7,8 +7,6 @@
 
 #include <nlohmann/json.hpp>
 
-#include <uuid.h>
-
 #include <cstdint>
 #include <iostream>
 #include <memory>
@@ -123,9 +121,6 @@ class RA_DATAFLOW_API Node
     /// \brief Sets the instance name (rename) the node
     void setInstanceName( const std::string& newName );
 
-    /// \brief Gets the UUID of the node as a string
-    std::string getUuid() const;
-
     /// @}
 
     /// \name Serialization of a node
@@ -231,18 +226,6 @@ class RA_DATAFLOW_API Node
 
     /// Additional data on the node, added by application or gui or ...
     nlohmann::json m_extraJsonData;
-
-    /// \brief Generates the uuid of the node
-    void generateUuid();
-    /// The uuid of the node
-    uuids::uuid m_uuid;
-
-  private:
-    /// generator for uuid
-    static bool s_uuidGeneratorInitialized;
-    static std::unique_ptr<uuids::uuid_random_generator> s_uidGenerator;
-    static std::unique_ptr<std::mt19937> s_uuidSeeds;
-    static void createUuidGenerator();
 
   public:
     /// \brief Returns the demangled type name of the node or any human readable representation of

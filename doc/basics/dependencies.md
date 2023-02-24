@@ -7,7 +7,7 @@ Radium relies on several external libraries to load files or to represent some d
 * [Engine] glm, globjects, glbindings, tinyEXR
 * [IO] Assimp
 * [Gui] Qt Core, Qt Widgets and Qt OpenGL v5.5+ (5.14 at least, Qt6 support is experimental), PowerSlider
-* [Dataflow] stduuid, RadiumNodeEditor
+* [Dataflow] RadiumNodeEditor
 * [doc] Doxygen-awesome-css
 * stb_image
 
@@ -101,7 +101,6 @@ set(tinyEXR_DIR "/path/to/external/install/share/tinyEXR/cmake/" CACHE PATH "My 
 set(assimp_DIR "/path/to/external/install/lib/cmake/assimp-5.0/" CACHE PATH "My assimp location")
 set(tinyply_DIR "/path/to/external/install/lib/cmake/tinyply/" CACHE PATH "My tinyply location")
 set(PowerSlider_DIR "/path/to/external/install/lib/cmake/PowerSlider/" CACHE PATH "My PowerSlider location")
-set(stduuid_DIR "/path/to/external/install/lib/cmake/stduuid/" CACHE PATH "My stduuid")
 set(RadiumNodeEditor_DIR "/path/to/external/install/lib/cmake/RadiumNodeEditor/" CACHE PATH "My NodeEditor")
 set(RADIUM_IO_ASSIMP ON CACHE BOOL "Radium uses assimp io")
 set(RADIUM_IO_TINYPLY ON CACHE BOOL "Radium uses tinyply io")
@@ -125,7 +124,6 @@ To this end, just provide the corresponding '*_DIR' to cmake at configuration ti
 Currently supported (note that these paths must refer to the installation directory of the corresponding library):
 <!--  (generated running ../script/list_dep.py from Radium-Engine/external directory) -->
 
-* `stduuid_DIR`
 * `RadiumNodeEditor_DIR`
 * `assimp_DIR`
 * `tinyply_DIR`
@@ -142,8 +140,6 @@ Currently supported (note that these paths must refer to the installation direct
 
 Radium is compiled and tested with specific version of dependencies, as given in the external's folder CMakeLists.txt and state here for the record
 
-* stduuid: https://github.com/mariusbancila/stduuid, [3afe7193facd5d674de709fccc44d5055e144d7a],
-  * with options `-DUUID_BUILD_TESTS=OFF -DUUID_ENABLE_INSTALL=ON`
 * RadiumNodeEditor: https://github.com/MathiasPaulin/RadiumQtNodeEditor.git, [main],
   * with options `None`
 * assimp: https://github.com/assimp/assimp.git, [tags/v5.0.1],

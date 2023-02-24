@@ -5,6 +5,8 @@
 
 #include <Core/Containers/VectorArray.hpp>
 
+#include <random>
+
 using namespace Ra::Dataflow::Core;
 
 /* ----------------------------------------------------------------------------------- */

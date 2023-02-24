@@ -17,8 +17,5 @@ if (DataflowCore_FOUND AND NOT TARGET DataflowCore)
 endif()
 
 if(Configure_DataflowCore)
-    # Theses paths reflect the paths founds in RadiumEngine/external/Dataflow/package
-    set(stduuid_DIR "@stduuid_DIR@")
-    find_dependency(stduuid REQUIRED NO_DEFAULT_PATH)
     include("${CMAKE_CURRENT_LIST_DIR}/../Dataflow/Core/DataflowCoreTargets.cmake")
 endif()

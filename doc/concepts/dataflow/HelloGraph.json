@@ -1,76 +1,71 @@
 {
-    "id": "{c1c08892-9064-4484-b1f6-1c7da3bb56f8}",
-    "model": {
-        "graph": {
-            "connections": [
-                {
-                    "in_id": "{daa522ef-9242-436d-a57d-487bc8d850f1}",
-                    "in_index": 0,
-                    "out_id": "{eef7a427-c725-42d1-adb3-29d5112597d6}",
-                    "out_index": 0
-                },
-                {
-                    "in_id": "{daa522ef-9242-436d-a57d-487bc8d850f1}",
-                    "in_index": 1,
-                    "out_id": "{ef56ef16-569c-48e7-ae42-91e130088737}",
-                    "out_index": 0
-                },
-                {
-                    "in_id": "{41d4e5df-fbfe-482f-ab5e-10c7941ffd60}",
-                    "in_index": 0,
-                    "out_id": "{daa522ef-9242-436d-a57d-487bc8d850f1}",
-                    "out_index": 0
-                }
-            ],
-            "factories": [],
-            "nodes": [
-                {
-                    "id": "{eef7a427-c725-42d1-adb3-29d5112597d6}",
-                    "model": {
-                        "instance": "Source",
-                        "name": "Source<RaVector<float>>"
-                    },
-                    "position": {
-                        "x": -23.0,
-                        "y": 88.0
-                    }
-                },
-                {
-                    "id": "{ef56ef16-569c-48e7-ae42-91e130088737}",
-                    "model": {
-                        "instance": "Selector",
-                        "name": "Source<function<bool (float const&)>>"
-                    },
-                    "position": {
-                        "x": -112.0,
-                        "y": 239.0
-                    }
-                },
-                {
-                    "id": "{daa522ef-9242-436d-a57d-487bc8d850f1}",
-                    "model": {
-                        "instance": "Filter",
-                        "name": "Filter<RaVector<float>>"
-                    },
-                    "position": {
-                        "x": 310.0,
-                        "y": 158.0
-                    }
-                },
-                {
-                    "id": "{41d4e5df-fbfe-482f-ab5e-10c7941ffd60}",
-                    "model": {
-                        "instance": "Sink",
-                        "name": "Sink<RaVector<float>>"
-                    },
-                    "position": {
-                        "x": 609.0,
-                        "y": 238.0
-                    }
-                }
-            ]
+  "instance": "helloGraph",
+  "model": {
+    "graph": {
+      "connections": [
+        {
+          "in_node": "Filter",
+          "in_port": "in",
+          "out_node": "Source",
+          "out_port": "to"
         },
-        "instance": "helloGraph",
-        "name": "Core DataflowGraph"
-    }
+        {
+          "in_node": "Filter",
+          "in_port": "f",
+          "out_node": "Selector",
+          "out_port": "f"
+        },
+        {
+          "in_node": "Sink",
+          "in_port": "from",
+          "out_node": "Filter",
+          "out_port": "out"
+        }
+      ],
+      "factories": [],
+      "nodes": [
+        {
+          "instance": "Source",
+          "model": {
+            "name": "Source<RaVector<float>>"
+          },
+          "position": {
+            "x": -195.0,
+            "y": -82.0
+          }
+        },
+        {
+          "instance": "Selector",
+          "model": {
+            "name": "Source<function<bool (float const&)>>"
+          },
+          "position": {
+            "x": -279.0,
+            "y": 35.0
+          }
+        },
+        {
+          "instance": "Filter",
+          "model": {
+            "name": "Filter<RaVector<float>>"
+          },
+          "position": {
+            "x": 44.0,
+            "y": -45.0
+          }
+        },
+        {
+          "instance": "Sink",
+          "model": {
+            "name": "Sink<RaVector<float>>"
+          },
+          "position": {
+            "x": 267.0,
+            "y": 12.0
+          }
+        }
+      ]
+    },
+    "name": "Core DataflowGraph"
+  }
 }
