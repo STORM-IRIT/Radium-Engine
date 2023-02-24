@@ -158,7 +158,7 @@ class RA_GUI_API Viewer : public WindowQt, public KeyMappingManageable<Viewer>
 
     /**
      * Computes device dependent (i.e. framebuffer) 2d coordinates from device independent
-     * (i.e. qt;s main coordinate system) coordinates.
+     * (i.e. qt's main coordinate system) coordinates.
      *
      * See https://doc.qt.io/qt-6/highdpi.html
      */
