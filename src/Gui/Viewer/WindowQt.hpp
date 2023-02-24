@@ -70,7 +70,7 @@ class RA_GUI_API WindowQt : public QWindow
      * Example
      *
      * \code{.cpp} if(test){
-     *    auto context = viewer->activateScopedContext();
+     *     auto context = viewer->activateScopedContext();
      *     // here OpenGL context is bound
      *     Texture tex;
      *     // [...] do tex setup
