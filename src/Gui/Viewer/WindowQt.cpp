@@ -130,13 +130,9 @@ void WindowQt::resizeInternal( QResizeEvent* event ) {
 
     initialize();
 
-    makeCurrent();
-
-    // do not take into account devicePixelRatio(), we work on ldi resolution in our GL world.
     resizeGL( event );
-
-    doneCurrent();
 }
+
 /// paint is done by main rendering loop, initialize instead
 /*
 bool WindowQt::event( QEvent* event ) {

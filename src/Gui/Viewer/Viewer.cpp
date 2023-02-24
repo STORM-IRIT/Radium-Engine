@@ -526,11 +526,13 @@ bool Viewer::initializeGL() {
 }
 
 void Viewer::resizeGL( QResizeEvent* event ) {
+    auto context = activateScopedContext();
+
     auto deviceSize = toDevice( { event->size().width(), event->size().height() } );
-    // Renderer should have been locked by previous events.
     gl::glViewport( 0, 0, deviceSize.x(), deviceSize.y() );
     m_camera->getCamera()->setViewport( deviceSize.x(), deviceSize.y() );
     m_currentRenderer->resize( deviceSize.x(), deviceSize.y() );
+
     emit needUpdate();
 }
 
