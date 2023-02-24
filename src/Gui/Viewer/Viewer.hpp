@@ -155,6 +155,17 @@ class RA_GUI_API Viewer : public WindowQt, public KeyMappingManageable<Viewer>
     ///@}
 
     Scalar getDepthUnderMouse() const { return m_depthUnderMouse; }
+
+    /**
+     * Computes device dependent (i.e. framebuffer) 2d coordinates from device independent
+     * (i.e. qt;s main coordinate system) coordinates.
+     *
+     * See https://doc.qt.io/qt-6/highdpi.html
+     */
+    Core::Vector2 toDevice( const Core::Vector2& logicCoordinates ) {
+        return m_toDevice( logicCoordinates );
+    }
+
   signals:
     /// Emitted when GL context is ready and the engine OpenGL part must be initialized.
     /// Renderers might be added here using addRenderer.
