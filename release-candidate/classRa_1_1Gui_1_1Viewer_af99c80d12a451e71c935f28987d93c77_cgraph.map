@@ -1,5 +1,7 @@
 <map id="Ra::Gui::Viewer::handleMousePressEvent" name="Ra::Gui::Viewer::handleMousePressEvent">
-<area shape="rect" id="node1" title=" " alt="" coords="5,39,223,80"/>
-<area shape="rect" id="node2" href="$classRa_1_1Gui_1_1Viewer.html#abfd1b41c074766822a5a0578542db00d" title="Access to gizmo manager." alt="" coords="271,5,464,47"/>
-<area shape="rect" id="node3" href="$classRa_1_1Gui_1_1GizmoManager.html#ab63207c7a3d7afb2dfd735ecf5bd3005" title="Callback when a drawable is picked." alt="" coords="279,71,455,112"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,104,223,145"/>
+<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a2bc66a85ebe6a406ac48ce578a057d9d" title=" " alt="" coords="271,5,492,47"/>
+<area shape="rect" id="node3" href="$classRa_1_1Gui_1_1Viewer.html#abfd1b41c074766822a5a0578542db00d" title="Access to gizmo manager." alt="" coords="285,71,478,112"/>
+<area shape="rect" id="node4" href="$classRa_1_1Gui_1_1GizmoManager.html#ab63207c7a3d7afb2dfd735ecf5bd3005" title="Callback when a drawable is picked." alt="" coords="293,136,469,177"/>
+<area shape="rect" id="node5" href="$classRa_1_1Gui_1_1Viewer.html#a6f709f315a47d4fc0dee01e8c80016dd" title=" " alt="" coords="287,202,475,229"/>
 </map>

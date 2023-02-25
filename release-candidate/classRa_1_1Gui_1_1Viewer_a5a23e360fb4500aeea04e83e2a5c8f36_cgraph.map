@@ -1,11 +1,12 @@
 <map id="Ra::Gui::Viewer::addRenderer" name="Ra::Gui::Viewer::addRenderer">
-<area shape="rect" id="node1" title=" " alt="" coords="5,224,219,251"/>
-<area shape="rect" id="node2" href="$classRa_1_1Gui_1_1WindowQt.html#acd31b9e580f049491d13c16ef954d964" title=" " alt="" coords="284,151,436,193"/>
-<area shape="rect" id="node3" href="$classRa_1_1Gui_1_1Viewer.html#a14a1ad5406cca6655fd9ed6e296bf8e3" title="Initialize renderer internal state + configure lights." alt="" coords="267,217,453,258"/>
-<area shape="rect" id="node13" href="$classRa_1_1Gui_1_1WindowQt.html#a78476baacd2df24a260f604d02c8ddc4" title=" " alt="" coords="284,282,436,323"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,257,219,284"/>
+<area shape="rect" id="node2" href="$classRa_1_1Gui_1_1WindowQt.html#acd31b9e580f049491d13c16ef954d964" title=" " alt="" coords="284,185,436,226"/>
+<area shape="rect" id="node3" href="$classRa_1_1Gui_1_1Viewer.html#a14a1ad5406cca6655fd9ed6e296bf8e3" title="Initialize renderer internal state + configure lights." alt="" coords="267,250,453,291"/>
+<area shape="rect" id="node14" href="$classRa_1_1Gui_1_1WindowQt.html#a78476baacd2df24a260f604d02c8ddc4" title=" " alt="" coords="284,315,436,357"/>
 <area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a1937407357a05fef64bd1f0bafa50492" title="Initialize renderer." alt="" coords="533,151,698,193"/>
 <area shape="rect" id="node11" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#abbb35a6ba5e765ce56848af6d235cf8f" title=" " alt="" coords="520,217,711,258"/>
 <area shape="rect" id="node12" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a80b7cdbb5e045a77c90a27bd20db3b77" title="Update the background color (does not trigger a redraw)" alt="" coords="501,282,729,323"/>
+<area shape="rect" id="node13" href="$classRa_1_1Gui_1_1Viewer.html#a6f709f315a47d4fc0dee01e8c80016dd" title=" " alt="" coords="521,348,709,375"/>
 <area shape="rect" id="node5" href="$namespaceRa_1_1Engine_1_1Data_1_1ShaderConfigurationFactory.html#a00918835250fbd8bbe4deae59ecd6dde" title=" " alt="" coords="819,5,1002,61"/>
 <area shape="rect" id="node6" href="$classRa_1_1Engine_1_1Data_1_1ShaderConfiguration.html#a42ec93f4772c0455149a81e9d8502d43" title=" " alt="" coords="817,86,1004,127"/>
 <area shape="rect" id="node7" href="$classRa_1_1Engine_1_1Data_1_1ShaderProgramManager.html#a4b346bfdb26bd4c0dcb3372f6e6b1dad" title=" " alt="" coords="777,151,1044,193"/>

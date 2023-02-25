@@ -62,6 +62,7 @@ var classRa_1_1Gui_1_1Viewer =
     [ "showEvent", "classRa_1_1Gui_1_1Viewer.html#af993e161d72ea7e41a3bc49a9671a74e", null ],
     [ "startRendering", "classRa_1_1Gui_1_1Viewer.html#a0bc8019968c23fd6ca0d1c27c0d6ec0d", null ],
     [ "swapBuffers", "classRa_1_1Gui_1_1Viewer.html#a1ffe7aaecf91a91d6b1e98fb9dc75e5a", null ],
+    [ "toDevice", "classRa_1_1Gui_1_1Viewer.html#a6f709f315a47d4fc0dee01e8c80016dd", null ],
     [ "toggleBrushPicking", "classRa_1_1Gui_1_1Viewer.html#a59561e6b897b75f16e7b16117b00c1fc", null ],
     [ "update", "classRa_1_1Gui_1_1Viewer.html#a48210627a598068db2492fc0aad99520", null ],
     [ "wheelEvent", "classRa_1_1Gui_1_1Viewer.html#ac15a6f178cfdcbfbfccaba8959973463", null ],

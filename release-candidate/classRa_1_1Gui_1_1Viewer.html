@@ -52,7 +52,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.4.8</span>
+   &#160;<span id="projectnumber">1.4.9</span>
    </div>
   </td>
  </tr>
@@ -210,6 +210,11 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1Viewer.html#acf4e392035ada48c6f13af74c82ef58f">onMouseMove</a> (QMouseEvent *event)</td></tr>
 <tr class="memdesc:acf4e392035ada48c6f13af74c82ef58f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Event sent after a mouse move event has been processed, but before emitting needUpdate() <br /></td></tr>
 <tr class="separator:acf4e392035ada48c6f13af74c82ef58f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header signals_classRa_1_1Gui_1_1WindowQt"><td colspan="2" onclick="javascript:toggleInherit('signals_classRa_1_1Gui_1_1WindowQt')"><img src="closed.png" alt="-"/>&#160;Signals inherited from <a class="el" href="classRa_1_1Gui_1_1WindowQt.html">Ra::Gui::WindowQt</a></td></tr>
+<tr class="memitem:a2240cfd87ac929d5c43f95533a902856 inherit signals_classRa_1_1Gui_1_1WindowQt"><td class="memItemLeft" align="right" valign="top"><a id="a2240cfd87ac929d5c43f95533a902856"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1WindowQt.html#a2240cfd87ac929d5c43f95533a902856">dpiChanged</a> ()</td></tr>
+<tr class="memdesc:a2240cfd87ac929d5c43f95533a902856 inherit signals_classRa_1_1Gui_1_1WindowQt"><td class="mdescLeft">&#160;</td><td class="mdescRight">Emitted when physical device changes. Useful for tracking devicePixelRatio() change. <br /></td></tr>
+<tr class="separator:a2240cfd87ac929d5c43f95533a902856 inherit signals_classRa_1_1Gui_1_1WindowQt"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -274,6 +279,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="memitem:a3f48aa1735b58664c3b3ed3e6505f225"><td class="memItemLeft" align="right" valign="top"><a id="a3f48aa1735b58664c3b3ed3e6505f225"></a>
 Scalar&#160;</td><td class="memItemRight" valign="bottom"><b>getDepthUnderMouse</b> () const</td></tr>
 <tr class="separator:a3f48aa1735b58664c3b3ed3e6505f225"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6f709f315a47d4fc0dee01e8c80016dd"><td class="memItemLeft" align="right" valign="top">Core::Vector2&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1Viewer.html#a6f709f315a47d4fc0dee01e8c80016dd">toDevice</a> (const Core::Vector2 &amp;logicCoordinates)</td></tr>
+<tr class="separator:a6f709f315a47d4fc0dee01e8c80016dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader"></div></td></tr>
 <tr><td colspan="2"><div class="groupText"><p>Misc functions </p>
 </div></td></tr>
@@ -541,7 +548,7 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><b>setContext</b>
 <div class="line"><span class="keyword">auto</span> light = Ra::Core::make_shared&lt;Engine::Data::DirectionalLight&gt;();</div>
 <div class="line"><a class="code" href="classRa_1_1Gui_1_1Viewer.html#a0522b4876b6a6e84ba5c8e40f66b714f">m_camera</a>-&gt;attachLight( light );</div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Rendering_1_1Renderer_html_a1937407357a05fef64bd1f0bafa50492"><div class="ttname"><a href="classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a1937407357a05fef64bd1f0bafa50492">Ra::Engine::Rendering::Renderer::initialize</a></div><div class="ttdeci">void initialize(uint width, uint height)</div><div class="ttdoc">Initialize renderer.</div><div class="ttdef"><b>Definition:</b> <a href="Renderer_8cpp_source.html#l00056">Renderer.cpp:56</a></div></div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1Viewer_html_a0522b4876b6a6e84ba5c8e40f66b714f"><div class="ttname"><a href="classRa_1_1Gui_1_1Viewer.html#a0522b4876b6a6e84ba5c8e40f66b714f">Ra::Gui::Viewer::m_camera</a></div><div class="ttdeci">std::unique_ptr&lt; CameraManipulator &gt; m_camera</div><div class="ttdoc">Owning pointer to the camera.</div><div class="ttdef"><b>Definition:</b> <a href="Viewer_8hpp_source.html#l00300">Viewer.hpp:300</a></div></div>
+<div class="ttc" id="aclassRa_1_1Gui_1_1Viewer_html_a0522b4876b6a6e84ba5c8e40f66b714f"><div class="ttname"><a href="classRa_1_1Gui_1_1Viewer.html#a0522b4876b6a6e84ba5c8e40f66b714f">Ra::Gui::Viewer::m_camera</a></div><div class="ttdeci">std::unique_ptr&lt; CameraManipulator &gt; m_camera</div><div class="ttdoc">Owning pointer to the camera.</div><div class="ttdef"><b>Definition:</b> <a href="Viewer_8hpp_source.html#l00311">Viewer.hpp:311</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1Viewer_html_a5a23e360fb4500aeea04e83e2a5c8f36"><div class="ttname"><a href="classRa_1_1Gui_1_1Viewer.html#a5a23e360fb4500aeea04e83e2a5c8f36">Ra::Gui::Viewer::addRenderer</a></div><div class="ttdeci">int addRenderer(const std::shared_ptr&lt; Engine::Rendering::Renderer &gt; &amp;e)</div><div class="ttdef"><b>Definition:</b> <a href="Viewer_8cpp_source.html#l00187">Viewer.cpp:187</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1Viewer_html_a94ca6b2d9205f3affdc98703e5d22a13"><div class="ttname"><a href="classRa_1_1Gui_1_1Viewer.html#a94ca6b2d9205f3affdc98703e5d22a13">Ra::Gui::Viewer::changeRenderer</a></div><div class="ttdeci">bool changeRenderer(int index)</div><div class="ttdoc">Set the renderer.</div><div class="ttdef"><b>Definition:</b> <a href="Viewer_8cpp_source.html#l00380">Viewer.cpp:380</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1Viewer_html_aa801426e3906c686bdbbc20bf553c041"><div class="ttname"><a href="classRa_1_1Gui_1_1Viewer.html#aa801426e3906c686bdbbc20bf553c041">Ra::Gui::Viewer::getRenderer</a></div><div class="ttdeci">const Engine::Rendering::Renderer * getRenderer() const</div><div class="ttdoc">Read-only access to renderer.</div><div class="ttdef"><b>Definition:</b> <a href="Viewer_8cpp_source.html#l00179">Viewer.cpp:179</a></div></div>
@@ -553,7 +560,7 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><b>setContext</b>
 <div id="dynsection-2-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-2-content" class="dyncontent" style="display:none;">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classRa_1_1Gui_1_1Viewer_a5a23e360fb4500aeea04e83e2a5c8f36_cgraph.svg" width="100%" height="547"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classRa_1_1Gui_1_1Viewer_a5a23e360fb4500aeea04e83e2a5c8f36_cgraph.svg" width="100%" height="585"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
 
@@ -596,13 +603,13 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><b>setContext</b>
 <p>[event dispatch]</p>
 <p>[event dispatch]</p>
 
-<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00696">696</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00699">699</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
 <div id="dynsection-3" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-3-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-3-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-3-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Gui_1_1Viewer_af99c80d12a451e71c935f28987d93c77_cgraph.svg" width="470" height="118"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Gui_1_1Viewer_af99c80d12a451e71c935f28987d93c77_cgraph.svg" width="498" height="235"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 
@@ -635,7 +642,7 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><b>setContext</b>
 
 <p>Reimplemented from <a class="el" href="classRa_1_1Gui_1_1WindowQt.html#a44dcba0a79c9be83bb96b5bb0db1ab01">Ra::Gui::WindowQt</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00461">461</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00463">463</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
 <div id="dynsection-4" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-4-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-4-summary" class="dynsummary" style="display:block;">
@@ -672,7 +679,15 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><b>setContext</b>
 </div><div class="memdoc">
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000097">Todo:</a></b></dt><dd>propagateToParent </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00598">598</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00601">601</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
+<div id="dynsection-5" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-5-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-5-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-5-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Gui_1_1Viewer_a78e290eb25f91ffbc7dbd0c58d8b9ca6_cgraph.svg" width="458" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
+</div>
 
 </div>
 </div>
@@ -701,13 +716,13 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><b>setContext</b>
 </div><div class="memdoc">
 <p>We intercept the mouse events in this widget to get the coordinates of the mouse in screen space. </p>
 
-<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00575">575</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
-<div id="dynsection-5" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-5-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-5-summary" class="dynsummary" style="display:block;">
+<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00578">578</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
+<div id="dynsection-6" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-6-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-6-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-5-content" class="dyncontent" style="display:none;">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classRa_1_1Gui_1_1Viewer_a85bb9605cc40e330561ec2a070451768_cgraph.svg" width="100%" height="388"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div id="dynsection-6-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classRa_1_1Gui_1_1Viewer_a85bb9605cc40e330561ec2a070451768_cgraph.svg" width="100%" height="476"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
 
@@ -738,7 +753,7 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><b>setContext</b>
 </div><div class="memdoc">
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000096">Todo:</a></b></dt><dd>propagateToParent </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00592">592</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00595">595</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
 
 </div>
 </div>
@@ -766,12 +781,12 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><b>setContext</b>
 </div><div class="memdoc">
 <p>Prepare the viewer to display a scene. This will ask the renderer to build its specific OenGL related objects and set the camera to its default state </p><dl class="section return"><dt>Returns</dt><dd>true if the scene is ready to display. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00829">829</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
-<div id="dynsection-6" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-6-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-6-summary" class="dynsummary" style="display:block;">
+<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00832">832</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
+<div id="dynsection-7" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-7-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-7-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-6-content" class="dyncontent" style="display:none;">
+<div id="dynsection-7-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Gui_1_1Viewer_a02c5ab9153a9701e8f14589a4589f284_cgraph.svg" width="503" height="431"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
@@ -853,14 +868,44 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><b>setContext</b>
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000094">Todo:</a></b></dt><dd>FIXME : move this outside of the rendering loop. must be done once per renderer ... if there is no light on the renderer, add the head light attached to the camera ... </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00217">217</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
-<div id="dynsection-7" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-7-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-7-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-8" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-8-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-8-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-7-content" class="dyncontent" style="display:none;">
+<div id="dynsection-8-content" class="dyncontent" style="display:none;">
 <div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classRa_1_1Gui_1_1Viewer_a0bc8019968c23fd6ca0d1c27c0d6ec0d_cgraph.svg" width="100%" height="584"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
+
+</div>
+</div>
+<a id="a6f709f315a47d4fc0dee01e8c80016dd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6f709f315a47d4fc0dee01e8c80016dd">&#9670;&nbsp;</a></span>toDevice()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Core::Vector2 Ra::Gui::Viewer::toDevice </td>
+          <td>(</td>
+          <td class="paramtype">const Core::Vector2 &amp;&#160;</td>
+          <td class="paramname"><em>logicCoordinates</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Computes device dependent (i.e. framebuffer) 2d coordinates from device independent (i.e. qt's main coordinate system) coordinates.</p>
+<p>See <a href="https://doc.qt.io/qt-6/highdpi.html">https://doc.qt.io/qt-6/highdpi.html</a> </p>
+
+<p class="definition">Definition at line <a class="el" href="Viewer_8hpp_source.html#l00165">165</a> of file <a class="el" href="Viewer_8hpp_source.html">Viewer.hpp</a>.</p>
 
 </div>
 </div>
@@ -889,7 +934,7 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><b>setContext</b>
 </div><div class="memdoc">
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000098">Todo:</a></b></dt><dd>propagateToParent </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00614">614</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00617">617</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
 
 </div>
 </div>
@@ -915,7 +960,7 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><b>setContext</b>
 </div><div class="memdoc">
 <p>Array of custom key event handler Index is KeyEventType </p>
 
-<p class="definition">Definition at line <a class="el" href="Viewer_8hpp_source.html#l00312">312</a> of file <a class="el" href="Viewer_8hpp_source.html">Viewer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Viewer_8hpp_source.html#l00323">323</a> of file <a class="el" href="Viewer_8hpp_source.html">Viewer.hpp</a>.</p>
 
 </div>
 </div>
@@ -940,7 +985,7 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><b>setContext</b>
 </div><div class="memdoc">
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000099">Todo:</a></b></dt><dd>make the following private: Owning pointer to the renderers. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="Viewer_8hpp_source.html#l00289">289</a> of file <a class="el" href="Viewer_8hpp_source.html">Viewer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Viewer_8hpp_source.html#l00300">300</a> of file <a class="el" href="Viewer_8hpp_source.html">Viewer.hpp</a>.</p>
 
 </div>
 </div>
@@ -954,7 +999,7 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><b>setContext</b>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><b>Gui</b></li><li class="navelem"><a class="el" href="classRa_1_1Gui_1_1Viewer.html">Viewer</a></li>
-    <li class="footer">Generated on Fri Feb 17 2023 09:28:20 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sat Feb 25 2023 10:33:16 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

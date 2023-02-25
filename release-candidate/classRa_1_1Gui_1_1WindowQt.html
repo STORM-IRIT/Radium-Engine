@@ -52,7 +52,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.4.8</span>
+   &#160;<span id="projectnumber">1.4.9</span>
    </div>
   </td>
  </tr>
@@ -110,6 +110,7 @@ $(document).ready(function(){initNavTree('classRa_1_1Gui_1_1WindowQt.html',''); 
 <div class="header">
   <div class="summary">
 <a href="#pub-slots">Public Slots</a> &#124;
+<a href="#signals">Signals</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="#pro-static-methods">Static Protected Member Functions</a> &#124;
@@ -150,6 +151,13 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="memitem:aef47b3f06761a4c39b6c5a47a9747fe1"><td class="memItemLeft" align="right" valign="top"><a id="aef47b3f06761a4c39b6c5a47a9747fe1"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>screenChanged</b> ()</td></tr>
 <tr class="separator:aef47b3f06761a4c39b6c5a47a9747fe1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="signals"></a>
+Signals</h2></td></tr>
+<tr class="memitem:a2240cfd87ac929d5c43f95533a902856"><td class="memItemLeft" align="right" valign="top"><a id="a2240cfd87ac929d5c43f95533a902856"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1WindowQt.html#a2240cfd87ac929d5c43f95533a902856">dpiChanged</a> ()</td></tr>
+<tr class="memdesc:a2240cfd87ac929d5c43f95533a902856"><td class="mdescLeft">&#160;</td><td class="mdescRight">Emitted when physical device changes. Useful for tracking devicePixelRatio() change. <br /></td></tr>
+<tr class="separator:a2240cfd87ac929d5c43f95533a902856"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -253,16 +261,16 @@ std::atomic_bool&#160;</td><td class="memItemRight" valign="bottom"><b>m_glIniti
 <p>Make this-&gt;<a class="el" href="classRa_1_1Gui_1_1WindowQt.html#ad3274b69a7a5d5c36ce74f44a1a5d1de">context()</a> the current context for current block. The context is released when the return variable is destroyed. The "context object" uses this-&gt;<a class="el" href="classRa_1_1Gui_1_1WindowQt.html#a78476baacd2df24a260f604d02c8ddc4">makeCurrent()</a> and this-&gt;<a class="el" href="classRa_1_1Gui_1_1WindowQt.html#acd31b9e580f049491d13c16ef954d964">doneCurrent()</a>, hence it's compatible with enclosed scopes, and only the first created context object dtor eventually release OpenGL context.</p>
 <p>Example</p>
 <div class="fragment"><div class="line"> <span class="keywordflow">if</span>(test){</div>
-<div class="line">   <span class="keyword">auto</span> <a class="code" href="classRa_1_1Gui_1_1WindowQt.html#ad3274b69a7a5d5c36ce74f44a1a5d1de">context</a> = viewer-&gt;activateScopedContext();</div>
+<div class="line">    <span class="keyword">auto</span> <a class="code" href="classRa_1_1Gui_1_1WindowQt.html#ad3274b69a7a5d5c36ce74f44a1a5d1de">context</a> = viewer-&gt;activateScopedContext();</div>
 <div class="line">    <span class="comment">// here OpenGL context is bound</span></div>
 <div class="line">    Texture tex;</div>
 <div class="line">    <span class="comment">// [...] do tex setup</span></div>
 <div class="line">    tex-&gt;initializeGL();</div>
 <div class="line">    <span class="comment">// [...] use tex ...</span></div>
 <div class="line">} <span class="comment">// block exit will first call tex dtor (with active context) then context dtor.</span></div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1WindowQt_html_ad3274b69a7a5d5c36ce74f44a1a5d1de"><div class="ttname"><a href="classRa_1_1Gui_1_1WindowQt.html#ad3274b69a7a5d5c36ce74f44a1a5d1de">Ra::Gui::WindowQt::context</a></div><div class="ttdeci">QOpenGLContext * context()</div><div class="ttdef"><b>Definition:</b> <a href="WindowQt_8cpp_source.html#l00060">WindowQt.cpp:60</a></div></div>
+<div class="ttc" id="aclassRa_1_1Gui_1_1WindowQt_html_ad3274b69a7a5d5c36ce74f44a1a5d1de"><div class="ttname"><a href="classRa_1_1Gui_1_1WindowQt.html#ad3274b69a7a5d5c36ce74f44a1a5d1de">Ra::Gui::WindowQt::context</a></div><div class="ttdeci">QOpenGLContext * context()</div><div class="ttdef"><b>Definition:</b> <a href="WindowQt_8cpp_source.html#l00076">WindowQt.cpp:76</a></div></div>
 </div><!-- fragment --> 
-<p class="definition">Definition at line <a class="el" href="WindowQt_8inl_source.html#l00019">19</a> of file <a class="el" href="WindowQt_8inl_source.html">WindowQt.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="WindowQt_8hpp_source.html#l00154">154</a> of file <a class="el" href="WindowQt_8hpp_source.html">WindowQt.hpp</a>.</p>
 
 </div>
 </div>
@@ -282,7 +290,7 @@ std::atomic_bool&#160;</td><td class="memItemRight" valign="bottom"><b>m_glIniti
 </div><div class="memdoc">
 <dl class="section see"><dt>See also</dt><dd><a href="https://doc.qt.io/qt-5/qglwidget.html#context">https://doc.qt.io/qt-5/qglwidget.html#context</a> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="WindowQt_8cpp_source.html#l00060">60</a> of file <a class="el" href="WindowQt_8cpp_source.html">WindowQt.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="WindowQt_8cpp_source.html#l00076">76</a> of file <a class="el" href="WindowQt_8cpp_source.html">WindowQt.cpp</a>.</p>
 
 </div>
 </div>
@@ -304,7 +312,7 @@ std::atomic_bool&#160;</td><td class="memItemRight" valign="bottom"><b>m_glIniti
 <dd>
 <a class="el" href="classRa_1_1Gui_1_1WindowQt.html#a306cc7425eb608c8de3a58f3f560f587">activateScopedContext()</a> as an alternative </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="WindowQt_8cpp_source.html#l00075">75</a> of file <a class="el" href="WindowQt_8cpp_source.html">WindowQt.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="WindowQt_8cpp_source.html#l00091">91</a> of file <a class="el" href="WindowQt_8cpp_source.html">WindowQt.cpp</a>.</p>
 
 </div>
 </div>
@@ -336,7 +344,7 @@ std::atomic_bool&#160;</td><td class="memItemRight" valign="bottom"><b>m_glIniti
 
 <p>Reimplemented in <a class="el" href="classRa_1_1Gui_1_1Viewer.html#a1383e1d903dd8397c36287f545a7ce87">Ra::Gui::Viewer</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="WindowQt_8cpp_source.html#l00146">146</a> of file <a class="el" href="WindowQt_8cpp_source.html">WindowQt.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="WindowQt_8cpp_source.html#l00158">158</a> of file <a class="el" href="WindowQt_8cpp_source.html">WindowQt.cpp</a>.</p>
 
 </div>
 </div>
@@ -356,14 +364,13 @@ std::atomic_bool&#160;</td><td class="memItemRight" valign="bottom"><b>m_glIniti
 </div><div class="memdoc">
 <p>Make this-&gt;<a class="el" href="classRa_1_1Gui_1_1WindowQt.html#ad3274b69a7a5d5c36ce74f44a1a5d1de">context()</a> the current context. This function is made reentrant thanks to an internal counter that count how many time the context has been asked to be activated. If the context have already been made current with a previous call to makeCurrent, this function increase an internal counter by one so that doneCurrent do not release the context. </p><dl class="section see"><dt>See also</dt><dd><a class="el" href="classRa_1_1Gui_1_1WindowQt.html#a306cc7425eb608c8de3a58f3f560f587">activateScopedContext()</a> as an alternative </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="WindowQt_8cpp_source.html#l00064">64</a> of file <a class="el" href="WindowQt_8cpp_source.html">WindowQt.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="WindowQt_8cpp_source.html#l00080">80</a> of file <a class="el" href="WindowQt_8cpp_source.html">WindowQt.cpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/src/Gui/Viewer/<a class="el" href="WindowQt_8hpp_source.html">WindowQt.hpp</a></li>
 <li>/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/src/Gui/Viewer/<a class="el" href="WindowQt_8cpp_source.html">WindowQt.cpp</a></li>
-<li>/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/src/Gui/Viewer/<a class="el" href="WindowQt_8inl_source.html">WindowQt.inl</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -371,7 +378,7 @@ std::atomic_bool&#160;</td><td class="memItemRight" valign="bottom"><b>m_glIniti
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><b>Gui</b></li><li class="navelem"><a class="el" href="classRa_1_1Gui_1_1WindowQt.html">WindowQt</a></li>
-    <li class="footer">Generated on Fri Feb 17 2023 09:28:20 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sat Feb 25 2023 10:33:16 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>
