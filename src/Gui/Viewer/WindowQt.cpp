@@ -42,6 +42,8 @@ WindowQt::WindowQt( QScreen* screen ) :
         QApplication::quit();
     }
 
+    m_screenObserver = connect(
+        this->screen(), &QScreen::physicalDotsPerInchChanged, this, &WindowQt::physicalDpiChanged );
     connect( this, &QWindow::screenChanged, this, &WindowQt::screenChanged );
 
     // cleanup connection is set in BaseApplication
@@ -52,9 +54,23 @@ WindowQt::~WindowQt() {
 }
 
 void WindowQt::screenChanged() {
+    disconnect( m_screenObserver );
+    m_screenObserver = connect(
+        this->screen(), &QScreen::physicalDotsPerInchChanged, this, &WindowQt::physicalDpiChanged );
+    emit dpiChanged();
     QSize s { size().width(), size().height() };
     QResizeEvent patchEvent { s, s };
     resizeInternal( &patchEvent );
+}
+
+void WindowQt::physicalDpiChanged( qreal /*dpi*/ ) {
+    emit dpiChanged();
+#ifdef OS_WINDOWS
+    // on windows, no resize event generated when dpi change, force resize
+    QSize s { size().width(), size().height() };
+    QResizeEvent patchEvent { s, s };
+    resizeInternal( &patchEvent );
+#endif
 }
 
 QOpenGLContext* WindowQt::context() {
@@ -114,13 +130,9 @@ void WindowQt::resizeInternal( QResizeEvent* event ) {
 
     initialize();
 
-    makeCurrent();
-
-    // do not take into account devicePixelRatio(), we work on ldi resolution in our GL world.
     resizeGL( event );
-
-    doneCurrent();
 }
+
 /// paint is done by main rendering loop, initialize instead
 /*
 bool WindowQt::event( QEvent* event ) {
