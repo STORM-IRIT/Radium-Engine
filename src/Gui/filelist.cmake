@@ -86,7 +86,7 @@ set(gui_headers
     Widgets/VectorEditor.hpp
 )
 
-set(gui_inlines Viewer/WindowQt.inl Widgets/ConstrainedNumericSpinBox.inl Widgets/ControlPanel.inl
+set(gui_inlines Widgets/ConstrainedNumericSpinBox.inl Widgets/ControlPanel.inl
                 Widgets/VectorEditor.inl
 )
 
