@@ -4,9 +4,11 @@
 struct LambertianTextures {
     int hasColor;
     int hasMask;
+    int hasNormal;
 
     sampler2D color;
     sampler2D mask;
+    sampler2D normal;
 };
 
 struct Material {
@@ -17,8 +19,6 @@ struct Material {
 
 //------------------- VertexAttrib interface ---------------------
 vec4 getPerVertexBaseColor();
-vec3 getWorldSpaceNormal();
-#define DONT_USE_INPUT_TANGENT
 
 //----------------------------------------------------------------
 const float Pi = 3.141592653589793;
@@ -51,10 +51,18 @@ vec3 getSpecularColor( Material material, vec3 texCoord ) {
     return vec3( 0 );
 }
 
-// Return the world-space normal computed according to the microgeometry definition`
-// As no normal map is defined, return N
+// Return the world-space normal computed according to the microgeometry definition
 vec3 getNormal( Material material, vec3 texCoord, vec3 N, vec3 T, vec3 B ) {
-    return N;
+    if ( material.tex.hasNormal == 1 ) {
+        vec3 normalLocal = normalize( vec3( texture( material.tex.normal, texCoord.xy ) ) * 2 - 1 );
+        mat3 tbn;
+        tbn[0] = T;
+        tbn[1] = B;
+        tbn[2] = N;
+        return normalize( tbn * normalLocal );
+    } else {
+        return N;
+    }
 }
 
 // return true if the fragment must be condidered as transparent (either fully or partially)
