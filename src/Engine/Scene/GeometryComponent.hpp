@@ -7,6 +7,7 @@
 #include <Core/Geometry/Volume.hpp>
 #include <Engine/Data/BlinnPhongMaterial.hpp>
 #include <Engine/Data/MaterialConverters.hpp>
+#include <Core/Material/MaterialModel.hpp>
 #include <Engine/Data/Mesh.hpp>
 #include <Engine/Rendering/RenderObject.hpp>
 #include <Engine/Scene/Component.hpp>
@@ -80,7 +81,7 @@ class SurfaceMeshComponent : public GeometryComponent
     inline SurfaceMeshComponent( const std::string& name,
                                  Entity* entity,
                                  CoreMeshType&& mesh,
-                                 Core::Asset::MaterialData* mat = nullptr );
+                                 Core::Material::MaterialModelPtr mat = nullptr );
 
     ~SurfaceMeshComponent() override = default;
 
@@ -95,7 +96,7 @@ class SurfaceMeshComponent : public GeometryComponent
   private:
     inline void generateMesh( const Ra::Core::Asset::GeometryData* data );
 
-    inline void finalizeROFromGeometry( const Core::Asset::MaterialData* data,
+    inline void finalizeROFromGeometry( Core::Material::MaterialModelPtr matModel,
                                         Core::Transform transform );
 
     // Give access to the mesh and (if deformable) to update it
@@ -130,7 +131,7 @@ class RA_ENGINE_API PointCloudComponent : public GeometryComponent
     PointCloudComponent( const std::string& name,
                          Entity* entity,
                          Core::Geometry::PointCloud&& mesh,
-                         Core::Asset::MaterialData* mat = nullptr );
+                         Core::Material::MaterialModelPtr mat = nullptr );
 
     ~PointCloudComponent() override;
 
@@ -154,7 +155,8 @@ class RA_ENGINE_API PointCloudComponent : public GeometryComponent
   private:
     void generatePointCloud( const Ra::Core::Asset::GeometryData* data );
 
-    void finalizeROFromGeometry( const Core::Asset::MaterialData* data, Core::Transform transform );
+    void finalizeROFromGeometry( Core::Material::MaterialModelPtr matModel,
+                                 Core::Transform transform );
 
     // Give access to the mesh and (if deformable) to update it
     const Ra::Core::Geometry::PointCloud* getMeshOutput() const;
@@ -229,7 +231,7 @@ template <typename CoreMeshType>
 SurfaceMeshComponent<CoreMeshType>::SurfaceMeshComponent( const std::string& name,
                                                           Entity* entity,
                                                           CoreMeshType&& mesh,
-                                                          Core::Asset::MaterialData* mat ) :
+                                                          Core::Material::MaterialModelPtr mat ) :
     GeometryComponent( name, entity ),
     m_displayMesh( new RenderMeshType( name, std::move( mesh ) ) ) {
     setContentName( name );
@@ -244,20 +246,20 @@ void SurfaceMeshComponent<CoreMeshType>::generateMesh( const Ra::Core::Asset::Ge
 
     m_displayMesh->loadGeometry( std::move( mesh ) );
 
-    finalizeROFromGeometry( data->hasMaterial() ? &( data->getMaterial() ) : nullptr,
+    finalizeROFromGeometry( data->hasMaterial() ? data->getMaterial().getMaterialModel() : nullptr,
                             data->getFrame() );
 }
 
 template <typename CoreMeshType>
 void SurfaceMeshComponent<CoreMeshType>::finalizeROFromGeometry(
-    const Core::Asset::MaterialData* data,
+    Core::Material::MaterialModelPtr matModel,
     Core::Transform transform ) {
     // The technique for rendering this component
     std::shared_ptr<Data::Material> roMaterial;
     // First extract the material from asset or create a default one
-    if ( data != nullptr ) {
-        auto converter = Data::EngineMaterialConverters::getMaterialConverter( data->getType() );
-        auto mat       = converter.second( data );
+    if ( matModel != nullptr ) {
+        auto converter = Data::EngineMaterialConverters::getMaterialConverter( matModel->getType() );
+        auto mat       = converter.second( matModel.get() );
         roMaterial.reset( mat );
     }
     else {
