@@ -37,7 +37,7 @@ std::string getDirName( const std::string& path ) {
     // In that case we should return "/"
     if ( pos == 0 ) { res = "/"; }
     else if ( pos < res.length() ) {
-        res = res.substr( 0, pos );
+        res.resize( pos );
     }
     else {
         res = ".";
@@ -58,7 +58,7 @@ std::string getBaseName( const std::string& path, bool keepExtension ) {
     if ( pos < res.length() ) { res = res.substr( pos + 1 ); }
     if ( !keepExtension ) {
         pos = res.find_last_of( '.' );
-        if ( pos < res.length() ) { res = res.substr( 0, pos ); }
+        if ( pos < res.length() ) { res.resize( pos ); }
     }
 
     return res;
