@@ -1,5 +1,6 @@
+#include <Core/Material/SimpleMaterialModel.hpp>
 #include <Engine/Data/LambertianMaterial.hpp>
-
+#include <Engine/Data/MaterialConverters.hpp>
 #include <Engine/Data/ShaderConfigFactory.hpp>
 #include <Engine/Data/ShaderProgramManager.hpp>
 #include <Engine/Data/TextureManager.hpp>
@@ -25,6 +26,8 @@ void LambertianMaterial::registerMaterial() {
     auto resourcesRootDir { RadiumEngine::getInstance()->getResourcesDir() };
     auto shaderProgramManager = RadiumEngine::getInstance()->getShaderProgramManager();
 
+    EngineMaterialConverters::registerMaterialConverter( materialName,
+                                                         LambertianMaterialConverter() );
     shaderProgramManager->addNamedString(
         "/Lambertian.glsl", resourcesRootDir + "Shaders/Materials/Lambertian/Lambertian.glsl" );
     // registering re-usable shaders
@@ -58,6 +61,7 @@ void LambertianMaterial::registerMaterial() {
 }
 
 void LambertianMaterial::unregisterMaterial() {
+    EngineMaterialConverters::removeMaterialConverter( materialName );
     Rendering::EngineRenderTechniques::removeDefaultTechnique( materialName );
 }
 
@@ -69,6 +73,26 @@ void LambertianMaterial::updateFromParameters() {
 
 nlohmann::json LambertianMaterial::getParametersMetadata() const {
     return s_parametersMetadata;
+}
+
+Material*
+LambertianMaterialConverter::operator()( const Ra::Core::Material::MaterialModel* toconvert ) {
+    auto result = new LambertianMaterial( toconvert->getName() );
+    // we are sure here that the concrete type of "toconvert" is BlinnPhongMaterialData
+    // static cst is safe here
+    auto source = static_cast<const Ra::Core::Material::LambertianMaterialModel*>( toconvert );
+
+    result->m_color = source->m_kd;
+    result->m_alpha = source->m_alpha;
+
+    if ( source->hasDiffuseTexture() )
+        result->addTexture( SimpleMaterial::TextureSemantic::TEX_COLOR, source->m_texDiffuse );
+    if ( source->hasOpacityTexture() )
+        result->addTexture( SimpleMaterial::TextureSemantic::TEX_MASK, source->m_texOpacity );
+    if ( source->hasNormalTexture() )
+        result->addTexture( SimpleMaterial::TextureSemantic::TEX_NORMAL, source->m_texNormal );
+
+    return result;
 }
 
 } // namespace Data

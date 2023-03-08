@@ -12,9 +12,9 @@ class Material;
 }
 } // namespace Engine
 namespace Core {
-namespace Asset {
-class MaterialData;
-}
+namespace Material {
+class MaterialModel;
+} // namespace Material
 } // namespace Core
 
 ///////////////////////////////////////////////
@@ -42,7 +42,7 @@ namespace EngineMaterialConverters {
 /**
  * Type of a pointer to an IO/ASSET representation of the material
  */
-using AssetMaterialPtr = const Ra::Core::Asset::MaterialData*;
+using MaterialModelPtr = const Ra::Core::Material::MaterialModel*;
 /**
  * Type of a pointer to an Engine representation of the material
  */
@@ -51,7 +51,7 @@ using RadiumMaterialPtr = Ra::Engine::Data::Material*;
 /**
  * Type of the conversion functor from IO/ASSET representation to Engine representation
  */
-using ConverterFunction = std::function<RadiumMaterialPtr( AssetMaterialPtr )>;
+using ConverterFunction = std::function<RadiumMaterialPtr( MaterialModelPtr )>;
 
 /** register a new material converter
  *  @return true if converter added, false else (e.g, a converter with the same name exists)

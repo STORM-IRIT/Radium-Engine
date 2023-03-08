@@ -11,8 +11,8 @@
 
 namespace Ra {
 namespace Core {
-namespace Asset {
-class MaterialData;
+namespace Material {
+class MaterialModel;
 }
 } // namespace Core
 
@@ -135,7 +135,7 @@ class RA_ENGINE_API BlinnPhongMaterialConverter final
     BlinnPhongMaterialConverter()  = default;
     ~BlinnPhongMaterialConverter() = default;
 
-    Material* operator()( const Ra::Core::Asset::MaterialData* toconvert );
+    Material* operator()( const Ra::Core::Material::MaterialModel* toconvert );
 };
 
 // Add a texture as material parameter from an already existing Radium Texture
