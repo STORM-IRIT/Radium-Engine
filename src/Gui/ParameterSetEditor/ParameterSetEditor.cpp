@@ -38,36 +38,32 @@ class RenderParameterUiBuilder
                 const auto& m           = m_constraints[name];
                 std::string description = m.contains( "description" ) ? m["description"] : "";
                 std::string nm          = m.contains( "name" ) ? std::string { m["name"] } : name;
-                m_pse->addOption( nm, onBoolParameterChanged, p.m_value, description );
+                m_pse->addOption( nm, onBoolParameterChanged, p, description );
             }
         }
         else if ( m_pse->m_showUnspecified ) {
-            m_pse->addOption( name, onBoolParameterChanged, p.m_value );
+            m_pse->addOption( name, onBoolParameterChanged, p );
         }
     }
 
-    template <template <typename> typename TParam,
-              typename TValue,
-              std::enable_if_t<std::is_arithmetic<TValue>::value, bool> = true>
-    void operator()( const std::string& name,
-                     const TParam<TValue>& p,
-                     Data::RenderParameters&& params ) {
+    template <typename TParam, std::enable_if_t<std::is_arithmetic<TParam>::value, bool> = true>
+    void operator()( const std::string& name, const TParam& p, Data::RenderParameters&& params ) {
         if ( params.getEnumConverter( name ) /*m_constraints.contains( name ) && m_constraints[name]["type"] == "enum"*/ ) {
-            m_pse->addEnumParameterWidget( name, p.m_value, params, m_constraints );
+            m_pse->addEnumParameterWidget( name, p, params, m_constraints );
         }
         else {
             // case number
-            m_pse->addNumberParameterWidget( name, p.m_value, params, m_constraints );
+            m_pse->addNumberParameterWidget( name, p, params, m_constraints );
         }
     }
 
-    template <template <typename> typename TParam,
-              typename TValue,
-              std::enable_if_t<std::is_arithmetic<TValue>::value, bool> = true>
+    template <typename TParam,
+              typename TAllocator,
+              std::enable_if_t<std::is_arithmetic<TParam>::value, bool> = true>
     void operator()( const std::string& name,
-                     const TParam<std::vector<TValue>>& p,
+                     const std::vector<TParam, TAllocator>& p,
                      Data::RenderParameters&& params ) {
-        m_pse->addVectorParameterWidget( name, p.m_value, params, m_constraints );
+        m_pse->addVectorParameterWidget( name, p, params, m_constraints );
     }
 
     void operator()( const std::string& name,
@@ -82,23 +78,17 @@ class RenderParameterUiBuilder
             const auto& m           = m_constraints[name];
             std::string description = m.contains( "description" ) ? m["description"] : "";
             std::string nm          = m.contains( "name" ) ? std::string { m["name"] } : name;
-            m_pse->addColorInput(
-                nm, onColorParameterChanged, p.m_value, m["maxItems"] == 4, description );
+            m_pse->addColorInput( nm, onColorParameterChanged, p, m["maxItems"] == 4, description );
         }
         else if ( m_pse->m_showUnspecified ) {
-            m_pse->addColorInput( name, onColorParameterChanged, p.m_value );
+            m_pse->addColorInput( name, onColorParameterChanged, p );
         }
     }
 
-    template <template <typename> typename TParam,
-              template <typename, int...>
-              typename M,
-              typename T,
-              int... dim>
-    void operator()( const std::string& name,
-                     const TParam<M<T, dim...>>& p,
-                     Data::RenderParameters&& params ) {
-        m_pse->addMatrixParameterWidget( name, p.m_value, params, m_constraints );
+    template <template <typename, int...> typename M, typename T, int... dim>
+    void
+    operator()( const std::string& name, const M<T, dim...>& p, Data::RenderParameters&& params ) {
+        m_pse->addMatrixParameterWidget( name, p, params, m_constraints );
     }
 
     void operator()( const std::string& /*name*/,
