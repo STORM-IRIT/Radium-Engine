@@ -8,10 +8,10 @@ namespace Ra {
 namespace Engine {
 namespace Data {
 
+RenderParameters::StaticParameterBinder RenderParameters::s_binder;
+
 void RenderParameters::bind( const Data::ShaderProgram* shader ) const {
-    // m_parameterSets.visit(StaticParameterBinder{},std::forward<const Data::ShaderProgram*>(
-    // shader ) );
-    visit( m_binder, shader );
+    m_parameterSets.visit( s_binder, shader );
 }
 
 void RenderParameters::addEnumConverter( const std::string& name,
