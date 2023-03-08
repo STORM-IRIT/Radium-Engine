@@ -47,6 +47,14 @@ class MyParameterVisitor : public VariableSet::DynamicVisitor
     size_t m_counter { 0 };
 };
 
+// Apply a functor to mofify each integer of a VariableSet
+struct modifyInts : public VariableSet::StaticVisitor<int> {
+    template <typename F>
+    void operator()( const std::string&, int& value, F&& f ) {
+        value = f( value );
+    }
+};
+
 TEST_CASE( "Core/Container/VariableSet", "[Core][Container][VariableSet]" ) {
     auto print_container = []( const std::string& name, VariableSet& ps ) {
         std::cout << name << " content : ";
@@ -147,16 +155,15 @@ TEST_CASE( "Core/Container/VariableSet", "[Core][Container][VariableSet]" ) {
         std::cout << " ... done!" << std::endl;
 
         print_container( "Initial set", params );
-        struct modifyInts : public VariableSet::StaticVisitor<int> {
-            void operator()( const std::string&, int& value ) { value = 2 * value + 1; }
-        };
+
+        auto modifyFunction = []( int x ) { return 2 * x + 1; };
 
         REQUIRE( params.getVariable<int>( "i" ) == 0 );
         REQUIRE( params.getVariable<int>( "x" ) == 1 );
         REQUIRE( params.getVariable<float>( "x" ) == 1 );
-        params.visit( modifyInts {} );
-        REQUIRE( params.getVariable<int>( "i" ) == ( 2 * i + 1 ) );
-        REQUIRE( params.getVariable<int>( "x" ) == ( 2 * 1 + 1 ) );
+        params.visit( modifyInts {}, modifyFunction );
+        REQUIRE( params.getVariable<int>( "i" ) == modifyFunction( i ) );
+        REQUIRE( params.getVariable<int>( "x" ) == modifyFunction( 1 ) );
         REQUIRE( params.getVariable<float>( "x" ) == 1 );
         print_container( "Final set", params );
     }
