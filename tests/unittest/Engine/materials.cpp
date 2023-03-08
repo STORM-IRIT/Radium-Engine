@@ -69,22 +69,22 @@ TEST_CASE( "Engine/Data/Materials", "[Engine][Engine/Data][Materials]" ) {
 
         auto& pvc =
             bpParameters.getParameter<RenderParameters::BoolParameter>( "material.hasPerVertexKd" );
-        REQUIRE( pvc.m_value == bp.isColoredByVertexAttrib() );
+        REQUIRE( pvc == bp.isColoredByVertexAttrib() );
 
         auto& alp =
             bpParameters.getParameter<RenderParameters::ScalarParameter>( "material.alpha" );
-        REQUIRE( alp.m_value == bp.m_alpha );
+        REQUIRE( alp == bp.m_alpha );
 
         /* changing parameter values */
-        bpParameters.addParameter( "material.hasPerVertexKd", !pvc.m_value );
+        bpParameters.addParameter( "material.hasPerVertexKd", !pvc );
         bpParameters.addParameter( "material.alpha", 0.5_ra );
-        REQUIRE( pvc.m_value != bp.isColoredByVertexAttrib() );
-        REQUIRE( alp.m_value != bp.m_alpha );
+        REQUIRE( pvc != bp.isColoredByVertexAttrib() );
+        REQUIRE( alp != bp.m_alpha );
 
         /* Updating material parameters from GL parameters */
         bp.updateFromParameters();
-        REQUIRE( pvc.m_value == bp.isColoredByVertexAttrib() );
-        REQUIRE( alp.m_value == bp.m_alpha );
+        REQUIRE( pvc == bp.isColoredByVertexAttrib() );
+        REQUIRE( alp == bp.m_alpha );
         LOG( Ra::Core::Utils::logINFO ) << "Blinn-Phong material tested.\n";
     }
 
@@ -105,15 +105,15 @@ TEST_CASE( "Engine/Data/Materials", "[Engine][Engine/Data][Materials]" ) {
             "material.perVertexColor" ) );
         auto& pvc = matParameters.getParameter<RenderParameters::BoolParameter>(
             "material.perVertexColor" );
-        REQUIRE( pvc.m_value == mat.isColoredByVertexAttrib() );
+        REQUIRE( pvc == mat.isColoredByVertexAttrib() );
 
         /* changing parameter values */
-        matParameters.addParameter( "material.perVertexColor", !pvc.m_value );
-        REQUIRE( pvc.m_value != mat.isColoredByVertexAttrib() );
+        matParameters.addParameter( "material.perVertexColor", !pvc );
+        REQUIRE( pvc != mat.isColoredByVertexAttrib() );
 
         /* Updating material parameters from GL parameters */
         mat.updateFromParameters();
-        REQUIRE( pvc.m_value == mat.isColoredByVertexAttrib() );
+        REQUIRE( pvc == mat.isColoredByVertexAttrib() );
         LOG( Ra::Core::Utils::logINFO ) << "Lambertian material tested.\n";
     }
 
@@ -134,15 +134,15 @@ TEST_CASE( "Engine/Data/Materials", "[Engine][Engine/Data][Materials]" ) {
             "material.perVertexColor" ) );
         auto& pvc = matParameters.getParameter<RenderParameters::BoolParameter>(
             "material.perVertexColor" );
-        REQUIRE( pvc.m_value == mat.isColoredByVertexAttrib() );
+        REQUIRE( pvc == mat.isColoredByVertexAttrib() );
 
         /* changing parameter values */
-        matParameters.addParameter( "material.perVertexColor", !pvc.m_value );
-        REQUIRE( pvc.m_value != mat.isColoredByVertexAttrib() );
+        matParameters.addParameter( "material.perVertexColor", !pvc );
+        REQUIRE( pvc != mat.isColoredByVertexAttrib() );
 
         /* Updating material parameters from GL parameters */
         mat.updateFromParameters();
-        REQUIRE( pvc.m_value == mat.isColoredByVertexAttrib() );
+        REQUIRE( pvc == mat.isColoredByVertexAttrib() );
         LOG( Ra::Core::Utils::logINFO ) << "Plain material tested.\n";
     }
 
@@ -175,15 +175,15 @@ TEST_CASE( "Engine/Data/Materials", "[Engine][Engine/Data][Materials]" ) {
             matParameters.containsParameter<RenderParameters::ScalarParameter>( "material.g" ) );
 
         auto& g = matParameters.getParameter<RenderParameters::ScalarParameter>( "material.g" );
-        REQUIRE( g.m_value == 0_ra );
+        REQUIRE( g == 0_ra );
 
         /* changing parameter values */
         matParameters.addParameter( "material.g", 0.5_ra );
-        REQUIRE( g.m_value != mat.m_g );
+        REQUIRE( g != mat.m_g );
 
         /* Updating material parameters from GL parameters */
         mat.updateFromParameters();
-        REQUIRE( g.m_value == mat.m_g );
+        REQUIRE( g == mat.m_g );
         LOG( Ra::Core::Utils::logINFO ) << "Volumetric material tested.\n";
     }
 
