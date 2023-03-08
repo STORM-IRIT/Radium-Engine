@@ -36,7 +36,7 @@ class RA_ENGINE_API RenderParameters final
 {
   public:
     /**
-     * Special type for Texture parameter
+     * \brief Special type for Texture parameter
      */
     using TextureInfo = std::pair<Data::Texture*, int>;
 
@@ -321,11 +321,14 @@ class RA_ENGINE_API RenderParameters final
     template <typename V, typename T>
     void visit( V& visitor, T&& userParams ) const;
 
+    /// \brief Get access to the parameter storage
+    /// \return the Core::VariableSet storing the parameters
+    /// \{
     const Core::VariableSet& getStorage() const { return m_parameterSets; }
     Core::VariableSet& getModifiableStorage() const {
         return const_cast<Core::VariableSet&>( m_parameterSets );
     }
-
+    /// \}
   private:
     /**
      * \brief Static visitor to bind the stored parameters.
@@ -335,18 +338,21 @@ class RA_ENGINE_API RenderParameters final
     class StaticParameterBinder
     {
       public:
+        /// Type supported by the binder
         using types = BindableTypes;
-        template <typename T>
-        void operator()( const std::string& name, const T& p, const Data::ShaderProgram* shader ) {
-            shader->setUniform( name.c_str(), p );
-        }
 
+        /**
+         * \brief Binds a color parameter as this requires special access to the parameter value.
+         */
         void operator()( const std::string& name,
                          const Ra::Core::Utils::Color& p,
                          const Data::ShaderProgram* shader ) {
             shader->setUniform( name.c_str(), Ra::Core::Utils::Color::VectorType( p ) );
         }
 
+        /**
+         * \brief Binds a Texture parameter as this requires special access to the parameter value.
+         */
         void operator()( const std::string& name,
                          const RenderParameters::TextureInfo& p,
                          const Data::ShaderProgram* shader ) {
@@ -357,14 +363,29 @@ class RA_ENGINE_API RenderParameters final
             }
         }
 
+        /**
+         * \brief Binds a embedded RenderParameter.
+         * This allows to build hierarchies of RenderParameters.
+         */
         void operator()( const std::string& /*name*/,
                          const std::reference_wrapper<RenderParameters>& p,
                          const Data::ShaderProgram* shader ) {
             p.get().bind( shader );
         }
+
+        /**
+         * \brief Bind any type of parameter that do not requires special access
+         */
+        template <typename T>
+        void operator()( const std::string& name, const T& p, const Data::ShaderProgram* shader ) {
+            shader->setUniform( name.c_str(), p );
+        }
     };
 
-    mutable StaticParameterBinder m_binder;
+    /** \brief Functor to bind parameters
+     * There will be only one StaticParameterBinder used by all RenderParameters
+     */
+    static StaticParameterBinder s_binder;
 
     /**
      * Storage of the parameters
@@ -505,8 +526,10 @@ inline const RenderParameters::UniformBindableSet<T>& RenderParameters::getParam
 template <typename T>
 inline bool RenderParameters::hasParameterSet() const {
     if constexpr ( std::is_enum<T>::value ) {
-        return false; // m_parameterSets.existsVariableType<TParameter<typename
-                      // std::underlying_type<typename T::value_type>::type>>();
+        // Do not return
+        // m_parameterSets.existsVariableType< typename std::underlying_type< T >::type >();
+        // to prevent misusage of this function. The user should infer this with another logic.
+        return false;
     }
     else {
         return m_parameterSets.existsVariableType<T>();
