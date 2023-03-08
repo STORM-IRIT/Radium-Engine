@@ -715,13 +715,12 @@ void AllPrimitivesComponent::initialize() {
                 }
 
                 std::shared_ptr<Data::Material> roMaterial;
-                const Core::Asset::MaterialData* md =
-                    gd->hasMaterial() ? &( gd->getMaterial() ) : nullptr;
+                auto mm = gd->hasMaterial() ? gd->getMaterial().getMaterialModel() : nullptr;
                 // First extract the material from asset or create a default one
-                if ( md != nullptr ) {
+                if ( mm != nullptr ) {
                     auto converter =
-                        Data::EngineMaterialConverters::getMaterialConverter( md->getType() );
-                    auto mat = converter.second( md );
+                        Data::EngineMaterialConverters::getMaterialConverter( mm->getType() );
+                    auto mat = converter.second( mm.get() );
                     roMaterial.reset( mat );
                 }
                 else {

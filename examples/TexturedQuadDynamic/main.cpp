@@ -5,8 +5,8 @@
 #include <Gui/Viewer/Viewer.hpp>
 
 // include the Engine/entity/component interface
-#include <Core/Asset/BlinnPhongMaterialData.hpp>
 #include <Core/Geometry/MeshPrimitives.hpp>
+#include <Core/Material/BlinnPhongMaterialModel.hpp>
 #include <Engine/Data/TextureManager.hpp>
 #include <Engine/Scene/EntityManager.hpp>
 #include <Engine/Scene/GeometryComponent.hpp>
@@ -48,17 +48,18 @@ int main( int argc, char* argv[] ) {
     //! [Create an entity and component to draw or data]
     auto e = app.m_engine->getEntityManager()->createEntity( "Textured quad" );
 
-    Ra::Core::Asset::BlinnPhongMaterialData matData( "myMaterialData" );
+    auto matData =
+        std::make_shared<Ra::Core::Material::BlinnPhongMaterialModel>( "myMaterialData" );
     // remove glossy highlight
-    matData.m_specular    = Ra::Core::Utils::Color::Black();
-    matData.m_hasSpecular = true;
+    matData->m_ks          = Ra::Core::Utils::Color::Black();
+    matData->m_hasSpecular = true;
 
-    matData.m_hasTexDiffuse = true;
+    matData->m_hasTexDiffuse = true;
     // this name has to be the same as texManager added texture name
-    matData.m_texDiffuse = "myTexture";
+    matData->m_texDiffuse = "myTexture";
 
     // the entity get's this new component ownership. a bit wired since hidden in ctor.
-    new Ra::Engine::Scene::TriangleMeshComponent( "Quad Mesh", e, std::move( quad ), &matData );
+    new Ra::Engine::Scene::TriangleMeshComponent( "Quad Mesh", e, std::move( quad ), matData );
     //! [Create an entity and component to draw or data]
 
     //! [Tell the window that something is to be displayed]

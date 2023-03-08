@@ -3,8 +3,8 @@
 #include <Gui/RadiumWindow/SimpleWindowFactory.hpp>
 
 // include the core geometry/appearance interface
-#include <Core/Asset/BlinnPhongMaterialData.hpp>
 #include <Core/Geometry/MeshPrimitives.hpp>
+#include <Core/Material/BlinnPhongMaterialModel.hpp>
 
 // include the Engine/entity/component/system/animation interface
 #include <Engine/FrameInfo.hpp>
@@ -49,10 +49,11 @@ class KeyFramedGeometryComponent : public Ra::Engine::Scene::TriangleMeshCompone
     inline KeyFramedGeometryComponent( const std::string& name,
                                        Ra::Engine::Scene::Entity* entity,
                                        Ra::Core::Geometry::TriangleMesh&& mesh ) :
-        Ra::Engine::Scene::TriangleMeshComponent( name,
-                                                  entity,
-                                                  std::move( mesh ),
-                                                  new Ra::Core::Asset::BlinnPhongMaterialData {} ),
+        Ra::Engine::Scene::TriangleMeshComponent(
+            name,
+            entity,
+            std::move( mesh ),
+            std::make_shared<Ra::Core::Material::BlinnPhongMaterialModel>( name + "Material" ) ),
         m_transform( 0_ra, Ra::Core::Transform::Identity() ) {
         //! [Creating the transform KeyFrames]
         Ra::Core::Transform T = Ra::Core::Transform::Identity();
