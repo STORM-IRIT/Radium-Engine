@@ -17,15 +17,7 @@ VariableSet& VariableSet::operator=( const VariableSet& other ) {
     m_sizeFunctions         = other.m_sizeFunctions;
     m_visitFunctions        = other.m_visitFunctions;
     m_storedType            = other.m_storedType;
-#ifdef STORAGE_AS_TEMPLATE_MEMBER
-    m_copyFunctions = other.m_copyFunctions;
-    m_moveFunctions = other.m_moveFunctions;
-    for ( auto&& copyFunction : m_copyFunctions ) {
-        copyFunction( other, *this );
-    }
-#else
-    m_variables = other.m_variables;
-#endif
+    m_variables             = other.m_variables;
     return *this;
 }
 
@@ -37,15 +29,7 @@ VariableSet& VariableSet::operator=( VariableSet&& other ) {
     m_sizeFunctions         = std::move( other.m_sizeFunctions );
     m_visitFunctions        = std::move( other.m_visitFunctions );
     m_storedType            = std::move( other.m_storedType );
-#ifdef STORAGE_AS_TEMPLATE_MEMBER
-    m_copyFunctions = std::move( other.m_copyFunctions );
-    m_moveFunctions = std::move( other.m_moveFunctions );
-    for ( auto&& moveFunction : m_moveFunctions ) {
-        moveFunction( other, *this );
-    }
-#else
-    m_variables = std::move( other.m_variables );
-#endif
+    m_variables             = std::move( other.m_variables );
     return *this;
 }
 
@@ -59,12 +43,7 @@ void VariableSet::clear() {
     m_sizeFunctions.clear();
     m_visitFunctions.clear();
     m_storedType.clear();
-#ifdef STORAGE_AS_TEMPLATE_MEMBER
-    m_copyFunctions.clear();
-    m_moveFunctions.clear();
-#else
     m_variables.clear();
-#endif
 }
 
 void VariableSet::mergeKeepVariables( const VariableSet& from ) {
