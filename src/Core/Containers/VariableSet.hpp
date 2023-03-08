@@ -496,20 +496,8 @@ class RA_CORE_API VariableSet
 
     /// Storage management
     /// \{
-//#define STORAGE_AS_TEMPLATE_MEMBER
-#ifdef STORAGE_AS_TEMPLATE_MEMBER
-    /// The core of a container logic : a template member variable
-    /// Warning : this does not work on windows accross DLLs
-    template <typename T>
-    static std::unordered_map<const VariableSet*, VariableContainer<T>> m_variables;
-
-    /// need to store copy/move functor
-    std::vector<std::function<void( const VariableSet&, VariableSet& )>> m_copyFunctions;
-    std::vector<std::function<void( VariableSet&, VariableSet& )>> m_moveFunctions;
-#else
     // Storage of the variable in a type-erased associative container
     mutable std::unordered_map<std::type_index, std::any> m_variables;
-#endif
 
     /// \brief Initialize an empty storage for variables of type T
     /// \tparam T
@@ -533,27 +521,6 @@ class RA_CORE_API VariableSet
 // Storage management
 // ------------------------------------------------------------------------------------------
 
-#ifdef STORAGE_AS_TEMPLATE_MEMBER
-/// The core of a container logic : a template member variable
-template <typename T>
-std::unordered_map<const VariableSet*, VariableSet::VariableContainer<T>> VariableSet::m_variables;
-
-template <typename T>
-void VariableSet::createVariableStorage() {
-    // Nothing to do, the template will be instanced when needed
-}
-
-template <typename T>
-VariableSet::VariableContainer<T>& VariableSet::getVariableStorage() const {
-    return m_variables<T>[this];
-}
-
-template <typename T>
-void VariableSet::removeVariableStorage() {
-    m_variables<T>.erase( this );
-}
-
-#else
 template <typename T>
 void VariableSet::createVariableStorage() {
     auto& storage = m_variables[std::type_index { typeid( T ) }];
@@ -576,7 +543,7 @@ template <typename T>
 void VariableSet::removeVariableStorage() {
     m_variables.erase( std::type_index { typeid( T ) } );
 }
-#endif
+
 // ------------------------------------------------------------------------------------------
 // Templated methods definition
 // ------------------------------------------------------------------------------------------
@@ -664,16 +631,6 @@ void VariableSet::addVariableType() {
     createVariableStorage<T>();
     // used to remove all stored data at deletion time
     m_clearFunctions.emplace_back( []( VariableSet& c ) { c.removeVariableStorage<T>(); } );
-#ifdef STORAGE_AS_TEMPLATE_MEMBER
-    // used to copy the stored data when copying the object
-    m_copyFunctions.emplace_back( []( const VariableSet& from, VariableSet& to ) {
-        m_variables<T>[&to] = m_variables<T>[&from];
-    } );
-    m_moveFunctions.emplace_back( []( VariableSet& from, VariableSet& to ) {
-        m_variables<T>[&to] = std::move( m_variables<T>[&from] );
-        m_variables<T>.erase( &from );
-    } );
-#endif
     // used to merge (keep) the stored data from container "from" to container "to"
     m_mergeKeepFunctions.emplace_back( []( const VariableSet& from, VariableSet& to ) {
         if ( !to.existsVariableType<T>() ) { to.addVariableType<T>(); }
@@ -720,13 +677,8 @@ void VariableSet::addVariableType() {
 
 template <typename T>
 bool VariableSet::existsVariableType() const {
-#ifdef STORAGE_AS_TEMPLATE_MEMBER
-    auto iter = m_variables<T>.find( this );
-    return iter != m_variables<T>.cend();
-#else
     auto iter = m_variables.find( std::type_index { typeid( T ) } );
     return iter != m_variables.cend();
-#endif
 }
 
 template <typename T>
@@ -736,10 +688,6 @@ bool VariableSet::deleteAllVariables() {
         auto it   = std::find( m_storedType.begin(), m_storedType.end(), tidx );
         auto idx  = it - m_storedType.begin();
         m_clearFunctions.erase( m_clearFunctions.begin() + idx );
-#ifdef STORAGE_AS_TEMPLATE_MEMBER
-        m_copyFunctions.erase( m_copyFunctions.begin() + idx );
-        m_moveFunctions.erase( m_moveFunctions.begin() + idx );
-#endif
         m_mergeKeepFunctions.erase( m_mergeKeepFunctions.begin() + idx );
         m_mergeReplaceFunctions.erase( m_mergeReplaceFunctions.begin() + idx );
         m_sizeFunctions.erase( m_sizeFunctions.begin() + idx );
