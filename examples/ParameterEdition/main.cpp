@@ -22,42 +22,40 @@ enum Values : unsigned int { VALUE_0 = 10, VALUE_1 = 20, VALUE_2 = 30 };
 template <typename RP>
 void printParameterValue( const RenderParameters& parameters, const ::std::string& p ) {
     if ( parameters.containsParameter<RP>( p ) )
-        std::cout << parameters.getParameter<RP>( p ).m_value << " ("
-                  << Utils::demangleType<typename RP::value_type>() << ")";
+        std::cout << parameters.getParameter<RP>( p ) << " (" << Utils::demangleType<RP>() << ")";
 }
 
 template <typename T, int N>
 void printVectorParameterValue( const RenderParameters& parameters, const ::std::string& p ) {
-    using RP = RenderParameters::TParameter<Eigen::Matrix<T, N, 1>>;
+    using RP = Eigen::Matrix<T, N, 1>;
     if ( parameters.containsParameter<RP>( p ) )
-        std::cout << parameters.getParameter<RP>( p ).m_value.transpose() << " ("
-                  << Utils::demangleType<typename RP::value_type>() << ")";
+        std::cout << parameters.getParameter<RP>( p ).transpose() << " ("
+                  << Utils::demangleType<RP>() << ")";
 }
 
 void printColorParameterValue( const RenderParameters& parameters, const ::std::string& p ) {
     using RP = RenderParameters::ColorParameter;
     if ( parameters.containsParameter<RP>( p ) )
-        std::cout << parameters.getParameter<RP>( p ).m_value.transpose() << " ("
-                  << Utils::demangleType<typename RP::value_type>() << ")";
+        std::cout << parameters.getParameter<RP>( p ).transpose() << " ("
+                  << Utils::demangleType<RP>() << ")";
 }
 
 template <typename T, int N, int M>
 void printMatrixParameterValue( const RenderParameters& parameters, const ::std::string& p ) {
-    using RP = RenderParameters::TParameter<Eigen::Matrix<T, N, M>>;
+    using RP = Eigen::Matrix<T, N, M>;
     if ( parameters.containsParameter<RP>( p ) )
         std::cout << "\n"
-                  << parameters.getParameter<RP>( p ).m_value << "\n ("
-                  << Utils::demangleType<typename RP::value_type>() << ")";
+                  << parameters.getParameter<RP>( p ) << "\n (" << Utils::demangleType<RP>() << ")";
 }
 
 template <typename T>
 void printCollectionParameterValue( const RenderParameters& parameters, const ::std::string& p ) {
-    using RP = RenderParameters::TParameter<std::vector<T>>;
+    using RP = std::vector<T>;
     if ( parameters.containsParameter<RP>( p ) ) {
         std::cout << "\n";
-        auto v = parameters.getParameter<RP>( p ).m_value;
+        auto v = parameters.getParameter<RP>( p );
         std::copy( v.begin(), v.end(), std::ostream_iterator<T>( std::cout, " " ) );
-        std::cout << "\n (" << Utils::demangleType<typename RP::value_type>() << ")";
+        std::cout << "\n (" << Utils::demangleType<RP>() << ")";
     }
 }
 
@@ -67,7 +65,7 @@ void printAllParameters( const RenderParameters& parameters ) {
     std::cout << "Parameters for type " << Utils::demangleType<T>() << " : " << params.size()
               << "\n";
     for ( const auto& [key, p] : params ) {
-        std::cout << "\t" << key << " = " << p.m_value << "\n";
+        std::cout << "\t" << key << " = " << p << "\n";
     }
 }
 
