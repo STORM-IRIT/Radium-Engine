@@ -44,7 +44,7 @@ void RenderParameters::addParameter( const std::string& name, const std::string&
             << "RenderParameters, try to set enum value from string without converter. Adding "
                "non-bindable TParameter<string> "
             << name << " " << value;
-        m_parameterSets.insertOrAssignVariable( name, TParameter<std::string>( name, value ) );
+        m_parameterSets.insertOrAssignVariable( name, value );
     }
 }
 

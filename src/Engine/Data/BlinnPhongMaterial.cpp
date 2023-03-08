@@ -72,18 +72,14 @@ void BlinnPhongMaterial::updateGL() {
 
 void BlinnPhongMaterial::updateFromParameters() {
     auto& renderParameters = getParameters();
-    m_kd = renderParameters.getParameter<RenderParameters::ColorParameter>( "material.kd" ).m_value;
+    m_kd = renderParameters.getParameter<RenderParameters::ColorParameter>( "material.kd" );
     m_perVertexColor =
-        renderParameters.getParameter<RenderParameters::BoolParameter>( "material.hasPerVertexKd" )
-            .m_value;
+        renderParameters.getParameter<RenderParameters::BoolParameter>( "material.hasPerVertexKd" );
     m_renderAsSplat =
-        renderParameters.getParameter<RenderParameters::BoolParameter>( "material.renderAsSplat" )
-            .m_value;
-    m_ks = renderParameters.getParameter<RenderParameters::ColorParameter>( "material.ks" ).m_value;
-    m_ns =
-        renderParameters.getParameter<RenderParameters::ScalarParameter>( "material.ns" ).m_value;
-    m_alpha = renderParameters.getParameter<RenderParameters::ScalarParameter>( "material.alpha" )
-                  .m_value;
+        renderParameters.getParameter<RenderParameters::BoolParameter>( "material.renderAsSplat" );
+    m_ks    = renderParameters.getParameter<RenderParameters::ColorParameter>( "material.ks" );
+    m_ns    = renderParameters.getParameter<RenderParameters::ScalarParameter>( "material.ns" );
+    m_alpha = renderParameters.getParameter<RenderParameters::ScalarParameter>( "material.alpha" );
 }
 
 bool BlinnPhongMaterial::isTransparent() const {
