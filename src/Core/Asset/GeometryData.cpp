@@ -70,7 +70,7 @@ void GeometryData::displayInfo() const {
     LOG( logINFO ) << " Color ?        : " << hasAttrib( MeshAttrib::VERTEX_COLOR );
     LOG( logINFO ) << " Material ?     : " << ( ( !hasMaterial() ) ? "NO" : "YES" );
 
-    if ( hasMaterial() ) { m_material->displayInfo(); }
+    if ( hasMaterial() ) { m_material.displayInfo(); }
 }
 } // namespace Asset
 } // namespace Core

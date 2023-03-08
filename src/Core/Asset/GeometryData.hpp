@@ -75,7 +75,7 @@ class RA_CORE_API GeometryData : public AssetData
     inline const MaterialData& getMaterial() const;
 
     /// Set the MaterialData for the object.
-    inline void setMaterial( MaterialData* material );
+    inline void setMaterial( MaterialData material );
 
     /// Read/write access to the multiIndexedGeometry;
     inline Geometry::MultiIndexedGeometry& getGeometry();
@@ -147,7 +147,7 @@ class RA_CORE_API GeometryData : public AssetData
     int m_primitiveCount { -1 };
 
     /// The MaterialData for the object.
-    std::shared_ptr<MaterialData> m_material;
+    MaterialData m_material;
 };
 
 inline void GeometryData::setName( const std::string& name ) {
