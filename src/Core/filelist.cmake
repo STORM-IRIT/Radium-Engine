@@ -35,6 +35,9 @@ set(core_sources
     Geometry/TriangleMesh.cpp
     Geometry/Volume.cpp
     Geometry/deprecated/TopologicalMesh.cpp
+    Material/BlinnPhongMaterialModel.cpp
+    Material/MaterialModel.cpp
+    Material/SimpleMaterialModel.cpp
     Resources/Resources.cpp
     Tasks/TaskQueue.cpp
     Utils/Attribs.cpp
@@ -101,6 +104,9 @@ set(core_headers
     Geometry/TriangleMesh.hpp
     Geometry/Volume.hpp
     Geometry/deprecated/TopologicalMesh.hpp
+    Material/BlinnPhongMaterialModel.hpp
+    Material/MaterialModel.hpp
+    Material/SimpleMaterialModel.hpp
     Math/DualQuaternion.hpp
     Math/Interpolation.hpp
     Math/LinearAlgebra.hpp
