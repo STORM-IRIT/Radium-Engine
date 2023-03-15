@@ -42,16 +42,17 @@ namespace Core {
 ///
 /// Visiting the container can be made
 ///  - using a statically typed visitor : accepted types are defined at compile time,
-/// as template parameters, and the visit is pre-processed by the compiler.
+/// as Ra::Core::Utils::TypeList, and the visit is pre-processed by the compiler.
 ///  - using a dynamically configurable visitor where functor accepting types can be added/removed
 /// at runtime. This kind of visit is a little more expensive while being more configurable.
 /// Tests using empty processing (to evaluate only the cost of visiting the collection) on different
 /// types showed a visit from 5 to 8 times slower. This penalty becomes quite low as soon as the
 /// processing during the visit is more complex
 ///
-/// The visiting of the collection can accept one user parameter to forward to each visit function.
+/// The visitor of the collection can accept one user parameter to be forwarded to each visit
+/// function.
 /// This parameter could be of any type, knowing the same parameter will be forwarded to all
-/// processing method when visiting a  variable.
+/// processing method when visiting a variable.
 /// Some constraints on user provided parameter depends on the visiting strategy
 ///   - For static visitors, this parameter is strongly typed and ALL the visiting function should
 ///     be called with the profile void(const std::string&, [const]T[&], [const]U&&), for any
@@ -130,8 +131,8 @@ class RA_CORE_API VariableSet
     // ----------------------------------------------------------
     /// Constructors, destructors
     /// \{
-    VariableSet() = default;
-    ~VariableSet() { clear(); }
+    VariableSet()  = default;
+    ~VariableSet() = default;
     /// A VariableSet is copyable
     VariableSet( const VariableSet& other ) { *this = other; }
     /// A VariableSet is movable
@@ -185,10 +186,11 @@ class RA_CORE_API VariableSet
     std::pair<VariableHandle<T>, bool> insertVariable( const std::string& name, const T& value );
 
     /// \brief get the value of the given variable
-    /// \return a const reference to the value.
-    /// \pre The element \b name must exists with type \b T.
+    /// \return a reference to the value.
+    /// \pre The element \b name must exists with type \b T. If not verified (assert in debug mode)
+    /// std::bad_any_cast exception could be thrown by the underlying management of type erasure
     template <typename T>
-    const T& getVariable( const std::string& name ) const;
+    T& getVariable( const std::string& name ) const;
 
     /// \brief get the handle on the variable with the given name
     /// \tparam T the type of the variable
@@ -213,7 +215,8 @@ class RA_CORE_API VariableSet
 
     /// \brief Remove a variable, i.e. a name->value association
     /// \return true if the variable was removed, false if
-    /// \pre The element \b name must exists with type \b T.
+    /// \pre The element \b name must exists with type \b T. If not verified (assert in debug mode)
+    /// std::bad_any_cast exception could be thrown by the underlying management of type erasure
     template <typename T>
     bool deleteVariable( const std::string& name );
 
@@ -222,7 +225,8 @@ class RA_CORE_API VariableSet
     /// \param handle the variable handle
     /// \return true variable was removed, false if not.
     /// If the variable was removed, handle is invalidated
-    /// \pre the handle must be valid
+    /// \pre the handle must be valid. If not verified (assert in debug mode)
+    /// std::bad_any_cast exception could be thrown by the underlying management of type erasure
     template <typename H>
     bool deleteVariable( H& handle );
 
@@ -255,7 +259,8 @@ class RA_CORE_API VariableSet
     /// \brief Get the whole container for variables of a given type
     /// \tparam T The variable type to get
     /// \return a reference to the storage of the mapping name->value for the given type.
-    /// \pre existsVariableType<T>()
+    /// \pre existsVariableType<T>(). If not verified (assert in debug mode) std::bad_any_cast
+    /// exception will be thrown by the underlying management of type erasure
     template <typename T>
     VariableContainer<T>& getAllVariables() const;
 
@@ -263,8 +268,8 @@ class RA_CORE_API VariableSet
     /// variable. \tparam H Type of the variable handle, should be VariableHandle<T> for some type T
     /// \param handle the handle to an existing variable
     /// \return a reference to the storage of the mapping name->value for the given type.
-    /// \pre existsVariableType<HandledType<H>>()
-    /// variable.
+    /// \pre existsVariableType<HandledType<H>>(). If not verified (assert in debug mode)
+    /// std::bad_any_cast exception will be thrown by the underlying management of type erasure
     template <typename H>
     auto getAllVariablesFromHandle( const H& handle )
         -> VariableContainer<VariableTypeFromHandle<H>>&;
@@ -420,7 +425,7 @@ class RA_CORE_API VariableSet
     /// \tparam T The type to index
     /// \return the identifier index of the type
     template <typename T>
-    static auto getTypeIndex() -> std::type_index;
+    static auto getVariableVisitTypeIndex() -> std::type_index;
 
     /// \brief Add support for a given type.
     /// \tparam T The type to manage
@@ -485,8 +490,6 @@ class RA_CORE_API VariableSet
             const DynamicVisitorBase& )>;
 
     // TODO, add functions as unordered map, indexed by typeindex, instead of vectors ?
-    std::vector<ClearFunctionType> m_clearFunctions;
-    // no need to move and copy, just move or copy the std::any
     std::vector<MergeFunctionType> m_mergeKeepFunctions;
     std::vector<MergeFunctionType> m_mergeReplaceFunctions;
     std::vector<SizeFunctionType> m_sizeFunctions;
@@ -523,20 +526,14 @@ class RA_CORE_API VariableSet
 
 template <typename T>
 void VariableSet::createVariableStorage() {
-    auto& storage = m_variables[std::type_index { typeid( T ) }];
-    if ( !storage.has_value() ) { storage = VariableContainer<T> {}; }
-    else {
-        LOG( Ra::Core::Utils::logWARNING )
-            << " WARNING : storage is not empty and createVariableStorage was called !!!";
-        std::any_cast<VariableContainer<T>&>( storage ).clear();
-    }
+    assert( !existsVariableType<T>() );
+    m_variables[std::type_index { typeid( T ) }].emplace<VariableContainer<T>>();
 }
 
 template <typename T>
 VariableSet::VariableContainer<T>& VariableSet::getVariableStorage() const {
     assert( existsVariableType<T>() );
-    auto& storage = m_variables[std::type_index { typeid( T ) }];
-    return std::any_cast<VariableContainer<T>&>( storage );
+    return std::any_cast<VariableContainer<T>&>( m_variables[std::type_index { typeid( T ) }] );
 }
 
 template <typename T>
@@ -553,47 +550,38 @@ VariableSet::insertVariable( const std::string& name, const T& value ) {
     // If it is the first parameter of the given type, first register the type
     if ( !existsVariableType<T>() ) { addVariableType<T>(); }
     // insert the parameter.
-    auto& storage = getVariableStorage<T>();
-    auto inserted = storage.insert( { name, value } );
-    return inserted;
+    return getVariableStorage<T>().insert( { name, value } );
 }
 
 template <typename T>
-const T& VariableSet::getVariable( const std::string& name ) const {
+T& VariableSet::getVariable( const std::string& name ) const {
     assert( existsVariable<T>( name ) );
-    auto it = getVariableHandle<T>( name );
-    return it->second;
+    return getVariableHandle<T>( name )->second;
 }
 
 template <typename T>
 VariableSet::VariableHandle<T> VariableSet::getVariableHandle( const std::string& name ) const {
     assert( existsVariableType<T>() );
-    auto& storage = getVariableStorage<T>();
-    auto it       = storage.find( name );
-    return it;
+    return getVariableStorage<T>().find( name );
 }
 
 template <typename H>
 bool VariableSet::isHandleValid( const H& handle ) const {
     if ( !existsVariableType<VariableTypeFromHandle<H>>() ) { return false; }
-    auto& storage = getVariableStorage<VariableTypeFromHandle<H>>();
-    return handle != storage.end();
+    return handle != getVariableStorage<VariableTypeFromHandle<H>>().end();
 }
 
 template <typename T>
 std::pair<VariableSet::VariableHandle<T>, bool>
 VariableSet::insertOrAssignVariable( const std::string& name, const T& value ) {
     if ( !existsVariableType<T>() ) { addVariableType<T>(); }
-    auto& storage = getVariableStorage<T>();
-    auto result   = storage.insert_or_assign( name, value );
-    return result;
+    return getVariableStorage<T>().insert_or_assign( name, value );
 }
 
 template <typename T>
 bool VariableSet::deleteVariable( const std::string& name ) {
     assert( existsVariable<T>( name ) );
-    auto& storage = getVariableStorage<T>();
-    auto removed  = storage.erase( name ) > 0;
+    auto removed = getVariableStorage<T>().erase( name ) > 0;
     // remove the type related function when the container has no more data of this type
     if ( numberOf<T>() == 0 ) { deleteAllVariables<T>(); }
     return removed;
@@ -602,9 +590,8 @@ bool VariableSet::deleteVariable( const std::string& name ) {
 template <typename H>
 bool VariableSet::deleteVariable( H& handle ) {
     assert( isHandleValid( handle ) );
-    auto varname  = handle->first;
-    auto& storage = getVariableStorage<VariableTypeFromHandle<H>>();
-    handle        = storage.end();
+    auto varname = handle->first;
+    handle       = getVariableStorage<VariableTypeFromHandle<H>>().end();
     return deleteVariable<VariableTypeFromHandle<H>>( varname );
 }
 
@@ -619,7 +606,7 @@ bool VariableSet::existsVariable( const std::string& name ) const {
 }
 
 template <typename T>
-auto VariableSet::getTypeIndex() -> std::type_index {
+auto VariableSet::getVariableVisitTypeIndex() -> std::type_index {
     static std::type_index idT(
         typeid( std::reference_wrapper<typename VariableSet::VariableContainer<T>::value_type> ) );
     return idT;
@@ -629,8 +616,6 @@ template <typename T>
 void VariableSet::addVariableType() {
     assert( !existsVariableType<T>() );
     createVariableStorage<T>();
-    // used to remove all stored data at deletion time
-    m_clearFunctions.emplace_back( []( VariableSet& c ) { c.removeVariableStorage<T>(); } );
     // used to merge (keep) the stored data from container "from" to container "to"
     m_mergeKeepFunctions.emplace_back( []( const VariableSet& from, VariableSet& to ) {
         if ( !to.existsVariableType<T>() ) { to.addVariableType<T>(); }
@@ -655,7 +640,7 @@ void VariableSet::addVariableType() {
     m_visitFunctions.emplace_back(
         []( const VariableSet& c, const DynamicVisitorBase& v )
             -> std::pair<bool, std::function<void( DynamicVisitorBase&, std::any && )>> {
-            auto id = getTypeIndex<T>();
+            auto id = getVariableVisitTypeIndex<T>();
             if ( v.accept( id ) ) {
                 auto& storage = c.getVariableStorage<T>();
                 auto coll     = std::ref( storage );
@@ -687,7 +672,6 @@ bool VariableSet::deleteAllVariables() {
         auto tidx = std::type_index( typeid( T ) );
         auto it   = std::find( m_storedType.begin(), m_storedType.end(), tidx );
         auto idx  = it - m_storedType.begin();
-        m_clearFunctions.erase( m_clearFunctions.begin() + idx );
         m_mergeKeepFunctions.erase( m_mergeKeepFunctions.begin() + idx );
         m_mergeReplaceFunctions.erase( m_mergeReplaceFunctions.begin() + idx );
         m_sizeFunctions.erase( m_sizeFunctions.begin() + idx );
@@ -709,15 +693,12 @@ template <typename H>
 auto VariableSet::getAllVariablesFromHandle( const H& )
     -> VariableContainer<VariableTypeFromHandle<H>>& {
     assert( existsVariableType<VariableTypeFromHandle<H>>() );
-    return getAllVariables<VariableTypeFromHandle<H>>();
+    return getVariableStorage<VariableTypeFromHandle<H>>();
 }
 
 template <typename T>
 size_t VariableSet::numberOf() const {
-    if ( existsVariableType<T>() ) {
-        auto& storage = getVariableStorage<T>();
-        return storage.size();
-    }
+    if ( existsVariableType<T>() ) { return getVariableStorage<T>().size(); }
     return 0;
 }
 
@@ -792,7 +773,7 @@ bool VariableSet::DynamicVisitor::addOperator( F&& f ) {
 
 template <typename T>
 bool VariableSet::DynamicVisitor::hasOperator() {
-    return m_visitorOperator.find( getTypeIndex<T>() ) != m_visitorOperator.end();
+    return m_visitorOperator.find( getVariableVisitTypeIndex<T>() ) != m_visitorOperator.end();
 }
 
 template <typename T, typename F>
@@ -804,14 +785,14 @@ void VariableSet::DynamicVisitor::addOrReplaceOperator( F&& f ) {
 template <typename T>
 bool VariableSet::DynamicVisitor::removeOperator() {
     assert( hasOperator<T>() );
-    auto res = m_visitorOperator.erase( getTypeIndex<T>() ) > 0;
+    auto res = m_visitorOperator.erase( getVariableVisitTypeIndex<T>() ) > 0;
     return res;
 }
 
 template <typename T, typename F>
 struct VariableSet::DynamicVisitor::MakeVisitOperatorHelper<T, F, true> {
     inline OperatorsStorageType::value_type makeOperator( F& f ) {
-        return { getTypeIndex<T>(), [&f]( std::any& a, std::any&& userParam ) {
+        return { getVariableVisitTypeIndex<T>(), [&f]( std::any& a, std::any&& userParam ) {
                     auto rp = std::any_cast<std::reference_wrapper<VariableSet::Variable<T>>&>( a );
                     auto& p = rp.get();
                     f( p.first, p.second, std::forward<std::any>( userParam ) );
@@ -822,7 +803,7 @@ struct VariableSet::DynamicVisitor::MakeVisitOperatorHelper<T, F, true> {
 template <typename T, typename F>
 struct VariableSet::DynamicVisitor::MakeVisitOperatorHelper<T, F, false> {
     inline OperatorsStorageType::value_type makeOperator( F& f ) {
-        return { getTypeIndex<T>(), [&f]( std::any& a, std::any&& ) {
+        return { getVariableVisitTypeIndex<T>(), [&f]( std::any& a, std::any&& ) {
                     auto rp = std::any_cast<std::reference_wrapper<VariableSet::Variable<T>>&>( a );
                     auto& p = rp.get();
                     f( p.first, p.second );

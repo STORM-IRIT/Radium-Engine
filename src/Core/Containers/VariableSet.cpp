@@ -11,7 +11,6 @@ namespace Core {
 
 VariableSet& VariableSet::operator=( const VariableSet& other ) {
     clear();
-    m_clearFunctions        = other.m_clearFunctions;
     m_mergeKeepFunctions    = other.m_mergeKeepFunctions;
     m_mergeReplaceFunctions = other.m_mergeReplaceFunctions;
     m_sizeFunctions         = other.m_sizeFunctions;
@@ -23,7 +22,6 @@ VariableSet& VariableSet::operator=( const VariableSet& other ) {
 
 VariableSet& VariableSet::operator=( VariableSet&& other ) {
     clear();
-    m_clearFunctions        = std::move( other.m_clearFunctions );
     m_mergeKeepFunctions    = std::move( other.m_mergeKeepFunctions );
     m_mergeReplaceFunctions = std::move( other.m_mergeReplaceFunctions );
     m_sizeFunctions         = std::move( other.m_sizeFunctions );
@@ -34,10 +32,6 @@ VariableSet& VariableSet::operator=( VariableSet&& other ) {
 }
 
 void VariableSet::clear() {
-    for ( auto&& clearFunc : m_clearFunctions ) {
-        clearFunc( *this );
-    }
-    m_clearFunctions.clear();
     m_mergeKeepFunctions.clear();
     m_mergeReplaceFunctions.clear();
     m_sizeFunctions.clear();
