@@ -3,6 +3,7 @@
 
 #include <Core/Utils/Log.hpp>
 #include <Core/Utils/StdExperimentalTypeTraits.hpp>
+#include <Core/Utils/StdOptional.hpp>
 #include <Core/Utils/TypesUtils.hpp>
 
 #include <any>
@@ -235,7 +236,7 @@ class RA_CORE_API VariableSet
     /// \return an optional variable handle which contains a value if a variable with the given
     /// name and type exists in the storage.
     template <typename T>
-    std::optional<VariableHandle<T>> existsVariable( const std::string& name ) const;
+    Utils::optional<VariableHandle<T>> existsVariable( const std::string& name ) const;
 
     /// \}
 
@@ -250,7 +251,7 @@ class RA_CORE_API VariableSet
     /// a **non owning** pointer to the variable collection if it exists. This **non owning**
     /// pointer remains valid as long as the VariableSet exists and contains the given type.
     template <typename T>
-    std::optional<VariableContainer<T>*> existsVariableType() const;
+    Utils::optional<VariableContainer<T>*> existsVariableType() const;
 
     /// \brief Removes all variables of the given type.
     /// \tparam T The type of variable to remove
@@ -437,7 +438,7 @@ class RA_CORE_API VariableSet
     /// This method create functions for destroying, copying, inspecting and visiting variables
     /// of the given type.
     template <typename T>
-    std::optional<VariableContainer<T>*> addVariableType();
+    Utils::optional<VariableContainer<T>*> addVariableType();
 
     /// Implementation of static visitor
     /// \{
@@ -606,7 +607,7 @@ bool VariableSet::deleteVariable( H& handle ) {
 }
 
 template <typename T>
-std::optional<VariableSet::VariableHandle<T>>
+Utils::optional<VariableSet::VariableHandle<T>>
 VariableSet::existsVariable( const std::string& name ) const {
     if ( auto typeAccess = existsVariableType<T>(); typeAccess ) {
         auto it = ( *typeAccess )->find( name );
@@ -623,7 +624,7 @@ auto VariableSet::getVariableVisitTypeIndex() -> std::type_index {
 }
 
 template <typename T>
-std::optional<VariableSet::VariableContainer<T>*> VariableSet::addVariableType() {
+Utils::optional<VariableSet::VariableContainer<T>*> VariableSet::addVariableType() {
     auto storage = createVariableStorage<T>();
     // used to merge (keep) the stored data from container "from" to container "to"
     m_mergeKeepFunctions.emplace_back( []( const VariableSet& from, VariableSet& to ) {
@@ -673,7 +674,7 @@ std::optional<VariableSet::VariableContainer<T>*> VariableSet::addVariableType()
 }
 
 template <typename T>
-std::optional<VariableSet::VariableContainer<T>*> VariableSet::existsVariableType() const {
+Utils::optional<VariableSet::VariableContainer<T>*> VariableSet::existsVariableType() const {
     auto iter = m_variables.find( std::type_index { typeid( T ) } );
     if ( iter == m_variables.cend() ) { return {}; }
     else {
