@@ -299,7 +299,7 @@ class RA_ENGINE_API RenderParameters final
      * pointer remains valid as long as the RenderParameter exists and contains the given type.
      */
     template <typename T>
-    std::optional<UniformBindableSet<T>*> hasParameterSet() const;
+    Core::Utils::optional<UniformBindableSet<T>*> hasParameterSet() const;
 
     /**
      * Check if a typed parameter exists
@@ -308,7 +308,7 @@ class RA_ENGINE_API RenderParameters final
      * \return true if the parameter exists
      */
     template <typename T>
-    std::optional<UniformVariable<T>> containsParameter( const std::string& name ) const;
+    Core::Utils::optional<UniformVariable<T>> containsParameter( const std::string& name ) const;
 
     /**
      * Get a typed parameter
@@ -534,7 +534,7 @@ inline const RenderParameters::UniformBindableSet<T>& RenderParameters::getParam
 }
 
 template <typename T>
-inline std::optional<RenderParameters::UniformBindableSet<T>*>
+inline Core::Utils::optional<RenderParameters::UniformBindableSet<T>*>
 RenderParameters::hasParameterSet() const {
     if constexpr ( std::is_enum<T>::value ) {
         // Do not return
@@ -548,7 +548,7 @@ RenderParameters::hasParameterSet() const {
 }
 
 template <typename T>
-inline std::optional<RenderParameters::UniformVariable<T>>
+inline Core::Utils::optional<RenderParameters::UniformVariable<T>>
 RenderParameters::containsParameter( const std::string& name ) const {
     if constexpr ( std::is_enum<T>::value ) {
         return m_parameterSets.existsVariable<typename std::underlying_type<T>::type>( name );
