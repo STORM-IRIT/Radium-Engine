@@ -244,9 +244,11 @@ class RA_CORE_API VariableSet
     /// \{
     /// \brief Test if the storage supports a given variable type
     /// \tparam T The type of variable to test
-    /// \return true if the type is managed by the storage
+    /// \return an optional, empty if the type does not exists in the VariableSet or whose value is
+    /// a **non owning** pointer to the variable collection if it exists. This **non owning**
+    /// pointer remains valid as long as the VariableSet exists and contains the given type.
     template <typename T>
-    bool existsVariableType() const;
+    std::optional<VariableContainer<T>*> existsVariableType() const;
 
     /// \brief Removes all variables of the given type.
     /// \tparam T The type of variable to remove
@@ -433,7 +435,7 @@ class RA_CORE_API VariableSet
     /// This method create functions for destroying, copying, inspecting and visiting variables
     /// of the given type.
     template <typename T>
-    void addVariableType();
+    std::optional<VariableContainer<T>*> addVariableType();
 
     /// Implementation of static visitor
     /// \{
@@ -504,8 +506,9 @@ class RA_CORE_API VariableSet
 
     /// \brief Initialize an empty storage for variables of type T
     /// \tparam T
+    /// \return a raw pointer on the storage collection
     template <typename T>
-    void createVariableStorage();
+    VariableSet::VariableContainer<T>* createVariableStorage();
 
     /// \brief Access to the storage for variables of type T
     /// \tparam T
@@ -525,14 +528,13 @@ class RA_CORE_API VariableSet
 // ------------------------------------------------------------------------------------------
 
 template <typename T>
-void VariableSet::createVariableStorage() {
-    assert( !existsVariableType<T>() );
+VariableSet::VariableContainer<T>* VariableSet::createVariableStorage() {
     m_variables[std::type_index { typeid( T ) }].emplace<VariableContainer<T>>();
+    return std::any_cast<VariableContainer<T>>( &( m_variables[std::type_index { typeid( T ) }] ) );
 }
 
 template <typename T>
 VariableSet::VariableContainer<T>& VariableSet::getVariableStorage() const {
-    assert( existsVariableType<T>() );
     return std::any_cast<VariableContainer<T>&>( m_variables[std::type_index { typeid( T ) }] );
 }
 
@@ -547,10 +549,11 @@ void VariableSet::removeVariableStorage() {
 template <typename T>
 std::pair<VariableSet::VariableHandle<T>, bool>
 VariableSet::insertVariable( const std::string& name, const T& value ) {
+    auto typeAccess = existsVariableType<T>();
     // If it is the first parameter of the given type, first register the type
-    if ( !existsVariableType<T>() ) { addVariableType<T>(); }
+    if ( !typeAccess ) { typeAccess = addVariableType<T>(); }
     // insert the parameter.
-    return getVariableStorage<T>().insert( { name, value } );
+    return ( *typeAccess )->insert( { name, value } );
 }
 
 template <typename T>
@@ -574,17 +577,22 @@ bool VariableSet::isHandleValid( const H& handle ) const {
 template <typename T>
 std::pair<VariableSet::VariableHandle<T>, bool>
 VariableSet::insertOrAssignVariable( const std::string& name, const T& value ) {
-    if ( !existsVariableType<T>() ) { addVariableType<T>(); }
-    return getVariableStorage<T>().insert_or_assign( name, value );
+    auto typeAccess = existsVariableType<T>();
+    // If it is the first parameter of the given type, first register the type
+    if ( !typeAccess ) { typeAccess = addVariableType<T>(); }
+    // insert the parameter.
+    return ( *typeAccess )->insert_or_assign( name, value );
 }
 
 template <typename T>
 bool VariableSet::deleteVariable( const std::string& name ) {
-    assert( existsVariable<T>( name ) );
-    auto removed = getVariableStorage<T>().erase( name ) > 0;
-    // remove the type related function when the container has no more data of this type
-    if ( numberOf<T>() == 0 ) { deleteAllVariables<T>(); }
-    return removed;
+    if ( auto typeAccess = existsVariableType<T>(); typeAccess ) {
+        auto removed = ( *typeAccess )->erase( name );
+        // remove the type related function when the container has no more data of this type
+        if ( numberOf<T>() == 0 ) { deleteAllVariables<T>(); }
+        return removed > 0;
+    }
+    return false;
 }
 
 template <typename H>
@@ -597,10 +605,9 @@ bool VariableSet::deleteVariable( H& handle ) {
 
 template <typename T>
 bool VariableSet::existsVariable( const std::string& name ) const {
-    if ( existsVariableType<T>() ) {
-        auto& storage = getVariableStorage<T>();
-        auto it       = storage.find( name );
-        return it != storage.cend();
+    if ( auto typeAccess = existsVariableType<T>(); typeAccess ) {
+        auto it = ( *typeAccess )->find( name );
+        return it != ( *typeAccess )->cend();
     }
     return false;
 }
@@ -613,13 +620,13 @@ auto VariableSet::getVariableVisitTypeIndex() -> std::type_index {
 }
 
 template <typename T>
-void VariableSet::addVariableType() {
-    assert( !existsVariableType<T>() );
-    createVariableStorage<T>();
+std::optional<VariableSet::VariableContainer<T>*> VariableSet::addVariableType() {
+    auto storage = createVariableStorage<T>();
     // used to merge (keep) the stored data from container "from" to container "to"
     m_mergeKeepFunctions.emplace_back( []( const VariableSet& from, VariableSet& to ) {
-        if ( !to.existsVariableType<T>() ) { to.addVariableType<T>(); }
-        auto& toStorage   = to.getVariableStorage<T>();
+        auto toStorageAccess = to.existsVariableType<T>();
+        if ( !toStorageAccess ) { toStorageAccess = to.addVariableType<T>(); }
+        auto& toStorage   = *( toStorageAccess.value() );
         auto& fromStorage = from.getVariableStorage<T>();
         for ( const auto& t : fromStorage ) {
             toStorage.insert( t );
@@ -627,8 +634,9 @@ void VariableSet::addVariableType() {
     } );
     // used to merge (replace) the stored data from container "from" to container "to"
     m_mergeReplaceFunctions.emplace_back( []( const VariableSet& from, VariableSet& to ) {
-        if ( !to.existsVariableType<T>() ) { to.addVariableType<T>(); }
-        auto& toStorage   = to.getVariableStorage<T>();
+        auto toStorageAccess = to.existsVariableType<T>();
+        if ( !toStorageAccess ) { toStorageAccess = to.addVariableType<T>(); }
+        auto& toStorage   = *( toStorageAccess.value() );
         auto& fromStorage = from.getVariableStorage<T>();
         for ( const auto& t : fromStorage ) {
             toStorage.insert_or_assign( t.first, t.second );
@@ -658,12 +666,16 @@ void VariableSet::addVariableType() {
     // TODO : is m_storedType vector mandatory
     // remember the stored type and its rank
     m_storedType.emplace_back( std::type_index( typeid( T ) ) );
+    return storage;
 }
 
 template <typename T>
-bool VariableSet::existsVariableType() const {
+std::optional<VariableSet::VariableContainer<T>*> VariableSet::existsVariableType() const {
     auto iter = m_variables.find( std::type_index { typeid( T ) } );
-    return iter != m_variables.cend();
+    if ( iter == m_variables.cend() ) { return {}; }
+    else {
+        return std::any_cast<VariableSet::VariableContainer<T>>( &( iter->second ) );
+    }
 }
 
 template <typename T>
@@ -685,7 +697,10 @@ bool VariableSet::deleteAllVariables() {
 
 template <typename T>
 VariableSet::VariableContainer<T>& VariableSet::getAllVariables() const {
+    // just assert on the existence of the type to prevent undefined behavior when dereferencing
+    // the optional
     assert( existsVariableType<T>() );
+    // trows std::bad_any_cast if type does not exists
     return getVariableStorage<T>();
 }
 
@@ -698,7 +713,7 @@ auto VariableSet::getAllVariablesFromHandle( const H& )
 
 template <typename T>
 size_t VariableSet::numberOf() const {
-    if ( existsVariableType<T>() ) { return getVariableStorage<T>().size(); }
+    if ( auto variables = existsVariableType<T>(); variables ) { return ( *variables )->size(); }
     return 0;
 }
 
@@ -726,10 +741,10 @@ void VariableSet::visitImplHelper( F& visitor ) const {
                    "Static visitors must provide a function with profile "
                    "void( const std::string& name, [const ]T[&] value) for each "
                    "declared visitable type T" );
-    if ( !existsVariableType<T>() ) { return; }
-    auto& storage = getVariableStorage<T>();
-    for ( auto& element : storage ) {
-        visitor( element.first, element.second );
+    if ( auto variables = existsVariableType<T>(); variables ) {
+        for ( auto& element : *( variables.value() ) ) {
+            visitor( element.first, element.second );
+        }
     }
 }
 
@@ -758,10 +773,10 @@ void VariableSet::visitImplHelperUserParam( F& visitor, U&& userParams ) const {
                    "Static visitors must provide a function with profile "
                    "void( const std::string& name, [const ]T[&] value, [const] U&&) for each "
                    "declared visitable type T" );
-    if ( !existsVariableType<T>() ) { return; }
-    auto& storage = getVariableStorage<T>();
-    for ( auto& element : storage ) {
-        visitor( element.first, element.second, std::forward<U>( userParams ) );
+    if ( auto variables = existsVariableType<T>(); variables ) {
+        for ( auto& element : *( variables.value() ) ) {
+            visitor( element.first, element.second, std::forward<U>( userParams ) );
+        }
     }
 }
 

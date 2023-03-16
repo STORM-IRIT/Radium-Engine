@@ -64,7 +64,8 @@ TEST_CASE( "Core/Container/VariableSet", "[Core][Container][VariableSet]" ) {
 
     SECTION( "Construction, access and removal to and from a variable set" ) {
         VariableSet params;
-        REQUIRE( params.existsVariableType<int>() == false );
+        auto verify = params.existsVariableType<int>();
+        REQUIRE( !verify.has_value() );
         int i { 0 };
         float x { 1.f };
 
@@ -141,7 +142,8 @@ TEST_CASE( "Core/Container/VariableSet", "[Core][Container][VariableSet]" ) {
     SECTION( "Visiting and modifying variable set using static visitor" ) {
         REQUIRE( printThemAll::types::Size == 6 );
         VariableSet params;
-        REQUIRE( params.existsVariableType<int>() == false );
+        auto verify = params.existsVariableType<int>();
+        REQUIRE( !verify.has_value() );
         int i { 0 };
 
         float x { 1.f };
@@ -170,7 +172,8 @@ TEST_CASE( "Core/Container/VariableSet", "[Core][Container][VariableSet]" ) {
 
     SECTION( "Visiting and modifying variable set using dynamic visitor" ) {
         VariableSet params;
-        REQUIRE( params.existsVariableType<int>() == false );
+        auto verify = params.existsVariableType<int>();
+        REQUIRE( !verify.has_value() );
         int i { 1 };
 
         float x { 1.f };
@@ -221,7 +224,8 @@ TEST_CASE( "Core/Container/VariableSet", "[Core][Container][VariableSet]" ) {
 
     SECTION( "Visiting and modifying variable set using standard range for" ) {
         VariableSet params;
-        REQUIRE( params.existsVariableType<int>() == false );
+        auto verify = params.existsVariableType<int>();
+        REQUIRE( !verify.has_value() );
         int i { 1 };
         float x { 1.f };
 
@@ -270,7 +274,8 @@ TEST_CASE( "Core/Container/VariableSet", "[Core][Container][VariableSet]" ) {
 
     SECTION( "General visit using a custom visitor" ) {
         VariableSet params;
-        REQUIRE( params.existsVariableType<int>() == false );
+        auto verify = params.existsVariableType<int>();
+        REQUIRE( !verify.has_value() );
         int i { 1 };
         float x { 1.f };
         std::cout << "General visit using a custom visitor" << std::endl;
@@ -305,7 +310,8 @@ TEST_CASE( "Core/Container/VariableSet", "[Core][Container][VariableSet]" ) {
 
     SECTION( "Merging, copying, moving" ) {
         VariableSet params;
-        REQUIRE( params.existsVariableType<int>() == false );
+        auto verify = params.existsVariableType<int>();
+        REQUIRE( !verify.has_value() );
         params.insertVariable( "a", 1 );
         params.insertVariable( "b", 2 );
         print_container( "initial params ", params );
@@ -367,18 +373,24 @@ TEST_CASE( "Core/Container/VariableSet", "[Core][Container][VariableSet]" ) {
         REQUIRE( paramsMoved.size() == sp );
         print_container( "Moved params into paramsMoved", paramsMoved );
         print_container( "params is empty", params );
-        REQUIRE( params.existsVariableType<int>() == false );
+        verify = params.existsVariableType<int>();
+        REQUIRE( !verify.has_value() );
     }
 
     SECTION( "Verifying all" ) {
         VariableSet pa;
-        REQUIRE( pa.existsVariableType<int>() == false );
-        REQUIRE( pa.existsVariableType<std::string>() == false );
+        auto verifyInt = pa.existsVariableType<int>();
+        REQUIRE( !verifyInt.has_value() );
+        auto verifyString = pa.existsVariableType<std::string>();
+        REQUIRE( !verifyString.has_value() );
+
         pa.insertVariable( "a", 1 );
         pa.insertVariable( "b", 2 );
         pa.insertVariable( "s1", std::string { "String 1" } );
-        REQUIRE( pa.existsVariableType<int>() == true );
-        REQUIRE( pa.existsVariableType<std::string>() == true );
+        verifyInt = pa.existsVariableType<int>();
+        REQUIRE( verifyInt.has_value() );
+        verifyString = pa.existsVariableType<std::string>();
+        REQUIRE( verifyString.has_value() );
         print_container( "initial params ", pa );
     }
 }
