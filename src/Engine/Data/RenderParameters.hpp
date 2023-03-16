@@ -286,10 +286,12 @@ class RA_ENGINE_API RenderParameters final
     /**
      * \brief Test if parameters of type T are stored
      * \tparam T
-     * \return
+     * \return an optional, empty if the ParameterSet does not exists or whose value is
+     * a **non owning** pointer to the ParameterSet collection if it exists. This **non owning**
+     * pointer remains valid as long as the RenderParameter exists and contains the given type.
      */
     template <typename T>
-    bool hasParameterSet() const;
+    std::optional<UniformBindableSet<T>*> hasParameterSet() const;
 
     /**
      * Check if a typed parameter exists
@@ -524,12 +526,13 @@ inline const RenderParameters::UniformBindableSet<T>& RenderParameters::getParam
 }
 
 template <typename T>
-inline bool RenderParameters::hasParameterSet() const {
+inline std::optional<RenderParameters::UniformBindableSet<T>*>
+RenderParameters::hasParameterSet() const {
     if constexpr ( std::is_enum<T>::value ) {
         // Do not return
         // m_parameterSets.existsVariableType< typename std::underlying_type< T >::type >();
         // to prevent misusage of this function. The user should infer this with another logic.
-        return false;
+        return {};
     }
     else {
         return m_parameterSets.existsVariableType<T>();
