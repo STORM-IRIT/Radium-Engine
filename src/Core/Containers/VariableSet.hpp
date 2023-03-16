@@ -208,7 +208,8 @@ class RA_CORE_API VariableSet
     bool isHandleValid( const H& handle ) const;
 
     /// \brief reset (or set if the variable does not exist yet) the value of the variable.
-    /// \return true if the value was reset, false it was set.
+    /// \return a pair with the variable handle and a bool : true if the variable value was reset,
+    /// false if the variable value was set.
     template <typename T>
     std::pair<VariableHandle<T>, bool> insertOrAssignVariable( const std::string& name,
                                                                const T& value );
@@ -231,9 +232,10 @@ class RA_CORE_API VariableSet
     bool deleteVariable( H& handle );
 
     /// \brief test the existence of the given variable
-    /// \return true if a variable with the given name and type exists in the storage, false if not.
+    /// \return an optional variable handle which contains a value if a variable with the given
+    /// name and type exists in the storage.
     template <typename T>
-    bool existsVariable( const std::string& name ) const;
+    std::optional<VariableHandle<T>> existsVariable( const std::string& name ) const;
 
     /// \}
 
@@ -604,12 +606,13 @@ bool VariableSet::deleteVariable( H& handle ) {
 }
 
 template <typename T>
-bool VariableSet::existsVariable( const std::string& name ) const {
+std::optional<VariableSet::VariableHandle<T>>
+VariableSet::existsVariable( const std::string& name ) const {
     if ( auto typeAccess = existsVariableType<T>(); typeAccess ) {
         auto it = ( *typeAccess )->find( name );
-        return it != ( *typeAccess )->cend();
+        if ( it != ( *typeAccess )->cend() ) { return it; }
     }
-    return false;
+    return {};
 }
 
 template <typename T>

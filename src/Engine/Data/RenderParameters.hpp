@@ -95,10 +95,18 @@ class RA_ENGINE_API RenderParameters final
      * For a given shader Program, all the parameters are stored by type, using Core::VariableSet as
      * container.
      *
-     * \tparam T The type of parameteres in the set.
+     * \tparam T The type of parameters in the set.
      */
     template <typename T>
     using UniformBindableSet = Core::VariableSet::VariableContainer<T>;
+
+    /** Handle to a bindable parameters.
+     *  A handle is an iterator on a pair <name, value> such that the value is of type T
+     *
+     * \tparam T The type of parameter in the set.
+     */
+    template <typename T>
+    using UniformVariable = Core::VariableSet::VariableHandle<T>;
 
   public:
     /**
@@ -300,7 +308,7 @@ class RA_ENGINE_API RenderParameters final
      * \return true if the parameter exists
      */
     template <typename T>
-    bool containsParameter( const std::string& name ) const;
+    std::optional<UniformVariable<T>> containsParameter( const std::string& name ) const;
 
     /**
      * Get a typed parameter
@@ -540,7 +548,8 @@ RenderParameters::hasParameterSet() const {
 }
 
 template <typename T>
-inline bool RenderParameters::containsParameter( const std::string& name ) const {
+inline std::optional<RenderParameters::UniformVariable<T>>
+RenderParameters::containsParameter( const std::string& name ) const {
     if constexpr ( std::is_enum<T>::value ) {
         return m_parameterSets.existsVariable<typename std::underlying_type<T>::type>( name );
     }

@@ -130,12 +130,12 @@ TEST_CASE( "Core/Container/VariableSet", "[Core][Container][VariableSet]" ) {
         REQUIRE( params.getVariable<std::reference_wrapper<int>>( "j" ) == i );
 
         params.deleteVariable<float>( "x" );
-        REQUIRE( params.existsVariable<float>( "x" ) == false );
+        REQUIRE( !params.existsVariable<float>( "x" ).has_value() );
         // as x (float) variable was removed, xHandle is now invalid
         REQUIRE( params.isHandleValid( xHandle ) == false );
-        REQUIRE( params.existsVariable<int>( "x" ) );
+        REQUIRE( params.existsVariable<int>( "x" ).has_value() );
         params.deleteVariable<int>( "x" );
-        REQUIRE( params.existsVariable<int>( "x" ) == false );
+        REQUIRE( !params.existsVariable<int>( "x" ).has_value() );
         print_container( "Final set", params );
     }
 
@@ -275,7 +275,7 @@ TEST_CASE( "Core/Container/VariableSet", "[Core][Container][VariableSet]" ) {
     SECTION( "General visit using a custom visitor" ) {
         VariableSet params;
         auto verify = params.existsVariableType<int>();
-        REQUIRE( !verify.has_value() );
+        REQUIRE( !verify );
         int i { 1 };
         float x { 1.f };
         std::cout << "General visit using a custom visitor" << std::endl;
@@ -298,7 +298,11 @@ TEST_CASE( "Core/Container/VariableSet", "[Core][Container][VariableSet]" ) {
 
         auto xHandle = params.getVariableHandle<float>( "x" );
         REQUIRE( params.isHandleValid( xHandle ) == true );
-        params.deleteAllVariables<float>();
+        auto deletedFloats = params.deleteAllVariables<float>();
+        REQUIRE( deletedFloats );
+        REQUIRE( !params.existsVariableType<float>() );
+        deletedFloats = params.deleteAllVariables<float>();
+        REQUIRE( !deletedFloats );
         // as all floats was removed, xHandle is now invalid
         REQUIRE( params.isHandleValid( xHandle ) == false );
 

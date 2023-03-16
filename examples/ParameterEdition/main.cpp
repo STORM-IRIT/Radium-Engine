@@ -19,41 +19,39 @@ using namespace Ra::Core;
 /* Changed the underlying type to verify the good behavior of the edition */
 enum Values : unsigned int { VALUE_0 = 10, VALUE_1 = 20, VALUE_2 = 30 };
 
+// TODO : replace the following by a visitor. See ParameterSetEditor.
 template <typename RP>
 void printParameterValue( const RenderParameters& parameters, const ::std::string& p ) {
-    if ( parameters.containsParameter<RP>( p ) )
-        std::cout << parameters.getParameter<RP>( p ) << " (" << Utils::demangleType<RP>() << ")";
+    if ( auto param = parameters.containsParameter<RP>( p ); param )
+        std::cout << ( *param )->second << " (" << Utils::demangleType<RP>() << ")";
 }
 
 template <typename T, int N>
 void printVectorParameterValue( const RenderParameters& parameters, const ::std::string& p ) {
     using RP = Eigen::Matrix<T, N, 1>;
-    if ( parameters.containsParameter<RP>( p ) )
-        std::cout << parameters.getParameter<RP>( p ).transpose() << " ("
-                  << Utils::demangleType<RP>() << ")";
+    if ( auto param = parameters.containsParameter<RP>( p ); param )
+        std::cout << ( *param )->second.transpose() << " (" << Utils::demangleType<RP>() << ")";
 }
 
 void printColorParameterValue( const RenderParameters& parameters, const ::std::string& p ) {
     using RP = RenderParameters::ColorParameter;
-    if ( parameters.containsParameter<RP>( p ) )
-        std::cout << parameters.getParameter<RP>( p ).transpose() << " ("
-                  << Utils::demangleType<RP>() << ")";
+    if ( auto param = parameters.containsParameter<RP>( p ); param )
+        std::cout << ( *param )->second.transpose() << " (" << Utils::demangleType<RP>() << ")";
 }
 
 template <typename T, int N, int M>
 void printMatrixParameterValue( const RenderParameters& parameters, const ::std::string& p ) {
     using RP = Eigen::Matrix<T, N, M>;
-    if ( parameters.containsParameter<RP>( p ) )
-        std::cout << "\n"
-                  << parameters.getParameter<RP>( p ) << "\n (" << Utils::demangleType<RP>() << ")";
+    if ( auto param = parameters.containsParameter<RP>( p ); param )
+        std::cout << "\n" << ( *param )->second << "\n (" << Utils::demangleType<RP>() << ")";
 }
 
 template <typename T>
 void printCollectionParameterValue( const RenderParameters& parameters, const ::std::string& p ) {
     using RP = std::vector<T>;
-    if ( parameters.containsParameter<RP>( p ) ) {
+    if ( auto param = parameters.containsParameter<RP>( p ); param ) {
         std::cout << "\n";
-        auto v = parameters.getParameter<RP>( p );
+        const auto& v = ( *param )->second;
         std::copy( v.begin(), v.end(), std::ostream_iterator<T>( std::cout, " " ) );
         std::cout << "\n (" << Utils::demangleType<RP>() << ")";
     }
