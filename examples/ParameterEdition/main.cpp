@@ -34,7 +34,7 @@ void printVectorParameterValue( const RenderParameters& parameters, const ::std:
 }
 
 void printColorParameterValue( const RenderParameters& parameters, const ::std::string& p ) {
-    using RP = RenderParameters::ColorParameter;
+    using RP = Ra::Core::Utils::Color;
     if ( auto param = parameters.containsParameter<RP>( p ); param )
         std::cout << ( *param )->second.transpose() << " (" << Utils::demangleType<RP>() << ")";
 }
@@ -171,20 +171,20 @@ int main( int argc, char* argv[] ) {
 
     //! [Printing several parameters before edition ]
     std::cout << "\nPrinting all parameters before editiong :\n";
-    printAllParameters<RenderParameters::IntParameter>( parameters );
-    printAllParameters<RenderParameters::BoolParameter>( parameters );
-    printAllParameters<RenderParameters::UIntParameter>( parameters );
-    printAllParameters<RenderParameters::ScalarParameter>( parameters );
+    printAllParameters<int>( parameters );
+    printAllParameters<bool>( parameters );
+    printAllParameters<uint>( parameters );
+    printAllParameters<Scalar>( parameters );
     //! [Printing several parameters before edition ]
 
     //! [Filling the editor with the parameter set ]
     editor.setupFromParameters( parameters, parameterSet_metadata );
     auto printParameter = [&parameters]( const std::string& p ) {
         std::cout << "Parameter " << p << " was modified. New value is ";
-        printParameterValue<RenderParameters::IntParameter>( parameters, p );
-        printParameterValue<RenderParameters::BoolParameter>( parameters, p );
-        printParameterValue<RenderParameters::UIntParameter>( parameters, p );
-        printParameterValue<RenderParameters::ScalarParameter>( parameters, p );
+        printParameterValue<int>( parameters, p );
+        printParameterValue<bool>( parameters, p );
+        printParameterValue<uint>( parameters, p );
+        printParameterValue<Scalar>( parameters, p );
         printCollectionParameterValue<int>( parameters, p );
         printCollectionParameterValue<unsigned int>( parameters, p );
         printCollectionParameterValue<Scalar>( parameters, p );
@@ -205,9 +205,9 @@ int main( int argc, char* argv[] ) {
 
     //! [Printing several parameters after edition ]
     std::cout << "\nPrinting all parameters before quit : ";
-    printAllParameters<RenderParameters::IntParameter>( parameters );
-    printAllParameters<RenderParameters::BoolParameter>( parameters );
-    printAllParameters<RenderParameters::UIntParameter>( parameters );
-    printAllParameters<RenderParameters::ScalarParameter>( parameters );
+    printAllParameters<int>( parameters );
+    printAllParameters<bool>( parameters );
+    printAllParameters<uint>( parameters );
+    printAllParameters<Scalar>( parameters );
     //! [Printing several parameters after edition ]
 }

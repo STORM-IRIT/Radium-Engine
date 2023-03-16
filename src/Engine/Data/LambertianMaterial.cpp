@@ -63,9 +63,8 @@ void LambertianMaterial::unregisterMaterial() {
 
 void LambertianMaterial::updateFromParameters() {
     auto& renderParameters = getParameters();
-    m_color = renderParameters.getParameter<RenderParameters::ColorParameter>( "material.color" );
-    m_perVertexColor =
-        renderParameters.getParameter<RenderParameters::BoolParameter>( "material.perVertexColor" );
+    m_color                = renderParameters.getParameter<Core::Utils::Color>( "material.color" );
+    m_perVertexColor       = renderParameters.getParameter<bool>( "material.perVertexColor" );
 }
 
 nlohmann::json LambertianMaterial::getParametersMetadata() const {

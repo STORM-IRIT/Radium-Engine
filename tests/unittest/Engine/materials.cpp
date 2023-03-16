@@ -50,29 +50,15 @@ TEST_CASE( "Engine/Data/Materials", "[Engine][Engine/Data][Materials]" ) {
         auto& bpParameters = bp.getParameters();
         auto& bpstorage    = bpParameters.getStorage();
 
-        std::cout << "Number of parameter : " << bpstorage.size() << "\n";
-        auto& tps = bpstorage.getStoredTypes();
-        for ( const auto& tp : tps ) {
-            std::cout << "\tStored type : " << tp.name() << "\n";
-        }
-
         bpstorage.visit( PrintThemAll {} );
 
-        std::cout << "Number of " << typeid( RenderParameters::BoolParameter ).name()
-                  << " parameter : " << bpstorage.numberOf<RenderParameters::BoolParameter>()
-                  << "\n";
+        REQUIRE( bpParameters.containsParameter<bool>( "material.hasPerVertexKd" ) );
+        REQUIRE( bpParameters.containsParameter<Scalar>( "material.alpha" ) );
 
-        REQUIRE( bpParameters.containsParameter<RenderParameters::BoolParameter>(
-            "material.hasPerVertexKd" ) );
-        REQUIRE(
-            bpParameters.containsParameter<RenderParameters::ScalarParameter>( "material.alpha" ) );
-
-        auto& pvc =
-            bpParameters.getParameter<RenderParameters::BoolParameter>( "material.hasPerVertexKd" );
+        auto& pvc = bpParameters.getParameter<bool>( "material.hasPerVertexKd" );
         REQUIRE( pvc == bp.isColoredByVertexAttrib() );
 
-        auto& alp =
-            bpParameters.getParameter<RenderParameters::ScalarParameter>( "material.alpha" );
+        auto& alp = bpParameters.getParameter<Scalar>( "material.alpha" );
         REQUIRE( alp == bp.m_alpha );
 
         /* changing parameter values */
@@ -101,10 +87,8 @@ TEST_CASE( "Engine/Data/Materials", "[Engine][Engine/Data][Materials]" ) {
         mat.updateGL();
         auto& matParameters = mat.getParameters();
 
-        REQUIRE( matParameters.containsParameter<RenderParameters::BoolParameter>(
-            "material.perVertexColor" ) );
-        auto& pvc = matParameters.getParameter<RenderParameters::BoolParameter>(
-            "material.perVertexColor" );
+        REQUIRE( matParameters.containsParameter<bool>( "material.perVertexColor" ) );
+        auto& pvc = matParameters.getParameter<bool>( "material.perVertexColor" );
         REQUIRE( pvc == mat.isColoredByVertexAttrib() );
 
         /* changing parameter values */
@@ -130,10 +114,8 @@ TEST_CASE( "Engine/Data/Materials", "[Engine][Engine/Data][Materials]" ) {
         mat.updateGL();
         auto& matParameters = mat.getParameters();
 
-        REQUIRE( matParameters.containsParameter<RenderParameters::BoolParameter>(
-            "material.perVertexColor" ) );
-        auto& pvc = matParameters.getParameter<RenderParameters::BoolParameter>(
-            "material.perVertexColor" );
+        REQUIRE( matParameters.containsParameter<bool>( "material.perVertexColor" ) );
+        auto& pvc = matParameters.getParameter<bool>( "material.perVertexColor" );
         REQUIRE( pvc == mat.isColoredByVertexAttrib() );
 
         /* changing parameter values */
@@ -171,10 +153,9 @@ TEST_CASE( "Engine/Data/Materials", "[Engine][Engine/Data][Materials]" ) {
 
         mat.updateGL();
         auto& matParameters = mat.getParameters();
-        REQUIRE(
-            matParameters.containsParameter<RenderParameters::ScalarParameter>( "material.g" ) );
+        REQUIRE( matParameters.containsParameter<Scalar>( "material.g" ) );
 
-        auto& g = matParameters.getParameter<RenderParameters::ScalarParameter>( "material.g" );
+        auto& g = matParameters.getParameter<Scalar>( "material.g" );
         REQUIRE( g == 0_ra );
 
         /* changing parameter values */

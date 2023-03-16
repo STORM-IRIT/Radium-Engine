@@ -26,11 +26,9 @@ class RenderParameterUiBuilder
     RenderParameterUiBuilder( ParameterSetEditor* pse, const json& constraints ) :
         m_pse { pse }, m_constraints { constraints } {}
 
-    void operator()( const std::string& name,
-                     const Data::RenderParameters::BoolParameter& p,
-                     Data::RenderParameters&& params ) {
-        auto onBoolParameterChanged = [pse = this->m_pse, &params, nm = name]( bool val ) {
-            params.addParameter( nm, val );
+    void operator()( const std::string& name, bool& p, Data::RenderParameters&& params ) {
+        auto onBoolParameterChanged = [pse = this->m_pse, &p, nm = name]( bool val ) {
+            p = val;
             emit pse->parameterModified( nm );
         };
         if ( m_constraints.contains( name ) ) {
@@ -47,7 +45,7 @@ class RenderParameterUiBuilder
     }
 
     template <typename TParam, std::enable_if_t<std::is_arithmetic<TParam>::value, bool> = true>
-    void operator()( const std::string& name, const TParam& p, Data::RenderParameters&& params ) {
+    void operator()( const std::string& name, TParam& p, Data::RenderParameters&& params ) {
         if ( params.getEnumConverter( name ) /*m_constraints.contains( name ) && m_constraints[name]["type"] == "enum"*/ ) {
             m_pse->addEnumParameterWidget( name, p, params, m_constraints );
         }
@@ -61,13 +59,13 @@ class RenderParameterUiBuilder
               typename TAllocator,
               std::enable_if_t<std::is_arithmetic<TParam>::value, bool> = true>
     void operator()( const std::string& name,
-                     const std::vector<TParam, TAllocator>& p,
+                     std::vector<TParam, TAllocator>& p,
                      Data::RenderParameters&& params ) {
         m_pse->addVectorParameterWidget( name, p, params, m_constraints );
     }
 
     void operator()( const std::string& name,
-                     const Data::RenderParameters::ColorParameter& p,
+                     Ra::Core::Utils::Color& p,
                      Data::RenderParameters&& params ) {
         auto onColorParameterChanged =
             [pse = this->m_pse, &params, nm = name]( const Ra::Core::Utils::Color& val ) {
@@ -86,19 +84,18 @@ class RenderParameterUiBuilder
     }
 
     template <template <typename, int...> typename M, typename T, int... dim>
-    void
-    operator()( const std::string& name, const M<T, dim...>& p, Data::RenderParameters&& params ) {
+    void operator()( const std::string& name, M<T, dim...>& p, Data::RenderParameters&& params ) {
         m_pse->addMatrixParameterWidget( name, p, params, m_constraints );
     }
 
     void operator()( const std::string& /*name*/,
-                     const Data::RenderParameters::TextureParameter& /*p*/,
+                     Data::RenderParameters::TextureInfo& /*p*/,
                      Data::RenderParameters&& /*params*/ ) {
         // textures are not yet editable
     }
 
     void operator()( const std::string& /*name*/,
-                     const std::reference_wrapper<Data::RenderParameters>& /*p*/,
+                     std::reference_wrapper<Data::RenderParameters>& /*p*/,
                      Data::RenderParameters&& /*params*/ ) {
         // embeded render parameter edition not yet available
     }
@@ -114,7 +111,7 @@ ParameterSetEditor::ParameterSetEditor( const std::string& name, QWidget* parent
 
 template <typename T>
 void ParameterSetEditor::addEnumParameterWidget( const std::string& key,
-                                                 T initial,
+                                                 T& initial,
                                                  Ra::Engine::Data::RenderParameters& params,
                                                  const json& metadata ) {
     auto m = metadata[key];
@@ -153,12 +150,12 @@ void ParameterSetEditor::addEnumParameterWidget( const std::string& key,
 
 template <typename T>
 void ParameterSetEditor::addNumberParameterWidget( const std::string& key,
-                                                   T initial,
+                                                   T& initial,
                                                    Ra::Engine::Data::RenderParameters& params,
                                                    const json& metadata ) {
 
-    auto onNumberParameterChanged = [this, &params, &key]( T value ) {
-        params.addParameter( key, value );
+    auto onNumberParameterChanged = [this, &initial, &key]( T value ) {
+        initial = value;
         emit parameterModified( key );
     };
     if ( metadata.contains( key ) ) {
@@ -214,11 +211,11 @@ void ParameterSetEditor::addNumberParameterWidget( const std::string& key,
 
 template <typename T>
 void ParameterSetEditor::addVectorParameterWidget( const std::string& key,
-                                                   const std::vector<T>& initial,
+                                                   std::vector<T>& initial,
                                                    Ra::Engine::Data::RenderParameters& params,
                                                    const json& metadata ) {
-    auto onVectorParameterChanged = [this, &params, &key]( const std::vector<T>& value ) {
-        params.addParameter( key, value );
+    auto onVectorParameterChanged = [this, &initial, &key]( const std::vector<T>& value ) {
+        initial = value;
         emit parameterModified( key );
     };
 
@@ -234,12 +231,11 @@ void ParameterSetEditor::addVectorParameterWidget( const std::string& key,
 
 template <typename T>
 void ParameterSetEditor::addMatrixParameterWidget( const std::string& key,
-                                                   const T& initial,
+                                                   T& initial,
                                                    Ra::Engine::Data::RenderParameters& params,
                                                    const json& metadata ) {
-    auto onMatrixParameterChanged = [this, &params, &key]( const Ra::Core::MatrixN& value ) {
-        auto v = T( value );
-        params.addParameter( key, v );
+    auto onMatrixParameterChanged = [this, &initial, &key]( const Ra::Core::MatrixN& value ) {
+        initial = T( value );
         emit parameterModified( key );
     };
 

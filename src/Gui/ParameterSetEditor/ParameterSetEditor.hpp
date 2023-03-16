@@ -84,7 +84,7 @@ class RA_GUI_API ParameterSetEditor : public Widgets::ControlPanel
      */
     template <typename T>
     void addEnumParameterWidget( const std::string& name,
-                                 T initial,
+                                 T& initial,
                                  Ra::Engine::Data::RenderParameters& params,
                                  const nlohmann::json& paramMetadata );
     /**
@@ -97,7 +97,7 @@ class RA_GUI_API ParameterSetEditor : public Widgets::ControlPanel
      */
     template <typename T>
     void addNumberParameterWidget( const std::string& name,
-                                   T initial,
+                                   T& initial,
                                    Ra::Engine::Data::RenderParameters& params,
                                    const nlohmann::json& metadata );
 
@@ -111,7 +111,7 @@ class RA_GUI_API ParameterSetEditor : public Widgets::ControlPanel
      */
     template <typename T>
     void addVectorParameterWidget( const std::string& key,
-                                   const std::vector<T>& initial,
+                                   std::vector<T>& initial,
                                    Ra::Engine::Data::RenderParameters& params,
                                    const nlohmann::json& metadata );
 
@@ -125,7 +125,7 @@ class RA_GUI_API ParameterSetEditor : public Widgets::ControlPanel
      */
     template <typename T>
     void addMatrixParameterWidget( const std::string& key,
-                                   const T& initial,
+                                   T& initial,
                                    Ra::Engine::Data::RenderParameters& params,
                                    const nlohmann::json& metadata );
     /// wether to show the unspecified materials

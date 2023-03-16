@@ -42,54 +42,24 @@ class RA_ENGINE_API RenderParameters final
 
     /// \brief Aliases for bindable parameter types
     /// \{
-    /// Parameter of type bool
-    using BoolParameter = bool;
-    /// Parameter of type int
-    using IntParameter = int;
-    /// Parameter of type unsigned int
-    using UIntParameter = uint;
-    /// Parameter of type Scalar
-    using ScalarParameter = Scalar;
-    /// Parameter of Type TextureInfo (Texture pointer + texture unit)
-    using TextureParameter = TextureInfo;
-    /// Parameter of type vector of int
-    using IntsParameter = std::vector<int>;
-    /// Parameter of type vector of unsigned int
-    using UIntsParameter = std::vector<uint>;
-    /// Parameter of type vector of Scalar;
-    using ScalarsParameter = std::vector<Scalar>;
-    /// Parameter of type Vector2
-    using Vec2Parameter = Core::Vector2;
-    /// Parameter of type Vector3
-    using Vec3Parameter = Core::Vector3;
-    /// Parameter of type Vector4
-    using Vec4Parameter  = Core::Vector4;
-    using ColorParameter = Core::Utils::Color;
-    /// Parameter of type Matrix2
-    using Mat2Parameter = Core::Matrix2;
-    /// Parameter of type Matrix3
-    using Mat3Parameter = Core::Matrix3;
-    /// Parameter of type Matrix3
-    using Mat4Parameter = Core::Matrix4;
 
     /// List of bindable types, to be used with static visitors
-    using BindableTypes = Core::Utils::TypeList<BoolParameter,
-                                                ColorParameter,
-                                                IntParameter,
-                                                UIntParameter,
-                                                ScalarParameter,
-                                                TextureParameter,
-                                                IntsParameter,
-                                                UIntsParameter,
-                                                ScalarsParameter,
-                                                Vec2Parameter,
-                                                Vec3Parameter,
-                                                Vec4Parameter,
-                                                Mat2Parameter,
-                                                Mat3Parameter,
-                                                Mat4Parameter,
+    using BindableTypes = Core::Utils::TypeList<bool,
+                                                Core::Utils::Color,
+                                                int,
+                                                uint,
+                                                Scalar,
+                                                TextureInfo,
+                                                std::vector<int>,
+                                                std::vector<uint>,
+                                                std::vector<Scalar>,
+                                                Core::Vector2,
+                                                Core::Vector3,
+                                                Core::Vector4,
+                                                Core::Matrix2,
+                                                Core::Matrix3,
+                                                Core::Matrix4,
                                                 std::reference_wrapper<RenderParameters>>;
-    /// \}
 
     /** Set of typed parameters
      * For a given shader Program, all the parameters are stored by type, using Core::VariableSet as
@@ -107,6 +77,7 @@ class RA_ENGINE_API RenderParameters final
      */
     template <typename T>
     using UniformVariable = Core::VariableSet::VariableHandle<T>;
+    /// \}
 
   public:
     /**

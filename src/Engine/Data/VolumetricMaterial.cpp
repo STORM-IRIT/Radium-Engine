@@ -31,14 +31,11 @@ void VolumetricMaterial::updateGL() {
 
 void VolumetricMaterial::updateFromParameters() {
     auto& renderParameters = getParameters();
-    m_sigma_a =
-        renderParameters.getParameter<RenderParameters::ColorParameter>( "material.sigma_a" );
-    m_sigma_s =
-        renderParameters.getParameter<RenderParameters::ColorParameter>( "material.sigma_s" );
-    m_g     = renderParameters.getParameter<RenderParameters::ScalarParameter>( "material.g" );
-    m_scale = renderParameters.getParameter<RenderParameters::ScalarParameter>( "material.scale" );
-    m_stepsize =
-        renderParameters.getParameter<RenderParameters::ScalarParameter>( "material.stepsize" );
+    m_sigma_a  = renderParameters.getParameter<Core::Utils::Color>( "material.sigma_a" );
+    m_sigma_s  = renderParameters.getParameter<Core::Utils::Color>( "material.sigma_s" );
+    m_g        = renderParameters.getParameter<Scalar>( "material.g" );
+    m_scale    = renderParameters.getParameter<Scalar>( "material.scale" );
+    m_stepsize = renderParameters.getParameter<Scalar>( "material.stepsize" );
 }
 
 void VolumetricMaterial::updateRenderingParameters() {
