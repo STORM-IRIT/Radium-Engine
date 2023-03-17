@@ -14,6 +14,13 @@
 
 #include <Dataflow/QtGui/GraphEditor/GraphEditorWindow.hpp>
 
+#ifdef USE_RADIUMGLTF
+#    include <Engine/Scene/SystemDisplay.hpp>
+#    include <IO/Gltf/Loader/glTFFileLoader.hpp>
+#    include <IO/Gltf/Writer/glTFFileWriter.hpp>
+#    include <glTFLibrary.hpp>
+#endif
+
 // Qt Widgets
 #include <QtWidgets>
 
@@ -142,6 +149,12 @@ class DemoWindowFactory : public BaseApplication::WindowFactory
 
     inline Ra::Gui::MainWindowInterface* createMainWindow() const override {
         auto window = new SimpleWindow();
+#ifdef USE_RADIUMGLTF
+        // register the gltf loader
+        std::shared_ptr<Ra::Core::Asset::FileLoaderInterface> loader =
+            std::make_shared<GLTF::glTFFileLoader>();
+        Ra::Engine::RadiumEngine::getInstance()->registerFileLoader( loader );
+#endif
         addFileMenu( window );
         addRendererMenu( window, m_renderers );
         return window;
@@ -349,6 +362,12 @@ int main( int argc, char* argv[] ) {
     app.initialize( DemoWindowFactory( renderers ) );
     app.setContinuousUpdate( false );
     app.addRadiumMenu();
+#ifdef USE_RADIUMGLTF
+    app.m_mainWindow->getViewer()->makeCurrent();
+    // initialize the use of GLTF library
+    GLTF::initializeGltf();
+    app.m_mainWindow->getViewer()->doneCurrent();
+#endif
     //! [Initializing the application]
 
     return app.exec();
