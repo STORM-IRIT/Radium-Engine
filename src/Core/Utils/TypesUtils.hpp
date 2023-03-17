@@ -118,55 +118,49 @@ struct TypeList {
 };
 
 #ifdef _WIN32
-// On windows (since MSVC 2019), typeid( T ).name() returns the demangled name
-template <typename T>
-const char* demangleType() noexcept {
-    static auto demangled_name = []() {
-        std::string retval { typeid( T ).name() };
-        removeAllInString( retval, "class " );
-        removeAllInString( retval, "struct " );
-        replaceAllInString( retval, ",", ", " );
-        replaceAllInString( retval, "> >", ">>" );
-        return retval;
-    }();
-
-    return demangled_name.data();
+// On windows (since MSVC 2019), typeid( T ).name() (and then typeIndex.name() returns the demangled
+// name
+inline std::string demangleType( const std::type_index& typeIndex ) noexcept {
+    std::string retval = typeIndex.name();
+    removeAllInString( retval, "class " );
+    removeAllInString( retval, "struct " );
+    removeAllInString( retval, "__cdecl" );
+    replaceAllInString( retval, "& __ptr64", "&" );
+    replaceAllInString( retval, ",", ", " );
+    replaceAllInString( retval, " >", ">" );
+    replaceAllInString( retval, "__int64", "long" );
+    replaceAllInString( retval, "const &", "const&" );
+    return retval;
 }
 #else
-template <typename T>
-const char* demangleType() noexcept {
-    // once per one type
-    static auto demangled_name = []() {
-        int error = 0;
-        std::string retval;
-        char* name = abi::__cxa_demangle( typeid( T ).name(), 0, 0, &error );
-
-        switch ( error ) {
-        case 0:
-            retval = name;
-            break;
-        case -1:
-            retval = "memory allocation failed";
-            break;
-        case -2:
-            retval = "not a valid mangled name";
-            break;
-        default:
-            retval = "__cxa_demangle failed";
-            break;
-        }
-        std::free( name );
-        removeAllInString( retval, "__1::" ); // or "::__1" ?
-        replaceAllInString( retval, "> >", ">>" );
-        return retval;
-    }();
-
-    return demangled_name.data();
+// On Linux/macos, use the C++ ABI demangler
+inline std::string demangleType( const std::type_index& typeIndex ) noexcept {
+    int error = 0;
+    std::string retval;
+    char* name = abi::__cxa_demangle( typeIndex.name(), 0, 0, &error );
+    if ( error == 0 ) { retval = name; }
+    else {
+        // error : -1 --> memory allocation failed
+        // error : -2 --> not a valid mangled name
+        // error : other --> __cxa_demangle
+        retval = std::string( "Type demangler error : " ) + std::to_string( error );
+    }
+    std::free( name );
+    removeAllInString( retval, "__1::" ); // or "::__1" ?
+    replaceAllInString( retval, " >", ">" );
+    return retval;
 }
 #endif
+template <typename T>
+std::string demangleType() noexcept {
+    // once per one type
+    static auto demangled_name = demangleType( std::type_index( typeid( T ) ) );
+    return demangled_name;
+}
+
 // calling with instances
 template <typename T>
-const char* demangleType( const T& ) noexcept {
+std::string demangleType( const T& ) noexcept {
     return demangleType<T>();
 }
 
