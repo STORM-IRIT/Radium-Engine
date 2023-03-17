@@ -8,6 +8,10 @@ TL;DR; command line version.
 ```bash
 git clone --recurse-submodules https://github.com/STORM-IRIT/Radium-Engine.git
 
+# optionally switch to a specific branch or tag, e.g. release-candidate or v1.2.0
+# git switch release-candidate # use git checkout for tags
+# git submodule update --init --recursive # in case submodules have changed wrt master
+
 # configure and build (install automatically) external, outside Radium-Engine directory
 cmake -S Radium-Engine/external -B builds/radium-external-build-r -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=installs/radium-external-r
 cmake --build builds/radium-external-build-r --config Release --parallel
