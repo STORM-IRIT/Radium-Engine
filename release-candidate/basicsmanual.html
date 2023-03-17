@@ -52,7 +52,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.4.9</span>
+   &#160;<span id="projectnumber">1.4.10</span>
    </div>
   </td>
  </tr>
@@ -121,6 +121,10 @@ $(document).ready(function(){initNavTree('basicsmanual.html',''); initResizable(
 <p>TL;DR; command line version.</p>
 <div class="fragment"><div class="line">git clone --recurse-submodules https://github.com/STORM-IRIT/Radium-Engine.git</div>
 <div class="line"> </div>
+<div class="line"># optionally switch to a specific branch or tag, e.g. release-candidate or v1.2.0</div>
+<div class="line"># git switch release-candidate # use git checkout for tags</div>
+<div class="line"># git submodule update --init --recursive # in case submodules have changed wrt master</div>
+<div class="line"> </div>
 <div class="line"># configure and build (install automatically) external, outside Radium-Engine directory</div>
 <div class="line">cmake -S Radium-Engine/external -B builds/radium-external-build-r -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=installs/radium-external-r</div>
 <div class="line">cmake --build builds/radium-external-build-r --config Release --parallel</div>
@@ -146,7 +150,7 @@ Detailed instructions</h2>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Sat Feb 25 2023 10:33:15 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Fri Mar 17 2023 07:31:28 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>
