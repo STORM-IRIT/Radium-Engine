@@ -5,6 +5,8 @@
 #include <Engine/Data/ShaderConfigFactory.hpp>
 #include <Engine/Data/ShaderProgramManager.hpp>
 
+#include <globjects/Texture.h>
+
 namespace Ra {
 namespace Dataflow {
 namespace Rendering {
