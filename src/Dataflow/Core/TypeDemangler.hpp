@@ -7,39 +7,44 @@ namespace Ra {
 namespace Dataflow {
 namespace Core {
 
-/// \brief Return the human readable version of the type name T with simplified radium types
+/// \brief Return the human readable version of the type name T with simplified radium type names
 template <typename T>
-const char* simplifiedDemangledType() noexcept;
+auto simplifiedDemangledType() noexcept -> std::string;
 
-/// \brief Return the human readable version of the type name T with simplified radium types
+/// \brief Return the human readable version of the type name T with simplified radium type names
 template <typename T>
-const char* simplifiedDemangledType( const T& ) noexcept;
+auto simplifiedDemangledType( const T& ) noexcept -> std::string;
 
-RA_DATAFLOW_API std::string simplifiedDemangledType( const std::type_index& typeName ) noexcept;
+/// \brief Return the human readable version of the type name whose index is known, with simplified
+/// radium type names
+/// \param typeName The typeIndex whose simplified named is requested
+/// \return The Radium-simplified type name
+RA_DATAFLOW_API auto simplifiedDemangledType( const std::type_index& typeName ) noexcept
+    -> std::string;
 
 // -----------------------------------------------------------------
 // ---------------------- inline methods ---------------------------
 
 namespace TypeInternal {
-RA_DATAFLOW_API std::string makeTypeReadable( const std::string& );
+RA_DATAFLOW_API auto makeTypeReadable( const std::string& ) -> std::string;
 }
 
 template <typename T>
-const char* simplifiedDemangledType() noexcept {
+auto simplifiedDemangledType() noexcept -> std::string {
     static auto demangled_name = []() {
         std::string demangledType =
             TypeInternal::makeTypeReadable( Ra::Core::Utils::demangleType<T>() );
         return demangledType;
     }();
-    return demangled_name.data();
+    return demangled_name;
 }
 
 template <typename T>
-const char* simplifiedDemangledType( const T& ) noexcept {
+auto simplifiedDemangledType( const T& ) noexcept -> std::string {
     return simplifiedDemangledType<T>();
 }
 
-inline std::string simplifiedDemangledType( const std::type_index& typeName ) noexcept {
+inline auto simplifiedDemangledType( const std::type_index& typeName ) noexcept -> std::string {
     return TypeInternal::makeTypeReadable( Ra::Core::Utils::demangleType( typeName ) );
 }
 
