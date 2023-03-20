@@ -38,7 +38,7 @@ bool RenderingGraph::compile() {
     if ( compiled ) {
         const auto& compiledNodes = getNodesByLevel();
         int idx = 1; // The renderTechnique id = 0 is reserved for ui/debug objects
-        for ( const auto& lvl : *compiledNodes ) {
+        for ( const auto& lvl : compiledNodes ) {
             for ( auto n : lvl ) {
                 auto renderNode = dynamic_cast<RenderingNode*>( n );
                 if ( renderNode != nullptr ) {

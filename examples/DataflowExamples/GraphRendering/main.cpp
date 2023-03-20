@@ -183,10 +183,10 @@ class MyRendererController : public RenderGraphController
         }
 
         // Nodes of the graph
-        auto nodes = g.getNodes();
-        std::cout << "Nodes of the graph " << g.getInstanceName() << " (" << nodes->size()
+        const auto& nodes = g.getNodes();
+        std::cout << "Nodes of the graph " << g.getInstanceName() << " (" << nodes.size()
                   << ") :\n";
-        for ( const auto& n : *( nodes ) ) {
+        for ( const auto& n : nodes ) {
             std::cout << "\t\"" << n->getInstanceName() << "\" of type \"" << n->getTypeName()
                       << "\"\n";
             // Inspect input, output and interfaces of the node
@@ -210,11 +210,11 @@ class MyRendererController : public RenderGraphController
         // Nodes by level after the compilation
         auto c = g.compile();
         if ( c ) {
-            auto cn = g.getNodesByLevel();
+            const auto& cn = g.getNodesByLevel();
             std::cout << "Nodes of the graph, sorted by level when compiling the graph :\n";
-            for ( size_t i = 0; i < cn->size(); ++i ) {
+            for ( size_t i = 0; i < cn.size(); ++i ) {
                 std::cout << "\tLevel " << i << " :\n";
-                for ( const auto n : ( *cn )[i] ) {
+                for ( const auto n : cn[i] ) {
                     std::cout << "\t\t\"" << n->getInstanceName() << "\"\n";
                 }
             }

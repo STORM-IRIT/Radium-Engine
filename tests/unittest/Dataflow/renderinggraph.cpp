@@ -32,14 +32,12 @@ TEST_CASE( "Dataflow/Rendering/RenderingGraph", "[Dataflow][Rendering][Rendering
         }
 
         // Nodes of the graph
-        auto nodes = g->getNodes();
-        REQUIRE( nodes != nullptr );
-        std::cout << "Nodes of the graph " << g->getInstanceName() << " (" << nodes->size()
+        const auto& nodes = g->getNodes();
+        REQUIRE( nodes.size() == g->getNodesCount() );
+        std::cout << "Nodes of the graph " << g->getInstanceName() << " (" << nodes.size()
                   << " nodes) " << g->getNodesCount() << ":\n";
 
-        REQUIRE( nodes->size() == g->getNodesCount() );
-
-        for ( const auto& n : *( nodes ) ) {
+        for ( const auto& n : nodes ) {
             std::cout << "\t\"" << n->getInstanceName() << "\" of type \"" << n->getTypeName()
                       << "\"\n";
             // Inspect input, output and interfaces of the node
@@ -80,11 +78,11 @@ TEST_CASE( "Dataflow/Rendering/RenderingGraph", "[Dataflow][Rendering][Rendering
         // Nodes by level after the compilation
         auto c = g->compile();
         REQUIRE( c == true );
-        auto cn = g->getNodesByLevel();
+        auto& cn = g->getNodesByLevel();
         std::cout << "Nodes of the graph, sorted by level when compiling the graph :\n";
-        for ( size_t i = 0; i < cn->size(); ++i ) {
+        for ( size_t i = 0; i < cn.size(); ++i ) {
             std::cout << "\tLevel " << i << " :\n";
-            for ( const auto n : ( *cn )[i] ) {
+            for ( const auto n : cn[i] ) {
                 std::cout << "\t\t\"" << n->getInstanceName() << "\"\n";
             }
         }
