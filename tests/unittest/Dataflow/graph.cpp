@@ -18,9 +18,9 @@ void inspectGraph( const DataflowGraph& g ) {
     }
 
     // Nodes of the graph
-    auto nodes = g.getNodes();
-    std::cout << "Nodes of the graph " << g.getInstanceName() << " (" << nodes->size() << ") :\n";
-    for ( const auto& n : *( nodes ) ) {
+    auto& nodes = g.getNodes();
+    std::cout << "Nodes of the graph " << g.getInstanceName() << " (" << nodes.size() << ") :\n";
+    for ( const auto& n : nodes ) {
         std::cout << "\t\"" << n->getInstanceName() << "\" of type \"" << n->getTypeName()
                   << "\"\n";
         // Inspect input, output and interfaces of the node
@@ -40,11 +40,11 @@ void inspectGraph( const DataflowGraph& g ) {
 
     // Nodes by level after the compilation
     if ( g.isCompiled() ) {
-        auto cn = g.getNodesByLevel();
+        auto& cn = g.getNodesByLevel();
         std::cout << "Nodes of the graph, sorted by level after compiling the graph :\n";
-        for ( size_t i = 0; i < cn->size(); ++i ) {
+        for ( size_t i = 0; i < cn.size(); ++i ) {
             std::cout << "\tLevel " << i << " :\n";
-            for ( const auto n : ( *cn )[i] ) {
+            for ( const auto n : cn[i] ) {
                 std::cout << "\t\t\"" << n->getInstanceName() << "\"\n";
             }
         }
@@ -375,9 +375,8 @@ TEST_CASE( "Dataflow/Core/Graph", "[Dataflow][Core][Graph]" ) {
         // Factories used by the graph
         auto factories = g->getNodeFactories();
         REQUIRE( factories != nullptr );
-        auto nodes = g->getNodes();
-        REQUIRE( nodes != nullptr );
-        REQUIRE( nodes->size() == g->getNodesCount() );
+        auto& nodes = g->getNodes();
+        REQUIRE( nodes.size() == g->getNodesCount() );
         auto c = g->compile();
         REQUIRE( c == true );
         REQUIRE( g->isCompiled() );
@@ -396,13 +395,13 @@ TEST_CASE( "Dataflow/Core/Graph", "[Dataflow][Core][Graph]" ) {
         REQUIRE( c == true );
 
         // Simplified graph after compilation
-        auto cn = g->getNodesByLevel();
+        auto& cn = g->getNodesByLevel();
         // the source "Validator" is no more in level 0 as it is not reachable from a sink in the
         // graph.
-        auto found = std::find_if( ( *cn )[0].begin(), ( *cn )[0].end(), []( const auto& nn ) {
+        auto found = std::find_if( cn[0].begin(), cn[0].end(), []( const auto& nn ) {
             return nn->getInstanceName() == "Validator";
         } );
-        REQUIRE( found == ( *cn )[0].end() );
+        REQUIRE( found == cn[0].end() );
 
         // removing the source "Validator"
         n = g->getNode( "Validator" );
