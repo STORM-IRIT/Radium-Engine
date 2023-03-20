@@ -12,6 +12,7 @@ namespace Core {
 namespace NodeFactoriesManager {
 
 void registerStandardFactories() {
+    if ( getFactory( NodeFactoriesManager::dataFlowBuiltInsFactoryName ) ) { return; }
     auto coreFactory = createFactory( NodeFactoriesManager::dataFlowBuiltInsFactoryName );
     /* --- Sources --- */
     Private::registerSourcesFactories( coreFactory );
@@ -24,8 +25,6 @@ void registerStandardFactories() {
 
     /* --- Graphs --- */
     coreFactory->registerNodeCreator<DataflowGraph>( DataflowGraph::getTypename() + "_", "Graph" );
-
-    registerFactory( coreFactory );
 }
 } // namespace NodeFactoriesManager
 } // namespace Core
