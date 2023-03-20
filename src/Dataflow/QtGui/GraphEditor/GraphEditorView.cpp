@@ -112,7 +112,7 @@ void GraphEditorView::editGraph( DataflowGraph* g ) {
     m_dataflowGraph = g;
     if ( m_dataflowGraph ) {
         buildAdapterRegistry( NodeFactoriesManager::getFactoryManager() );
-        const auto& nodes = *( m_dataflowGraph->getNodes() );
+        auto& nodes = m_dataflowGraph->getNodes();
         // NodeToUuid mapping
         std::map<Node*, QString> nodeToUuid;
         // inserting nodes

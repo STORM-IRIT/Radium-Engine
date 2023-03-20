@@ -16,7 +16,7 @@ namespace Core {
  */
 
 /**
- * \brief Represent a set of connected nodes that define a computational graph
+ * \brief Represent a set of connected nodes that define a Direct Acyclic Computational Graph
  * Ownership of nodes is given to the graph at construction time.
  * \todo make a "graph embedding node" that allow to seemlesly integrate a graph as a node in
  * another graph
@@ -38,45 +38,46 @@ class RA_DATAFLOW_API DataflowGraph : public Node
     bool execute() override;
     void destroy() override;
 
-    /// Set the factory set to use when loading a graph
-    /// This function replace the existing factoryset if any
+    /// \brief Set the factories to use when loading a graph.
+    /// \param factories new factory set that will replace the existing factory set if any.
     void setNodeFactories( std::shared_ptr<NodeFactorySet> factories );
 
-    /// get the node factory set associated with from the graph.
-    /// returns nullptr if no factoryset is associated with the graph
+    /// \brief Get the node factories associated with the graph.
+    /// \return returns nullptr if no factory set is associated with the graph.
     std::shared_ptr<NodeFactorySet> getNodeFactories() const;
 
-    /// Add a factory to the factoryset of the graph.
-    /// Creates the factoryset if it does not exists
-    void addFactory( const std::string& name, std::shared_ptr<NodeFactory> f );
-
-    /// Add a factory to the factoryset of the graph.
-    /// Creates the factoryset if it does not exists
+    /// \brief Add a factory to the factory set of the graph.
+    /// Creates the factory set if it does not exists
+    /// \param f  a shared pointer to the factory to be added. The name of this factory
     void addFactory( std::shared_ptr<NodeFactory> f );
 
-    /// Loads nodes and links from a JSON file.
+    /// \brief Remove a factory from the factory set of the graph.
+    /// \param name the name of the factory to remove
+    /// \return true if the factory was found and removed
+    bool removeFactory( const std::string& name );
+
+    /// \brief Loads nodes and links from a JSON file.
     /// \param jsonFilePath The path to the JSON file.
+    /// \return true if the file was loaded, false if an error occurs.
     bool loadFromJson( const std::string& jsonFilePath );
 
-    /// Saves nodes and links to a JSON file.
+    /// \brief Saves nodes and links to a JSON file.
     /// \param jsonFilePath The path to the JSON file.
     void saveToJson( const std::string& jsonFilePath );
 
-    /// \brief Test if a node can be added to a graph
-    /// \param newNode const naked pointer to the candidate node
-    /// \return true if ownership could be transferred to the graph.
-    virtual bool canAdd( const Node* newNode ) const;
-
-    /// Adds a node to the render graph. Adds interface ports to the node newNode and the
-    /// corresponding input and output ports to the graph.
-    /// \param newNode The node to add to the render graph.
-    /// ownership of the node is transferred to the graph
+    /// \brief Adds a node to the render graph.
+    /// Adds interface ports to the node newNode and the corresponding input and output ports to
+    /// the graph.
+    /// \param newNode The node to add to the graph.
+    /// \return a pair with a bool and a raw pointer to the Node. If the bool is true, the raw
+    /// pointer is owned by the graph. If the bool is false, the raw pointer ownership is left to
+    /// the caller.
     virtual std::pair<bool, Node*> addNode( std::unique_ptr<Node> newNode );
 
-    /// Removes a node from the render graph. Removes input and output ports of the graph
-    /// corresponding to interface ports of the node.
-    /// \param node The node to remove from the render graph.
-    /// \return true if the node was removed and the given pointer is set to nullptr, false else
+    /// \brief Removes a node from the render graph.
+    /// Removes input and output ports, corresponding to interface ports of the node, from the
+    /// graph. \param node The node to remove from the graph. \return true if the node was removed
+    /// and the given pointer is set to nullptr, false else
     virtual bool removeNode( Node*& node );
 
     /// Connects two nodes of the render graph.
@@ -92,18 +93,23 @@ class RA_DATAFLOW_API DataflowGraph : public Node
                   Node* nodeTo,
                   const std::string& nodeToInputName );
 
-    /// Removes the link connected to this node's input port
+    ///
+    /// \brief Removes the link connected to a node's input port
+    /// \param node the node to unlink
+    /// \param nodeInputName the name of the port to unlink
+    /// \return true if link is removed, false if not.
     bool removeLink( Node* node, const std::string& nodeInputName );
 
-    /// Gets the nodes
-    const std::vector<std::unique_ptr<Node>>* getNodes() const;
+    /// \brief Get the vector of all the nodes on the graph
+    /// \return
+    const std::vector<std::unique_ptr<Node>>& getNodes() const;
 
     /// Gets a specific node according to its instance name.
     /// \param instanceNameNode The instance name of the node.
     Node* getNode( const std::string& instanceNameNode ) const;
 
     /// Gets the nodes ordered by level (after compilation)
-    const std::vector<std::vector<Node*>>* getNodesByLevel() const;
+    const std::vector<std::vector<Node*>>& getNodesByLevel() const;
 
     /// Compile the render graph to check its validity and simplify it.
     /// The compilation has multiple goals:
@@ -179,6 +185,11 @@ class RA_DATAFLOW_API DataflowGraph : public Node
 
     bool fromJsonInternal( const nlohmann::json& data ) override;
     void toJsonInternal( nlohmann::json& ) const override;
+
+    /// \brief Test if a node can be added to a graph
+    /// \param newNode const naked pointer to the candidate node
+    /// \return true if ownership could be transferred to the graph.
+    virtual bool canAdd( const Node* newNode ) const;
 
   private:
     /// Flag set after successful compilation indicating graph is ready to be executed
@@ -289,21 +300,20 @@ inline std::shared_ptr<NodeFactorySet> DataflowGraph::getNodeFactories() const {
     return m_factories;
 }
 
-inline void DataflowGraph::addFactory( const std::string& name, std::shared_ptr<NodeFactory> f ) {
-    if ( !m_factories ) { m_factories.reset( new NodeFactorySet ); }
-    m_factories->addFactory( name, f );
-}
-
 inline void DataflowGraph::addFactory( std::shared_ptr<NodeFactory> f ) {
     if ( !m_factories ) { m_factories.reset( new NodeFactorySet ); }
-    m_factories->addFactory( f->getName(), f );
+    m_factories->addFactory( f );
 }
 
-inline const std::vector<std::unique_ptr<Node>>* DataflowGraph::getNodes() const {
-    return &m_nodes;
+inline bool DataflowGraph::removeFactory( const std::string& name ) {
+    return m_factories->removeFactory( name );
 }
-inline const std::vector<std::vector<Node*>>* DataflowGraph::getNodesByLevel() const {
-    return &m_nodesByLevel;
+
+inline const std::vector<std::unique_ptr<Node>>& DataflowGraph::getNodes() const {
+    return m_nodes;
+}
+inline const std::vector<std::vector<Node*>>& DataflowGraph::getNodesByLevel() const {
+    return m_nodesByLevel;
 }
 inline size_t DataflowGraph::getNodesCount() const {
     return m_nodes.size();
