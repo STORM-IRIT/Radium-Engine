@@ -30,16 +30,13 @@ int main( int argc, char* argv[] ) {
     customFactory->registerNodeCreator<Sinks::SinkNode<VectorType>>(
         Sinks::SinkNode<VectorType>::getTypename() + "_", "Custom" );
 
-    // register the factory into the system to enable loading any graph that use these nodes
-    NodeFactoriesManager::registerFactory( customFactory );
     //! [Creating the factory for the custom node types and add it to the node system]
 
     {
         //! [Creating an empty graph using the custom nodes factory]
         DataflowGraph g { "Serialization example" };
         // Add to the graph the custom factory (built-in nodes are automatically managed)
-        g.addFactory( "ExampleCustomFactory",
-                      NodeFactoriesManager::getFactory( "ExampleCustomFactory" ) );
+        g.addFactory( NodeFactoriesManager::getFactory( "ExampleCustomFactory" ) );
         //! [Creating an empty graph using the custom nodes factory]
 
         //! [Creating Nodes]

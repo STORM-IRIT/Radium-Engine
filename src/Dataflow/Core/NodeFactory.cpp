@@ -2,8 +2,6 @@
 
 #include <Dataflow/Core/DataflowGraph.hpp>
 
-#include <Dataflow/Core/Nodes/CoreBuiltInsNodes.hpp>
-
 namespace Ra {
 namespace Dataflow {
 namespace Core {
@@ -14,16 +12,15 @@ const std::string dataFlowBuiltInsFactoryName { "DataFlowBuiltIns" };
 
 NodeFactory::NodeFactory( std::string name ) : m_name( std::move( name ) ) {}
 
-std::string NodeFactory::getName() const {
+auto NodeFactory::getName() const -> std::string {
     return m_name;
 }
 
-Node* NodeFactory::createNode( std::string& nodeType,
-                               const nlohmann::json& data,
-                               DataflowGraph* owningGraph ) {
-    auto it = m_nodesCreators.find( nodeType );
-    if ( it != m_nodesCreators.end() ) {
-        auto node = it->second.first( data );
+auto NodeFactory::createNode( const std::string& nodeType,
+                              const nlohmann::json& data,
+                              DataflowGraph* owningGraph ) -> Node* {
+    if ( auto itr = m_nodesCreators.find( nodeType ); itr != m_nodesCreators.end() ) {
+        auto* node = itr->second.first( data );
         if ( owningGraph != nullptr ) {
             auto [added, n] = owningGraph->addNode( std::unique_ptr<Node>( node ) );
             return n;
@@ -33,11 +30,11 @@ Node* NodeFactory::createNode( std::string& nodeType,
     return nullptr;
 }
 
-bool NodeFactory::registerNodeCreator( std::string nodeType,
+auto NodeFactory::registerNodeCreator( const std::string& nodeType,
                                        NodeCreatorFunctor nodeCreator,
-                                       const std::string& nodeCategory ) {
-    auto it = m_nodesCreators.find( nodeType );
-    if ( it == m_nodesCreators.end() ) {
+                                       const std::string& nodeCategory ) -> bool {
+
+    if ( auto itr = m_nodesCreators.find( nodeType ); itr == m_nodesCreators.end() ) {
         m_nodesCreators[nodeType] = { std::move( nodeCreator ), nodeCategory };
         return true;
     }
@@ -47,16 +44,17 @@ bool NodeFactory::registerNodeCreator( std::string nodeType,
     return false;
 }
 
-size_t NodeFactory::nextNodeId() {
+auto NodeFactory::nextNodeId() -> size_t {
     return ++m_nodesCreated;
 }
 
-Node* NodeFactorySet::createNode( std::string& nodeType,
-                                  const nlohmann::json& data,
-                                  DataflowGraph* owningGraph ) {
-    for ( const auto& it : m_factories ) {
-        auto node = it.second->createNode( nodeType, data, owningGraph );
-        if ( node ) { return node; }
+auto NodeFactorySet::createNode( const std::string& nodeType,
+                                 const nlohmann::json& data,
+                                 DataflowGraph* owningGraph ) -> Node* {
+    for ( const auto& itr : m_factories ) {
+        if ( auto* node = itr.second->createNode( nodeType, data, owningGraph ); node ) {
+            return node;
+        }
     }
     LOG( Ra::Core::Utils::logERROR ) << "NodeFactorySet: unable to find constructor for "
                                      << nodeType << " in any managed factory.";
@@ -66,44 +64,39 @@ Node* NodeFactorySet::createNode( std::string& nodeType,
 namespace NodeFactoriesManager {
 
 /**
- * \brief Allow static intialization without init order problems
+ * \brief Allow static initialization without init order problems
  * \return The manager singleton
  */
-NodeFactorySet& getFactoryManager() {
+auto getFactoryManager() -> NodeFactorySet& {
     static NodeFactorySet s_factoryManager {};
     return s_factoryManager;
 }
 
-bool registerFactory( NodeFactorySet::mapped_type factory ) {
-    auto& fctMngr    = getFactoryManager();
-    auto factoryName = factory->getName();
-    return fctMngr.addFactory( std::move( factoryName ), std::move( factory ) );
+auto registerFactory( NodeFactorySet::mapped_type factory ) -> bool {
+    return getFactoryManager().addFactory( std::move( factory ) );
 }
 
-NodeFactorySet::mapped_type createFactory( const std::string& name ) {
-    return NodeFactorySet::mapped_type { new NodeFactorySet::mapped_type::element_type( name ) };
+auto createFactory( const NodeFactorySet::key_type& name ) -> NodeFactorySet::mapped_type {
+    auto factory = getFactory( name );
+    if ( factory == nullptr ) {
+        factory = std::make_shared<NodeFactory>( name );
+        registerFactory( factory );
+    }
+    return factory;
 }
 
-NodeFactorySet::mapped_type getFactory( NodeFactorySet::key_type factoryName ) {
-    auto& fctMngr = getFactoryManager();
-    auto factory  = fctMngr.find( factoryName );
-    if ( factory == fctMngr.end() ) { return nullptr; }
-    return factory->second;
+auto getFactory( const NodeFactorySet::key_type& name ) -> NodeFactorySet::mapped_type {
+    auto& fctMgr = getFactoryManager();
+    if ( auto factory = fctMgr.find( name ); factory != fctMgr.end() ) { return factory->second; }
+    return nullptr;
 }
 
-bool unregisterFactory( NodeFactorySet::key_type factoryName ) {
-    auto& fctMngr = getFactoryManager();
-    return fctMngr.removeFactory( factoryName );
+auto unregisterFactory( const NodeFactorySet::key_type& name ) -> bool {
+    return getFactoryManager().removeFactory( name );
 }
 
-NodeFactorySet::mapped_type getDataFlowBuiltInsFactory() {
-    auto& fctMngr = getFactoryManager();
-    auto i        = fctMngr.find( NodeFactoriesManager::dataFlowBuiltInsFactoryName );
-    if ( i != fctMngr.end() ) { return i->second; }
-
-    // Should never be there
-    std::cerr << "@&$&$@&$@&$ ERROR !!!!!! Core factory not registered\n";
-    std::abort();
+auto getDataFlowBuiltInsFactory() -> NodeFactorySet::mapped_type {
+    return getFactory( NodeFactoriesManager::dataFlowBuiltInsFactoryName );
 }
 
 } // namespace NodeFactoriesManager

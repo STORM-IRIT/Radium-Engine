@@ -298,12 +298,27 @@ TEST_CASE( "Dataflow/Core/Custom nodes", "[Dataflow][Core][Custom nodes]" ) {
         registered = customFactory->registerNodeCreator<Customs::FilterSelector<Scalar>>(
             Customs::FilterSelector<Scalar>::getTypename() + "_", "Custom" );
         REQUIRE( registered == false );
-        // register the factory into the system to enable loading any graph that use these nodes
-        NodeFactoriesManager::registerFactory( customFactory );
+
+        std::cout << "Building the following custom nodes with the factory "
+                  << customFactory->getName() << "\n";
+        for ( auto [name, functor] : customFactory->getFactoryMap() ) {
+            std::cout << name << ", ";
+        }
+        std::cout << "\n";
+
+        nlohmann::json emptyData;
+        auto customSource = customFactory->createNode(
+            "Source<basic_string<char, char_traits<char>, allocator<char>>>", emptyData, nullptr );
+        REQUIRE( customSource != nullptr );
+
+        std::cout << "Created node " << customSource->getInstanceName() << " with type "
+                  << customSource->getTypeName() << "\n";
+
+        //"Source<basic_string<char, char_traits<char>, allocator<char>>>"
 
         // build a graph
         auto g = buildgraph<Scalar>( "testCustomNodes" );
-        g->addFactory( customFactory->getName(), customFactory );
+        g->addFactory( customFactory );
 
         std::string tmpdir { "customGraphExport/" };
         std::filesystem::create_directories( tmpdir );
