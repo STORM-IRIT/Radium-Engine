@@ -18,7 +18,7 @@ void inspectGraph( const DataflowGraph& g ) {
     }
 
     // Nodes of the graph
-    auto& nodes = g.getNodes();
+    const auto& nodes = g.getNodes();
     std::cout << "Nodes of the graph " << g.getInstanceName() << " (" << nodes.size() << ") :\n";
     for ( const auto& n : nodes ) {
         std::cout << "\t\"" << n->getInstanceName() << "\" of type \"" << n->getTypeName()
@@ -375,7 +375,7 @@ TEST_CASE( "Dataflow/Core/Graph", "[Dataflow][Core][Graph]" ) {
         // Factories used by the graph
         auto factories = g->getNodeFactories();
         REQUIRE( factories != nullptr );
-        auto& nodes = g->getNodes();
+        const auto& nodes = g->getNodes();
         REQUIRE( nodes.size() == g->getNodesCount() );
         auto c = g->compile();
         REQUIRE( c == true );
