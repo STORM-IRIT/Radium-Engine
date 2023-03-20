@@ -16,9 +16,9 @@ namespace Core {
 class DataflowGraph;
 
 /**
- * NodeFactory store a set of functions allowing to dynmically create dataflow nodes.
- * A NodeFactory is used when loading a nodegraph from a json representation of the graph to
- * instanciate all the loaded nodes.
+ * NodeFactory store a set of functions allowing to dynamically create dataflow nodes.
+ * A NodeFactory is used when loading a node graph from a json representation of the graph to
+ * instantiate all the loaded nodes.
  * Each DataflowGraph must have a reference to the nodeFactory to be used to create all the node he
  * has.
  *
@@ -29,7 +29,7 @@ class RA_DATAFLOW_API NodeFactory
     /** Creates an empty factory with the given name */
     explicit NodeFactory( std::string name );
 
-    std::string getName() const;
+    [[nodiscard]] auto getName() const -> std::string;
 
     /** Function that creates and initialize a node.
      *  Typical implementation of such a function should do the following :
@@ -50,8 +50,8 @@ class RA_DATAFLOW_API NodeFactory
      * collision).
      */
     template <typename T>
-    bool registerNodeCreator( NodeCreatorFunctor nodeCreator,
-                              const std::string& nodeCategory = "RadiumNodes" );
+    auto registerNodeCreator( NodeCreatorFunctor nodeCreator,
+                              const std::string& nodeCategory = "RadiumNodes" ) -> bool;
 
     /**
      * Associate, for a given concrete node type, a generic NodeCreatorFunctor
@@ -63,8 +63,8 @@ class RA_DATAFLOW_API NodeFactory
      * collision).
      */
     template <typename T>
-    bool registerNodeCreator( const std::string& instanceNamePrefix,
-                              const std::string& nodeCategory = "RadiumNodes" );
+    auto registerNodeCreator( const std::string& instanceNamePrefix,
+                              const std::string& nodeCategory = "RadiumNodes" ) -> bool;
     /**
      * Associate, for a given concrete node type name, a NodeCreatorFunctor
      * \param nodeType the name of the concrete type
@@ -73,15 +73,15 @@ class RA_DATAFLOW_API NodeFactory
      * \return true if the node creator is successfully added, false if not (e.g. due to a name
      * collision).
      */
-    bool registerNodeCreator( std::string nodeType,
+    auto registerNodeCreator( const std::string& nodeType,
                               NodeCreatorFunctor nodeCreator,
-                              const std::string& nodeCategory = "RadiumNodes" );
+                              const std::string& nodeCategory = "RadiumNodes" ) -> bool;
 
     /**
      * Get an unique, increasing node id.
      * \return
      */
-    size_t nextNodeId();
+    auto nextNodeId() -> size_t;
 
     /** Create a node of the requested type.
      * The node is filled with the given json content.
@@ -91,14 +91,14 @@ class RA_DATAFLOW_API NodeFactory
      * \param owningGraph if non null, the node is added to ths graph
      * \return the new node. Ownership of the returned pointer is left to the caller.
      */
-    [[nodiscard]] Node* createNode( std::string& nodeType,
-                                    const nlohmann::json& data,
-                                    DataflowGraph* owningGraph = nullptr );
+    [[nodiscard]] auto createNode( const std::string& nodeType,
+                                   const nlohmann::json& data,
+                                   DataflowGraph* owningGraph = nullptr ) -> Node*;
 
     /**
      * The type of the associative container used to store the factory
      * this container associate a concrete node type name to a pair
-     * <concrete instanciator functor, name of the node category>
+     * <concrete instantiation functor, name of the node category>
      * The name of the node category is helpful for graphical NodeGraph editor.
      * By default this is set to be "RadiumNodes"
      */
@@ -108,7 +108,7 @@ class RA_DATAFLOW_API NodeFactory
      * Get a const reference on the associative map
      * \return
      */
-    [[nodiscard]] const ContainerType& getFactoryMap() const;
+    [[nodiscard]] auto getFactoryMap() const -> const ContainerType&;
 
   private:
     ContainerType m_nodesCreators;
@@ -122,66 +122,70 @@ class RA_DATAFLOW_API NodeFactory
 class RA_DATAFLOW_API NodeFactorySet
 {
   public:
-    using key_type    = std::string;
-    using mapped_type = std::shared_ptr<NodeFactory>;
-    using value_type  = std::pair<const key_type, mapped_type>;
+    using container_type = std::map<std::string, std::shared_ptr<NodeFactory>>;
 
-    using container_type = std::map<key_type, mapped_type>;
+    using key_type    = container_type::key_type;
+    using mapped_type = container_type::mapped_type;
+    using value_type  = container_type::value_type;
 
     using const_iterator = container_type::const_iterator;
     using iterator       = container_type::iterator;
 
     /**
      * Add a factory to the set of factories available
-     * \param factoryname the name of the factory
      * \param factory the factory
      * \return true if the factory was inserted, false if the insertion was prevented by an
      * already existing factory with the same name.
      */
-    bool addFactory( key_type factoryname, mapped_type factory );
+    auto addFactory( mapped_type factory ) -> bool;
 
     /**
      * \brief Test if a factory exists in the set with the given name
-     * \param factoryname The name of the factory to search for
-     * \return an optional that is empty (evaluates to false) if no factory exeist with the given
+     * \param name The name of the factory to search for
+     * \return an optional that is empty (evaluates to false) if no factory exists with the given
      * name or that contains the existing factory.
      */
-    Ra::Core::Utils::optional<mapped_type>
-    hasFactory( const NodeFactorySet::key_type& factoryname );
+    auto hasFactory( const key_type& name ) -> Ra::Core::Utils::optional<mapped_type>;
 
     /**
-     * Remove the identified factory from the set
-     * \param factoryname the name of the factory to remove
+     * \brief Remove the identified factory from the set
+     * \param name the name of the factory to remove
      * \return true if the factory was removed, false if the factory does not exist in the set.
      */
-    bool removeFactory( const key_type& factoryname );
+    auto removeFactory( const key_type& name ) -> bool;
 
     /**
-     * Create a node using one of the functor (if it exists) registered in one factory for the given
-     * type name.
+     *
      * \return the created node, nullptr if there is no construction functor registered for the
      * type.
      */
-    [[nodiscard]] Node* createNode( std::string& nodeType,
-                                    const nlohmann::json& data,
-                                    DataflowGraph* owningGraph = nullptr );
+    /**
+     * \brief Create a node using one of the functor (if it exists) registered in one factory for
+     * the given type name. \param nodeType name of the node type (as simplified by Radium
+     * demangler) to create \param data json data to fill the created node \param owningGraph Graph
+     * in which the node should be added, if not nullptr. \return The created node, nullptr in case
+     * of failure
+     */
+    [[nodiscard]] auto createNode( const std::string& nodeType,
+                                   const nlohmann::json& data,
+                                   DataflowGraph* owningGraph = nullptr ) -> Node*;
 
     /* Wrappers to the interface of the underlying container
      * see https://en.cppreference.com/w/cpp/container/map
      */
-    const_iterator begin() const;
-    const_iterator end() const;
-    const_iterator cbegin() const;
-    const_iterator cend() const;
-    const_iterator find( const key_type& key ) const;
-    std::pair<iterator, bool> insert( value_type value );
-    size_t erase( const key_type& key );
+    auto begin() const -> const_iterator;
+    auto end() const -> const_iterator;
+    auto cbegin() const -> const_iterator;
+    auto cend() const -> const_iterator;
+    auto find( const key_type& key ) const -> const_iterator;
+    auto insert( value_type value ) -> std::pair<iterator, bool>;
+    auto erase( const key_type& key ) -> size_t;
 
   private:
     container_type m_factories;
 };
 
-/** TODO Make this a class similar to all the managers of Radium.
+/**
  * Implement a NodeFactoryManager that stores a set of factories available to the  system.
  * Such a manager will be populated with Core::Dataflow node factories (Specialized sources,
  * specialized sink, ...) and will allow users to register its own factories.
@@ -196,13 +200,13 @@ class RA_DATAFLOW_API NodeFactorySet
  *
  * @note: the factory name "DataFlowBuiltIns" is reserved and correspond to the base nodes available
  * for each dataflow graph (Specialized sources, specialized sink, ...). This factory will be
- * automatically added to all created factoryset.
+ * automatically added to all created factory set.
  */
 namespace NodeFactoriesManager {
 /** Names of the system Builtins factories (automatically added to each graph) */
 extern const std::string dataFlowBuiltInsFactoryName;
 
-RA_DATAFLOW_API NodeFactorySet& getFactoryManager();
+RA_DATAFLOW_API auto getFactoryManager() -> NodeFactorySet&;
 
 /** Register a factory into the manager.
  * The key will be fetched from the factory (its name)
@@ -213,49 +217,50 @@ RA_DATAFLOW_API NodeFactorySet& getFactoryManager();
  * \param factory
  * \return true if the factory was registered, false if not (e.g. due to name collision).
  */
-RA_DATAFLOW_API bool registerFactory( NodeFactorySet::mapped_type factory );
+RA_DATAFLOW_API auto registerFactory( NodeFactorySet::mapped_type factory ) -> bool;
 
 /**
- * \brief Create a factory to be customized and later added to the manager
+ * \brief Create and register a factory to the manager.
  * \param name The name of the factory to create
  * \return a configurable factory.
- * \note The created factory is not registered into the manager.
  */
-RA_DATAFLOW_API NodeFactorySet::mapped_type createFactory( const std::string& name );
+RA_DATAFLOW_API auto createFactory( const NodeFactorySet::key_type& name )
+    -> NodeFactorySet::mapped_type;
 
 /**
  * \brief Gets the given factory from the manager
- * \param factoryName
+ * \param name The name of the factory to get
  * \return  a shared_ptr to the requested factory, nullptr if the factory does not exist.
  */
-RA_DATAFLOW_API NodeFactorySet::mapped_type getFactory( NodeFactorySet::key_type factoryName );
+RA_DATAFLOW_API auto getFactory( const NodeFactorySet::key_type& name )
+    -> NodeFactorySet::mapped_type;
 
 /**
  * \brief Unregister the factory from the manager
- * \param factoryName
+ * \param name The name of the factory to unregister
  * \return true if the factory was unregistered, false if not (e.g. for names not being managed).
  */
-RA_DATAFLOW_API bool unregisterFactory( NodeFactorySet::key_type factoryName );
+RA_DATAFLOW_API auto unregisterFactory( const NodeFactorySet::key_type& name ) -> bool;
 
 /**
  * \brief Gets the factory for nodes exported by the Core dataflow library.
  * \return
  */
-RA_DATAFLOW_API NodeFactorySet::mapped_type getDataFlowBuiltInsFactory();
+RA_DATAFLOW_API auto getDataFlowBuiltInsFactory() -> NodeFactorySet::mapped_type;
 } // namespace NodeFactoriesManager
 
 // -----------------------------------------------------------------
 // ---------------------- inline methods ---------------------------
 
 template <typename T>
-bool NodeFactory::registerNodeCreator( NodeCreatorFunctor nodeCreator,
-                                       const std::string& nodeCategory ) {
+auto NodeFactory::registerNodeCreator( NodeCreatorFunctor nodeCreator,
+                                       const std::string& nodeCategory ) -> bool {
     return registerNodeCreator( T::getTypename(), std::move( nodeCreator ), nodeCategory );
 }
 
 template <typename T>
-bool NodeFactory::registerNodeCreator( const std::string& instanceNamePrefix,
-                                       const std::string& nodeCategory ) {
+auto NodeFactory::registerNodeCreator( const std::string& instanceNamePrefix,
+                                       const std::string& nodeCategory ) -> bool {
     return registerNodeCreator(
         T::getTypename(),
         [this, instanceNamePrefix]( const nlohmann::json& data ) {
@@ -271,49 +276,45 @@ bool NodeFactory::registerNodeCreator( const std::string& instanceNamePrefix,
         nodeCategory );
 }
 
-inline const NodeFactory::ContainerType& NodeFactory::getFactoryMap() const {
+inline auto NodeFactory::getFactoryMap() const -> const NodeFactory::ContainerType& {
     return m_nodesCreators;
 }
 
-inline bool NodeFactorySet::addFactory( NodeFactorySet::key_type factoryname,
-                                        NodeFactorySet::mapped_type factory ) {
-    const auto [loc, inserted] = insert( { std::move( factoryname ), std::move( factory ) } );
+inline auto NodeFactorySet::addFactory( NodeFactorySet::mapped_type factory ) -> bool {
+    const auto [loc, inserted] = insert( { factory->getName(), std::move( factory ) } );
     return inserted;
 }
 
-inline Ra::Core::Utils::optional<NodeFactorySet::mapped_type>
-NodeFactorySet::hasFactory( const NodeFactorySet::key_type& factoryname ) {
-    auto f = m_factories.find( factoryname );
-    if ( f != m_factories.end() ) { return f->second; }
-    else {
-        return {};
-    }
+inline auto NodeFactorySet::hasFactory( const NodeFactorySet::key_type& name )
+    -> Ra::Core::Utils::optional<NodeFactorySet::mapped_type> {
+    if ( auto fct = m_factories.find( name ); fct != m_factories.end() ) { return fct->second; }
+    return {};
 }
 
-inline bool NodeFactorySet::removeFactory( const NodeFactorySet::key_type& factoryname ) {
-    return erase( factoryname );
+inline auto NodeFactorySet::removeFactory( const NodeFactorySet::key_type& name ) -> bool {
+    return erase( name );
 }
-inline NodeFactorySet::const_iterator NodeFactorySet::begin() const {
+inline auto NodeFactorySet::begin() const -> NodeFactorySet::const_iterator {
     return m_factories.begin();
 }
-inline NodeFactorySet::const_iterator NodeFactorySet::end() const {
+inline auto NodeFactorySet::end() const -> NodeFactorySet::const_iterator {
     return m_factories.end();
 }
-inline NodeFactorySet::const_iterator NodeFactorySet::cbegin() const {
+inline auto NodeFactorySet::cbegin() const -> NodeFactorySet::const_iterator {
     return m_factories.cbegin();
 }
-inline NodeFactorySet::const_iterator NodeFactorySet::cend() const {
+inline auto NodeFactorySet::cend() const -> NodeFactorySet::const_iterator {
     return m_factories.cend();
 }
-inline NodeFactorySet::const_iterator
-NodeFactorySet::find( const NodeFactorySet::key_type& key ) const {
+inline auto NodeFactorySet::find( const NodeFactorySet::key_type& key ) const
+    -> NodeFactorySet::const_iterator {
     return m_factories.find( key );
 }
-inline std::pair<NodeFactorySet::iterator, bool>
-NodeFactorySet::insert( NodeFactorySet::value_type value ) {
+inline auto NodeFactorySet::insert( NodeFactorySet::value_type value )
+    -> std::pair<NodeFactorySet::iterator, bool> {
     return m_factories.insert( std::move( value ) );
 }
-inline size_t NodeFactorySet::erase( const NodeFactorySet::key_type& key ) {
+inline auto NodeFactorySet::erase( const NodeFactorySet::key_type& key ) -> size_t {
     return m_factories.erase( key );
 }
 
