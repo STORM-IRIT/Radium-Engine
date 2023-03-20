@@ -13,7 +13,7 @@ namespace TypeInternal {
 /** \todo verify windows specific type demangling needs.
  *
  */
-RA_DATAFLOW_API std::string makeTypeReadable( const std::string& fullType ) {
+RA_DATAFLOW_API auto makeTypeReadable( const std::string& fullType ) -> std::string {
     static std::map<std::string, std::string> knownTypes {
         { "std::", "" },
         { ", std::allocator<float>", "" },

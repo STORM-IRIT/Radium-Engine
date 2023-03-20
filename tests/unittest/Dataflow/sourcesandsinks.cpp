@@ -38,6 +38,7 @@ void testGraph( const std::string& name, T in, T& out ) {
     g->execute();
 
     T r = output->getData<T>();
+    std::cout << "Getting a " << simplifiedDemangledType( r ) << " from interface port ... ";
     out = r;
 
     g->releaseDataSetter( "in_to" );
