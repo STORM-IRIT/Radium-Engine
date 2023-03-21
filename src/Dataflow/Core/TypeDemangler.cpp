@@ -16,6 +16,7 @@ namespace TypeInternal {
 RA_DATAFLOW_API auto makeTypeReadable( const std::string& fullType ) -> std::string {
     static std::map<std::string, std::string> knownTypes {
         { "std::", "" },
+        { "__cxx11::", "" },
         { ", std::allocator<float>", "" },
         { ", std::allocator<double>", "" },
         { ", std::allocator<int>", "" },
