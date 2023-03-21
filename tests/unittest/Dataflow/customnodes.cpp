@@ -308,13 +308,12 @@ TEST_CASE( "Dataflow/Core/Custom nodes", "[Dataflow][Core][Custom nodes]" ) {
 
         nlohmann::json emptyData;
         auto customSource = customFactory->createNode(
-            "Source<basic_string<char, char_traits<char>, allocator<char>>>", emptyData, nullptr );
+            Customs::CustomStringSource::getTypename(), emptyData, nullptr );
         REQUIRE( customSource != nullptr );
 
         std::cout << "Created node " << customSource->getInstanceName() << " with type "
-                  << customSource->getTypeName() << "\n";
-
-        //"Source<basic_string<char, char_traits<char>, allocator<char>>>"
+                  << customSource->getTypeName() << " // "
+                  << Customs::CustomStringSource::getTypename() << "\n";
 
         // build a graph
         auto g = buildgraph<Scalar>( "testCustomNodes" );
@@ -338,13 +337,14 @@ TEST_CASE( "Dataflow/Core/Custom nodes", "[Dataflow][Core][Custom nodes]" ) {
         delete g;
 
         /// try to load the graph without custom factory
-        NodeFactoriesManager::unregisterFactory( customFactory->getName() );
+        auto unregistered = NodeFactoriesManager::unregisterFactory( customFactory->getName() );
+        REQUIRE( unregistered == true );
 
         g      = new DataflowGraph( "" );
         loaded = g->loadFromJson( tmpdir + "customGraph.json" );
         REQUIRE( loaded == false );
-
         delete g;
+
         std::filesystem::remove_all( tmpdir );
     }
 }
