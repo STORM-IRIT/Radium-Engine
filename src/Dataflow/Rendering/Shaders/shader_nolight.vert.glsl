@@ -14,7 +14,7 @@ layout (location = 1) out vec3 out_normal;
 layout (location = 2) out vec3 out_texcoord;
 layout (location = 3) out vec3 out_vertexcolor;
 layout (location = 4) out vec3 out_tangent;
-
+layout (location = 5) out vec3 out_viewVector;
 
 void main()
 {
@@ -34,4 +34,5 @@ void main()
     out_normal      = normal;
     out_tangent     = tangent;
     out_vertexcolor = in_color.rgb;
+    out_viewVector  = normalize(eye - pos.xyz);
 }
