@@ -106,7 +106,7 @@ class RA_ENGINE_API EnvironmentTexture
      * \brief Render the envmap as a textured cube. This method does nothing if the envmap is not a
      * skybox \param viewParams The viewing parameter used to draw the scene
      */
-    void render( const Ra::Engine::Data::ViewingParameters& viewParams );
+    void render( const Ra::Engine::Data::ViewingParameters& viewParams, bool asOpaque = true );
 
     /**
      * \brief Set the state of the skybox

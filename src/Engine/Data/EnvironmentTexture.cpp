@@ -665,10 +665,11 @@ void EnvironmentTexture::updateGL() {
             "in vec3 incidentDirection;\n"
             "uniform samplerCube skyTexture;\n"
             "uniform float strength;\n"
+            "uniform float alpha;\n"
             "void main(void)\n"
             "{\n"
             "    vec3 envColor = texture(skyTexture, normalize(incidentDirection)).rgb;\n"
-            "    outColor =vec4(strength*envColor, 1);\n"
+            "    outColor =vec4(strength*envColor, alpha); \n"
             "}\n" };
         Ra::Engine::Data::ShaderConfiguration config { "EnvironmentTexture::Builtin SkyBox" };
         config.addShaderSource( Ra::Engine::Data::ShaderType::ShaderType_VERTEX,
@@ -689,7 +690,8 @@ void EnvironmentTexture::updateGL() {
     }
 }
 
-void EnvironmentTexture::render( const Ra::Engine::Data::ViewingParameters& viewParams ) {
+void EnvironmentTexture::render( const Ra::Engine::Data::ViewingParameters& viewParams,
+                                 bool asOpaque ) {
     if ( m_isSkyBox ) {
         // put this in a initializeGL method ?
         if ( !m_glReady ) { updateGL(); }
@@ -710,6 +712,10 @@ void EnvironmentTexture::render( const Ra::Engine::Data::ViewingParameters& view
         m_skyTexture->bind( 0 );
         m_skyShader->setUniform( "skytexture", 0 );
         m_skyShader->setUniform( "strength", m_environmentStrength );
+        if ( asOpaque ) { m_skyShader->setUniform( "alpha", float( 1 ) ); }
+        else {
+            m_skyShader->setUniform( "alpha", float( 0 ) );
+        }
         GLboolean depthEnabled;
         glGetBooleanv( GL_DEPTH_WRITEMASK, &depthEnabled );
         glDepthMask( GL_FALSE );
