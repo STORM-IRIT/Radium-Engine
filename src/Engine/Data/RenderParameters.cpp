@@ -14,31 +14,10 @@ void RenderParameters::bind( const Data::ShaderProgram* shader ) const {
     m_parameterSets.visit( s_binder, shader );
 }
 
-void RenderParameters::addEnumConverter( const std::string& name,
-                                         std::shared_ptr<AbstractEnumConverter> converter ) {
-    m_enumConverters[name] = converter;
-}
-
-Core::Utils::optional<std::shared_ptr<RenderParameters::AbstractEnumConverter>>
-RenderParameters::getEnumConverter( const std::string& name ) {
-    auto it = m_enumConverters.find( name );
-    if ( it != m_enumConverters.end() ) { return it->second; }
-    else {
-        return {};
-    }
-}
-
-std::string RenderParameters::getEnumString( const std::string& name, int value ) {
-    auto it = m_enumConverters.find( name );
-    if ( it != m_enumConverters.end() ) { return it->second->getEnumerator( value ); }
-    else {
-        return {};
-    }
-}
-
 void RenderParameters::addParameter( const std::string& name, const std::string& value ) {
-    auto it = m_enumConverters.find( name );
-    if ( it != m_enumConverters.end() ) { it->second->setEnumValue( *this, name, value ); }
+    auto converterFunc = m_parameterSets.existsVariable<
+        std::function<void( Core::VariableSet&, const std::string&, const std::string& )>>( name );
+    if ( converterFunc ) { ( *converterFunc )->second( m_parameterSets, name, value ); }
     else {
         LOG( Core::Utils::logWARNING )
             << "RenderParameters, try to set enum value from string without converter. Adding "
