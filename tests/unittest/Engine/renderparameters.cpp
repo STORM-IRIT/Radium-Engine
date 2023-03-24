@@ -264,23 +264,26 @@ TEST_CASE( "Engine/Data/RenderParameters", "[Engine][Engine/Data][RenderParamete
         RP params;
 
         enum Values : unsigned int { VALUE_0 = 10, VALUE_1 = 20, VALUE_2 = 30 };
+        using ValuesType = typename std::underlying_type_t<Values>;
 
         enum Unregistered : int { LOW = -1, MIDDDLE = 0, HIGH = 1 };
+        using UnregisteredType = typename std::underlying_type_t<Unregistered>;
 
-        auto vnc                 = new RP::EnumConverter<Values>( { { Values::VALUE_0, "VALUE_0" },
-                                                    { Values::VALUE_1, "VALUE_1" },
-                                                    { Values::VALUE_2, "VALUE_2" } } );
-        auto valuesEnumConverter = std::shared_ptr<RP::EnumConverter<Values>>( vnc );
+        auto valuesEnumConverter = std::make_shared<Ra::Core::Utils::EnumConverter<ValuesType>>(
+            std::initializer_list<std::pair<ValuesType, std::string>> {
+                { Values::VALUE_0, "VALUE_0" },
+                { Values::VALUE_1, "VALUE_1" },
+                { Values::VALUE_2, "VALUE_2" } } );
 
-        REQUIRE( valuesEnumConverter->getEnumerator( Values::VALUE_2 ) == "VALUE_2" );
-        REQUIRE( valuesEnumConverter->getEnumerator( "VALUE_1" ) == Values::VALUE_1 );
-        REQUIRE( valuesEnumConverter->getEnumerators().size() == 3 );
-
-        REQUIRE( !params.getEnumConverter( "enum.semantic" ) );
+        // Enum converter must be added and fetched using the enum underlying type
+        REQUIRE( !params.getEnumConverter<ValuesType>( "enum.semantic" ) );
         params.addEnumConverter( "enum.semantic", valuesEnumConverter );
-        REQUIRE( params.getEnumConverter( "enum.semantic" ) );
-        REQUIRE( !params.getEnumConverter( "enum.unknown" ) );
+        REQUIRE( params.getEnumConverter<ValuesType>( "enum.semantic" ) );
+        REQUIRE( !params.getEnumConverter<ValuesType>( "enum.unknown" ) );
+        REQUIRE( !params.getEnumConverter<UnregisteredType>( "enum.unknown" ) );
 
+        // The string value of an enum value (with the enumeration type) can be fetched from
+        // the parameters and is empty if the enum is not registered
         REQUIRE( params.getEnumString( "enum.semantic", Values::VALUE_0 ) == "VALUE_0" );
         REQUIRE( params.getEnumString( "enum.unknown", Unregistered::LOW ) == "" );
 
@@ -289,12 +292,11 @@ TEST_CASE( "Engine/Data/RenderParameters", "[Engine][Engine/Data][RenderParamete
         // checking its seen with its type (enum)
         auto& v = params.getParameter<Values>( "enum.semantic" );
         REQUIRE( v == Values::VALUE_0 );
+        // The string value of an enum value (with the enumeration's underlying type) can also be
+        // fetched from the parameters
         REQUIRE( params.getEnumString( "enum.semantic", v ) == "VALUE_0" );
-        // As enum is registered, changing the value trough setEnumValue and string representation
-        valuesEnumConverter->setEnumValue( params, "enum.semantic", "VALUE_1" );
-        // v has now Values::VALUE_1
-        REQUIRE( v == Values::VALUE_1 );
-        // changing the value trough addParameter and string representation of the enum also works
+
+        // changing the value trough addParameter and string representation
         params.addParameter( "enum.semantic", "VALUE_2" );
         REQUIRE( v == Values::VALUE_2 );
 
@@ -302,7 +304,7 @@ TEST_CASE( "Engine/Data/RenderParameters", "[Engine][Engine/Data][RenderParamete
         params.addParameter( "enum.unknown", Unregistered::LOW );
         auto u = params.getParameter<Unregistered>( "enum.unknown" );
         REQUIRE( u == Unregistered::LOW );
-        REQUIRE( params.getEnumString( "enum.unknown", v ) == "" );
+        REQUIRE( params.getEnumString( "enum.unknown", u ) == "" );
 
         // Trying to add unregistered enums values trough string does not change the stored value
         params.addParameter( "enum.unknown", "Unregistered::HIGH" );
@@ -313,25 +315,33 @@ TEST_CASE( "Engine/Data/RenderParameters", "[Engine][Engine/Data][RenderParamete
     SECTION( "Parameter visit" ) {
         RP paramsToVisit;
         enum Values : unsigned int { VALUE_0 = 10, VALUE_1 = 20, VALUE_2 = 30 };
-        auto vnc                 = new RP::EnumConverter<Values>( { { Values::VALUE_0, "VALUE_0" },
-                                                    { Values::VALUE_1, "VALUE_1" },
-                                                    { Values::VALUE_2, "VALUE_2" } } );
-        auto valuesEnumConverter = std::shared_ptr<RP::EnumConverter<Values>>( vnc );
+        using ValuesType = typename std::underlying_type<Values>::type;
+
+        auto vnc =
+            new Ra::Core::Utils::EnumConverter<ValuesType>( { { Values::VALUE_0, "VALUE_0" },
+                                                              { Values::VALUE_1, "VALUE_1" },
+                                                              { Values::VALUE_2, "VALUE_2" } } );
+        auto valuesEnumConverter =
+            std::shared_ptr<Ra::Core::Utils::EnumConverter<ValuesType>>( vnc );
         paramsToVisit.addEnumConverter( "enum.semantic", valuesEnumConverter );
         paramsToVisit.addParameter( "enum.semantic", "VALUE_0" );
         paramsToVisit.addParameter( "int.simple", int( 1 ) );
 
         PrintThemAllVisitor ptm;
-        ptm.allowVisit<Values>();
+        ptm.allowVisit<ValuesType>();
         ptm.allowVisit<int>();
+        std::cout << "Visiting with custom dynamic visitor :\n";
         paramsToVisit.visit( ptm );
 
         StaticPrintVisitor vstr;
+        std::cout << "Visiting with custom static visitor :\n";
         paramsToVisit.visit( vstr );
 
+        std::cout << "Visiting with custom static visitor and hierarchical parameters:\n";
         RP subParams;
         subParams.addParameter( "sub.int", 3 );
-        subParams.addParameter( "sub.string", std::string { "SubString" } );
+        subParams.addParameter( "sub.string", "SubString" );
+        subParams.addParameter( "enum.semantic", "VALUE_1" );
         paramsToVisit.addParameter( "SubParameter", subParams );
         paramsToVisit.visit( vstr, "Visiting with subparameters" );
     }

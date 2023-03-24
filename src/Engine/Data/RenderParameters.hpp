@@ -7,8 +7,8 @@
 #include <nlohmann/json.hpp>
 
 #include <Core/Types.hpp>
-#include <Core/Utils/BijectiveAssociation.hpp>
 #include <Core/Utils/Color.hpp>
+#include <Core/Utils/EnumConverter.hpp>
 #include <Core/Utils/Log.hpp>
 #include <Core/Utils/StdOptional.hpp>
 
@@ -28,8 +28,8 @@ class Texture;
  * \note Automatic binding is only available for supported type described in BindableTypes.
  * \note Enums are stored according to their underlying_type. Enum management is automatic except
  * when requesting for the associated uniformBindableSet. To access bindable set containing a given
- * enum with type Enum, use `getParameterSet<TParameter<typename std::underlying_type<typename
- * Enum>::type>>`
+ * enum with type Enum, use `getParameterSet<typename std::underlying_type<typename
+ * Enum>::type>`
  *
  */
 class RA_ENGINE_API RenderParameters final
@@ -81,131 +81,79 @@ class RA_ENGINE_API RenderParameters final
 
   public:
     /**
-     * \brief Management of parameter of enum type.
-     * This allow to set the parameter using a string representation of their value.
-     * Setting the parameter directly from the value is supported as for any other parameter but
-     * user should take care to call the right overloaded function given the underlying enumeration
-     * type. This is due to unscoped enum being implicitly convertible to any integral type.
-     * (https://en.cppreference.com/w/cpp/language/enum)
-     * \{
-     */
-    /**
-     * \brief This class allows to set and manipulate parameter as enumerations either using a
-     * string representation of the enumeration or its value.
-     */
-    class AbstractEnumConverter
-    {
-      public:
-        virtual ~AbstractEnumConverter() = default;
-        /**
-         * \brief Set the value of the enum corresponding to the given string and matching the
-         * enumeration underlying type.
-         * \param p the renderParameter to update.
-         * \param name The name of the enum to set.
-         * \param enumerator The enumerator, in std::string form.
-         */
-        virtual void setEnumValue( RenderParameters& p,
-                                   const std::string& name,
-                                   const std::string& enumerator ) const = 0;
-
-        /**
-         * \brief Get the string form of an enumeration value.
-         * \param v the value of the enumeration, implicitly converted to int for unscope enum,
-         * explicitely converted for scoped one.
-         * \return the string associated to this value
-         */
-        virtual std::string getEnumerator( int v ) const = 0;
-
-        /**
-         * \brief Get all the string forms of the enumeration.
-         * \return the vector of strings associated to the enumeration.
-         */
-        virtual std::vector<std::string> getEnumerators() const = 0;
-
-        /**
-         * \brief Get the value, converted to int, of the enumeration given its string expression
-         * \param v the string defining the enumerator
-         * \return the value of the enumerator
-         * \note  This method does not respect the underlying type of enumerations as it returns
-         * always an int. Use setEnumValue to modify the parameter set in a type safe way.
-         */
-        virtual int getEnumerator( const std::string& v ) const = 0;
-    };
-
-    /**
-     * \brief This class manage the bijective association between string and integral representation
-     * of an enumeration.
-     *
-     * \tparam Enum the type of the enumeration to manage
-     */
-    template <typename Enum>
-    class EnumConverter : public AbstractEnumConverter
-    {
-      public:
-        using EnumBaseType = typename std::underlying_type_t<Enum>;
-        explicit EnumConverter( std::initializer_list<std::pair<EnumBaseType, std::string>> pairs );
-
-        void setEnumValue( RenderParameters& p,
-                           const std::string& name,
-                           const std::string& enumerator ) const override;
-        std::string getEnumerator( int v ) const override;
-        int getEnumerator( const std::string& v ) const override;
-        std::vector<std::string> getEnumerators() const override;
-
-      private:
-        Core::Utils::BijectiveAssociation<typename std::underlying_type_t<Enum>, std::string>
-            m_valueToString;
-    };
-
-    /**
      * \brief Associate a converter for enumerated type to the given parameter name
+     * \tparam EnumBaseType The enum base type to manage (\see Ra::Core::Utils::EnumConverter)
      * \param name
      * \param converter
      */
+    template <typename EnumBaseType>
     void addEnumConverter( const std::string& name,
-                           std::shared_ptr<AbstractEnumConverter> converter );
+                           std::shared_ptr<Core::Utils::EnumConverter<EnumBaseType>> converter );
 
     /**
      * \brief Search for a converter associated with an enumeration parameter
+     * \tparam EnumBaseType The enum base type to manage (\see Ra::Core::Utils::EnumConverter)
      * \param name the name of the parameter
      * \return an optional containing the converter or false if no converter is found.
      */
-    Core::Utils::optional<std::shared_ptr<AbstractEnumConverter>>
+    template <typename EnumBaseType>
+    Core::Utils::optional<std::shared_ptr<Core::Utils::EnumConverter<EnumBaseType>>>
     getEnumConverter( const std::string& name );
 
     /**
      * \brief Return the string associated to the actual value of a parameter
-     * \param name
-     * \param
+     * \tparam Enum The enum type (\see Ra::Core::Utils::EnumConverter)
+     * \param name The name of the enum variable
+     * \param value The value to convert
      * \return
      */
-    std::string getEnumString( const std::string& name, int value );
+    template <typename Enum, typename std::enable_if<std::is_enum<Enum> {}, bool>::type = true>
+    std::string getEnumString( const std::string& name, Enum value );
 
-  private:
     /**
-     * \brief Store the enumeration converter.
-     * By storing a shared_ptr, the same converter could be used for several parameters.
+     * \brief (overload) Return the string associated to the actual value of a parameter, from a
+     * value with underlying_type<Enum>.
+     * \tparam EnumBaseType The underlying enum type (\see Ra::Core::Utils::EnumConverter)
+     * \param name The name of the enum variable
+     * \param value The value to convert
+     * \return
      */
-    std::map<std::string, std::shared_ptr<AbstractEnumConverter>> m_enumConverters;
+    template <typename EnumBaseType>
+    std::string
+    getEnumString( const std::string& name,
+                   EnumBaseType value,
+                   typename std::enable_if<!std::is_enum<EnumBaseType> {}, bool>::type = true );
 
-    /**\}*/
-
-  public:
     /**
      * Overloaded operators to set shader parameters
      * \{
      */
 
+    /**
+     * \brief Add a parameter by value
+     * \tparam T The type of parameter to add. Must be a non class type for this overload to be
+     * chosen. \param name Name of the parameter. \param value Value of the parameter.
+     */
     template <typename T>
     void addParameter( const std::string& name,
                        T value,
                        typename std::enable_if<!std::is_class<T> {}, bool>::type = true );
 
+    /**
+     * \brief Add a parameter by const ref
+     * \tparam T The type of parameter to add. Must be a class type for this overload to be chosen.
+     * \param name Name of the parameter.
+     * \param value Value of the parameter.
+     */
     template <typename T, typename std::enable_if<std::is_class<T> {}, bool>::type = true>
     void addParameter( const std::string& name, const T& value );
 
     /**
-     * Adding a texture parameter.
+     * \brief Adding a texture parameter.
+     * \tparam T The type of parameter to add. Must be derived from Texture for this overload.
+     * \param name Name of the parameter
+     * \param tex Texture to add in the parameterSet
+     * \param texUnit Texture unit associated with the texture object.
      * The default (-1) for the texUnit parameter implies automatic uniform binding for the
      * texture unit associated with the named sampler.
      * If texUnit is given, then uniform binding will be made at this explicit location.
@@ -216,9 +164,10 @@ class RA_ENGINE_API RenderParameters final
 
     /**
      * \brief set the value of the given parameter, according to a string representation of an enum.
-     * \note If there is no EnumConverter associated with the parameter name, do nothing.
-     * \param name
-     * \param value
+     * \note If there is no EnumConverter associated with the parameter name, the string is
+     * registered in the RenderParameter set.
+     * \param name Name of the parameter
+     * \param value value of the parameter
      */
     void addParameter( const std::string& name, const std::string& value );
     void addParameter( const std::string& name, const char* value );
@@ -294,13 +243,13 @@ class RA_ENGINE_API RenderParameters final
     /** Visit the parameter using any kind of visitor
      */
     template <typename V>
-    void visit( V& visitor ) const;
+    void visit( V&& visitor ) const;
 
     template <typename V, typename T>
-    void visit( V& visitor, T& userParams ) const;
+    void visit( V&& visitor, T& userParams ) const;
 
     template <typename V, typename T>
-    void visit( V& visitor, T&& userParams ) const;
+    void visit( V&& visitor, T&& userParams ) const;
 
     /// \brief Get access to the parameter storage
     /// \return the Core::VariableSet storing the parameters
@@ -437,39 +386,55 @@ class RA_ENGINE_API ShaderParameterProvider
     RenderParameters m_renderParameters;
 };
 
-template <typename Enum>
-inline RenderParameters::EnumConverter<Enum>::EnumConverter(
-    std::initializer_list<std::pair<typename std::underlying_type_t<Enum>, std::string>> pairs ) :
-    AbstractEnumConverter(), m_valueToString { pairs } {}
+/* --------------- enum parameter management --------------- */
 
-template <typename Enum>
-inline void
-RenderParameters::EnumConverter<Enum>::setEnumValue( RenderParameters& p,
-                                                     const std::string& name,
-                                                     const std::string& enumerator ) const {
-    auto v = m_valueToString.key( enumerator );
-    p.addParameter( name, static_cast<Enum>( v ) );
+template <typename EnumBaseType>
+void RenderParameters::addEnumConverter(
+    const std::string& name,
+    std::shared_ptr<Core::Utils::EnumConverter<EnumBaseType>> converter ) {
+    auto converterHandle = m_parameterSets.insertOrAssignVariable( name, converter );
+    std::function<void( Core::VariableSet&, const std::string&, const std::string& )>
+        convertingFunction = [converter = converterHandle.first]( Core::VariableSet& vs,
+                                                                  const std::string& nm,
+                                                                  const std::string& vl ) {
+            vs.insertOrAssignVariable( nm, converter->second->getEnumerator( vl ) );
+        };
+    m_parameterSets.insertOrAssignVariable( name, convertingFunction );
 }
 
-template <typename Enum>
-inline std::string RenderParameters::EnumConverter<Enum>::getEnumerator( int v ) const {
-    return m_valueToString( std::underlying_type_t<Enum>( v ) );
+template <typename EnumBaseType>
+Core::Utils::optional<std::shared_ptr<Core::Utils::EnumConverter<EnumBaseType>>>
+RenderParameters::getEnumConverter( const std::string& name ) {
+    auto storedConverter =
+        m_parameterSets.existsVariable<std::shared_ptr<Core::Utils::EnumConverter<EnumBaseType>>>(
+            name );
+    if ( storedConverter ) { return ( *storedConverter )->second; }
+    return {};
 }
 
-template <typename Enum>
-inline int RenderParameters::EnumConverter<Enum>::getEnumerator( const std::string& v ) const {
-    return m_valueToString.key( v );
+// template <typename EnumBaseType, typename std::enable_if<!std::is_enum<EnumBaseType> {},
+// bool>::type>
+template <typename EnumBaseType>
+std::string RenderParameters::getEnumString(
+    const std::string& name,
+    EnumBaseType value,
+    typename std::enable_if<!std::is_enum<EnumBaseType> {}, bool>::type ) {
+    auto storedConverter =
+        m_parameterSets.existsVariable<std::shared_ptr<Core::Utils::EnumConverter<EnumBaseType>>>(
+            name );
+    if ( storedConverter ) { return ( *storedConverter )->second->getEnumerator( value ); }
+    LOG( Ra::Core::Utils::logWARNING ) << name + " is not a registered Enum with underlying type " +
+                                              Ra::Core::Utils::demangleType<EnumBaseType>() + ".";
+    return "";
 }
 
-template <typename Enum>
-std::vector<std::string> RenderParameters::EnumConverter<Enum>::getEnumerators() const {
-    std::vector<std::string> keys;
-    keys.reserve( m_valueToString.size() );
-    for ( const auto& p : m_valueToString ) {
-        keys.push_back( p.second );
-    }
-    return keys;
+template <typename Enum, typename std::enable_if<std::is_enum<Enum> {}, bool>::type>
+std::string RenderParameters::getEnumString( const std::string& name, Enum value ) {
+    using EnumBaseType = typename std::underlying_type_t<Enum>;
+    return getEnumString( name, EnumBaseType( value ) );
 }
+
+/* --------------- enum parameter management --------------- */
 
 template <typename T>
 inline void
@@ -542,33 +507,18 @@ inline const T& RenderParameters::getParameter( const std::string& name ) const 
 }
 
 template <typename V>
-void RenderParameters::visit( V& visitor ) const {
-    if constexpr ( std::is_base_of<Core::VariableSet::DynamicVisitorBase, V>::value ) {
-        m_parameterSets.visitDynamic( visitor );
-    }
-    else {
-        m_parameterSets.visit( visitor );
-    }
+inline void RenderParameters::visit( V&& visitor ) const {
+    m_parameterSets.visit( visitor );
 }
 
 template <typename V, typename T>
-void RenderParameters::visit( V& visitor, T& userParams ) const {
-    if constexpr ( std::is_base_of<Core::VariableSet::DynamicVisitorBase, V>::value ) {
-        m_parameterSets.visitDynamic( visitor, std::forward<T&>( userParams ) );
-    }
-    else {
-        m_parameterSets.visit( visitor, std::forward<T&>( userParams ) );
-    }
+inline void RenderParameters::visit( V&& visitor, T& userParams ) const {
+    m_parameterSets.visit( visitor, std::forward<T&>( userParams ) );
 }
 
 template <typename V, typename T>
-void RenderParameters::visit( V& visitor, T&& userParams ) const {
-    if constexpr ( std::is_base_of<Core::VariableSet::DynamicVisitorBase, V>::value ) {
-        m_parameterSets.visitDynamic( visitor, std::forward<T&&>( userParams ) );
-    }
-    else {
-        m_parameterSets.visit( visitor, std::forward<T&&>( userParams ) );
-    }
+inline void RenderParameters::visit( V&& visitor, T&& userParams ) const {
+    m_parameterSets.visit( visitor, std::forward<T&&>( userParams ) );
 }
 
 } // namespace Data

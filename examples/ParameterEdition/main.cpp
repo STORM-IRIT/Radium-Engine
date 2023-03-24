@@ -18,6 +18,7 @@ using namespace Ra::Core;
 
 /* Changed the underlying type to verify the good behavior of the edition */
 enum Values : unsigned int { VALUE_0 = 10, VALUE_1 = 20, VALUE_2 = 30 };
+using ValuesType = typename std::underlying_type_t<Values>;
 
 // TODO : replace the following by a visitor. See ParameterSetEditor.
 template <typename RP>
@@ -141,10 +142,10 @@ int main( int argc, char* argv[] ) {
     //! [Creating the edition dialog]
 
     //! [Management of string<->value conversion for enumeration parameters]
-    auto vnc = new RenderParameters::EnumConverter<Values>( { { Values::VALUE_0, "VALUE_0" },
-                                                              { Values::VALUE_1, "VALUE_1" },
-                                                              { Values::VALUE_2, "VALUE_2" } } );
-    auto valuesEnumConverter = std::shared_ptr<RenderParameters::EnumConverter<Values>>( vnc );
+    auto vnc = new Ra::Core::Utils::EnumConverter<ValuesType>( { { Values::VALUE_0, "VALUE_0" },
+                                                                 { Values::VALUE_1, "VALUE_1" },
+                                                                 { Values::VALUE_2, "VALUE_2" } } );
+    auto valuesEnumConverter = std::shared_ptr<Ra::Core::Utils::EnumConverter<ValuesType>>( vnc );
     //! [Management of string<->value conversion for enumeration parameters]
 
     //! [filling the parameter set to edit ]

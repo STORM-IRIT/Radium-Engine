@@ -26,7 +26,7 @@ class RenderParameterUiBuilder
     RenderParameterUiBuilder( ParameterSetEditor* pse, const json& constraints ) :
         m_pse { pse }, m_constraints { constraints } {}
 
-    void operator()( const std::string& name, bool& p, Data::RenderParameters&& params ) {
+    void operator()( const std::string& name, bool& p, Data::RenderParameters&& /* params */ ) {
         auto onBoolParameterChanged = [pse = this->m_pse, &p, nm = name]( bool val ) {
             p = val;
             emit pse->parameterModified( nm );
@@ -46,7 +46,7 @@ class RenderParameterUiBuilder
 
     template <typename TParam, std::enable_if_t<std::is_arithmetic<TParam>::value, bool> = true>
     void operator()( const std::string& name, TParam& p, Data::RenderParameters&& params ) {
-        if ( params.getEnumConverter( name ) /*m_constraints.contains( name ) && m_constraints[name]["type"] == "enum"*/ ) {
+        if ( params.getEnumConverter<TParam>( name ) ) {
             m_pse->addEnumParameterWidget( name, p, params, m_constraints );
         }
         else {
@@ -118,7 +118,7 @@ void ParameterSetEditor::addEnumParameterWidget( const std::string& key,
 
     std::string description = m.contains( "description" ) ? m["description"] : "";
     std::string nm          = m.contains( "name" ) ? std::string { m["name"] } : key;
-    if ( auto ec = params.getEnumConverter( key ) ) {
+    if ( auto ec = params.getEnumConverter<T>( key ) ) {
         auto items                        = ( *ec )->getEnumerators();
         auto onEnumParameterStringChanged = [this, &params, &key]( const QString& value ) {
             params.addParameter( key, value.toStdString() );
@@ -151,7 +151,7 @@ void ParameterSetEditor::addEnumParameterWidget( const std::string& key,
 template <typename T>
 void ParameterSetEditor::addNumberParameterWidget( const std::string& key,
                                                    T& initial,
-                                                   Ra::Engine::Data::RenderParameters& params,
+                                                   Ra::Engine::Data::RenderParameters& /*params*/,
                                                    const json& metadata ) {
 
     auto onNumberParameterChanged = [this, &initial, &key]( T value ) {
@@ -212,7 +212,7 @@ void ParameterSetEditor::addNumberParameterWidget( const std::string& key,
 template <typename T>
 void ParameterSetEditor::addVectorParameterWidget( const std::string& key,
                                                    std::vector<T>& initial,
-                                                   Ra::Engine::Data::RenderParameters& params,
+                                                   Ra::Engine::Data::RenderParameters& /*params*/,
                                                    const json& metadata ) {
     auto onVectorParameterChanged = [this, &initial, &key]( const std::vector<T>& value ) {
         initial = value;
@@ -232,7 +232,7 @@ void ParameterSetEditor::addVectorParameterWidget( const std::string& key,
 template <typename T>
 void ParameterSetEditor::addMatrixParameterWidget( const std::string& key,
                                                    T& initial,
-                                                   Ra::Engine::Data::RenderParameters& params,
+                                                   Ra::Engine::Data::RenderParameters& /*params*/,
                                                    const json& metadata ) {
     auto onMatrixParameterChanged = [this, &initial, &key]( const Ra::Core::MatrixN& value ) {
         initial = T( value );
