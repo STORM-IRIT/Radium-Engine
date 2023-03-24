@@ -62,11 +62,12 @@ bool ClearColorNode::execute() {
         gl::glDepthMask( gl::GL_FALSE );
         gl::glColorMask( gl::GL_TRUE, gl::GL_TRUE, gl::GL_TRUE, gl::GL_TRUE );
         gl::glDisable( gl::GL_DEPTH_TEST );
-        envmap->render( m_portInCamera->getData() );
+        envmap->render( m_portInCamera->getData(), false );
         gl::glDepthMask( gl::GL_TRUE );
         gl::glEnable( gl::GL_DEPTH_TEST );
     }
     else {
+        clearColor[3] = 0_ra;
         gl::glClearBufferfv( gl::GL_COLOR, 0, clearColor );
     }
 
@@ -76,7 +77,7 @@ bool ClearColorNode::execute() {
 }
 
 void ClearColorNode::toJsonInternal( nlohmann::json& data ) const {
-    auto c = ColorType ::linearRGBTosRGB( m_editableClearColor );
+    auto c = ColorType::linearRGBTosRGB( m_editableClearColor );
     std::array<Scalar, 3> color { { c.x(), c.y(), c.z() } };
     data["clearColor"] = color;
 }
@@ -84,7 +85,7 @@ void ClearColorNode::toJsonInternal( nlohmann::json& data ) const {
 bool ClearColorNode::fromJsonInternal( const nlohmann::json& data ) {
     if ( data.contains( "clearColor" ) ) {
         std::array<Scalar, 3> c = data["clearColor"];
-        m_editableClearColor    = ColorType ::sRGBToLinearRGB( ColorType( c[0], c[1], c[2] ) );
+        m_editableClearColor    = ColorType::sRGBToLinearRGB( ColorType( c[0], c[1], c[2] ) );
     }
     else {
         m_editableClearColor =

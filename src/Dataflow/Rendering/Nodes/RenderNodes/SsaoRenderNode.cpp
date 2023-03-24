@@ -15,12 +15,11 @@ namespace Nodes {
 using namespace Ra::Engine::Data;
 
 SsaoNode::SsaoNode( const std::string& name ) : RenderingNode( name, getTypename() ) {
-    addInput( m_inWorldPos );
-    m_inWorldPos->mustBeLinked();
 
     addInput( m_inWorldNormal );
     m_inWorldNormal->mustBeLinked();
-
+    addInput( m_inWorldPos );
+    m_inWorldPos->mustBeLinked();
     addInput( m_inCamera );
     m_inCamera->mustBeLinked();
 

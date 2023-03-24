@@ -43,8 +43,8 @@ GeometryAovsNode::GeometryAovsNode( const std::string& name ) :
     m_depthTexture           = new Ra::Engine::Data::Texture( texParams );
 
     addOutput( m_outDepthTex, m_depthTexture );
-    addOutput( m_outPosInWorldTex, m_posInWorldTexture );
     addOutput( m_outNormalInWorldTex, m_normalInWorldTexture );
+    addOutput( m_outPosInWorldTex, m_posInWorldTexture );
 }
 
 void GeometryAovsNode::init() {

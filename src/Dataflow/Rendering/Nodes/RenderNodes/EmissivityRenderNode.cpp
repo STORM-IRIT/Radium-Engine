@@ -50,7 +50,8 @@ void EmissivityNode::init() {
     m_nodeState->depthFunc( gl::GL_LEQUAL );
     m_nodeState->depthMask( gl::GL_FALSE );
     m_nodeState->colorMask( gl::GL_TRUE, gl::GL_TRUE, gl::GL_TRUE, gl::GL_TRUE );
-    m_nodeState->disable( gl::GL_BLEND );
+    m_nodeState->blendFuncSeparate( gl::GL_ONE, gl::GL_DST_ALPHA, gl::GL_ONE, gl::GL_ZERO );
+    m_nodeState->enable( gl::GL_BLEND );
 }
 
 void EmissivityNode::destroy() {
