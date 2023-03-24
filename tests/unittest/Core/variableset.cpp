@@ -198,7 +198,7 @@ TEST_CASE( "Core/Container/VariableSet", "[Core][Container][VariableSet]" ) {
             std::cout << "\tDoubling the int " << name << " (equal to " << value << ")\n";
             value *= 2;
         } );
-        params.visitDynamic( vf );
+        params.visit( vf );
         print_container( "Doubled set", params );
         REQUIRE( params.getVariable<int>( "i" ) == ( 2 * i ) );
         REQUIRE( params.getVariable<int>( "x" ) == ( 2 * 2 ) );
@@ -209,14 +209,14 @@ TEST_CASE( "Core/Container/VariableSet", "[Core][Container][VariableSet]" ) {
             std::cout << "\tHalving the int " << name << " (equal to " << value << ")\n";
             value /= 2;
         } );
-        params.visitDynamic( vf );
+        params.visit( vf );
         print_container( "Final set", params );
         REQUIRE( params.getVariable<int>( "i" ) == ( i ) );
         REQUIRE( params.getVariable<int>( "x" ) == ( 2 ) );
         REQUIRE( params.getVariable<float>( "x" ) == 1 );
         // removing the visitor operator on ints
         vf.removeOperator<int>();
-        params.visitDynamic( vf );
+        params.visit( vf );
         REQUIRE( params.getVariable<int>( "i" ) == ( i ) );
         REQUIRE( params.getVariable<int>( "x" ) == ( 2 ) );
         REQUIRE( params.getVariable<float>( "x" ) == 1 );
@@ -292,7 +292,7 @@ TEST_CASE( "Core/Container/VariableSet", "[Core][Container][VariableSet]" ) {
 
         MyParameterVisitor mp;
         REQUIRE( mp.getCount() == 0 );
-        params.visitDynamic( mp );
+        params.visit( mp );
         REQUIRE( mp.getCount() == 4 );
         REQUIRE( i == 0 );
 
@@ -307,7 +307,7 @@ TEST_CASE( "Core/Container/VariableSet", "[Core][Container][VariableSet]" ) {
         REQUIRE( params.isHandleValid( xHandle ) == false );
 
         mp.resetCount();
-        params.visitDynamic( mp );
+        params.visit( mp );
         REQUIRE( mp.getCount() == 2 );
         print_container( "Final set", params );
     }
@@ -379,6 +379,30 @@ TEST_CASE( "Core/Container/VariableSet", "[Core][Container][VariableSet]" ) {
         print_container( "params is empty", params );
         verify = params.existsVariableType<int>();
         REQUIRE( !verify.has_value() );
+    }
+
+    SECTION( "Iterating on stored types" ) {
+        VariableSet vs;
+        vs.insertVariable( "x", 1.414_ra );
+        vs.insertVariable( "y", std::sqrt( 2 ) );
+        std::function<Scalar( Scalar )> multBy2 = []( Scalar x ) { return x * 2_ra; };
+        vs.insertVariable( "f", multBy2 );
+        auto typeVector = vs.getStoredTypes();
+        std::cout << "Stored types : \n";
+        for ( const auto& t : typeVector ) {
+            std::cout << "\t" << t.name()
+                      << "\n"; // todo, use demangler from type name (in a future PR)
+        }
+        REQUIRE( typeVector[0] == std::type_index( typeid( Scalar ) ) );
+        REQUIRE( typeVector[1] == std::type_index( typeid( double ) ) );
+        REQUIRE( typeVector[2] == std::type_index( typeid( std::function<Scalar( Scalar )> ) ) );
+
+        auto b = vs.deleteVariable<Scalar>( "x" );
+        REQUIRE( b );
+        b = vs.deleteVariable<Scalar>( "y" );
+        REQUIRE( !b );
+        b = vs.deleteVariable<double>( "y" );
+        REQUIRE( b );
     }
 
     SECTION( "Verifying all" ) {

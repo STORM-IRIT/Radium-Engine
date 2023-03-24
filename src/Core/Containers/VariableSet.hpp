@@ -97,38 +97,6 @@ class RA_CORE_API VariableSet
     template <typename H>
     using VariableTypeFromHandle = typename std::iterator_traits<H>::value_type::second_type;
 
-    /// \brief Base class for visitors with static supported types.
-    /// Visiting will be prepared at compile time by unfolding type list and generating all
-    /// the required function calls for the visit.
-    /// Any class that defines the same alias for a public member "types" can be used as a visitor.
-    template <typename... TYPES>
-    struct StaticVisitor {
-        using types = Utils::TypeList<TYPES...>;
-    };
-
-    /// \brief Base class for dynamically configurable visitors
-    /// Users can implement this interface to build custom visitors without any restriction.
-    /// To ease visitor configuration, see class DynamicVisitor
-    /// \see DynamicVisitor
-    class DynamicVisitorBase
-    {
-      public:
-        virtual ~DynamicVisitorBase() = default;
-
-        /// \brief Execute a visiting operator on accepted types
-        /// \param in The variable to process
-        /// \param userParam The optional user define parameter to forward to type associated
-        /// functor The variable \b in contains a wrapping of the association name->value whose
-        /// visit is accepted. Visiting the association is done by calling the visit operator
-        /// associated with the underlying type of the variable \b in.
-        virtual void operator()( std::any&& in, std::any&& userParam ) const = 0;
-
-        /// \brief Acceptance function for the visitor
-        /// \param id the std::type_index associated to the type to visit
-        /// \return true if the type is visitable, false if not
-        virtual bool accept( const std::type_index& id ) const = 0;
-    };
-
     // ----------------------------------------------------------
     /// Constructors, destructors
     /// \{
@@ -289,59 +257,37 @@ class RA_CORE_API VariableSet
     /// Visiting operators
     /// \{
 
-    /// \brief Visit the container using a dynamically typed visitor
-    /// \tparam P The type of the parameter to pass to visitor operators (see below)
-    /// \param visitor The visitor to use
-    /// \param params  optional parameter to forward to visitor functor
-    ///
-    /// This visiting method is adapted when the types to visit are only known at running time.
-    /// At running time, this visiting approach relies on two loops.
-    ///   - The first loop, done by the visiting logic in the class VariableSet iterate over
-    ///     the types stored for the mappings name->value to identify the accepted types by the
-    ///     visitor.
-    ///   - The second loop, done by the visiting logic for accepted types, loop over
-    ///     name->value mappings and call the visitor functor for each pair
-    ///
-    /// The type of the visiting functor F should be
-    ///   - either derived from VariableSet::DynamicVisitor with the needed visiting operators
-    ///     registered (\see see VariableSet::DynamicVisitor)
-    ///   - either derived directly from DynamicVisitorBase to build a full custom visitor. In this
-    ///     case, the first given std::any rvalue reference wraps a reference to a
-    ///     std::pair<const std::string, T> such
-    ///     that the first element of the pair is the name of the variable, and the second its
-    ///     value of type T. The second std::any&& rvalue reference contains an optional parameter
-    ///     to pass to the visiting functors (the same for all types) if the accept to be called
-    ///     with such a parameter.
-    template <typename P = bool>
-    void visitDynamic( DynamicVisitorBase& visitor, P&& params = P {} ) const;
+    /// \brief Base class for visitors with static supported types.
+    /// Visiting will be prepared at compile time by unfolding type list and generating all
+    /// the required function calls for the visit.
+    /// Any class that defines the same alias for a public member "types" can be used as a visitor.
+    template <typename... TYPES>
+    struct StaticVisitor {
+        using types = Utils::TypeList<TYPES...>;
+    };
 
-    /// \brief Visit the container using a statically typed visitor
-    /// \tparam F The type of the visitor to use (see below)
-    /// \param visitor The visitor object to use
-    ///
-    /// This visiting method is well adapted when the visited types are known at compile time.
-    /// In this case, part of the visit logic is done at compile time by unfolding the call of the
-    /// type-related visitors instead of looping over all the stored type.
-    /// This visiting strategy loops on visited types at compile time (loop unrolled) then
-    /// on each stored values at running time. So, this visiting strategy is more efficient than
-    /// the dynamic one if visited types are always the same.
-    ///
-    /// The type of the visiting functor F should be
-    ///     - either derived from VariableSet::StaticVisitor<Type1, Type2, ...> with function
-    ///     operators with profile const operator(const std::string& name, T& value) available for
-    ///     all the requested types Type1, Type2, ...
-    ///     - either a user define class exposing a type list to unfold F::types
-    ///     (see Utils::TypeList and VariableSet::StaticVisitor)
-    template <typename F>
-    void visit( F&& visitor ) const;
+    /// \brief Base class for dynamically configurable visitors
+    /// Users can implement this interface to build custom visitors without any restriction.
+    /// To ease visitor configuration, see class DynamicVisitor
+    /// \see DynamicVisitor
+    class DynamicVisitorBase
+    {
+      public:
+        virtual ~DynamicVisitorBase() = default;
 
-    /// \brief overload of the static visit method to allow a parameter pass by reference
-    template <typename F, typename T>
-    void visit( F&& visitor, T& userParams ) const;
+        /// \brief Execute a visiting operator on accepted types
+        /// \param in The variable to process
+        /// \param userParam The optional user define parameter to forward to type associated
+        /// functor The variable \b in contains a wrapping of the association name->value whose
+        /// visit is accepted. Visiting the association is done by calling the visit operator
+        /// associated with the underlying type of the variable \b in.
+        virtual void operator()( std::any&& in, std::any&& userParam ) const = 0;
 
-    /// \brief overload of the static visit method to allow a parameter pass by rvalue reference
-    template <typename F, typename T>
-    void visit( F&& visitor, T&& userParams ) const;
+        /// \brief Acceptance function for the visitor
+        /// \param id the std::type_index associated to the type to visit
+        /// \return true if the type is visitable, false if not
+        virtual bool accept( const std::type_index& id ) const = 0;
+    };
 
     /// \brief Base class for visitors with configurable per-type callbacks.
     /// Visiting will be prepared at running time by dynamically adding visitor operators for each
@@ -425,7 +371,82 @@ class RA_CORE_API VariableSet
         OperatorsStorageType m_visitorOperator;
     };
 
+    /// \brief Visit the container using a user defined visitor
+    /// \tparam F The type of the visitor to use (could be dynamic or static - see above )
+    /// \param visitor The visitor object to use
+    /// The type of the visiting functor F should be
+    ///     - either derived from VariableSet::StaticVisitor<Type1, Type2, ...> with function
+    ///     operators with profile const operator(const std::string& name, T& value) available for
+    ///     all the requested types Type1, Type2, ...
+    ///     - either a user define class exposing a type list to unfold F::types
+    ///     (see Utils::TypeList and VariableSet::StaticVisitor)
+    ///     - either derived from DynamicVisitor. In this case, visiting will be less efficient.
+    template <typename F>
+    void visit( F&& visitor ) const;
+
+    /// \brief overload of the static visit method to allow a parameter pass by reference
+    template <typename F, typename T>
+    void visit( F&& visitor, T& userParams ) const;
+
+    /// \brief overload of the static visit method to allow a parameter pass by rvalue reference
+    template <typename F, typename T>
+    void visit( F&& visitor, T&& userParams ) const;
+
   private:
+    /// \brief Visit the container using a dynamically typed visitor
+    /// \tparam P The type of the parameter to pass to visitor operators (see below)
+    /// \param visitor The visitor to use
+    /// \param params  optional parameter to forward to visitor functor
+    ///
+    /// This visiting method is adapted when the types to visit are only known at running time.
+    /// At running time, this visiting approach relies on two loops.
+    ///   - The first loop, done by the visiting logic in the class VariableSet iterate over
+    ///     the types stored for the mappings name->value to identify the accepted types by the
+    ///     visitor.
+    ///   - The second loop, done by the visiting logic for accepted types, loop over
+    ///     name->value mappings and call the visitor functor for each pair
+    ///
+    /// The type of the visiting functor F should be
+    ///   - either derived from VariableSet::DynamicVisitor with the needed visiting operators
+    ///     registered (\see see VariableSet::DynamicVisitor)
+    ///   - either derived directly from DynamicVisitorBase to build a full custom visitor. In this
+    ///     case, the first given std::any rvalue reference wraps a reference to a
+    ///     std::pair<const std::string, T> such
+    ///     that the first element of the pair is the name of the variable, and the second its
+    ///     value of type T. The second std::any&& rvalue reference contains an optional parameter
+    ///     to pass to the visiting functors (the same for all types) if the accept to be called
+    ///     with such a parameter.
+    template <typename P = bool>
+    void visitDynamic( DynamicVisitorBase& visitor, P&& params = P {} ) const;
+
+    /// \brief Visit the container using a statically typed visitor
+    /// \tparam F The type of the visitor to use (see below)
+    /// \param visitor The visitor object to use
+    ///
+    /// This visiting method is well adapted when the visited types are known at compile time.
+    /// In this case, part of the visit logic is done at compile time by unfolding the call of the
+    /// type-related visitors instead of looping over all the stored type.
+    /// This visiting strategy loops on visited types at compile time (loop unrolled) then
+    /// on each stored values at running time. So, this visiting strategy is more efficient than
+    /// the dynamic one if visited types are always the same.
+    ///
+    /// The type of the visiting functor F should be
+    ///     - either derived from VariableSet::StaticVisitor<Type1, Type2, ...> with function
+    ///     operators with profile const operator(const std::string& name, T& value) available for
+    ///     all the requested types Type1, Type2, ...
+    ///     - either a user define class exposing a type list to unfold F::types
+    ///     (see Utils::TypeList and VariableSet::StaticVisitor)
+    template <typename F>
+    void visitStatic( F&& visitor ) const;
+
+    /// \brief overload of the static visit method to allow a parameter pass by reference
+    template <typename F, typename T>
+    void visitStatic( F&& visitor, T& userParams ) const;
+
+    /// \brief overload of the static visit method to allow a parameter pass by rvalue reference
+    template <typename F, typename T>
+    void visitStatic( F&& visitor, T&& userParams ) const;
+
     /// \brief Helper function that associate an index to a type
     /// \tparam T The type to index
     /// \return the identifier index of the type
@@ -730,7 +751,7 @@ void VariableSet::visitDynamic( DynamicVisitorBase& visitor, P&& params ) const 
 }
 
 template <typename F>
-void VariableSet::visit( F&& visitor ) const {
+void VariableSet::visitStatic( F&& visitor ) const {
     visitImpl( visitor, typename std::decay_t<F>::types {} );
 }
 
@@ -753,13 +774,13 @@ void VariableSet::visitImplHelper( F& visitor ) const {
 }
 
 template <typename F, typename U>
-void VariableSet::visit( F&& visitor, U& userParams ) const {
+void VariableSet::visitStatic( F&& visitor, U& userParams ) const {
     visitImplUserParam(
         visitor, std::forward<U>( userParams ), typename std::decay_t<F>::types {} );
 }
 
 template <typename F, typename U>
-void VariableSet::visit( F&& visitor, U&& userParams ) const {
+void VariableSet::visitStatic( F&& visitor, U&& userParams ) const {
     visitImplUserParam(
         visitor, std::forward<U>( userParams ), typename std::decay_t<F>::types {} );
 }
@@ -837,6 +858,39 @@ VariableSet::DynamicVisitor::makeVisitorOperator( F& f ) {
          std::is_invocable<F, const std::string&, T, std::any&&>::value ||
              std::is_invocable<F, const std::string&, T&, std::any&&>::value > {};
     return opBuilder.makeOperator( f );
+}
+
+template <typename F>
+inline void VariableSet::visit( F&& visitor ) const {
+    if constexpr ( std::is_base_of<Core::VariableSet::DynamicVisitorBase,
+                                   std::decay_t<F>>::value ) {
+        visitDynamic( visitor );
+    }
+    else {
+        visitStatic( visitor );
+    }
+}
+
+template <typename F, typename T>
+inline void VariableSet::visit( F&& visitor, T& userParams ) const {
+    if constexpr ( std::is_base_of<Core::VariableSet::DynamicVisitorBase,
+                                   std::decay_t<F>>::value ) {
+        visitDynamic( visitor, std::forward<T&>( userParams ) );
+    }
+    else {
+        visitStatic( visitor, std::forward<T&>( userParams ) );
+    }
+}
+
+template <typename F, typename T>
+inline void VariableSet::visit( F&& visitor, T&& userParams ) const {
+    if constexpr ( std::is_base_of<Core::VariableSet::DynamicVisitorBase,
+                                   std::decay_t<F>>::value ) {
+        visitDynamic( visitor, std::forward<T&&>( userParams ) );
+    }
+    else {
+        visitStatic( visitor, std::forward<T&&>( userParams ) );
+    }
 }
 
 } // namespace Core
