@@ -105,9 +105,12 @@ void main() {
         vec2 size = textureSize( amb_occ_sampler, 0 ).xy;
         vec3 ao   = texture( amb_occ_sampler, gl_FragCoord.xy / size ).rgb;
         bc.rgb    = diffuse;
-        bc.r *= dot( normalWorld, redShCoeffs * normalWorld );
-        bc.g *= dot( normalWorld, greenShCoeffs * normalWorld );
-        bc.b *= dot( normalWorld, blueShCoeffs * normalWorld );
+        vec3 irradiance = vec3(
+            dot( normalWorld, redShCoeffs * normalWorld ),
+            dot( normalWorld, greenShCoeffs * normalWorld ),
+            dot( normalWorld, blueShCoeffs * normalWorld )
+        );
+        bc.rgb *= irradiance / OneOverPi;
         // Specular envmap
         float cosTi = clamp( dot( rfl, normalWorld.xyz ), 0.001, 1. );
         vec3 spec   = clamp( specular * cosTi * OneOverPi * 0.5, 0.001, 1. );
