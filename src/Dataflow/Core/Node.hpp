@@ -341,12 +341,14 @@ inline bool Node::removeOutput( PortBase*& out ) {
 }
 
 inline bool Node::addEditableParameter( EditableParameterBase* editableParameter ) {
-    bool found = false;
-    for ( auto& edit : m_editableParameters ) {
-        if ( edit.get()->getName() == editableParameter->getName() ) { found = true; }
+    auto edIt = std::find_if(
+        m_editableParameters.begin(),
+        m_editableParameters.end(),
+        [name = editableParameter->getName()]( const auto& p ) { return p->getName() == name; } );
+    if ( edIt == m_editableParameters.end() ) {
+        m_editableParameters.emplace_back( editableParameter );
     }
-    if ( !found ) { m_editableParameters.emplace_back( editableParameter ); }
-    return !found;
+    return edIt == m_editableParameters.end();
 }
 
 inline bool Node::removeEditableParameter( const std::string& name ) {
