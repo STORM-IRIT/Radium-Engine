@@ -117,6 +117,7 @@ set(core_headers
     Utils/CircularIndex.hpp
     Utils/Color.hpp
     Utils/ContainerIntrospectionInterface.hpp
+    Utils/EnumConverter.hpp
     Utils/Index.hpp
     Utils/IndexMap.hpp
     Utils/IndexedObject.hpp
