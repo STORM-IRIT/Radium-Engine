@@ -50,8 +50,8 @@ QWidget* createWidget( EditableParameterBase* editableParameter ) {
     else {
         // TODO, when PR #1027 will be merged, demangle the type name
         LOG( Ra::Core::Utils::logWARNING )
-            << "WidgetFactory : no defined widget builder for hashed type "
-            << editableParameter->getType().name() << ".";
+            << "WidgetFactory : no defined widget builder for type "
+            << simplifiedDemangledType( editableParameter->getType() ) << ".";
     }
     return nullptr;
 }
@@ -62,8 +62,8 @@ bool updateWidget( QWidget* widget, EditableParameterBase* editableParameter ) {
     }
     else {
         LOG( Ra::Core::Utils::logWARNING )
-            << "WidgetFactory: no defined widget updater for hashed type "
-            << editableParameter->getType().name() << ".";
+            << "WidgetFactory: no defined widget updater for type "
+            << simplifiedDemangledType( editableParameter->getType() ) << ".";
     }
     return false;
 }
@@ -124,7 +124,7 @@ void initializeWidgetFactory() {
             auto editable    = dynamic_cast<EditableParameter<Scalar>*>( editableParameter );
             auto powerSlider = new PowerSlider();
             powerSlider->setObjectName( editable->getName().c_str() );
-            editable->m_data = 0.0_ra;
+            // editable->m_data = 0.0_ra;
             powerSlider->setValue( editable->m_data );
             const auto& constraints = editable->getConstraints();
             Scalar minValue         = 0_ra;
@@ -148,7 +148,40 @@ void initializeWidgetFactory() {
                 return false;
             }
         } );
+    /*
+     * int edition
+     */
+    WidgetFactory::registerWidget<int>(
+        []( EditableParameterBase* editableParameter ) {
+            auto editable           = dynamic_cast<EditableParameter<int>*>( editableParameter );
+            const auto& constraints = editable->getConstraints();
+            Scalar minValue         = 0_ra;
+            Scalar maxValue         = 1000_ra;
+            if ( constraints.contains( "min" ) ) { minValue = Scalar( constraints["min"] ); }
+            if ( constraints.contains( "max" ) ) { maxValue = Scalar( constraints["max"] ); }
 
+            auto powerSlider = new PowerSlider();
+            powerSlider->setObjectName( editable->getName().c_str() );
+            // editable->m_data = 0.0_ra;
+            powerSlider->setValue( editable->m_data );
+            powerSlider->setRange( minValue, maxValue );
+            powerSlider->setSingleStep( 1 );
+            PowerSlider::connect( powerSlider,
+                                  &PowerSlider::valueChanged,
+                                  [editable]( Scalar value ) { editable->m_data = int( value ); } );
+            return powerSlider;
+        },
+        []( QWidget* widget, EditableParameterBase* editableParameter ) -> bool {
+            auto editable = dynamic_cast<EditableParameter<int>*>( editableParameter );
+            auto slider   = widget->findChild<PowerSlider*>( editableParameter->getName().c_str() );
+            if ( slider ) {
+                slider->setValue( editable->m_data );
+                return true;
+            }
+            else {
+                return false;
+            }
+        } );
     /*
      * Boolean edition
      */
@@ -190,19 +223,35 @@ void initializeWidgetFactory() {
             auto clrCbk       = [editable]( const Ra::Core::Utils::Color& clr ) {
                 editable->m_data = clr;
             };
-            controlPanel->addColorInput( "Choose color", clrCbk, editable->m_data, true );
+            controlPanel->addColorInput( editable->getName(), clrCbk, editable->m_data, true );
             controlPanel->setVisible( true );
             return controlPanel;
         },
         []( QWidget* widget, EditableParameterBase* editableParameter ) -> bool {
             auto editable =
                 dynamic_cast<EditableParameter<Ra::Core::Utils::Color>*>( editableParameter );
-            auto button = widget->findChild<QPushButton*>( "Choose color" );
+            auto button = widget->findChild<QPushButton*>( editable->getName().c_str() );
             if ( button ) {
                 // todo, update the color on the button and make the dialog to take its
                 //  initial color from the button. Once dont, return true ...
-                return false;
+                auto srgbColor = Ra::Core::Utils::Color::linearRGBTosRGB( editable->m_data );
+                auto clrBttn =
+                    QColor::fromRgbF( srgbColor[0], srgbColor[1], srgbColor[2], srgbColor[3] );
+
+                auto lum = 0.2126_ra * Scalar( clrBttn.redF() ) +
+                           0.7151_ra * Scalar( clrBttn.greenF() ) +
+                           0.0721_ra * Scalar( clrBttn.blueF() );
+                QString qss = QString( "background-color: %1" ).arg( clrBttn.name() );
+                if ( lum > 1_ra / 3_ra ) { qss += QString( "; color: #000000" ); }
+                else {
+                    qss += QString( "; color: #FFFFFF" );
+                }
+                button->setStyleSheet( qss );
+                return true;
             }
+            LOG( Ra::Core::Utils::logWARNING )
+                << " Unable to find the button \"Choose color\" for \"" << editable->getName()
+                << "\" ";
             return false;
         } );
 

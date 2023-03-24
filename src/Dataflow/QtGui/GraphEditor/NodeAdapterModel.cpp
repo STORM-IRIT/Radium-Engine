@@ -219,7 +219,8 @@ void updateWidget( Node* node, QWidget* widget ) {
         auto edtParam = node->getEditableParameters()[i].get();
         if ( !WidgetFactory::updateWidget( widget, edtParam ) ) {
             LOG( Ra::Core::Utils::logWARNING )
-                << "NodeAdapterModel : unable to update parameter " << edtParam->getName();
+                << "NodeAdapterModel : unable to update parameter " << edtParam->getName()
+                << " on node " << node->getInstanceName() << " (" << node->getTypeName() << ")";
         }
     }
 }
