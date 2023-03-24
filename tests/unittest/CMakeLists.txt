@@ -14,6 +14,7 @@ set(test_src
     Core/containers.cpp
     Core/demangle.cpp
     Core/distance.cpp
+    Core/enumconverter.cpp
     Core/geometryData.cpp
     Core/indexmap.cpp
     Core/indexview.cpp
