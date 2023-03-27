@@ -515,7 +515,6 @@ class RA_CORE_API VariableSet
             const VariableSet&,
             const DynamicVisitorBase& )>;
 
-    // TODO, add functions as unordered map, indexed by typeindex, instead of vectors ?
     std::vector<MergeFunctionType> m_mergeKeepFunctions;
     std::vector<MergeFunctionType> m_mergeReplaceFunctions;
     std::vector<SizeFunctionType> m_sizeFunctions;

@@ -28,7 +28,6 @@ const char* demangleType( const T& ) noexcept;
 // TypeList taken and adapted from
 // https://github.com/AcademySoftwareFoundation/openvdb/blob/master/openvdb/openvdb/TypeList.h
 // Only took small part of TypeList utilities
-// todo : do we need all the type list utilities ? I think yes but wait for other advices
 
 // forward declarations
 template <typename... Ts>
@@ -77,11 +76,11 @@ struct TypeList {
     /// \code
     /// {
     ///     using IntTypes = Ra::Core::Utils::TypeList<Int16, Int32, Int64>;
-    ///     using RealTypes = Ra::Core::Utils::::TypeList<float, double>;
+    ///     using RealTypes = Ra::Core::Utils::TypeList<float, double>;
     ///     using NumericTypes = IntTypes::Append<RealTypes>;
     /// }
     /// {
-    ///     using IntTypes = Ra::Core::Utils::::TypeList<Int16>::Append<Int32, Int64>;
+    ///     using IntTypes = Ra::Core::Utils::TypeList<Int16>::Append<Int32, Int64>;
     ///     using NumericTypes = IntTypes::Append<float>::Append<double>;
     /// }
     /// \endcode

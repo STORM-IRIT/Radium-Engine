@@ -14,15 +14,8 @@ namespace Utils {
  * of an enumeration.
  *
  * \tparam EnumBaseType the underlying type (as returned by typename std::underlying_type_t<Enum>)
- * of the enumeration to manage
+ * of the enumeration to manage.
  *
- * Management of string representation of enum type.
- * \todo, reword the following
- * This allow to set the parameter using a string representation of their value.
- * Setting the parameter directly from the value is supported as for any other parameter but
- * user should take care to call the right overloaded function given the underlying enumeration
- * type. This is due to unscoped enum being implicitly convertible to any integral type.
- * (https://en.cppreference.com/w/cpp/language/enum)
  */
 template <typename EnumBaseType>
 class EnumConverter

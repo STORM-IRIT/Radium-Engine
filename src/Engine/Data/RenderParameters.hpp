@@ -182,6 +182,15 @@ class RA_ENGINE_API RenderParameters final
     /**\}*/
 
     /**
+     * \brief Remove the given parameter from the parameterSet
+     * \tparam T Type of the parameter to remove
+     * \param name Name of the parameter to remove
+     * \return true if the parameter was found and removed. false else.
+     */
+    template <typename T>
+    bool removeParameter( const std::string& name );
+
+    /**
      * Merges a RenderParameters \a params with this
      * \param params the render parameter to merge with the current.
      * Existing parameter value are kept from this
@@ -412,8 +421,6 @@ RenderParameters::getEnumConverter( const std::string& name ) {
     return {};
 }
 
-// template <typename EnumBaseType, typename std::enable_if<!std::is_enum<EnumBaseType> {},
-// bool>::type>
 template <typename EnumBaseType>
 std::string RenderParameters::getEnumString(
     const std::string& name,
@@ -465,6 +472,11 @@ inline void RenderParameters::addParameter( const std::string& name, RenderParam
 }
 
 template <typename T>
+bool RenderParameters::removeParameter( const std::string& name ) {
+    return m_parameterSets.deleteVariable<T>( name );
+}
+
+template <typename T>
 inline const RenderParameters::UniformBindableSet<T>& RenderParameters::getParameterSet() const {
     return m_parameterSets.getAllVariables<T>();
 }
@@ -475,7 +487,7 @@ RenderParameters::hasParameterSet() const {
     if constexpr ( std::is_enum<T>::value ) {
         // Do not return
         // m_parameterSets.existsVariableType< typename std::underlying_type< T >::type >();
-        // to prevent misusage of this function. The user should infer this with another logic.
+        // to prevent misuse of this function. The user should infer this with another logic.
         return {};
     }
     else {

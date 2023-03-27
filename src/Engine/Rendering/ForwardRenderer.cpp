@@ -261,11 +261,6 @@ void setupLineMesh( std::shared_ptr<Data::LineMesh>& disp, CoreGeometry& core ) 
 }
 
 void ForwardRenderer::renderInternal( const Data::ViewingParameters& renderData ) {
-    // to prevent costly creation/destruction of renderparameter
-    // invariant : this must be empty at each draw call
-    static Data::RenderParameters passParams;
-    CORE_ASSERT( passParams.getStorage().size() == 0,
-                 "ERROR : lightParams must be empty before rendering" );
 
     m_fbo->bind();
 
@@ -307,14 +302,14 @@ void ForwardRenderer::renderInternal( const Data::ViewingParameters& renderData 
     // direclty in shaders)
 
     for ( const auto& ro : m_fancyRenderObjects ) {
-        ro->render( passParams, renderData, DefaultRenderingPasses::Z_PREPASS );
+        ro->render( {}, renderData, DefaultRenderingPasses::Z_PREPASS );
     }
     // Transparent objects are rendered in the Z-prepass, but only their fully opaque fragments
     // (if any) might influence the z-buffer.
     // Rendering transparent objects assuming that they
     // discard all their non-opaque fragments
     for ( const auto& ro : m_transparentRenderObjects ) {
-        ro->render( passParams, renderData, DefaultRenderingPasses::Z_PREPASS );
+        ro->render( {}, renderData, DefaultRenderingPasses::Z_PREPASS );
     }
     // Volumetric objects are not rendered in the Z-prepass
 
@@ -334,7 +329,7 @@ void ForwardRenderer::renderInternal( const Data::ViewingParameters& renderData 
         // for ( const auto& l : m_lights )
         for ( size_t i = 0; i < m_lightmanagers[0]->count(); ++i ) {
             const auto l = m_lightmanagers[0]->getLight( i );
-
+            Data::RenderParameters passParams;
             passParams.addParameter( "light_source", l->getRenderParameters() );
             for ( const auto& ro : m_fancyRenderObjects ) {
                 ro->render( passParams, renderData, DefaultRenderingPasses::LIGHTING_OPAQUE );
@@ -345,9 +340,6 @@ void ForwardRenderer::renderInternal( const Data::ViewingParameters& renderData 
                 ro->render( passParams, renderData, DefaultRenderingPasses::LIGHTING_OPAQUE );
             }
         }
-        // TODO make this more simpler
-        passParams.getModifiableStorage()
-            .deleteVariable<std::reference_wrapper<Data::RenderParameters>>( "light_source" );
     }
     else {
         LOG( logINFO ) << "Opaque : no light sources, unable to render";
@@ -375,15 +367,12 @@ void ForwardRenderer::renderInternal( const Data::ViewingParameters& renderData 
             for ( size_t i = 0; i < m_lightmanagers[0]->count(); ++i ) {
                 const auto l = m_lightmanagers[0]->getLight( i );
 
-                passParams.addParameter( "light_source", l->getRenderParameters() );
                 for ( const auto& ro : m_transparentRenderObjects ) {
-                    ro->render(
-                        passParams, renderData, DefaultRenderingPasses::LIGHTING_TRANSPARENT );
+                    ro->render( l->getRenderParameters(),
+                                renderData,
+                                DefaultRenderingPasses::LIGHTING_TRANSPARENT );
                 }
             }
-            // TODO make this more simpler
-            passParams.getModifiableStorage()
-                .deleteVariable<std::reference_wrapper<Data::RenderParameters>>( "light_source" );
         }
         else {
             LOG( logINFO ) << "Transparent : no light sources, unable to render";
@@ -406,13 +395,14 @@ void ForwardRenderer::renderInternal( const Data::ViewingParameters& renderData 
         }
         GL_ASSERT( glEnable( GL_DEPTH_TEST ) );
     }
+
     // Volumetric pass
     // Z-test is enabled but z-write must be disable to allow access to the z-buffer in the
     // shader.
     // This pass render in its own FBO and copy the result to the main colortexture
     if ( m_lightmanagers[0]->count() > 0 ) {
         if ( !m_volumetricRenderObjects.empty() ) {
-            static Data::RenderParameters composeParams;
+            Data::RenderParameters composeParams;
             m_volumeFbo->bind();
             GL_ASSERT( glDrawBuffers( 1, buffers ) );
             auto alpha = Core::Utils::Color::Alpha().cast<GL_SCALAR_PLAIN>().eval();
@@ -420,6 +410,7 @@ void ForwardRenderer::renderInternal( const Data::ViewingParameters& renderData 
             GL_ASSERT( glDisable( GL_BLEND ) );
             composeParams.addParameter( "imageColor", m_textures[RendererTextures_HDR].get() );
             composeParams.addParameter( "imageDepth", m_textures[RendererTextures_Depth].get() );
+            Data::RenderParameters passParams;
             passParams.addParameter( "compose_data", composeParams );
             // for ( const auto& l : m_lights )
             for ( size_t i = 0; i < m_lightmanagers[0]->count(); ++i ) {
@@ -432,11 +423,6 @@ void ForwardRenderer::renderInternal( const Data::ViewingParameters& renderData 
                         passParams, renderData, DefaultRenderingPasses::LIGHTING_VOLUMETRIC );
                 }
             }
-            // TODO make this more simpler
-            passParams.getModifiableStorage()
-                .deleteVariable<std::reference_wrapper<Data::RenderParameters>>( "light_source" );
-            passParams.getModifiableStorage()
-                .deleteVariable<std::reference_wrapper<Data::RenderParameters>>( "compose_data" );
             m_volumeFbo->unbind();
             m_fbo->bind();
             GL_ASSERT( glDrawBuffers( 1, buffers ) );
