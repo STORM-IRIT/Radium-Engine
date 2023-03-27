@@ -258,6 +258,11 @@ TEST_CASE( "Engine/Data/RenderParameters", "[Engine][Engine/Data][RenderParamete
         // Bar is on p1 side only and not changed
         REQUIRE( replaced.getParameterSet<int>().at( "Bar" ) ==
                  p1.getParameterSet<int>().at( "Bar" ) );
+
+        auto removed = replaced.removeParameter<int>( "Bar" );
+        REQUIRE( removed == true );
+        auto found = replaced.containsParameter<int>( "Bar" );
+        REQUIRE( found.has_value() == false );
     }
 
     SECTION( "Enum parameter" ) {
