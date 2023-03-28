@@ -52,7 +52,7 @@ struct ParameterPrinter {
         std::vector<T, TAllocator>& value,
         SelectionPredicate&& pred = []( const std::string& ) { return true; } ) {
         if ( pred( name ) ) {
-            std::cout << name << " (" << Utils::demangleType<T>() << ") --> [";
+            std::cout << name << " (" << Utils::demangleType<std::vector<T>>() << ") --> [";
             std::copy( value.begin(),
                        std::prev( value.end() ),
                        std::ostream_iterator<T>( std::cout, ", " ) );
@@ -66,8 +66,8 @@ struct ParameterPrinter {
         Ra::Core::Utils::Color& value,
         SelectionPredicate&& pred = []( const std::string& ) { return true; } ) {
         if ( pred( name ) ) {
-            std::cout << name << " (" << Utils::demangleType<Ra::Core::Utils::Color>() << ") --> ";
-            std::cout << value.transpose() << "\n";
+            std::cout << name << " (" << Utils::demangleType<Ra::Core::Utils::Color>() << ") --> (";
+            std::cout << value.transpose() << ")\n";
         }
     }
 
@@ -77,8 +77,12 @@ struct ParameterPrinter {
         M<T, dim...>& value,
         SelectionPredicate&& pred = []( const std::string& ) { return true; } ) {
         if ( pred( name ) ) {
-            std::cout << name << " (" << Utils::demangleType<M<T, dim...>>() << ") --> \n"
-                      << value << "\n";
+            std::cout << name << " (" << Utils::demangleType<M<T, dim...>>() << ") --> ";
+            // transpose column vector for display
+            if constexpr ( M<T, dim...>::ColsAtCompileTime == 1 )
+                std::cout << "(" << value.transpose() << ")\n";
+            else
+                std::cout << "\n" << value << "\n";
         }
     }
 
