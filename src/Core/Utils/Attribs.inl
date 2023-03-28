@@ -305,7 +305,7 @@ void AttribManager::removeAttrib( AttribHandle<T>& h ) {
     }
     h.m_idx   = Index::Invalid(); // invalidate whatever!
     auto name = h.m_name;
-    h.m_name  = ""; // invalidate whatever!
+    h.m_name  = "";               // invalidate whatever!
     --m_numAttribs;
     notify( name );
 }

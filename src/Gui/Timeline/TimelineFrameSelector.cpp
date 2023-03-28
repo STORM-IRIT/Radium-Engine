@@ -452,9 +452,7 @@ void TimelineFrameSelector::mousePressEvent( QMouseEvent* event ) {
         // move cursor without render
         if ( ctrlDown ) { onChangeCursor( newCursor, false ); }
         // delete keyFrames between cursor and newCursor
-        else if ( shiftDown ) {
-            deleteZone( m_cursor, newCursor );
-        }
+        else if ( shiftDown ) { deleteZone( m_cursor, newCursor ); }
         // move cursor and update renderer
         else {
             onChangeCursor( newCursor );
@@ -532,9 +530,7 @@ void TimelineFrameSelector::mouseMoveEvent( QMouseEvent* event ) {
 
         onChangeCursor( newCursor );
     }
-    else {
-        event->ignore();
-    }
+    else { event->ignore(); }
 }
 
 void TimelineFrameSelector::mouseReleaseEvent( QMouseEvent* event ) {
@@ -542,9 +538,7 @@ void TimelineFrameSelector::mouseReleaseEvent( QMouseEvent* event ) {
         m_mouseLeftClicked = false;
         event->accept();
     }
-    else {
-        event->ignore();
-    }
+    else { event->ignore(); }
 }
 
 void TimelineFrameSelector::updateCursorSpin() {
@@ -644,13 +638,9 @@ void TimelineFrameSelector::deleteZone( Scalar time, Scalar time2 ) {
                 it = m_keyFrames.insert( it, keyFrame - dist );
                 ++it;
             }
-            else {
-                emit keyFrameDeleted( std::distance( m_keyFrames.begin(), it ) );
-            }
+            else { emit keyFrameDeleted( std::distance( m_keyFrames.begin(), it ) ); }
         }
-        else {
-            ++it;
-        }
+        else { ++it; }
     }
     updateNbKeyFrameSpin();
 

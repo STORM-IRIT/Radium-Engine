@@ -211,8 +211,8 @@ class RA_CORE_API Camera
 
     Core::Matrix4 m_projMatrix { Core::Matrix4::Identity() }; ///< Projection matrix
 
-    Scalar m_width { 1_ra };  ///< Viewport width (in pixels)
-    Scalar m_height { 1_ra }; ///< Viewport height (in pixels)
+    Scalar m_width { 1_ra };                                  ///< Viewport width (in pixels)
+    Scalar m_height { 1_ra };                                 ///< Viewport height (in pixels)
     Scalar m_aspect {
         1_ra }; ///< Aspect ratio, i.e. width/height. Precomputed for updateProjMatrix.
 

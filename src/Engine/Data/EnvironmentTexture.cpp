@@ -589,8 +589,8 @@ Ra::Engine::Data::Texture* EnvironmentTexture::getSHImage() {
                 continue; /* Consider only circle with r<1 */
             }
 
-            Scalar theta = M_PI * r;      /* theta parameter of (i,j) */
-            Scalar phi   = atan2( v, u ); /* phi parameter */
+            Scalar theta = M_PI * r;                        /* theta parameter of (i,j) */
+            Scalar phi   = atan2( v, u );                   /* phi parameter */
 
             Scalar x = std::sin( theta ) * std::cos( phi ); /* Cartesian components */
             Scalar y = std::sin( theta ) * std::sin( phi );

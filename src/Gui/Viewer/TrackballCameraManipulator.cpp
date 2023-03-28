@@ -65,9 +65,7 @@ void TrackballCameraManipulator::setupKeyMappingCallbacks() {
         static bool quick = false;
         quick             = !quick;
         if ( quick ) { m_quickCameraModifier = 10.0_ra; }
-        else {
-            m_quickCameraModifier = 1.0_ra;
-        }
+        else { m_quickCameraModifier = 1.0_ra; }
     } );
 }
 
@@ -414,9 +412,7 @@ void TrackballCameraManipulator::updatePhiTheta() {
         Scalar fy = m_referenceFrame.matrix().block<3, 1>( 0, 2 ).dot( m_camera->getUpVector() );
         m_phi     = std::atan2( fx, fy );
     }
-    else {
-        m_phi = std::atan2( R.x(), R.z() );
-    }
+    else { m_phi = std::atan2( R.x(), R.z() ); }
 
     // no need to clamp, atan2 is by def \in [-pi,pi]
     // acos in [0, pi]

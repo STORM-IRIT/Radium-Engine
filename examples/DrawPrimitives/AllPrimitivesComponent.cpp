@@ -179,7 +179,7 @@ void AllPrimitivesComponent::initialize() {
             "test_point",
             this,
             RenderObjectType::Geometry,
-            DrawPrimitives::Point( cellCorner, colorBoost * Color { 0_ra, 1_ra, 0.3_ra } ),
+            DrawPrimitives::Point( cellCorner, colorBoost* Color { 0_ra, 1_ra, 0.3_ra } ),
             {} );
         testpoint->setMaterial( plainMaterial );
         addRenderObject( testpoint );
@@ -652,7 +652,7 @@ void AllPrimitivesComponent::initialize() {
             new Data::PolyMesh( "Poly", std::move( polyMesh ) ) );
         poly1->getCoreGeometry().addAttrib(
             Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::VERTEX_COLOR ),
-            Vector4Array { poly1->getNumVertices(), colorBoost * Color { 1_ra, 0.6_ra, 0.1_ra } } );
+            Vector4Array { poly1->getNumVertices(), colorBoost* Color { 1_ra, 0.6_ra, 0.1_ra } } );
 
         auto renderObject1 = RenderObject::createRenderObject(
             "PolyMesh", this, RenderObjectType::Geometry, poly1, {} );
@@ -669,7 +669,7 @@ void AllPrimitivesComponent::initialize() {
         std::shared_ptr<Mesh> poly2( new Mesh( "Poly", std::move( triangulated ) ) );
         poly2->getCoreGeometry().addAttrib(
             Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::VERTEX_COLOR ),
-            Vector4Array { poly2->getNumVertices(), colorBoost * Color { 0_ra, 0.6_ra, 0.1_ra } } );
+            Vector4Array { poly2->getNumVertices(), colorBoost* Color { 0_ra, 0.6_ra, 0.1_ra } } );
 
         auto renderObject2 = RenderObject::createRenderObject(
             "triangulated", this, RenderObjectType::Geometry, poly2, {} );
@@ -771,7 +771,7 @@ void AllPrimitivesComponent::initialize() {
     };
 
     for ( auto& c : colors1 ) {
-        c = colorBoost * Vector4 { dis01( gen ), dis01( gen ), dis01( gen ), 1_ra };
+        c = colorBoost* Vector4 { dis01( gen ), dis01( gen ), dis01( gen ), 1_ra };
     }
 
     Vector3uArray indices1 { { 0, 2, 1 },

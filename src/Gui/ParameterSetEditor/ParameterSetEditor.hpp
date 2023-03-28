@@ -33,11 +33,11 @@ class RA_GUI_API ParameterSetEditor : public Widgets::ControlPanel
      */
     /** @{ */
     explicit ParameterSetEditor( const std::string& name, QWidget* parent = nullptr );
-    ParameterSetEditor( const ParameterSetEditor& ) = delete;
+    ParameterSetEditor( const ParameterSetEditor& )            = delete;
     ParameterSetEditor& operator=( const ParameterSetEditor& ) = delete;
     ParameterSetEditor( ParameterSetEditor&& )                 = delete;
-    ParameterSetEditor&& operator=( ParameterSetEditor&& ) = delete;
-    ~ParameterSetEditor() override                         = default;
+    ParameterSetEditor&& operator=( ParameterSetEditor&& )     = delete;
+    ~ParameterSetEditor() override                             = default;
     /** @} */
 
     /**

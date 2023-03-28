@@ -79,9 +79,7 @@ bool checkNoWeightVertex( Eigen::Ref<const WeightMatrix> matrix,
         }
         if ( status == 0 ) {
             if ( FAIL_ON_ASSERT ) { CORE_ASSERT( false, "At least a vertex as no weights" ); }
-            else {
-                LOG( logDEBUG ) << "At least a vertex as no weights";
-            }
+            else { LOG( logDEBUG ) << "At least a vertex as no weights"; }
         }
     }
     else {
@@ -92,9 +90,7 @@ bool checkNoWeightVertex( Eigen::Ref<const WeightMatrix> matrix,
 
                 const std::string text = "Vertex " + std::to_string( i ) + " has no weights.";
                 if ( FAIL_ON_ASSERT ) { CORE_ASSERT( false, text.c_str() ); }
-                else {
-                    LOG( logDEBUG ) << text;
-                }
+                else { LOG( logDEBUG ) << text; }
             }
         }
     }

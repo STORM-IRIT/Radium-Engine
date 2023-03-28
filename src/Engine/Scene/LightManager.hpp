@@ -22,7 +22,7 @@ class RA_ENGINE_API LightManager : public System
     LightManager() = default;
 
     // Make copies impossible
-    LightManager( const LightManager& ) = delete;
+    LightManager( const LightManager& )            = delete;
     LightManager& operator=( const LightManager& ) = delete;
 
     /// Virtual destructor

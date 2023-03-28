@@ -122,9 +122,7 @@ bool ShaderConfiguration::operator<( const ShaderConfiguration& o ) const {
                         ;
 
                     if ( lit == m_includes.end() ) { res = false; }
-                    else {
-                        res = *lit < *rit;
-                    }
+                    else { res = *lit < *rit; }
                 }
             }
         }
@@ -136,14 +134,10 @@ bool ShaderConfiguration::operator<( const ShaderConfiguration& o ) const {
                 ;
 
             if ( lit == m_properties.end() ) { res = false; }
-            else {
-                res = *lit < *rit;
-            }
+            else { res = *lit < *rit; }
         }
     }
-    else {
-        res = m_properties.size() < o.m_properties.size();
-    }
+    else { res = m_properties.size() < o.m_properties.size(); }
 
     return res;
 }
@@ -179,9 +173,7 @@ void ShaderConfiguration::setOpenGLVersion( const glbinding::Version& version ) 
                                                       { "4.6", "460" } };
     auto it = openGLToGLSL.find( version.toString() );
     if ( it != openGLToGLSL.end() ) { s_glslVersion = it->second; }
-    else {
-        s_glslVersion = "410";
-    }
+    else { s_glslVersion = "410"; }
 }
 std::string ShaderConfiguration::getGLSLVersion() {
     return s_glslVersion;

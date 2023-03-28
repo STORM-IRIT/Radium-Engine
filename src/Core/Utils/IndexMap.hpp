@@ -103,7 +103,7 @@ class IndexMap
     inline ConstIndexIterator
     cbegin_index() const; /// Return a const iterator to the first index in the IndexMap.
     inline ConstIndexIterator
-    cend_index() const; /// Return a const iterator to the end of the indices of the IndexMap.
+    cend_index() const;   /// Return a const iterator to the end of the indices of the IndexMap.
 
     // ===============================================================================
     // DATA ITERATOR
@@ -112,11 +112,11 @@ class IndexMap
     inline Iterator end();   /// Return a iterator to the end of the object list in the IndexMap.
     inline ConstIterator begin() const; /// Return a iterator to the first object in the IndexMap.
     inline ConstIterator
-    end() const; /// Return a iterator to the end of the object list in the IndexMap.
+    end() const;    /// Return a iterator to the end of the object list in the IndexMap.
     inline ConstIterator
     cbegin() const; /// Return a const iterator to the first object in the IndexMap.
     inline ConstIterator
-    cend() const; /// Return a const iterator to the end of the object list in the IndexMap.
+    cend() const;   /// Return a const iterator to the end of the object list in the IndexMap.
 
   protected:
     // Member variables
@@ -140,7 +140,7 @@ class IndexMap
     itfromIndex( const ConstIndexIterator&
                      it ); /// Returns a non-const iterator on an object from its intex iterator
     inline size_t idxfromIndex( const ConstIndexIterator& it )
-        const; /// Return the index of the object in the map from its index iterator
+        const;             /// Return the index of the object in the map from its index iterator
 
   private:
     // Member variables

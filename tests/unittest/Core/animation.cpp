@@ -356,7 +356,7 @@ TEST_CASE( "Core/Animation/KeyFramedStruct" ) {
     }
     SECTION( "" ) {
         //! [use MyStructAnimator]
-        MyStruct a; // a.m_nonAnimatedData = 2 in ctor
+        MyStruct a;                                // a.m_nonAnimatedData = 2 in ctor
         MyStructAnimator b( a );
         std::cout << a.fetch( 0_ra ) << std::endl; // prints: 0
         std::cout << a.fetch( 2_ra ) << std::endl; // prints: 2

@@ -21,7 +21,7 @@ class Grid
     // public types and constants.
     static const uint Dimension = D; /// Dimension of our grid
     using IdxVector =
-        Eigen::Matrix<uint, D, 1>; /// A vector of the size of the grid along each dimension.
+        Eigen::Matrix<uint, D, 1>;   /// A vector of the size of the grid along each dimension.
     using OffsetVector = Eigen::Matrix<int, D, 1>; /// A vector of signed offsets.
 
     /// This class implements an iterator though elements of the grid that
@@ -46,7 +46,7 @@ class Grid
         Iterator( const Grid<T, D>& grid, const IdxVector& startIdx );
 
         /// Default copy constructor and assignment operator.
-        Iterator( const Iterator& other ) = default;
+        Iterator( const Iterator& other )            = default;
         Iterator& operator=( const Iterator& other ) = default;
 
         /// Cast to the an iterator in a different type grid.
@@ -176,7 +176,7 @@ class Grid
     Grid( const IdxVector& size, const T* values );
 
     /// Copy constructor and assignment operator.
-    Grid( const Grid<T, D>& other ) = default;
+    Grid( const Grid<T, D>& other )            = default;
     Grid& operator=( const Grid<T, D>& other ) = default;
 
     //
