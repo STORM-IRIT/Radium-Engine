@@ -1,4 +1,6 @@
 #include <Core/Containers/VariableSet.hpp>
+#include <Core/CoreMacros.hpp>
+
 // inspirations :
 // Radium dataflow dynamic type management
 // Radium attribArray
@@ -9,53 +11,47 @@
 namespace Ra {
 namespace Core {
 
-VariableSet& VariableSet::operator=( const VariableSet& other ) {
-    clear();
-    m_mergeKeepFunctions    = other.m_mergeKeepFunctions;
-    m_mergeReplaceFunctions = other.m_mergeReplaceFunctions;
-    m_sizeFunctions         = other.m_sizeFunctions;
-    m_visitFunctions        = other.m_visitFunctions;
-    m_storedType            = other.m_storedType;
-    m_variables             = other.m_variables;
+auto VariableSet::VariableSetFunctions::getInstance() -> VariableSetFunctions* {
+    static VariableSet::VariableSetFunctions instance;
+    return &instance;
+}
+
+auto VariableSet::operator=( const VariableSet& other ) -> VariableSet& {
+    m_variables              = other.m_variables;
+    m_typeIndexToVtableIndex = other.m_typeIndexToVtableIndex;
+    m_storedType             = other.m_storedType;
     return *this;
 }
 
-VariableSet& VariableSet::operator=( VariableSet&& other ) {
-    clear();
-    m_mergeKeepFunctions    = std::move( other.m_mergeKeepFunctions );
-    m_mergeReplaceFunctions = std::move( other.m_mergeReplaceFunctions );
-    m_sizeFunctions         = std::move( other.m_sizeFunctions );
-    m_visitFunctions        = std::move( other.m_visitFunctions );
-    m_storedType            = std::move( other.m_storedType );
-    m_variables             = std::move( other.m_variables );
+auto VariableSet::operator=( VariableSet&& other ) noexcept -> VariableSet& {
+    m_variables              = std::move( other.m_variables );
+    m_typeIndexToVtableIndex = std::move( other.m_typeIndexToVtableIndex );
+    m_storedType             = std::move( other.m_storedType );
     return *this;
 }
 
 void VariableSet::clear() {
-    m_mergeKeepFunctions.clear();
-    m_mergeReplaceFunctions.clear();
-    m_sizeFunctions.clear();
-    m_visitFunctions.clear();
-    m_storedType.clear();
     m_variables.clear();
 }
 
 void VariableSet::mergeKeepVariables( const VariableSet& from ) {
-    for ( auto&& mergeFunc : from.m_mergeKeepFunctions ) {
-        mergeFunc( from, *this );
+    for ( const auto& type : from.getStoredTypes() ) {
+        const auto& index = from.m_typeIndexToVtableIndex.at( type );
+        from.m_vtable->m_mergeKeepFunctions[index]( from, *this );
     }
 }
 
 void VariableSet::mergeReplaceVariables( const VariableSet& from ) {
-    for ( auto&& mergeFunc : from.m_mergeReplaceFunctions ) {
-        mergeFunc( from, *this );
+    for ( const auto& type : from.getStoredTypes() ) {
+        const auto& index = from.m_typeIndexToVtableIndex.at( type );
+        from.m_vtable->m_mergeReplaceFunctions[index]( from, *this );
     }
 }
 
 size_t VariableSet::size() const {
     size_t sum { 0 };
-    for ( auto&& sizeFunc : m_sizeFunctions ) {
-        sum += sizeFunc( *this );
+    for ( const auto& [type, index] : m_typeIndexToVtableIndex ) {
+        sum += m_vtable->m_sizeFunctions[index]( *this );
     }
     return sum;
 }
