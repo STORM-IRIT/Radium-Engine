@@ -54,7 +54,7 @@ class RA_ENGINE_API Light : public Component
      *
      * @return the color of the light
      */
-    inline const Core::Utils::Color& getColor() const;
+    inline const Core::Utils::Color& getColor() const { return m_color; }
     /**
      * Set the color of the light
      * @param color
@@ -79,7 +79,7 @@ class RA_ENGINE_API Light : public Component
      *
      * @return the type (an enum Light::LightType member) of the light source
      */
-    inline const LightType& getType() const;
+    inline const LightType& getType() const { return m_type; }
 
     /**
      * \brief Extract the set of parameters that must be given to a shader for rendering and
@@ -92,14 +92,13 @@ class RA_ENGINE_API Light : public Component
      * \brief Gives read-only access to the renderParameters of the light.
      * \return a const reference to the light parameters for rendering
      */
-    const Data::RenderParameters& getRenderParameters() const;
+    const Data::RenderParameters& getRenderParameters() const { return m_params; }
 
     /**
      * \brief Gives read-write access to the renderParameters of the light.
      * \return a const reference to the light parameters for rendering
      */
-    Data::RenderParameters& getRenderParameters();
-
+    Data::RenderParameters& getRenderParameters() { return m_params; }
     /**
      * Abstract method that define the glsl code that manage this light type
      * For the moment, this is not use (except by experimental plugins) but will be part of the
@@ -112,38 +111,19 @@ class RA_ENGINE_API Light : public Component
      * Nothing to initialize here ...
      */
     void initialize() override;
-
-  protected:
     Data::RenderParameters m_params;
 
   private:
     Core::Utils::Color m_color = Core::Utils::Color::White();
-
     LightType m_type { LightType::DIRECTIONAL };
 };
 
 // ---------------------------------------------------------------------------------------------
 // ---- inline methods implementation
 
-inline const Core::Utils::Color& Light::getColor() const {
-    return m_color;
-}
-
 inline void Light::setColor( const Core::Utils::Color& color ) {
     m_color = color;
     m_params.addParameter( "light.color", m_color );
-}
-
-inline const Light::LightType& Light::getType() const {
-    return m_type;
-}
-
-inline const Data::RenderParameters& Light::getRenderParameters() const {
-    return m_params;
-}
-
-inline Data::RenderParameters& Light::getRenderParameters() {
-    return m_params;
 }
 
 } // namespace Scene
