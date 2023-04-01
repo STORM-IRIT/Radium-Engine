@@ -82,17 +82,28 @@ class RA_ENGINE_API Light : public Component
     inline const LightType& getType() const;
 
     /**
-     * Extrac the set of parameters that must be given to a shader for rendering and lighting with
-     * this light.
-     * @param params
+     * \brief Extract the set of parameters that must be given to a shader for rendering and
+     * lighting with this light.
+     * @param params parameters to be filled (using merge-replace) with the one of the light
      */
     void getRenderParameters( Data::RenderParameters& params ) const;
 
-    Data::RenderParameters& getRenderParameters() const;
+    /**
+     * \brief Gives read-only access to the renderParameters of the light.
+     * \return a const reference to the light parameters for rendering
+     */
+    const Data::RenderParameters& getRenderParameters() const;
+
+    /**
+     * \brief Gives read-write access to the renderParameters of the light.
+     * \return a const reference to the light parameters for rendering
+     */
+    Data::RenderParameters& getRenderParameters();
+
     /**
      * Abstract method that define the glsl code that manage this light type
-     * For the moment, this is not use (except by experimental plugins) but will part of the shader
-     * composition process of radium v2
+     * For the moment, this is not use (except by experimental plugins) but will be part of the
+     * shader composition process of radium v2
      * @return
      */
     virtual std::string getShaderInclude() const;
@@ -127,8 +138,12 @@ inline const Light::LightType& Light::getType() const {
     return m_type;
 }
 
-inline Data::RenderParameters& Light::getRenderParameters() const {
-    return const_cast<Data::RenderParameters&>( m_params );
+inline const Data::RenderParameters& Light::getRenderParameters() const {
+    return m_params;
+}
+
+inline Data::RenderParameters& Light::getRenderParameters() {
+    return m_params;
 }
 
 } // namespace Scene

@@ -94,10 +94,11 @@ class RenderParameterUiBuilder
         // textures are not yet editable
     }
 
+    template <typename T>
     void operator()( const std::string& /*name*/,
-                     std::reference_wrapper<Data::RenderParameters>& /*p*/,
+                     std::reference_wrapper<T>& /*p*/,
                      Data::RenderParameters&& /*params*/ ) {
-        // embeded render parameter edition not yet available
+        // wrapped reference (e.g. embedded render parameter) edition not yet available
     }
 
   private:
