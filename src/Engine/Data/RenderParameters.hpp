@@ -267,9 +267,6 @@ class RA_ENGINE_API RenderParameters final
     /// \return the Core::VariableSet storing the parameters
     /// \{
     const Core::VariableSet& getStorage() const { return m_parameterSets; }
-    Core::VariableSet& getModifiableStorage() const {
-        return const_cast<Core::VariableSet&>( m_parameterSets );
-    }
     /// \}
   private:
     /**
