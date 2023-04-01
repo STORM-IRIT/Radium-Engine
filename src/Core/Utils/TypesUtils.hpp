@@ -127,6 +127,7 @@ const char* demangleType() noexcept {
         }
         std::free( name );
         removeAllInString( retval, "__1::" ); // or "::__1" ?
+        replaceAllInString( retval, "> >", ">>" );
         return retval;
     }();
 
