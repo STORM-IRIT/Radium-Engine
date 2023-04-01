@@ -97,6 +97,7 @@ const char* demangleType() noexcept {
         removeAllInString( retval, "class " );
         removeAllInString( retval, "struct " );
         replaceAllInString( retval, ",", ", " );
+        replaceAllInString( retval, "> >", ">>" );
         return retval;
     }();
 
