@@ -293,7 +293,6 @@ void RenderObject::render( const Data::RenderParameters& lightParams,
 void RenderObject::render( const Data::RenderParameters& lightParams,
                            const Data::ViewingParameters& viewParams,
                            Core::Utils::Index passId ) {
-    static Data::RenderParameters noParams;
     if ( m_visible ) {
         auto shader = getRenderTechnique()->getShader( passId );
         if ( !shader ) { return; }
@@ -304,7 +303,7 @@ void RenderObject::render( const Data::RenderParameters& lightParams,
             render( lightParams, viewParams, shader, paramsProvider->getParameters() );
         }
         else {
-            render( lightParams, viewParams, shader, noParams );
+            render( lightParams, viewParams, shader, {} );
         }
     }
 }
