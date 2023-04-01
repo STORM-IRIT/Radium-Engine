@@ -59,7 +59,8 @@ class RA_ENGINE_API RenderParameters final
                                                 Core::Matrix2,
                                                 Core::Matrix3,
                                                 Core::Matrix4,
-                                                std::reference_wrapper<RenderParameters>>;
+                                                std::reference_wrapper<RenderParameters>,
+                                                std::reference_wrapper<const RenderParameters>>;
 
     /** Set of typed parameters
      * For a given shader Program, all the parameters are stored by type, using Core::VariableSet as
@@ -178,6 +179,8 @@ class RA_ENGINE_API RenderParameters final
      * \param value
      */
     void addParameter( const std::string& name, RenderParameters& value );
+
+    void addParameter( const std::string& name, const RenderParameters& value );
 
     /**\}*/
 
@@ -303,11 +306,12 @@ class RA_ENGINE_API RenderParameters final
         }
 
         /**
-         * \brief Binds a embedded RenderParameter.
+         * \brief Binds a embedded const RenderParameter.
          * This allows to build hierarchies of RenderParameters.
          */
+        template <typename T>
         void operator()( const std::string& /*name*/,
-                         const std::reference_wrapper<RenderParameters>& p,
+                         const std::reference_wrapper<T>& p,
                          const Data::ShaderProgram* shader ) {
             p.get().bind( shader );
         }
@@ -469,6 +473,11 @@ inline void RenderParameters::addParameter( const std::string& name, T* tex, int
 
 inline void RenderParameters::addParameter( const std::string& name, RenderParameters& value ) {
     m_parameterSets.insertOrAssignVariable( name, std::ref( value ) );
+}
+
+inline void RenderParameters::addParameter( const std::string& name,
+                                            const RenderParameters& value ) {
+    m_parameterSets.insertOrAssignVariable( name, std::cref( value ) );
 }
 
 template <typename T>

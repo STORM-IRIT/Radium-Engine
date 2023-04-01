@@ -93,11 +93,22 @@ struct ParameterPrinter {
         // textures are not yet editable
     }
 
+    template <typename T>
     void operator()(
-        const std::string& /*name*/,
-        std::reference_wrapper<Ra::Engine::Data::RenderParameters>& /*p*/,
+        const std::string& name,
+        std::reference_wrapper<T>& p,
         SelectionPredicate&& pred = []( const std::string& ) { return true; } ) {
-        // embeded render parameter edition not yet available
+        if constexpr ( std::is_same<typename std::decay<T>::type, RenderParameters>::value ) {
+            if ( pred( name ) ) {
+                std::cout << name << " (" << Utils::demangleType<std::reference_wrapper<T>>()
+                          << ") --> \n";
+                p.get().visit( *this, pred );
+                std::cout << " <-- " << name << "\n";
+            }
+        }
+        else {
+            // embedded wrapped reference other than RenderParameters is not managed.
+        }
     }
 };
 
@@ -199,6 +210,11 @@ int main( int argc, char* argv[] ) {
         "Matrix3",
         Ra::Core::Matrix3 { { 0_ra, 0_ra, 0_ra }, { 1_ra, 1_ra, 1_ra }, { 2_ra, 2_ra, 2_ra } } );
     parameters.addParameter( "std::vector<int>", std::vector<int> { 0, 1, 2 } );
+
+    RenderParameters embedded;
+    embedded.addParameter( "embedded.int value", 1 );
+    embedded.addParameter( "embedded.scalar value", 1_ra );
+    parameters.addParameter( "embedded", embedded );
     //! [filling the parameter set to edit ]
 
     //! [Printing several parameters before edition ]
