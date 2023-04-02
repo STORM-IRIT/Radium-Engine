@@ -227,7 +227,7 @@ int main( int argc, char* argv[] ) {
     auto printParameter = [&parameters]( const std::string& p ) {
         std::cout << "Parameter " << p << " was modified. New value is ";
         parameters.visit( ParameterPrinter {},
-                          [p]( const std::string name ) { return p == name; } );
+                          [p]( const std::string& name ) { return p == name; } );
         std::cout << "\n";
     };
     QObject::connect( &editor, &ParameterSetEditor::parameterModified, printParameter );
