@@ -39,7 +39,7 @@ class RA_ENGINE_API PointLight final : public Ra::Engine::Scene::Light
 
 inline void PointLight::setPosition( const Eigen::Matrix<Scalar, 3, 1>& pos ) {
     m_position = pos;
-    m_params.addParameter( "light.point.position", m_position );
+    getRenderParameters().addParameter( "light.point.position", m_position );
 }
 
 inline const Eigen::Matrix<Scalar, 3, 1>& PointLight::getPosition() const {
@@ -48,9 +48,11 @@ inline const Eigen::Matrix<Scalar, 3, 1>& PointLight::getPosition() const {
 
 inline void PointLight::setAttenuation( const PointLight::Attenuation& attenuation ) {
     m_attenuation = attenuation;
-    m_params.addParameter( "light.point.attenuation.constant", m_attenuation.constant );
-    m_params.addParameter( "light.point.attenuation.linear", m_attenuation.linear );
-    m_params.addParameter( "light.point.attenuation.quadratic", m_attenuation.quadratic );
+    getRenderParameters().addParameter( "light.point.attenuation.constant",
+                                        m_attenuation.constant );
+    getRenderParameters().addParameter( "light.point.attenuation.linear", m_attenuation.linear );
+    getRenderParameters().addParameter( "light.point.attenuation.quadratic",
+                                        m_attenuation.quadratic );
 }
 
 inline void PointLight::setAttenuation( Scalar constant, Scalar linear, Scalar quadratic ) {

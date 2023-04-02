@@ -111,9 +111,9 @@ class RA_ENGINE_API Light : public Component
      * Nothing to initialize here ...
      */
     void initialize() override;
-    Data::RenderParameters m_params;
 
   private:
+    Data::RenderParameters m_params;
     Core::Utils::Color m_color = Core::Utils::Color::White();
     LightType m_type { LightType::DIRECTIONAL };
 };

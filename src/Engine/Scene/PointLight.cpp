@@ -7,10 +7,12 @@ namespace Engine {
 namespace Scene {
 PointLight::PointLight( Entity* entity, const std::string& name ) :
     Light( entity, Light::POINT, name ) {
-    m_params.addParameter( "light.point.position", m_position );
-    m_params.addParameter( "light.point.attenuation.constant", m_attenuation.constant );
-    m_params.addParameter( "light.point.attenuation.linear", m_attenuation.linear );
-    m_params.addParameter( "light.point.attenuation.quadratic", m_attenuation.quadratic );
+    getRenderParameters().addParameter( "light.point.position", m_position );
+    getRenderParameters().addParameter( "light.point.attenuation.constant",
+                                        m_attenuation.constant );
+    getRenderParameters().addParameter( "light.point.attenuation.linear", m_attenuation.linear );
+    getRenderParameters().addParameter( "light.point.attenuation.quadratic",
+                                        m_attenuation.quadratic );
 }
 
 std::string PointLight::getShaderInclude() const {
