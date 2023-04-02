@@ -80,7 +80,6 @@ class RA_ENGINE_API RenderParameters final
     using UniformVariable = Core::VariableSet::VariableHandle<T>;
     /// \}
 
-  public:
     /**
      * \brief Associate a converter for enumerated type to the given parameter name
      * \tparam EnumBaseType The enum base type to manage (\see Ra::Core::Utils::EnumConverter)
@@ -216,12 +215,16 @@ class RA_ENGINE_API RenderParameters final
     void bind( const Data::ShaderProgram* shader ) const;
 
     /**
-     * Get a typed parameter set
+     * \brief Get a typed parameter set
      * \tparam T the type of the parameter set to get
      * \return The corresponding set parameter
      */
+    /// \{
     template <typename T>
     const UniformBindableSet<T>& getParameterSet() const;
+    template <typename T>
+    UniformBindableSet<T>& getParameterSet();
+    /// \}
 
     /**
      * \brief Test if parameters of type T are stored
@@ -243,14 +246,18 @@ class RA_ENGINE_API RenderParameters final
     Core::Utils::optional<UniformVariable<T>> containsParameter( const std::string& name ) const;
 
     /**
-     * Get a typed parameter
+     * \brief Get a typed parameter
      * \tparam T the type of the parameter to get
      * \param name The name of the parameter to get
      * \return The corresponding parameter
      * \throw std::out_of_range if the container does not have an parameter with the specified name
      */
+    /// \{
     template <typename T>
     const T& getParameter( const std::string& name ) const;
+    template <typename T>
+    T& getParameter( const std::string& name );
+    /// \}
 
     /** Visit the parameter using any kind of visitor
      */
@@ -267,6 +274,7 @@ class RA_ENGINE_API RenderParameters final
     /// \return the Core::VariableSet storing the parameters
     /// \{
     const Core::VariableSet& getStorage() const { return m_parameterSets; }
+    Core::VariableSet& getStorage() { return m_parameterSets; }
     /// \}
   private:
     /**
@@ -488,6 +496,11 @@ inline const RenderParameters::UniformBindableSet<T>& RenderParameters::getParam
 }
 
 template <typename T>
+inline RenderParameters::UniformBindableSet<T>& RenderParameters::getParameterSet() {
+    return m_parameterSets.getAllVariables<T>();
+}
+
+template <typename T>
 inline Core::Utils::optional<RenderParameters::UniformBindableSet<T>*>
 RenderParameters::hasParameterSet() const {
     if constexpr ( std::is_enum<T>::value ) {
@@ -517,6 +530,18 @@ inline const T& RenderParameters::getParameter( const std::string& name ) const 
     if constexpr ( std::is_enum<T>::value ) {
         // need to cast to take into account the way enums are managed in the RenderParameters
         return reinterpret_cast<const T&>(
+            m_parameterSets.getVariable<typename std::underlying_type<T>::type>( name ) );
+    }
+    else {
+        return m_parameterSets.getVariable<T>( name );
+    }
+}
+
+template <typename T>
+inline T& RenderParameters::getParameter( const std::string& name ) {
+    if constexpr ( std::is_enum<T>::value ) {
+        // need to cast to take into account the way enums are managed in the RenderParameters
+        return reinterpret_cast<T&>(
             m_parameterSets.getVariable<typename std::underlying_type<T>::type>( name ) );
     }
     else {
