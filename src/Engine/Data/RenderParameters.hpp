@@ -539,14 +539,7 @@ inline const T& RenderParameters::getParameter( const std::string& name ) const 
 
 template <typename T>
 inline T& RenderParameters::getParameter( const std::string& name ) {
-    if constexpr ( std::is_enum<T>::value ) {
-        // need to cast to take into account the way enums are managed in the RenderParameters
-        return reinterpret_cast<T&>(
-            m_parameterSets.getVariable<typename std::underlying_type<T>::type>( name ) );
-    }
-    else {
-        return m_parameterSets.getVariable<T>( name );
-    }
+    return const_cast<T&>( const_cast<const RenderParameters*>( this )->getParameter<T>( name ) );
 }
 
 template <typename V>
