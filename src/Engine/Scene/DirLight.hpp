@@ -34,7 +34,7 @@ class RA_ENGINE_API DirectionalLight final : public Ra::Engine::Scene::Light
 
 inline void DirectionalLight::setDirection( const Eigen::Matrix<Scalar, 3, 1>& dir ) {
     m_direction = dir.normalized();
-    m_params.addParameter( "light.directional.direction", m_direction );
+    getRenderParameters().addParameter( "light.directional.direction", m_direction );
 }
 
 inline const Eigen::Matrix<Scalar, 3, 1>& DirectionalLight::getDirection() const {
