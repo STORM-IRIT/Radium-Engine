@@ -6,15 +6,13 @@ namespace Ra {
 namespace Engine {
 namespace Scene {
 PointLight::PointLight( Entity* entity, const std::string& name ) :
-    Light( entity, Light::POINT, name ) {}
-
-void PointLight::getRenderParameters( Data::RenderParameters& params ) const {
-    Light::getRenderParameters( params );
-
-    params.addParameter( "light.point.position", m_position );
-    params.addParameter( "light.point.attenuation.constant", m_attenuation.constant );
-    params.addParameter( "light.point.attenuation.linear", m_attenuation.linear );
-    params.addParameter( "light.point.attenuation.quadratic", m_attenuation.quadratic );
+    Light( entity, Light::POINT, name ) {
+    getRenderParameters().addParameter( "light.point.position", m_position );
+    getRenderParameters().addParameter( "light.point.attenuation.constant",
+                                        m_attenuation.constant );
+    getRenderParameters().addParameter( "light.point.attenuation.linear", m_attenuation.linear );
+    getRenderParameters().addParameter( "light.point.attenuation.quadratic",
+                                        m_attenuation.quadratic );
 }
 
 std::string PointLight::getShaderInclude() const {

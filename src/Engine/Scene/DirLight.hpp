@@ -20,8 +20,6 @@ class RA_ENGINE_API DirectionalLight final : public Ra::Engine::Scene::Light
     explicit DirectionalLight( Entity* entity, const std::string& name = "dirlight" );
     ~DirectionalLight() override = default;
 
-    void getRenderParameters( Data::RenderParameters& params ) const override;
-
     void setDirection( const Eigen::Matrix<Scalar, 3, 1>& dir ) override;
     inline const Eigen::Matrix<Scalar, 3, 1>& getDirection() const;
 
@@ -30,8 +28,19 @@ class RA_ENGINE_API DirectionalLight final : public Ra::Engine::Scene::Light
   private:
     Eigen::Matrix<Scalar, 3, 1> m_direction { 0, -1, 0 };
 };
+
+// ---------------------------------------------------------------------------------------------
+// ---- inline methods implementation
+
+inline void DirectionalLight::setDirection( const Eigen::Matrix<Scalar, 3, 1>& dir ) {
+    m_direction = dir.normalized();
+    getRenderParameters().addParameter( "light.directional.direction", m_direction );
+}
+
+inline const Eigen::Matrix<Scalar, 3, 1>& DirectionalLight::getDirection() const {
+    return m_direction;
+}
+
 } // namespace Scene
 } // namespace Engine
 } // namespace Ra
-
-#include "DirLight.inl"

@@ -5,33 +5,121 @@
 // include the Material Definition
 #include <Engine/Data/Material.hpp>
 
-#include <QBoxLayout>
-#include <QFormLayout>
-#include <QLabel>
-#include <QPlainTextEdit>
 #include <QString>
 #include <QWidget>
 
 #include <limits>
 #include <memory>
 
-namespace Ra::Gui {
+using json = nlohmann::json;
+
+namespace Ra {
+using namespace Engine;
+namespace Gui {
+
+namespace internal {
+class RenderParameterUiBuilder
+{
+  public:
+    using types = Engine::Data::RenderParameters::BindableTypes;
+
+    RenderParameterUiBuilder( ParameterSetEditor* pse, const json& constraints ) :
+        m_pse { pse }, m_constraints { constraints } {}
+
+    void operator()( const std::string& name, bool& p, Data::RenderParameters&& /* params */ ) {
+        auto onBoolParameterChanged = [pse = this->m_pse, &p, nm = name]( bool val ) {
+            p = val;
+            emit pse->parameterModified( nm );
+        };
+        if ( m_constraints.contains( name ) ) {
+            if ( m_constraints[name]["editable"] ) {
+                const auto& m           = m_constraints[name];
+                std::string description = m.contains( "description" ) ? m["description"] : "";
+                std::string nm          = m.contains( "name" ) ? std::string { m["name"] } : name;
+                m_pse->addOption( nm, onBoolParameterChanged, p, description );
+            }
+        }
+        else if ( m_pse->m_showUnspecified ) {
+            m_pse->addOption( name, onBoolParameterChanged, p );
+        }
+    }
+
+    template <typename TParam, std::enable_if_t<std::is_arithmetic<TParam>::value, bool> = true>
+    void operator()( const std::string& name, TParam& p, Data::RenderParameters&& params ) {
+        if ( params.getEnumConverter<TParam>( name ) ) {
+            m_pse->addEnumParameterWidget( name, p, params, m_constraints );
+        }
+        else {
+            // case number
+            m_pse->addNumberParameterWidget( name, p, params, m_constraints );
+        }
+    }
+
+    template <typename TParam,
+              typename TAllocator,
+              std::enable_if_t<std::is_arithmetic<TParam>::value, bool> = true>
+    void operator()( const std::string& name,
+                     std::vector<TParam, TAllocator>& p,
+                     Data::RenderParameters&& params ) {
+        m_pse->addVectorParameterWidget( name, p, params, m_constraints );
+    }
+
+    void operator()( const std::string& name,
+                     Ra::Core::Utils::Color& p,
+                     Data::RenderParameters&& params ) {
+        auto onColorParameterChanged =
+            [pse = this->m_pse, &params, nm = name]( const Ra::Core::Utils::Color& val ) {
+                params.addParameter( nm, val );
+                emit pse->parameterModified( nm );
+            };
+        if ( m_constraints.contains( name ) ) {
+            const auto& m           = m_constraints[name];
+            std::string description = m.contains( "description" ) ? m["description"] : "";
+            std::string nm          = m.contains( "name" ) ? std::string { m["name"] } : name;
+            m_pse->addColorInput( nm, onColorParameterChanged, p, m["maxItems"] == 4, description );
+        }
+        else if ( m_pse->m_showUnspecified ) {
+            m_pse->addColorInput( name, onColorParameterChanged, p );
+        }
+    }
+
+    template <template <typename, int...> typename M, typename T, int... dim>
+    void operator()( const std::string& name, M<T, dim...>& p, Data::RenderParameters&& params ) {
+        m_pse->addMatrixParameterWidget( name, p, params, m_constraints );
+    }
+
+    void operator()( const std::string& /*name*/,
+                     Data::RenderParameters::TextureInfo& /*p*/,
+                     Data::RenderParameters&& /*params*/ ) {
+        // textures are not yet editable
+    }
+
+    template <typename T>
+    void operator()( const std::string& /*name*/,
+                     std::reference_wrapper<T>& /*p*/,
+                     Data::RenderParameters&& /*params*/ ) {
+        // wrapped reference (e.g. embedded render parameter) edition not yet available
+    }
+
+  private:
+    ParameterSetEditor* m_pse { nullptr };
+    const json& m_constraints;
+};
+} // namespace internal
 
 ParameterSetEditor::ParameterSetEditor( const std::string& name, QWidget* parent ) :
     ControlPanel( name, !name.empty(), parent ) {}
 
-using json = nlohmann::json;
-
 template <typename T>
 void ParameterSetEditor::addEnumParameterWidget( const std::string& key,
-                                                 T initial,
+                                                 T& initial,
                                                  Ra::Engine::Data::RenderParameters& params,
                                                  const json& metadata ) {
     auto m = metadata[key];
 
     std::string description = m.contains( "description" ) ? m["description"] : "";
-    std::string nm          = m.contains( "name" ) ? m["name"] : key.c_str();
-    if ( auto ec = params.getEnumConverter( key ) ) {
+    std::string nm          = m.contains( "name" ) ? std::string { m["name"] } : key;
+    if ( auto ec = params.getEnumConverter<T>( key ) ) {
         auto items                        = ( *ec )->getEnumerators();
         auto onEnumParameterStringChanged = [this, &params, &key]( const QString& value ) {
             params.addParameter( key, value.toStdString() );
@@ -63,12 +151,12 @@ void ParameterSetEditor::addEnumParameterWidget( const std::string& key,
 
 template <typename T>
 void ParameterSetEditor::addNumberParameterWidget( const std::string& key,
-                                                   T initial,
-                                                   Ra::Engine::Data::RenderParameters& params,
+                                                   T& initial,
+                                                   Ra::Engine::Data::RenderParameters& /*params*/,
                                                    const json& metadata ) {
 
-    auto onNumberParameterChanged = [this, &params, &key]( T value ) {
-        params.addParameter( key, value );
+    auto onNumberParameterChanged = [this, &initial, &key]( T value ) {
+        initial = value;
         emit parameterModified( key );
     };
     if ( metadata.contains( key ) ) {
@@ -77,7 +165,7 @@ void ParameterSetEditor::addNumberParameterWidget( const std::string& key,
         auto max = std::numeric_limits<T>::max();
 
         std::string description = m.contains( "description" ) ? m["description"] : "";
-        std::string nm          = m.contains( "name" ) ? m["name"] : key.c_str();
+        std::string nm          = m.contains( "name" ) ? std::string { m["name"] } : key;
 
         if ( m.contains( "oneOf" ) ) {
             // the variable has multiple valid bounds
@@ -124,11 +212,11 @@ void ParameterSetEditor::addNumberParameterWidget( const std::string& key,
 
 template <typename T>
 void ParameterSetEditor::addVectorParameterWidget( const std::string& key,
-                                                   const std::vector<T>& initial,
-                                                   Ra::Engine::Data::RenderParameters& params,
+                                                   std::vector<T>& initial,
+                                                   Ra::Engine::Data::RenderParameters& /*params*/,
                                                    const json& metadata ) {
-    auto onVectorParameterChanged = [this, &params, &key]( const std::vector<T>& value ) {
-        params.addParameter( key, value );
+    auto onVectorParameterChanged = [this, &initial, &key]( const std::vector<T>& value ) {
+        initial = value;
         emit parameterModified( key );
     };
 
@@ -144,12 +232,11 @@ void ParameterSetEditor::addVectorParameterWidget( const std::string& key,
 
 template <typename T>
 void ParameterSetEditor::addMatrixParameterWidget( const std::string& key,
-                                                   const T& initial,
-                                                   Ra::Engine::Data::RenderParameters& params,
+                                                   T& initial,
+                                                   Ra::Engine::Data::RenderParameters& /*params*/,
                                                    const json& metadata ) {
-    auto onMatrixParameterChanged = [this, &params, &key]( const Ra::Core::MatrixN& value ) {
-        auto v = T( value );
-        params.addParameter( key, v );
+    auto onMatrixParameterChanged = [this, &initial, &key]( const Ra::Core::MatrixN& value ) {
+        initial = T( value );
         emit parameterModified( key );
     };
 
@@ -165,129 +252,9 @@ void ParameterSetEditor::addMatrixParameterWidget( const std::string& key,
 
 void ParameterSetEditor::setupFromParameters( Engine::Data::RenderParameters& params,
                                               const nlohmann::json& constraints ) {
-    // Add widgets to edit bool parameters
-    for ( auto& [key, value] :
-          params.getParameterSet<Ra::Engine::Data::RenderParameters::BoolParameter>() ) {
-        auto onBoolParameterChanged = [this, &params, key = key]( bool val ) {
-            params.addParameter( key, val );
-            emit parameterModified( key );
-        };
-        if ( constraints.contains( key ) ) {
-            if ( constraints[key]["editable"] ) {
-                const auto& m           = constraints[key];
-                std::string description = m.contains( "description" ) ? m["description"] : "";
-                std::string nm          = m.contains( "name" ) ? m["name"] : key.c_str();
-                addOption( nm, onBoolParameterChanged, value.m_value, description );
-            }
-        }
-        else if ( m_showUnspecified ) {
-            addOption( key, onBoolParameterChanged, value.m_value );
-        }
-    }
 
-    // Add widgets to edit int parameters
-    for ( auto& [key, value] :
-          params.getParameterSet<Ra::Engine::Data::RenderParameters::IntParameter>() ) {
-        if ( constraints.contains( key ) && constraints[key]["type"] == "enum" ) {
-            addEnumParameterWidget( key, value.m_value, params, constraints );
-        }
-        else {
-            // case number
-            addNumberParameterWidget( key, value.m_value, params, constraints );
-        }
-    }
-
-    // Add widgets to edit unsigned parameters
-    for ( auto& [key, value] :
-          params.getParameterSet<Ra::Engine::Data::RenderParameters::UIntParameter>() ) {
-        if ( constraints.contains( key ) && constraints[key]["type"] == "enum" ) {
-            addEnumParameterWidget( key, value.m_value, params, constraints );
-        }
-        else {
-            // case number
-            addNumberParameterWidget( key, value.m_value, params, constraints );
-        }
-    }
-
-    // Add widgets to edit scalar parameters
-    for ( auto& [key, value] :
-          params.getParameterSet<Ra::Engine::Data::RenderParameters::ScalarParameter>() ) {
-        addNumberParameterWidget( key, value.m_value, params, constraints );
-    }
-
-    // Add widgets to edit color parameters
-    for ( auto& [key, value] :
-          params.getParameterSet<Ra::Engine::Data::RenderParameters::ColorParameter>() ) {
-        auto onColorParameterChanged =
-            [this, &params, key = key]( const Ra::Core::Utils::Color& val ) {
-                params.addParameter( key, val );
-                emit parameterModified( key );
-            };
-        if ( constraints.contains( key ) ) {
-            const auto& m           = constraints[key];
-            std::string description = m.contains( "description" ) ? m["description"] : "";
-            std::string nm          = m.contains( "name" ) ? m["name"] : key.c_str();
-            addColorInput(
-                nm, onColorParameterChanged, value.m_value, m["maxItems"] == 4, description );
-        }
-        else if ( m_showUnspecified ) {
-            addColorInput( key, onColorParameterChanged, value.m_value );
-        }
-    }
-
-    // populate widgets for Ints parameters
-    for ( auto& [key, value] :
-          params.getParameterSet<Ra::Engine::Data::RenderParameters::IntsParameter>() ) {
-        addVectorParameterWidget( key, value.m_value, params, constraints );
-    }
-
-    // populate widgets for UInts parameters
-    for ( auto& [key, value] :
-          params.getParameterSet<Ra::Engine::Data::RenderParameters::UIntsParameter>() ) {
-        addVectorParameterWidget( key, value.m_value, params, constraints );
-    }
-
-    // populate widgets for Scalars parameters
-    for ( auto& [key, value] :
-          params.getParameterSet<Ra::Engine::Data::RenderParameters::ScalarsParameter>() ) {
-        addVectorParameterWidget( key, value.m_value, params, constraints );
-    }
-
-    // populate widgets for Vec2 parameters
-    for ( auto& [key, value] :
-          params.getParameterSet<Ra::Engine::Data::RenderParameters::Vec2Parameter>() ) {
-        addMatrixParameterWidget( key, value.m_value, params, constraints );
-    }
-
-    // populate widgets for Vec3 parameters
-    for ( auto& [key, value] :
-          params.getParameterSet<Ra::Engine::Data::RenderParameters::Vec3Parameter>() ) {
-        addMatrixParameterWidget( key, value.m_value, params, constraints );
-    }
-
-    // populate widgets for Vec4 parameters
-    for ( auto& [key, value] :
-          params.getParameterSet<Ra::Engine::Data::RenderParameters::Vec4Parameter>() ) {
-        addMatrixParameterWidget( key, value.m_value, params, constraints );
-    }
-
-    // populate widgets for Mat2 parameters
-    for ( auto& [key, value] :
-          params.getParameterSet<Ra::Engine::Data::RenderParameters::Mat2Parameter>() ) {
-        addMatrixParameterWidget( key, value.m_value, params, constraints );
-    }
-
-    // populate widgets for Mat3 parameters
-    for ( auto& [key, value] :
-          params.getParameterSet<Ra::Engine::Data::RenderParameters::Mat3Parameter>() ) {
-        addMatrixParameterWidget( key, value.m_value, params, constraints );
-    }
-
-    // populate widgets for Mat4 parameters
-    for ( auto& [key, value] :
-          params.getParameterSet<Ra::Engine::Data::RenderParameters::Mat4Parameter>() ) {
-        addMatrixParameterWidget( key, value.m_value, params, constraints );
-    }
+    internal::RenderParameterUiBuilder uiBuilder { this, constraints };
+    params.visit( uiBuilder, params );
     addStretch( 0 );
     setVisible( true );
 }
@@ -295,4 +262,5 @@ void ParameterSetEditor::setupFromParameters( Engine::Data::RenderParameters& pa
 void ParameterSetEditor::showUnspecified( bool enable ) {
     m_showUnspecified = enable;
 }
-} // namespace Ra::Gui
+} // namespace Gui
+} // namespace Ra

@@ -9,7 +9,7 @@ using namespace Ra::Core;
 
 struct printThemAll {
     using types =
-        VariableSet::TypeList<int, size_t, float, double, std::reference_wrapper<int>, std::string>;
+        Utils::TypeList<int, size_t, float, double, std::reference_wrapper<int>, std::string>;
 
     template <typename T>
     void operator()( const std::string& name, T& value ) {
@@ -47,6 +47,14 @@ class MyParameterVisitor : public VariableSet::DynamicVisitor
     size_t m_counter { 0 };
 };
 
+// Apply a functor to mofify each integer of a VariableSet
+struct modifyInts : public VariableSet::StaticVisitor<int> {
+    template <typename F>
+    void operator()( const std::string&, int& value, F&& f ) {
+        value = f( value );
+    }
+};
+
 TEST_CASE( "Core/Container/VariableSet", "[Core][Container][VariableSet]" ) {
     auto print_container = []( const std::string& name, VariableSet& ps ) {
         std::cout << name << " content : ";
@@ -56,7 +64,8 @@ TEST_CASE( "Core/Container/VariableSet", "[Core][Container][VariableSet]" ) {
 
     SECTION( "Construction, access and removal to and from a variable set" ) {
         VariableSet params;
-        REQUIRE( params.existsVariableType<int>() == false );
+        auto verify = params.existsVariableType<int>();
+        REQUIRE( !verify.has_value() );
         int i { 0 };
         float x { 1.f };
 
@@ -121,18 +130,20 @@ TEST_CASE( "Core/Container/VariableSet", "[Core][Container][VariableSet]" ) {
         REQUIRE( params.getVariable<std::reference_wrapper<int>>( "j" ) == i );
 
         params.deleteVariable<float>( "x" );
-        REQUIRE( params.existsVariable<float>( "x" ) == false );
+        REQUIRE( !params.existsVariable<float>( "x" ).has_value() );
         // as x (float) variable was removed, xHandle is now invalid
         REQUIRE( params.isHandleValid( xHandle ) == false );
-        REQUIRE( params.existsVariable<int>( "x" ) );
+        REQUIRE( params.existsVariable<int>( "x" ).has_value() );
         params.deleteVariable<int>( "x" );
-        REQUIRE( params.existsVariable<int>( "x" ) == false );
+        REQUIRE( !params.existsVariable<int>( "x" ).has_value() );
         print_container( "Final set", params );
     }
 
     SECTION( "Visiting and modifying variable set using static visitor" ) {
+        REQUIRE( printThemAll::types::Size == 6 );
         VariableSet params;
-        REQUIRE( params.existsVariableType<int>() == false );
+        auto verify = params.existsVariableType<int>();
+        REQUIRE( !verify.has_value() );
         int i { 0 };
 
         float x { 1.f };
@@ -146,23 +157,23 @@ TEST_CASE( "Core/Container/VariableSet", "[Core][Container][VariableSet]" ) {
         std::cout << " ... done!" << std::endl;
 
         print_container( "Initial set", params );
-        struct modifyInts : public VariableSet::StaticVisitor<int> {
-            void operator()( const std::string&, int& value ) { value = 2 * value + 1; }
-        };
+
+        auto modifyFunction = []( int x ) { return 2 * x + 1; };
 
         REQUIRE( params.getVariable<int>( "i" ) == 0 );
         REQUIRE( params.getVariable<int>( "x" ) == 1 );
         REQUIRE( params.getVariable<float>( "x" ) == 1 );
-        params.visit( modifyInts {} );
-        REQUIRE( params.getVariable<int>( "i" ) == ( 2 * i + 1 ) );
-        REQUIRE( params.getVariable<int>( "x" ) == ( 2 * 1 + 1 ) );
+        params.visit( modifyInts {}, modifyFunction );
+        REQUIRE( params.getVariable<int>( "i" ) == modifyFunction( i ) );
+        REQUIRE( params.getVariable<int>( "x" ) == modifyFunction( 1 ) );
         REQUIRE( params.getVariable<float>( "x" ) == 1 );
         print_container( "Final set", params );
     }
 
     SECTION( "Visiting and modifying variable set using dynamic visitor" ) {
         VariableSet params;
-        REQUIRE( params.existsVariableType<int>() == false );
+        auto verify = params.existsVariableType<int>();
+        REQUIRE( !verify.has_value() );
         int i { 1 };
 
         float x { 1.f };
@@ -187,7 +198,7 @@ TEST_CASE( "Core/Container/VariableSet", "[Core][Container][VariableSet]" ) {
             std::cout << "\tDoubling the int " << name << " (equal to " << value << ")\n";
             value *= 2;
         } );
-        params.visitDynamic( vf );
+        params.visit( vf );
         print_container( "Doubled set", params );
         REQUIRE( params.getVariable<int>( "i" ) == ( 2 * i ) );
         REQUIRE( params.getVariable<int>( "x" ) == ( 2 * 2 ) );
@@ -198,14 +209,14 @@ TEST_CASE( "Core/Container/VariableSet", "[Core][Container][VariableSet]" ) {
             std::cout << "\tHalving the int " << name << " (equal to " << value << ")\n";
             value /= 2;
         } );
-        params.visitDynamic( vf );
+        params.visit( vf );
         print_container( "Final set", params );
         REQUIRE( params.getVariable<int>( "i" ) == ( i ) );
         REQUIRE( params.getVariable<int>( "x" ) == ( 2 ) );
         REQUIRE( params.getVariable<float>( "x" ) == 1 );
         // removing the visitor operator on ints
         vf.removeOperator<int>();
-        params.visitDynamic( vf );
+        params.visit( vf );
         REQUIRE( params.getVariable<int>( "i" ) == ( i ) );
         REQUIRE( params.getVariable<int>( "x" ) == ( 2 ) );
         REQUIRE( params.getVariable<float>( "x" ) == 1 );
@@ -213,7 +224,8 @@ TEST_CASE( "Core/Container/VariableSet", "[Core][Container][VariableSet]" ) {
 
     SECTION( "Visiting and modifying variable set using standard range for" ) {
         VariableSet params;
-        REQUIRE( params.existsVariableType<int>() == false );
+        auto verify = params.existsVariableType<int>();
+        REQUIRE( !verify.has_value() );
         int i { 1 };
         float x { 1.f };
 
@@ -262,7 +274,8 @@ TEST_CASE( "Core/Container/VariableSet", "[Core][Container][VariableSet]" ) {
 
     SECTION( "General visit using a custom visitor" ) {
         VariableSet params;
-        REQUIRE( params.existsVariableType<int>() == false );
+        auto verify = params.existsVariableType<int>();
+        REQUIRE( !verify );
         int i { 1 };
         float x { 1.f };
         std::cout << "General visit using a custom visitor" << std::endl;
@@ -279,25 +292,30 @@ TEST_CASE( "Core/Container/VariableSet", "[Core][Container][VariableSet]" ) {
 
         MyParameterVisitor mp;
         REQUIRE( mp.getCount() == 0 );
-        params.visitDynamic( mp );
+        params.visit( mp );
         REQUIRE( mp.getCount() == 4 );
         REQUIRE( i == 0 );
 
         auto xHandle = params.getVariableHandle<float>( "x" );
         REQUIRE( params.isHandleValid( xHandle ) == true );
-        params.deleteAllVariables<float>();
+        auto deletedFloats = params.deleteAllVariables<float>();
+        REQUIRE( deletedFloats );
+        REQUIRE( !params.existsVariableType<float>() );
+        deletedFloats = params.deleteAllVariables<float>();
+        REQUIRE( !deletedFloats );
         // as all floats was removed, xHandle is now invalid
         REQUIRE( params.isHandleValid( xHandle ) == false );
 
         mp.resetCount();
-        params.visitDynamic( mp );
+        params.visit( mp );
         REQUIRE( mp.getCount() == 2 );
         print_container( "Final set", params );
     }
 
     SECTION( "Merging, copying, moving" ) {
         VariableSet params;
-        REQUIRE( params.existsVariableType<int>() == false );
+        auto verify = params.existsVariableType<int>();
+        REQUIRE( !verify.has_value() );
         params.insertVariable( "a", 1 );
         params.insertVariable( "b", 2 );
         print_container( "initial params ", params );
@@ -359,18 +377,52 @@ TEST_CASE( "Core/Container/VariableSet", "[Core][Container][VariableSet]" ) {
         REQUIRE( paramsMoved.size() == sp );
         print_container( "Moved params into paramsMoved", paramsMoved );
         print_container( "params is empty", params );
-        REQUIRE( params.existsVariableType<int>() == false );
+        verify = params.existsVariableType<int>();
+        REQUIRE( !verify.has_value() );
+    }
+
+    SECTION( "Iterating on stored types" ) {
+        VariableSet vs;
+        vs.insertVariable( "x", 1.414_ra );
+        vs.insertVariable( "y", std::sqrt( 2 ) );
+        std::function<Scalar( Scalar )> multBy2 = []( Scalar x ) { return x * 2_ra; };
+        vs.insertVariable( "f", multBy2 );
+        auto typeVector = vs.getStoredTypes();
+        std::cout << "Stored types : \n";
+        for ( const auto& t : typeVector ) {
+            std::cout << "\t" << t.name()
+                      << "\n"; // todo, use demangler from type name (in a future PR)
+        }
+        REQUIRE( std::find( typeVector.begin(),
+                            typeVector.end(),
+                            std::type_index( typeid( Scalar ) ) ) != typeVector.end() );
+        //        REQUIRE( typeVector[1] == std::type_index( typeid( double ) ) );
+        // h       REQUIRE( typeVector[2] == std::type_index( typeid( std::function<Scalar( Scalar
+        // )>
+        //       ) ) );
+
+        auto b = vs.deleteVariable<Scalar>( "x" );
+        REQUIRE( b );
+        b = vs.deleteVariable<float>( "y" );
+        REQUIRE( !b );
+        b = vs.deleteVariable<double>( "y" );
+        REQUIRE( b );
     }
 
     SECTION( "Verifying all" ) {
         VariableSet pa;
-        REQUIRE( pa.existsVariableType<int>() == false );
-        REQUIRE( pa.existsVariableType<std::string>() == false );
+        auto verifyInt = pa.existsVariableType<int>();
+        REQUIRE( !verifyInt.has_value() );
+        auto verifyString = pa.existsVariableType<std::string>();
+        REQUIRE( !verifyString.has_value() );
+
         pa.insertVariable( "a", 1 );
         pa.insertVariable( "b", 2 );
         pa.insertVariable( "s1", std::string { "String 1" } );
-        REQUIRE( pa.existsVariableType<int>() == true );
-        REQUIRE( pa.existsVariableType<std::string>() == true );
+        verifyInt = pa.existsVariableType<int>();
+        REQUIRE( verifyInt.has_value() );
+        verifyString = pa.existsVariableType<std::string>();
+        REQUIRE( verifyString.has_value() );
         print_container( "initial params ", pa );
     }
 }

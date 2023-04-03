@@ -298,10 +298,13 @@ void RenderObject::render( const Data::RenderParameters& lightParams,
         if ( !shader ) { return; }
 
         auto paramsProvider = getRenderTechnique()->getParametersProvider( passId );
-        render( lightParams,
-                viewParams,
-                shader,
-                paramsProvider ? paramsProvider->getParameters() : Data::RenderParameters() );
+        // Do not copy the provider parameters if it exists
+        if ( paramsProvider != nullptr ) {
+            render( lightParams, viewParams, shader, paramsProvider->getParameters() );
+        }
+        else {
+            render( lightParams, viewParams, shader, {} );
+        }
     }
 }
 

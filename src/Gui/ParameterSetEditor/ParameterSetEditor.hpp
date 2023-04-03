@@ -20,6 +20,12 @@ class RenderParameters;
 } // namespace Engine
 
 namespace Gui {
+
+/// Gui internal helpers
+namespace internal {
+/// Visitor for the RenderParameter variable set
+class RenderParameterUiBuilder;
+} // namespace internal
 /**
  * \brief Simple Widget for RenderParameter edition
  * The editor will expose a control panel
@@ -65,6 +71,7 @@ class RA_GUI_API ParameterSetEditor : public Widgets::ControlPanel
     void parameterModified( const std::string& name );
 
   private:
+    friend class internal::RenderParameterUiBuilder;
     /**
      * \brief Add a combobox allowing to chose the value of an enumerator.
      * \note Only un-scoped enum (i.e. implicitly convertible from and to integral type), with
@@ -77,7 +84,7 @@ class RA_GUI_API ParameterSetEditor : public Widgets::ControlPanel
      */
     template <typename T>
     void addEnumParameterWidget( const std::string& name,
-                                 T initial,
+                                 T& initial,
                                  Ra::Engine::Data::RenderParameters& params,
                                  const nlohmann::json& paramMetadata );
     /**
@@ -90,7 +97,7 @@ class RA_GUI_API ParameterSetEditor : public Widgets::ControlPanel
      */
     template <typename T>
     void addNumberParameterWidget( const std::string& name,
-                                   T initial,
+                                   T& initial,
                                    Ra::Engine::Data::RenderParameters& params,
                                    const nlohmann::json& metadata );
 
@@ -104,7 +111,7 @@ class RA_GUI_API ParameterSetEditor : public Widgets::ControlPanel
      */
     template <typename T>
     void addVectorParameterWidget( const std::string& key,
-                                   const std::vector<T>& initial,
+                                   std::vector<T>& initial,
                                    Ra::Engine::Data::RenderParameters& params,
                                    const nlohmann::json& metadata );
 
@@ -118,7 +125,7 @@ class RA_GUI_API ParameterSetEditor : public Widgets::ControlPanel
      */
     template <typename T>
     void addMatrixParameterWidget( const std::string& key,
-                                   const T& initial,
+                                   T& initial,
                                    Ra::Engine::Data::RenderParameters& params,
                                    const nlohmann::json& metadata );
     /// wether to show the unspecified materials

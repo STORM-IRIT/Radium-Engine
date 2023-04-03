@@ -2,7 +2,6 @@
 
 #include <Core/RaCore.hpp>
 #include <string>
-#include <vector>
 
 namespace Ra {
 namespace Core {
