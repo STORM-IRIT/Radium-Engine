@@ -47,19 +47,19 @@ class RA_ENGINE_API Component
      * This method is called by the entity.
      * @param entity The entity the component is part of.
      */
-    virtual void setEntity( Entity* entity );
+    virtual void setEntity( Entity* entity ) { m_entity = entity; }
 
     /// Return the entity the component belongs to
-    virtual Entity* getEntity() const;
+    virtual Entity* getEntity() const { return m_entity; }
 
     /// Return the component's name
-    virtual const std::string& getName() const;
+    virtual const std::string& getName() const { return m_name; }
 
     /// Set the system to which the  component belongs.
-    virtual void setSystem( System* system );
+    virtual void setSystem( System* system ) { m_system = system; }
 
     /// Returns the system to which the component belongs.
-    virtual System* getSystem() const;
+    virtual System* getSystem() const { return m_system; }
 
     /// Add a new render object to the component. This adds the RO to the manager for drawing.
     Core::Utils::Index addRenderObject( Rendering::RenderObject* renderObject );
@@ -113,5 +113,3 @@ class RA_ENGINE_API Component
 } // namespace Scene
 } // namespace Engine
 } // namespace Ra
-
-#include <Engine/Scene/Component.inl>

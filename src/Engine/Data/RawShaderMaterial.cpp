@@ -7,6 +7,7 @@
 namespace Ra {
 namespace Engine {
 namespace Data {
+
 RawShaderMaterial::RawShaderMaterial(
     const std::string& instanceName,
     const std::vector<std::pair<Data::ShaderType, std::string>>& shaders,

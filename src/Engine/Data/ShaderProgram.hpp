@@ -4,15 +4,18 @@
 
 #include <Core/Types.hpp>
 
+#include <Core/CoreMacros.hpp>
 #include <Engine/Data/ShaderConfiguration.hpp>
+
+#include <globjects/Program.h>
 
 #include <array>
 #include <memory>
 #include <string>
+#include <type_traits>
 
 namespace globjects {
 class Shader;
-class Program;
 class NamedString;
 class StaticStringSource;
 } // namespace globjects
@@ -98,10 +101,39 @@ class RA_ENGINE_API ShaderProgram final
 
     std::unique_ptr<globjects::Program> m_program;
 };
-} // namespace Data
 
-namespace Rendering {} // namespace Rendering
+// declare specialization, definied in .cpp
+template <>
+RA_ENGINE_API void ShaderProgram::setUniform( const char* name, const Core::Vector2d& value ) const;
+
+template <>
+RA_ENGINE_API void ShaderProgram::setUniform( const char* name, const Core::Vector3d& value ) const;
+
+template <>
+RA_ENGINE_API void ShaderProgram::setUniform( const char* name, const Core::Vector4d& value ) const;
+
+template <>
+RA_ENGINE_API void ShaderProgram::setUniform( const char* name, const Core::Matrix2d& value ) const;
+
+template <>
+RA_ENGINE_API void ShaderProgram::setUniform( const char* name, const Core::Matrix3d& value ) const;
+
+template <>
+RA_ENGINE_API void ShaderProgram::setUniform( const char* name, const Core::Matrix4d& value ) const;
+
+template <>
+RA_ENGINE_API void ShaderProgram::setUniform( const char* name, const Scalar& value ) const;
+
+template <>
+RA_ENGINE_API void ShaderProgram::setUniform( const char* name,
+                                              const std::vector<Scalar>& value ) const;
+
+// Uniform setters
+template <typename T>
+inline void ShaderProgram::setUniform( const char* name, const T& value ) const {
+    m_program->setUniform<T>( name, value );
+}
+
+} // namespace Data
 } // namespace Engine
 } // namespace Ra
-
-#include "ShaderProgram.inl"

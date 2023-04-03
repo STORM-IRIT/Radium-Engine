@@ -75,13 +75,13 @@ class RA_ENGINE_API EnvironmentTexture
      * \brief Get the name used to construct the environment texture
      * \return The file name, possibly ';' separated list of names, of the environment texture.
      */
-    const std::string& getImageName() const;
+    inline const std::string& getImageName() const { return m_name; }
     /**
      * \brief Get the type of the environment texture
      * \see EnvMapType
      * \return The type of the environment texture
      */
-    EnvMapType getImageType() const;
+    inline EnvMapType getImageType() const { return m_type; }
 
     /**
      * \brief Saves the spherical image representing the SH-encoded envmap
@@ -112,7 +112,7 @@ class RA_ENGINE_API EnvironmentTexture
      * \brief Set the state of the skybox
      * \param state true to enable skybox rendering, false to just use the SH coefficients
      */
-    void setSkybox( bool state );
+    inline void setSkybox( bool state ) { m_isSkyBox = state; }
 
     /**
      * \brief Set the multiplicative factor which defined the power of the light source
@@ -129,7 +129,7 @@ class RA_ENGINE_API EnvironmentTexture
     /**
      * \return true if the envmap is a skybox and might be rendered.
      */
-    bool isSkybox() const;
+    inline bool isSkybox() const { return m_isSkyBox; }
 
     /**
      * \return the prefiltered cubemap texture defining the environment
@@ -192,8 +192,7 @@ class RA_ENGINE_API EnvironmentTexture
     const Ra::Engine::Data::ShaderProgram* m_skyShader { nullptr };
     bool m_glReady { false };
 };
+
 } // namespace Data
 } // namespace Engine
 } // namespace Ra
-
-#include <Engine/Data/EnvironmentTexture.inl>

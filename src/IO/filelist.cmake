@@ -8,16 +8,12 @@ set(io_sources CameraLoader/CameraLoader.cpp)
 
 set(io_headers CameraLoader/CameraLoader.hpp RaIO.hpp)
 
-set(io_inlines)
-
 if(RADIUM_IO_DEPRECATED)
     list(APPEND io_sources deprecated/OBJFileManager.cpp deprecated/OFFFileManager.cpp)
 
     list(APPEND io_headers deprecated/FileManager.hpp deprecated/OBJFileManager.hpp
          deprecated/OFFFileManager.hpp
     )
-
-    list(APPEND io_inlines deprecated/FileManager.inl)
 
 endif(RADIUM_IO_DEPRECATED)
 
@@ -44,8 +40,6 @@ if(RADIUM_IO_ASSIMP)
         AssimpLoader/AssimpLightDataLoader.hpp
         AssimpLoader/AssimpWrapper.hpp
     )
-
-    list(APPEND io_inlines AssimpLoader/AssimpGeometryDataLoader.inl)
 
 endif(RADIUM_IO_ASSIMP)
 
