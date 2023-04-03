@@ -222,6 +222,7 @@ class RA_DATAFLOW_API Node
     std::vector<PortBase*> m_interface;
 
     /// The editable parameters of the node
+    /// \todo replace this by a Ra::Core::VariableSet
     std::vector<std::unique_ptr<EditableParameterBase>> m_editableParameters;
 
     /// Additional data on the node, added by application or gui or ...
