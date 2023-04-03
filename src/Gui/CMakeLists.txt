@@ -27,10 +27,7 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 include_directories(${CMAKE_CURRENT_BINARY_DIR} # Moc
 )
 
-add_library(
-    ${ra_gui_target} SHARED ${gui_sources} ${gui_headers} ${gui_inlines} ${gui_uis}
-                            ${gui_resources}
-)
+add_library(${ra_gui_target} SHARED ${gui_sources} ${gui_headers} ${gui_uis} ${gui_resources})
 
 # Dependencies
 add_dependencies(${ra_gui_target} Core Engine PluginBase IO)
@@ -65,7 +62,7 @@ message(STATUS "Configuring library ${ra_gui_target} with standard settings")
 configure_radium_target(${ra_gui_target})
 configure_radium_library(
     TARGET ${ra_gui_target} COMPONENT PACKAGE_CONFIG ${CMAKE_CURRENT_SOURCE_DIR}/Config.cmake.in
-    FILES "${gui_headers};${gui_inlines}"
+    FILES "${gui_headers}"
 )
 set(RADIUM_COMPONENTS ${RADIUM_COMPONENTS} ${ra_gui_target} PARENT_SCOPE)
 

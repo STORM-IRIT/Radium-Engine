@@ -51,7 +51,7 @@ class RA_ENGINE_API Material : public Data::ShaderParameterProvider
     /** Change the Material Name
      * @note This method should be used carefully as the name is a key for render technique factory
      */
-    inline void setMaterialName( std::string newName );
+    inline void setMaterialName( std::string newName ) { m_materialName = std::move( newName ); }
 
   public:
     virtual ~Material() = default;
@@ -59,24 +59,24 @@ class RA_ENGINE_API Material : public Data::ShaderParameterProvider
     /**
      * @return the name of the material instance
      */
-    inline const std::string& getInstanceName() const;
+    inline const std::string& getInstanceName() const { return m_instanceName; }
 
     /**
      * @return the name of the material, can be used a UUID
      * @note the material name is expected to be used to define the ShaderConfiguration name
      */
-    inline const std::string& getMaterialName() const;
+    inline const std::string& getMaterialName() const { return m_materialName; }
 
     /** set the aspect (MAT_OPAQUE or MAT_TRANSPARENT) of the material.
      * @param aspect
      */
-    inline void setMaterialAspect( const MaterialAspect& aspect );
+    inline void setMaterialAspect( const MaterialAspect& aspect ) { m_aspect = aspect; }
 
     /** Get the aspect (MAT_OPAQUE or MAT_TRANSPARENT) of the material.
      *
      * @return the current aspect of the Material
      */
-    inline const MaterialAspect& getMaterialAspect() const;
+    inline const MaterialAspect& getMaterialAspect() const { return m_aspect; }
 
     /** Test if material is transperent.
      * @return true if the material is transparent
@@ -113,7 +113,7 @@ class RA_ENGINE_API Material : public Data::ShaderParameterProvider
     /** Mark the Material as needing update before the next OpenGL call
      *
      */
-    inline void needUpdate();
+    inline void needUpdate() { m_isDirty = true; }
 
   protected:
     /// Material instance name
@@ -132,4 +132,3 @@ class RA_ENGINE_API Material : public Data::ShaderParameterProvider
 } // namespace Data
 } // namespace Engine
 } // namespace Ra
-#include <Engine/Data/Material.inl>
