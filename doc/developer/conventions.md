@@ -27,13 +27,14 @@ To install both hooks and clang-format, simply run `./scripts/install-scripts-li
 # Headers
 
 * Every .cpp must have an associated .hpp file
-* use .inl files for inline functions definitions and include it in the .hpp
+* oneline inline can be defined in class
+* complex inline methods are defined out of class in .hpp
 * Two types of include guards are accepted (modern is preferred):
-  * Legacy: `#ifndef HEADER_NAME_HPP_`
   * Modern: `#pragma once`
+  * Legacy: `#ifndef HEADER_NAME_HPP_`
 * Every class should have its own header.
 * Always use < > in include directives and never " "
-* Keep headers in order : Class header, system libraries, other libraries, other headers from project.
+* Keep headers in order : Class header, other headers from project, system libraries, other libraries.
 * forward declare as much as you can
 
 # Functions
@@ -74,7 +75,6 @@ use `Scalar()` or `_ra` suffix when defining numbers from literals (e.g. `auto a
 
 * Constructors should be trival. All complex work goes in an `init()` function
 * Try to order class members by size (biggest to smallest)
-* Any class containing a fixed-size `Ra::Core::Vector` or `Matrix`member must declare `RA_CORE_ALIGNED_NEW`
 * Try to declare these fixed-size vectors all together, and preferably first in the class.
 * Never pass a fixed-size vector by value to a function (only ref and const ref). Using them as return value is fine.
 * use `explicit` for all one-arguments constructors
