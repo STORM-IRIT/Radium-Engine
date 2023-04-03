@@ -1,9 +1,11 @@
 #pragma once
 
-#include <initializer_list>
-#include <map>
-
 #include <Core/Utils/StdOptional.hpp>
+
+#include <algorithm>
+#include <initializer_list>
+#include <iostream>
+#include <map>
 
 namespace Ra {
 namespace Core {
@@ -139,16 +141,6 @@ class BijectiveAssociation
     key_to_value_map m_keyToValue;
     value_to_key_map m_valueToKey;
 };
-
-} // namespace Utils
-} // namespace Core
-} // namespace Ra
-
-#include <algorithm>
-#include <iostream>
-namespace Ra {
-namespace Core {
-namespace Utils {
 
 template <typename T1, typename T2>
 BijectiveAssociation<T1, T2>::BijectiveAssociation(

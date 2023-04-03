@@ -2,6 +2,7 @@
 
 #include <Core/Asset/MaterialData.hpp>
 #include <Core/Utils/Color.hpp>
+#include <Core/Utils/Log.hpp>
 
 namespace Ra {
 namespace Core {
@@ -55,16 +56,6 @@ class RA_CORE_API BlinnPhongMaterialData : public MaterialData
     bool m_hasTexNormal;
     bool m_hasTexOpacity;
 };
-
-} // namespace Asset
-} // namespace Core
-} // namespace Ra
-
-#include <Core/Utils/Log.hpp>
-
-namespace Ra {
-namespace Core {
-namespace Asset {
 
 ///////////////////
 /// BLINN PHONG ///

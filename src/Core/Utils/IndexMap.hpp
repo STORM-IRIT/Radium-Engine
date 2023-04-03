@@ -147,14 +147,6 @@ class IndexMap
     IndexContainer m_free; /// List of available free indices.
 };
 
-} // namespace Utils
-} // namespace Core
-} // namespace Ra
-
-namespace Ra {
-namespace Core {
-namespace Utils {
-
 // ===============================================================================
 // CONSTRUCTOR
 // ===============================================================================

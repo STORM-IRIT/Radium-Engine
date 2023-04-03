@@ -1,6 +1,9 @@
 #pragma once
 
+#include <Core/Utils/Singleton.hpp>
+#include <Core/Utils/StdUtils.hpp>
 #include <Engine/RaEngine.hpp>
+#include <Engine/Scene/Component.hpp>
 
 #include <functional>
 #include <iostream>
@@ -8,9 +11,6 @@
 #include <typeindex>
 #include <unordered_map>
 #include <vector>
-
-#include <Core/Utils/Singleton.hpp>
-#include <Engine/Scene/Component.hpp>
 
 namespace Ra {
 namespace Engine {
@@ -170,15 +170,6 @@ class RA_ENGINE_API ComponentMessenger
     EntityMap m_entitySetLists; /// Per-entity callback set list.
     EntityMap m_entityRwLists;  /// Per-entity callback read-write list.
 };
-
-} // namespace Scene
-} // namespace Engine
-} // namespace Ra
-
-#include <Core/Utils/StdUtils.hpp>
-namespace Ra {
-namespace Engine {
-namespace Scene {
 
 inline std::size_t ComponentMessenger::HashFunc::operator()( const Key& k ) const {
     return Core::Utils::hash( k );

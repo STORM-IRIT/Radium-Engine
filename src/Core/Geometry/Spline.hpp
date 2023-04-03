@@ -1,7 +1,10 @@
 #pragma once
 
 #include <Core/Containers/VectorArray.hpp>
+#include <Core/Math/Math.hpp>
 #include <Core/RaCore.hpp>
+
+#include <algorithm>
 #include <vector>
 
 namespace Ra {
@@ -97,17 +100,7 @@ class Spline
     std::vector<Scalar> m_node;         ///< Nodal vector
     Type m_type;                        ///< Nodal vector type
 };
-} // namespace Geometry
-} // namespace Core
-} // namespace Ra
 
-#include <Core/Math/Math.hpp>
-
-#include <algorithm>
-
-namespace Ra {
-namespace Core {
-namespace Geometry {
 template <uint D, uint K>
 inline Spline<D, K>::Spline( typename Spline<D, K>::Type type ) : m_type( type ) {
     static_assert( K >= 2, "Order must be at least two" );

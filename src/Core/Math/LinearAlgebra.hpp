@@ -1,15 +1,16 @@
 #pragma once
 
+#include <Core/Math/Math.hpp>
 #include <Core/RaCore.hpp>
+#include <Core/Types.hpp>
 
 #include <Eigen/Core>
 #include <Eigen/Geometry>
 #include <Eigen/Sparse>
-#include <functional>
 #include <unsupported/Eigen/AlignedVector3>
 
-#include <Core/Math/Math.hpp>
-#include <Core/Types.hpp>
+#include <cmath>
+#include <functional>
 
 namespace Ra {
 namespace Core {
@@ -153,15 +154,6 @@ inline Quaternion addQlerp( const Quaternion& q1, const Quaternion& q2 );
 /// and Qtwist equal to Qin
 inline void getSwingTwist( const Quaternion& in, Quaternion& swingOut, Quaternion& twistOut );
 
-} // namespace Math
-} // namespace Core
-} // namespace Ra
-
-#include <cmath>
-
-namespace Ra {
-namespace Core {
-namespace Math {
 inline void print( const MatrixN& matrix ) {
     // Taken straight from :
     // http://eigen.tuxfamily.org/dox/structEigen_1_1IOFormat.html

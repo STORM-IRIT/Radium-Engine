@@ -505,14 +505,6 @@ class RA_ENGINE_API Renderer
     bool m_initialized { false };
 };
 
-} // namespace Rendering
-} // namespace Engine
-} // namespace Ra
-
-namespace Ra {
-namespace Engine {
-namespace Rendering {
-
 inline const std::vector<std::tuple<int, int, int>>& Renderer::PickingResult::getIndices() const {
     return m_indices;
 }

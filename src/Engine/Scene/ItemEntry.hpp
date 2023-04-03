@@ -76,13 +76,6 @@ RA_ENGINE_API std::string getEntryName( const Engine::RadiumEngine* engine, cons
 /// Entity item : all ROs from all compoents of given entity.
 RA_ENGINE_API std::vector<Ra::Core::Utils::Index> getItemROs( const Engine::RadiumEngine* engine,
                                                               const ItemEntry& ent );
-} // namespace Scene
-} // namespace Engine
-} // namespace Ra
-
-namespace Ra {
-namespace Engine {
-namespace Scene {
 
 bool ItemEntry::isEntityNode() const {
     ON_DEBUG( checkConsistency() );

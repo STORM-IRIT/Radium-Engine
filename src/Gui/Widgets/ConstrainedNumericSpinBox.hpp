@@ -36,14 +36,6 @@ class ConstrainedNumericSpinBox : public QtSpinBox::getType<T>::Type
     Predicate m_p = []( T ) { return true; };
 };
 
-} // namespace Widgets
-} // namespace Gui
-} // namespace Ra
-
-namespace Ra {
-namespace Gui {
-namespace Widgets {
-
 template <typename T>
 QValidator::State ConstrainedNumericSpinBox<T>::validate( QString& input, int& ) const {
     auto valid = this->isValid( this->valueFromText( input ) );

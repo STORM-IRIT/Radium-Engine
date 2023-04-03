@@ -4,6 +4,7 @@
 
 #include <Core/Containers/VectorArray.hpp>
 #include <Core/Geometry/OpenMesh.hpp>
+#include <Core/Geometry/StandardAttribNames.hpp>
 #include <Core/Geometry/TriangleMesh.hpp>
 #include <Core/Types.hpp>
 #include <Core/Utils/Index.hpp>
@@ -19,6 +20,8 @@
 #include <Eigen/Geometry>
 
 #include <set>
+#include <typeinfo>
+#include <unordered_map>
 
 namespace Ra {
 namespace Core {
@@ -389,20 +392,6 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
     friend class TMOperations;
 };
 
-} // namespace deprecated
-} // namespace Geometry
-} // namespace Core
-} // namespace Ra
-
-#include <Core/Geometry/StandardAttribNames.hpp>
-
-#include <typeinfo>
-#include <unordered_map>
-
-namespace Ra {
-namespace Core {
-namespace Geometry {
-namespace deprecated {
 template <typename NonManifoldFaceCommand>
 inline TopologicalMesh::TopologicalMesh( const TriangleMesh& triMesh,
                                          NonManifoldFaceCommand command ) :

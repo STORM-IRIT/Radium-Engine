@@ -1,11 +1,14 @@
 #pragma once
 #include <Gui/RaGui.hpp>
+#include <Gui/Widgets/QtTypeWrapper.hpp>
 
+#include <QLabel>
+#include <QSpinBox>
+#include <QVBoxLayout>
 #include <QWidget>
 
 #include <memory>
 #include <string>
-
 #include <vector>
 
 namespace Ra {
@@ -50,22 +53,6 @@ class VectorEditor : public VectorEditorSignals
   private:
     std::vector<T> m_vector;
 };
-} // namespace Widgets
-} // namespace Gui
-} // namespace Ra
-
-#include <Gui/Widgets/QtTypeWrapper.hpp>
-
-#include <QLabel>
-#include <QSpinBox>
-#include <QVBoxLayout>
-#include <QWidget>
-
-#include <memory>
-
-namespace Ra {
-namespace Gui {
-namespace Widgets {
 
 template <typename T>
 VectorEditor<T>::VectorEditor( const std::vector<T>& vector, QWidget* parent ) :

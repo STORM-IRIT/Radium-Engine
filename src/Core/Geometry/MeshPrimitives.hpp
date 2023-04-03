@@ -1,9 +1,13 @@
 #pragma once
 
+#include <Core/Geometry/TopologicalMesh.hpp>
 #include <Core/Geometry/TriangleMesh.hpp>
+#include <Core/Math/LinearAlgebra.hpp>
 #include <Core/RaCore.hpp>
 #include <Core/Utils/Color.hpp>
 #include <Core/Utils/StdOptional.hpp>
+
+#include <random>
 
 namespace Ra {
 namespace Core {
@@ -120,19 +124,6 @@ RA_CORE_API TriangleMesh makeCone( const Vector3& base,
                                    Scalar radius,
                                    uint nFaces                                = 32,
                                    const Utils::optional<Utils::Color>& color = {} );
-
-} // namespace Geometry
-} // namespace Core
-} // namespace Ra
-
-#include <Core/Geometry/TopologicalMesh.hpp>
-#include <Core/Math/LinearAlgebra.hpp> // Math::pi
-
-#include <random>
-
-namespace Ra {
-namespace Core {
-namespace Geometry {
 
 template <uint SLICES, uint STACKS>
 TriangleMesh

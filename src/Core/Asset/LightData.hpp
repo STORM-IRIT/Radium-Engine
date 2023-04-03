@@ -1,12 +1,13 @@
 #pragma once
 
-#include <memory>
-#include <string>
-#include <vector>
-
 #include <Core/Asset/AssetData.hpp>
 #include <Core/RaCore.hpp>
 #include <Core/Utils/Color.hpp>
+#include <Core/Utils/Log.hpp>
+
+#include <memory>
+#include <string>
+#include <vector>
 
 namespace Ra {
 namespace Core {
@@ -209,16 +210,6 @@ class RA_CORE_API LightData : public AssetData
         AreaLight m_arealight;
     };
 };
-
-} // namespace Asset
-} // namespace Core
-} // namespace Ra
-
-#include <Core/Utils/Log.hpp>
-
-namespace Ra {
-namespace Core {
-namespace Asset {
 
 /////////////////////
 ///  LIGHT DATA   ///

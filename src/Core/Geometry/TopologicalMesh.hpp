@@ -1,12 +1,13 @@
 #pragma once
 
-#include <Core/RaCore.hpp>
-
 #include <Core/Containers/VectorArray.hpp>
 #include <Core/Geometry/OpenMesh.hpp>
+#include <Core/Geometry/StandardAttribNames.hpp>
 #include <Core/Geometry/TriangleMesh.hpp>
+#include <Core/RaCore.hpp>
 #include <Core/Types.hpp>
 #include <Core/Utils/Index.hpp>
+#include <Core/Utils/Log.hpp>
 #include <Core/Utils/StdOptional.hpp>
 
 #include <OpenMesh/Core/Mesh/PolyMesh_ArrayKernelT.hh>
@@ -19,6 +20,8 @@
 #include <Eigen/Geometry>
 
 #include <set>
+#include <typeinfo>
+#include <unordered_map>
 
 namespace Ra {
 namespace Core {
@@ -639,21 +642,6 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
 
 // heplers
 void printWedgesInfo( const TopologicalMesh& );
-
-} // namespace Geometry
-} // namespace Core
-} // namespace Ra
-
-#include "Core/Utils/Log.hpp"
-
-#include <typeinfo>
-#include <unordered_map>
-
-#include <Core/Geometry/StandardAttribNames.hpp>
-
-namespace Ra {
-namespace Core {
-namespace Geometry {
 
 ////////////////////////////////////////////////////////////////////////////////
 ///////////////////      WedgeData                //////////////////////////////

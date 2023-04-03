@@ -1,6 +1,9 @@
 #pragma once
 #include <Core/Types.hpp>
+#include <Core/Utils/Color.hpp>
 #include <Gui/RaGui.hpp>
+#include <Gui/Widgets/ConstrainedNumericSpinBox.hpp>
+#include <Gui/Widgets/VectorEditor.hpp>
 
 #include <QFrame>
 #include <QVBoxLayout>
@@ -9,7 +12,7 @@
 #include <stack>
 #include <string>
 
-#include <Core/Utils/Color.hpp>
+#include <QLabel>
 
 namespace Ra {
 namespace Gui {
@@ -274,19 +277,6 @@ class RA_GUI_API ControlPanel : public QFrame
     /// The stack of layouts
     std::stack<QBoxLayout*> m_layouts;
 };
-
-} // namespace Widgets
-} // namespace Gui
-} // namespace Ra
-
-#include <QLabel>
-
-#include <Gui/Widgets/ConstrainedNumericSpinBox.hpp>
-#include <Gui/Widgets/VectorEditor.hpp>
-
-namespace Ra {
-namespace Gui {
-namespace Widgets {
 
 template <typename T>
 void ControlPanel::addConstrainedNumberInput( const std::string& name,

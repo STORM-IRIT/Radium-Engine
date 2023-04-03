@@ -2,6 +2,7 @@
 
 #include <Core/Containers/VectorArray.hpp>
 #include <Core/Geometry/DistanceQueries.hpp>
+#include <Core/Math/LinearAlgebra.hpp> // cotan, saturate (from Math.hpp)
 #include <Core/RaCore.hpp>
 #include <Core/Types.hpp>
 
@@ -76,16 +77,6 @@ class RA_CORE_API PolyLine
     // Length from origin to point Pi+1.
     std::vector<Scalar> m_lengths;
 };
-
-} // namespace Geometry
-} // namespace Core
-} // namespace Ra
-
-#include <Core/Math/LinearAlgebra.hpp> // cotan, saturate (from Math.hpp)
-
-namespace Ra {
-namespace Core {
-namespace Geometry {
 
 const Vector3Array& PolyLine::getPoints() const {
     return m_pts;

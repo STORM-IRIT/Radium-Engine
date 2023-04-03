@@ -4,17 +4,18 @@
 #include <string>
 #include <vector>
 
+#include <Core/Asset/AnimationData.hpp>
+#include <Core/Asset/Camera.hpp>
+#include <Core/Asset/GeometryData.hpp>
+#include <Core/Asset/HandleData.hpp>
+#include <Core/Asset/LightData.hpp>
+#include <Core/Asset/VolumeData.hpp>
 #include <Core/RaCore.hpp>
+#include <Core/Utils/Log.hpp>
 
 namespace Ra {
 namespace Core {
 namespace Asset {
-class AnimationData;
-class Camera;
-class GeometryData;
-struct VolumeData;
-class HandleData;
-class LightData;
 
 class RA_CORE_API FileData final
 {
@@ -74,22 +75,6 @@ class RA_CORE_API FileData final
     bool m_processed;
     bool m_verbose;
 };
-
-} // namespace Asset
-} // namespace Core
-} // namespace Ra
-
-#include <Core/Asset/AnimationData.hpp>
-#include <Core/Asset/Camera.hpp>
-#include <Core/Asset/GeometryData.hpp>
-#include <Core/Asset/HandleData.hpp>
-#include <Core/Asset/LightData.hpp>
-#include <Core/Asset/VolumeData.hpp>
-#include <Core/Utils/Log.hpp>
-
-namespace Ra {
-namespace Core {
-namespace Asset {
 
 /// FILENAME
 inline std::string FileData::getFileName() const {

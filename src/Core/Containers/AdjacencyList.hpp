@@ -77,7 +77,7 @@ class RA_CORE_API AdjacencyList
     /// Return true if the graph is consistent
     ConsistencyStatus computeConsistencyStatus() const;
     /// Return true if the graph is empty.
-    inline bool isEmpty() const;
+    inline bool isEmpty() const { return ( size() == 0 ); }
     /// Return true if a node is a root node.
     inline bool isRoot( const uint i ) const;
     /// Return true if the node is a leaf node.
@@ -89,8 +89,9 @@ class RA_CORE_API AdjacencyList
     /// Return true if the edge { i, j } exists.
     inline bool isEdge( const uint i, const uint j ) const;
 
-    inline const Adjacency& children() const;
-    inline const ParentList& parents() const;
+    inline const Adjacency& children() const { return m_child; }
+
+    inline const ParentList& parents() const { return m_parent; }
 
     //////////////////////////////////////////////////////////////////////////////
     // VARIABLE
@@ -105,13 +106,6 @@ class RA_CORE_API AdjacencyList
 
 RA_CORE_API std::ofstream& operator<<( std::ofstream& ofs, const AdjacencyList& p );
 
-} // namespace Core
-} // namespace Ra
-
-namespace Ra {
-namespace Core {
-
-/// SIZE
 inline uint AdjacencyList::size() const {
     CORE_ASSERT( m_parent.size() == m_child.size(), "List size inconsistency" );
     return m_parent.size();
@@ -120,11 +114,6 @@ inline uint AdjacencyList::size() const {
 inline void AdjacencyList::clear() {
     m_child.clear();
     m_parent.clear();
-}
-
-/// QUERY
-inline bool AdjacencyList::isEmpty() const {
-    return ( size() == 0 );
 }
 
 inline bool AdjacencyList::isRoot( const uint i ) const {
@@ -155,14 +144,5 @@ inline bool AdjacencyList::isEdge( const uint i, const uint j ) const {
     }
     return false;
 }
-
-inline const Adjacency& AdjacencyList::children() const {
-    return m_child;
-}
-
-inline const ParentList& AdjacencyList::parents() const {
-    return m_parent;
-}
-
 } // namespace Core
 } // namespace Ra

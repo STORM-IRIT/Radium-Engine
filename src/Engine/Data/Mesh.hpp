@@ -1,27 +1,27 @@
 #pragma once
 
-#include <Core/Utils/BijectiveAssociation.hpp>
-#include <Engine/RaEngine.hpp>
-
-#include <Engine/Data/DisplayableObject.hpp>
-
 #include <Core/Asset/GeometryData.hpp>
 #include <Core/Containers/VectorArray.hpp>
 #include <Core/Geometry/MeshPrimitives.hpp>
 #include <Core/Geometry/StandardAttribNames.hpp>
 #include <Core/Geometry/TriangleMesh.hpp>
+#include <Core/Utils/BijectiveAssociation.hpp>
 #include <Core/Utils/Color.hpp>
 #include <Core/Utils/Log.hpp>
+#include <Core/Utils/ObjectWithSemantic.hpp>
+#include <Engine/Data/DisplayableObject.hpp>
+#include <Engine/Data/ShaderProgram.hpp>
+#include <Engine/RaEngine.hpp>
 
 #include <globjects/Buffer.h>
+#include <globjects/Program.h>
 #include <globjects/VertexArray.h>
+#include <globjects/VertexAttributeBinding.h>
 
 #include <array>
+#include <iterator>
 #include <map>
 #include <vector>
-
-#include <Core/Utils/ObjectWithSemantic.hpp>
-#include <iterator>
 
 namespace Ra {
 namespace Engine {
@@ -538,20 +538,6 @@ createMeshFromGeometryData( const std::string& name, const Ra::Core::Asset::Geom
     return ret;
 }
 
-} // namespace Data
-} // namespace Engine
-} // namespace Ra
-
-#include <Engine/Data/ShaderProgram.hpp>
-
-#include <Engine/Data/ShaderProgram.hpp>
-#include <globjects/Buffer.h>
-#include <globjects/Program.h>
-#include <globjects/VertexAttributeBinding.h>
-
-namespace Ra {
-namespace Engine {
-namespace Data {
 ////////////////  AttribArrayDisplayable ///////////////////////////////
 
 void AttribArrayDisplayable::setRenderMode( MeshRenderMode mode ) {

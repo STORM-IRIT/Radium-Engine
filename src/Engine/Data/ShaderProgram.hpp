@@ -4,15 +4,18 @@
 
 #include <Core/Types.hpp>
 
+#include <Core/CoreMacros.hpp>
 #include <Engine/Data/ShaderConfiguration.hpp>
+
+#include <globjects/Program.h>
 
 #include <array>
 #include <memory>
 #include <string>
+#include <type_traits>
 
 namespace globjects {
 class Shader;
-class Program;
 class NamedString;
 class StaticStringSource;
 } // namespace globjects
@@ -98,20 +101,6 @@ class RA_ENGINE_API ShaderProgram final
 
     std::unique_ptr<globjects::Program> m_program;
 };
-} // namespace Data
-
-namespace Rendering {} // namespace Rendering
-} // namespace Engine
-} // namespace Ra
-
-#include <Core/CoreMacros.hpp>
-
-#include <globjects/Program.h>
-#include <type_traits>
-
-namespace Ra {
-namespace Engine {
-namespace Data {
 
 // declare specialization, definied in .cpp
 template <>

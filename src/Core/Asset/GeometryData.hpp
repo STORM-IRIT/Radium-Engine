@@ -1,18 +1,20 @@
 #pragma once
 
-#include <memory>
-#include <string>
-#include <vector>
-
+#include <Core/Asset/AssetData.hpp>
+#include <Core/Asset/MaterialData.hpp>
 #include <Core/Containers/VectorArray.hpp>
+#include <Core/Geometry/StandardAttribNames.hpp>
+#include <Core/Geometry/TriangleMesh.hpp>
 #include <Core/RaCore.hpp>
 #include <Core/Types.hpp>
 #include <Core/Utils/Attribs.hpp>
 #include <Core/Utils/Index.hpp>
 
-#include <Core/Asset/AssetData.hpp>
-#include <Core/Asset/MaterialData.hpp>
-#include <Core/Geometry/TriangleMesh.hpp>
+#include <memory>
+#include <string>
+#include <vector>
+
+#include <algorithm> //std::transform
 
 namespace Ra {
 namespace Core {
@@ -147,18 +149,6 @@ class RA_CORE_API GeometryData : public AssetData
     /// The MaterialData for the object.
     std::shared_ptr<MaterialData> m_material;
 };
-
-} // namespace Asset
-} // namespace Core
-} // namespace Ra
-
-#include "Core/Geometry/StandardAttribNames.hpp"
-
-#include <algorithm> //std::transform
-
-namespace Ra {
-namespace Core {
-namespace Asset {
 
 inline void GeometryData::setName( const std::string& name ) {
     m_name = name;
