@@ -112,14 +112,14 @@ var namespaceRa =
         [ "AbstractDiscreteVolume", "classRa_1_1Core_1_1Geometry_1_1AbstractDiscreteVolume.html", "classRa_1_1Core_1_1Geometry_1_1AbstractDiscreteVolume" ],
         [ "VolumeGrid", "classRa_1_1Core_1_1Geometry_1_1VolumeGrid.html", "classRa_1_1Core_1_1Geometry_1_1VolumeGrid" ],
         [ "VolumeSparse", "classRa_1_1Core_1_1Geometry_1_1VolumeSparse.html", "classRa_1_1Core_1_1Geometry_1_1VolumeSparse" ],
-        [ "FlagsInternal", "DistanceQueries_8inl.html#a3408df51a09f0d18205c3432869378fe", [
-          [ "HIT_FACE", "DistanceQueries_8inl.html#a3408df51a09f0d18205c3432869378fea98fa3c2489e8aafdadddb20ecf7e4420", null ],
-          [ "HIT_A", "DistanceQueries_8inl.html#a3408df51a09f0d18205c3432869378fea3a3a235714db1986b3c4671ed4e589be", null ],
-          [ "HIT_B", "DistanceQueries_8inl.html#a3408df51a09f0d18205c3432869378feae8e8da77e9f155072f38c0df18c9c8c6", null ],
-          [ "HIT_C", "DistanceQueries_8inl.html#a3408df51a09f0d18205c3432869378feab796049b1104afa4fc587dd6481e95dd", null ],
-          [ "HIT_AB", "DistanceQueries_8inl.html#a3408df51a09f0d18205c3432869378fea51a58a458a562620e496e62fc0b82fc4", null ],
-          [ "HIT_BC", "DistanceQueries_8inl.html#a3408df51a09f0d18205c3432869378fea1caf113af51676f45fb2ecc92a69d85c", null ],
-          [ "HIT_CA", "DistanceQueries_8inl.html#a3408df51a09f0d18205c3432869378feae38400da0d80ddd44a374d1bfc8da45b", null ]
+        [ "FlagsInternal", "DistanceQueries_8hpp.html#a3408df51a09f0d18205c3432869378fe", [
+          [ "HIT_FACE", "DistanceQueries_8hpp.html#a3408df51a09f0d18205c3432869378fea98fa3c2489e8aafdadddb20ecf7e4420", null ],
+          [ "HIT_A", "DistanceQueries_8hpp.html#a3408df51a09f0d18205c3432869378fea3a3a235714db1986b3c4671ed4e589be", null ],
+          [ "HIT_B", "DistanceQueries_8hpp.html#a3408df51a09f0d18205c3432869378feae8e8da77e9f155072f38c0df18c9c8c6", null ],
+          [ "HIT_C", "DistanceQueries_8hpp.html#a3408df51a09f0d18205c3432869378feab796049b1104afa4fc587dd6481e95dd", null ],
+          [ "HIT_AB", "DistanceQueries_8hpp.html#a3408df51a09f0d18205c3432869378fea51a58a458a562620e496e62fc0b82fc4", null ],
+          [ "HIT_BC", "DistanceQueries_8hpp.html#a3408df51a09f0d18205c3432869378fea1caf113af51676f45fb2ecc92a69d85c", null ],
+          [ "HIT_CA", "DistanceQueries_8hpp.html#a3408df51a09f0d18205c3432869378feae38400da0d80ddd44a374d1bfc8da45b", null ]
         ] ],
         [ "MeshAttrib", "StandardAttribNames_8hpp.html#a601e93ad276b69b096bcb796ff27c2cf", [
           [ "VERTEX_POSITION", "StandardAttribNames_8hpp.html#a601e93ad276b69b096bcb796ff27c2cfa1cbb5155bc1aed6973d787d23f572137", null ],
@@ -133,7 +133,7 @@ var namespaceRa =
         ] ],
         [ "copyWedgeDataToAttribContainer", "TopologicalMesh_8cpp.html#a74f2221e7c53c4927ef7da96cf5fc884", null ],
         [ "getAttribName", "StandardAttribNames_8hpp.html#a9bf7b8f0db1eacfcae5bd58d00c1c906", null ],
-        [ "init", "TopologicalMesh_8inl.html#aee60cb09fb64ad0d55bb9af3d9707b48", null ],
+        [ "init", "TopologicalMesh_8hpp.html#aee60cb09fb64ad0d55bb9af3d9707b48", null ],
         [ "interpolate", "TopologicalMesh_8cpp.html#a17110e2c83f72420d5b07e308f7f321e", null ],
         [ "lineToSegSq", "DistanceQueries_8hpp.html#aa4833c49439649db22e7108f976a0c8d", null ],
         [ "lineToTriSq", "DistanceQueries_8hpp.html#a6780f716b9ae3f272a875983011e38e9", null ],
@@ -172,7 +172,7 @@ var namespaceRa =
         [ "add", "namespaceRa_1_1Core_1_1Math.html#a0523a53d2d94a623e194830837863c4c", null ],
         [ "addQlerp", "namespaceRa_1_1Core_1_1Math.html#aa5c9bddd5fdbbdbcdb661348982ff204", null ],
         [ "angle", "namespaceRa_1_1Core_1_1Math.html#a5306cf8ea65c31d4bbe0560ec7bb6bb4", null ],
-        [ "areApproxEqual", "namespaceRa_1_1Core_1_1Math.html#a46540d56930b4c1ff3b115872cde4893", null ],
+        [ "areApproxEqual", "namespaceRa_1_1Core_1_1Math.html#a5d4492c5ddee7e4fa37dfdad0c4f8ba1", null ],
         [ "ceil", "namespaceRa_1_1Core_1_1Math.html#ace580f6f34d6a778e2a6a0c7c81646b5", null ],
         [ "ceil", "namespaceRa_1_1Core_1_1Math.html#ab8a9edb8345a5c45d4ac2c4d7fe996f0", null ],
         [ "checkInvalidNumbers", "namespaceRa_1_1Core_1_1Math.html#aa913c818e203089f107c46eca102a93b", null ],
@@ -203,7 +203,6 @@ var namespaceRa =
         [ "scale", "namespaceRa_1_1Core_1_1Math.html#a941baf20065c77d494ca251e6e104f31", null ],
         [ "sign", "namespaceRa_1_1Core_1_1Math.html#a90f0fe9079f5bb86c721ea4b61738470", null ],
         [ "signNZ", "namespaceRa_1_1Core_1_1Math.html#a810d6d50b61cc01cda1d54527de864d0", null ],
-        [ "signum", "namespaceRa_1_1Core_1_1Math.html#a1e6a5327cb1c73b29e0c6539576d02b0", null ],
         [ "signum", "namespaceRa_1_1Core_1_1Math.html#a672acca0ecd16a8e0f9109345b56d4e0", null ],
         [ "slerp", "namespaceRa_1_1Core_1_1Math.html#a5130d4a8434d4ccc82fa04bcba73d2f0", null ],
         [ "smoothstep", "namespaceRa_1_1Core_1_1Math.html#a4c8b1a6f8395ccda747474db1b28877d", null ],

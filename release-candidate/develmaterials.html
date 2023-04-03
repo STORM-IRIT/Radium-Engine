@@ -52,7 +52,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.4.11</span>
+   &#160;<span id="projectnumber">1.4.12</span>
    </div>
   </td>
  </tr>
@@ -330,7 +330,7 @@ Microgeometry interface</h3>
 <div class="line"><span class="keywordtype">bool</span> toDiscard(Material material, vec4 color);</div>
 </div><!-- fragment --><h3><a class="anchor" id="bsdf-interface"></a>
 BSDF interface</h3>
-<p>Implementing or using the GLSL BSDF interface is based on the fact that the method <a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html#a12b6f71b149e59868927a7a5f76d9f08">Ra::Engine::Data::Material::getMaterialName()</a> must return a string that contains the <code>name_of_the_BSDF</code> implemented in a file named <code>name_of_the_BSDF.glsl</code>. This file is preloaded at <a href="#registration-mtl-lib">material registration</a> into a <code>glNamedString</code> to allow inclusion by others.</p>
+<p>Implementing or using the GLSL BSDF interface is based on the fact that the method <a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html#a4ccee5a44c9e840b3a4b380e9e14386c">Ra::Engine::Data::Material::getMaterialName()</a> must return a string that contains the <code>name_of_the_BSDF</code> implemented in a file named <code>name_of_the_BSDF.glsl</code>. This file is preloaded at <a href="#registration-mtl-lib">material registration</a> into a <code>glNamedString</code> to allow inclusion by others.</p>
 <p>In order to be composable by Radium applications and renderers, this glsl file must only contains the implementation of the BSDF interface, with no <code>void main(){...}</code>, the implementation of the micro-geometry interface and must only access to vertex attribs by using the vertex attribute interface or so on ...</p>
 <p>This file must contain an inclusion guard :</p>
 <div class="fragment"><div class="line"><span class="preprocessor">#ifndef METALLICROUGHNESS_GLSL</span></div>
@@ -601,7 +601,7 @@ Manipulating ShaderConfigurations</h2>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="develmanual.html">Developer manual</a></li><li class="navelem"><a class="el" href="api.html">API</a></li><li class="navelem"><a class="el" href="engine.html">Engine</a></li>
-    <li class="footer">Generated on Mon Apr 3 2023 06:30:54 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Apr 3 2023 19:25:23 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

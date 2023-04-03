@@ -52,7 +52,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.4.11</span>
+   &#160;<span id="projectnumber">1.4.12</span>
    </div>
   </td>
  </tr>
@@ -137,7 +137,7 @@ $(document).ready(function(){initNavTree('HandleArray_8hpp_source.html',''); ini
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keyword">virtual</span> ~<a class="code" href="classRa_1_1Core_1_1Animation_1_1HandleArray.html">HandleArray</a>();</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keyword">inline</span> <span class="keyword">virtual</span> uint size() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Animation_1_1HandleArray.html#a9593102d9745c32e1f4e7da738a409e3">   38</a></span>&#160;    <span class="keyword">inline</span> <span class="keyword">virtual</span> uint <a class="code" href="classRa_1_1Core_1_1Animation_1_1HandleArray.html#a9593102d9745c32e1f4e7da738a409e3">size</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> m_pose.size(); }</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> clear();</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
@@ -149,9 +149,9 @@ $(document).ready(function(){initNavTree('HandleArray_8hpp_source.html',''); ini
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> setTransform( <span class="keyword">const</span> uint i, <span class="keyword">const</span> Transform&amp; T, <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Animation_1_1HandleArray.html#a8d51faa3b4fa49a0056d28c830860c4d">SpaceType</a> MODE );</div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keyword">inline</span> Label getName() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00070"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Animation_1_1HandleArray.html#a9541ed682f7ab1ad368dd3fa953053e6">   70</a></span>&#160;    <span class="keyword">inline</span> Label <a class="code" href="classRa_1_1Core_1_1Animation_1_1HandleArray.html#a9541ed682f7ab1ad368dd3fa953053e6">getName</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> m_name; }</div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">void</span> setName( <span class="keyword">const</span> Label&amp; name );</div>
+<div class="line"><a name="l00075"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Animation_1_1HandleArray.html#a1c68c776ddd42eff4a3f5b880a39667d">   75</a></span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="classRa_1_1Core_1_1Animation_1_1HandleArray.html#a1c68c776ddd42eff4a3f5b880a39667d">setName</a>( <span class="keyword">const</span> Label&amp; name ) { m_name = name; }</div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
 <div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keyword">inline</span> Label getLabel( <span class="keyword">const</span> uint i ) <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
@@ -165,17 +165,30 @@ $(document).ready(function(){initNavTree('HandleArray_8hpp_source.html',''); ini
 <div class="line"><a name="l00101"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Animation_1_1HandleArray.html#a2a3dcef897350c7a61275fc648f3a4a7">  101</a></span>&#160;    std::vector&lt;Label&gt; <a class="code" href="classRa_1_1Core_1_1Animation_1_1HandleArray.html#a2a3dcef897350c7a61275fc648f3a4a7">m_label</a>;</div>
 <div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;};</div>
 <div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; </div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;} <span class="comment">// namespace Animation</span></div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;} <span class="comment">// Namespace Core</span></div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;} <span class="comment">// Namespace Ra</span></div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160; </div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;<span class="preprocessor">#include &lt;Core/Animation/HandleArray.inl&gt;</span></div>
+<div class="line"><a name="l00104"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Animation_1_1HandleArray.html#a1c75459bc9ff0e1f940b97f55fc18a7e">  104</a></span>&#160;<span class="keyword">inline</span> Label <a class="code" href="classRa_1_1Core_1_1Animation_1_1HandleArray.html#a1c75459bc9ff0e1f940b97f55fc18a7e">HandleArray::getLabel</a>( <span class="keyword">const</span> uint i )<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    CORE_ASSERT( ( i &lt; <a class="code" href="classRa_1_1Core_1_1Animation_1_1HandleArray.html#a9593102d9745c32e1f4e7da738a409e3">size</a>() ), <span class="stringliteral">&quot;Index i out of bound&quot;</span> );</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classRa_1_1Core_1_1Animation_1_1HandleArray.html#a2a3dcef897350c7a61275fc648f3a4a7">m_label</a>.at( i );</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;}</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160; </div>
+<div class="line"><a name="l00109"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Animation_1_1HandleArray.html#af7303c5d5f61da6afb882a5ca50ddbc7">  109</a></span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="classRa_1_1Core_1_1Animation_1_1HandleArray.html#af7303c5d5f61da6afb882a5ca50ddbc7">HandleArray::setLabel</a>( <span class="keyword">const</span> uint i, <span class="keyword">const</span> Label&amp; text ) {</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    CORE_ASSERT( ( i &lt; <a class="code" href="classRa_1_1Core_1_1Animation_1_1HandleArray.html#a9593102d9745c32e1f4e7da738a409e3">size</a>() ), <span class="stringliteral">&quot;Index i out of bound&quot;</span> );</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    <a class="code" href="classRa_1_1Core_1_1Animation_1_1HandleArray.html#a2a3dcef897350c7a61275fc648f3a4a7">m_label</a>[i] = text;</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;}</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160; </div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;} <span class="comment">// namespace Animation</span></div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;} <span class="comment">// Namespace Core</span></div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;} <span class="comment">// Namespace Ra</span></div>
 <div class="ttc" id="aTypes_8hpp_html"><div class="ttname"><a href="Types_8hpp.html">Types.hpp</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Animation_1_1HandleArray_html"><div class="ttname"><a href="classRa_1_1Core_1_1Animation_1_1HandleArray.html">Ra::Core::Animation::HandleArray</a></div><div class="ttdef"><b>Definition:</b> <a href="HandleArray_8hpp_source.html#l00019">HandleArray.hpp:20</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Animation_1_1HandleArray_html_a189a9b7eb1ab76fb6a98cc692da8f5af"><div class="ttname"><a href="classRa_1_1Core_1_1Animation_1_1HandleArray.html#a189a9b7eb1ab76fb6a98cc692da8f5af">Ra::Core::Animation::HandleArray::m_pose</a></div><div class="ttdeci">LocalPose m_pose</div><div class="ttdef"><b>Definition:</b> <a href="HandleArray_8hpp_source.html#l00090">HandleArray.hpp:90</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1Animation_1_1HandleArray_html_a1c68c776ddd42eff4a3f5b880a39667d"><div class="ttname"><a href="classRa_1_1Core_1_1Animation_1_1HandleArray.html#a1c68c776ddd42eff4a3f5b880a39667d">Ra::Core::Animation::HandleArray::setName</a></div><div class="ttdeci">void setName(const Label &amp;name)</div><div class="ttdef"><b>Definition:</b> <a href="HandleArray_8hpp_source.html#l00075">HandleArray.hpp:75</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1Animation_1_1HandleArray_html_a1c75459bc9ff0e1f940b97f55fc18a7e"><div class="ttname"><a href="classRa_1_1Core_1_1Animation_1_1HandleArray.html#a1c75459bc9ff0e1f940b97f55fc18a7e">Ra::Core::Animation::HandleArray::getLabel</a></div><div class="ttdeci">Label getLabel(const uint i) const</div><div class="ttdef"><b>Definition:</b> <a href="HandleArray_8hpp_source.html#l00104">HandleArray.hpp:104</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Animation_1_1HandleArray_html_a2a3dcef897350c7a61275fc648f3a4a7"><div class="ttname"><a href="classRa_1_1Core_1_1Animation_1_1HandleArray.html#a2a3dcef897350c7a61275fc648f3a4a7">Ra::Core::Animation::HandleArray::m_label</a></div><div class="ttdeci">std::vector&lt; Label &gt; m_label</div><div class="ttdef"><b>Definition:</b> <a href="HandleArray_8hpp_source.html#l00101">HandleArray.hpp:101</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Animation_1_1HandleArray_html_a694318592b888eae8b2af2b4b64934a9"><div class="ttname"><a href="classRa_1_1Core_1_1Animation_1_1HandleArray.html#a694318592b888eae8b2af2b4b64934a9">Ra::Core::Animation::HandleArray::m_name</a></div><div class="ttdeci">Label m_name</div><div class="ttdef"><b>Definition:</b> <a href="HandleArray_8hpp_source.html#l00096">HandleArray.hpp:96</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Animation_1_1HandleArray_html_a8d51faa3b4fa49a0056d28c830860c4d"><div class="ttname"><a href="classRa_1_1Core_1_1Animation_1_1HandleArray.html#a8d51faa3b4fa49a0056d28c830860c4d">Ra::Core::Animation::HandleArray::SpaceType</a></div><div class="ttdeci">SpaceType</div><div class="ttdef"><b>Definition:</b> <a href="HandleArray_8hpp_source.html#l00025">HandleArray.hpp:25</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1Animation_1_1HandleArray_html_a9541ed682f7ab1ad368dd3fa953053e6"><div class="ttname"><a href="classRa_1_1Core_1_1Animation_1_1HandleArray.html#a9541ed682f7ab1ad368dd3fa953053e6">Ra::Core::Animation::HandleArray::getName</a></div><div class="ttdeci">Label getName() const</div><div class="ttdef"><b>Definition:</b> <a href="HandleArray_8hpp_source.html#l00070">HandleArray.hpp:70</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1Animation_1_1HandleArray_html_a9593102d9745c32e1f4e7da738a409e3"><div class="ttname"><a href="classRa_1_1Core_1_1Animation_1_1HandleArray.html#a9593102d9745c32e1f4e7da738a409e3">Ra::Core::Animation::HandleArray::size</a></div><div class="ttdeci">virtual uint size() const</div><div class="ttdef"><b>Definition:</b> <a href="HandleArray_8hpp_source.html#l00038">HandleArray.hpp:38</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1Animation_1_1HandleArray_html_af7303c5d5f61da6afb882a5ca50ddbc7"><div class="ttname"><a href="classRa_1_1Core_1_1Animation_1_1HandleArray.html#af7303c5d5f61da6afb882a5ca50ddbc7">Ra::Core::Animation::HandleArray::setLabel</a></div><div class="ttdeci">void setLabel(const uint i, const Label &amp;text)</div><div class="ttdef"><b>Definition:</b> <a href="HandleArray_8hpp_source.html#l00109">HandleArray.hpp:109</a></div></div>
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdef"><b>Definition:</b> <a href="Cage_8cpp_source.html#l00003">Cage.cpp:3</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
@@ -183,7 +196,7 @@ $(document).ready(function(){initNavTree('HandleArray_8hpp_source.html',''); ini
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_721a74ea40d2768c46a3c9514389a16b.html">Animation</a></li><li class="navelem"><b>HandleArray.hpp</b></li>
-    <li class="footer">Generated on Mon Apr 3 2023 06:30:53 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Apr 3 2023 19:25:22 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

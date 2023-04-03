@@ -1,6 +1,6 @@
 <map id="Ra::IO::AssimpAnimationDataLoader::fetchTime" name="Ra::IO::AssimpAnimationDataLoader::fetchTime">
 <area shape="rect" id="node1" title="TIME." alt="" coords="5,136,220,177"/>
-<area shape="rect" id="node2" href="$namespaceRa_1_1Core_1_1Math.html#a46540d56930b4c1ff3b115872cde4893" title="Compare two numbers such that |x&#45;y| &lt; espilon*epsilonBoostFactor." alt="" coords="269,5,463,47"/>
+<area shape="rect" id="node2" href="$namespaceRa_1_1Core_1_1Math.html#a5d4492c5ddee7e4fa37dfdad0c4f8ba1" title="Compare two numbers such that |x&#45;y| &lt; espilon*epsilonBoostFactor." alt="" coords="269,5,463,47"/>
 <area shape="rect" id="node3" href="$classRa_1_1Core_1_1Asset_1_1AnimationTime.html#a885a9b6ea9485d5fcbf9c47009bf8d79" title=" " alt="" coords="268,71,464,112"/>
 <area shape="rect" id="node4" href="$classRa_1_1Core_1_1Asset_1_1AnimationTime.html#a14af25876f8e122d4d1c8eb8dccd636a" title=" " alt="" coords="268,136,464,177"/>
 <area shape="rect" id="node5" href="$classRa_1_1Core_1_1Asset_1_1AnimationData.html#af71f668049bf4cdd1d54d8a496f931f8" title=" " alt="" coords="268,201,464,243"/>

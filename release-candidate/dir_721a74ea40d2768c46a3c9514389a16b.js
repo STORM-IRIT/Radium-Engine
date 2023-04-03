@@ -6,7 +6,6 @@ var dir_721a74ea40d2768c46a3c9514389a16b =
     [ "DualQuaternionSkinning.hpp", "DualQuaternionSkinning_8hpp_source.html", null ],
     [ "HandleArray.cpp", "HandleArray_8cpp_source.html", null ],
     [ "HandleArray.hpp", "HandleArray_8hpp_source.html", null ],
-    [ "HandleArray.inl", "HandleArray_8inl_source.html", null ],
     [ "HandleWeight.hpp", "HandleWeight_8hpp_source.html", null ],
     [ "HandleWeightOperation.cpp", "HandleWeightOperation_8cpp_source.html", null ],
     [ "HandleWeightOperation.hpp", "HandleWeightOperation_8hpp_source.html", null ],
@@ -22,7 +21,6 @@ var dir_721a74ea40d2768c46a3c9514389a16b =
     [ "RotationCenterSkinning.hpp", "RotationCenterSkinning_8hpp_source.html", null ],
     [ "Sequence.cpp", "Sequence_8cpp_source.html", null ],
     [ "Sequence.hpp", "Sequence_8hpp_source.html", null ],
-    [ "Sequence.inl", "Sequence_8inl_source.html", null ],
     [ "Skeleton.cpp", "Skeleton_8cpp_source.html", null ],
     [ "Skeleton.hpp", "Skeleton_8hpp_source.html", null ],
     [ "SkinningData.hpp", "SkinningData_8hpp_source.html", null ]

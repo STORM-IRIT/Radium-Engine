@@ -52,7 +52,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.4.11</span>
+   &#160;<span id="projectnumber">1.4.12</span>
    </div>
   </td>
  </tr>
@@ -365,7 +365,7 @@ $(document).ready(function(){initNavTree('TimelineFrameSelector_8cpp_source.html
 <div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;}</div>
 <div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160; </div>
 <div class="line"><a name="l00253"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1TimelineFrameSelector.html#a25612263f5a7592308237db9d888e016">  253</a></span>&#160;<span class="keywordtype">void</span> TimelineFrameSelector::onMoveKeyFrame( Scalar time0, Scalar time1, <span class="keywordtype">bool</span> <span class="keyword">internal</span> ) {</div>
-<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;    <span class="keywordflow">if</span> ( <a class="code" href="namespaceRa_1_1Core_1_1Math.html#a46540d56930b4c1ff3b115872cde4893">Ra::Core::Math::areApproxEqual</a>( time0, time1 ) ) { <span class="keywordflow">return</span>; }</div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;    <span class="keywordflow">if</span> ( <a class="code" href="namespaceRa_1_1Core_1_1Math.html#a5d4492c5ddee7e4fa37dfdad0c4f8ba1">Ra::Core::Math::areApproxEqual</a>( time0, time1 ) ) { <span class="keywordflow">return</span>; }</div>
 <div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160; </div>
 <div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;    <span class="keyword">auto</span> it = std::find_if( m_keyFrames.begin(), m_keyFrames.end(), [<span class="keyword">this</span>]( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; t ) {</div>
 <div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;        return Ra::Core::Math::areApproxEqual( t, m_cursor );</div>
@@ -386,7 +386,7 @@ $(document).ready(function(){initNavTree('TimelineFrameSelector_8cpp_source.html
 <div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;}</div>
 <div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160; </div>
 <div class="line"><a name="l00274"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1TimelineFrameSelector.html#a6a8a1b470812dae561b60c93a3633a92">  274</a></span>&#160;<span class="keywordtype">void</span> TimelineFrameSelector::onMoveKeyFrames( Scalar time, Scalar offset, <span class="keywordtype">bool</span> <span class="keyword">internal</span> ) {</div>
-<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;    <span class="keywordflow">if</span> ( <a class="code" href="namespaceRa_1_1Core_1_1Math.html#a46540d56930b4c1ff3b115872cde4893">Ra::Core::Math::areApproxEqual</a>( offset, 0_ra ) ) { <span class="keywordflow">return</span>; }</div>
+<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;    <span class="keywordflow">if</span> ( <a class="code" href="namespaceRa_1_1Core_1_1Math.html#a5d4492c5ddee7e4fa37dfdad0c4f8ba1">Ra::Core::Math::areApproxEqual</a>( offset, 0_ra ) ) { <span class="keywordflow">return</span>; }</div>
 <div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160; </div>
 <div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;    <span class="keyword">auto</span> it = std::find_if( m_keyFrames.begin(), m_keyFrames.end(), [time]( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; t ) {</div>
 <div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;        return Ra::Core::Math::areApproxEqual( t, time );</div>
@@ -800,14 +800,14 @@ $(document).ready(function(){initNavTree('TimelineFrameSelector_8cpp_source.html
 <div class="line"><a name="l00686"></a><span class="lineno">  686</span>&#160;}</div>
 <div class="line"><a name="l00687"></a><span class="lineno">  687</span>&#160; </div>
 <div class="line"><a name="l00688"></a><span class="lineno">  688</span>&#160;} <span class="comment">// namespace Ra::Gui</span></div>
-<div class="ttc" id="anamespaceRa_1_1Core_1_1Math_html_a46540d56930b4c1ff3b115872cde4893"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Math.html#a46540d56930b4c1ff3b115872cde4893">Ra::Core::Math::areApproxEqual</a></div><div class="ttdeci">std::enable_if&lt;!std::numeric_limits&lt; T &gt;::is_integer, bool &gt;::type areApproxEqual(T x, T y, T espilonBoostFactor=T(10))</div><div class="ttdoc">Compare two numbers such that |x-y| &lt; espilon*epsilonBoostFactor.</div><div class="ttdef"><b>Definition:</b> <a href="Math_8inl_source.html#l00091">Math.inl:91</a></div></div>
+<div class="ttc" id="anamespaceRa_1_1Core_1_1Math_html_a5d4492c5ddee7e4fa37dfdad0c4f8ba1"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Math.html#a5d4492c5ddee7e4fa37dfdad0c4f8ba1">Ra::Core::Math::areApproxEqual</a></div><div class="ttdeci">std::enable_if&lt;!std::numeric_limits&lt; T &gt;::is_integer, bool &gt;::type areApproxEqual(T x, T y, T espilonBoostFactor=T(10))</div><div class="ttdoc">Compare two numbers such that |x-y| &lt; espilon*epsilonBoostFactor.</div><div class="ttdef"><b>Definition:</b> <a href="Math_8hpp_source.html#l00042">Math.hpp:42</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b5ac5e964c12a6b13a9d28feb9f3d3ed.html">Gui</a></li><li class="navelem"><a class="el" href="dir_c11d904bd882c8440c506ccb3c29fbe5.html">Timeline</a></li><li class="navelem"><b>TimelineFrameSelector.cpp</b></li>
-    <li class="footer">Generated on Mon Apr 3 2023 06:30:54 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Apr 3 2023 19:25:23 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

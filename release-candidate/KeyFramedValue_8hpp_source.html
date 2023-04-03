@@ -52,7 +52,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.4.11</span>
+   &#160;<span id="projectnumber">1.4.12</span>
    </div>
   </td>
  </tr>
@@ -182,7 +182,7 @@ $(document).ready(function(){initNavTree('KeyFramedValue_8hpp_source.html',''); 
 <div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;        <span class="keywordflow">if</span> ( upper == <a class="code" href="classRa_1_1Core_1_1Animation_1_1KeyFramedValue.html#a9c239a222d163f788320e340e6d6a873">m_keyframes</a>.begin() ) { <a class="code" href="classRa_1_1Core_1_1Animation_1_1KeyFramedValue.html#a9c239a222d163f788320e340e6d6a873">m_keyframes</a>.insert( upper, kf ); }</div>
 <div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;        <span class="keywordflow">else</span> {</div>
 <div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;            <span class="keyword">auto</span> lower = upper - 1;</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;            <span class="keywordflow">if</span> ( <a class="code" href="namespaceRa_1_1Core_1_1Math.html#a46540d56930b4c1ff3b115872cde4893">Math::areApproxEqual</a>( lower-&gt;first, t ) ) { lower-&gt;second = frame; }</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;            <span class="keywordflow">if</span> ( <a class="code" href="namespaceRa_1_1Core_1_1Math.html#a5d4492c5ddee7e4fa37dfdad0c4f8ba1">Math::areApproxEqual</a>( lower-&gt;first, t ) ) { lower-&gt;second = frame; }</div>
 <div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;            <span class="keywordflow">else</span> {</div>
 <div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;                <a class="code" href="classRa_1_1Core_1_1Animation_1_1KeyFramedValue.html#a9c239a222d163f788320e340e6d6a873">m_keyframes</a>.insert( upper, kf );</div>
 <div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;            }</div>
@@ -201,7 +201,7 @@ $(document).ready(function(){initNavTree('KeyFramedValue_8hpp_source.html',''); 
 <div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160; </div>
 <div class="line"><a name="l00153"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Animation_1_1KeyFramedValue.html#a83bcb95b86ea3b8e4b2690bf7ace7b83">  153</a></span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="classRa_1_1Core_1_1Animation_1_1KeyFramedValue.html#a83bcb95b86ea3b8e4b2690bf7ace7b83">moveKeyFrame</a>( <span class="keywordtype">size_t</span> i, <span class="keyword">const</span> Scalar&amp; t )<span class="keyword"> override </span>{</div>
 <div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;        <a class="code" href="classRa_1_1Core_1_1Animation_1_1KeyFramedValue.html#a53b79137b20c9ca06882fe60c5f0a0e3">KeyFrame</a> kf = <a class="code" href="classRa_1_1Core_1_1Animation_1_1KeyFramedValue.html#a9c239a222d163f788320e340e6d6a873">m_keyframes</a>[i];</div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;        <span class="keywordflow">if</span> ( !<a class="code" href="namespaceRa_1_1Core_1_1Math.html#a46540d56930b4c1ff3b115872cde4893">Ra::Core::Math::areApproxEqual</a>( kf.first, t ) ) {</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;        <span class="keywordflow">if</span> ( !<a class="code" href="namespaceRa_1_1Core_1_1Math.html#a5d4492c5ddee7e4fa37dfdad0c4f8ba1">Ra::Core::Math::areApproxEqual</a>( kf.first, t ) ) {</div>
 <div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;            <a class="code" href="classRa_1_1Core_1_1Animation_1_1KeyFramedValue.html#aa70c88426aca120abdb7fd61ee95688e">removeKeyFrame</a>( i );</div>
 <div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;            <a class="code" href="classRa_1_1Core_1_1Animation_1_1KeyFramedValue.html#a7607a8855a37987dc11a5aa826c8a236">insertKeyFrame</a>( t, kf.second );</div>
 <div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;        }</div>
@@ -230,7 +230,7 @@ $(document).ready(function(){initNavTree('KeyFramedValue_8hpp_source.html',''); 
 <div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;        <span class="comment">// here upper &gt; begin() since before first case is already taken into account.</span></div>
 <div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;        <span class="keyword">auto</span> lower = upper;</div>
 <div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;        --lower;</div>
-<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;        <span class="keywordflow">if</span> ( <a class="code" href="namespaceRa_1_1Core_1_1Math.html#a46540d56930b4c1ff3b115872cde4893">Math::areApproxEqual</a>( lower-&gt;first, t ) ) {</div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;        <span class="keywordflow">if</span> ( <a class="code" href="namespaceRa_1_1Core_1_1Math.html#a5d4492c5ddee7e4fa37dfdad0c4f8ba1">Math::areApproxEqual</a>( lower-&gt;first, t ) ) {</div>
 <div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;            <span class="keyword">const</span> <span class="keywordtype">size_t</span> i = std::distance( <a class="code" href="classRa_1_1Core_1_1Animation_1_1KeyFramedValue.html#a9c239a222d163f788320e340e6d6a873">m_keyframes</a>.begin(), lower );</div>
 <div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;            <span class="keywordflow">return</span> { i, i, 0_ra };</div>
 <div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;        }</div>
@@ -281,7 +281,7 @@ $(document).ready(function(){initNavTree('KeyFramedValue_8hpp_source.html',''); 
 <div class="ttc" id="aclassRa_1_1Core_1_1Animation_1_1KeyFramedValue_html_ad8ec91ca12be45f86cb9bd7ddf75f695"><div class="ttname"><a href="classRa_1_1Core_1_1Animation_1_1KeyFramedValue.html#ad8ec91ca12be45f86cb9bd7ddf75f695">Ra::Core::Animation::KeyFramedValue::findRange</a></div><div class="ttdeci">std::tuple&lt; size_t, size_t, Scalar &gt; findRange(Scalar t) const</div><div class="ttdef"><b>Definition:</b> <a href="KeyFramedValue_8hpp_source.html#l00183">KeyFramedValue.hpp:183</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Animation_1_1KeyFramedValue_html_ae4b7ebdd2750d853a39c97b989372e89"><div class="ttname"><a href="classRa_1_1Core_1_1Animation_1_1KeyFramedValue.html#ae4b7ebdd2750d853a39c97b989372e89">Ra::Core::Animation::KeyFramedValue::getKeyFrames</a></div><div class="ttdeci">const KeyFrames &amp; getKeyFrames() const</div><div class="ttdef"><b>Definition:</b> <a href="KeyFramedValue_8hpp_source.html#l00105">KeyFramedValue.hpp:105</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Animation_1_1KeyFramedValue_html_afb2a6a5b681685e5fe41c39f8b3d2a7b"><div class="ttname"><a href="classRa_1_1Core_1_1Animation_1_1KeyFramedValue.html#afb2a6a5b681685e5fe41c39f8b3d2a7b">Ra::Core::Animation::KeyFramedValue::Interpolator</a></div><div class="ttdeci">std::function&lt; VALUE_TYPE(const KeyFramedValue&lt; VALUE_TYPE &gt; &amp;, Scalar)&gt; Interpolator</div><div class="ttdoc">The type for interpolators.</div><div class="ttdef"><b>Definition:</b> <a href="KeyFramedValue_8hpp_source.html#l00072">KeyFramedValue.hpp:72</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_1_1Math_html_a46540d56930b4c1ff3b115872cde4893"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Math.html#a46540d56930b4c1ff3b115872cde4893">Ra::Core::Math::areApproxEqual</a></div><div class="ttdeci">std::enable_if&lt;!std::numeric_limits&lt; T &gt;::is_integer, bool &gt;::type areApproxEqual(T x, T y, T espilonBoostFactor=T(10))</div><div class="ttdoc">Compare two numbers such that |x-y| &lt; espilon*epsilonBoostFactor.</div><div class="ttdef"><b>Definition:</b> <a href="Math_8inl_source.html#l00091">Math.inl:91</a></div></div>
+<div class="ttc" id="anamespaceRa_1_1Core_1_1Math_html_a5d4492c5ddee7e4fa37dfdad0c4f8ba1"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Math.html#a5d4492c5ddee7e4fa37dfdad0c4f8ba1">Ra::Core::Math::areApproxEqual</a></div><div class="ttdeci">std::enable_if&lt;!std::numeric_limits&lt; T &gt;::is_integer, bool &gt;::type areApproxEqual(T x, T y, T espilonBoostFactor=T(10))</div><div class="ttdoc">Compare two numbers such that |x-y| &lt; espilon*epsilonBoostFactor.</div><div class="ttdef"><b>Definition:</b> <a href="Math_8hpp_source.html#l00042">Math.hpp:42</a></div></div>
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdef"><b>Definition:</b> <a href="Cage_8cpp_source.html#l00003">Cage.cpp:3</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
@@ -289,7 +289,7 @@ $(document).ready(function(){initNavTree('KeyFramedValue_8hpp_source.html',''); 
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_721a74ea40d2768c46a3c9514389a16b.html">Animation</a></li><li class="navelem"><b>KeyFramedValue.hpp</b></li>
-    <li class="footer">Generated on Mon Apr 3 2023 06:30:53 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Apr 3 2023 19:25:22 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

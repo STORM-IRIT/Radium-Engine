@@ -52,7 +52,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.4.11</span>
+   &#160;<span id="projectnumber">1.4.12</span>
    </div>
   </td>
  </tr>
@@ -193,16 +193,53 @@ $(document).ready(function(){initNavTree('Entity_8hpp_source.html',''); initResi
 <div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
 <div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;};</div>
 <div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160; </div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;} <span class="comment">// namespace Scene</span></div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;} <span class="comment">// namespace Engine</span></div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;} <span class="comment">// namespace Ra</span></div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="keyword">inline</span> <span class="keyword">const</span> std::string&amp; Entity::getName()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <span class="keywordflow">return</span> m_name;</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;}</div>
 <div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="preprocessor">#include &lt;Engine/Scene/Entity.inl&gt;</span></div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> Entity::rename( <span class="keyword">const</span> std::string&amp; name ) {</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    m_name = name;</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;}</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; </div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> Entity::setTransform( <span class="keyword">const</span> Core::Transform&amp; transform ) {</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    m_transformChanged        = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    m_doubleBufferedTransform = transform;</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;}</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160; </div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> Entity::setTransform( <span class="keyword">const</span> Core::Matrix4&amp; transform ) {</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    setTransform( Core::Transform( transform ) );</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;}</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160; </div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;<span class="keyword">inline</span> <span class="keyword">const</span> Core::Transform&amp; Entity::getTransform()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    <span class="comment">// Radium-V2 : why a mutex on read ? there is no lock on write on this!</span></div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    std::lock_guard&lt;std::mutex&gt; lock( m_transformMutex );</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    <span class="keywordflow">return</span> m_transform;</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;}</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160; </div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;<span class="keyword">inline</span> <span class="keyword">const</span> Core::Matrix4&amp; Entity::getTransformAsMatrix()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    <span class="comment">// Radium-V2 : why a mutex on read ? there is no lock on write on this!</span></div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    std::lock_guard&lt;std::mutex&gt; lock( m_transformMutex );</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    <span class="keywordflow">return</span> m_transform.matrix();</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;}</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160; </div>
+<div class="line"><a name="l00119"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1Entity.html#a92b1817bc923e0c0ef8ee5b5ee4dcf40">  119</a></span>&#160;<span class="keyword">inline</span> uint <a class="code" href="classRa_1_1Engine_1_1Scene_1_1Entity.html#a92b1817bc923e0c0ef8ee5b5ee4dcf40">Entity::getNumComponents</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    <span class="keywordflow">return</span> uint( m_components.size() );</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;}</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160; </div>
+<div class="line"><a name="l00123"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1Entity.html#a534acbd29f5dc60bcea54c7a826bc92f">  123</a></span>&#160;<span class="keyword">inline</span> <a class="code" href="classRa_1_1Core_1_1Utils_1_1Observable.html">Core::Utils::Observable&lt;const Entity*&gt;</a>&amp; <a class="code" href="classRa_1_1Engine_1_1Scene_1_1Entity.html#a534acbd29f5dc60bcea54c7a826bc92f">Entity::transformationObservers</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    <span class="keywordflow">return</span> m_transformationObservers;</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;}</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160; </div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;} <span class="comment">// namespace Scene</span></div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;} <span class="comment">// namespace Engine</span></div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;} <span class="comment">// namespace Ra</span></div>
 <div class="ttc" id="aTypes_8hpp_html"><div class="ttname"><a href="Types_8hpp.html">Types.hpp</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1IndexedObject_html"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1IndexedObject.html">Ra::Core::Utils::IndexedObject</a></div><div class="ttdef"><b>Definition:</b> <a href="IndexedObject_8hpp_source.html#l00013">IndexedObject.hpp:14</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1Observable_html"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1Observable.html">Ra::Core::Utils::Observable</a></div><div class="ttdef"><b>Definition:</b> <a href="Observable_8hpp_source.html#l00033">Observable.hpp:34</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1Component_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1Component.html">Ra::Engine::Scene::Component</a></div><div class="ttdoc">A component is an element that can be updated by a system. It is also linked to some other components...</div><div class="ttdef"><b>Definition:</b> <a href="Component_8hpp_source.html#l00030">Component.hpp:31</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1Entity_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1Entity.html">Ra::Engine::Scene::Entity</a></div><div class="ttdoc">An entity is an scene element. It ties together components with a transform.</div><div class="ttdef"><b>Definition:</b> <a href="Entity_8hpp_source.html#l00022">Entity.hpp:23</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1Entity_html_a534acbd29f5dc60bcea54c7a826bc92f"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1Entity.html#a534acbd29f5dc60bcea54c7a826bc92f">Ra::Engine::Scene::Entity::transformationObservers</a></div><div class="ttdeci">Core::Utils::Observable&lt; const Entity * &gt; &amp; transformationObservers() const</div><div class="ttdoc">get a ref to transformation observers to add/remove an observer</div><div class="ttdef"><b>Definition:</b> <a href="Entity_8hpp_source.html#l00123">Entity.hpp:123</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1Entity_html_a92b1817bc923e0c0ef8ee5b5ee4dcf40"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1Entity.html#a92b1817bc923e0c0ef8ee5b5ee4dcf40">Ra::Engine::Scene::Entity::getNumComponents</a></div><div class="ttdeci">uint getNumComponents() const</div><div class="ttdoc">Get component belonging to a given system.</div><div class="ttdef"><b>Definition:</b> <a href="Entity_8hpp_source.html#l00119">Entity.hpp:119</a></div></div>
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdef"><b>Definition:</b> <a href="Cage_8cpp_source.html#l00003">Cage.cpp:3</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
@@ -210,7 +247,7 @@ $(document).ready(function(){initNavTree('Entity_8hpp_source.html',''); initResi
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_89bb22796d297d82305d45a42e7934d2.html">Scene</a></li><li class="navelem"><b>Entity.hpp</b></li>
-    <li class="footer">Generated on Mon Apr 3 2023 06:30:54 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Apr 3 2023 19:25:23 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

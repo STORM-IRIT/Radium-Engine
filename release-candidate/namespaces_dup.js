@@ -1,18 +1,16 @@
 var namespaces_dup =
 [
     [ "Eigen", null, [
-      [ "operator*", "LinearAlgebra_8inl.html#adb9d29778c9dd8f53089186aa8bcdfc2", null ],
-      [ "operator*", "LinearAlgebra_8inl.html#a617c0d7f4414e78d5b5bb80065144922", null ],
-      [ "operator+", "LinearAlgebra_8inl.html#a7078340104ea3ea5583a98a96e39d9c5", null ],
-      [ "operator/", "LinearAlgebra_8inl.html#a05bf1b4a689d9f10b69c44ac2aa00786", null ]
-    ] ],
-    [ "OpenMesh", null, [
-      [ "cross", "OpenMesh_8hpp.html#a71e7f1dd3eac016d2b8245ac408a291c", null ],
-      [ "dot", "OpenMesh_8hpp.html#a575b338f0fc9ecb5393d23e977e6ac38", null ],
-      [ "norm", "OpenMesh_8hpp.html#a8205f789ce08919bc11c58383574596c", null ],
-      [ "normalize", "OpenMesh_8hpp.html#ad13b778ffa57c61215718780d87b544b", null ],
-      [ "sqrnorm", "OpenMesh_8hpp.html#a3608e743b035823f133f10cfffcb6e31", null ],
-      [ "vectorize", "OpenMesh_8hpp.html#a2ef5e72cb941155cf6c3f976d209668f", null ]
+      [ "cross", "OpenMesh_8hpp.html#a24bc0eae567a973a1fb1d0f793a9899d", null ],
+      [ "dot", "OpenMesh_8hpp.html#a88b7c4f5d049f75ebfef6968ad1823a4", null ],
+      [ "norm", "OpenMesh_8hpp.html#a1db7d350f8ca152b3e477f225d2677e8", null ],
+      [ "normalize", "OpenMesh_8hpp.html#a16849a18eaf9d34e084272e1fda3b0f5", null ],
+      [ "operator*", "LinearAlgebra_8hpp.html#adb9d29778c9dd8f53089186aa8bcdfc2", null ],
+      [ "operator*", "LinearAlgebra_8hpp.html#a617c0d7f4414e78d5b5bb80065144922", null ],
+      [ "operator+", "LinearAlgebra_8hpp.html#a7078340104ea3ea5583a98a96e39d9c5", null ],
+      [ "operator/", "LinearAlgebra_8hpp.html#a05bf1b4a689d9f10b69c44ac2aa00786", null ],
+      [ "sqrnorm", "OpenMesh_8hpp.html#aa13253fd757f0f9f063e6fa8c0700a79", null ],
+      [ "vectorize", "OpenMesh_8hpp.html#aed708bb8851b4d2c96c834a9890b6549", null ]
     ] ],
     [ "Qt_utils", null, [
       [ "rec_set_visible", "qt__utils_8hpp.html#a65fbfc2c434ebd9f8c61f5c26cf67d6e", null ]

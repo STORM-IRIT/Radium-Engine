@@ -52,7 +52,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.4.11</span>
+   &#160;<span id="projectnumber">1.4.12</span>
    </div>
   </td>
  </tr>
@@ -474,7 +474,7 @@ class Ra::Core::Geometry::IndexedGeometry&lt; T &gt;</h3>
 <p>A single layer <a class="el" href="classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html" title="AbstractGeometry with per-vertex attributes and layers of indices. Each layer represents a different ...">MultiIndexedGeometry</a>. </p>
 <p>This class actually provide compatibility with old geometry with a main layer. Main layer contains indices of a specific type (point, line, triangle, poly). Derived classes explicit the kind of indices of the main layer. Since <a class="el" href="classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html" title="A single layer MultiIndexedGeometry.">IndexedGeometry</a> is a <a class="el" href="classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html" title="AbstractGeometry with per-vertex attributes and layers of indices. Each layer represents a different ...">MultiIndexedGeometry</a>, one can add index layer on the fly. </p><dl class="section warning"><dt>Warning</dt><dd>will be depracated when <a class="el" href="classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html" title="AbstractGeometry with per-vertex attributes and layers of indices. Each layer represents a different ...">MultiIndexedGeometry</a> will be supported directly on the engine side. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="IndexedGeometry_8hpp_source.html#l00516">516</a> of file <a class="el" href="IndexedGeometry_8hpp_source.html">IndexedGeometry.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="IndexedGeometry_8hpp_source.html#l00515">515</a> of file <a class="el" href="IndexedGeometry_8hpp_source.html">IndexedGeometry.hpp</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a7b980c93c40307027025d3919a948eaa"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7b980c93c40307027025d3919a948eaa">&#9670;&nbsp;</a></span>getIndicesWithLock()</h2>
@@ -499,7 +499,7 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 <p>read write access to indices. Cause indices to be "lock" for the caller need to be unlock by the caller before any one can ask for write access. </p>
 
-<p class="definition">Definition at line <a class="el" href="IndexedGeometry_8inl_source.html#l00200">200</a> of file <a class="el" href="IndexedGeometry_8inl_source.html">IndexedGeometry.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="IndexedGeometry_8hpp_source.html#l00751">751</a> of file <a class="el" href="IndexedGeometry_8hpp_source.html">IndexedGeometry.hpp</a>.</p>
 
 </div>
 </div>
@@ -530,13 +530,12 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 <p>set indices. Indices must be unlock, i.e. no one should have write access to it. Notify observers of the update. </p>
 
-<p class="definition">Definition at line <a class="el" href="IndexedGeometry_8inl_source.html#l00211">211</a> of file <a class="el" href="IndexedGeometry_8inl_source.html">IndexedGeometry.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="IndexedGeometry_8hpp_source.html#l00762">762</a> of file <a class="el" href="IndexedGeometry_8hpp_source.html">IndexedGeometry.hpp</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following files:<ul>
+<hr/>The documentation for this class was generated from the following file:<ul>
 <li>/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/src/Core/Geometry/<a class="el" href="IndexedGeometry_8hpp_source.html">IndexedGeometry.hpp</a></li>
-<li>/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/src/Core/Geometry/<a class="el" href="IndexedGeometry_8inl_source.html">IndexedGeometry.inl</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -544,7 +543,7 @@ template&lt;typename T &gt; </div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><b>Core</b></li><li class="navelem"><b>Geometry</b></li><li class="navelem"><a class="el" href="classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html">IndexedGeometry</a></li>
-    <li class="footer">Generated on Mon Apr 3 2023 06:30:55 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Apr 3 2023 19:25:24 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

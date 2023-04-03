@@ -14,7 +14,7 @@ var classRa_1_1Core_1_1AdjacencyList =
     [ "~AdjacencyList", "classRa_1_1Core_1_1AdjacencyList.html#acf4bc92b9f8609f88091a91c20d30d69", null ],
     [ "addNode", "classRa_1_1Core_1_1AdjacencyList.html#ae842bd4174073b36bbe9b63b5a86b4b3", null ],
     [ "addRoot", "classRa_1_1Core_1_1AdjacencyList.html#a59e6ff768f98ea42216765051f5d833e", null ],
-    [ "children", "classRa_1_1Core_1_1AdjacencyList.html#afb228941d27a01e44071d404e8b58aa4", null ],
+    [ "children", "classRa_1_1Core_1_1AdjacencyList.html#ad80066b99ae329e24d3887c6b78f33d8", null ],
     [ "clear", "classRa_1_1Core_1_1AdjacencyList.html#a091ffa7849106832fb9ddd91626ca5ce", null ],
     [ "computeConsistencyStatus", "classRa_1_1Core_1_1AdjacencyList.html#a3471e534b418d3d55f3a783b64e2ab53", null ],
     [ "extractEdgeList", "classRa_1_1Core_1_1AdjacencyList.html#ac9dc1d5c1007d44bace7d96c5a875fdd", null ],
@@ -25,7 +25,7 @@ var classRa_1_1Core_1_1AdjacencyList =
     [ "isLeaf", "classRa_1_1Core_1_1AdjacencyList.html#a778181dcdae7c7a6a482401c89d75253", null ],
     [ "isRoot", "classRa_1_1Core_1_1AdjacencyList.html#a9bf4ac88fdea50ef9916b641617d4827", null ],
     [ "operator=", "classRa_1_1Core_1_1AdjacencyList.html#a608cb8f6c0398e9b37a5d08a2b71024e", null ],
-    [ "parents", "classRa_1_1Core_1_1AdjacencyList.html#a45d58d25c05abf04f4f6526ef3ae5a26", null ],
+    [ "parents", "classRa_1_1Core_1_1AdjacencyList.html#ac17a9e01fb4ddd0238d846e6fc86872a", null ],
     [ "pruneLeaves", "classRa_1_1Core_1_1AdjacencyList.html#a4f812530789952c5d57c53d63449542a", null ],
     [ "pruneLeaves", "classRa_1_1Core_1_1AdjacencyList.html#abd88b9db0858e679b7f831dec59fab00", null ],
     [ "size", "classRa_1_1Core_1_1AdjacencyList.html#a48b78362d882a41b32f0df6aa1d42855", null ]

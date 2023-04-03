@@ -52,7 +52,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.4.11</span>
+   &#160;<span id="projectnumber">1.4.12</span>
    </div>
   </td>
  </tr>
@@ -114,139 +114,236 @@ $(document).ready(function(){initNavTree('ControlPanel_8hpp_source.html',''); in
 <div class="contents">
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="Types_8hpp.html">Core/Types.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;Gui/RaGui.hpp&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;QFrame&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;QVBoxLayout&gt;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;Core/Utils/Color.hpp&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;Gui/RaGui.hpp&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;Gui/Widgets/ConstrainedNumericSpinBox.hpp&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;Gui/Widgets/VectorEditor.hpp&gt;</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;functional&gt;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;stack&gt;</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;Core/Utils/Color.hpp&gt;</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">namespace </span>Gui {</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">namespace </span>Widgets {</div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1Widgets_1_1ControlPanel.html">   22</a></span>&#160;<span class="keyword">class </span>RA_GUI_API <a class="code" href="classRa_1_1Gui_1_1Widgets_1_1ControlPanel.html">ControlPanel</a> : <span class="keyword">public</span> QFrame</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;{</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    Q_OBJECT</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;  <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keyword">explicit</span> <a class="code" href="classRa_1_1Gui_1_1Widgets_1_1ControlPanel.html">ControlPanel</a>( <span class="keyword">const</span> std::string&amp; name, <span class="keywordtype">bool</span> hline = <span class="keyword">true</span>, QWidget* parent = <span class="keyword">nullptr</span> );</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <a class="code" href="classRa_1_1Gui_1_1Widgets_1_1ControlPanel.html">ControlPanel</a>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Gui_1_1Widgets_1_1ControlPanel.html">ControlPanel</a>&amp; ) = <span class="keyword">delete</span>;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <a class="code" href="classRa_1_1Gui_1_1Widgets_1_1ControlPanel.html">ControlPanel</a>&amp; operator=( <span class="keyword">const</span> <a class="code" href="classRa_1_1Gui_1_1Widgets_1_1ControlPanel.html">ControlPanel</a>&amp; ) = <span class="keyword">delete</span>;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <a class="code" href="classRa_1_1Gui_1_1Widgets_1_1ControlPanel.html">ControlPanel</a>( <a class="code" href="classRa_1_1Gui_1_1Widgets_1_1ControlPanel.html">ControlPanel</a>&amp;&amp; )                 = <span class="keyword">delete</span>;</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <a class="code" href="classRa_1_1Gui_1_1Widgets_1_1ControlPanel.html">ControlPanel</a>&amp; operator=( <a class="code" href="classRa_1_1Gui_1_1Widgets_1_1ControlPanel.html">ControlPanel</a>&amp;&amp; ) = <span class="keyword">delete</span>;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    ~<a class="code" href="classRa_1_1Gui_1_1Widgets_1_1ControlPanel.html">ControlPanel</a>() <span class="keyword">override</span>                  = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordtype">void</span> beginLayout( QBoxLayout::Direction dir = QBoxLayout::LeftToRight );</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keywordtype">void</span> endLayout( <span class="keywordtype">bool</span> separator = <span class="keyword">false</span> );</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keywordtype">void</span> addSeparator();</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keywordtype">void</span> addStretch( <span class="keywordtype">int</span> stretch = 0 );</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keywordtype">void</span> addOption( <span class="keyword">const</span> std::string&amp; name,</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;                    std::function&lt;<span class="keywordtype">void</span>( <span class="keywordtype">bool</span> )&gt; callback,</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;                    <span class="keywordtype">bool</span> set                   = <span class="keyword">false</span>,</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;                    <span class="keyword">const</span> std::string&amp; tooltip = <span class="stringliteral">&quot;&quot;</span> );</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keywordtype">void</span> addLabel( <span class="keyword">const</span> std::string&amp; text );</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <span class="keywordtype">void</span> addButton( <span class="keyword">const</span> std::string&amp; name,</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;                    std::function&lt;<span class="keywordtype">void</span>()&gt; callback,</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;                    <span class="keyword">const</span> std::string&amp; tooltip = <span class="stringliteral">&quot;&quot;</span> );</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160; </div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <span class="keywordtype">void</span> addColorInput( <span class="keyword">const</span> std::string&amp; name,</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;                        <span class="keyword">const</span> std::function&lt;<span class="keywordtype">void</span>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html">Ra::Core::Utils::Color</a>&amp; clr )&gt;&amp; callback,</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;                        <a class="code" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html">Ra::Core::Utils::Color</a> color = Ra::Core::Utils::Color::Black(),</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;                        <span class="keywordtype">bool</span> withAlpha               = <span class="keyword">true</span>,</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;                        <span class="keyword">const</span> std::string&amp; tooltip   = <span class="stringliteral">&quot;&quot;</span> );</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160; </div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T = Scalar&gt;</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    <span class="keywordtype">void</span> addNumberInput( <span class="keyword">const</span> std::string&amp; name,</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;                         std::function&lt;<span class="keywordtype">void</span>( T )&gt; callback,</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;                         T initial,</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;                         T min                      = std::numeric_limits&lt;T&gt;::lowest(),</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;                         T max                      = std::numeric_limits&lt;T&gt;::max(),</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;                         <span class="keyword">const</span> std::string&amp; tooltip = <span class="stringliteral">&quot;&quot;</span>,</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;                         <span class="keywordtype">int</span> dec                    = 3 );</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160; </div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T = Scalar&gt;</div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;    <span class="keywordtype">void</span> addConstrainedNumberInput( <span class="keyword">const</span> std::string&amp; name,</div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;                                    std::function&lt;<span class="keywordtype">void</span>( T )&gt; callback,</div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;                                    Scalar initial,</div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;                                    std::function&lt;<span class="keywordtype">bool</span>( T )&gt; predicate,</div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;                                    <span class="keyword">const</span> std::string&amp; tooltip = <span class="stringliteral">&quot;&quot;</span>,</div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;                                    <span class="keywordtype">int</span> dec                    = 3 );</div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160; </div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;    <span class="keywordtype">void</span> addSliderInput( <span class="keyword">const</span> std::string&amp; name,</div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;                         std::function&lt;<span class="keywordtype">void</span>( <span class="keywordtype">int</span> )&gt; callback,</div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;                         <span class="keywordtype">int</span> initial                = 0,</div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;                         <span class="keywordtype">int</span> min                    = 0,</div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;                         <span class="keywordtype">int</span> max                    = 100,</div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;                         <span class="keyword">const</span> std::string&amp; tooltip = <span class="stringliteral">&quot;&quot;</span> );</div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160; </div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;    <span class="keywordtype">void</span> addPowerSliderInput( <span class="keyword">const</span> std::string&amp; name,</div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;                              std::function&lt;<span class="keywordtype">void</span>( <span class="keywordtype">double</span> )&gt; callback,</div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;                              <span class="keywordtype">double</span> initial             = 0,</div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;                              <span class="keywordtype">double</span> min                 = 0,</div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;                              <span class="keywordtype">double</span> max                 = 100,</div>
-<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;                              <span class="keyword">const</span> std::string&amp; tooltip = <span class="stringliteral">&quot;&quot;</span> );</div>
-<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160; </div>
-<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T = Scalar&gt;</div>
-<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;    <span class="keywordtype">void</span> addVectorInput( <span class="keyword">const</span> std::string&amp; name,</div>
-<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;                         std::function&lt;<span class="keywordtype">void</span>( <span class="keyword">const</span> std::vector&lt;T&gt;&amp; )&gt; callback,</div>
-<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;                         <span class="keyword">const</span> std::vector&lt;T&gt;&amp; initial,</div>
-<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;                         <span class="keyword">const</span> std::string&amp; tooltip = <span class="stringliteral">&quot;&quot;</span> );</div>
-<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160; </div>
-<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;    <span class="keywordtype">void</span> addMatrixInput( <span class="keyword">const</span> std::string&amp; name,</div>
-<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;                         std::function&lt;<span class="keywordtype">void</span>( <span class="keyword">const</span> Ra::Core::MatrixN&amp; )&gt; callback,</div>
-<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;                         <span class="keyword">const</span> Ra::Core::MatrixN&amp; initial,</div>
-<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;                         <span class="keywordtype">int</span> dec                    = 3,</div>
-<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;                         <span class="keyword">const</span> std::string&amp; tooltip = <span class="stringliteral">&quot;&quot;</span> );</div>
-<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160; </div>
-<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;    <span class="keywordtype">void</span> addFileInput( <span class="keyword">const</span> std::string&amp; name,</div>
-<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;                       std::function&lt;<span class="keywordtype">void</span>( std::string )&gt; callback,</div>
-<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;                       <span class="keyword">const</span> std::string&amp; rootDirectory,</div>
-<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;                       <span class="keyword">const</span> std::string&amp; filters,</div>
-<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;                       <span class="keyword">const</span> std::string&amp; tooltip = <span class="stringliteral">&quot;&quot;</span> );</div>
-<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160; </div>
-<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;    <span class="keywordtype">void</span> addFileOutput( <span class="keyword">const</span> std::string&amp; name,</div>
-<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;                        std::function&lt;<span class="keywordtype">void</span>( std::string )&gt; callback,</div>
-<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;                        <span class="keyword">const</span> std::string&amp; rootDirectory,</div>
-<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;                        <span class="keyword">const</span> std::string&amp; filters,</div>
-<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;                        <span class="keyword">const</span> std::string&amp; tooltip = <span class="stringliteral">&quot;&quot;</span> );</div>
-<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160; </div>
-<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;    <span class="keywordtype">void</span> addComboBox( <span class="keyword">const</span> std::string&amp; name,</div>
-<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;                      std::function&lt;<span class="keywordtype">void</span>( <span class="keywordtype">int</span> )&gt; callback,</div>
-<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;                      <span class="keywordtype">int</span> initial,</div>
-<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;                      <span class="keyword">const</span> std::vector&lt;std::string&gt;&amp; items,</div>
-<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;                      <span class="keyword">const</span> std::string&amp; tooltip = <span class="stringliteral">&quot;&quot;</span> );</div>
-<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;    <span class="keywordtype">void</span> addComboBox( <span class="keyword">const</span> std::string&amp; name,</div>
-<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;                      std::function&lt;<span class="keywordtype">void</span>( <span class="keyword">const</span> QString&amp; )&gt; callback,</div>
-<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;                      <span class="keyword">const</span> std::string&amp; initial,</div>
-<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;                      <span class="keyword">const</span> std::vector&lt;std::string&gt;&amp; items,</div>
-<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;                      <span class="keyword">const</span> std::string&amp; tooltip = <span class="stringliteral">&quot;&quot;</span> );</div>
-<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160; </div>
-<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;    <span class="keywordtype">void</span> addWidget( QWidget* newWidget );</div>
-<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160; </div>
-<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;  <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;    QVBoxLayout* m_contentLayout;</div>
-<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160; </div>
-<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;    QBoxLayout* m_currentLayout;</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;QFrame&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;QVBoxLayout&gt;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;functional&gt;</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;stack&gt;</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &lt;QLabel&gt;</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">namespace </span>Gui {</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">namespace </span>Widgets {</div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1Widgets_1_1ControlPanel.html">   25</a></span>&#160;<span class="keyword">class </span>RA_GUI_API <a class="code" href="classRa_1_1Gui_1_1Widgets_1_1ControlPanel.html">ControlPanel</a> : <span class="keyword">public</span> QFrame</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;{</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    Q_OBJECT</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;  <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keyword">explicit</span> <a class="code" href="classRa_1_1Gui_1_1Widgets_1_1ControlPanel.html">ControlPanel</a>( <span class="keyword">const</span> std::string&amp; name, <span class="keywordtype">bool</span> hline = <span class="keyword">true</span>, QWidget* parent = <span class="keyword">nullptr</span> );</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <a class="code" href="classRa_1_1Gui_1_1Widgets_1_1ControlPanel.html">ControlPanel</a>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Gui_1_1Widgets_1_1ControlPanel.html">ControlPanel</a>&amp; ) = <span class="keyword">delete</span>;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <a class="code" href="classRa_1_1Gui_1_1Widgets_1_1ControlPanel.html">ControlPanel</a>&amp; operator=( <span class="keyword">const</span> <a class="code" href="classRa_1_1Gui_1_1Widgets_1_1ControlPanel.html">ControlPanel</a>&amp; ) = <span class="keyword">delete</span>;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <a class="code" href="classRa_1_1Gui_1_1Widgets_1_1ControlPanel.html">ControlPanel</a>( <a class="code" href="classRa_1_1Gui_1_1Widgets_1_1ControlPanel.html">ControlPanel</a>&amp;&amp; )                 = <span class="keyword">delete</span>;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <a class="code" href="classRa_1_1Gui_1_1Widgets_1_1ControlPanel.html">ControlPanel</a>&amp; operator=( <a class="code" href="classRa_1_1Gui_1_1Widgets_1_1ControlPanel.html">ControlPanel</a>&amp;&amp; ) = <span class="keyword">delete</span>;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    ~<a class="code" href="classRa_1_1Gui_1_1Widgets_1_1ControlPanel.html">ControlPanel</a>() <span class="keyword">override</span>                  = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keywordtype">void</span> beginLayout( QBoxLayout::Direction dir = QBoxLayout::LeftToRight );</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keywordtype">void</span> endLayout( <span class="keywordtype">bool</span> separator = <span class="keyword">false</span> );</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keywordtype">void</span> addSeparator();</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keywordtype">void</span> addStretch( <span class="keywordtype">int</span> stretch = 0 );</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="keywordtype">void</span> addOption( <span class="keyword">const</span> std::string&amp; name,</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;                    std::function&lt;<span class="keywordtype">void</span>( <span class="keywordtype">bool</span> )&gt; callback,</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;                    <span class="keywordtype">bool</span> set                   = <span class="keyword">false</span>,</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;                    <span class="keyword">const</span> std::string&amp; tooltip = <span class="stringliteral">&quot;&quot;</span> );</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <span class="keywordtype">void</span> addLabel( <span class="keyword">const</span> std::string&amp; text );</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160; </div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <span class="keywordtype">void</span> addButton( <span class="keyword">const</span> std::string&amp; name,</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;                    std::function&lt;<span class="keywordtype">void</span>()&gt; callback,</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;                    <span class="keyword">const</span> std::string&amp; tooltip = <span class="stringliteral">&quot;&quot;</span> );</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160; </div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    <span class="keywordtype">void</span> addColorInput( <span class="keyword">const</span> std::string&amp; name,</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;                        <span class="keyword">const</span> std::function&lt;<span class="keywordtype">void</span>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html">Ra::Core::Utils::Color</a>&amp; clr )&gt;&amp; callback,</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;                        <a class="code" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html">Ra::Core::Utils::Color</a> color = Ra::Core::Utils::Color::Black(),</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;                        <span class="keywordtype">bool</span> withAlpha               = <span class="keyword">true</span>,</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;                        <span class="keyword">const</span> std::string&amp; tooltip   = <span class="stringliteral">&quot;&quot;</span> );</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160; </div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T = Scalar&gt;</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    <span class="keywordtype">void</span> addNumberInput( <span class="keyword">const</span> std::string&amp; name,</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;                         std::function&lt;<span class="keywordtype">void</span>( T )&gt; callback,</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;                         T initial,</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;                         T min                      = std::numeric_limits&lt;T&gt;::lowest(),</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;                         T max                      = std::numeric_limits&lt;T&gt;::max(),</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;                         <span class="keyword">const</span> std::string&amp; tooltip = <span class="stringliteral">&quot;&quot;</span>,</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;                         <span class="keywordtype">int</span> dec                    = 3 );</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160; </div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T = Scalar&gt;</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;    <span class="keywordtype">void</span> addConstrainedNumberInput( <span class="keyword">const</span> std::string&amp; name,</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;                                    std::function&lt;<span class="keywordtype">void</span>( T )&gt; callback,</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;                                    Scalar initial,</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;                                    std::function&lt;<span class="keywordtype">bool</span>( T )&gt; predicate,</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;                                    <span class="keyword">const</span> std::string&amp; tooltip = <span class="stringliteral">&quot;&quot;</span>,</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;                                    <span class="keywordtype">int</span> dec                    = 3 );</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160; </div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;    <span class="keywordtype">void</span> addSliderInput( <span class="keyword">const</span> std::string&amp; name,</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;                         std::function&lt;<span class="keywordtype">void</span>( <span class="keywordtype">int</span> )&gt; callback,</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;                         <span class="keywordtype">int</span> initial                = 0,</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;                         <span class="keywordtype">int</span> min                    = 0,</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;                         <span class="keywordtype">int</span> max                    = 100,</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;                         <span class="keyword">const</span> std::string&amp; tooltip = <span class="stringliteral">&quot;&quot;</span> );</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160; </div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;    <span class="keywordtype">void</span> addPowerSliderInput( <span class="keyword">const</span> std::string&amp; name,</div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;                              std::function&lt;<span class="keywordtype">void</span>( <span class="keywordtype">double</span> )&gt; callback,</div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;                              <span class="keywordtype">double</span> initial             = 0,</div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;                              <span class="keywordtype">double</span> min                 = 0,</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;                              <span class="keywordtype">double</span> max                 = 100,</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;                              <span class="keyword">const</span> std::string&amp; tooltip = <span class="stringliteral">&quot;&quot;</span> );</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160; </div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T = Scalar&gt;</div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;    <span class="keywordtype">void</span> addVectorInput( <span class="keyword">const</span> std::string&amp; name,</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;                         std::function&lt;<span class="keywordtype">void</span>( <span class="keyword">const</span> std::vector&lt;T&gt;&amp; )&gt; callback,</div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;                         <span class="keyword">const</span> std::vector&lt;T&gt;&amp; initial,</div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;                         <span class="keyword">const</span> std::string&amp; tooltip = <span class="stringliteral">&quot;&quot;</span> );</div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160; </div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;    <span class="keywordtype">void</span> addMatrixInput( <span class="keyword">const</span> std::string&amp; name,</div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;                         std::function&lt;<span class="keywordtype">void</span>( <span class="keyword">const</span> Ra::Core::MatrixN&amp; )&gt; callback,</div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;                         <span class="keyword">const</span> Ra::Core::MatrixN&amp; initial,</div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;                         <span class="keywordtype">int</span> dec                    = 3,</div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;                         <span class="keyword">const</span> std::string&amp; tooltip = <span class="stringliteral">&quot;&quot;</span> );</div>
+<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160; </div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;    <span class="keywordtype">void</span> addFileInput( <span class="keyword">const</span> std::string&amp; name,</div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;                       std::function&lt;<span class="keywordtype">void</span>( std::string )&gt; callback,</div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;                       <span class="keyword">const</span> std::string&amp; rootDirectory,</div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;                       <span class="keyword">const</span> std::string&amp; filters,</div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;                       <span class="keyword">const</span> std::string&amp; tooltip = <span class="stringliteral">&quot;&quot;</span> );</div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160; </div>
+<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;    <span class="keywordtype">void</span> addFileOutput( <span class="keyword">const</span> std::string&amp; name,</div>
+<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;                        std::function&lt;<span class="keywordtype">void</span>( std::string )&gt; callback,</div>
+<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;                        <span class="keyword">const</span> std::string&amp; rootDirectory,</div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;                        <span class="keyword">const</span> std::string&amp; filters,</div>
+<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;                        <span class="keyword">const</span> std::string&amp; tooltip = <span class="stringliteral">&quot;&quot;</span> );</div>
+<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160; </div>
+<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;    <span class="keywordtype">void</span> addComboBox( <span class="keyword">const</span> std::string&amp; name,</div>
+<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;                      std::function&lt;<span class="keywordtype">void</span>( <span class="keywordtype">int</span> )&gt; callback,</div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;                      <span class="keywordtype">int</span> initial,</div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;                      <span class="keyword">const</span> std::vector&lt;std::string&gt;&amp; items,</div>
+<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;                      <span class="keyword">const</span> std::string&amp; tooltip = <span class="stringliteral">&quot;&quot;</span> );</div>
+<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;    <span class="keywordtype">void</span> addComboBox( <span class="keyword">const</span> std::string&amp; name,</div>
+<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;                      std::function&lt;<span class="keywordtype">void</span>( <span class="keyword">const</span> QString&amp; )&gt; callback,</div>
+<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;                      <span class="keyword">const</span> std::string&amp; initial,</div>
+<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;                      <span class="keyword">const</span> std::vector&lt;std::string&gt;&amp; items,</div>
+<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;                      <span class="keyword">const</span> std::string&amp; tooltip = <span class="stringliteral">&quot;&quot;</span> );</div>
+<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160; </div>
+<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;    <span class="keywordtype">void</span> addWidget( QWidget* newWidget );</div>
+<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160; </div>
+<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;  <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;    QVBoxLayout* m_contentLayout;</div>
 <div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160; </div>
-<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;    std::stack&lt;QBoxLayout*&gt; m_layouts;</div>
-<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;};</div>
-<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160; </div>
-<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;} <span class="comment">// namespace Widgets</span></div>
-<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;} <span class="comment">// namespace Gui</span></div>
-<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;} <span class="comment">// namespace Ra</span></div>
-<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160; </div>
-<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;<span class="preprocessor">#include &lt;Gui/Widgets/ControlPanel.inl&gt;</span></div>
+<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;    QBoxLayout* m_currentLayout;</div>
+<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160; </div>
+<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;    std::stack&lt;QBoxLayout*&gt; m_layouts;</div>
+<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;};</div>
+<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160; </div>
+<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00282"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1Widgets_1_1ControlPanel.html#acc29726e3c6229ad6298b94b42d01678">  282</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Gui_1_1Widgets_1_1ControlPanel.html#acc29726e3c6229ad6298b94b42d01678">ControlPanel::addConstrainedNumberInput</a>( <span class="keyword">const</span> std::string&amp; name,</div>
+<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;                                              std::function&lt;<span class="keywordtype">void</span>( T )&gt; callback,</div>
+<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;                                              Scalar initial,</div>
+<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;                                              std::function&lt;<span class="keywordtype">bool</span>( T )&gt; predicate,</div>
+<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;                                              <span class="keyword">const</span> std::string&amp; tooltip,</div>
+<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;                                              <span class="keywordtype">int</span> dec ) {</div>
+<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;    <span class="keyword">auto</span> inputLayout = <span class="keyword">new</span> QHBoxLayout();</div>
+<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;    <span class="keyword">auto</span> inputLabel  = <span class="keyword">new</span> QLabel( tr( name.c_str() ), <span class="keyword">this</span> );</div>
+<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160; </div>
+<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;    <span class="keyword">auto</span> inputField = <span class="keyword">new</span> <a class="code" href="classRa_1_1Gui_1_1Widgets_1_1ConstrainedNumericSpinBox.html">ConstrainedNumericSpinBox&lt;T&gt;</a>( <span class="keyword">this</span> );</div>
+<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;    inputField-&gt;setValue( initial );</div>
+<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;    inputField-&gt;setMinimum( std::numeric_limits&lt;T&gt;::lowest() );</div>
+<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;    inputField-&gt;setMaximum( std::numeric_limits&lt;T&gt;::max() );</div>
+<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;    connect( inputField,</div>
+<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;             qOverload&lt;<span class="keyword">typename</span> QtSpinBox::getType&lt;T&gt;::SignalType&gt;(</div>
+<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;                 &amp;<a class="code" href="classRa_1_1Gui_1_1Widgets_1_1ConstrainedNumericSpinBox.html">ConstrainedNumericSpinBox&lt;T&gt;::valueChanged</a> ),</div>
+<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;             std::move( callback ) );</div>
+<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;    inputField-&gt;setPredicate( predicate );</div>
+<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160; </div>
+<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;    <span class="keywordflow">if</span> constexpr ( std::is_floating_point_v&lt;T&gt; ) { inputField-&gt;setDecimals( dec ); }</div>
+<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160; </div>
+<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;    <span class="keywordflow">if</span> ( !tooltip.empty() ) {</div>
+<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;        inputLabel-&gt;setToolTip(</div>
+<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;            QString( <span class="stringliteral">&quot;&lt;qt&gt;%1&lt;/qt&gt;&quot;</span> ).arg( QString( tooltip.c_str() ).toHtmlEscaped() ) );</div>
+<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;    }</div>
+<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160; </div>
+<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;    inputLayout-&gt;addWidget( inputLabel );</div>
+<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;    <span class="comment">// inputLayout-&gt;addStretch();</span></div>
+<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;    inputLayout-&gt;addWidget( inputField );</div>
+<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160; </div>
+<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;    m_currentLayout-&gt;addLayout( inputLayout );</div>
+<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;}</div>
+<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160; </div>
+<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00316"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1Widgets_1_1ControlPanel.html#a66a28d4964ba0bcddac9535c14b9c78e">  316</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Gui_1_1Widgets_1_1ControlPanel.html#a66a28d4964ba0bcddac9535c14b9c78e">ControlPanel::addNumberInput</a>( <span class="keyword">const</span> std::string&amp; name,</div>
+<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;                                   std::function&lt;<span class="keywordtype">void</span>( T )&gt; callback,</div>
+<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;                                   T initial,</div>
+<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;                                   T min,</div>
+<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;                                   T max,</div>
+<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;                                   <span class="keyword">const</span> std::string&amp; tooltip,</div>
+<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;                                   <span class="keywordtype">int</span> dec ) {</div>
+<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;    <span class="keyword">auto</span> inputLayout = <span class="keyword">new</span> QHBoxLayout();</div>
+<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160; </div>
+<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;    <span class="keyword">auto</span> inputLabel = <span class="keyword">new</span> QLabel( tr( name.c_str() ), <span class="keyword">this</span> );</div>
+<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160; </div>
+<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;    <span class="keyword">using</span> WidgetType = <span class="keyword">typename</span> QtSpinBox::getType&lt;T&gt;::Type;</div>
+<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;    <span class="keyword">auto</span> inputField  = <span class="keyword">new</span> WidgetType( <span class="keyword">this</span> );</div>
+<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;    <span class="comment">// to prevent overflow</span></div>
+<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;    inputField-&gt;setRange(</div>
+<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;        min,</div>
+<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;        std::min( T( std::numeric_limits&lt;<span class="keyword">typename</span> QtSpinBox::getType&lt;T&gt;::SignalType&gt;::max() ),</div>
+<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;                  max ) );</div>
+<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;    inputField-&gt;setValue( initial );</div>
+<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;    connect( inputField,</div>
+<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;             qOverload&lt;<span class="keyword">typename</span> QtSpinBox::getType&lt;T&gt;::SignalType&gt;( &amp;WidgetType::valueChanged ),</div>
+<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;             std::move( callback ) );</div>
+<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;    <span class="keywordflow">if</span> constexpr ( std::is_floating_point_v&lt;T&gt; ) { inputField-&gt;setDecimals( dec ); }</div>
+<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160; </div>
+<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;    <span class="keywordflow">if</span> ( !tooltip.empty() ) {</div>
+<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;        inputLabel-&gt;setToolTip(</div>
+<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;            QString( <span class="stringliteral">&quot;&lt;qt&gt;%1&lt;/qt&gt;&quot;</span> ).arg( QString( tooltip.c_str() ).toHtmlEscaped() ) );</div>
+<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;    }</div>
+<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;    inputLayout-&gt;addWidget( inputLabel );</div>
+<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;    <span class="comment">// inputLayout-&gt;addStretch();</span></div>
+<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;    inputLayout-&gt;addWidget( inputField );</div>
+<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;    m_currentLayout-&gt;addLayout( inputLayout );</div>
+<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;}</div>
+<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160; </div>
+<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00351"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1Widgets_1_1ControlPanel.html#abeb5676c6a911f29e79e77aaa69d4388">  351</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Gui_1_1Widgets_1_1ControlPanel.html#abeb5676c6a911f29e79e77aaa69d4388">ControlPanel::addVectorInput</a>( <span class="keyword">const</span> std::string&amp; name,</div>
+<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;                                   std::function&lt;<span class="keywordtype">void</span>( <span class="keyword">const</span> std::vector&lt;T&gt;&amp; )&gt; callback,</div>
+<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;                                   <span class="keyword">const</span> std::vector&lt;T&gt;&amp; initial,</div>
+<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;                                   <span class="keyword">const</span> std::string&amp; tooltip ) {</div>
+<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;    <span class="keyword">auto</span> inputLayout = <span class="keyword">new</span> QHBoxLayout();</div>
+<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160; </div>
+<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;    <span class="keyword">auto</span> inputLabel = <span class="keyword">new</span> QLabel( tr( name.c_str() ), <span class="keyword">this</span> );</div>
+<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;    <span class="keyword">auto</span> inputField = <span class="keyword">new</span> <a class="code" href="classRa_1_1Gui_1_1Widgets_1_1VectorEditor.html">VectorEditor&lt;T&gt;</a>( initial, <span class="keyword">this</span> );</div>
+<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160; </div>
+<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;    <span class="keywordflow">if</span> ( !tooltip.empty() ) {</div>
+<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;        inputLabel-&gt;setToolTip(</div>
+<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;            QString( <span class="stringliteral">&quot;&lt;qt&gt;%1&lt;/qt&gt;&quot;</span> ).arg( QString( tooltip.c_str() ).toHtmlEscaped() ) );</div>
+<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;    }</div>
+<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;    inputLayout-&gt;addWidget( inputLabel );</div>
+<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;    inputLayout-&gt;addWidget( inputField );</div>
+<div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;    connect( inputField,</div>
+<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;             QOverload&lt;<span class="keyword">const</span> std::vector&lt;T&gt;&amp;&gt;::of( &amp;VectorEditorSignals::valueChanged ),</div>
+<div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;             std::move( callback ) );</div>
+<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;    m_currentLayout-&gt;addLayout( inputLayout );</div>
+<div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160;}</div>
+<div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160; </div>
+<div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160;} <span class="comment">// namespace Widgets</span></div>
+<div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160;} <span class="comment">// namespace Gui</span></div>
+<div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160;} <span class="comment">// namespace Ra</span></div>
 <div class="ttc" id="aTypes_8hpp_html"><div class="ttname"><a href="Types_8hpp.html">Types.hpp</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1ColorBase_html"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1ColorBase.html">Ra::Core::Utils::ColorBase&lt; Scalar &gt;</a></div></div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1Widgets_1_1ControlPanel_html"><div class="ttname"><a href="classRa_1_1Gui_1_1Widgets_1_1ControlPanel.html">Ra::Gui::Widgets::ControlPanel</a></div><div class="ttdef"><b>Definition:</b> <a href="ControlPanel_8hpp_source.html#l00022">ControlPanel.hpp:23</a></div></div>
+<div class="ttc" id="aclassRa_1_1Gui_1_1Widgets_1_1ConstrainedNumericSpinBox_html"><div class="ttname"><a href="classRa_1_1Gui_1_1Widgets_1_1ConstrainedNumericSpinBox.html">Ra::Gui::Widgets::ConstrainedNumericSpinBox</a></div><div class="ttdoc">Constrained input spin box. The constraint to apply to any input value is verified using the user-def...</div><div class="ttdef"><b>Definition:</b> <a href="ConstrainedNumericSpinBox_8hpp_source.html#l00018">ConstrainedNumericSpinBox.hpp:19</a></div></div>
+<div class="ttc" id="aclassRa_1_1Gui_1_1Widgets_1_1ControlPanel_html"><div class="ttname"><a href="classRa_1_1Gui_1_1Widgets_1_1ControlPanel.html">Ra::Gui::Widgets::ControlPanel</a></div><div class="ttdef"><b>Definition:</b> <a href="ControlPanel_8hpp_source.html#l00025">ControlPanel.hpp:26</a></div></div>
+<div class="ttc" id="aclassRa_1_1Gui_1_1Widgets_1_1ControlPanel_html_a66a28d4964ba0bcddac9535c14b9c78e"><div class="ttname"><a href="classRa_1_1Gui_1_1Widgets_1_1ControlPanel.html#a66a28d4964ba0bcddac9535c14b9c78e">Ra::Gui::Widgets::ControlPanel::addNumberInput</a></div><div class="ttdeci">void addNumberInput(const std::string &amp;name, std::function&lt; void(T)&gt; callback, T initial, T min=std::numeric_limits&lt; T &gt;::lowest(), T max=std::numeric_limits&lt; T &gt;::max(), const std::string &amp;tooltip=&quot;&quot;, int dec=3)</div><div class="ttdef"><b>Definition:</b> <a href="ControlPanel_8hpp_source.html#l00316">ControlPanel.hpp:316</a></div></div>
+<div class="ttc" id="aclassRa_1_1Gui_1_1Widgets_1_1ControlPanel_html_abeb5676c6a911f29e79e77aaa69d4388"><div class="ttname"><a href="classRa_1_1Gui_1_1Widgets_1_1ControlPanel.html#abeb5676c6a911f29e79e77aaa69d4388">Ra::Gui::Widgets::ControlPanel::addVectorInput</a></div><div class="ttdeci">void addVectorInput(const std::string &amp;name, std::function&lt; void(const std::vector&lt; T &gt; &amp;)&gt; callback, const std::vector&lt; T &gt; &amp;initial, const std::string &amp;tooltip=&quot;&quot;)</div><div class="ttdef"><b>Definition:</b> <a href="ControlPanel_8hpp_source.html#l00351">ControlPanel.hpp:351</a></div></div>
+<div class="ttc" id="aclassRa_1_1Gui_1_1Widgets_1_1ControlPanel_html_acc29726e3c6229ad6298b94b42d01678"><div class="ttname"><a href="classRa_1_1Gui_1_1Widgets_1_1ControlPanel.html#acc29726e3c6229ad6298b94b42d01678">Ra::Gui::Widgets::ControlPanel::addConstrainedNumberInput</a></div><div class="ttdeci">void addConstrainedNumberInput(const std::string &amp;name, std::function&lt; void(T)&gt; callback, Scalar initial, std::function&lt; bool(T)&gt; predicate, const std::string &amp;tooltip=&quot;&quot;, int dec=3)</div><div class="ttdef"><b>Definition:</b> <a href="ControlPanel_8hpp_source.html#l00282">ControlPanel.hpp:282</a></div></div>
+<div class="ttc" id="aclassRa_1_1Gui_1_1Widgets_1_1VectorEditor_html"><div class="ttname"><a href="classRa_1_1Gui_1_1Widgets_1_1VectorEditor.html">Ra::Gui::Widgets::VectorEditor</a></div><div class="ttdef"><b>Definition:</b> <a href="VectorEditor_8hpp_source.html#l00033">VectorEditor.hpp:34</a></div></div>
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdef"><b>Definition:</b> <a href="Cage_8cpp_source.html#l00003">Cage.cpp:3</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
@@ -254,7 +351,7 @@ $(document).ready(function(){initNavTree('ControlPanel_8hpp_source.html',''); in
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b5ac5e964c12a6b13a9d28feb9f3d3ed.html">Gui</a></li><li class="navelem"><a class="el" href="dir_9088dbe29f294cb4dc9e14cc47b80268.html">Widgets</a></li><li class="navelem"><b>ControlPanel.hpp</b></li>
-    <li class="footer">Generated on Mon Apr 3 2023 06:30:54 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Apr 3 2023 19:25:23 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

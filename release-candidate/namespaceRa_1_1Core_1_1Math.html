@@ -52,7 +52,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.4.11</span>
+   &#160;<span id="projectnumber">1.4.12</span>
    </div>
   </td>
  </tr>
@@ -222,10 +222,11 @@ template&lt;typename Vector_ &gt; </td></tr>
 constexpr Scalar&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Core_1_1Math.html#a4638b0ac002934699199f82a5b438450">toDegrees</a> (Scalar a)</td></tr>
 <tr class="memdesc:a4638b0ac002934699199f82a5b438450"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts an angle from radians to degrees. <br /></td></tr>
 <tr class="separator:a4638b0ac002934699199f82a5b438450"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a46540d56930b4c1ff3b115872cde4893"><td class="memTemplParams" colspan="2">template&lt;class T &gt; </td></tr>
-<tr class="memitem:a46540d56930b4c1ff3b115872cde4893"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if&lt;!std::numeric_limits&lt; T &gt;::is_integer, bool &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Core_1_1Math.html#a46540d56930b4c1ff3b115872cde4893">areApproxEqual</a> (T x, T y, T espilonBoostFactor=T(10))</td></tr>
-<tr class="memdesc:a46540d56930b4c1ff3b115872cde4893"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compare two numbers such that |x-y| &lt; espilon*epsilonBoostFactor.  <a href="namespaceRa_1_1Core_1_1Math.html#a46540d56930b4c1ff3b115872cde4893">More...</a><br /></td></tr>
-<tr class="separator:a46540d56930b4c1ff3b115872cde4893"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5d4492c5ddee7e4fa37dfdad0c4f8ba1"><td class="memTemplParams" colspan="2"><a id="a5d4492c5ddee7e4fa37dfdad0c4f8ba1"></a>
+template&lt;class T &gt; </td></tr>
+<tr class="memitem:a5d4492c5ddee7e4fa37dfdad0c4f8ba1"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if&lt;!std::numeric_limits&lt; T &gt;::is_integer, bool &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Core_1_1Math.html#a5d4492c5ddee7e4fa37dfdad0c4f8ba1">areApproxEqual</a> (T x, T y, T espilonBoostFactor=T(10))</td></tr>
+<tr class="memdesc:a5d4492c5ddee7e4fa37dfdad0c4f8ba1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compare two numbers such that |x-y| &lt; espilon*epsilonBoostFactor. <br /></td></tr>
+<tr class="separator:a5d4492c5ddee7e4fa37dfdad0c4f8ba1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a17c145bf35be6af212724094a3c0ede6"><td class="memTemplParams" colspan="2">template&lt;typename Vector_Or_Scalar &gt; </td></tr>
 <tr class="memitem:a17c145bf35be6af212724094a3c0ede6"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Core_1_1Math.html#a17c145bf35be6af212724094a3c0ede6">checkRange</a> (const Vector_Or_Scalar &amp;v, const Scalar &amp;min, const Scalar &amp;max)</td></tr>
 <tr class="separator:a17c145bf35be6af212724094a3c0ede6"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -238,6 +239,10 @@ template&lt;uint N, typename T &gt; </td></tr>
 <tr class="memitem:a243b0088dbe5c67115502d7bba2cfc71"><td class="memTemplItemLeft" align="right" valign="top">constexpr T&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Core_1_1Math.html#a243b0088dbe5c67115502d7bba2cfc71">ipow</a> (const T &amp;x)</td></tr>
 <tr class="memdesc:a243b0088dbe5c67115502d7bba2cfc71"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compile-time exponent version. <br /></td></tr>
 <tr class="separator:a243b0088dbe5c67115502d7bba2cfc71"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a672acca0ecd16a8e0f9109345b56d4e0"><td class="memTemplParams" colspan="2"><a id="a672acca0ecd16a8e0f9109345b56d4e0"></a>
+template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a672acca0ecd16a8e0f9109345b56d4e0"><td class="memTemplItemLeft" align="right" valign="top">constexpr int&#160;</td><td class="memTemplItemRight" valign="bottom"><b>signum</b> (T x, std::true_type)</td></tr>
+<tr class="separator:a672acca0ecd16a8e0f9109345b56d4e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a90f0fe9079f5bb86c721ea4b61738470"><td class="memTemplParams" colspan="2"><a id="a90f0fe9079f5bb86c721ea4b61738470"></a>
 template&lt;typename T &gt; </td></tr>
 <tr class="memitem:a90f0fe9079f5bb86c721ea4b61738470"><td class="memTemplItemLeft" align="right" valign="top">constexpr int&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Core_1_1Math.html#a90f0fe9079f5bb86c721ea4b61738470">sign</a> (const T &amp;val)</td></tr>
@@ -265,14 +270,6 @@ template&lt;typename T &gt; </td></tr>
 template&lt;typename T , template&lt; typename, int... &gt; typename M, int... p&gt; </td></tr>
 <tr class="memitem:a4c8b1a6f8395ccda747474db1b28877d"><td class="memTemplItemLeft" align="right" valign="top">M&lt; T, p... &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>smoothstep</b> (T edge0, T edge1, M&lt; T, p... &gt; v)</td></tr>
 <tr class="separator:a4c8b1a6f8395ccda747474db1b28877d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1e6a5327cb1c73b29e0c6539576d02b0"><td class="memTemplParams" colspan="2"><a id="a1e6a5327cb1c73b29e0c6539576d02b0"></a>
-template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a1e6a5327cb1c73b29e0c6539576d02b0"><td class="memTemplItemLeft" align="right" valign="top">constexpr int&#160;</td><td class="memTemplItemRight" valign="bottom"><b>signum</b> (T x, std::false_type)</td></tr>
-<tr class="separator:a1e6a5327cb1c73b29e0c6539576d02b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a672acca0ecd16a8e0f9109345b56d4e0"><td class="memTemplParams" colspan="2"><a id="a672acca0ecd16a8e0f9109345b56d4e0"></a>
-template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a672acca0ecd16a8e0f9109345b56d4e0"><td class="memTemplItemLeft" align="right" valign="top">constexpr int&#160;</td><td class="memTemplItemRight" valign="bottom"><b>signum</b> (T x, std::true_type)</td></tr>
-<tr class="separator:a672acca0ecd16a8e0f9109345b56d4e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Linear Interpolation</div></td></tr>
 <tr class="memitem:affd18dad0b766120172a0e7ac23989fa"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:affd18dad0b766120172a0e7ac23989fa"><td class="memTemplItemLeft" align="right" valign="top">T&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Core_1_1Math.html#affd18dad0b766120172a0e7ac23989fa">linearInterpolate</a> (const T &amp;v0, const T &amp;v1, const Scalar t)</td></tr>
@@ -362,7 +359,7 @@ constexpr Scalar&#160;</td><td class="memItemRight" valign="bottom"><b>machineEp
 </div><div class="memdoc">
 <p>Returns the sum of two quaternions, resolving antipodality by flipping the sign of q2 if q1.q2 is negative. This operation is usually denoted as a circled + sign, forming the basis of the QLERP algorithm. See "Spherical Blend Skinning" (Kavan &amp; Zara 2005) for more details. </p>
 
-<p class="definition">Definition at line <a class="el" href="LinearAlgebra_8inl_source.html#l00100">100</a> of file <a class="el" href="LinearAlgebra_8inl_source.html">LinearAlgebra.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="LinearAlgebra_8hpp_source.html#l00249">249</a> of file <a class="el" href="LinearAlgebra_8hpp_source.html">LinearAlgebra.hpp</a>.</p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
@@ -411,56 +408,7 @@ template&lt;typename Vector_ &gt; </div>
 </div><div class="memdoc">
 <p>Get the angle between two vectors. Works for types where the cross product is defined (i.e. 2D and 3D vectors). </p>
 
-<p class="definition">Definition at line <a class="el" href="LinearAlgebra_8inl_source.html#l00057">57</a> of file <a class="el" href="LinearAlgebra_8inl_source.html">LinearAlgebra.inl</a>.</p>
-
-</div>
-</div>
-<a id="a46540d56930b4c1ff3b115872cde4893"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a46540d56930b4c1ff3b115872cde4893">&#9670;&nbsp;</a></span>areApproxEqual()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;class T &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::enable_if&lt;!std::numeric_limits&lt; T &gt;::is_integer, bool &gt;::type Ra::Core::Math::areApproxEqual </td>
-          <td>(</td>
-          <td class="paramtype">T&#160;</td>
-          <td class="paramname"><em>x</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">T&#160;</td>
-          <td class="paramname"><em>y</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">T&#160;</td>
-          <td class="paramname"><em>espilonBoostFactor</em> = <code>T(&#160;10&#160;)</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Compare two numbers such that |x-y| &lt; espilon*epsilonBoostFactor. </p>
-<p>Implementation inspired from <a href="https://en.cppreference.com/w/cpp/types/numeric_limits/epsilon">https://en.cppreference.com/w/cpp/types/numeric_limits/epsilon</a>. </p>
-
-<p class="definition">Definition at line <a class="el" href="Math_8inl_source.html#l00091">91</a> of file <a class="el" href="Math_8inl_source.html">Math.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="LinearAlgebra_8hpp_source.html#l00206">206</a> of file <a class="el" href="LinearAlgebra_8hpp_source.html">LinearAlgebra.hpp</a>.</p>
 
 </div>
 </div>
@@ -501,7 +449,7 @@ template&lt;typename Matrix_ &gt; </div>
 </div><div class="memdoc">
 <p>Call std::isfinite on matrix entry. Dense version </p>
 
-<p class="definition">Definition at line <a class="el" href="LinearAlgebra_8inl_source.html#l00213">213</a> of file <a class="el" href="LinearAlgebra_8inl_source.html">LinearAlgebra.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="LinearAlgebra_8hpp_source.html#l00362">362</a> of file <a class="el" href="LinearAlgebra_8hpp_source.html">LinearAlgebra.hpp</a>.</p>
 
 </div>
 </div>
@@ -551,7 +499,7 @@ template&lt;typename Vector_Or_Scalar &gt; </div>
 <li>for scalars, use std version (call <code>using std::clamp;</code> beforehand) </li>
 </ul>
 
-<p class="definition">Definition at line <a class="el" href="Math_8inl_source.html#l00017">17</a> of file <a class="el" href="Math_8inl_source.html">Math.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Math_8hpp_source.html#l00053">53</a> of file <a class="el" href="Math_8hpp_source.html">Math.hpp</a>.</p>
 <div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-1-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-1-summary" class="dynsummary" style="display:block;">
@@ -600,7 +548,7 @@ template&lt;typename Vector_ &gt; </div>
 </div><div class="memdoc">
 <p>Get the cosine of the angle between two vectors. </p><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000025">Todo:</a></b></dt><dd>use dot instead </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="LinearAlgebra_8inl_source.html#l00067">67</a> of file <a class="el" href="LinearAlgebra_8inl_source.html">LinearAlgebra.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="LinearAlgebra_8hpp_source.html#l00216">216</a> of file <a class="el" href="LinearAlgebra_8hpp_source.html">LinearAlgebra.hpp</a>.</p>
 
 </div>
 </div>
@@ -641,7 +589,7 @@ template&lt;typename Vector_ &gt; </div>
 </div><div class="memdoc">
 <p>Get the cotangent of the angle between two vectors. Works for vector types where dot and cross product is defined (2D or 3D vectors). </p>
 
-<p class="definition">Definition at line <a class="el" href="LinearAlgebra_8inl_source.html#l00062">62</a> of file <a class="el" href="LinearAlgebra_8inl_source.html">LinearAlgebra.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="LinearAlgebra_8hpp_source.html#l00211">211</a> of file <a class="el" href="LinearAlgebra_8hpp_source.html">LinearAlgebra.hpp</a>.</p>
 
 </div>
 </div>
@@ -672,7 +620,7 @@ template&lt;typename Vector_ &gt; </div>
 </div><div class="memdoc">
 <p>Normalize a vector and returns its norm before normalization. If the vector's norm is 0, the vector's components will be overwritten by NaNs </p>
 
-<p class="definition">Definition at line <a class="el" href="LinearAlgebra_8inl_source.html#l00072">72</a> of file <a class="el" href="LinearAlgebra_8inl_source.html">LinearAlgebra.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="LinearAlgebra_8hpp_source.html#l00221">221</a> of file <a class="el" href="LinearAlgebra_8hpp_source.html">LinearAlgebra.hpp</a>.</p>
 
 </div>
 </div>
@@ -703,7 +651,7 @@ template&lt;typename Vector_ &gt; </div>
 </div><div class="memdoc">
 <p>Normalize a vector and returns its norm before normalization. If the vector's norm is 0, the vector remains null </p>
 
-<p class="definition">Definition at line <a class="el" href="LinearAlgebra_8inl_source.html#l00079">79</a> of file <a class="el" href="LinearAlgebra_8inl_source.html">LinearAlgebra.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="LinearAlgebra_8hpp_source.html#l00228">228</a> of file <a class="el" href="LinearAlgebra_8hpp_source.html">LinearAlgebra.hpp</a>.</p>
 
 </div>
 </div>
@@ -748,7 +696,7 @@ template&lt;typename Vector_ &gt; </div>
 </div><div class="memdoc">
 <p>Get two vectors orthogonal to a given vector. </p><dl class="section warning"><dt>Warning</dt><dd>fx must be normalized (this is not checked in the function) </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="LinearAlgebra_8inl_source.html#l00110">110</a> of file <a class="el" href="LinearAlgebra_8inl_source.html">LinearAlgebra.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="LinearAlgebra_8hpp_source.html#l00259">259</a> of file <a class="el" href="LinearAlgebra_8hpp_source.html">LinearAlgebra.hpp</a>.</p>
 <div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-2-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-2-summary" class="dynsummary" style="display:block;">
@@ -801,7 +749,7 @@ template&lt;typename Vector_ &gt; </div>
 </div><div class="memdoc">
 <p>Decompose a given rotation Qin into a swing rotation and a twist rotation. Qswing is a rotation whose axis lies in the XY plane and Qtwist is a rotation about axis Z. such as Qin = Qswing * Qtwist If the rotation is already around axis z, Qswing will be set to identity and Qtwist equal to Qin </p>
 
-<p class="definition">Definition at line <a class="el" href="LinearAlgebra_8inl_source.html#l00136">136</a> of file <a class="el" href="LinearAlgebra_8inl_source.html">LinearAlgebra.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="LinearAlgebra_8hpp_source.html#l00285">285</a> of file <a class="el" href="LinearAlgebra_8hpp_source.html">LinearAlgebra.hpp</a>.</p>
 
 </div>
 </div>
@@ -844,7 +792,7 @@ template&lt;typename T &gt; </div>
 <p>Run-time exponent version. </p>
 <p>Integer power functions. Work for all numeric types which support multiplication and for which T(1) is a valid expression. x^0 always return T(1) and x^1 always return x (even when x is 0). </p>
 
-<p class="definition">Definition at line <a class="el" href="Math_8inl_source.html#l00023">23</a> of file <a class="el" href="Math_8inl_source.html">Math.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Math_8hpp_source.html#l00064">64</a> of file <a class="el" href="Math_8hpp_source.html">Math.hpp</a>.</p>
 
 </div>
 </div>
@@ -1031,7 +979,7 @@ template&lt;&gt; </div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>the projection of point on the plane define by plane and planeNormal </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="LinearAlgebra_8inl_source.html#l00121">121</a> of file <a class="el" href="LinearAlgebra_8inl_source.html">LinearAlgebra.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="LinearAlgebra_8hpp_source.html#l00270">270</a> of file <a class="el" href="LinearAlgebra_8hpp_source.html">LinearAlgebra.hpp</a>.</p>
 
 </div>
 </div>
@@ -1062,7 +1010,7 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 <p>Returns the sign of any numeric type as { -1, 1} Note: signNZ(0) returns 1 for any integral type but signNZ(-0.f) will return -1 </p>
 
-<p class="definition">Definition at line <a class="el" href="Math_8inl_source.html#l00079">79</a> of file <a class="el" href="Math_8inl_source.html">Math.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Math_8hpp_source.html#l00116">116</a> of file <a class="el" href="Math_8hpp_source.html">Math.hpp</a>.</p>
 
 </div>
 </div>
@@ -1109,7 +1057,7 @@ template&lt;typename Vector_ &gt; </div>
 </div><div class="memdoc">
 <p>Get the spherical linear interpolation between two unit non-colinear vectors. works for types where the cross-product is defined (i.e. 2D and 3D vectors). </p>
 
-<p class="definition">Definition at line <a class="el" href="LinearAlgebra_8inl_source.html#l00126">126</a> of file <a class="el" href="LinearAlgebra_8inl_source.html">LinearAlgebra.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="LinearAlgebra_8hpp_source.html#l00275">275</a> of file <a class="el" href="LinearAlgebra_8hpp_source.html">LinearAlgebra.hpp</a>.</p>
 <div id="dynsection-3" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-3-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-3-summary" class="dynsummary" style="display:block;">
@@ -1148,7 +1096,7 @@ template&lt;typename Vector_ &gt; </div>
 <p>Useful functions. </p>
 <p>Converts an angle from degrees to radians. </p>
 
-<p class="definition">Definition at line <a class="el" href="Math_8inl_source.html#l00008">8</a> of file <a class="el" href="Math_8inl_source.html">Math.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Math_8hpp_source.html#l00030">30</a> of file <a class="el" href="Math_8hpp_source.html">Math.hpp</a>.</p>
 
 </div>
 </div>
@@ -1196,7 +1144,7 @@ template&lt;typename Scalar &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>transoformed ray, origine is translated while direction is only linarly transformed. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="LinearAlgebra_8inl_source.html#l00087">87</a> of file <a class="el" href="LinearAlgebra_8inl_source.html">LinearAlgebra.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="LinearAlgebra_8hpp_source.html#l00236">236</a> of file <a class="el" href="LinearAlgebra_8hpp_source.html">LinearAlgebra.hpp</a>.</p>
 
 </div>
 </div>
@@ -1206,7 +1154,7 @@ template&lt;typename Scalar &gt; </div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><b>Core</b></li><li class="navelem"><a class="el" href="namespaceRa_1_1Core_1_1Math.html">Math</a></li>
-    <li class="footer">Generated on Mon Apr 3 2023 06:30:55 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Apr 3 2023 19:25:24 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>
