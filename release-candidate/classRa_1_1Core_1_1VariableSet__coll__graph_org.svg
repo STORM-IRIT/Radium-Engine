@@ -18,8 +18,8 @@
 <polyline fill="none" stroke="black" points="0,-852.5 168,-852.5 "/>
 <text text-anchor="middle" x="84" y="-840.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
 <polyline fill="none" stroke="black" points="0,-833.5 168,-833.5 "/>
-<text text-anchor="start" x="8" y="-821.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ visit()</text>
-<text text-anchor="start" x="8" y="-810.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ visit()</text>
+<text text-anchor="start" x="8" y="-821.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ visitStatic()</text>
+<text text-anchor="start" x="8" y="-810.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ visitStatic()</text>
 <text text-anchor="start" x="8" y="-799.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ VariableSet()</text>
 <text text-anchor="start" x="8" y="-788.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ ~VariableSet()</text>
 <text text-anchor="start" x="8" y="-777.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ VariableSet()</text>
@@ -46,29 +46,29 @@
 <text text-anchor="start" x="8" y="-546.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ numberOf()</text>
 <text text-anchor="start" x="8" y="-535.5" font-family="Helvetica,sans-Serif" font-size="10.00">* VisitFunction</text>
 <text text-anchor="start" x="8" y="-524.5" font-family="Helvetica,sans-Serif" font-size="10.00">* VisitFunctionWithUserParam</text>
-<text text-anchor="start" x="8" y="-513.5" font-family="Helvetica,sans-Serif" font-size="10.00">* m_variables</text>
-<text text-anchor="start" x="8" y="-502.5" font-family="Helvetica,sans-Serif" font-size="10.00">* has_visit_callable_v</text>
-<text text-anchor="start" x="8" y="-491.5" font-family="Helvetica,sans-Serif" font-size="10.00">* has_visit_callable</text>
-<text text-anchor="start" x="8" y="-480.5" font-family="Helvetica,sans-Serif" font-size="10.00">_with_user_param_v</text>
-<text text-anchor="start" x="8" y="-469.5" font-family="Helvetica,sans-Serif" font-size="10.00">* visitDynamic()</text>
+<text text-anchor="start" x="8" y="-513.5" font-family="Helvetica,sans-Serif" font-size="10.00">* has_visit_callable_v</text>
+<text text-anchor="start" x="8" y="-502.5" font-family="Helvetica,sans-Serif" font-size="10.00">* has_visit_callable</text>
+<text text-anchor="start" x="8" y="-491.5" font-family="Helvetica,sans-Serif" font-size="10.00">_with_user_param_v</text>
+<text text-anchor="start" x="8" y="-480.5" font-family="Helvetica,sans-Serif" font-size="10.00">* visit()</text>
+<text text-anchor="start" x="8" y="-469.5" font-family="Helvetica,sans-Serif" font-size="10.00">* visit()</text>
 <text text-anchor="start" x="8" y="-458.5" font-family="Helvetica,sans-Serif" font-size="10.00">* visit()</text>
-<text text-anchor="start" x="8" y="-447.5" font-family="Helvetica,sans-Serif" font-size="10.00">* visit()</text>
-<text text-anchor="start" x="8" y="-436.5" font-family="Helvetica,sans-Serif" font-size="10.00">* visit()</text>
-<text text-anchor="start" x="8" y="-425.5" font-family="Helvetica,sans-Serif" font-size="10.00">* getTypeIndex()</text>
-<text text-anchor="start" x="8" y="-414.5" font-family="Helvetica,sans-Serif" font-size="10.00">* addVariableType()</text>
-<text text-anchor="start" x="8" y="-403.5" font-family="Helvetica,sans-Serif" font-size="10.00">* visitImpl()</text>
-<text text-anchor="start" x="8" y="-392.5" font-family="Helvetica,sans-Serif" font-size="10.00">* visitImplHelper()</text>
-<text text-anchor="start" x="8" y="-381.5" font-family="Helvetica,sans-Serif" font-size="10.00">* visitImplUserParam()</text>
-<text text-anchor="start" x="8" y="-370.5" font-family="Helvetica,sans-Serif" font-size="10.00">* visitImplHelperUserParam()</text>
-<text text-anchor="start" x="8" y="-359.5" font-family="Helvetica,sans-Serif" font-size="10.00">* VisitFunctorType</text>
-<text text-anchor="start" x="8" y="-348.5" font-family="Helvetica,sans-Serif" font-size="10.00">* m_clearFunctions</text>
-<text text-anchor="start" x="8" y="-337.5" font-family="Helvetica,sans-Serif" font-size="10.00">* m_copyFunctions</text>
-<text text-anchor="start" x="8" y="-326.5" font-family="Helvetica,sans-Serif" font-size="10.00">* m_moveFunctions</text>
-<text text-anchor="start" x="8" y="-315.5" font-family="Helvetica,sans-Serif" font-size="10.00">* m_mergeKeepFunctions</text>
-<text text-anchor="start" x="8" y="-304.5" font-family="Helvetica,sans-Serif" font-size="10.00">* m_mergeReplaceFunctions</text>
-<text text-anchor="start" x="8" y="-293.5" font-family="Helvetica,sans-Serif" font-size="10.00">* m_sizeFunctions</text>
-<text text-anchor="start" x="8" y="-282.5" font-family="Helvetica,sans-Serif" font-size="10.00">* m_visitFunctions</text>
-<text text-anchor="start" x="8" y="-271.5" font-family="Helvetica,sans-Serif" font-size="10.00">* m_storedType</text>
+<text text-anchor="start" x="8" y="-447.5" font-family="Helvetica,sans-Serif" font-size="10.00">* visitDynamic()</text>
+<text text-anchor="start" x="8" y="-436.5" font-family="Helvetica,sans-Serif" font-size="10.00">* visitStatic()</text>
+<text text-anchor="start" x="8" y="-425.5" font-family="Helvetica,sans-Serif" font-size="10.00">* visitStatic()</text>
+<text text-anchor="start" x="8" y="-414.5" font-family="Helvetica,sans-Serif" font-size="10.00">* visitStatic()</text>
+<text text-anchor="start" x="8" y="-403.5" font-family="Helvetica,sans-Serif" font-size="10.00">* addVariableType()</text>
+<text text-anchor="start" x="8" y="-392.5" font-family="Helvetica,sans-Serif" font-size="10.00">* visitImpl()</text>
+<text text-anchor="start" x="8" y="-381.5" font-family="Helvetica,sans-Serif" font-size="10.00">* visitImplHelper()</text>
+<text text-anchor="start" x="8" y="-370.5" font-family="Helvetica,sans-Serif" font-size="10.00">* visitImplUserParam()</text>
+<text text-anchor="start" x="8" y="-359.5" font-family="Helvetica,sans-Serif" font-size="10.00">* visitImplHelperUserParam()</text>
+<text text-anchor="start" x="8" y="-348.5" font-family="Helvetica,sans-Serif" font-size="10.00">* getVariableVisitTypeIndex()</text>
+<text text-anchor="start" x="8" y="-337.5" font-family="Helvetica,sans-Serif" font-size="10.00">* m_vtable</text>
+<text text-anchor="start" x="8" y="-326.5" font-family="Helvetica,sans-Serif" font-size="10.00">* m_variables</text>
+<text text-anchor="start" x="8" y="-315.5" font-family="Helvetica,sans-Serif" font-size="10.00">* m_typeIndexToVtableIndex</text>
+<text text-anchor="start" x="8" y="-304.5" font-family="Helvetica,sans-Serif" font-size="10.00">* m_storedType</text>
+<text text-anchor="start" x="8" y="-293.5" font-family="Helvetica,sans-Serif" font-size="10.00">* createVariableStorage()</text>
+<text text-anchor="start" x="8" y="-282.5" font-family="Helvetica,sans-Serif" font-size="10.00">* getVariableStorage()</text>
+<text text-anchor="start" x="8" y="-271.5" font-family="Helvetica,sans-Serif" font-size="10.00">* removeVariableStorage()</text>
 <text text-anchor="start" x="8" y="-260.5" font-family="Helvetica,sans-Serif" font-size="10.00">* VariableSet()</text>
 <text text-anchor="start" x="8" y="-249.5" font-family="Helvetica,sans-Serif" font-size="10.00">* ~VariableSet()</text>
 <text text-anchor="start" x="8" y="-238.5" font-family="Helvetica,sans-Serif" font-size="10.00">* VariableSet()</text>

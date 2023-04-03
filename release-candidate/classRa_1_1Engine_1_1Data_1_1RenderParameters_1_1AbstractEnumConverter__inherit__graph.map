@@ -1,4 +1,0 @@
-<map id="Ra::Engine::Data::RenderParameters::AbstractEnumConverter" name="Ra::Engine::Data::RenderParameters::AbstractEnumConverter">
-<area shape="rect" id="node1" title="Management of parameter of enum type. This allow to set the parameter using a string representation o..." alt="" coords="5,5,264,156"/>
-<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1EnumConverter.html" title="This class manage the bijective association between string and integral representation of an enumerat..." alt="" coords="32,204,237,369"/>
-</map>

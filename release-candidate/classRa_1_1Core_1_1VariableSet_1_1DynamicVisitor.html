@@ -52,7 +52,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.4.10</span>
+   &#160;<span id="projectnumber">1.4.11</span>
    </div>
   </td>
  </tr>
@@ -169,7 +169,7 @@ Public Member Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Base class for visitors with configurable per-type callbacks. Visiting will be prepared at running time by dynamically adding visitor operators for each type one want to visit in the container. The visitor accept type based on either the added operators or an external acceptance functor which can be associated/changed at runtime. This functor is only allowed to reduce the number of visited type as only type for which a visitor operator is registered can be visited. The visitor operators should be any callable that accept to be called using f(const std::string&amp;, T&amp;[, std::any&amp;&amp;]) </p>
 
-<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00347">347</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00307">307</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a0cf47417de334f65b449b157689cb844"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0cf47417de334f65b449b157689cb844">&#9670;&nbsp;</a></span>accept()</h2>
@@ -206,7 +206,7 @@ Public Member Functions</h2></td></tr>
 
 <p>Implements <a class="el" href="classRa_1_1Core_1_1VariableSet_1_1DynamicVisitorBase.html#a2c83efad6ba607f9ec1dd64538dc442a">Ra::Core::VariableSet::DynamicVisitorBase</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="VariableSet_8cpp_source.html#l00078">78</a> of file <a class="el" href="VariableSet_8cpp_source.html">VariableSet.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="VariableSet_8cpp_source.html#l00059">59</a> of file <a class="el" href="VariableSet_8cpp_source.html">VariableSet.cpp</a>.</p>
 
 </div>
 </div>
@@ -244,7 +244,7 @@ template&lt;typename T , typename F &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true if the operator was added, false if not (e.g. there is already an operator associated with the type T) </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00744">744</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00845">845</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
 
 </div>
 </div>
@@ -281,7 +281,7 @@ template&lt;typename T , typename F &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00755">755</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00856">856</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
 
 </div>
 </div>
@@ -311,7 +311,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd></dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00750">750</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00851">851</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
 
 </div>
 </div>
@@ -360,7 +360,7 @@ template&lt;typename T &gt; </div>
 
 <p>Implements <a class="el" href="classRa_1_1Core_1_1VariableSet_1_1DynamicVisitorBase.html#af39468f17f80e8dd3e467db737106355">Ra::Core::VariableSet::DynamicVisitorBase</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="VariableSet_8cpp_source.html#l00082">82</a> of file <a class="el" href="VariableSet_8cpp_source.html">VariableSet.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="VariableSet_8cpp_source.html#l00063">63</a> of file <a class="el" href="VariableSet_8cpp_source.html">VariableSet.cpp</a>.</p>
 
 </div>
 </div>
@@ -391,7 +391,7 @@ template&lt;typename T &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd></dd></dl>
 <dl class="section pre"><dt>Precondition</dt><dd>The type <b>T</b> must be accepted by an operator. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00761">761</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00862">862</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
 
 </div>
 </div>
@@ -405,7 +405,7 @@ template&lt;typename T &gt; </div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><b>Core</b></li><li class="navelem"><a class="el" href="classRa_1_1Core_1_1VariableSet.html">VariableSet</a></li><li class="navelem"><a class="el" href="classRa_1_1Core_1_1VariableSet_1_1DynamicVisitor.html">DynamicVisitor</a></li>
-    <li class="footer">Generated on Fri Mar 17 2023 07:31:29 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Apr 3 2023 06:30:54 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

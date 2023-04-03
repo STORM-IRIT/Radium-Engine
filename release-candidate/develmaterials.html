@@ -52,7 +52,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.4.10</span>
+   &#160;<span id="projectnumber">1.4.11</span>
    </div>
   </td>
  </tr>
@@ -449,7 +449,7 @@ Material registration into the Engine</h2>
 <div class="line">            }</div>
 <div class="line">        } );</div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Rendering_1_1RenderTechnique_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html">Ra::Engine::Rendering::RenderTechnique</a></div><div class="ttdef"><b>Definition:</b> <a href="RenderTechnique_8hpp_source.html#l00063">RenderTechnique.hpp:64</a></div></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1Rendering_1_1RenderTechnique_html_a2b058b0fe2f9c2496b7805e0d5b15452"><div class="ttname"><a href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a2b058b0fe2f9c2496b7805e0d5b15452">Ra::Engine::Rendering::RenderTechnique::setConfiguration</a></div><div class="ttdeci">void setConfiguration(const Data::ShaderConfiguration &amp;newConfig, Core::Utils::Index pass=DefaultRenderingPasses::LIGHTING_OPAQUE)</div><div class="ttdef"><b>Definition:</b> <a href="RenderTechnique_8cpp_source.html#l00040">RenderTechnique.cpp:40</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Rendering_1_1RenderTechnique_html_a2b058b0fe2f9c2496b7805e0d5b15452"><div class="ttname"><a href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a2b058b0fe2f9c2496b7805e0d5b15452">Ra::Engine::Rendering::RenderTechnique::setConfiguration</a></div><div class="ttdeci">void setConfiguration(const Data::ShaderConfiguration &amp;newConfig, Core::Utils::Index pass=DefaultRenderingPasses::LIGHTING_OPAQUE)</div><div class="ttdef"><b>Definition:</b> <a href="RenderTechnique_8cpp_source.html#l00038">RenderTechnique.cpp:38</a></div></div>
 </div><!-- fragment --><p>once registered, the render technique could then be associated with any render object using the following principle :</p>
 <div class="fragment"><div class="line"><span class="comment">// Construct and initialize a Ra::Engine::Rendering::RenderTechnique object</span></div>
 <div class="line"><a class="code" href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html">Ra::Engine::Rendering::RenderTechnique</a> rt;</div>
@@ -547,7 +547,7 @@ Rendering without using Materials</h2>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1Mesh_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1Mesh.html">Ra::Engine::Data::Mesh</a></div><div class="ttdoc">Mesh, own a Core::Geometry::TriangleMesh.</div><div class="ttdef"><b>Definition:</b> <a href="Mesh_8hpp_source.html#l00413">Mesh.hpp:414</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1ShaderConfiguration_html_a817ed4e22a81e034776cc21e8cfc6b8b"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1ShaderConfiguration.html#a817ed4e22a81e034776cc21e8cfc6b8b">Ra::Engine::Data::ShaderConfiguration::addShaderSource</a></div><div class="ttdeci">void addShaderSource(ShaderType type, const std::string &amp;source)</div><div class="ttdef"><b>Definition:</b> <a href="ShaderConfiguration_8cpp_source.html#l00062">ShaderConfiguration.cpp:62</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Rendering_1_1RenderObject_html_afe02bfade7fd3fe985d553fcf0a88410"><div class="ttname"><a href="classRa_1_1Engine_1_1Rendering_1_1RenderObject.html#afe02bfade7fd3fe985d553fcf0a88410">Ra::Engine::Rendering::RenderObject::createRenderObject</a></div><div class="ttdeci">static RenderObject * createRenderObject(const std::string &amp;name, Scene::Component *comp, const RenderObjectType &amp;type, std::shared_ptr&lt; Data::Displayable &gt; mesh, const RenderTechnique &amp;techniqueConfig=RenderTechnique::createDefaultRenderTechnique())</div><div class="ttdef"><b>Definition:</b> <a href="RenderObject_8cpp_source.html#l00044">RenderObject.cpp:44</a></div></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1Rendering_1_1RenderTechnique_html_a13f5f243daad1b13a6bec5efe3831c25"><div class="ttname"><a href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a13f5f243daad1b13a6bec5efe3831c25">Ra::Engine::Rendering::RenderTechnique::setParametersProvider</a></div><div class="ttdeci">void setParametersProvider(std::shared_ptr&lt; Data::ShaderParameterProvider &gt; provider, Core::Utils::Index pass=Core::Utils::Index(-1))</div><div class="ttdef"><b>Definition:</b> <a href="RenderTechnique_8cpp_source.html#l00053">RenderTechnique.cpp:53</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Rendering_1_1RenderTechnique_html_a13f5f243daad1b13a6bec5efe3831c25"><div class="ttname"><a href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a13f5f243daad1b13a6bec5efe3831c25">Ra::Engine::Rendering::RenderTechnique::setParametersProvider</a></div><div class="ttdeci">void setParametersProvider(std::shared_ptr&lt; Data::ShaderParameterProvider &gt; provider, Core::Utils::Index pass=Core::Utils::Index(-1))</div><div class="ttdef"><b>Definition:</b> <a href="RenderTechnique_8cpp_source.html#l00051">RenderTechnique.cpp:51</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Engine_1_1Data_1_1ShaderConfigurationFactory_html_a00918835250fbd8bbe4deae59ecd6dde"><div class="ttname"><a href="namespaceRa_1_1Engine_1_1Data_1_1ShaderConfigurationFactory.html#a00918835250fbd8bbe4deae59ecd6dde">Ra::Engine::Data::ShaderConfigurationFactory::addConfiguration</a></div><div class="ttdeci">void addConfiguration(const ShaderConfiguration &amp;config)</div><div class="ttdef"><b>Definition:</b> <a href="ShaderConfigFactory_8cpp_source.html#l00016">ShaderConfigFactory.cpp:16</a></div></div>
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdef"><b>Definition:</b> <a href="Cage_8cpp_source.html#l00003">Cage.cpp:3</a></div></div>
 </div><!-- fragment --><p>Then the draw call of <code>renderObject</code> uses the <code>myConfig</code> as shader configuration. Before rendering, the method <code>updateGL</code> on the <code>parameterProvider</code> instance is called so that the shader's uniforms values are updated according the one stored in <code>parameterProvider</code>.</p>
@@ -601,7 +601,7 @@ Manipulating ShaderConfigurations</h2>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="develmanual.html">Developer manual</a></li><li class="navelem"><a class="el" href="api.html">API</a></li><li class="navelem"><a class="el" href="engine.html">Engine</a></li>
-    <li class="footer">Generated on Fri Mar 17 2023 07:31:28 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Apr 3 2023 06:30:54 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

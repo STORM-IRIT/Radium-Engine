@@ -1,8 +1,5 @@
 var hierarchy =
 [
-    [ "Ra::Engine::Data::RenderParameters::AbstractEnumConverter", "classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1AbstractEnumConverter.html", [
-      [ "Ra::Engine::Data::RenderParameters::EnumConverter< Enum >", "classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1EnumConverter.html", null ]
-    ] ],
     [ "Ra::Core::Geometry::AbstractGeometry", "structRa_1_1Core_1_1Geometry_1_1AbstractGeometry.html", [
       [ "Ra::Core::Geometry::AbstractVolume", "classRa_1_1Core_1_1Geometry_1_1AbstractVolume.html", [
         [ "Ra::Core::Geometry::AbstractDiscreteVolume", "classRa_1_1Core_1_1Geometry_1_1AbstractDiscreteVolume.html", [
@@ -49,8 +46,8 @@ var hierarchy =
     [ "Ra::Gui::BaseApplication", "classRa_1_1Gui_1_1BaseApplication.html", null ],
     [ "Ra::Engine::Scene::BaseCouplingSystem< _BaseAbstractSystem >", "classRa_1_1Engine_1_1Scene_1_1BaseCouplingSystem.html", null ],
     [ "Ra::Core::Utils::BijectiveAssociation< T1, T2 >", "classRa_1_1Core_1_1Utils_1_1BijectiveAssociation.html", null ],
+    [ "Ra::Core::Utils::BijectiveAssociation< EnumBaseType, std::string >", "classRa_1_1Core_1_1Utils_1_1BijectiveAssociation.html", null ],
     [ "Ra::Core::Utils::BijectiveAssociation< std::string, std::string >", "classRa_1_1Core_1_1Utils_1_1BijectiveAssociation.html", null ],
-    [ "Ra::Core::Utils::BijectiveAssociation< typename std::underlying_type_t< Enum >, std::string >", "classRa_1_1Core_1_1Utils_1_1BijectiveAssociation.html", null ],
     [ "Ra::Engine::Data::BlinnPhongMaterialConverter", "classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterialConverter.html", null ],
     [ "Ra::Engine::Scene::ComponentMessenger::CallbackTypes< T >", "structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes.html", null ],
     [ "Ra::Core::Asset::Camera", "classRa_1_1Core_1_1Asset_1_1Camera.html", null ],
@@ -150,6 +147,7 @@ var hierarchy =
     [ "Ra::Core::VariableSet::DynamicVisitorBase", "classRa_1_1Core_1_1VariableSet_1_1DynamicVisitorBase.html", [
       [ "Ra::Core::VariableSet::DynamicVisitor", "classRa_1_1Core_1_1VariableSet_1_1DynamicVisitor.html", null ]
     ] ],
+    [ "Ra::Core::Utils::EnumConverter< EnumBaseType >", "classRa_1_1Core_1_1Utils_1_1EnumConverter.html", null ],
     [ "Ra::Engine::Data::EnvironmentTexture", "classRa_1_1Engine_1_1Data_1_1EnvironmentTexture.html", null ],
     [ "Ra::Gui::KeyMappingManager::EventBinding", "classRa_1_1Gui_1_1KeyMappingManager_1_1EventBinding.html", null ],
     [ "Ra::IO::FileManager< DATA, Binary >", "classRa_1_1IO_1_1FileManager.html", null ],
@@ -217,11 +215,6 @@ var hierarchy =
     [ "Ra::Gui::MainWindowInterface", "classRa_1_1Gui_1_1MainWindowInterface.html", [
       [ "Ra::Gui::SimpleWindow", "classRa_1_1Gui_1_1SimpleWindow.html", null ]
     ] ],
-    [ "std::map< K, T >", null, [
-      [ "Ra::Engine::Data::RenderParameters::UniformBindableSet< Ra::Engine::Data::RenderParameters::TextureParameter >", "classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1UniformBindableSet.html", null ],
-      [ "Ra::Engine::Data::RenderParameters::UniformBindableSet< Ra::Engine::Data::RenderParameters::TParameter >", "classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1UniformBindableSet.html", null ],
-      [ "Ra::Engine::Data::RenderParameters::UniformBindableSet< T >", "classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1UniformBindableSet.html", null ]
-    ] ],
     [ "Ra::Core::Utils::map_keys< Mapclass >", "structRa_1_1Core_1_1Utils_1_1map__keys.html", null ],
     [ "Ra::Core::Utils::map_values< Mapclass >", "structRa_1_1Core_1_1Utils_1_1map__values.html", null ],
     [ "Ra::Gui::MaterialParameterEditor", "classRa_1_1Gui_1_1MaterialParameterEditor.html", null ],
@@ -242,10 +235,6 @@ var hierarchy =
     [ "Ra::Core::Utils::Observable< int, int, int, int, int >", "classRa_1_1Core_1_1Utils_1_1Observable.html", null ],
     [ "Ra::Core::Utils::Observable<>", "classRa_1_1Core_1_1Utils_1_1Observable.html", null ],
     [ "Ra::Headless::OpenGLContext", "classRa_1_1Headless_1_1OpenGLContext.html", null ],
-    [ "Ra::Engine::Data::RenderParameters::Parameter", "classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1Parameter.html", [
-      [ "Ra::Engine::Data::RenderParameters::TParameter< T >", "classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1TParameter.html", null ],
-      [ "Ra::Engine::Data::RenderParameters::TextureParameter", "classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1TextureParameter.html", null ]
-    ] ],
     [ "Ra::Engine::Data::ParameterSetEditingInterface", "classRa_1_1Engine_1_1Data_1_1ParameterSetEditingInterface.html", [
       [ "Ra::Engine::Data::BlinnPhongMaterial", "classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html", null ],
       [ "Ra::Engine::Data::SimpleMaterial", "classRa_1_1Engine_1_1Data_1_1SimpleMaterial.html", [
@@ -320,7 +309,9 @@ var hierarchy =
       [ "Ra::Gui::ItemModel", "classRa_1_1Gui_1_1ItemModel.html", null ]
     ] ],
     [ "Ra::Core::Geometry::TriangleToTriangleOutput", "structRa_1_1Core_1_1Geometry_1_1TriangleToTriangleOutput.html", null ],
-    [ "Ra::Core::VariableSet::TypeList<... >", "structRa_1_1Core_1_1VariableSet_1_1TypeList.html", null ],
+    [ "Ra::Core::Utils::TypeListInternal::TSAppendImpl< ListT, Ts >", "structRa_1_1Core_1_1Utils_1_1TypeListInternal_1_1TSAppendImpl.html", null ],
+    [ "Ra::Core::Utils::TypeListInternal::TSAppendImpl< TypeList< Ts... >, OtherTs... >", "structRa_1_1Core_1_1Utils_1_1TypeListInternal_1_1TSAppendImpl_3_01TypeList_3_01Ts_8_8_8_01_4_00_01OtherTs_8_8_8_01_4.html", null ],
+    [ "Ra::Core::Utils::TypeListInternal::TSAppendImpl< TypeList< Ts... >, TypeList< OtherTs... > >", "structRa_1_1Core_1_1Utils_1_1TypeListInternal_1_1TSAppendImpl_3_01TypeList_3_01Ts_8_8_8_01_4_00_7cc1a16a68275547ec6b0d4b03dd3650.html", null ],
     [ "Ra::Engine::Data::Vao", "classRa_1_1Engine_1_1Data_1_1Vao.html", null ],
     [ "Ra::Engine::Data::VaoIndices", "classRa_1_1Engine_1_1Data_1_1VaoIndices.html", [
       [ "Ra::Engine::Data::IndexedGeometry< Core::Geometry::TriangleMesh >", "classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html", null ],

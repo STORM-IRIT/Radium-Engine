@@ -1,0 +1,4 @@
+<map id="Ra::Engine::Data::RenderParameters::addParameter" name="Ra::Engine::Data::RenderParameters::addParameter">
+<area shape="rect" id="node1" title="add a render parameter variable" alt="" coords="5,5,200,47"/>
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1VariableSet.html#a2ae4889235c18238c677b007701f8db6" title="reset (or set if the variable does not exist yet) the value of the variable." alt="" coords="248,5,427,47"/>
+</map>

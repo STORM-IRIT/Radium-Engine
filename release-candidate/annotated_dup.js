@@ -62,6 +62,11 @@ var annotated_dup =
           [ "VolumeSparse", "classRa_1_1Core_1_1Geometry_1_1VolumeSparse.html", "classRa_1_1Core_1_1Geometry_1_1VolumeSparse" ]
         ] ],
         [ "Utils", null, [
+          [ "TypeListInternal", null, [
+            [ "TSAppendImpl", "structRa_1_1Core_1_1Utils_1_1TypeListInternal_1_1TSAppendImpl.html", null ],
+            [ "TSAppendImpl< TypeList< Ts... >, OtherTs... >", "structRa_1_1Core_1_1Utils_1_1TypeListInternal_1_1TSAppendImpl_3_01TypeList_3_01Ts_8_8_8_01_4_00_01OtherTs_8_8_8_01_4.html", "structRa_1_1Core_1_1Utils_1_1TypeListInternal_1_1TSAppendImpl_3_01TypeList_3_01Ts_8_8_8_01_4_00_01OtherTs_8_8_8_01_4" ],
+            [ "TSAppendImpl< TypeList< Ts... >, TypeList< OtherTs... > >", "structRa_1_1Core_1_1Utils_1_1TypeListInternal_1_1TSAppendImpl_3_01TypeList_3_01Ts_8_8_8_01_4_00_7cc1a16a68275547ec6b0d4b03dd3650.html", "structRa_1_1Core_1_1Utils_1_1TypeListInternal_1_1TSAppendImpl_3_01TypeList_3_01Ts_8_8_8_01_4_00_7cc1a16a68275547ec6b0d4b03dd3650" ]
+          ] ],
           [ "Attrib", "classRa_1_1Core_1_1Utils_1_1Attrib.html", "classRa_1_1Core_1_1Utils_1_1Attrib" ],
           [ "AttribBase", "classRa_1_1Core_1_1Utils_1_1AttribBase.html", "classRa_1_1Core_1_1Utils_1_1AttribBase" ],
           [ "AttribHandle", "classRa_1_1Core_1_1Utils_1_1AttribHandle.html", "classRa_1_1Core_1_1Utils_1_1AttribHandle" ],
@@ -70,6 +75,7 @@ var annotated_dup =
           [ "Chrono", "classRa_1_1Core_1_1Utils_1_1Chrono.html", "classRa_1_1Core_1_1Utils_1_1Chrono" ],
           [ "ColorBase", "classRa_1_1Core_1_1Utils_1_1ColorBase.html", "classRa_1_1Core_1_1Utils_1_1ColorBase" ],
           [ "ContainerIntrospectionInterface", "classRa_1_1Core_1_1Utils_1_1ContainerIntrospectionInterface.html", "classRa_1_1Core_1_1Utils_1_1ContainerIntrospectionInterface" ],
+          [ "EnumConverter", "classRa_1_1Core_1_1Utils_1_1EnumConverter.html", "classRa_1_1Core_1_1Utils_1_1EnumConverter" ],
           [ "IndexedObject", "classRa_1_1Core_1_1Utils_1_1IndexedObject.html", "classRa_1_1Core_1_1Utils_1_1IndexedObject" ],
           [ "IndexMap", "classRa_1_1Core_1_1Utils_1_1IndexMap.html", "classRa_1_1Core_1_1Utils_1_1IndexMap" ],
           [ "ObjectWithSemantic", "classRa_1_1Core_1_1Utils_1_1ObjectWithSemantic.html", "classRa_1_1Core_1_1Utils_1_1ObjectWithSemantic" ],

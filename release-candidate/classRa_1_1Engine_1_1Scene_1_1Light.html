@@ -52,7 +52,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.4.10</span>
+   &#160;<span id="projectnumber">1.4.11</span>
    </div>
   </td>
  </tr>
@@ -143,29 +143,36 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a52e3749e54468d1b5de68ac8bf3bbf02"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Scene_1_1Light.html#a52e3749e54468d1b5de68ac8bf3bbf02">LightType</a> { <b>DIRECTIONAL</b> = 0
+<tr class="memitem:a40d22e08565ff77804e68e43b8a97bbc"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Scene_1_1Light.html#a40d22e08565ff77804e68e43b8a97bbc">LightType</a> : int { <b>DIRECTIONAL</b> = 0
 , <b>POINT</b>
 , <b>SPOT</b>
 , <b>POLYGONAL</b>
  }</td></tr>
-<tr class="separator:a52e3749e54468d1b5de68ac8bf3bbf02"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:a40d22e08565ff77804e68e43b8a97bbc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a279103e9296a2dd4130ae6193dd582be"><td class="memItemLeft" align="right" valign="top">EIGEN_MAKE_ALIGNED_OPERATOR_NEW&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Scene_1_1Light.html#a279103e9296a2dd4130ae6193dd582be">Light</a> (<a class="el" href="classRa_1_1Engine_1_1Scene_1_1Entity.html">Entity</a> *entity, const <a class="el" href="classRa_1_1Engine_1_1Scene_1_1Light.html#a52e3749e54468d1b5de68ac8bf3bbf02">LightType</a> &amp;type, const std::string &amp;name=&quot;light&quot;)</td></tr>
+<tr class="memitem:a279103e9296a2dd4130ae6193dd582be"><td class="memItemLeft" align="right" valign="top">EIGEN_MAKE_ALIGNED_OPERATOR_NEW&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Scene_1_1Light.html#a279103e9296a2dd4130ae6193dd582be">Light</a> (<a class="el" href="classRa_1_1Engine_1_1Scene_1_1Entity.html">Entity</a> *entity, const <a class="el" href="classRa_1_1Engine_1_1Scene_1_1Light.html#a40d22e08565ff77804e68e43b8a97bbc">LightType</a> &amp;type, const std::string &amp;name=&quot;light&quot;)</td></tr>
 <tr class="separator:a279103e9296a2dd4130ae6193dd582be"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a096a128f4431048712ef7fbb5ed78e56"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html">Core::Utils::Color</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Scene_1_1Light.html#a096a128f4431048712ef7fbb5ed78e56">getColor</a> () const</td></tr>
-<tr class="separator:a096a128f4431048712ef7fbb5ed78e56"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab607a6b646f1ba6d0eba627895f47fdc"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html">Core::Utils::Color</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Scene_1_1Light.html#ab607a6b646f1ba6d0eba627895f47fdc">getColor</a> () const</td></tr>
+<tr class="separator:ab607a6b646f1ba6d0eba627895f47fdc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9d6c719a66e6746d26cf2eb946e68e40"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Scene_1_1Light.html#a9d6c719a66e6746d26cf2eb946e68e40">setColor</a> (const <a class="el" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html">Core::Utils::Color</a> &amp;color)</td></tr>
 <tr class="separator:a9d6c719a66e6746d26cf2eb946e68e40"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae0f8f50409ee68466a207b46f6f82fb7"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Scene_1_1Light.html#ae0f8f50409ee68466a207b46f6f82fb7">setDirection</a> (const Eigen::Matrix&lt; Scalar, 3, 1 &gt; &amp;)</td></tr>
 <tr class="separator:ae0f8f50409ee68466a207b46f6f82fb7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aff5fe72f3c665098c2c985a22ed46e6f"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Scene_1_1Light.html#aff5fe72f3c665098c2c985a22ed46e6f">setPosition</a> (const Eigen::Matrix&lt; Scalar, 3, 1 &gt; &amp;)</td></tr>
 <tr class="separator:aff5fe72f3c665098c2c985a22ed46e6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab9d04699744c724107dd017d73b862af"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classRa_1_1Engine_1_1Scene_1_1Light.html#a52e3749e54468d1b5de68ac8bf3bbf02">LightType</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Scene_1_1Light.html#ab9d04699744c724107dd017d73b862af">getType</a> () const</td></tr>
-<tr class="separator:ab9d04699744c724107dd017d73b862af"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abf82b4e7d426709c943f158978d77134"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Scene_1_1Light.html#abf82b4e7d426709c943f158978d77134">getRenderParameters</a> (<a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html">Data::RenderParameters</a> &amp;params) const</td></tr>
+<tr class="memitem:ae08c99b3eb303f7df30d884bae13635b"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classRa_1_1Engine_1_1Scene_1_1Light.html#a40d22e08565ff77804e68e43b8a97bbc">LightType</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Scene_1_1Light.html#ae08c99b3eb303f7df30d884bae13635b">getType</a> () const</td></tr>
+<tr class="separator:ae08c99b3eb303f7df30d884bae13635b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abf82b4e7d426709c943f158978d77134"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Scene_1_1Light.html#abf82b4e7d426709c943f158978d77134">getRenderParameters</a> (<a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html">Data::RenderParameters</a> &amp;params) const</td></tr>
+<tr class="memdesc:abf82b4e7d426709c943f158978d77134"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extract the set of parameters that must be given to a shader for rendering and lighting with this light.  <a href="classRa_1_1Engine_1_1Scene_1_1Light.html#abf82b4e7d426709c943f158978d77134">More...</a><br /></td></tr>
 <tr class="separator:abf82b4e7d426709c943f158978d77134"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adde28ec5955bc60adcd2d93b5d990382"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html">Data::RenderParameters</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Scene_1_1Light.html#adde28ec5955bc60adcd2d93b5d990382">getRenderParameters</a> () const</td></tr>
+<tr class="memdesc:adde28ec5955bc60adcd2d93b5d990382"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gives read-only access to the renderParameters of the light.  <a href="classRa_1_1Engine_1_1Scene_1_1Light.html#adde28ec5955bc60adcd2d93b5d990382">More...</a><br /></td></tr>
+<tr class="separator:adde28ec5955bc60adcd2d93b5d990382"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a327264e3ead137e67841bd5ab6078327"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html">Data::RenderParameters</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Scene_1_1Light.html#a327264e3ead137e67841bd5ab6078327">getRenderParameters</a> ()</td></tr>
+<tr class="memdesc:a327264e3ead137e67841bd5ab6078327"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gives read-write access to the renderParameters of the light.  <a href="classRa_1_1Engine_1_1Scene_1_1Light.html#a327264e3ead137e67841bd5ab6078327">More...</a><br /></td></tr>
+<tr class="separator:a327264e3ead137e67841bd5ab6078327"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a309b1cca2b74dfae0a3463f572de9d75"><td class="memItemLeft" align="right" valign="top">virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Scene_1_1Light.html#a309b1cca2b74dfae0a3463f572de9d75">getShaderInclude</a> () const</td></tr>
 <tr class="separator:a309b1cca2b74dfae0a3463f572de9d75"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a81e523ca85bf99b5ca36b74c2460a78e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Scene_1_1Light.html#a81e523ca85bf99b5ca36b74c2460a78e">initialize</a> () override</td></tr>
@@ -256,23 +263,23 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><b>m_name</b> {}<
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><a class="el" href="classRa_1_1Engine_1_1Scene_1_1Light.html">Light</a> base class for rendering </p>
 
-<p class="definition">Definition at line <a class="el" href="Light_8hpp_source.html#l00022">22</a> of file <a class="el" href="Light_8hpp_source.html">Light.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Light_8hpp_source.html#l00020">20</a> of file <a class="el" href="Light_8hpp_source.html">Light.hpp</a>.</p>
 </div><h2 class="groupheader">Member Enumeration Documentation</h2>
-<a id="a52e3749e54468d1b5de68ac8bf3bbf02"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a52e3749e54468d1b5de68ac8bf3bbf02">&#9670;&nbsp;</a></span>LightType</h2>
+<a id="a40d22e08565ff77804e68e43b8a97bbc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a40d22e08565ff77804e68e43b8a97bbc">&#9670;&nbsp;</a></span>LightType</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">enum <a class="el" href="classRa_1_1Engine_1_1Scene_1_1Light.html#a52e3749e54468d1b5de68ac8bf3bbf02">Ra::Engine::Scene::Light::LightType</a></td>
+          <td class="memname">enum <a class="el" href="classRa_1_1Engine_1_1Scene_1_1Light.html#a40d22e08565ff77804e68e43b8a97bbc">Ra::Engine::Scene::Light::LightType</a> : int</td>
         </tr>
       </table>
 </div><div class="memdoc">
 <p>supported light type. </p><dl class="section note"><dt>Note</dt><dd>POLYGONAL is not really supported. </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000074">Todo:</a></b></dt><dd>: replace this enum by something extensible as we plan to add new light type by plugins </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000071">Todo:</a></b></dt><dd>: replace this enum by something extensible as we plan to add new light type by plugins </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="Light_8hpp_source.html#l00029">29</a> of file <a class="el" href="Light_8hpp_source.html">Light.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Light_8hpp_source.html#l00027">27</a> of file <a class="el" href="Light_8hpp_source.html">Light.hpp</a>.</p>
 
 </div>
 </div>
@@ -292,7 +299,7 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><b>m_name</b> {}<
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="classRa_1_1Engine_1_1Scene_1_1Light.html#a52e3749e54468d1b5de68ac8bf3bbf02">LightType</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="classRa_1_1Engine_1_1Scene_1_1Light.html#a40d22e08565ff77804e68e43b8a97bbc">LightType</a> &amp;&#160;</td>
           <td class="paramname"><em>type</em>, </td>
         </tr>
         <tr>
@@ -318,12 +325,20 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><b>m_name</b> {}<
 </dl>
 
 <p class="definition">Definition at line <a class="el" href="Light_8cpp_source.html#l00009">9</a> of file <a class="el" href="Light_8cpp_source.html">Light.cpp</a>.</p>
+<div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-2-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-2-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-2-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Engine_1_1Scene_1_1Light_a279103e9296a2dd4130ae6193dd582be_cgraph.svg" width="400" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
+</div>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a096a128f4431048712ef7fbb5ed78e56"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a096a128f4431048712ef7fbb5ed78e56">&#9670;&nbsp;</a></span>getColor()</h2>
+<a id="ab607a6b646f1ba6d0eba627895f47fdc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab607a6b646f1ba6d0eba627895f47fdc">&#9670;&nbsp;</a></span>getColor()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -332,7 +347,7 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><b>m_name</b> {}<
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html">Core::Utils::Color</a> &amp; Ra::Engine::Scene::Light::getColor </td>
+          <td class="memname">const <a class="el" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html">Core::Utils::Color</a>&amp; Ra::Engine::Scene::Light::getColor </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -346,18 +361,75 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><b>m_name</b> {}<
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>the color of the light </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="Light_8inl_source.html#l00009">9</a> of file <a class="el" href="Light_8inl_source.html">Light.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Light_8hpp_source.html#l00057">57</a> of file <a class="el" href="Light_8hpp_source.html">Light.hpp</a>.</p>
 
 </div>
 </div>
-<a id="abf82b4e7d426709c943f158978d77134"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abf82b4e7d426709c943f158978d77134">&#9670;&nbsp;</a></span>getRenderParameters()</h2>
+<a id="a327264e3ead137e67841bd5ab6078327"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a327264e3ead137e67841bd5ab6078327">&#9670;&nbsp;</a></span>getRenderParameters() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html">Data::RenderParameters</a>&amp; Ra::Engine::Scene::Light::getRenderParameters </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gives read-write access to the renderParameters of the light. </p>
+<dl class="section return"><dt>Returns</dt><dd>a const reference to the light parameters for rendering </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="Light_8hpp_source.html#l00101">101</a> of file <a class="el" href="Light_8hpp_source.html">Light.hpp</a>.</p>
+
+</div>
+</div>
+<a id="adde28ec5955bc60adcd2d93b5d990382"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adde28ec5955bc60adcd2d93b5d990382">&#9670;&nbsp;</a></span>getRenderParameters() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html">Data::RenderParameters</a>&amp; Ra::Engine::Scene::Light::getRenderParameters </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gives read-only access to the renderParameters of the light. </p>
+<dl class="section return"><dt>Returns</dt><dd>a const reference to the light parameters for rendering </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="Light_8hpp_source.html#l00095">95</a> of file <a class="el" href="Light_8hpp_source.html">Light.hpp</a>.</p>
+
+</div>
+</div>
+<a id="abf82b4e7d426709c943f158978d77134"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abf82b4e7d426709c943f158978d77134">&#9670;&nbsp;</a></span>getRenderParameters() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">void Ra::Engine::Scene::Light::getRenderParameters </td>
@@ -367,28 +439,23 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><b>m_name</b> {}<
           <td> const</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
-<p>Extrac the set of parameters that must be given to a shader for rendering and lighting with this light. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Extract the set of parameters that must be given to a shader for rendering and lighting with this light. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">params</td><td></td></tr>
+    <tr><td class="paramname">params</td><td>parameters to be filled (using merge-replace) with the one of the light </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Reimplemented in <a class="el" href="classRa_1_1Engine_1_1Scene_1_1SpotLight.html#af590a75472c842932ad2122ac2288be1">Ra::Engine::Scene::SpotLight</a>, <a class="el" href="classRa_1_1Engine_1_1Scene_1_1PointLight.html#ab0f058d0dab8d5ee436d5ff21f870647">Ra::Engine::Scene::PointLight</a>, and <a class="el" href="classRa_1_1Engine_1_1Scene_1_1DirectionalLight.html#a78af459638f491d049eb30d5bd6d8c80">Ra::Engine::Scene::DirectionalLight</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="Light_8cpp_source.html#l00012">12</a> of file <a class="el" href="Light_8cpp_source.html">Light.cpp</a>.</p>
-<div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-2-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-2-summary" class="dynsummary" style="display:block;">
+<p class="definition">Definition at line <a class="el" href="Light_8cpp_source.html#l00015">15</a> of file <a class="el" href="Light_8cpp_source.html">Light.cpp</a>.</p>
+<div id="dynsection-3" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-3-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-3-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-2-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Engine_1_1Scene_1_1Light_abf82b4e7d426709c943f158978d77134_cgraph.svg" width="456" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div id="dynsection-3-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classRa_1_1Engine_1_1Scene_1_1Light_abf82b4e7d426709c943f158978d77134_cgraph.svg" width="100%" height="388"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
 
@@ -416,16 +483,16 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><b>m_name</b> {}<
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Abstract method that define the glsl code that manage this light type For the moment, this is not use (except by experimental plugins) but will part of the shader composition process of radium v2 </p><dl class="section return"><dt>Returns</dt><dd></dd></dl>
+<p>Abstract method that define the glsl code that manage this light type For the moment, this is not use (except by experimental plugins) but will be part of the shader composition process of radium v2 </p><dl class="section return"><dt>Returns</dt><dd></dd></dl>
 
 <p>Reimplemented in <a class="el" href="classRa_1_1Engine_1_1Scene_1_1SpotLight.html#a100abc65da2878bf821643ddecaa308c">Ra::Engine::Scene::SpotLight</a>, <a class="el" href="classRa_1_1Engine_1_1Scene_1_1PointLight.html#ad29deaed61bf608cb297be6938681c6f">Ra::Engine::Scene::PointLight</a>, and <a class="el" href="classRa_1_1Engine_1_1Scene_1_1DirectionalLight.html#ab64422ad36ade3893af354c73abf3330">Ra::Engine::Scene::DirectionalLight</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="Light_8cpp_source.html#l00021">21</a> of file <a class="el" href="Light_8cpp_source.html">Light.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Light_8cpp_source.html#l00023">23</a> of file <a class="el" href="Light_8cpp_source.html">Light.cpp</a>.</p>
 
 </div>
 </div>
-<a id="ab9d04699744c724107dd017d73b862af"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab9d04699744c724107dd017d73b862af">&#9670;&nbsp;</a></span>getType()</h2>
+<a id="ae08c99b3eb303f7df30d884bae13635b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae08c99b3eb303f7df30d884bae13635b">&#9670;&nbsp;</a></span>getType()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -434,7 +501,7 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><b>m_name</b> {}<
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="classRa_1_1Engine_1_1Scene_1_1Light.html#a52e3749e54468d1b5de68ac8bf3bbf02">Light::LightType</a> &amp; Ra::Engine::Scene::Light::getType </td>
+          <td class="memname">const <a class="el" href="classRa_1_1Engine_1_1Scene_1_1Light.html#a40d22e08565ff77804e68e43b8a97bbc">LightType</a>&amp; Ra::Engine::Scene::Light::getType </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -446,9 +513,9 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><b>m_name</b> {}<
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>the type (an enum <a class="el" href="classRa_1_1Engine_1_1Scene_1_1Light.html#a52e3749e54468d1b5de68ac8bf3bbf02">Light::LightType</a> member) of the light source </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the type (an enum <a class="el" href="classRa_1_1Engine_1_1Scene_1_1Light.html#a40d22e08565ff77804e68e43b8a97bbc">Light::LightType</a> member) of the light source </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="Light_8inl_source.html#l00017">17</a> of file <a class="el" href="Light_8inl_source.html">Light.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Light_8hpp_source.html#l00082">82</a> of file <a class="el" href="Light_8hpp_source.html">Light.hpp</a>.</p>
 
 </div>
 </div>
@@ -478,7 +545,7 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><b>m_name</b> {}<
 
 <p>Implements <a class="el" href="classRa_1_1Engine_1_1Scene_1_1Component.html#a6314dec2b1d03680ad80ec3adf6dd8f9">Ra::Engine::Scene::Component</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="Light_8cpp_source.html#l00017">17</a> of file <a class="el" href="Light_8cpp_source.html">Light.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Light_8cpp_source.html#l00019">19</a> of file <a class="el" href="Light_8cpp_source.html">Light.cpp</a>.</p>
 
 </div>
 </div>
@@ -512,7 +579,15 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><b>m_name</b> {}<
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="Light_8inl_source.html#l00013">13</a> of file <a class="el" href="Light_8inl_source.html">Light.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Light_8hpp_source.html#l00124">124</a> of file <a class="el" href="Light_8hpp_source.html">Light.hpp</a>.</p>
+<div id="dynsection-4" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-4-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-4-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-4-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Engine_1_1Scene_1_1Light_a9d6c719a66e6746d26cf2eb946e68e40_cgraph.svg" width="400" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
+</div>
 
 </div>
 </div>
@@ -539,7 +614,7 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><b>m_name</b> {}<
   </tr>
 </table>
 </div><div class="memdoc">
-<p>set the direction of lighting </p><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000076">Todo:</a></b></dt><dd>put this only on directional and spot light sources </dd></dl>
+<p>set the direction of lighting </p><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000073">Todo:</a></b></dt><dd>put this only on directional and spot light sources </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">dir</td><td></td></tr>
@@ -549,7 +624,7 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><b>m_name</b> {}<
 
 <p>Reimplemented in <a class="el" href="classRa_1_1Engine_1_1Scene_1_1SpotLight.html#a1fdc79c2356d7f80cf21c61c74e5c080">Ra::Engine::Scene::SpotLight</a>, and <a class="el" href="classRa_1_1Engine_1_1Scene_1_1DirectionalLight.html#abe8d55062e9054ff7a4cc1e35179474a">Ra::Engine::Scene::DirectionalLight</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="Light_8hpp_source.html#l00071">71</a> of file <a class="el" href="Light_8hpp_source.html">Light.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Light_8hpp_source.html#l00069">69</a> of file <a class="el" href="Light_8hpp_source.html">Light.hpp</a>.</p>
 
 </div>
 </div>
@@ -576,7 +651,7 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><b>m_name</b> {}<
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Set the position of the light source </p><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000077">Todo:</a></b></dt><dd>put this only on point and spot light sources </dd></dl>
+<p>Set the position of the light source </p><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000074">Todo:</a></b></dt><dd>put this only on point and spot light sources </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">pos</td><td></td></tr>
@@ -586,14 +661,13 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><b>m_name</b> {}<
 
 <p>Reimplemented in <a class="el" href="classRa_1_1Engine_1_1Scene_1_1SpotLight.html#a89bcc1f51e943a479b5f25d17e4db2c1">Ra::Engine::Scene::SpotLight</a>, and <a class="el" href="classRa_1_1Engine_1_1Scene_1_1PointLight.html#a08deb05c08af66d0e046f2598c8d4ee4">Ra::Engine::Scene::PointLight</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="Light_8hpp_source.html#l00077">77</a> of file <a class="el" href="Light_8hpp_source.html">Light.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Light_8hpp_source.html#l00075">75</a> of file <a class="el" href="Light_8hpp_source.html">Light.hpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/src/Engine/Scene/<a class="el" href="Light_8hpp_source.html">Light.hpp</a></li>
 <li>/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/src/Engine/Scene/<a class="el" href="Light_8cpp_source.html">Light.cpp</a></li>
-<li>/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/src/Engine/Scene/<a class="el" href="Light_8inl_source.html">Light.inl</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -601,7 +675,7 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><b>m_name</b> {}<
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><b>Engine</b></li><li class="navelem"><b>Scene</b></li><li class="navelem"><a class="el" href="classRa_1_1Engine_1_1Scene_1_1Light.html">Light</a></li>
-    <li class="footer">Generated on Fri Mar 17 2023 07:31:29 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Apr 3 2023 06:30:55 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

@@ -52,7 +52,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.4.10</span>
+   &#160;<span id="projectnumber">1.4.11</span>
    </div>
   </td>
  </tr>
@@ -131,17 +131,18 @@ $(document).ready(function(){initNavTree('structRa_1_1Core_1_1VariableSet_1_1Sta
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a0660a64c26469968deca00f66429ff95"><td class="memItemLeft" align="right" valign="top"><a id="a0660a64c26469968deca00f66429ff95"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>types</b> = <a class="el" href="structRa_1_1Core_1_1VariableSet_1_1TypeList.html">TypeList</a>&lt; TYPES... &gt;</td></tr>
-<tr class="separator:a0660a64c26469968deca00f66429ff95"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac018c9dde3636f937d393e5dda4566eb"><td class="memItemLeft" align="right" valign="top"><a id="ac018c9dde3636f937d393e5dda4566eb"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>types</b> = Utils::TypeList&lt; TYPES... &gt;</td></tr>
+<tr class="separator:ac018c9dde3636f937d393e5dda4566eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><h3>template&lt;class... TYPES&gt;<br />
+<div class="textblock"><h3>template&lt;typename... TYPES&gt;<br />
 struct Ra::Core::VariableSet::StaticVisitor&lt; TYPES &gt;</h3>
 
 <p>Base class for visitors with static supported types. Visiting will be prepared at compile time by unfolding type list and generating all the required function calls for the visit. Any class that defines the same alias for a public member "types" can be used as a visitor. </p>
+<p>Visiting operators </p>
 
-<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00105">105</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00271">271</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
 </div><hr/>The documentation for this struct was generated from the following file:<ul>
 <li>/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/src/Core/Containers/<a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a></li>
 </ul>
@@ -151,7 +152,7 @@ struct Ra::Core::VariableSet::StaticVisitor&lt; TYPES &gt;</h3>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><b>Core</b></li><li class="navelem"><a class="el" href="classRa_1_1Core_1_1VariableSet.html">VariableSet</a></li><li class="navelem"><a class="el" href="structRa_1_1Core_1_1VariableSet_1_1StaticVisitor.html">StaticVisitor</a></li>
-    <li class="footer">Generated on Fri Mar 17 2023 07:31:29 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Apr 3 2023 06:30:54 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

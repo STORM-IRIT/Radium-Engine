@@ -1,5 +1,6 @@
 <map id="Ra::Engine::Rendering::RenderObject::render" name="Ra::Engine::Rendering::RenderObject::render">
 <area shape="rect" id="node1" title=" " alt="" coords="5,39,173,80"/>
 <area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a6a3e5cfdb4ee0618fcdfd72eaac72c98" title=" " alt="" coords="221,5,405,47"/>
-<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Data_1_1ShaderProgram.html#a02b209f3800adee9a6b039dc8c8d5f62" title="Uniform setters." alt="" coords="222,71,405,112"/>
+<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Data_1_1ShaderProgram.html#a02b209f3800adee9a6b039dc8c8d5f62" title="Uniform setters." alt="" coords="222,71,405,112"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1VariableSet.html#abff01d871519d7cd33380f6f8bf1899d" title="Visit the container using a user defined visitor." alt="" coords="453,5,612,47"/>
 </map>

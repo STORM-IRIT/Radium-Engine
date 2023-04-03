@@ -1,12 +1,8 @@
 <map id="Ra::Gui::MaterialParameterEditor::setupFromMaterial" name="Ra::Gui::MaterialParameterEditor::setupFromMaterial">
-<area shape="rect" id="node1" title=" " alt="" coords="5,201,204,243"/>
-<area shape="rect" id="node2" href="$classRa_1_1Gui_1_1ParameterSetEditor.html#ab9d18d7b290d3ada273516c162280451" title="Update the different UI element with the given renderParameter, using the given constraints." alt="" coords="252,168,455,209"/>
-<area shape="rect" id="node10" href="$classRa_1_1Gui_1_1ParameterSetEditor.html#ab2c692612c3266567c0d796ad7139f5b" title=" " alt="" coords="252,233,455,275"/>
-<area shape="rect" id="node3" href="$classRa_1_1Gui_1_1Widgets_1_1ControlPanel.html#a069d97f67440a9a48918bd2fcfeb7580" title=" " alt="" coords="517,37,702,79"/>
-<area shape="rect" id="node6" href="$classRa_1_1Gui_1_1Widgets_1_1ControlPanel.html#aa9ae434e3034a51a2d7fd196551a5edb" title=" " alt="" coords="517,103,702,144"/>
-<area shape="rect" id="node7" href="$classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a5016e83a8e248b8c990f8ae90643f32b" title=" " alt="" coords="512,168,707,209"/>
-<area shape="rect" id="node8" href="$classRa_1_1Gui_1_1Widgets_1_1ControlPanel.html#ac0b05ce960061203216eb79d7f79d14d" title=" " alt="" coords="517,233,702,275"/>
-<area shape="rect" id="node9" href="$classRa_1_1Engine_1_1Data_1_1RenderParameters.html#adc35dc41b69e69225565f202d441468e" title=" " alt="" coords="503,299,716,340"/>
-<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Utils_1_1ColorBase.html#a2a69bad748649d27a7b04eaed0d358e7" title="convert the color expressed in linear RGB color space to sRGB" alt="" coords="765,5,980,47"/>
-<area shape="rect" id="node5" href="$classRa_1_1Core_1_1Utils_1_1ColorBase.html#a1a40d28bf57c428ea99ed917894f836f" title="convert the color expressed in sRGB color space to linear RGB" alt="" coords="764,71,981,112"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,71,204,112"/>
+<area shape="rect" id="node2" href="$classRa_1_1Gui_1_1ParameterSetEditor.html#ab9d18d7b290d3ada273516c162280451" title="Update the different UI element with the given renderParameter, using the given constraints." alt="" coords="252,37,455,79"/>
+<area shape="rect" id="node6" href="$classRa_1_1Gui_1_1ParameterSetEditor.html#ab2c692612c3266567c0d796ad7139f5b" title=" " alt="" coords="252,103,455,144"/>
+<area shape="rect" id="node3" href="$classRa_1_1Gui_1_1Widgets_1_1ControlPanel.html#ac0b05ce960061203216eb79d7f79d14d" title=" " alt="" coords="503,5,688,47"/>
+<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Data_1_1RenderParameters.html#af7a7544b9c818cd5d4e940fb68d9a08e" title=" " alt="" coords="503,71,687,112"/>
+<area shape="rect" id="node5" href="$classRa_1_1Core_1_1VariableSet.html#abff01d871519d7cd33380f6f8bf1899d" title="Visit the container using a user defined visitor." alt="" coords="736,71,895,112"/>
 </map>

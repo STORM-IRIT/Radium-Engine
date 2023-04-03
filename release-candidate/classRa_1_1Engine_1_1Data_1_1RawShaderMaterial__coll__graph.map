@@ -1,6 +1,5 @@
 <map id="Ra::Engine::Data::RawShaderMaterial" name="Ra::Engine::Data::RawShaderMaterial">
-<area shape="rect" id="node1" title=" " alt="" coords="12,1557,223,1781"/>
-<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Data_1_1Material.html" title=" " alt="" coords="11,1240,223,1508"/>
-<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html" title=" " alt="" coords="5,1025,229,1191"/>
-<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Data_1_1RenderParameters.html" title=" " alt="" coords="10,5,225,963"/>
+<area shape="rect" id="node1" title=" " alt="" coords="12,535,223,759"/>
+<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Data_1_1Material.html" title=" " alt="" coords="11,219,223,487"/>
+<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html" title=" " alt="" coords="5,5,229,171"/>
 </map>

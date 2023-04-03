@@ -52,7 +52,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.4.10</span>
+   &#160;<span id="projectnumber">1.4.11</span>
    </div>
   </td>
  </tr>
@@ -223,24 +223,25 @@ $(document).ready(function(){initNavTree('Gizmo_8cpp_source.html',''); initResiz
 <div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160; </div>
 <div class="line"><a name="l00110"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1Gizmo_1_1UiSelectionControler.html#a74efd7ab1556f13cb24c6ad40a9c7d57">  110</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Gui_1_1Gizmo_1_1UiSelectionControler.html#a74efd7ab1556f13cb24c6ad40a9c7d57">Gizmo::UiSelectionControler::updateGL</a>() {</div>
 <div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    m_associatedMaterial-&gt;updateGL();</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    m_renderParameters = m_associatedMaterial-&gt;getParameters();</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    <span class="keywordflow">if</span> ( m_selected ) { m_renderParameters.addParameter( <span class="stringliteral">&quot;material.color&quot;</span>, m_selectedColor ); }</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;}</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160; </div>
-<div class="line"><a name="l00116"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1Gizmo_1_1UiSelectionControler.html#a5885f499e0de01d6747113534c3d0217">  116</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Gui_1_1Gizmo_1_1UiSelectionControler.html#a5885f499e0de01d6747113534c3d0217">Gizmo::UiSelectionControler::toggleState</a>() {</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    m_selected = !m_selected;</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;}</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160; </div>
-<div class="line"><a name="l00120"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1Gizmo_1_1UiSelectionControler.html#a11f8714168f0fc3470ff7c749a91a5d8">  120</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Gui_1_1Gizmo_1_1UiSelectionControler.html#a11f8714168f0fc3470ff7c749a91a5d8">Gizmo::UiSelectionControler::setState</a>() {</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    m_selected = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;}</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160; </div>
-<div class="line"><a name="l00124"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1Gizmo_1_1UiSelectionControler.html#a6190ecfbb984d25ff72d80e45a59e9e9">  124</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Gui_1_1Gizmo_1_1UiSelectionControler.html#a6190ecfbb984d25ff72d80e45a59e9e9">Gizmo::UiSelectionControler::clearState</a>() {</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    m_selected = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;}</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160; </div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;} <span class="comment">// namespace Gui</span></div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;} <span class="comment">// namespace Ra</span></div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    <span class="keyword">auto</span>&amp; renderParameters = getParameters();</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    renderParameters.mergeReplaceParameters( m_associatedMaterial-&gt;getParameters() );</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    <span class="keywordflow">if</span> ( m_selected ) { renderParameters.addParameter( <span class="stringliteral">&quot;material.color&quot;</span>, m_selectedColor ); }</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;}</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160; </div>
+<div class="line"><a name="l00117"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1Gizmo_1_1UiSelectionControler.html#a5885f499e0de01d6747113534c3d0217">  117</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Gui_1_1Gizmo_1_1UiSelectionControler.html#a5885f499e0de01d6747113534c3d0217">Gizmo::UiSelectionControler::toggleState</a>() {</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    m_selected = !m_selected;</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;}</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160; </div>
+<div class="line"><a name="l00121"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1Gizmo_1_1UiSelectionControler.html#a11f8714168f0fc3470ff7c749a91a5d8">  121</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Gui_1_1Gizmo_1_1UiSelectionControler.html#a11f8714168f0fc3470ff7c749a91a5d8">Gizmo::UiSelectionControler::setState</a>() {</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    m_selected = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;}</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160; </div>
+<div class="line"><a name="l00125"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1Gizmo_1_1UiSelectionControler.html#a6190ecfbb984d25ff72d80e45a59e9e9">  125</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Gui_1_1Gizmo_1_1UiSelectionControler.html#a6190ecfbb984d25ff72d80e45a59e9e9">Gizmo::UiSelectionControler::clearState</a>() {</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    m_selected = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;}</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160; </div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;} <span class="comment">// namespace Gui</span></div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;} <span class="comment">// namespace Ra</span></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1Camera_html"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1Camera.html">Ra::Core::Asset::Camera</a></div><div class="ttdoc">Camera class storing the Camera frame and the projection properties The view direction is -z in camer...</div><div class="ttdef"><b>Definition:</b> <a href="Camera_8hpp_source.html#l00015">Camera.hpp:16</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1Camera_html_a79e1631d8cc94ca6430572a0bc38d076"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1Camera.html#a79e1631d8cc94ca6430572a0bc38d076">Ra::Core::Asset::Camera::getRayFromScreen</a></div><div class="ttdeci">Core::Ray getRayFromScreen(const Core::Vector2 &amp;pix) const</div><div class="ttdef"><b>Definition:</b> <a href="Camera_8cpp_source.html#l00180">Camera.cpp:180</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1Camera_html_a857b2f451204f40344a4f0eb8a44c496"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1Camera.html#a857b2f451204f40344a4f0eb8a44c496">Ra::Core::Asset::Camera::getUpVector</a></div><div class="ttdeci">Core::Vector3 getUpVector() const</div><div class="ttdoc">Return the up vector.</div><div class="ttdef"><b>Definition:</b> <a href="Camera_8inl_source.html#l00031">Camera.inl:31</a></div></div>
@@ -248,9 +249,9 @@ $(document).ready(function(){initNavTree('Gizmo_8cpp_source.html',''); initResiz
 <div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1ColorBase_html"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1ColorBase.html">Ra::Core::Utils::ColorBase&lt; Scalar &gt;</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Rendering_1_1RenderObject_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Rendering_1_1RenderObject.html">Ra::Engine::Rendering::RenderObject</a></div><div class="ttdef"><b>Definition:</b> <a href="RenderObject_8hpp_source.html#l00036">RenderObject.hpp:37</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1Gizmo_1_1UiSelectionControler_html"><div class="ttname"><a href="classRa_1_1Gui_1_1Gizmo_1_1UiSelectionControler.html">Ra::Gui::Gizmo::UiSelectionControler</a></div><div class="ttdef"><b>Definition:</b> <a href="Gizmo_8hpp_source.html#l00135">Gizmo.hpp:136</a></div></div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1Gizmo_1_1UiSelectionControler_html_a11f8714168f0fc3470ff7c749a91a5d8"><div class="ttname"><a href="classRa_1_1Gui_1_1Gizmo_1_1UiSelectionControler.html#a11f8714168f0fc3470ff7c749a91a5d8">Ra::Gui::Gizmo::UiSelectionControler::setState</a></div><div class="ttdeci">void setState()</div><div class="ttdoc">Set the state of the controler to true.</div><div class="ttdef"><b>Definition:</b> <a href="Gizmo_8cpp_source.html#l00120">Gizmo.cpp:120</a></div></div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1Gizmo_1_1UiSelectionControler_html_a5885f499e0de01d6747113534c3d0217"><div class="ttname"><a href="classRa_1_1Gui_1_1Gizmo_1_1UiSelectionControler.html#a5885f499e0de01d6747113534c3d0217">Ra::Gui::Gizmo::UiSelectionControler::toggleState</a></div><div class="ttdeci">void toggleState()</div><div class="ttdoc">Swap the state of the controler.</div><div class="ttdef"><b>Definition:</b> <a href="Gizmo_8cpp_source.html#l00116">Gizmo.cpp:116</a></div></div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1Gizmo_1_1UiSelectionControler_html_a6190ecfbb984d25ff72d80e45a59e9e9"><div class="ttname"><a href="classRa_1_1Gui_1_1Gizmo_1_1UiSelectionControler.html#a6190ecfbb984d25ff72d80e45a59e9e9">Ra::Gui::Gizmo::UiSelectionControler::clearState</a></div><div class="ttdeci">void clearState()</div><div class="ttdoc">Set the state of the controler to false.</div><div class="ttdef"><b>Definition:</b> <a href="Gizmo_8cpp_source.html#l00124">Gizmo.cpp:124</a></div></div>
+<div class="ttc" id="aclassRa_1_1Gui_1_1Gizmo_1_1UiSelectionControler_html_a11f8714168f0fc3470ff7c749a91a5d8"><div class="ttname"><a href="classRa_1_1Gui_1_1Gizmo_1_1UiSelectionControler.html#a11f8714168f0fc3470ff7c749a91a5d8">Ra::Gui::Gizmo::UiSelectionControler::setState</a></div><div class="ttdeci">void setState()</div><div class="ttdoc">Set the state of the controler to true.</div><div class="ttdef"><b>Definition:</b> <a href="Gizmo_8cpp_source.html#l00121">Gizmo.cpp:121</a></div></div>
+<div class="ttc" id="aclassRa_1_1Gui_1_1Gizmo_1_1UiSelectionControler_html_a5885f499e0de01d6747113534c3d0217"><div class="ttname"><a href="classRa_1_1Gui_1_1Gizmo_1_1UiSelectionControler.html#a5885f499e0de01d6747113534c3d0217">Ra::Gui::Gizmo::UiSelectionControler::toggleState</a></div><div class="ttdeci">void toggleState()</div><div class="ttdoc">Swap the state of the controler.</div><div class="ttdef"><b>Definition:</b> <a href="Gizmo_8cpp_source.html#l00117">Gizmo.cpp:117</a></div></div>
+<div class="ttc" id="aclassRa_1_1Gui_1_1Gizmo_1_1UiSelectionControler_html_a6190ecfbb984d25ff72d80e45a59e9e9"><div class="ttname"><a href="classRa_1_1Gui_1_1Gizmo_1_1UiSelectionControler.html#a6190ecfbb984d25ff72d80e45a59e9e9">Ra::Gui::Gizmo::UiSelectionControler::clearState</a></div><div class="ttdeci">void clearState()</div><div class="ttdoc">Set the state of the controler to false.</div><div class="ttdef"><b>Definition:</b> <a href="Gizmo_8cpp_source.html#l00125">Gizmo.cpp:125</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1Gizmo_1_1UiSelectionControler_html_a74efd7ab1556f13cb24c6ad40a9c7d57"><div class="ttname"><a href="classRa_1_1Gui_1_1Gizmo_1_1UiSelectionControler.html#a74efd7ab1556f13cb24c6ad40a9c7d57">Ra::Gui::Gizmo::UiSelectionControler::updateGL</a></div><div class="ttdeci">void updateGL() override</div><div class="ttdoc">Inherited.</div><div class="ttdef"><b>Definition:</b> <a href="Gizmo_8cpp_source.html#l00110">Gizmo.cpp:110</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1Gizmo_html_a10af7510f144cfd950233a1a173fabf7"><div class="ttname"><a href="classRa_1_1Gui_1_1Gizmo.html#a10af7510f144cfd950233a1a173fabf7">Ra::Gui::Gizmo::s_material</a></div><div class="ttdeci">static std::array&lt; std::shared_ptr&lt; Ra::Engine::Data::PlainMaterial &gt;, 3 &gt; s_material</div><div class="ttdef"><b>Definition:</b> <a href="Gizmo_8hpp_source.html#l00118">Gizmo.hpp:118</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Engine_1_1Data_1_1ShaderConfigurationFactory_html_a0ecc004c00bff945aae8b673a738909f"><div class="ttname"><a href="namespaceRa_1_1Engine_1_1Data_1_1ShaderConfigurationFactory.html#a0ecc004c00bff945aae8b673a738909f">Ra::Engine::Data::ShaderConfigurationFactory::getConfiguration</a></div><div class="ttdeci">Core::Utils::optional&lt; ShaderConfiguration &gt; getConfiguration(const std::string &amp;name)</div><div class="ttdef"><b>Definition:</b> <a href="ShaderConfigFactory_8cpp_source.html#l00041">ShaderConfigFactory.cpp:41</a></div></div>
@@ -261,7 +262,7 @@ $(document).ready(function(){initNavTree('Gizmo_8cpp_source.html',''); initResiz
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b5ac5e964c12a6b13a9d28feb9f3d3ed.html">Gui</a></li><li class="navelem"><a class="el" href="dir_b04feb2291820e8d3d098807c21e4559.html">Viewer</a></li><li class="navelem"><a class="el" href="dir_48f4a0e7ee74be957161ce5a9fe8f935.html">Gizmo</a></li><li class="navelem"><b>Gizmo.cpp</b></li>
-    <li class="footer">Generated on Fri Mar 17 2023 07:31:28 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Apr 3 2023 06:30:54 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

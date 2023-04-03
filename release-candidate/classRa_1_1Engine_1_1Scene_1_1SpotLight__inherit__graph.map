@@ -1,5 +1,5 @@
 <map id="Ra::Engine::Scene::SpotLight" name="Ra::Engine::Scene::SpotLight">
-<area shape="rect" id="node1" title=" " alt="" coords="13,711,219,1037"/>
-<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Scene_1_1Light.html" title=" " alt="" coords="22,439,210,663"/>
+<area shape="rect" id="node1" title=" " alt="" coords="13,740,219,1052"/>
+<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Scene_1_1Light.html" title=" " alt="" coords="22,439,210,692"/>
 <area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Scene_1_1Component.html" title="A component is an element that can be updated by a system. It is also linked to some other components..." alt="" coords="5,5,227,391"/>
 </map>

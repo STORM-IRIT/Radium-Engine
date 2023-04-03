@@ -1,7 +1,7 @@
 <map id="Ra::Gui::TrackballCameraManipulator" name="Ra::Gui::TrackballCameraManipulator">
 <area shape="rect" id="node1" title="A Trackball manipulator for Cameras." alt="" coords="519,2615,765,3117"/>
 <area shape="rect" id="node2" href="$classRa_1_1Gui_1_1CameraManipulator.html" title="The CameraManipulator class is the generic class for camera manipulators." alt="" coords="242,1888,498,2552"/>
-<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Scene_1_1Light.html" title=" " alt="" coords="75,1323,263,1547"/>
+<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Scene_1_1Light.html" title=" " alt="" coords="75,1308,263,1561"/>
 <area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Scene_1_1Component.html" title="A component is an element that can be updated by a system. It is also linked to some other components..." alt="" coords="58,639,279,995"/>
 <area shape="rect" id="node5" href="$classRa_1_1Engine_1_1Scene_1_1System.html" title=" " alt="" coords="5,286,217,495"/>
 <area shape="rect" id="node6" href="$classRa_1_1Engine_1_1Scene_1_1Entity.html" title="An entity is an scene element. It ties together components with a transform." alt="" coords="241,205,451,576"/>

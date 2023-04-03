@@ -148,30 +148,32 @@ var sectionId = 'dynsection-1';
 <g id="node3" class="node">
 <title>Node3</title>
 <g id="a_node3"><a xlink:href="classRa_1_1Engine_1_1Scene_1_1Light.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="52,-1036.5 52,-1203.5 193,-1203.5 193,-1036.5 52,-1036.5"/>
-<text text-anchor="start" x="60" y="-1191.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Scene::</text>
-<text text-anchor="middle" x="122.5" y="-1180.5" font-family="Helvetica,sans-Serif" font-size="10.00">Light</text>
-<polyline fill="none" stroke="black" points="52,-1173.5 193,-1173.5 "/>
-<text text-anchor="middle" x="122.5" y="-1161.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<polyline fill="none" stroke="black" points="52,-1154.5 193,-1154.5 "/>
-<text text-anchor="start" x="60" y="-1142.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Light()</text>
-<text text-anchor="start" x="60" y="-1131.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ ~Light()</text>
-<text text-anchor="start" x="60" y="-1120.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getColor()</text>
-<text text-anchor="start" x="60" y="-1109.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ setColor()</text>
-<text text-anchor="start" x="60" y="-1098.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ setDirection()</text>
-<text text-anchor="start" x="60" y="-1087.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ setPosition()</text>
-<text text-anchor="start" x="60" y="-1076.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getType()</text>
+<polygon fill="white" stroke="black" points="52,-1025.5 52,-1214.5 193,-1214.5 193,-1025.5 52,-1025.5"/>
+<text text-anchor="start" x="60" y="-1202.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Scene::</text>
+<text text-anchor="middle" x="122.5" y="-1191.5" font-family="Helvetica,sans-Serif" font-size="10.00">Light</text>
+<polyline fill="none" stroke="black" points="52,-1184.5 193,-1184.5 "/>
+<text text-anchor="middle" x="122.5" y="-1172.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polyline fill="none" stroke="black" points="52,-1165.5 193,-1165.5 "/>
+<text text-anchor="start" x="60" y="-1153.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Light()</text>
+<text text-anchor="start" x="60" y="-1142.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ ~Light()</text>
+<text text-anchor="start" x="60" y="-1131.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getColor()</text>
+<text text-anchor="start" x="60" y="-1120.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ setColor()</text>
+<text text-anchor="start" x="60" y="-1109.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ setDirection()</text>
+<text text-anchor="start" x="60" y="-1098.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ setPosition()</text>
+<text text-anchor="start" x="60" y="-1087.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getType()</text>
+<text text-anchor="start" x="60" y="-1076.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getRenderParameters()</text>
 <text text-anchor="start" x="60" y="-1065.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getRenderParameters()</text>
-<text text-anchor="start" x="60" y="-1054.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getShaderInclude()</text>
-<text text-anchor="start" x="60" y="-1043.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ initialize()</text>
+<text text-anchor="start" x="60" y="-1054.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getRenderParameters()</text>
+<text text-anchor="start" x="60" y="-1043.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getShaderInclude()</text>
+<text text-anchor="start" x="60" y="-1032.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ initialize()</text>
 </a>
 </g>
 </g>
 <!-- Node3&#45;&gt;Node2 -->
 <g id="edge2" class="edge">
 <title>Node3&#45;&gt;Node2</title>
-<path fill="none" stroke="#404040" d="M143.88,-1036.45C160.47,-972.38 184.42,-879.88 207.3,-791.53"/>
-<polygon fill="none" stroke="#404040" points="207.36,-791.28 204.99,-784.47 210.37,-779.66 212.74,-786.47 207.36,-791.28"/>
+<path fill="none" stroke="#404040" d="M146.75,-1025.34C163.18,-961.89 185.76,-874.7 207.37,-791.26"/>
+<polygon fill="none" stroke="#404040" points="207.4,-791.14 205.03,-784.32 210.41,-779.52 212.77,-786.33 207.4,-791.14"/>
 <text text-anchor="middle" x="228" y="-801" font-family="Helvetica,sans-Serif" font-size="10.00"> #m_light</text>
 </g>
 <!-- Node4 -->
@@ -209,7 +211,7 @@ var sectionId = 'dynsection-1';
 <!-- Node4&#45;&gt;Node3 -->
 <g id="edge3" class="edge">
 <title>Node4&#45;&gt;Node3</title>
-<path fill="none" stroke="midnightblue" d="M122.5,-1439.9C122.5,-1362.32 122.5,-1269.09 122.5,-1203.53"/>
+<path fill="none" stroke="midnightblue" d="M122.5,-1440.01C122.5,-1366.75 122.5,-1279.52 122.5,-1214.8"/>
 <polygon fill="none" stroke="midnightblue" points="119,-1440.25 122.5,-1450.25 126,-1440.25 119,-1440.25"/>
 </g>
 <!-- Node5 -->

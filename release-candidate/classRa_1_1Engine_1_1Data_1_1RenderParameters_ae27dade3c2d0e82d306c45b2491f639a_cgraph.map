@@ -1,0 +1,6 @@
+<map id="Ra::Engine::Data::RenderParameters::mergeKeepParameters" name="Ra::Engine::Data::RenderParameters::mergeKeepParameters">
+<area shape="rect" id="node1" title=" " alt="" coords="5,39,257,80"/>
+<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a73456a229c20186311944c7d0a6bf95f" title="Get access to the parameter storage." alt="" coords="305,5,489,47"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1VariableSet.html#a8632a526adf0342cd1f7407626b536d2" title="Merge the VariableSet from into this." alt="" coords="315,71,479,112"/>
+<area shape="rect" id="node4" href="$classRa_1_1Core_1_1VariableSet.html#a01ef218f41f0b2bc08ad3bce52630fa5" title="Gets the stored data type." alt="" coords="537,71,696,112"/>
+</map>

@@ -26,7 +26,6 @@ var dir_a46b089ae2655285b8dddf2703c36868 =
     [ "RawShaderMaterial.inl", "RawShaderMaterial_8inl_source.html", null ],
     [ "RenderParameters.cpp", "RenderParameters_8cpp_source.html", null ],
     [ "RenderParameters.hpp", "RenderParameters_8hpp_source.html", null ],
-    [ "RenderParameters.inl", "RenderParameters_8inl_source.html", null ],
     [ "ShaderConfigFactory.cpp", "ShaderConfigFactory_8cpp_source.html", null ],
     [ "ShaderConfigFactory.hpp", "ShaderConfigFactory_8hpp_source.html", null ],
     [ "ShaderConfiguration.cpp", "ShaderConfiguration_8cpp_source.html", null ],

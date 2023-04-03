@@ -1,4 +1,7 @@
 <map id="Ra::Engine::Scene::Light::getRenderParameters" name="Ra::Engine::Scene::Light::getRenderParameters">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,208,47"/>
-<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a5016e83a8e248b8c990f8ae90643f32b" title=" " alt="" coords="256,5,451,47"/>
+<area shape="rect" id="node1" title="Extract the set of parameters that must be given to a shader for rendering and lighting with this lig..." alt="" coords="5,39,208,80"/>
+<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a9d929872799f18541433ade3f118099f" title=" " alt="" coords="256,39,528,80"/>
+<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a73456a229c20186311944c7d0a6bf95f" title="Get access to the parameter storage." alt="" coords="576,5,760,47"/>
+<area shape="rect" id="node4" href="$classRa_1_1Core_1_1VariableSet.html#ab2b16edce3a38198144e923974c401e6" title="Merge the VariableSet from into this." alt="" coords="576,71,760,112"/>
+<area shape="rect" id="node5" href="$classRa_1_1Core_1_1VariableSet.html#a01ef218f41f0b2bc08ad3bce52630fa5" title="Gets the stored data type." alt="" coords="808,71,967,112"/>
 </map>

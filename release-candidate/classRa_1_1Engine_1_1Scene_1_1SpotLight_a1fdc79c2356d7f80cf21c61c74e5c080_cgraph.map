@@ -1,0 +1,5 @@
+<map id="Ra::Engine::Scene::SpotLight::setDirection" name="Ra::Engine::Scene::SpotLight::setDirection">
+<area shape="rect" id="node1" title=" " alt="" coords="5,39,176,80"/>
+<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a30608d23a6e4b4cbcfa0a0211056e04b" title="Add a parameter by value." alt="" coords="228,5,423,47"/>
+<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Scene_1_1Light.html#adde28ec5955bc60adcd2d93b5d990382" title="Gives read&#45;only access to the renderParameters of the light." alt="" coords="224,71,427,112"/>
+</map>

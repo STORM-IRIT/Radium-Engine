@@ -52,7 +52,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.4.10</span>
+   &#160;<span id="projectnumber">1.4.11</span>
    </div>
   </td>
  </tr>
@@ -142,9 +142,6 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structRa_1_1Core_1_1VariableSet_1_1StaticVisitor.html">StaticVisitor</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for visitors with static supported types. Visiting will be prepared at compile time by unfolding type list and generating all the required function calls for the visit. Any class that defines the same alias for a public member "types" can be used as a visitor.  <a href="structRa_1_1Core_1_1VariableSet_1_1StaticVisitor.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structRa_1_1Core_1_1VariableSet_1_1TypeList.html">TypeList</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">CRTP based Type list for statically typed visitors.  <a href="structRa_1_1Core_1_1VariableSet_1_1TypeList.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
@@ -175,33 +172,33 @@ template&lt;typename T &gt; </td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:af04d06c41883106db0647167c4471b53"><td class="memTemplParams" colspan="2"><a id="af04d06c41883106db0647167c4471b53"></a>
+<tr class="memitem:a7b4792954af4fc52a5665f10fcf5c8dc"><td class="memTemplParams" colspan="2"><a id="a7b4792954af4fc52a5665f10fcf5c8dc"></a>
 template&lt;typename F , typename U &gt; </td></tr>
-<tr class="memitem:af04d06c41883106db0647167c4471b53"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>visit</b> (F &amp;&amp;visitor, U &amp;userParams) const</td></tr>
-<tr class="separator:af04d06c41883106db0647167c4471b53"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a528e875cb8d6f35c463c265bfac73024"><td class="memTemplParams" colspan="2"><a id="a528e875cb8d6f35c463c265bfac73024"></a>
+<tr class="memitem:a7b4792954af4fc52a5665f10fcf5c8dc"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>visitStatic</b> (F &amp;&amp;visitor, U &amp;userParams) const</td></tr>
+<tr class="separator:a7b4792954af4fc52a5665f10fcf5c8dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a17512a2e3b9d4742deb95f79f9800373"><td class="memTemplParams" colspan="2"><a id="a17512a2e3b9d4742deb95f79f9800373"></a>
 template&lt;typename F , typename U &gt; </td></tr>
-<tr class="memitem:a528e875cb8d6f35c463c265bfac73024"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>visit</b> (F &amp;&amp;visitor, U &amp;&amp;userParams) const</td></tr>
-<tr class="separator:a528e875cb8d6f35c463c265bfac73024"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a17512a2e3b9d4742deb95f79f9800373"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>visitStatic</b> (F &amp;&amp;visitor, U &amp;&amp;userParams) const</td></tr>
+<tr class="separator:a17512a2e3b9d4742deb95f79f9800373"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader"></div></td></tr>
-<tr class="memitem:aa3b81b0c94834b4bba999b77ae29f832"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1VariableSet.html#aa3b81b0c94834b4bba999b77ae29f832">VariableSet</a> ()=default</td></tr>
-<tr class="separator:aa3b81b0c94834b4bba999b77ae29f832"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a12ce2e369e6181f40bae4c5c44c7aeb1"><td class="memItemLeft" align="right" valign="top"><a id="a12ce2e369e6181f40bae4c5c44c7aeb1"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1VariableSet.html#a12ce2e369e6181f40bae4c5c44c7aeb1">VariableSet</a> (const <a class="el" href="classRa_1_1Core_1_1VariableSet.html">VariableSet</a> &amp;other)</td></tr>
-<tr class="memdesc:a12ce2e369e6181f40bae4c5c44c7aeb1"><td class="mdescLeft">&#160;</td><td class="mdescRight">A <a class="el" href="classRa_1_1Core_1_1VariableSet.html" title="Heterogeneous container storing &quot;Variables&quot;, that maps a name (std::string) to a value (of any type T...">VariableSet</a> is copyable. <br /></td></tr>
-<tr class="separator:a12ce2e369e6181f40bae4c5c44c7aeb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8097400ca350df83ac01eea3b9ef80e1"><td class="memItemLeft" align="right" valign="top"><a id="a8097400ca350df83ac01eea3b9ef80e1"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1VariableSet.html#a8097400ca350df83ac01eea3b9ef80e1">VariableSet</a> (<a class="el" href="classRa_1_1Core_1_1VariableSet.html">VariableSet</a> &amp;&amp;other)</td></tr>
-<tr class="memdesc:a8097400ca350df83ac01eea3b9ef80e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">A <a class="el" href="classRa_1_1Core_1_1VariableSet.html" title="Heterogeneous container storing &quot;Variables&quot;, that maps a name (std::string) to a value (of any type T...">VariableSet</a> is movable. <br /></td></tr>
-<tr class="separator:a8097400ca350df83ac01eea3b9ef80e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a55acefdbe814f2a78bdf47862dbdaa16"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1VariableSet.html#a55acefdbe814f2a78bdf47862dbdaa16">VariableSet</a> ()</td></tr>
+<tr class="separator:a55acefdbe814f2a78bdf47862dbdaa16"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6bbb3dc60910fc9c82acadf3dc28d6cb"><td class="memItemLeft" align="right" valign="top"><a id="a6bbb3dc60910fc9c82acadf3dc28d6cb"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1VariableSet.html#a6bbb3dc60910fc9c82acadf3dc28d6cb">VariableSet</a> (const <a class="el" href="classRa_1_1Core_1_1VariableSet.html">VariableSet</a> &amp;other) noexcept</td></tr>
+<tr class="memdesc:a6bbb3dc60910fc9c82acadf3dc28d6cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">A <a class="el" href="classRa_1_1Core_1_1VariableSet.html" title="Heterogeneous container storing &quot;Variables&quot;, that maps a name (std::string) to a value (of any type T...">VariableSet</a> is copyable. <br /></td></tr>
+<tr class="separator:a6bbb3dc60910fc9c82acadf3dc28d6cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a73c3d2aa19bb60c5ededeff2cb1e2aa0"><td class="memItemLeft" align="right" valign="top"><a id="a73c3d2aa19bb60c5ededeff2cb1e2aa0"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1VariableSet.html#a73c3d2aa19bb60c5ededeff2cb1e2aa0">VariableSet</a> (<a class="el" href="classRa_1_1Core_1_1VariableSet.html">VariableSet</a> &amp;&amp;other) noexcept</td></tr>
+<tr class="memdesc:a73c3d2aa19bb60c5ededeff2cb1e2aa0"><td class="mdescLeft">&#160;</td><td class="mdescRight">A <a class="el" href="classRa_1_1Core_1_1VariableSet.html" title="Heterogeneous container storing &quot;Variables&quot;, that maps a name (std::string) to a value (of any type T...">VariableSet</a> is movable. <br /></td></tr>
+<tr class="separator:a73c3d2aa19bb60c5ededeff2cb1e2aa0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader"></div></td></tr>
-<tr class="memitem:aed95ce92bfe66c046a15875c42c90520"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classRa_1_1Core_1_1VariableSet.html">VariableSet</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1VariableSet.html#aed95ce92bfe66c046a15875c42c90520">operator=</a> (const <a class="el" href="classRa_1_1Core_1_1VariableSet.html">VariableSet</a> &amp;other)</td></tr>
-<tr class="memdesc:aed95ce92bfe66c046a15875c42c90520"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy assignment operator.  <a href="classRa_1_1Core_1_1VariableSet.html#aed95ce92bfe66c046a15875c42c90520">More...</a><br /></td></tr>
-<tr class="separator:aed95ce92bfe66c046a15875c42c90520"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab95c3542dc7fff2c029f72e2df23d3ec"><td class="memItemLeft" align="right" valign="top"><a id="ab95c3542dc7fff2c029f72e2df23d3ec"></a>
-<a class="el" href="classRa_1_1Core_1_1VariableSet.html">VariableSet</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1VariableSet.html#ab95c3542dc7fff2c029f72e2df23d3ec">operator=</a> (<a class="el" href="classRa_1_1Core_1_1VariableSet.html">VariableSet</a> &amp;&amp;other)</td></tr>
-<tr class="memdesc:ab95c3542dc7fff2c029f72e2df23d3ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move assignment operator. <br /></td></tr>
-<tr class="separator:ab95c3542dc7fff2c029f72e2df23d3ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae8d62366a7a4b9eacaef12d91e5a57e2"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1VariableSet.html#ae8d62366a7a4b9eacaef12d91e5a57e2">operator=</a> (const <a class="el" href="classRa_1_1Core_1_1VariableSet.html">VariableSet</a> &amp;other) -&gt; <a class="el" href="classRa_1_1Core_1_1VariableSet.html">VariableSet</a> &amp;</td></tr>
+<tr class="memdesc:ae8d62366a7a4b9eacaef12d91e5a57e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy assignment operator.  <a href="classRa_1_1Core_1_1VariableSet.html#ae8d62366a7a4b9eacaef12d91e5a57e2">More...</a><br /></td></tr>
+<tr class="separator:ae8d62366a7a4b9eacaef12d91e5a57e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa5ea8d29552b664941a4ad798c22f545"><td class="memItemLeft" align="right" valign="top"><a id="aa5ea8d29552b664941a4ad798c22f545"></a>
+auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1VariableSet.html#aa5ea8d29552b664941a4ad798c22f545">operator=</a> (<a class="el" href="classRa_1_1Core_1_1VariableSet.html">VariableSet</a> &amp;&amp;other) noexcept -&gt; <a class="el" href="classRa_1_1Core_1_1VariableSet.html">VariableSet</a> &amp;</td></tr>
+<tr class="memdesc:aa5ea8d29552b664941a4ad798c22f545"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move assignment operator. <br /></td></tr>
+<tr class="separator:aa5ea8d29552b664941a4ad798c22f545"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa54e3ea45c874bb1d3f7c36c63d93034"><td class="memItemLeft" align="right" valign="top"><a id="aa54e3ea45c874bb1d3f7c36c63d93034"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1VariableSet.html#aa54e3ea45c874bb1d3f7c36c63d93034">clear</a> ()</td></tr>
 <tr class="memdesc:aa54e3ea45c874bb1d3f7c36c63d93034"><td class="mdescLeft">&#160;</td><td class="mdescRight">remove all elements from the container <br /></td></tr>
@@ -216,30 +213,30 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1VariableSet.html#ab61f787c8d6590c5bb6dbbf9dd617ef4">size</a> () const</td></tr>
 <tr class="memdesc:ab61f787c8d6590c5bb6dbbf9dd617ef4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the total number of variables (of any type) <br /></td></tr>
 <tr class="separator:ab61f787c8d6590c5bb6dbbf9dd617ef4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a85fdbc8a5f7f2972b075112babcd2737"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; std::type_index &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1VariableSet.html#a85fdbc8a5f7f2972b075112babcd2737">getStoredTypes</a> () const</td></tr>
-<tr class="memdesc:a85fdbc8a5f7f2972b075112babcd2737"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the stored data type.  <a href="classRa_1_1Core_1_1VariableSet.html#a85fdbc8a5f7f2972b075112babcd2737">More...</a><br /></td></tr>
-<tr class="separator:a85fdbc8a5f7f2972b075112babcd2737"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a01ef218f41f0b2bc08ad3bce52630fa5"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1VariableSet.html#a01ef218f41f0b2bc08ad3bce52630fa5">getStoredTypes</a> () const -&gt; const std::vector&lt; std::type_index &gt; &amp;</td></tr>
+<tr class="memdesc:a01ef218f41f0b2bc08ad3bce52630fa5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the stored data type.  <a href="classRa_1_1Core_1_1VariableSet.html#a01ef218f41f0b2bc08ad3bce52630fa5">More...</a><br /></td></tr>
+<tr class="separator:a01ef218f41f0b2bc08ad3bce52630fa5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader"></div></td></tr>
-<tr class="memitem:a5cd78b363ba77491b96337096b923529"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a5cd78b363ba77491b96337096b923529"><td class="memTemplItemLeft" align="right" valign="top">std::pair&lt; <a class="el" href="classRa_1_1Core_1_1VariableSet.html#a2819447e55fdbe30c43726dd10ba9791">VariableHandle</a>&lt; T &gt;, bool &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1VariableSet.html#a5cd78b363ba77491b96337096b923529">insertVariable</a> (const std::string &amp;name, const T &amp;value)</td></tr>
-<tr class="memdesc:a5cd78b363ba77491b96337096b923529"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a variable, i.e. an association name-&gt;value, into the container.  <a href="classRa_1_1Core_1_1VariableSet.html#a5cd78b363ba77491b96337096b923529">More...</a><br /></td></tr>
-<tr class="separator:a5cd78b363ba77491b96337096b923529"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac820cfb97bcdea47e4a9025a691d0df6"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ac820cfb97bcdea47e4a9025a691d0df6"><td class="memTemplItemLeft" align="right" valign="top">const T &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1VariableSet.html#ac820cfb97bcdea47e4a9025a691d0df6">getVariable</a> (const std::string &amp;name) const</td></tr>
-<tr class="memdesc:ac820cfb97bcdea47e4a9025a691d0df6"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the value of the given variable  <a href="classRa_1_1Core_1_1VariableSet.html#ac820cfb97bcdea47e4a9025a691d0df6">More...</a><br /></td></tr>
-<tr class="separator:ac820cfb97bcdea47e4a9025a691d0df6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeadb28dcebd2d96c593062ddeb17b675"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:aeadb28dcebd2d96c593062ddeb17b675"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classRa_1_1Core_1_1VariableSet.html#a2819447e55fdbe30c43726dd10ba9791">VariableHandle</a>&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1VariableSet.html#aeadb28dcebd2d96c593062ddeb17b675">getVariableHandle</a> (const std::string &amp;name) const</td></tr>
-<tr class="memdesc:aeadb28dcebd2d96c593062ddeb17b675"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the handle on the variable with the given name  <a href="classRa_1_1Core_1_1VariableSet.html#aeadb28dcebd2d96c593062ddeb17b675">More...</a><br /></td></tr>
-<tr class="separator:aeadb28dcebd2d96c593062ddeb17b675"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa1e2566f592c1ccf81f242fae101933a"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:aa1e2566f592c1ccf81f242fae101933a"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1VariableSet.html#aa1e2566f592c1ccf81f242fae101933a">insertVariable</a> (const std::string &amp;name, const T &amp;value) -&gt; std::pair&lt; <a class="el" href="classRa_1_1Core_1_1VariableSet.html#a2819447e55fdbe30c43726dd10ba9791">VariableHandle</a>&lt; T &gt;, bool &gt;</td></tr>
+<tr class="memdesc:aa1e2566f592c1ccf81f242fae101933a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a variable, i.e. an association name-&gt;value, into the container.  <a href="classRa_1_1Core_1_1VariableSet.html#aa1e2566f592c1ccf81f242fae101933a">More...</a><br /></td></tr>
+<tr class="separator:aa1e2566f592c1ccf81f242fae101933a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a090de4f50aa34f333bba240a4fd0f627"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a090de4f50aa34f333bba240a4fd0f627"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1VariableSet.html#a090de4f50aa34f333bba240a4fd0f627">getVariable</a> (const std::string &amp;name) const -&gt; T &amp;</td></tr>
+<tr class="memdesc:a090de4f50aa34f333bba240a4fd0f627"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the value of the given variable  <a href="classRa_1_1Core_1_1VariableSet.html#a090de4f50aa34f333bba240a4fd0f627">More...</a><br /></td></tr>
+<tr class="separator:a090de4f50aa34f333bba240a4fd0f627"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a34a985578d9cceed72e615ca93b15d80"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a34a985578d9cceed72e615ca93b15d80"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1VariableSet.html#a34a985578d9cceed72e615ca93b15d80">getVariableHandle</a> (const std::string &amp;name) const -&gt; <a class="el" href="classRa_1_1Core_1_1VariableSet.html#a2819447e55fdbe30c43726dd10ba9791">VariableHandle</a>&lt; T &gt;</td></tr>
+<tr class="memdesc:a34a985578d9cceed72e615ca93b15d80"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the handle on the variable with the given name  <a href="classRa_1_1Core_1_1VariableSet.html#a34a985578d9cceed72e615ca93b15d80">More...</a><br /></td></tr>
+<tr class="separator:a34a985578d9cceed72e615ca93b15d80"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2ae681263d3319088935f1ca8c0cef93"><td class="memTemplParams" colspan="2">template&lt;typename H &gt; </td></tr>
 <tr class="memitem:a2ae681263d3319088935f1ca8c0cef93"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1VariableSet.html#a2ae681263d3319088935f1ca8c0cef93">isHandleValid</a> (const H &amp;handle) const</td></tr>
 <tr class="memdesc:a2ae681263d3319088935f1ca8c0cef93"><td class="mdescLeft">&#160;</td><td class="mdescRight">Test the validity of a handle.  <a href="classRa_1_1Core_1_1VariableSet.html#a2ae681263d3319088935f1ca8c0cef93">More...</a><br /></td></tr>
 <tr class="separator:a2ae681263d3319088935f1ca8c0cef93"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a72472189a29f1656ff0603c1e0db1786"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a72472189a29f1656ff0603c1e0db1786"><td class="memTemplItemLeft" align="right" valign="top">std::pair&lt; <a class="el" href="classRa_1_1Core_1_1VariableSet.html#a2819447e55fdbe30c43726dd10ba9791">VariableHandle</a>&lt; T &gt;, bool &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1VariableSet.html#a72472189a29f1656ff0603c1e0db1786">insertOrAssignVariable</a> (const std::string &amp;name, const T &amp;value)</td></tr>
-<tr class="memdesc:a72472189a29f1656ff0603c1e0db1786"><td class="mdescLeft">&#160;</td><td class="mdescRight">reset (or set if the variable does not exist yet) the value of the variable.  <a href="classRa_1_1Core_1_1VariableSet.html#a72472189a29f1656ff0603c1e0db1786">More...</a><br /></td></tr>
-<tr class="separator:a72472189a29f1656ff0603c1e0db1786"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2ae4889235c18238c677b007701f8db6"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a2ae4889235c18238c677b007701f8db6"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1VariableSet.html#a2ae4889235c18238c677b007701f8db6">insertOrAssignVariable</a> (const std::string &amp;name, const T &amp;value) -&gt; std::pair&lt; <a class="el" href="classRa_1_1Core_1_1VariableSet.html#a2819447e55fdbe30c43726dd10ba9791">VariableHandle</a>&lt; T &gt;, bool &gt;</td></tr>
+<tr class="memdesc:a2ae4889235c18238c677b007701f8db6"><td class="mdescLeft">&#160;</td><td class="mdescRight">reset (or set if the variable does not exist yet) the value of the variable.  <a href="classRa_1_1Core_1_1VariableSet.html#a2ae4889235c18238c677b007701f8db6">More...</a><br /></td></tr>
+<tr class="separator:a2ae4889235c18238c677b007701f8db6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4f3fe97fce185a5bce5f2a5e2cf799a6"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:a4f3fe97fce185a5bce5f2a5e2cf799a6"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1VariableSet.html#a4f3fe97fce185a5bce5f2a5e2cf799a6">deleteVariable</a> (const std::string &amp;name)</td></tr>
 <tr class="memdesc:a4f3fe97fce185a5bce5f2a5e2cf799a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove a variable, i.e. a name-&gt;value association.  <a href="classRa_1_1Core_1_1VariableSet.html#a4f3fe97fce185a5bce5f2a5e2cf799a6">More...</a><br /></td></tr>
@@ -248,23 +245,23 @@ size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
 <tr class="memitem:a06bd8863865a8adbce90f1838e0bad0c"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1VariableSet.html#a06bd8863865a8adbce90f1838e0bad0c">deleteVariable</a> (H &amp;handle)</td></tr>
 <tr class="memdesc:a06bd8863865a8adbce90f1838e0bad0c"><td class="mdescLeft">&#160;</td><td class="mdescRight">delete a variable from its handle  <a href="classRa_1_1Core_1_1VariableSet.html#a06bd8863865a8adbce90f1838e0bad0c">More...</a><br /></td></tr>
 <tr class="separator:a06bd8863865a8adbce90f1838e0bad0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a90e3584e49b57fb22076cf4c9472aec7"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a90e3584e49b57fb22076cf4c9472aec7"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1VariableSet.html#a90e3584e49b57fb22076cf4c9472aec7">existsVariable</a> (const std::string &amp;name) const</td></tr>
-<tr class="memdesc:a90e3584e49b57fb22076cf4c9472aec7"><td class="mdescLeft">&#160;</td><td class="mdescRight">test the existence of the given variable  <a href="classRa_1_1Core_1_1VariableSet.html#a90e3584e49b57fb22076cf4c9472aec7">More...</a><br /></td></tr>
-<tr class="separator:a90e3584e49b57fb22076cf4c9472aec7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a48baeacd56022a902deb045d865c4605"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a48baeacd56022a902deb045d865c4605"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1VariableSet.html#a48baeacd56022a902deb045d865c4605">existsVariable</a> (const std::string &amp;name) const -&gt; Utils::optional&lt; <a class="el" href="classRa_1_1Core_1_1VariableSet.html#a2819447e55fdbe30c43726dd10ba9791">VariableHandle</a>&lt; T &gt;&gt;</td></tr>
+<tr class="memdesc:a48baeacd56022a902deb045d865c4605"><td class="mdescLeft">&#160;</td><td class="mdescRight">test the existence of the given variable  <a href="classRa_1_1Core_1_1VariableSet.html#a48baeacd56022a902deb045d865c4605">More...</a><br /></td></tr>
+<tr class="separator:a48baeacd56022a902deb045d865c4605"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader"></div></td></tr>
-<tr class="memitem:ab3c77f3b54588b9fb9ecb25409be76d5"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ab3c77f3b54588b9fb9ecb25409be76d5"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1VariableSet.html#ab3c77f3b54588b9fb9ecb25409be76d5">existsVariableType</a> () const</td></tr>
-<tr class="memdesc:ab3c77f3b54588b9fb9ecb25409be76d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Test if the storage supports a given variable type.  <a href="classRa_1_1Core_1_1VariableSet.html#ab3c77f3b54588b9fb9ecb25409be76d5">More...</a><br /></td></tr>
-<tr class="separator:ab3c77f3b54588b9fb9ecb25409be76d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a962c68d54bfc107d007345669cf56393"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a962c68d54bfc107d007345669cf56393"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1VariableSet.html#a962c68d54bfc107d007345669cf56393">existsVariableType</a> () const -&gt; Utils::optional&lt; <a class="el" href="classRa_1_1Core_1_1VariableSet.html#a61f36df1dda66cf204afdec4c1e17d72">VariableContainer</a>&lt; T &gt; * &gt;</td></tr>
+<tr class="memdesc:a962c68d54bfc107d007345669cf56393"><td class="mdescLeft">&#160;</td><td class="mdescRight">Test if the storage supports a given variable type.  <a href="classRa_1_1Core_1_1VariableSet.html#a962c68d54bfc107d007345669cf56393">More...</a><br /></td></tr>
+<tr class="separator:a962c68d54bfc107d007345669cf56393"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3d10586d65743976c50ecd5c1e759ea1"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:a3d10586d65743976c50ecd5c1e759ea1"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1VariableSet.html#a3d10586d65743976c50ecd5c1e759ea1">deleteAllVariables</a> ()</td></tr>
 <tr class="memdesc:a3d10586d65743976c50ecd5c1e759ea1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes all variables of the given type.  <a href="classRa_1_1Core_1_1VariableSet.html#a3d10586d65743976c50ecd5c1e759ea1">More...</a><br /></td></tr>
 <tr class="separator:a3d10586d65743976c50ecd5c1e759ea1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4e7706a65c9d49e4d894ac50d66c4db3"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a4e7706a65c9d49e4d894ac50d66c4db3"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classRa_1_1Core_1_1VariableSet.html#a61f36df1dda66cf204afdec4c1e17d72">VariableContainer</a>&lt; T &gt; &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1VariableSet.html#a4e7706a65c9d49e4d894ac50d66c4db3">getAllVariables</a> () const</td></tr>
-<tr class="memdesc:a4e7706a65c9d49e4d894ac50d66c4db3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the whole container for variables of a given type.  <a href="classRa_1_1Core_1_1VariableSet.html#a4e7706a65c9d49e4d894ac50d66c4db3">More...</a><br /></td></tr>
-<tr class="separator:a4e7706a65c9d49e4d894ac50d66c4db3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5a2192b239f119b250a52bf610867efb"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a5a2192b239f119b250a52bf610867efb"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1VariableSet.html#a5a2192b239f119b250a52bf610867efb">getAllVariables</a> () const -&gt; <a class="el" href="classRa_1_1Core_1_1VariableSet.html#a61f36df1dda66cf204afdec4c1e17d72">VariableContainer</a>&lt; T &gt; &amp;</td></tr>
+<tr class="memdesc:a5a2192b239f119b250a52bf610867efb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the whole container for variables of a given type.  <a href="classRa_1_1Core_1_1VariableSet.html#a5a2192b239f119b250a52bf610867efb">More...</a><br /></td></tr>
+<tr class="separator:a5a2192b239f119b250a52bf610867efb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a89d3b97c47fe66792ff2d5a6658dbc59"><td class="memTemplParams" colspan="2">template&lt;typename H &gt; </td></tr>
 <tr class="memitem:a89d3b97c47fe66792ff2d5a6658dbc59"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1VariableSet.html#a89d3b97c47fe66792ff2d5a6658dbc59">getAllVariablesFromHandle</a> (const H &amp;handle) -&gt; <a class="el" href="classRa_1_1Core_1_1VariableSet.html#a61f36df1dda66cf204afdec4c1e17d72">VariableContainer</a>&lt; <a class="el" href="classRa_1_1Core_1_1VariableSet.html#aff3c960c4ae226d8cc6ec4a4fa093fee">VariableTypeFromHandle</a>&lt; H &gt;&gt; &amp;</td></tr>
 <tr class="memdesc:a89d3b97c47fe66792ff2d5a6658dbc59"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the whole container for variables of the same type than the given handled variable.  <a href="classRa_1_1Core_1_1VariableSet.html#a89d3b97c47fe66792ff2d5a6658dbc59">More...</a><br /></td></tr>
@@ -273,13 +270,9 @@ size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
 <tr class="memitem:a73b07cfdaf8bbcd2c720f65d052ff10d"><td class="memTemplItemLeft" align="right" valign="top">size_t&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1VariableSet.html#a73b07cfdaf8bbcd2c720f65d052ff10d">numberOf</a> () const</td></tr>
 <tr class="memdesc:a73b07cfdaf8bbcd2c720f65d052ff10d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the number of variables of the given type.  <a href="classRa_1_1Core_1_1VariableSet.html#a73b07cfdaf8bbcd2c720f65d052ff10d">More...</a><br /></td></tr>
 <tr class="separator:a73b07cfdaf8bbcd2c720f65d052ff10d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1822f08e78f9d4d63feebfcf05a710f1"><td class="memTemplParams" colspan="2">template&lt;typename P  = bool&gt; </td></tr>
-<tr class="memitem:a1822f08e78f9d4d63feebfcf05a710f1"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1VariableSet.html#a1822f08e78f9d4d63feebfcf05a710f1">visitDynamic</a> (<a class="el" href="classRa_1_1Core_1_1VariableSet_1_1DynamicVisitorBase.html">DynamicVisitorBase</a> &amp;visitor, P &amp;&amp;params=P {}) const</td></tr>
-<tr class="memdesc:a1822f08e78f9d4d63feebfcf05a710f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Visit the container using a dynamically typed visitor.  <a href="classRa_1_1Core_1_1VariableSet.html#a1822f08e78f9d4d63feebfcf05a710f1">More...</a><br /></td></tr>
-<tr class="separator:a1822f08e78f9d4d63feebfcf05a710f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abff01d871519d7cd33380f6f8bf1899d"><td class="memTemplParams" colspan="2">template&lt;typename F &gt; </td></tr>
 <tr class="memitem:abff01d871519d7cd33380f6f8bf1899d"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1VariableSet.html#abff01d871519d7cd33380f6f8bf1899d">visit</a> (F &amp;&amp;visitor) const</td></tr>
-<tr class="memdesc:abff01d871519d7cd33380f6f8bf1899d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Visit the container using a statically typed visitor.  <a href="classRa_1_1Core_1_1VariableSet.html#abff01d871519d7cd33380f6f8bf1899d">More...</a><br /></td></tr>
+<tr class="memdesc:abff01d871519d7cd33380f6f8bf1899d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Visit the container using a user defined visitor.  <a href="classRa_1_1Core_1_1VariableSet.html#abff01d871519d7cd33380f6f8bf1899d">More...</a><br /></td></tr>
 <tr class="separator:abff01d871519d7cd33380f6f8bf1899d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a41f13d062e1be33a898983f87ec130bc"><td class="memTemplParams" colspan="2"><a id="a41f13d062e1be33a898983f87ec130bc"></a>
 template&lt;typename F , typename T &gt; </td></tr>
@@ -301,17 +294,17 @@ template&lt;typename F , typename T &gt; </td></tr>
 <p>From a variable handle (possibly invalid), the mapping name-&gt;value for all variables with the same type can be fetched. This allows generic, type agnostic, usage of the container as soon as a variable handle (even invalid) is available.</p>
 <p>The container could be visited to apply processing, transformation, ... on all or part of the variables. The accept functions of the visitor are defined by the availability of a callable object whose profile is compatible with the visited types.</p>
 <p>Visiting the container can be made</p><ul>
-<li>using a statically typed visitor : accepted types are defined at compile time, as template parameters, and the visit is pre-processed by the compiler.</li>
+<li>using a statically typed visitor : accepted types are defined at compile time, as Ra::Core::Utils::TypeList, and the visit is pre-processed by the compiler.</li>
 <li>using a dynamically configurable visitor where functor accepting types can be added/removed at runtime. This kind of visit is a little more expensive while being more configurable. Tests using empty processing (to evaluate only the cost of visiting the collection) on different types showed a visit from 5 to 8 times slower. This penalty becomes quite low as soon as the processing during the visit is more complex</li>
 </ul>
-<p>The visiting of the collection can accept one user parameter to forward to each visit function. This parameter could be of any type, knowing the same parameter will be forwarded to all processing method when visiting a variable. Some constraints on user provided parameter depends on the visiting strategy</p><ul>
+<p>The visitor of the collection can accept one user parameter to be forwarded to each visit function. This parameter could be of any type, knowing the same parameter will be forwarded to all processing method when visiting a variable. Some constraints on user provided parameter depends on the visiting strategy</p><ul>
 <li>For static visitors, this parameter is strongly typed and ALL the visiting function should be called with the profile void(const std::string&amp;, [const]T[&amp;], [const]U&amp;&amp;), for any variable type T and the user parameter type U.</li>
 <li>For dynamic visitors, as they rely on type erasure pattern, the user parameter should be of any type U but this type is erased when calling the visiting function. So, visiting functions must be callable with the profile void(const std::string&amp;, [const]T[&amp;], [const]std::anyU&amp;&amp;) knowing that the std::any contains a parameter of type U.</li>
 </ul>
 <dl class="section note"><dt>Note</dt><dd>relies on C++ standard libraries extensions, version 2 or recommended implementation on compilers that do not provide this extension <a href="https://en.cppreference.com/w/cpp/experimental/lib_extensions_2">https://en.cppreference.com/w/cpp/experimental/lib_extensions_2</a></dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classRa_1_1Core_1_1VariableSet.html" title="Heterogeneous container storing &quot;Variables&quot;, that maps a name (std::string) to a value (of any type T...">VariableSet</a> unit test source code for examples of usage of this container </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00067">67</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00071">71</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
 <a id="aff3c960c4ae226d8cc6ec4a4fa093fee"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aff3c960c4ae226d8cc6ec4a4fa093fee">&#9670;&nbsp;</a></span>VariableTypeFromHandle</h2>
@@ -330,13 +323,13 @@ template&lt;typename H &gt; </div>
 <p>Type of the variable referenced by a VariableHandle. </p>
 <dl class="section note"><dt>Note</dt><dd>This is the same as the one denoted by the type T in VariableHandle&lt;T&gt; or in VariableType&lt;T&gt; </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00094">94</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00098">98</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="aa3b81b0c94834b4bba999b77ae29f832"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa3b81b0c94834b4bba999b77ae29f832">&#9670;&nbsp;</a></span>VariableSet()</h2>
+<a id="a55acefdbe814f2a78bdf47862dbdaa16"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a55acefdbe814f2a78bdf47862dbdaa16">&#9670;&nbsp;</a></span>VariableSet()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -353,11 +346,13 @@ template&lt;typename H &gt; </div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">default</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 <p>Constructors, destructors </p>
+
+<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00103">103</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
 
 </div>
 </div>
@@ -385,7 +380,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true if the type is deleted, false if it was not managed before the call. Unregister all the functions associated with the type and remove the storage of existing variables. If several variables are still stored, they will be destroyed. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00638">638</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00751">751</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
 
 </div>
 </div>
@@ -409,9 +404,9 @@ template&lt;typename T &gt; </div>
 
 <p>Remove a variable, i.e. a name-&gt;value association. </p>
 <dl class="section return"><dt>Returns</dt><dd>true if the variable was removed, false if </dd></dl>
-<dl class="section pre"><dt>Precondition</dt><dd>The element <b>name</b> must exists with type <b>T</b>. </dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd>The element <b>name</b> must exists with type <b>T</b>. If not verified (assert in debug mode) std::bad_any_cast exception could be thrown by the underlying management of type erasure </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00544">544</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00643">643</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
 
 </div>
 </div>
@@ -447,22 +442,14 @@ template&lt;typename H &gt; </div>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true variable was removed, false if not. If the variable was removed, handle is invalidated </dd></dl>
-<dl class="section pre"><dt>Precondition</dt><dd>the handle must be valid </dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd>the handle must be valid. If not verified (assert in debug mode) std::bad_any_cast exception could be thrown by the underlying management of type erasure </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00555">555</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
-<div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-1-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-1-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-1-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Core_1_1VariableSet_a06bd8863865a8adbce90f1838e0bad0c_cgraph.svg" width="376" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
+<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00654">654</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a90e3584e49b57fb22076cf4c9472aec7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a90e3584e49b57fb22076cf4c9472aec7">&#9670;&nbsp;</a></span>existsVariable()</h2>
+<a id="a48baeacd56022a902deb045d865c4605"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a48baeacd56022a902deb045d865c4605">&#9670;&nbsp;</a></span>existsVariable()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -470,24 +457,24 @@ template&lt;typename H &gt; </div>
 template&lt;typename T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">bool Ra::Core::VariableSet::existsVariable </td>
+          <td class="memname">auto Ra::Core::VariableSet::existsVariable </td>
           <td>(</td>
           <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>name</em></td><td>)</td>
-          <td> const</td>
+          <td> const -&gt; Utils::optional&lt;<a class="el" href="classRa_1_1Core_1_1VariableSet.html#a2819447e55fdbe30c43726dd10ba9791">VariableHandle</a>&lt;T&gt;&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>test the existence of the given variable </p>
-<dl class="section return"><dt>Returns</dt><dd>true if a variable with the given name and type exists in the storage, false if not. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>an optional variable handle which contains a value if a variable with the given name and type exists in the storage. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00564">564</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00662">662</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
 
 </div>
 </div>
-<a id="ab3c77f3b54588b9fb9ecb25409be76d5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab3c77f3b54588b9fb9ecb25409be76d5">&#9670;&nbsp;</a></span>existsVariableType()</h2>
+<a id="a962c68d54bfc107d007345669cf56393"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a962c68d54bfc107d007345669cf56393">&#9670;&nbsp;</a></span>existsVariableType()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -495,7 +482,7 @@ template&lt;typename T &gt; </div>
 template&lt;typename T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">bool Ra::Core::VariableSet::existsVariableType</td>
+          <td class="memname">auto Ra::Core::VariableSet::existsVariableType</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -508,14 +495,14 @@ template&lt;typename T &gt; </div>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>true if the type is managed by the storage </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>an optional, empty if the type does not exists in the <a class="el" href="classRa_1_1Core_1_1VariableSet.html" title="Heterogeneous container storing &quot;Variables&quot;, that maps a name (std::string) to a value (of any type T...">VariableSet</a> or whose value is a <b>non owning</b> pointer to the variable collection if it exists. This <b>non owning</b> pointer remains valid as long as the <a class="el" href="classRa_1_1Core_1_1VariableSet.html" title="Heterogeneous container storing &quot;Variables&quot;, that maps a name (std::string) to a value (of any type T...">VariableSet</a> exists and contains the given type. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00632">632</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00742">742</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a4e7706a65c9d49e4d894ac50d66c4db3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4e7706a65c9d49e4d894ac50d66c4db3">&#9670;&nbsp;</a></span>getAllVariables()</h2>
+<a id="a5a2192b239f119b250a52bf610867efb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5a2192b239f119b250a52bf610867efb">&#9670;&nbsp;</a></span>getAllVariables()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -523,7 +510,7 @@ template&lt;typename T &gt; </div>
 template&lt;typename T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classRa_1_1Core_1_1VariableSet.html#a61f36df1dda66cf204afdec4c1e17d72">VariableSet::VariableContainer</a>&lt; T &gt; &amp; Ra::Core::VariableSet::getAllVariables</td>
+          <td class="memname">auto Ra::Core::VariableSet::getAllVariables</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -536,9 +523,9 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>a reference to the storage of the mapping name-&gt;value for the given type. </dd></dl>
-<dl class="section pre"><dt>Precondition</dt><dd><a class="el" href="classRa_1_1Core_1_1VariableSet.html#ab3c77f3b54588b9fb9ecb25409be76d5" title="Test if the storage supports a given variable type.">existsVariableType&lt;T&gt;()</a> </dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd><a class="el" href="classRa_1_1Core_1_1VariableSet.html#a962c68d54bfc107d007345669cf56393" title="Test if the storage supports a given variable type.">existsVariableType&lt;T&gt;()</a>. If not verified (assert in debug mode) std::bad_any_cast exception will be thrown by the underlying management of type erasure </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00659">659</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00760">760</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
 
 </div>
 </div>
@@ -574,14 +561,14 @@ template&lt;typename H &gt; </div>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>a reference to the storage of the mapping name-&gt;value for the given type. </dd></dl>
-<dl class="section pre"><dt>Precondition</dt><dd>existsVariableType&lt;HandledType&lt;H&gt;&gt;() variable. </dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd>existsVariableType&lt;HandledType&lt;H&gt;&gt;(). If not verified (assert in debug mode) std::bad_any_cast exception will be thrown by the underlying management of type erasure </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00666">666</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00769">769</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a85fdbc8a5f7f2972b075112babcd2737"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a85fdbc8a5f7f2972b075112babcd2737">&#9670;&nbsp;</a></span>getStoredTypes()</h2>
+<a id="a01ef218f41f0b2bc08ad3bce52630fa5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a01ef218f41f0b2bc08ad3bce52630fa5">&#9670;&nbsp;</a></span>getStoredTypes()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -590,10 +577,10 @@ template&lt;typename H &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const std::vector&lt;std::type_index&gt;&amp; Ra::Core::VariableSet::getStoredTypes </td>
+          <td class="memname">auto Ra::Core::VariableSet::getStoredTypes </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td> const</td>
+          <td> const -&gt; const std::vector&lt;std::type_index&gt;&amp; </td>
         </tr>
       </table>
   </td>
@@ -606,12 +593,12 @@ template&lt;typename H &gt; </div>
 <p>Gets the stored data type. </p>
 <dl class="section return"><dt>Returns</dt><dd>constant vector of type_index </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00174">174</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00147">147</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
 
 </div>
 </div>
-<a id="ac820cfb97bcdea47e4a9025a691d0df6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac820cfb97bcdea47e4a9025a691d0df6">&#9670;&nbsp;</a></span>getVariable()</h2>
+<a id="a090de4f50aa34f333bba240a4fd0f627"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a090de4f50aa34f333bba240a4fd0f627">&#9670;&nbsp;</a></span>getVariable()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -619,25 +606,25 @@ template&lt;typename H &gt; </div>
 template&lt;typename T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">const T &amp; Ra::Core::VariableSet::getVariable </td>
+          <td class="memname">auto Ra::Core::VariableSet::getVariable </td>
           <td>(</td>
           <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>name</em></td><td>)</td>
-          <td> const</td>
+          <td> const -&gt; T&amp;</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>get the value of the given variable </p>
-<dl class="section return"><dt>Returns</dt><dd>a const reference to the value. </dd></dl>
-<dl class="section pre"><dt>Precondition</dt><dd>The element <b>name</b> must exists with type <b>T</b>. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>a reference to the value. </dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd>The element <b>name</b> must exists with type <b>T</b>. If not verified (assert in debug mode) std::bad_any_cast exception could be thrown by the underlying management of type erasure </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00513">513</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00615">615</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
 
 </div>
 </div>
-<a id="aeadb28dcebd2d96c593062ddeb17b675"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aeadb28dcebd2d96c593062ddeb17b675">&#9670;&nbsp;</a></span>getVariableHandle()</h2>
+<a id="a34a985578d9cceed72e615ca93b15d80"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a34a985578d9cceed72e615ca93b15d80">&#9670;&nbsp;</a></span>getVariableHandle()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -645,11 +632,11 @@ template&lt;typename T &gt; </div>
 template&lt;typename T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classRa_1_1Core_1_1VariableSet.html#a2819447e55fdbe30c43726dd10ba9791">VariableSet::VariableHandle</a>&lt; T &gt; Ra::Core::VariableSet::getVariableHandle </td>
+          <td class="memname">auto Ra::Core::VariableSet::getVariableHandle </td>
           <td>(</td>
           <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>name</em></td><td>)</td>
-          <td> const</td>
+          <td> const -&gt; <a class="el" href="classRa_1_1Core_1_1VariableSet.html#a2819447e55fdbe30c43726dd10ba9791">VariableHandle</a>&lt;T&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -669,12 +656,12 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>an handle which can be de-referenced to obtain a std::pair&lt;const std::string, T&gt; representing the name and the value of the variable. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00520">520</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00621">621</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a72472189a29f1656ff0603c1e0db1786"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a72472189a29f1656ff0603c1e0db1786">&#9670;&nbsp;</a></span>insertOrAssignVariable()</h2>
+<a id="a2ae4889235c18238c677b007701f8db6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2ae4889235c18238c677b007701f8db6">&#9670;&nbsp;</a></span>insertOrAssignVariable()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -682,7 +669,7 @@ template&lt;typename T &gt; </div>
 template&lt;typename T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">std::pair&lt; <a class="el" href="classRa_1_1Core_1_1VariableSet.html#a2819447e55fdbe30c43726dd10ba9791">VariableSet::VariableHandle</a>&lt; T &gt;, bool &gt; Ra::Core::VariableSet::insertOrAssignVariable </td>
+          <td class="memname">auto Ra::Core::VariableSet::insertOrAssignVariable </td>
           <td>(</td>
           <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>name</em>, </td>
@@ -696,20 +683,20 @@ template&lt;typename T &gt; </div>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td></td>
+          <td></td><td> -&gt; std::pair&lt;<a class="el" href="classRa_1_1Core_1_1VariableSet.html#a2819447e55fdbe30c43726dd10ba9791">VariableHandle</a>&lt;T&gt;, bool&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>reset (or set if the variable does not exist yet) the value of the variable. </p>
-<dl class="section return"><dt>Returns</dt><dd>true if the value was reset, false it was set. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>a pair with the variable handle and a bool : true if the variable value was reset, false if the variable value was set. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00537">537</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00633">633</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a5cd78b363ba77491b96337096b923529"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5cd78b363ba77491b96337096b923529">&#9670;&nbsp;</a></span>insertVariable()</h2>
+<a id="aa1e2566f592c1ccf81f242fae101933a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa1e2566f592c1ccf81f242fae101933a">&#9670;&nbsp;</a></span>insertVariable()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -717,7 +704,7 @@ template&lt;typename T &gt; </div>
 template&lt;typename T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">std::pair&lt; <a class="el" href="classRa_1_1Core_1_1VariableSet.html#a2819447e55fdbe30c43726dd10ba9791">VariableSet::VariableHandle</a>&lt; T &gt;, bool &gt; Ra::Core::VariableSet::insertVariable </td>
+          <td class="memname">auto Ra::Core::VariableSet::insertVariable </td>
           <td>(</td>
           <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>name</em>, </td>
@@ -731,7 +718,7 @@ template&lt;typename T &gt; </div>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td></td>
+          <td></td><td> -&gt; std::pair&lt;<a class="el" href="classRa_1_1Core_1_1VariableSet.html#a2819447e55fdbe30c43726dd10ba9791">VariableHandle</a>&lt;T&gt;, bool&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -740,7 +727,7 @@ template&lt;typename T &gt; </div>
 <p>Operators acting on a per variable basis</p>
 <dl class="section return"><dt>Returns</dt><dd>true if the variable is inserted, false if the name was already associated with another value (of the same type). In this case, keep the old value. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00504">504</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00605">605</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
 
 </div>
 </div>
@@ -777,7 +764,7 @@ template&lt;typename H &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true if the handle is valid, false if not. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00527">527</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00627">627</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
 
 </div>
 </div>
@@ -806,7 +793,15 @@ template&lt;typename H &gt; </div>
 </dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classRa_1_1Core_1_1VariableSet.html#ab2b16edce3a38198144e923974c401e6" title="Merge the VariableSet from into this.">mergeReplaceVariables</a> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="VariableSet_8cpp_source.html#l00058">58</a> of file <a class="el" href="VariableSet_8cpp_source.html">VariableSet.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="VariableSet_8cpp_source.html#l00037">37</a> of file <a class="el" href="VariableSet_8cpp_source.html">VariableSet.cpp</a>.</p>
+<div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-1-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-1-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-1-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Core_1_1VariableSet_a8632a526adf0342cd1f7407626b536d2_cgraph.svg" width="382" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
+</div>
 
 </div>
 </div>
@@ -835,7 +830,15 @@ template&lt;typename H &gt; </div>
 </dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classRa_1_1Core_1_1VariableSet.html#a8632a526adf0342cd1f7407626b536d2" title="Merge the VariableSet from into this.">mergeKeepVariables</a> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="VariableSet_8cpp_source.html#l00064">64</a> of file <a class="el" href="VariableSet_8cpp_source.html">VariableSet.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="VariableSet_8cpp_source.html#l00044">44</a> of file <a class="el" href="VariableSet_8cpp_source.html">VariableSet.cpp</a>.</p>
+<div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-2-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-2-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-2-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Core_1_1VariableSet_ab2b16edce3a38198144e923974c401e6_cgraph.svg" width="402" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
+</div>
 
 </div>
 </div>
@@ -862,22 +865,22 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>the number of variables with type T stored in the container </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00673">673</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00776">776</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
 
 </div>
 </div>
-<a id="aed95ce92bfe66c046a15875c42c90520"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aed95ce92bfe66c046a15875c42c90520">&#9670;&nbsp;</a></span>operator=()</h2>
+<a id="ae8d62366a7a4b9eacaef12d91e5a57e2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae8d62366a7a4b9eacaef12d91e5a57e2">&#9670;&nbsp;</a></span>operator=()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classRa_1_1Core_1_1VariableSet.html">VariableSet</a> &amp; Ra::Core::VariableSet::operator= </td>
+          <td class="memname">auto Ra::Core::VariableSet::operator= </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classRa_1_1Core_1_1VariableSet.html">VariableSet</a> &amp;&#160;</td>
           <td class="paramname"><em>other</em></td><td>)</td>
-          <td></td>
+          <td> -&gt; <a class="el" href="classRa_1_1Core_1_1VariableSet.html">VariableSet</a>&amp;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -885,15 +888,7 @@ template&lt;typename T &gt; </div>
 <p>Copy assignment operator. </p>
 <p>Operators acting on a the whole <a class="el" href="classRa_1_1Core_1_1VariableSet.html" title="Heterogeneous container storing &quot;Variables&quot;, that maps a name (std::string) to a value (of any type T...">VariableSet</a> </p>
 
-<p class="definition">Definition at line <a class="el" href="VariableSet_8cpp_source.html#l00012">12</a> of file <a class="el" href="VariableSet_8cpp_source.html">VariableSet.cpp</a>.</p>
-<div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-2-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-2-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-2-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Core_1_1VariableSet_aed95ce92bfe66c046a15875c42c90520_cgraph.svg" width="376" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
+<p class="definition">Definition at line <a class="el" href="VariableSet_8cpp_source.html#l00019">19</a> of file <a class="el" href="VariableSet_8cpp_source.html">VariableSet.cpp</a>.</p>
 
 </div>
 </div>
@@ -904,6 +899,9 @@ template&lt;typename T &gt; </div>
 <div class="memproto">
 <div class="memtemplate">
 template&lt;typename F &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void Ra::Core::VariableSet::visit </td>
@@ -913,84 +911,33 @@ template&lt;typename F &gt; </div>
           <td> const</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Visit the container using a statically typed visitor. </p>
+<p>Visit the container using a user defined visitor. </p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
-    <tr><td class="paramname">F</td><td>The type of the visitor to use (see below) </td></tr>
+    <tr><td class="paramname">F</td><td>The type of the visitor to use (could be dynamic or static - see above ) </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">visitor</td><td>The visitor object to use</td></tr>
-  </table>
-  </dd>
-</dl>
-<p>This visiting method is well adapted when the visited types are known at compile time. In this case, part of the visit logic is done at compile time by unfolding the call of the type-related visitors instead of looping over all the stored type. This visiting strategy loops on visited types at compile time (loop unrolled) then on each stored values at running time. So, this visiting strategy is more efficient than the dynamic one if visited types are always the same.</p>
-<p>The type of the visiting functor F should be</p><ul>
+    <tr><td class="paramname">visitor</td><td>The visitor object to use The type of the visiting functor F should be<ul>
 <li>either derived from VariableSet::StaticVisitor&lt;Type1, Type2, ...&gt; with function operators with profile const operator(const std::string&amp; name, T&amp; value) available for all the requested types Type1, Type2, ...</li>
-<li>either a user define class exposing a type list to unfold F::types (see <a class="el" href="structRa_1_1Core_1_1VariableSet_1_1TypeList.html" title="CRTP based Type list for statically typed visitors.">VariableSet::TypeList</a> and <a class="el" href="structRa_1_1Core_1_1VariableSet_1_1StaticVisitor.html" title="Base class for visitors with static supported types. Visiting will be prepared at compile time by unf...">VariableSet::StaticVisitor</a>) </li>
+<li>either a user define class exposing a type list to unfold F::types (see Utils::TypeList and <a class="el" href="structRa_1_1Core_1_1VariableSet_1_1StaticVisitor.html" title="Base class for visitors with static supported types. Visiting will be prepared at compile time by unf...">VariableSet::StaticVisitor</a>)</li>
+<li>either derived from <a class="el" href="classRa_1_1Core_1_1VariableSet_1_1DynamicVisitor.html" title="Base class for visitors with configurable per-type callbacks. Visiting will be prepared at running ti...">DynamicVisitor</a>. In this case, visiting will be less efficient. </li>
 </ul>
-
-<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00688">688</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a1822f08e78f9d4d63feebfcf05a710f1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1822f08e78f9d4d63feebfcf05a710f1">&#9670;&nbsp;</a></span>visitDynamic()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename P &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">void Ra::Core::VariableSet::visitDynamic </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="classRa_1_1Core_1_1VariableSet_1_1DynamicVisitorBase.html">DynamicVisitorBase</a> &amp;&#160;</td>
-          <td class="paramname"><em>visitor</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">P &amp;&amp;&#160;</td>
-          <td class="paramname"><em>params</em> = <code>P&#160;{}</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Visit the container using a dynamically typed visitor. </p>
-<p>Visiting operators </p><dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">P</td><td>The type of the parameter to pass to visitor operators (see below) </td></tr>
+</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">visitor</td><td>The visitor to use </td></tr>
-    <tr><td class="paramname">params</td><td>optional parameter to forward to visitor functor</td></tr>
-  </table>
-  </dd>
-</dl>
-<p>This visiting method is adapted when the types to visit are only known at running time. At running time, this visiting approach relies on two loops.</p><ul>
-<li>The first loop, done by the visiting logic in the class <a class="el" href="classRa_1_1Core_1_1VariableSet.html" title="Heterogeneous container storing &quot;Variables&quot;, that maps a name (std::string) to a value (of any type T...">VariableSet</a> iterate over the types stored for the mappings name-&gt;value to identify the accepted types by the visitor.</li>
-<li>The second loop, done by the visiting logic for accepted types, loop over name-&gt;value mappings and call the visitor functor for each pair</li>
-</ul>
-<p>The type of the visiting functor F should be</p><ul>
-<li>either derived from <a class="el" href="classRa_1_1Core_1_1VariableSet_1_1DynamicVisitor.html" title="Base class for visitors with configurable per-type callbacks. Visiting will be prepared at running ti...">VariableSet::DynamicVisitor</a> with the needed visiting operators registered (<dl class="section see"><dt>See also</dt><dd>see <a class="el" href="classRa_1_1Core_1_1VariableSet_1_1DynamicVisitor.html" title="Base class for visitors with configurable per-type callbacks. Visiting will be prepared at running ti...">VariableSet::DynamicVisitor</a>)</dd></dl>
-</li>
-<li>either derived directly from <a class="el" href="classRa_1_1Core_1_1VariableSet_1_1DynamicVisitorBase.html" title="Base class for dynamically configurable visitors Users can implement this interface to build custom v...">DynamicVisitorBase</a> to build a full custom visitor. In this case, the first given std::any rvalue reference wraps a reference to a std::pair&lt;const std::string, T&gt; such that the first element of the pair is the name of the variable, and the second its value of type T. The second std::any&amp;&amp; rvalue reference contains an optional parameter to pass to the visiting functors (the same for all types) if the accept to be called with such a parameter. </li>
-</ul>
 
-<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00680">680</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00900">900</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
 
 </div>
 </div>
@@ -1004,7 +951,7 @@ template&lt;typename P &gt; </div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><b>Core</b></li><li class="navelem"><a class="el" href="classRa_1_1Core_1_1VariableSet.html">VariableSet</a></li>
-    <li class="footer">Generated on Fri Mar 17 2023 07:31:29 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Apr 3 2023 06:30:54 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>
