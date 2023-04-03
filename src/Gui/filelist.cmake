@@ -86,10 +86,6 @@ set(gui_headers
     Widgets/VectorEditor.hpp
 )
 
-set(gui_inlines Widgets/ConstrainedNumericSpinBox.inl Widgets/ControlPanel.inl
-                Widgets/VectorEditor.inl
-)
-
 set(gui_uis
     AboutDialog/AboutDialog.ui AboutDialog/RadiumHelpDialog.ui
     SkeletonBasedAnimation/SkeletonBasedAnimationUI.ui Timeline/HelpDialog.ui Timeline/Timeline.ui
