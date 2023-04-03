@@ -54,32 +54,6 @@ std::false_type is_container_impl( ... );
 template <typename T>
 using is_container = decltype( detail::is_container_impl<T>( 0 ) );
 
-// Check if a type is a container with access to its element type and number
-// adapted from https://stackoverflow.com/questions/13830158/check-if-a-variable-type-is-iterable
-namespace detail {
-
-using std::begin;
-using std::end;
-
-template <typename T>
-auto is_container_impl( int )
-    -> decltype( begin( std::declval<T&>() ) !=
-                     end( std::declval<T&>() ), // begin/end and operator !=
-                 void(),                        // Handle evil operator ,
-                 std::declval<T&>().empty(),
-                 std::declval<T&>().size(),
-                 ++std::declval<decltype( begin( std::declval<T&>() ) )&>(), // operator ++
-                 void( *begin( std::declval<T&>() ) ),                       // operator*
-                 std::true_type {} );
-
-template <typename T>
-std::false_type is_container_impl( ... );
-
-} // namespace detail
-
-template <typename T>
-using is_container = decltype( detail::is_container_impl<T>( 0 ) );
-
 // TypeList taken and adapted from
 // https://github.com/AcademySoftwareFoundation/openvdb/blob/master/openvdb/openvdb/TypeList.h
 // Only took small part of TypeList utilities
@@ -189,32 +163,6 @@ template <typename T>
 std::string demangleType( const T& ) noexcept {
     return demangleType<T>();
 }
-
-// Check if a type is a container with access to its element type and number
-// adapted from https://stackoverflow.com/questions/13830158/check-if-a-variable-type-is-iterable
-namespace detail {
-
-using std::begin;
-using std::end;
-
-template <typename T>
-auto is_container_impl( int )
-    -> decltype( begin( std::declval<T&>() ) !=
-                     end( std::declval<T&>() ), // begin/end and operator !=
-                 void(),                        // Handle evil operator ,
-                 std::declval<T&>().empty(),
-                 std::declval<T&>().size(),
-                 ++std::declval<decltype( begin( std::declval<T&>() ) )&>(), // operator ++
-                 void( *begin( std::declval<T&>() ) ),                       // operator*
-                 std::true_type {} );
-
-template <typename T>
-std::false_type is_container_impl( ... );
-
-} // namespace detail
-
-template <typename T>
-using is_container = decltype( detail::is_container_impl<T>( 0 ) );
 
 } // namespace Utils
 } // namespace Core
