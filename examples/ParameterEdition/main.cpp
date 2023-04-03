@@ -16,60 +16,105 @@ using namespace Ra::Engine::Data;
 using namespace Ra::Gui;
 using namespace Ra::Core;
 
-/* Changed the underlying type to verify the good behavior of the edition */
+// Visitor to print all or some of the parameters stored in a RenderParameter object.
+// This visitor is very similar to the one used to build the edition ui (RenderParameterUiBuilder
+// in ParameterSetEditor.cpp) and could be used with a predicate function accepting variable wrt
+// their name
+struct ParameterPrinter {
+    using types              = Ra::Engine::Data::RenderParameters::BindableTypes;
+    using SelectionPredicate = std::function<bool( const std::string& )>;
+
+    void operator()(
+        const std::string& name,
+        bool& value,
+        SelectionPredicate&& pred = []( const std::string& ) { return true; } ) {
+        if ( pred( name ) ) {
+            std::cout << name << " (" << Utils::demangleType<bool>() << ") --> " << std::boolalpha
+                      << value << std::noboolalpha << "\n";
+        }
+    }
+
+    template <typename T, std::enable_if_t<std::is_arithmetic<T>::value, bool> = true>
+    void operator()(
+        const std::string& name,
+        T& value,
+        SelectionPredicate&& pred = []( const std::string& ) { return true; } ) {
+        if ( pred( name ) ) {
+            std::cout << name << " (" << Utils::demangleType<T>() << ") --> " << value << "\n";
+        }
+    }
+
+    template <typename T,
+              typename TAllocator,
+              std::enable_if_t<std::is_arithmetic<T>::value, bool> = true>
+    void operator()(
+        const std::string& name,
+        std::vector<T, TAllocator>& value,
+        SelectionPredicate&& pred = []( const std::string& ) { return true; } ) {
+        if ( pred( name ) ) {
+            std::cout << name << " (" << Utils::demangleType<std::vector<T>>() << ") --> [";
+            std::copy( value.begin(),
+                       std::prev( value.end() ),
+                       std::ostream_iterator<T>( std::cout, ", " ) );
+            if ( !value.empty() ) { std::cout << value.back(); }
+            std::cout << "]\n";
+        }
+    }
+
+    void operator()(
+        const std::string& name,
+        Ra::Core::Utils::Color& value,
+        SelectionPredicate&& pred = []( const std::string& ) { return true; } ) {
+        if ( pred( name ) ) {
+            std::cout << name << " (" << Utils::demangleType<Ra::Core::Utils::Color>() << ") --> (";
+            std::cout << value.transpose() << ")\n";
+        }
+    }
+
+    template <template <typename, int...> typename M, typename T, int... dim>
+    void operator()(
+        const std::string& name,
+        M<T, dim...>& value,
+        SelectionPredicate&& pred = []( const std::string& ) { return true; } ) {
+        if ( pred( name ) ) {
+            std::cout << name << " (" << Utils::demangleType<M<T, dim...>>() << ") --> ";
+            // transpose column vector for display
+            if constexpr ( M<T, dim...>::ColsAtCompileTime == 1 )
+                std::cout << "(" << value.transpose() << ")\n";
+            else
+                std::cout << "\n" << value << "\n";
+        }
+    }
+
+    void operator()(
+        const std::string& /*name*/,
+        Ra::Engine::Data::RenderParameters::TextureInfo& /*p*/,
+        SelectionPredicate&& pred = []( const std::string& ) { return true; } ) {
+        // textures are not yet editable
+    }
+
+    template <typename T>
+    void operator()(
+        const std::string& name,
+        std::reference_wrapper<T>& p,
+        SelectionPredicate&& pred = []( const std::string& ) { return true; } ) {
+        if constexpr ( std::is_same<typename std::decay<T>::type, RenderParameters>::value ) {
+            if ( pred( name ) ) {
+                std::cout << name << " (" << Utils::demangleType<std::reference_wrapper<T>>()
+                          << ") --> \n";
+                p.get().visit( *this, pred );
+                std::cout << " <-- " << name << "\n";
+            }
+        }
+        else {
+            // embedded wrapped reference other than RenderParameters is not managed.
+        }
+    }
+};
+
+// Enumeration that will be available as string or numeric value
 enum Values : unsigned int { VALUE_0 = 10, VALUE_1 = 20, VALUE_2 = 30 };
-
-template <typename RP>
-void printParameterValue( const RenderParameters& parameters, const ::std::string& p ) {
-    if ( parameters.containsParameter<RP>( p ) )
-        std::cout << parameters.getParameter<RP>( p ).m_value << " ("
-                  << Utils::demangleType<typename RP::value_type>() << ")";
-}
-
-template <typename T, int N>
-void printVectorParameterValue( const RenderParameters& parameters, const ::std::string& p ) {
-    using RP = RenderParameters::TParameter<Eigen::Matrix<T, N, 1>>;
-    if ( parameters.containsParameter<RP>( p ) )
-        std::cout << parameters.getParameter<RP>( p ).m_value.transpose() << " ("
-                  << Utils::demangleType<typename RP::value_type>() << ")";
-}
-
-void printColorParameterValue( const RenderParameters& parameters, const ::std::string& p ) {
-    using RP = RenderParameters::ColorParameter;
-    if ( parameters.containsParameter<RP>( p ) )
-        std::cout << parameters.getParameter<RP>( p ).m_value.transpose() << " ("
-                  << Utils::demangleType<typename RP::value_type>() << ")";
-}
-
-template <typename T, int N, int M>
-void printMatrixParameterValue( const RenderParameters& parameters, const ::std::string& p ) {
-    using RP = RenderParameters::TParameter<Eigen::Matrix<T, N, M>>;
-    if ( parameters.containsParameter<RP>( p ) )
-        std::cout << "\n"
-                  << parameters.getParameter<RP>( p ).m_value << "\n ("
-                  << Utils::demangleType<typename RP::value_type>() << ")";
-}
-
-template <typename T>
-void printCollectionParameterValue( const RenderParameters& parameters, const ::std::string& p ) {
-    using RP = RenderParameters::TParameter<std::vector<T>>;
-    if ( parameters.containsParameter<RP>( p ) ) {
-        std::cout << "\n";
-        auto v = parameters.getParameter<RP>( p ).m_value;
-        std::copy( v.begin(), v.end(), std::ostream_iterator<T>( std::cout, " " ) );
-        std::cout << "\n (" << Utils::demangleType<typename RP::value_type>() << ")";
-    }
-}
-
-template <typename T>
-void printAllParameters( const RenderParameters& parameters ) {
-    auto& params = parameters.getParameterSet<T>();
-    std::cout << "Parameters for type " << Utils::demangleType<T>() << " : " << params.size()
-              << "\n";
-    for ( const auto& [key, p] : params ) {
-        std::cout << "\t" << key << " = " << p.m_value << "\n";
-    }
-}
+using ValuesType = typename std::underlying_type_t<Values>;
 
 int main( int argc, char* argv[] ) {
     //! [Filling json parameter descriptor]
@@ -81,14 +126,8 @@ int main( int argc, char* argv[] ) {
         "type": "boolean"
         },
     "enum": {
-        "name": "My Enum",
-        "description": "unscoped enum, ranging from 10 to n30",
-        "type": "enum",
-        "values": [
-          "VALUE_0",
-          "VALUE_1",
-          "VALUE_2"
-        ]
+        "description": "unscoped enum, ranging from 10 to 30 with step 10",
+        "type": "enum"
     },
     "int_constrained": {
       "description": "Integer between -10 and 10",
@@ -145,10 +184,10 @@ int main( int argc, char* argv[] ) {
     //! [Creating the edition dialog]
 
     //! [Management of string<->value conversion for enumeration parameters]
-    auto vnc = new RenderParameters::EnumConverter<Values>( { { Values::VALUE_0, "VALUE_0" },
-                                                              { Values::VALUE_1, "VALUE_1" },
-                                                              { Values::VALUE_2, "VALUE_2" } } );
-    auto valuesEnumConverter = std::shared_ptr<RenderParameters::EnumConverter<Values>>( vnc );
+    auto vnc = new Ra::Core::Utils::EnumConverter<ValuesType>( { { Values::VALUE_0, "VALUE_0" },
+                                                                 { Values::VALUE_1, "VALUE_1" },
+                                                                 { Values::VALUE_2, "VALUE_2" } } );
+    auto valuesEnumConverter = std::shared_ptr<Ra::Core::Utils::EnumConverter<ValuesType>>( vnc );
     //! [Management of string<->value conversion for enumeration parameters]
 
     //! [filling the parameter set to edit ]
@@ -163,7 +202,7 @@ int main( int argc, char* argv[] ) {
     parameters.addParameter( "Scalar", 0_ra );
     parameters.addParameter( "Scalar_constrained", 0.5_ra );
     parameters.addParameter( "Scalar_half_constrained", 0_ra );
-    parameters.addParameter( "Scalar_Multiconstrained", 0.5_ra );
+    parameters.addParameter( "Scalar_multiconstrained", 0.5_ra );
     parameters.addParameter( "Color", Ra::Core::Utils::Color::Magenta() );
     parameters.addParameter( "Vec2", Ra::Core::Vector2 { 1_ra, 0_ra } );
     parameters.addParameter( "Vec3", Ra::Core::Vector3 { 1_ra, 1_ra, 1_ra } );
@@ -171,34 +210,24 @@ int main( int argc, char* argv[] ) {
         "Matrix3",
         Ra::Core::Matrix3 { { 0_ra, 0_ra, 0_ra }, { 1_ra, 1_ra, 1_ra }, { 2_ra, 2_ra, 2_ra } } );
     parameters.addParameter( "std::vector<int>", std::vector<int> { 0, 1, 2 } );
+
+    RenderParameters embedded;
+    embedded.addParameter( "embedded.int value", 1 );
+    embedded.addParameter( "embedded.scalar value", 1_ra );
+    parameters.addParameter( "embedded", embedded );
     //! [filling the parameter set to edit ]
 
     //! [Printing several parameters before edition ]
-    std::cout << "\nPrinting all parameters before editiong :\n";
-    printAllParameters<RenderParameters::IntParameter>( parameters );
-    printAllParameters<RenderParameters::BoolParameter>( parameters );
-    printAllParameters<RenderParameters::UIntParameter>( parameters );
-    printAllParameters<RenderParameters::ScalarParameter>( parameters );
+    std::cout << "\nPrinting all parameters before edition :\n";
+    parameters.visit( ParameterPrinter {} );
     //! [Printing several parameters before edition ]
 
     //! [Filling the editor with the parameter set ]
     editor.setupFromParameters( parameters, parameterSet_metadata );
     auto printParameter = [&parameters]( const std::string& p ) {
         std::cout << "Parameter " << p << " was modified. New value is ";
-        printParameterValue<RenderParameters::IntParameter>( parameters, p );
-        printParameterValue<RenderParameters::BoolParameter>( parameters, p );
-        printParameterValue<RenderParameters::UIntParameter>( parameters, p );
-        printParameterValue<RenderParameters::ScalarParameter>( parameters, p );
-        printCollectionParameterValue<int>( parameters, p );
-        printCollectionParameterValue<unsigned int>( parameters, p );
-        printCollectionParameterValue<Scalar>( parameters, p );
-        printVectorParameterValue<Scalar, 2>( parameters, p );
-        printVectorParameterValue<Scalar, 3>( parameters, p );
-        printVectorParameterValue<Scalar, 4>( parameters, p );
-        printColorParameterValue( parameters, p );
-        printMatrixParameterValue<Scalar, 2, 2>( parameters, p );
-        printMatrixParameterValue<Scalar, 3, 3>( parameters, p );
-        printMatrixParameterValue<Scalar, 4, 4>( parameters, p );
+        parameters.visit( ParameterPrinter {},
+                          [p]( const std::string& name ) { return p == name; } );
         std::cout << "\n";
     };
     QObject::connect( &editor, &ParameterSetEditor::parameterModified, printParameter );
@@ -209,9 +238,7 @@ int main( int argc, char* argv[] ) {
 
     //! [Printing several parameters after edition ]
     std::cout << "\nPrinting all parameters before quit : ";
-    printAllParameters<RenderParameters::IntParameter>( parameters );
-    printAllParameters<RenderParameters::BoolParameter>( parameters );
-    printAllParameters<RenderParameters::UIntParameter>( parameters );
-    printAllParameters<RenderParameters::ScalarParameter>( parameters );
+    parameters.visit( ParameterPrinter {} );
+
     //! [Printing several parameters after edition ]
 }

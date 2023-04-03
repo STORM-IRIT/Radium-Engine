@@ -21,8 +21,6 @@ class RA_ENGINE_API SpotLight final : public Ra::Engine::Scene::Light
     explicit SpotLight( Entity* entity, const std::string& name = "spotlight" );
     ~SpotLight() override = default;
 
-    void getRenderParameters( Data::RenderParameters& params ) const override;
-
     void setPosition( const Eigen::Matrix<Scalar, 3, 1>& position ) override;
     inline const Eigen::Matrix<Scalar, 3, 1>& getPosition() const;
 
@@ -52,8 +50,70 @@ class RA_ENGINE_API SpotLight final : public Ra::Engine::Scene::Light
 
     Attenuation m_attenuation { 1, 0, 0 };
 };
+
+// ---------------------------------------------------------------------------------------------
+// ---- inline methods implementation
+
+inline void SpotLight::setPosition( const Eigen::Matrix<Scalar, 3, 1>& position ) {
+    m_position = position;
+    getRenderParameters().addParameter( "light.spot.position", m_position );
+}
+
+inline const Eigen::Matrix<Scalar, 3, 1>& Scene::SpotLight::getPosition() const {
+    return m_position;
+}
+
+inline void SpotLight::setDirection( const Eigen::Matrix<Scalar, 3, 1>& direction ) {
+    m_direction = direction.normalized();
+    getRenderParameters().addParameter( "light.spot.direction", m_direction );
+}
+
+inline const Eigen::Matrix<Scalar, 3, 1>& SpotLight::getDirection() const {
+    return m_direction;
+}
+
+inline void SpotLight::setInnerAngleInRadians( Scalar angle ) {
+    m_innerAngle = angle;
+    getRenderParameters().addParameter( "light.spot.innerAngle", m_innerAngle );
+}
+
+inline void SpotLight::setOuterAngleInRadians( Scalar angle ) {
+    m_outerAngle = angle;
+    getRenderParameters().addParameter( "light.spot.outerAngle", m_outerAngle );
+}
+
+inline void SpotLight::setInnerAngleInDegrees( Scalar angle ) {
+    m_innerAngle = angle * Core::Math::toRad;
+}
+
+inline void SpotLight::setOuterAngleInDegrees( Scalar angle ) {
+    m_outerAngle = Core::Math::toRad * angle;
+}
+
+inline Scalar SpotLight::getInnerAngle() const {
+    return m_innerAngle;
+}
+
+inline Scalar SpotLight::getOuterAngle() const {
+    return m_outerAngle;
+}
+
+inline void SpotLight::setAttenuation( const Attenuation& attenuation ) {
+    m_attenuation = attenuation;
+    getRenderParameters().addParameter( "light.spot.attenuation.constant", m_attenuation.constant );
+    getRenderParameters().addParameter( "light.spot.attenuation.linear", m_attenuation.linear );
+    getRenderParameters().addParameter( "light.spot.attenuation.quadratic",
+                                        m_attenuation.quadratic );
+}
+
+inline void SpotLight::setAttenuation( Scalar constant, Scalar linear, Scalar quadratic ) {
+    setAttenuation( { constant, linear, quadratic } );
+}
+
+inline const SpotLight::Attenuation& SpotLight::getAttenuation() const {
+    return m_attenuation;
+}
+
 } // namespace Scene
 } // namespace Engine
 } // namespace Ra
-
-#include "SpotLight.inl"

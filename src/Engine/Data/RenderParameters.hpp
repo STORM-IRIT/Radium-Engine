@@ -2,292 +2,195 @@
 
 #include <Engine/RaEngine.hpp>
 
-#include <set>
 #include <vector>
 
 #include <nlohmann/json.hpp>
 
-#include <Core/Containers/AlignedAllocator.hpp>
 #include <Core/Types.hpp>
-#include <Core/Utils/BijectiveAssociation.hpp>
 #include <Core/Utils/Color.hpp>
+#include <Core/Utils/EnumConverter.hpp>
 #include <Core/Utils/Log.hpp>
 #include <Core/Utils/StdOptional.hpp>
+
+#include <Core/Containers/VariableSet.hpp>
+
+#include <Engine/Data/ShaderProgram.hpp>
 
 namespace Ra {
 namespace Engine {
 namespace Data {
 
 class Texture;
-class ShaderProgram;
 
 /**
  * Management of shader parameters with automatic binding of a named parameter to the corresponding
  * glsl uniform.
+ * \note Automatic binding is only available for supported type described in BindableTypes.
+ * \note Enums are stored according to their underlying_type. Enum management is automatic except
+ * when requesting for the associated uniformBindableSet. To access bindable set containing a given
+ * enum with type Enum, use `getParameterSet<typename std::underlying_type<typename
+ * Enum>::type>`
+ *
  */
 class RA_ENGINE_API RenderParameters final
 {
   public:
-    /// Base abstract parameter Class
-    ///\todo use globjects Uniform directly (which seems to correspond to the
-    /// same data/purpose, even if not well documented
-    class Parameter
-    {
-      public:
-        Parameter() = default;
-        explicit Parameter( const std::string& name ) : m_name( name ) {}
-        virtual ~Parameter() = default;
-        /** Bind the parameter uniform on the shader program
-         *
-         * \param shader The shader to bind to.
-         */
-        virtual void bind( const Data::ShaderProgram* shader ) const = 0;
-        /** The name of the parameter.
-         * This must correspond to the name of a Uniform in the shader the Parameter is bound to.
-         */
-        std::string m_name {};
-    };
-
-    /** Typed parameter.
-     * Define a Parameter with a typed value
-     * \tparam T The type of the parameter's value.
-     */
-    template <typename T>
-    class TParameter final : public Parameter
-    {
-      public:
-        using value_type = T;
-
-        TParameter() = default;
-        TParameter( const std::string& name, const T& value ) :
-            Parameter( name ), m_value( value ) {}
-        ~TParameter() override = default;
-        void bind( const Data::ShaderProgram* shader ) const override;
-        /// The value of the parameter
-        T m_value {};
-    };
-
     /**
-     * Special case of a Texture parameter
+     * \brief Special type for Texture parameter
      */
-    class TextureParameter final : public Parameter
-    {
-      public:
-        TextureParameter() = default;
-        TextureParameter( const std::string& name, Data::Texture* tex, int texUnit ) :
-            Parameter( name ), m_texture( tex ), m_texUnit( texUnit ) {}
-        ~TextureParameter() override = default;
-        void bind( const Data::ShaderProgram* shader ) const override;
+    using TextureInfo = std::pair<Data::Texture*, int>;
 
-        /// The texture object
-        Data::Texture* m_texture { nullptr };
-        /// The texture unit where to bind the parameter
-        int m_texUnit { -1 };
-    };
+    /// \brief Aliases for bindable parameter types
+    /// \{
+
+    /// List of bindable types, to be used with static visitors
+    using BindableTypes = Core::Utils::TypeList<bool,
+                                                Core::Utils::Color,
+                                                int,
+                                                uint,
+                                                Scalar,
+                                                TextureInfo,
+                                                std::vector<int>,
+                                                std::vector<uint>,
+                                                std::vector<Scalar>,
+                                                Core::Vector2,
+                                                Core::Vector3,
+                                                Core::Vector4,
+                                                Core::Matrix2,
+                                                Core::Matrix3,
+                                                Core::Matrix4,
+                                                std::reference_wrapper<RenderParameters>,
+                                                std::reference_wrapper<const RenderParameters>>;
 
     /** Set of typed parameters
-     * For a given shader Program, all the parameters are stored by type, in several parameter sets.
+     * For a given shader Program, all the parameters are stored by type, using Core::VariableSet as
+     * container.
      *
-     * \tparam T The type of parameteres in the set.
+     * \tparam T The type of parameters in the set.
      */
     template <typename T>
-    class UniformBindableSet final
-        : public std::map<
-              std::string,
-              T,
-              std::less<std::string>,
-              Core::AlignedAllocator<std::pair<const std::string, T>, EIGEN_MAX_ALIGN_BYTES>>
-    {
-      public:
-        /** Bind the whole parameter set to the corresponding shader uniforms
-         *
-         * \param shader The shader to bind to.
-         */
-        void bind( const Data::ShaderProgram* shader ) const;
-    };
+    using UniformBindableSet = Core::VariableSet::VariableContainer<T>;
 
-    ///\todo use array of parameter to templated uniform, as in globjects ?
-    /// Parameter of type int
-    using IntParameter  = TParameter<int>;
-    using BoolParameter = TParameter<bool>;
-    /// Parameter of type unsigned int
-    using UIntParameter = TParameter<uint>;
-    /// Parameter of type Scalar
-    using ScalarParameter = TParameter<Scalar>;
-    /// Parameter of type vector of int
-    using IntsParameter = TParameter<std::vector<int>>;
-    /// Parameter of type vector of unsigned int
-    using UIntsParameter = TParameter<std::vector<uint>>;
-
-    /// Parameter of type vector of Scalar;
-    using ScalarsParameter = TParameter<std::vector<Scalar>>;
-
-    /// Parameter of type Vector2
-    using Vec2Parameter = TParameter<Core::Vector2>;
-    /// Parameter of type Vector3
-    using Vec3Parameter = TParameter<Core::Vector3>;
-    /// Parameter of type Vector4
-    using Vec4Parameter  = TParameter<Core::Vector4>;
-    using ColorParameter = TParameter<Core::Utils::Color>;
-
-    /// Parameter of type Matrix2
-    using Mat2Parameter = TParameter<Core::Matrix2>;
-    /// Parameter of type Matrix3
-    using Mat3Parameter = TParameter<Core::Matrix3>;
-    /// Parameter of type Matrix3
-    using Mat4Parameter = TParameter<Core::Matrix4>;
-
-  public:
-    /**
-     * \brief Management of parameter of enum type.
-     * This allow to set the parameter using a string representation of their value.
-     * Setting the parameter directly from the value is supported as for any other parameter but
-     * user should take care to call the right overloaded function given the underlying enumeration
-     * type. This is due to unscoped enum being implicitly convertible to any integral type.
-     * (https://en.cppreference.com/w/cpp/language/enum)
-     * \{
-     */
-    /**
-     * \brief This class allows to set and manipulate parameter as enumerations either using a
-     * string representation of the enumeration or its value.
-     */
-    class AbstractEnumConverter
-    {
-      public:
-        virtual ~AbstractEnumConverter() = default;
-        /**
-         * \brief Set the value of the enum corresponding to the given string and matching the
-         * enumeration underlying type.
-         * \param p the renderParameter to update.
-         * \param name The name of the enum to set.
-         * \param enumerator The enumerator, in std::string form.
-         */
-        virtual void setEnumValue( RenderParameters& p,
-                                   const std::string& name,
-                                   const std::string& enumerator ) const = 0;
-
-        /**
-         * \brief Get the string form of an enumeration value.
-         * \param v the value of the enumeration, implicitly converted to int for unscope enum,
-         * explicitely converted for scoped one.
-         * \return the string associated to this value
-         */
-        virtual std::string getEnumerator( int v ) const = 0;
-
-        /**
-         * \brief Get all the string forms of the enumeration.
-         * \return the vector of strings associated to the enumeration.
-         */
-        virtual std::vector<std::string> getEnumerators() const = 0;
-
-        /**
-         * \brief Get the value, converted to int, of the enumeration given its string expression
-         * \param v the string defining the enumerator
-         * \return the value of the enumerator
-         * \note  This method does not respect the underlying type of enumerations as it returns
-         * always an int. Use setEnumValue to modify the parameter set in a type safe way.
-         */
-        virtual int getEnumerator( const std::string& v ) const = 0;
-    };
-
-    /**
-     * \brief This class manage the bijective association between string and integral representation
-     * of an enumeration.
+    /** Handle to a bindable parameters.
+     *  A handle is an iterator on a pair <name, value> such that the value is of type T
      *
-     * \tparam Enum the type of the enumeration to manage
+     * \tparam T The type of parameter in the set.
      */
-    template <typename Enum>
-    class EnumConverter : public AbstractEnumConverter
-    {
-      public:
-        using EnumBaseType = typename std::underlying_type_t<Enum>;
-        explicit EnumConverter( std::initializer_list<std::pair<EnumBaseType, std::string>> pairs );
-
-        void setEnumValue( RenderParameters& p,
-                           const std::string& name,
-                           const std::string& enumerator ) const override;
-        std::string getEnumerator( int v ) const override;
-        int getEnumerator( const std::string& v ) const override;
-        std::vector<std::string> getEnumerators() const override;
-
-      private:
-        Core::Utils::BijectiveAssociation<typename std::underlying_type_t<Enum>, std::string>
-            m_valueToString;
-    };
+    template <typename T>
+    using UniformVariable = Core::VariableSet::VariableHandle<T>;
+    /// \}
 
     /**
      * \brief Associate a converter for enumerated type to the given parameter name
+     * \tparam EnumBaseType The enum base type to manage (\see Ra::Core::Utils::EnumConverter)
      * \param name
      * \param converter
      */
+    template <typename EnumBaseType>
     void addEnumConverter( const std::string& name,
-                           std::shared_ptr<AbstractEnumConverter> converter );
+                           std::shared_ptr<Core::Utils::EnumConverter<EnumBaseType>> converter );
 
     /**
      * \brief Search for a converter associated with an enumeration parameter
+     * \tparam EnumBaseType The enum base type to manage (\see Ra::Core::Utils::EnumConverter)
      * \param name the name of the parameter
      * \return an optional containing the converter or false if no converter is found.
      */
-    Core::Utils::optional<std::shared_ptr<AbstractEnumConverter>>
+    template <typename EnumBaseType>
+    Core::Utils::optional<std::shared_ptr<Core::Utils::EnumConverter<EnumBaseType>>>
     getEnumConverter( const std::string& name );
 
     /**
      * \brief Return the string associated to the actual value of a parameter
-     * \param name
-     * \param
+     * \tparam Enum The enum type (\see Ra::Core::Utils::EnumConverter)
+     * \param name The name of the enum variable
+     * \param value The value to convert
      * \return
      */
-    std::string getEnumString( const std::string& name, int value );
+    template <typename Enum, typename std::enable_if<std::is_enum<Enum> {}, bool>::type = true>
+    std::string getEnumString( const std::string& name, Enum value );
 
-  private:
     /**
-     * \brief Store the enumeration converter.
-     * By storing a shared_ptr, the same converter could be used for several parameters.
+     * \brief (overload) Return the string associated to the actual value of a parameter, from a
+     * value with underlying_type<Enum>.
+     * \tparam EnumBaseType The underlying enum type (\see Ra::Core::Utils::EnumConverter)
+     * \param name The name of the enum variable
+     * \param value The value to convert
+     * \return
      */
-    std::map<std::string, std::shared_ptr<AbstractEnumConverter>> m_enumConverters;
+    template <typename EnumBaseType>
+    std::string
+    getEnumString( const std::string& name,
+                   EnumBaseType value,
+                   typename std::enable_if<!std::is_enum<EnumBaseType> {}, bool>::type = true );
 
-    /**\}*/
-
-  public:
     /**
      * Overloaded operators to set shader parameters
      * \{
      */
-    void addParameter( const std::string& name, bool value );
-    void addParameter( const std::string& name, int value );
-    void addParameter( const std::string& name, uint value );
-    void addParameter( const std::string& name, Scalar value );
-
-    void addParameter( const std::string& name, const std::vector<int>& values );
-    void addParameter( const std::string& name, const std::vector<uint>& values );
-    void addParameter( const std::string& name, const std::vector<Scalar>& values );
-
-    void addParameter( const std::string& name, const Core::Vector2& value );
-    void addParameter( const std::string& name, const Core::Vector3& value );
-    void addParameter( const std::string& name, const Core::Vector4& value );
-    void addParameter( const std::string& name, const Core::Utils::Color& value );
-
-    void addParameter( const std::string& name, const Core::Matrix2& value );
-    void addParameter( const std::string& name, const Core::Matrix3& value );
-    void addParameter( const std::string& name, const Core::Matrix4& value );
 
     /**
-     * Adding a texture parameter.
+     * \brief Add a parameter by value
+     * \tparam T The type of parameter to add. Must be a non class type for this overload to be
+     * chosen. \param name Name of the parameter. \param value Value of the parameter.
+     */
+    template <typename T>
+    void addParameter( const std::string& name,
+                       T value,
+                       typename std::enable_if<!std::is_class<T> {}, bool>::type = true );
+
+    /**
+     * \brief Add a parameter by const ref
+     * \tparam T The type of parameter to add. Must be a class type for this overload to be chosen.
+     * \param name Name of the parameter.
+     * \param value Value of the parameter.
+     */
+    template <typename T, typename std::enable_if<std::is_class<T> {}, bool>::type = true>
+    void addParameter( const std::string& name, const T& value );
+
+    /**
+     * \brief Adding a texture parameter.
+     * \tparam T The type of parameter to add. Must be derived from Texture for this overload.
+     * \param name Name of the parameter
+     * \param tex Texture to add in the parameterSet
+     * \param texUnit Texture unit associated with the texture object.
      * The default (-1) for the texUnit parameter implies automatic uniform binding for the
      * texture unit associated with the named sampler.
      * If texUnit is given, then uniform binding will be made at this explicit location.
      */
-    void addParameter( const std::string& name, Data::Texture* tex, int texUnit = -1 );
+    template <typename T,
+              typename std::enable_if<std::is_base_of<Data::Texture, T>::value, bool>::type = true>
+    void addParameter( const std::string& name, T* tex, int texUnit = -1 );
 
     /**
      * \brief set the value of the given parameter, according to a string representation of an enum.
-     * \note If there is no EnumConverter associated with the parameter name, do nothing.
-     * \param name
-     * \param value
+     * \note If there is no EnumConverter associated with the parameter name, the string is
+     * registered in the RenderParameter set.
+     * \param name Name of the parameter
+     * \param value value of the parameter
      */
     void addParameter( const std::string& name, const std::string& value );
     void addParameter( const std::string& name, const char* value );
+
+    /**
+     * \brief add a render parameter variable
+     * \param name
+     * \param value
+     */
+    void addParameter( const std::string& name, RenderParameters& value );
+
+    void addParameter( const std::string& name, const RenderParameters& value );
+
     /**\}*/
+
+    /**
+     * \brief Remove the given parameter from the parameterSet
+     * \tparam T Type of the parameter to remove
+     * \param name Name of the parameter to remove
+     * \return true if the parameter was found and removed. false else.
+     */
+    template <typename T>
+    bool removeParameter( const std::string& name );
 
     /**
      * Merges a RenderParameters \a params with this
@@ -306,18 +209,32 @@ class RA_ENGINE_API RenderParameters final
     void mergeReplaceParameters( const RenderParameters& params );
 
     /** Bind the parameter uniform on the shader program
-     *
+     * \note, this will only bind the supported parameter types.
      * \param shader The shader to bind to.
      */
     void bind( const Data::ShaderProgram* shader ) const;
 
     /**
-     * Get a typed parameter set
+     * \brief Get a typed parameter set
      * \tparam T the type of the parameter set to get
      * \return The corresponding set parameter
      */
+    /// \{
     template <typename T>
     const UniformBindableSet<T>& getParameterSet() const;
+    template <typename T>
+    UniformBindableSet<T>& getParameterSet();
+    /// \}
+
+    /**
+     * \brief Test if parameters of type T are stored
+     * \tparam T
+     * \return an optional, empty if the ParameterSet does not exists or whose value is
+     * a **non owning** pointer to the ParameterSet collection if it exists. This **non owning**
+     * pointer remains valid as long as the RenderParameter exists and contains the given type.
+     */
+    template <typename T>
+    Core::Utils::optional<UniformBindableSet<T>*> hasParameterSet() const;
 
     /**
      * Check if a typed parameter exists
@@ -326,44 +243,102 @@ class RA_ENGINE_API RenderParameters final
      * \return true if the parameter exists
      */
     template <typename T>
-    bool containsParameter( const std::string& name ) const;
+    Core::Utils::optional<UniformVariable<T>> containsParameter( const std::string& name ) const;
 
     /**
-     * Get a typed parameter
+     * \brief Get a typed parameter
      * \tparam T the type of the parameter to get
      * \param name The name of the parameter to get
      * \return The corresponding parameter
      * \throw std::out_of_range if the container does not have an parameter with the specified name
      */
+    /// \{
     template <typename T>
     const T& getParameter( const std::string& name ) const;
+    template <typename T>
+    T& getParameter( const std::string& name );
+    /// \}
 
+    /** Visit the parameter using any kind of visitor
+     */
+    template <typename V>
+    void visit( V&& visitor ) const;
+
+    template <typename V, typename T>
+    void visit( V&& visitor, T& userParams ) const;
+
+    template <typename V, typename T>
+    void visit( V&& visitor, T&& userParams ) const;
+
+    /// \brief Get access to the parameter storage
+    /// \return the Core::VariableSet storing the parameters
+    /// \{
+    const Core::VariableSet& getStorage() const { return m_parameterSets; }
+    Core::VariableSet& getStorage() { return m_parameterSets; }
+    /// \}
   private:
     /**
-     * Storage of the parameters
-     * \todo : find a way to simplify this (à la Ra::Core::Geometry::AttribArrayGeometry
+     * \brief Static visitor to bind the stored parameters.
+     * \note Binds only statically supported types. To bind unsupported types, use a custom
+     * dynamic visitor and the RenderParameter::visit method.
      */
-    ///\{
-    UniformBindableSet<BoolParameter> m_boolParamsVector;
-    UniformBindableSet<IntParameter> m_intParamsVector;
-    UniformBindableSet<UIntParameter> m_uintParamsVector;
-    UniformBindableSet<ScalarParameter> m_scalarParamsVector;
+    class StaticParameterBinder
+    {
+      public:
+        /// Type supported by the binder
+        using types = BindableTypes;
 
-    UniformBindableSet<IntsParameter> m_intsParamsVector;
-    UniformBindableSet<UIntsParameter> m_uintsParamsVector;
-    UniformBindableSet<ScalarsParameter> m_scalarsParamsVector;
+        /**
+         * \brief Binds a color parameter as this requires special access to the parameter value.
+         */
+        void operator()( const std::string& name,
+                         const Ra::Core::Utils::Color& p,
+                         const Data::ShaderProgram* shader ) {
+            shader->setUniform( name.c_str(), Ra::Core::Utils::Color::VectorType( p ) );
+        }
 
-    UniformBindableSet<Vec2Parameter> m_vec2ParamsVector;
-    UniformBindableSet<Vec3Parameter> m_vec3ParamsVector;
-    UniformBindableSet<Vec4Parameter> m_vec4ParamsVector;
-    UniformBindableSet<ColorParameter> m_colorParamsVector;
+        /**
+         * \brief Binds a Texture parameter as this requires special access to the parameter value.
+         */
+        void operator()( const std::string& name,
+                         const RenderParameters::TextureInfo& p,
+                         const Data::ShaderProgram* shader ) {
+            auto [tex, texUnit] = p;
+            if ( texUnit == -1 ) { shader->setUniformTexture( name.c_str(), tex ); }
+            else {
+                shader->setUniform( name.c_str(), tex, texUnit );
+            }
+        }
 
-    UniformBindableSet<Mat2Parameter> m_mat2ParamsVector;
-    UniformBindableSet<Mat3Parameter> m_mat3ParamsVector;
-    UniformBindableSet<Mat4Parameter> m_mat4ParamsVector;
+        /**
+         * \brief Binds a embedded const RenderParameter.
+         * This allows to build hierarchies of RenderParameters.
+         */
+        template <typename T>
+        void operator()( const std::string& /*name*/,
+                         const std::reference_wrapper<T>& p,
+                         const Data::ShaderProgram* shader ) {
+            p.get().bind( shader );
+        }
 
-    UniformBindableSet<TextureParameter> m_texParamsVector;
-    /**\}*/
+        /**
+         * \brief Bind any type of parameter that do not requires special access
+         */
+        template <typename T>
+        void operator()( const std::string& name, const T& p, const Data::ShaderProgram* shader ) {
+            shader->setUniform( name.c_str(), p );
+        }
+    };
+
+    /** \brief Functor to bind parameters
+     * There will be only one StaticParameterBinder used by all RenderParameters
+     */
+    static StaticParameterBinder s_binder;
+
+    /**
+     * Storage of the parameters
+     */
+    Core::VariableSet m_parameterSets;
 };
 
 /**
@@ -423,13 +398,165 @@ class RA_ENGINE_API ShaderParameterProvider
      */
     virtual std::list<std::string> getPropertyList() const { return {}; };
 
-  protected:
+  private:
     /// The parameters to set for a shader
+    /// replace this by coreVariables
     RenderParameters m_renderParameters;
 };
+
+/* --------------- enum parameter management --------------- */
+
+template <typename EnumBaseType>
+void RenderParameters::addEnumConverter(
+    const std::string& name,
+    std::shared_ptr<Core::Utils::EnumConverter<EnumBaseType>> converter ) {
+    auto converterHandle = m_parameterSets.insertOrAssignVariable( name, converter );
+    std::function<void( Core::VariableSet&, const std::string&, const std::string& )>
+        convertingFunction = [converter = converterHandle.first]( Core::VariableSet& vs,
+                                                                  const std::string& nm,
+                                                                  const std::string& vl ) {
+            vs.insertOrAssignVariable( nm, converter->second->getEnumerator( vl ) );
+        };
+    m_parameterSets.insertOrAssignVariable( name, convertingFunction );
+}
+
+template <typename EnumBaseType>
+Core::Utils::optional<std::shared_ptr<Core::Utils::EnumConverter<EnumBaseType>>>
+RenderParameters::getEnumConverter( const std::string& name ) {
+    auto storedConverter =
+        m_parameterSets.existsVariable<std::shared_ptr<Core::Utils::EnumConverter<EnumBaseType>>>(
+            name );
+    if ( storedConverter ) { return ( *storedConverter )->second; }
+    return {};
+}
+
+template <typename EnumBaseType>
+std::string RenderParameters::getEnumString(
+    const std::string& name,
+    EnumBaseType value,
+    typename std::enable_if<!std::is_enum<EnumBaseType> {}, bool>::type ) {
+    auto storedConverter =
+        m_parameterSets.existsVariable<std::shared_ptr<Core::Utils::EnumConverter<EnumBaseType>>>(
+            name );
+    if ( storedConverter ) { return ( *storedConverter )->second->getEnumerator( value ); }
+    LOG( Ra::Core::Utils::logWARNING ) << name + " is not a registered Enum with underlying type " +
+                                              Ra::Core::Utils::demangleType<EnumBaseType>() + ".";
+    return "";
+}
+
+template <typename Enum, typename std::enable_if<std::is_enum<Enum> {}, bool>::type>
+std::string RenderParameters::getEnumString( const std::string& name, Enum value ) {
+    using EnumBaseType = typename std::underlying_type_t<Enum>;
+    return getEnumString( name, EnumBaseType( value ) );
+}
+
+/* --------------- enum parameter management --------------- */
+
+template <typename T>
+inline void
+RenderParameters::addParameter( const std::string& name,
+                                T value,
+                                typename std::enable_if<!std::is_class<T> {}, bool>::type ) {
+    if constexpr ( std::is_enum<T>::value ) {
+        auto v = static_cast<typename std::underlying_type<T>::type>( value );
+        m_parameterSets.insertOrAssignVariable( name, v );
+    }
+    else {
+        m_parameterSets.insertOrAssignVariable( name, value );
+    }
+}
+
+template <typename T, typename std::enable_if<std::is_class<T> {}, bool>::type>
+inline void RenderParameters::addParameter( const std::string& name, const T& value ) {
+    m_parameterSets.insertOrAssignVariable( name, value );
+}
+
+template <typename T, typename std::enable_if<std::is_base_of<Data::Texture, T>::value, bool>::type>
+inline void RenderParameters::addParameter( const std::string& name, T* tex, int texUnit ) {
+    addParameter( name, TextureInfo { tex, texUnit } );
+}
+
+inline void RenderParameters::addParameter( const std::string& name, RenderParameters& value ) {
+    m_parameterSets.insertOrAssignVariable( name, std::ref( value ) );
+}
+
+inline void RenderParameters::addParameter( const std::string& name,
+                                            const RenderParameters& value ) {
+    m_parameterSets.insertOrAssignVariable( name, std::cref( value ) );
+}
+
+template <typename T>
+bool RenderParameters::removeParameter( const std::string& name ) {
+    return m_parameterSets.deleteVariable<T>( name );
+}
+
+template <typename T>
+inline const RenderParameters::UniformBindableSet<T>& RenderParameters::getParameterSet() const {
+    return m_parameterSets.getAllVariables<T>();
+}
+
+template <typename T>
+inline RenderParameters::UniformBindableSet<T>& RenderParameters::getParameterSet() {
+    return m_parameterSets.getAllVariables<T>();
+}
+
+template <typename T>
+inline Core::Utils::optional<RenderParameters::UniformBindableSet<T>*>
+RenderParameters::hasParameterSet() const {
+    if constexpr ( std::is_enum<T>::value ) {
+        // Do not return
+        // m_parameterSets.existsVariableType< typename std::underlying_type< T >::type >();
+        // to prevent misuse of this function. The user should infer this with another logic.
+        return {};
+    }
+    else {
+        return m_parameterSets.existsVariableType<T>();
+    }
+}
+
+template <typename T>
+inline Core::Utils::optional<RenderParameters::UniformVariable<T>>
+RenderParameters::containsParameter( const std::string& name ) const {
+    if constexpr ( std::is_enum<T>::value ) {
+        return m_parameterSets.existsVariable<typename std::underlying_type<T>::type>( name );
+    }
+    else {
+        return m_parameterSets.existsVariable<T>( name );
+    }
+}
+
+template <typename T>
+inline const T& RenderParameters::getParameter( const std::string& name ) const {
+    if constexpr ( std::is_enum<T>::value ) {
+        // need to cast to take into account the way enums are managed in the RenderParameters
+        return reinterpret_cast<const T&>(
+            m_parameterSets.getVariable<typename std::underlying_type<T>::type>( name ) );
+    }
+    else {
+        return m_parameterSets.getVariable<T>( name );
+    }
+}
+
+template <typename T>
+inline T& RenderParameters::getParameter( const std::string& name ) {
+    return const_cast<T&>( const_cast<const RenderParameters*>( this )->getParameter<T>( name ) );
+}
+
+template <typename V>
+inline void RenderParameters::visit( V&& visitor ) const {
+    m_parameterSets.visit( visitor );
+}
+
+template <typename V, typename T>
+inline void RenderParameters::visit( V&& visitor, T& userParams ) const {
+    m_parameterSets.visit( visitor, std::forward<T&>( userParams ) );
+}
+
+template <typename V, typename T>
+inline void RenderParameters::visit( V&& visitor, T&& userParams ) const {
+    m_parameterSets.visit( visitor, std::forward<T&&>( userParams ) );
+}
 
 } // namespace Data
 } // namespace Engine
 } // namespace Ra
-
-#include <Engine/Data/RenderParameters.inl>

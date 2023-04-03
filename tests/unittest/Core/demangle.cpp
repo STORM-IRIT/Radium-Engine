@@ -23,7 +23,7 @@ TEST_CASE( "Core/Utils/TypesUtils", "[Core][Core/Utils][TypesUtils]" ) {
         REQUIRE( std::string( demangleType<size_t>() ) == "unsigned __int64" );
 #endif
         auto demangledName = std::string( demangleType<std::vector<int>>() );
-        REQUIRE( demangledName == "std::vector<int, std::allocator<int> >" );
+        REQUIRE( demangledName == "std::vector<int, std::allocator<int>>" );
 
         demangledName = std::string( demangleType<TypeTests::TypeName_struct>() );
         REQUIRE( demangledName == "TypeTests::TypeName_struct" );
@@ -48,7 +48,7 @@ TEST_CASE( "Core/Utils/TypesUtils", "[Core][Core/Utils][TypesUtils]" ) {
 #endif
         std::vector<int> v;
         auto demangledName = std::string( demangleType( v ) );
-        REQUIRE( demangledName == "std::vector<int, std::allocator<int> >" );
+        REQUIRE( demangledName == "std::vector<int, std::allocator<int>>" );
 
         TypeTests::TypeName_struct tns;
         demangledName = std::string( demangleType( tns ) );

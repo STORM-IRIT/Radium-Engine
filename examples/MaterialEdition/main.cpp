@@ -37,9 +37,9 @@
 
 #ifdef USE_RADIUMGLTF
 #    include <Engine/Scene/SystemDisplay.hpp>
-#    include <RadiumGlTF/IO/Gltf/Loader/glTFFileLoader.hpp>
-#    include <RadiumGlTF/IO/Gltf/Writer/glTFFileWriter.hpp>
-#    include <RadiumGlTF/glTFLibrary.hpp>
+#    include <IO/Gltf/Loader/glTFFileLoader.hpp>
+#    include <IO/Gltf/Writer/glTFFileWriter.hpp>
+#    include <glTFLibrary.hpp>
 #endif
 
 using namespace Ra::Gui::Widgets;

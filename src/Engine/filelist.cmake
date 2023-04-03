@@ -122,7 +122,6 @@ set(engine_inlines
     Data/Material.inl
     Data/Mesh.inl
     Data/RawShaderMaterial.inl
-    Data/RenderParameters.inl
     Data/ShaderProgram.inl
     Data/SimpleMaterial.inl
     Data/VolumeObject.inl
@@ -131,13 +130,9 @@ set(engine_inlines
     Rendering/Renderer.inl
     Scene/Component.inl
     Scene/ComponentMessenger.inl
-    Scene/DirLight.inl
     Scene/Entity.inl
     Scene/GeometryComponent.inl
     Scene/ItemEntry.inl
-    Scene/Light.inl
-    Scene/PointLight.inl
-    Scene/SpotLight.inl
 )
 
 set(engine_shaders
