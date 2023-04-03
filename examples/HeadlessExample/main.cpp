@@ -94,9 +94,7 @@ int main( int argc, const char* argv[] ) {
         if ( viewerParameters.m_animationEnable ) {
             viewer.showWindow( true, OpenGLContext::EventMode::TIMEOUT );
         }
-        else {
-            viewer.showWindow( true, OpenGLContext::EventMode::WAIT );
-        }
+        else { viewer.showWindow( true, OpenGLContext::EventMode::WAIT ); }
         viewer.renderLoop( render );
         viewer.showWindow( false );
     }

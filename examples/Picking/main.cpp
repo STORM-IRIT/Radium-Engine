@@ -38,11 +38,11 @@ class DemoWindow : public Ra::Gui::SimpleWindow
         connect(
             getViewer(), &Ra::Gui::Viewer::rightClickPicking, this, &DemoWindow::handlePicking );
     }
-    DemoWindow( const DemoWindow& ) = delete;
+    DemoWindow( const DemoWindow& )            = delete;
     DemoWindow& operator=( const DemoWindow& ) = delete;
     DemoWindow( SimpleWindow&& )               = delete;
-    DemoWindow& operator=( DemoWindow&& ) = delete;
-    ~DemoWindow() override                = default;
+    DemoWindow& operator=( DemoWindow&& )      = delete;
+    ~DemoWindow() override                     = default;
 
     // activate circle picking
     void toggleCirclePicking( bool on ) {

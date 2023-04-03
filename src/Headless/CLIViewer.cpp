@@ -155,9 +155,7 @@ void CLIViewer::openGlAddOns( std::function<void()> f ) {
 
 void CLIViewer::bindOpenGLContext( bool on ) {
     if ( on ) { m_glContext->makeCurrent(); }
-    else {
-        m_glContext->doneCurrent();
-    }
+    else { m_glContext->doneCurrent(); }
 }
 
 void CLIViewer::setCamera( Ra::Core::Utils::Index camIdx ) {
@@ -201,9 +199,7 @@ void CLIViewer::showWindow( bool on, OpenGLContext::EventMode mode, float delay 
         m_glContext->resize( m_parameters.m_size );
         m_glContext->show( mode, delay );
     }
-    else {
-        m_glContext->hide();
-    }
+    else { m_glContext->hide(); }
 }
 
 void CLIViewer::renderLoop( std::function<void( float )> render ) {

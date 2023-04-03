@@ -102,9 +102,7 @@ void Skeleton::setLocalTransform( const uint i, const Transform& T ) {
     m_pose[i] = T;
     // Compute the model space pose
     if ( m_graph.isRoot( i ) ) { m_modelSpace[i] = m_pose[i]; }
-    else {
-        m_modelSpace[i] = m_modelSpace[m_graph.parents()[i]] * T;
-    }
+    else { m_modelSpace[i] = m_modelSpace[m_graph.parents()[i]] * T; }
     if ( !m_graph.isLeaf( i ) ) {
         std::stack<uint> stack;
         stack.push( i );
@@ -123,9 +121,7 @@ void Skeleton::setModelTransform( const uint i, const Transform& T ) {
     m_modelSpace[i] = T;
     // Compute the local space pose
     if ( m_graph.isRoot( i ) ) { m_pose[i] = m_modelSpace[i]; }
-    else {
-        m_pose[i] = m_modelSpace[m_graph.parents()[i]].inverse() * T;
-    }
+    else { m_pose[i] = m_modelSpace[m_graph.parents()[i]].inverse() * T; }
     if ( !m_graph.isLeaf( i ) ) {
         std::stack<uint> stack;
         stack.push( i );

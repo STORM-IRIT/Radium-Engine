@@ -40,7 +40,7 @@ class RA_ENGINE_API ShaderProgramManager final
     /// Rule of three needed here to prevent copy on this manager (only movable)
     ShaderProgramManager();
     ~ShaderProgramManager();
-    ShaderProgramManager( const ShaderProgramManager& ) = delete;
+    ShaderProgramManager( const ShaderProgramManager& )            = delete;
     ShaderProgramManager& operator=( const ShaderProgramManager& ) = delete;
 
     /**

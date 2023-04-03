@@ -41,9 +41,7 @@ class StaticPrintVisitor
     template <typename T, typename std::enable_if<!std::is_class<T>::value, bool>::type = true>
     void operator()( const std::string& name, const T& _in, const std::string& prefix = "" ) {
         if ( !prefix.empty() ) { std::cout << "\t" << prefix << " : ( "; }
-        else {
-            std::cout << "\tStaticPrintVisitor : ";
-        }
+        else { std::cout << "\tStaticPrintVisitor : "; }
         std::cout << " (" << Utils::demangleType<T>() << " ) " << name << " --> " << _in << "\n";
     }
 
@@ -52,16 +50,12 @@ class StaticPrintVisitor
                      [[maybe_unused]] const T& _in,
                      const std::string& prefix = "" ) {
         if ( !prefix.empty() ) { std::cout << "\t" << prefix << " : ( "; }
-        else {
-            std::cout << "\tStaticPrintVisitor : ";
-        }
+        else { std::cout << "\tStaticPrintVisitor : "; }
         if constexpr ( std::is_same<T, std::string>::value ) {
             std::cout << " (" << Utils::demangleType<T>() << " ) " << name << " --> " << _in
                       << "\n";
         }
-        else {
-            std::cout << " (" << Utils::demangleType<T>() << " ) " << name << "\n";
-        }
+        else { std::cout << " (" << Utils::demangleType<T>() << " ) " << name << "\n"; }
     }
 
     void operator()( const std::string& name,
@@ -69,9 +63,7 @@ class StaticPrintVisitor
                      const std::string& prefix = "" ) {
         std::string localPrefix;
         if ( prefix.empty() ) { localPrefix = "StaticPrintVisitor : "; }
-        else {
-            localPrefix = prefix;
-        }
+        else { localPrefix = prefix; }
 
         std::cout << "\t" << localPrefix << " (" << Utils::demangleType( p.get() ) << " ) " << name
                   << " --> visiting recursively\n";

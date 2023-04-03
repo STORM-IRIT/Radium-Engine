@@ -29,7 +29,7 @@ class Tex : public Grid<T, N>
     Tex( const IdxVector& resolution, const AabbND& aabb );
 
     /// Copy constructor and assignment operator perform a deep copy.
-    Tex( const Tex& other ) = default;
+    Tex( const Tex& other )            = default;
     Tex& operator=( const Tex& other ) = default;
 
     inline const AabbND& getAabb() const;

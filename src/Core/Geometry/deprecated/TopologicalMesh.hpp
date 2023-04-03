@@ -464,9 +464,7 @@ inline TopologicalMesh::TopologicalMesh( const TriangleMesh& triMesh,
                 vh = add_vertex( p );
                 vertexHandles.insert( vtr, typename VertexMap::value_type( p, vh ) );
             }
-            else {
-                vh = vtr->second;
-            }
+            else { vh = vtr->second; }
 
             face_vhandles[j]    = vh;
             face_vertexIndex[j] = inMeshVertexIndex;
@@ -490,9 +488,7 @@ inline TopologicalMesh::TopologicalMesh( const TriangleMesh& triMesh,
                 copyAttribToTopo( triMesh, vprop_vec4, heh, face_vertexIndex[vindex] );
             }
         }
-        else {
-            command.process( face_vhandles );
-        }
+        else { command.process( face_vhandles ); }
         face_vhandles.clear();
         face_normals.clear();
         face_vertexIndex.clear();

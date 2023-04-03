@@ -189,9 +189,7 @@ void AssimpGeometryDataLoader::fetchType( const aiMesh& mesh, GeometryData& data
         break;
     case 4:
         if ( face_max - face_min == 0 ) { data.setType( GeometryData::QUAD_MESH ); }
-        else {
-            data.setType( GeometryData::POLY_MESH );
-        }
+        else { data.setType( GeometryData::POLY_MESH ); }
         break;
     default: {
         data.setType( GeometryData::POLY_MESH );
@@ -277,9 +275,7 @@ void AssimpGeometryDataLoader::loadMaterial( const aiMaterial& material,
             blinnPhongMaterial->m_hasTexOpacity = true;
         }
     }
-    else {
-        LOG( logINFO ) << "Found assimp default material " << matName;
-    }
+    else { LOG( logINFO ) << "Found assimp default material " << matName; }
     data.setMaterial( blinnPhongMaterial );
 }
 

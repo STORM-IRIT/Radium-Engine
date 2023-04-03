@@ -116,9 +116,7 @@ size_t RenderObjectManager::getNumFaces() const {
             if ( ro->isVisible() && ro->getType() == Rendering::RenderObjectType::Geometry ) {
                 return a + ro->getMesh()->getNumFaces();
             }
-            else {
-                return a;
-            }
+            else { return a; }
         } );
     return result;
 }
@@ -133,9 +131,7 @@ size_t RenderObjectManager::getNumVertices() const {
             if ( ro->isVisible() && ro->getType() == Rendering::RenderObjectType::Geometry ) {
                 return a + ro->getMesh()->getNumVertices();
             }
-            else {
-                return a;
-            }
+            else { return a; }
         } );
     return result;
 }

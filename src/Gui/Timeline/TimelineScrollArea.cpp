@@ -85,9 +85,7 @@ void TimelineScrollArea::keyPressEvent( QKeyEvent* event ) {
 
     case Qt::Key_I:
         if ( event->modifiers() & Qt::Modifier::SHIFT ) { emit removeKeyFrame(); }
-        else {
-            emit addKeyFrame();
-        }
+        else { emit addKeyFrame(); }
         break;
 
     case Qt::Key_Left:
@@ -109,9 +107,7 @@ void TimelineScrollArea::keyPressEvent( QKeyEvent* event ) {
     case Qt::Key_Z:
         if ( event->modifiers() & Qt::Modifier::CTRL ) {
             if ( event->modifiers() & Qt::Modifier::SHIFT ) { emit redo(); }
-            else {
-                emit undo();
-            }
+            else { emit undo(); }
         }
         break;
 
@@ -134,9 +130,7 @@ void TimelineScrollArea::wheelEvent( QWheelEvent* event ) {
     // next/previous KeyFrame
     if ( shiftDown ) {
         if ( ry > 0 ) { emit nextKeyFrame(); }
-        else {
-            emit previousKeyFrame();
-        }
+        else { emit previousKeyFrame(); }
     }
     // scroll left/right bar
     else if ( ctrlDown ) {
@@ -149,9 +143,7 @@ void TimelineScrollArea::wheelEvent( QWheelEvent* event ) {
                                  ry * TIMELINE_ZOOM_SPEED * widget()->minimumWidth() / width() );
         if ( newRulerWidth <= width() - 2 ) {
             if ( widget()->minimumWidth() == width() - 2 ) { return; }
-            else {
-                newRulerWidth = width() - 2;
-            }
+            else { newRulerWidth = width() - 2; }
         }
 
         double hScroll = horizontalScrollBar()->value();

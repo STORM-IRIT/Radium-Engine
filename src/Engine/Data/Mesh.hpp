@@ -76,7 +76,7 @@ class RA_ENGINE_API AttribArrayDisplayable : public Displayable
     explicit AttribArrayDisplayable( const std::string& name,
                                      MeshRenderMode renderMode = RM_TRIANGLES );
     AttribArrayDisplayable( const AttribArrayDisplayable& rhs ) = delete;
-    void operator=( const AttribArrayDisplayable& rhs ) = delete;
+    void operator=( const AttribArrayDisplayable& rhs )         = delete;
 
     ~AttribArrayDisplayable() {}
 
@@ -659,9 +659,7 @@ void IndexedAttribArrayDisplayable<I>::autoVertexAttribPointer( const ShaderProg
 #endif
             binding->setFormat( attrib->getNumberOfComponents(), GL_SCALAR );
         }
-        else {
-            m_vao->disable( loc );
-        }
+        else { m_vao->disable( loc ); }
     }
 }
 
@@ -745,8 +743,7 @@ void CoreGeometryDisplayable<CoreGeometry>::addAttribObserver( const std::string
         attrib->attach( AttribObserver( this, idx ) );
     }
     // else it's an attrib remove, do nothing, cleanup will be done in updateGL()
-    else {
-    }
+    else {}
 }
 
 template <typename CoreGeometry>
@@ -784,13 +781,9 @@ void CoreGeometryDisplayable<CoreGeometry>::autoVertexAttribPointer( const Shade
 #endif
                 binding->setFormat( attrib->getNumberOfComponents(), GL_SCALAR );
             }
-            else {
-                m_vao->disable( loc );
-            }
+            else { m_vao->disable( loc ); }
         }
-        else {
-            m_vao->disable( loc );
-        }
+        else { m_vao->disable( loc ); }
     }
 }
 

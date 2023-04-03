@@ -80,9 +80,7 @@ void ItemModel::addItem( const Engine::Scene::ItemEntry& ent ) {
         else {
             ItemEntry parentEntry;
             if ( ent.isRoNode() ) { parentEntry = ItemEntry( ent.m_entity, ent.m_component ); }
-            else if ( ent.isComponentNode() ) {
-                parentEntry = ItemEntry( ent.m_entity );
-            }
+            else if ( ent.isComponentNode() ) { parentEntry = ItemEntry( ent.m_entity ); }
             parentIdx = findEntryIndex( parentEntry );
             CORE_ASSERT( parentIdx.isValid(), "Parent does not exist" );
             parentItem = getItem( parentIdx );
