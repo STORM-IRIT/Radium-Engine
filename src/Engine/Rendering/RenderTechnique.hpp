@@ -237,14 +237,6 @@ getDefaultTechnique( const std::string& name );
 RA_ENGINE_API bool cleanup();
 } // namespace EngineRenderTechniques
 
-} // namespace Rendering
-} // namespace Engine
-} // namespace Ra
-
-namespace Ra {
-namespace Engine {
-namespace Rendering {
-
 /**
  * Test if the given pass is dirty (openGL state not updated)
  * @param pass The index of the pass

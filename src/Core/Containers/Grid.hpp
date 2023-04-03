@@ -234,11 +234,7 @@ class Grid
     /// Storage for the grid data.
     std::vector<T> m_data;
 };
-} // namespace Core
-} // namespace Ra
 
-namespace Ra {
-namespace Core {
 // Anonymous helper functions to convert to/from multi-dimensional indices
 // If we want to  make the grid row-major we just need to overload these functions
 // by reversing the loops.

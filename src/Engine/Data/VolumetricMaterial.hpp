@@ -105,13 +105,6 @@ class RA_ENGINE_API VolumetricMaterial final : public Material, public Parameter
     static nlohmann::json s_parametersMetadata;
 };
 
-} // namespace Data
-} // namespace Engine
-} // namespace Ra
-
-namespace Ra {
-namespace Engine {
-namespace Data {
 // Add a texture as material parameter from an already existing Radium Texture
 inline void VolumetricMaterial::setTexture( Texture* texture ) {
     m_texture = texture;

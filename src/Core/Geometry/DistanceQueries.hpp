@@ -3,6 +3,8 @@
 #include <Core/Geometry/TriangleMesh.hpp>
 #include <Core/RaCore.hpp>
 #include <Core/Types.hpp>
+
+#include <algorithm>
 #include <limits>
 
 /// Functions in this file are utilities to compute the distance between various geometric sets.
@@ -130,15 +132,6 @@ struct TriangleToTriangleOutput {
 inline RA_CORE_API TriangleToTriangleOutput triangleToTriSq( const Vector3 v1[3],
                                                              const Vector3 v2[3] );
 
-} // namespace Geometry
-} // namespace Core
-} // namespace Ra
-
-#include <algorithm>
-
-namespace Ra {
-namespace Core {
-namespace Geometry {
 // Line funcs
 
 inline RA_CORE_API Scalar pointToLineSq( const Vector3& q, const Vector3& a, const Vector3& dir ) {

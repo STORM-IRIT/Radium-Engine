@@ -155,13 +155,6 @@ class RA_ENGINE_API RawShaderMaterial : public Material
     std::string m_materialKey {};
 };
 
-} // namespace Data
-} // namespace Engine
-} // namespace Ra
-
-namespace Ra {
-namespace Engine {
-namespace Data {
 inline Material*
 RawShaderMaterialConverter::operator()( const Ra::Core::Asset::MaterialData* toconvert ) {
     auto mat = static_cast<const Core::Asset::RawShaderMaterialData*>( toconvert );

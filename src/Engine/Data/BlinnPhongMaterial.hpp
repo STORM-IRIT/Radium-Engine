@@ -137,13 +137,6 @@ class RA_ENGINE_API BlinnPhongMaterialConverter final
 
     Material* operator()( const Ra::Core::Asset::MaterialData* toconvert );
 };
-} // namespace Data
-} // namespace Engine
-} // namespace Ra
-
-namespace Ra {
-namespace Engine {
-namespace Data {
 
 // Add a texture as material parameter from an already existing Radium Texture
 inline void BlinnPhongMaterial::addTexture( const TextureSemantic& semantic, Texture* texture ) {

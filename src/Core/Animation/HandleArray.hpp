@@ -35,7 +35,7 @@ class RA_CORE_API HandleArray
     /**
      * @return the number of transformations
      */
-    inline virtual uint size() const;
+    inline virtual uint size() const { return m_pose.size(); }
 
     /**
      * Clear the transformations data
@@ -67,12 +67,12 @@ class RA_CORE_API HandleArray
     /**
      * @return the Handle's name
      */
-    inline Label getName() const;
+    inline Label getName() const { return m_name; }
 
     /**
      * Set the Handle's name
      */
-    inline void setName( const Label& name );
+    inline void setName( const Label& name ) { m_name = name; }
 
     /**
      * @return the name of the \p i-th transform.
@@ -100,26 +100,6 @@ class RA_CORE_API HandleArray
      */
     std::vector<Label> m_label;
 };
-
-} // namespace Animation
-} // Namespace Core
-} // Namespace Ra
-
-namespace Ra {
-namespace Core {
-namespace Animation {
-
-inline uint HandleArray::size() const {
-    return m_pose.size();
-}
-
-inline std::string HandleArray::getName() const {
-    return m_name;
-}
-
-inline void HandleArray::setName( const Label& name ) {
-    m_name = name;
-}
 
 inline Label HandleArray::getLabel( const uint i ) const {
     CORE_ASSERT( ( i < size() ), "Index i out of bound" );

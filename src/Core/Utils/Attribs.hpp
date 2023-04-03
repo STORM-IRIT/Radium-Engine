@@ -444,14 +444,6 @@ class RA_CORE_API AttribManager : public Observable<const std::string&>
     int m_numAttribs { 0 };
 };
 
-} // namespace Utils
-} // namespace Core
-} // namespace Ra
-
-namespace Ra {
-namespace Core {
-namespace Utils {
-
 AttribBase::AttribBase( const std::string& name ) : m_name { name } {}
 
 std::string AttribBase::getName() const {

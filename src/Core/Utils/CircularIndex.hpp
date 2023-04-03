@@ -43,14 +43,6 @@ class RA_CORE_API CircularIndex
     size_t N;
 };
 
-} // namespace Utils
-} // namespace Core
-} // namespace Ra
-
-namespace Ra {
-namespace Core {
-namespace Utils {
-
 /// DIMENSION
 inline size_t CircularIndex::size() const {
     return N;

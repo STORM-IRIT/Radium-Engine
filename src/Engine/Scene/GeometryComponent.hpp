@@ -2,10 +2,16 @@
 
 #include <Core/Asset/GeometryData.hpp>
 #include <Core/Asset/VolumeData.hpp>
+#include <Core/Containers/MakeShared.hpp>
 #include <Core/Geometry/TriangleMesh.hpp>
 #include <Core/Geometry/Volume.hpp>
+#include <Engine/Data/BlinnPhongMaterial.hpp>
+#include <Engine/Data/MaterialConverters.hpp>
 #include <Engine/Data/Mesh.hpp>
+#include <Engine/Rendering/RenderObject.hpp>
 #include <Engine/Scene/Component.hpp>
+#include <Engine/Scene/ComponentMessenger.hpp>
+#include <Engine/Scene/Entity.hpp>
 
 namespace Ra {
 namespace Engine {
@@ -201,21 +207,6 @@ class RA_ENGINE_API VolumeComponent : public Component
     std::string m_contentName {};
     std::shared_ptr<Data::VolumeObject> m_displayVolume { nullptr };
 };
-
-} // namespace Scene
-} // namespace Engine
-} // namespace Ra
-
-#include <Core/Containers/MakeShared.hpp>
-#include <Engine/Data/BlinnPhongMaterial.hpp>
-#include <Engine/Data/MaterialConverters.hpp>
-#include <Engine/Rendering/RenderObject.hpp>
-#include <Engine/Scene/ComponentMessenger.hpp>
-#include <Engine/Scene/Entity.hpp>
-
-namespace Ra {
-namespace Engine {
-namespace Scene {
 
 template <typename CoreMeshType>
 SurfaceMeshComponent<CoreMeshType>::SurfaceMeshComponent(

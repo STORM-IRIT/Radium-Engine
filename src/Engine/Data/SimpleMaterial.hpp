@@ -99,13 +99,6 @@ class RA_ENGINE_API SimpleMaterial : public Material, public ParameterSetEditing
     static void loadMetaData( nlohmann::json& destination );
 };
 
-} // namespace Data
-} // namespace Engine
-} // namespace Ra
-
-namespace Ra {
-namespace Engine {
-namespace Data {
 // Add a texture as material parameter from an already existing Radium Texture
 inline void SimpleMaterial::addTexture( const TextureSemantic& semantic, Texture* texture ) {
     m_textures[semantic] = texture;

@@ -4,7 +4,10 @@
 #include <Core/Asset/GeometryData.hpp>
 #include <Core/Geometry/StandardAttribNames.hpp>
 #include <Core/Types.hpp>
+#include <IO/AssimpLoader/AssimpWrapper.hpp>
 #include <IO/RaIO.hpp>
+
+#include <assimp/mesh.h>
 
 #include <memory>
 #include <set>
@@ -92,15 +95,6 @@ class RA_IO_API AssimpGeometryDataLoader : public Core::Asset::DataLoader<Core::
     /// The loaded file path (used to retrieve material texture files).
     std::string m_filepath;
 };
-
-} // namespace IO
-} // namespace Ra
-
-#include <IO/AssimpLoader/AssimpWrapper.hpp>
-#include <assimp/mesh.h>
-
-namespace Ra {
-namespace IO {
 
 template <typename T>
 void AssimpGeometryDataLoader::fetchAttribute( T* aiData,

@@ -88,13 +88,7 @@ class RA_CORE_API Index
     static const IntegerType s_invalid { -1 };
     static const IntegerType s_maxIdx { std::numeric_limits<IntegerType>::max() };
 };
-} // namespace Utils
-} // namespace Core
-} // namespace Ra
 
-namespace Ra {
-namespace Core {
-namespace Utils {
 /// CONSTRUCTOR
 constexpr Index::Index( IntegerType i ) : m_idx( ( i < 0 ) ? s_invalid : i ) {}
 

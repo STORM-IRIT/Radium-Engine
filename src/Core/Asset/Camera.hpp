@@ -232,13 +232,6 @@ class RA_CORE_API Camera
     Scalar m_ymag { 1_ra };
     ///@}
 };
-} // namespace Asset
-} // namespace Core
-} // namespace Ra
-
-namespace Ra {
-namespace Core {
-namespace Asset {
 
 inline Core::Transform Camera::getFrame() const {
     return m_frame;

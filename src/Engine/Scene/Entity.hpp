@@ -87,14 +87,6 @@ class RA_ENGINE_API Entity : public Core::Utils::IndexedObject
     ///\todo add an index;
 };
 
-} // namespace Scene
-} // namespace Engine
-} // namespace Ra
-
-namespace Ra {
-namespace Engine {
-namespace Scene {
-
 inline const std::string& Entity::getName() const {
     return m_name;
 }

@@ -107,14 +107,6 @@ class SplineCurve : public Curve2D
     Core::VectorArray<Vector> m_points;
 };
 
-} // namespace Geometry
-} // namespace Core
-} // namespace Ra
-
-namespace Ra {
-namespace Core {
-namespace Geometry {
-
 /*--------------------------------------------------*/
 
 void CubicBezier::addPoint( const Curve2D::Vector p ) {

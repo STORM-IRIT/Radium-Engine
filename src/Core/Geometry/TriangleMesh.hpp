@@ -2,6 +2,7 @@
 
 #include <Core/Containers/VectorArray.hpp>
 #include <Core/Geometry/AbstractGeometry.hpp>
+#include <Core/Geometry/StandardAttribNames.hpp>
 #include <Core/RaCore.hpp>
 #include <Core/Types.hpp>
 #include <Core/Utils/Attribs.hpp>
@@ -232,16 +233,6 @@ class RA_CORE_API PointCloud : public AttribArrayGeometry
 
 class RA_CORE_API LineStrip : public AttribArrayGeometry
 {};
-
-} // namespace Geometry
-} // namespace Core
-} // namespace Ra
-
-#include <Core/Geometry/StandardAttribNames.hpp>
-
-namespace Ra {
-namespace Core {
-namespace Geometry {
 
 inline AttribArrayGeometry ::AttribArrayGeometry( const AttribArrayGeometry& other ) :
     AbstractGeometry( other ) {

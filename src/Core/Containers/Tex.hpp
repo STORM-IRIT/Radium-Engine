@@ -1,9 +1,11 @@
 #pragma once
 
-#include <Eigen/Core>
-
 #include <Core/Containers/Grid.hpp>
+#include <Core/Math/LinearAlgebra.hpp>
 #include <Core/RaCore.hpp>
+#include <Core/Types.hpp>
+
+#include <Eigen/Core>
 
 namespace Ra {
 namespace Core {
@@ -48,14 +50,6 @@ using Tex2D = Tex<T, 2>;
 
 template <typename T>
 using Tex3D = Tex<T, 3>;
-} // namespace Core
-} // namespace Ra
-
-#include <Core/Math/LinearAlgebra.hpp>
-#include <Core/Types.hpp>
-
-namespace Ra {
-namespace Core {
 
 // Helper functions
 namespace {

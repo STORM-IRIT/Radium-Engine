@@ -1,12 +1,13 @@
 #pragma once
 
-#include <string>
-#include <vector>
-
 #include <Core/Animation/KeyFramedValue.hpp>
 #include <Core/Asset/AnimationTime.hpp>
 #include <Core/Asset/AssetData.hpp>
 #include <Core/RaCore.hpp>
+#include <Core/Utils/Log.hpp>
+
+#include <string>
+#include <vector>
 
 namespace Ra {
 namespace Core {
@@ -43,7 +44,7 @@ class RA_CORE_API AnimationData : public AssetData
     /**
      * Sets the name of the animation.
      */
-    inline void setName( const std::string& name );
+    inline void setName( const std::string& name ) { m_name = name; }
 
     /// \name Time
     /// \{
@@ -51,22 +52,22 @@ class RA_CORE_API AnimationData : public AssetData
     /**
      * \returns the AnimationTime of the animation.
      */
-    inline const AnimationTime& getTime() const;
+    inline const AnimationTime& getTime() const { return m_time; }
 
     /**
      * Sets the AnimationTime of the animation.
      */
-    inline void setTime( const AnimationTime& time );
-
+    inline void setTime( const AnimationTime& time ) { m_time = time; }
     /**
      * \returns the animation timestep.
      */
-    inline AnimationTime::Time getTimeStep() const;
+    inline AnimationTime::Time getTimeStep() const { return m_dt; }
 
     /**
      * Sets the animation timestep.
     ￼ */
-    inline void setTimeStep( const AnimationTime::Time& delta );
+    inline void setTimeStep( const AnimationTime::Time& delta ) { m_dt = delta; }
+
     /// \}
 
     /// \name Keyframes
@@ -75,12 +76,12 @@ class RA_CORE_API AnimationData : public AssetData
     /**
      * \returns the number of HandleAnimations.
      */
-    inline uint getFramesSize() const;
+    inline uint getFramesSize() const { return m_keyFrame.size(); }
 
     /**
      * \returns the list of HandleAnimations, i.e. the whole animation frames.
      */
-    inline std::vector<HandleAnimation> getHandleData() const;
+    inline std::vector<HandleAnimation> getHandleData() const { return m_keyFrame; }
 
     /**
      * Sets the animation frames.
@@ -103,46 +104,6 @@ class RA_CORE_API AnimationData : public AssetData
     /// The animation frames.
     std::vector<HandleAnimation> m_keyFrame;
 };
-
-} // namespace Asset
-} // namespace Core
-} // namespace Ra
-
-#include <Core/Utils/Log.hpp>
-
-namespace Ra {
-namespace Core {
-namespace Asset {
-
-inline void AnimationData::setName( const std::string& name ) {
-    m_name = name;
-}
-
-// TIME
-inline const AnimationTime& AnimationData::getTime() const {
-    return m_time;
-}
-
-inline void AnimationData::setTime( const AnimationTime& time ) {
-    m_time = time;
-}
-
-inline AnimationTime::Time AnimationData::getTimeStep() const {
-    return m_dt;
-}
-
-inline void AnimationData::setTimeStep( const AnimationTime::Time& delta ) {
-    m_dt = delta;
-}
-
-// Keyframes
-inline uint AnimationData::getFramesSize() const {
-    return m_keyFrame.size();
-}
-
-inline std::vector<HandleAnimation> AnimationData::getHandleData() const {
-    return m_keyFrame;
-}
 
 inline void AnimationData::setHandleData( const std::vector<HandleAnimation>& frameList ) {
     const uint size = frameList.size();

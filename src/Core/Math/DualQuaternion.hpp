@@ -1,5 +1,6 @@
 #pragma once
 
+#include <Core/Math/LinearAlgebra.hpp> // Quaternion operators
 #include <Core/RaCore.hpp>
 #include <Core/Types.hpp>
 
@@ -81,13 +82,6 @@ class DualQuaternion
 
 /// Pre-multiplication of dual quaternion.
 inline DualQuaternion operator*( Scalar scalar, const DualQuaternion& dq );
-} // namespace Core
-} // namespace Ra
-
-#include <Core/Math/LinearAlgebra.hpp> // Quaternion operators
-
-namespace Ra {
-namespace Core {
 
 inline const Quaternion& DualQuaternion::getQ0() const {
     return m_q0;

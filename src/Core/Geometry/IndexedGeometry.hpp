@@ -1,13 +1,12 @@
 #pragma once
 
 #include <Core/Containers/VectorArray.hpp>
-
 #include <Core/Geometry/TriangleMesh.hpp>
-
 #include <Core/Utils/ContainerIntrospectionInterface.hpp>
 #include <Core/Utils/ObjectWithSemantic.hpp>
 #include <Core/Utils/StdMapIterators.hpp>
 
+#include <memory>
 #include <unordered_map>
 
 namespace Ra {
@@ -558,16 +557,6 @@ class RA_CORE_API PolyMesh : public IndexedGeometry<VectorNui>
 
 class RA_CORE_API LineMesh : public IndexedGeometry<Vector2ui>
 {};
-
-} // namespace Geometry
-} // namespace Core
-} // namespace Ra
-
-#include <memory>
-
-namespace Ra {
-namespace Core {
-namespace Geometry {
 
 //  GeometryIndexLayerBase
 inline GeometryIndexLayerBase::GeometryIndexLayerBase( const GeometryIndexLayerBase& other ) :

@@ -1,9 +1,12 @@
 #pragma once
 
 #include <Core/RaCore.hpp>
+#include <Core/Types.hpp>
 
 #include <Eigen/Core>
 #include <Eigen/Geometry>
+#include <OpenMesh/Core/Mesh/Traits.hh>
+#include <OpenMesh/Core/Mesh/TriMesh_ArrayKernelT.hh>
 
 // We use Eigen::Matrix as base type to represent matrices in OpenMesh.
 // This is not standard, and several namespace functions are not available in OpenMesh
@@ -45,14 +48,6 @@ cross( Eigen::MatrixBase<Derived> const& v1, Eigen::MatrixBase<Derived> const& v
     return v1.cross( v2 );
 }
 
-} // namespace OpenMesh
-
-#include <Core/Types.hpp>
-
-#include <OpenMesh/Core/Mesh/Traits.hh>
-#include <OpenMesh/Core/Mesh/TriMesh_ArrayKernelT.hh>
-
-namespace OpenMesh {
 template <>
 struct vector_traits<Ra::Core::Vector3> {
     using vector_type         = Ra::Core::Vector3;

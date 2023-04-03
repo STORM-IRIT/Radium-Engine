@@ -1,15 +1,15 @@
 #pragma once
 
+#include <Core/Asset/AssetData.hpp>
+#include <Core/Containers/AlignedStdVector.hpp>
+#include <Core/RaCore.hpp>
+#include <Core/Types.hpp>
+#include <Core/Utils/Log.hpp>
+
 #include <map>
 #include <set>
 #include <string>
 #include <vector>
-
-#include <Core/Containers/AlignedStdVector.hpp>
-#include <Core/RaCore.hpp>
-#include <Core/Types.hpp>
-
-#include <Core/Asset/AssetData.hpp>
 
 namespace Ra {
 namespace Core {
@@ -261,16 +261,6 @@ class RA_CORE_API HandleData : public AssetData
     /// The HandleArray N-Dimensional parts, i.e.\ cage polyhedra.
     Core::AlignedStdVector<Core::VectorNui> m_face;
 };
-
-} // namespace Asset
-} // namespace Core
-} // namespace Ra
-
-#include <Core/Utils/Log.hpp>
-
-namespace Ra {
-namespace Core {
-namespace Asset {
 
 inline void HandleData::setName( const std::string& name ) {
     m_name = name;
