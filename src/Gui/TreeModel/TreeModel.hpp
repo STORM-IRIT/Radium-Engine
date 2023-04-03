@@ -32,7 +32,7 @@ class RA_GUI_API TreeItem
     virtual ~TreeItem() {}
 
     /// TreeItems are non-copyable
-    TreeItem( const TreeItem& ) = delete;
+    TreeItem( const TreeItem& )            = delete;
     TreeItem& operator=( const TreeItem& ) = delete;
 
     /// \name Interface

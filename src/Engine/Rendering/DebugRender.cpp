@@ -39,9 +39,7 @@ void DebugRender::initialize() {
         config.addShaderSource( Data::ShaderType::ShaderType_FRAGMENT, fragmentShader );
         auto added = manager->addShaderProgram( config );
         if ( added ) { return *added; }
-        else {
-            return nullptr;
-        }
+        else { return nullptr; }
     };
 
     auto shaderProgramManager = RadiumEngine::getInstance()->getShaderProgramManager();

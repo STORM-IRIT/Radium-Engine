@@ -140,12 +140,8 @@ Core::Transform RotateGizmo::mouseMove( const Core::Asset::Camera& cam,
                               cam.projectToScreen( originW ).head<2>() )
                                 .normalized();
         if ( std::abs( dir( 0 ) ) < 1e-3_ra ) { dir << 1, 0; }
-        else if ( std::abs( dir( 1 ) ) < 1e-3_ra ) {
-            dir << 0, 1;
-        }
-        else {
-            dir = Core::Vector2( dir( 1 ), -dir( 0 ) );
-        }
+        else if ( std::abs( dir( 1 ) ) < 1e-3_ra ) { dir << 0, 1; }
+        else { dir = Core::Vector2( dir( 1 ), -dir( 0 ) ); }
         Scalar diag = std::min( cam.getWidth(), cam.getHeight() );
         angle       = dir.dot( ( nextXY - m_initialPix ) ) * 8_ra / diag;
     }

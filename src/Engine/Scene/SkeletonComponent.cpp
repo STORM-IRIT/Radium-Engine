@@ -108,9 +108,7 @@ void SkeletonComponent::handleAnimationLoading(
             if ( it == handleAnim.cend() ) {
                 m_animations.back().push_back( KeyFramedValue( 0_ra, pose[i] ) );
             }
-            else {
-                m_animations.back().push_back( it->m_anim );
-            }
+            else { m_animations.back().push_back( it->m_anim ); }
         }
     }
     if ( m_animations.empty() ) {
@@ -182,9 +180,7 @@ void SkeletonComponent::update( Scalar t ) {
     }
     else if ( m_pingPong ) {
         if ( m_animationTime > 2 * lastTime ) { m_animationTime = 0_ra; }
-        else if ( m_animationTime > lastTime ) {
-            m_animationTime = 2 * lastTime - m_animationTime;
-        }
+        else if ( m_animationTime > lastTime ) { m_animationTime = 2 * lastTime - m_animationTime; }
     }
 
     // get the current pose from the animation
@@ -196,9 +192,7 @@ void SkeletonComponent::update( Scalar t ) {
                 m_animationTime, Core::Animation::linearInterpolate<Core::Transform> );
         }
     }
-    else {
-        pose = m_refPose;
-    }
+    else { pose = m_refPose; }
     m_skel.setPose( pose, SpaceType::LOCAL );
 
     updateDisplay();
@@ -326,9 +320,7 @@ void SkeletonComponent::setupSkeletonDisplay() {
             m_boneMap[m_renderObjects.back()] = i;
             m_boneDrawables.push_back( ro );
         }
-        else {
-            LOG( logDEBUG ) << "Bone " << m_skel.getLabel( i ) << " not displayed.";
-        }
+        else { LOG( logDEBUG ) << "Bone " << m_skel.getLabel( i ) << " not displayed."; }
     }
     updateDisplay();
 }

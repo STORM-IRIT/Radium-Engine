@@ -193,7 +193,7 @@ inline void Spline<D, K>::setNodeToUniform() {
 
     Scalar step = 1.f / Scalar( n - K + 2 );
     for ( uint i = 0; i < m_node.size(); ++i ) {
-        m_node[i] = Scalar( i ) * step - step * ( Scalar )( K - 1 );
+        m_node[i] = Scalar( i ) * step - step * (Scalar)( K - 1 );
     }
 }
 
@@ -206,9 +206,7 @@ inline void Spline<D, K>::setNodeToOpenUniform() {
     uint acc = 1;
     for ( uint i = 0; i < m_node.size(); ++i ) {
         if ( i < K ) { m_node[i] = 0.f; }
-        else if ( i >= ( m_points.size() + 1 ) ) {
-            m_node[i] = 1.f;
-        }
+        else if ( i >= ( m_points.size() + 1 ) ) { m_node[i] = 1.f; }
         else {
             m_node[i] = Scalar( acc ) / Scalar( m_points.size() + 1 - K );
             acc++;

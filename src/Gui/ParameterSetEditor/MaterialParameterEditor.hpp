@@ -34,11 +34,11 @@ class RA_GUI_API MaterialParameterEditor : public QWidget
      */
     /** @{ */
     explicit MaterialParameterEditor( QWidget* parent = nullptr );
-    MaterialParameterEditor( const MaterialParameterEditor& ) = delete;
+    MaterialParameterEditor( const MaterialParameterEditor& )            = delete;
     MaterialParameterEditor& operator=( const MaterialParameterEditor& ) = delete;
     MaterialParameterEditor( MaterialParameterEditor&& )                 = delete;
-    MaterialParameterEditor&& operator=( MaterialParameterEditor&& ) = delete;
-    ~MaterialParameterEditor() override                              = default;
+    MaterialParameterEditor&& operator=( MaterialParameterEditor&& )     = delete;
+    ~MaterialParameterEditor() override                                  = default;
     /** @} */
 
     /**

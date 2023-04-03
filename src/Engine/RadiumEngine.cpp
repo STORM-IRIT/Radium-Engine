@@ -432,9 +432,7 @@ void RadiumEngine::TimeData::updateTime( Scalar dt ) {
     dt += m_realTime ? dt : m_dt;
     // update the time w.r.t. the time flow policy
     if ( m_forwardBackward && m_isBackward ) { m_time -= dt; }
-    else {
-        m_time += dt;
-    }
+    else { m_time += dt; }
     // special case: empty time window => forever mode
     if ( m_endTime < 0 || m_startTime >= m_endTime ) {
         // just run forever

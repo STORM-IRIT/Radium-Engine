@@ -43,9 +43,7 @@ void AdjacencyList::pruneLeaves( std::vector<uint>& pruned, std::vector<bool>& d
             delete_flag[i] = true;
             prune_flag[i]  = true;
         }
-        else {
-            pruned.push_back( i );
-        }
+        else { pruned.push_back( i ); }
     }
 
     for ( uint j = this->size(); j > 0; --j ) {
@@ -66,9 +64,7 @@ void AdjacencyList::pruneLeaves( std::vector<uint>& pruned, std::vector<bool>& d
                 this->m_child[i].erase( it );
                 --it;
             }
-            else {
-                *it = pruned[*it];
-            }
+            else { *it = pruned[*it]; }
         }
     }
 }

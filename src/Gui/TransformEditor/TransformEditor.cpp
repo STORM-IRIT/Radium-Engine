@@ -30,9 +30,7 @@ bool TransformEditor::canEdit() const {
 void TransformEditor::setTransform( const Ra::Core::Transform& tr ) {
     if ( canEdit() ) {
         if ( m_currentEdit.isEntityNode() ) { m_currentEdit.m_entity->setTransform( tr ); }
-        else {
-            m_currentEdit.m_component->setTransform( m_currentEdit.m_roIndex, tr );
-        }
+        else { m_currentEdit.m_component->setTransform( m_currentEdit.m_roIndex, tr ); }
     }
 }
 
