@@ -116,25 +116,6 @@ set(engine_headers
     Scene/SystemDisplay.hpp
 )
 
-set(engine_inlines
-    Data/BlinnPhongMaterial.inl
-    Data/EnvironmentTexture.inl
-    Data/Material.inl
-    Data/Mesh.inl
-    Data/RawShaderMaterial.inl
-    Data/ShaderProgram.inl
-    Data/SimpleMaterial.inl
-    Data/VolumeObject.inl
-    Data/VolumetricMaterial.inl
-    Rendering/RenderTechnique.inl
-    Rendering/Renderer.inl
-    Scene/Component.inl
-    Scene/ComponentMessenger.inl
-    Scene/Entity.inl
-    Scene/GeometryComponent.inl
-    Scene/ItemEntry.inl
-)
-
 set(engine_shaders
     2DShaders/Basic2D.vert.glsl
     2DShaders/CircleBrush.frag.glsl
