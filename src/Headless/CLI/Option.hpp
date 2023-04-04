@@ -362,7 +362,7 @@ class Option : public OptionBase<Option>
     /// @name Basic
     ///@{
 
-    Option( const Option& ) = delete;
+    Option( const Option& )            = delete;
     Option& operator=( const Option& ) = delete;
 
     /// Count the total number of times an option was passed
@@ -608,9 +608,7 @@ class Option : public OptionBase<Option>
                 }
             }
         }
-        else {
-            ignore_case_ = value;
-        }
+        else { ignore_case_ = value; }
         return this;
     }
 
@@ -634,9 +632,7 @@ class Option : public OptionBase<Option>
                 }
             }
         }
-        else {
-            ignore_underscore_ = value;
-        }
+        else { ignore_underscore_ = value; }
         return this;
     }
 
@@ -761,7 +757,7 @@ class Option : public OptionBase<Option>
     std::string get_name( bool positional  = false, ///< Show the positional name
                           bool all_options = false  ///< Show every option
     ) const {
-        if ( get_group().empty() ) return {}; // Hidden
+        if ( get_group().empty() ) return {};       // Hidden
 
         if ( all_options ) {
 
@@ -949,9 +945,7 @@ class Option : public OptionBase<Option>
                 return input_value;
             }
         }
-        else {
-            return input_value;
-        }
+        else { return input_value; }
     }
 
     /// Puts a result at the end
@@ -1017,13 +1011,9 @@ class Option : public OptionBase<Option>
                     _reduce_results( extra, res );
                     if ( !extra.empty() ) { res = std::move( extra ); }
                 }
-                else {
-                    res.emplace_back();
-                }
+                else { res.emplace_back(); }
             }
-            else {
-                res = reduced_results();
-            }
+            else { res = reduced_results(); }
             retval = detail::lexical_conversion<T, T>( res, output );
         }
         if ( !retval ) { throw ConversionError( get_name(), results_ ); }
@@ -1071,9 +1061,7 @@ class Option : public OptionBase<Option>
             if ( type_size_max_ < detail::expected_max_vector_size ) {
                 type_size_min_ = option_type_size;
             }
-            else {
-                inject_separator_ = true;
-            }
+            else { inject_separator_ = true; }
             if ( type_size_max_ == 0 ) required_ = false;
         }
         return this;

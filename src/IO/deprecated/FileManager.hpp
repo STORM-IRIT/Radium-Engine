@@ -49,7 +49,7 @@ class FileManager
     inline void addLogEntry( const std::string& text ); // Add a line in the log file. A newline
                                                         // character will be automatically added.
     inline void
-    addLogWarningEntry( const std::string& text );           // Add a warning line in the log file.
+    addLogWarningEntry( const std::string& text );      // Add a warning line in the log file.
     inline void addLogErrorEntry( const std::string& text ); // Add an error line in the log file.
     inline void addLogEntry( const std::string& text, const LogEntryType type );
 

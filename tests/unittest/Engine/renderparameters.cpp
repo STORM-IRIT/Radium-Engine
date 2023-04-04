@@ -202,8 +202,8 @@ TEST_CASE( "Engine/Data/RenderParameters", "[Engine][Engine/Data][RenderParamete
         using UnregisteredParameterType = typename RP::TParameter<UnregisteredEnumType>;
 
         auto vnc                 = new RP::EnumConverter<Values>( { { Values::VALUE_0, "VALUE_0" },
-                                                    { Values::VALUE_1, "VALUE_1" },
-                                                    { Values::VALUE_2, "VALUE_2" } } );
+                                                                    { Values::VALUE_1, "VALUE_1" },
+                                                                    { Values::VALUE_2, "VALUE_2" } } );
         auto valuesEnumConverter = std::shared_ptr<RP::EnumConverter<Values>>( vnc );
 
         REQUIRE( valuesEnumConverter->getEnumerator( Values::VALUE_2 ) == "VALUE_2" );

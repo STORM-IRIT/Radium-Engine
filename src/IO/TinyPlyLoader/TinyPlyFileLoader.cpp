@@ -129,9 +129,7 @@ FileData* TinyPlyFileLoader::loadFile( const std::string& filename ) {
         byte_buffer = read_file_binary( filename );
         file_stream.reset( new memory_stream( (char*)byte_buffer.data(), byte_buffer.size() ) );
     }
-    else {
-        file_stream.reset( new std::ifstream( filename, std::ios::binary ) );
-    }
+    else { file_stream.reset( new std::ifstream( filename, std::ios::binary ) ); }
 
     if ( !file_stream || file_stream->fail() ) {
         LOG( logINFO ) << "[TinyPLY] Could not open file [" << filename << "] Aborting"

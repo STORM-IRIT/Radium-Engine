@@ -74,7 +74,7 @@ TriangleMesh makeBox( const Aabb& aabb, const Utils::optional<Utils::Color>& col
         Vector3ui( 2, 0, 4 ),
         Vector3ui( 2, 4, 6 ), // Left
         Vector3ui( 4, 5, 6 ),
-        Vector3ui( 6, 5, 7 ) // Top
+        Vector3ui( 6, 5, 7 )  // Top
     } );
 
     if ( bool( color ) ) result.colorize( *color );
@@ -201,17 +201,17 @@ TriangleMesh makeSharpBox( const Aabb& aabb,
     result.setIndices( {
 
         Vector3ui( 0, 1, 2 ),
-        Vector3ui( 0, 2, 3 ), // Floor
+        Vector3ui( 0, 2, 3 ),    // Floor
         Vector3ui( 4, 5, 6 ),
-        Vector3ui( 4, 6, 7 ), // Ceil
+        Vector3ui( 4, 6, 7 ),    // Ceil
         Vector3ui( 8, 9, 10 ),
-        Vector3ui( 8, 10, 11 ), // Left
+        Vector3ui( 8, 10, 11 ),  // Left
         Vector3ui( 12, 13, 14 ),
         Vector3ui( 12, 14, 15 ), // Right
         Vector3ui( 16, 17, 18 ),
         Vector3ui( 16, 18, 19 ), // Bottom
         Vector3ui( 20, 21, 22 ),
-        Vector3ui( 20, 22, 23 ) // Top
+        Vector3ui( 20, 22, 23 )  // Top
     } );
 
     if ( bool( color ) ) result.colorize( *color );

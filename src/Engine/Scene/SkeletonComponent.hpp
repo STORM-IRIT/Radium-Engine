@@ -48,7 +48,7 @@ class RA_ENGINE_API SkeletonComponent : public Component
 
     SkeletonComponent( const std::string& name, Entity* entity );
     ~SkeletonComponent() override;
-    SkeletonComponent( const SkeletonComponent& ) = delete;
+    SkeletonComponent( const SkeletonComponent& )            = delete;
     SkeletonComponent& operator=( const SkeletonComponent& ) = delete;
 
     /// \name Component interface

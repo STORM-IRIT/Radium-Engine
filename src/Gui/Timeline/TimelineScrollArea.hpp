@@ -82,8 +82,8 @@ class TimelineScrollArea : public QScrollArea
     void mouseMoveEvent( QMouseEvent* event ) override;
 
   private:
-    int m_mousePosX { 0 }; ///< x coordinate of the mouse on mouse middle click.
-    int m_sliderPos { 0 }; ///< x coordinate of the slider on mouse middle click.
+    int m_mousePosX { 0 };          ///< x coordinate of the mouse on mouse middle click.
+    int m_sliderPos { 0 };          ///< x coordinate of the slider on mouse middle click.
 
     Scalar m_maxDuration { 20_ra }; ///< \b end  of the Timeline's playzone.
     int m_nbInterval { 0 };         ///< Number of scale graduations.

@@ -31,9 +31,7 @@ ControlPanel::ControlPanel( const std::string& name, bool hline, QWidget* parent
             // border-radius: 0px;");
             panelName->setFrameStyle( QFrame::Box );
         }
-        else {
-            panelName->setFrameStyle( QFrame::HLine );
-        }
+        else { panelName->setFrameStyle( QFrame::HLine ); }
         m_currentLayout->addWidget( panelName );
     }
     setVisible( false );
@@ -186,9 +184,7 @@ void ControlPanel::addColorInput(
             callback( bgk );
             QString qss = QString( "background-color: %1" ).arg( clrBttn.name() );
             if ( lum > 1_ra / 3_ra ) { qss += QString( "; color: #000000" ); }
-            else {
-                qss += QString( "; color: #FFFFFF" );
-            }
+            else { qss += QString( "; color: #FFFFFF" ); }
             button->setStyleSheet( qss );
         }
     };
@@ -202,9 +198,7 @@ void ControlPanel::addColorInput(
     auto lum    = 0.2126_ra * srgbColor[0] + 0.7151_ra * srgbColor[1] + 0.0721_ra * srgbColor[2];
     QString qss = QString( "background-color: %1" ).arg( clrBttn.name() );
     if ( lum > 1_ra / 3_ra ) { qss += QString( "; color: #000000" ); }
-    else {
-        qss += QString( "; color: #FFFFFF" );
-    }
+    else { qss += QString( "; color: #FFFFFF" ); }
     button->setStyleSheet( qss );
 
     connect( button, &QPushButton::clicked, clrDlg );
@@ -229,9 +223,7 @@ void ControlPanel::addFileInput( const std::string& name,
             fileList.erase( fileList.size() - 1 );
             callback( fileList );
         }
-        else {
-            callback( "" );
-        }
+        else { callback( "" ); }
     };
 
     addButton( name, openFile, tooltip );

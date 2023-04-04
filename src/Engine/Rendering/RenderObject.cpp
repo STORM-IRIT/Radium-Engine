@@ -284,9 +284,7 @@ void RenderObject::render( const Data::RenderParameters& lightParams,
     // This is a hack to allow correct face culling
     // Note that this hack implies the inclusion of OpenGL.h in this file
     if ( viewParams.viewMatrix.determinant() < 0 ) { glFrontFace( GL_CW ); }
-    else {
-        glFrontFace( GL_CCW );
-    }
+    else { glFrontFace( GL_CCW ); }
     m_mesh->render( shader );
 }
 

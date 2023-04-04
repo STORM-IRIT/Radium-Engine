@@ -290,17 +290,13 @@ void Viewer::fitCameraToScene( const Core::Aabb& aabb ) {
         // RA_DISPLAY_AABB( aabb, Color::Blue() );
         emit needUpdate();
     }
-    else {
-        LOG( logINFO ) << "Unable to fit the camera to the scene : empty Bbox.";
-    }
+    else { LOG( logINFO ) << "Unable to fit the camera to the scene : empty Bbox."; }
 }
 
 void Viewer::fitCamera() {
     auto aabb = Ra::Engine::RadiumEngine::getInstance()->computeSceneAabb();
     if ( aabb.isEmpty() ) { getCameraManipulator()->resetCamera(); }
-    else {
-        fitCameraToScene( aabb );
-    }
+    else { fitCameraToScene( aabb ); }
 }
 
 std::vector<std::string> Viewer::getRenderersName() const {
@@ -784,9 +780,7 @@ void Viewer::handleMouseMoveEvent( QMouseEvent* event,
             m_currentRenderer->addPickingRequest( query );
         }
     }
-    else {
-        getGizmoManager()->handlePickingResult( result.getRoIdx() );
-    }
+    else { getGizmoManager()->handlePickingResult( result.getRoIdx() ); }
 }
 
 void Viewer::handleWheelEvent( QWheelEvent* event ) {
@@ -804,9 +798,7 @@ void Viewer::handleWheelEvent( QWheelEvent* event ) {
         m_brushRadius = std::max( m_brushRadius, Scalar( 5 ) );
         m_currentRenderer->setBrushRadius( m_brushRadius );
     }
-    else {
-        m_camera->handleWheelEvent( event, buttons, modifiers, key );
-    }
+    else { m_camera->handleWheelEvent( event, buttons, modifiers, key ); }
 }
 
 Ra::Engine::Rendering::Renderer::PickingResult Viewer::pickAtPosition( Core::Vector2 position ) {
@@ -828,9 +820,7 @@ bool Viewer::prepareDisplay() {
         getRenderer()->buildAllRenderTechniques();
         auto aabb = Ra::Engine::RadiumEngine::getInstance()->computeSceneAabb();
         if ( aabb.isEmpty() ) { getCameraManipulator()->resetCamera(); }
-        else {
-            fitCameraToScene( aabb );
-        }
+        else { fitCameraToScene( aabb ); }
         doneCurrent();
         return true;
     }

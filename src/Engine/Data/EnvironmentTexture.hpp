@@ -63,10 +63,10 @@ class RA_ENGINE_API EnvironmentTexture
      * \todo : if the file given to the constructor does not exist, generates a white envmap ?
      */
     explicit EnvironmentTexture( const std::string& mapName, bool isSkybox = false );
-    EnvironmentTexture( const EnvironmentTexture& ) = delete;
+    EnvironmentTexture( const EnvironmentTexture& )            = delete;
     EnvironmentTexture& operator=( const EnvironmentTexture& ) = delete;
     EnvironmentTexture( EnvironmentTexture&& )                 = default;
-    EnvironmentTexture& operator=( EnvironmentTexture&& ) = default;
+    EnvironmentTexture& operator=( EnvironmentTexture&& )      = default;
     /// destructor
     ~EnvironmentTexture() = default;
     /**@}*/

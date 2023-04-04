@@ -153,7 +153,7 @@ class RA_ENGINE_API SystemEntity : public Entity
             }                                                       \
         }
 
-#else // if debug display is disabled
+#else                                               // if debug display is disabled
 
 #    define RA_DISPLAY_POINT( p, color, scale )     // Nothing
 #    define RA_DISPLAY_VECTOR( p, v, color )        // ...
@@ -169,4 +169,4 @@ class RA_ENGINE_API SystemEntity : public Entity
 #    define RA_DISPLAY_LINE( a, b, color )          // ...
 #    define RA_CLEAR_DEBUG_DISPLAY()                // ...
 
-#endif //! defined DISABLED_DEBUG_DISPLAY
+#endif                                              //! defined DISABLED_DEBUG_DISPLAY

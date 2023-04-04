@@ -63,9 +63,7 @@ class ColorBase : public Eigen::Matrix<_Scalar, 4, 1>
         ColorBase<_Scalar> c( srgb );
         for ( auto& u : c.rgb() ) {
             if ( u < 0.04045_ra ) { u /= 12.92_ra; }
-            else {
-                u = std::pow( ( u + 0.055_ra ) / 1.055_ra, 2.4_ra );
-            }
+            else { u = std::pow( ( u + 0.055_ra ) / 1.055_ra, 2.4_ra ); }
         }
         return c;
     }
@@ -75,9 +73,7 @@ class ColorBase : public Eigen::Matrix<_Scalar, 4, 1>
         ColorBase<_Scalar> c( lrgb );
         for ( auto& u : c.rgb() ) {
             if ( u < 0.0031308_ra ) { u *= 12.92_ra; }
-            else {
-                u = 1.055_ra * std::pow( u, 1_ra / 2.4_ra ) - 0.055_ra;
-            }
+            else { u = 1.055_ra * std::pow( u, 1_ra / 2.4_ra ) - 0.055_ra; }
         }
         return c;
     }
@@ -254,9 +250,7 @@ class ColorBase : public Eigen::Matrix<_Scalar, 4, 1>
                 color[i] = fromHSV( ( _Scalar( i ) / _Scalar( size - 1 ) ) * 0.777 );
                 color[i] = ( color[i] + ColorBase<_Scalar>::Constant( gamma ) ) * 0.5;
             }
-        else {
-            color[0] = Red();
-        }
+        else { color[0] = Red(); }
         std::shuffle( color.begin(), color.end(), std::mt19937( std::random_device()() ) );
         return color;
     }

@@ -87,7 +87,7 @@ void AttribArrayDisplayable::updatePickingRenderMode() {
         Displayable::m_pickingRenderMode = PKM_POINTS;
         break;
     }
-    case AttribArrayDisplayable::RM_LINES: // fall through
+    case AttribArrayDisplayable::RM_LINES:     // fall through
         [[fallthrough]];
     case AttribArrayDisplayable::RM_LINE_LOOP: // fall through
         [[fallthrough]];

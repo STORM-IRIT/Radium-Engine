@@ -19,7 +19,7 @@ class RA_ENGINE_API SkeletonBasedAnimationSystem : public System
 
     ~SkeletonBasedAnimationSystem();
 
-    SkeletonBasedAnimationSystem( const SkeletonBasedAnimationSystem& ) = delete;
+    SkeletonBasedAnimationSystem( const SkeletonBasedAnimationSystem& )            = delete;
     SkeletonBasedAnimationSystem& operator=( const SkeletonBasedAnimationSystem& ) = delete;
 
     /// \name System Interface

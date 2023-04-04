@@ -30,7 +30,7 @@ class RA_ENGINE_API Displayable
     };
 
     inline Displayable( const std::string& name ) : m_name( name ) {}
-    Displayable( const Displayable& rhs ) = delete;
+    Displayable( const Displayable& rhs )    = delete;
     void operator=( const Displayable& rhs ) = delete;
 
     virtual ~Displayable() = default;
