@@ -7,5 +7,3 @@ set(dataflow_rendering_sources Renderer/DataflowRenderer.cpp Renderer/RenderingG
 set(dataflow_rendering_headers Nodes/RenderingNode.hpp Renderer/DataflowRenderer.hpp
                                Renderer/RenderingGraph.hpp
 )
-
-set(dataflow_rendering_inlines Renderer/RenderingGraph.inl)

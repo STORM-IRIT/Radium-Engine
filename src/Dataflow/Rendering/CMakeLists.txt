@@ -7,8 +7,8 @@ include(filelist.cmake)
 
 # configure library
 add_library(
-    ${ra_dataflowrendering_target} SHARED
-    ${dataflow_rendering_sources} ${dataflow_rendering_headers} ${dataflow_rendering_inlines}
+    ${ra_dataflowrendering_target} SHARED ${dataflow_rendering_sources}
+                                          ${dataflow_rendering_headers}
 )
 
 # This one should be extracted directly from parent project properties.
@@ -24,7 +24,7 @@ configure_radium_target(${ra_dataflowrendering_target})
 # configure the library only. The package is a sub-package and should be configured independently
 configure_radium_library(
     TARGET ${ra_dataflowrendering_target} COMPONENT TARGET_DIR "Dataflow/Rendering"
-    FILES "${dataflow_rendering_headers};${dataflow_rendering_inlines}"
+    FILES "${dataflow_rendering_headers}"
 )
 # Generate cmake package
 configure_radium_package(
