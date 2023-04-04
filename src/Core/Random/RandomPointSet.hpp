@@ -108,7 +108,7 @@ class RA_CORE_API HammersleyPointSet
 class RA_CORE_API MersenneTwisterPointSet
 {
     std::mt19937 gen;
-    std::uniform_real_distribution<> seq;
+    std::uniform_real_distribution<Scalar> seq;
     size_t n;
 
   public:
