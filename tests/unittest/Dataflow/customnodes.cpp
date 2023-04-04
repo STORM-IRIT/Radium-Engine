@@ -197,12 +197,12 @@ TEST_CASE( "Dataflow/Core/Custom nodes", "[Dataflow][Core][Custom nodes]" ) {
         auto generatedOperator = g->getDataGetter( "nm_from" );
         REQUIRE( generatedOperator != nullptr );
 
-        // parameterise the graph
+        // parameterize the graph
         using CollectionType = Ra::Core::VectorArray<Scalar>;
         CollectionType testVector;
         testVector.reserve( 10 );
         std::mt19937 gen( 0 );
-        std::uniform_real_distribution<> dis( 0.0, 1.0 );
+        std::uniform_real_distribution<Scalar> dis( 0.0_ra, 1.0_ra );
         // Fill the vector with random numbers between 0 and 1
         for ( size_t n = 0; n < testVector.capacity(); ++n ) {
             testVector.push_back( dis( gen ) );
