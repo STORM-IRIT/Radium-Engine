@@ -55,7 +55,7 @@ class RA_DATAFLOW_API RenderingGraph : public DataflowGraph
 
   private:
     /// The renderer's shader program manager
-    Ra::Engine::Data::ShaderProgramManager* m_shaderMngr;
+    Ra::Engine::Data::ShaderProgramManager* m_shaderMngr { nullptr };
     /// List of nodes that requires some particular processing
     std::vector<RenderingNode*> m_renderingNodes; // to resize
     std::vector<RenderingNode*> m_rtIndexedNodes; // associate an index and buildRenderTechnique
