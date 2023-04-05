@@ -471,8 +471,9 @@ class RA_CORE_API VariableSet
     /// \{
     /// \brief Callable profile of F for variable of type T
     template <typename F, typename T>
-    using VisitFunction = decltype(
-        std::declval<F>().operator()( std::declval<const std::string&>(), std::declval<T&>() ) );
+    using VisitFunction =
+        decltype( std::declval<F>().operator()( std::declval<const std::string&>(),
+                                                std::declval<T&>() ) );
 
     /// \brief Callable profile of F for variable of type T and user parameter of type U&&
     template <typename F, typename T, typename U>
@@ -525,7 +526,7 @@ class RA_CORE_API VariableSet
                 const DynamicVisitorBase& )>;
 
         VariableSetFunctions( const VariableSetFunctions& ) = delete;
-        void operator=( const VariableSetFunctions& ) = delete;
+        void operator=( const VariableSetFunctions& )       = delete;
 
       protected:
         VariableSetFunctions()  = default;
@@ -730,9 +731,7 @@ auto VariableSet::addVariableType() -> Utils::optional<VariableContainer<T>*> {
                                 }
                             } };
                 }
-                else {
-                    return { false, nullptr };
-                }
+                else { return { false, nullptr }; }
             } );
     }
     return storage;
@@ -742,9 +741,7 @@ template <typename T>
 auto VariableSet::existsVariableType() const -> Utils::optional<VariableContainer<T>*> {
     auto iter = m_variables.find( std::type_index { typeid( T ) } );
     if ( iter == m_variables.cend() ) { return {}; }
-    else {
-        return std::any_cast<VariableSet::VariableContainer<T>>( &( iter->second ) );
-    }
+    else { return std::any_cast<VariableSet::VariableContainer<T>>( &( iter->second ) ); }
 }
 
 template <typename T>
@@ -901,9 +898,7 @@ inline void VariableSet::visit( F&& visitor ) const {
     if constexpr ( std::is_base_of<DynamicVisitorBase, std::decay_t<F>>::value ) {
         visitDynamic( visitor );
     }
-    else {
-        visitStatic( visitor );
-    }
+    else { visitStatic( visitor ); }
 }
 
 template <typename F, typename T>
@@ -911,9 +906,7 @@ inline void VariableSet::visit( F&& visitor, T& userParams ) const {
     if constexpr ( std::is_base_of<DynamicVisitorBase, std::decay_t<F>>::value ) {
         visitDynamic( visitor, std::forward<T&>( userParams ) );
     }
-    else {
-        visitStatic( visitor, std::forward<T&>( userParams ) );
-    }
+    else { visitStatic( visitor, std::forward<T&>( userParams ) ); }
 }
 
 template <typename F, typename T>
@@ -921,9 +914,7 @@ inline void VariableSet::visit( F&& visitor, T&& userParams ) const {
     if constexpr ( std::is_base_of<DynamicVisitorBase, std::decay_t<F>>::value ) {
         visitDynamic( visitor, std::forward<T&&>( userParams ) );
     }
-    else {
-        visitStatic( visitor, std::forward<T&&>( userParams ) );
-    }
+    else { visitStatic( visitor, std::forward<T&&>( userParams ) ); }
 }
 
 } // namespace Core

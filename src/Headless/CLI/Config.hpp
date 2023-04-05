@@ -60,9 +60,7 @@ inline std::string convert_arg_for_ini( const std::string& arg ) {
         }
     }
     if ( arg.find_first_of( '"' ) == std::string::npos ) { return std::string( "\"" ) + arg + '"'; }
-    else {
-        return std::string( "'" ) + arg + '\'';
-    }
+    else { return std::string( "'" ) + arg + '\''; }
 }
 
 /// Comma separated join, adds quotes if needed
@@ -88,9 +86,7 @@ inline std::vector<std::string> generate_parents( const std::string& section, st
     std::vector<std::string> parents;
     if ( detail::to_lower( section ) != "default" ) {
         if ( section.find( '.' ) != std::string::npos ) { parents = detail::split( section, '.' ); }
-        else {
-            parents = { section };
-        }
+        else { parents = { section }; }
     }
     if ( name.find( '.' ) != std::string::npos ) {
         std::vector<std::string> plist = detail::split( name, '.' );
@@ -189,9 +185,7 @@ inline std::vector<ConfigItem> ConfigBase::from_config( std::istream& input ) co
                 section = section.substr( 1, section.size() - 2 );
             }
             if ( detail::to_lower( section ) == "default" ) { section = "default"; }
-            else {
-                detail::checkParentSegments( output, section );
-            }
+            else { detail::checkParentSegments( output, section ); }
             continue;
         }
         if ( len == 0 ) { continue; }
@@ -221,9 +215,7 @@ inline std::vector<ConfigItem> ConfigBase::from_config( std::istream& input ) co
                       item.find_first_of( ' ' ) != std::string::npos ) {
                 items_buffer = detail::split_up( item );
             }
-            else {
-                items_buffer = { item };
-            }
+            else { items_buffer = { item }; }
         }
         else {
             name         = detail::trim_copy( line );
@@ -298,9 +290,7 @@ inline std::string ConfigBase::to_config( const App* app,
                     if ( !opt->get_default_str().empty() ) {
                         value = detail::convert_arg_for_ini( opt->get_default_str() );
                     }
-                    else if ( opt->get_expected_min() == 0 ) {
-                        value = "false";
-                    }
+                    else if ( opt->get_expected_min() == 0 ) { value = "false"; }
                 }
 
                 if ( !value.empty() ) {

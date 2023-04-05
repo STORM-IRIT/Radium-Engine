@@ -28,7 +28,7 @@ class RA_CORE_API AttribBase : public ObservableVoid, public ContainerIntrospect
   public:
     inline explicit AttribBase( const std::string& name );
     virtual ~AttribBase();
-    AttribBase( const AttribBase& ) = delete;
+    AttribBase( const AttribBase& )            = delete;
     AttribBase& operator=( const AttribBase& ) = delete;
 
     /// Return the attribute's name.
@@ -211,7 +211,7 @@ class RA_CORE_API AttribManager : public Observable<const std::string&>
     inline AttribManager();
 
     /// Copy constructor and assignment operator are forbidden.
-    AttribManager( const AttribManager& m ) = delete;
+    AttribManager( const AttribManager& m )            = delete;
     AttribManager& operator=( const AttribManager& m ) = delete;
 
     inline AttribManager( AttribManager&& m );

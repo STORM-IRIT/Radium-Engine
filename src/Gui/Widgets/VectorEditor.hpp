@@ -39,10 +39,10 @@ class VectorEditor : public VectorEditorSignals
      */
     /** @{ */
     explicit VectorEditor( const std::vector<T>& vector, QWidget* parent = nullptr );
-    VectorEditor( const VectorEditor& ) = delete;
+    VectorEditor( const VectorEditor& )            = delete;
     VectorEditor& operator=( const VectorEditor& ) = delete;
     VectorEditor( VectorEditor&& )                 = delete;
-    VectorEditor&& operator=( VectorEditor&& ) = delete;
+    VectorEditor&& operator=( VectorEditor&& )     = delete;
     /**@}*/
 
     /**

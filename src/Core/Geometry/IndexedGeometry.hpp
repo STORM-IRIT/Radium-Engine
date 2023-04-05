@@ -322,7 +322,6 @@ class RA_CORE_API MultiIndexedGeometry : public AttribArrayGeometry, public Util
     /// \complexity \f$ O(n) \f$, with \f$ n \f$ the number of layers in the collection
     /// \throws std::out_of_range
     void unlockLayer( const LayerKeyType& layerKey );
-    void unlockLayer2( const LayerKeyType& layerKey );
 
     /// \copybrief unlockLayer( const LayerKeyType& )
     ///

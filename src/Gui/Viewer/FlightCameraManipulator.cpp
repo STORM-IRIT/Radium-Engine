@@ -291,9 +291,7 @@ void FlightCameraManipulator::handleCameraRotate( Scalar dx, Scalar dy ) {
     if ( std::abs( dphi ) > std::abs( dtheta ) ) {
         R = Core::AngleAxis( -dphi, /*m_camera->getUpVector().normalized()*/ m_fixUpVector );
     }
-    else {
-        R = Core::AngleAxis( -dtheta, -m_camera->getRightVector().normalized() );
-    }
+    else { R = Core::AngleAxis( -dtheta, -m_camera->getRightVector().normalized() ); }
 
     Scalar d = ( m_target - m_camera->getPosition() ).norm();
 

@@ -47,7 +47,7 @@ class RA_CORE_API AbstractVolume : public AbstractGeometry
     AbstractVolume( const VolumeStorageType& type );
 
   public:
-    AbstractVolume( const AbstractVolume& data ) = default;
+    AbstractVolume( const AbstractVolume& data )       = default;
     AbstractVolume& operator=( const AbstractVolume& ) = default;
     ~AbstractVolume()                                  = default;
 
@@ -101,7 +101,7 @@ class RA_CORE_API AbstractDiscreteVolume : public AbstractVolume
         AbstractVolume( type ), m_size( IndexType::Zero() ), m_binSize { 1_ra, 1_ra, 1_ra } {}
 
   public:
-    AbstractDiscreteVolume( const AbstractDiscreteVolume& data ) = default;
+    AbstractDiscreteVolume( const AbstractDiscreteVolume& data )       = default;
     AbstractDiscreteVolume& operator=( const AbstractDiscreteVolume& ) = default;
     ~AbstractDiscreteVolume() override                                 = default;
 
@@ -193,7 +193,7 @@ class RA_CORE_API VolumeGrid : public AbstractDiscreteVolume
   public:
     inline VolumeGrid( const ValueType& defaultValue = ValueType( 0. ) ) :
         AbstractDiscreteVolume( DISCRETE_DENSE ), m_defaultValue( defaultValue ) {}
-    VolumeGrid( const VolumeGrid& data ) = default;
+    VolumeGrid( const VolumeGrid& data )       = default;
     VolumeGrid& operator=( const VolumeGrid& ) = default;
     ~VolumeGrid() override                     = default;
 
@@ -270,7 +270,7 @@ class RA_CORE_API VolumeSparse : public AbstractDiscreteVolume
 
   public:
     inline VolumeSparse() : AbstractDiscreteVolume( DISCRETE_SPARSE ) {}
-    VolumeSparse( const VolumeSparse& data ) = default;
+    VolumeSparse( const VolumeSparse& data )       = default;
     VolumeSparse& operator=( const VolumeSparse& ) = default;
     ~VolumeSparse() override                       = default;
 

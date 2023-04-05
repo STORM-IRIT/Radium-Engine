@@ -195,9 +195,7 @@ void ParameterSetEditor::addNumberParameterWidget( const std::string& key,
             if constexpr ( std::is_floating_point_v<T> ) {
                 addPowerSliderInput( nm, onNumberParameterChanged, initial, min, max, description );
             }
-            else {
-                addSliderInput( nm, onNumberParameterChanged, initial, min, max, description );
-            }
+            else { addSliderInput( nm, onNumberParameterChanged, initial, min, max, description ); }
         }
         else {
             min = m.contains( "minimum" ) ? T( m["minimum"] ) : min;
@@ -205,9 +203,7 @@ void ParameterSetEditor::addNumberParameterWidget( const std::string& key,
             addNumberInput<T>( nm, onNumberParameterChanged, initial, min, max, description );
         }
     }
-    else if ( m_showUnspecified ) {
-        addNumberInput<T>( key, onNumberParameterChanged, initial );
-    }
+    else if ( m_showUnspecified ) { addNumberInput<T>( key, onNumberParameterChanged, initial ); }
 }
 
 template <typename T>
@@ -225,9 +221,7 @@ void ParameterSetEditor::addVectorParameterWidget( const std::string& key,
         std::string description = m.contains( "description" ) ? m["description"] : "";
         addVectorInput<T>( m["name"], onVectorParameterChanged, initial, description );
     }
-    else if ( m_showUnspecified ) {
-        addVectorInput<T>( key, onVectorParameterChanged, initial );
-    }
+    else if ( m_showUnspecified ) { addVectorInput<T>( key, onVectorParameterChanged, initial ); }
 }
 
 template <typename T>
@@ -245,9 +239,7 @@ void ParameterSetEditor::addMatrixParameterWidget( const std::string& key,
         std::string description = m.contains( "description" ) ? m["description"] : "";
         addMatrixInput( m["name"], onMatrixParameterChanged, initial, 3, description );
     }
-    else if ( m_showUnspecified ) {
-        addMatrixInput( key, onMatrixParameterChanged, initial );
-    }
+    else if ( m_showUnspecified ) { addMatrixInput( key, onMatrixParameterChanged, initial ); }
 }
 
 void ParameterSetEditor::setupFromParameters( Engine::Data::RenderParameters& params,

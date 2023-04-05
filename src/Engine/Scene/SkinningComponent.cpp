@@ -101,18 +101,12 @@ void SkinningComponent::initialize() {
         else if ( m_meshIsQuad ) {
             m_quadMeshWriter = compMsg->rwCallback<QuadMesh>( getEntity(), m_meshName );
         }
-        else {
-            m_polyMeshWriter = compMsg->rwCallback<PolyMesh>( getEntity(), m_meshName );
-        }
+        else { m_polyMeshWriter = compMsg->rwCallback<PolyMesh>( getEntity(), m_meshName ); }
 
         // copy mesh triangles and find duplicates for normal computation.
         if ( hasTriMesh ) { m_refData.m_referenceMesh = *m_triMeshWriter(); }
-        else if ( m_meshIsQuad ) {
-            m_refData.m_referenceMesh = triangulate( *m_quadMeshWriter() );
-        }
-        else {
-            m_refData.m_referenceMesh = triangulate( *m_polyMeshWriter() );
-        }
+        else if ( m_meshIsQuad ) { m_refData.m_referenceMesh = triangulate( *m_quadMeshWriter() ); }
+        else { m_refData.m_referenceMesh = triangulate( *m_polyMeshWriter() ); }
         /// TODO : use the tangent computation algorithms from Core as soon as it is available.
         if ( !m_refData.m_referenceMesh.hasAttrib( tangentName ) &&
              !m_refData.m_referenceMesh.hasAttrib( bitangentName ) ) {
@@ -182,9 +176,7 @@ void SkinningComponent::initialize() {
         if ( hasTriMesh ) { geom = const_cast<TriangleMesh*>( m_triMeshWriter() ); }
         else {
             if ( m_meshIsPoly ) { geom = const_cast<PolyMesh*>( m_polyMeshWriter() ); }
-            else {
-                geom = const_cast<QuadMesh*>( m_quadMeshWriter() );
-            }
+            else { geom = const_cast<QuadMesh*>( m_quadMeshWriter() ); }
         }
         if ( geom->hasAttrib( attrUV ) ) {
             auto handle = geom->getAttribHandle<Vector3>( attrUV );
@@ -268,13 +260,9 @@ void SkinningComponent::endSkinning() {
         AttribArrayGeometry* geom;
         if ( !m_meshIsPoly ) {
             if ( !m_meshIsQuad ) { geom = const_cast<TriangleMesh*>( m_triMeshWriter() ); }
-            else {
-                geom = const_cast<QuadMesh*>( m_quadMeshWriter() );
-            }
+            else { geom = const_cast<QuadMesh*>( m_quadMeshWriter() ); }
         }
-        else {
-            geom = const_cast<PolyMesh*>( m_polyMeshWriter() );
-        }
+        else { geom = const_cast<PolyMesh*>( m_polyMeshWriter() ); }
 
         geom->setVertices( m_frameData.m_currentPosition );
         geom->setNormals( m_frameData.m_currentNormal );
@@ -385,13 +373,9 @@ void SkinningComponent::showWeights( bool on ) {
     AttribArrayGeometry* geom;
     if ( !m_meshIsPoly ) {
         if ( !m_meshIsQuad ) { geom = const_cast<TriangleMesh*>( m_triMeshWriter() ); }
-        else {
-            geom = const_cast<QuadMesh*>( m_quadMeshWriter() );
-        }
+        else { geom = const_cast<QuadMesh*>( m_quadMeshWriter() ); }
     }
-    else {
-        geom = const_cast<PolyMesh*>( m_polyMeshWriter() );
-    }
+    else { geom = const_cast<PolyMesh*>( m_polyMeshWriter() ); }
 
     if ( m_showingWeights ) {
         // update the displayed weights
@@ -421,9 +405,7 @@ void SkinningComponent::showWeights( bool on ) {
         // if the UV attrib existed before, reset it, otherwise remove it.
         handle = geom->getAttribHandle<Vector3>( attrUV );
         if ( m_baseUV.size() > 0 ) { geom->getAttrib( handle ).setData( m_baseUV ); }
-        else {
-            geom->removeAttrib( handle );
-        }
+        else { geom->removeAttrib( handle ); }
     }
     m_forceUpdate = true;
 }
