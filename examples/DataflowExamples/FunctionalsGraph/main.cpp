@@ -123,9 +123,7 @@ int main( int argc, char* argv[] ) {
         }
     }
     if ( execOK ) { std::cout << "OK\n"; }
-    else {
-        std::cout << "NOK\n";
-    }
+    else { std::cout << "NOK\n"; }
     //! [Verify the result]
 
     //! [Modifying the graph to add link to map operator]
@@ -155,9 +153,7 @@ int main( int argc, char* argv[] ) {
         }
     }
     if ( execOK ) { std::cout << "OK\n"; }
-    else {
-        std::cout << "NOK\n";
-    }
+    else { std::cout << "NOK\n"; }
     //! [Execute and test the result]
 
     return 0;

@@ -266,9 +266,7 @@ auto NodeFactory::registerNodeCreator( const std::string& instanceNamePrefix,
         [this, instanceNamePrefix]( const nlohmann::json& data ) {
             std::string instanceName;
             if ( data.contains( "instance" ) ) { instanceName = data["instance"]; }
-            else {
-                instanceName = instanceNamePrefix + std::to_string( this->nextNodeId() );
-            }
+            else { instanceName = instanceNamePrefix + std::to_string( this->nextNodeId() ); }
             auto node = new T( instanceName );
             node->fromJson( data );
             return node;

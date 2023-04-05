@@ -35,8 +35,8 @@ class RA_DATAFLOW_API Node
     /// @{
     /// \brief delete default constructors.
     /// \see https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#Rc-copy-virtual
-    Node()              = delete;
-    Node( const Node& ) = delete;
+    Node()                         = delete;
+    Node( const Node& )            = delete;
     Node& operator=( const Node& ) = delete;
     /// @}
 

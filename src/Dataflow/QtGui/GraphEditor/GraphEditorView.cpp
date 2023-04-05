@@ -141,9 +141,7 @@ void GraphEditorView::editGraph( DataflowGraph* g ) {
         }
         scene->setSceneName( m_dataflowGraph->getInstanceName().c_str() );
     }
-    else {
-        scene->setSceneName( "untitled" );
-    }
+    else { scene->setSceneName( "untitled" ); }
     scene->iterateOverNodes( []( QtNodes::Node* n ) { n->onNodeSizeUpdated(); } );
 
     // view->fitInView( view->sceneRect(), Qt::KeepAspectRatio);

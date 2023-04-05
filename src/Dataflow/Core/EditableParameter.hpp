@@ -23,8 +23,8 @@ struct RA_DATAFLOW_API EditableParameterBase {
     /// \name Constructors
     /// @{
     /// \brief delete default constructors.
-    EditableParameterBase()                               = delete;
-    EditableParameterBase( const EditableParameterBase& ) = delete;
+    EditableParameterBase()                                          = delete;
+    EditableParameterBase( const EditableParameterBase& )            = delete;
     EditableParameterBase& operator=( const EditableParameterBase& ) = delete;
 
     /// Construct an base editable parameter from its name and type hash
@@ -53,8 +53,8 @@ struct EditableParameter : public EditableParameterBase {
     /// \name Constructors
     /// @{
     /// \brief delete default constructors.
-    EditableParameter()                           = delete;
-    EditableParameter( const EditableParameter& ) = delete;
+    EditableParameter()                                      = delete;
+    EditableParameter( const EditableParameter& )            = delete;
     EditableParameter& operator=( const EditableParameter& ) = delete;
 
     /// Construct an editable parameter from its name and type hash

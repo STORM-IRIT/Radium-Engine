@@ -63,10 +63,10 @@ class RA_DATAFLOW_API DataflowRenderer : public Ra::Engine::Rendering::Renderer
     struct RA_DATAFLOW_API RenderGraphController : Ra::Core::Resources::ObservableVoid {
 
         RenderGraphController();
-        virtual ~RenderGraphController()                       = default;
-        RenderGraphController( const RenderGraphController& )  = delete;
-        RenderGraphController( const RenderGraphController&& ) = delete;
-        RenderGraphController& operator=( RenderGraphController&& ) = delete;
+        virtual ~RenderGraphController()                                 = default;
+        RenderGraphController( const RenderGraphController& )            = delete;
+        RenderGraphController( const RenderGraphController&& )           = delete;
+        RenderGraphController& operator=( RenderGraphController&& )      = delete;
         RenderGraphController& operator=( const RenderGraphController& ) = delete;
 
         /// Configuration function.

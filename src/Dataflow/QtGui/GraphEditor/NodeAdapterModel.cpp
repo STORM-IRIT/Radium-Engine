@@ -69,9 +69,7 @@ void NodeAdapterModel::checkConnections() const {
                 std::string( std::to_string( errors ) + " mandatory ports are not linked (*)." )
                     .c_str() );
         }
-        else {
-            m_validationError = "1 mandatory port is not linked (*).";
-        }
+        else { m_validationError = "1 mandatory port is not linked (*)."; }
 
         m_validationState = QtNodes::NodeValidationState::Error;
     }
@@ -238,9 +236,7 @@ void QJsonEntryToNlohmannEntry( const QString& key,
         // TODO find a better way to do that ...
         // type is a specific entry of envmapdatasource
         if ( key.compare( "type" ) == 0 ) { data[key.toStdString()] = int( value.toDouble() ); }
-        else {
-            data[key.toStdString()] = Scalar( value.toDouble() );
-        }
+        else { data[key.toStdString()] = Scalar( value.toDouble() ); }
 
         break;
     case QJsonValue::String:
@@ -313,9 +309,7 @@ void QJsonObjectToNlohmannObject( const QJsonObject& p, nlohmann::json& data ) {
             QJsonObjectToNlohmannObject( value.toObject(), j );
             data[key.toStdString()] = j;
         }
-        else {
-            QJsonEntryToNlohmannEntry( key, value, data );
-        }
+        else { QJsonEntryToNlohmannEntry( key, value, data ); }
     }
 }
 
