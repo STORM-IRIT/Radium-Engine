@@ -17,7 +17,7 @@ using EnvironmentType = std::shared_ptr<EnvironmentTexture>;
 
 ClearColorNode::ClearColorNode( const std::string& name ) : RenderingNode( name, getTypename() ) {
     addInput( m_portInColorTex );
-    m_portInColorTex->mustBeLinked();
+    // m_portInColorTex->mustBeLinked();
     addInput( m_portInClearColor );
     addInput( m_portInEnvmap );
     addInput( m_portInCamera );
@@ -29,17 +29,40 @@ ClearColorNode::ClearColorNode( const std::string& name ) : RenderingNode( name,
 }
 
 void ClearColorNode::init() {
+    Ra::Engine::Data::TextureParameters texParams { getInstanceName() + " (Color)",
+                                                    gl::GL_TEXTURE_2D,
+                                                    1,
+                                                    1,
+                                                    1,
+                                                    gl::GL_RGBA,
+                                                    gl::GL_RGBA32F,
+                                                    gl::GL_FLOAT,
+                                                    gl::GL_CLAMP_TO_EDGE,
+                                                    gl::GL_CLAMP_TO_EDGE,
+                                                    gl::GL_CLAMP_TO_EDGE,
+                                                    gl::GL_LINEAR,
+                                                    gl::GL_LINEAR,
+                                                    nullptr };
+    m_texture     = new Ra::Engine::Data::Texture( texParams );
     m_framebuffer = new globjects::Framebuffer();
 }
 
 void ClearColorNode::destroy() {
+    delete m_texture;
     delete m_framebuffer;
+}
+
+void ClearColorNode::resize( uint32_t w, uint32_t h ) {
+    if ( !m_portInColorTex->isLinked() ) { m_texture->resize( w, h ); }
 }
 
 bool ClearColorNode::execute() {
 
     // Color texture
-    m_colorTexture = &m_portInColorTex->getData();
+    if ( !m_portInColorTex->isLinked() ) { m_colorTexture = m_texture; }
+    else {
+        m_colorTexture = &m_portInColorTex->getData();
+    }
     m_portOutColorTex->setData( m_colorTexture );
 
     // Clear color

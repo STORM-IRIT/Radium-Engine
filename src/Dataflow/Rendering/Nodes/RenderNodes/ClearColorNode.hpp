@@ -35,7 +35,7 @@ class RA_DATAFLOW_API ClearColorNode : public RenderingNode
     bool execute() override;
     void destroy() override;
 
-    void resize( uint32_t, uint32_t ) override {}
+    void resize( uint32_t, uint32_t ) override;
 
     static const std::string getTypename() { return "Clear Color Pass"; }
 
@@ -44,6 +44,9 @@ class RA_DATAFLOW_API ClearColorNode : public RenderingNode
     bool fromJsonInternal( const nlohmann::json& data ) override;
 
   private:
+    // This texture will be used if the port m_portInColorTex is not linked
+    Ra::Engine::Data::Texture* m_texture { nullptr };
+    // This texture will be used if the port m_portInColorTex is linked
     Ra::Engine::Data::Texture* m_colorTexture { nullptr };
     globjects::Framebuffer* m_framebuffer { nullptr };
 
