@@ -52,7 +52,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.4.0</span>
+   &#160;<span id="projectnumber">1.5.0</span>
    </div>
   </td>
  </tr>
@@ -146,7 +146,7 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ab744921bc126b356965047f2d2945ee1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Manage <a class="el" href="classRa_1_1Engine_1_1Data_1_1Texture.html">Texture</a> loading and registration. </p><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000057">Todo:</a></b></dt><dd>(for Radium-V2) Allow to share the same image data between different instances of a texture. Instances could be differentiated by the sampler parameter and the mip-map availability. </dd></dl>
+<div class="textblock"><p>Manage <a class="el" href="classRa_1_1Engine_1_1Data_1_1Texture.html">Texture</a> loading and registration. </p><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000054">Todo:</a></b></dt><dd>(for Radium-V2) Allow to share the same image data between different instances of a texture. Instances could be differentiated by the sampler parameter and the mip-map availability. </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="TextureManager_8hpp_source.html#l00018">18</a> of file <a class="el" href="TextureManager_8hpp_source.html">TextureManager.hpp</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
@@ -378,7 +378,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>Update all textures that are pending after a call to updateTextureContent.</p>
 <p>The cooperation of updateTextureContent and updatePendingTextures allow applications to manage efficiently the on line texture generation by separating the content definition (updateTextureContent) from the OpenGL state modification (updatePendingTextures).</p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000058">Todo:</a></b></dt><dd>find a better name and description for this method that do not act on <em>pending textures</em>, i.e. textures that do not have a valid OpenGl state. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000055">Todo:</a></b></dt><dd>find a better name and description for this method that do not act on <em>pending textures</em>, i.e. textures that do not have a valid OpenGl state. </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="TextureManager_8cpp_source.html#l00148">148</a> of file <a class="el" href="TextureManager_8cpp_source.html">TextureManager.cpp</a>.</p>
 
@@ -432,7 +432,7 @@ Public Member Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><b>Engine</b></li><li class="navelem"><b>Data</b></li><li class="navelem"><a class="el" href="classRa_1_1Engine_1_1Data_1_1TextureManager.html">TextureManager</a></li>
-    <li class="footer">Generated on Thu Nov 17 2022 06:52:59 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Wed Apr 5 2023 15:07:32 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

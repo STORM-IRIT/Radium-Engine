@@ -1,6 +1,10 @@
 <map id="Ra::Core::Geometry::deprecated::TopologicalMesh::splitEdge" name="Ra::Core::Geometry::deprecated::TopologicalMesh::splitEdge">
-<area shape="rect" id="node1" title=" " alt="" coords="5,85,224,141"/>
-<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Geometry_1_1deprecated_1_1TopologicalMesh.html#a524d9da4cceb093d6743edeb4fab9297" title=" " alt="" coords="272,5,491,61"/>
-<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Geometry_1_1deprecated_1_1TopologicalMesh.html#aaba0897eaabd141a25000b5f8efeb14c" title=" " alt="" coords="272,85,491,141"/>
-<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Geometry_1_1deprecated_1_1TopologicalMesh.html#a720ac0a99914c6467ce104d3432d32f9" title=" " alt="" coords="272,165,491,221"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,145,224,201"/>
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Geometry_1_1deprecated_1_1TopologicalMesh.html#a524d9da4cceb093d6743edeb4fab9297" title=" " alt="" coords="272,65,491,121"/>
+<area shape="rect" id="node5" href="$classRa_1_1Core_1_1Geometry_1_1deprecated_1_1TopologicalMesh.html#aaba0897eaabd141a25000b5f8efeb14c" title=" " alt="" coords="272,145,491,201"/>
+<area shape="rect" id="node6" href="$classRa_1_1Core_1_1Geometry_1_1deprecated_1_1TopologicalMesh.html#a720ac0a99914c6467ce104d3432d32f9" title=" " alt="" coords="272,225,491,281"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Geometry_1_1deprecated_1_1TopologicalMesh.html#a11c67b0a5d61c1a6a10aeaa2ed7ab957" title=" " alt="" coords="539,5,757,61"/>
+<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Geometry_1_1deprecated_1_1TopologicalMesh.html#ad3d1a55933ceb708f4b3df46d3527fbe" title=" " alt="" coords="539,85,757,141"/>
+<area shape="rect" id="node7" href="$classRa_1_1Core_1_1Geometry_1_1deprecated_1_1TopologicalMesh.html#acfccc1f04c9b9ed00b18b75fa6648d59" title=" " alt="" coords="539,185,757,241"/>
+<area shape="rect" id="node8" href="$classRa_1_1Core_1_1Geometry_1_1deprecated_1_1TopologicalMesh.html#a43313863ad20263a5f78baf07c65981b" title=" " alt="" coords="539,265,757,321"/>
 </map>

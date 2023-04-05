@@ -52,7 +52,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.4.0</span>
+   &#160;<span id="projectnumber">1.5.0</span>
    </div>
   </td>
  </tr>
@@ -116,64 +116,115 @@ $(document).ready(function(){initNavTree('PolyLine_8hpp_source.html',''); initRe
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;Core/Containers/VectorArray.hpp&gt;</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;Core/Geometry/DistanceQueries.hpp&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;Core/RaCore.hpp&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="Types_8hpp.html">Core/Types.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>Core {</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>Geometry {</div>
-<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Geometry_1_1PolyLine.html">   13</a></span>&#160;<span class="keyword">class </span>RA_CORE_API <a class="code" href="classRa_1_1Core_1_1Geometry_1_1PolyLine.html">PolyLine</a></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;{</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;  <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="keyword">explicit</span> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1PolyLine.html">PolyLine</a>( <span class="keyword">const</span> Vector3Array&amp; pt );</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <span class="keyword">inline</span> <span class="keyword">const</span> Vector3Array&amp; getPoints() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">void</span> getSegment( uint segment, Vector3&amp; aOut, Vector3&amp; abOut ) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="keyword">inline</span> <span class="keyword">const</span> Vector3Array&amp; getSegmentVectors() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keyword">inline</span> Aabb aabb() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keyword">inline</span> Scalar length() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keywordtype">void</span> setPoints( <span class="keyword">const</span> Vector3Array&amp; pt );</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    Scalar squaredDistance( <span class="keyword">const</span> Vector3&amp; p ) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    Scalar distance( <span class="keyword">const</span> Vector3&amp; p ) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    Scalar projectOnSegment( <span class="keyword">const</span> Vector3&amp; p, uint segment ) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    uint getNearestSegment( <span class="keyword">const</span> Vector3&amp; p ) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keyword">inline</span> uint getSegmentIndex( Scalar t ) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    Scalar project( <span class="keyword">const</span> Vector3&amp; p ) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    Vector3 f( Scalar t ) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;  <span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keywordtype">void</span> update();</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keyword">inline</span> Scalar getLineParameter( uint segment, Scalar tSegment ) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;  <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="comment">// Stores the points Pi</span></div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    Vector3Array m_pts;</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="comment">// Stores the vectors (Pi+1 - Pi)</span></div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    Vector3Array m_ptsDiff;</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="comment">// Length from origin to point Pi+1.</span></div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    std::vector&lt;Scalar&gt; m_lengths;</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;};</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;} <span class="comment">// namespace Geometry</span></div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;} <span class="comment">// namespace Core</span></div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;} <span class="comment">// namespace Ra</span></div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="preprocessor">#include &lt;Core/Geometry/PolyLine.inl&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;Core/Math/LinearAlgebra.hpp&gt;</span> <span class="comment">// cotan, saturate (from Math.hpp)</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;Core/RaCore.hpp&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="Types_8hpp.html">Core/Types.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>Core {</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>Geometry {</div>
+<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Geometry_1_1PolyLine.html">   14</a></span>&#160;<span class="keyword">class </span>RA_CORE_API <a class="code" href="classRa_1_1Core_1_1Geometry_1_1PolyLine.html">PolyLine</a></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;{</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;  <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="keyword">explicit</span> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1PolyLine.html">PolyLine</a>( <span class="keyword">const</span> Vector3Array&amp; pt );</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="keyword">inline</span> <span class="keyword">const</span> Vector3Array&amp; getPoints() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">void</span> getSegment( uint segment, Vector3&amp; aOut, Vector3&amp; abOut ) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keyword">inline</span> <span class="keyword">const</span> Vector3Array&amp; getSegmentVectors() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keyword">inline</span> Aabb aabb() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keyword">inline</span> Scalar length() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keywordtype">void</span> setPoints( <span class="keyword">const</span> Vector3Array&amp; pt );</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    Scalar squaredDistance( <span class="keyword">const</span> Vector3&amp; p ) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    Scalar distance( <span class="keyword">const</span> Vector3&amp; p ) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    Scalar projectOnSegment( <span class="keyword">const</span> Vector3&amp; p, uint segment ) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    uint getNearestSegment( <span class="keyword">const</span> Vector3&amp; p ) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keyword">inline</span> uint getSegmentIndex( Scalar t ) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    Scalar project( <span class="keyword">const</span> Vector3&amp; p ) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    Vector3 f( Scalar t ) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;  <span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keywordtype">void</span> update();</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keyword">inline</span> Scalar getLineParameter( uint segment, Scalar tSegment ) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;  <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="comment">// Stores the points Pi</span></div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    Vector3Array m_pts;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="comment">// Stores the vectors (Pi+1 - Pi)</span></div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    Vector3Array m_ptsDiff;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="comment">// Length from origin to point Pi+1.</span></div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    std::vector&lt;Scalar&gt; m_lengths;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;};</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
+<div class="line"><a name="l00081"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Geometry_1_1PolyLine.html#a194f288bb77b78614169dd02a0b8f015">   81</a></span>&#160;<span class="keyword">const</span> Vector3Array&amp; <a class="code" href="classRa_1_1Core_1_1Geometry_1_1PolyLine.html#a194f288bb77b78614169dd02a0b8f015">PolyLine::getPoints</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keywordflow">return</span> m_pts;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;}</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
+<div class="line"><a name="l00085"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Geometry_1_1PolyLine.html#ad9ec64926bd98bb0417655c31e639a67">   85</a></span>&#160;Scalar <a class="code" href="classRa_1_1Core_1_1Geometry_1_1PolyLine.html#ad9ec64926bd98bb0417655c31e639a67">PolyLine::length</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="keywordflow">return</span> m_lengths.back();</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;}</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
+<div class="line"><a name="l00089"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Geometry_1_1PolyLine.html#a16ecdef5527b27863639e2c504819d32">   89</a></span>&#160;Aabb <a class="code" href="classRa_1_1Core_1_1Geometry_1_1PolyLine.html#a16ecdef5527b27863639e2c504819d32">PolyLine::aabb</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    Aabb <a class="code" href="classRa_1_1Core_1_1Geometry_1_1PolyLine.html#a16ecdef5527b27863639e2c504819d32">aabb</a>;</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; v : m_pts ) {</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        <a class="code" href="classRa_1_1Core_1_1Geometry_1_1PolyLine.html#a16ecdef5527b27863639e2c504819d32">aabb</a>.extend( v );</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    }</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1PolyLine.html#a16ecdef5527b27863639e2c504819d32">aabb</a>;</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;}</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160; </div>
+<div class="line"><a name="l00097"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Geometry_1_1PolyLine.html#aae02568a84d24193c5f129f4dd60933c">   97</a></span>&#160;Scalar <a class="code" href="classRa_1_1Core_1_1Geometry_1_1PolyLine.html#aae02568a84d24193c5f129f4dd60933c">PolyLine::getLineParameter</a>( uint segment, Scalar tSegment )<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    CORE_ASSERT( segment &lt; m_ptsDiff.size(), <span class="stringliteral">&quot;invalid segment index&quot;</span> );</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    <span class="keyword">const</span> Scalar lprev    = segment &gt; 0 ? m_lengths[segment - 1] : 0;</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    <span class="keyword">const</span> Scalar lSegment = m_lengths[segment] - lprev;</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <span class="keywordflow">return</span> ( ( lSegment * tSegment ) + lprev ) / <a class="code" href="classRa_1_1Core_1_1Geometry_1_1PolyLine.html#ad9ec64926bd98bb0417655c31e639a67">length</a>();</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;}</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; </div>
+<div class="line"><a name="l00104"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Geometry_1_1PolyLine.html#a1509e442e9b183a1cdf0b23eb20c235a">  104</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1PolyLine.html#a1509e442e9b183a1cdf0b23eb20c235a">PolyLine::getSegment</a>( uint segment, Vector3&amp; aOut, Vector3&amp; abOut )<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    CORE_ASSERT( segment &lt; m_ptsDiff.size(), <span class="stringliteral">&quot;Invalid segment index.&quot;</span> );</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    aOut  = m_pts[segment];</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    abOut = m_ptsDiff[segment];</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;}</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160; </div>
+<div class="line"><a name="l00110"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Geometry_1_1PolyLine.html#aea6eff907b3b5ac247f34644f4378c81">  110</a></span>&#160;<span class="keyword">const</span> Vector3Array&amp; <a class="code" href="classRa_1_1Core_1_1Geometry_1_1PolyLine.html#aea6eff907b3b5ac247f34644f4378c81">PolyLine::getSegmentVectors</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    <span class="keywordflow">return</span> m_ptsDiff;</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;}</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160; </div>
+<div class="line"><a name="l00114"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Geometry_1_1PolyLine.html#a539e5019c716986159e445fcbb09e9fc">  114</a></span>&#160;uint <a class="code" href="classRa_1_1Core_1_1Geometry_1_1PolyLine.html#a539e5019c716986159e445fcbb09e9fc">PolyLine::getSegmentIndex</a>( Scalar t )<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    <span class="comment">// This could be optimized by dichotomy</span></div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    Scalar param = <a class="code" href="classRa_1_1Core_1_1Geometry_1_1PolyLine.html#ad9ec64926bd98bb0417655c31e639a67">length</a>() * <a class="code" href="namespaceRa_1_1Core_1_1Math.html#ac59d3507a0a632719542d21a16a11bba">Math::saturate</a>( t );</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    uint i       = 0;</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    <span class="keywordflow">while</span> ( m_lengths[i] &lt; param ) {</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;        ++i;</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    }</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    <span class="keywordflow">return</span> i;</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;}</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160; </div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;} <span class="comment">// namespace Geometry</span></div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;} <span class="comment">// namespace Core</span></div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;} <span class="comment">// namespace Ra</span></div>
 <div class="ttc" id="aTypes_8hpp_html"><div class="ttname"><a href="Types_8hpp.html">Types.hpp</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1PolyLine_html"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1PolyLine.html">Ra::Core::Geometry::PolyLine</a></div><div class="ttdef"><b>Definition:</b> <a href="PolyLine_8hpp_source.html#l00013">PolyLine.hpp:14</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1PolyLine_html"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1PolyLine.html">Ra::Core::Geometry::PolyLine</a></div><div class="ttdef"><b>Definition:</b> <a href="PolyLine_8hpp_source.html#l00014">PolyLine.hpp:15</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1PolyLine_html_a1509e442e9b183a1cdf0b23eb20c235a"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1PolyLine.html#a1509e442e9b183a1cdf0b23eb20c235a">Ra::Core::Geometry::PolyLine::getSegment</a></div><div class="ttdeci">void getSegment(uint segment, Vector3 &amp;aOut, Vector3 &amp;abOut) const</div><div class="ttdoc">Get the ith segment AB as starting point A and vector AB.</div><div class="ttdef"><b>Definition:</b> <a href="PolyLine_8hpp_source.html#l00104">PolyLine.hpp:104</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1PolyLine_html_a16ecdef5527b27863639e2c504819d32"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1PolyLine.html#a16ecdef5527b27863639e2c504819d32">Ra::Core::Geometry::PolyLine::aabb</a></div><div class="ttdeci">Aabb aabb() const</div><div class="ttdoc">Get the aabb of the polyline.</div><div class="ttdef"><b>Definition:</b> <a href="PolyLine_8hpp_source.html#l00089">PolyLine.hpp:89</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1PolyLine_html_a194f288bb77b78614169dd02a0b8f015"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1PolyLine.html#a194f288bb77b78614169dd02a0b8f015">Ra::Core::Geometry::PolyLine::getPoints</a></div><div class="ttdeci">const Vector3Array &amp; getPoints() const</div><div class="ttdoc">Get the point vector.</div><div class="ttdef"><b>Definition:</b> <a href="PolyLine_8hpp_source.html#l00081">PolyLine.hpp:81</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1PolyLine_html_a539e5019c716986159e445fcbb09e9fc"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1PolyLine.html#a539e5019c716986159e445fcbb09e9fc">Ra::Core::Geometry::PolyLine::getSegmentIndex</a></div><div class="ttdeci">uint getSegmentIndex(Scalar t) const</div><div class="ttdoc">Returns the index of the segment to which t belons.</div><div class="ttdef"><b>Definition:</b> <a href="PolyLine_8hpp_source.html#l00114">PolyLine.hpp:114</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1PolyLine_html_aae02568a84d24193c5f129f4dd60933c"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1PolyLine.html#aae02568a84d24193c5f129f4dd60933c">Ra::Core::Geometry::PolyLine::getLineParameter</a></div><div class="ttdeci">Scalar getLineParameter(uint segment, Scalar tSegment) const</div><div class="ttdef"><b>Definition:</b> <a href="PolyLine_8hpp_source.html#l00097">PolyLine.hpp:97</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1PolyLine_html_ad9ec64926bd98bb0417655c31e639a67"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1PolyLine.html#ad9ec64926bd98bb0417655c31e639a67">Ra::Core::Geometry::PolyLine::length</a></div><div class="ttdeci">Scalar length() const</div><div class="ttdoc">Get the total length of the line .</div><div class="ttdef"><b>Definition:</b> <a href="PolyLine_8hpp_source.html#l00085">PolyLine.hpp:85</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1PolyLine_html_aea6eff907b3b5ac247f34644f4378c81"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1PolyLine.html#aea6eff907b3b5ac247f34644f4378c81">Ra::Core::Geometry::PolyLine::getSegmentVectors</a></div><div class="ttdeci">const Vector3Array &amp; getSegmentVectors() const</div><div class="ttdoc">Get the segment vector ( Pi+1 - Pi)</div><div class="ttdef"><b>Definition:</b> <a href="PolyLine_8hpp_source.html#l00110">PolyLine.hpp:110</a></div></div>
+<div class="ttc" id="anamespaceRa_1_1Core_1_1Math_html_ac59d3507a0a632719542d21a16a11bba"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Math.html#ac59d3507a0a632719542d21a16a11bba">Ra::Core::Math::saturate</a></div><div class="ttdeci">constexpr T saturate(T v)</div><div class="ttdoc">Clamps the value between 0 and 1.</div><div class="ttdef"><b>Definition:</b> <a href="Math_8hpp_source.html#l00120">Math.hpp:120</a></div></div>
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdef"><b>Definition:</b> <a href="Cage_8cpp_source.html#l00003">Cage.cpp:3</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
@@ -181,7 +232,7 @@ $(document).ready(function(){initNavTree('PolyLine_8hpp_source.html',''); initRe
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_cb2b5dfd43482fb277f6333d539f1f06.html">Geometry</a></li><li class="navelem"><b>PolyLine.hpp</b></li>
-    <li class="footer">Generated on Thu Nov 17 2022 06:52:58 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Wed Apr 5 2023 15:07:31 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

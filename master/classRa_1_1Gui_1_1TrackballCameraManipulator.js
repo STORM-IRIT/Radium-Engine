@@ -29,8 +29,6 @@ var classRa_1_1Gui_1_1TrackballCameraManipulator =
     [ "KeyMappingManageable< TrackballCameraManipulator >", "classRa_1_1Gui_1_1TrackballCameraManipulator.html#a65bd68fb31f11b6808fb16a0602d6476", null ],
     [ "m_distFromCenter", "classRa_1_1Gui_1_1TrackballCameraManipulator.html#aec03675d675074abd0e41d3dee92d01b", null ],
     [ "m_keyMappingCallbackManager", "classRa_1_1Gui_1_1TrackballCameraManipulator.html#ad9ae17669e4a9adb4cfe496068555956", null ],
-    [ "m_lastMouseX", "classRa_1_1Gui_1_1TrackballCameraManipulator.html#a56c21d2c8c450a41d7db95cc869dc5d0", null ],
-    [ "m_lastMouseY", "classRa_1_1Gui_1_1TrackballCameraManipulator.html#a6adc3a15bef8e2b4b0fccbeaadda6461", null ],
     [ "m_phi", "classRa_1_1Gui_1_1TrackballCameraManipulator.html#a421bcdd8baa1ce2ee1238645e29a4213", null ],
     [ "m_phiDir", "classRa_1_1Gui_1_1TrackballCameraManipulator.html#a3730cd42ac7af4322a29412f8b3dee64", null ],
     [ "m_referenceFrame", "classRa_1_1Gui_1_1TrackballCameraManipulator.html#a90a70ef24ee43f56981aea3f28d7d552", null ],

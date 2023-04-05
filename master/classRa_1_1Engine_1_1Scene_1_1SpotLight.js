@@ -7,7 +7,6 @@ var classRa_1_1Engine_1_1Scene_1_1SpotLight =
     [ "getInnerAngle", "classRa_1_1Engine_1_1Scene_1_1SpotLight.html#acd0aeb48dfa0614f45cf5dadf64ca634", null ],
     [ "getOuterAngle", "classRa_1_1Engine_1_1Scene_1_1SpotLight.html#ac919a215662c4c6c14f3639a4dfa7b0b", null ],
     [ "getPosition", "classRa_1_1Engine_1_1Scene_1_1SpotLight.html#a9406dfbe63a0f02b0585ef31e5bf80b1", null ],
-    [ "getRenderParameters", "classRa_1_1Engine_1_1Scene_1_1SpotLight.html#af590a75472c842932ad2122ac2288be1", null ],
     [ "getShaderInclude", "classRa_1_1Engine_1_1Scene_1_1SpotLight.html#a100abc65da2878bf821643ddecaa308c", null ],
     [ "setAttenuation", "classRa_1_1Engine_1_1Scene_1_1SpotLight.html#a7f62fe05e445784b331ef5394a44eaa2", null ],
     [ "setAttenuation", "classRa_1_1Engine_1_1Scene_1_1SpotLight.html#a2c57a85d91249ede51de65d3cfb4f797", null ],

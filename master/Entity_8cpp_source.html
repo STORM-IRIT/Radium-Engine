@@ -52,7 +52,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.4.0</span>
+   &#160;<span id="projectnumber">1.5.0</span>
    </div>
   </td>
  </tr>
@@ -138,12 +138,12 @@ $(document).ready(function(){initNavTree('Entity_8cpp_source.html',''); initResi
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;}</div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
 <div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1Entity.html#a71a83f23fc7589da1e946d17af2d6e0b">   26</a></span>&#160;<span class="keywordtype">void</span> Entity::addComponent( <a class="code" href="classRa_1_1Engine_1_1Scene_1_1Component.html">Component</a>* component ) {</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    CORE_ASSERT( getComponent( component-&gt;<a class="code" href="classRa_1_1Engine_1_1Scene_1_1Component.html#a60e3234670ccfb680405445f06d2854e">getName</a>() ) == <span class="keyword">nullptr</span>,</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;                 <span class="stringliteral">&quot;Component \&quot;&quot;</span> &lt;&lt; component-&gt;<a class="code" href="classRa_1_1Engine_1_1Scene_1_1Component.html#a60e3234670ccfb680405445f06d2854e">getName</a>()</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    CORE_ASSERT( getComponent( component-&gt;<a class="code" href="classRa_1_1Engine_1_1Scene_1_1Component.html#aa30f6f7a3f3414c4e9c80ca89627f4b9">getName</a>() ) == <span class="keyword">nullptr</span>,</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;                 <span class="stringliteral">&quot;Component \&quot;&quot;</span> &lt;&lt; component-&gt;<a class="code" href="classRa_1_1Engine_1_1Scene_1_1Component.html#aa30f6f7a3f3414c4e9c80ca89627f4b9">getName</a>()</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;                                &lt;&lt; <span class="stringliteral">&quot;\&quot; has already been added to the entity.&quot;</span> );</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    m_components.emplace_back( std::unique_ptr&lt;Component&gt;( component ) );</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    component-&gt;<a class="code" href="classRa_1_1Engine_1_1Scene_1_1Component.html#ad44b5414496c676d53ca19f74c937bd3">setEntity</a>( <span class="keyword">this</span> );</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    component-&gt;<a class="code" href="classRa_1_1Engine_1_1Scene_1_1Component.html#ab15c24daff52b96ccf7582080c225228">setEntity</a>( <span class="keyword">this</span> );</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    RadiumEngine::getInstance()-&gt;getSignalManager()-&gt;fireComponentAdded(</div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        <a class="code" href="structRa_1_1Engine_1_1Scene_1_1ItemEntry.html">ItemEntry</a>( <span class="keyword">this</span>, component ) );</div>
@@ -213,8 +213,8 @@ $(document).ready(function(){initNavTree('Entity_8cpp_source.html',''); initResi
 <div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;} <span class="comment">// namespace Engine</span></div>
 <div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;} <span class="comment">// namespace Ra</span></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1Component_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1Component.html">Ra::Engine::Scene::Component</a></div><div class="ttdoc">A component is an element that can be updated by a system. It is also linked to some other components...</div><div class="ttdef"><b>Definition:</b> <a href="Component_8hpp_source.html#l00030">Component.hpp:31</a></div></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1Component_html_a60e3234670ccfb680405445f06d2854e"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1Component.html#a60e3234670ccfb680405445f06d2854e">Ra::Engine::Scene::Component::getName</a></div><div class="ttdeci">virtual const std::string &amp; getName() const</div><div class="ttdoc">Return the component's name.</div><div class="ttdef"><b>Definition:</b> <a href="Component_8inl_source.html#l00016">Component.inl:16</a></div></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1Component_html_ad44b5414496c676d53ca19f74c937bd3"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1Component.html#ad44b5414496c676d53ca19f74c937bd3">Ra::Engine::Scene::Component::setEntity</a></div><div class="ttdeci">virtual void setEntity(Entity *entity)</div><div class="ttdoc">Set entity the component is part of. This method is called by the entity.</div><div class="ttdef"><b>Definition:</b> <a href="Component_8inl_source.html#l00008">Component.inl:8</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1Component_html_aa30f6f7a3f3414c4e9c80ca89627f4b9"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1Component.html#aa30f6f7a3f3414c4e9c80ca89627f4b9">Ra::Engine::Scene::Component::getName</a></div><div class="ttdeci">virtual const std::string &amp; getName() const</div><div class="ttdoc">Return the component's name.</div><div class="ttdef"><b>Definition:</b> <a href="Component_8hpp_source.html#l00056">Component.hpp:56</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1Component_html_ab15c24daff52b96ccf7582080c225228"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1Component.html#ab15c24daff52b96ccf7582080c225228">Ra::Engine::Scene::Component::setEntity</a></div><div class="ttdeci">virtual void setEntity(Entity *entity)</div><div class="ttdoc">Set entity the component is part of. This method is called by the entity.</div><div class="ttdef"><b>Definition:</b> <a href="Component_8hpp_source.html#l00050">Component.hpp:50</a></div></div>
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdef"><b>Definition:</b> <a href="Cage_8cpp_source.html#l00003">Cage.cpp:3</a></div></div>
 <div class="ttc" id="astructRa_1_1Engine_1_1Scene_1_1ItemEntry_html"><div class="ttname"><a href="structRa_1_1Engine_1_1Scene_1_1ItemEntry.html">Ra::Engine::Scene::ItemEntry</a></div><div class="ttdef"><b>Definition:</b> <a href="ItemEntry_8hpp_source.html#l00025">ItemEntry.hpp:25</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
@@ -223,7 +223,7 @@ $(document).ready(function(){initNavTree('Entity_8cpp_source.html',''); initResi
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_89bb22796d297d82305d45a42e7934d2.html">Scene</a></li><li class="navelem"><b>Entity.cpp</b></li>
-    <li class="footer">Generated on Thu Nov 17 2022 06:52:58 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Wed Apr 5 2023 15:07:31 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

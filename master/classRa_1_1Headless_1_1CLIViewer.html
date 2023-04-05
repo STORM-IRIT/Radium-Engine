@@ -52,7 +52,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.4.0</span>
+   &#160;<span id="projectnumber">1.5.0</span>
    </div>
   </td>
  </tr>
@@ -142,9 +142,9 @@ Public Member Functions</h2></td></tr>
 const <a class="el" href="classRa_1_1Engine_1_1RadiumEngine.html">Engine::RadiumEngine</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Headless_1_1CLIViewer.html#a11f484fbb7d7798a45e2990a3fed7292">getEngine</a> () const</td></tr>
 <tr class="memdesc:a11f484fbb7d7798a45e2990a3fed7292"><td class="mdescLeft">&#160;</td><td class="mdescRight">To have the same API to access Engine than in Qt based application. <br /></td></tr>
 <tr class="separator:a11f484fbb7d7798a45e2990a3fed7292"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a719318e96a913fe243272c963d40045a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Headless_1_1CLIViewer.html#a719318e96a913fe243272c963d40045a">CLIViewer</a> (const glbinding::Version &amp;glVersion={ 4, 1 })</td></tr>
-<tr class="memdesc:a719318e96a913fe243272c963d40045a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct the viewer using an OpenGL context of the given version.  <a href="classRa_1_1Headless_1_1CLIViewer.html#a719318e96a913fe243272c963d40045a">More...</a><br /></td></tr>
-<tr class="separator:a719318e96a913fe243272c963d40045a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a709a3dd1360114c0d33881d2e4e57db0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Headless_1_1CLIViewer.html#a709a3dd1360114c0d33881d2e4e57db0">CLIViewer</a> (std::unique_ptr&lt; <a class="el" href="classRa_1_1Headless_1_1OpenGLContext.html">OpenGLContext</a> &gt; context)</td></tr>
+<tr class="memdesc:a709a3dd1360114c0d33881d2e4e57db0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct the viewer using an OpenGL context of the given version.  <a href="classRa_1_1Headless_1_1CLIViewer.html#a709a3dd1360114c0d33881d2e4e57db0">More...</a><br /></td></tr>
+<tr class="separator:a709a3dd1360114c0d33881d2e4e57db0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2e0eb12c974c7a1eed6a7dfb938a898c"><td class="memItemLeft" align="right" valign="top"><a id="a2e0eb12c974c7a1eed6a7dfb938a898c"></a>
 virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Headless_1_1CLIViewer.html#a2e0eb12c974c7a1eed6a7dfb938a898c">~CLIViewer</a> ()</td></tr>
 <tr class="memdesc:a2e0eb12c974c7a1eed6a7dfb938a898c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base destructor. <br /></td></tr>
@@ -227,8 +227,8 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="CLIViewer_8hpp_source.html#l00034">34</a> of file <a class="el" href="CLIViewer_8hpp_source.html">CLIViewer.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a719318e96a913fe243272c963d40045a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a719318e96a913fe243272c963d40045a">&#9670;&nbsp;</a></span>CLIViewer()</h2>
+<a id="a709a3dd1360114c0d33881d2e4e57db0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a709a3dd1360114c0d33881d2e4e57db0">&#9670;&nbsp;</a></span>CLIViewer()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -239,8 +239,8 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">Ra::Headless::CLIViewer::CLIViewer </td>
           <td>(</td>
-          <td class="paramtype">const glbinding::Version &amp;&#160;</td>
-          <td class="paramname"><em>glVersion</em> = <code>{&#160;4,&#160;1&#160;}</code></td><td>)</td>
+          <td class="paramtype">std::unique_ptr&lt; <a class="el" href="classRa_1_1Headless_1_1OpenGLContext.html">OpenGLContext</a> &gt;&#160;</td>
+          <td class="paramname"><em>context</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -265,7 +265,7 @@ Additional Inherited Members</h2></td></tr>
 <div id="dynsection-2-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-2-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Headless_1_1CLIViewer_a719318e96a913fe243272c963d40045a_cgraph.svg" width="479" height="118"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Headless_1_1CLIViewer_a709a3dd1360114c0d33881d2e4e57db0_cgraph.svg" width="479" height="118"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 
@@ -289,7 +289,7 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 <p>Add a data loader to the engine </p>
 
-<p class="definition">Definition at line <a class="el" href="CLIViewer_8cpp_source.html#l00127">127</a> of file <a class="el" href="CLIViewer_8cpp_source.html">CLIViewer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CLIViewer_8cpp_source.html#l00129">129</a> of file <a class="el" href="CLIViewer_8cpp_source.html">CLIViewer.cpp</a>.</p>
 <div id="dynsection-3" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-3-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-3-summary" class="dynsummary" style="display:block;">
@@ -318,15 +318,7 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 <p>Activate/deactivate the OpenGL context </p>
 
-<p class="definition">Definition at line <a class="el" href="CLIViewer_8cpp_source.html#l00154">154</a> of file <a class="el" href="CLIViewer_8cpp_source.html">CLIViewer.cpp</a>.</p>
-<div id="dynsection-4" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-4-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-4-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-4-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Headless_1_1CLIViewer_a655a4efaf27d60d1f7bf5d0530d54c03_cgraph.svg" width="456" height="118"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
+<p class="definition">Definition at line <a class="el" href="CLIViewer_8cpp_source.html#l00156">156</a> of file <a class="el" href="CLIViewer_8cpp_source.html">CLIViewer.cpp</a>.</p>
 
 </div>
 </div>
@@ -346,12 +338,12 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 <p>Instantiate the scene and prepare the rendering. This method prepare all render techniques for the active renderer. </p>
 
-<p class="definition">Definition at line <a class="el" href="CLIViewer_8cpp_source.html#l00135">135</a> of file <a class="el" href="CLIViewer_8cpp_source.html">CLIViewer.cpp</a>.</p>
-<div id="dynsection-5" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-5-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-5-summary" class="dynsummary" style="display:block;">
+<p class="definition">Definition at line <a class="el" href="CLIViewer_8cpp_source.html#l00137">137</a> of file <a class="el" href="CLIViewer_8cpp_source.html">CLIViewer.cpp</a>.</p>
+<div id="dynsection-4" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-4-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-4-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-5-content" class="dyncontent" style="display:none;">
+<div id="dynsection-4-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Headless_1_1CLIViewer_ae3e8afdbe2862a37e78a8d2780765571_cgraph.svg" width="419" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
@@ -402,7 +394,7 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 <p>Get the filename given using the option &ndash;file &lt;filename&gt; or -f &lt;filename&gt; </p>
 
-<p class="definition">Definition at line <a class="el" href="CLIViewer_8inl_source.html#l00009">9</a> of file <a class="el" href="CLIViewer_8inl_source.html">CLIViewer.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CLIViewer_8hpp_source.html#l00185">185</a> of file <a class="el" href="CLIViewer_8hpp_source.html">CLIViewer.hpp</a>.</p>
 
 </div>
 </div>
@@ -432,10 +424,10 @@ Additional Inherited Members</h2></td></tr>
 <p>Gives access to the window to add event processing callbacks. </p>
 <p>example : </p><div class="fragment"><div class="line">idListener = <a class="code" href="classRa_1_1Headless_1_1CLIViewer.html#a99036a74b3732afb0b03a7a9d07dcd5c">getWindow</a>().<a class="code" href="group__window.html#ga726085415abf83f37a8ae47de59b9118">mouseListener</a>.<a class="code" href="classRa_1_1Core_1_1Utils_1_1Observable.html#a4851931d5bedb5e17121a0ff806a9f6d">attach</a>( mouseEventProcessingFunction );</div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1Observable_html_a4851931d5bedb5e17121a0ff806a9f6d"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1Observable.html#a4851931d5bedb5e17121a0ff806a9f6d">Ra::Core::Utils::Observable::attach</a></div><div class="ttdeci">int attach(Observer observer)</div><div class="ttdef"><b>Definition:</b> <a href="Observable_8hpp_source.html#l00054">Observable.hpp:54</a></div></div>
-<div class="ttc" id="aclassRa_1_1Headless_1_1CLIViewer_html_a99036a74b3732afb0b03a7a9d07dcd5c"><div class="ttname"><a href="classRa_1_1Headless_1_1CLIViewer.html#a99036a74b3732afb0b03a7a9d07dcd5c">Ra::Headless::CLIViewer::getWindow</a></div><div class="ttdeci">OpenGLContext &amp; getWindow()</div><div class="ttdoc">Gives access to the window to add event processing callbacks.</div><div class="ttdef"><b>Definition:</b> <a href="CLIViewer_8inl_source.html#l00020">CLIViewer.inl:20</a></div></div>
-<div class="ttc" id="agroup__window_html_ga726085415abf83f37a8ae47de59b9118"><div class="ttname"><a href="group__window.html#ga726085415abf83f37a8ae47de59b9118">Ra::Headless::OpenGLContext::mouseListener</a></div><div class="ttdeci">Ra::Core::Utils::Observable&lt; int, int, int, int, int &gt; &amp; mouseListener()</div><div class="ttdef"><b>Definition:</b> <a href="OpenGLContext_8hpp_source.html#l00102">OpenGLContext.hpp:102</a></div></div>
+<div class="ttc" id="aclassRa_1_1Headless_1_1CLIViewer_html_a99036a74b3732afb0b03a7a9d07dcd5c"><div class="ttname"><a href="classRa_1_1Headless_1_1CLIViewer.html#a99036a74b3732afb0b03a7a9d07dcd5c">Ra::Headless::CLIViewer::getWindow</a></div><div class="ttdeci">OpenGLContext &amp; getWindow()</div><div class="ttdoc">Gives access to the window to add event processing callbacks.</div><div class="ttdef"><b>Definition:</b> <a href="CLIViewer_8hpp_source.html#l00193">CLIViewer.hpp:193</a></div></div>
+<div class="ttc" id="agroup__window_html_ga726085415abf83f37a8ae47de59b9118"><div class="ttname"><a href="group__window.html#ga726085415abf83f37a8ae47de59b9118">Ra::Headless::OpenGLContext::mouseListener</a></div><div class="ttdeci">Ra::Core::Utils::Observable&lt; int, int, int, int, int &gt; &amp; mouseListener()</div><div class="ttdef"><b>Definition:</b> <a href="OpenGLContext_8hpp_source.html#l00106">OpenGLContext.hpp:106</a></div></div>
 </div><!-- fragment --> 
-<p class="definition">Definition at line <a class="el" href="CLIViewer_8inl_source.html#l00020">20</a> of file <a class="el" href="CLIViewer_8inl_source.html">CLIViewer.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CLIViewer_8hpp_source.html#l00193">193</a> of file <a class="el" href="CLIViewer_8hpp_source.html">CLIViewer.hpp</a>.</p>
 
 </div>
 </div>
@@ -466,7 +458,7 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 <p>grab the last rendered frame </p>
 
-<p class="definition">Definition at line <a class="el" href="CLIViewer_8cpp_source.html#l00114">114</a> of file <a class="el" href="CLIViewer_8cpp_source.html">CLIViewer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CLIViewer_8cpp_source.html#l00116">116</a> of file <a class="el" href="CLIViewer_8cpp_source.html">CLIViewer.cpp</a>.</p>
 
 </div>
 </div>
@@ -522,12 +514,12 @@ Additional Inherited Members</h2></td></tr>
 <p>Reimplemented from <a class="el" href="classRa_1_1Headless_1_1CLIBaseApplication.html#a0e897989bba7eefb0fc399ae5285cb85">Ra::Headless::CLIBaseApplication</a>.</p>
 
 <p class="definition">Definition at line <a class="el" href="CLIViewer_8cpp_source.html#l00046">46</a> of file <a class="el" href="CLIViewer_8cpp_source.html">CLIViewer.cpp</a>.</p>
-<div id="dynsection-6" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-6-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-6-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-5" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-5-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-5-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-6-content" class="dyncontent" style="display:none;">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classRa_1_1Headless_1_1CLIViewer_a199bd6c52650d5ae6a9b00754a445b73_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div id="dynsection-5-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classRa_1_1Headless_1_1CLIViewer_a199bd6c52650d5ae6a9b00754a445b73_cgraph.svg" width="100%" height="535"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
 
@@ -549,12 +541,12 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 <p>Loads the scene from the datafile given at the command line or set using setDataFileName using the available loader (if any). </p>
 
-<p class="definition">Definition at line <a class="el" href="CLIViewer_8cpp_source.html#l00131">131</a> of file <a class="el" href="CLIViewer_8cpp_source.html">CLIViewer.cpp</a>.</p>
-<div id="dynsection-7" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-7-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-7-summary" class="dynsummary" style="display:block;">
+<p class="definition">Definition at line <a class="el" href="CLIViewer_8cpp_source.html#l00133">133</a> of file <a class="el" href="CLIViewer_8cpp_source.html">CLIViewer.cpp</a>.</p>
+<div id="dynsection-6" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-6-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-6-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-7-content" class="dyncontent" style="display:none;">
+<div id="dynsection-6-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Headless_1_1CLIViewer_ac0fbb35f722f7ed755153e159bbdf16e_cgraph.svg" width="432" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
@@ -579,12 +571,12 @@ Additional Inherited Members</h2></td></tr>
 <p>Render one frame of the scene attached to the engine for the given time stamp.</p>
 <dl class="section return"><dt>Returns</dt><dd>0 if the image was correctly computed or an application dependant error code if something went wrong. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="CLIViewer_8cpp_source.html#l00092">92</a> of file <a class="el" href="CLIViewer_8cpp_source.html">CLIViewer.cpp</a>.</p>
-<div id="dynsection-8" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-8-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-8-summary" class="dynsummary" style="display:block;">
+<p class="definition">Definition at line <a class="el" href="CLIViewer_8cpp_source.html#l00094">94</a> of file <a class="el" href="CLIViewer_8cpp_source.html">CLIViewer.cpp</a>.</p>
+<div id="dynsection-7" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-7-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-7-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-8-content" class="dyncontent" style="display:none;">
+<div id="dynsection-7-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Headless_1_1CLIViewer_aa99c382a61919b4440ab1952ce2f082a_cgraph.svg" width="474" height="591"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
@@ -608,15 +600,7 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 <p>Register OpenGL addons The given functor will be called with the OpenGL context bound </p>
 
-<p class="definition">Definition at line <a class="el" href="CLIViewer_8cpp_source.html#l00148">148</a> of file <a class="el" href="CLIViewer_8cpp_source.html">CLIViewer.cpp</a>.</p>
-<div id="dynsection-9" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-9-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-9-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-9-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Headless_1_1CLIViewer_ae56022d33a18ce9d3eac85483a6663bb_cgraph.svg" width="456" height="118"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
+<p class="definition">Definition at line <a class="el" href="CLIViewer_8cpp_source.html#l00150">150</a> of file <a class="el" href="CLIViewer_8cpp_source.html">CLIViewer.cpp</a>.</p>
 
 </div>
 </div>
@@ -637,15 +621,7 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 <p>If a window is shown, launch the interactive render loop </p>
 
-<p class="definition">Definition at line <a class="el" href="CLIViewer_8cpp_source.html#l00207">207</a> of file <a class="el" href="CLIViewer_8cpp_source.html">CLIViewer.cpp</a>.</p>
-<div id="dynsection-10" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-10-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-10-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-10-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Headless_1_1CLIViewer_ab09af2dd2cd0e6565b6a6fc32865f891_cgraph.svg" width="456" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
+<p class="definition">Definition at line <a class="el" href="CLIViewer_8cpp_source.html#l00205">205</a> of file <a class="el" href="CLIViewer_8cpp_source.html">CLIViewer.cpp</a>.</p>
 
 </div>
 </div>
@@ -668,11 +644,11 @@ Additional Inherited Members</h2></td></tr>
  </p>
 
 <p class="definition">Definition at line <a class="el" href="CLIViewer_8cpp_source.html#l00161">161</a> of file <a class="el" href="CLIViewer_8cpp_source.html">CLIViewer.cpp</a>.</p>
-<div id="dynsection-11" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-11-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-11-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-8" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-8-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-8-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-11-content" class="dyncontent" style="display:none;">
+<div id="dynsection-8-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Headless_1_1CLIViewer_a6d37d5a463d1ab8c05b4fa341ff561b9_cgraph.svg" width="647" height="510"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
@@ -704,7 +680,7 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 <p>Set the filename given using the option &ndash;file &lt;filename&gt; or -f &lt;filename&gt; </p>
 
-<p class="definition">Definition at line <a class="el" href="CLIViewer_8inl_source.html#l00016">16</a> of file <a class="el" href="CLIViewer_8inl_source.html">CLIViewer.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CLIViewer_8hpp_source.html#l00189">189</a> of file <a class="el" href="CLIViewer_8hpp_source.html">CLIViewer.hpp</a>.</p>
 
 </div>
 </div>
@@ -746,15 +722,7 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 <p>Set the renderer to use to compute an image The app takes ownership of the give pointer. </p>
 
-<p class="definition">Definition at line <a class="el" href="CLIViewer_8cpp_source.html#l00118">118</a> of file <a class="el" href="CLIViewer_8cpp_source.html">CLIViewer.cpp</a>.</p>
-<div id="dynsection-12" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-12-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-12-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-12-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Headless_1_1CLIViewer_a776e954e74aa6631b5cfbdd2d27382fc_cgraph.svg" width="456" height="118"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
+<p class="definition">Definition at line <a class="el" href="CLIViewer_8cpp_source.html#l00120">120</a> of file <a class="el" href="CLIViewer_8cpp_source.html">CLIViewer.cpp</a>.</p>
 
 </div>
 </div>
@@ -792,21 +760,12 @@ Additional Inherited Members</h2></td></tr>
 <p>show/hide the opengl window </p>
 
 <p class="definition">Definition at line <a class="el" href="CLIViewer_8cpp_source.html#l00196">196</a> of file <a class="el" href="CLIViewer_8cpp_source.html">CLIViewer.cpp</a>.</p>
-<div id="dynsection-13" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-13-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-13-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-13-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Headless_1_1CLIViewer_a1db79e131a45fe816c868f194ea67a12_cgraph.svg" width="456" height="183"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/src/Headless/<a class="el" href="CLIViewer_8hpp_source.html">CLIViewer.hpp</a></li>
 <li>/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/src/Headless/<a class="el" href="CLIViewer_8cpp_source.html">CLIViewer.cpp</a></li>
-<li>/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/src/Headless/<a class="el" href="CLIViewer_8inl_source.html">CLIViewer.inl</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -814,7 +773,7 @@ Additional Inherited Members</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><b>Headless</b></li><li class="navelem"><a class="el" href="classRa_1_1Headless_1_1CLIViewer.html">CLIViewer</a></li>
-    <li class="footer">Generated on Thu Nov 17 2022 06:52:59 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Wed Apr 5 2023 15:07:33 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

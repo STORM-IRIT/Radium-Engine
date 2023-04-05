@@ -52,7 +52,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.4.0</span>
+   &#160;<span id="projectnumber">1.5.0</span>
    </div>
   </td>
  </tr>
@@ -114,77 +114,163 @@ $(document).ready(function(){initNavTree('DualQuaternion_8hpp_source.html',''); 
 <div class="contents">
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;Core/RaCore.hpp&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="Types_8hpp.html">Core/Types.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>Core {</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
-<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1DualQuaternion.html">   17</a></span>&#160;<span class="keyword">class </span><a class="code" href="classRa_1_1Core_1_1DualQuaternion.html">DualQuaternion</a></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;{</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;  <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    EIGEN_MAKE_ALIGNED_OPERATOR_NEW</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1DualQuaternion.html#a0ec075a8261a5bcfa1edab1f9e6cafe9">   24</a></span>&#160;    <span class="keyword">inline</span> <a class="code" href="classRa_1_1Core_1_1DualQuaternion.html#a0ec075a8261a5bcfa1edab1f9e6cafe9">DualQuaternion</a>() {}</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1DualQuaternion.html#ac5d767c7ed2acdace145f2079284e07a">   27</a></span>&#160;    <span class="keyword">inline</span> <a class="code" href="classRa_1_1Core_1_1DualQuaternion.html#ac5d767c7ed2acdace145f2079284e07a">DualQuaternion</a>( <span class="keyword">const</span> Quaternion&amp; q0, <span class="keyword">const</span> Quaternion&amp; qe ) : m_q0( q0 ), m_qe( qe ) {}</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keyword">explicit</span> <span class="keyword">inline</span> <a class="code" href="classRa_1_1Core_1_1DualQuaternion.html#a0ec075a8261a5bcfa1edab1f9e6cafe9">DualQuaternion</a>( <span class="keyword">const</span> Core::Transform&amp; tr );</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1DualQuaternion.html#a408e852288c01b48a5049688874ac6b7">   34</a></span>&#160;    <a class="code" href="classRa_1_1Core_1_1DualQuaternion.html#a408e852288c01b48a5049688874ac6b7">DualQuaternion</a>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1DualQuaternion.html">DualQuaternion</a>&amp; other ) = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <a class="code" href="classRa_1_1Core_1_1DualQuaternion.html">DualQuaternion</a>&amp; operator=( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1DualQuaternion.html">DualQuaternion</a>&amp; ) = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keyword">inline</span> <span class="keyword">const</span> Quaternion&amp; <a class="code" href="classRa_1_1Core_1_1DualQuaternion.html#ab983ecae50eaae679eeafc8631d64d79">getQ0</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">void</span> setQ0( <span class="keyword">const</span> Quaternion&amp; q0 );</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keyword">inline</span> <span class="keyword">const</span> Quaternion&amp; getQe() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">void</span> setQe( <span class="keyword">const</span> Quaternion&amp; qe );</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keyword">inline</span> <a class="code" href="classRa_1_1Core_1_1DualQuaternion.html">DualQuaternion</a> <a class="code" href="classRa_1_1Core_1_1DualQuaternion.html#a70834820ecd19c022450a06ff0f665e8">operator+</a>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1DualQuaternion.html">DualQuaternion</a>&amp; other ) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keyword">inline</span> <a class="code" href="classRa_1_1Core_1_1DualQuaternion.html">DualQuaternion</a> operator*( Scalar scalar ) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keyword">inline</span> <a class="code" href="classRa_1_1Core_1_1DualQuaternion.html">DualQuaternion</a>&amp; operator+=( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1DualQuaternion.html">DualQuaternion</a>&amp; other );</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keyword">inline</span> <a class="code" href="classRa_1_1Core_1_1DualQuaternion.html">DualQuaternion</a>&amp; operator*=( Scalar scalar );</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="classRa_1_1Core_1_1DualQuaternion.html#a0e9fbf03265fb5dd5a4c390503a1cb36">setFromTransform</a>( <span class="keyword">const</span> Transform&amp; t );</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keyword">inline</span> Transform <a class="code" href="classRa_1_1Core_1_1DualQuaternion.html#a6ea4938479b4cf3e98e7c91386987071">getTransform</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="classRa_1_1Core_1_1DualQuaternion.html#aac90a90e6f101b43c2dc8e304f1ff186">normalize</a>();</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keyword">inline</span> Vector3 <a class="code" href="classRa_1_1Core_1_1DualQuaternion.html#a2b5cdd730d414ff7fd5e3a391ad32572">transform</a>( <span class="keyword">const</span> Vector3&amp; p ) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keyword">inline</span> Vector3 <a class="code" href="classRa_1_1Core_1_1DualQuaternion.html#aba5d1a3846359656848eb27a5a6f2126">rotate</a>( <span class="keyword">const</span> Vector3&amp; p ) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keyword">inline</span> Vector3 <a class="code" href="classRa_1_1Core_1_1DualQuaternion.html#ab0d4d7d13f5614050efcdeb1874d2d07">translate</a>( <span class="keyword">const</span> Vector3&amp; p ) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;  <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    Quaternion m_q0;</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    Quaternion m_qe;</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;};</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="keyword">inline</span> <a class="code" href="classRa_1_1Core_1_1DualQuaternion.html">DualQuaternion</a> operator*( Scalar scalar, <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1DualQuaternion.html">DualQuaternion</a>&amp; dq );</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;} <span class="comment">// namespace Core</span></div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;} <span class="comment">// namespace Ra</span></div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="preprocessor">#include &lt;Core/Math/DualQuaternion.inl&gt;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;Core/Math/LinearAlgebra.hpp&gt;</span> <span class="comment">// Quaternion operators</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;Core/RaCore.hpp&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="Types_8hpp.html">Core/Types.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>Core {</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1DualQuaternion.html">   18</a></span>&#160;<span class="keyword">class </span><a class="code" href="classRa_1_1Core_1_1DualQuaternion.html">DualQuaternion</a></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;{</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;  <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    EIGEN_MAKE_ALIGNED_OPERATOR_NEW</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1DualQuaternion.html#a0ec075a8261a5bcfa1edab1f9e6cafe9">   25</a></span>&#160;    <span class="keyword">inline</span> <a class="code" href="classRa_1_1Core_1_1DualQuaternion.html#a0ec075a8261a5bcfa1edab1f9e6cafe9">DualQuaternion</a>() {}</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1DualQuaternion.html#ac5d767c7ed2acdace145f2079284e07a">   28</a></span>&#160;    <span class="keyword">inline</span> <a class="code" href="classRa_1_1Core_1_1DualQuaternion.html#ac5d767c7ed2acdace145f2079284e07a">DualQuaternion</a>( <span class="keyword">const</span> Quaternion&amp; q0, <span class="keyword">const</span> Quaternion&amp; qe ) : m_q0( q0 ), m_qe( qe ) {}</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keyword">explicit</span> <span class="keyword">inline</span> <a class="code" href="classRa_1_1Core_1_1DualQuaternion.html#a0ec075a8261a5bcfa1edab1f9e6cafe9">DualQuaternion</a>( <span class="keyword">const</span> Core::Transform&amp; tr );</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1DualQuaternion.html#a408e852288c01b48a5049688874ac6b7">   35</a></span>&#160;    <a class="code" href="classRa_1_1Core_1_1DualQuaternion.html#a408e852288c01b48a5049688874ac6b7">DualQuaternion</a>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1DualQuaternion.html">DualQuaternion</a>&amp; other )      = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <a class="code" href="classRa_1_1Core_1_1DualQuaternion.html">DualQuaternion</a>&amp; operator=( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1DualQuaternion.html">DualQuaternion</a>&amp; ) = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keyword">inline</span> <span class="keyword">const</span> Quaternion&amp; <a class="code" href="classRa_1_1Core_1_1DualQuaternion.html#ab983ecae50eaae679eeafc8631d64d79">getQ0</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">void</span> setQ0( <span class="keyword">const</span> Quaternion&amp; q0 );</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keyword">inline</span> <span class="keyword">const</span> Quaternion&amp; getQe() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">void</span> setQe( <span class="keyword">const</span> Quaternion&amp; qe );</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keyword">inline</span> <a class="code" href="classRa_1_1Core_1_1DualQuaternion.html">DualQuaternion</a> <a class="code" href="classRa_1_1Core_1_1DualQuaternion.html#a70834820ecd19c022450a06ff0f665e8">operator+</a>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1DualQuaternion.html">DualQuaternion</a>&amp; other ) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keyword">inline</span> <a class="code" href="classRa_1_1Core_1_1DualQuaternion.html">DualQuaternion</a> operator*( Scalar scalar ) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keyword">inline</span> <a class="code" href="classRa_1_1Core_1_1DualQuaternion.html">DualQuaternion</a>&amp; operator+=( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1DualQuaternion.html">DualQuaternion</a>&amp; other );</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keyword">inline</span> <a class="code" href="classRa_1_1Core_1_1DualQuaternion.html">DualQuaternion</a>&amp; operator*=( Scalar scalar );</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="classRa_1_1Core_1_1DualQuaternion.html#a0e9fbf03265fb5dd5a4c390503a1cb36">setFromTransform</a>( <span class="keyword">const</span> Transform&amp; t );</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keyword">inline</span> Transform <a class="code" href="classRa_1_1Core_1_1DualQuaternion.html#a6ea4938479b4cf3e98e7c91386987071">getTransform</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="classRa_1_1Core_1_1DualQuaternion.html#aac90a90e6f101b43c2dc8e304f1ff186">normalize</a>();</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keyword">inline</span> Vector3 <a class="code" href="classRa_1_1Core_1_1DualQuaternion.html#a2b5cdd730d414ff7fd5e3a391ad32572">transform</a>( <span class="keyword">const</span> Vector3&amp; p ) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keyword">inline</span> Vector3 <a class="code" href="classRa_1_1Core_1_1DualQuaternion.html#aba5d1a3846359656848eb27a5a6f2126">rotate</a>( <span class="keyword">const</span> Vector3&amp; p ) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keyword">inline</span> Vector3 <a class="code" href="classRa_1_1Core_1_1DualQuaternion.html#ab0d4d7d13f5614050efcdeb1874d2d07">translate</a>( <span class="keyword">const</span> Vector3&amp; p ) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;  <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    Quaternion m_q0;</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    Quaternion m_qe;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;};</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="keyword">inline</span> <a class="code" href="classRa_1_1Core_1_1DualQuaternion.html">DualQuaternion</a> operator*( Scalar scalar, <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1DualQuaternion.html">DualQuaternion</a>&amp; dq );</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
+<div class="line"><a name="l00086"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1DualQuaternion.html#ab983ecae50eaae679eeafc8631d64d79">   86</a></span>&#160;<span class="keyword">inline</span> <span class="keyword">const</span> Quaternion&amp; <a class="code" href="classRa_1_1Core_1_1DualQuaternion.html#ab983ecae50eaae679eeafc8631d64d79">DualQuaternion::getQ0</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="keywordflow">return</span> m_q0;</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;}</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160; </div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> DualQuaternion::setQ0( <span class="keyword">const</span> Quaternion&amp; q0 ) {</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    m_q0 = q0;</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;}</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="keyword">inline</span> <span class="keyword">const</span> Quaternion&amp; DualQuaternion::getQe()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    <span class="keywordflow">return</span> m_qe;</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;}</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; </div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> DualQuaternion::setQe( <span class="keyword">const</span> Quaternion&amp; qe ) {</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    m_qe = qe;</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;}</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160; </div>
+<div class="line"><a name="l00102"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1DualQuaternion.html#a70834820ecd19c022450a06ff0f665e8">  102</a></span>&#160;<span class="keyword">inline</span> <a class="code" href="classRa_1_1Core_1_1DualQuaternion.html">DualQuaternion</a> <a class="code" href="classRa_1_1Core_1_1DualQuaternion.html#a70834820ecd19c022450a06ff0f665e8">DualQuaternion::operator+</a>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1DualQuaternion.html">DualQuaternion</a>&amp; other )<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classRa_1_1Core_1_1DualQuaternion.html#a0ec075a8261a5bcfa1edab1f9e6cafe9">DualQuaternion</a>( m_q0 + other.m_q0, m_qe + other.m_qe );</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;}</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="keyword">inline</span> <a class="code" href="classRa_1_1Core_1_1DualQuaternion.html">DualQuaternion</a> DualQuaternion::operator*( Scalar scalar )<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classRa_1_1Core_1_1DualQuaternion.html#a0ec075a8261a5bcfa1edab1f9e6cafe9">DualQuaternion</a>( scalar * m_q0, scalar * m_qe );</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;}</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160; </div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;<span class="keyword">inline</span> <a class="code" href="classRa_1_1Core_1_1DualQuaternion.html">DualQuaternion</a>&amp; DualQuaternion::operator+=( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1DualQuaternion.html">DualQuaternion</a>&amp; other ) {</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    *<span class="keyword">this</span> = *<span class="keyword">this</span> + other;</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;}</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160; </div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;<span class="keyword">inline</span> DualQuaternion&amp; DualQuaternion::operator*=( Scalar scalar ) {</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    *<span class="keyword">this</span> = *<span class="keyword">this</span> * scalar;</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;}</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160; </div>
+<div class="line"><a name="l00120"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1DualQuaternion.html#aac90a90e6f101b43c2dc8e304f1ff186">  120</a></span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="classRa_1_1Core_1_1DualQuaternion.html#aac90a90e6f101b43c2dc8e304f1ff186">DualQuaternion::normalize</a>() {</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    <span class="keyword">const</span> Scalar norm = m_q0.norm();</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    CORE_ASSERT( norm != 0, <span class="stringliteral">&quot;Normalizing a null quaternion.&quot;</span> );</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    m_q0 = m_q0 / norm;</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    m_qe = m_qe / norm;</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;}</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160; </div>
+<div class="line"><a name="l00127"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1DualQuaternion.html#a2b5cdd730d414ff7fd5e3a391ad32572">  127</a></span>&#160;<span class="keyword">inline</span> Vector3 <a class="code" href="classRa_1_1Core_1_1DualQuaternion.html#a2b5cdd730d414ff7fd5e3a391ad32572">DualQuaternion::transform</a>( <span class="keyword">const</span> Vector3&amp; p )<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    CORE_ASSERT( <a class="code" href="namespaceRa_1_1Core_1_1Math.html#a5d4492c5ddee7e4fa37dfdad0c4f8ba1">Ra::Core::Math::areApproxEqual</a>( m_q0.norm(), 1_ra ),</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;                 <span class="stringliteral">&quot;Dual quaternion not normalized&quot;</span> );</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classRa_1_1Core_1_1DualQuaternion.html#ab0d4d7d13f5614050efcdeb1874d2d07">translate</a>( <a class="code" href="classRa_1_1Core_1_1DualQuaternion.html#aba5d1a3846359656848eb27a5a6f2126">rotate</a>( p ) );</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;}</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160; </div>
+<div class="line"><a name="l00133"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1DualQuaternion.html#aba5d1a3846359656848eb27a5a6f2126">  133</a></span>&#160;<span class="keyword">inline</span> Vector3 <a class="code" href="classRa_1_1Core_1_1DualQuaternion.html#aba5d1a3846359656848eb27a5a6f2126">DualQuaternion::rotate</a>( <span class="keyword">const</span> Vector3&amp; p )<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    CORE_ASSERT( <a class="code" href="namespaceRa_1_1Core_1_1Math.html#a5d4492c5ddee7e4fa37dfdad0c4f8ba1">Ra::Core::Math::areApproxEqual</a>( m_q0.norm(), 1_ra ),</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;                 <span class="stringliteral">&quot;Dual quaternion not normalized&quot;</span> );</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    <span class="keywordflow">return</span> m_q0.toRotationMatrix() * p;</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;}</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160; </div>
+<div class="line"><a name="l00139"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1DualQuaternion.html#ab0d4d7d13f5614050efcdeb1874d2d07">  139</a></span>&#160;<span class="keyword">inline</span> Vector3 <a class="code" href="classRa_1_1Core_1_1DualQuaternion.html#ab0d4d7d13f5614050efcdeb1874d2d07">DualQuaternion::translate</a>( <span class="keyword">const</span> Vector3&amp; p )<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;    Vector3 v0 = m_q0.vec();</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;    Vector3 ve = m_qe.vec();</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;    <span class="keywordflow">return</span> p + ( ( ve * m_q0.w() - v0 * m_qe.w() + v0.cross( ve ) ) * 2_ra );</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;}</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160; </div>
+<div class="line"><a name="l00145"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1DualQuaternion.html#a8093cac96392285e4c604e2a9ad36961">  145</a></span>&#160;<span class="keyword">inline</span> <a class="code" href="classRa_1_1Core_1_1DualQuaternion.html#a0ec075a8261a5bcfa1edab1f9e6cafe9">DualQuaternion::DualQuaternion</a>( <span class="keyword">const</span> Core::Transform&amp; tr ) {</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;    <a class="code" href="classRa_1_1Core_1_1DualQuaternion.html#a0e9fbf03265fb5dd5a4c390503a1cb36">setFromTransform</a>( tr );</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;}</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160; </div>
+<div class="line"><a name="l00149"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1DualQuaternion.html#a6ea4938479b4cf3e98e7c91386987071">  149</a></span>&#160;<span class="keyword">inline</span> Transform <a class="code" href="classRa_1_1Core_1_1DualQuaternion.html#a6ea4938479b4cf3e98e7c91386987071">DualQuaternion::getTransform</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;    <span class="comment">// Assume the dual quat is normalized.</span></div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;    CORE_ASSERT( <a class="code" href="namespaceRa_1_1Core_1_1Math.html#a5d4492c5ddee7e4fa37dfdad0c4f8ba1">Ra::Core::Math::areApproxEqual</a>( m_q0.norm(), 1_ra ),</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;                 <span class="stringliteral">&quot;Dual quaternion not normalized&quot;</span> );</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160; </div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;    Transform result;</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;    result.linear()      = m_q0.toRotationMatrix();</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;    result.translation() = ( 2_ra * m_q0 * m_qe.conjugate() ).vec();</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;    <span class="keywordflow">return</span> result;</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;}</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160; </div>
+<div class="line"><a name="l00160"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1DualQuaternion.html#a0e9fbf03265fb5dd5a4c390503a1cb36">  160</a></span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="classRa_1_1Core_1_1DualQuaternion.html#a0e9fbf03265fb5dd5a4c390503a1cb36">DualQuaternion::setFromTransform</a>( <span class="keyword">const</span> Transform&amp; t ) {</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;    m_q0                = Quaternion( t.rotation() );</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;    Core::Vector4 trans = Core::Vector4::Zero();</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;    trans.head&lt;3&gt;()     = t.translation();</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;    m_qe                = 0.5f * Quaternion( trans ) * m_q0;</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;}</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160; </div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;<span class="keyword">inline</span> <a class="code" href="classRa_1_1Core_1_1DualQuaternion.html">DualQuaternion</a> operator*( Scalar scalar, <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1DualQuaternion.html">DualQuaternion</a>&amp; dq ) {</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;    <span class="keywordflow">return</span> dq * scalar;</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;}</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160; </div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;} <span class="comment">// namespace Core</span></div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;} <span class="comment">// namespace Ra</span></div>
 <div class="ttc" id="aTypes_8hpp_html"><div class="ttname"><a href="Types_8hpp.html">Types.hpp</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1DualQuaternion_html"><div class="ttname"><a href="classRa_1_1Core_1_1DualQuaternion.html">Ra::Core::DualQuaternion</a></div><div class="ttdef"><b>Definition:</b> <a href="DualQuaternion_8hpp_source.html#l00017">DualQuaternion.hpp:18</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1DualQuaternion_html_a0e9fbf03265fb5dd5a4c390503a1cb36"><div class="ttname"><a href="classRa_1_1Core_1_1DualQuaternion.html#a0e9fbf03265fb5dd5a4c390503a1cb36">Ra::Core::DualQuaternion::setFromTransform</a></div><div class="ttdeci">void setFromTransform(const Transform &amp;t)</div><div class="ttdoc">Other methods.</div><div class="ttdef"><b>Definition:</b> <a href="DualQuaternion_8inl_source.html#l00082">DualQuaternion.inl:82</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1DualQuaternion_html_a0ec075a8261a5bcfa1edab1f9e6cafe9"><div class="ttname"><a href="classRa_1_1Core_1_1DualQuaternion.html#a0ec075a8261a5bcfa1edab1f9e6cafe9">Ra::Core::DualQuaternion::DualQuaternion</a></div><div class="ttdeci">EIGEN_MAKE_ALIGNED_OPERATOR_NEW DualQuaternion()</div><div class="ttdoc">Construct an uninitialized dual quaternion.</div><div class="ttdef"><b>Definition:</b> <a href="DualQuaternion_8hpp_source.html#l00024">DualQuaternion.hpp:24</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1DualQuaternion_html_a2b5cdd730d414ff7fd5e3a391ad32572"><div class="ttname"><a href="classRa_1_1Core_1_1DualQuaternion.html#a2b5cdd730d414ff7fd5e3a391ad32572">Ra::Core::DualQuaternion::transform</a></div><div class="ttdeci">Vector3 transform(const Vector3 &amp;p) const</div><div class="ttdef"><b>Definition:</b> <a href="DualQuaternion_8inl_source.html#l00049">DualQuaternion.inl:49</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1DualQuaternion_html"><div class="ttname"><a href="classRa_1_1Core_1_1DualQuaternion.html">Ra::Core::DualQuaternion</a></div><div class="ttdef"><b>Definition:</b> <a href="DualQuaternion_8hpp_source.html#l00018">DualQuaternion.hpp:19</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1DualQuaternion_html_a0e9fbf03265fb5dd5a4c390503a1cb36"><div class="ttname"><a href="classRa_1_1Core_1_1DualQuaternion.html#a0e9fbf03265fb5dd5a4c390503a1cb36">Ra::Core::DualQuaternion::setFromTransform</a></div><div class="ttdeci">void setFromTransform(const Transform &amp;t)</div><div class="ttdoc">Other methods.</div><div class="ttdef"><b>Definition:</b> <a href="DualQuaternion_8hpp_source.html#l00160">DualQuaternion.hpp:160</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1DualQuaternion_html_a0ec075a8261a5bcfa1edab1f9e6cafe9"><div class="ttname"><a href="classRa_1_1Core_1_1DualQuaternion.html#a0ec075a8261a5bcfa1edab1f9e6cafe9">Ra::Core::DualQuaternion::DualQuaternion</a></div><div class="ttdeci">EIGEN_MAKE_ALIGNED_OPERATOR_NEW DualQuaternion()</div><div class="ttdoc">Construct an uninitialized dual quaternion.</div><div class="ttdef"><b>Definition:</b> <a href="DualQuaternion_8hpp_source.html#l00025">DualQuaternion.hpp:25</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1DualQuaternion_html_a2b5cdd730d414ff7fd5e3a391ad32572"><div class="ttname"><a href="classRa_1_1Core_1_1DualQuaternion.html#a2b5cdd730d414ff7fd5e3a391ad32572">Ra::Core::DualQuaternion::transform</a></div><div class="ttdeci">Vector3 transform(const Vector3 &amp;p) const</div><div class="ttdef"><b>Definition:</b> <a href="DualQuaternion_8hpp_source.html#l00127">DualQuaternion.hpp:127</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1DualQuaternion_html_a408e852288c01b48a5049688874ac6b7"><div class="ttname"><a href="classRa_1_1Core_1_1DualQuaternion.html#a408e852288c01b48a5049688874ac6b7">Ra::Core::DualQuaternion::DualQuaternion</a></div><div class="ttdeci">DualQuaternion(const DualQuaternion &amp;other)=default</div><div class="ttdoc">Default copy constructor and assignment operator.</div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1DualQuaternion_html_a6ea4938479b4cf3e98e7c91386987071"><div class="ttname"><a href="classRa_1_1Core_1_1DualQuaternion.html#a6ea4938479b4cf3e98e7c91386987071">Ra::Core::DualQuaternion::getTransform</a></div><div class="ttdeci">Transform getTransform() const</div><div class="ttdoc">Return the corresponding rigid transform. Assume a unit dual quaternion.</div><div class="ttdef"><b>Definition:</b> <a href="DualQuaternion_8inl_source.html#l00071">DualQuaternion.inl:71</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1DualQuaternion_html_a70834820ecd19c022450a06ff0f665e8"><div class="ttname"><a href="classRa_1_1Core_1_1DualQuaternion.html#a70834820ecd19c022450a06ff0f665e8">Ra::Core::DualQuaternion::operator+</a></div><div class="ttdeci">DualQuaternion operator+(const DualQuaternion &amp;other) const</div><div class="ttdoc">Operators.</div><div class="ttdef"><b>Definition:</b> <a href="DualQuaternion_8inl_source.html#l00024">DualQuaternion.inl:24</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1DualQuaternion_html_aac90a90e6f101b43c2dc8e304f1ff186"><div class="ttname"><a href="classRa_1_1Core_1_1DualQuaternion.html#aac90a90e6f101b43c2dc8e304f1ff186">Ra::Core::DualQuaternion::normalize</a></div><div class="ttdeci">void normalize()</div><div class="ttdef"><b>Definition:</b> <a href="DualQuaternion_8inl_source.html#l00042">DualQuaternion.inl:42</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1DualQuaternion_html_ab0d4d7d13f5614050efcdeb1874d2d07"><div class="ttname"><a href="classRa_1_1Core_1_1DualQuaternion.html#ab0d4d7d13f5614050efcdeb1874d2d07">Ra::Core::DualQuaternion::translate</a></div><div class="ttdeci">Vector3 translate(const Vector3 &amp;p) const</div><div class="ttdoc">Apply only the translational part of the dual quaternion to the given vector.</div><div class="ttdef"><b>Definition:</b> <a href="DualQuaternion_8inl_source.html#l00061">DualQuaternion.inl:61</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1DualQuaternion_html_ab983ecae50eaae679eeafc8631d64d79"><div class="ttname"><a href="classRa_1_1Core_1_1DualQuaternion.html#ab983ecae50eaae679eeafc8631d64d79">Ra::Core::DualQuaternion::getQ0</a></div><div class="ttdeci">const Quaternion &amp; getQ0() const</div><div class="ttdoc">Getters and setters.</div><div class="ttdef"><b>Definition:</b> <a href="DualQuaternion_8inl_source.html#l00008">DualQuaternion.inl:8</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1DualQuaternion_html_aba5d1a3846359656848eb27a5a6f2126"><div class="ttname"><a href="classRa_1_1Core_1_1DualQuaternion.html#aba5d1a3846359656848eb27a5a6f2126">Ra::Core::DualQuaternion::rotate</a></div><div class="ttdeci">Vector3 rotate(const Vector3 &amp;p) const</div><div class="ttdoc">Apply only the rotational part of the dual quaternion to the given vector.</div><div class="ttdef"><b>Definition:</b> <a href="DualQuaternion_8inl_source.html#l00055">DualQuaternion.inl:55</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1DualQuaternion_html_ac5d767c7ed2acdace145f2079284e07a"><div class="ttname"><a href="classRa_1_1Core_1_1DualQuaternion.html#ac5d767c7ed2acdace145f2079284e07a">Ra::Core::DualQuaternion::DualQuaternion</a></div><div class="ttdeci">DualQuaternion(const Quaternion &amp;q0, const Quaternion &amp;qe)</div><div class="ttdoc">Construct a dual-quaternion from two quaternions.</div><div class="ttdef"><b>Definition:</b> <a href="DualQuaternion_8hpp_source.html#l00027">DualQuaternion.hpp:27</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1DualQuaternion_html_a6ea4938479b4cf3e98e7c91386987071"><div class="ttname"><a href="classRa_1_1Core_1_1DualQuaternion.html#a6ea4938479b4cf3e98e7c91386987071">Ra::Core::DualQuaternion::getTransform</a></div><div class="ttdeci">Transform getTransform() const</div><div class="ttdoc">Return the corresponding rigid transform. Assume a unit dual quaternion.</div><div class="ttdef"><b>Definition:</b> <a href="DualQuaternion_8hpp_source.html#l00149">DualQuaternion.hpp:149</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1DualQuaternion_html_a70834820ecd19c022450a06ff0f665e8"><div class="ttname"><a href="classRa_1_1Core_1_1DualQuaternion.html#a70834820ecd19c022450a06ff0f665e8">Ra::Core::DualQuaternion::operator+</a></div><div class="ttdeci">DualQuaternion operator+(const DualQuaternion &amp;other) const</div><div class="ttdoc">Operators.</div><div class="ttdef"><b>Definition:</b> <a href="DualQuaternion_8hpp_source.html#l00102">DualQuaternion.hpp:102</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1DualQuaternion_html_aac90a90e6f101b43c2dc8e304f1ff186"><div class="ttname"><a href="classRa_1_1Core_1_1DualQuaternion.html#aac90a90e6f101b43c2dc8e304f1ff186">Ra::Core::DualQuaternion::normalize</a></div><div class="ttdeci">void normalize()</div><div class="ttdef"><b>Definition:</b> <a href="DualQuaternion_8hpp_source.html#l00120">DualQuaternion.hpp:120</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1DualQuaternion_html_ab0d4d7d13f5614050efcdeb1874d2d07"><div class="ttname"><a href="classRa_1_1Core_1_1DualQuaternion.html#ab0d4d7d13f5614050efcdeb1874d2d07">Ra::Core::DualQuaternion::translate</a></div><div class="ttdeci">Vector3 translate(const Vector3 &amp;p) const</div><div class="ttdoc">Apply only the translational part of the dual quaternion to the given vector.</div><div class="ttdef"><b>Definition:</b> <a href="DualQuaternion_8hpp_source.html#l00139">DualQuaternion.hpp:139</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1DualQuaternion_html_ab983ecae50eaae679eeafc8631d64d79"><div class="ttname"><a href="classRa_1_1Core_1_1DualQuaternion.html#ab983ecae50eaae679eeafc8631d64d79">Ra::Core::DualQuaternion::getQ0</a></div><div class="ttdeci">const Quaternion &amp; getQ0() const</div><div class="ttdoc">Getters and setters.</div><div class="ttdef"><b>Definition:</b> <a href="DualQuaternion_8hpp_source.html#l00086">DualQuaternion.hpp:86</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1DualQuaternion_html_aba5d1a3846359656848eb27a5a6f2126"><div class="ttname"><a href="classRa_1_1Core_1_1DualQuaternion.html#aba5d1a3846359656848eb27a5a6f2126">Ra::Core::DualQuaternion::rotate</a></div><div class="ttdeci">Vector3 rotate(const Vector3 &amp;p) const</div><div class="ttdoc">Apply only the rotational part of the dual quaternion to the given vector.</div><div class="ttdef"><b>Definition:</b> <a href="DualQuaternion_8hpp_source.html#l00133">DualQuaternion.hpp:133</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1DualQuaternion_html_ac5d767c7ed2acdace145f2079284e07a"><div class="ttname"><a href="classRa_1_1Core_1_1DualQuaternion.html#ac5d767c7ed2acdace145f2079284e07a">Ra::Core::DualQuaternion::DualQuaternion</a></div><div class="ttdeci">DualQuaternion(const Quaternion &amp;q0, const Quaternion &amp;qe)</div><div class="ttdoc">Construct a dual-quaternion from two quaternions.</div><div class="ttdef"><b>Definition:</b> <a href="DualQuaternion_8hpp_source.html#l00028">DualQuaternion.hpp:28</a></div></div>
+<div class="ttc" id="anamespaceRa_1_1Core_1_1Math_html_a5d4492c5ddee7e4fa37dfdad0c4f8ba1"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Math.html#a5d4492c5ddee7e4fa37dfdad0c4f8ba1">Ra::Core::Math::areApproxEqual</a></div><div class="ttdeci">std::enable_if&lt;!std::numeric_limits&lt; T &gt;::is_integer, bool &gt;::type areApproxEqual(T x, T y, T espilonBoostFactor=T(10))</div><div class="ttdoc">Compare two numbers such that |x-y| &lt; espilon*epsilonBoostFactor.</div><div class="ttdef"><b>Definition:</b> <a href="Math_8hpp_source.html#l00042">Math.hpp:42</a></div></div>
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdef"><b>Definition:</b> <a href="Cage_8cpp_source.html#l00003">Cage.cpp:3</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
@@ -192,7 +278,7 @@ $(document).ready(function(){initNavTree('DualQuaternion_8hpp_source.html',''); 
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_a1f42069ba95676f6b9abbd5065ccf6d.html">Math</a></li><li class="navelem"><b>DualQuaternion.hpp</b></li>
-    <li class="footer">Generated on Thu Nov 17 2022 06:52:58 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Wed Apr 5 2023 15:07:31 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

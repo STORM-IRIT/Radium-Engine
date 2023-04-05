@@ -8,5 +8,6 @@ var classRa_1_1Gui_1_1ParameterSetEditor =
     [ "operator=", "classRa_1_1Gui_1_1ParameterSetEditor.html#a3b861847508b9a4a9944352fd6698a2e", null ],
     [ "parameterModified", "classRa_1_1Gui_1_1ParameterSetEditor.html#a3c4b1a96671fb3d0dfa6eb3541792dcf", null ],
     [ "setupFromParameters", "classRa_1_1Gui_1_1ParameterSetEditor.html#ab9d18d7b290d3ada273516c162280451", null ],
-    [ "showUnspecified", "classRa_1_1Gui_1_1ParameterSetEditor.html#ab2c692612c3266567c0d796ad7139f5b", null ]
+    [ "showUnspecified", "classRa_1_1Gui_1_1ParameterSetEditor.html#ab2c692612c3266567c0d796ad7139f5b", null ],
+    [ "internal::RenderParameterUiBuilder", "classRa_1_1Gui_1_1ParameterSetEditor.html#a19f699cf20e71b63fd5e8cb755fce35f", null ]
 ];

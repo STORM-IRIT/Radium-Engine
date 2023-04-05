@@ -52,7 +52,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.4.0</span>
+   &#160;<span id="projectnumber">1.5.0</span>
    </div>
   </td>
  </tr>
@@ -119,29 +119,24 @@ $(document).ready(function(){initNavTree('SpotLight_8cpp_source.html',''); initR
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>Engine {</div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span>Scene {</div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;SpotLight::SpotLight( Entity* entity, <span class="keyword">const</span> std::string&amp; name ) :</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;    Light( entity, Light::SPOT, name ) {}</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
-<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1SpotLight.html#af590a75472c842932ad2122ac2288be1">   10</a></span>&#160;<span class="keywordtype">void</span> SpotLight::getRenderParameters( <a class="code" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html">Data::RenderParameters</a>&amp; params )<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    Light::getRenderParameters( params );</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    params.<a class="code" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a5016e83a8e248b8c990f8ae90643f32b">addParameter</a>( <span class="stringliteral">&quot;light.spot.position&quot;</span>, m_position );</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    params.<a class="code" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a5016e83a8e248b8c990f8ae90643f32b">addParameter</a>( <span class="stringliteral">&quot;light.spot.direction&quot;</span>, m_direction );</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    params.<a class="code" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a5016e83a8e248b8c990f8ae90643f32b">addParameter</a>( <span class="stringliteral">&quot;light.spot.innerAngle&quot;</span>, m_innerAngle );</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    params.<a class="code" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a5016e83a8e248b8c990f8ae90643f32b">addParameter</a>( <span class="stringliteral">&quot;light.spot.outerAngle&quot;</span>, m_outerAngle );</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    params.<a class="code" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a5016e83a8e248b8c990f8ae90643f32b">addParameter</a>( <span class="stringliteral">&quot;light.spot.attenuation.constant&quot;</span>, m_attenuation.constant );</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    params.<a class="code" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a5016e83a8e248b8c990f8ae90643f32b">addParameter</a>( <span class="stringliteral">&quot;light.spot.attenuation.linear&quot;</span>, m_attenuation.linear );</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    params.<a class="code" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a5016e83a8e248b8c990f8ae90643f32b">addParameter</a>( <span class="stringliteral">&quot;light.spot.attenuation.quadratic&quot;</span>, m_attenuation.quadratic );</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;}</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1SpotLight.html#a100abc65da2878bf821643ddecaa308c">   22</a></span>&#160;std::string SpotLight::getShaderInclude()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keywordflow">return</span> <span class="stringliteral">&quot;Spot&quot;</span>;</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;}</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;} <span class="comment">// namespace Scene</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;} <span class="comment">// namespace Engine</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;} <span class="comment">// namespace Ra</span></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1RenderParameters_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html">Ra::Engine::Data::RenderParameters</a></div><div class="ttdef"><b>Definition:</b> <a href="RenderParameters_8hpp_source.html#l00028">RenderParameters.hpp:29</a></div></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1RenderParameters_html_a5016e83a8e248b8c990f8ae90643f32b"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a5016e83a8e248b8c990f8ae90643f32b">Ra::Engine::Data::RenderParameters::addParameter</a></div><div class="ttdeci">void addParameter(const std::string &amp;name, bool value)</div><div class="ttdef"><b>Definition:</b> <a href="RenderParameters_8cpp_source.html#l00051">RenderParameters.cpp:51</a></div></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;    Light( entity, Light::SPOT, name ) {</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;    getRenderParameters().addParameter( <span class="stringliteral">&quot;light.spot.position&quot;</span>, m_position );</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    getRenderParameters().addParameter( <span class="stringliteral">&quot;light.spot.direction&quot;</span>, m_direction );</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    getRenderParameters().addParameter( <span class="stringliteral">&quot;light.spot.innerAngle&quot;</span>, m_innerAngle );</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    getRenderParameters().addParameter( <span class="stringliteral">&quot;light.spot.outerAngle&quot;</span>, m_outerAngle );</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    getRenderParameters().addParameter( <span class="stringliteral">&quot;light.spot.attenuation.constant&quot;</span>, m_attenuation.constant );</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    getRenderParameters().addParameter( <span class="stringliteral">&quot;light.spot.attenuation.linear&quot;</span>, m_attenuation.linear );</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    getRenderParameters().addParameter( <span class="stringliteral">&quot;light.spot.attenuation.quadratic&quot;</span>,</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;                                        m_attenuation.quadratic );</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;}</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1SpotLight.html#a100abc65da2878bf821643ddecaa308c">   19</a></span>&#160;std::string SpotLight::getShaderInclude()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keywordflow">return</span> <span class="stringliteral">&quot;Spot&quot;</span>;</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;}</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;} <span class="comment">// namespace Scene</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;} <span class="comment">// namespace Engine</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;} <span class="comment">// namespace Ra</span></div>
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdef"><b>Definition:</b> <a href="Cage_8cpp_source.html#l00003">Cage.cpp:3</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
@@ -149,7 +144,7 @@ $(document).ready(function(){initNavTree('SpotLight_8cpp_source.html',''); initR
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_89bb22796d297d82305d45a42e7934d2.html">Scene</a></li><li class="navelem"><b>SpotLight.cpp</b></li>
-    <li class="footer">Generated on Thu Nov 17 2022 06:52:58 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Wed Apr 5 2023 15:07:31 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

@@ -8,7 +8,6 @@ var dir_7788c5f37a81918c772c9185f759a19f =
     [ "AssimpFileLoader.hpp", "AssimpFileLoader_8hpp_source.html", null ],
     [ "AssimpGeometryDataLoader.cpp", "AssimpGeometryDataLoader_8cpp_source.html", null ],
     [ "AssimpGeometryDataLoader.hpp", "AssimpGeometryDataLoader_8hpp_source.html", null ],
-    [ "AssimpGeometryDataLoader.inl", "AssimpGeometryDataLoader_8inl_source.html", null ],
     [ "AssimpHandleDataLoader.cpp", "AssimpHandleDataLoader_8cpp_source.html", null ],
     [ "AssimpHandleDataLoader.hpp", "AssimpHandleDataLoader_8hpp_source.html", null ],
     [ "AssimpLightDataLoader.cpp", "AssimpLightDataLoader_8cpp_source.html", null ],

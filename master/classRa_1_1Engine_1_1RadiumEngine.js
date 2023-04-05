@@ -31,6 +31,7 @@ var classRa_1_1Engine_1_1RadiumEngine =
     [ "registerFileLoader", "classRa_1_1Engine_1_1RadiumEngine.html#a90204861f4fe8ed044208eb05695afe0", null ],
     [ "registerSystem", "classRa_1_1Engine_1_1RadiumEngine.html#af93db44814bf4448267f84b8002c9d4d", null ],
     [ "releaseFile", "classRa_1_1Engine_1_1RadiumEngine.html#ad66028463fa0908bbd5859294967c73e", null ],
+    [ "removeGpuTask", "classRa_1_1Engine_1_1RadiumEngine.html#ab48e401ded045e3a1592c0d03604d207", null ],
     [ "resetTime", "classRa_1_1Engine_1_1RadiumEngine.html#a8888a6daf92a9d593c5b9392c11b2b75", null ],
     [ "runGpuTasks", "classRa_1_1Engine_1_1RadiumEngine.html#a64e514bd01c52fe4b8a67c570615ff06", null ],
     [ "setConstantTimeStep", "classRa_1_1Engine_1_1RadiumEngine.html#ad52558a6a92db22bb4e24eedd00705e0", null ],

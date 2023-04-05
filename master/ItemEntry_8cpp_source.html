@@ -52,7 +52,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.4.0</span>
+   &#160;<span id="projectnumber">1.5.0</span>
    </div>
   </td>
  </tr>
@@ -132,81 +132,75 @@ $(document).ready(function(){initNavTree('ItemEntry_8cpp_source.html',''); initR
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;        <span class="keywordflow">if</span> ( ent.isRoNode() ) {</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;            <span class="keywordflow">return</span> engine-&gt;getRenderObjectManager()-&gt;getRenderObject( ent.m_roIndex )-&gt;getName();</div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        }</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        <span class="keywordflow">else</span> <span class="keywordflow">if</span> ( ent.isComponentNode() ) {</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;            <span class="keywordflow">return</span> ent.m_component-&gt;getName();</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        }</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        <span class="keywordflow">else</span> <span class="keywordflow">if</span> ( ent.isEntityNode() ) {</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;            <span class="keywordflow">return</span> ent.m_entity-&gt;getName();</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        }</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    }</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keywordflow">return</span> <span class="stringliteral">&quot;Invalid Entry&quot;</span>;</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;}</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;std::vector&lt;Ra::Core::Utils::Index&gt; getItemROs( <span class="keyword">const</span> Engine::RadiumEngine* <span class="comment">/*engine*/</span>,</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;                                                <span class="keyword">const</span> ItemEntry&amp; ent ) {</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    std::vector&lt;Ra::Core::Utils::Index&gt; result;</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keywordflow">if</span> ( ent.isValid() ) {</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        <span class="keywordflow">if</span> ( ent.isRoNode() ) { result.push_back( ent.m_roIndex ); }</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        <span class="keywordflow">else</span> <span class="keywordflow">if</span> ( ent.isComponentNode() ) {</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;            result = ent.m_component-&gt;m_renderObjects;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        }</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        <span class="keywordflow">else</span> <span class="keywordflow">if</span> ( ent.isEntityNode() ) {</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;            <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; c : ent.m_entity-&gt;getComponents() ) {</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;                result.insert( result.end(), c-&gt;m_renderObjects.begin(), c-&gt;m_renderObjects.end() );</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;            }</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        }</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    }</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keywordflow">return</span> result;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;}</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
-<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="structRa_1_1Engine_1_1Scene_1_1ItemEntry.html#a4f2df708e8ee83f1bad37287d0a81916">   48</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="structRa_1_1Engine_1_1Scene_1_1ItemEntry.html#a4f2df708e8ee83f1bad37287d0a81916">ItemEntry::isValid</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    ON_DEBUG( <a class="code" href="structRa_1_1Engine_1_1Scene_1_1ItemEntry.html#a9673507f752d5efee0439afd0e52892b">checkConsistency</a>() );</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <a class="code" href="classRa_1_1Engine_1_1RadiumEngine.html">Engine::RadiumEngine</a>* engine = Engine::RadiumEngine::getInstance();</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="structRa_1_1Engine_1_1Scene_1_1ItemEntry.html#a98874996a9953735648c52d576339a99">m_entity</a> != <span class="keyword">nullptr</span>           <span class="comment">// It has an entity</span></div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;           &amp;&amp; engine-&gt;<a class="code" href="classRa_1_1Engine_1_1RadiumEngine.html#a2991b0dd7d8c14bfe19e775231036dee">getEntityManager</a>() <span class="comment">// Is entityManager up ?</span></div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;           &amp;&amp; engine-&gt;<a class="code" href="classRa_1_1Engine_1_1RadiumEngine.html#a2991b0dd7d8c14bfe19e775231036dee">getEntityManager</a>()-&gt;entityExists( <a class="code" href="structRa_1_1Engine_1_1Scene_1_1ItemEntry.html#a98874996a9953735648c52d576339a99">m_entity</a>-&gt;getName() ) <span class="comment">// The entity exists</span></div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;           &amp;&amp; ( ( !<a class="code" href="structRa_1_1Engine_1_1Scene_1_1ItemEntry.html#ad2fd60408dfc75b47ff7bec306d95cc4">isRoNode</a>() ||</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;                  engine-&gt;<a class="code" href="classRa_1_1Engine_1_1RadiumEngine.html#a4b46a72f340513061b9a5219a80d9bd6">getRenderObjectManager</a>()-&gt;exists( <a class="code" href="structRa_1_1Engine_1_1Scene_1_1ItemEntry.html#a29667eec05160fa0296216cdc38b06e0">m_roIndex</a> ) ) ); <span class="comment">// The RO exists</span></div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;}</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
-<div class="line"><a name="l00058"></a><span class="lineno"><a class="line" href="structRa_1_1Engine_1_1Scene_1_1ItemEntry.html#a71fb1e1af35480f50c21edb264149929">   58</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="structRa_1_1Engine_1_1Scene_1_1ItemEntry.html#a71fb1e1af35480f50c21edb264149929">ItemEntry::isSelectable</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <a class="code" href="classRa_1_1Engine_1_1RadiumEngine.html">Engine::RadiumEngine</a>* engine = Engine::RadiumEngine::getInstance();</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keywordflow">if</span> ( <a class="code" href="structRa_1_1Engine_1_1Scene_1_1ItemEntry.html#a98874996a9953735648c52d576339a99">m_entity</a>-&gt;getIndex() == SystemEntity::getInstance()-&gt;getIndex() ) { <span class="keywordflow">return</span> <span class="keyword">false</span>; }</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keywordflow">if</span> ( <a class="code" href="structRa_1_1Engine_1_1Scene_1_1ItemEntry.html#ad2fd60408dfc75b47ff7bec306d95cc4">isRoNode</a>() ) {</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">bool</span> isUI =</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;            engine-&gt;<a class="code" href="classRa_1_1Engine_1_1RadiumEngine.html#a4b46a72f340513061b9a5219a80d9bd6">getRenderObjectManager</a>()-&gt;getRenderObject( <a class="code" href="structRa_1_1Engine_1_1Scene_1_1ItemEntry.html#a29667eec05160fa0296216cdc38b06e0">m_roIndex</a> )-&gt;getType() ==</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;            Rendering::RenderObjectType::UI;</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">bool</span> isDebug =</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;            engine-&gt;<a class="code" href="classRa_1_1Engine_1_1RadiumEngine.html#a4b46a72f340513061b9a5219a80d9bd6">getRenderObjectManager</a>()-&gt;getRenderObject( <a class="code" href="structRa_1_1Engine_1_1Scene_1_1ItemEntry.html#a29667eec05160fa0296216cdc38b06e0">m_roIndex</a> )-&gt;getType() ==</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;            Rendering::RenderObjectType::Debug;</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        <span class="keywordflow">return</span> ( !( isUI || isDebug ) );</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    }</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;}</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;} <span class="comment">// namespace Scene</span></div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;} <span class="comment">// namespace Engine</span></div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;} <span class="comment">// namespace Ra</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        <span class="keywordflow">else</span> <span class="keywordflow">if</span> ( ent.isComponentNode() ) { <span class="keywordflow">return</span> ent.m_component-&gt;getName(); }</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;        <span class="keywordflow">else</span> <span class="keywordflow">if</span> ( ent.isEntityNode() ) { <span class="keywordflow">return</span> ent.m_entity-&gt;getName(); }</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    }</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keywordflow">return</span> <span class="stringliteral">&quot;Invalid Entry&quot;</span>;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;}</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;std::vector&lt;Ra::Core::Utils::Index&gt; getItemROs( <span class="keyword">const</span> Engine::RadiumEngine* <span class="comment">/*engine*/</span>,</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;                                                <span class="keyword">const</span> ItemEntry&amp; ent ) {</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    std::vector&lt;Ra::Core::Utils::Index&gt; result;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keywordflow">if</span> ( ent.isValid() ) {</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        <span class="keywordflow">if</span> ( ent.isRoNode() ) { result.push_back( ent.m_roIndex ); }</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        <span class="keywordflow">else</span> <span class="keywordflow">if</span> ( ent.isComponentNode() ) { result = ent.m_component-&gt;m_renderObjects; }</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        <span class="keywordflow">else</span> <span class="keywordflow">if</span> ( ent.isEntityNode() ) {</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;            <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; c : ent.m_entity-&gt;getComponents() ) {</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;                result.insert( result.end(), c-&gt;m_renderObjects.begin(), c-&gt;m_renderObjects.end() );</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;            }</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        }</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    }</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keywordflow">return</span> result;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;}</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
+<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="structRa_1_1Engine_1_1Scene_1_1ItemEntry.html#a4f2df708e8ee83f1bad37287d0a81916">   42</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="structRa_1_1Engine_1_1Scene_1_1ItemEntry.html#a4f2df708e8ee83f1bad37287d0a81916">ItemEntry::isValid</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    ON_DEBUG( <a class="code" href="structRa_1_1Engine_1_1Scene_1_1ItemEntry.html#a9673507f752d5efee0439afd0e52892b">checkConsistency</a>() );</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <a class="code" href="classRa_1_1Engine_1_1RadiumEngine.html">Engine::RadiumEngine</a>* engine = Engine::RadiumEngine::getInstance();</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="structRa_1_1Engine_1_1Scene_1_1ItemEntry.html#a98874996a9953735648c52d576339a99">m_entity</a> != <span class="keyword">nullptr</span>           <span class="comment">// It has an entity</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;           &amp;&amp; engine-&gt;<a class="code" href="classRa_1_1Engine_1_1RadiumEngine.html#a2991b0dd7d8c14bfe19e775231036dee">getEntityManager</a>() <span class="comment">// Is entityManager up ?</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;           &amp;&amp; engine-&gt;<a class="code" href="classRa_1_1Engine_1_1RadiumEngine.html#a2991b0dd7d8c14bfe19e775231036dee">getEntityManager</a>()-&gt;entityExists( <a class="code" href="structRa_1_1Engine_1_1Scene_1_1ItemEntry.html#a98874996a9953735648c52d576339a99">m_entity</a>-&gt;getName() ) <span class="comment">// The entity exists</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;           &amp;&amp; ( ( !<a class="code" href="structRa_1_1Engine_1_1Scene_1_1ItemEntry.html#ad2fd60408dfc75b47ff7bec306d95cc4">isRoNode</a>() ||</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;                  engine-&gt;<a class="code" href="classRa_1_1Engine_1_1RadiumEngine.html#a4b46a72f340513061b9a5219a80d9bd6">getRenderObjectManager</a>()-&gt;exists( <a class="code" href="structRa_1_1Engine_1_1Scene_1_1ItemEntry.html#a29667eec05160fa0296216cdc38b06e0">m_roIndex</a> ) ) ); <span class="comment">// The RO exists</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;}</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
+<div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="structRa_1_1Engine_1_1Scene_1_1ItemEntry.html#a71fb1e1af35480f50c21edb264149929">   52</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="structRa_1_1Engine_1_1Scene_1_1ItemEntry.html#a71fb1e1af35480f50c21edb264149929">ItemEntry::isSelectable</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <a class="code" href="classRa_1_1Engine_1_1RadiumEngine.html">Engine::RadiumEngine</a>* engine = Engine::RadiumEngine::getInstance();</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keywordflow">if</span> ( <a class="code" href="structRa_1_1Engine_1_1Scene_1_1ItemEntry.html#a98874996a9953735648c52d576339a99">m_entity</a>-&gt;getIndex() == SystemEntity::getInstance()-&gt;getIndex() ) { <span class="keywordflow">return</span> <span class="keyword">false</span>; }</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keywordflow">if</span> ( <a class="code" href="structRa_1_1Engine_1_1Scene_1_1ItemEntry.html#ad2fd60408dfc75b47ff7bec306d95cc4">isRoNode</a>() ) {</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">bool</span> isUI =</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;            engine-&gt;<a class="code" href="classRa_1_1Engine_1_1RadiumEngine.html#a4b46a72f340513061b9a5219a80d9bd6">getRenderObjectManager</a>()-&gt;getRenderObject( <a class="code" href="structRa_1_1Engine_1_1Scene_1_1ItemEntry.html#a29667eec05160fa0296216cdc38b06e0">m_roIndex</a> )-&gt;getType() ==</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;            Rendering::RenderObjectType::UI;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">bool</span> isDebug =</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;            engine-&gt;<a class="code" href="classRa_1_1Engine_1_1RadiumEngine.html#a4b46a72f340513061b9a5219a80d9bd6">getRenderObjectManager</a>()-&gt;getRenderObject( <a class="code" href="structRa_1_1Engine_1_1Scene_1_1ItemEntry.html#a29667eec05160fa0296216cdc38b06e0">m_roIndex</a> )-&gt;getType() ==</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;            Rendering::RenderObjectType::Debug;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        <span class="keywordflow">return</span> ( !( isUI || isDebug ) );</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    }</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;}</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;} <span class="comment">// namespace Scene</span></div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;} <span class="comment">// namespace Engine</span></div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;} <span class="comment">// namespace Ra</span></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1RadiumEngine_html"><div class="ttname"><a href="classRa_1_1Engine_1_1RadiumEngine.html">Ra::Engine::RadiumEngine</a></div><div class="ttdef"><b>Definition:</b> <a href="RadiumEngine_8hpp_source.html#l00049">RadiumEngine.hpp:50</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1RadiumEngine_html_a2991b0dd7d8c14bfe19e775231036dee"><div class="ttname"><a href="classRa_1_1Engine_1_1RadiumEngine.html#a2991b0dd7d8c14bfe19e775231036dee">Ra::Engine::RadiumEngine::getEntityManager</a></div><div class="ttdeci">Scene::EntityManager * getEntityManager() const</div><div class="ttdef"><b>Definition:</b> <a href="RadiumEngine_8cpp_source.html#l00285">RadiumEngine.cpp:285</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1RadiumEngine_html_a4b46a72f340513061b9a5219a80d9bd6"><div class="ttname"><a href="classRa_1_1Engine_1_1RadiumEngine.html#a4b46a72f340513061b9a5219a80d9bd6">Ra::Engine::RadiumEngine::getRenderObjectManager</a></div><div class="ttdeci">Rendering::RenderObjectManager * getRenderObjectManager() const</div><div class="ttdoc">Manager getters.</div><div class="ttdef"><b>Definition:</b> <a href="RadiumEngine_8cpp_source.html#l00281">RadiumEngine.cpp:281</a></div></div>
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdef"><b>Definition:</b> <a href="Cage_8cpp_source.html#l00003">Cage.cpp:3</a></div></div>
 <div class="ttc" id="astructRa_1_1Engine_1_1Scene_1_1ItemEntry_html_a29667eec05160fa0296216cdc38b06e0"><div class="ttname"><a href="structRa_1_1Engine_1_1Scene_1_1ItemEntry.html#a29667eec05160fa0296216cdc38b06e0">Ra::Engine::Scene::ItemEntry::m_roIndex</a></div><div class="ttdeci">Ra::Core::Utils::Index m_roIndex</div><div class="ttdoc">RO index of the represented object.</div><div class="ttdef"><b>Definition:</b> <a href="ItemEntry_8hpp_source.html#l00067">ItemEntry.hpp:67</a></div></div>
-<div class="ttc" id="astructRa_1_1Engine_1_1Scene_1_1ItemEntry_html_a4f2df708e8ee83f1bad37287d0a81916"><div class="ttname"><a href="structRa_1_1Engine_1_1Scene_1_1ItemEntry.html#a4f2df708e8ee83f1bad37287d0a81916">Ra::Engine::Scene::ItemEntry::isValid</a></div><div class="ttdeci">bool isValid() const</div><div class="ttdoc">Returns true if the item represents any valid object.</div><div class="ttdef"><b>Definition:</b> <a href="ItemEntry_8cpp_source.html#l00048">ItemEntry.cpp:48</a></div></div>
-<div class="ttc" id="astructRa_1_1Engine_1_1Scene_1_1ItemEntry_html_a71fb1e1af35480f50c21edb264149929"><div class="ttname"><a href="structRa_1_1Engine_1_1Scene_1_1ItemEntry.html#a71fb1e1af35480f50c21edb264149929">Ra::Engine::Scene::ItemEntry::isSelectable</a></div><div class="ttdeci">bool isSelectable() const</div><div class="ttdoc">Returns true if the item can be selected.</div><div class="ttdef"><b>Definition:</b> <a href="ItemEntry_8cpp_source.html#l00058">ItemEntry.cpp:58</a></div></div>
-<div class="ttc" id="astructRa_1_1Engine_1_1Scene_1_1ItemEntry_html_a9673507f752d5efee0439afd0e52892b"><div class="ttname"><a href="structRa_1_1Engine_1_1Scene_1_1ItemEntry.html#a9673507f752d5efee0439afd0e52892b">Ra::Engine::Scene::ItemEntry::checkConsistency</a></div><div class="ttdeci">void checkConsistency() const</div><div class="ttdoc">Debug checks.</div><div class="ttdef"><b>Definition:</b> <a href="ItemEntry_8inl_source.html#l00023">ItemEntry.inl:23</a></div></div>
+<div class="ttc" id="astructRa_1_1Engine_1_1Scene_1_1ItemEntry_html_a4f2df708e8ee83f1bad37287d0a81916"><div class="ttname"><a href="structRa_1_1Engine_1_1Scene_1_1ItemEntry.html#a4f2df708e8ee83f1bad37287d0a81916">Ra::Engine::Scene::ItemEntry::isValid</a></div><div class="ttdeci">bool isValid() const</div><div class="ttdoc">Returns true if the item represents any valid object.</div><div class="ttdef"><b>Definition:</b> <a href="ItemEntry_8cpp_source.html#l00042">ItemEntry.cpp:42</a></div></div>
+<div class="ttc" id="astructRa_1_1Engine_1_1Scene_1_1ItemEntry_html_a71fb1e1af35480f50c21edb264149929"><div class="ttname"><a href="structRa_1_1Engine_1_1Scene_1_1ItemEntry.html#a71fb1e1af35480f50c21edb264149929">Ra::Engine::Scene::ItemEntry::isSelectable</a></div><div class="ttdeci">bool isSelectable() const</div><div class="ttdoc">Returns true if the item can be selected.</div><div class="ttdef"><b>Definition:</b> <a href="ItemEntry_8cpp_source.html#l00052">ItemEntry.cpp:52</a></div></div>
+<div class="ttc" id="astructRa_1_1Engine_1_1Scene_1_1ItemEntry_html_a9673507f752d5efee0439afd0e52892b"><div class="ttname"><a href="structRa_1_1Engine_1_1Scene_1_1ItemEntry.html#a9673507f752d5efee0439afd0e52892b">Ra::Engine::Scene::ItemEntry::checkConsistency</a></div><div class="ttdeci">void checkConsistency() const</div><div class="ttdoc">Debug checks.</div><div class="ttdef"><b>Definition:</b> <a href="ItemEntry_8hpp_source.html#l00095">ItemEntry.hpp:95</a></div></div>
 <div class="ttc" id="astructRa_1_1Engine_1_1Scene_1_1ItemEntry_html_a98874996a9953735648c52d576339a99"><div class="ttname"><a href="structRa_1_1Engine_1_1Scene_1_1ItemEntry.html#a98874996a9953735648c52d576339a99">Ra::Engine::Scene::ItemEntry::m_entity</a></div><div class="ttdeci">Entity * m_entity</div><div class="ttdoc">The entity represented by the item, or owning the object represented.</div><div class="ttdef"><b>Definition:</b> <a href="ItemEntry_8hpp_source.html#l00060">ItemEntry.hpp:60</a></div></div>
-<div class="ttc" id="astructRa_1_1Engine_1_1Scene_1_1ItemEntry_html_ad2fd60408dfc75b47ff7bec306d95cc4"><div class="ttname"><a href="structRa_1_1Engine_1_1Scene_1_1ItemEntry.html#ad2fd60408dfc75b47ff7bec306d95cc4">Ra::Engine::Scene::ItemEntry::isRoNode</a></div><div class="ttdeci">bool isRoNode() const</div><div class="ttdoc">Returns true if the item represents a render object.</div><div class="ttdef"><b>Definition:</b> <a href="ItemEntry_8inl_source.html#l00018">ItemEntry.inl:18</a></div></div>
+<div class="ttc" id="astructRa_1_1Engine_1_1Scene_1_1ItemEntry_html_ad2fd60408dfc75b47ff7bec306d95cc4"><div class="ttname"><a href="structRa_1_1Engine_1_1Scene_1_1ItemEntry.html#ad2fd60408dfc75b47ff7bec306d95cc4">Ra::Engine::Scene::ItemEntry::isRoNode</a></div><div class="ttdeci">bool isRoNode() const</div><div class="ttdoc">Returns true if the item represents a render object.</div><div class="ttdef"><b>Definition:</b> <a href="ItemEntry_8hpp_source.html#l00090">ItemEntry.hpp:90</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_89bb22796d297d82305d45a42e7934d2.html">Scene</a></li><li class="navelem"><b>ItemEntry.cpp</b></li>
-    <li class="footer">Generated on Thu Nov 17 2022 06:52:58 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Wed Apr 5 2023 15:07:31 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

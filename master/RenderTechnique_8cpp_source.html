@@ -52,7 +52,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.4.0</span>
+   &#160;<span id="projectnumber">1.5.0</span>
    </div>
   </td>
  </tr>
@@ -115,183 +115,181 @@ $(document).ready(function(){initNavTree('RenderTechnique_8cpp_source.html','');
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;Engine/Rendering/RenderTechnique.hpp&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;Engine/Data/BlinnPhongMaterial.hpp&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;Engine/Data/RenderParameters.hpp&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;Engine/Data/ShaderConfigFactory.hpp&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;Engine/Data/ShaderProgramManager.hpp&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;Engine/RadiumEngine.hpp&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;Engine/Data/ShaderProgramManager.hpp&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;Engine/RadiumEngine.hpp&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;Core/Utils/Log.hpp&gt;</span></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;Core/Utils/Log.hpp&gt;</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace </span>Engine {</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">namespace </span>Rendering {</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>Engine {</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>Rendering {</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">using namespace </span>Core::Utils; <span class="comment">// log</span></div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">using namespace </span>Core::Utils; <span class="comment">// log</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;std::shared_ptr&lt;Ra::Engine::Rendering::RenderTechnique&gt; RadiumDefaultRenderTechnique { <span class="keyword">nullptr</span> };</div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;std::shared_ptr&lt;Ra::Engine::Rendering::RenderTechnique&gt; RadiumDefaultRenderTechnique { <span class="keyword">nullptr</span> };</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;RenderTechnique::RenderTechnique() : m_numActivePass { 0 } {</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keywordflow">for</span> ( <span class="keyword">auto</span> p = Index( 0 ); p &lt; s_maxNbPasses; ++p ) {</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        m_activePasses[p]     = PassConfiguration( Data::ShaderConfiguration(), <span class="keyword">nullptr</span> );</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;        m_passesParameters[p] = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    }</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;}</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a75c11aa6619ad2731a3e9ea8dad175ad">   26</a></span>&#160;RenderTechnique::RenderTechnique( <span class="keyword">const</span> <a class="code" href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html">RenderTechnique</a>&amp; o ) :</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    m_numActivePass { o.m_numActivePass },</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    m_dirtyBits { o.m_dirtyBits },</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    m_setPasses { o.m_setPasses } {</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keywordflow">for</span> ( <span class="keyword">auto</span> p = Index( 0 ); p &lt; m_numActivePass; ++p ) {</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        <span class="keywordflow">if</span> ( <a class="code" href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a80ed342917f6314ebe193cd311cfc8cd">hasConfiguration</a>( p ) ) {</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;            m_activePasses[p]     = o.m_activePasses[p];</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;            m_passesParameters[p] = o.m_passesParameters[p];</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        }</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    }</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;}</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;RenderTechnique::RenderTechnique() : m_numActivePass { 0 } {</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="keywordflow">for</span> ( <span class="keyword">auto</span> p = Index( 0 ); p &lt; s_maxNbPasses; ++p ) {</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;        m_activePasses[p]     = PassConfiguration( Data::ShaderConfiguration(), <span class="keyword">nullptr</span> );</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        m_passesParameters[p] = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    }</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;}</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a75c11aa6619ad2731a3e9ea8dad175ad">   24</a></span>&#160;RenderTechnique::RenderTechnique( <span class="keyword">const</span> <a class="code" href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html">RenderTechnique</a>&amp; o ) :</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    m_numActivePass { o.m_numActivePass },</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    m_dirtyBits { o.m_dirtyBits },</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    m_setPasses { o.m_setPasses } {</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keywordflow">for</span> ( <span class="keyword">auto</span> p = Index( 0 ); p &lt; m_numActivePass; ++p ) {</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        <span class="keywordflow">if</span> ( <a class="code" href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a80ed342917f6314ebe193cd311cfc8cd">hasConfiguration</a>( p ) ) {</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;            m_activePasses[p]     = o.m_activePasses[p];</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;            m_passesParameters[p] = o.m_passesParameters[p];</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        }</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    }</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;}</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;RenderTechnique::~RenderTechnique() = <span class="keywordflow">default</span>;</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;RenderTechnique::~RenderTechnique() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
-<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a2b058b0fe2f9c2496b7805e0d5b15452">   40</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a2b058b0fe2f9c2496b7805e0d5b15452">RenderTechnique::setConfiguration</a>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1ShaderConfiguration.html">Data::ShaderConfiguration</a>&amp; newConfig,</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;                                        Core::Utils::Index pass ) {</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    m_numActivePass      = std::max( m_numActivePass, pass + 1 );</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    m_activePasses[pass] = PassConfiguration( newConfig, <span class="keyword">nullptr</span> );</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <a class="code" href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#af3b58075507144820fe06f6a129b0107">setDirty</a>( pass );</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <a class="code" href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a2b058b0fe2f9c2496b7805e0d5b15452">setConfiguration</a>( pass );</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;}</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
-<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a6b2bfb1ead4afbf234689c0ae411c1ec">   48</a></span>&#160;<span class="keyword">const</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1ShaderProgram.html">Data::ShaderProgram</a>* <a class="code" href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a6b2bfb1ead4afbf234689c0ae411c1ec">RenderTechnique::getShader</a>( Core::Utils::Index pass )<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keywordflow">if</span> ( <a class="code" href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a80ed342917f6314ebe193cd311cfc8cd">hasConfiguration</a>( pass ) ) { <span class="keywordflow">return</span> m_activePasses[pass].second; }</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;}</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00053"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a13f5f243daad1b13a6bec5efe3831c25">   53</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a13f5f243daad1b13a6bec5efe3831c25">RenderTechnique::setParametersProvider</a>(</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    std::shared_ptr&lt;Data::ShaderParameterProvider&gt; provider,</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    Core::Utils::Index pass ) {</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keywordflow">if</span> ( m_numActivePass == 0 ) {</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        LOG( logERROR )</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;            &lt;&lt; <span class="stringliteral">&quot;Unable to set pass parameters : is passes configured using setConfiguration ? &quot;</span>;</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    }</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keywordflow">if</span> ( pass.isValid() ) {</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        <span class="keywordflow">if</span> ( <a class="code" href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a80ed342917f6314ebe193cd311cfc8cd">hasConfiguration</a>( pass ) ) { m_passesParameters[pass] = provider; }</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    }</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        <span class="keywordflow">for</span> ( <span class="keywordtype">int</span> i = 0; i &lt; m_numActivePass; ++i ) {</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;            <span class="keywordflow">if</span> ( <a class="code" href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a80ed342917f6314ebe193cd311cfc8cd">hasConfiguration</a>( i ) ) { m_passesParameters[i] = provider; }</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        }</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    }</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="comment">// add the provider specific properties to the configuration</span></div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <a class="code" href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a57252b7d28229ba476980f30cbac19e4">addPassProperties</a>( provider-&gt;getPropertyList(), pass );</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;}</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
-<div class="line"><a name="l00073"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a57252b7d28229ba476980f30cbac19e4">   73</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a57252b7d28229ba476980f30cbac19e4">RenderTechnique::addPassProperties</a>( <span class="keyword">const</span> std::list&lt;std::string&gt;&amp; props,</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;                                         Core::Utils::Index pass ) {</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keywordflow">if</span> ( m_numActivePass == 0 ) {</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        LOG( logERROR )</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;            &lt;&lt; <span class="stringliteral">&quot;Unable to set pass properties : is passes configured using setConfiguration ? &quot;</span>;</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    }</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keywordflow">if</span> ( pass.isValid() &amp;&amp; <a class="code" href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a80ed342917f6314ebe193cd311cfc8cd">hasConfiguration</a>( pass ) ) {</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        m_activePasses[pass].first.addProperties( props );</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        <a class="code" href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#af3b58075507144820fe06f6a129b0107">setDirty</a>( pass );</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    }</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        <span class="keywordflow">for</span> ( <span class="keywordtype">int</span> i = 0; i &lt; m_numActivePass; ++i ) {</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;            <span class="keywordflow">if</span> ( <a class="code" href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a80ed342917f6314ebe193cd311cfc8cd">hasConfiguration</a>( i ) ) {</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;                m_activePasses[i].first.addProperties( props );</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;                <a class="code" href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#af3b58075507144820fe06f6a129b0107">setDirty</a>( i );</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;            }</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        }</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    }</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;}</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="keyword">const</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html">Data::ShaderParameterProvider</a>*</div>
-<div class="line"><a name="l00095"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a2dcfdb2e3b96bf8c5f1e2310cdec5afe">   95</a></span>&#160;<a class="code" href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a2dcfdb2e3b96bf8c5f1e2310cdec5afe">RenderTechnique::getParametersProvider</a>( Core::Utils::Index pass )<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <span class="keywordflow">if</span> ( <a class="code" href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a80ed342917f6314ebe193cd311cfc8cd">hasConfiguration</a>( pass ) ) { <span class="keywordflow">return</span> m_passesParameters[pass].get(); }</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;}</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160; </div>
-<div class="line"><a name="l00100"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a00654db60cb8366673593a0b0ade3f4a">  100</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a00654db60cb8366673593a0b0ade3f4a">RenderTechnique::updateGL</a>() {</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <span class="keyword">auto</span> shaderProgramManager = RadiumEngine::getInstance()-&gt;getShaderProgramManager();</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160; </div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    <span class="keywordflow">for</span> ( <span class="keyword">auto</span> p = Index( 0 ); p &lt; m_numActivePass; ++p ) {</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        <span class="keywordflow">if</span> ( <a class="code" href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a80ed342917f6314ebe193cd311cfc8cd">hasConfiguration</a>( p ) &amp;&amp;</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;             ( ( <span class="keyword">nullptr</span> == m_activePasses[p].second ) || <a class="code" href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#ac6f3be0d33d4c8ef110ec9bac6af318e">isDirty</a>( p ) ) ) {</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;            m_activePasses[p].second =</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;                shaderProgramManager-&gt;getShaderProgram( m_activePasses[p].first );</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;            <a class="code" href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a1664629a08900982a327d85fe97ce579">clearDirty</a>( p );</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;        }</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    }</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    <span class="keywordflow">for</span> ( <span class="keyword">auto</span> p = Index( 0 ); p &lt; m_numActivePass; ++p ) {</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;        <span class="keywordflow">if</span> ( m_passesParameters[p] ) { m_passesParameters[p]-&gt;updateGL(); }</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    }</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;}</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160; </div>
-<div class="line"><a name="l00117"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a6983e4872348bbaf5682f30a953337ba">  117</a></span>&#160;<a class="code" href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html">RenderTechnique</a> <a class="code" href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a6983e4872348bbaf5682f30a953337ba">RenderTechnique::createDefaultRenderTechnique</a>() {</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    <span class="keywordflow">if</span> ( RadiumDefaultRenderTechnique != <span class="keyword">nullptr</span> ) {</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;        <span class="keywordflow">return</span> *( RadiumDefaultRenderTechnique.get() );</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    }</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    std::shared_ptr&lt;Data::Material&gt; mat( <span class="keyword">new</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html">Data::BlinnPhongMaterial</a>( <span class="stringliteral">&quot;DefaultGray&quot;</span> ) );</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    <span class="keyword">auto</span> rt      = <span class="keyword">new</span> <a class="code" href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html">RenderTechnique</a>;</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    <span class="keyword">auto</span> builder = EngineRenderTechniques::getDefaultTechnique( <span class="stringliteral">&quot;BlinnPhong&quot;</span> );</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    <span class="keywordflow">if</span> ( !builder.first ) {</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;        LOG( logERROR ) &lt;&lt; <span class="stringliteral">&quot;Unable to create the default technique : is the Engine initialized ? &quot;</span>;</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    }</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    builder.second( *rt, <span class="keyword">false</span> );</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    rt-&gt;setParametersProvider( mat );</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    RadiumDefaultRenderTechnique.reset( rt );</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    <span class="keywordflow">return</span> *( RadiumDefaultRenderTechnique.get() );</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;}</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160; </div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;<span class="keyword">namespace </span>EngineRenderTechniques {</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160; </div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;<span class="keyword">static</span> std::map&lt;std::string, DefaultTechniqueBuilder&gt; EngineTechniqueRegistry;</div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160; </div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;<span class="keywordtype">bool</span> registerDefaultTechnique( <span class="keyword">const</span> std::string&amp; name, DefaultTechniqueBuilder builder ) {</div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;    <span class="keyword">auto</span> result = EngineTechniqueRegistry.insert( { name, builder } );</div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;    <span class="keywordflow">return</span> result.second;</div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;}</div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160; </div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;<span class="keywordtype">bool</span> removeDefaultTechnique( <span class="keyword">const</span> std::string&amp; name ) {</div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;    std::size_t removed = EngineTechniqueRegistry.erase( name );</div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;    <span class="keywordflow">return</span> ( removed == 1 );</div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;}</div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160; </div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;std::pair&lt;bool, DefaultTechniqueBuilder&gt; getDefaultTechnique( <span class="keyword">const</span> std::string&amp; name ) {</div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;    <span class="keyword">auto</span> search = EngineTechniqueRegistry.find( name );</div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;    <span class="keywordflow">if</span> ( search != EngineTechniqueRegistry.end() ) { <span class="keywordflow">return</span> { <span class="keyword">true</span>, search-&gt;second }; }</div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;    <span class="keyword">auto</span> result = std::make_pair( <span class="keyword">false</span>, [name]( RenderTechnique&amp;, <span class="keywordtype">bool</span> ) -&gt; <span class="keywordtype">void</span> {</div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;        LOG( logERROR ) &lt;&lt; <span class="stringliteral">&quot;Undefined default technique for &quot;</span> &lt;&lt; name &lt;&lt; <span class="stringliteral">&quot; !&quot;</span>;</div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;    } );</div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;    <span class="keywordflow">return</span> result;</div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;}</div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160; </div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;<span class="keywordtype">bool</span> cleanup() {</div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;    EngineTechniqueRegistry.clear();</div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;}</div>
+<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a2b058b0fe2f9c2496b7805e0d5b15452">   38</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a2b058b0fe2f9c2496b7805e0d5b15452">RenderTechnique::setConfiguration</a>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1ShaderConfiguration.html">Data::ShaderConfiguration</a>&amp; newConfig,</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;                                        Core::Utils::Index pass ) {</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    m_numActivePass      = std::max( m_numActivePass, pass + 1 );</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    m_activePasses[pass] = PassConfiguration( newConfig, <span class="keyword">nullptr</span> );</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <a class="code" href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#af3b58075507144820fe06f6a129b0107">setDirty</a>( pass );</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <a class="code" href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a2b058b0fe2f9c2496b7805e0d5b15452">setConfiguration</a>( pass );</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;}</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
+<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a6b2bfb1ead4afbf234689c0ae411c1ec">   46</a></span>&#160;<span class="keyword">const</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1ShaderProgram.html">Data::ShaderProgram</a>* <a class="code" href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a6b2bfb1ead4afbf234689c0ae411c1ec">RenderTechnique::getShader</a>( Core::Utils::Index pass )<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keywordflow">if</span> ( <a class="code" href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a80ed342917f6314ebe193cd311cfc8cd">hasConfiguration</a>( pass ) ) { <span class="keywordflow">return</span> m_activePasses[pass].second; }</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;}</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
+<div class="line"><a name="l00051"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a13f5f243daad1b13a6bec5efe3831c25">   51</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a13f5f243daad1b13a6bec5efe3831c25">RenderTechnique::setParametersProvider</a>(</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    std::shared_ptr&lt;Data::ShaderParameterProvider&gt; provider,</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    Core::Utils::Index pass ) {</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keywordflow">if</span> ( m_numActivePass == 0 ) {</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        LOG( logERROR )</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;            &lt;&lt; <span class="stringliteral">&quot;Unable to set pass parameters : is passes configured using setConfiguration ? &quot;</span>;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    }</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keywordflow">if</span> ( pass.isValid() ) {</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        <span class="keywordflow">if</span> ( <a class="code" href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a80ed342917f6314ebe193cd311cfc8cd">hasConfiguration</a>( pass ) ) { m_passesParameters[pass] = provider; }</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    }</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        <span class="keywordflow">for</span> ( <span class="keywordtype">int</span> i = 0; i &lt; m_numActivePass; ++i ) {</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;            <span class="keywordflow">if</span> ( <a class="code" href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a80ed342917f6314ebe193cd311cfc8cd">hasConfiguration</a>( i ) ) { m_passesParameters[i] = provider; }</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        }</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    }</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="comment">// add the provider specific properties to the configuration</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <a class="code" href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a57252b7d28229ba476980f30cbac19e4">addPassProperties</a>( provider-&gt;getPropertyList(), pass );</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;}</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
+<div class="line"><a name="l00071"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a57252b7d28229ba476980f30cbac19e4">   71</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a57252b7d28229ba476980f30cbac19e4">RenderTechnique::addPassProperties</a>( <span class="keyword">const</span> std::list&lt;std::string&gt;&amp; props,</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;                                         Core::Utils::Index pass ) {</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keywordflow">if</span> ( m_numActivePass == 0 ) {</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        LOG( logERROR )</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;            &lt;&lt; <span class="stringliteral">&quot;Unable to set pass properties : is passes configured using setConfiguration ? &quot;</span>;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    }</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keywordflow">if</span> ( pass.isValid() &amp;&amp; <a class="code" href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a80ed342917f6314ebe193cd311cfc8cd">hasConfiguration</a>( pass ) ) {</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        m_activePasses[pass].first.addProperties( props );</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        <a class="code" href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#af3b58075507144820fe06f6a129b0107">setDirty</a>( pass );</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    }</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        <span class="keywordflow">for</span> ( <span class="keywordtype">int</span> i = 0; i &lt; m_numActivePass; ++i ) {</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;            <span class="keywordflow">if</span> ( <a class="code" href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a80ed342917f6314ebe193cd311cfc8cd">hasConfiguration</a>( i ) ) {</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;                m_activePasses[i].first.addProperties( props );</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;                <a class="code" href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#af3b58075507144820fe06f6a129b0107">setDirty</a>( i );</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;            }</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        }</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    }</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;}</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<span class="keyword">const</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html">Data::ShaderParameterProvider</a>*</div>
+<div class="line"><a name="l00093"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a2dcfdb2e3b96bf8c5f1e2310cdec5afe">   93</a></span>&#160;<a class="code" href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a2dcfdb2e3b96bf8c5f1e2310cdec5afe">RenderTechnique::getParametersProvider</a>( Core::Utils::Index pass )<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    <span class="keywordflow">if</span> ( <a class="code" href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a80ed342917f6314ebe193cd311cfc8cd">hasConfiguration</a>( pass ) ) { <span class="keywordflow">return</span> m_passesParameters[pass].get(); }</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;}</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; </div>
+<div class="line"><a name="l00098"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a00654db60cb8366673593a0b0ade3f4a">   98</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a00654db60cb8366673593a0b0ade3f4a">RenderTechnique::updateGL</a>() {</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    <span class="keyword">auto</span> shaderProgramManager = RadiumEngine::getInstance()-&gt;getShaderProgramManager();</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <span class="keywordflow">for</span> ( <span class="keyword">auto</span> p = Index( 0 ); p &lt; m_numActivePass; ++p ) {</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        <span class="keywordflow">if</span> ( <a class="code" href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a80ed342917f6314ebe193cd311cfc8cd">hasConfiguration</a>( p ) &amp;&amp;</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;             ( ( <span class="keyword">nullptr</span> == m_activePasses[p].second ) || <a class="code" href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#ac6f3be0d33d4c8ef110ec9bac6af318e">isDirty</a>( p ) ) ) {</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;            m_activePasses[p].second =</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;                shaderProgramManager-&gt;getShaderProgram( m_activePasses[p].first );</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;            <a class="code" href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a1664629a08900982a327d85fe97ce579">clearDirty</a>( p );</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;        }</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    }</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <span class="keywordflow">for</span> ( <span class="keyword">auto</span> p = Index( 0 ); p &lt; m_numActivePass; ++p ) {</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        <span class="keywordflow">if</span> ( m_passesParameters[p] ) { m_passesParameters[p]-&gt;updateGL(); }</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    }</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;}</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160; </div>
+<div class="line"><a name="l00115"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a6983e4872348bbaf5682f30a953337ba">  115</a></span>&#160;<a class="code" href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html">RenderTechnique</a> <a class="code" href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a6983e4872348bbaf5682f30a953337ba">RenderTechnique::createDefaultRenderTechnique</a>() {</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    <span class="keywordflow">if</span> ( RadiumDefaultRenderTechnique != <span class="keyword">nullptr</span> ) {</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;        <span class="keywordflow">return</span> *( RadiumDefaultRenderTechnique.get() );</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    }</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    std::shared_ptr&lt;Data::Material&gt; mat( <span class="keyword">new</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html">Data::BlinnPhongMaterial</a>( <span class="stringliteral">&quot;DefaultGray&quot;</span> ) );</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    <span class="keyword">auto</span> rt      = <span class="keyword">new</span> <a class="code" href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html">RenderTechnique</a>;</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    <span class="keyword">auto</span> builder = EngineRenderTechniques::getDefaultTechnique( <span class="stringliteral">&quot;BlinnPhong&quot;</span> );</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    <span class="keywordflow">if</span> ( !builder.first ) {</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;        LOG( logERROR ) &lt;&lt; <span class="stringliteral">&quot;Unable to create the default technique : is the Engine initialized ? &quot;</span>;</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    }</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    builder.second( *rt, <span class="keyword">false</span> );</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    rt-&gt;setParametersProvider( mat );</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    RadiumDefaultRenderTechnique.reset( rt );</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    <span class="keywordflow">return</span> *( RadiumDefaultRenderTechnique.get() );</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;}</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160; </div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;<span class="keyword">namespace </span>EngineRenderTechniques {</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160; </div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;<span class="keyword">static</span> std::map&lt;std::string, DefaultTechniqueBuilder&gt; EngineTechniqueRegistry;</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160; </div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;<span class="keywordtype">bool</span> registerDefaultTechnique( <span class="keyword">const</span> std::string&amp; name, DefaultTechniqueBuilder builder ) {</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;    <span class="keyword">auto</span> result = EngineTechniqueRegistry.insert( { name, builder } );</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;    <span class="keywordflow">return</span> result.second;</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;}</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160; </div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;<span class="keywordtype">bool</span> removeDefaultTechnique( <span class="keyword">const</span> std::string&amp; name ) {</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;    std::size_t removed = EngineTechniqueRegistry.erase( name );</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;    <span class="keywordflow">return</span> ( removed == 1 );</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;}</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160; </div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;std::pair&lt;bool, DefaultTechniqueBuilder&gt; getDefaultTechnique( <span class="keyword">const</span> std::string&amp; name ) {</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;    <span class="keyword">auto</span> search = EngineTechniqueRegistry.find( name );</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;    <span class="keywordflow">if</span> ( search != EngineTechniqueRegistry.end() ) { <span class="keywordflow">return</span> { <span class="keyword">true</span>, search-&gt;second }; }</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;    <span class="keyword">auto</span> result = std::make_pair( <span class="keyword">false</span>, [name]( RenderTechnique&amp;, <span class="keywordtype">bool</span> ) -&gt; <span class="keywordtype">void</span> {</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;        LOG( logERROR ) &lt;&lt; <span class="stringliteral">&quot;Undefined default technique for &quot;</span> &lt;&lt; name &lt;&lt; <span class="stringliteral">&quot; !&quot;</span>;</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;    } );</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;    <span class="keywordflow">return</span> result;</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;}</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160; </div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;<span class="keywordtype">bool</span> cleanup() {</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;    EngineTechniqueRegistry.clear();</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;}</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160; </div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;} <span class="comment">// namespace EngineRenderTechniques</span></div>
 <div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160; </div>
-<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;} <span class="comment">// namespace EngineRenderTechniques</span></div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160; </div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;} <span class="comment">// namespace Rendering</span></div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;} <span class="comment">// namespace Engine</span></div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;} <span class="comment">// namespace Ra</span></div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;} <span class="comment">// namespace Rendering</span></div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;} <span class="comment">// namespace Engine</span></div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;} <span class="comment">// namespace Ra</span></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html">Ra::Engine::Data::BlinnPhongMaterial</a></div><div class="ttdef"><b>Definition:</b> <a href="BlinnPhongMaterial_8hpp_source.html#l00029">BlinnPhongMaterial.hpp:30</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1ShaderConfiguration_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1ShaderConfiguration.html">Ra::Engine::Data::ShaderConfiguration</a></div><div class="ttdef"><b>Definition:</b> <a href="ShaderConfiguration_8hpp_source.html#l00061">ShaderConfiguration.hpp:62</a></div></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1ShaderParameterProvider_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html">Ra::Engine::Data::ShaderParameterProvider</a></div><div class="ttdef"><b>Definition:</b> <a href="RenderParameters_8hpp_source.html#l00395">RenderParameters.hpp:396</a></div></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1ShaderProgram_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1ShaderProgram.html">Ra::Engine::Data::ShaderProgram</a></div><div class="ttdef"><b>Definition:</b> <a href="ShaderProgram_8hpp_source.html#l00031">ShaderProgram.hpp:32</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1ShaderParameterProvider_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html">Ra::Engine::Data::ShaderParameterProvider</a></div><div class="ttdef"><b>Definition:</b> <a href="RenderParameters_8hpp_source.html#l00368">RenderParameters.hpp:369</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1ShaderProgram_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1ShaderProgram.html">Ra::Engine::Data::ShaderProgram</a></div><div class="ttdef"><b>Definition:</b> <a href="ShaderProgram_8hpp_source.html#l00034">ShaderProgram.hpp:35</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Rendering_1_1RenderTechnique_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html">Ra::Engine::Rendering::RenderTechnique</a></div><div class="ttdef"><b>Definition:</b> <a href="RenderTechnique_8hpp_source.html#l00063">RenderTechnique.hpp:64</a></div></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1Rendering_1_1RenderTechnique_html_a00654db60cb8366673593a0b0ade3f4a"><div class="ttname"><a href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a00654db60cb8366673593a0b0ade3f4a">Ra::Engine::Rendering::RenderTechnique::updateGL</a></div><div class="ttdeci">void updateGL()</div><div class="ttdef"><b>Definition:</b> <a href="RenderTechnique_8cpp_source.html#l00100">RenderTechnique.cpp:100</a></div></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1Rendering_1_1RenderTechnique_html_a13f5f243daad1b13a6bec5efe3831c25"><div class="ttname"><a href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a13f5f243daad1b13a6bec5efe3831c25">Ra::Engine::Rendering::RenderTechnique::setParametersProvider</a></div><div class="ttdeci">void setParametersProvider(std::shared_ptr&lt; Data::ShaderParameterProvider &gt; provider, Core::Utils::Index pass=Core::Utils::Index(-1))</div><div class="ttdef"><b>Definition:</b> <a href="RenderTechnique_8cpp_source.html#l00053">RenderTechnique.cpp:53</a></div></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1Rendering_1_1RenderTechnique_html_a1664629a08900982a327d85fe97ce579"><div class="ttname"><a href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a1664629a08900982a327d85fe97ce579">Ra::Engine::Rendering::RenderTechnique::clearDirty</a></div><div class="ttdeci">void clearDirty(Core::Utils::Index pass=DefaultRenderingPasses::LIGHTING_OPAQUE)</div><div class="ttdef"><b>Definition:</b> <a href="RenderTechnique_8inl_source.html#l00026">RenderTechnique.inl:26</a></div></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1Rendering_1_1RenderTechnique_html_a2b058b0fe2f9c2496b7805e0d5b15452"><div class="ttname"><a href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a2b058b0fe2f9c2496b7805e0d5b15452">Ra::Engine::Rendering::RenderTechnique::setConfiguration</a></div><div class="ttdeci">void setConfiguration(const Data::ShaderConfiguration &amp;newConfig, Core::Utils::Index pass=DefaultRenderingPasses::LIGHTING_OPAQUE)</div><div class="ttdef"><b>Definition:</b> <a href="RenderTechnique_8cpp_source.html#l00040">RenderTechnique.cpp:40</a></div></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1Rendering_1_1RenderTechnique_html_a2dcfdb2e3b96bf8c5f1e2310cdec5afe"><div class="ttname"><a href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a2dcfdb2e3b96bf8c5f1e2310cdec5afe">Ra::Engine::Rendering::RenderTechnique::getParametersProvider</a></div><div class="ttdeci">const Data::ShaderParameterProvider * getParametersProvider(Core::Utils::Index pass=DefaultRenderingPasses::LIGHTING_OPAQUE) const</div><div class="ttdef"><b>Definition:</b> <a href="RenderTechnique_8cpp_source.html#l00095">RenderTechnique.cpp:95</a></div></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1Rendering_1_1RenderTechnique_html_a57252b7d28229ba476980f30cbac19e4"><div class="ttname"><a href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a57252b7d28229ba476980f30cbac19e4">Ra::Engine::Rendering::RenderTechnique::addPassProperties</a></div><div class="ttdeci">void addPassProperties(const std::list&lt; std::string &gt; &amp;props, Core::Utils::Index pass=Core::Utils::Index {})</div><div class="ttdef"><b>Definition:</b> <a href="RenderTechnique_8cpp_source.html#l00073">RenderTechnique.cpp:73</a></div></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1Rendering_1_1RenderTechnique_html_a6983e4872348bbaf5682f30a953337ba"><div class="ttname"><a href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a6983e4872348bbaf5682f30a953337ba">Ra::Engine::Rendering::RenderTechnique::createDefaultRenderTechnique</a></div><div class="ttdeci">static RenderTechnique createDefaultRenderTechnique()</div><div class="ttdef"><b>Definition:</b> <a href="RenderTechnique_8cpp_source.html#l00117">RenderTechnique.cpp:117</a></div></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1Rendering_1_1RenderTechnique_html_a6b2bfb1ead4afbf234689c0ae411c1ec"><div class="ttname"><a href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a6b2bfb1ead4afbf234689c0ae411c1ec">Ra::Engine::Rendering::RenderTechnique::getShader</a></div><div class="ttdeci">const Data::ShaderProgram * getShader(Core::Utils::Index pass=DefaultRenderingPasses::LIGHTING_OPAQUE) const</div><div class="ttdef"><b>Definition:</b> <a href="RenderTechnique_8cpp_source.html#l00048">RenderTechnique.cpp:48</a></div></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1Rendering_1_1RenderTechnique_html_a80ed342917f6314ebe193cd311cfc8cd"><div class="ttname"><a href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a80ed342917f6314ebe193cd311cfc8cd">Ra::Engine::Rendering::RenderTechnique::hasConfiguration</a></div><div class="ttdeci">bool hasConfiguration(Core::Utils::Index pass=DefaultRenderingPasses::LIGHTING_OPAQUE) const</div><div class="ttdef"><b>Definition:</b> <a href="RenderTechnique_8inl_source.html#l00030">RenderTechnique.inl:30</a></div></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1Rendering_1_1RenderTechnique_html_ac6f3be0d33d4c8ef110ec9bac6af318e"><div class="ttname"><a href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#ac6f3be0d33d4c8ef110ec9bac6af318e">Ra::Engine::Rendering::RenderTechnique::isDirty</a></div><div class="ttdeci">bool isDirty(Core::Utils::Index pass=DefaultRenderingPasses::LIGHTING_OPAQUE) const</div><div class="ttdef"><b>Definition:</b> <a href="RenderTechnique_8inl_source.html#l00014">RenderTechnique.inl:14</a></div></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1Rendering_1_1RenderTechnique_html_af3b58075507144820fe06f6a129b0107"><div class="ttname"><a href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#af3b58075507144820fe06f6a129b0107">Ra::Engine::Rendering::RenderTechnique::setDirty</a></div><div class="ttdeci">void setDirty(Core::Utils::Index pass=DefaultRenderingPasses::LIGHTING_OPAQUE)</div><div class="ttdef"><b>Definition:</b> <a href="RenderTechnique_8inl_source.html#l00022">RenderTechnique.inl:22</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Rendering_1_1RenderTechnique_html_a00654db60cb8366673593a0b0ade3f4a"><div class="ttname"><a href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a00654db60cb8366673593a0b0ade3f4a">Ra::Engine::Rendering::RenderTechnique::updateGL</a></div><div class="ttdeci">void updateGL()</div><div class="ttdef"><b>Definition:</b> <a href="RenderTechnique_8cpp_source.html#l00098">RenderTechnique.cpp:98</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Rendering_1_1RenderTechnique_html_a13f5f243daad1b13a6bec5efe3831c25"><div class="ttname"><a href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a13f5f243daad1b13a6bec5efe3831c25">Ra::Engine::Rendering::RenderTechnique::setParametersProvider</a></div><div class="ttdeci">void setParametersProvider(std::shared_ptr&lt; Data::ShaderParameterProvider &gt; provider, Core::Utils::Index pass=Core::Utils::Index(-1))</div><div class="ttdef"><b>Definition:</b> <a href="RenderTechnique_8cpp_source.html#l00051">RenderTechnique.cpp:51</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Rendering_1_1RenderTechnique_html_a1664629a08900982a327d85fe97ce579"><div class="ttname"><a href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a1664629a08900982a327d85fe97ce579">Ra::Engine::Rendering::RenderTechnique::clearDirty</a></div><div class="ttdeci">void clearDirty(Core::Utils::Index pass=DefaultRenderingPasses::LIGHTING_OPAQUE)</div><div class="ttdef"><b>Definition:</b> <a href="RenderTechnique_8hpp_source.html#l00257">RenderTechnique.hpp:257</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Rendering_1_1RenderTechnique_html_a2b058b0fe2f9c2496b7805e0d5b15452"><div class="ttname"><a href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a2b058b0fe2f9c2496b7805e0d5b15452">Ra::Engine::Rendering::RenderTechnique::setConfiguration</a></div><div class="ttdeci">void setConfiguration(const Data::ShaderConfiguration &amp;newConfig, Core::Utils::Index pass=DefaultRenderingPasses::LIGHTING_OPAQUE)</div><div class="ttdef"><b>Definition:</b> <a href="RenderTechnique_8cpp_source.html#l00038">RenderTechnique.cpp:38</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Rendering_1_1RenderTechnique_html_a2dcfdb2e3b96bf8c5f1e2310cdec5afe"><div class="ttname"><a href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a2dcfdb2e3b96bf8c5f1e2310cdec5afe">Ra::Engine::Rendering::RenderTechnique::getParametersProvider</a></div><div class="ttdeci">const Data::ShaderParameterProvider * getParametersProvider(Core::Utils::Index pass=DefaultRenderingPasses::LIGHTING_OPAQUE) const</div><div class="ttdef"><b>Definition:</b> <a href="RenderTechnique_8cpp_source.html#l00093">RenderTechnique.cpp:93</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Rendering_1_1RenderTechnique_html_a57252b7d28229ba476980f30cbac19e4"><div class="ttname"><a href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a57252b7d28229ba476980f30cbac19e4">Ra::Engine::Rendering::RenderTechnique::addPassProperties</a></div><div class="ttdeci">void addPassProperties(const std::list&lt; std::string &gt; &amp;props, Core::Utils::Index pass=Core::Utils::Index {})</div><div class="ttdef"><b>Definition:</b> <a href="RenderTechnique_8cpp_source.html#l00071">RenderTechnique.cpp:71</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Rendering_1_1RenderTechnique_html_a6983e4872348bbaf5682f30a953337ba"><div class="ttname"><a href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a6983e4872348bbaf5682f30a953337ba">Ra::Engine::Rendering::RenderTechnique::createDefaultRenderTechnique</a></div><div class="ttdeci">static RenderTechnique createDefaultRenderTechnique()</div><div class="ttdef"><b>Definition:</b> <a href="RenderTechnique_8cpp_source.html#l00115">RenderTechnique.cpp:115</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Rendering_1_1RenderTechnique_html_a6b2bfb1ead4afbf234689c0ae411c1ec"><div class="ttname"><a href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a6b2bfb1ead4afbf234689c0ae411c1ec">Ra::Engine::Rendering::RenderTechnique::getShader</a></div><div class="ttdeci">const Data::ShaderProgram * getShader(Core::Utils::Index pass=DefaultRenderingPasses::LIGHTING_OPAQUE) const</div><div class="ttdef"><b>Definition:</b> <a href="RenderTechnique_8cpp_source.html#l00046">RenderTechnique.cpp:46</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Rendering_1_1RenderTechnique_html_a80ed342917f6314ebe193cd311cfc8cd"><div class="ttname"><a href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a80ed342917f6314ebe193cd311cfc8cd">Ra::Engine::Rendering::RenderTechnique::hasConfiguration</a></div><div class="ttdeci">bool hasConfiguration(Core::Utils::Index pass=DefaultRenderingPasses::LIGHTING_OPAQUE) const</div><div class="ttdef"><b>Definition:</b> <a href="RenderTechnique_8hpp_source.html#l00261">RenderTechnique.hpp:261</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Rendering_1_1RenderTechnique_html_ac6f3be0d33d4c8ef110ec9bac6af318e"><div class="ttname"><a href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#ac6f3be0d33d4c8ef110ec9bac6af318e">Ra::Engine::Rendering::RenderTechnique::isDirty</a></div><div class="ttdeci">bool isDirty(Core::Utils::Index pass=DefaultRenderingPasses::LIGHTING_OPAQUE) const</div><div class="ttdef"><b>Definition:</b> <a href="RenderTechnique_8hpp_source.html#l00245">RenderTechnique.hpp:245</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Rendering_1_1RenderTechnique_html_af3b58075507144820fe06f6a129b0107"><div class="ttname"><a href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#af3b58075507144820fe06f6a129b0107">Ra::Engine::Rendering::RenderTechnique::setDirty</a></div><div class="ttdeci">void setDirty(Core::Utils::Index pass=DefaultRenderingPasses::LIGHTING_OPAQUE)</div><div class="ttdef"><b>Definition:</b> <a href="RenderTechnique_8hpp_source.html#l00253">RenderTechnique.hpp:253</a></div></div>
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdef"><b>Definition:</b> <a href="Cage_8cpp_source.html#l00003">Cage.cpp:3</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
@@ -299,7 +297,7 @@ $(document).ready(function(){initNavTree('RenderTechnique_8cpp_source.html','');
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_6b51c25a1fae8ca1123814c12a4ebb69.html">Rendering</a></li><li class="navelem"><b>RenderTechnique.cpp</b></li>
-    <li class="footer">Generated on Thu Nov 17 2022 06:52:58 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Wed Apr 5 2023 15:07:31 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

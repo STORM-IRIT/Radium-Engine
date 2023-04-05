@@ -52,7 +52,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.4.0</span>
+   &#160;<span id="projectnumber">1.5.0</span>
    </div>
   </td>
  </tr>
@@ -240,72 +240,75 @@ $(document).ready(function(){initNavTree('RadiumEngine_8hpp_source.html',''); in
 <div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160; </div>
 <div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;    std::string getResourcesDir() { <span class="keywordflow">return</span> m_resourcesRootDir; }</div>
 <div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160; </div>
-<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;    <span class="keywordtype">void</span> runGpuTasks();</div>
-<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;    <a class="code" href="classRa_1_1Core_1_1TaskQueue.html#a95e06345125fdbfe4c0960fcff50246a">Core::TaskQueue::TaskId</a> addGpuTask( std::unique_ptr&lt;Core::Task&gt; );</div>
-<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160; </div>
-<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;  <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;    <a class="code" href="classRa_1_1Engine_1_1RadiumEngine.html">RadiumEngine</a>();</div>
-<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;    ~<a class="code" href="classRa_1_1Engine_1_1RadiumEngine.html">RadiumEngine</a>();</div>
-<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160; </div>
-<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;    glbinding::Version m_glVersion {};</div>
-<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;    <span class="keywordtype">void</span> registerDefaultPrograms();</div>
-<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160; </div>
-<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;    <span class="keyword">using</span> Priority  = int;</div>
-<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;    <span class="keyword">using</span> SystemKey = std::pair&lt;Priority, std::string&gt;;</div>
-<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;    <span class="comment">// use transparent functors :</span></div>
-<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;    <span class="comment">// https://clang.llvm.org/extra/clang-tidy/checks/modernize-use-transparent-functors.html</span></div>
-<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;    <span class="keyword">using</span> SystemContainer = std::map&lt;SystemKey, std::shared_ptr&lt;Scene::System&gt;, std::greater&lt;&gt;&gt;;</div>
+<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;    <span class="keywordtype">void</span> runGpuTasks();</div>
+<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160; </div>
+<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;    <a class="code" href="classRa_1_1Core_1_1TaskQueue.html#a95e06345125fdbfe4c0960fcff50246a">Core::TaskQueue::TaskId</a> addGpuTask( std::unique_ptr&lt;Core::Task&gt; );</div>
+<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160; </div>
+<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;    <span class="keywordtype">void</span> removeGpuTask( <a class="code" href="classRa_1_1Core_1_1TaskQueue.html#a95e06345125fdbfe4c0960fcff50246a">Core::TaskQueue::TaskId</a> taskId );</div>
+<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160; </div>
+<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;  <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;    <a class="code" href="classRa_1_1Engine_1_1RadiumEngine.html">RadiumEngine</a>();</div>
+<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;    ~<a class="code" href="classRa_1_1Engine_1_1RadiumEngine.html">RadiumEngine</a>();</div>
 <div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160; </div>
-<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;    SystemContainer::const_iterator findSystem( <span class="keyword">const</span> std::string&amp; name ) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;    SystemContainer::iterator findSystem( <span class="keyword">const</span> std::string&amp; name );</div>
-<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160; </div>
-<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;    SystemContainer m_systems;</div>
-<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160; </div>
-<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;    std::vector&lt;std::shared_ptr&lt;Core::Asset::FileLoaderInterface&gt;&gt; m_fileLoaders;</div>
-<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160; </div>
-<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;    std::unique_ptr&lt;Rendering::RenderObjectManager&gt; m_renderObjectManager;</div>
-<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;    std::unique_ptr&lt;Scene::EntityManager&gt; m_entityManager;</div>
-<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;    std::unique_ptr&lt;Scene::SignalManager&gt; m_signalManager;</div>
-<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;    std::unique_ptr&lt;Data::TextureManager&gt; m_textureManager;</div>
-<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;    std::unique_ptr&lt;Data::ShaderProgramManager&gt; m_shaderProgramManager;</div>
-<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;    std::unique_ptr&lt;Core::Asset::FileData&gt; m_loadedFile;</div>
-<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160; </div>
-<div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;    <span class="keywordtype">bool</span> m_loadingState { <span class="keyword">false</span> };</div>
-<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160; </div>
-<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;    std::string m_resourcesRootDir;</div>
-<div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160; </div>
-<div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160;    <span class="keyword">class </span>FboAndViewport</div>
-<div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160;    {</div>
-<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;      <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160;        FboAndViewport( <span class="keywordtype">int</span> fbo, std::array&lt;int, 4&gt;&amp;&amp; viewport ) :</div>
-<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160;            m_fbo { fbo }, m_viewport { viewport } {}</div>
-<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;        <span class="keywordtype">int</span> m_fbo;</div>
-<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;        std::array&lt;int, 4&gt; m_viewport;</div>
-<div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160;    };</div>
-<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160; </div>
-<div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;    std::stack&lt;FboAndViewport&gt; m_fboAndViewportStack;</div>
-<div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160; </div>
-<div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160;    <span class="keyword">struct </span>TimeData {</div>
-<div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160;        <span class="keywordtype">void</span> updateTime( Scalar dt );</div>
-<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160; </div>
-<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;        Scalar m_dt { 1_ra / 60_ra }; </div>
-<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;        Scalar m_startTime { 0_ra };  </div>
-<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;        Scalar m_endTime { 1_ra };    </div>
-<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;        Scalar m_time { 0_ra };       </div>
-<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;        <span class="keywordtype">bool</span> m_play { <span class="keyword">false</span> };        </div>
-<div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;        <span class="keywordtype">bool</span> m_singleStep { <span class="keyword">true</span> };   </div>
-<div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;        <span class="keywordtype">bool</span> m_realTime { <span class="keyword">false</span> }; </div>
-<div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160;        <span class="keywordtype">bool</span> m_forwardBackward { <span class="keyword">false</span> }; </div>
-<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;        <span class="keywordtype">bool</span> m_isBackward { <span class="keyword">false</span> };      </div>
-<div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160;    };</div>
-<div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160; </div>
-<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;    TimeData m_timeData;</div>
+<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;    glbinding::Version m_glVersion {};</div>
+<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;    <span class="keywordtype">void</span> registerDefaultPrograms();</div>
+<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160; </div>
+<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;    <span class="keyword">using</span> Priority  = int;</div>
+<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;    <span class="keyword">using</span> SystemKey = std::pair&lt;Priority, std::string&gt;;</div>
+<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;    <span class="comment">// use transparent functors :</span></div>
+<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;    <span class="comment">// https://clang.llvm.org/extra/clang-tidy/checks/modernize-use-transparent-functors.html</span></div>
+<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;    <span class="keyword">using</span> SystemContainer = std::map&lt;SystemKey, std::shared_ptr&lt;Scene::System&gt;, std::greater&lt;&gt;&gt;;</div>
+<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160; </div>
+<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;    SystemContainer::const_iterator findSystem( <span class="keyword">const</span> std::string&amp; name ) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;    SystemContainer::iterator findSystem( <span class="keyword">const</span> std::string&amp; name );</div>
+<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160; </div>
+<div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;    SystemContainer m_systems;</div>
+<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160; </div>
+<div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160;    std::vector&lt;std::shared_ptr&lt;Core::Asset::FileLoaderInterface&gt;&gt; m_fileLoaders;</div>
+<div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160; </div>
+<div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160;    std::unique_ptr&lt;Rendering::RenderObjectManager&gt; m_renderObjectManager;</div>
+<div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160;    std::unique_ptr&lt;Scene::EntityManager&gt; m_entityManager;</div>
+<div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160;    std::unique_ptr&lt;Scene::SignalManager&gt; m_signalManager;</div>
+<div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160;    std::unique_ptr&lt;Data::TextureManager&gt; m_textureManager;</div>
+<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;    std::unique_ptr&lt;Data::ShaderProgramManager&gt; m_shaderProgramManager;</div>
+<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160;    std::unique_ptr&lt;Core::Asset::FileData&gt; m_loadedFile;</div>
+<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160; </div>
+<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;    <span class="keywordtype">bool</span> m_loadingState { <span class="keyword">false</span> };</div>
+<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160; </div>
+<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;    std::string m_resourcesRootDir;</div>
+<div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160; </div>
+<div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;    <span class="keyword">class </span>FboAndViewport</div>
+<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;    {</div>
+<div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;      <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160;        FboAndViewport( <span class="keywordtype">int</span> fbo, std::array&lt;int, 4&gt;&amp;&amp; viewport ) :</div>
+<div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160;            m_fbo { fbo }, m_viewport { viewport } {}</div>
+<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;        <span class="keywordtype">int</span> m_fbo;</div>
+<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;        std::array&lt;int, 4&gt; m_viewport;</div>
+<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;    };</div>
+<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160; </div>
+<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;    std::stack&lt;FboAndViewport&gt; m_fboAndViewportStack;</div>
+<div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160; </div>
+<div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;    <span class="keyword">struct </span>TimeData {</div>
+<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;        <span class="keywordtype">void</span> updateTime( Scalar dt );</div>
 <div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160; </div>
-<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;    std::unique_ptr&lt;globjects::State&gt; m_openglState { <span class="keyword">nullptr</span> };</div>
-<div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;    std::unique_ptr&lt;Core::TaskQueue&gt; m_gpuTaskQueue { <span class="keyword">new</span> <a class="code" href="classRa_1_1Core_1_1TaskQueue.html">Core::TaskQueue</a>( 0 ) };</div>
-<div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160;};</div>
-<div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160;} <span class="comment">// namespace Engine</span></div>
-<div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160;} <span class="comment">// namespace Ra</span></div>
+<div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160;        Scalar m_dt { 1_ra / 60_ra }; </div>
+<div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160;        Scalar m_startTime { 0_ra };  </div>
+<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;        Scalar m_endTime { 1_ra };    </div>
+<div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;        Scalar m_time { 0_ra };       </div>
+<div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160;        <span class="keywordtype">bool</span> m_play { <span class="keyword">false</span> };        </div>
+<div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160;        <span class="keywordtype">bool</span> m_singleStep { <span class="keyword">true</span> };   </div>
+<div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160;        <span class="keywordtype">bool</span> m_realTime { <span class="keyword">false</span> }; </div>
+<div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160;        <span class="keywordtype">bool</span> m_forwardBackward { <span class="keyword">false</span> }; </div>
+<div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160;        <span class="keywordtype">bool</span> m_isBackward { <span class="keyword">false</span> };      </div>
+<div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160;    };</div>
+<div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160; </div>
+<div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160;    TimeData m_timeData;</div>
+<div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160; </div>
+<div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160;    std::unique_ptr&lt;globjects::State&gt; m_openglState { <span class="keyword">nullptr</span> };</div>
+<div class="line"><a name="l00422"></a><span class="lineno">  422</span>&#160;    std::unique_ptr&lt;Core::TaskQueue&gt; m_gpuTaskQueue { <span class="keyword">new</span> <a class="code" href="classRa_1_1Core_1_1TaskQueue.html">Core::TaskQueue</a>( 0 ) };</div>
+<div class="line"><a name="l00423"></a><span class="lineno">  423</span>&#160;};</div>
+<div class="line"><a name="l00424"></a><span class="lineno">  424</span>&#160;} <span class="comment">// namespace Engine</span></div>
+<div class="line"><a name="l00425"></a><span class="lineno">  425</span>&#160;} <span class="comment">// namespace Ra</span></div>
 <div class="ttc" id="aTypes_8hpp_html"><div class="ttname"><a href="Types_8hpp.html">Types.hpp</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1TaskQueue_html"><div class="ttname"><a href="classRa_1_1Core_1_1TaskQueue.html">Ra::Core::TaskQueue</a></div><div class="ttdef"><b>Definition:</b> <a href="TaskQueue_8hpp_source.html#l00031">TaskQueue.hpp:32</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1TaskQueue_html_a95e06345125fdbfe4c0960fcff50246a"><div class="ttname"><a href="classRa_1_1Core_1_1TaskQueue.html#a95e06345125fdbfe4c0960fcff50246a">Ra::Core::TaskQueue::TaskId</a></div><div class="ttdeci">Utils::Index TaskId</div><div class="ttdoc">Identifier for a task in the task queue.</div><div class="ttdef"><b>Definition:</b> <a href="TaskQueue_8hpp_source.html#l00035">TaskQueue.hpp:35</a></div></div>
@@ -322,7 +325,7 @@ $(document).ready(function(){initNavTree('RadiumEngine_8hpp_source.html',''); in
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><b>RadiumEngine.hpp</b></li>
-    <li class="footer">Generated on Thu Nov 17 2022 06:52:58 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Wed Apr 5 2023 15:07:31 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

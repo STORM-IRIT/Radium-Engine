@@ -52,7 +52,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.4.0</span>
+   &#160;<span id="projectnumber">1.5.0</span>
    </div>
   </td>
  </tr>
@@ -120,57 +120,132 @@ $(document).ready(function(){initNavTree('Math_8hpp_source.html',''); initResiza
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;cmath&gt;</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>Core {</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>Math {</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;constexpr Scalar Sqrt2  = Scalar( 1.41421356237309504880 ); <span class="comment">// sqrt(2)</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;constexpr Scalar e      = Scalar( 2.7182818284590452354 );  <span class="comment">// e = exp(1).</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;constexpr Scalar Pi     = Scalar( 3.14159265358979323846 ); <span class="comment">// pi</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;constexpr Scalar InvPi  = Scalar( 0.31830988618379067154 ); <span class="comment">// 1/pi</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;constexpr Scalar PiDiv2 = Scalar( 1.57079632679489661923 ); <span class="comment">// pi/2</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;constexpr Scalar PiDiv3 = Scalar( 1.04719755119659774615 ); <span class="comment">// pi/3</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;constexpr Scalar PiDiv4 = Scalar( 0.78539816339744830962 ); <span class="comment">// pi/4</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;constexpr Scalar PiDiv6 = Scalar( 0.52359877559829887307 ); <span class="comment">// pi/6</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;constexpr Scalar PiMul2 = Scalar( 2 * Pi );                 <span class="comment">// 2*pi</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;constexpr Scalar toRad  = Scalar( Pi / Scalar( 180.0 ) );</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;constexpr Scalar toDeg  = Scalar( Scalar( 180.0 ) * InvPi );</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;constexpr Scalar machineEps = std::numeric_limits&lt;Scalar&gt;::epsilon();</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>Math {</div>
+<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Core_1_1Math.html#a535d83010be29727a6c7fa528906a064">   13</a></span>&#160;constexpr Scalar <a class="code" href="namespaceRa_1_1Core_1_1Math.html#a535d83010be29727a6c7fa528906a064">Sqrt2</a>  = Scalar( 1.41421356237309504880 ); <span class="comment">// sqrt(2)</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;constexpr Scalar e      = Scalar( 2.7182818284590452354 );  <span class="comment">// e = exp(1).</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;constexpr Scalar Pi     = Scalar( 3.14159265358979323846 ); <span class="comment">// pi</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;constexpr Scalar InvPi  = Scalar( 0.31830988618379067154 ); <span class="comment">// 1/pi</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;constexpr Scalar PiDiv2 = Scalar( 1.57079632679489661923 ); <span class="comment">// pi/2</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;constexpr Scalar PiDiv3 = Scalar( 1.04719755119659774615 ); <span class="comment">// pi/3</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;constexpr Scalar PiDiv4 = Scalar( 0.78539816339744830962 ); <span class="comment">// pi/4</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;constexpr Scalar PiDiv6 = Scalar( 0.52359877559829887307 ); <span class="comment">// pi/6</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;constexpr Scalar PiMul2 = Scalar( 2 * Pi );                 <span class="comment">// 2*pi</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;constexpr Scalar toRad  = Scalar( Pi / Scalar( 180.0 ) );</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;constexpr Scalar toDeg  = Scalar( Scalar( 180.0 ) * InvPi );</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;constexpr Scalar machineEps = std::numeric_limits&lt;Scalar&gt;::epsilon();</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="keyword">inline</span> constexpr Scalar toRadians( Scalar a );</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="keyword">inline</span> constexpr Scalar toDegrees( Scalar a );</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> T&gt;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="keyword">inline</span> <span class="keyword">typename</span> std::enable_if&lt;!std::numeric_limits&lt;T&gt;::is_integer, <span class="keywordtype">bool</span>&gt;::type</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;areApproxEqual( T x, T y, T espilonBoostFactor = T( 10 ) );</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> Vector_Or_Scalar&gt;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">bool</span> checkRange( <span class="keyword">const</span> Vector_Or_Scalar&amp; v, <span class="keyword">const</span> Scalar&amp; min, <span class="keyword">const</span> Scalar&amp; max );</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="keyword">inline</span> T ipow( <span class="keyword">const</span> T&amp; x, uint exp );</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="keyword">template</span> &lt;u<span class="keywordtype">int</span> N, <span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="keyword">inline</span> constexpr T ipow( <span class="keyword">const</span> T&amp; x );</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="keyword">inline</span> constexpr <span class="keywordtype">int</span> sign( <span class="keyword">const</span> T&amp; val );</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="keyword">inline</span> constexpr T signNZ( <span class="keyword">const</span> T&amp; val );</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="keyword">inline</span> constexpr T saturate( T v );</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="keyword">inline</span> constexpr T lerp( <span class="keyword">const</span> T&amp; a, <span class="keyword">const</span> T&amp; b, Scalar t );</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;} <span class="comment">// namespace Math</span></div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;} <span class="comment">// namespace Core</span></div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;} <span class="comment">// namespace Ra</span></div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="preprocessor">#include &lt;Core/Math/Math.inl&gt;</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Core_1_1Math.html#a0b3000f386cf93613790e403c658aad2">   30</a></span>&#160;<span class="keyword">inline</span> constexpr Scalar <a class="code" href="namespaceRa_1_1Core_1_1Math.html#a0b3000f386cf93613790e403c658aad2">toRadians</a>( Scalar a ) {</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keywordflow">return</span> toRad * a;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;}</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Core_1_1Math.html#a4638b0ac002934699199f82a5b438450">   35</a></span>&#160;<span class="keyword">inline</span> constexpr Scalar <a class="code" href="namespaceRa_1_1Core_1_1Math.html#a4638b0ac002934699199f82a5b438450">toDegrees</a>( Scalar a ) {</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keywordflow">return</span> toDeg * a;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;}</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> T&gt;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="keyword">inline</span> <span class="keyword">typename</span> std::enable_if&lt;!std::numeric_limits&lt;T&gt;::is_integer, <span class="keywordtype">bool</span>&gt;::type</div>
+<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Core_1_1Math.html#a5d4492c5ddee7e4fa37dfdad0c4f8ba1">   42</a></span>&#160;<a class="code" href="namespaceRa_1_1Core_1_1Math.html#a5d4492c5ddee7e4fa37dfdad0c4f8ba1">areApproxEqual</a>( T x, T y, T espilonBoostFactor = T( 10 ) ) {</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keywordflow">return</span> std::abs( x - y ) &lt;= std::numeric_limits&lt;T&gt;::epsilon() * espilonBoostFactor</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;           <span class="comment">// unless the result is subnormal</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;           || std::abs( x - y ) &lt; std::numeric_limits&lt;T&gt;::min();</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;}</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> Vector_Or_Scalar&gt;</div>
+<div class="line"><a name="l00053"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Core_1_1Math.html#a17c145bf35be6af212724094a3c0ede6">   53</a></span>&#160;<span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code" href="namespaceRa_1_1Core_1_1Math.html#a17c145bf35be6af212724094a3c0ede6">checkRange</a>( <span class="keyword">const</span> Vector_Or_Scalar&amp; v, <span class="keyword">const</span> Scalar&amp; min, <span class="keyword">const</span> Scalar&amp; max ) {</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keyword">using</span> std::clamp; <span class="comment">// by default, use clamp from the std library</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="namespaceRa_1_1Core_1_1Math.html#acc9f6f3b880b60bf0ee7723afabaf180">clamp</a>( v, min, max ) == v;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;}</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00064"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Core_1_1Math.html#a94dfbcda19123a49ad32c357582cda62">   64</a></span>&#160;<span class="keyword">inline</span> T <a class="code" href="namespaceRa_1_1Core_1_1Math.html#a94dfbcda19123a49ad32c357582cda62">ipow</a>( <span class="keyword">const</span> T&amp; x, uint exp ) {</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keywordflow">if</span> ( exp == 0 ) { <span class="keywordflow">return</span> T( 1 ); }</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keywordflow">if</span> ( exp == 1 ) { <span class="keywordflow">return</span> x; }</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    T p = <a class="code" href="namespaceRa_1_1Core_1_1Math.html#a94dfbcda19123a49ad32c357582cda62">ipow</a>( x, exp / 2 );</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keywordflow">if</span> ( ( exp % 2 ) == 0 ) { <span class="keywordflow">return</span> p * p; }</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keywordflow">else</span> { <span class="keywordflow">return</span> p * p * x; }</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;}</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="keyword">namespace </span>{</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, u<span class="keywordtype">int</span> N&gt;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="keyword">struct </span>IpowHelper {</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keyword">static</span> <span class="keyword">inline</span> constexpr T pow( <span class="keyword">const</span> T&amp; x ) {</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        <span class="keywordflow">return</span> ( N % 2 == 0 ) ? IpowHelper&lt;T, N / 2&gt;::pow( x ) * IpowHelper&lt;T, N / 2&gt;::pow( x )</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;                              : IpowHelper&lt;T, N / 2&gt;::pow( x ) * IpowHelper&lt;T, N / 2&gt;::pow( x ) * x;</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    }</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;};</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="keyword">struct </span>IpowHelper&lt;T, 1&gt; {</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keyword">static</span> <span class="keyword">inline</span> constexpr T pow( <span class="keyword">const</span> T&amp; x ) { <span class="keywordflow">return</span> x; }</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;};</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="keyword">struct </span>IpowHelper&lt;T, 0&gt; {</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    <span class="keyword">static</span> <span class="keyword">inline</span> constexpr T pow( <span class="keyword">const</span> T&amp; <span class="comment">/*x*/</span> ) { <span class="keywordflow">return</span> T( 1 ); }</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;};</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;} <span class="comment">// namespace</span></div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="comment"></span><span class="keyword">template</span> &lt;u<span class="keywordtype">int</span> N, <span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00095"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Core_1_1Math.html#a243b0088dbe5c67115502d7bba2cfc71">   95</a></span>&#160;<span class="keyword">inline</span> constexpr T <a class="code" href="namespaceRa_1_1Core_1_1Math.html#a94dfbcda19123a49ad32c357582cda62">ipow</a>( <span class="keyword">const</span> T&amp; x ) {</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <span class="keywordflow">return</span> IpowHelper&lt;T, N&gt;::pow( x );</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;}</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;<span class="keyword">inline</span> constexpr <span class="keywordtype">int</span> signum( T x, std::true_type <span class="comment">/*is_signed*/</span> ) {</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <span class="keywordflow">return</span> ( T( 0 ) &lt; x ) - ( x &lt; T( 0 ) );</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;}</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; </div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00106"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Core_1_1Math.html#a90f0fe9079f5bb86c721ea4b61738470">  106</a></span>&#160;<span class="keyword">inline</span> constexpr <span class="keywordtype">int</span> <a class="code" href="namespaceRa_1_1Core_1_1Math.html#a90f0fe9079f5bb86c721ea4b61738470">sign</a>( <span class="keyword">const</span> T&amp; val ) {</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <span class="keywordflow">return</span> signum( val, std::is_signed&lt;T&gt;() );</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;}</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160; </div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00114"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Core_1_1Math.html#a810d6d50b61cc01cda1d54527de864d0">  114</a></span>&#160;<span class="keyword">inline</span> constexpr T <a class="code" href="namespaceRa_1_1Core_1_1Math.html#a810d6d50b61cc01cda1d54527de864d0">signNZ</a>( <span class="keyword">const</span> T&amp; val ) {</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    <span class="keywordflow">return</span> T( std::copysign( T( 1 ), val ) );</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;}</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160; </div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00120"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Core_1_1Math.html#ac59d3507a0a632719542d21a16a11bba">  120</a></span>&#160;<span class="keyword">inline</span> constexpr T <a class="code" href="namespaceRa_1_1Core_1_1Math.html#ac59d3507a0a632719542d21a16a11bba">saturate</a>( T v ) {</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    <span class="keywordflow">return</span> std::clamp( v, <span class="keyword">static_cast&lt;</span>T<span class="keyword">&gt;</span>( 0 ), <span class="keyword">static_cast&lt;</span>T<span class="keyword">&gt;</span>( 1 ) );</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;}</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160; </div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00126"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Core_1_1Math.html#a5dd9453a5438b5c810f881680ba991fc">  126</a></span>&#160;<span class="keyword">inline</span> constexpr T <a class="code" href="namespaceRa_1_1Core_1_1Math.html#a5dd9453a5438b5c810f881680ba991fc">lerp</a>( <span class="keyword">const</span> T&amp; a, <span class="keyword">const</span> T&amp; b, Scalar t ) {</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    <span class="keywordflow">return</span> ( 1 - t ) * a + t * b;</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;}</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160; </div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00132"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Core_1_1Math.html#a3d9b0542f059c9b839f896b872aa59b1">  132</a></span>&#160;T <a class="code" href="namespaceRa_1_1Core_1_1Math.html#a3d9b0542f059c9b839f896b872aa59b1">smoothstep</a>( T edge0, T edge1, T x ) {</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    <span class="keyword">using</span> std::clamp;</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    T t = <a class="code" href="namespaceRa_1_1Core_1_1Math.html#acc9f6f3b880b60bf0ee7723afabaf180">clamp</a>( ( x - edge0 ) / ( edge1 - edge0 ), <span class="keyword">static_cast&lt;</span>T<span class="keyword">&gt;</span>( 0 ), <span class="keyword">static_cast&lt;</span>T<span class="keyword">&gt;</span>( 1 ) );</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;    <span class="keywordflow">return</span> t * t * ( 3.0 - 2.0 * t );</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;}</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160; </div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, <span class="keyword">template</span> &lt;<span class="keyword">typename</span>, <span class="keywordtype">int</span>...&gt; <span class="keyword">typename</span> M, <span class="keywordtype">int</span>... p&gt;</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;M&lt;T, p...&gt; <a class="code" href="namespaceRa_1_1Core_1_1Math.html#a3d9b0542f059c9b839f896b872aa59b1">smoothstep</a>( T edge0, T edge1, M&lt;T, p...&gt; v ) {</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;    <span class="keywordflow">return</span> v.unaryExpr(</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;        [edge0, edge1]( T x ) { <span class="keywordflow">return</span> <a class="code" href="namespaceRa_1_1Core_1_1Math.html#a3d9b0542f059c9b839f896b872aa59b1">Ra::Core::Math::smoothstep</a>( edge0, edge1, x ); } );</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;}</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160; </div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;} <span class="comment">// namespace Math</span></div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;} <span class="comment">// namespace Core</span></div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;} <span class="comment">// namespace Ra</span></div>
+<div class="ttc" id="anamespaceRa_1_1Core_1_1Math_html_a0b3000f386cf93613790e403c658aad2"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Math.html#a0b3000f386cf93613790e403c658aad2">Ra::Core::Math::toRadians</a></div><div class="ttdeci">constexpr Scalar toRadians(Scalar a)</div><div class="ttdoc">Useful functions.</div><div class="ttdef"><b>Definition:</b> <a href="Math_8hpp_source.html#l00030">Math.hpp:30</a></div></div>
+<div class="ttc" id="anamespaceRa_1_1Core_1_1Math_html_a17c145bf35be6af212724094a3c0ede6"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Math.html#a17c145bf35be6af212724094a3c0ede6">Ra::Core::Math::checkRange</a></div><div class="ttdeci">bool checkRange(const Vector_Or_Scalar &amp;v, const Scalar &amp;min, const Scalar &amp;max)</div><div class="ttdef"><b>Definition:</b> <a href="Math_8hpp_source.html#l00053">Math.hpp:53</a></div></div>
+<div class="ttc" id="anamespaceRa_1_1Core_1_1Math_html_a3d9b0542f059c9b839f896b872aa59b1"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Math.html#a3d9b0542f059c9b839f896b872aa59b1">Ra::Core::Math::smoothstep</a></div><div class="ttdeci">T smoothstep(T edge0, T edge1, T x)</div><div class="ttdoc">As define by https://registry.khronos.org/OpenGL-Refpages/gl4/html/smoothstep.xhtml.</div><div class="ttdef"><b>Definition:</b> <a href="Math_8hpp_source.html#l00132">Math.hpp:132</a></div></div>
+<div class="ttc" id="anamespaceRa_1_1Core_1_1Math_html_a4638b0ac002934699199f82a5b438450"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Math.html#a4638b0ac002934699199f82a5b438450">Ra::Core::Math::toDegrees</a></div><div class="ttdeci">constexpr Scalar toDegrees(Scalar a)</div><div class="ttdoc">Converts an angle from radians to degrees.</div><div class="ttdef"><b>Definition:</b> <a href="Math_8hpp_source.html#l00035">Math.hpp:35</a></div></div>
+<div class="ttc" id="anamespaceRa_1_1Core_1_1Math_html_a535d83010be29727a6c7fa528906a064"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Math.html#a535d83010be29727a6c7fa528906a064">Ra::Core::Math::Sqrt2</a></div><div class="ttdeci">constexpr Scalar Sqrt2</div><div class="ttdoc">Mathematical constants casted to Scalar. Values taken from math.h.</div><div class="ttdef"><b>Definition:</b> <a href="Math_8hpp_source.html#l00013">Math.hpp:13</a></div></div>
+<div class="ttc" id="anamespaceRa_1_1Core_1_1Math_html_a5d4492c5ddee7e4fa37dfdad0c4f8ba1"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Math.html#a5d4492c5ddee7e4fa37dfdad0c4f8ba1">Ra::Core::Math::areApproxEqual</a></div><div class="ttdeci">std::enable_if&lt;!std::numeric_limits&lt; T &gt;::is_integer, bool &gt;::type areApproxEqual(T x, T y, T espilonBoostFactor=T(10))</div><div class="ttdoc">Compare two numbers such that |x-y| &lt; espilon*epsilonBoostFactor.</div><div class="ttdef"><b>Definition:</b> <a href="Math_8hpp_source.html#l00042">Math.hpp:42</a></div></div>
+<div class="ttc" id="anamespaceRa_1_1Core_1_1Math_html_a5dd9453a5438b5c810f881680ba991fc"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Math.html#a5dd9453a5438b5c810f881680ba991fc">Ra::Core::Math::lerp</a></div><div class="ttdeci">constexpr T lerp(const T &amp;a, const T &amp;b, Scalar t)</div><div class="ttdoc">Returns the linear interpolation between a and b.</div><div class="ttdef"><b>Definition:</b> <a href="Math_8hpp_source.html#l00126">Math.hpp:126</a></div></div>
+<div class="ttc" id="anamespaceRa_1_1Core_1_1Math_html_a810d6d50b61cc01cda1d54527de864d0"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Math.html#a810d6d50b61cc01cda1d54527de864d0">Ra::Core::Math::signNZ</a></div><div class="ttdeci">constexpr T signNZ(const T &amp;val)</div><div class="ttdef"><b>Definition:</b> <a href="Math_8hpp_source.html#l00114">Math.hpp:114</a></div></div>
+<div class="ttc" id="anamespaceRa_1_1Core_1_1Math_html_a90f0fe9079f5bb86c721ea4b61738470"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Math.html#a90f0fe9079f5bb86c721ea4b61738470">Ra::Core::Math::sign</a></div><div class="ttdeci">constexpr int sign(const T &amp;val)</div><div class="ttdoc">Returns the sign of any numeric type as { -1, 0, 1}.</div><div class="ttdef"><b>Definition:</b> <a href="Math_8hpp_source.html#l00106">Math.hpp:106</a></div></div>
+<div class="ttc" id="anamespaceRa_1_1Core_1_1Math_html_a94dfbcda19123a49ad32c357582cda62"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Math.html#a94dfbcda19123a49ad32c357582cda62">Ra::Core::Math::ipow</a></div><div class="ttdeci">T ipow(const T &amp;x, uint exp)</div><div class="ttdoc">Run-time exponent version.</div><div class="ttdef"><b>Definition:</b> <a href="Math_8hpp_source.html#l00064">Math.hpp:64</a></div></div>
+<div class="ttc" id="anamespaceRa_1_1Core_1_1Math_html_ac59d3507a0a632719542d21a16a11bba"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Math.html#ac59d3507a0a632719542d21a16a11bba">Ra::Core::Math::saturate</a></div><div class="ttdeci">constexpr T saturate(T v)</div><div class="ttdoc">Clamps the value between 0 and 1.</div><div class="ttdef"><b>Definition:</b> <a href="Math_8hpp_source.html#l00120">Math.hpp:120</a></div></div>
+<div class="ttc" id="anamespaceRa_1_1Core_1_1Math_html_acc9f6f3b880b60bf0ee7723afabaf180"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Math.html#acc9f6f3b880b60bf0ee7723afabaf180">Ra::Core::Math::clamp</a></div><div class="ttdeci">Derived::PlainMatrix clamp(const Eigen::MatrixBase&lt; Derived &gt; &amp;v, const Eigen::MatrixBase&lt; DerivedA &gt; &amp;min, const Eigen::MatrixBase&lt; DerivedB &gt; &amp;max)</div><div class="ttdoc">Component-wise clamp() function on a floating-point vector.</div><div class="ttdef"><b>Definition:</b> <a href="LinearAlgebra_8hpp_source.html#l00193">LinearAlgebra.hpp:193</a></div></div>
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdef"><b>Definition:</b> <a href="Cage_8cpp_source.html#l00003">Cage.cpp:3</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
@@ -178,7 +253,7 @@ $(document).ready(function(){initNavTree('Math_8hpp_source.html',''); initResiza
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_a1f42069ba95676f6b9abbd5065ccf6d.html">Math</a></li><li class="navelem"><b>Math.hpp</b></li>
-    <li class="footer">Generated on Thu Nov 17 2022 06:52:58 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Wed Apr 5 2023 15:07:31 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

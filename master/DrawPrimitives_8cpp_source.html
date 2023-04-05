@@ -52,7 +52,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.4.0</span>
+   &#160;<span id="projectnumber">1.5.0</span>
    </div>
   </td>
  </tr>
@@ -195,7 +195,7 @@ $(document).ready(function(){initNavTree('DrawPrimitives_8cpp_source.html',''); 
 <div class="line"><a name="l00081"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#a7a457fa10ba75ab68446d8392f81ba48">   81</a></span>&#160;<a class="code" href="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#a7a457fa10ba75ab68446d8392f81ba48">Vector</a>( <span class="keyword">const</span> Core::Vector3&amp; start, <span class="keyword">const</span> Core::Vector3&amp; v, <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html">Core::Utils::Color</a>&amp; color ) {</div>
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    Core::Vector3 end = start + v;</div>
 <div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    Core::Vector3 a, b;</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    Core::Math::getOrthogonalVectors( v.normalized(), a, b );</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <a class="code" href="namespaceRa_1_1Core_1_1Math.html#a5f25a31a29b0688e349dc35a353b9766">Core::Math::getOrthogonalVectors</a>( v.normalized(), a, b );</div>
 <div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    a.normalize();</div>
 <div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    Scalar l = v.norm();</div>
 <div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
@@ -293,7 +293,7 @@ $(document).ready(function(){initNavTree('DrawPrimitives_8cpp_source.html',''); 
 <div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;    indices.resize( segments );</div>
 <div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160; </div>
 <div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;    Core::Vector3 xPlane, yPlane;</div>
-<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;    Core::Math::getOrthogonalVectors( normal, xPlane, yPlane );</div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;    <a class="code" href="namespaceRa_1_1Core_1_1Math.html#a5f25a31a29b0688e349dc35a353b9766">Core::Math::getOrthogonalVectors</a>( normal, xPlane, yPlane );</div>
 <div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;    xPlane.normalize();</div>
 <div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;    yPlane.normalize();</div>
 <div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160; </div>
@@ -330,7 +330,7 @@ $(document).ready(function(){initNavTree('DrawPrimitives_8cpp_source.html',''); 
 <div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;    indices.resize( segments );</div>
 <div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160; </div>
 <div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;    Core::Vector3 xPlane, yPlane;</div>
-<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;    Core::Math::getOrthogonalVectors( normal, xPlane, yPlane );</div>
+<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;    <a class="code" href="namespaceRa_1_1Core_1_1Math.html#a5f25a31a29b0688e349dc35a353b9766">Core::Math::getOrthogonalVectors</a>( normal, xPlane, yPlane );</div>
 <div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;    xPlane.normalize();</div>
 <div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;    yPlane.normalize();</div>
 <div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160; </div>
@@ -435,7 +435,7 @@ $(document).ready(function(){initNavTree('DrawPrimitives_8cpp_source.html',''); 
 <div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;    std::vector&lt;uint&gt; indices( seg + 1 );</div>
 <div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160; </div>
 <div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;    Core::Vector3 xPlane, yPlane;</div>
-<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;    Core::Math::getOrthogonalVectors( normal, xPlane, yPlane );</div>
+<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;    <a class="code" href="namespaceRa_1_1Core_1_1Math.html#a5f25a31a29b0688e349dc35a353b9766">Core::Math::getOrthogonalVectors</a>( normal, xPlane, yPlane );</div>
 <div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;    xPlane.normalize();</div>
 <div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;    yPlane.normalize();</div>
 <div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160; </div>
@@ -470,7 +470,7 @@ $(document).ready(function(){initNavTree('DrawPrimitives_8cpp_source.html',''); 
 <div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;    <span class="comment">// plus the normal plane.</span></div>
 <div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;    Core::Vector3 a, b;</div>
 <div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;    Core::Vector3 n = normal.normalized();</div>
-<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;    Core::Math::getOrthogonalVectors( n, a, b );</div>
+<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;    <a class="code" href="namespaceRa_1_1Core_1_1Math.html#a5f25a31a29b0688e349dc35a353b9766">Core::Math::getOrthogonalVectors</a>( n, a, b );</div>
 <div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160; </div>
 <div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;    n                 = scale * n;</div>
 <div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;    Core::Vector3 end = point + n;</div>
@@ -688,15 +688,16 @@ $(document).ready(function(){initNavTree('DrawPrimitives_8cpp_source.html',''); 
 <div class="line"><a name="l00576"></a><span class="lineno">  576</span>&#160;} <span class="comment">// namespace Ra</span></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1Obb_html"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1Obb.html">Ra::Core::Geometry::Obb</a></div><div class="ttdoc">An oriented bounding box.</div><div class="ttdef"><b>Definition:</b> <a href="Obb_8hpp_source.html#l00011">Obb.hpp:12</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1Obb_html_ae30ba377e6fc93e47ed264f21740961c"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1Obb.html#ae30ba377e6fc93e47ed264f21740961c">Ra::Core::Geometry::Obb::worldCorner</a></div><div class="ttdeci">Eigen::Matrix&lt; Scalar, 3, 1 &gt; worldCorner(int i) const</div><div class="ttdoc">Returns the position of the ith corner of the OBB ( world space )</div><div class="ttdef"><b>Definition:</b> <a href="Obb_8hpp_source.html#l00050">Obb.hpp:50</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1Spline_html"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1Spline.html">Ra::Core::Geometry::Spline</a></div><div class="ttdoc">Handling spline curves of arbitrary dimensions.</div><div class="ttdef"><b>Definition:</b> <a href="Spline_8hpp_source.html#l00020">Spline.hpp:21</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1Spline_html_aa5bd25d48429d2187c1c123b96c43983"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1Spline.html#aa5bd25d48429d2187c1c123b96c43983">Ra::Core::Geometry::Spline::f</a></div><div class="ttdeci">Vector f(Scalar u) const</div><div class="ttdef"><b>Definition:</b> <a href="Spline_8inl_source.html#l00058">Spline.inl:58</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1Spline_html"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1Spline.html">Ra::Core::Geometry::Spline</a></div><div class="ttdoc">Handling spline curves of arbitrary dimensions.</div><div class="ttdef"><b>Definition:</b> <a href="Spline_8hpp_source.html#l00023">Spline.hpp:24</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1Spline_html_aa5bd25d48429d2187c1c123b96c43983"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1Spline.html#aa5bd25d48429d2187c1c123b96c43983">Ra::Core::Geometry::Spline::f</a></div><div class="ttdeci">Vector f(Scalar u) const</div><div class="ttdef"><b>Definition:</b> <a href="Spline_8hpp_source.html#l00151">Spline.hpp:151</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Grid_html"><div class="ttname"><a href="classRa_1_1Core_1_1Grid.html">Ra::Core::Grid</a></div><div class="ttdef"><b>Definition:</b> <a href="Grid_8hpp_source.html#l00017">Grid.hpp:18</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1ColorBase_html"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1ColorBase.html">Ra::Core::Utils::ColorBase&lt; Scalar &gt;</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1Mesh_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1Mesh.html">Ra::Engine::Data::Mesh</a></div><div class="ttdoc">Mesh, own a Core::Geometry::TriangleMesh.</div><div class="ttdef"><b>Definition:</b> <a href="Mesh_8hpp_source.html#l00413">Mesh.hpp:414</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Rendering_1_1RenderObject_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Rendering_1_1RenderObject.html">Ra::Engine::Rendering::RenderObject</a></div><div class="ttdef"><b>Definition:</b> <a href="RenderObject_8hpp_source.html#l00036">RenderObject.hpp:37</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Rendering_1_1RenderTechnique_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html">Ra::Engine::Rendering::RenderTechnique</a></div><div class="ttdef"><b>Definition:</b> <a href="RenderTechnique_8hpp_source.html#l00063">RenderTechnique.hpp:64</a></div></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1Rendering_1_1RenderTechnique_html_a13f5f243daad1b13a6bec5efe3831c25"><div class="ttname"><a href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a13f5f243daad1b13a6bec5efe3831c25">Ra::Engine::Rendering::RenderTechnique::setParametersProvider</a></div><div class="ttdeci">void setParametersProvider(std::shared_ptr&lt; Data::ShaderParameterProvider &gt; provider, Core::Utils::Index pass=Core::Utils::Index(-1))</div><div class="ttdef"><b>Definition:</b> <a href="RenderTechnique_8cpp_source.html#l00053">RenderTechnique.cpp:53</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Rendering_1_1RenderTechnique_html_a13f5f243daad1b13a6bec5efe3831c25"><div class="ttname"><a href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a13f5f243daad1b13a6bec5efe3831c25">Ra::Engine::Rendering::RenderTechnique::setParametersProvider</a></div><div class="ttdeci">void setParametersProvider(std::shared_ptr&lt; Data::ShaderParameterProvider &gt; provider, Core::Utils::Index pass=Core::Utils::Index(-1))</div><div class="ttdef"><b>Definition:</b> <a href="RenderTechnique_8cpp_source.html#l00051">RenderTechnique.cpp:51</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1Component_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1Component.html">Ra::Engine::Scene::Component</a></div><div class="ttdoc">A component is an element that can be updated by a system. It is also linked to some other components...</div><div class="ttdef"><b>Definition:</b> <a href="Component_8hpp_source.html#l00030">Component.hpp:31</a></div></div>
+<div class="ttc" id="anamespaceRa_1_1Core_1_1Math_html_a5f25a31a29b0688e349dc35a353b9766"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Math.html#a5f25a31a29b0688e349dc35a353b9766">Ra::Core::Math::getOrthogonalVectors</a></div><div class="ttdeci">void getOrthogonalVectors(const Vector3 &amp;fx, Eigen::Ref&lt; Vector3 &gt; fy, Eigen::Ref&lt; Vector3 &gt; fz)</div><div class="ttdef"><b>Definition:</b> <a href="LinearAlgebra_8hpp_source.html#l00259">LinearAlgebra.hpp:259</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives_html_a0a59d32879ec0d4d6692fbd463d802b1"><div class="ttname"><a href="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#a0a59d32879ec0d4d6692fbd463d802b1">Ra::Engine::Data::DrawPrimitives::Capsule</a></div><div class="ttdeci">MeshPtr Capsule(const Core::Vector3 &amp;p1, const Core::Vector3 &amp;p2, Scalar radius, const Core::Utils::Color &amp;color)</div><div class="ttdoc">Displays a capsule computed with given endpoints and radius.</div><div class="ttdef"><b>Definition:</b> <a href="DrawPrimitives_8cpp_source.html#l00275">DrawPrimitives.cpp:275</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives_html_a15a05dc926fa59f1a44419a0b994aa9a"><div class="ttname"><a href="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#a15a05dc926fa59f1a44419a0b994aa9a">Ra::Engine::Data::DrawPrimitives::Line</a></div><div class="ttdeci">LineMeshPtr Line(const Core::Vector3 &amp;a, const Core::Vector3 &amp;b, const Core::Utils::Color &amp;color)</div><div class="ttdoc">Displays given line.</div><div class="ttdef"><b>Definition:</b> <a href="DrawPrimitives_8cpp_source.html#l00069">DrawPrimitives.cpp:69</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives_html_a185400772c9aa5ffd41b559acc966968"><div class="ttname"><a href="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#a185400772c9aa5ffd41b559acc966968">Ra::Engine::Data::DrawPrimitives::CircleArc</a></div><div class="ttdeci">LineMeshPtr CircleArc(const Core::Vector3 &amp;center, const Core::Vector3 &amp;normal, Scalar radius, Scalar angle, uint segments, const Core::Utils::Color &amp;color)</div><div class="ttdef"><b>Definition:</b> <a href="DrawPrimitives_8cpp_source.html#l00208">DrawPrimitives.cpp:208</a></div></div>
@@ -720,7 +721,7 @@ $(document).ready(function(){initNavTree('DrawPrimitives_8cpp_source.html',''); 
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_a46b089ae2655285b8dddf2703c36868.html">Data</a></li><li class="navelem"><b>DrawPrimitives.cpp</b></li>
-    <li class="footer">Generated on Thu Nov 17 2022 06:52:58 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Wed Apr 5 2023 15:07:31 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

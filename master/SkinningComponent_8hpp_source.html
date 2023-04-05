@@ -52,7 +52,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.4.0</span>
+   &#160;<span id="projectnumber">1.5.0</span>
    </div>
   </td>
  </tr>
@@ -183,102 +183,115 @@ $(document).ready(function(){initNavTree('SkinningComponent_8hpp_source.html',''
 <div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
 <div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <span class="keyword">const</span> std::string&amp; getMeshName() <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160; </div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    <span class="keyword">const</span> std::string&amp; getSkeletonName() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160; </div>
-<div class="line"><a name="l00113"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1SkinningComponent.html#a6b3625e220d1610990bb61fa22e5d1a9">  113</a></span>&#160;    <span class="keyword">const</span> <a class="code" href="structRa_1_1Core_1_1Animation_1_1SkinningRefData.html">Core::Animation::SkinningRefData</a>* <a class="code" href="classRa_1_1Engine_1_1Scene_1_1SkinningComponent.html#a6b3625e220d1610990bb61fa22e5d1a9">getSkinningRefData</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> &amp;m_refData; }</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160; </div>
-<div class="line"><a name="l00116"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1SkinningComponent.html#a7a1a0033f4295f4eed5545c2ce2f3da4">  116</a></span>&#160;    <span class="keyword">const</span> <a class="code" href="structRa_1_1Core_1_1Animation_1_1SkinningFrameData.html">Core::Animation::SkinningFrameData</a>* <a class="code" href="classRa_1_1Engine_1_1Scene_1_1SkinningComponent.html#a7a1a0033f4295f4eed5545c2ce2f3da4">getSkinningFrameData</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> &amp;m_frameData; }</div>
+<div class="line"><a name="l00111"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1SkinningComponent.html#a3ec3bf321a3ee71f3b12f54cc1ba1c5a">  111</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classRa_1_1Engine_1_1Scene_1_1SkinningComponent.html#a3ec3bf321a3ee71f3b12f54cc1ba1c5a">setMeshName</a>( <span class="keyword">const</span> std::string&amp; name ) { m_meshName = name; }</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160; </div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    <span class="keyword">const</span> std::string&amp; getSkeletonName() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160; </div>
+<div class="line"><a name="l00117"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1SkinningComponent.html#a6b3625e220d1610990bb61fa22e5d1a9">  117</a></span>&#160;    <span class="keyword">const</span> <a class="code" href="structRa_1_1Core_1_1Animation_1_1SkinningRefData.html">Core::Animation::SkinningRefData</a>* <a class="code" href="classRa_1_1Engine_1_1Scene_1_1SkinningComponent.html#a6b3625e220d1610990bb61fa22e5d1a9">getSkinningRefData</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> &amp;m_refData; }</div>
 <div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160; </div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160; </div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    <span class="keywordtype">void</span> showWeights( <span class="keywordtype">bool</span> on );</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160; </div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    <span class="keywordtype">bool</span> isShowingWeights();</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160; </div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    <span class="keywordtype">void</span> showWeightsType( WeightType type );</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160; </div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    WeightType getWeightsType();</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160; </div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;    <span class="keywordtype">void</span> setWeightBone( uint bone );</div>
+<div class="line"><a name="l00120"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1SkinningComponent.html#a7a1a0033f4295f4eed5545c2ce2f3da4">  120</a></span>&#160;    <span class="keyword">const</span> <a class="code" href="structRa_1_1Core_1_1Animation_1_1SkinningFrameData.html">Core::Animation::SkinningFrameData</a>* <a class="code" href="classRa_1_1Engine_1_1Scene_1_1SkinningComponent.html#a7a1a0033f4295f4eed5545c2ce2f3da4">getSkinningFrameData</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> &amp;m_frameData; }</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160; </div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160; </div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    <span class="keywordtype">void</span> showWeights( <span class="keywordtype">bool</span> on );</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160; </div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    <span class="keywordtype">bool</span> isShowingWeights();</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160; </div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    <span class="keywordtype">void</span> showWeightsType( WeightType type );</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160; </div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    WeightType getWeightsType();</div>
 <div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160; </div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;  <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;    <span class="keywordtype">void</span> setupIO( <span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span> );</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;    <span class="keywordtype">void</span> setWeightBone( uint bone );</div>
 <div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160; </div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;    <span class="keywordtype">void</span> createWeightMatrix();</div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160; </div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;  <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;    <span class="keyword">using</span> Getter = <span class="keyword">typename</span> <a class="code" href="structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes.html#ad3b421fdb7fe4703e3773b622076b373">ComponentMessenger::CallbackTypes&lt;T&gt;::Getter</a>;</div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160; </div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;    <span class="keyword">using</span> ReadWrite = <span class="keyword">typename</span> <a class="code" href="structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes.html#a69156f044994d1cbcf666dbe97360acf">ComponentMessenger::CallbackTypes&lt;T&gt;::ReadWrite</a>;</div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160; </div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;    std::string m_meshName;</div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160; </div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;    std::string m_skelName;</div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160; </div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;    <a class="code" href="structRa_1_1Core_1_1Animation_1_1SkinningRefData.html">Core::Animation::SkinningRefData</a> m_refData;</div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160; </div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;    <a class="code" href="structRa_1_1Core_1_1Animation_1_1SkinningFrameData.html">Core::Animation::SkinningFrameData</a> m_frameData;</div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160; </div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;    Getter&lt;Core::Animation::Skeleton&gt; m_skeletonGetter;</div>
+<div class="line"><a name="l00144"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1SkinningComponent.html#a7be5cf660d796046b52b2c7023f802b6">  144</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classRa_1_1Engine_1_1Scene_1_1SkinningComponent.html#a7be5cf660d796046b52b2c7023f802b6">setPerBoneWeight</a>( std::map&lt;std::string, std::vector&lt;std::pair&lt;uint, Scalar&gt;&gt;&gt;&amp;&amp; w ) {</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;        m_loadedWeights = w;</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;    }</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160; </div>
+<div class="line"><a name="l00152"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1SkinningComponent.html#a15cea3b8defea94801c093d915d60f13">  152</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classRa_1_1Engine_1_1Scene_1_1SkinningComponent.html#a15cea3b8defea94801c093d915d60f13">setPerBoneMatrix</a>( std::map&lt;std::string, Core::Transform&gt;&amp;&amp; m ) {</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;        m_loadedBindMatrices = m;</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;    }</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160; </div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;  <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;    <span class="keywordtype">void</span> setupIO( <span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span> );</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160; </div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;    <span class="keywordtype">void</span> createWeightMatrix();</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160; </div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;  <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;    <span class="keyword">using</span> Getter = <span class="keyword">typename</span> <a class="code" href="structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes.html#ad3b421fdb7fe4703e3773b622076b373">ComponentMessenger::CallbackTypes&lt;T&gt;::Getter</a>;</div>
 <div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160; </div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;    SkinningType m_skinningType;</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;    <span class="keyword">using</span> ReadWrite = <span class="keyword">typename</span> <a class="code" href="structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes.html#a69156f044994d1cbcf666dbe97360acf">ComponentMessenger::CallbackTypes&lt;T&gt;::ReadWrite</a>;</div>
 <div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160; </div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;    NormalSkinning m_normalSkinning;</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;    std::string m_meshName;</div>
 <div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160; </div>
-<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;    <span class="keywordtype">bool</span> m_isReady;</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;    std::string m_skelName;</div>
 <div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160; </div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;    <span class="keywordtype">bool</span> m_forceUpdate;</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;    <a class="code" href="structRa_1_1Core_1_1Animation_1_1SkinningRefData.html">Core::Animation::SkinningRefData</a> m_refData;</div>
 <div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160; </div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;    Getter&lt;Core::Utils::Index&gt; m_renderObjectReader;</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;    <a class="code" href="structRa_1_1Core_1_1Animation_1_1SkinningFrameData.html">Core::Animation::SkinningFrameData</a> m_frameData;</div>
 <div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160; </div>
-<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;    <span class="keywordtype">bool</span> m_meshIsPoly { <span class="keyword">false</span> };</div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;    Getter&lt;Core::Animation::Skeleton&gt; m_skeletonGetter;</div>
 <div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160; </div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;    <span class="keywordtype">bool</span> m_meshIsQuad { <span class="keyword">false</span> };</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;    SkinningType m_skinningType;</div>
 <div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160; </div>
-<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;    ReadWrite&lt;Core::Geometry::TriangleMesh&gt; m_triMeshWriter;</div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;    NormalSkinning m_normalSkinning;</div>
 <div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160; </div>
-<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;    ReadWrite&lt;Core::Geometry::PolyMesh&gt; m_polyMeshWriter;</div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;    <span class="keywordtype">bool</span> m_isReady;</div>
 <div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160; </div>
-<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;    ReadWrite&lt;Core::Geometry::QuadMesh&gt; m_quadMeshWriter;</div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;    <span class="keywordtype">bool</span> m_forceUpdate;</div>
 <div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160; </div>
-<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;    <a class="code" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html">Core::Geometry::TopologicalMesh</a> m_topoMesh;</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;    Getter&lt;Core::Utils::Index&gt; m_renderObjectReader;</div>
 <div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160; </div>
-<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;    std::map&lt;std::string, std::vector&lt;std::pair&lt;uint, Scalar&gt;&gt;&gt; m_loadedWeights;</div>
-<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160; </div>
-<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;    std::map&lt;std::string, Core::Transform&gt; m_loadedBindMatrices;</div>
-<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160; </div>
-<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;    std::shared_ptr&lt;Data::Material&gt; m_baseMaterial;</div>
-<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160; </div>
-<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;    std::shared_ptr&lt;Data::Material&gt; m_weightMaterial;</div>
-<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160; </div>
-<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;    Core::Vector3Array m_baseUV;</div>
-<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160; </div>
-<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;    Core::Vector3Array m_weightsUV;</div>
-<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160; </div>
-<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;    uint m_weightBone;</div>
-<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160; </div>
-<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;    WeightType m_weightType;</div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;    <span class="keywordtype">bool</span> m_meshIsPoly { <span class="keyword">false</span> };</div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160; </div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;    <span class="keywordtype">bool</span> m_meshIsQuad { <span class="keyword">false</span> };</div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160; </div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;    ReadWrite&lt;Core::Geometry::TriangleMesh&gt; m_triMeshWriter;</div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160; </div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;    ReadWrite&lt;Core::Geometry::PolyMesh&gt; m_polyMeshWriter;</div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160; </div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;    ReadWrite&lt;Core::Geometry::QuadMesh&gt; m_quadMeshWriter;</div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160; </div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;    <a class="code" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html">Core::Geometry::TopologicalMesh</a> m_topoMesh;</div>
+<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160; </div>
+<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;    std::map&lt;std::string, std::vector&lt;std::pair&lt;uint, Scalar&gt;&gt;&gt; m_loadedWeights;</div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160; </div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;    std::map&lt;std::string, Core::Transform&gt; m_loadedBindMatrices;</div>
 <div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160; </div>
-<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;    <span class="keywordtype">bool</span> m_showingWeights;</div>
-<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;};</div>
-<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160; </div>
-<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;} <span class="comment">// namespace Scene</span></div>
-<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;} <span class="comment">// namespace Engine</span></div>
-<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;} <span class="comment">// namespace Ra</span></div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;    std::shared_ptr&lt;Data::Material&gt; m_baseMaterial;</div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160; </div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;    std::shared_ptr&lt;Data::Material&gt; m_weightMaterial;</div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160; </div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;    Core::Vector3Array m_baseUV;</div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160; </div>
+<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;    Core::Vector3Array m_weightsUV;</div>
+<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160; </div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;    uint m_weightBone;</div>
+<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160; </div>
+<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;    WeightType m_weightType;</div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160; </div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;    <span class="keywordtype">bool</span> m_showingWeights;</div>
+<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;};</div>
+<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160; </div>
+<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;} <span class="comment">// namespace Scene</span></div>
+<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;} <span class="comment">// namespace Engine</span></div>
+<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;} <span class="comment">// namespace Ra</span></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1HandleData_html"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1HandleData.html">Ra::Core::Asset::HandleData</a></div><div class="ttdef"><b>Definition:</b> <a href="HandleData_8hpp_source.html#l00042">HandleData.hpp:43</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1TopologicalMesh_html"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html">Ra::Core::Geometry::TopologicalMesh</a></div><div class="ttdef"><b>Definition:</b> <a href="TopologicalMesh_8hpp_source.html#l00052">TopologicalMesh.hpp:53</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1TopologicalMesh_html"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html">Ra::Core::Geometry::TopologicalMesh</a></div><div class="ttdef"><b>Definition:</b> <a href="TopologicalMesh_8hpp_source.html#l00055">TopologicalMesh.hpp:56</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1Component_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1Component.html">Ra::Engine::Scene::Component</a></div><div class="ttdoc">A component is an element that can be updated by a system. It is also linked to some other components...</div><div class="ttdef"><b>Definition:</b> <a href="Component_8hpp_source.html#l00030">Component.hpp:31</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1Entity_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1Entity.html">Ra::Engine::Scene::Entity</a></div><div class="ttdoc">An entity is an scene element. It ties together components with a transform.</div><div class="ttdef"><b>Definition:</b> <a href="Entity_8hpp_source.html#l00022">Entity.hpp:23</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1SkinningComponent_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1SkinningComponent.html">Ra::Engine::Scene::SkinningComponent</a></div><div class="ttdoc">The SkinningComponent class is responsible for applying Geometric Skinning Methods on an animated obj...</div><div class="ttdef"><b>Definition:</b> <a href="SkinningComponent_8hpp_source.html#l00034">SkinningComponent.hpp:35</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1SkinningComponent_html_a15cea3b8defea94801c093d915d60f13"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1SkinningComponent.html#a15cea3b8defea94801c093d915d60f13">Ra::Engine::Scene::SkinningComponent::setPerBoneMatrix</a></div><div class="ttdeci">void setPerBoneMatrix(std::map&lt; std::string, Core::Transform &gt; &amp;&amp;m)</div><div class="ttdef"><b>Definition:</b> <a href="SkinningComponent_8hpp_source.html#l00152">SkinningComponent.hpp:152</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1SkinningComponent_html_a2304cfec1e381ad97319b39a6b897f7c"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1SkinningComponent.html#a2304cfec1e381ad97319b39a6b897f7c">Ra::Engine::Scene::SkinningComponent::SkinningType</a></div><div class="ttdeci">SkinningType</div><div class="ttdoc">The Geometric Skinning Method.</div><div class="ttdef"><b>Definition:</b> <a href="SkinningComponent_8hpp_source.html#l00038">SkinningComponent.hpp:38</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1SkinningComponent_html_a2304cfec1e381ad97319b39a6b897f7ca039792b8a8781b3c454afcfd4784bd1a"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1SkinningComponent.html#a2304cfec1e381ad97319b39a6b897f7ca039792b8a8781b3c454afcfd4784bd1a">Ra::Engine::Scene::SkinningComponent::COR</a></div><div class="ttdeci">@ COR</div><div class="ttdoc">Center of Rotation skinning.</div><div class="ttdef"><b>Definition:</b> <a href="SkinningComponent_8hpp_source.html#l00041">SkinningComponent.hpp:41</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1SkinningComponent_html_a2304cfec1e381ad97319b39a6b897f7ca5bea3f5314ab53fab7d0b4621c605b16"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1SkinningComponent.html#a2304cfec1e381ad97319b39a6b897f7ca5bea3f5314ab53fab7d0b4621c605b16">Ra::Engine::Scene::SkinningComponent::DQS</a></div><div class="ttdeci">@ DQS</div><div class="ttdoc">Dual Quaternion Skinning.</div><div class="ttdef"><b>Definition:</b> <a href="SkinningComponent_8hpp_source.html#l00040">SkinningComponent.hpp:40</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1SkinningComponent_html_a3ec3bf321a3ee71f3b12f54cc1ba1c5a"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1SkinningComponent.html#a3ec3bf321a3ee71f3b12f54cc1ba1c5a">Ra::Engine::Scene::SkinningComponent::setMeshName</a></div><div class="ttdeci">void setMeshName(const std::string &amp;name)</div><div class="ttdef"><b>Definition:</b> <a href="SkinningComponent_8hpp_source.html#l00111">SkinningComponent.hpp:111</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1SkinningComponent_html_a4a2917b63d608d3f0cb6ce8813deb7f7"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1SkinningComponent.html#a4a2917b63d608d3f0cb6ce8813deb7f7">Ra::Engine::Scene::SkinningComponent::getSkinningType</a></div><div class="ttdeci">SkinningType getSkinningType() const</div><div class="ttdoc">Returns the current skinning method.</div><div class="ttdef"><b>Definition:</b> <a href="SkinningComponent_8hpp_source.html#l00094">SkinningComponent.hpp:94</a></div></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1SkinningComponent_html_a6b3625e220d1610990bb61fa22e5d1a9"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1SkinningComponent.html#a6b3625e220d1610990bb61fa22e5d1a9">Ra::Engine::Scene::SkinningComponent::getSkinningRefData</a></div><div class="ttdeci">const Core::Animation::SkinningRefData * getSkinningRefData() const</div><div class="ttdoc">Returns the reference skinning data.</div><div class="ttdef"><b>Definition:</b> <a href="SkinningComponent_8hpp_source.html#l00113">SkinningComponent.hpp:113</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1SkinningComponent_html_a6b3625e220d1610990bb61fa22e5d1a9"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1SkinningComponent.html#a6b3625e220d1610990bb61fa22e5d1a9">Ra::Engine::Scene::SkinningComponent::getSkinningRefData</a></div><div class="ttdeci">const Core::Animation::SkinningRefData * getSkinningRefData() const</div><div class="ttdoc">Returns the reference skinning data.</div><div class="ttdef"><b>Definition:</b> <a href="SkinningComponent_8hpp_source.html#l00117">SkinningComponent.hpp:117</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1SkinningComponent_html_a781b95ed9ba0c8fc4357b53e263c7427"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1SkinningComponent.html#a781b95ed9ba0c8fc4357b53e263c7427">Ra::Engine::Scene::SkinningComponent::WeightType</a></div><div class="ttdeci">WeightType</div><div class="ttdoc">The skinning weight type.</div><div class="ttdef"><b>Definition:</b> <a href="SkinningComponent_8hpp_source.html#l00051">SkinningComponent.hpp:51</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1SkinningComponent_html_a79f88dfc6b059053fc4eecfbb59f80a4"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1SkinningComponent.html#a79f88dfc6b059053fc4eecfbb59f80a4">Ra::Engine::Scene::SkinningComponent::getNormalSkinning</a></div><div class="ttdeci">NormalSkinning getNormalSkinning() const</div><div class="ttdoc">Returns the current method used to skin the normal, tangent and binormal vectors.</div><div class="ttdef"><b>Definition:</b> <a href="SkinningComponent_8hpp_source.html#l00100">SkinningComponent.hpp:100</a></div></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1SkinningComponent_html_a7a1a0033f4295f4eed5545c2ce2f3da4"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1SkinningComponent.html#a7a1a0033f4295f4eed5545c2ce2f3da4">Ra::Engine::Scene::SkinningComponent::getSkinningFrameData</a></div><div class="ttdeci">const Core::Animation::SkinningFrameData * getSkinningFrameData() const</div><div class="ttdoc">Returns the current Pose data.</div><div class="ttdef"><b>Definition:</b> <a href="SkinningComponent_8hpp_source.html#l00116">SkinningComponent.hpp:116</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1SkinningComponent_html_a7a1a0033f4295f4eed5545c2ce2f3da4"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1SkinningComponent.html#a7a1a0033f4295f4eed5545c2ce2f3da4">Ra::Engine::Scene::SkinningComponent::getSkinningFrameData</a></div><div class="ttdeci">const Core::Animation::SkinningFrameData * getSkinningFrameData() const</div><div class="ttdoc">Returns the current Pose data.</div><div class="ttdef"><b>Definition:</b> <a href="SkinningComponent_8hpp_source.html#l00120">SkinningComponent.hpp:120</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1SkinningComponent_html_a7be5cf660d796046b52b2c7023f802b6"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1SkinningComponent.html#a7be5cf660d796046b52b2c7023f802b6">Ra::Engine::Scene::SkinningComponent::setPerBoneWeight</a></div><div class="ttdeci">void setPerBoneWeight(std::map&lt; std::string, std::vector&lt; std::pair&lt; uint, Scalar &gt;&gt;&gt; &amp;&amp;w)</div><div class="ttdef"><b>Definition:</b> <a href="SkinningComponent_8hpp_source.html#l00144">SkinningComponent.hpp:144</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1SkinningComponent_html_af8581b918ec6ccc25f15a4c016e4decf"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1SkinningComponent.html#af8581b918ec6ccc25f15a4c016e4decf">Ra::Engine::Scene::SkinningComponent::NormalSkinning</a></div><div class="ttdeci">NormalSkinning</div><div class="ttdoc">How to skin the normal, tangent and binormal vectors.</div><div class="ttdef"><b>Definition:</b> <a href="SkinningComponent_8hpp_source.html#l00045">SkinningComponent.hpp:45</a></div></div>
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdef"><b>Definition:</b> <a href="Cage_8cpp_source.html#l00003">Cage.cpp:3</a></div></div>
 <div class="ttc" id="astructRa_1_1Core_1_1Animation_1_1SkinningFrameData_html"><div class="ttname"><a href="structRa_1_1Core_1_1Animation_1_1SkinningFrameData.html">Ra::Core::Animation::SkinningFrameData</a></div><div class="ttdoc">Pose data for one frame.</div><div class="ttdef"><b>Definition:</b> <a href="SkinningData_8hpp_source.html#l00038">SkinningData.hpp:38</a></div></div>
@@ -291,7 +304,7 @@ $(document).ready(function(){initNavTree('SkinningComponent_8hpp_source.html',''
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_89bb22796d297d82305d45a42e7934d2.html">Scene</a></li><li class="navelem"><b>SkinningComponent.hpp</b></li>
-    <li class="footer">Generated on Thu Nov 17 2022 06:52:58 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Wed Apr 5 2023 15:07:31 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

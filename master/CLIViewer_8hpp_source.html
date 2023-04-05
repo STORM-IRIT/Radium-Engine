@@ -52,7 +52,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.4.0</span>
+   &#160;<span id="projectnumber">1.5.0</span>
    </div>
   </td>
  </tr>
@@ -143,7 +143,7 @@ $(document).ready(function(){initNavTree('CLIViewer_8hpp_source.html',''); initR
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;  <span class="keyword">public</span>:</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keyword">struct </span>ViewerParameters {</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        <span class="keywordtype">bool</span> m_animationEnable { <span class="keyword">false</span> };</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        std::array&lt;int, 2&gt; m_size { 512, 512 };</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        std::array&lt;int, 2&gt; m_size { { 512, 512 } };</div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        std::string m_imgPrefix { <span class="stringliteral">&quot;frame&quot;</span> };</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        std::string m_dataFile = { <span class="stringliteral">&quot;&quot;</span> };</div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    };</div>
@@ -154,7 +154,7 @@ $(document).ready(function(){initNavTree('CLIViewer_8hpp_source.html',''); initR
 <div class="line"><a name="l00053"></a><span class="lineno"><a class="line" href="classRa_1_1Headless_1_1CLIViewer.html#a11f484fbb7d7798a45e2990a3fed7292">   53</a></span>&#160;    <span class="keyword">const</span> <a class="code" href="classRa_1_1Engine_1_1RadiumEngine.html">Engine::RadiumEngine</a>* <a class="code" href="classRa_1_1Headless_1_1CLIViewer.html#a11f484fbb7d7798a45e2990a3fed7292">getEngine</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> m_engine; }</div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;  <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <a class="code" href="classRa_1_1Headless_1_1OpenGLContext.html">OpenGLContext</a> m_glContext;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    std::unique_ptr&lt;OpenGLContext&gt; m_glContext;</div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    std::shared_ptr&lt;Ra::Engine::Rendering::Renderer&gt; m_renderer;</div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
@@ -167,7 +167,7 @@ $(document).ready(function(){initNavTree('CLIViewer_8hpp_source.html',''); initR
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keywordtype">bool</span> m_exposedWindow { <span class="keyword">false</span> };</div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;  <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="keyword">explicit</span> CLIViewer( <span class="keyword">const</span> glbinding::Version&amp; glVersion = { 4, 1 } );</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="keyword">explicit</span> CLIViewer( std::unique_ptr&lt;OpenGLContext&gt; context );</div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <span class="keyword">virtual</span> ~CLIViewer();</div>
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
 <div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <span class="keywordtype">int</span> init( <span class="keywordtype">int</span> argc, <span class="keyword">const</span> <span class="keywordtype">char</span>* argv[] ) <span class="keyword">override</span>;</div>
@@ -210,19 +210,32 @@ $(document).ready(function(){initNavTree('CLIViewer_8hpp_source.html',''); initR
 <div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;    <span class="keywordtype">void</span> resize( <span class="keywordtype">int</span> width, <span class="keywordtype">int</span> height );</div>
 <div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;};</div>
 <div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160; </div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;} <span class="comment">// namespace Headless</span></div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;} <span class="comment">// namespace Ra</span></div>
-<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160; </div>
-<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;<span class="preprocessor">#include &lt;Headless/CLIViewer.inl&gt;</span></div>
+<div class="line"><a name="l00185"></a><span class="lineno"><a class="line" href="classRa_1_1Headless_1_1CLIViewer.html#a5366a801abfbbe8bd26c3cf16e95619d">  185</a></span>&#160;<span class="keyword">inline</span> std::string <a class="code" href="classRa_1_1Headless_1_1CLIViewer.html#a5366a801abfbbe8bd26c3cf16e95619d">CLIViewer::getDataFileName</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;    <span class="keywordflow">return</span> m_parameters.m_dataFile;</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;}</div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160; </div>
+<div class="line"><a name="l00189"></a><span class="lineno"><a class="line" href="classRa_1_1Headless_1_1CLIViewer.html#a7b3b276e97c53f65b9df707da6fa1e0c">  189</a></span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="classRa_1_1Headless_1_1CLIViewer.html#a7b3b276e97c53f65b9df707da6fa1e0c">CLIViewer::setDataFileName</a>( std::string filename ) {</div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;    m_parameters.m_dataFile = std::move( filename );</div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;}</div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160; </div>
+<div class="line"><a name="l00193"></a><span class="lineno"><a class="line" href="classRa_1_1Headless_1_1CLIViewer.html#a99036a74b3732afb0b03a7a9d07dcd5c">  193</a></span>&#160;<span class="keyword">inline</span> <a class="code" href="classRa_1_1Headless_1_1OpenGLContext.html">OpenGLContext</a>&amp; <a class="code" href="classRa_1_1Headless_1_1CLIViewer.html#a99036a74b3732afb0b03a7a9d07dcd5c">CLIViewer::getWindow</a>() {</div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;    <span class="keywordflow">return</span> *m_glContext;</div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;}</div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160; </div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;} <span class="comment">// namespace Headless</span></div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;} <span class="comment">// namespace Ra</span></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1Camera_html"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1Camera.html">Ra::Core::Asset::Camera</a></div><div class="ttdoc">Camera class storing the Camera frame and the projection properties The view direction is -z in camer...</div><div class="ttdef"><b>Definition:</b> <a href="Camera_8hpp_source.html#l00015">Camera.hpp:16</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1RadiumEngine_html"><div class="ttname"><a href="classRa_1_1Engine_1_1RadiumEngine.html">Ra::Engine::RadiumEngine</a></div><div class="ttdef"><b>Definition:</b> <a href="RadiumEngine_8hpp_source.html#l00049">RadiumEngine.hpp:50</a></div></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1Rendering_1_1Renderer_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Rendering_1_1Renderer.html">Ra::Engine::Rendering::Renderer</a></div><div class="ttdef"><b>Definition:</b> <a href="Renderer_8hpp_source.html#l00048">Renderer.hpp:49</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Rendering_1_1Renderer_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Rendering_1_1Renderer.html">Ra::Engine::Rendering::Renderer</a></div><div class="ttdef"><b>Definition:</b> <a href="Renderer_8hpp_source.html#l00044">Renderer.hpp:45</a></div></div>
 <div class="ttc" id="aclassRa_1_1Headless_1_1CLIBaseApplication_html"><div class="ttname"><a href="classRa_1_1Headless_1_1CLIBaseApplication.html">Ra::Headless::CLIBaseApplication</a></div><div class="ttdef"><b>Definition:</b> <a href="CLIBaseApplication_8hpp_source.html#l00018">CLIBaseApplication.hpp:19</a></div></div>
 <div class="ttc" id="aclassRa_1_1Headless_1_1CLIViewer_html"><div class="ttname"><a href="classRa_1_1Headless_1_1CLIViewer.html">Ra::Headless::CLIViewer</a></div><div class="ttdef"><b>Definition:</b> <a href="CLIViewer_8hpp_source.html#l00034">CLIViewer.hpp:35</a></div></div>
 <div class="ttc" id="aclassRa_1_1Headless_1_1CLIViewer_html_a11f484fbb7d7798a45e2990a3fed7292"><div class="ttname"><a href="classRa_1_1Headless_1_1CLIViewer.html#a11f484fbb7d7798a45e2990a3fed7292">Ra::Headless::CLIViewer::getEngine</a></div><div class="ttdeci">const Engine::RadiumEngine * getEngine() const</div><div class="ttdoc">To have the same API to access Engine than in Qt based application.</div><div class="ttdef"><b>Definition:</b> <a href="CLIViewer_8hpp_source.html#l00053">CLIViewer.hpp:53</a></div></div>
 <div class="ttc" id="aclassRa_1_1Headless_1_1CLIViewer_html_a2f58d3baad77013752e6f67598c757ab"><div class="ttname"><a href="classRa_1_1Headless_1_1CLIViewer.html#a2f58d3baad77013752e6f67598c757ab">Ra::Headless::CLIViewer::m_engine</a></div><div class="ttdeci">Ra::Engine::RadiumEngine * m_engine</div><div class="ttdoc">Instance of the radium engine.</div><div class="ttdef"><b>Definition:</b> <a href="CLIViewer_8hpp_source.html#l00050">CLIViewer.hpp:50</a></div></div>
+<div class="ttc" id="aclassRa_1_1Headless_1_1CLIViewer_html_a5366a801abfbbe8bd26c3cf16e95619d"><div class="ttname"><a href="classRa_1_1Headless_1_1CLIViewer.html#a5366a801abfbbe8bd26c3cf16e95619d">Ra::Headless::CLIViewer::getDataFileName</a></div><div class="ttdeci">std::string getDataFileName() const</div><div class="ttdef"><b>Definition:</b> <a href="CLIViewer_8hpp_source.html#l00185">CLIViewer.hpp:185</a></div></div>
+<div class="ttc" id="aclassRa_1_1Headless_1_1CLIViewer_html_a7b3b276e97c53f65b9df707da6fa1e0c"><div class="ttname"><a href="classRa_1_1Headless_1_1CLIViewer.html#a7b3b276e97c53f65b9df707da6fa1e0c">Ra::Headless::CLIViewer::setDataFileName</a></div><div class="ttdeci">void setDataFileName(std::string filename)</div><div class="ttdef"><b>Definition:</b> <a href="CLIViewer_8hpp_source.html#l00189">CLIViewer.hpp:189</a></div></div>
+<div class="ttc" id="aclassRa_1_1Headless_1_1CLIViewer_html_a99036a74b3732afb0b03a7a9d07dcd5c"><div class="ttname"><a href="classRa_1_1Headless_1_1CLIViewer.html#a99036a74b3732afb0b03a7a9d07dcd5c">Ra::Headless::CLIViewer::getWindow</a></div><div class="ttdeci">OpenGLContext &amp; getWindow()</div><div class="ttdoc">Gives access to the window to add event processing callbacks.</div><div class="ttdef"><b>Definition:</b> <a href="CLIViewer_8hpp_source.html#l00193">CLIViewer.hpp:193</a></div></div>
 <div class="ttc" id="aclassRa_1_1Headless_1_1OpenGLContext_html"><div class="ttname"><a href="classRa_1_1Headless_1_1OpenGLContext.html">Ra::Headless::OpenGLContext</a></div><div class="ttdef"><b>Definition:</b> <a href="OpenGLContext_8hpp_source.html#l00022">OpenGLContext.hpp:23</a></div></div>
-<div class="ttc" id="agroup__window_html_ga6b9387dfd25cfc93f6f504cc5bda9817"><div class="ttname"><a href="group__window.html#ga6b9387dfd25cfc93f6f504cc5bda9817">Ra::Headless::OpenGLContext::EventMode</a></div><div class="ttdeci">EventMode</div><div class="ttdef"><b>Definition:</b> <a href="OpenGLContext_8hpp_source.html#l00063">OpenGLContext.hpp:63</a></div></div>
+<div class="ttc" id="agroup__window_html_ga6b9387dfd25cfc93f6f504cc5bda9817"><div class="ttname"><a href="group__window.html#ga6b9387dfd25cfc93f6f504cc5bda9817">Ra::Headless::OpenGLContext::EventMode</a></div><div class="ttdeci">EventMode</div><div class="ttdef"><b>Definition:</b> <a href="OpenGLContext_8hpp_source.html#l00067">OpenGLContext.hpp:67</a></div></div>
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdef"><b>Definition:</b> <a href="Cage_8cpp_source.html#l00003">Cage.cpp:3</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
@@ -230,7 +243,7 @@ $(document).ready(function(){initNavTree('CLIViewer_8hpp_source.html',''); initR
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_1577ba8040ea4e3d21120572b53f4a28.html">Headless</a></li><li class="navelem"><b>CLIViewer.hpp</b></li>
-    <li class="footer">Generated on Thu Nov 17 2022 06:52:58 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Wed Apr 5 2023 15:07:31 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

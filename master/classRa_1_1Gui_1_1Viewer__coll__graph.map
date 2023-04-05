@@ -1,5 +1,5 @@
 <map id="Ra::Gui::Viewer" name="Ra::Gui::Viewer">
-<area shape="rect" id="node1" title=" " alt="" coords="390,1852,617,3059"/>
+<area shape="rect" id="node1" title=" " alt="" coords="390,1852,617,3073"/>
 <area shape="rect" id="node2" href="$classRa_1_1Gui_1_1WindowQt.html" title="Base class for OpenGL widgets, compatble with Qt and globjects/glbindings." alt="" coords="5,1169,204,1555"/>
 <area shape="rect" id="node3" href="$classRa_1_1Gui_1_1KeyMappingManageable.html" title=" " alt="" coords="118,775,355,911"/>
 <area shape="rect" id="node4" href="$classRa_1_1Gui_1_1KeyMappingManageable.html" title="KeyMappingManageable decorator to use as CRTP." alt="" coords="150,5,425,127"/>

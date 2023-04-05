@@ -52,7 +52,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.4.0</span>
+   &#160;<span id="projectnumber">1.5.0</span>
    </div>
   </td>
  </tr>
@@ -144,7 +144,7 @@ $(document).ready(function(){initNavTree('IndexedGeometry_8cpp_source.html','');
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;MultiIndexedGeometry&amp; MultiIndexedGeometry::operator=( MultiIndexedGeometry&amp;&amp; other ) {</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    invalidateAabb();</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    AttribArrayGeometry::operator=( std::move( other ) );</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    m_indices                    = std::move( other.m_indices );</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    m_indices = std::move( other.m_indices );</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    notify();</div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;}</div>
@@ -361,10 +361,10 @@ $(document).ready(function(){initNavTree('IndexedGeometry_8cpp_source.html','');
 <div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;} <span class="comment">// namespace Geometry</span></div>
 <div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;} <span class="comment">// namespace Core</span></div>
 <div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;} <span class="comment">// namespace Ra</span></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry_html"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html">Ra::Core::Geometry::AttribArrayGeometry</a></div><div class="ttdoc">This class represents vertex + attributes per vertex. Toplogy is handled in MultiIndexedGeometry subc...</div><div class="ttdef"><b>Definition:</b> <a href="TriangleMesh_8hpp_source.html#l00024">TriangleMesh.hpp:25</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry_html_acabe05880d71a8dc4406964c258fff5a"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#acabe05880d71a8dc4406964c258fff5a">Ra::Core::Geometry::AttribArrayGeometry::vertices</a></div><div class="ttdeci">const PointAttribHandle::Container &amp; vertices() const</div><div class="ttdoc">Access the vertices positions.</div><div class="ttdef"><b>Definition:</b> <a href="TriangleMesh_8inl_source.html#l00099">TriangleMesh.inl:99</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1GeometryIndexLayerBase_html"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1GeometryIndexLayerBase.html">Ra::Core::Geometry::GeometryIndexLayerBase</a></div><div class="ttdoc">Base class for index collections stored in MultiIndexedGeometry.</div><div class="ttdef"><b>Definition:</b> <a href="IndexedGeometry_8hpp_source.html#l00018">IndexedGeometry.hpp:21</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry_html"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html">Ra::Core::Geometry::MultiIndexedGeometry</a></div><div class="ttdoc">AbstractGeometry with per-vertex attributes and layers of indices. Each layer represents a different ...</div><div class="ttdef"><b>Definition:</b> <a href="IndexedGeometry_8hpp_source.html#l00132">IndexedGeometry.hpp:133</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry_html"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html">Ra::Core::Geometry::AttribArrayGeometry</a></div><div class="ttdoc">This class represents vertex + attributes per vertex. Toplogy is handled in MultiIndexedGeometry subc...</div><div class="ttdef"><b>Definition:</b> <a href="TriangleMesh_8hpp_source.html#l00025">TriangleMesh.hpp:26</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry_html_acabe05880d71a8dc4406964c258fff5a"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#acabe05880d71a8dc4406964c258fff5a">Ra::Core::Geometry::AttribArrayGeometry::vertices</a></div><div class="ttdeci">const PointAttribHandle::Container &amp; vertices() const</div><div class="ttdoc">Access the vertices positions.</div><div class="ttdef"><b>Definition:</b> <a href="TriangleMesh_8hpp_source.html#l00327">TriangleMesh.hpp:327</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1GeometryIndexLayerBase_html"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1GeometryIndexLayerBase.html">Ra::Core::Geometry::GeometryIndexLayerBase</a></div><div class="ttdoc">Base class for index collections stored in MultiIndexedGeometry.</div><div class="ttdef"><b>Definition:</b> <a href="IndexedGeometry_8hpp_source.html#l00017">IndexedGeometry.hpp:20</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry_html"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html">Ra::Core::Geometry::MultiIndexedGeometry</a></div><div class="ttdoc">AbstractGeometry with per-vertex attributes and layers of indices. Each layer represents a different ...</div><div class="ttdef"><b>Definition:</b> <a href="IndexedGeometry_8hpp_source.html#l00131">IndexedGeometry.hpp:132</a></div></div>
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdef"><b>Definition:</b> <a href="Cage_8cpp_source.html#l00003">Cage.cpp:3</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
@@ -372,7 +372,7 @@ $(document).ready(function(){initNavTree('IndexedGeometry_8cpp_source.html','');
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_cb2b5dfd43482fb277f6333d539f1f06.html">Geometry</a></li><li class="navelem"><b>IndexedGeometry.cpp</b></li>
-    <li class="footer">Generated on Thu Nov 17 2022 06:52:58 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Wed Apr 5 2023 15:07:30 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

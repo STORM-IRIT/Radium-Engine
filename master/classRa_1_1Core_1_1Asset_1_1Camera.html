@@ -52,7 +52,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.4.0</span>
+   &#160;<span id="projectnumber">1.5.0</span>
    </div>
   </td>
  </tr>
@@ -380,7 +380,7 @@ const Scalar&#160;</td><td class="memItemRight" valign="bottom"><b>m_minZRange</
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="Camera_8cpp_source.html#l00100">100</a> of file <a class="el" href="Camera_8cpp_source.html">Camera.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Camera_8cpp_source.html#l00098">98</a> of file <a class="el" href="Camera_8cpp_source.html">Camera.cpp</a>.</p>
 
 </div>
 </div>
@@ -408,7 +408,7 @@ const Scalar&#160;</td><td class="memItemRight" valign="bottom"><b>m_minZRange</
 </div><div class="memdoc">
 <p>Return the horizontal Field Of View. </p><dl class="section note"><dt>Note</dt><dd>Meaningless for orthogonal projection. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="Camera_8inl_source.html#l00045">45</a> of file <a class="el" href="Camera_8inl_source.html">Camera.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Camera_8hpp_source.html#l00272">272</a> of file <a class="el" href="Camera_8hpp_source.html">Camera.hpp</a>.</p>
 
 </div>
 </div>
@@ -436,7 +436,7 @@ const Scalar&#160;</td><td class="memItemRight" valign="bottom"><b>m_minZRange</
 </div><div class="memdoc">
 <p>Return the frame of the camera. Where Y is the up vector and -Z is the direction vector. </p>
 
-<p class="definition">Definition at line <a class="el" href="Camera_8inl_source.html#l00009">9</a> of file <a class="el" href="Camera_8inl_source.html">Camera.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Camera_8hpp_source.html#l00236">236</a> of file <a class="el" href="Camera_8hpp_source.html">Camera.hpp</a>.</p>
 
 </div>
 </div>
@@ -457,7 +457,7 @@ const Scalar&#160;</td><td class="memItemRight" valign="bottom"><b>m_minZRange</
 </div><div class="memdoc">
 <p>Return a ray emanating from the camera, passing by the point given by screen coordinates x and y. </p>
 
-<p class="definition">Definition at line <a class="el" href="Camera_8cpp_source.html#l00180">180</a> of file <a class="el" href="Camera_8cpp_source.html">Camera.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Camera_8cpp_source.html#l00178">178</a> of file <a class="el" href="Camera_8cpp_source.html">Camera.cpp</a>.</p>
 
 </div>
 </div>
@@ -532,7 +532,7 @@ const Scalar&#160;</td><td class="memItemRight" valign="bottom"><b>m_minZRange</
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="Camera_8cpp_source.html#l00118">118</a> of file <a class="el" href="Camera_8cpp_source.html">Camera.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Camera_8cpp_source.html#l00116">116</a> of file <a class="el" href="Camera_8cpp_source.html">Camera.cpp</a>.</p>
 
 </div>
 </div>
@@ -591,7 +591,7 @@ const Scalar&#160;</td><td class="memItemRight" valign="bottom"><b>m_minZRange</
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="Camera_8cpp_source.html#l00086">86</a> of file <a class="el" href="Camera_8cpp_source.html">Camera.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Camera_8cpp_source.html#l00084">84</a> of file <a class="el" href="Camera_8cpp_source.html">Camera.cpp</a>.</p>
 
 </div>
 </div>
@@ -642,7 +642,7 @@ const Scalar&#160;</td><td class="memItemRight" valign="bottom"><b>m_minZRange</
 <p>Set the Field Of View to 'fov' in the x (horizontal) direction. If you have an vertical field of view, you can convert it to horizontal as Scalar fovx = 2_ra*std::atan( radiumCam-&gt;<a class="el" href="classRa_1_1Core_1_1Asset_1_1Camera.html#ad925b9e05c8f4d90199ff742ff4b2c2e" title="Return the aspect ratio of the viewport.">getAspect()</a> * std::tan( cam.yfov / 2_ra ) ); </p><dl class="section note"><dt>Note</dt><dd>Meaningless for orthogonal projection. </dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>Trigger a rebuild of the projection matrix. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="Camera_8inl_source.html#l00049">49</a> of file <a class="el" href="Camera_8inl_source.html">Camera.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Camera_8hpp_source.html#l00276">276</a> of file <a class="el" href="Camera_8hpp_source.html">Camera.hpp</a>.</p>
 <div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-1-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-1-summary" class="dynsummary" style="display:block;">
@@ -679,7 +679,7 @@ const Scalar&#160;</td><td class="memItemRight" valign="bottom"><b>m_minZRange</
 </div><div class="memdoc">
 <p>set projection to <b>projMatrix</b>. </p><dl class="section see"><dt>See also</dt><dd><a class="el" href="classRa_1_1Core_1_1Asset_1_1Camera.html#a3dc967879911ed9414b04c8cacea7263">perspective()</a>, <a class="el" href="classRa_1_1Core_1_1Asset_1_1Camera.html#a6aa7e3443a1c42f869f4330ee6b58c5e" title="Build a projection matrix from the parameters of the view volume Implements the algorithms described ...">ortho()</a>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="Camera_8inl_source.html#l00120">120</a> of file <a class="el" href="Camera_8inl_source.html">Camera.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Camera_8hpp_source.html#l00347">347</a> of file <a class="el" href="Camera_8hpp_source.html">Camera.hpp</a>.</p>
 
 </div>
 </div>
@@ -708,7 +708,7 @@ const Scalar&#160;</td><td class="memItemRight" valign="bottom"><b>m_minZRange</
 </div><div class="memdoc">
 <p>Set the up vector of the camera to <b>upVector</b>. The other vectors will be rotated accordingly. </p>
 
-<p class="definition">Definition at line <a class="el" href="Camera_8inl_source.html#l00035">35</a> of file <a class="el" href="Camera_8inl_source.html">Camera.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Camera_8hpp_source.html#l00262">262</a> of file <a class="el" href="Camera_8hpp_source.html">Camera.hpp</a>.</p>
 <div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-2-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-2-summary" class="dynsummary" style="display:block;">
@@ -737,7 +737,7 @@ const Scalar&#160;</td><td class="memItemRight" valign="bottom"><b>m_minZRange</
 </div><div class="memdoc">
 <p>Return the 3D point in world space corresponding to screen coordinates pix. pix.x() and pix.y() are in pixel coordinates \( \in [0, getWidth()] \times [0, getHeight()] \). The returned point lies on z near plane. </p>
 
-<p class="definition">Definition at line <a class="el" href="Camera_8cpp_source.html#l00200">200</a> of file <a class="el" href="Camera_8cpp_source.html">Camera.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Camera_8cpp_source.html#l00198">198</a> of file <a class="el" href="Camera_8cpp_source.html">Camera.cpp</a>.</p>
 
 </div>
 </div>
@@ -758,14 +758,13 @@ const Scalar&#160;</td><td class="memItemRight" valign="bottom"><b>m_minZRange</
 </div><div class="memdoc">
 <p>Return the 3D point in world space corresponding to screen pixels pix.x(), pix.y(), at depth pix.z() x and y are in pixel coordinates (from (0,0) to width,height, z is in 0, 1 (0 near, 1 far plane) </p>
 
-<p class="definition">Definition at line <a class="el" href="Camera_8cpp_source.html#l00204">204</a> of file <a class="el" href="Camera_8cpp_source.html">Camera.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Camera_8cpp_source.html#l00202">202</a> of file <a class="el" href="Camera_8cpp_source.html">Camera.cpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/src/Core/Asset/<a class="el" href="Camera_8hpp_source.html">Camera.hpp</a></li>
 <li>/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/src/Core/Asset/<a class="el" href="Camera_8cpp_source.html">Camera.cpp</a></li>
-<li>/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/src/Core/Asset/<a class="el" href="Camera_8inl_source.html">Camera.inl</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -773,7 +772,7 @@ const Scalar&#160;</td><td class="memItemRight" valign="bottom"><b>m_minZRange</
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><b>Core</b></li><li class="navelem"><b>Asset</b></li><li class="navelem"><a class="el" href="classRa_1_1Core_1_1Asset_1_1Camera.html">Camera</a></li>
-    <li class="footer">Generated on Thu Nov 17 2022 06:52:59 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Wed Apr 5 2023 15:07:32 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

@@ -52,7 +52,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.4.0</span>
+   &#160;<span id="projectnumber">1.5.0</span>
    </div>
   </td>
  </tr>
@@ -157,10 +157,10 @@ $(document).ready(function(){initNavTree('DualQuaternionSkinning_8cpp_source.htm
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;            <span class="keyword">const</span> Scalar w            = itn.value();</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;            firstNonZero[i] = std::min( firstNonZero[i], uint( j ) );</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;            <span class="keyword">const</span> Scalar sign =</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;                Ra::Core::Math::signNZ( poseDQ[j].getQ0().dot( poseDQ[firstNonZero[i]].getQ0() ) );</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;            <span class="keyword">const</span> Scalar <a class="code" href="namespaceRa_1_1Core_1_1Math.html#a90f0fe9079f5bb86c721ea4b61738470">sign</a> =</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;                <a class="code" href="namespaceRa_1_1Core_1_1Math.html#a810d6d50b61cc01cda1d54527de864d0">Ra::Core::Math::signNZ</a>( poseDQ[j].getQ0().dot( poseDQ[firstNonZero[i]].getQ0() ) );</div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;            <span class="keyword">const</span> <span class="keyword">auto</span> wq = poseDQ[j] * w * sign;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;            <span class="keyword">const</span> <span class="keyword">auto</span> wq = poseDQ[j] * w * <a class="code" href="namespaceRa_1_1Core_1_1Math.html#a90f0fe9079f5bb86c721ea4b61738470">sign</a>;</div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;            DQ[i] += wq;</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        }</div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    }</div>
@@ -199,10 +199,10 @@ $(document).ready(function(){initNavTree('DualQuaternionSkinning_8cpp_source.htm
 <div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
 <div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;            <span class="comment">// Flip the dual quaternion sign according to the dot product with the first non-null</span></div>
 <div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;            <span class="comment">// dual quat see Algorithm 2 in section 4.1 of the paper.</span></div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;            Scalar sign =</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;                Ra::Core::Math::signNZ( poseDQ[j].getQ0().dot( poseDQ[firstNonZero].getQ0() ) );</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;            Scalar <a class="code" href="namespaceRa_1_1Core_1_1Math.html#a90f0fe9079f5bb86c721ea4b61738470">sign</a> =</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;                <a class="code" href="namespaceRa_1_1Core_1_1Math.html#a810d6d50b61cc01cda1d54527de864d0">Ra::Core::Math::signNZ</a>( poseDQ[j].getQ0().dot( poseDQ[firstNonZero].getQ0() ) );</div>
 <div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;            DQ[i] += sign * w * poseDQ[j];</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;            DQ[i] += <a class="code" href="namespaceRa_1_1Core_1_1Math.html#a90f0fe9079f5bb86c721ea4b61738470">sign</a> * w * poseDQ[j];</div>
 <div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        }</div>
 <div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    }</div>
 <div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160; </div>
@@ -251,6 +251,8 @@ $(document).ready(function(){initNavTree('DualQuaternionSkinning_8cpp_source.htm
 <div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;} <span class="comment">// namespace Animation</span></div>
 <div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;} <span class="comment">// namespace Core</span></div>
 <div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;} <span class="comment">// namespace Ra</span></div>
+<div class="ttc" id="anamespaceRa_1_1Core_1_1Math_html_a810d6d50b61cc01cda1d54527de864d0"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Math.html#a810d6d50b61cc01cda1d54527de864d0">Ra::Core::Math::signNZ</a></div><div class="ttdeci">constexpr T signNZ(const T &amp;val)</div><div class="ttdef"><b>Definition:</b> <a href="Math_8hpp_source.html#l00114">Math.hpp:114</a></div></div>
+<div class="ttc" id="anamespaceRa_1_1Core_1_1Math_html_a90f0fe9079f5bb86c721ea4b61738470"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Math.html#a90f0fe9079f5bb86c721ea4b61738470">Ra::Core::Math::sign</a></div><div class="ttdeci">constexpr int sign(const T &amp;val)</div><div class="ttdoc">Returns the sign of any numeric type as { -1, 0, 1}.</div><div class="ttdef"><b>Definition:</b> <a href="Math_8hpp_source.html#l00106">Math.hpp:106</a></div></div>
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdef"><b>Definition:</b> <a href="Cage_8cpp_source.html#l00003">Cage.cpp:3</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
@@ -258,7 +260,7 @@ $(document).ready(function(){initNavTree('DualQuaternionSkinning_8cpp_source.htm
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_721a74ea40d2768c46a3c9514389a16b.html">Animation</a></li><li class="navelem"><b>DualQuaternionSkinning.cpp</b></li>
-    <li class="footer">Generated on Thu Nov 17 2022 06:52:57 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Wed Apr 5 2023 15:07:30 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

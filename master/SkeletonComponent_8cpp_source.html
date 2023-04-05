@@ -52,7 +52,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.4.0</span>
+   &#160;<span id="projectnumber">1.5.0</span>
    </div>
   </td>
  </tr>
@@ -179,376 +179,380 @@ $(document).ready(function(){initNavTree('SkeletonComponent_8cpp_source.html',''
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    m_skel.setTransform( boneIdx, TBoneLocal * diff, SpaceType::LOCAL );</div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;}</div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="comment">// Build from fileData</span></div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
-<div class="line"><a name="l00070"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html#a599cb76c6d9ae5532bec0d6831bdbcd7">   70</a></span>&#160;<span class="keywordtype">void</span> SkeletonComponent::handleSkeletonLoading( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Asset_1_1HandleData.html">Core::Asset::HandleData</a>* data ) {</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    m_skelName = data-&gt;<a class="code" href="classRa_1_1Core_1_1Asset_1_1AssetData.html#a45d10620e8b4afeadcbd70da2fa8b119">getName</a>();</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    m_skel.setName( data-&gt;<a class="code" href="classRa_1_1Core_1_1Asset_1_1AssetData.html#a45d10620e8b4afeadcbd70da2fa8b119">getName</a>() );</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    Core::Asset::createSkeleton( *data, m_skel );</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    m_refPose = m_skel.getPose( SpaceType::LOCAL );</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;Core::Transform SkeletonComponent::getBoneTransform( uint boneIdx, <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Animation_1_1HandleArray.html#a8d51faa3b4fa49a0056d28c830860c4d">SpaceType</a> MODE ) {</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keywordflow">return</span> m_skel.getTransform( boneIdx, MODE );</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;}</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="keywordtype">void</span> SkeletonComponent::setBoneTransform( uint boneIdx,</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;                                          <span class="keyword">const</span> Core::Transform&amp; transform,</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;                                          <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Animation_1_1HandleArray.html#a8d51faa3b4fa49a0056d28c830860c4d">SpaceType</a> MODE ) {</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    m_skel.setTransform( boneIdx, transform, MODE );</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    updateDisplay();</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;}</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="comment">// Build from fileData</span></div>
 <div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    setupSkeletonDisplay();</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    setupIO();</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;}</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
-<div class="line"><a name="l00083"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html#a2cc709e0412aacfffedb3ce68ad6dbaa">   83</a></span>&#160;<span class="keywordtype">void</span> SkeletonComponent::handleAnimationLoading(</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keyword">const</span> std::vector&lt;Core::Asset::AnimationData*&gt;&amp; data ) {</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    CORE_ASSERT( ( m_skel.size() != 0 ), <span class="stringliteral">&quot;A Skeleton should be loaded first.&quot;</span> );</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    m_animations.clear();</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    m_animations.reserve( data.size() );</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="keyword">auto</span> pose = m_skel.getPose( SpaceType::LOCAL );</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    <span class="keywordflow">for</span> ( uint n = 0; n &lt; data.size(); ++n ) {</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        m_animations.emplace_back();</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        m_animations.back().reserve( m_skel.size() );</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;        <span class="keyword">auto</span> handleAnim = data[n]-&gt;getHandleData();</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        <span class="keywordflow">for</span> ( uint i = 0; i &lt; m_skel.size(); ++i ) {</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;            <span class="keyword">auto</span> it =</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;                std::find_if( handleAnim.cbegin(), handleAnim.cend(), [<span class="keyword">this</span>, i]( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; ha ) {</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;                    return m_skel.getLabel( i ) == ha.m_name;</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;                } );</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;            <span class="keywordflow">if</span> ( it == handleAnim.cend() ) {</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;                m_animations.back().push_back( <a class="code" href="classRa_1_1Core_1_1Animation_1_1KeyFramedValue.html">KeyFramedValue</a>( 0_ra, pose[i] ) );</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;            }</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;            <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;                m_animations.back().push_back( it-&gt;m_anim );</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;            }</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        }</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    }</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <span class="keywordflow">if</span> ( m_animations.size() == 0 ) {</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;        m_animations.emplace_back();</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;        <span class="keywordflow">for</span> ( uint i = 0; i &lt; m_skel.size(); ++i ) {</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;            m_animations[0].push_back( <a class="code" href="classRa_1_1Core_1_1Animation_1_1KeyFramedValue.html">KeyFramedValue</a>( 0_ra, pose[i] ) );</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        }</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    }</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    m_animationID   = 0;</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    m_animationTime = 0_ra;</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;}</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160; </div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;<span class="comment">// Skeleton-based animation data</span></div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160; </div>
-<div class="line"><a name="l00119"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html#a45a9672edbc256f7970cd874af0b9ed3">  119</a></span>&#160;<span class="keywordtype">void</span> SkeletonComponent::setSkeleton( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Animation_1_1Skeleton.html">Skeleton</a>&amp; skel ) {</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    m_skel    = skel;</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    m_refPose = skel.<a class="code" href="classRa_1_1Core_1_1Animation_1_1Skeleton.html#acb6381c3f288f580800589eb718c1759">getPose</a>( SpaceType::LOCAL );</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    setupSkeletonDisplay();</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;}</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160; </div>
-<div class="line"><a name="l00125"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html#ad6c80ec0ec3145554625824ee37e61c3">  125</a></span>&#160;<a class="code" href="classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html#a66500edcc07c1b347066bb9ba090e13b">SkeletonComponent::Animation</a>&amp; SkeletonComponent::addNewAnimation() {</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    m_animations.emplace_back();</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    <span class="keywordflow">for</span> ( uint i = 0; i &lt; m_skel.size(); ++i ) {</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;        m_animations.back().push_back( <a class="code" href="classRa_1_1Core_1_1Animation_1_1KeyFramedValue.html">KeyFramedValue</a>( 0_ra, m_refPose[i] ) );</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    }</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    <span class="keywordflow">return</span> m_animations.back();</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;}</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160; </div>
-<div class="line"><a name="l00133"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html#a2bd365fe17222c8aff0dc1f19bec8e6a">  133</a></span>&#160;<span class="keywordtype">void</span> SkeletonComponent::removeAnimation( <span class="keyword">const</span> <span class="keywordtype">size_t</span> i ) {</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    CORE_ASSERT( i &lt; m_animations.size(), <span class="stringliteral">&quot;Out of bound index.&quot;</span> );</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;    m_animations.erase( m_animations.begin() + i );</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    m_animationID = i &gt; 1 ? i - 1 : 0;</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;}</div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160; </div>
-<div class="line"><a name="l00139"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html#a7a0706ff253cc4cbb55a471b45ccf879">  139</a></span>&#160;<span class="keywordtype">void</span> SkeletonComponent::useAnimation( <span class="keyword">const</span> <span class="keywordtype">size_t</span> i ) {</div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;    <span class="keywordflow">if</span> ( i &lt; m_animations.size() ) { m_animationID = i; }</div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;}</div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160; </div>
-<div class="line"><a name="l00143"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html#af723935866c4508bb098d7e6fb445487">  143</a></span>&#160;<span class="keywordtype">size_t</span> SkeletonComponent::getAnimationId()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;    <span class="keywordflow">return</span> m_animationID;</div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;}</div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160; </div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;<span class="comment">// Animation Process</span></div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160; </div>
-<div class="line"><a name="l00149"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html#a007d18aff30eb0bc9400e55c684a9c55">  149</a></span>&#160;<span class="keywordtype">void</span> SkeletonComponent::update( Scalar t ) {</div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;    m_wasReset = Core::Math::areApproxEqual( t, 0_ra );</div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;    <span class="keywordflow">if</span> ( m_wasReset ) {</div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;        m_animationTime = t;</div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;        m_skel.setPose( m_refPose, SpaceType::LOCAL );</div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160; </div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;        updateDisplay();</div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;        <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;    }</div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160; </div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;    m_animationTime = m_speed * t;</div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;    Scalar lastTime = 0;</div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;    <span class="keywordflow">for</span> ( <span class="keyword">auto</span> boneAnim : m_animations[m_animationID] ) {</div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;        lastTime = std::max( lastTime, *boneAnim.getTimes().rbegin() );</div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;    }</div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;    <span class="keywordflow">if</span> ( m_autoRepeat ) {</div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;        <span class="keywordflow">if</span> ( !m_pingPong ) { m_animationTime = std::fmod( m_animationTime, lastTime ); }</div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;        <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;            m_animationTime = std::fmod( m_animationTime, 2 * lastTime );</div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;            <span class="keywordflow">if</span> ( m_animationTime &gt; lastTime ) { m_animationTime = 2 * lastTime - m_animationTime; }</div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;        }</div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;    }</div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span> ( m_pingPong ) {</div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;        <span class="keywordflow">if</span> ( m_animationTime &gt; 2 * lastTime ) { m_animationTime = 0_ra; }</div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;        <span class="keywordflow">else</span> <span class="keywordflow">if</span> ( m_animationTime &gt; lastTime ) {</div>
-<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;            m_animationTime = 2 * lastTime - m_animationTime;</div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;        }</div>
-<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;    }</div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160; </div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;    <span class="comment">// get the current pose from the animation</span></div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;    Core::Animation::Pose pose = m_skel.getPose( SpaceType::LOCAL );</div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;    <span class="keywordflow">if</span> ( !m_animations.empty() ) {</div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;<span class="preprocessor">#pragma omp parallel for</span></div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;        <span class="keywordflow">for</span> ( <span class="keywordtype">int</span> i = 0; i &lt; int( m_animations[m_animationID].size() ); ++i ) {</div>
-<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;            pose[uint( i )] = m_animations[m_animationID][uint( i )].at(</div>
-<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;                m_animationTime, Core::Animation::linearInterpolate&lt;Core::Transform&gt; );</div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;        }</div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;    }</div>
-<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;    <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;        pose = m_refPose;</div>
-<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;    }</div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;    m_skel.setPose( pose, SpaceType::LOCAL );</div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160; </div>
-<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;    updateDisplay();</div>
-<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;}</div>
-<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160; </div>
-<div class="line"><a name="l00195"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html#adb0bbc8c0abde0938b13242e454e099e">  195</a></span>&#160;Scalar SkeletonComponent::getAnimationTime()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;    <span class="keywordflow">return</span> m_animationTime;</div>
-<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;}</div>
-<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160; </div>
-<div class="line"><a name="l00199"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html#a4aa27e43eaed02498a94441075cc7ea6">  199</a></span>&#160;std::pair&lt;Scalar, Scalar&gt; SkeletonComponent::getAnimationTimeInterval()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;    <span class="keywordflow">if</span> ( m_animations.empty() ) { <span class="keywordflow">return</span> { 0_ra, 0_ra }; }</div>
-<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;    Scalar startTime = std::numeric_limits&lt;Scalar&gt;::max();</div>
-<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;    Scalar endTime   = 0;</div>
-<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;    <span class="keywordflow">for</span> ( <span class="keyword">auto</span> boneAnim : m_animations[m_animationID] ) {</div>
-<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;        <span class="keyword">const</span> <span class="keyword">auto</span>&amp; times = boneAnim.getTimes();</div>
-<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;        startTime         = std::min( startTime, *times.begin() );</div>
-<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;        endTime           = std::max( endTime, *times.rbegin() );</div>
-<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;    }</div>
-<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;    <span class="keywordflow">return</span> { startTime, endTime };</div>
-<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;}</div>
-<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160; </div>
-<div class="line"><a name="l00211"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html#a33a2fcb6f82e8d021f73f7a497219405">  211</a></span>&#160;<span class="keywordtype">void</span> SkeletonComponent::setSpeed( <span class="keyword">const</span> Scalar value ) {</div>
-<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;    m_speed = value;</div>
-<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;}</div>
-<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160; </div>
-<div class="line"><a name="l00215"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html#aadf5b499e42535d8dd7e4d5a5fc25d24">  215</a></span>&#160;Scalar SkeletonComponent::getSpeed()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;    <span class="keywordflow">return</span> m_speed;</div>
-<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;}</div>
-<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160; </div>
-<div class="line"><a name="l00219"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html#af68ed8847a28710cb793e6c3f9de2da7">  219</a></span>&#160;<span class="keywordtype">void</span> SkeletonComponent::autoRepeat( <span class="keyword">const</span> <span class="keywordtype">bool</span> status ) {</div>
-<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;    m_autoRepeat = status;</div>
-<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;}</div>
-<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160; </div>
-<div class="line"><a name="l00223"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html#af5019b602ab73ea90bdea645f7b6713c">  223</a></span>&#160;<span class="keywordtype">bool</span> SkeletonComponent::isAutoRepeat()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;    <span class="keywordflow">return</span> m_autoRepeat;</div>
-<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;}</div>
-<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160; </div>
-<div class="line"><a name="l00227"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html#abc512cdde58bfb17d6eca00384df0fe6">  227</a></span>&#160;<span class="keywordtype">void</span> SkeletonComponent::pingPong( <span class="keyword">const</span> <span class="keywordtype">bool</span> status ) {</div>
-<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;    m_pingPong = status;</div>
-<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;}</div>
-<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160; </div>
-<div class="line"><a name="l00231"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html#a54989f8584cc21b843865b9c1109ccdc">  231</a></span>&#160;<span class="keywordtype">bool</span> SkeletonComponent::isPingPong()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;    <span class="keywordflow">return</span> m_pingPong;</div>
-<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;}</div>
-<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160; </div>
-<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;<span class="comment">// Skeleton display</span></div>
+<div class="line"><a name="l00079"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html#a599cb76c6d9ae5532bec0d6831bdbcd7">   79</a></span>&#160;<span class="keywordtype">void</span> SkeletonComponent::handleSkeletonLoading( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Asset_1_1HandleData.html">Core::Asset::HandleData</a>* data ) {</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    m_skelName = data-&gt;<a class="code" href="classRa_1_1Core_1_1Asset_1_1AssetData.html#a45d10620e8b4afeadcbd70da2fa8b119">getName</a>();</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    m_skel.setName( data-&gt;<a class="code" href="classRa_1_1Core_1_1Asset_1_1AssetData.html#a45d10620e8b4afeadcbd70da2fa8b119">getName</a>() );</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    Core::Asset::createSkeleton( *data, m_skel );</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    m_refPose = m_skel.getPose( SpaceType::LOCAL );</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    setupSkeletonDisplay();</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    setupIO();</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;}</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
+<div class="line"><a name="l00092"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html#a2cc709e0412aacfffedb3ce68ad6dbaa">   92</a></span>&#160;<span class="keywordtype">void</span> SkeletonComponent::handleAnimationLoading(</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <span class="keyword">const</span> std::vector&lt;Core::Asset::AnimationData*&gt;&amp; data ) {</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    CORE_ASSERT( ( m_skel.size() != 0 ), <span class="stringliteral">&quot;A Skeleton should be loaded first.&quot;</span> );</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    m_animations.clear();</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    m_animations.reserve( data.size() );</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; </div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <span class="keyword">auto</span> pose = m_skel.getPose( SpaceType::LOCAL );</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    <span class="keywordflow">for</span> ( uint n = 0; n &lt; data.size(); ++n ) {</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;        m_animations.emplace_back();</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;        m_animations.back().reserve( m_skel.size() );</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        <span class="keyword">auto</span> handleAnim = data[n]-&gt;getHandleData();</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        <span class="keywordflow">for</span> ( uint i = 0; i &lt; m_skel.size(); ++i ) {</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;            <span class="keyword">auto</span> it =</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;                std::find_if( handleAnim.cbegin(), handleAnim.cend(), [<span class="keyword">this</span>, i]( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; ha ) {</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;                    return m_skel.getLabel( i ) == ha.m_name;</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;                } );</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;            <span class="keywordflow">if</span> ( it == handleAnim.cend() ) {</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;                m_animations.back().push_back( <a class="code" href="classRa_1_1Core_1_1Animation_1_1KeyFramedValue.html">KeyFramedValue</a>( 0_ra, pose[i] ) );</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;            }</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;            <span class="keywordflow">else</span> { m_animations.back().push_back( it-&gt;m_anim ); }</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;        }</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    }</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    <span class="keywordflow">if</span> ( m_animations.empty() ) {</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;        m_animations.emplace_back();</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;        <span class="keywordflow">for</span> ( uint i = 0; i &lt; m_skel.size(); ++i ) {</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;            m_animations[0].push_back( <a class="code" href="classRa_1_1Core_1_1Animation_1_1KeyFramedValue.html">KeyFramedValue</a>( 0_ra, pose[i] ) );</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;        }</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    }</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    m_animationID   = 0;</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    m_animationTime = 0_ra;</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;}</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160; </div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;<span class="comment">// Skeleton-based animation data</span></div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160; </div>
+<div class="line"><a name="l00126"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html#a45a9672edbc256f7970cd874af0b9ed3">  126</a></span>&#160;<span class="keywordtype">void</span> SkeletonComponent::setSkeleton( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Animation_1_1Skeleton.html">Skeleton</a>&amp; skel ) {</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    m_skel    = skel;</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    m_refPose = skel.<a class="code" href="classRa_1_1Core_1_1Animation_1_1Skeleton.html#acb6381c3f288f580800589eb718c1759">getPose</a>( SpaceType::LOCAL );</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    setupSkeletonDisplay();</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;}</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160; </div>
+<div class="line"><a name="l00132"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html#ad6c80ec0ec3145554625824ee37e61c3">  132</a></span>&#160;<a class="code" href="classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html#a66500edcc07c1b347066bb9ba090e13b">SkeletonComponent::Animation</a>&amp; SkeletonComponent::addNewAnimation() {</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    m_animations.emplace_back();</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    <span class="keywordflow">for</span> ( uint i = 0; i &lt; m_skel.size(); ++i ) {</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;        m_animations.back().push_back( <a class="code" href="classRa_1_1Core_1_1Animation_1_1KeyFramedValue.html">KeyFramedValue</a>( 0_ra, m_refPose[i] ) );</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    }</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    <span class="keywordflow">return</span> m_animations.back();</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;}</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160; </div>
+<div class="line"><a name="l00140"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html#a2bd365fe17222c8aff0dc1f19bec8e6a">  140</a></span>&#160;<span class="keywordtype">void</span> SkeletonComponent::removeAnimation( <span class="keyword">const</span> <span class="keywordtype">size_t</span> i ) {</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;    CORE_ASSERT( i &lt; m_animations.size(), <span class="stringliteral">&quot;Out of bound index.&quot;</span> );</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;    m_animations.erase( m_animations.begin() + i );</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;    m_animationID = i &gt; 1 ? i - 1 : 0;</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;}</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160; </div>
+<div class="line"><a name="l00146"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html#a7a0706ff253cc4cbb55a471b45ccf879">  146</a></span>&#160;<span class="keywordtype">void</span> SkeletonComponent::useAnimation( <span class="keyword">const</span> <span class="keywordtype">size_t</span> i ) {</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;    <span class="keywordflow">if</span> ( i &lt; m_animations.size() ) { m_animationID = i; }</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;}</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160; </div>
+<div class="line"><a name="l00150"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html#af723935866c4508bb098d7e6fb445487">  150</a></span>&#160;<span class="keywordtype">size_t</span> SkeletonComponent::getAnimationId()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;    <span class="keywordflow">return</span> m_animationID;</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;}</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160; </div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;<span class="comment">// Animation Process</span></div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160; </div>
+<div class="line"><a name="l00156"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html#a007d18aff30eb0bc9400e55c684a9c55">  156</a></span>&#160;<span class="keywordtype">void</span> SkeletonComponent::update( Scalar t ) {</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;    m_wasReset = Core::Math::areApproxEqual( t, 0_ra );</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;    <span class="keywordflow">if</span> ( m_wasReset ) {</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;        m_animationTime = t;</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;        m_skel.setPose( m_refPose, SpaceType::LOCAL );</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160; </div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;        updateDisplay();</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;        <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;    }</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160; </div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;    m_animationTime = m_speed * t;</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;    Scalar lastTime = 0;</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;    <span class="keywordflow">if</span> ( !m_animations.empty() ) {</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;        <span class="comment">// m_animationID is always &lt; m_animation.size() unless m_animations.empty()</span></div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;        <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; boneAnim : m_animations[m_animationID] ) {</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;            lastTime = std::max( lastTime, *boneAnim.getTimes().rbegin() );</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;        }</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;    }</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;    <span class="keywordflow">if</span> ( m_autoRepeat ) {</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;        <span class="keywordflow">if</span> ( !m_pingPong ) { m_animationTime = std::fmod( m_animationTime, lastTime ); }</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;        <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;            m_animationTime = std::fmod( m_animationTime, 2 * lastTime );</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;            <span class="keywordflow">if</span> ( m_animationTime &gt; lastTime ) { m_animationTime = 2 * lastTime - m_animationTime; }</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;        }</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;    }</div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span> ( m_pingPong ) {</div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;        <span class="keywordflow">if</span> ( m_animationTime &gt; 2 * lastTime ) { m_animationTime = 0_ra; }</div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;        <span class="keywordflow">else</span> <span class="keywordflow">if</span> ( m_animationTime &gt; lastTime ) { m_animationTime = 2 * lastTime - m_animationTime; }</div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;    }</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160; </div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;    <span class="comment">// get the current pose from the animation</span></div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;    Core::Animation::Pose pose = m_skel.getPose( SpaceType::LOCAL );</div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;    <span class="keywordflow">if</span> ( !m_animations.empty() ) {</div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;<span class="preprocessor">#pragma omp parallel for</span></div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;        <span class="keywordflow">for</span> ( <span class="keywordtype">int</span> i = 0; i &lt; int( m_animations[m_animationID].size() ); ++i ) {</div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;            pose[uint( i )] = m_animations[m_animationID][uint( i )].at(</div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;                m_animationTime, Core::Animation::linearInterpolate&lt;Core::Transform&gt; );</div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;        }</div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;    }</div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;    <span class="keywordflow">else</span> { pose = m_refPose; }</div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;    m_skel.setPose( pose, SpaceType::LOCAL );</div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160; </div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;    updateDisplay();</div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;}</div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160; </div>
+<div class="line"><a name="l00201"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html#adb0bbc8c0abde0938b13242e454e099e">  201</a></span>&#160;Scalar SkeletonComponent::getAnimationTime()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;    <span class="keywordflow">return</span> m_animationTime;</div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;}</div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160; </div>
+<div class="line"><a name="l00205"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html#a4aa27e43eaed02498a94441075cc7ea6">  205</a></span>&#160;std::pair&lt;Scalar, Scalar&gt; SkeletonComponent::getAnimationTimeInterval()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;    <span class="keywordflow">if</span> ( m_animations.empty() ) { <span class="keywordflow">return</span> { 0_ra, 0_ra }; }</div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;    Scalar startTime = std::numeric_limits&lt;Scalar&gt;::max();</div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;    Scalar endTime   = 0;</div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;    <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; boneAnim : m_animations[m_animationID] ) {</div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;        <span class="keyword">const</span> <span class="keyword">auto</span>&amp; times = boneAnim.getTimes();</div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;        startTime         = std::min( startTime, *times.begin() );</div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;        endTime           = std::max( endTime, *times.rbegin() );</div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;    }</div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;    <span class="keywordflow">return</span> { startTime, endTime };</div>
+<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;}</div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160; </div>
+<div class="line"><a name="l00217"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html#a33a2fcb6f82e8d021f73f7a497219405">  217</a></span>&#160;<span class="keywordtype">void</span> SkeletonComponent::setSpeed( <span class="keyword">const</span> Scalar value ) {</div>
+<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;    m_speed = value;</div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;}</div>
+<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160; </div>
+<div class="line"><a name="l00221"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html#aadf5b499e42535d8dd7e4d5a5fc25d24">  221</a></span>&#160;Scalar SkeletonComponent::getSpeed()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;    <span class="keywordflow">return</span> m_speed;</div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;}</div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160; </div>
+<div class="line"><a name="l00225"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html#af68ed8847a28710cb793e6c3f9de2da7">  225</a></span>&#160;<span class="keywordtype">void</span> SkeletonComponent::autoRepeat( <span class="keyword">const</span> <span class="keywordtype">bool</span> status ) {</div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;    m_autoRepeat = status;</div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;}</div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160; </div>
+<div class="line"><a name="l00229"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html#af5019b602ab73ea90bdea645f7b6713c">  229</a></span>&#160;<span class="keywordtype">bool</span> SkeletonComponent::isAutoRepeat()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;    <span class="keywordflow">return</span> m_autoRepeat;</div>
+<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;}</div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160; </div>
+<div class="line"><a name="l00233"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html#abc512cdde58bfb17d6eca00384df0fe6">  233</a></span>&#160;<span class="keywordtype">void</span> SkeletonComponent::pingPong( <span class="keyword">const</span> <span class="keywordtype">bool</span> status ) {</div>
+<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;    m_pingPong = status;</div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;}</div>
 <div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160; </div>
-<div class="line"><a name="l00237"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html#a6d5edec13e1d25cd2dd60151b41ef5cc">  237</a></span>&#160;<span class="keywordtype">void</span> SkeletonComponent::setXray( <span class="keywordtype">bool</span> on )<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;    <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; b : m_boneDrawables ) {</div>
-<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;        b-&gt;setXRay( on );</div>
-<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;    }</div>
-<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;}</div>
+<div class="line"><a name="l00237"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html#a54989f8584cc21b843865b9c1109ccdc">  237</a></span>&#160;<span class="keywordtype">bool</span> SkeletonComponent::isPingPong()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;    <span class="keywordflow">return</span> m_pingPong;</div>
+<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;}</div>
+<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160; </div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;<span class="comment">// Skeleton display</span></div>
 <div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160; </div>
-<div class="line"><a name="l00243"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html#aa8a61a85c5424e6833596fb431c30cb1">  243</a></span>&#160;<span class="keywordtype">bool</span> SkeletonComponent::isXray()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;    <span class="keywordflow">if</span> ( m_boneDrawables.size() == 0 ) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;    <span class="keywordflow">return</span> m_boneDrawables.front()-&gt;isXRay();</div>
-<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;}</div>
-<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160; </div>
-<div class="line"><a name="l00248"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html#a0211c3e5540d526ef7061d718a30b911">  248</a></span>&#160;<span class="keywordtype">void</span> SkeletonComponent::toggleSkeleton( <span class="keyword">const</span> <span class="keywordtype">bool</span> status ) {</div>
-<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;    <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; b : m_boneDrawables ) {</div>
-<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;        b-&gt;setVisible( status );</div>
-<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;    }</div>
+<div class="line"><a name="l00243"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html#a6d5edec13e1d25cd2dd60151b41ef5cc">  243</a></span>&#160;<span class="keywordtype">void</span> SkeletonComponent::setXray( <span class="keywordtype">bool</span> on )<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;    <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; b : m_boneDrawables ) {</div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;        b-&gt;setXRay( on );</div>
+<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;    }</div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;}</div>
+<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160; </div>
+<div class="line"><a name="l00249"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html#aa8a61a85c5424e6833596fb431c30cb1">  249</a></span>&#160;<span class="keywordtype">bool</span> SkeletonComponent::isXray()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;    <span class="keywordflow">if</span> ( m_boneDrawables.size() == 0 ) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;    <span class="keywordflow">return</span> m_boneDrawables.front()-&gt;isXRay();</div>
 <div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;}</div>
 <div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160; </div>
-<div class="line"><a name="l00254"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html#a1373de48b1145a757e5084c3546b6b1f">  254</a></span>&#160;<span class="keywordtype">bool</span> SkeletonComponent::isShowingSkeleton()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;    <span class="keywordflow">if</span> ( m_boneDrawables.size() == 0 ) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;    <span class="keywordflow">return</span> m_boneDrawables.front()-&gt;isVisible();</div>
-<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;}</div>
-<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160; </div>
-<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;Core::Geometry::TriangleMesh makeBoneShape() {</div>
-<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;    <span class="comment">// Bone along Z axis.</span></div>
-<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;    Core::Geometry::TriangleMesh mesh;</div>
-<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;    <span class="keyword">const</span> Scalar l = 0.1_ra;</div>
-<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;    <span class="keyword">const</span> Scalar w = 0.1_ra;</div>
-<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;    mesh.setVertices( { Core::Vector3( 0, 0, 0 ),</div>
-<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;                        Core::Vector3( 0, 0, 1 ),</div>
-<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;                        Core::Vector3( 0, w, l ),</div>
-<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;                        Core::Vector3( w, 0, l ),</div>
-<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;                        Core::Vector3( 0, -w, l ),</div>
-<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;                        Core::Vector3( -w, 0, l ) } );</div>
-<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160; </div>
-<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;    mesh.setNormals( { Core::Vector3( 0, 0, -1 ),</div>
-<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;                       Core::Vector3( 0, 0, 1 ),</div>
-<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;                       Core::Vector3( 0, 1, 0 ),</div>
-<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;                       Core::Vector3( 1, 0, 0 ),</div>
-<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;                       Core::Vector3( 0, -1, 0 ),</div>
-<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;                       Core::Vector3( -1, 0, 0 ) } );</div>
-<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160; </div>
-<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;    mesh.setIndices( { Core::Vector3ui( 0, 2, 3 ),</div>
-<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;                       Core::Vector3ui( 0, 5, 2 ),</div>
-<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;                       Core::Vector3ui( 0, 3, 4 ),</div>
-<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;                       Core::Vector3ui( 0, 4, 5 ),</div>
-<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;                       Core::Vector3ui( 1, 3, 2 ),</div>
-<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;                       Core::Vector3ui( 1, 2, 5 ),</div>
-<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;                       Core::Vector3ui( 1, 4, 3 ),</div>
-<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;                       Core::Vector3ui( 1, 5, 4 ) } );</div>
-<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;    <span class="keywordflow">return</span> mesh;</div>
-<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;}</div>
-<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160; </div>
-<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;<span class="keywordtype">void</span> SkeletonComponent::setupSkeletonDisplay() {</div>
-<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;    m_renderObjects.clear();</div>
-<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;    m_boneDrawables.clear();</div>
-<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;    <span class="keywordflow">if</span> ( !s_boneMesh ) {</div>
-<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;        s_boneMesh = std::make_shared&lt;Data::Mesh&gt;( <span class="stringliteral">&quot;Bone Mesh&quot;</span> );</div>
-<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;        s_boneMesh-&gt;loadGeometry( makeBoneShape() );</div>
-<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;        s_boneMaterial.reset( <span class="keyword">new</span> Data::BlinnPhongMaterial( <span class="stringliteral">&quot;Bone Material&quot;</span> ) );</div>
-<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;        s_boneMaterial-&gt;m_kd = Color::Grey( 0.4_ra );</div>
-<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;        s_boneMaterial-&gt;m_ks = Color::Black();</div>
-<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;        s_boneRenderTechnique.reset( <span class="keyword">new</span> Rendering::RenderTechnique );</div>
-<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;        s_boneRenderTechnique-&gt;setConfiguration(</div>
-<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;            *Data::ShaderConfigurationFactory::getConfiguration( <span class="stringliteral">&quot;BlinnPhong&quot;</span> ) );</div>
-<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;        s_boneRenderTechnique-&gt;setParametersProvider( s_boneMaterial );</div>
-<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;    }</div>
-<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;    <span class="keywordflow">for</span> ( uint i = 0; i &lt; m_skel.size(); ++i ) {</div>
-<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;        <span class="keywordflow">if</span> ( !m_skel.m_graph.isLeaf( i ) &amp;&amp; !m_skel.m_graph.isRoot( i ) &amp;&amp;</div>
-<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;             m_skel.getLabel( i ).find( <span class="stringliteral">&quot;_$AssimpFbx$_&quot;</span> ) == std::string::npos ) {</div>
-<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;            std::string name = m_skel.getLabel( i ) + <span class="stringliteral">&quot;_&quot;</span> + std::to_string( i );</div>
-<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;            <span class="keyword">auto</span> ro          = <span class="keyword">new</span> Engine::Rendering::RenderObject(</div>
-<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;                name, <span class="keyword">this</span>, Rendering::RenderObjectType::Geometry );</div>
-<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;            ro-&gt;setRenderTechnique( s_boneRenderTechnique );</div>
-<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;            ro-&gt;setMesh( s_boneMesh );</div>
-<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;            ro-&gt;setMaterial( s_boneMaterial );</div>
-<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;            ro-&gt;setXRay( <span class="keyword">false</span> );</div>
-<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;            addRenderObject( ro );</div>
-<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;            m_boneMap[m_renderObjects.back()] = i;</div>
-<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;            m_boneDrawables.push_back( ro );</div>
-<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;        }</div>
-<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;        <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;            LOG( logDEBUG ) &lt;&lt; <span class="stringliteral">&quot;Bone &quot;</span> &lt;&lt; m_skel.getLabel( i ) &lt;&lt; <span class="stringliteral">&quot; not displayed.&quot;</span>;</div>
-<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;        }</div>
-<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;    }</div>
-<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;    updateDisplay();</div>
-<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;}</div>
-<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160; </div>
-<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;<span class="keywordtype">void</span> SkeletonComponent::printSkeleton( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Animation_1_1Skeleton.html">Skeleton</a>&amp; skeleton ) {</div>
-<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;    std::deque&lt;uint&gt; queue;</div>
-<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;    std::deque&lt;int&gt; levels;</div>
+<div class="line"><a name="l00254"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html#a0211c3e5540d526ef7061d718a30b911">  254</a></span>&#160;<span class="keywordtype">void</span> SkeletonComponent::toggleSkeleton( <span class="keyword">const</span> <span class="keywordtype">bool</span> status ) {</div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;    <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; b : m_boneDrawables ) {</div>
+<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;        b-&gt;setVisible( status );</div>
+<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;    }</div>
+<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;}</div>
+<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160; </div>
+<div class="line"><a name="l00260"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html#a1373de48b1145a757e5084c3546b6b1f">  260</a></span>&#160;<span class="keywordtype">bool</span> SkeletonComponent::isShowingSkeleton()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;    <span class="keywordflow">if</span> ( m_boneDrawables.size() == 0 ) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;    <span class="keywordflow">return</span> m_boneDrawables.front()-&gt;isVisible();</div>
+<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;}</div>
+<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160; </div>
+<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;Core::Geometry::TriangleMesh makeBoneShape() {</div>
+<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;    <span class="comment">// Bone along Z axis.</span></div>
+<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;    Core::Geometry::TriangleMesh mesh;</div>
+<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;    <span class="keyword">const</span> Scalar l = 0.1_ra;</div>
+<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;    <span class="keyword">const</span> Scalar w = 0.1_ra;</div>
+<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;    mesh.setVertices( { Core::Vector3( 0, 0, 0 ),</div>
+<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;                        Core::Vector3( 0, 0, 1 ),</div>
+<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;                        Core::Vector3( 0, w, l ),</div>
+<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;                        Core::Vector3( w, 0, l ),</div>
+<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;                        Core::Vector3( 0, -w, l ),</div>
+<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;                        Core::Vector3( -w, 0, l ) } );</div>
+<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160; </div>
+<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;    mesh.setNormals( { Core::Vector3( 0, 0, -1 ),</div>
+<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;                       Core::Vector3( 0, 0, 1 ),</div>
+<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;                       Core::Vector3( 0, 1, 0 ),</div>
+<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;                       Core::Vector3( 1, 0, 0 ),</div>
+<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;                       Core::Vector3( 0, -1, 0 ),</div>
+<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;                       Core::Vector3( -1, 0, 0 ) } );</div>
+<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160; </div>
+<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;    mesh.setIndices( { Core::Vector3ui( 0, 2, 3 ),</div>
+<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;                       Core::Vector3ui( 0, 5, 2 ),</div>
+<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;                       Core::Vector3ui( 0, 3, 4 ),</div>
+<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;                       Core::Vector3ui( 0, 4, 5 ),</div>
+<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;                       Core::Vector3ui( 1, 3, 2 ),</div>
+<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;                       Core::Vector3ui( 1, 2, 5 ),</div>
+<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;                       Core::Vector3ui( 1, 4, 3 ),</div>
+<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;                       Core::Vector3ui( 1, 5, 4 ) } );</div>
+<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;    <span class="keywordflow">return</span> mesh;</div>
+<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;}</div>
+<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160; </div>
+<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;<span class="keywordtype">void</span> SkeletonComponent::setupSkeletonDisplay() {</div>
+<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;    m_renderObjects.clear();</div>
+<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;    m_boneDrawables.clear();</div>
+<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;    <span class="keywordflow">if</span> ( !s_boneMesh ) {</div>
+<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;        s_boneMesh = std::make_shared&lt;Data::Mesh&gt;( <span class="stringliteral">&quot;Bone Mesh&quot;</span> );</div>
+<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;        s_boneMesh-&gt;loadGeometry( makeBoneShape() );</div>
+<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;        s_boneMaterial.reset( <span class="keyword">new</span> Data::BlinnPhongMaterial( <span class="stringliteral">&quot;Bone Material&quot;</span> ) );</div>
+<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;        s_boneMaterial-&gt;m_kd = Color::Grey( 0.4_ra );</div>
+<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;        s_boneMaterial-&gt;m_ks = Color::Black();</div>
+<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;        s_boneRenderTechnique.reset( <span class="keyword">new</span> Rendering::RenderTechnique );</div>
+<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;        s_boneRenderTechnique-&gt;setConfiguration(</div>
+<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;            *Data::ShaderConfigurationFactory::getConfiguration( <span class="stringliteral">&quot;BlinnPhong&quot;</span> ) );</div>
+<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;        s_boneRenderTechnique-&gt;setParametersProvider( s_boneMaterial );</div>
+<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;    }</div>
+<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;    <span class="keywordflow">for</span> ( uint i = 0; i &lt; m_skel.size(); ++i ) {</div>
+<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;        <span class="keywordflow">if</span> ( !m_skel.m_graph.isLeaf( i ) &amp;&amp; !m_skel.m_graph.isRoot( i ) &amp;&amp;</div>
+<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;             m_skel.getLabel( i ).find( <span class="stringliteral">&quot;_$AssimpFbx$_&quot;</span> ) == std::string::npos ) {</div>
+<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;            std::string name = m_skel.getLabel( i ) + <span class="stringliteral">&quot;_&quot;</span> + std::to_string( i );</div>
+<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;            <span class="keyword">auto</span> ro          = <span class="keyword">new</span> Engine::Rendering::RenderObject(</div>
+<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;                name, <span class="keyword">this</span>, Rendering::RenderObjectType::Geometry );</div>
+<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;            ro-&gt;setRenderTechnique( s_boneRenderTechnique );</div>
+<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;            ro-&gt;setMesh( s_boneMesh );</div>
+<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;            ro-&gt;setMaterial( s_boneMaterial );</div>
+<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;            ro-&gt;setXRay( <span class="keyword">false</span> );</div>
+<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;            addRenderObject( ro );</div>
+<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;            m_boneMap[m_renderObjects.back()] = i;</div>
+<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;            m_boneDrawables.push_back( ro );</div>
+<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;        }</div>
+<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;        <span class="keywordflow">else</span> { LOG( logDEBUG ) &lt;&lt; <span class="stringliteral">&quot;Bone &quot;</span> &lt;&lt; m_skel.getLabel( i ) &lt;&lt; <span class="stringliteral">&quot; not displayed.&quot;</span>; }</div>
+<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;    }</div>
+<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;    updateDisplay();</div>
+<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;}</div>
 <div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160; </div>
-<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;    queue.push_back( 0 );</div>
-<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;    levels.push_back( 0 );</div>
-<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;    <span class="keywordflow">while</span> ( !queue.empty() ) {</div>
-<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;        uint i = queue.front();</div>
-<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;        queue.pop_front();</div>
-<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;        <span class="keywordtype">int</span> level = levels.front();</div>
-<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;        levels.pop_front();</div>
-<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;        std::cout &lt;&lt; i &lt;&lt; <span class="stringliteral">&quot; &quot;</span> &lt;&lt; skeleton.<a class="code" href="classRa_1_1Core_1_1Animation_1_1HandleArray.html#a1c75459bc9ff0e1f940b97f55fc18a7e">getLabel</a>( i ) &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span>;</div>
-<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;        <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; c : skeleton.<a class="code" href="classRa_1_1Core_1_1Animation_1_1Skeleton.html#a830e12404b138dced44acd9bb6d3e465">m_graph</a>.children()[i] ) {</div>
-<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;            queue.push_back( c );</div>
-<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;            levels.push_back( level + 1 );</div>
-<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;        }</div>
-<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160; </div>
-<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;        <span class="keywordflow">if</span> ( levels.front() != level ) { std::cout &lt;&lt; std::endl; }</div>
-<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;    }</div>
-<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;}</div>
+<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;<span class="keywordtype">void</span> SkeletonComponent::printSkeleton( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Animation_1_1Skeleton.html">Skeleton</a>&amp; skeleton ) {</div>
+<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;    std::deque&lt;uint&gt; queue;</div>
+<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;    std::deque&lt;int&gt; levels;</div>
+<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160; </div>
+<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;    queue.push_back( 0 );</div>
+<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;    levels.push_back( 0 );</div>
+<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;    <span class="keywordflow">while</span> ( !queue.empty() ) {</div>
+<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;        uint i = queue.front();</div>
+<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;        queue.pop_front();</div>
+<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;        <span class="keywordtype">int</span> level = levels.front();</div>
+<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;        levels.pop_front();</div>
+<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;        std::cout &lt;&lt; i &lt;&lt; <span class="stringliteral">&quot; &quot;</span> &lt;&lt; skeleton.<a class="code" href="classRa_1_1Core_1_1Animation_1_1HandleArray.html#a1c75459bc9ff0e1f940b97f55fc18a7e">getLabel</a>( i ) &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span>;</div>
+<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;        <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; c : skeleton.<a class="code" href="classRa_1_1Core_1_1Animation_1_1Skeleton.html#a830e12404b138dced44acd9bb6d3e465">m_graph</a>.children()[i] ) {</div>
+<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;            queue.push_back( c );</div>
+<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;            levels.push_back( level + 1 );</div>
+<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;        }</div>
 <div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160; </div>
-<div class="line"><a name="l00345"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html#a51249aacd81c4fdece3ccc494ebd6ae3">  345</a></span>&#160;<span class="keywordtype">void</span> SkeletonComponent::updateDisplay() {</div>
-<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;    <span class="keywordflow">for</span> ( <span class="keyword">auto</span>&amp; bone : m_boneDrawables ) {</div>
-<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;        uint boneIdx = m_boneMap.at( bone-&gt;getIndex() );</div>
-<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;        Core::Vector3 start;</div>
-<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;        Core::Vector3 end;</div>
-<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;        m_skel.getBonePoints( boneIdx, start, end );</div>
-<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160; </div>
-<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;        Core::Transform scale = Core::Transform::Identity();</div>
-<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;        scale.scale( ( end - start ).norm() );</div>
-<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160; </div>
-<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;        Core::Quaternion rot =</div>
-<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;            Core::Quaternion::FromTwoVectors( Core::Vector3::UnitZ(), end - start );</div>
-<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160; </div>
-<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;        Core::Transform boneTransform = m_skel.getTransform( boneIdx, SpaceType::MODEL );</div>
-<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;        Core::Matrix3 rotation        = rot.toRotationMatrix();</div>
-<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;        Core::Transform drawTransform;</div>
-<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;        drawTransform.linear()      = rotation;</div>
-<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;        drawTransform.translation() = boneTransform.translation();</div>
-<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160; </div>
-<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;        bone-&gt;setLocalTransform( drawTransform * scale );</div>
-<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;    }</div>
-<div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;}</div>
+<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;        <span class="keywordflow">if</span> ( levels.front() != level ) { std::cout &lt;&lt; std::endl; }</div>
+<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;    }</div>
+<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;}</div>
+<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160; </div>
+<div class="line"><a name="l00349"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html#a51249aacd81c4fdece3ccc494ebd6ae3">  349</a></span>&#160;<span class="keywordtype">void</span> SkeletonComponent::updateDisplay() {</div>
+<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;    <span class="keywordflow">for</span> ( <span class="keyword">auto</span>&amp; bone : m_boneDrawables ) {</div>
+<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;        uint boneIdx = m_boneMap.at( bone-&gt;getIndex() );</div>
+<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;        Core::Vector3 start;</div>
+<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;        Core::Vector3 end;</div>
+<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;        m_skel.getBonePoints( boneIdx, start, end );</div>
+<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160; </div>
+<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;        Core::Transform scale = Core::Transform::Identity();</div>
+<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;        scale.scale( ( end - start ).norm() );</div>
+<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160; </div>
+<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;        Core::Quaternion rot =</div>
+<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;            Core::Quaternion::FromTwoVectors( Core::Vector3::UnitZ(), end - start );</div>
+<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160; </div>
+<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;        Core::Transform boneTransform = m_skel.getTransform( boneIdx, SpaceType::MODEL );</div>
+<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;        Core::Matrix3 rotation        = rot.toRotationMatrix();</div>
+<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;        Core::Transform drawTransform;</div>
+<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;        drawTransform.linear()      = rotation;</div>
+<div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;        drawTransform.translation() = boneTransform.translation();</div>
 <div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160; </div>
-<div class="line"><a name="l00368"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html#a2bfbba93efa0b3bac4a6998d3d8bd907">  368</a></span>&#160;<span class="keywordtype">void</span> SkeletonComponent::setManipulationScheme(</div>
-<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;    <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Animation_1_1Skeleton.html#a330f9262f3ad5310075b1940c34c778f">Core::Animation::Skeleton::Manipulation</a>&amp; scheme ) {</div>
-<div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160;    m_skel.m_manipulation = scheme;</div>
-<div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160;}</div>
-<div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160; </div>
-<div class="line"><a name="l00373"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html#a54ab1d8df1523780292cd4f3df6f1a49">  373</a></span>&#160;<a class="code" href="classRa_1_1Core_1_1Animation_1_1Skeleton.html#a330f9262f3ad5310075b1940c34c778f">Core::Animation::Skeleton::Manipulation</a> SkeletonComponent::getManipulationScheme() {</div>
-<div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160;    <span class="keywordflow">return</span> m_skel.m_manipulation;</div>
+<div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;        bone-&gt;setLocalTransform( drawTransform * scale );</div>
+<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;    }</div>
+<div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160;}</div>
+<div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160; </div>
+<div class="line"><a name="l00372"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html#a2bfbba93efa0b3bac4a6998d3d8bd907">  372</a></span>&#160;<span class="keywordtype">void</span> SkeletonComponent::setManipulationScheme(</div>
+<div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160;    <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Animation_1_1Skeleton.html#a330f9262f3ad5310075b1940c34c778f">Core::Animation::Skeleton::Manipulation</a>&amp; scheme ) {</div>
+<div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160;    m_skel.m_manipulation = scheme;</div>
 <div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160;}</div>
 <div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160; </div>
-<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160;<span class="comment">// Component Communication (CC)</span></div>
-<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160; </div>
-<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;<span class="keywordtype">void</span> SkeletonComponent::setupIO() {</div>
-<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;    <a class="code" href="structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes.html#ad3b421fdb7fe4703e3773b622076b373">ComponentMessenger::CallbackTypes&lt;Skeleton&gt;::Getter</a> skelOut =</div>
-<div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160;        std::bind( &amp;SkeletonComponent::getSkeleton, <span class="keyword">this</span> );</div>
-<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;    ComponentMessenger::getInstance()-&gt;registerOutput&lt;<a class="code" href="classRa_1_1Core_1_1Animation_1_1Skeleton.html">Skeleton</a>&gt;(</div>
-<div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;        getEntity(), <span class="keyword">this</span>, m_skelName, skelOut );</div>
-<div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160; </div>
-<div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160;    <span class="keyword">using</span> BoneMap = std::map&lt;Index, uint&gt;;</div>
-<div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160;    <a class="code" href="structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes.html#ad3b421fdb7fe4703e3773b622076b373">ComponentMessenger::CallbackTypes&lt;BoneMap&gt;::Getter</a> boneMapOut =</div>
-<div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;        std::bind( &amp;SkeletonComponent::getBoneRO2idx, <span class="keyword">this</span> );</div>
-<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;    ComponentMessenger::getInstance()-&gt;registerOutput&lt;BoneMap&gt;(</div>
-<div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;        getEntity(), <span class="keyword">this</span>, m_skelName, boneMapOut );</div>
-<div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160; </div>
-<div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160;    <a class="code" href="structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes.html#ad3b421fdb7fe4703e3773b622076b373">ComponentMessenger::CallbackTypes&lt;Core::Animation::RefPose&gt;::Getter</a> refpOut =</div>
-<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;        std::bind( &amp;SkeletonComponent::getRefPoseOutput, <span class="keyword">this</span> );</div>
-<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;    ComponentMessenger::getInstance()-&gt;registerOutput&lt;Core::Animation::Pose&gt;(</div>
-<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;        getEntity(), <span class="keyword">this</span>, m_skelName, refpOut );</div>
-<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160; </div>
-<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;    <a class="code" href="structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes.html#ad3b421fdb7fe4703e3773b622076b373">ComponentMessenger::CallbackTypes&lt;Animation&gt;::Getter</a> animOut =</div>
-<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;        std::bind( &amp;SkeletonComponent::getAnimationOutput, <span class="keyword">this</span> );</div>
-<div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;    ComponentMessenger::getInstance()-&gt;registerOutput&lt;Animation&gt;(</div>
-<div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;        getEntity(), <span class="keyword">this</span>, m_skelName, animOut );</div>
-<div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160; </div>
-<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;    <a class="code" href="structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes.html#ad3b421fdb7fe4703e3773b622076b373">ComponentMessenger::CallbackTypes&lt;Scalar&gt;::Getter</a> timeOut =</div>
-<div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160;        std::bind( &amp;SkeletonComponent::getTimeOutput, <span class="keyword">this</span> );</div>
-<div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160;    ComponentMessenger::getInstance()-&gt;registerOutput&lt;Scalar&gt;(</div>
-<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;        getEntity(), <span class="keyword">this</span>, m_skelName, timeOut );</div>
-<div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160; </div>
-<div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160;    <a class="code" href="structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes.html#ad3b421fdb7fe4703e3773b622076b373">ComponentMessenger::CallbackTypes&lt;bool&gt;::Getter</a> resetOut =</div>
-<div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160;        std::bind( &amp;SkeletonComponent::getWasReset, <span class="keyword">this</span> );</div>
-<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;    ComponentMessenger::getInstance()-&gt;registerOutput&lt;<span class="keywordtype">bool</span>&gt;(</div>
-<div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;        getEntity(), <span class="keyword">this</span>, m_skelName, resetOut );</div>
-<div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160;}</div>
-<div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160; </div>
-<div class="line"><a name="l00412"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html#ae200ce8c2d20dd867aa4337eb829ef60">  412</a></span>&#160;<span class="keyword">const</span> std::map&lt;Index, uint&gt;* SkeletonComponent::getBoneRO2idx()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160;    <span class="keywordflow">return</span> &amp;m_boneMap;</div>
+<div class="line"><a name="l00377"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html#a54ab1d8df1523780292cd4f3df6f1a49">  377</a></span>&#160;<a class="code" href="classRa_1_1Core_1_1Animation_1_1Skeleton.html#a330f9262f3ad5310075b1940c34c778f">Core::Animation::Skeleton::Manipulation</a> SkeletonComponent::getManipulationScheme() {</div>
+<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160;    <span class="keywordflow">return</span> m_skel.m_manipulation;</div>
+<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;}</div>
+<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160; </div>
+<div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160;<span class="comment">// Component Communication (CC)</span></div>
+<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160; </div>
+<div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;<span class="keywordtype">void</span> SkeletonComponent::setupIO() {</div>
+<div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;    <a class="code" href="structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes.html#ad3b421fdb7fe4703e3773b622076b373">ComponentMessenger::CallbackTypes&lt;Skeleton&gt;::Getter</a> skelOut =</div>
+<div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160;        std::bind( &amp;SkeletonComponent::getSkeleton, <span class="keyword">this</span> );</div>
+<div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160;    ComponentMessenger::getInstance()-&gt;registerOutput&lt;<a class="code" href="classRa_1_1Core_1_1Animation_1_1Skeleton.html">Skeleton</a>&gt;(</div>
+<div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;        getEntity(), <span class="keyword">this</span>, m_skelName, skelOut );</div>
+<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160; </div>
+<div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;    <span class="keyword">using</span> BoneMap = std::map&lt;Index, uint&gt;;</div>
+<div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160;    <a class="code" href="structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes.html#ad3b421fdb7fe4703e3773b622076b373">ComponentMessenger::CallbackTypes&lt;BoneMap&gt;::Getter</a> boneMapOut =</div>
+<div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160;        std::bind( &amp;SkeletonComponent::getBoneRO2idx, <span class="keyword">this</span> );</div>
+<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;    ComponentMessenger::getInstance()-&gt;registerOutput&lt;BoneMap&gt;(</div>
+<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;        getEntity(), <span class="keyword">this</span>, m_skelName, boneMapOut );</div>
+<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160; </div>
+<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;    <a class="code" href="structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes.html#ad3b421fdb7fe4703e3773b622076b373">ComponentMessenger::CallbackTypes&lt;Core::Animation::RefPose&gt;::Getter</a> refpOut =</div>
+<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;        std::bind( &amp;SkeletonComponent::getRefPoseOutput, <span class="keyword">this</span> );</div>
+<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;    ComponentMessenger::getInstance()-&gt;registerOutput&lt;Core::Animation::Pose&gt;(</div>
+<div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;        getEntity(), <span class="keyword">this</span>, m_skelName, refpOut );</div>
+<div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160; </div>
+<div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160;    <a class="code" href="structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes.html#ad3b421fdb7fe4703e3773b622076b373">ComponentMessenger::CallbackTypes&lt;Animation&gt;::Getter</a> animOut =</div>
+<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;        std::bind( &amp;SkeletonComponent::getAnimationOutput, <span class="keyword">this</span> );</div>
+<div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160;    ComponentMessenger::getInstance()-&gt;registerOutput&lt;Animation&gt;(</div>
+<div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160;        getEntity(), <span class="keyword">this</span>, m_skelName, animOut );</div>
+<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160; </div>
+<div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;    <a class="code" href="structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes.html#ad3b421fdb7fe4703e3773b622076b373">ComponentMessenger::CallbackTypes&lt;Scalar&gt;::Getter</a> timeOut =</div>
+<div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160;        std::bind( &amp;SkeletonComponent::getTimeOutput, <span class="keyword">this</span> );</div>
+<div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160;    ComponentMessenger::getInstance()-&gt;registerOutput&lt;Scalar&gt;(</div>
+<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;        getEntity(), <span class="keyword">this</span>, m_skelName, timeOut );</div>
+<div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160; </div>
+<div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160;    <a class="code" href="structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes.html#ad3b421fdb7fe4703e3773b622076b373">ComponentMessenger::CallbackTypes&lt;bool&gt;::Getter</a> resetOut =</div>
+<div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160;        std::bind( &amp;SkeletonComponent::getWasReset, <span class="keyword">this</span> );</div>
+<div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160;    ComponentMessenger::getInstance()-&gt;registerOutput&lt;<span class="keywordtype">bool</span>&gt;(</div>
+<div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160;        getEntity(), <span class="keyword">this</span>, m_skelName, resetOut );</div>
 <div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160;}</div>
 <div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160; </div>
-<div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160;<span class="keyword">const</span> Core::Animation::RefPose* SkeletonComponent::getRefPoseOutput()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160;    <span class="keywordflow">return</span> &amp;m_refPose;</div>
+<div class="line"><a name="l00416"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html#ae200ce8c2d20dd867aa4337eb829ef60">  416</a></span>&#160;<span class="keyword">const</span> std::map&lt;Index, uint&gt;* SkeletonComponent::getBoneRO2idx()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160;    <span class="keywordflow">return</span> &amp;m_boneMap;</div>
 <div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160;}</div>
 <div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160; </div>
-<div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160;<span class="keyword">const</span> SkeletonComponent::Animation* SkeletonComponent::getAnimationOutput()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160;    <span class="keywordflow">if</span> ( m_animations.empty() ) { <span class="keywordflow">return</span> <span class="keyword">nullptr</span>; }</div>
-<div class="line"><a name="l00422"></a><span class="lineno">  422</span>&#160;    <span class="keywordflow">return</span> &amp;m_animations[m_animationID];</div>
-<div class="line"><a name="l00423"></a><span class="lineno">  423</span>&#160;}</div>
-<div class="line"><a name="l00424"></a><span class="lineno">  424</span>&#160; </div>
-<div class="line"><a name="l00425"></a><span class="lineno">  425</span>&#160;<span class="keyword">const</span> Scalar* SkeletonComponent::getTimeOutput()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00426"></a><span class="lineno">  426</span>&#160;    <span class="keywordflow">return</span> &amp;m_animationTime;</div>
+<div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160;<span class="keyword">const</span> Core::Animation::RefPose* SkeletonComponent::getRefPoseOutput()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160;    <span class="keywordflow">return</span> &amp;m_refPose;</div>
+<div class="line"><a name="l00422"></a><span class="lineno">  422</span>&#160;}</div>
+<div class="line"><a name="l00423"></a><span class="lineno">  423</span>&#160; </div>
+<div class="line"><a name="l00424"></a><span class="lineno">  424</span>&#160;<span class="keyword">const</span> SkeletonComponent::Animation* SkeletonComponent::getAnimationOutput()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00425"></a><span class="lineno">  425</span>&#160;    <span class="keywordflow">if</span> ( m_animations.empty() ) { <span class="keywordflow">return</span> <span class="keyword">nullptr</span>; }</div>
+<div class="line"><a name="l00426"></a><span class="lineno">  426</span>&#160;    <span class="keywordflow">return</span> &amp;m_animations[m_animationID];</div>
 <div class="line"><a name="l00427"></a><span class="lineno">  427</span>&#160;}</div>
 <div class="line"><a name="l00428"></a><span class="lineno">  428</span>&#160; </div>
-<div class="line"><a name="l00429"></a><span class="lineno">  429</span>&#160;<span class="keyword">const</span> <span class="keywordtype">bool</span>* SkeletonComponent::getWasReset()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00430"></a><span class="lineno">  430</span>&#160;    <span class="keywordflow">return</span> &amp;m_wasReset;</div>
+<div class="line"><a name="l00429"></a><span class="lineno">  429</span>&#160;<span class="keyword">const</span> Scalar* SkeletonComponent::getTimeOutput()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00430"></a><span class="lineno">  430</span>&#160;    <span class="keywordflow">return</span> &amp;m_animationTime;</div>
 <div class="line"><a name="l00431"></a><span class="lineno">  431</span>&#160;}</div>
 <div class="line"><a name="l00432"></a><span class="lineno">  432</span>&#160; </div>
-<div class="line"><a name="l00433"></a><span class="lineno">  433</span>&#160;} <span class="comment">// namespace Scene</span></div>
-<div class="line"><a name="l00434"></a><span class="lineno">  434</span>&#160;} <span class="comment">// namespace Engine</span></div>
-<div class="line"><a name="l00435"></a><span class="lineno">  435</span>&#160;} <span class="comment">// namespace Ra</span></div>
+<div class="line"><a name="l00433"></a><span class="lineno">  433</span>&#160;<span class="keyword">const</span> <span class="keywordtype">bool</span>* SkeletonComponent::getWasReset()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00434"></a><span class="lineno">  434</span>&#160;    <span class="keywordflow">return</span> &amp;m_wasReset;</div>
+<div class="line"><a name="l00435"></a><span class="lineno">  435</span>&#160;}</div>
+<div class="line"><a name="l00436"></a><span class="lineno">  436</span>&#160; </div>
+<div class="line"><a name="l00437"></a><span class="lineno">  437</span>&#160;} <span class="comment">// namespace Scene</span></div>
+<div class="line"><a name="l00438"></a><span class="lineno">  438</span>&#160;} <span class="comment">// namespace Engine</span></div>
+<div class="line"><a name="l00439"></a><span class="lineno">  439</span>&#160;} <span class="comment">// namespace Ra</span></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Animation_1_1HandleArray_html"><div class="ttname"><a href="classRa_1_1Core_1_1Animation_1_1HandleArray.html">Ra::Core::Animation::HandleArray</a></div><div class="ttdef"><b>Definition:</b> <a href="HandleArray_8hpp_source.html#l00019">HandleArray.hpp:20</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Animation_1_1HandleArray_html_a1c75459bc9ff0e1f940b97f55fc18a7e"><div class="ttname"><a href="classRa_1_1Core_1_1Animation_1_1HandleArray.html#a1c75459bc9ff0e1f940b97f55fc18a7e">Ra::Core::Animation::HandleArray::getLabel</a></div><div class="ttdeci">Label getLabel(const uint i) const</div><div class="ttdef"><b>Definition:</b> <a href="HandleArray_8inl_source.html#l00020">HandleArray.inl:20</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1Animation_1_1HandleArray_html_a1c75459bc9ff0e1f940b97f55fc18a7e"><div class="ttname"><a href="classRa_1_1Core_1_1Animation_1_1HandleArray.html#a1c75459bc9ff0e1f940b97f55fc18a7e">Ra::Core::Animation::HandleArray::getLabel</a></div><div class="ttdeci">Label getLabel(const uint i) const</div><div class="ttdef"><b>Definition:</b> <a href="HandleArray_8hpp_source.html#l00104">HandleArray.hpp:104</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Animation_1_1HandleArray_html_a8d51faa3b4fa49a0056d28c830860c4d"><div class="ttname"><a href="classRa_1_1Core_1_1Animation_1_1HandleArray.html#a8d51faa3b4fa49a0056d28c830860c4d">Ra::Core::Animation::HandleArray::SpaceType</a></div><div class="ttdeci">SpaceType</div><div class="ttdef"><b>Definition:</b> <a href="HandleArray_8hpp_source.html#l00025">HandleArray.hpp:25</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Animation_1_1KeyFramedValue_html"><div class="ttname"><a href="classRa_1_1Core_1_1Animation_1_1KeyFramedValue.html">Ra::Core::Animation::KeyFramedValue</a></div><div class="ttdef"><b>Definition:</b> <a href="KeyFramedValue_8hpp_source.html#l00062">KeyFramedValue.hpp:63</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Animation_1_1Skeleton_html"><div class="ttname"><a href="classRa_1_1Core_1_1Animation_1_1Skeleton.html">Ra::Core::Animation::Skeleton</a></div><div class="ttdef"><b>Definition:</b> <a href="Skeleton_8hpp_source.html#l00024">Skeleton.hpp:25</a></div></div>
@@ -567,7 +571,7 @@ $(document).ready(function(){initNavTree('SkeletonComponent_8cpp_source.html',''
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_89bb22796d297d82305d45a42e7934d2.html">Scene</a></li><li class="navelem"><b>SkeletonComponent.cpp</b></li>
-    <li class="footer">Generated on Thu Nov 17 2022 06:52:58 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Wed Apr 5 2023 15:07:31 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

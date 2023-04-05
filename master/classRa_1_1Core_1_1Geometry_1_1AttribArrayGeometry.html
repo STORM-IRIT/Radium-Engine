@@ -52,7 +52,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.4.0</span>
+   &#160;<span id="projectnumber">1.5.0</span>
    </div>
   </td>
  </tr>
@@ -319,7 +319,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>setAabb</b> (const Co
 <div class="textblock"><p>This class represents vertex + attributes per vertex. Toplogy is handled in <a class="el" href="classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html" title="AbstractGeometry with per-vertex attributes and layers of indices. Each layer represents a different ...">MultiIndexedGeometry</a> subclass. </p>
 <p>Attributes are unique per vertex, so that same position with different normals are two vertices. Points and Normals, defining the geometry, are always present. They can be accessed through <a class="el" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#acabe05880d71a8dc4406964c258fff5a" title="Access the vertices positions.">vertices()</a> and <a class="el" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#abfd2320cb73c0cb14805c234af594b5e" title="Access the vertices normals.">normals()</a>. Other attribs could be added with <a class="el" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#ae1956b0396dadd84f55a12f2160e5671">addAttrib()</a> and accesssed with <a class="el" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#aeb68d9cd8cf8c1e05886a23f0ad33c59">getAttrib()</a>. </p><dl class="section note"><dt>Note</dt><dd>Mesh attribute VERTEX_POSITION and VERTEX_NORMAL are reserved and pre-allocated. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="TriangleMesh_8hpp_source.html#l00024">24</a> of file <a class="el" href="TriangleMesh_8hpp_source.html">TriangleMesh.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TriangleMesh_8hpp_source.html#l00025">25</a> of file <a class="el" href="TriangleMesh_8hpp_source.html">TriangleMesh.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ac89c414c6ac9db9b0cedf946dc0ce525"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac89c414c6ac9db9b0cedf946dc0ce525">&#9670;&nbsp;</a></span>AttribArrayGeometry() <span class="overload">[1/2]</span></h2>
@@ -346,7 +346,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>setAabb</b> (const Co
 </div><div class="memdoc">
 <p>Copy constructor, copy all the data (geometry, attributes). </p><dl class="section note"><dt>Note</dt><dd>Handles on <code>other</code> are not valid for *this. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="TriangleMesh_8inl_source.html#l00009">9</a> of file <a class="el" href="TriangleMesh_8inl_source.html">TriangleMesh.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TriangleMesh_8hpp_source.html#l00237">237</a> of file <a class="el" href="TriangleMesh_8hpp_source.html">TriangleMesh.hpp</a>.</p>
 <div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-2-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-2-summary" class="dynsummary" style="display:block;">
@@ -383,7 +383,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>setAabb</b> (const Co
 </div><div class="memdoc">
 <p>Move constructor, copy all the data (geometry, attributes). </p><dl class="section note"><dt>Note</dt><dd>Handles on <code>other</code> are also valid for *this. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="TriangleMesh_8inl_source.html#l00016">16</a> of file <a class="el" href="TriangleMesh_8inl_source.html">TriangleMesh.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TriangleMesh_8hpp_source.html#l00244">244</a> of file <a class="el" href="TriangleMesh_8hpp_source.html">TriangleMesh.hpp</a>.</p>
 
 </div>
 </div>
@@ -422,7 +422,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>handle to set the attrib data with getAttrib(handle).setData() </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="TriangleMesh_8inl_source.html#l00160">160</a> of file <a class="el" href="TriangleMesh_8inl_source.html">TriangleMesh.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TriangleMesh_8hpp_source.html#l00388">388</a> of file <a class="el" href="TriangleMesh_8hpp_source.html">TriangleMesh.hpp</a>.</p>
 <div id="dynsection-3" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-3-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-3-summary" class="dynsummary" style="display:block;">
@@ -478,7 +478,7 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="TriangleMesh_8inl_source.html#l00167">167</a> of file <a class="el" href="TriangleMesh_8inl_source.html">TriangleMesh.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TriangleMesh_8hpp_source.html#l00395">395</a> of file <a class="el" href="TriangleMesh_8hpp_source.html">TriangleMesh.hpp</a>.</p>
 <div id="dynsection-4" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-4-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-4-summary" class="dynsummary" style="display:block;">
@@ -534,7 +534,7 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="TriangleMesh_8inl_source.html#l00177">177</a> of file <a class="el" href="TriangleMesh_8inl_source.html">TriangleMesh.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TriangleMesh_8hpp_source.html#l00405">405</a> of file <a class="el" href="TriangleMesh_8hpp_source.html">TriangleMesh.hpp</a>.</p>
 <div id="dynsection-5" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-5-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-5-summary" class="dynsummary" style="display:block;">
@@ -631,7 +631,7 @@ template&lt;typename T &gt; </div>
 <dl class="section note"><dt>Note</dt><dd>*this and <code>input</code> must have the same number of vertices. </dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>The original handles are not valid for the <a class="el" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html" title="This class represents vertex + attributes per vertex. Toplogy is handled in MultiIndexedGeometry subc...">AttribArrayGeometry</a> copy. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="TriangleMesh_8inl_source.html#l00068">68</a> of file <a class="el" href="TriangleMesh_8inl_source.html">TriangleMesh.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TriangleMesh_8hpp_source.html#l00296">296</a> of file <a class="el" href="TriangleMesh_8hpp_source.html">TriangleMesh.hpp</a>.</p>
 <div id="dynsection-8" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-8-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-8-summary" class="dynsummary" style="display:block;">
@@ -682,7 +682,7 @@ template&lt;typename... Handles&gt; </div>
 <dl class="section note"><dt>Note</dt><dd>*this and <code>input</code> must have the same number of vertices. </dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>The original handles are not valid for the <a class="el" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html" title="This class represents vertex + attributes per vertex. Toplogy is handled in MultiIndexedGeometry subc...">AttribArrayGeometry</a> copy. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="TriangleMesh_8inl_source.html#l00059">59</a> of file <a class="el" href="TriangleMesh_8inl_source.html">TriangleMesh.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TriangleMesh_8hpp_source.html#l00287">287</a> of file <a class="el" href="TriangleMesh_8hpp_source.html">TriangleMesh.hpp</a>.</p>
 <div id="dynsection-9" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-9-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-9-summary" class="dynsummary" style="display:block;">
@@ -719,7 +719,7 @@ template&lt;typename... Handles&gt; </div>
 </div><div class="memdoc">
 <p>Copy only the geometry. The needed attributes can be copied through <a class="el" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#a39e0cc58c4136fc53cb54dcbeeff6508">copyAttributes()</a>. </p><dl class="section warning"><dt>Warning</dt><dd>Deletes all attributes of *this. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="TriangleMesh_8inl_source.html#l00051">51</a> of file <a class="el" href="TriangleMesh_8inl_source.html">TriangleMesh.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TriangleMesh_8hpp_source.html#l00279">279</a> of file <a class="el" href="TriangleMesh_8hpp_source.html">TriangleMesh.hpp</a>.</p>
 <div id="dynsection-10" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-10-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-10-summary" class="dynsummary" style="display:block;">
@@ -758,7 +758,7 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classRa_1_1Core_1_1Utils_1_1AttribManager.html#ae0cb7281ec72606a5392602b4ea50d2c">Utils::AttribManager::getAttrib</a> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="TriangleMesh_8inl_source.html#l00151">151</a> of file <a class="el" href="TriangleMesh_8inl_source.html">TriangleMesh.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TriangleMesh_8hpp_source.html#l00379">379</a> of file <a class="el" href="TriangleMesh_8hpp_source.html">TriangleMesh.hpp</a>.</p>
 <div id="dynsection-11" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-11-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-11-summary" class="dynsummary" style="display:block;">
@@ -797,7 +797,7 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classRa_1_1Core_1_1Utils_1_1AttribManager.html#ae0cb7281ec72606a5392602b4ea50d2c">Utils::AttribManager::getAttrib</a> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="TriangleMesh_8inl_source.html#l00146">146</a> of file <a class="el" href="TriangleMesh_8inl_source.html">TriangleMesh.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TriangleMesh_8hpp_source.html#l00374">374</a> of file <a class="el" href="TriangleMesh_8hpp_source.html">TriangleMesh.hpp</a>.</p>
 <div id="dynsection-12" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-12-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-12-summary" class="dynsummary" style="display:block;">
@@ -836,7 +836,7 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classRa_1_1Core_1_1Utils_1_1AttribManager.html#ae0cb7281ec72606a5392602b4ea50d2c">Utils::AttribManager::getAttrib</a> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="TriangleMesh_8inl_source.html#l00127">127</a> of file <a class="el" href="TriangleMesh_8inl_source.html">TriangleMesh.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TriangleMesh_8hpp_source.html#l00355">355</a> of file <a class="el" href="TriangleMesh_8hpp_source.html">TriangleMesh.hpp</a>.</p>
 <div id="dynsection-13" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-13-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-13-summary" class="dynsummary" style="display:block;">
@@ -875,7 +875,7 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classRa_1_1Core_1_1Utils_1_1AttribManager.html#ae0cb7281ec72606a5392602b4ea50d2c">Utils::AttribManager::getAttrib</a> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="TriangleMesh_8inl_source.html#l00132">132</a> of file <a class="el" href="TriangleMesh_8inl_source.html">TriangleMesh.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TriangleMesh_8hpp_source.html#l00360">360</a> of file <a class="el" href="TriangleMesh_8hpp_source.html">TriangleMesh.hpp</a>.</p>
 <div id="dynsection-14" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-14-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-14-summary" class="dynsummary" style="display:block;">
@@ -912,7 +912,7 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classRa_1_1Core_1_1Utils_1_1AttribManager.html#a4a0ff80a4bcffeab304c30145cd555ef">Utils::AttribManager::getAttribBase</a> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="TriangleMesh_8inl_source.html#l00136">136</a> of file <a class="el" href="TriangleMesh_8inl_source.html">TriangleMesh.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TriangleMesh_8hpp_source.html#l00364">364</a> of file <a class="el" href="TriangleMesh_8hpp_source.html">TriangleMesh.hpp</a>.</p>
 <div id="dynsection-15" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-15-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-15-summary" class="dynsummary" style="display:block;">
@@ -949,7 +949,7 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classRa_1_1Core_1_1Utils_1_1AttribManager.html#a4a0ff80a4bcffeab304c30145cd555ef">Utils::AttribManager::getAttribBase</a> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="TriangleMesh_8inl_source.html#l00141">141</a> of file <a class="el" href="TriangleMesh_8inl_source.html">TriangleMesh.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TriangleMesh_8hpp_source.html#l00369">369</a> of file <a class="el" href="TriangleMesh_8hpp_source.html">TriangleMesh.hpp</a>.</p>
 <div id="dynsection-16" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-16-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-16-summary" class="dynsummary" style="display:block;">
@@ -988,7 +988,7 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 <p>Return the Handle to the attribute with the given name if it exists, an invalid handle otherwise. </p><dl class="section see"><dt>See also</dt><dd>AttribManager::getAttribHandle() for more info. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="TriangleMesh_8inl_source.html#l00117">117</a> of file <a class="el" href="TriangleMesh_8inl_source.html">TriangleMesh.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TriangleMesh_8hpp_source.html#l00345">345</a> of file <a class="el" href="TriangleMesh_8hpp_source.html">TriangleMesh.hpp</a>.</p>
 <div id="dynsection-17" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-17-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-17-summary" class="dynsummary" style="display:block;">
@@ -1083,7 +1083,7 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 <p>Check if an attribute exists with the given name. </p><dl class="section see"><dt>See also</dt><dd><a class="el" href="classRa_1_1Core_1_1Utils_1_1AttribManager.html#acf143d6db7f6e39edb18ed21d45b3317" title="contains Check if an attribute with the given name exists.">AttribManager::contains</a> for more info. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="TriangleMesh_8inl_source.html#l00155">155</a> of file <a class="el" href="TriangleMesh_8inl_source.html">TriangleMesh.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TriangleMesh_8hpp_source.html#l00383">383</a> of file <a class="el" href="TriangleMesh_8hpp_source.html">TriangleMesh.hpp</a>.</p>
 <div id="dynsection-18" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-18-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-18-summary" class="dynsummary" style="display:block;">
@@ -1119,7 +1119,7 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 <p>Read/write access the vertices normals. </p><dl class="section warning"><dt>Warning</dt><dd>need to call normalsUnlock when job done. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="TriangleMesh_8inl_source.html#l00207">207</a> of file <a class="el" href="TriangleMesh_8inl_source.html">TriangleMesh.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TriangleMesh_8hpp_source.html#l00435">435</a> of file <a class="el" href="TriangleMesh_8hpp_source.html">TriangleMesh.hpp</a>.</p>
 <div id="dynsection-19" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-19-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-19-summary" class="dynsummary" style="display:block;">
@@ -1156,7 +1156,7 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 <p>Move assignment, copy all the data (geometry, attributes). </p><dl class="section note"><dt>Note</dt><dd>Handles on <code>other</code> are also valid for *this. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="TriangleMesh_8inl_source.html#l00033">33</a> of file <a class="el" href="TriangleMesh_8inl_source.html">TriangleMesh.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TriangleMesh_8hpp_source.html#l00261">261</a> of file <a class="el" href="TriangleMesh_8hpp_source.html">TriangleMesh.hpp</a>.</p>
 
 </div>
 </div>
@@ -1185,7 +1185,7 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 <p>Assignment operator, copy all the data (geometry, attributes). </p><dl class="section warning"><dt>Warning</dt><dd>Handles on <code>other</code> are not valid for *this. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="TriangleMesh_8inl_source.html#l00021">21</a> of file <a class="el" href="TriangleMesh_8inl_source.html">TriangleMesh.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TriangleMesh_8hpp_source.html#l00249">249</a> of file <a class="el" href="TriangleMesh_8hpp_source.html">TriangleMesh.hpp</a>.</p>
 <div id="dynsection-20" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-20-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-20-summary" class="dynsummary" style="display:block;">
@@ -1224,7 +1224,7 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 <p>Remove attribute by handle. </p><dl class="section see"><dt>See also</dt><dd><a class="el" href="classRa_1_1Core_1_1Utils_1_1AttribManager.html#aeb28dcc5c1980e1fc7da191eb69bcbcb">AttribManager::removeAttrib()</a> for more info. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="TriangleMesh_8inl_source.html#l00186">186</a> of file <a class="el" href="TriangleMesh_8inl_source.html">TriangleMesh.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TriangleMesh_8hpp_source.html#l00414">414</a> of file <a class="el" href="TriangleMesh_8hpp_source.html">TriangleMesh.hpp</a>.</p>
 <div id="dynsection-21" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-21-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-21-summary" class="dynsummary" style="display:block;">
@@ -1260,7 +1260,7 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 <p>Return the vertexAttribs manager. In case you want to have direct access to <a class="el" href="classRa_1_1Core_1_1Utils_1_1AttribManager.html" title="The AttribManager provides attributes management by handles.">Utils::AttribManager</a> functionality. </p><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000024">Todo:</a></b></dt><dd>rename to getAttribManager ? </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="TriangleMesh_8inl_source.html#l00191">191</a> of file <a class="el" href="TriangleMesh_8inl_source.html">TriangleMesh.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TriangleMesh_8hpp_source.html#l00419">419</a> of file <a class="el" href="TriangleMesh_8hpp_source.html">TriangleMesh.hpp</a>.</p>
 
 </div>
 </div>
@@ -1288,7 +1288,7 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 <p>Return the vertexAttribs manager. In case you want to have direct access to <a class="el" href="classRa_1_1Core_1_1Utils_1_1AttribManager.html" title="The AttribManager provides attributes management by handles.">Utils::AttribManager</a> functionality. </p>
 
-<p class="definition">Definition at line <a class="el" href="TriangleMesh_8inl_source.html#l00195">195</a> of file <a class="el" href="TriangleMesh_8inl_source.html">TriangleMesh.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TriangleMesh_8hpp_source.html#l00423">423</a> of file <a class="el" href="TriangleMesh_8hpp_source.html">TriangleMesh.hpp</a>.</p>
 
 </div>
 </div>
@@ -1316,7 +1316,7 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 <p>Read/write access to the vertices positions. </p><dl class="section warning"><dt>Warning</dt><dd>need to call verticesUnlock when job done. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="TriangleMesh_8inl_source.html#l00199">199</a> of file <a class="el" href="TriangleMesh_8inl_source.html">TriangleMesh.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TriangleMesh_8hpp_source.html#l00427">427</a> of file <a class="el" href="TriangleMesh_8hpp_source.html">TriangleMesh.hpp</a>.</p>
 <div id="dynsection-22" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-22-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-22-summary" class="dynsummary" style="display:block;">
@@ -1331,7 +1331,6 @@ template&lt;typename T &gt; </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/src/Core/Geometry/<a class="el" href="TriangleMesh_8hpp_source.html">TriangleMesh.hpp</a></li>
 <li>/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/src/Core/Geometry/<a class="el" href="TriangleMesh_8cpp_source.html">TriangleMesh.cpp</a></li>
-<li>/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/src/Core/Geometry/<a class="el" href="TriangleMesh_8inl_source.html">TriangleMesh.inl</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -1339,7 +1338,7 @@ template&lt;typename T &gt; </div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><b>Core</b></li><li class="navelem"><b>Geometry</b></li><li class="navelem"><a class="el" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html">AttribArrayGeometry</a></li>
-    <li class="footer">Generated on Thu Nov 17 2022 06:52:59 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Wed Apr 5 2023 15:07:32 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

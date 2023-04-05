@@ -1,5 +1,5 @@
 <map id="Ra::Gui::Timeline::selectionChanged" name="Ra::Gui::Timeline::selectionChanged">
 <area shape="rect" id="node1" title=" " alt="" coords="5,43,148,84"/>
-<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Scene_1_1Component.html#a60e3234670ccfb680405445f06d2854e" title="Return the component&#39;s name." alt="" coords="199,5,364,47"/>
+<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Scene_1_1Component.html#aa30f6f7a3f3414c4e9c80ca89627f4b9" title="Return the component&#39;s name." alt="" coords="199,5,364,47"/>
 <area shape="rect" id="node3" href="$classRa_1_1Core_1_1Animation_1_1KeyFramedValueBase.html#a170dcf7c25367d3922bc4335e57aef4b" title=" " alt="" coords="196,71,367,127"/>
 </map>

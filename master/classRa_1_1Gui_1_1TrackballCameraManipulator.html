@@ -52,7 +52,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.4.0</span>
+   &#160;<span id="projectnumber">1.5.0</span>
    </div>
   </td>
  </tr>
@@ -291,6 +291,10 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>handleCameraM
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1TrackballCameraManipulator.html#ad7880fb45a56841fd743fb3ad80c2592">updatePhiTheta</a> ()</td></tr>
 <tr class="memdesc:ad7880fb45a56841fd743fb3ad80c2592"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update the polar coordinates of the Camera w.r.t. the trackball center. <br /></td></tr>
 <tr class="separator:ad7880fb45a56841fd743fb3ad80c2592"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_methods_classRa_1_1Gui_1_1CameraManipulator"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classRa_1_1Gui_1_1CameraManipulator')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html">Ra::Gui::CameraManipulator</a></td></tr>
+<tr class="memitem:a8eee02e463699005d24b93ec8b6a119d inherit pro_methods_classRa_1_1Gui_1_1CameraManipulator"><td class="memItemLeft" align="right" valign="top"><a id="a8eee02e463699005d24b93ec8b6a119d"></a>
+std::pair&lt; Scalar, Scalar &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>computeDeltaMouseMove</b> (const QMouseEvent *mouseEvent)</td></tr>
+<tr class="separator:a8eee02e463699005d24b93ec8b6a119d inherit pro_methods_classRa_1_1Gui_1_1CameraManipulator"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_methods_classRa_1_1Gui_1_1KeyMappingManageable"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classRa_1_1Gui_1_1KeyMappingManageable')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classRa_1_1Gui_1_1KeyMappingManageable.html">Ra::Gui::KeyMappingManageable&lt; TrackballCameraManipulator &gt;</a></td></tr>
 <tr class="memitem:abae9357dd8963f4e8e844b58eb5ca5b9 inherit pro_methods_classRa_1_1Gui_1_1KeyMappingManageable"><td class="memItemLeft" align="right" valign="top"><a id="abae9357dd8963f4e8e844b58eb5ca5b9"></a>
 <a class="el" href="classRa_1_1Gui_1_1TrackballCameraManipulator.html">TrackballCameraManipulator</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>self</b> ()</td></tr>
@@ -298,14 +302,6 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
-<tr class="memitem:a56c21d2c8c450a41d7db95cc869dc5d0"><td class="memItemLeft" align="right" valign="top"><a id="a56c21d2c8c450a41d7db95cc869dc5d0"></a>
-Scalar&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1TrackballCameraManipulator.html#a56c21d2c8c450a41d7db95cc869dc5d0">m_lastMouseX</a> { 0_ra }</td></tr>
-<tr class="memdesc:a56c21d2c8c450a41d7db95cc869dc5d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">x-position of the mouse on the screen at the manipulation start. <br /></td></tr>
-<tr class="separator:a56c21d2c8c450a41d7db95cc869dc5d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6adc3a15bef8e2b4b0fccbeaadda6461"><td class="memItemLeft" align="right" valign="top"><a id="a6adc3a15bef8e2b4b0fccbeaadda6461"></a>
-Scalar&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1TrackballCameraManipulator.html#a6adc3a15bef8e2b4b0fccbeaadda6461">m_lastMouseY</a> { 0_ra }</td></tr>
-<tr class="memdesc:a6adc3a15bef8e2b4b0fccbeaadda6461"><td class="mdescLeft">&#160;</td><td class="mdescRight">y-position of the mouse on the screen at the manipulation start. <br /></td></tr>
-<tr class="separator:a6adc3a15bef8e2b4b0fccbeaadda6461"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a421bcdd8baa1ce2ee1238645e29a4213"><td class="memItemLeft" align="right" valign="top">Scalar&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1TrackballCameraManipulator.html#a421bcdd8baa1ce2ee1238645e29a4213">m_phi</a> { 0_ra }</td></tr>
 <tr class="separator:a421bcdd8baa1ce2ee1238645e29a4213"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a945dbcee8033e57edfbe6a778d650098"><td class="memItemLeft" align="right" valign="top"><a id="a945dbcee8033e57edfbe6a778d650098"></a>
@@ -327,6 +323,14 @@ Scalar&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
 <a class="el" href="classRa_1_1Gui_1_1KeyMappingCallbackManager.html">KeyMappingCallbackManager</a>&#160;</td><td class="memItemRight" valign="bottom"><b>m_keyMappingCallbackManager</b></td></tr>
 <tr class="separator:ad9ae17669e4a9adb4cfe496068555956"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_attribs_classRa_1_1Gui_1_1CameraManipulator"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classRa_1_1Gui_1_1CameraManipulator')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html">Ra::Gui::CameraManipulator</a></td></tr>
+<tr class="memitem:a011cb1eed1a5703a9e4d5efd0b172fe6 inherit pro_attribs_classRa_1_1Gui_1_1CameraManipulator"><td class="memItemLeft" align="right" valign="top"><a id="a011cb1eed1a5703a9e4d5efd0b172fe6"></a>
+Scalar&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html#a011cb1eed1a5703a9e4d5efd0b172fe6">m_lastMouseX</a> { 0_ra }</td></tr>
+<tr class="memdesc:a011cb1eed1a5703a9e4d5efd0b172fe6 inherit pro_attribs_classRa_1_1Gui_1_1CameraManipulator"><td class="mdescLeft">&#160;</td><td class="mdescRight">x-position of the mouse on the screen at the manipulation start. <br /></td></tr>
+<tr class="separator:a011cb1eed1a5703a9e4d5efd0b172fe6 inherit pro_attribs_classRa_1_1Gui_1_1CameraManipulator"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a69920046829f6cbb82cdcc74ee6a7e81 inherit pro_attribs_classRa_1_1Gui_1_1CameraManipulator"><td class="memItemLeft" align="right" valign="top"><a id="a69920046829f6cbb82cdcc74ee6a7e81"></a>
+Scalar&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html#a69920046829f6cbb82cdcc74ee6a7e81">m_lastMouseY</a> { 0_ra }</td></tr>
+<tr class="memdesc:a69920046829f6cbb82cdcc74ee6a7e81 inherit pro_attribs_classRa_1_1Gui_1_1CameraManipulator"><td class="mdescLeft">&#160;</td><td class="mdescRight">y-position of the mouse on the screen at the manipulation start. <br /></td></tr>
+<tr class="separator:a69920046829f6cbb82cdcc74ee6a7e81 inherit pro_attribs_classRa_1_1Gui_1_1CameraManipulator"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:add774422ef4383531ab5f0f73551c981 inherit pro_attribs_classRa_1_1Gui_1_1CameraManipulator"><td class="memItemLeft" align="right" valign="top"><a id="add774422ef4383531ab5f0f73551c981"></a>
 Scalar&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html#add774422ef4383531ab5f0f73551c981">m_cameraSensitivity</a> { 1_ra }</td></tr>
 <tr class="memdesc:add774422ef4383531ab5f0f73551c981 inherit pro_attribs_classRa_1_1Gui_1_1CameraManipulator"><td class="mdescLeft">&#160;</td><td class="mdescRight">the Camera sensitivity to manipulation. <br /></td></tr>
@@ -353,10 +357,6 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="separator:a31102b2e3d599001f824da47dfd10916 inherit pro_attribs_classRa_1_1Gui_1_1CameraManipulator"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab26f9a3697f068a1ccaf1a1bb5ddc5a0 inherit pro_attribs_classRa_1_1Gui_1_1CameraManipulator"><td class="memItemLeft" align="right" valign="top">Core::Vector3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html#ab26f9a3697f068a1ccaf1a1bb5ddc5a0">m_target</a> { 0_ra, 0_ra, 0_ra }</td></tr>
 <tr class="separator:ab26f9a3697f068a1ccaf1a1bb5ddc5a0 inherit pro_attribs_classRa_1_1Gui_1_1CameraManipulator"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:affce981649adb59548c919e78b3d9206 inherit pro_attribs_classRa_1_1Gui_1_1CameraManipulator"><td class="memItemLeft" align="right" valign="top"><a id="affce981649adb59548c919e78b3d9206"></a>
-<a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html#a41a05099c01660b695cdb70be3eb1655">KeyMappingManager::KeyMappingAction</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html#affce981649adb59548c919e78b3d9206">m_currentAction</a> {}</td></tr>
-<tr class="memdesc:affce981649adb59548c919e78b3d9206 inherit pro_attribs_classRa_1_1Gui_1_1CameraManipulator"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether the corresponding camera movement is active or not. <br /></td></tr>
-<tr class="separator:affce981649adb59548c919e78b3d9206 inherit pro_attribs_classRa_1_1Gui_1_1CameraManipulator"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a52f8a96fcee5296152ce974d5dedceb3 inherit pro_attribs_classRa_1_1Gui_1_1CameraManipulator"><td class="memItemLeft" align="right" valign="top"><a id="a52f8a96fcee5296152ce974d5dedceb3"></a>
 <a class="el" href="classRa_1_1Core_1_1Asset_1_1Camera.html">Core::Asset::Camera</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html#a52f8a96fcee5296152ce974d5dedceb3">m_camera</a> { nullptr }</td></tr>
 <tr class="memdesc:a52f8a96fcee5296152ce974d5dedceb3 inherit pro_attribs_classRa_1_1Gui_1_1CameraManipulator"><td class="mdescLeft">&#160;</td><td class="mdescRight">The Camera. <br /></td></tr>
@@ -415,13 +415,13 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><b>setContext</b>
 </div><div class="memdoc">
 <p>Copy constructor used when switching camera manipulator Requires that m_target is on the line of sight of the camera. </p>
 
-<p class="definition">Definition at line <a class="el" href="TrackballCameraManipulator_8cpp_source.html#l00080">80</a> of file <a class="el" href="TrackballCameraManipulator_8cpp_source.html">TrackballCameraManipulator.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TrackballCameraManipulator_8cpp_source.html#l00079">79</a> of file <a class="el" href="TrackballCameraManipulator_8cpp_source.html">TrackballCameraManipulator.cpp</a>.</p>
 <div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-2-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-2-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-2-content" class="dyncontent" style="display:none;">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classRa_1_1Gui_1_1TrackballCameraManipulator_aef3ab30dad6685b802e733df269b42bb_cgraph.svg" width="100%" height="456"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classRa_1_1Gui_1_1TrackballCameraManipulator_aef3ab30dad6685b802e733df269b42bb_cgraph.svg" width="100%" height="478"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
 
@@ -485,7 +485,7 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><b>setContext</b>
 
 <p>Reimplemented from <a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html#aa9539d63bb185b615ddc996c6cca5dfe">Ra::Gui::CameraManipulator</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="TrackballCameraManipulator_8cpp_source.html#l00256">256</a> of file <a class="el" href="TrackballCameraManipulator_8cpp_source.html">TrackballCameraManipulator.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TrackballCameraManipulator_8cpp_source.html#l00249">249</a> of file <a class="el" href="TrackballCameraManipulator_8cpp_source.html">TrackballCameraManipulator.cpp</a>.</p>
 <div id="dynsection-3" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-3-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-3-summary" class="dynsummary" style="display:block;">
@@ -546,7 +546,7 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><b>setContext</b>
 
 <p>Reimplemented from <a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html#a9dd46028a5fba998a1d7101fa9029cc8">Ra::Gui::CameraManipulator</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="TrackballCameraManipulator_8cpp_source.html#l00217">217</a> of file <a class="el" href="TrackballCameraManipulator_8cpp_source.html">TrackballCameraManipulator.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TrackballCameraManipulator_8cpp_source.html#l00211">211</a> of file <a class="el" href="TrackballCameraManipulator_8cpp_source.html">TrackballCameraManipulator.cpp</a>.</p>
 <div id="dynsection-4" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-4-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-4-summary" class="dynsummary" style="display:block;">
@@ -607,13 +607,13 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><b>setContext</b>
 
 <p>Reimplemented from <a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html#a1e4f76766f01b9d6702d9479bc969d61">Ra::Gui::CameraManipulator</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="TrackballCameraManipulator_8cpp_source.html#l00203">203</a> of file <a class="el" href="TrackballCameraManipulator_8cpp_source.html">TrackballCameraManipulator.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TrackballCameraManipulator_8cpp_source.html#l00197">197</a> of file <a class="el" href="TrackballCameraManipulator_8cpp_source.html">TrackballCameraManipulator.cpp</a>.</p>
 <div id="dynsection-5" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-5-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-5-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-5-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Gui_1_1TrackballCameraManipulator_a7a6555b6bf0c1ad891b915c18366fba4_cgraph.svg" width="548" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Gui_1_1TrackballCameraManipulator_a7a6555b6bf0c1ad891b915c18366fba4_cgraph.svg" width="548" height="104"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 
@@ -646,7 +646,7 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><b>setContext</b>
 
 <p>Reimplemented from <a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html#a85c06c88de00112c4e1096de98ceb1b5">Ra::Gui::CameraManipulator</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="TrackballCameraManipulator_8cpp_source.html#l00234">234</a> of file <a class="el" href="TrackballCameraManipulator_8cpp_source.html">TrackballCameraManipulator.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TrackballCameraManipulator_8cpp_source.html#l00228">228</a> of file <a class="el" href="TrackballCameraManipulator_8cpp_source.html">TrackballCameraManipulator.cpp</a>.</p>
 
 </div>
 </div>
@@ -699,7 +699,7 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><b>setContext</b>
 
 <p>Reimplemented from <a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html#a8165d966a089220d266d49470d668ce5">Ra::Gui::CameraManipulator</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="TrackballCameraManipulator_8cpp_source.html#l00240">240</a> of file <a class="el" href="TrackballCameraManipulator_8cpp_source.html">TrackballCameraManipulator.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TrackballCameraManipulator_8cpp_source.html#l00233">233</a> of file <a class="el" href="TrackballCameraManipulator_8cpp_source.html">TrackballCameraManipulator.cpp</a>.</p>
 <div id="dynsection-6" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-6-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-6-summary" class="dynsummary" style="display:block;">
@@ -763,7 +763,7 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><b>setContext</b>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000092">Todo:</a></b></dt><dd>get rid of these light stuff </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000089">Todo:</a></b></dt><dd>get rid of these light stuff </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="TrackballCameraManipulator_8cpp_source.html#l00094">94</a> of file <a class="el" href="TrackballCameraManipulator_8cpp_source.html">TrackballCameraManipulator.cpp</a>.</p>
 <div id="dynsection-7" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
@@ -838,7 +838,7 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><b>setContext</b>
 <div id="dynsection-9-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-9-content" class="dyncontent" style="display:none;">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classRa_1_1Gui_1_1TrackballCameraManipulator_a2992a883ab6d27b82b32f8908743253f_cgraph.svg" width="100%" height="562"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classRa_1_1Gui_1_1TrackballCameraManipulator_a2992a883ab6d27b82b32f8908743253f_cgraph.svg" width="100%" height="585"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
 
@@ -866,7 +866,7 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><b>setContext</b>
 </div><div class="memdoc">
 <p>Spherical coordinates (ISO 80000-2:2019 convention) <a href="https://en.wikipedia.org/wiki/Spherical_coordinate_system">https://en.wikipedia.org/wiki/Spherical_coordinate_system</a> phi is azimutal theta is polar, from y which is world "up" direction rest pose correspond to camera view direction at m_referenceFrame -z; </p>
 
-<p class="definition">Definition at line <a class="el" href="TrackballCameraManipulator_8hpp_source.html#l00101">101</a> of file <a class="el" href="TrackballCameraManipulator_8hpp_source.html">TrackballCameraManipulator.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TrackballCameraManipulator_8hpp_source.html#l00095">95</a> of file <a class="el" href="TrackballCameraManipulator_8hpp_source.html">TrackballCameraManipulator.hpp</a>.</p>
 
 </div>
 </div>
@@ -880,7 +880,7 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><b>setContext</b>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><b>Gui</b></li><li class="navelem"><a class="el" href="classRa_1_1Gui_1_1TrackballCameraManipulator.html">TrackballCameraManipulator</a></li>
-    <li class="footer">Generated on Thu Nov 17 2022 06:52:59 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Wed Apr 5 2023 15:07:33 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

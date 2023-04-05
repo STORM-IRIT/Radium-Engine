@@ -52,7 +52,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.4.0</span>
+   &#160;<span id="projectnumber">1.5.0</span>
    </div>
   </td>
  </tr>
@@ -114,28 +114,28 @@ $(document).ready(function(){initNavTree('Mesh_8hpp_source.html',''); initResiza
 <div class="contents">
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;Core/Utils/BijectiveAssociation.hpp&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;Engine/RaEngine.hpp&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;Engine/Data/DisplayableObject.hpp&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;Core/Asset/GeometryData.hpp&gt;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;Core/Containers/VectorArray.hpp&gt;</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;Core/Geometry/MeshPrimitives.hpp&gt;</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;Core/Geometry/StandardAttribNames.hpp&gt;</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;Core/Geometry/TriangleMesh.hpp&gt;</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;Core/Utils/Color.hpp&gt;</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;Core/Utils/Log.hpp&gt;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;Core/Asset/GeometryData.hpp&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;Core/Containers/VectorArray.hpp&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;Core/Geometry/MeshPrimitives.hpp&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;Core/Geometry/StandardAttribNames.hpp&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;Core/Geometry/TriangleMesh.hpp&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;Core/Utils/BijectiveAssociation.hpp&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;Core/Utils/Color.hpp&gt;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;Core/Utils/Log.hpp&gt;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;Core/Utils/ObjectWithSemantic.hpp&gt;</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;Engine/Data/DisplayableObject.hpp&gt;</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;Engine/Data/ShaderProgram.hpp&gt;</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;Engine/RaEngine.hpp&gt;</span></div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &lt;globjects/Buffer.h&gt;</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#include &lt;globjects/VertexArray.h&gt;</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#include &lt;array&gt;</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#include &lt;map&gt;</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#include &lt;Core/Utils/ObjectWithSemantic.hpp&gt;</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#include &lt;iterator&gt;</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#include &lt;globjects/Program.h&gt;</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#include &lt;globjects/VertexArray.h&gt;</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#include &lt;globjects/VertexAttributeBinding.h&gt;</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#include &lt;array&gt;</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#include &lt;iterator&gt;</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#include &lt;map&gt;</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="keyword">namespace </span>Engine {</div>
@@ -177,7 +177,7 @@ $(document).ready(function(){initNavTree('Mesh_8hpp_source.html',''); initResiza
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keyword">explicit</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html">AttribArrayDisplayable</a>( <span class="keyword">const</span> std::string&amp; name,</div>
 <div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;                                     MeshRenderMode renderMode = RM_TRIANGLES );</div>
 <div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <a class="code" href="classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html">AttribArrayDisplayable</a>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html">AttribArrayDisplayable</a>&amp; rhs ) = <span class="keyword">delete</span>;</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="keywordtype">void</span> operator=( <span class="keyword">const</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html">AttribArrayDisplayable</a>&amp; rhs ) = <span class="keyword">delete</span>;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="keywordtype">void</span> operator=( <span class="keyword">const</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html">AttribArrayDisplayable</a>&amp; rhs )         = <span class="keyword">delete</span>;</div>
 <div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    ~<a class="code" href="classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html">AttribArrayDisplayable</a>() {}</div>
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
@@ -297,7 +297,7 @@ $(document).ready(function(){initNavTree('Mesh_8hpp_source.html',''); initResiza
 <div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;    <span class="comment">// no need to detach observer in dtor since CoreGeometry is owned by this, and CoreGeometry dtor</span></div>
 <div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;    <span class="comment">// will detachAll observers.</span></div>
 <div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160; </div>
-<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;    <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="structRa_1_1Core_1_1Geometry_1_1AbstractGeometry.html">Core::Geometry::AbstractGeometry</a>&amp; getAbstractGeometry() <span class="keyword">const override</span>;</div>
+<div class="line"><a name="l00243"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html#af1f10b415b271357c9ee8827da8d9d1d">  243</a></span>&#160;    <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="structRa_1_1Core_1_1Geometry_1_1AbstractGeometry.html">Core::Geometry::AbstractGeometry</a>&amp; <a class="code" href="classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html#af1f10b415b271357c9ee8827da8d9d1d">getAbstractGeometry</a>() <span class="keyword">const override</span>;</div>
 <div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;    <span class="keyword">inline</span> <a class="code" href="structRa_1_1Core_1_1Geometry_1_1AbstractGeometry.html">Core::Geometry::AbstractGeometry</a>&amp; getAbstractGeometry() <span class="keyword">override</span>;</div>
 <div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160; </div>
 <div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;    <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html">Core::Geometry::AttribArrayGeometry</a>&amp; getAttribArrayGeometry() <span class="keyword">const override</span>;</div>
@@ -307,15 +307,15 @@ $(document).ready(function(){initNavTree('Mesh_8hpp_source.html',''); initResiza
 <div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;    <span class="keyword">inline</span> CoreGeometry&amp; getCoreGeometry();</div>
 <div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160; </div>
 <div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> A&gt;</div>
-<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;    <span class="keyword">inline</span> <a class="code" href="classRa_1_1Core_1_1Utils_1_1AttribHandle.html">Ra::Core::Utils::AttribHandle&lt;A&gt;</a> addAttrib( <span class="keyword">const</span> std::string&amp; name,</div>
+<div class="line"><a name="l00255"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html#ae933f13adcd54a11de0ed7e0663aea5c">  255</a></span>&#160;    <span class="keyword">inline</span> <a class="code" href="classRa_1_1Core_1_1Utils_1_1AttribHandle.html">Ra::Core::Utils::AttribHandle&lt;A&gt;</a> <a class="code" href="classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html#ae933f13adcd54a11de0ed7e0663aea5c">addAttrib</a>( <span class="keyword">const</span> std::string&amp; name,</div>
 <div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;                                                       <span class="keyword">const</span> <span class="keyword">typename</span> <a class="code" href="classRa_1_1Core_1_1VectorArray.html">Core::VectorArray&lt;A&gt;</a>&amp; data );</div>
 <div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">size_t</span> getNumVertices() <span class="keyword">const override</span>;</div>
 <div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160; </div>
-<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> loadGeometry( CoreGeometry&amp;&amp; mesh );</div>
+<div class="line"><a name="l00268"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html#a99500dff926ac595781cfb4d2b1340c1">  268</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html#a99500dff926ac595781cfb4d2b1340c1">loadGeometry</a>( CoreGeometry&amp;&amp; mesh );</div>
 <div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160; </div>
-<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;    <span class="keywordtype">void</span> updateGL() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00271"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html#a185171226018c59fb689efcb2154619b">  271</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html#a185171226018c59fb689efcb2154619b">updateGL</a>() <span class="keyword">override</span>;</div>
 <div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160; </div>
-<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;    <span class="keywordtype">void</span> setAttribNameCorrespondance( <span class="keyword">const</span> std::string&amp; meshAttribName,</div>
+<div class="line"><a name="l00283"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html#a71ab62e2623c184497ef04b59c7ce5f8">  283</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html#a71ab62e2623c184497ef04b59c7ce5f8">setAttribNameCorrespondance</a>( <span class="keyword">const</span> std::string&amp; meshAttribName,</div>
 <div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;                                      <span class="keyword">const</span> std::string&amp; shaderAttribName );</div>
 <div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160; </div>
 <div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;  <span class="keyword">protected</span>:</div>
@@ -324,9 +324,9 @@ $(document).ready(function(){initNavTree('Mesh_8hpp_source.html',''); initResiza
 <div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;    <span class="keywordtype">void</span> loadGeometry_common( CoreGeometry&amp;&amp; mesh );</div>
 <div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;    <span class="keywordtype">void</span> setupCoreMeshObservers();</div>
 <div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160; </div>
-<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;    <span class="keywordtype">void</span> autoVertexAttribPointer( <span class="keyword">const</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1ShaderProgram.html">ShaderProgram</a>* prog );</div>
+<div class="line"><a name="l00293"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html#a6e0b7b73ee551f76171df59f0a17fcfc">  293</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html#a6e0b7b73ee551f76171df59f0a17fcfc">autoVertexAttribPointer</a>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1ShaderProgram.html">ShaderProgram</a>* prog );</div>
 <div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160; </div>
-<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;    <span class="keywordtype">void</span> addAttribObserver( <span class="keyword">const</span> std::string&amp; name );</div>
+<div class="line"><a name="l00298"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html#a4fe995da981ed6990d0869990d788a2c">  298</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html#a4fe995da981ed6990d0869990d788a2c">addAttribObserver</a>( <span class="keyword">const</span> std::string&amp; name );</div>
 <div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160; </div>
 <div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;    <span class="keywordtype">void</span> addToTranslationTable( <span class="keyword">const</span> std::string&amp; name );</div>
 <div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160; </div>
@@ -367,12 +367,12 @@ $(document).ready(function(){initNavTree('Mesh_8hpp_source.html',''); initResiza
 <div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;        <span class="keyword">typename</span> base::CoreGeometry&amp;&amp; geom,</div>
 <div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;        <span class="keyword">typename</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#ad089d928906d89959f0955c699a715d0">base::MeshRenderMode</a> renderMode = base::MeshRenderMode::RM_TRIANGLES );</div>
 <div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160; </div>
-<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;    <span class="keywordtype">void</span> render( <span class="keyword">const</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1ShaderProgram.html">ShaderProgram</a>* prog ) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00344"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html#abe984c29681cf462235dd42e14aa6749">  344</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html#abe984c29681cf462235dd42e14aa6749">render</a>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1ShaderProgram.html">ShaderProgram</a>* prog ) <span class="keyword">override</span>;</div>
 <div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160; </div>
-<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;    <span class="keywordtype">void</span> loadGeometry( T&amp;&amp; mesh ) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00346"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html#a0c1b41a445952ebdcac07d6b7c331d71">  346</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html#a0c1b41a445952ebdcac07d6b7c331d71">loadGeometry</a>( T&amp;&amp; mesh ) <span class="keyword">override</span>;</div>
 <div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160; </div>
 <div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;  <span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;    <span class="keywordtype">void</span> updateGL_specific_impl() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00349"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html#a0cd94ec18c5151291676ed62fea25dc0">  349</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html#a0cd94ec18c5151291676ed62fea25dc0">updateGL_specific_impl</a>() <span class="keyword">override</span>;</div>
 <div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;};</div>
 <div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160; </div>
 <div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
@@ -545,51 +545,656 @@ $(document).ready(function(){initNavTree('Mesh_8hpp_source.html',''); initResiza
 <div class="line"><a name="l00538"></a><span class="lineno">  538</span>&#160;    <span class="keywordflow">return</span> ret;</div>
 <div class="line"><a name="l00539"></a><span class="lineno">  539</span>&#160;}</div>
 <div class="line"><a name="l00540"></a><span class="lineno">  540</span>&#160; </div>
-<div class="line"><a name="l00541"></a><span class="lineno">  541</span>&#160;} <span class="comment">// namespace Data</span></div>
-<div class="line"><a name="l00542"></a><span class="lineno">  542</span>&#160;} <span class="comment">// namespace Engine</span></div>
-<div class="line"><a name="l00543"></a><span class="lineno">  543</span>&#160;} <span class="comment">// namespace Ra</span></div>
-<div class="line"><a name="l00544"></a><span class="lineno">  544</span>&#160;<span class="preprocessor">#include &lt;Engine/Data/Mesh.inl&gt;</span></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1GeometryData_html"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1GeometryData.html">Ra::Core::Asset::GeometryData</a></div><div class="ttdef"><b>Definition:</b> <a href="GeometryData_8hpp_source.html#l00026">GeometryData.hpp:27</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1GeometryData_html_a0de3cde9db9923f6ba5e0a43342988e3"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1GeometryData.html#a0de3cde9db9923f6ba5e0a43342988e3">Ra::Core::Asset::GeometryData::isLineMesh</a></div><div class="ttdeci">bool isLineMesh() const</div><div class="ttdoc">Return true if the object is a Line Mesh.</div><div class="ttdef"><b>Definition:</b> <a href="GeometryData_8inl_source.html#l00043">GeometryData.inl:43</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1GeometryData_html_a8d05725649ec315b28b422fbbc856af4"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1GeometryData.html#a8d05725649ec315b28b422fbbc856af4">Ra::Core::Asset::GeometryData::getGeometry</a></div><div class="ttdeci">Geometry::MultiIndexedGeometry &amp; getGeometry()</div><div class="ttdoc">Read/write access to the multiIndexedGeometry;.</div><div class="ttdef"><b>Definition:</b> <a href="GeometryData_8inl_source.html#l00101">GeometryData.inl:101</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry_html"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html">Ra::Core::Geometry::AttribArrayGeometry</a></div><div class="ttdoc">This class represents vertex + attributes per vertex. Toplogy is handled in MultiIndexedGeometry subc...</div><div class="ttdef"><b>Definition:</b> <a href="TriangleMesh_8hpp_source.html#l00024">TriangleMesh.hpp:25</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry_html_afb7540bb4cee8ad41bcb15d1dcb118a6"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#afb7540bb4cee8ad41bcb15d1dcb118a6">Ra::Core::Geometry::AttribArrayGeometry::vertexAttribs</a></div><div class="ttdeci">Utils::AttribManager &amp; vertexAttribs()</div><div class="ttdef"><b>Definition:</b> <a href="TriangleMesh_8inl_source.html#l00191">TriangleMesh.inl:191</a></div></div>
+<div class="line"><a name="l00542"></a><span class="lineno">  542</span>&#160; </div>
+<div class="line"><a name="l00543"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#a9fce3bf8c466aea7e724f3a6d73e3169">  543</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#a9fce3bf8c466aea7e724f3a6d73e3169">AttribArrayDisplayable::setRenderMode</a>( <a class="code" href="classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#ad089d928906d89959f0955c699a715d0">MeshRenderMode</a> mode ) {</div>
+<div class="line"><a name="l00544"></a><span class="lineno">  544</span>&#160;    m_renderMode = mode;</div>
+<div class="line"><a name="l00545"></a><span class="lineno">  545</span>&#160;    <a class="code" href="classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#a4ba75a89f6c80c147b1bca040928ef6a">updatePickingRenderMode</a>();</div>
+<div class="line"><a name="l00546"></a><span class="lineno">  546</span>&#160;}</div>
+<div class="line"><a name="l00547"></a><span class="lineno">  547</span>&#160; </div>
+<div class="line"><a name="l00548"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#a398f75c85b7dbcd3c266c6602bb6c01f">  548</a></span>&#160;<a class="code" href="classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#ad089d928906d89959f0955c699a715d0">AttribArrayDisplayable::MeshRenderMode</a> <a class="code" href="classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#a398f75c85b7dbcd3c266c6602bb6c01f">AttribArrayDisplayable::getRenderMode</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00549"></a><span class="lineno">  549</span>&#160;    <span class="keywordflow">return</span> m_renderMode;</div>
+<div class="line"><a name="l00550"></a><span class="lineno">  550</span>&#160;}</div>
+<div class="line"><a name="l00551"></a><span class="lineno">  551</span>&#160; </div>
+<div class="line"><a name="l00553"></a><span class="lineno">  553</span>&#160; </div>
+<div class="line"><a name="l00554"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1VaoIndices.html#a96bb526c20fa4d8ec65d90587e56239c">  554</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1VaoIndices.html#a96bb526c20fa4d8ec65d90587e56239c">VaoIndices::setIndicesDirty</a>() {</div>
+<div class="line"><a name="l00555"></a><span class="lineno">  555</span>&#160;    m_indicesDirty = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00556"></a><span class="lineno">  556</span>&#160;}</div>
+<div class="line"><a name="l00557"></a><span class="lineno">  557</span>&#160; </div>
+<div class="line"><a name="l00559"></a><span class="lineno">  559</span>&#160; </div>
+<div class="line"><a name="l00560"></a><span class="lineno">  560</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> I&gt;</div>
+<div class="line"><a name="l00561"></a><span class="lineno">  561</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00562"></a><span class="lineno">  562</span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1IndexedAttribArrayDisplayable.html">IndexedAttribArrayDisplayable&lt;I&gt;::addAttrib</a>(</div>
+<div class="line"><a name="l00563"></a><span class="lineno">  563</span>&#160;    <span class="keyword">const</span> std::string&amp; name,</div>
+<div class="line"><a name="l00564"></a><span class="lineno">  564</span>&#160;    <span class="keyword">const</span> <span class="keyword">typename</span> <a class="code" href="classRa_1_1Core_1_1VectorArray.html">Ra::Core::Utils::Attrib&lt;T&gt;::Container</a>&amp; data ) {</div>
+<div class="line"><a name="l00565"></a><span class="lineno">  565</span>&#160;    <span class="keyword">auto</span> handle = m_attribManager.addAttrib&lt;T&gt;( name );</div>
+<div class="line"><a name="l00566"></a><span class="lineno">  566</span>&#160;    m_attribManager.getAttrib( handle ).setData( data );</div>
+<div class="line"><a name="l00567"></a><span class="lineno">  567</span>&#160;    m_handleToBuffer[name] = m_dataDirty.size();</div>
+<div class="line"><a name="l00568"></a><span class="lineno">  568</span>&#160;    m_dataDirty.push_back( <span class="keyword">true</span> );</div>
+<div class="line"><a name="l00569"></a><span class="lineno">  569</span>&#160;    m_vbos.emplace_back( <span class="keyword">nullptr</span> );</div>
+<div class="line"><a name="l00570"></a><span class="lineno">  570</span>&#160;    m_isDirty = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00571"></a><span class="lineno">  571</span>&#160;}</div>
+<div class="line"><a name="l00572"></a><span class="lineno">  572</span>&#160; </div>
+<div class="line"><a name="l00573"></a><span class="lineno">  573</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> I&gt;</div>
+<div class="line"><a name="l00574"></a><span class="lineno">  574</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00575"></a><span class="lineno">  575</span>&#160;<span class="keywordtype">void</span> IndexedAttribArrayDisplayable&lt;I&gt;::addAttrib(</div>
+<div class="line"><a name="l00576"></a><span class="lineno">  576</span>&#160;    <span class="keyword">const</span> std::string&amp; name,</div>
+<div class="line"><a name="l00577"></a><span class="lineno">  577</span>&#160;    <span class="keyword">const</span> <span class="keyword">typename</span> Ra::Core ::Utils::Attrib&lt;T&gt;::Container&amp;&amp; data ) {</div>
+<div class="line"><a name="l00578"></a><span class="lineno">  578</span>&#160;    <span class="keyword">auto</span> handle = m_attribManager.addAttrib&lt;T&gt;( name );</div>
+<div class="line"><a name="l00579"></a><span class="lineno">  579</span>&#160;    m_attribManager.getAttrib( handle ).setData( std::move( data ) );</div>
+<div class="line"><a name="l00580"></a><span class="lineno">  580</span>&#160;    m_handleToBuffer[name] = m_dataDirty.size();</div>
+<div class="line"><a name="l00581"></a><span class="lineno">  581</span>&#160;    m_dataDirty.push_back( <span class="keyword">true</span> );</div>
+<div class="line"><a name="l00582"></a><span class="lineno">  582</span>&#160;    m_vbos.emplace_back( <span class="keyword">nullptr</span> );</div>
+<div class="line"><a name="l00583"></a><span class="lineno">  583</span>&#160;    m_isDirty = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00584"></a><span class="lineno">  584</span>&#160;}</div>
+<div class="line"><a name="l00585"></a><span class="lineno">  585</span>&#160; </div>
+<div class="line"><a name="l00586"></a><span class="lineno">  586</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> I&gt;</div>
+<div class="line"><a name="l00587"></a><span class="lineno">  587</span>&#160;<span class="keywordtype">void</span> IndexedAttribArrayDisplayable&lt;I&gt;::updateGL() {</div>
+<div class="line"><a name="l00588"></a><span class="lineno">  588</span>&#160;    <span class="keywordflow">if</span> ( m_isDirty ) {</div>
+<div class="line"><a name="l00589"></a><span class="lineno">  589</span>&#160;        <span class="comment">// Check that our dirty bits are consistent.</span></div>
+<div class="line"><a name="l00590"></a><span class="lineno">  590</span>&#160;        ON_ASSERT( <span class="keywordtype">bool</span> dirtyTest = <span class="keyword">false</span>; <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; d</div>
+<div class="line"><a name="l00591"></a><span class="lineno">  591</span>&#160;                                                 : m_dataDirty ) { dirtyTest = dirtyTest || d; } );</div>
+<div class="line"><a name="l00592"></a><span class="lineno">  592</span>&#160;        CORE_ASSERT( dirtyTest == m_isDirty, <span class="stringliteral">&quot;Dirty flags inconsistency&quot;</span> );</div>
+<div class="line"><a name="l00593"></a><span class="lineno">  593</span>&#160; </div>
+<div class="line"><a name="l00594"></a><span class="lineno">  594</span>&#160;        <span class="keywordflow">if</span> ( !m_indices ) {</div>
+<div class="line"><a name="l00595"></a><span class="lineno">  595</span>&#160;            m_indices      = globjects::Buffer::create();</div>
+<div class="line"><a name="l00596"></a><span class="lineno">  596</span>&#160;            m_indicesDirty = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00597"></a><span class="lineno">  597</span>&#160;        }</div>
+<div class="line"><a name="l00598"></a><span class="lineno">  598</span>&#160;        <span class="keywordflow">if</span> ( m_indicesDirty ) {</div>
+<div class="line"><a name="l00599"></a><span class="lineno">  599</span>&#160;            m_indices-&gt;setData(</div>
+<div class="line"><a name="l00600"></a><span class="lineno">  600</span>&#160;                <span class="keyword">static_cast&lt;</span>gl::GLsizeiptr<span class="keyword">&gt;</span>( m_cpu_indices.size() * <span class="keyword">sizeof</span>( IndexType ) ),</div>
+<div class="line"><a name="l00601"></a><span class="lineno">  601</span>&#160;                m_cpu_indices.data(),</div>
+<div class="line"><a name="l00602"></a><span class="lineno">  602</span>&#160;                GL_STATIC_DRAW );</div>
+<div class="line"><a name="l00603"></a><span class="lineno">  603</span>&#160;            m_indicesDirty = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00604"></a><span class="lineno">  604</span>&#160;        }</div>
+<div class="line"><a name="l00605"></a><span class="lineno">  605</span>&#160; </div>
+<div class="line"><a name="l00606"></a><span class="lineno">  606</span>&#160;        m_numElements = m_cpu_indices.size();</div>
+<div class="line"><a name="l00607"></a><span class="lineno">  607</span>&#160; </div>
+<div class="line"><a name="l00608"></a><span class="lineno">  608</span>&#160;        <span class="keywordflow">if</span> ( !m_vao ) { m_vao = globjects::VertexArray::create(); }</div>
+<div class="line"><a name="l00609"></a><span class="lineno">  609</span>&#160;        m_vao-&gt;bind();</div>
+<div class="line"><a name="l00610"></a><span class="lineno">  610</span>&#160;        m_vao-&gt;bindElementBuffer( m_indices.get() );</div>
+<div class="line"><a name="l00611"></a><span class="lineno">  611</span>&#160;        m_vao-&gt;unbind();</div>
+<div class="line"><a name="l00612"></a><span class="lineno">  612</span>&#160; </div>
+<div class="line"><a name="l00613"></a><span class="lineno">  613</span>&#160;        <span class="keyword">auto</span> func = [<span class="keyword">this</span>]( <a class="code" href="classRa_1_1Core_1_1Utils_1_1AttribBase.html">Ra::Core::Utils::AttribBase</a>* b ) {</div>
+<div class="line"><a name="l00614"></a><span class="lineno">  614</span>&#160;            <span class="keyword">auto</span> idx = m_handleToBuffer[b-&gt;getName()];</div>
+<div class="line"><a name="l00615"></a><span class="lineno">  615</span>&#160; </div>
+<div class="line"><a name="l00616"></a><span class="lineno">  616</span>&#160;            <span class="keywordflow">if</span> ( m_dataDirty[idx] ) {</div>
+<div class="line"><a name="l00617"></a><span class="lineno">  617</span>&#160;                <span class="keywordflow">if</span> ( !m_vbos[idx] ) { m_vbos[idx] = globjects::Buffer::create(); }</div>
+<div class="line"><a name="l00618"></a><span class="lineno">  618</span>&#160;                m_vbos[idx]-&gt;setData( b-&gt;getBufferSize(), b-&gt;dataPtr(), GL_DYNAMIC_DRAW );</div>
+<div class="line"><a name="l00619"></a><span class="lineno">  619</span>&#160;                m_dataDirty[idx] = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00620"></a><span class="lineno">  620</span>&#160;            }</div>
+<div class="line"><a name="l00621"></a><span class="lineno">  621</span>&#160;        };</div>
+<div class="line"><a name="l00622"></a><span class="lineno">  622</span>&#160;        m_attribManager.for_each_attrib( func );</div>
+<div class="line"><a name="l00623"></a><span class="lineno">  623</span>&#160;        GL_CHECK_ERROR;</div>
+<div class="line"><a name="l00624"></a><span class="lineno">  624</span>&#160;        m_isDirty = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00625"></a><span class="lineno">  625</span>&#160;    }</div>
+<div class="line"><a name="l00626"></a><span class="lineno">  626</span>&#160;}</div>
+<div class="line"><a name="l00627"></a><span class="lineno">  627</span>&#160; </div>
+<div class="line"><a name="l00628"></a><span class="lineno">  628</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> I&gt;</div>
+<div class="line"><a name="l00629"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1IndexedAttribArrayDisplayable.html#a89bf523f8a2db25e20072f94e257e320">  629</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1IndexedAttribArrayDisplayable.html#a89bf523f8a2db25e20072f94e257e320">IndexedAttribArrayDisplayable&lt;I&gt;::autoVertexAttribPointer</a>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1ShaderProgram.html">ShaderProgram</a>* prog ) {</div>
+<div class="line"><a name="l00630"></a><span class="lineno">  630</span>&#160; </div>
+<div class="line"><a name="l00631"></a><span class="lineno">  631</span>&#160;    <span class="keyword">auto</span> glprog           = prog-&gt;getProgramObject();</div>
+<div class="line"><a name="l00632"></a><span class="lineno">  632</span>&#160;    gl::GLint attribCount = glprog-&gt;get( GL_ACTIVE_ATTRIBUTES );</div>
+<div class="line"><a name="l00633"></a><span class="lineno">  633</span>&#160; </div>
+<div class="line"><a name="l00634"></a><span class="lineno">  634</span>&#160;    <span class="keywordflow">for</span> ( GLint idx = 0; idx &lt; attribCount; ++idx ) {</div>
+<div class="line"><a name="l00635"></a><span class="lineno">  635</span>&#160;        <span class="keyword">const</span> gl::GLsizei bufSize = 256;</div>
+<div class="line"><a name="l00636"></a><span class="lineno">  636</span>&#160;        gl::GLchar name[bufSize];</div>
+<div class="line"><a name="l00637"></a><span class="lineno">  637</span>&#160;        gl::GLsizei length;</div>
+<div class="line"><a name="l00638"></a><span class="lineno">  638</span>&#160;        gl::GLint size;</div>
+<div class="line"><a name="l00639"></a><span class="lineno">  639</span>&#160;        gl::GLenum type;</div>
+<div class="line"><a name="l00640"></a><span class="lineno">  640</span>&#160;        glprog-&gt;getActiveAttrib( idx, bufSize, &amp;length, &amp;size, &amp;type, name );</div>
+<div class="line"><a name="l00641"></a><span class="lineno">  641</span>&#160;        <span class="keyword">auto</span> loc = glprog-&gt;getAttributeLocation( name );</div>
+<div class="line"><a name="l00642"></a><span class="lineno">  642</span>&#160; </div>
+<div class="line"><a name="l00643"></a><span class="lineno">  643</span>&#160;        <span class="keyword">auto</span> attribName = name; <span class="comment">// m_translationTableShaderToMesh[name];</span></div>
+<div class="line"><a name="l00644"></a><span class="lineno">  644</span>&#160;        <span class="keyword">auto</span> attrib     = m_attribManager.getAttribBase( attribName );</div>
+<div class="line"><a name="l00645"></a><span class="lineno">  645</span>&#160; </div>
+<div class="line"><a name="l00646"></a><span class="lineno">  646</span>&#160;        <span class="keywordflow">if</span> ( attrib &amp;&amp; attrib-&gt;getSize() &gt; 0 ) {</div>
+<div class="line"><a name="l00647"></a><span class="lineno">  647</span>&#160;            m_vao-&gt;enable( loc );</div>
+<div class="line"><a name="l00648"></a><span class="lineno">  648</span>&#160;            <span class="keyword">auto</span> binding = m_vao-&gt;binding( idx );</div>
+<div class="line"><a name="l00649"></a><span class="lineno">  649</span>&#160;            binding-&gt;setAttribute( loc );</div>
+<div class="line"><a name="l00650"></a><span class="lineno">  650</span>&#160;            CORE_ASSERT( m_vbos[m_handleToBuffer[attribName]].get(), <span class="stringliteral">&quot;vbo is nullptr&quot;</span> );</div>
+<div class="line"><a name="l00651"></a><span class="lineno">  651</span>&#160;<span class="preprocessor">#ifdef CORE_USE_DOUBLE</span></div>
+<div class="line"><a name="l00652"></a><span class="lineno">  652</span>&#160;            binding-&gt;setBuffer( m_vbos[m_handleToBuffer[attribName]].get(),</div>
+<div class="line"><a name="l00653"></a><span class="lineno">  653</span>&#160;                                0,</div>
+<div class="line"><a name="l00654"></a><span class="lineno">  654</span>&#160;                                attrib-&gt;getNumberOfComponents() * <span class="keyword">sizeof</span>( <span class="keywordtype">float</span> ) );</div>
+<div class="line"><a name="l00655"></a><span class="lineno">  655</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00656"></a><span class="lineno">  656</span>&#160; </div>
+<div class="line"><a name="l00657"></a><span class="lineno">  657</span>&#160;            binding-&gt;setBuffer(</div>
+<div class="line"><a name="l00658"></a><span class="lineno">  658</span>&#160;                m_vbos[m_handleToBuffer[attribName]].get(), 0, attrib-&gt;getStride() );</div>
+<div class="line"><a name="l00659"></a><span class="lineno">  659</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00660"></a><span class="lineno">  660</span>&#160;            binding-&gt;setFormat( attrib-&gt;getNumberOfComponents(), GL_SCALAR );</div>
+<div class="line"><a name="l00661"></a><span class="lineno">  661</span>&#160;        }</div>
+<div class="line"><a name="l00662"></a><span class="lineno">  662</span>&#160;        <span class="keywordflow">else</span> { m_vao-&gt;disable( loc ); }</div>
+<div class="line"><a name="l00663"></a><span class="lineno">  663</span>&#160;    }</div>
+<div class="line"><a name="l00664"></a><span class="lineno">  664</span>&#160;}</div>
+<div class="line"><a name="l00665"></a><span class="lineno">  665</span>&#160; </div>
+<div class="line"><a name="l00666"></a><span class="lineno">  666</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> I&gt;</div>
+<div class="line"><a name="l00667"></a><span class="lineno">  667</span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1IndexedAttribArrayDisplayable.html">IndexedAttribArrayDisplayable&lt;I&gt;::render</a>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1ShaderProgram.html">ShaderProgram</a>* prog ) {</div>
+<div class="line"><a name="l00668"></a><span class="lineno">  668</span>&#160;    <span class="keywordflow">if</span> ( m_vao ) {</div>
+<div class="line"><a name="l00669"></a><span class="lineno">  669</span>&#160;        autoVertexAttribPointer( prog );</div>
+<div class="line"><a name="l00670"></a><span class="lineno">  670</span>&#160;        m_vao-&gt;bind();</div>
+<div class="line"><a name="l00671"></a><span class="lineno">  671</span>&#160;        m_vao-&gt;drawElements( <span class="keyword">static_cast&lt;</span>GLenum<span class="keyword">&gt;</span>( m_renderMode ),</div>
+<div class="line"><a name="l00672"></a><span class="lineno">  672</span>&#160;                             GLsizei( m_numElements ),</div>
+<div class="line"><a name="l00673"></a><span class="lineno">  673</span>&#160;                             GL_UNSIGNED_INT,</div>
+<div class="line"><a name="l00674"></a><span class="lineno">  674</span>&#160;                             <span class="keyword">nullptr</span> );</div>
+<div class="line"><a name="l00675"></a><span class="lineno">  675</span>&#160;        m_vao-&gt;unbind();</div>
+<div class="line"><a name="l00676"></a><span class="lineno">  676</span>&#160;    }</div>
+<div class="line"><a name="l00677"></a><span class="lineno">  677</span>&#160;}</div>
+<div class="line"><a name="l00678"></a><span class="lineno">  678</span>&#160; </div>
+<div class="line"><a name="l00680"></a><span class="lineno">  680</span>&#160; </div>
+<div class="line"><a name="l00681"></a><span class="lineno">  681</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> CoreGeometry&gt;</div>
+<div class="line"><a name="l00682"></a><span class="lineno">  682</span>&#160;CoreGeometryDisplayable&lt;CoreGeometry&gt;::CoreGeometryDisplayable( <span class="keyword">const</span> std::string&amp; name,</div>
+<div class="line"><a name="l00683"></a><span class="lineno">  683</span>&#160;                                                                MeshRenderMode renderMode ) :</div>
+<div class="line"><a name="l00684"></a><span class="lineno">  684</span>&#160;    base( name, renderMode ) {</div>
+<div class="line"><a name="l00685"></a><span class="lineno">  685</span>&#160;    setupCoreMeshObservers();</div>
+<div class="line"><a name="l00686"></a><span class="lineno">  686</span>&#160;}</div>
+<div class="line"><a name="l00687"></a><span class="lineno">  687</span>&#160; </div>
+<div class="line"><a name="l00688"></a><span class="lineno">  688</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> CoreGeometry&gt;</div>
+<div class="line"><a name="l00689"></a><span class="lineno">  689</span>&#160;<span class="keyword">const</span> <a class="code" href="structRa_1_1Core_1_1Geometry_1_1AbstractGeometry.html">Ra::Core::Geometry::AbstractGeometry</a>&amp;</div>
+<div class="line"><a name="l00690"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html#af1f10b415b271357c9ee8827da8d9d1d">  690</a></span>&#160;<a class="code" href="classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html#af1f10b415b271357c9ee8827da8d9d1d">CoreGeometryDisplayable&lt;CoreGeometry&gt;::getAbstractGeometry</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00691"></a><span class="lineno">  691</span>&#160;    <span class="keywordflow">return</span> m_mesh;</div>
+<div class="line"><a name="l00692"></a><span class="lineno">  692</span>&#160;}</div>
+<div class="line"><a name="l00693"></a><span class="lineno">  693</span>&#160; </div>
+<div class="line"><a name="l00694"></a><span class="lineno">  694</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> CoreGeometry&gt;</div>
+<div class="line"><a name="l00695"></a><span class="lineno">  695</span>&#160;<a class="code" href="structRa_1_1Core_1_1Geometry_1_1AbstractGeometry.html">Ra::Core::Geometry::AbstractGeometry</a>&amp; <a class="code" href="classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html#af1f10b415b271357c9ee8827da8d9d1d">CoreGeometryDisplayable&lt;CoreGeometry&gt;::getAbstractGeometry</a>() {</div>
+<div class="line"><a name="l00696"></a><span class="lineno">  696</span>&#160;    <span class="keywordflow">return</span> m_mesh;</div>
+<div class="line"><a name="l00697"></a><span class="lineno">  697</span>&#160;}</div>
+<div class="line"><a name="l00698"></a><span class="lineno">  698</span>&#160; </div>
+<div class="line"><a name="l00699"></a><span class="lineno">  699</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> CoreGeometry&gt;</div>
+<div class="line"><a name="l00700"></a><span class="lineno">  700</span>&#160;<span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html">Ra::Core::Geometry::AttribArrayGeometry</a>&amp;</div>
+<div class="line"><a name="l00701"></a><span class="lineno">  701</span>&#160;CoreGeometryDisplayable&lt;CoreGeometry&gt;::getAttribArrayGeometry()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00702"></a><span class="lineno">  702</span>&#160;    <span class="keywordflow">return</span> m_mesh;</div>
+<div class="line"><a name="l00703"></a><span class="lineno">  703</span>&#160;}</div>
+<div class="line"><a name="l00704"></a><span class="lineno">  704</span>&#160; </div>
+<div class="line"><a name="l00705"></a><span class="lineno">  705</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> CoreGeometry&gt;</div>
+<div class="line"><a name="l00706"></a><span class="lineno">  706</span>&#160;<a class="code" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html">Ra::Core::Geometry::AttribArrayGeometry</a>&amp;</div>
+<div class="line"><a name="l00707"></a><span class="lineno">  707</span>&#160;CoreGeometryDisplayable&lt;CoreGeometry&gt;::getAttribArrayGeometry() {</div>
+<div class="line"><a name="l00708"></a><span class="lineno">  708</span>&#160;    <span class="keywordflow">return</span> m_mesh;</div>
+<div class="line"><a name="l00709"></a><span class="lineno">  709</span>&#160;}</div>
+<div class="line"><a name="l00710"></a><span class="lineno">  710</span>&#160; </div>
+<div class="line"><a name="l00711"></a><span class="lineno">  711</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> CoreGeometry&gt;</div>
+<div class="line"><a name="l00712"></a><span class="lineno">  712</span>&#160;<span class="keyword">const</span> CoreGeometry&amp; CoreGeometryDisplayable&lt;CoreGeometry&gt;::getCoreGeometry()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00713"></a><span class="lineno">  713</span>&#160;    <span class="keywordflow">return</span> m_mesh;</div>
+<div class="line"><a name="l00714"></a><span class="lineno">  714</span>&#160;}</div>
+<div class="line"><a name="l00715"></a><span class="lineno">  715</span>&#160; </div>
+<div class="line"><a name="l00716"></a><span class="lineno">  716</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> CoreGeometry&gt;</div>
+<div class="line"><a name="l00717"></a><span class="lineno">  717</span>&#160;CoreGeometry&amp; CoreGeometryDisplayable&lt;CoreGeometry&gt;::getCoreGeometry() {</div>
+<div class="line"><a name="l00718"></a><span class="lineno">  718</span>&#160;    <span class="keywordflow">return</span> m_mesh;</div>
+<div class="line"><a name="l00719"></a><span class="lineno">  719</span>&#160;}</div>
+<div class="line"><a name="l00720"></a><span class="lineno">  720</span>&#160; </div>
+<div class="line"><a name="l00721"></a><span class="lineno">  721</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> CoreGeometry&gt;</div>
+<div class="line"><a name="l00722"></a><span class="lineno">  722</span>&#160;<span class="keywordtype">void</span> CoreGeometryDisplayable&lt;CoreGeometry&gt;::addToTranslationTable( <span class="keyword">const</span> std::string&amp; name ) {</div>
+<div class="line"><a name="l00723"></a><span class="lineno">  723</span>&#160;    m_translationTable.insert( name, name );</div>
+<div class="line"><a name="l00724"></a><span class="lineno">  724</span>&#160;}</div>
+<div class="line"><a name="l00725"></a><span class="lineno">  725</span>&#160; </div>
+<div class="line"><a name="l00726"></a><span class="lineno">  726</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> CoreGeometry&gt;</div>
+<div class="line"><a name="l00727"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html#a4fe995da981ed6990d0869990d788a2c">  727</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html#a4fe995da981ed6990d0869990d788a2c">CoreGeometryDisplayable&lt;CoreGeometry&gt;::addAttribObserver</a>( <span class="keyword">const</span> std::string&amp; name ) {</div>
+<div class="line"><a name="l00728"></a><span class="lineno">  728</span>&#160;    <span class="comment">// this observer is called each time an attrib is added or removed from m_mesh</span></div>
+<div class="line"><a name="l00729"></a><span class="lineno">  729</span>&#160;    <span class="keyword">auto</span> attrib = m_mesh.getAttribBase( name );</div>
+<div class="line"><a name="l00730"></a><span class="lineno">  730</span>&#160;    <span class="comment">// if attrib not nullptr, then it&#39;s an attrib add, so attach an observer to it</span></div>
+<div class="line"><a name="l00731"></a><span class="lineno">  731</span>&#160; </div>
+<div class="line"><a name="l00732"></a><span class="lineno">  732</span>&#160;    <span class="keywordflow">if</span> ( attrib ) {</div>
+<div class="line"><a name="l00733"></a><span class="lineno">  733</span>&#160;        <span class="keyword">auto</span> itr = m_handleToBuffer.find( name );</div>
+<div class="line"><a name="l00734"></a><span class="lineno">  734</span>&#160;        <span class="keywordflow">if</span> ( itr == m_handleToBuffer.end() ) {</div>
+<div class="line"><a name="l00735"></a><span class="lineno">  735</span>&#160;            m_handleToBuffer[name] = m_dataDirty.size();</div>
+<div class="line"><a name="l00736"></a><span class="lineno">  736</span>&#160; </div>
+<div class="line"><a name="l00737"></a><span class="lineno">  737</span>&#160;            addToTranslationTable( name );</div>
+<div class="line"><a name="l00738"></a><span class="lineno">  738</span>&#160; </div>
+<div class="line"><a name="l00739"></a><span class="lineno">  739</span>&#160;            m_dataDirty.push_back( <span class="keyword">true</span> );</div>
+<div class="line"><a name="l00740"></a><span class="lineno">  740</span>&#160;            m_vbos.emplace_back( <span class="keyword">nullptr</span> );</div>
+<div class="line"><a name="l00741"></a><span class="lineno">  741</span>&#160;        }</div>
+<div class="line"><a name="l00742"></a><span class="lineno">  742</span>&#160;        <span class="keyword">auto</span> idx = m_handleToBuffer[name];</div>
+<div class="line"><a name="l00743"></a><span class="lineno">  743</span>&#160;        attrib-&gt;attach( AttribObserver( <span class="keyword">this</span>, idx ) );</div>
+<div class="line"><a name="l00744"></a><span class="lineno">  744</span>&#160;    }</div>
+<div class="line"><a name="l00745"></a><span class="lineno">  745</span>&#160;    <span class="comment">// else it&#39;s an attrib remove, do nothing, cleanup will be done in updateGL()</span></div>
+<div class="line"><a name="l00746"></a><span class="lineno">  746</span>&#160;    <span class="keywordflow">else</span> {}</div>
+<div class="line"><a name="l00747"></a><span class="lineno">  747</span>&#160;}</div>
+<div class="line"><a name="l00748"></a><span class="lineno">  748</span>&#160; </div>
+<div class="line"><a name="l00749"></a><span class="lineno">  749</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> CoreGeometry&gt;</div>
+<div class="line"><a name="l00750"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html#a6e0b7b73ee551f76171df59f0a17fcfc">  750</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html#a6e0b7b73ee551f76171df59f0a17fcfc">CoreGeometryDisplayable&lt;CoreGeometry&gt;::autoVertexAttribPointer</a>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1ShaderProgram.html">ShaderProgram</a>* prog ) {</div>
+<div class="line"><a name="l00751"></a><span class="lineno">  751</span>&#160; </div>
+<div class="line"><a name="l00752"></a><span class="lineno">  752</span>&#160;    <span class="keyword">auto</span> glprog           = prog-&gt;getProgramObject();</div>
+<div class="line"><a name="l00753"></a><span class="lineno">  753</span>&#160;    gl::GLint attribCount = glprog-&gt;get( GL_ACTIVE_ATTRIBUTES );</div>
+<div class="line"><a name="l00754"></a><span class="lineno">  754</span>&#160; </div>
+<div class="line"><a name="l00755"></a><span class="lineno">  755</span>&#160;    <span class="keywordflow">for</span> ( GLint idx = 0; idx &lt; attribCount; ++idx ) {</div>
+<div class="line"><a name="l00756"></a><span class="lineno">  756</span>&#160;        <span class="keyword">const</span> gl::GLsizei bufSize = 256;</div>
+<div class="line"><a name="l00757"></a><span class="lineno">  757</span>&#160;        gl::GLchar name[bufSize];</div>
+<div class="line"><a name="l00758"></a><span class="lineno">  758</span>&#160;        gl::GLsizei length;</div>
+<div class="line"><a name="l00759"></a><span class="lineno">  759</span>&#160;        gl::GLint size;</div>
+<div class="line"><a name="l00760"></a><span class="lineno">  760</span>&#160;        gl::GLenum type;</div>
+<div class="line"><a name="l00761"></a><span class="lineno">  761</span>&#160;        glprog-&gt;getActiveAttrib( idx, bufSize, &amp;length, &amp;size, &amp;type, name );</div>
+<div class="line"><a name="l00762"></a><span class="lineno">  762</span>&#160;        <span class="keyword">auto</span> loc = glprog-&gt;getAttributeLocation( name );</div>
+<div class="line"><a name="l00763"></a><span class="lineno">  763</span>&#160; </div>
+<div class="line"><a name="l00764"></a><span class="lineno">  764</span>&#160;        <span class="keyword">auto</span> attribNameOpt = m_translationTable.keyIfExists( name );</div>
+<div class="line"><a name="l00765"></a><span class="lineno">  765</span>&#160;        <span class="keywordflow">if</span> ( attribNameOpt ) {</div>
+<div class="line"><a name="l00766"></a><span class="lineno">  766</span>&#160;            <span class="keyword">auto</span> attribName = *attribNameOpt;</div>
+<div class="line"><a name="l00767"></a><span class="lineno">  767</span>&#160;            <span class="keyword">auto</span> attrib     = m_mesh.getAttribBase( attribName );</div>
+<div class="line"><a name="l00768"></a><span class="lineno">  768</span>&#160;            <span class="keywordflow">if</span> ( attrib &amp;&amp; attrib-&gt;getSize() &gt; 0 ) {</div>
+<div class="line"><a name="l00769"></a><span class="lineno">  769</span>&#160;                m_vao-&gt;enable( loc );</div>
+<div class="line"><a name="l00770"></a><span class="lineno">  770</span>&#160;                <span class="keyword">auto</span> binding = m_vao-&gt;binding( idx );</div>
+<div class="line"><a name="l00771"></a><span class="lineno">  771</span>&#160;                binding-&gt;setAttribute( loc );</div>
+<div class="line"><a name="l00772"></a><span class="lineno">  772</span>&#160;                CORE_ASSERT( m_vbos[m_handleToBuffer[attribName]].get(), <span class="stringliteral">&quot;vbo is nullptr&quot;</span> );</div>
+<div class="line"><a name="l00773"></a><span class="lineno">  773</span>&#160;<span class="preprocessor">#ifdef CORE_USE_DOUBLE</span></div>
+<div class="line"><a name="l00774"></a><span class="lineno">  774</span>&#160;                binding-&gt;setBuffer( m_vbos[m_handleToBuffer[attribName]].get(),</div>
+<div class="line"><a name="l00775"></a><span class="lineno">  775</span>&#160;                                    0,</div>
+<div class="line"><a name="l00776"></a><span class="lineno">  776</span>&#160;                                    attrib-&gt;getNumberOfComponents() * <span class="keyword">sizeof</span>( <span class="keywordtype">float</span> ) );</div>
+<div class="line"><a name="l00777"></a><span class="lineno">  777</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00778"></a><span class="lineno">  778</span>&#160; </div>
+<div class="line"><a name="l00779"></a><span class="lineno">  779</span>&#160;                binding-&gt;setBuffer(</div>
+<div class="line"><a name="l00780"></a><span class="lineno">  780</span>&#160;                    m_vbos[m_handleToBuffer[attribName]].get(), 0, attrib-&gt;getStride() );</div>
+<div class="line"><a name="l00781"></a><span class="lineno">  781</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00782"></a><span class="lineno">  782</span>&#160;                binding-&gt;setFormat( attrib-&gt;getNumberOfComponents(), GL_SCALAR );</div>
+<div class="line"><a name="l00783"></a><span class="lineno">  783</span>&#160;            }</div>
+<div class="line"><a name="l00784"></a><span class="lineno">  784</span>&#160;            <span class="keywordflow">else</span> { m_vao-&gt;disable( loc ); }</div>
+<div class="line"><a name="l00785"></a><span class="lineno">  785</span>&#160;        }</div>
+<div class="line"><a name="l00786"></a><span class="lineno">  786</span>&#160;        <span class="keywordflow">else</span> { m_vao-&gt;disable( loc ); }</div>
+<div class="line"><a name="l00787"></a><span class="lineno">  787</span>&#160;    }</div>
+<div class="line"><a name="l00788"></a><span class="lineno">  788</span>&#160;}</div>
+<div class="line"><a name="l00789"></a><span class="lineno">  789</span>&#160; </div>
+<div class="line"><a name="l00790"></a><span class="lineno">  790</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00791"></a><span class="lineno">  791</span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html">CoreGeometryDisplayable&lt;T&gt;::loadGeometry_common</a>( T&amp;&amp; mesh ) {</div>
+<div class="line"><a name="l00792"></a><span class="lineno">  792</span>&#160;    m_mesh = std::move( mesh );</div>
+<div class="line"><a name="l00793"></a><span class="lineno">  793</span>&#160;    setupCoreMeshObservers();</div>
+<div class="line"><a name="l00794"></a><span class="lineno">  794</span>&#160;}</div>
+<div class="line"><a name="l00795"></a><span class="lineno">  795</span>&#160; </div>
+<div class="line"><a name="l00796"></a><span class="lineno">  796</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00797"></a><span class="lineno">  797</span>&#160; </div>
+<div class="line"><a name="l00798"></a><span class="lineno">  798</span>&#160;<span class="keywordtype">void</span> CoreGeometryDisplayable&lt;T&gt;::setupCoreMeshObservers() {</div>
+<div class="line"><a name="l00799"></a><span class="lineno">  799</span>&#160;    <span class="keywordtype">int</span> idx = 0;</div>
+<div class="line"><a name="l00800"></a><span class="lineno">  800</span>&#160;    m_dataDirty.resize( m_mesh.vertexAttribs().getNumAttribs() );</div>
+<div class="line"><a name="l00801"></a><span class="lineno">  801</span>&#160;    m_vbos.resize( m_mesh.vertexAttribs().getNumAttribs() );</div>
+<div class="line"><a name="l00802"></a><span class="lineno">  802</span>&#160;    <span class="comment">// here capture ref to idx to propagate idx incrementation</span></div>
+<div class="line"><a name="l00803"></a><span class="lineno">  803</span>&#160;    m_mesh.vertexAttribs().for_each_attrib( [&amp;idx, <span class="keyword">this</span>]( <a class="code" href="classRa_1_1Core_1_1Utils_1_1AttribBase.html">Ra::Core::Utils::AttribBase</a>* b ) {</div>
+<div class="line"><a name="l00804"></a><span class="lineno">  804</span>&#160;        <span class="keyword">auto</span> name              = b-&gt;<a class="code" href="classRa_1_1Core_1_1Utils_1_1AttribBase.html#ae2dd0a9753d036b781460b05348c13ca">getName</a>();</div>
+<div class="line"><a name="l00805"></a><span class="lineno">  805</span>&#160;        m_handleToBuffer[name] = idx;</div>
+<div class="line"><a name="l00806"></a><span class="lineno">  806</span>&#160;        m_dataDirty[idx]       = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00807"></a><span class="lineno">  807</span>&#160; </div>
+<div class="line"><a name="l00808"></a><span class="lineno">  808</span>&#160;        <span class="comment">// create a identity translation if name is not already translated.</span></div>
+<div class="line"><a name="l00809"></a><span class="lineno">  809</span>&#160;        addToTranslationTable( name );</div>
+<div class="line"><a name="l00810"></a><span class="lineno">  810</span>&#160; </div>
+<div class="line"><a name="l00811"></a><span class="lineno">  811</span>&#160;        b-&gt;<a class="code" href="classRa_1_1Core_1_1Utils_1_1Observable.html#a4851931d5bedb5e17121a0ff806a9f6d">attach</a>( AttribObserver( <span class="keyword">this</span>, idx ) );</div>
+<div class="line"><a name="l00812"></a><span class="lineno">  812</span>&#160;        ++idx;</div>
+<div class="line"><a name="l00813"></a><span class="lineno">  813</span>&#160;    } );</div>
+<div class="line"><a name="l00814"></a><span class="lineno">  814</span>&#160; </div>
+<div class="line"><a name="l00815"></a><span class="lineno">  815</span>&#160;    <span class="comment">// add an observer on attrib manipulation.</span></div>
+<div class="line"><a name="l00816"></a><span class="lineno">  816</span>&#160;    m_mesh.vertexAttribs().attachMember(</div>
+<div class="line"><a name="l00817"></a><span class="lineno">  817</span>&#160;        <span class="keyword">this</span>, &amp;<a class="code" href="classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html#a4fe995da981ed6990d0869990d788a2c">CoreGeometryDisplayable&lt;CoreGeometry&gt;::addAttribObserver</a> );</div>
+<div class="line"><a name="l00818"></a><span class="lineno">  818</span>&#160;    m_isDirty = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00819"></a><span class="lineno">  819</span>&#160;}</div>
+<div class="line"><a name="l00820"></a><span class="lineno">  820</span>&#160; </div>
+<div class="line"><a name="l00822"></a><span class="lineno">  822</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> CoreGeometry&gt;</div>
+<div class="line"><a name="l00823"></a><span class="lineno">  823</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> A&gt;</div>
+<div class="line"><a name="l00824"></a><span class="lineno">  824</span>&#160;<a class="code" href="classRa_1_1Core_1_1Utils_1_1AttribHandle.html">Ra::Core::Utils::AttribHandle&lt;A&gt;</a></div>
+<div class="line"><a name="l00825"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html#ae933f13adcd54a11de0ed7e0663aea5c">  825</a></span>&#160;<a class="code" href="classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html#ae933f13adcd54a11de0ed7e0663aea5c">CoreGeometryDisplayable&lt;CoreGeometry&gt;::addAttrib</a>( <span class="keyword">const</span> std::string&amp; name,</div>
+<div class="line"><a name="l00826"></a><span class="lineno">  826</span>&#160;                                                  <span class="keyword">const</span> <span class="keyword">typename</span> <a class="code" href="classRa_1_1Core_1_1VectorArray.html">Core::VectorArray&lt;A&gt;</a>&amp; data ) {</div>
+<div class="line"><a name="l00827"></a><span class="lineno">  827</span>&#160;    <span class="keywordflow">return</span> m_mesh.addAttrib( name, data );</div>
+<div class="line"><a name="l00828"></a><span class="lineno">  828</span>&#160;}</div>
+<div class="line"><a name="l00829"></a><span class="lineno">  829</span>&#160; </div>
+<div class="line"><a name="l00830"></a><span class="lineno">  830</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> CoreGeometry&gt;</div>
+<div class="line"><a name="l00831"></a><span class="lineno">  831</span>&#160;<span class="keywordtype">size_t</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html">CoreGeometryDisplayable&lt;CoreGeometry&gt;::getNumVertices</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00832"></a><span class="lineno">  832</span>&#160;    <span class="keywordflow">return</span> m_mesh.vertices().size();</div>
+<div class="line"><a name="l00833"></a><span class="lineno">  833</span>&#160;}</div>
+<div class="line"><a name="l00834"></a><span class="lineno">  834</span>&#160; </div>
+<div class="line"><a name="l00835"></a><span class="lineno">  835</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> CoreGeometry&gt;</div>
+<div class="line"><a name="l00836"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html#a99500dff926ac595781cfb4d2b1340c1">  836</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html#a99500dff926ac595781cfb4d2b1340c1">CoreGeometryDisplayable&lt;CoreGeometry&gt;::loadGeometry</a>( CoreGeometry&amp;&amp; <span class="comment">/*mesh*/</span> ) {</div>
+<div class="line"><a name="l00837"></a><span class="lineno">  837</span>&#160;    CORE_ASSERT( <span class="keyword">false</span>, <span class="stringliteral">&quot;must be specialized&quot;</span> );</div>
+<div class="line"><a name="l00838"></a><span class="lineno">  838</span>&#160;}</div>
+<div class="line"><a name="l00839"></a><span class="lineno">  839</span>&#160; </div>
+<div class="line"><a name="l00840"></a><span class="lineno">  840</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> CoreGeometry&gt;</div>
+<div class="line"><a name="l00841"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html#a185171226018c59fb689efcb2154619b">  841</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html#a185171226018c59fb689efcb2154619b">CoreGeometryDisplayable&lt;CoreGeometry&gt;::updateGL</a>() {</div>
+<div class="line"><a name="l00842"></a><span class="lineno">  842</span>&#160;    <span class="keywordflow">if</span> ( m_isDirty ) {</div>
+<div class="line"><a name="l00843"></a><span class="lineno">  843</span>&#160;        <span class="comment">// Check that our dirty bits are consistent.</span></div>
+<div class="line"><a name="l00844"></a><span class="lineno">  844</span>&#160;        ON_ASSERT( <span class="keywordtype">bool</span> dirtyTest = <span class="keyword">false</span>; <span class="keywordflow">for</span> ( <span class="keyword">auto</span> d</div>
+<div class="line"><a name="l00845"></a><span class="lineno">  845</span>&#160;                                                 : m_dataDirty ) { dirtyTest = dirtyTest || d; } );</div>
+<div class="line"><a name="l00846"></a><span class="lineno">  846</span>&#160;        CORE_ASSERT( dirtyTest == m_isDirty, <span class="stringliteral">&quot;Dirty flags inconsistency&quot;</span> );</div>
+<div class="line"><a name="l00847"></a><span class="lineno">  847</span>&#160;        CORE_ASSERT( !( m_mesh.vertices().empty() ), <span class="stringliteral">&quot;No vertex.&quot;</span> );</div>
+<div class="line"><a name="l00848"></a><span class="lineno">  848</span>&#160; </div>
+<div class="line"><a name="l00849"></a><span class="lineno">  849</span>&#160;        updateGL_specific_impl();</div>
+<div class="line"><a name="l00850"></a><span class="lineno">  850</span>&#160;<span class="preprocessor">#ifdef CORE_USE_DOUBLE</span></div>
+<div class="line"><a name="l00851"></a><span class="lineno">  851</span>&#160;        <span class="comment">// need convserion</span></div>
+<div class="line"><a name="l00852"></a><span class="lineno">  852</span>&#160;        <span class="keyword">auto</span> func = [<span class="keyword">this</span>]( <a class="code" href="classRa_1_1Core_1_1Utils_1_1AttribBase.html">Ra::Core::Utils::AttribBase</a>* b ) {</div>
+<div class="line"><a name="l00853"></a><span class="lineno">  853</span>&#160;            <span class="keyword">auto</span> idx = m_handleToBuffer[b-&gt;<a class="code" href="classRa_1_1Core_1_1Utils_1_1AttribBase.html#ae2dd0a9753d036b781460b05348c13ca">getName</a>()];</div>
+<div class="line"><a name="l00854"></a><span class="lineno">  854</span>&#160; </div>
+<div class="line"><a name="l00855"></a><span class="lineno">  855</span>&#160;            <span class="keywordflow">if</span> ( m_dataDirty[idx] ) {</div>
+<div class="line"><a name="l00856"></a><span class="lineno">  856</span>&#160;                <span class="keywordflow">if</span> ( !m_vbos[idx] ) { m_vbos[idx] = globjects::Buffer::create(); }</div>
+<div class="line"><a name="l00857"></a><span class="lineno">  857</span>&#160; </div>
+<div class="line"><a name="l00858"></a><span class="lineno">  858</span>&#160;                <span class="keyword">auto</span> stride      = b-&gt;<a class="code" href="classRa_1_1Core_1_1Utils_1_1ContainerIntrospectionInterface.html#a61a035c5d5357d01e2df74bc441b770e">getStride</a>();</div>
+<div class="line"><a name="l00859"></a><span class="lineno">  859</span>&#160;                <span class="keyword">auto</span> eltSize     = b-&gt;<a class="code" href="classRa_1_1Core_1_1Utils_1_1ContainerIntrospectionInterface.html#aaa913325b3c078ea95ddce44ba6cc6eb">getNumberOfComponents</a>();</div>
+<div class="line"><a name="l00860"></a><span class="lineno">  860</span>&#160;                <span class="keyword">auto</span> size        = b-&gt;<a class="code" href="classRa_1_1Core_1_1Utils_1_1ContainerIntrospectionInterface.html#a709e66ce8c7c2f28a6330df869fc57ce">getSize</a>();</div>
+<div class="line"><a name="l00861"></a><span class="lineno">  861</span>&#160;                <span class="keyword">auto</span> data        = std::make_unique&lt;float[]&gt;( size * eltSize );</div>
+<div class="line"><a name="l00862"></a><span class="lineno">  862</span>&#160;                <span class="keyword">const</span> <span class="keywordtype">void</span>* ptr  = b-&gt;<a class="code" href="classRa_1_1Core_1_1Utils_1_1ContainerIntrospectionInterface.html#af0f7c3faea5748b2931bbd94b930b634">dataPtr</a>();</div>
+<div class="line"><a name="l00863"></a><span class="lineno">  863</span>&#160;                <span class="keyword">const</span> <span class="keywordtype">char</span>* cptr = <span class="keyword">reinterpret_cast&lt;</span><span class="keyword">const </span><span class="keywordtype">char</span>*<span class="keyword">&gt;</span>( ptr );</div>
+<div class="line"><a name="l00864"></a><span class="lineno">  864</span>&#160; </div>
+<div class="line"><a name="l00865"></a><span class="lineno">  865</span>&#160;                <span class="keywordflow">for</span> ( <span class="keywordtype">size_t</span> i = 0; i &lt; size; i++ ) {</div>
+<div class="line"><a name="l00866"></a><span class="lineno">  866</span>&#160;                    <span class="keyword">auto</span> tptr = <span class="keyword">reinterpret_cast&lt;</span><span class="keyword">const </span>Scalar*<span class="keyword">&gt;</span>( cptr + i * stride );</div>
+<div class="line"><a name="l00867"></a><span class="lineno">  867</span>&#160;                    <span class="keywordflow">for</span> ( <span class="keywordtype">size_t</span> j = 0; j &lt; eltSize; ++j ) {</div>
+<div class="line"><a name="l00868"></a><span class="lineno">  868</span>&#160;                        data[i * eltSize + j] = tptr[j];</div>
+<div class="line"><a name="l00869"></a><span class="lineno">  869</span>&#160;                    }</div>
+<div class="line"><a name="l00870"></a><span class="lineno">  870</span>&#160;                }</div>
+<div class="line"><a name="l00871"></a><span class="lineno">  871</span>&#160; </div>
+<div class="line"><a name="l00872"></a><span class="lineno">  872</span>&#160;                m_vbos[idx]-&gt;setData(</div>
+<div class="line"><a name="l00873"></a><span class="lineno">  873</span>&#160;                    size * eltSize * <span class="keyword">sizeof</span>( <span class="keywordtype">float</span> ), data.get(), GL_DYNAMIC_DRAW );</div>
+<div class="line"><a name="l00874"></a><span class="lineno">  874</span>&#160; </div>
+<div class="line"><a name="l00875"></a><span class="lineno">  875</span>&#160;                m_dataDirty[idx] = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00876"></a><span class="lineno">  876</span>&#160;            }</div>
+<div class="line"><a name="l00877"></a><span class="lineno">  877</span>&#160;        };</div>
+<div class="line"><a name="l00878"></a><span class="lineno">  878</span>&#160; </div>
+<div class="line"><a name="l00879"></a><span class="lineno">  879</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00880"></a><span class="lineno">  880</span>&#160;        <span class="keyword">auto</span> func = [<span class="keyword">this</span>]( <a class="code" href="classRa_1_1Core_1_1Utils_1_1AttribBase.html">Ra::Core::Utils::AttribBase</a>* b ) {</div>
+<div class="line"><a name="l00881"></a><span class="lineno">  881</span>&#160;            <span class="keyword">auto</span> idx = m_handleToBuffer[b-&gt;<a class="code" href="classRa_1_1Core_1_1Utils_1_1AttribBase.html#ae2dd0a9753d036b781460b05348c13ca">getName</a>()];</div>
+<div class="line"><a name="l00882"></a><span class="lineno">  882</span>&#160; </div>
+<div class="line"><a name="l00883"></a><span class="lineno">  883</span>&#160;            <span class="keywordflow">if</span> ( m_dataDirty[idx] ) {</div>
+<div class="line"><a name="l00884"></a><span class="lineno">  884</span>&#160;                <span class="keywordflow">if</span> ( !m_vbos[idx] ) { m_vbos[idx] = globjects::Buffer::create(); }</div>
+<div class="line"><a name="l00885"></a><span class="lineno">  885</span>&#160;                m_vbos[idx]-&gt;setData( b-&gt;<a class="code" href="classRa_1_1Core_1_1Utils_1_1ContainerIntrospectionInterface.html#ada4b796b352795c049579cadb3d946ba">getBufferSize</a>(), b-&gt;<a class="code" href="classRa_1_1Core_1_1Utils_1_1ContainerIntrospectionInterface.html#af0f7c3faea5748b2931bbd94b930b634">dataPtr</a>(), GL_DYNAMIC_DRAW );</div>
+<div class="line"><a name="l00886"></a><span class="lineno">  886</span>&#160;                m_dataDirty[idx] = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00887"></a><span class="lineno">  887</span>&#160;            }</div>
+<div class="line"><a name="l00888"></a><span class="lineno">  888</span>&#160;        };</div>
+<div class="line"><a name="l00889"></a><span class="lineno">  889</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00890"></a><span class="lineno">  890</span>&#160;        m_mesh.vertexAttribs().for_each_attrib( func );</div>
+<div class="line"><a name="l00891"></a><span class="lineno">  891</span>&#160; </div>
+<div class="line"><a name="l00892"></a><span class="lineno">  892</span>&#160;        <span class="comment">// cleanup removed attrib</span></div>
+<div class="line"><a name="l00893"></a><span class="lineno">  893</span>&#160;        <span class="keywordflow">for</span> ( <span class="keyword">auto</span> buffer : m_handleToBuffer ) {</div>
+<div class="line"><a name="l00894"></a><span class="lineno">  894</span>&#160;            <span class="comment">// do not remove name from handleToBuffer to keep index ...</span></div>
+<div class="line"><a name="l00895"></a><span class="lineno">  895</span>&#160;            <span class="comment">// we could also update handleToBuffer, m_vbos, m_dataDirty</span></div>
+<div class="line"><a name="l00896"></a><span class="lineno">  896</span>&#160;            <span class="keywordflow">if</span> ( !m_mesh.hasAttrib( buffer.first ) &amp;&amp; m_vbos[buffer.second] ) {</div>
+<div class="line"><a name="l00897"></a><span class="lineno">  897</span>&#160;                m_vbos[buffer.second].reset( <span class="keyword">nullptr</span> );</div>
+<div class="line"><a name="l00898"></a><span class="lineno">  898</span>&#160;                m_dataDirty[buffer.second] = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00899"></a><span class="lineno">  899</span>&#160;            }</div>
+<div class="line"><a name="l00900"></a><span class="lineno">  900</span>&#160;        }</div>
+<div class="line"><a name="l00901"></a><span class="lineno">  901</span>&#160; </div>
+<div class="line"><a name="l00902"></a><span class="lineno">  902</span>&#160;        GL_CHECK_ERROR;</div>
+<div class="line"><a name="l00903"></a><span class="lineno">  903</span>&#160;        m_isDirty = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00904"></a><span class="lineno">  904</span>&#160;    }</div>
+<div class="line"><a name="l00905"></a><span class="lineno">  905</span>&#160;}</div>
+<div class="line"><a name="l00906"></a><span class="lineno">  906</span>&#160; </div>
+<div class="line"><a name="l00907"></a><span class="lineno">  907</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> CoreGeometry&gt;</div>
+<div class="line"><a name="l00908"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html#a71ab62e2623c184497ef04b59c7ce5f8">  908</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html#a71ab62e2623c184497ef04b59c7ce5f8">CoreGeometryDisplayable&lt;CoreGeometry&gt;::setAttribNameCorrespondance</a>(</div>
+<div class="line"><a name="l00909"></a><span class="lineno">  909</span>&#160;    <span class="keyword">const</span> std::string&amp; meshAttribName,</div>
+<div class="line"><a name="l00910"></a><span class="lineno">  910</span>&#160;    <span class="keyword">const</span> std::string&amp; shaderAttribName ) {</div>
+<div class="line"><a name="l00911"></a><span class="lineno">  911</span>&#160; </div>
+<div class="line"><a name="l00912"></a><span class="lineno">  912</span>&#160;    m_translationTable.replace( meshAttribName, shaderAttribName );</div>
+<div class="line"><a name="l00913"></a><span class="lineno">  913</span>&#160;}</div>
+<div class="line"><a name="l00914"></a><span class="lineno">  914</span>&#160; </div>
+<div class="line"><a name="l00916"></a><span class="lineno">  916</span>&#160; </div>
+<div class="line"><a name="l00917"></a><span class="lineno">  917</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00918"></a><span class="lineno">  918</span>&#160;<a class="code" href="classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html">IndexedGeometry&lt;T&gt;::IndexedGeometry</a>( <span class="keyword">const</span> std::string&amp; name,</div>
+<div class="line"><a name="l00919"></a><span class="lineno">  919</span>&#160;                                     <span class="keyword">typename</span> base::CoreGeometry&amp;&amp; geom,</div>
+<div class="line"><a name="l00920"></a><span class="lineno">  920</span>&#160;                                     <span class="keyword">typename</span> base::MeshRenderMode renderMode ) :</div>
+<div class="line"><a name="l00921"></a><span class="lineno">  921</span>&#160;    base( name, renderMode ) {</div>
+<div class="line"><a name="l00922"></a><span class="lineno">  922</span>&#160;    <a class="code" href="classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html#a99500dff926ac595781cfb4d2b1340c1">loadGeometry</a>( std::move( geom ) );</div>
+<div class="line"><a name="l00923"></a><span class="lineno">  923</span>&#160;}</div>
+<div class="line"><a name="l00924"></a><span class="lineno">  924</span>&#160; </div>
+<div class="line"><a name="l00925"></a><span class="lineno">  925</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00926"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html#a0c1b41a445952ebdcac07d6b7c331d71">  926</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html#a0c1b41a445952ebdcac07d6b7c331d71">IndexedGeometry&lt;T&gt;::loadGeometry</a>( T&amp;&amp; mesh ) {</div>
+<div class="line"><a name="l00927"></a><span class="lineno">  927</span>&#160;    setIndicesDirty();</div>
+<div class="line"><a name="l00928"></a><span class="lineno">  928</span>&#160;    base::loadGeometry_common( std::move( mesh ) );</div>
+<div class="line"><a name="l00929"></a><span class="lineno">  929</span>&#160; </div>
+<div class="line"><a name="l00930"></a><span class="lineno">  930</span>&#160;    <span class="comment">// indices</span></div>
+<div class="line"><a name="l00931"></a><span class="lineno">  931</span>&#160;    base::m_mesh.attach( <a class="code" href="classRa_1_1Engine_1_1Data_1_1VaoIndices_1_1IndicesObserver.html">IndicesObserver</a>( <span class="keyword">this</span> ) );</div>
+<div class="line"><a name="l00932"></a><span class="lineno">  932</span>&#160;}</div>
+<div class="line"><a name="l00933"></a><span class="lineno">  933</span>&#160; </div>
+<div class="line"><a name="l00934"></a><span class="lineno">  934</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00935"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html#a0cd94ec18c5151291676ed62fea25dc0">  935</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html#a0cd94ec18c5151291676ed62fea25dc0">IndexedGeometry&lt;T&gt;::updateGL_specific_impl</a>() {</div>
+<div class="line"><a name="l00936"></a><span class="lineno">  936</span>&#160;    <span class="keywordflow">if</span> ( !m_indices ) {</div>
+<div class="line"><a name="l00937"></a><span class="lineno">  937</span>&#160;        m_indices      = globjects::Buffer::create();</div>
+<div class="line"><a name="l00938"></a><span class="lineno">  938</span>&#160;        m_indicesDirty = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00939"></a><span class="lineno">  939</span>&#160;    }</div>
+<div class="line"><a name="l00940"></a><span class="lineno">  940</span>&#160;    <span class="keywordflow">if</span> ( m_indicesDirty ) {</div>
+<div class="line"><a name="l00942"></a><span class="lineno">  942</span>&#160;        <span class="comment">// m_indices-&gt;setData( m_mesh.m_indices, GL_DYNAMIC_DRAW );</span></div>
+<div class="line"><a name="l00943"></a><span class="lineno">  943</span>&#160;        m_numElements =</div>
+<div class="line"><a name="l00944"></a><span class="lineno">  944</span>&#160;            base::m_mesh.getIndices().size() * base::CoreGeometry::IndexType::RowsAtCompileTime;</div>
+<div class="line"><a name="l00945"></a><span class="lineno">  945</span>&#160; </div>
+<div class="line"><a name="l00946"></a><span class="lineno">  946</span>&#160;        m_indices-&gt;setData(</div>
+<div class="line"><a name="l00947"></a><span class="lineno">  947</span>&#160;            <span class="keyword">static_cast&lt;</span>gl::GLsizeiptr<span class="keyword">&gt;</span>( base::m_mesh.getIndices().size() *</div>
+<div class="line"><a name="l00948"></a><span class="lineno">  948</span>&#160;                                         <span class="keyword">sizeof</span>( <span class="keyword">typename</span> base::CoreGeometry::IndexType ) ),</div>
+<div class="line"><a name="l00949"></a><span class="lineno">  949</span>&#160;            base::m_mesh.getIndices().data(),</div>
+<div class="line"><a name="l00950"></a><span class="lineno">  950</span>&#160;            GL_STATIC_DRAW );</div>
+<div class="line"><a name="l00951"></a><span class="lineno">  951</span>&#160;        m_indicesDirty = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00952"></a><span class="lineno">  952</span>&#160;    }</div>
+<div class="line"><a name="l00953"></a><span class="lineno">  953</span>&#160;    <span class="keywordflow">if</span> ( !base::m_vao ) { base::m_vao = globjects::VertexArray::create(); }</div>
+<div class="line"><a name="l00954"></a><span class="lineno">  954</span>&#160;    base::m_vao-&gt;bind();</div>
+<div class="line"><a name="l00955"></a><span class="lineno">  955</span>&#160;    base::m_vao-&gt;bindElementBuffer( m_indices.get() );</div>
+<div class="line"><a name="l00956"></a><span class="lineno">  956</span>&#160;    base::m_vao-&gt;unbind();</div>
+<div class="line"><a name="l00957"></a><span class="lineno">  957</span>&#160;}</div>
+<div class="line"><a name="l00958"></a><span class="lineno">  958</span>&#160; </div>
+<div class="line"><a name="l00959"></a><span class="lineno">  959</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00960"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html#abe984c29681cf462235dd42e14aa6749">  960</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html#abe984c29681cf462235dd42e14aa6749">IndexedGeometry&lt;T&gt;::render</a>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1ShaderProgram.html">ShaderProgram</a>* prog ) {</div>
+<div class="line"><a name="l00961"></a><span class="lineno">  961</span>&#160;    <span class="keywordflow">if</span> ( base::m_vao ) {</div>
+<div class="line"><a name="l00962"></a><span class="lineno">  962</span>&#160;        GL_CHECK_ERROR;</div>
+<div class="line"><a name="l00963"></a><span class="lineno">  963</span>&#160;        base::m_vao-&gt;bind();</div>
+<div class="line"><a name="l00964"></a><span class="lineno">  964</span>&#160;        base::autoVertexAttribPointer( prog );</div>
+<div class="line"><a name="l00965"></a><span class="lineno">  965</span>&#160;        GL_CHECK_ERROR;</div>
+<div class="line"><a name="l00966"></a><span class="lineno">  966</span>&#160;        base::m_vao-&gt;drawElements( <span class="keyword">static_cast&lt;</span>GLenum<span class="keyword">&gt;</span>( base::m_renderMode ),</div>
+<div class="line"><a name="l00967"></a><span class="lineno">  967</span>&#160;                                   GLsizei( m_numElements ),</div>
+<div class="line"><a name="l00968"></a><span class="lineno">  968</span>&#160;                                   GL_UNSIGNED_INT,</div>
+<div class="line"><a name="l00969"></a><span class="lineno">  969</span>&#160;                                   <span class="keyword">nullptr</span> );</div>
+<div class="line"><a name="l00970"></a><span class="lineno">  970</span>&#160;        GL_CHECK_ERROR;</div>
+<div class="line"><a name="l00971"></a><span class="lineno">  971</span>&#160;        base::m_vao-&gt;unbind();</div>
+<div class="line"><a name="l00972"></a><span class="lineno">  972</span>&#160;        GL_CHECK_ERROR;</div>
+<div class="line"><a name="l00973"></a><span class="lineno">  973</span>&#160;    }</div>
+<div class="line"><a name="l00974"></a><span class="lineno">  974</span>&#160;}</div>
+<div class="line"><a name="l00975"></a><span class="lineno">  975</span>&#160; </div>
+<div class="line"><a name="l00977"></a><span class="lineno">  977</span>&#160; </div>
+<div class="line"><a name="l00978"></a><span class="lineno">  978</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00979"></a><span class="lineno">  979</span>&#160;<a class="code" href="classRa_1_1Engine_1_1Data_1_1MultiIndexedGeometry.html">MultiIndexedGeometry&lt;T&gt;::MultiIndexedGeometry</a>( <span class="keyword">const</span> std::string&amp; name,</div>
+<div class="line"><a name="l00980"></a><span class="lineno">  980</span>&#160;                                               <span class="keyword">typename</span> base::CoreGeometry&amp;&amp; geom,</div>
+<div class="line"><a name="l00981"></a><span class="lineno">  981</span>&#160;                                               <span class="keyword">typename</span> base::MeshRenderMode renderMode ) :</div>
+<div class="line"><a name="l00982"></a><span class="lineno">  982</span>&#160;    base( name, renderMode ) {</div>
+<div class="line"><a name="l00983"></a><span class="lineno">  983</span>&#160;    <a class="code" href="classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html#a0c1b41a445952ebdcac07d6b7c331d71">loadGeometry</a>( std::move( geom ) );</div>
+<div class="line"><a name="l00984"></a><span class="lineno">  984</span>&#160;}</div>
+<div class="line"><a name="l00985"></a><span class="lineno">  985</span>&#160; </div>
+<div class="line"><a name="l00986"></a><span class="lineno">  986</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00987"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1MultiIndexedGeometry.html#a3b1eaaa4eb3aa2415c543ad1c1a8d899">  987</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1MultiIndexedGeometry.html#a3b1eaaa4eb3aa2415c543ad1c1a8d899">MultiIndexedGeometry&lt;T&gt;::loadGeometry</a>( T&amp;&amp; mesh ) {</div>
+<div class="line"><a name="l00988"></a><span class="lineno">  988</span>&#160;    m_indices.clear();</div>
+<div class="line"><a name="l00989"></a><span class="lineno">  989</span>&#160; </div>
+<div class="line"><a name="l00990"></a><span class="lineno">  990</span>&#160;    base::loadGeometry_common( std::move( mesh ) );</div>
+<div class="line"><a name="l00991"></a><span class="lineno">  991</span>&#160;    CORE_ASSERT( <span class="keyword">false</span>, <span class="stringliteral">&quot;not implemented yet&quot;</span> );</div>
+<div class="line"><a name="l00992"></a><span class="lineno">  992</span>&#160; </div>
+<div class="line"><a name="l00994"></a><span class="lineno">  994</span>&#160;    <span class="comment">// indices</span></div>
+<div class="line"><a name="l00995"></a><span class="lineno">  995</span>&#160;    <span class="comment">//  base::m_mesh.attach( IndicesObserver( this ) );</span></div>
+<div class="line"><a name="l00996"></a><span class="lineno">  996</span>&#160;}</div>
+<div class="line"><a name="l00997"></a><span class="lineno">  997</span>&#160; </div>
+<div class="line"><a name="l00998"></a><span class="lineno">  998</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00999"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1MultiIndexedGeometry.html#a177e6e3d7a533ae30f08fde0abd512ce">  999</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1MultiIndexedGeometry.html#a177e6e3d7a533ae30f08fde0abd512ce">MultiIndexedGeometry&lt;T&gt;::updateGL_specific_impl</a>() {</div>
+<div class="line"><a name="l01000"></a><span class="lineno"> 1000</span>&#160;    CORE_ASSERT( <span class="keyword">false</span>, <span class="stringliteral">&quot;not implemented yet&quot;</span> );</div>
+<div class="line"><a name="l01001"></a><span class="lineno"> 1001</span>&#160;    <span class="comment">//    if ( !m_indices )</span></div>
+<div class="line"><a name="l01002"></a><span class="lineno"> 1002</span>&#160;    <span class="comment">//    {</span></div>
+<div class="line"><a name="l01003"></a><span class="lineno"> 1003</span>&#160;    <span class="comment">//        m_indices      = globjects::Buffer::create();</span></div>
+<div class="line"><a name="l01004"></a><span class="lineno"> 1004</span>&#160;    <span class="comment">//        m_indicesDirty = true;</span></div>
+<div class="line"><a name="l01005"></a><span class="lineno"> 1005</span>&#160;    <span class="comment">//    }</span></div>
+<div class="line"><a name="l01006"></a><span class="lineno"> 1006</span>&#160;    <span class="comment">//    if ( m_indicesDirty )</span></div>
+<div class="line"><a name="l01007"></a><span class="lineno"> 1007</span>&#160;    <span class="comment">//    {</span></div>
+<div class="line"><a name="l01008"></a><span class="lineno"> 1008</span>&#160;    <span class="comment">//        /// this one do not work since m_indices is not a std::vector</span></div>
+<div class="line"><a name="l01009"></a><span class="lineno"> 1009</span>&#160;    <span class="comment">//        // m_indices-&gt;setData( m_mesh.m_indices, GL_DYNAMIC_DRAW );</span></div>
+<div class="line"><a name="l01010"></a><span class="lineno"> 1010</span>&#160;    <span class="comment">//        m_numElements =</span></div>
+<div class="line"><a name="l01011"></a><span class="lineno"> 1011</span>&#160;    <span class="comment">//            base::m_mesh.getIndices().size() *</span></div>
+<div class="line"><a name="l01012"></a><span class="lineno"> 1012</span>&#160;    <span class="comment">//            base::CoreGeometry::IndexType::RowsAtCompileTime;</span></div>
+<div class="line"><a name="l01013"></a><span class="lineno"> 1013</span>&#160;    <span class="comment">//</span></div>
+<div class="line"><a name="l01014"></a><span class="lineno"> 1014</span>&#160;    <span class="comment">//        m_indices-&gt;setData(</span></div>
+<div class="line"><a name="l01015"></a><span class="lineno"> 1015</span>&#160;    <span class="comment">//            static_cast&lt;gl::GLsizeiptr&gt;( base::m_mesh.getIndices().size() *</span></div>
+<div class="line"><a name="l01016"></a><span class="lineno"> 1016</span>&#160;    <span class="comment">//                                         sizeof( typename base::CoreGeometry::IndexType ) ),</span></div>
+<div class="line"><a name="l01017"></a><span class="lineno"> 1017</span>&#160;    <span class="comment">//            base::m_mesh.getIndices().data(),</span></div>
+<div class="line"><a name="l01018"></a><span class="lineno"> 1018</span>&#160;    <span class="comment">//            GL_STATIC_DRAW );</span></div>
+<div class="line"><a name="l01019"></a><span class="lineno"> 1019</span>&#160;    <span class="comment">//        m_indicesDirty = false;</span></div>
+<div class="line"><a name="l01020"></a><span class="lineno"> 1020</span>&#160;    <span class="comment">//    }</span></div>
+<div class="line"><a name="l01021"></a><span class="lineno"> 1021</span>&#160;    <span class="comment">//    if ( !base::m_vao ) { base::m_vao = globjects::VertexArray::create(); }</span></div>
+<div class="line"><a name="l01022"></a><span class="lineno"> 1022</span>&#160;    <span class="comment">//    base::m_vao-&gt;bind();</span></div>
+<div class="line"><a name="l01023"></a><span class="lineno"> 1023</span>&#160;    <span class="comment">//    base::m_vao-&gt;bindElementBuffer( m_indices.get() );</span></div>
+<div class="line"><a name="l01024"></a><span class="lineno"> 1024</span>&#160;    <span class="comment">//    base::m_vao-&gt;unbind();</span></div>
+<div class="line"><a name="l01026"></a><span class="lineno"> 1026</span>&#160;<span class="comment"></span>}</div>
+<div class="line"><a name="l01027"></a><span class="lineno"> 1027</span>&#160; </div>
+<div class="line"><a name="l01028"></a><span class="lineno"> 1028</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l01029"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1MultiIndexedGeometry.html#a2251ff2a6090b3445be31e80cc2bb090"> 1029</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1MultiIndexedGeometry.html#a2251ff2a6090b3445be31e80cc2bb090">MultiIndexedGeometry&lt;T&gt;::render</a>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1ShaderProgram.html">ShaderProgram</a>* ) {</div>
+<div class="line"><a name="l01030"></a><span class="lineno"> 1030</span>&#160;    CORE_ASSERT( <span class="keyword">false</span>, <span class="stringliteral">&quot;not implemented yet&quot;</span> );</div>
+<div class="line"><a name="l01031"></a><span class="lineno"> 1031</span>&#160;    <span class="comment">//    if ( base::m_vao )</span></div>
+<div class="line"><a name="l01032"></a><span class="lineno"> 1032</span>&#160;    <span class="comment">//    {</span></div>
+<div class="line"><a name="l01033"></a><span class="lineno"> 1033</span>&#160;    <span class="comment">//        GL_CHECK_ERROR;</span></div>
+<div class="line"><a name="l01034"></a><span class="lineno"> 1034</span>&#160;    <span class="comment">//        base::m_vao-&gt;bind();</span></div>
+<div class="line"><a name="l01035"></a><span class="lineno"> 1035</span>&#160;    <span class="comment">//        base::autoVertexAttribPointer( prog );</span></div>
+<div class="line"><a name="l01036"></a><span class="lineno"> 1036</span>&#160;    <span class="comment">//        GL_CHECK_ERROR;</span></div>
+<div class="line"><a name="l01037"></a><span class="lineno"> 1037</span>&#160;    <span class="comment">//        base::m_vao-&gt;drawElements( static_cast&lt;GLenum&gt;( base::m_renderMode ),</span></div>
+<div class="line"><a name="l01038"></a><span class="lineno"> 1038</span>&#160;    <span class="comment">//                                   GLsizei( m_numElements ),</span></div>
+<div class="line"><a name="l01039"></a><span class="lineno"> 1039</span>&#160;    <span class="comment">//                                   GL_UNSIGNED_INT,</span></div>
+<div class="line"><a name="l01040"></a><span class="lineno"> 1040</span>&#160;    <span class="comment">//                                   nullptr );</span></div>
+<div class="line"><a name="l01041"></a><span class="lineno"> 1041</span>&#160;    <span class="comment">//        GL_CHECK_ERROR;</span></div>
+<div class="line"><a name="l01042"></a><span class="lineno"> 1042</span>&#160;    <span class="comment">//        base::m_vao-&gt;unbind();</span></div>
+<div class="line"><a name="l01043"></a><span class="lineno"> 1043</span>&#160;    <span class="comment">//        GL_CHECK_ERROR;</span></div>
+<div class="line"><a name="l01044"></a><span class="lineno"> 1044</span>&#160;    <span class="comment">//    }</span></div>
+<div class="line"><a name="l01046"></a><span class="lineno"> 1046</span>&#160;<span class="comment"></span>}</div>
+<div class="line"><a name="l01047"></a><span class="lineno"> 1047</span>&#160; </div>
+<div class="line"><a name="l01049"></a><span class="lineno"> 1049</span>&#160; </div>
+<div class="line"><a name="l01050"></a><span class="lineno"> 1050</span>&#160;PointCloud::PointCloud( <span class="keyword">const</span> std::string&amp; name,</div>
+<div class="line"><a name="l01051"></a><span class="lineno"> 1051</span>&#160;                        <span class="keyword">typename</span> base::CoreGeometry&amp;&amp; geom,</div>
+<div class="line"><a name="l01052"></a><span class="lineno"> 1052</span>&#160;                        <span class="keyword">typename</span> base::MeshRenderMode renderMode ) :</div>
+<div class="line"><a name="l01053"></a><span class="lineno"> 1053</span>&#160;    base( name, renderMode ) {</div>
+<div class="line"><a name="l01054"></a><span class="lineno"> 1054</span>&#160;    <a class="code" href="classRa_1_1Engine_1_1Data_1_1MultiIndexedGeometry.html#a3b1eaaa4eb3aa2415c543ad1c1a8d899">loadGeometry</a>( std::move( geom ) );</div>
+<div class="line"><a name="l01055"></a><span class="lineno"> 1055</span>&#160;}</div>
+<div class="line"><a name="l01056"></a><span class="lineno"> 1056</span>&#160; </div>
+<div class="line"><a name="l01057"></a><span class="lineno"> 1057</span>&#160;PointCloud::PointCloud( <span class="keyword">const</span> std::string&amp; name, <span class="keyword">typename</span> base::MeshRenderMode renderMode ) :</div>
+<div class="line"><a name="l01058"></a><span class="lineno"> 1058</span>&#160;    base( name, renderMode ) {}</div>
+<div class="line"><a name="l01059"></a><span class="lineno"> 1059</span>&#160; </div>
+<div class="line"><a name="l01061"></a><span class="lineno"> 1061</span>&#160; </div>
+<div class="line"><a name="l01062"></a><span class="lineno"> 1062</span>&#160;LineMesh::LineMesh( <span class="keyword">const</span> std::string&amp; name,</div>
+<div class="line"><a name="l01063"></a><span class="lineno"> 1063</span>&#160;                    <span class="keyword">typename</span> base::CoreGeometry&amp;&amp; geom,</div>
+<div class="line"><a name="l01064"></a><span class="lineno"> 1064</span>&#160;                    <span class="keyword">typename</span> base::MeshRenderMode renderMode ) :</div>
+<div class="line"><a name="l01065"></a><span class="lineno"> 1065</span>&#160;    base( name, std::move( geom ), renderMode ) {}</div>
+<div class="line"><a name="l01066"></a><span class="lineno"> 1066</span>&#160; </div>
+<div class="line"><a name="l01067"></a><span class="lineno"> 1067</span>&#160;LineMesh::LineMesh( <span class="keyword">const</span> std::string&amp; name, <span class="keyword">typename</span> base::MeshRenderMode renderMode ) :</div>
+<div class="line"><a name="l01068"></a><span class="lineno"> 1068</span>&#160;    base( name, renderMode ) {}</div>
+<div class="line"><a name="l01069"></a><span class="lineno"> 1069</span>&#160; </div>
+<div class="line"><a name="l01071"></a><span class="lineno"> 1071</span>&#160; </div>
+<div class="line"><a name="l01072"></a><span class="lineno"> 1072</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l01073"></a><span class="lineno"> 1073</span>&#160;<span class="keywordtype">size_t</span> GeneralMesh&lt;T&gt;::getNumFaces()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l01074"></a><span class="lineno"> 1074</span>&#160;    <span class="keywordflow">return</span> this-&gt;getCoreGeometry().getIndices().size();</div>
+<div class="line"><a name="l01075"></a><span class="lineno"> 1075</span>&#160;}</div>
+<div class="line"><a name="l01076"></a><span class="lineno"> 1076</span>&#160; </div>
+<div class="line"><a name="l01077"></a><span class="lineno"> 1077</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l01078"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1GeneralMesh.html#a7428bd97ca8225f6962df8ae15ebbdfb"> 1078</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1GeneralMesh.html#a7428bd97ca8225f6962df8ae15ebbdfb">GeneralMesh&lt;T&gt;::updateGL_specific_impl</a>() {</div>
+<div class="line"><a name="l01079"></a><span class="lineno"> 1079</span>&#160;    <span class="keywordflow">if</span> ( !this-&gt;m_indices ) {</div>
+<div class="line"><a name="l01080"></a><span class="lineno"> 1080</span>&#160;        this-&gt;m_indices      = globjects::Buffer::create();</div>
+<div class="line"><a name="l01081"></a><span class="lineno"> 1081</span>&#160;        this-&gt;m_indicesDirty = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l01082"></a><span class="lineno"> 1082</span>&#160;    }</div>
+<div class="line"><a name="l01083"></a><span class="lineno"> 1083</span>&#160;    <span class="keywordflow">if</span> ( this-&gt;m_indicesDirty ) {</div>
+<div class="line"><a name="l01084"></a><span class="lineno"> 1084</span>&#160;        triangulate();</div>
+<div class="line"><a name="l01086"></a><span class="lineno"> 1086</span>&#160;        <span class="comment">// m_indices-&gt;setData( m_mesh.m_indices, GL_DYNAMIC_DRAW );</span></div>
+<div class="line"><a name="l01087"></a><span class="lineno"> 1087</span>&#160;        this-&gt;m_numElements = m_triangleIndices.size() * GeneralMesh::IndexType::RowsAtCompileTime;</div>
+<div class="line"><a name="l01088"></a><span class="lineno"> 1088</span>&#160; </div>
+<div class="line"><a name="l01089"></a><span class="lineno"> 1089</span>&#160;        this-&gt;m_indices-&gt;setData( <span class="keyword">static_cast&lt;</span>gl::GLsizeiptr<span class="keyword">&gt;</span>( m_triangleIndices.size() *</div>
+<div class="line"><a name="l01090"></a><span class="lineno"> 1090</span>&#160;                                                               <span class="keyword">sizeof</span>( GeneralMesh::IndexType ) ),</div>
+<div class="line"><a name="l01091"></a><span class="lineno"> 1091</span>&#160;                                  m_triangleIndices.data(),</div>
+<div class="line"><a name="l01092"></a><span class="lineno"> 1092</span>&#160;                                  GL_STATIC_DRAW );</div>
+<div class="line"><a name="l01093"></a><span class="lineno"> 1093</span>&#160;        this-&gt;m_indicesDirty = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l01094"></a><span class="lineno"> 1094</span>&#160;    }</div>
+<div class="line"><a name="l01095"></a><span class="lineno"> 1095</span>&#160;    <span class="keywordflow">if</span> ( !base::m_vao ) { base::m_vao = globjects::VertexArray::create(); }</div>
+<div class="line"><a name="l01096"></a><span class="lineno"> 1096</span>&#160;    base::m_vao-&gt;bind();</div>
+<div class="line"><a name="l01097"></a><span class="lineno"> 1097</span>&#160;    base::m_vao-&gt;bindElementBuffer( this-&gt;m_indices.get() );</div>
+<div class="line"><a name="l01098"></a><span class="lineno"> 1098</span>&#160;    base::m_vao-&gt;unbind();</div>
+<div class="line"><a name="l01099"></a><span class="lineno"> 1099</span>&#160;}</div>
+<div class="line"><a name="l01100"></a><span class="lineno"> 1100</span>&#160; </div>
+<div class="line"><a name="l01101"></a><span class="lineno"> 1101</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l01102"></a><span class="lineno"> 1102</span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1GeneralMesh.html">GeneralMesh&lt;T&gt;::triangulate</a>() {</div>
+<div class="line"><a name="l01103"></a><span class="lineno"> 1103</span>&#160;    m_triangleIndices.clear();</div>
+<div class="line"><a name="l01104"></a><span class="lineno"> 1104</span>&#160;    m_triangleIndices.reserve( this-&gt;m_mesh.getIndices().size() );</div>
+<div class="line"><a name="l01105"></a><span class="lineno"> 1105</span>&#160;    <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; face : this-&gt;m_mesh.getIndices() ) {</div>
+<div class="line"><a name="l01106"></a><span class="lineno"> 1106</span>&#160;        <span class="keywordflow">if</span> ( face.size() == 3 ) { m_triangleIndices.push_back( face ); }</div>
+<div class="line"><a name="l01107"></a><span class="lineno"> 1107</span>&#160;        <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l01109"></a><span class="lineno"> 1109</span>&#160;            <span class="keywordtype">int</span> minus { int( face.size() ) - 1 };</div>
+<div class="line"><a name="l01110"></a><span class="lineno"> 1110</span>&#160;            <span class="keywordtype">int</span> plus { 0 };</div>
+<div class="line"><a name="l01111"></a><span class="lineno"> 1111</span>&#160;            <span class="keywordflow">while</span> ( plus + 1 &lt; minus ) {</div>
+<div class="line"><a name="l01112"></a><span class="lineno"> 1112</span>&#160;                <span class="keywordflow">if</span> ( ( plus - minus ) % 2 ) {</div>
+<div class="line"><a name="l01113"></a><span class="lineno"> 1113</span>&#160;                    m_triangleIndices.emplace_back( face[plus], face[plus + 1], face[minus] );</div>
+<div class="line"><a name="l01114"></a><span class="lineno"> 1114</span>&#160;                    ++plus;</div>
+<div class="line"><a name="l01115"></a><span class="lineno"> 1115</span>&#160;                }</div>
+<div class="line"><a name="l01116"></a><span class="lineno"> 1116</span>&#160;                <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l01117"></a><span class="lineno"> 1117</span>&#160;                    m_triangleIndices.emplace_back( face[minus], face[plus], face[minus - 1] );</div>
+<div class="line"><a name="l01118"></a><span class="lineno"> 1118</span>&#160;                    --minus;</div>
+<div class="line"><a name="l01119"></a><span class="lineno"> 1119</span>&#160;                }</div>
+<div class="line"><a name="l01120"></a><span class="lineno"> 1120</span>&#160;            }</div>
+<div class="line"><a name="l01121"></a><span class="lineno"> 1121</span>&#160;        }</div>
+<div class="line"><a name="l01122"></a><span class="lineno"> 1122</span>&#160;    }</div>
+<div class="line"><a name="l01123"></a><span class="lineno"> 1123</span>&#160;}</div>
+<div class="line"><a name="l01124"></a><span class="lineno"> 1124</span>&#160; </div>
+<div class="line"><a name="l01125"></a><span class="lineno"> 1125</span>&#160;<span class="keyword">template</span> &lt;&gt;</div>
+<div class="line"><a name="l01126"></a><span class="lineno"> 1126</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> GeneralMesh&lt;Core::Geometry::QuadMesh&gt;::triangulate() {</div>
+<div class="line"><a name="l01127"></a><span class="lineno"> 1127</span>&#160;    m_triangleIndices.clear();</div>
+<div class="line"><a name="l01128"></a><span class="lineno"> 1128</span>&#160;    m_triangleIndices.reserve( 2 * this-&gt;m_mesh.getIndices().size() );</div>
+<div class="line"><a name="l01129"></a><span class="lineno"> 1129</span>&#160;    <span class="comment">// assume quads are convex</span></div>
+<div class="line"><a name="l01130"></a><span class="lineno"> 1130</span>&#160;    <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; face : this-&gt;m_mesh.getIndices() ) {</div>
+<div class="line"><a name="l01131"></a><span class="lineno"> 1131</span>&#160;        m_triangleIndices.emplace_back( face[0], face[1], face[2] );</div>
+<div class="line"><a name="l01132"></a><span class="lineno"> 1132</span>&#160;        m_triangleIndices.emplace_back( face[0], face[2], face[3] );</div>
+<div class="line"><a name="l01133"></a><span class="lineno"> 1133</span>&#160;    }</div>
+<div class="line"><a name="l01134"></a><span class="lineno"> 1134</span>&#160;}</div>
+<div class="line"><a name="l01135"></a><span class="lineno"> 1135</span>&#160; </div>
+<div class="line"><a name="l01136"></a><span class="lineno"> 1136</span>&#160;} <span class="comment">// namespace Data</span></div>
+<div class="line"><a name="l01137"></a><span class="lineno"> 1137</span>&#160;} <span class="comment">// namespace Engine</span></div>
+<div class="line"><a name="l01138"></a><span class="lineno"> 1138</span>&#160;} <span class="comment">// namespace Ra</span></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1GeometryData_html"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1GeometryData.html">Ra::Core::Asset::GeometryData</a></div><div class="ttdef"><b>Definition:</b> <a href="GeometryData_8hpp_source.html#l00028">GeometryData.hpp:29</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1GeometryData_html_a0de3cde9db9923f6ba5e0a43342988e3"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1GeometryData.html#a0de3cde9db9923f6ba5e0a43342988e3">Ra::Core::Asset::GeometryData::isLineMesh</a></div><div class="ttdeci">bool isLineMesh() const</div><div class="ttdoc">Return true if the object is a Line Mesh.</div><div class="ttdef"><b>Definition:</b> <a href="GeometryData_8hpp_source.html#l00185">GeometryData.hpp:185</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1GeometryData_html_a8d05725649ec315b28b422fbbc856af4"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1GeometryData.html#a8d05725649ec315b28b422fbbc856af4">Ra::Core::Asset::GeometryData::getGeometry</a></div><div class="ttdeci">Geometry::MultiIndexedGeometry &amp; getGeometry()</div><div class="ttdoc">Read/write access to the multiIndexedGeometry;.</div><div class="ttdef"><b>Definition:</b> <a href="GeometryData_8hpp_source.html#l00243">GeometryData.hpp:243</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry_html"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html">Ra::Core::Geometry::AttribArrayGeometry</a></div><div class="ttdoc">This class represents vertex + attributes per vertex. Toplogy is handled in MultiIndexedGeometry subc...</div><div class="ttdef"><b>Definition:</b> <a href="TriangleMesh_8hpp_source.html#l00025">TriangleMesh.hpp:26</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry_html_afb7540bb4cee8ad41bcb15d1dcb118a6"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#afb7540bb4cee8ad41bcb15d1dcb118a6">Ra::Core::Geometry::AttribArrayGeometry::vertexAttribs</a></div><div class="ttdeci">Utils::AttribManager &amp; vertexAttribs()</div><div class="ttdef"><b>Definition:</b> <a href="TriangleMesh_8hpp_source.html#l00419">TriangleMesh.hpp:419</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry_html_a6be22f11eba7a83457e81cc50b2cae25"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html#a6be22f11eba7a83457e81cc50b2cae25">Ra::Core::Geometry::MultiIndexedGeometry::getFirstLayerOccurrence</a></div><div class="ttdeci">std::pair&lt; LayerKeyType, const GeometryIndexLayerBase &amp; &gt; getFirstLayerOccurrence(const LayerSemanticCollection &amp;semantics) const</div><div class="ttdoc">Read-only access to a layer.</div><div class="ttdef"><b>Definition:</b> <a href="IndexedGeometry_8cpp_source.html#l00135">IndexedGeometry.cpp:135</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1AttribBase_html"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1AttribBase.html">Ra::Core::Utils::AttribBase</a></div><div class="ttdef"><b>Definition:</b> <a href="Attribs_8hpp_source.html#l00026">Attribs.hpp:27</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1AttribBase_html_ae2dd0a9753d036b781460b05348c13ca"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1AttribBase.html#ae2dd0a9753d036b781460b05348c13ca">Ra::Core::Utils::AttribBase::getName</a></div><div class="ttdeci">std::string getName() const</div><div class="ttdoc">Return the attribute's name.</div><div class="ttdef"><b>Definition:</b> <a href="Attribs_8hpp_source.html#l00449">Attribs.hpp:449</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1AttribHandle_html"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1AttribHandle.html">Ra::Core::Utils::AttribHandle</a></div><div class="ttdoc">An attrib handle basically store an Index and a name.</div><div class="ttdef"><b>Definition:</b> <a href="Attribs_8hpp_source.html#l00145">Attribs.hpp:146</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1AttribManager_html"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1AttribManager.html">Ra::Core::Utils::AttribManager</a></div><div class="ttdoc">The AttribManager provides attributes management by handles.</div><div class="ttdef"><b>Definition:</b> <a href="Attribs_8hpp_source.html#l00203">Attribs.hpp:204</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1BijectiveAssociation_html"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1BijectiveAssociation.html">Ra::Core::Utils::BijectiveAssociation&lt; std::string, std::string &gt;</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1ContainerIntrospectionInterface_html_a61a035c5d5357d01e2df74bc441b770e"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1ContainerIntrospectionInterface.html#a61a035c5d5357d01e2df74bc441b770e">Ra::Core::Utils::ContainerIntrospectionInterface::getStride</a></div><div class="ttdeci">virtual int getStride() const =0</div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1ContainerIntrospectionInterface_html_a709e66ce8c7c2f28a6330df869fc57ce"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1ContainerIntrospectionInterface.html#a709e66ce8c7c2f28a6330df869fc57ce">Ra::Core::Utils::ContainerIntrospectionInterface::getSize</a></div><div class="ttdeci">virtual size_t getSize() const =0</div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1ContainerIntrospectionInterface_html_aaa913325b3c078ea95ddce44ba6cc6eb"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1ContainerIntrospectionInterface.html#aaa913325b3c078ea95ddce44ba6cc6eb">Ra::Core::Utils::ContainerIntrospectionInterface::getNumberOfComponents</a></div><div class="ttdeci">virtual size_t getNumberOfComponents() const =0</div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1ContainerIntrospectionInterface_html_ada4b796b352795c049579cadb3d946ba"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1ContainerIntrospectionInterface.html#ada4b796b352795c049579cadb3d946ba">Ra::Core::Utils::ContainerIntrospectionInterface::getBufferSize</a></div><div class="ttdeci">virtual size_t getBufferSize() const =0</div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1ContainerIntrospectionInterface_html_af0f7c3faea5748b2931bbd94b930b634"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1ContainerIntrospectionInterface.html#af0f7c3faea5748b2931bbd94b930b634">Ra::Core::Utils::ContainerIntrospectionInterface::dataPtr</a></div><div class="ttdeci">virtual const void * dataPtr() const =0</div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1ObjectWithSemantic_html_a2154019cc96a06c7b82cb9f08b2e56fc"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1ObjectWithSemantic.html#a2154019cc96a06c7b82cb9f08b2e56fc">Ra::Core::Utils::ObjectWithSemantic::SemanticNameCollection</a></div><div class="ttdeci">std::set&lt; SemanticName &gt; SemanticNameCollection</div><div class="ttdoc">Store in set to allow for logarithmic search.</div><div class="ttdef"><b>Definition:</b> <a href="ObjectWithSemantic_8hpp_source.html#l00023">ObjectWithSemantic.hpp:23</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1Observable_html_a4851931d5bedb5e17121a0ff806a9f6d"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1Observable.html#a4851931d5bedb5e17121a0ff806a9f6d">Ra::Core::Utils::Observable::attach</a></div><div class="ttdeci">int attach(Observer observer)</div><div class="ttdef"><b>Definition:</b> <a href="Observable_8hpp_source.html#l00054">Observable.hpp:54</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1VectorArray_html"><div class="ttname"><a href="classRa_1_1Core_1_1VectorArray.html">Ra::Core::VectorArray&lt; T &gt;</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html">Ra::Engine::Data::AttribArrayDisplayable</a></div><div class="ttdef"><b>Definition:</b> <a href="Mesh_8hpp_source.html#l00051">Mesh.hpp:52</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable_html_a21ef8b45f76848add29abda28a514625"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#a21ef8b45f76848add29abda28a514625">Ra::Engine::Data::AttribArrayDisplayable::updateGL</a></div><div class="ttdeci">void updateGL() override=0</div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable_html_a398f75c85b7dbcd3c266c6602bb6c01f"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#a398f75c85b7dbcd3c266c6602bb6c01f">Ra::Engine::Data::AttribArrayDisplayable::getRenderMode</a></div><div class="ttdeci">MeshRenderMode getRenderMode() const</div><div class="ttdoc">Get the render mode.</div><div class="ttdef"><b>Definition:</b> <a href="Mesh_8hpp_source.html#l00548">Mesh.hpp:548</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable_html_a4ba75a89f6c80c147b1bca040928ef6a"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#a4ba75a89f6c80c147b1bca040928ef6a">Ra::Engine::Data::AttribArrayDisplayable::updatePickingRenderMode</a></div><div class="ttdeci">void updatePickingRenderMode()</div><div class="ttdoc">Update the picking render mode according to the object render mode.</div><div class="ttdef"><b>Definition:</b> <a href="Mesh_8cpp_source.html#l00084">Mesh.cpp:84</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable_html_a9fce3bf8c466aea7e724f3a6d73e3169"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#a9fce3bf8c466aea7e724f3a6d73e3169">Ra::Engine::Data::AttribArrayDisplayable::setRenderMode</a></div><div class="ttdeci">void setRenderMode(MeshRenderMode mode)</div><div class="ttdoc">Set the render mode.</div><div class="ttdef"><b>Definition:</b> <a href="Mesh_8hpp_source.html#l00543">Mesh.hpp:543</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable_html_ad089d928906d89959f0955c699a715d0"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#ad089d928906d89959f0955c699a715d0">Ra::Engine::Data::AttribArrayDisplayable::MeshRenderMode</a></div><div class="ttdeci">MeshRenderMode</div><div class="ttdef"><b>Definition:</b> <a href="Mesh_8hpp_source.html#l00057">Mesh.hpp:57</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html">Ra::Engine::Data::CoreGeometryDisplayable</a></div><div class="ttdoc">Template class to manage the Displayable aspect of a Core Geomertry, such as TriangleMesh.</div><div class="ttdef"><b>Definition:</b> <a href="Mesh_8hpp_source.html#l00228">Mesh.hpp:229</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable_html_a185171226018c59fb689efcb2154619b"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html#a185171226018c59fb689efcb2154619b">Ra::Engine::Data::CoreGeometryDisplayable::updateGL</a></div><div class="ttdeci">void updateGL() override</div><div class="ttdoc">Update (i.e. send to GPU) the buffers marked as dirty.</div><div class="ttdef"><b>Definition:</b> <a href="Mesh_8hpp_source.html#l00841">Mesh.hpp:841</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable_html_a4fe995da981ed6990d0869990d788a2c"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html#a4fe995da981ed6990d0869990d788a2c">Ra::Engine::Data::CoreGeometryDisplayable::addAttribObserver</a></div><div class="ttdeci">void addAttribObserver(const std::string &amp;name)</div><div class="ttdef"><b>Definition:</b> <a href="Mesh_8hpp_source.html#l00727">Mesh.hpp:727</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable_html_a6e0b7b73ee551f76171df59f0a17fcfc"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html#a6e0b7b73ee551f76171df59f0a17fcfc">Ra::Engine::Data::CoreGeometryDisplayable::autoVertexAttribPointer</a></div><div class="ttdeci">void autoVertexAttribPointer(const ShaderProgram *prog)</div><div class="ttdoc">assume m_vao is bound.</div><div class="ttdef"><b>Definition:</b> <a href="Mesh_8hpp_source.html#l00750">Mesh.hpp:750</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable_html_a71ab62e2623c184497ef04b59c7ce5f8"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html#a71ab62e2623c184497ef04b59c7ce5f8">Ra::Engine::Data::CoreGeometryDisplayable::setAttribNameCorrespondance</a></div><div class="ttdeci">void setAttribNameCorrespondance(const std::string &amp;meshAttribName, const std::string &amp;shaderAttribName)</div><div class="ttdef"><b>Definition:</b> <a href="Mesh_8hpp_source.html#l00908">Mesh.hpp:908</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable_html_a99500dff926ac595781cfb4d2b1340c1"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html#a99500dff926ac595781cfb4d2b1340c1">Ra::Engine::Data::CoreGeometryDisplayable::loadGeometry</a></div><div class="ttdeci">virtual void loadGeometry(CoreGeometry &amp;&amp;mesh)</div><div class="ttdef"><b>Definition:</b> <a href="Mesh_8hpp_source.html#l00836">Mesh.hpp:836</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable_html_ae933f13adcd54a11de0ed7e0663aea5c"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html#ae933f13adcd54a11de0ed7e0663aea5c">Ra::Engine::Data::CoreGeometryDisplayable::addAttrib</a></div><div class="ttdeci">Ra::Core::Utils::AttribHandle&lt; A &gt; addAttrib(const std::string &amp;name, const typename Core::VectorArray&lt; A &gt; &amp;data)</div><div class="ttdoc">Helper function that calls Ra::Core::CoreGeometry::addAttrib()</div><div class="ttdef"><b>Definition:</b> <a href="Mesh_8hpp_source.html#l00825">Mesh.hpp:825</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable_html_af1f10b415b271357c9ee8827da8d9d1d"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html#af1f10b415b271357c9ee8827da8d9d1d">Ra::Engine::Data::CoreGeometryDisplayable::getAbstractGeometry</a></div><div class="ttdeci">const Core::Geometry::AbstractGeometry &amp; getAbstractGeometry() const override</div><div class="ttdef"><b>Definition:</b> <a href="Mesh_8hpp_source.html#l00690">Mesh.hpp:690</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1Displayable_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1Displayable.html">Ra::Engine::Data::Displayable</a></div><div class="ttdef"><b>Definition:</b> <a href="DisplayableObject_8hpp_source.html#l00021">DisplayableObject.hpp:22</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1Displayable_html_a8cc588360ff97fc9d3d0b05d54f4671c"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1Displayable.html#a8cc588360ff97fc9d3d0b05d54f4671c">Ra::Engine::Data::Displayable::getName</a></div><div class="ttdeci">const std::string &amp; getName() const</div><div class="ttdoc">Returns the name of the mesh.</div><div class="ttdef"><b>Definition:</b> <a href="DisplayableObject_8hpp_source.html#l00042">DisplayableObject.hpp:42</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1GeneralMesh_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1GeneralMesh.html">Ra::Engine::Data::GeneralMesh</a></div><div class="ttdef"><b>Definition:</b> <a href="Mesh_8hpp_source.html#l00441">Mesh.hpp:442</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1GeneralMesh_html_a7428bd97ca8225f6962df8ae15ebbdfb"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1GeneralMesh.html#a7428bd97ca8225f6962df8ae15ebbdfb">Ra::Engine::Data::GeneralMesh::updateGL_specific_impl</a></div><div class="ttdeci">void updateGL_specific_impl() override</div><div class="ttdef"><b>Definition:</b> <a href="Mesh_8hpp_source.html#l01078">Mesh.hpp:1078</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1IndexedAttribArrayDisplayable_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1IndexedAttribArrayDisplayable.html">Ra::Engine::Data::IndexedAttribArrayDisplayable</a></div><div class="ttdef"><b>Definition:</b> <a href="Mesh_8hpp_source.html#l00204">Mesh.hpp:205</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1IndexedAttribArrayDisplayable_html_a89bf523f8a2db25e20072f94e257e320"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1IndexedAttribArrayDisplayable.html#a89bf523f8a2db25e20072f94e257e320">Ra::Engine::Data::IndexedAttribArrayDisplayable::autoVertexAttribPointer</a></div><div class="ttdeci">void autoVertexAttribPointer(const ShaderProgram *prog)</div><div class="ttdoc">assume m_vao is bound.</div><div class="ttdef"><b>Definition:</b> <a href="Mesh_8hpp_source.html#l00629">Mesh.hpp:629</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1IndexedGeometry_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html">Ra::Engine::Data::IndexedGeometry</a></div><div class="ttdoc">An engine mesh owning CoreGeometry, with indices.</div><div class="ttdef"><b>Definition:</b> <a href="Mesh_8hpp_source.html#l00334">Mesh.hpp:335</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1IndexedGeometry_html_a0c1b41a445952ebdcac07d6b7c331d71"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html#a0c1b41a445952ebdcac07d6b7c331d71">Ra::Engine::Data::IndexedGeometry::loadGeometry</a></div><div class="ttdeci">void loadGeometry(T &amp;&amp;mesh) override</div><div class="ttdef"><b>Definition:</b> <a href="Mesh_8hpp_source.html#l00926">Mesh.hpp:926</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1IndexedGeometry_html_a0cd94ec18c5151291676ed62fea25dc0"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html#a0cd94ec18c5151291676ed62fea25dc0">Ra::Engine::Data::IndexedGeometry::updateGL_specific_impl</a></div><div class="ttdeci">void updateGL_specific_impl() override</div><div class="ttdef"><b>Definition:</b> <a href="Mesh_8hpp_source.html#l00935">Mesh.hpp:935</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1IndexedGeometry_html_abe984c29681cf462235dd42e14aa6749"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html#abe984c29681cf462235dd42e14aa6749">Ra::Engine::Data::IndexedGeometry::render</a></div><div class="ttdeci">void render(const ShaderProgram *prog) override</div><div class="ttdef"><b>Definition:</b> <a href="Mesh_8hpp_source.html#l00960">Mesh.hpp:960</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1LineMesh_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1LineMesh.html">Ra::Engine::Data::LineMesh</a></div><div class="ttdoc">LineMesh, own a Core::Geometry::LineMesh.</div><div class="ttdef"><b>Definition:</b> <a href="Mesh_8hpp_source.html#l00394">Mesh.hpp:395</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1Mesh_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1Mesh.html">Ra::Engine::Data::Mesh</a></div><div class="ttdoc">Mesh, own a Core::Geometry::TriangleMesh.</div><div class="ttdef"><b>Definition:</b> <a href="Mesh_8hpp_source.html#l00413">Mesh.hpp:414</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1MultiIndexedGeometry_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1MultiIndexedGeometry.html">Ra::Engine::Data::MultiIndexedGeometry</a></div><div class="ttdef"><b>Definition:</b> <a href="Mesh_8hpp_source.html#l00355">Mesh.hpp:356</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1MultiIndexedGeometry_html_a177e6e3d7a533ae30f08fde0abd512ce"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1MultiIndexedGeometry.html#a177e6e3d7a533ae30f08fde0abd512ce">Ra::Engine::Data::MultiIndexedGeometry::updateGL_specific_impl</a></div><div class="ttdeci">void updateGL_specific_impl() override</div><div class="ttdef"><b>Definition:</b> <a href="Mesh_8hpp_source.html#l00999">Mesh.hpp:999</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1MultiIndexedGeometry_html_a2251ff2a6090b3445be31e80cc2bb090"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1MultiIndexedGeometry.html#a2251ff2a6090b3445be31e80cc2bb090">Ra::Engine::Data::MultiIndexedGeometry::render</a></div><div class="ttdeci">void render(const ShaderProgram *prog) override</div><div class="ttdef"><b>Definition:</b> <a href="Mesh_8hpp_source.html#l01029">Mesh.hpp:1029</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1MultiIndexedGeometry_html_a3b1eaaa4eb3aa2415c543ad1c1a8d899"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1MultiIndexedGeometry.html#a3b1eaaa4eb3aa2415c543ad1c1a8d899">Ra::Engine::Data::MultiIndexedGeometry::loadGeometry</a></div><div class="ttdeci">void loadGeometry(T &amp;&amp;mesh) override</div><div class="ttdef"><b>Definition:</b> <a href="Mesh_8hpp_source.html#l00987">Mesh.hpp:987</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1PointCloud_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1PointCloud.html">Ra::Engine::Data::PointCloud</a></div><div class="ttdoc">A PointCloud without indices.</div><div class="ttdef"><b>Definition:</b> <a href="Mesh_8hpp_source.html#l00310">Mesh.hpp:311</a></div></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1ShaderProgram_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1ShaderProgram.html">Ra::Engine::Data::ShaderProgram</a></div><div class="ttdef"><b>Definition:</b> <a href="ShaderProgram_8hpp_source.html#l00031">ShaderProgram.hpp:32</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1ShaderProgram_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1ShaderProgram.html">Ra::Engine::Data::ShaderProgram</a></div><div class="ttdef"><b>Definition:</b> <a href="ShaderProgram_8hpp_source.html#l00034">ShaderProgram.hpp:35</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1VaoIndices_1_1IndicesObserver_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1VaoIndices_1_1IndicesObserver.html">Ra::Engine::Data::VaoIndices::IndicesObserver</a></div><div class="ttdef"><b>Definition:</b> <a href="Mesh_8hpp_source.html#l00180">Mesh.hpp:181</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1VaoIndices_1_1IndicesObserver_html_a3bc53ce437e64113cf2237483baeb98a"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1VaoIndices_1_1IndicesObserver.html#a3bc53ce437e64113cf2237483baeb98a">Ra::Engine::Data::VaoIndices::IndicesObserver::IndicesObserver</a></div><div class="ttdeci">IndicesObserver(VaoIndices *displayable)</div><div class="ttdoc">not tested</div><div class="ttdef"><b>Definition:</b> <a href="Mesh_8hpp_source.html#l00184">Mesh.hpp:184</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1VaoIndices_1_1IndicesObserver_html_a44aaa2b2cb23b615836b259691eff23e"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1VaoIndices_1_1IndicesObserver.html#a44aaa2b2cb23b615836b259691eff23e">Ra::Engine::Data::VaoIndices::IndicesObserver::operator()</a></div><div class="ttdeci">void operator()()</div><div class="ttdoc">not tested</div><div class="ttdef"><b>Definition:</b> <a href="Mesh_8hpp_source.html#l00186">Mesh.hpp:186</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1VaoIndices_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1VaoIndices.html">Ra::Engine::Data::VaoIndices</a></div><div class="ttdoc">Concept class to ensure consistent naming of VaoIndices accross derived classes.</div><div class="ttdef"><b>Definition:</b> <a href="Mesh_8hpp_source.html#l00173">Mesh.hpp:174</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1VaoIndices_html_a96bb526c20fa4d8ec65d90587e56239c"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1VaoIndices.html#a96bb526c20fa4d8ec65d90587e56239c">Ra::Engine::Data::VaoIndices::setIndicesDirty</a></div><div class="ttdeci">void setIndicesDirty()</div><div class="ttdoc">Tag the indices as dirty, asking for a update to gpu.</div><div class="ttdef"><b>Definition:</b> <a href="Mesh_8hpp_source.html#l00554">Mesh.hpp:554</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1Vao_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1Vao.html">Ra::Engine::Data::Vao</a></div><div class="ttdef"><b>Definition:</b> <a href="Mesh_8hpp_source.html#l00035">Mesh.hpp:36</a></div></div>
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdef"><b>Definition:</b> <a href="Cage_8cpp_source.html#l00003">Cage.cpp:3</a></div></div>
 <div class="ttc" id="astructRa_1_1Core_1_1Geometry_1_1AbstractGeometry_html"><div class="ttname"><a href="structRa_1_1Core_1_1Geometry_1_1AbstractGeometry.html">Ra::Core::Geometry::AbstractGeometry</a></div><div class="ttdef"><b>Definition:</b> <a href="AbstractGeometry_8hpp_source.html#l00017">AbstractGeometry.hpp:17</a></div></div>
-<div class="ttc" id="astructRa_1_1Core_1_1Geometry_1_1GeometryIndexLayer_html"><div class="ttname"><a href="structRa_1_1Core_1_1Geometry_1_1GeometryIndexLayer.html">Ra::Core::Geometry::GeometryIndexLayer</a></div><div class="ttdoc">Typed index collection.</div><div class="ttdef"><b>Definition:</b> <a href="IndexedGeometry_8hpp_source.html#l00053">IndexedGeometry.hpp:53</a></div></div>
-<div class="ttc" id="astructRa_1_1Core_1_1Geometry_1_1LineIndexLayer_html"><div class="ttname"><a href="structRa_1_1Core_1_1Geometry_1_1LineIndexLayer.html">Ra::Core::Geometry::LineIndexLayer</a></div><div class="ttdoc">Index layer for line mesh.</div><div class="ttdef"><b>Definition:</b> <a href="IndexedGeometry_8hpp_source.html#l00461">IndexedGeometry.hpp:461</a></div></div>
+<div class="ttc" id="astructRa_1_1Core_1_1Geometry_1_1GeometryIndexLayer_html"><div class="ttname"><a href="structRa_1_1Core_1_1Geometry_1_1GeometryIndexLayer.html">Ra::Core::Geometry::GeometryIndexLayer</a></div><div class="ttdoc">Typed index collection.</div><div class="ttdef"><b>Definition:</b> <a href="IndexedGeometry_8hpp_source.html#l00052">IndexedGeometry.hpp:52</a></div></div>
+<div class="ttc" id="astructRa_1_1Core_1_1Geometry_1_1LineIndexLayer_html"><div class="ttname"><a href="structRa_1_1Core_1_1Geometry_1_1LineIndexLayer.html">Ra::Core::Geometry::LineIndexLayer</a></div><div class="ttdoc">Index layer for line mesh.</div><div class="ttdef"><b>Definition:</b> <a href="IndexedGeometry_8hpp_source.html#l00459">IndexedGeometry.hpp:459</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_a46b089ae2655285b8dddf2703c36868.html">Data</a></li><li class="navelem"><b>Mesh.hpp</b></li>
-    <li class="footer">Generated on Thu Nov 17 2022 06:52:58 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Wed Apr 5 2023 15:07:31 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

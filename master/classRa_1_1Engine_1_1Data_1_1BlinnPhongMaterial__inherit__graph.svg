@@ -126,7 +126,7 @@ var sectionId = 'dynsection-0';
 <text text-anchor="start" x="8" y="-640.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Data::Shader</text>
 <text text-anchor="middle" x="84" y="-629.5" font-family="Helvetica,sans-Serif" font-size="10.00">ParameterProvider</text>
 <polyline fill="none" stroke="black" points="0,-622.5 168,-622.5 "/>
-<text text-anchor="start" x="8" y="-610.5" font-family="Helvetica,sans-Serif" font-size="10.00"># m_renderParameters</text>
+<text text-anchor="middle" x="84" y="-610.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
 <polyline fill="none" stroke="black" points="0,-603.5 168,-603.5 "/>
 <text text-anchor="start" x="8" y="-591.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ ~ShaderParameterProvider()</text>
 <text text-anchor="start" x="8" y="-580.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getParameters()</text>

@@ -52,7 +52,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.4.0</span>
+   &#160;<span id="projectnumber">1.5.0</span>
    </div>
   </td>
  </tr>
@@ -194,7 +194,7 @@ Vector3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Dual quaternions are based on the dual-numbers algebra, somewhat analogous to complex numbers, but with the imaginary unit <code>e</code> defined such as e*e = 0 ; and using quaternions as the non-dual and dual part. Unit dual quaternions can represent any rigid transformation (rotation + translation). A good reference. <a href="http://www.euclideanspace.com/maths/algebra/realNormedAlgebra/other/dualQuaternion/index.htm">http://www.euclideanspace.com/maths/algebra/realNormedAlgebra/other/dualQuaternion/index.htm</a> </p>
 
-<p class="definition">Definition at line <a class="el" href="DualQuaternion_8hpp_source.html#l00017">17</a> of file <a class="el" href="DualQuaternion_8hpp_source.html">DualQuaternion.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="DualQuaternion_8hpp_source.html#l00018">18</a> of file <a class="el" href="DualQuaternion_8hpp_source.html">DualQuaternion.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a8093cac96392285e4c604e2a9ad36961"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8093cac96392285e4c604e2a9ad36961">&#9670;&nbsp;</a></span>DualQuaternion()</h2>
@@ -221,7 +221,7 @@ Vector3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 </div><div class="memdoc">
 <p>Construct a dual-quaternion from a rigid transform Any non-rigid component (e.g. scale and shear) will be ignored. </p>
 
-<p class="definition">Definition at line <a class="el" href="DualQuaternion_8inl_source.html#l00067">67</a> of file <a class="el" href="DualQuaternion_8inl_source.html">DualQuaternion.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="DualQuaternion_8hpp_source.html#l00145">145</a> of file <a class="el" href="DualQuaternion_8hpp_source.html">DualQuaternion.hpp</a>.</p>
 <div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-1-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-1-summary" class="dynsummary" style="display:block;">
@@ -258,7 +258,7 @@ Vector3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 </div><div class="memdoc">
 <p>Normalize the quaternion with the dual-number norm (divides q0 and qe by q0's norm). Will assert if the norm is zero in debug builds. </p>
 
-<p class="definition">Definition at line <a class="el" href="DualQuaternion_8inl_source.html#l00042">42</a> of file <a class="el" href="DualQuaternion_8inl_source.html">DualQuaternion.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="DualQuaternion_8hpp_source.html#l00120">120</a> of file <a class="el" href="DualQuaternion_8hpp_source.html">DualQuaternion.hpp</a>.</p>
 
 </div>
 </div>
@@ -289,7 +289,7 @@ Vector3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 <p>Other methods. </p>
 <p>Set the dual-quaternion from a rigid transform. Any non-rigid component (e.g. scale and shear) will be ignored. </p>
 
-<p class="definition">Definition at line <a class="el" href="DualQuaternion_8inl_source.html#l00082">82</a> of file <a class="el" href="DualQuaternion_8inl_source.html">DualQuaternion.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="DualQuaternion_8hpp_source.html#l00160">160</a> of file <a class="el" href="DualQuaternion_8hpp_source.html">DualQuaternion.hpp</a>.</p>
 
 </div>
 </div>
@@ -318,21 +318,20 @@ Vector3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 </div><div class="memdoc">
 <p>Apply the transform represented by the dual quaternion to given vector. equivalent to translate( rotate (p)). </p>
 
-<p class="definition">Definition at line <a class="el" href="DualQuaternion_8inl_source.html#l00049">49</a> of file <a class="el" href="DualQuaternion_8inl_source.html">DualQuaternion.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="DualQuaternion_8hpp_source.html#l00127">127</a> of file <a class="el" href="DualQuaternion_8hpp_source.html">DualQuaternion.hpp</a>.</p>
 <div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-2-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-2-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-2-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Core_1_1DualQuaternion_a2b5cdd730d414ff7fd5e3a391ad32572_cgraph.svg" width="432" height="118"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classRa_1_1Core_1_1DualQuaternion_a2b5cdd730d414ff7fd5e3a391ad32572_cgraph.svg" width="100%" height="410"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following files:<ul>
+<hr/>The documentation for this class was generated from the following file:<ul>
 <li>/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/src/Core/Math/<a class="el" href="DualQuaternion_8hpp_source.html">DualQuaternion.hpp</a></li>
-<li>/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/src/Core/Math/<a class="el" href="DualQuaternion_8inl_source.html">DualQuaternion.inl</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -340,7 +339,7 @@ Vector3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><b>Core</b></li><li class="navelem"><a class="el" href="classRa_1_1Core_1_1DualQuaternion.html">DualQuaternion</a></li>
-    <li class="footer">Generated on Thu Nov 17 2022 06:52:59 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Wed Apr 5 2023 15:07:32 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

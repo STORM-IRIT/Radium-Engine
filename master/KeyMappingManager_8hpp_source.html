@@ -52,7 +52,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.4.0</span>
+   &#160;<span id="projectnumber">1.5.0</span>
    </div>
   </td>
  </tr>
@@ -303,12 +303,60 @@ $(document).ready(function(){initNavTree('KeyMappingManager_8hpp_source.html',''
 <div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;    Context m_context;</div>
 <div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;};</div>
 <div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160; </div>
-<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;} <span class="comment">// namespace Gui</span></div>
-<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;} <span class="comment">// namespace Ra</span></div>
-<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160; </div>
-<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;<span class="preprocessor">#include &lt;Gui/Utils/KeyMappingManager.inl&gt;</span></div>
+<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;<span class="comment">/******************************************************************************/</span></div>
+<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;<span class="comment">/* inlines ********************************************************************/</span></div>
+<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;<span class="comment">/******************************************************************************/</span></div>
+<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160; </div>
+<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">bool</span> KeyMappingManager::EventBinding::operator&lt;( <span class="keyword">const</span> EventBinding&amp; b )<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;    <span class="keywordflow">return</span> ( m_buttons &lt; b.m_buttons ) ||</div>
+<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;           ( ( m_buttons == b.m_buttons ) &amp;&amp; ( m_modifiers &lt; b.m_modifiers ) ) ||</div>
+<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;           ( ( m_buttons == b.m_buttons ) &amp;&amp; ( m_modifiers == b.m_modifiers ) &amp;&amp;</div>
+<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;             ( m_key &lt; b.m_key ) ) ||</div>
+<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;           ( ( m_buttons == b.m_buttons ) &amp;&amp; ( m_modifiers == b.m_modifiers ) &amp;&amp;</div>
+<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;             ( m_key == b.m_key ) &amp;&amp; ( m_wheel &lt; b.m_wheel ) );</div>
+<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;}</div>
+<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160; </div>
+<div class="line"><a name="l00323"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1KeyMappingCallbackManager.html#aba9638964fe609d8df400daa11d82685">  323</a></span>&#160;<span class="keyword">inline</span> <a class="code" href="classRa_1_1Gui_1_1KeyMappingCallbackManager.html#aba9638964fe609d8df400daa11d82685">KeyMappingCallbackManager::KeyMappingCallbackManager</a>( Context context ) :</div>
+<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;    m_context { context } {}</div>
+<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160; </div>
+<div class="line"><a name="l00326"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1KeyMappingCallbackManager.html#a918fd8a78af7d6b2d184e573779a5e1f">  326</a></span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="classRa_1_1Gui_1_1KeyMappingCallbackManager.html#a918fd8a78af7d6b2d184e573779a5e1f">KeyMappingCallbackManager::addEventCallback</a>( KeyMappingAction action,</div>
+<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;                                                         Callback callback ) {</div>
+<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;    m_keymappingCallbacks[action] = callback;</div>
+<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;}</div>
+<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160; </div>
+<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;<span class="keyword">inline</span> <a class="code" href="classRa_1_1Gui_1_1KeyMappingManager.html#a41a05099c01660b695cdb70be3eb1655">KeyMappingManager::KeyMappingAction</a></div>
+<div class="line"><a name="l00332"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1KeyMappingCallbackManager.html#aa0deb26b5a45aad701fc009262a6b180">  332</a></span>&#160;<a class="code" href="classRa_1_1Gui_1_1KeyMappingCallbackManager.html#aa0deb26b5a45aad701fc009262a6b180">KeyMappingCallbackManager::addActionAndCallback</a>( <span class="keyword">const</span> std::string&amp; actionName,</div>
+<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;                                                 <span class="keyword">const</span> <a class="code" href="classRa_1_1Gui_1_1KeyMappingManager_1_1EventBinding.html">KeyMappingManager::EventBinding</a>&amp; binding,</div>
+<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;                                                 Callback callback ) {</div>
+<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160; </div>
+<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;    <span class="keyword">auto</span> mgr    = KeyMappingManager::getInstance();</div>
+<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;    <span class="keyword">auto</span> action = mgr-&gt;addAction( m_context, binding, actionName );</div>
+<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;    <a class="code" href="classRa_1_1Gui_1_1KeyMappingCallbackManager.html#a918fd8a78af7d6b2d184e573779a5e1f">addEventCallback</a>( action, callback );</div>
+<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;    <span class="keywordflow">return</span> action;</div>
+<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;}</div>
+<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160; </div>
+<div class="line"><a name="l00342"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1KeyMappingCallbackManager.html#af0ec3f04b14307c306818f72448a29b2">  342</a></span>&#160;<span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code" href="classRa_1_1Gui_1_1KeyMappingCallbackManager.html#a80b3750145c2d398caf7d5dc8f402243">KeyMappingCallbackManager::triggerEventCallback</a>( KeyMappingAction actionIndex,</div>
+<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;                                                             QEvent* event ) {</div>
+<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;    <span class="keyword">auto</span> itr = m_keymappingCallbacks.find( actionIndex );</div>
+<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;    <span class="keywordflow">if</span> ( itr == m_keymappingCallbacks.end() ) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;    itr-&gt;second( event );</div>
+<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;}</div>
+<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160; </div>
+<div class="line"><a name="l00350"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1KeyMappingCallbackManager.html#a80b3750145c2d398caf7d5dc8f402243">  350</a></span>&#160;<span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code" href="classRa_1_1Gui_1_1KeyMappingCallbackManager.html#a80b3750145c2d398caf7d5dc8f402243">KeyMappingCallbackManager::triggerEventCallback</a>( QEvent* event, <span class="keywordtype">int</span> key, <span class="keywordtype">bool</span> wheel ) {</div>
+<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;    <span class="keyword">auto</span> mgr         = KeyMappingManager::getInstance();</div>
+<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;    <span class="keyword">auto</span> actionIndex = mgr-&gt;getAction( m_context, event, key, wheel );</div>
+<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classRa_1_1Gui_1_1KeyMappingCallbackManager.html#a80b3750145c2d398caf7d5dc8f402243">triggerEventCallback</a>( actionIndex, event );</div>
+<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;}</div>
+<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160; </div>
+<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;} <span class="comment">// namespace Gui</span></div>
+<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;} <span class="comment">// namespace Ra</span></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1Observable_html_a5b2d48be6db6b982ac70610c526d3870"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1Observable.html#a5b2d48be6db6b982ac70610c526d3870">Ra::Core::Utils::Observable::Observer</a></div><div class="ttdeci">std::function&lt; void(Args...)&gt; Observer</div><div class="ttdoc">Observer functor type.</div><div class="ttdef"><b>Definition:</b> <a href="Observable_8hpp_source.html#l00037">Observable.hpp:37</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1KeyMappingCallbackManager_html"><div class="ttname"><a href="classRa_1_1Gui_1_1KeyMappingCallbackManager.html">Ra::Gui::KeyMappingCallbackManager</a></div><div class="ttdoc">This class manage a collection of binding/callback associated with a context.</div><div class="ttdef"><b>Definition:</b> <a href="KeyMappingManager_8hpp_source.html#l00269">KeyMappingManager.hpp:270</a></div></div>
+<div class="ttc" id="aclassRa_1_1Gui_1_1KeyMappingCallbackManager_html_a80b3750145c2d398caf7d5dc8f402243"><div class="ttname"><a href="classRa_1_1Gui_1_1KeyMappingCallbackManager.html#a80b3750145c2d398caf7d5dc8f402243">Ra::Gui::KeyMappingCallbackManager::triggerEventCallback</a></div><div class="ttdeci">bool triggerEventCallback(QEvent *event, int key, bool wheel=false)</div><div class="ttdef"><b>Definition:</b> <a href="KeyMappingManager_8hpp_source.html#l00350">KeyMappingManager.hpp:350</a></div></div>
+<div class="ttc" id="aclassRa_1_1Gui_1_1KeyMappingCallbackManager_html_a918fd8a78af7d6b2d184e573779a5e1f"><div class="ttname"><a href="classRa_1_1Gui_1_1KeyMappingCallbackManager.html#a918fd8a78af7d6b2d184e573779a5e1f">Ra::Gui::KeyMappingCallbackManager::addEventCallback</a></div><div class="ttdeci">void addEventCallback(KeyMappingAction action, Callback callback)</div><div class="ttdef"><b>Definition:</b> <a href="KeyMappingManager_8hpp_source.html#l00326">KeyMappingManager.hpp:326</a></div></div>
+<div class="ttc" id="aclassRa_1_1Gui_1_1KeyMappingCallbackManager_html_aa0deb26b5a45aad701fc009262a6b180"><div class="ttname"><a href="classRa_1_1Gui_1_1KeyMappingCallbackManager.html#aa0deb26b5a45aad701fc009262a6b180">Ra::Gui::KeyMappingCallbackManager::addActionAndCallback</a></div><div class="ttdeci">KeyMappingManager::KeyMappingAction addActionAndCallback(const std::string &amp;actionName, const KeyMappingManager::EventBinding &amp;binding, Callback callback)</div><div class="ttdef"><b>Definition:</b> <a href="KeyMappingManager_8hpp_source.html#l00332">KeyMappingManager.hpp:332</a></div></div>
+<div class="ttc" id="aclassRa_1_1Gui_1_1KeyMappingCallbackManager_html_aba9638964fe609d8df400daa11d82685"><div class="ttname"><a href="classRa_1_1Gui_1_1KeyMappingCallbackManager.html#aba9638964fe609d8df400daa11d82685">Ra::Gui::KeyMappingCallbackManager::KeyMappingCallbackManager</a></div><div class="ttdeci">KeyMappingCallbackManager(Context context)</div><div class="ttdef"><b>Definition:</b> <a href="KeyMappingManager_8hpp_source.html#l00323">KeyMappingManager.hpp:323</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1KeyMappingManageable_html"><div class="ttname"><a href="classRa_1_1Gui_1_1KeyMappingManageable.html">Ra::Gui::KeyMappingManageable</a></div><div class="ttdoc">KeyMappingManageable decorator to use as CRTP.</div><div class="ttdef"><b>Definition:</b> <a href="KeyMappingManager_8hpp_source.html#l00239">KeyMappingManager.hpp:240</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1KeyMappingManageable_html_a32756ab3dce798b29ccad350f7c815ec"><div class="ttname"><a href="classRa_1_1Gui_1_1KeyMappingManageable.html#a32756ab3dce798b29ccad350f7c815ec">Ra::Gui::KeyMappingManageable::configureKeyMapping</a></div><div class="ttdeci">static void configureKeyMapping()</div><div class="ttdef"><b>Definition:</b> <a href="KeyMappingManager_8hpp_source.html#l00247">KeyMappingManager.hpp:247</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1KeyMappingManager_1_1EventBinding_html"><div class="ttname"><a href="classRa_1_1Gui_1_1KeyMappingManager_1_1EventBinding.html">Ra::Gui::KeyMappingManager::EventBinding</a></div><div class="ttdoc">Inner class to store event binding.</div><div class="ttdef"><b>Definition:</b> <a href="KeyMappingManager_8hpp_source.html#l00028">KeyMappingManager.hpp:29</a></div></div>
@@ -327,7 +375,7 @@ $(document).ready(function(){initNavTree('KeyMappingManager_8hpp_source.html',''
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b5ac5e964c12a6b13a9d28feb9f3d3ed.html">Gui</a></li><li class="navelem"><a class="el" href="dir_53dbd7b5b1f80ee648ea4591020754f4.html">Utils</a></li><li class="navelem"><b>KeyMappingManager.hpp</b></li>
-    <li class="footer">Generated on Thu Nov 17 2022 06:52:58 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Wed Apr 5 2023 15:07:31 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

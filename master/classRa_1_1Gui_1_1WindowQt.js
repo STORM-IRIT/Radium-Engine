@@ -7,6 +7,7 @@ var classRa_1_1Gui_1_1WindowQt =
     [ "context", "classRa_1_1Gui_1_1WindowQt.html#ad3274b69a7a5d5c36ce74f44a1a5d1de", null ],
     [ "deinitializeGL", "classRa_1_1Gui_1_1WindowQt.html#a38fb78373f325c1cca3b8fab9a44d30c", null ],
     [ "doneCurrent", "classRa_1_1Gui_1_1WindowQt.html#acd31b9e580f049491d13c16ef954d964", null ],
+    [ "dpiChanged", "classRa_1_1Gui_1_1WindowQt.html#a2240cfd87ac929d5c43f95533a902856", null ],
     [ "enterEvent", "classRa_1_1Gui_1_1WindowQt.html#a877eea734becb3be6835688f9023b39c", null ],
     [ "exposeEvent", "classRa_1_1Gui_1_1WindowQt.html#a42ef36929421a865ca2d0424e515292d", null ],
     [ "getProcAddress", "classRa_1_1Gui_1_1WindowQt.html#aac16a1388a3a2f9d0ea1127ea700cafe", null ],

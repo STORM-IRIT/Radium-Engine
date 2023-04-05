@@ -1,7 +1,7 @@
 <map id="Ra::Engine::Scene::Light" name="Ra::Engine::Scene::Light">
-<area shape="rect" id="node1" title=" " alt="" coords="217,439,405,663"/>
-<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Scene_1_1DirectionalLight.html" title=" " alt="" coords="5,791,193,957"/>
-<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Scene_1_1PointLight.html" title=" " alt="" coords="217,769,405,979"/>
-<area shape="rect" id="node5" href="$classRa_1_1Engine_1_1Scene_1_1SpotLight.html" title=" " alt="" coords="429,711,636,1037"/>
-<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Scene_1_1Component.html" title="A component is an element that can be updated by a system. It is also linked to some other components..." alt="" coords="201,5,422,391"/>
+<area shape="rect" id="node1" title=" " alt="" coords="177,439,365,692"/>
+<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Scene_1_1DirectionalLight.html" title=" " alt="" coords="5,821,167,971"/>
+<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Scene_1_1PointLight.html" title=" " alt="" coords="191,799,351,993"/>
+<area shape="rect" id="node5" href="$classRa_1_1Engine_1_1Scene_1_1SpotLight.html" title=" " alt="" coords="376,740,583,1052"/>
+<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Scene_1_1Component.html" title="A component is an element that can be updated by a system. It is also linked to some other components..." alt="" coords="161,5,382,391"/>
 </map>

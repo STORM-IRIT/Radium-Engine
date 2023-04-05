@@ -77,7 +77,7 @@
 <text text-anchor="start" x="8" y="-607.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Data::Shader</text>
 <text text-anchor="middle" x="84" y="-596.5" font-family="Helvetica,sans-Serif" font-size="10.00">ParameterProvider</text>
 <polyline fill="none" stroke="black" points="0,-589.5 168,-589.5 "/>
-<text text-anchor="start" x="8" y="-577.5" font-family="Helvetica,sans-Serif" font-size="10.00"># m_renderParameters</text>
+<text text-anchor="middle" x="84" y="-577.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
 <polyline fill="none" stroke="black" points="0,-570.5 168,-570.5 "/>
 <text text-anchor="start" x="8" y="-558.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ ~ShaderParameterProvider()</text>
 <text text-anchor="start" x="8" y="-547.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getParameters()</text>

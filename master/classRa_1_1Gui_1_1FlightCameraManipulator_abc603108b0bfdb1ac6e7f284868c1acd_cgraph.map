@@ -1,0 +1,7 @@
+<map id="Ra::Gui::FlightCameraManipulator::updateCamera" name="Ra::Gui::FlightCameraManipulator::updateCamera">
+<area shape="rect" id="node1" title=" " alt="" coords="5,104,248,145"/>
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#aec6212574317a5395be2b49c19a90466" title="Return the direction the camera is looking at." alt="" coords="296,5,476,47"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a773a6d2a393cf8ec195afffe2030ed22" title="Return the position." alt="" coords="296,71,476,112"/>
+<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Scene_1_1Light.html#ae0f8f50409ee68466a207b46f6f82fb7" title=" " alt="" coords="313,136,459,177"/>
+<area shape="rect" id="node5" href="$classRa_1_1Engine_1_1Scene_1_1Light.html#aff5fe72f3c665098c2c985a22ed46e6f" title=" " alt="" coords="313,201,459,243"/>
+</map>

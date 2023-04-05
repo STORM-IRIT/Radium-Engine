@@ -52,7 +52,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.4.0</span>
+   &#160;<span id="projectnumber">1.5.0</span>
    </div>
   </td>
  </tr>
@@ -145,7 +145,7 @@ $(document).ready(function(){initNavTree('Volume_8hpp_source.html',''); initResi
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <a class="code" href="classRa_1_1Core_1_1Geometry_1_1AbstractVolume.html">AbstractVolume</a>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1AbstractVolume.html#afd194fa2f9735f2b14668a0ac70b6259">VolumeStorageType</a>&amp; type );</div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;  <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <a class="code" href="classRa_1_1Core_1_1Geometry_1_1AbstractVolume.html">AbstractVolume</a>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1AbstractVolume.html">AbstractVolume</a>&amp; data ) = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <a class="code" href="classRa_1_1Core_1_1Geometry_1_1AbstractVolume.html">AbstractVolume</a>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1AbstractVolume.html">AbstractVolume</a>&amp; data )       = <span class="keywordflow">default</span>;</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <a class="code" href="classRa_1_1Core_1_1Geometry_1_1AbstractVolume.html">AbstractVolume</a>&amp; operator=( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1AbstractVolume.html">AbstractVolume</a>&amp; ) = <span class="keywordflow">default</span>;</div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    ~<a class="code" href="classRa_1_1Core_1_1Geometry_1_1AbstractVolume.html">AbstractVolume</a>()                                  = <span class="keywordflow">default</span>;</div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
@@ -179,7 +179,7 @@ $(document).ready(function(){initNavTree('Volume_8hpp_source.html',''); initResi
 <div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;        <a class="code" href="classRa_1_1Core_1_1Geometry_1_1AbstractVolume.html">AbstractVolume</a>( type ), m_size( IndexType::Zero() ), m_binSize { 1_ra, 1_ra, 1_ra } {}</div>
 <div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160; </div>
 <div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;  <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    <a class="code" href="classRa_1_1Core_1_1Geometry_1_1AbstractDiscreteVolume.html">AbstractDiscreteVolume</a>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1AbstractDiscreteVolume.html">AbstractDiscreteVolume</a>&amp; data ) = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    <a class="code" href="classRa_1_1Core_1_1Geometry_1_1AbstractDiscreteVolume.html">AbstractDiscreteVolume</a>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1AbstractDiscreteVolume.html">AbstractDiscreteVolume</a>&amp; data )       = <span class="keywordflow">default</span>;</div>
 <div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    <a class="code" href="classRa_1_1Core_1_1Geometry_1_1AbstractDiscreteVolume.html">AbstractDiscreteVolume</a>&amp; operator=( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1AbstractDiscreteVolume.html">AbstractDiscreteVolume</a>&amp; ) = <span class="keywordflow">default</span>;</div>
 <div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    ~<a class="code" href="classRa_1_1Core_1_1Geometry_1_1AbstractDiscreteVolume.html">AbstractDiscreteVolume</a>() <span class="keyword">override</span>                                 = <span class="keywordflow">default</span>;</div>
 <div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160; </div>
@@ -251,7 +251,7 @@ $(document).ready(function(){initNavTree('Volume_8hpp_source.html',''); initResi
 <div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;  <span class="keyword">public</span>:</div>
 <div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;    <span class="keyword">inline</span> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1VolumeGrid.html">VolumeGrid</a>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1AbstractVolume.html#a464097665750f5d25a9f5aa40f1ff2e2">ValueType</a>&amp; defaultValue = <a class="code" href="classRa_1_1Core_1_1Geometry_1_1AbstractVolume.html#a464097665750f5d25a9f5aa40f1ff2e2">ValueType</a>( 0. ) ) :</div>
 <div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;        <a class="code" href="classRa_1_1Core_1_1Geometry_1_1AbstractDiscreteVolume.html">AbstractDiscreteVolume</a>( DISCRETE_DENSE ), m_defaultValue( defaultValue ) {}</div>
-<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;    <a class="code" href="classRa_1_1Core_1_1Geometry_1_1VolumeGrid.html">VolumeGrid</a>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1VolumeGrid.html">VolumeGrid</a>&amp; data ) = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;    <a class="code" href="classRa_1_1Core_1_1Geometry_1_1VolumeGrid.html">VolumeGrid</a>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1VolumeGrid.html">VolumeGrid</a>&amp; data )       = <span class="keywordflow">default</span>;</div>
 <div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;    <a class="code" href="classRa_1_1Core_1_1Geometry_1_1VolumeGrid.html">VolumeGrid</a>&amp; operator=( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1VolumeGrid.html">VolumeGrid</a>&amp; ) = <span class="keywordflow">default</span>;</div>
 <div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;    ~<a class="code" href="classRa_1_1Core_1_1Geometry_1_1VolumeGrid.html">VolumeGrid</a>() <span class="keyword">override</span>                     = <span class="keywordflow">default</span>;</div>
 <div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160; </div>
@@ -310,7 +310,7 @@ $(document).ready(function(){initNavTree('Volume_8hpp_source.html',''); initResi
 <div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160; </div>
 <div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;  <span class="keyword">public</span>:</div>
 <div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;    <span class="keyword">inline</span> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1VolumeSparse.html">VolumeSparse</a>() : <a class="code" href="classRa_1_1Core_1_1Geometry_1_1AbstractDiscreteVolume.html">AbstractDiscreteVolume</a>( DISCRETE_SPARSE ) {}</div>
-<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;    <a class="code" href="classRa_1_1Core_1_1Geometry_1_1VolumeSparse.html">VolumeSparse</a>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1VolumeSparse.html">VolumeSparse</a>&amp; data ) = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;    <a class="code" href="classRa_1_1Core_1_1Geometry_1_1VolumeSparse.html">VolumeSparse</a>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1VolumeSparse.html">VolumeSparse</a>&amp; data )       = <span class="keywordflow">default</span>;</div>
 <div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;    <a class="code" href="classRa_1_1Core_1_1Geometry_1_1VolumeSparse.html">VolumeSparse</a>&amp; operator=( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1VolumeSparse.html">VolumeSparse</a>&amp; ) = <span class="keywordflow">default</span>;</div>
 <div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;    ~<a class="code" href="classRa_1_1Core_1_1Geometry_1_1VolumeSparse.html">VolumeSparse</a>() <span class="keyword">override</span>                       = <span class="keywordflow">default</span>;</div>
 <div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160; </div>
@@ -396,7 +396,7 @@ $(document).ready(function(){initNavTree('Volume_8hpp_source.html',''); initResi
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_cb2b5dfd43482fb277f6333d539f1f06.html">Geometry</a></li><li class="navelem"><b>Volume.hpp</b></li>
-    <li class="footer">Generated on Thu Nov 17 2022 06:52:58 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Wed Apr 5 2023 15:07:31 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

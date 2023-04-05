@@ -52,7 +52,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.4.0</span>
+   &#160;<span id="projectnumber">1.5.0</span>
    </div>
   </td>
  </tr>
@@ -139,11 +139,19 @@ $(document).ready(function(){initNavTree('ConstrainedNumericSpinBox_8hpp_source.
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    Predicate m_p = []( T ) { <span class="keywordflow">return</span> <span class="keyword">true</span>; };</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;};</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;} <span class="comment">// namespace Widgets</span></div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;} <span class="comment">// namespace Gui</span></div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;} <span class="comment">// namespace Ra</span></div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="preprocessor">#include &lt;Gui/Widgets/ConstrainedNumericSpinBox.inl&gt;</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;QValidator::State ConstrainedNumericSpinBox&lt;T&gt;::validate( QString&amp; input, <span class="keywordtype">int</span>&amp; )<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keyword">auto</span> valid = this-&gt;isValid( this-&gt;valueFromText( input ) );</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keyword">auto</span>&amp; spin = <span class="keyword">const_cast&lt;</span>ConstrainedNumericSpinBox&amp;<span class="keyword">&gt;</span>( *this );</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    spin.blockSignals( !valid );</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keywordflow">if</span> ( valid ) { spin.setStyleSheet( <span class="stringliteral">&quot;&quot;</span> ); }</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keywordflow">else</span> { spin.setStyleSheet( <span class="stringliteral">&quot;background-color: #FF8080&quot;</span> ); }</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keywordflow">return</span> valid ? QValidator::Acceptable : QValidator::Invalid;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;}</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;} <span class="comment">// namespace Widgets</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;} <span class="comment">// namespace Gui</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;} <span class="comment">// namespace Ra</span></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1Widgets_1_1ConstrainedNumericSpinBox_html"><div class="ttname"><a href="classRa_1_1Gui_1_1Widgets_1_1ConstrainedNumericSpinBox.html">Ra::Gui::Widgets::ConstrainedNumericSpinBox</a></div><div class="ttdoc">Constrained input spin box. The constraint to apply to any input value is verified using the user-def...</div><div class="ttdef"><b>Definition:</b> <a href="ConstrainedNumericSpinBox_8hpp_source.html#l00018">ConstrainedNumericSpinBox.hpp:19</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1Widgets_1_1ConstrainedNumericSpinBox_html_a2daaa94e913343c3be68f959d950aa4b"><div class="ttname"><a href="classRa_1_1Gui_1_1Widgets_1_1ConstrainedNumericSpinBox.html#a2daaa94e913343c3be68f959d950aa4b">Ra::Gui::Widgets::ConstrainedNumericSpinBox::isValid</a></div><div class="ttdeci">bool isValid(T s) const</div><div class="ttdoc">Validate a value.</div><div class="ttdef"><b>Definition:</b> <a href="ConstrainedNumericSpinBox_8hpp_source.html#l00033">ConstrainedNumericSpinBox.hpp:33</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1Widgets_1_1ConstrainedNumericSpinBox_html_a7cfe7440e764899cfa4d021c9b81e55e"><div class="ttname"><a href="classRa_1_1Gui_1_1Widgets_1_1ConstrainedNumericSpinBox.html#a7cfe7440e764899cfa4d021c9b81e55e">Ra::Gui::Widgets::ConstrainedNumericSpinBox::setPredicate</a></div><div class="ttdeci">void setPredicate(Predicate p)</div><div class="ttdoc">Set the predicate to evaluate.</div><div class="ttdef"><b>Definition:</b> <a href="ConstrainedNumericSpinBox_8hpp_source.html#l00027">ConstrainedNumericSpinBox.hpp:27</a></div></div>
@@ -154,7 +162,7 @@ $(document).ready(function(){initNavTree('ConstrainedNumericSpinBox_8hpp_source.
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b5ac5e964c12a6b13a9d28feb9f3d3ed.html">Gui</a></li><li class="navelem"><a class="el" href="dir_9088dbe29f294cb4dc9e14cc47b80268.html">Widgets</a></li><li class="navelem"><b>ConstrainedNumericSpinBox.hpp</b></li>
-    <li class="footer">Generated on Thu Nov 17 2022 06:52:58 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Wed Apr 5 2023 15:07:31 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

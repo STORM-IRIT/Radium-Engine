@@ -52,7 +52,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.4.0</span>
+   &#160;<span id="projectnumber">1.5.0</span>
    </div>
   </td>
  </tr>
@@ -229,33 +229,29 @@ $(document).ready(function(){initNavTree('RenderObjectManager_8cpp_source.html',
 <div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;            if ( ro-&gt;isVisible() &amp;&amp; ro-&gt;getType() == Rendering::RenderObjectType::Geometry ) {</div>
 <div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;                return a + ro-&gt;getMesh()-&gt;getNumFaces();</div>
 <div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;            }</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;            <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;                return a;</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;            }</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;        } );</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    <span class="keywordflow">return</span> result;</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;}</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160; </div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;<span class="keywordtype">size_t</span> RenderObjectManager::getNumVertices()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    <span class="comment">// todo : use reduce instead of accumulate to improve performances (since C++17)</span></div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    <span class="keywordtype">size_t</span> result = std::accumulate(</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;        m_renderObjects.begin(),</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;        m_renderObjects.end(),</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;        <span class="keywordtype">size_t</span>( 0 ),</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;        []( <span class="keywordtype">size_t</span> a, <span class="keyword">const</span> std::shared_ptr&lt;Rendering::RenderObject&gt;&amp; ro ) -&gt; <span class="keywordtype">size_t</span> {</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;            if ( ro-&gt;isVisible() &amp;&amp; ro-&gt;getType() == Rendering::RenderObjectType::Geometry ) {</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;                return a + ro-&gt;getMesh()-&gt;getNumVertices();</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;            }</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;            <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;                return a;</div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;            }</div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;        } );</div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;    <span class="keywordflow">return</span> result;</div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;}</div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160; </div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;} <span class="comment">// namespace Rendering</span></div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;} <span class="comment">// namespace Engine</span></div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;} <span class="comment">// namespace Ra</span></div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;            <span class="keywordflow">else</span> { return a; }</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;        } );</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    <span class="keywordflow">return</span> result;</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;}</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160; </div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;<span class="keywordtype">size_t</span> RenderObjectManager::getNumVertices()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    <span class="comment">// todo : use reduce instead of accumulate to improve performances (since C++17)</span></div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    <span class="keywordtype">size_t</span> result = std::accumulate(</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;        m_renderObjects.begin(),</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;        m_renderObjects.end(),</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;        <span class="keywordtype">size_t</span>( 0 ),</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;        []( <span class="keywordtype">size_t</span> a, <span class="keyword">const</span> std::shared_ptr&lt;Rendering::RenderObject&gt;&amp; ro ) -&gt; <span class="keywordtype">size_t</span> {</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;            if ( ro-&gt;isVisible() &amp;&amp; ro-&gt;getType() == Rendering::RenderObjectType::Geometry ) {</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;                return a + ro-&gt;getMesh()-&gt;getNumVertices();</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;            }</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;            <span class="keywordflow">else</span> { return a; }</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;        } );</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    <span class="keywordflow">return</span> result;</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;}</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160; </div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;} <span class="comment">// namespace Rendering</span></div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;} <span class="comment">// namespace Engine</span></div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;} <span class="comment">// namespace Ra</span></div>
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdef"><b>Definition:</b> <a href="Cage_8cpp_source.html#l00003">Cage.cpp:3</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
@@ -263,7 +259,7 @@ $(document).ready(function(){initNavTree('RenderObjectManager_8cpp_source.html',
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_6b51c25a1fae8ca1123814c12a4ebb69.html">Rendering</a></li><li class="navelem"><b>RenderObjectManager.cpp</b></li>
-    <li class="footer">Generated on Thu Nov 17 2022 06:52:58 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Wed Apr 5 2023 15:07:31 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

@@ -52,7 +52,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.4.0</span>
+   &#160;<span id="projectnumber">1.5.0</span>
    </div>
   </td>
  </tr>
@@ -113,6 +113,10 @@ $(document).ready(function(){initNavTree('todo.html',''); initResizable(); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><dl class="reflist">
+<dt>Page <a class="el" href="io.html">[TODO] IO</a>  </dt>
+<dd><a class="anchor" id="_todo000001"></a>write IO doc </dd>
+<dt>Page <a class="el" href="pluginSystem.html">Plugin System</a>  </dt>
+<dd><a class="anchor" id="_todo000005"></a>check and update  </dd>
 <dt>Page <a class="el" href="develmeshes.html">3D objects (a.k.a. Meshes)</a>  </dt>
 <dd><p class="startdd"><a class="anchor" id="_todo000007"></a>will be supported when TopologicalMesh will support PolyMesh.</p>
 <p class="enddd"><a class="anchor" id="_todo000008"></a>make OpenMesh inheritance private. </p>
@@ -123,14 +127,10 @@ $(document).ready(function(){initNavTree('todo.html',''); initResizable(); });
 <dd><a class="anchor" id="_todo000004"></a>check and update  </dd>
 <dt>Page <a class="el" href="develoldmanual.html">[deprecated] Radium Engine programmer manual</a>  </dt>
 <dd><a class="anchor" id="_todo000009"></a>pick relevant part, update and move to corresponding page  </dd>
-<dt>Page <a class="el" href="io.html">[TODO] IO</a>  </dt>
-<dd><a class="anchor" id="_todo000001"></a>write IO doc </dd>
 <dt>Page <a class="el" href="apps.html">How to write your own application</a>  </dt>
 <dd><a class="anchor" id="_todo000002"></a>write application dev doc, merging ExampleApp and Apps docs. </dd>
 <dt>Page <a class="el" href="develmaterials.html">Material management</a>  </dt>
 <dd><a class="anchor" id="_todo000006"></a>update snippets that are not available anymore. </dd>
-<dt>Page <a class="el" href="pluginSystem.html">Plugin System</a>  </dt>
-<dd><a class="anchor" id="_todo000005"></a>check and update  </dd>
 <dt>Member <a class="el" href="classRa_1_1Core_1_1Animation_1_1Skeleton.html#a330f9262f3ad5310075b1940c34c778f">Ra::Core::Animation::Skeleton::Manipulation</a>  </dt>
 <dd><a class="anchor" id="_todo000010"></a>also implement Inverse Kynematics.  </dd>
 <dt>Member <a class="el" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#afb7540bb4cee8ad41bcb15d1dcb118a6">Ra::Core::Geometry::AttribArrayGeometry::vertexAttribs</a>  ()</dt>
@@ -146,17 +146,19 @@ $(document).ready(function(){initNavTree('todo.html',''); initResizable(); });
 <p class="enddd">private inheritance from OpenMesh, and import relevant methods.  </p>
 </dd>
 <dt>Member <a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a1033110c07441d966daf913a867e9d42">Ra::Core::Geometry::TopologicalMesh::initWithWedge</a>  (const <a class="el" href="classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html" title="AbstractGeometry with per-vertex attributes and layers of indices. Each layer represents a different ...">Ra::Core::Geometry::MultiIndexedGeometry</a> &amp;mesh, const Ra::Core::Geometry::MultiIndexedGeometry::LayerKeyType &amp;layerKey, NonManifoldFaceCommand command)</dt>
-<dd><a class="anchor" id="_todo000023"></a>and "cross face ?"  </dd>
-<dt>Member <a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#ad1ebb35d31eba0e3cb275a4e3bbe2ee9">Ra::Core::Geometry::TopologicalMesh::TopologicalMesh</a>  (const <a class="el" href="classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html" title="AbstractGeometry with per-vertex attributes and layers of indices. Each layer represents a different ...">Ra::Core::Geometry::MultiIndexedGeometry</a> &amp;mesh, const Ra::Core::Geometry::MultiIndexedGeometry::LayerKeyType &amp;layerKey)</dt>
-<dd><a class="anchor" id="_todo000016"></a>, when <a class="el" href="classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html" title="AbstractGeometry with per-vertex attributes and layers of indices. Each layer represents a different ...">MultiIndexedGeometry</a> will be operational, will this replace the above ?  </dd>
+<dd><a class="anchor" id="_todo000016"></a>and "cross face ?"  </dd>
 <dt>Member <a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a8bea9416aacbef66d2a42a83a81f5857">Ra::Core::Geometry::TopologicalMesh::TopologicalMesh</a>  (const <a class="el" href="classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html" title="AbstractGeometry with per-vertex attributes and layers of indices. Each layer represents a different ...">Ra::Core::Geometry::MultiIndexedGeometry</a> &amp;mesh, const Ra::Core::Geometry::MultiIndexedGeometry::LayerKeyType &amp;layerKey, NonManifoldFaceCommand command)</dt>
-<dd><a class="anchor" id="_todo000017"></a>, when <a class="el" href="classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html" title="AbstractGeometry with per-vertex attributes and layers of indices. Each layer represents a different ...">MultiIndexedGeometry</a> will be operational, will this replace the above ? </dd>
+<dd><a class="anchor" id="_todo000018"></a>, when <a class="el" href="classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html" title="AbstractGeometry with per-vertex attributes and layers of indices. Each layer represents a different ...">MultiIndexedGeometry</a> will be operational, will this replace the above ? </dd>
+<dt>Member <a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#ad1ebb35d31eba0e3cb275a4e3bbe2ee9">Ra::Core::Geometry::TopologicalMesh::TopologicalMesh</a>  (const <a class="el" href="classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html" title="AbstractGeometry with per-vertex attributes and layers of indices. Each layer represents a different ...">Ra::Core::Geometry::MultiIndexedGeometry</a> &amp;mesh, const Ra::Core::Geometry::MultiIndexedGeometry::LayerKeyType &amp;layerKey)</dt>
+<dd><a class="anchor" id="_todo000017"></a>, when <a class="el" href="classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html" title="AbstractGeometry with per-vertex attributes and layers of indices. Each layer represents a different ...">MultiIndexedGeometry</a> will be operational, will this replace the above ?  </dd>
+<dt>Member <a class="el" href="namespaceRa_1_1Core_1_1Math.html#a4f441ac6a56092d52849a4f48e274aa8">Ra::Core::Math::cos</a>  (const Vector_ &amp;v1, const Vector_ &amp;v2)</dt>
+<dd><a class="anchor" id="_todo000025"></a>use dot instead  </dd>
 <dt>Member <a class="el" href="classRa_1_1Core_1_1Utils_1_1AttribManager.html#a406dc2c2d82a535130d7af3c388c7f8f">Ra::Core::Utils::AttribManager::copyAllAttributes</a>  (const <a class="el" href="classRa_1_1Core_1_1Utils_1_1AttribManager.html" title="The AttribManager provides attributes management by handles.">AttribManager</a> &amp;m)</dt>
 <dd><a class="anchor" id="_todo000026"></a>allow to copy all attributes, even those with non-standard type  </dd>
 <dt>Class <a class="el" href="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html">Ra::Engine::Data::BlinnPhongMaterial</a>  </dt>
 <dd><a class="anchor" id="_todo000028"></a>due to "Material.glsl" interface modification, must test this version with all plugins, apps, ... that uses Radium Renderer  </dd>
 <dt>Member <a class="el" href="classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html#a99500dff926ac595781cfb4d2b1340c1">Ra::Engine::Data::CoreGeometryDisplayable&lt; T &gt;::loadGeometry</a>  (CoreGeometry &amp;&amp;mesh)</dt>
-<dd><a class="anchor" id="_todo000044"></a>add observer mecanism for indices.  </dd>
+<dd><a class="anchor" id="_todo000047"></a>add observer mecanism for indices.  </dd>
 <dt>Member <a class="el" href="classRa_1_1Engine_1_1Data_1_1Displayable.html#adf6f87ad353e84d1f6fd5a145e4fbd3d">Ra::Engine::Data::Displayable::getAbstractGeometry</a>  () const =0</dt>
 <dd><a class="anchor" id="_todo000029"></a>not sure the displayable must have an abstract geometry ...  </dd>
 <dt>Member <a class="el" href="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#ab40bb69cc65f3770694a317f95b66606">Ra::Engine::Data::DrawPrimitives::Circle</a>  (const Core::Vector3 &amp;center, const Core::Vector3 &amp;normal, Scalar radius, uint segments, const Core::Utils::Color &amp;color)</dt>
@@ -180,109 +182,105 @@ $(document).ready(function(){initNavTree('todo.html',''); initResizable(); });
 <dt>Class <a class="el" href="classRa_1_1Engine_1_1Data_1_1MultiIndexedGeometry.html">Ra::Engine::Data::MultiIndexedGeometry&lt; T &gt;</a>  </dt>
 <dd><a class="anchor" id="_todo000039"></a>Work in progress.  </dd>
 <dt>Member <a class="el" href="classRa_1_1Engine_1_1Data_1_1MultiIndexedGeometry.html#a3b1eaaa4eb3aa2415c543ad1c1a8d899">Ra::Engine::Data::MultiIndexedGeometry&lt; T &gt;::loadGeometry</a>  (T &amp;&amp;mesh) override</dt>
-<dd><a class="anchor" id="_todo000045"></a>HERE  </dd>
+<dd><a class="anchor" id="_todo000041"></a>HERE  </dd>
 <dt>Member <a class="el" href="classRa_1_1Engine_1_1Data_1_1MultiIndexedGeometry.html#a2251ff2a6090b3445be31e80cc2bb090">Ra::Engine::Data::MultiIndexedGeometry&lt; T &gt;::render</a>  (const <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderProgram.html">ShaderProgram</a> *prog) override</dt>
-<dd><a class="anchor" id="_todo000047"></a>implement !  </dd>
+<dd><a class="anchor" id="_todo000043"></a>implement !  </dd>
 <dt>Member <a class="el" href="classRa_1_1Engine_1_1Data_1_1MultiIndexedGeometry.html#a177e6e3d7a533ae30f08fde0abd512ce">Ra::Engine::Data::MultiIndexedGeometry&lt; T &gt;::updateGL_specific_impl</a>  () override</dt>
-<dd><a class="anchor" id="_todo000046"></a>implement !  </dd>
-<dt>Member <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a39e3dcd23c719f64e23af39ce94cc481">Ra::Engine::Data::RenderParameters::IntParameter</a>  </dt>
-<dd><a class="anchor" id="_todo000049"></a>use array of parameter to templated uniform, as in globjects ? <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1Parameter.html">Parameter</a> of type int  </dd>
-<dt>Class <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters_1_1Parameter.html">Ra::Engine::Data::RenderParameters::Parameter</a>  </dt>
-<dd><a class="anchor" id="_todo000048"></a>use globjects Uniform directly (which seems to correspond to the same data/purpose, even if not well documented  </dd>
+<dd><a class="anchor" id="_todo000042"></a>implement !  </dd>
 <dt>Class <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderConfiguration.html">Ra::Engine::Data::ShaderConfiguration</a>  </dt>
-<dd><a class="anchor" id="_todo000052"></a>: make configuration and program (in the OpenGL sense) be packed. A shader configuration might contains a <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderProgram.html">ShaderProgram</a> after compiling. This will remove the need for <a class="el" href="namespaceRa_1_1Engine_1_1Data_1_1ShaderConfigurationFactory.html">ShaderConfigurationFactory</a> as ShaderManager will offer the same services. Actually, there is redundancy between <a class="el" href="namespaceRa_1_1Engine_1_1Data_1_1ShaderConfigurationFactory.html">ShaderConfigurationFactory</a> and <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderProgramManager.html">ShaderProgramManager</a> </dd>
+<dd><a class="anchor" id="_todo000049"></a>: make configuration and program (in the OpenGL sense) be packed. A shader configuration might contains a <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderProgram.html">ShaderProgram</a> after compiling. This will remove the need for <a class="el" href="namespaceRa_1_1Engine_1_1Data_1_1ShaderConfigurationFactory.html">ShaderConfigurationFactory</a> as ShaderManager will offer the same services. Actually, there is redundancy between <a class="el" href="namespaceRa_1_1Engine_1_1Data_1_1ShaderConfigurationFactory.html">ShaderConfigurationFactory</a> and <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderProgramManager.html">ShaderProgramManager</a> </dd>
 <dt>Member <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html#ae73e4271a8d07ae0eab25782831814ee">Ra::Engine::Data::ShaderParameterProvider::getPropertyList</a>  () const</dt>
-<dd><a class="anchor" id="_todo000051"></a>: Validate this proposal  </dd>
+<dd><a class="anchor" id="_todo000048"></a>: Validate this proposal  </dd>
 <dt>Member <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderProgram.html#a441bbb8fa43a2463b420adfc58b5abfa">Ra::Engine::Data::ShaderProgram::addShaderFromSource</a>  (Data::ShaderType type, std::unique_ptr&lt; globjects::StaticStringSource &gt; &amp;&amp;source, const std::string &amp;name="", bool fromFile=true)</dt>
-<dd><a class="anchor" id="_todo000054"></a>go private, and update <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderConfiguration.html">ShaderConfiguration</a> to add from source !  </dd>
+<dd><a class="anchor" id="_todo000051"></a>go private, and update <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderConfiguration.html">ShaderConfiguration</a> to add from source !  </dd>
 <dt>Member <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderProgram.html#a9fff20f7ebfea506191d9cc23775d436">Ra::Engine::Data::ShaderProgram::link</a>  ()</dt>
-<dd><a class="anchor" id="_todo000053"></a>add other sampler type (or manage all type of sampler automatically)  </dd>
+<dd><a class="anchor" id="_todo000050"></a>add other sampler type (or manage all type of sampler automatically)  </dd>
 <dt>Member <a class="el" href="classRa_1_1Engine_1_1Data_1_1SimpleMaterial.html#af42767eb5f9fb9e8b28eeeb86a11244b">Ra::Engine::Data::SimpleMaterial::m_perVertexColor</a>  </dt>
-<dd><a class="anchor" id="_todo000055"></a>make this private ?  </dd>
+<dd><a class="anchor" id="_todo000052"></a>make this private ?  </dd>
 <dt>Class <a class="el" href="classRa_1_1Engine_1_1Data_1_1TextureManager.html">Ra::Engine::Data::TextureManager</a>  </dt>
-<dd><a class="anchor" id="_todo000057"></a>(for Radium-V2) Allow to share the same image data between different instances of a texture. Instances could be differentiated by the sampler parameter and the mip-map availability.  </dd>
+<dd><a class="anchor" id="_todo000054"></a>(for Radium-V2) Allow to share the same image data between different instances of a texture. Instances could be differentiated by the sampler parameter and the mip-map availability.  </dd>
 <dt>Member <a class="el" href="classRa_1_1Engine_1_1Data_1_1TextureManager.html#ad923cc8938311f581488d517c913f719">Ra::Engine::Data::TextureManager::updatePendingTextures</a>  ()</dt>
-<dd><a class="anchor" id="_todo000058"></a>find a better name and description for this method that do not act on <em>pending textures</em>, i.e. textures that do not have a valid OpenGl state.  </dd>
+<dd><a class="anchor" id="_todo000055"></a>find a better name and description for this method that do not act on <em>pending textures</em>, i.e. textures that do not have a valid OpenGl state.  </dd>
 <dt>Member <a class="el" href="structRa_1_1Engine_1_1Data_1_1TextureParameters.html#afb54a5b8e666a06b4d8ffbdf1b850c42">Ra::Engine::Data::TextureParameters::texels</a>  </dt>
-<dd><a class="anchor" id="_todo000056"></a>memory allocated for this pointer might be lost at texture deletion as ownership is unclear.  </dd>
+<dd><a class="anchor" id="_todo000053"></a>memory allocated for this pointer might be lost at texture deletion as ownership is unclear.  </dd>
 <dt>Class <a class="el" href="classRa_1_1Engine_1_1Data_1_1VaoIndices_1_1IndicesObserver.html">Ra::Engine::Data::VaoIndices::IndicesObserver</a>  </dt>
-<dd><a class="anchor" id="_todo000043"></a>Add test for Indices observer  </dd>
+<dd><a class="anchor" id="_todo000046"></a>Add test for Indices observer  </dd>
 <dt>Class <a class="el" href="classRa_1_1Engine_1_1Data_1_1VolumeObject.html">Ra::Engine::Data::VolumeObject</a>  </dt>
-<dd><a class="anchor" id="_todo000059"></a>Right now, a volumeObject define both the geometry (a parallelepiped) and the material (a density grid) This should be modified to handle density grids deleimited by a general geometry.  </dd>
+<dd><a class="anchor" id="_todo000056"></a>Right now, a volumeObject define both the geometry (a parallelepiped) and the material (a density grid) This should be modified to handle density grids deleimited by a general geometry.  </dd>
 <dt>Class <a class="el" href="classRa_1_1Engine_1_1Data_1_1VolumetricMaterial.html">Ra::Engine::Data::VolumetricMaterial</a>  </dt>
-<dd><a class="anchor" id="_todo000060"></a>This material does not implement the MaterialGLSL interface. Shader compositing is not allowed.  </dd>
+<dd><a class="anchor" id="_todo000057"></a>This material does not implement the MaterialGLSL interface. Shader compositing is not allowed.  </dd>
 <dt>Class <a class="el" href="classRa_1_1Engine_1_1Rendering_1_1DebugRender.html">Ra::Engine::Rendering::DebugRender</a>  </dt>
-<dd><a class="anchor" id="_todo000065"></a>: port this to a more Radium-style code  </dd>
+<dd><a class="anchor" id="_todo000062"></a>: port this to a more Radium-style code  </dd>
 <dt>Member <a class="el" href="classRa_1_1Engine_1_1Rendering_1_1DebugRender.html#a5d06a13c964ff2878123eb3855319ebf">Ra::Engine::Rendering::DebugRender::initialize</a>  ()</dt>
-<dd><a class="anchor" id="_todo000062"></a>FIXED but not tested  </dd>
+<dd><a class="anchor" id="_todo000059"></a>FIXED but not tested  </dd>
 <dt>Member <a class="el" href="classRa_1_1Engine_1_1Rendering_1_1ForwardRenderer.html#a2f9c6987afaf3e8c7d250efffe4d1109">Ra::Engine::Rendering::ForwardRenderer::renderInternal</a>  (const <a class="el" href="structRa_1_1Engine_1_1Data_1_1ViewingParameters.html" title="the set of viewing parameters extracted from the camera and given to the renderer">Data::ViewingParameters</a> &amp;renderData) override</dt>
-<dd><p class="startdd"><a class="anchor" id="_todo000067"></a>use globjects. </p>
-<p class="enddd"><a class="anchor" id="_todo000066"></a>make offset relative to wireframe line width  </p>
+<dd><p class="startdd"><a class="anchor" id="_todo000064"></a>use globjects. </p>
+<p class="enddd"><a class="anchor" id="_todo000063"></a>make offset relative to wireframe line width  </p>
 </dd>
 <dt>Member <a class="el" href="classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a2036f1562342dcf9837705e41fa51145">Ra::Engine::Rendering::Renderer::doPickingNow</a>  (const <a class="el" href="structRa_1_1Engine_1_1Rendering_1_1Renderer_1_1PickingQuery.html">PickingQuery</a> &amp;query, const <a class="el" href="structRa_1_1Engine_1_1Data_1_1ViewingParameters.html" title="the set of viewing parameters extracted from the camera and given to the renderer">Data::ViewingParameters</a> &amp;renderData)</dt>
-<dd><a class="anchor" id="_todo000068"></a>Fixup prepare picking to take pixel position and rendering window, and read depth in it.  </dd>
+<dd><a class="anchor" id="_todo000065"></a>Fixup prepare picking to take pixel position and rendering window, and read depth in it.  </dd>
 <dt>Member <a class="el" href="classRa_1_1Engine_1_1Rendering_1_1Renderer_1_1PickingResult.html#a05e94a878ff10059a17c89b24e5ddd2b">Ra::Engine::Rendering::Renderer::PickingResult::getDepth</a>  () const</dt>
-<dd><p class="startdd"><a class="anchor" id="_todo000070"></a>fixup for all picking query, </p>
+<dd><p class="startdd"><a class="anchor" id="_todo000067"></a>fixup for all picking query, </p>
 <p class="enddd">improve picking.  </p>
 </dd>
 <dt>Class <a class="el" href="classRa_1_1Engine_1_1Scene_1_1CameraComponent.html">Ra::Engine::Scene::CameraComponent</a>  </dt>
-<dd><a class="anchor" id="_todo000071"></a>attached camera do not take entity's transformation into account. This prevents, for now, keyframed animation of the Camera from its entity ...  </dd>
+<dd><a class="anchor" id="_todo000068"></a>attached camera do not take entity's transformation into account. This prevents, for now, keyframed animation of the Camera from its entity ...  </dd>
 <dt>Class <a class="el" href="structRa_1_1Engine_1_1Scene_1_1Light_1_1Attenuation.html">Ra::Engine::Scene::Light::Attenuation</a>  </dt>
-<dd><a class="anchor" id="_todo000075"></a>for the moment, the attenuation is non physically coherent. make attenuation be quadratic by default  </dd>
-<dt>Member <a class="el" href="classRa_1_1Engine_1_1Scene_1_1Light.html#a52e3749e54468d1b5de68ac8bf3bbf02">Ra::Engine::Scene::Light::LightType</a>  </dt>
-<dd><a class="anchor" id="_todo000074"></a>: replace this enum by something extensible as we plan to add new light type by plugins  </dd>
+<dd><a class="anchor" id="_todo000072"></a>for the moment, the attenuation is non physically coherent. make attenuation be quadratic by default  </dd>
+<dt>Member <a class="el" href="classRa_1_1Engine_1_1Scene_1_1Light.html#a40d22e08565ff77804e68e43b8a97bbc">Ra::Engine::Scene::Light::LightType</a>  </dt>
+<dd><a class="anchor" id="_todo000071"></a>: replace this enum by something extensible as we plan to add new light type by plugins  </dd>
 <dt>Member <a class="el" href="classRa_1_1Engine_1_1Scene_1_1Light.html#ae0f8f50409ee68466a207b46f6f82fb7">Ra::Engine::Scene::Light::setDirection</a>  (const Eigen::Matrix&lt; Scalar, 3, 1 &gt; &amp;)</dt>
-<dd><a class="anchor" id="_todo000076"></a>put this only on directional and spot light sources  </dd>
+<dd><a class="anchor" id="_todo000073"></a>put this only on directional and spot light sources  </dd>
 <dt>Member <a class="el" href="classRa_1_1Engine_1_1Scene_1_1Light.html#aff5fe72f3c665098c2c985a22ed46e6f">Ra::Engine::Scene::Light::setPosition</a>  (const Eigen::Matrix&lt; Scalar, 3, 1 &gt; &amp;)</dt>
-<dd><a class="anchor" id="_todo000077"></a>put this only on point and spot light sources  </dd>
+<dd><a class="anchor" id="_todo000074"></a>put this only on point and spot light sources  </dd>
 <dt>Class <a class="el" href="classRa_1_1Engine_1_1Scene_1_1PointCloudComponent.html">Ra::Engine::Scene::PointCloudComponent</a>  </dt>
-<dd><a class="anchor" id="_todo000073"></a>doc.  </dd>
+<dd><a class="anchor" id="_todo000070"></a>doc.  </dd>
 <dt>Member <a class="el" href="classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html#a6d5edec13e1d25cd2dd60151b41ef5cc">Ra::Engine::Scene::SkeletonComponent::setXray</a>  (bool on) const</dt>
-<dd><a class="anchor" id="_todo000078"></a>the way skeletons will be displayed will be changed.  </dd>
+<dd><a class="anchor" id="_todo000075"></a>the way skeletons will be displayed will be changed.  </dd>
 <dt>Member <a class="el" href="classRa_1_1Gui_1_1BaseApplication.html#a206dc5c82ced974ba84956de4cb8cd26">Ra::Gui::BaseApplication::BaseApplication</a>  (int &amp;argc, char **argv, QString applicationName="RadiumEngine", QString organizationName="STORM-IRIT")</dt>
-<dd><a class="anchor" id="_todo000079"></a>check optional  </dd>
+<dd><a class="anchor" id="_todo000076"></a>check optional  </dd>
 <dt>Member <a class="el" href="classRa_1_1Gui_1_1BaseApplication.html#abc645d784bfc19bf1bd68d041da50a9e">Ra::Gui::BaseApplication::editSettings</a>  ()</dt>
-<dd><a class="anchor" id="_todo000083"></a>implement the editor  </dd>
+<dd><a class="anchor" id="_todo000080"></a>implement the editor  </dd>
 <dt>Member <a class="el" href="classRa_1_1Gui_1_1BaseApplication.html#a8bcb4912dc4edb9e7c3a05f9697dfc5e">Ra::Gui::BaseApplication::initialize</a>  (const WindowFactory &amp;factory, const glbinding::Version &amp;glVersion={ 4, 1 })</dt>
-<dd><p class="startdd"><a class="anchor" id="_todo000082"></a>allow the user to ask for some "standard" systems to be added to the initialized Engine. </p>
-<p class="enddd"><a class="anchor" id="_todo000080"></a>Code updated wrt camera manager, TEST IT !  </p>
+<dd><p class="startdd"><a class="anchor" id="_todo000077"></a>Code updated wrt camera manager, TEST IT ! </p>
+<p class="enddd"><a class="anchor" id="_todo000079"></a>allow the user to ask for some "standard" systems to be added to the initialized Engine.  </p>
 </dd>
 <dt>Member <a class="el" href="classRa_1_1Gui_1_1BaseApplication.html#a395de709a6de437639db84c60a17b059">Ra::Gui::BaseApplication::radiumFrame</a>  ()</dt>
-<dd><a class="anchor" id="_todo000081"></a>make rendering one gpu task.  </dd>
+<dd><a class="anchor" id="_todo000078"></a>make rendering one gpu task.  </dd>
 <dt>Member <a class="el" href="classRa_1_1Gui_1_1FlightCameraManipulator.html#a214bf6bbfc4e9b4b05a5a6727cf9e671">Ra::Gui::FlightCameraManipulator::handleWheelEvent</a>  (QWheelEvent *event, const Qt::MouseButtons &amp;buttons, const Qt::KeyboardModifiers &amp;modifiers, int key) override</dt>
-<dd><a class="anchor" id="_todo000088"></a>use action.  </dd>
+<dd><a class="anchor" id="_todo000085"></a>use action.  </dd>
 <dt>Class <a class="el" href="classRa_1_1Gui_1_1Gizmo.html">Ra::Gui::Gizmo</a>  </dt>
-<dd><a class="anchor" id="_todo000089"></a>There is a lot of duplicated code shared between the different Gizmos (rotate, translate, scale). This is due to the fact that they all have Render Objects in xyz directions, and which can be selected with the same logic. An alternative would be to have an intermediate class , e.g. <code>XYZGizmo</code> which performs all the generic operations (e.g. render object coloring in <a class="el" href="classRa_1_1Gui_1_1Gizmo.html#a6ad53eca5654b426a0b467ab716a2704" title="Called when one of the drawables of the gizmo has been selected.">selectConstraint</a> and <a class="el" href="classRa_1_1Gui_1_1Gizmo.html#ae5548219f2292a8da641c857ae698d8f">mouseMove</a>).  </dd>
+<dd><a class="anchor" id="_todo000086"></a>There is a lot of duplicated code shared between the different Gizmos (rotate, translate, scale). This is due to the fact that they all have Render Objects in xyz directions, and which can be selected with the same logic. An alternative would be to have an intermediate class , e.g. <code>XYZGizmo</code> which performs all the generic operations (e.g. render object coloring in <a class="el" href="classRa_1_1Gui_1_1Gizmo.html#a6ad53eca5654b426a0b467ab716a2704" title="Called when one of the drawables of the gizmo has been selected.">selectConstraint</a> and <a class="el" href="classRa_1_1Gui_1_1Gizmo.html#ae5548219f2292a8da641c857ae698d8f">mouseMove</a>).  </dd>
 <dt>Member <a class="el" href="classRa_1_1Gui_1_1GizmoManager.html#a5c2e1214324db2600d7c4e9d9e6145d8">Ra::Gui::GizmoManager::handleMouseMoveEvent</a>  (QMouseEvent *event, const Qt::MouseButtons &amp;buttons, const Qt::KeyboardModifiers &amp;modifiers, int key, const <a class="el" href="classRa_1_1Core_1_1Asset_1_1Camera.html" title="Camera class storing the Camera frame and the projection properties The view direction is -z in camer...">Core::Asset::Camera</a> &amp;cam)</dt>
-<dd><a class="anchor" id="_todo000091"></a>what about if someone start a motion with a key, and then release it while moving the mouse ?  </dd>
+<dd><a class="anchor" id="_todo000088"></a>what about if someone start a motion with a key, and then release it while moving the mouse ?  </dd>
 <dt>Member <a class="el" href="classRa_1_1Gui_1_1TimelineScrollArea.html#a95371ce8b334da3e792663d9f7f48e84">Ra::Gui::TimelineScrollArea::stepChanged</a>  (Scalar step)</dt>
-<dd><a class="anchor" id="_todo000084"></a>use keymapping manager here Emitted when zoomed in/out or resized.  </dd>
+<dd><a class="anchor" id="_todo000081"></a>use keymapping manager here Emitted when zoomed in/out or resized.  </dd>
 <dt>Member <a class="el" href="classRa_1_1Gui_1_1TrackballCameraManipulator.html#a8a75d252e06bcec380a3ac7354a1febd">Ra::Gui::TrackballCameraManipulator::resetCamera</a>  () override</dt>
-<dd><a class="anchor" id="_todo000092"></a>get rid of these light stuff  </dd>
+<dd><a class="anchor" id="_todo000089"></a>get rid of these light stuff  </dd>
 <dt>Member <a class="el" href="classRa_1_1Gui_1_1Viewer.html#af99c80d12a451e71c935f28987d93c77">Ra::Gui::Viewer::handleMousePressEvent</a>  (QMouseEvent *event, <a class="el" href="classRa_1_1Engine_1_1Rendering_1_1Renderer_1_1PickingResult.html" title="Result of a PickingQuery.">Ra::Engine::Rendering::Renderer::PickingResult</a> &amp;result)</dt>
-<dd><a class="anchor" id="_todo000095"></a>something like explained here if under mouse objects grabs the action, just send it to the object so we need to have something like grabber = renderobject(ro id)-&gt;getMouseManipulator if(grabber &amp;&amp; grabber-&gt;handleEvent(event, buttons, modifiers, key){ context = grabber-&gt;getContext currentGrabber = grabber (we need to store it for mouse move)  </dd>
+<dd><a class="anchor" id="_todo000092"></a>something like explained here if under mouse objects grabs the action, just send it to the object so we need to have something like grabber = renderobject(ro id)-&gt;getMouseManipulator if(grabber &amp;&amp; grabber-&gt;handleEvent(event, buttons, modifiers, key){ context = grabber-&gt;getContext currentGrabber = grabber (we need to store it for mouse move)  </dd>
 <dt>Member <a class="el" href="classRa_1_1Gui_1_1Viewer.html#a61128f2f8e5b13fbcaa5d4e30db3b7e8">Ra::Gui::Viewer::m_renderers</a>  </dt>
-<dd><a class="anchor" id="_todo000099"></a>make the following private: Owning pointer to the renderers.  </dd>
+<dd><a class="anchor" id="_todo000096"></a>make the following private: Owning pointer to the renderers.  </dd>
 <dt>Member <a class="el" href="classRa_1_1Gui_1_1Viewer.html#a78e290eb25f91ffbc7dbd0c58d8b9ca6">Ra::Gui::Viewer::mouseMoveEvent</a>  (QMouseEvent *event) override</dt>
-<dd><a class="anchor" id="_todo000097"></a>propagateToParent  </dd>
+<dd><a class="anchor" id="_todo000094"></a>propagateToParent  </dd>
 <dt>Member <a class="el" href="classRa_1_1Gui_1_1Viewer.html#a3f65773027030ac179e755dfc3454121">Ra::Gui::Viewer::mouseReleaseEvent</a>  (QMouseEvent *event) override</dt>
-<dd><a class="anchor" id="_todo000096"></a>propagateToParent  </dd>
+<dd><a class="anchor" id="_todo000093"></a>propagateToParent  </dd>
 <dt>Member <a class="el" href="classRa_1_1Gui_1_1Viewer.html#a0bc8019968c23fd6ca0d1c27c0d6ec0d">Ra::Gui::Viewer::startRendering</a>  (const Scalar dt)</dt>
-<dd><a class="anchor" id="_todo000094"></a>FIXME : move this outside of the rendering loop. must be done once per renderer ... if there is no light on the renderer, add the head light attached to the camera ...  </dd>
+<dd><a class="anchor" id="_todo000091"></a>FIXME : move this outside of the rendering loop. must be done once per renderer ... if there is no light on the renderer, add the head light attached to the camera ...  </dd>
 <dt>Member <a class="el" href="classRa_1_1Gui_1_1Viewer.html#ac15a6f178cfdcbfbfccaba8959973463">Ra::Gui::Viewer::wheelEvent</a>  (QWheelEvent *event) override</dt>
-<dd><a class="anchor" id="_todo000098"></a>propagateToParent  </dd>
+<dd><a class="anchor" id="_todo000095"></a>propagateToParent  </dd>
 <dt>Member <a class="el" href="classRa_1_1IO_1_1AssimpCameraDataLoader.html#aab27026f441da977af1f268d367a158d">Ra::IO::AssimpCameraDataLoader::loadData</a>  (const aiScene *scene, std::vector&lt; std::unique_ptr&lt; Core::Asset::Camera &gt;&gt; &amp;data) override</dt>
-<dd><a class="anchor" id="_todo000100"></a>process camera name to feed component name  </dd>
+<dd><a class="anchor" id="_todo000097"></a>process camera name to feed component name  </dd>
 <dt>Class <a class="el" href="classRa_1_1IO_1_1FileManager.html">Ra::IO::FileManager&lt; DATA, Binary &gt;</a>  </dt>
-<dd><a class="anchor" id="_todo000101"></a>reimplement in IO  </dd>
+<dd><a class="anchor" id="_todo000098"></a>reimplement in IO  </dd>
 <dt>Class <a class="el" href="classRa_1_1IO_1_1OBJFileManager.html">Ra::IO::OBJFileManager</a>  </dt>
-<dd><a class="anchor" id="_todo000102"></a>reimplement in IO  </dd>
+<dd><a class="anchor" id="_todo000099"></a>reimplement in IO  </dd>
 <dt>Class <a class="el" href="classRa_1_1IO_1_1OFFFileManager.html">Ra::IO::OFFFileManager</a>  </dt>
-<dd><a class="anchor" id="_todo000103"></a>reimplement in IO  </dd>
+<dd><a class="anchor" id="_todo000100"></a>reimplement in IO  </dd>
 <dt>Member <a class="el" href="classRa_1_1Plugins_1_1RadiumPluginInterface.html#a860bb59fee16633501bc63271fe397ab">Ra::Plugins::RadiumPluginInterface::getMenu</a>  ()=0</dt>
-<dd><a class="anchor" id="_todo000106"></a>Find a better name ?  </dd>
+<dd><a class="anchor" id="_todo000103"></a>Find a better name ?  </dd>
 <dt>Member <a class="el" href="classRa_1_1Plugins_1_1RadiumPluginInterface.html#a460d1df9a097719b389d6571904be142">Ra::Plugins::RadiumPluginInterface::getWidget</a>  ()=0</dt>
-<dd><a class="anchor" id="_todo000105"></a>Find a better name for this ? </dd>
+<dd><a class="anchor" id="_todo000102"></a>Find a better name for this ? </dd>
 </dl>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
@@ -290,7 +288,7 @@ $(document).ready(function(){initNavTree('todo.html',''); initResizable(); });
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Thu Nov 17 2022 06:52:59 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Wed Apr 5 2023 15:07:32 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

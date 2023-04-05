@@ -12,6 +12,5 @@ var dir_b04feb2291820e8d3d098807c21e4559 =
     [ "Viewer.cpp", "Viewer_8cpp_source.html", null ],
     [ "Viewer.hpp", "Viewer_8hpp_source.html", null ],
     [ "WindowQt.cpp", "WindowQt_8cpp_source.html", null ],
-    [ "WindowQt.hpp", "WindowQt_8hpp_source.html", null ],
-    [ "WindowQt.inl", "WindowQt_8inl_source.html", null ]
+    [ "WindowQt.hpp", "WindowQt_8hpp_source.html", null ]
 ];

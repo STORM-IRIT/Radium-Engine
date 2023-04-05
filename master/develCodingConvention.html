@@ -52,7 +52,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.4.0</span>
+   &#160;<span id="projectnumber">1.5.0</span>
    </div>
   </td>
  </tr>
@@ -145,15 +145,16 @@ Code style</h1>
 Headers</h1>
 <ul>
 <li>Every .cpp must have an associated .hpp file</li>
-<li>use .inl files for inline functions definitions and include it in the .hpp</li>
+<li>oneline inline can be defined in class</li>
+<li>complex inline methods are defined out of class in .hpp</li>
 <li>Two types of include guards are accepted (modern is preferred):<ul>
-<li>Legacy: <code>#ifndef HEADER_NAME_HPP_</code></li>
 <li>Modern: <code>#pragma once</code></li>
+<li>Legacy: <code>#ifndef HEADER_NAME_HPP_</code></li>
 </ul>
 </li>
 <li>Every class should have its own header.</li>
 <li>Always use &lt; &gt; in include directives and never " "</li>
-<li>Keep headers in order : Class header, system libraries, other libraries, other headers from project.</li>
+<li>Keep headers in order : Class header, other headers from project, system libraries, other libraries.</li>
 <li>forward declare as much as you can</li>
 </ul>
 <h1><a class="anchor" id="autotoc_md61"></a>
@@ -195,7 +196,6 @@ Class design</h1>
 <ul>
 <li>Constructors should be trival. All complex work goes in an <code>init()</code> function</li>
 <li>Try to order class members by size (biggest to smallest)</li>
-<li>Any class containing a fixed-size <code>Ra::Core::Vector</code> or <code>Matrix</code>member must declare <code>RA_CORE_ALIGNED_NEW</code></li>
 <li>Try to declare these fixed-size vectors all together, and preferably first in the class.</li>
 <li>Never pass a fixed-size vector by value to a function (only ref and const ref). Using them as return value is fine.</li>
 <li>use <code>explicit</code> for all one-arguments constructors</li>
@@ -228,7 +228,7 @@ Non-negociable</h1>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="develmanual.html">Developer manual</a></li>
-    <li class="footer">Generated on Thu Nov 17 2022 06:52:59 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Wed Apr 5 2023 15:07:32 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

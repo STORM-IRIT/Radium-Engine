@@ -1,5 +1,5 @@
 <map id="Ra::Gui::Timeline::registerKeyFramedValue" name="Ra::Gui::Timeline::registerKeyFramedValue">
 <area shape="rect" id="node1" title=" " alt="" coords="5,39,187,80"/>
-<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Scene_1_1Component.html#aaaac457b6b1c62d618f626c9c6771ad2" title="Return the entity the component belongs to." alt="" coords="235,5,399,47"/>
-<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Scene_1_1Component.html#a60e3234670ccfb680405445f06d2854e" title="Return the component&#39;s name." alt="" coords="235,71,400,112"/>
+<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Scene_1_1Component.html#ae2365d903a35539fa7bf061aa749a84f" title="Return the entity the component belongs to." alt="" coords="235,5,399,47"/>
+<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Scene_1_1Component.html#aa30f6f7a3f3414c4e9c80ca89627f4b9" title="Return the component&#39;s name." alt="" coords="235,71,400,112"/>
 </map>

@@ -52,7 +52,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.4.0</span>
+   &#160;<span id="projectnumber">1.5.0</span>
    </div>
   </td>
  </tr>
@@ -110,7 +110,6 @@ $(document).ready(function(){initNavTree('classRa_1_1Engine_1_1Data_1_1ShaderPar
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">Ra::Engine::Data::ShaderParameterProvider Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
@@ -131,7 +130,7 @@ $(document).ready(function(){initNavTree('classRa_1_1Engine_1_1Data_1_1ShaderPar
 <div id="dynsection-1-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-1-content" class="dyncontent" style="display:none;">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider__coll__graph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider__coll__graph.svg" width="235" height="176"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 <table class="memberdecls">
@@ -154,18 +153,11 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 <tr class="memitem:ae73e4271a8d07ae0eab25782831814ee"><td class="memItemLeft" align="right" valign="top">virtual std::list&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html#ae73e4271a8d07ae0eab25782831814ee">getPropertyList</a> () const</td></tr>
 <tr class="memdesc:ae73e4271a8d07ae0eab25782831814ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the list of properties the provider might use in a shader. Each property will be added to the shader used for rendering under the form "#define theProperty" when the provider is associated with the render technique.  <a href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html#ae73e4271a8d07ae0eab25782831814ee">More...</a><br /></td></tr>
 <tr class="separator:ae73e4271a8d07ae0eab25782831814ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
-Protected Attributes</h2></td></tr>
-<tr class="memitem:afe197479fc8dc4697a71543e803776da"><td class="memItemLeft" align="right" valign="top"><a id="afe197479fc8dc4697a71543e803776da"></a>
-<a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html">RenderParameters</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html#afe197479fc8dc4697a71543e803776da">m_renderParameters</a></td></tr>
-<tr class="memdesc:afe197479fc8dc4697a71543e803776da"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parameters to set for a shader. <br /></td></tr>
-<tr class="separator:afe197479fc8dc4697a71543e803776da"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Shader program parameter provider. a <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html">ShaderParameterProvider</a> is an object that is associated to a render technique to provide the uniform parameter set for the program. When an RenderObject is drawn using a given rendertechnique, the <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html">ShaderParameterProvider</a> associated to the renderTechnique is responsible to set all the uniforms needed by the rendertechnique. </p>
 
-<p class="definition">Definition at line <a class="el" href="RenderParameters_8hpp_source.html#l00395">395</a> of file <a class="el" href="RenderParameters_8hpp_source.html">RenderParameters.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="RenderParameters_8hpp_source.html#l00368">368</a> of file <a class="el" href="RenderParameters_8hpp_source.html">RenderParameters.hpp</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="ae73e4271a8d07ae0eab25782831814ee"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae73e4271a8d07ae0eab25782831814ee">&#9670;&nbsp;</a></span>getPropertyList()</h2>
@@ -192,11 +184,11 @@ Protected Attributes</h2></td></tr>
 
 <p>Get the list of properties the provider might use in a shader. Each property will be added to the shader used for rendering under the form "#define theProperty" when the provider is associated with the render technique. </p>
 <p>The default implementation returns an empty list.</p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000051">Todo:</a></b></dt><dd>: Validate this proposal </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000048">Todo:</a></b></dt><dd>: Validate this proposal </dd></dl>
 
 <p>Reimplemented in <a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html#a7fab8c75a56db577b77d8168bf600420">Ra::Engine::Data::Material</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="RenderParameters_8hpp_source.html#l00424">424</a> of file <a class="el" href="RenderParameters_8hpp_source.html">RenderParameters.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="RenderParameters_8hpp_source.html#l00397">397</a> of file <a class="el" href="RenderParameters_8hpp_source.html">RenderParameters.hpp</a>.</p>
 
 </div>
 </div>
@@ -209,7 +201,7 @@ Protected Attributes</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><b>Engine</b></li><li class="navelem"><b>Data</b></li><li class="navelem"><a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html">ShaderParameterProvider</a></li>
-    <li class="footer">Generated on Thu Nov 17 2022 06:52:59 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Wed Apr 5 2023 15:07:32 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

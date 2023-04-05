@@ -52,7 +52,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.4.0</span>
+   &#160;<span id="projectnumber">1.5.0</span>
    </div>
   </td>
  </tr>
@@ -133,7 +133,7 @@ $(document).ready(function(){initNavTree('ComponentMessenger_8cpp_source.html','
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;            <span class="comment">// erase_if implementation for map&#39;s, should be replaced by std::erase_if(list, pred)</span></div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;            <span class="comment">// when RadiumEngine&#39;s c++ version will be c++20</span></div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;            <span class="comment">// see https://en.cppreference.com/w/cpp/container/unordered_map/erase_if</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;            <span class="keyword">auto</span> pred = [comp]( <span class="keyword">const</span> Key&amp; k ) -&gt; <span class="keywordtype">bool</span> { <span class="keywordflow">return</span> k.first == comp-&gt;<a class="code" href="classRa_1_1Engine_1_1Scene_1_1Component.html#a60e3234670ccfb680405445f06d2854e">getName</a>(); };</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;            <span class="keyword">auto</span> pred = [comp]( <span class="keyword">const</span> Key&amp; k ) -&gt; <span class="keywordtype">bool</span> { <span class="keywordflow">return</span> k.first == comp-&gt;<a class="code" href="classRa_1_1Engine_1_1Scene_1_1Component.html#aa30f6f7a3f3414c4e9c80ca89627f4b9">getName</a>(); };</div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;            <span class="keywordflow">for</span> ( <span class="keyword">auto</span> it = list.begin(); it != list.end(); ) {</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;                <span class="keywordflow">if</span> ( pred( it-&gt;first ) )</div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;                    it = list.erase( it );</div>
@@ -149,7 +149,7 @@ $(document).ready(function(){initNavTree('ComponentMessenger_8cpp_source.html','
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;} <span class="comment">// namespace Ra</span></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1ComponentMessenger_html_abaebd35c0c84995568869d8fe07f915c"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1ComponentMessenger.html#abaebd35c0c84995568869d8fe07f915c">Ra::Engine::Scene::ComponentMessenger::unregisterAll</a></div><div class="ttdeci">void unregisterAll(const Entity *entity, Component *component)</div><div class="ttdoc">unregister all callbacks attached to entity's component</div><div class="ttdef"><b>Definition:</b> <a href="ComponentMessenger_8cpp_source.html#l00011">ComponentMessenger.cpp:11</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1Component_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1Component.html">Ra::Engine::Scene::Component</a></div><div class="ttdoc">A component is an element that can be updated by a system. It is also linked to some other components...</div><div class="ttdef"><b>Definition:</b> <a href="Component_8hpp_source.html#l00030">Component.hpp:31</a></div></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1Component_html_a60e3234670ccfb680405445f06d2854e"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1Component.html#a60e3234670ccfb680405445f06d2854e">Ra::Engine::Scene::Component::getName</a></div><div class="ttdeci">virtual const std::string &amp; getName() const</div><div class="ttdoc">Return the component's name.</div><div class="ttdef"><b>Definition:</b> <a href="Component_8inl_source.html#l00016">Component.inl:16</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1Component_html_aa30f6f7a3f3414c4e9c80ca89627f4b9"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1Component.html#aa30f6f7a3f3414c4e9c80ca89627f4b9">Ra::Engine::Scene::Component::getName</a></div><div class="ttdeci">virtual const std::string &amp; getName() const</div><div class="ttdoc">Return the component's name.</div><div class="ttdef"><b>Definition:</b> <a href="Component_8hpp_source.html#l00056">Component.hpp:56</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1Entity_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1Entity.html">Ra::Engine::Scene::Entity</a></div><div class="ttdoc">An entity is an scene element. It ties together components with a transform.</div><div class="ttdef"><b>Definition:</b> <a href="Entity_8hpp_source.html#l00022">Entity.hpp:23</a></div></div>
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdef"><b>Definition:</b> <a href="Cage_8cpp_source.html#l00003">Cage.cpp:3</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
@@ -158,7 +158,7 @@ $(document).ready(function(){initNavTree('ComponentMessenger_8cpp_source.html','
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_89bb22796d297d82305d45a42e7934d2.html">Scene</a></li><li class="navelem"><b>ComponentMessenger.cpp</b></li>
-    <li class="footer">Generated on Thu Nov 17 2022 06:52:58 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Wed Apr 5 2023 15:07:31 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

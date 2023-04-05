@@ -1,5 +1,5 @@
 <map id="Ra::Engine::Rendering::ForwardRenderer::renderInternal" name="Ra::Engine::Rendering::ForwardRenderer::renderInternal">
 <area shape="rect" id="node1" title="All the scene rendering magics basically happens here." alt="" coords="5,39,247,80"/>
-<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a5016e83a8e248b8c990f8ae90643f32b" title=" " alt="" coords="295,5,489,47"/>
+<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a30608d23a6e4b4cbcfa0a0211056e04b" title="Add a parameter by value." alt="" coords="295,5,489,47"/>
 <area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Data_1_1ShaderProgram.html#a02b209f3800adee9a6b039dc8c8d5f62" title="Uniform setters." alt="" coords="301,71,483,112"/>
 </map>

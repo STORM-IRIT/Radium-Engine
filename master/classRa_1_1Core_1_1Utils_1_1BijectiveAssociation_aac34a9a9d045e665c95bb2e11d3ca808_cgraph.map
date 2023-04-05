@@ -1,0 +1,6 @@
+<map id="Ra::Core::Utils::BijectiveAssociation::insert" name="Ra::Core::Utils::BijectiveAssociation::insert">
+<area shape="rect" id="node1" title="Convenient alias for insert({key, value})." alt="" coords="5,71,185,112"/>
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Utils_1_1BijectiveAssociation.html#aa7e701fbfa929eeae60e53ce472aa3a7" title="Insert a pair into the association." alt="" coords="233,5,413,47"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Utils_1_1BijectiveAssociation.html#ae9027144c9afb5ff073f2daec25be4ef" title="Gets the key associated to a value." alt="" coords="233,71,413,112"/>
+<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Utils_1_1BijectiveAssociation.html#a0d8ab538a02d52788da4abde3709261d" title="Gets the value associated to key." alt="" coords="233,136,413,177"/>
+</map>
