@@ -713,9 +713,7 @@ void EnvironmentTexture::render( const Ra::Engine::Data::ViewingParameters& view
         m_skyShader->setUniform( "skytexture", 0 );
         m_skyShader->setUniform( "strength", m_environmentStrength );
         if ( asOpaque ) { m_skyShader->setUniform( "alpha", float( 1 ) ); }
-        else {
-            m_skyShader->setUniform( "alpha", float( 0 ) );
-        }
+        else { m_skyShader->setUniform( "alpha", float( 0 ) ); }
         GLboolean depthEnabled;
         glGetBooleanv( GL_DEPTH_WRITEMASK, &depthEnabled );
         glDepthMask( GL_FALSE );

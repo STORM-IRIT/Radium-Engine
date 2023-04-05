@@ -61,10 +61,10 @@ class RA_DATAFLOW_API DataflowRenderer : public Ra::Engine::Rendering::Renderer
 
       public:
         RendererController();
-        virtual ~RendererController()                    = default;
-        RendererController( const RendererController& )  = delete;
-        RendererController( const RendererController&& ) = delete;
-        RendererController& operator=( RendererController&& ) = delete;
+        virtual ~RendererController()                              = default;
+        RendererController( const RendererController& )            = delete;
+        RendererController( const RendererController&& )           = delete;
+        RendererController& operator=( RendererController&& )      = delete;
         RendererController& operator=( const RendererController& ) = delete;
 
         /// Configuration function.

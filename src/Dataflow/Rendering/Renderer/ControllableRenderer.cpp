@@ -124,9 +124,7 @@ void ControllableRenderer::renderInternal( const Ra::Engine::Data::ViewingParame
     if ( renderings.size() > 0 ) {
         m_colorTexture = renderings[0]; // allow to select which image to fetch
     }
-    else {
-        m_colorTexture = nullptr;
-    }
+    else { m_colorTexture = nullptr; }
 }
 
 void ControllableRenderer::postProcessInternal( const Ra::Engine::Data::ViewingParameters& ) {

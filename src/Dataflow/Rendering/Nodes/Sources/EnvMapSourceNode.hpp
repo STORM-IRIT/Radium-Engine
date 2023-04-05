@@ -60,9 +60,7 @@ SingleDataSourceNode<Rendering::EnvmapPtrType>::fromJsonInternal( const nlohmann
             std::string f1 = files.substr( 0, pos - 1 );
             envmap_exist   = std::filesystem::exists( f1 );
         }
-        else {
-            envmap_exist = std::filesystem::exists( files );
-        }
+        else { envmap_exist = std::filesystem::exists( files ); }
         if ( envmap_exist ) {
             auto envmp = std::make_shared<Rendering::EnvironmentTexture>( files, true );
             envmp->setStrength( s );

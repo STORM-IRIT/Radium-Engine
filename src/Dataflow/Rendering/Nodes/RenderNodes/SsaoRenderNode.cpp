@@ -98,9 +98,7 @@ void SsaoNode::resize( uint32_t width, uint32_t height ) {
 bool SsaoNode::execute() {
     auto aabb = Ra::Engine::RadiumEngine::getInstance()->computeSceneAabb();
     if ( aabb.isEmpty() ) { m_sceneDiag = 1_ra; }
-    else {
-        m_sceneDiag = aabb.diagonal().norm();
-    }
+    else { m_sceneDiag = aabb.diagonal().norm(); }
 
     Ra::Engine::Data::RenderParameters inPassParams;
     // Positions

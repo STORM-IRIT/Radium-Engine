@@ -41,9 +41,7 @@ class RA_DATAFLOW_API WireframeRenderingNode : public RenderingNode
 
     bool fromJsonInternal( const nlohmann::json& data ) override {
         if ( data.contains( "activated" ) ) { m_activate = data["activated"]; }
-        else {
-            m_activate = false;
-        }
+        else { m_activate = false; }
         return true;
     }
 

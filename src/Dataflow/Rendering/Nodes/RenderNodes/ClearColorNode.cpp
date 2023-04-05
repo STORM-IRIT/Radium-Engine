@@ -60,9 +60,7 @@ bool ClearColorNode::execute() {
 
     // Color texture
     if ( !m_portInColorTex->isLinked() ) { m_colorTexture = m_texture; }
-    else {
-        m_colorTexture = &m_portInColorTex->getData();
-    }
+    else { m_colorTexture = &m_portInColorTex->getData(); }
     m_portOutColorTex->setData( m_colorTexture );
 
     // Clear color

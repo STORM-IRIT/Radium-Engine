@@ -89,9 +89,7 @@ void setupLineMesh( std::shared_ptr<Ra::Engine::Data::LineMesh>& disp, CoreGeome
         core.vertexAttribs().getAttrib( handle ).attach( VerticesUpdater( disp, core ) );
         core.attach( IndicesUpdater( disp, core ) );
     }
-    else {
-        disp.reset();
-    }
+    else { disp.reset(); }
 }
 
 template <typename CoreGeometry>
@@ -233,9 +231,7 @@ bool WireframeRenderingNode::execute() {
                     m_wireframes[ro.get()] = disp;
                     wro                    = disp;
                 }
-                else {
-                    wro = it->second;
-                }
+                else { wro = it->second; }
 
                 auto shader = m_shaderMngr->getShaderProgram( "WireframeNode::WireframeRendering" );
                 if ( wro && shader ) {

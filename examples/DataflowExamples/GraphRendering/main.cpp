@@ -233,9 +233,7 @@ class MyRendererController : public RenderGraphController
                 std::cout << "\t\t\"" << portName << "\" generating type \"" << portType << "\"\n";
             }
         }
-        else {
-            std::cerr << "Unable to compile the graph " << g.getInstanceName() << "\n";
-        }
+        else { std::cerr << "Unable to compile the graph " << g.getInstanceName() << "\n"; }
     }
 
   public:
@@ -289,9 +287,7 @@ class MyRendererController : public RenderGraphController
                 linksOK && m_renderGraph->addLink( sceneNode, "objects", geomAovs, "objects" );
 
             if ( !linksOK ) { LOG( logERROR ) << "Something went wrong when linking nodes !!! "; }
-            else {
-                LOG( logINFO ) << "Graph linked successfully!!! ";
-            }
+            else { LOG( logINFO ) << "Graph linked successfully!!! "; }
 
             inspectGraph( *m_renderGraph );
 
@@ -346,9 +342,7 @@ int main( int argc, char* argv[] ) {
         graphOption = parser.value( graphOpt ).toStdString();
         std::cout << "Got a graph option : " << *graphOption << std::endl;
     }
-    else {
-        std::cout << "No graph option" << std::endl;
-    }
+    else { std::cout << "No graph option" << std::endl; }
     //! getting graph argument on the command line
 
     //! [Initializing the application]

@@ -25,10 +25,10 @@ class RA_ENGINE_API SphereSampler
     /// @param method the sampling method to use (@see SamplingMethod)
     /// @param level the number of point to generate
     explicit SphereSampler( SamplingMethod method, int level = 0 );
-    SphereSampler( const SphereSampler& ) = delete;
+    SphereSampler( const SphereSampler& )            = delete;
     SphereSampler& operator=( const SphereSampler& ) = delete;
     SphereSampler( SphereSampler&& )                 = delete;
-    SphereSampler& operator=( SphereSampler&& ) = delete;
+    SphereSampler& operator=( SphereSampler&& )      = delete;
     /// destructor
     ~SphereSampler() = default;
 

@@ -16,10 +16,10 @@ class RA_DATAFLOW_API RenderGraphController : public ControllableRenderer::Rende
 
   public:
     RenderGraphController();
-    virtual ~RenderGraphController()                       = default;
-    RenderGraphController( const RenderGraphController& )  = delete;
-    RenderGraphController( const RenderGraphController&& ) = delete;
-    RenderGraphController& operator=( RenderGraphController&& ) = delete;
+    virtual ~RenderGraphController()                                 = default;
+    RenderGraphController( const RenderGraphController& )            = delete;
+    RenderGraphController( const RenderGraphController&& )           = delete;
+    RenderGraphController& operator=( RenderGraphController&& )      = delete;
     RenderGraphController& operator=( const RenderGraphController& ) = delete;
 
     /// Configuration function.

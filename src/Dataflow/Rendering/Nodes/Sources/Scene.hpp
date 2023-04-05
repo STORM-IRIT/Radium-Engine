@@ -28,25 +28,19 @@ class RA_DATAFLOW_API SceneNode : public Node
     bool execute() override {
         auto interfaceRo = static_cast<PortIn<std::vector<RenderObjectPtrType>>*>( m_interface[0] );
         if ( interfaceRo->isLinked() ) { m_roOut->setData( &( interfaceRo->getData() ) ); }
-        else {
-            m_roOut->setData( m_objects );
-        }
+        else { m_roOut->setData( m_objects ); }
 
         auto interfaceLights = static_cast<PortIn<std::vector<LightPtrType>>*>( m_interface[1] );
         if ( interfaceLights->isLinked() ) {
             m_lightOut->setData( &( interfaceLights->getData() ) );
         }
-        else {
-            m_lightOut->setData( m_lights );
-        }
+        else { m_lightOut->setData( m_lights ); }
 
         auto interfaceCamera = static_cast<PortIn<CameraType>*>( m_interface[2] );
         if ( interfaceCamera->isLinked() ) {
             m_cameraOut->setData( &( interfaceCamera->getData() ) );
         }
-        else {
-            m_cameraOut->setData( m_camera );
-        }
+        else { m_cameraOut->setData( m_camera ); }
         return true;
     }
 

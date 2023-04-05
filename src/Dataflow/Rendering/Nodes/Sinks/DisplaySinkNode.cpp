@@ -30,15 +30,11 @@ bool DisplaySinkNode::execute() {
             m_textures[i] = &( input->getData() );
             gotData       = true;
         }
-        else {
-            m_textures[i] = nullptr;
-        }
+        else { m_textures[i] = nullptr; }
     }
     auto interfacePort = static_cast<PortOut<std::vector<TextureType*>>*>( m_interface[0] );
     if ( gotData ) { interfacePort->setData( &m_textures ); }
-    else {
-        interfacePort->setData( nullptr );
-    }
+    else { interfacePort->setData( nullptr ); }
     // not sure DisplaySink should be observable
     this->notify( m_textures );
 
