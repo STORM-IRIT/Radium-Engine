@@ -14,13 +14,9 @@ GraphEditorWindow::~GraphEditorWindow() {
         if ( !m_ownGraph ) { m_graph->setNodesAndLinksProtection( true ); }
         delete m_graphEdit;
         if ( !m_ownGraph ) { m_graph->setNodesAndLinksProtection( graphProtection ); }
-        else {
-            delete m_graph;
-        }
+        else { delete m_graph; }
     }
-    else {
-        delete m_graphEdit;
-    }
+    else { delete m_graphEdit; }
 }
 
 GraphEditorWindow::GraphEditorWindow( DataflowGraph* graph ) :
@@ -42,9 +38,7 @@ GraphEditorWindow::GraphEditorWindow( DataflowGraph* graph ) :
     setCurrentFile( QString() );
     setUnifiedTitleAndToolBarOnMac( true );
     if ( m_ownGraph ) { newFile(); }
-    else {
-        m_graphEdit->editGraph( m_graph );
-    }
+    else { m_graphEdit->editGraph( m_graph ); }
 
     m_graphEdit->show();
 }
@@ -66,9 +60,7 @@ void GraphEditorWindow::closeEvent( QCloseEvent* event ) {
         event->accept();
         if ( !m_ownGraph ) { deleteLater(); }
     }
-    else {
-        event->ignore();
-    }
+    else { event->ignore(); }
 }
 
 void GraphEditorWindow::newFile() {
@@ -79,9 +71,7 @@ void GraphEditorWindow::newFile() {
             delete m_graph;
             m_graph = new DataflowGraph( "untitled.flow" );
         }
-        else {
-            m_graph->destroy();
-        }
+        else { m_graph->destroy(); }
 
         setCurrentFile( "" );
         m_graphEdit->editGraph( m_graph );
@@ -97,9 +87,7 @@ void GraphEditorWindow::open() {
 
 bool GraphEditorWindow::save() {
     if ( m_curFile.isEmpty() ) { return saveAs(); }
-    else {
-        return saveFile( m_curFile );
-    }
+    else { return saveFile( m_curFile ); }
 }
 
 bool GraphEditorWindow::saveAs() {
@@ -192,14 +180,10 @@ void GraphEditorWindow::readSettings() {
         move( ( availableGeometry.width() - width() ) / 2,
               ( availableGeometry.height() - height() ) / 2 );
     }
-    else {
-        restoreGeometry( geometry );
-    }
+    else { restoreGeometry( geometry ); }
     const QByteArray graphGeometry = settings.value( "graph", QByteArray() ).toByteArray();
     if ( graphGeometry.isEmpty() ) { m_graphEdit->resize( 800, 600 ); }
-    else {
-        m_graphEdit->restoreGeometry( graphGeometry );
-    }
+    else { m_graphEdit->restoreGeometry( graphGeometry ); }
     settings.endGroup();
 }
 

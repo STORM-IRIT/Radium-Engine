@@ -265,9 +265,7 @@ std::pair<bool, Node*> DataflowGraph::addNode( std::unique_ptr<Node> newNode ) {
         m_shouldBeSaved = true;
         return { true, addedNode };
     }
-    else {
-        return { false, newNode.release() };
-    }
+    else { return { false, newNode.release() }; }
 }
 
 bool DataflowGraph::removeNode( Node*& node ) {
@@ -405,9 +403,7 @@ int DataflowGraph::findNode( const Node* node ) const {
     auto foundIt = std::find_if(
         m_nodes.begin(), m_nodes.end(), [node]( const auto& p ) { return *p == *node; } );
     if ( foundIt != m_nodes.end() ) { return std::distance( m_nodes.begin(), foundIt ); }
-    else {
-        return -1;
-    }
+    else { return -1; }
 }
 
 bool DataflowGraph::compile() {

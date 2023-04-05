@@ -107,9 +107,7 @@ bool DataflowRenderer::buildRenderTechnique( Ra::Engine::Rendering::RenderObject
         m_controller.m_renderGraph->buildRenderTechnique( ro );
         return true;
     }
-    else {
-        return false;
-    }
+    else { return false; }
 }
 
 void DataflowRenderer::initResources() {
@@ -204,9 +202,7 @@ void DataflowRenderer::renderInternal( const Ra::Engine::Data::ViewingParameters
         // The first image is the "beauty" channel, set the color texture to this
         m_colorTexture = images[0];
     }
-    else {
-        m_colorTexture = nullptr;
-    }
+    else { m_colorTexture = nullptr; }
 }
 
 void DataflowRenderer::postProcessInternal( const Ra::Engine::Data::ViewingParameters& ) {

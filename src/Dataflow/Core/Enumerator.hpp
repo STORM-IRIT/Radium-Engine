@@ -60,9 +60,7 @@ bool Enumerator<T>::set( size_t p ) {
         this->notify( *this );
         return true;
     }
-    else {
-        return false;
-    }
+    else { return false; }
 }
 
 template <typename T>

@@ -72,13 +72,9 @@ class FilterSelector final : public Node
   protected:
     bool fromJsonInternal( const nlohmann::json& data ) override {
         if ( data.contains( "operator" ) ) { m_operatorName = data["operator"]; }
-        else {
-            m_operatorName = "true";
-        }
+        else { m_operatorName = "true"; }
         if ( data.contains( "threshold" ) ) { m_threshold = data["threshold"]; }
-        else {
-            m_threshold = T {};
-        }
+        else { m_threshold = T {}; }
         return true;
     }
 

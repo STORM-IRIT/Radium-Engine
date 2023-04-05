@@ -111,9 +111,7 @@ void initializeWidgetFactory() {
                 slider->setValue( editable->m_data->getStrength() * 100. );
                 return true;
             }
-            else {
-                return slider != nullptr;
-            }
+            else { return slider != nullptr; }
         } );
 
     /*
@@ -144,9 +142,7 @@ void initializeWidgetFactory() {
                 slider->setValue( editable->m_data );
                 return true;
             }
-            else {
-                return false;
-            }
+            else { return false; }
         } );
     /*
      * int edition
@@ -178,9 +174,7 @@ void initializeWidgetFactory() {
                 slider->setValue( editable->m_data );
                 return true;
             }
-            else {
-                return false;
-            }
+            else { return false; }
         } );
     /*
      * Boolean edition
@@ -194,9 +188,7 @@ void initializeWidgetFactory() {
                                                       : Qt::CheckState::Unchecked );
             QCheckBox::connect( checkBox, &QCheckBox::stateChanged, [editable]( int state ) {
                 if ( state == Qt::Unchecked ) { editable->m_data = false; }
-                else if ( state == Qt::Checked ) {
-                    editable->m_data = true;
-                }
+                else if ( state == Qt::Checked ) { editable->m_data = true; }
             } );
             return checkBox;
         },
@@ -207,9 +199,7 @@ void initializeWidgetFactory() {
                 checkBox->setCheckState( editable->m_data ? Qt::Checked : Qt::Unchecked );
                 return true;
             }
-            else {
-                return false;
-            }
+            else { return false; }
         } );
 
     /*
@@ -243,9 +233,7 @@ void initializeWidgetFactory() {
                            0.0721_ra * Scalar( clrBttn.blueF() );
                 QString qss = QString( "background-color: %1" ).arg( clrBttn.name() );
                 if ( lum > 1_ra / 3_ra ) { qss += QString( "; color: #000000" ); }
-                else {
-                    qss += QString( "; color: #FFFFFF" );
-                }
+                else { qss += QString( "; color: #FFFFFF" ); }
                 button->setStyleSheet( qss );
                 return true;
             }
@@ -282,9 +270,7 @@ void initializeWidgetFactory() {
             auto editable = dynamic_cast<EditableParameter<DataflowGraph>*>( editableParameter );
             auto button   = widget->findChild<QPushButton*>( editable->getName().c_str() );
             if ( button ) { return true; }
-            else {
-                return false;
-            }
+            else { return false; }
         } );
 
 #if HAS_TRANSFER_FUNCTION
@@ -349,9 +335,7 @@ void initializeWidgetFactory() {
                 comboBox->setCurrentText( editable->m_data.get().c_str() );
                 return true;
             }
-            else {
-                return false;
-            }
+            else { return false; }
         } );
 
     /*
@@ -374,9 +358,7 @@ void initializeWidgetFactory() {
                 line->setText( editable->m_data.c_str() );
                 return true;
             }
-            else {
-                return false;
-            }
+            else { return false; }
         } );
     /*
      * Ra::Engine::Data::ShaderConfiguration --> Code Editor

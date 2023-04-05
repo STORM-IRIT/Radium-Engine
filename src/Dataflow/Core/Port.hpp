@@ -45,8 +45,8 @@ class RA_DATAFLOW_API PortBase
     /// \brief delete default constructors.
     /// \see https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#Rc-copy-virtual
     /// Constructors.
-    PortBase()                  = delete;
-    PortBase( const PortBase& ) = delete;
+    PortBase()                             = delete;
+    PortBase( const PortBase& )            = delete;
     PortBase& operator=( const PortBase& ) = delete;
 
     /// @param name The name of the port.
@@ -120,8 +120,8 @@ class PortOut : public PortBase
     /// \name Constructors
     /// @{
     /// \brief delete default constructors.
-    PortOut()                 = delete;
-    PortOut( const PortOut& ) = delete;
+    PortOut()                            = delete;
+    PortOut( const PortOut& )            = delete;
     PortOut& operator=( const PortOut& ) = delete;
     /// Constructor.
     /// @param name The name of the port.
@@ -170,8 +170,8 @@ class PortIn : public PortBase,
     /// \name Constructors
     /// @{
     /// \brief delete default constructors.
-    PortIn()                = delete;
-    PortIn( const PortIn& ) = delete;
+    PortIn()                           = delete;
+    PortIn( const PortIn& )            = delete;
     PortIn& operator=( const PortIn& ) = delete;
     /// Constructor.
     /// @param name The name of the port.

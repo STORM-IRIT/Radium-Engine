@@ -20,11 +20,11 @@ class RA_DATAFLOW_API NodeAdapterModel : public QtNodes::NodeDataModel
 {
   public:
     NodeAdapterModel( DataflowGraph* graph, Node* n );
-    NodeAdapterModel()                          = delete;
-    NodeAdapterModel( const NodeAdapterModel& ) = delete;
-    NodeAdapterModel( NodeAdapterModel&& )      = delete;
+    NodeAdapterModel()                                     = delete;
+    NodeAdapterModel( const NodeAdapterModel& )            = delete;
+    NodeAdapterModel( NodeAdapterModel&& )                 = delete;
     NodeAdapterModel& operator=( const NodeAdapterModel& ) = delete;
-    NodeAdapterModel& operator=( NodeAdapterModel&& ) = delete;
+    NodeAdapterModel& operator=( NodeAdapterModel&& )      = delete;
     ~NodeAdapterModel() override;
 
   public:

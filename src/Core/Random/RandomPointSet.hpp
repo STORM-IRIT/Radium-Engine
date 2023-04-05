@@ -41,10 +41,10 @@ class RA_CORE_API FibonacciSequence
   public:
     explicit FibonacciSequence( size_t number );
     // copyable
-    FibonacciSequence( const FibonacciSequence& ) = default;
+    FibonacciSequence( const FibonacciSequence& )            = default;
     FibonacciSequence& operator=( const FibonacciSequence& ) = default;
     // movable
-    FibonacciSequence( FibonacciSequence&& ) = default;
+    FibonacciSequence( FibonacciSequence&& )            = default;
     FibonacciSequence& operator=( FibonacciSequence&& ) = default;
     virtual ~FibonacciSequence()                        = default;
 
@@ -70,10 +70,10 @@ class RA_CORE_API FibonacciPointSet
   public:
     explicit FibonacciPointSet( size_t n );
     // copyable
-    FibonacciPointSet( const FibonacciPointSet& ) = default;
+    FibonacciPointSet( const FibonacciPointSet& )            = default;
     FibonacciPointSet& operator=( const FibonacciPointSet& ) = default;
     // movable
-    FibonacciPointSet( FibonacciPointSet&& ) = default;
+    FibonacciPointSet( FibonacciPointSet&& )            = default;
     FibonacciPointSet& operator=( FibonacciPointSet&& ) = default;
     virtual ~FibonacciPointSet()                        = default;
 
@@ -92,10 +92,10 @@ class RA_CORE_API HammersleyPointSet
   public:
     explicit HammersleyPointSet( size_t number );
     // copyable
-    HammersleyPointSet( const HammersleyPointSet& ) = default;
+    HammersleyPointSet( const HammersleyPointSet& )            = default;
     HammersleyPointSet& operator=( const HammersleyPointSet& ) = default;
     // movable
-    HammersleyPointSet( HammersleyPointSet&& ) = default;
+    HammersleyPointSet( HammersleyPointSet&& )            = default;
     HammersleyPointSet& operator=( HammersleyPointSet&& ) = default;
     virtual ~HammersleyPointSet()                         = default;
 
@@ -114,10 +114,10 @@ class RA_CORE_API MersenneTwisterPointSet
   public:
     explicit MersenneTwisterPointSet( size_t number );
     // copyable
-    MersenneTwisterPointSet( const MersenneTwisterPointSet& ) = default;
+    MersenneTwisterPointSet( const MersenneTwisterPointSet& )            = default;
     MersenneTwisterPointSet& operator=( const MersenneTwisterPointSet& ) = default;
     // movable
-    MersenneTwisterPointSet( MersenneTwisterPointSet&& ) = default;
+    MersenneTwisterPointSet( MersenneTwisterPointSet&& )            = default;
     MersenneTwisterPointSet& operator=( MersenneTwisterPointSet&& ) = default;
     virtual ~MersenneTwisterPointSet()                              = default;
 
@@ -139,10 +139,10 @@ class SphericalPointSet
   public:
     explicit SphericalPointSet( size_t n );
     // copyable
-    SphericalPointSet( const SphericalPointSet& ) = default;
+    SphericalPointSet( const SphericalPointSet& )            = default;
     SphericalPointSet& operator=( const SphericalPointSet& ) = default;
     // movable
-    SphericalPointSet( SphericalPointSet&& ) = default;
+    SphericalPointSet( SphericalPointSet&& )            = default;
     SphericalPointSet& operator=( SphericalPointSet&& ) = default;
     virtual ~SphericalPointSet()                        = default;
 
