@@ -29,7 +29,7 @@ class RA_DATAFLOW_API DisplaySinkNode
 
     static const std::string getTypename() { return "Display Sink"; }
 
-    const std::vector<TextureType*>& getTextures();
+    const std::vector<TextureType*>& getTextures() const { return m_textures; }
 
   protected:
     void toJsonInternal( nlohmann::json& ) const override {}
@@ -43,8 +43,6 @@ class RA_DATAFLOW_API DisplaySinkNode
     // the observer method
     void
     observeConnection( const std::string& name, const PortIn<TextureType>& port, bool connected );
-
-    bool m_firstRun { true };
 };
 
 } // namespace Nodes

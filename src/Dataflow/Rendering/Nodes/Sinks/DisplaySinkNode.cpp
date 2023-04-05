@@ -1,7 +1,5 @@
 #include <Dataflow/Rendering/Nodes/Sinks/DisplaySinkNode.hpp>
 
-#define MAX_DISPLAY_INPUTS 8
-
 namespace Ra {
 namespace Dataflow {
 namespace Rendering {
@@ -24,33 +22,27 @@ DisplaySinkNode::~DisplaySinkNode() {
 }
 
 bool DisplaySinkNode::execute() {
-    // TODO verify the robustness of this (address of port data stored in a vector ....)
-    if ( m_firstRun ) {
-        m_firstRun = false;
-        bool gotData { false };
-        for ( size_t i = 0; i < DisplaySinkNode::MaxImages; i++ ) {
-            if ( m_inputs[i]->isLinked() ) {
-                auto input    = static_cast<PortIn<TextureType>*>( m_inputs[i].get() );
-                m_textures[i] = &( input->getData() );
-                gotData       = true;
-            }
-            else {
-                m_textures[i] = nullptr;
-            }
+    // check if connections have changed on the input port
+    bool gotData { false };
+    for ( size_t i = 0; i < DisplaySinkNode::MaxImages; i++ ) {
+        if ( m_inputs[i]->isLinked() ) {
+            auto input    = static_cast<PortIn<TextureType>*>( m_inputs[i].get() );
+            m_textures[i] = &( input->getData() );
+            gotData       = true;
         }
-        auto interfacePort = static_cast<PortOut<std::vector<TextureType*>>*>( m_interface[0] );
-        if ( gotData ) { interfacePort->setData( &m_textures ); }
         else {
-            interfacePort->setData( nullptr );
+            m_textures[i] = nullptr;
         }
-        // not sure DisplaySink should be observable
-        this->notify( m_textures );
     }
-    return true;
-}
+    auto interfacePort = static_cast<PortOut<std::vector<TextureType*>>*>( m_interface[0] );
+    if ( gotData ) { interfacePort->setData( &m_textures ); }
+    else {
+        interfacePort->setData( nullptr );
+    }
+    // not sure DisplaySink should be observable
+    this->notify( m_textures );
 
-const std::vector<TextureType*>& DisplaySinkNode::getTextures() {
-    return m_textures;
+    return true;
 }
 
 void DisplaySinkNode::observeConnection(
@@ -59,7 +51,6 @@ void DisplaySinkNode::observeConnection(
     const PortIn<TextureType>& /* port */,
     bool /*connected*/ ) {
     // deffer the port management to DisplaySinkNode::execute()
-    m_firstRun = true;
 }
 
 const std::vector<PortBase*>& DisplaySinkNode::buildInterfaces( Node* parent ) {
