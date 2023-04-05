@@ -1,11 +1,11 @@
 <map id="Ra::Core::Geometry::AttribArrayGeometry" name="Ra::Core::Geometry::AttribArrayGeometry">
 <area shape="rect" id="node1" title="This class represents vertex + attributes per vertex. Toplogy is handled in MultiIndexedGeometry subc..." alt="" coords="679,293,874,1133"/>
-<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html" title="AbstractGeometry with per&#45;vertex attributes and layers of indices. Each layer represents a different ..." alt="" coords="663,1183,890,1803"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html" title="AbstractGeometry with per&#45;vertex attributes and layers of indices. Each layer represents a different ..." alt="" coords="663,1183,890,1788"/>
 <area shape="rect" id="node2" href="$structRa_1_1Core_1_1Geometry_1_1AbstractGeometry.html" title=" " alt="" coords="688,5,865,244"/>
-<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html" title=" " alt="" coords="269,2095,506,2275"/>
-<area shape="rect" id="node5" href="$classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html" title=" " alt="" coords="5,2095,244,2275"/>
-<area shape="rect" id="node6" href="$classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html" title=" " alt="" coords="530,2095,767,2275"/>
-<area shape="rect" id="node7" href="$classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html" title=" " alt="" coords="1053,2095,1290,2275"/>
-<area shape="rect" id="node8" href="$classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html" title=" " alt="" coords="791,2095,1029,2275"/>
-<area shape="rect" id="node9" href="$classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html" title="A single layer MultiIndexedGeometry." alt="" coords="503,1852,687,2032"/>
+<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html" title=" " alt="" coords="269,2080,506,2260"/>
+<area shape="rect" id="node5" href="$classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html" title=" " alt="" coords="5,2080,244,2260"/>
+<area shape="rect" id="node6" href="$classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html" title=" " alt="" coords="530,2080,767,2260"/>
+<area shape="rect" id="node7" href="$classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html" title=" " alt="" coords="1053,2080,1290,2260"/>
+<area shape="rect" id="node8" href="$classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html" title=" " alt="" coords="791,2080,1029,2260"/>
+<area shape="rect" id="node9" href="$classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html" title="A single layer MultiIndexedGeometry." alt="" coords="503,1837,687,2017"/>
 </map>

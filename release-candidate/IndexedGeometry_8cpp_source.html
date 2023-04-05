@@ -52,7 +52,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.4.12</span>
+   &#160;<span id="projectnumber">1.4.13</span>
    </div>
   </td>
  </tr>
@@ -144,7 +144,7 @@ $(document).ready(function(){initNavTree('IndexedGeometry_8cpp_source.html','');
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;MultiIndexedGeometry&amp; MultiIndexedGeometry::operator=( MultiIndexedGeometry&amp;&amp; other ) {</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    invalidateAabb();</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    AttribArrayGeometry::operator=( std::move( other ) );</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    m_indices                    = std::move( other.m_indices );</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    m_indices = std::move( other.m_indices );</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    notify();</div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;}</div>
@@ -372,7 +372,7 @@ $(document).ready(function(){initNavTree('IndexedGeometry_8cpp_source.html','');
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_cb2b5dfd43482fb277f6333d539f1f06.html">Geometry</a></li><li class="navelem"><b>IndexedGeometry.cpp</b></li>
-    <li class="footer">Generated on Mon Apr 3 2023 19:25:23 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Wed Apr 5 2023 14:46:12 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

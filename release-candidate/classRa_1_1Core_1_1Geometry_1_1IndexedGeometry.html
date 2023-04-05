@@ -52,7 +52,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.4.12</span>
+   &#160;<span id="projectnumber">1.4.13</span>
    </div>
   </td>
  </tr>
@@ -301,9 +301,6 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="memitem:ad280c9b4813f04f92ff99c868b096f19 inherit pub_methods_classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html#ad280c9b4813f04f92ff99c868b096f19">unlockLayer</a> (const LayerKeyType &amp;layerKey)</td></tr>
 <tr class="memdesc:ad280c9b4813f04f92ff99c868b096f19 inherit pub_methods_classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unlock layer with write acces, notify observers of the update.  <a href="classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html#ad280c9b4813f04f92ff99c868b096f19">More...</a><br /></td></tr>
 <tr class="separator:ad280c9b4813f04f92ff99c868b096f19 inherit pub_methods_classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a919ff1666c3d1cda717dee1af77ba86a inherit pub_methods_classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry"><td class="memItemLeft" align="right" valign="top"><a id="a919ff1666c3d1cda717dee1af77ba86a"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>unlockLayer2</b> (const LayerKeyType &amp;layerKey)</td></tr>
-<tr class="separator:a919ff1666c3d1cda717dee1af77ba86a inherit pub_methods_classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a83a22702a2700a786edecf026cca741a inherit pub_methods_classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html#a83a22702a2700a786edecf026cca741a">unlockLayer</a> (const LayerSemanticCollection &amp;semantics, const std::string &amp;layerName)</td></tr>
 <tr class="memdesc:a83a22702a2700a786edecf026cca741a inherit pub_methods_classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unlock layer with write acces, notify observers of the update.  <a href="classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html#a83a22702a2700a786edecf026cca741a">More...</a><br /></td></tr>
 <tr class="separator:a83a22702a2700a786edecf026cca741a inherit pub_methods_classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -474,7 +471,7 @@ class Ra::Core::Geometry::IndexedGeometry&lt; T &gt;</h3>
 <p>A single layer <a class="el" href="classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html" title="AbstractGeometry with per-vertex attributes and layers of indices. Each layer represents a different ...">MultiIndexedGeometry</a>. </p>
 <p>This class actually provide compatibility with old geometry with a main layer. Main layer contains indices of a specific type (point, line, triangle, poly). Derived classes explicit the kind of indices of the main layer. Since <a class="el" href="classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html" title="A single layer MultiIndexedGeometry.">IndexedGeometry</a> is a <a class="el" href="classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html" title="AbstractGeometry with per-vertex attributes and layers of indices. Each layer represents a different ...">MultiIndexedGeometry</a>, one can add index layer on the fly. </p><dl class="section warning"><dt>Warning</dt><dd>will be depracated when <a class="el" href="classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html" title="AbstractGeometry with per-vertex attributes and layers of indices. Each layer represents a different ...">MultiIndexedGeometry</a> will be supported directly on the engine side. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="IndexedGeometry_8hpp_source.html#l00515">515</a> of file <a class="el" href="IndexedGeometry_8hpp_source.html">IndexedGeometry.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="IndexedGeometry_8hpp_source.html#l00514">514</a> of file <a class="el" href="IndexedGeometry_8hpp_source.html">IndexedGeometry.hpp</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a7b980c93c40307027025d3919a948eaa"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7b980c93c40307027025d3919a948eaa">&#9670;&nbsp;</a></span>getIndicesWithLock()</h2>
@@ -499,7 +496,7 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 <p>read write access to indices. Cause indices to be "lock" for the caller need to be unlock by the caller before any one can ask for write access. </p>
 
-<p class="definition">Definition at line <a class="el" href="IndexedGeometry_8hpp_source.html#l00751">751</a> of file <a class="el" href="IndexedGeometry_8hpp_source.html">IndexedGeometry.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="IndexedGeometry_8hpp_source.html#l00750">750</a> of file <a class="el" href="IndexedGeometry_8hpp_source.html">IndexedGeometry.hpp</a>.</p>
 
 </div>
 </div>
@@ -530,7 +527,7 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 <p>set indices. Indices must be unlock, i.e. no one should have write access to it. Notify observers of the update. </p>
 
-<p class="definition">Definition at line <a class="el" href="IndexedGeometry_8hpp_source.html#l00762">762</a> of file <a class="el" href="IndexedGeometry_8hpp_source.html">IndexedGeometry.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="IndexedGeometry_8hpp_source.html#l00761">761</a> of file <a class="el" href="IndexedGeometry_8hpp_source.html">IndexedGeometry.hpp</a>.</p>
 
 </div>
 </div>
@@ -543,7 +540,7 @@ template&lt;typename T &gt; </div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><b>Core</b></li><li class="navelem"><b>Geometry</b></li><li class="navelem"><a class="el" href="classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html">IndexedGeometry</a></li>
-    <li class="footer">Generated on Mon Apr 3 2023 19:25:24 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Wed Apr 5 2023 14:46:14 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

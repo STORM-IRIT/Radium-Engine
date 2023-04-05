@@ -52,7 +52,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.4.12</span>
+   &#160;<span id="projectnumber">1.4.13</span>
    </div>
   </td>
  </tr>
@@ -307,472 +307,463 @@ $(document).ready(function(){initNavTree('VariableSet_8hpp_source.html',''); ini
 <div class="line"><a name="l00468"></a><span class="lineno">  468</span>&#160;    <span class="keyword">auto</span> addVariableType() -&gt; Utils::optional&lt;VariableContainer&lt;T&gt;*&gt;;</div>
 <div class="line"><a name="l00469"></a><span class="lineno">  469</span>&#160; </div>
 <div class="line"><a name="l00473"></a><span class="lineno">  473</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> F, <span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00474"></a><span class="lineno">  474</span>&#160;    <span class="keyword">using</span> VisitFunction = decltype(</div>
-<div class="line"><a name="l00475"></a><span class="lineno">  475</span>&#160;        std::declval&lt;F&gt;().<span class="keyword">operator</span>()( std::declval&lt;const std::string&amp;&gt;(), std::declval&lt;T&amp;&gt;() ) );</div>
-<div class="line"><a name="l00476"></a><span class="lineno">  476</span>&#160; </div>
-<div class="line"><a name="l00478"></a><span class="lineno">  478</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> F, <span class="keyword">typename</span> T, <span class="keyword">typename</span> U&gt;</div>
-<div class="line"><a name="l00479"></a><span class="lineno">  479</span>&#160;    <span class="keyword">using</span> VisitFunctionWithUserParam =</div>
-<div class="line"><a name="l00480"></a><span class="lineno">  480</span>&#160;        decltype( std::declval&lt;F&gt;().<span class="keyword">operator</span>()( std::declval&lt;const std::string&amp;&gt;(),</div>
-<div class="line"><a name="l00481"></a><span class="lineno">  481</span>&#160;                                                std::declval&lt;T&amp;&gt;(),</div>
-<div class="line"><a name="l00482"></a><span class="lineno">  482</span>&#160;                                                std::declval&lt;U&amp;&amp;&gt;() ) );</div>
-<div class="line"><a name="l00483"></a><span class="lineno">  483</span>&#160; </div>
-<div class="line"><a name="l00485"></a><span class="lineno">  485</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> F, <span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00486"></a><span class="lineno">  486</span>&#160;    <span class="keyword">static</span> constexpr <span class="keywordtype">bool</span> has_visit_callable_v =</div>
-<div class="line"><a name="l00487"></a><span class="lineno">  487</span>&#160;        Ra::Core::Utils::is_detected&lt;VisitFunction, F, T&gt;::value;</div>
-<div class="line"><a name="l00488"></a><span class="lineno">  488</span>&#160; </div>
-<div class="line"><a name="l00490"></a><span class="lineno">  490</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> F, <span class="keyword">typename</span> T, <span class="keyword">typename</span> U&gt;</div>
-<div class="line"><a name="l00491"></a><span class="lineno">  491</span>&#160;    <span class="keyword">static</span> constexpr <span class="keywordtype">bool</span> has_visit_callable_with_user_param_v =</div>
-<div class="line"><a name="l00492"></a><span class="lineno">  492</span>&#160;        Ra::Core::Utils::is_detected&lt;VisitFunctionWithUserParam, F, T, U&gt;::value;</div>
-<div class="line"><a name="l00493"></a><span class="lineno">  493</span>&#160; </div>
-<div class="line"><a name="l00495"></a><span class="lineno">  495</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> F, <span class="keyword">template</span> &lt;<span class="keyword">typename</span>...&gt; <span class="keyword">typename</span> TYPESLIST, <span class="keyword">typename</span>... TYPES&gt;</div>
-<div class="line"><a name="l00496"></a><span class="lineno">  496</span>&#160;    <span class="keywordtype">void</span> visitImpl( F&amp;&amp; visitor, TYPESLIST&lt;TYPES...&gt; ) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00497"></a><span class="lineno">  497</span>&#160; </div>
-<div class="line"><a name="l00498"></a><span class="lineno">  498</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> F, <span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00499"></a><span class="lineno">  499</span>&#160;    <span class="keywordtype">void</span> visitImplHelper( F&amp; visitor ) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00500"></a><span class="lineno">  500</span>&#160; </div>
-<div class="line"><a name="l00502"></a><span class="lineno">  502</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> F, <span class="keyword">typename</span> U, <span class="keyword">template</span> &lt;<span class="keyword">typename</span>...&gt; <span class="keyword">typename</span> TYPESLIST, <span class="keyword">typename</span>... TYPES&gt;</div>
-<div class="line"><a name="l00503"></a><span class="lineno">  503</span>&#160;    <span class="keywordtype">void</span> visitImplUserParam( F&amp;&amp; visitor, U&amp;&amp; userParam, TYPESLIST&lt;TYPES...&gt; ) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00504"></a><span class="lineno">  504</span>&#160; </div>
-<div class="line"><a name="l00505"></a><span class="lineno">  505</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> F, <span class="keyword">typename</span> U, <span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00506"></a><span class="lineno">  506</span>&#160;    <span class="keywordtype">void</span> visitImplHelperUserParam( F&amp; visitor, U&amp;&amp; userParams ) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00507"></a><span class="lineno">  507</span>&#160; </div>
-<div class="line"><a name="l00509"></a><span class="lineno">  509</span>&#160; </div>
-<div class="line"><a name="l00513"></a><span class="lineno">  513</span>&#160; </div>
-<div class="line"><a name="l00515"></a><span class="lineno">  515</span>&#160;    <span class="keyword">class </span>VariableSetFunctions</div>
-<div class="line"><a name="l00516"></a><span class="lineno">  516</span>&#160;    {</div>
-<div class="line"><a name="l00517"></a><span class="lineno">  517</span>&#160;      <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00518"></a><span class="lineno">  518</span>&#160;        <span class="keyword">using</span> ClearFunctionType = std::function&lt;void( <a class="code" href="classRa_1_1Core_1_1VariableSet.html">VariableSet</a>&amp; )&gt;;</div>
-<div class="line"><a name="l00519"></a><span class="lineno">  519</span>&#160;        <span class="keyword">using</span> MergeFunctionType = std::function&lt;void( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1VariableSet.html">VariableSet</a>&amp;, <a class="code" href="classRa_1_1Core_1_1VariableSet.html">VariableSet</a>&amp; )&gt;;</div>
-<div class="line"><a name="l00520"></a><span class="lineno">  520</span>&#160;        <span class="keyword">using</span> SizeFunctionType  = std::function&lt;size_t( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1VariableSet.html">VariableSet</a>&amp; )&gt;;</div>
-<div class="line"><a name="l00521"></a><span class="lineno">  521</span>&#160;        <span class="comment">// Should be these simplified ????</span></div>
-<div class="line"><a name="l00522"></a><span class="lineno">  522</span>&#160;        <span class="keyword">using</span> VisitFunctorType =</div>
-<div class="line"><a name="l00523"></a><span class="lineno">  523</span>&#160;            std::function&lt;std::pair&lt;bool, std::function&lt;void( DynamicVisitorBase&amp;, std::any&amp;&amp; )&gt;&gt;(</div>
-<div class="line"><a name="l00524"></a><span class="lineno">  524</span>&#160;                <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1VariableSet.html">VariableSet</a>&amp;,</div>
-<div class="line"><a name="l00525"></a><span class="lineno">  525</span>&#160;                <span class="keyword">const</span> DynamicVisitorBase&amp; )&gt;;</div>
-<div class="line"><a name="l00526"></a><span class="lineno">  526</span>&#160; </div>
-<div class="line"><a name="l00527"></a><span class="lineno">  527</span>&#160;        VariableSetFunctions( <span class="keyword">const</span> VariableSetFunctions&amp; ) = <span class="keyword">delete</span>;</div>
-<div class="line"><a name="l00528"></a><span class="lineno">  528</span>&#160;        <span class="keywordtype">void</span> operator=( <span class="keyword">const</span> VariableSetFunctions&amp; ) = <span class="keyword">delete</span>;</div>
-<div class="line"><a name="l00529"></a><span class="lineno">  529</span>&#160; </div>
-<div class="line"><a name="l00530"></a><span class="lineno">  530</span>&#160;      <span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00531"></a><span class="lineno">  531</span>&#160;        VariableSetFunctions()  = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00532"></a><span class="lineno">  532</span>&#160;        ~VariableSetFunctions() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00533"></a><span class="lineno">  533</span>&#160; </div>
-<div class="line"><a name="l00534"></a><span class="lineno">  534</span>&#160;      <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00535"></a><span class="lineno">  535</span>&#160;        <span class="comment">// static variable ref singleton implementation.</span></div>
-<div class="line"><a name="l00536"></a><span class="lineno">  536</span>&#160;        <span class="keyword">static</span> <span class="keyword">auto</span> getInstance() -&gt; VariableSetFunctions*;</div>
-<div class="line"><a name="l00537"></a><span class="lineno">  537</span>&#160; </div>
-<div class="line"><a name="l00538"></a><span class="lineno">  538</span>&#160;        std::vector&lt;MergeFunctionType&gt; m_mergeKeepFunctions;</div>
-<div class="line"><a name="l00539"></a><span class="lineno">  539</span>&#160;        std::vector&lt;MergeFunctionType&gt; m_mergeReplaceFunctions;</div>
-<div class="line"><a name="l00540"></a><span class="lineno">  540</span>&#160;        std::vector&lt;SizeFunctionType&gt; m_sizeFunctions;</div>
-<div class="line"><a name="l00541"></a><span class="lineno">  541</span>&#160;        std::vector&lt;VisitFunctorType&gt; m_visitFunctions;</div>
-<div class="line"><a name="l00542"></a><span class="lineno">  542</span>&#160;        std::vector&lt;std::type_index&gt; m_storedType;</div>
-<div class="line"><a name="l00543"></a><span class="lineno">  543</span>&#160;    };</div>
-<div class="line"><a name="l00544"></a><span class="lineno">  544</span>&#160; </div>
-<div class="line"><a name="l00545"></a><span class="lineno">  545</span>&#160;    VariableSetFunctions* m_vtable;</div>
-<div class="line"><a name="l00546"></a><span class="lineno">  546</span>&#160; </div>
-<div class="line"><a name="l00548"></a><span class="lineno">  548</span>&#160; </div>
-<div class="line"><a name="l00551"></a><span class="lineno">  551</span>&#160;    <span class="comment">// Storage of the variable in a type-erased associative container</span></div>
-<div class="line"><a name="l00552"></a><span class="lineno">  552</span>&#160;    <span class="keyword">mutable</span> std::unordered_map&lt;std::type_index, std::any&gt; m_variables;</div>
-<div class="line"><a name="l00553"></a><span class="lineno">  553</span>&#160;    std::unordered_map&lt;std::type_index, size_t&gt; m_typeIndexToVtableIndex;</div>
-<div class="line"><a name="l00555"></a><span class="lineno">  555</span>&#160;    std::vector&lt;std::type_index&gt; m_storedType;</div>
-<div class="line"><a name="l00556"></a><span class="lineno">  556</span>&#160; </div>
-<div class="line"><a name="l00560"></a><span class="lineno">  560</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00561"></a><span class="lineno">  561</span>&#160;    <span class="keyword">auto</span> createVariableStorage() -&gt; VariableContainer&lt;T&gt;*;</div>
-<div class="line"><a name="l00562"></a><span class="lineno">  562</span>&#160; </div>
-<div class="line"><a name="l00565"></a><span class="lineno">  565</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00566"></a><span class="lineno">  566</span>&#160;    <span class="keyword">auto</span> getVariableStorage() const -&gt; VariableContainer&lt;T&gt;&amp;;</div>
-<div class="line"><a name="l00567"></a><span class="lineno">  567</span>&#160; </div>
-<div class="line"><a name="l00570"></a><span class="lineno">  570</span>&#160;    template &lt;typename T&gt;</div>
-<div class="line"><a name="l00571"></a><span class="lineno">  571</span>&#160;    <span class="keywordtype">void</span> removeVariableStorage();</div>
-<div class="line"><a name="l00572"></a><span class="lineno">  572</span>&#160; </div>
-<div class="line"><a name="l00574"></a><span class="lineno">  574</span>&#160;};</div>
-<div class="line"><a name="l00575"></a><span class="lineno">  575</span>&#160; </div>
-<div class="line"><a name="l00576"></a><span class="lineno">  576</span>&#160;<span class="comment">// ------------------------------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00577"></a><span class="lineno">  577</span>&#160;<span class="comment">// Storage management</span></div>
-<div class="line"><a name="l00578"></a><span class="lineno">  578</span>&#160;<span class="comment">// ------------------------------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00579"></a><span class="lineno">  579</span>&#160; </div>
-<div class="line"><a name="l00580"></a><span class="lineno">  580</span>&#160;template &lt;typename T&gt;</div>
-<div class="line"><a name="l00581"></a><span class="lineno">  581</span>&#160;auto VariableSet::createVariableStorage() -&gt; VariableContainer&lt;T&gt;* {</div>
-<div class="line"><a name="l00582"></a><span class="lineno">  582</span>&#160;    m_variables[std::type_index { <span class="keyword">typeid</span>( T ) }].emplace&lt;VariableContainer&lt;T&gt;&gt;();</div>
-<div class="line"><a name="l00583"></a><span class="lineno">  583</span>&#160;    <span class="keywordflow">return</span> std::any_cast&lt;VariableContainer&lt;T&gt;&gt;( &amp;( m_variables[std::type_index { <span class="keyword">typeid</span>( T ) }] ) );</div>
-<div class="line"><a name="l00584"></a><span class="lineno">  584</span>&#160;}</div>
-<div class="line"><a name="l00585"></a><span class="lineno">  585</span>&#160; </div>
-<div class="line"><a name="l00586"></a><span class="lineno">  586</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00587"></a><span class="lineno">  587</span>&#160;<span class="keyword">auto</span> VariableSet::getVariableStorage() const -&gt; VariableContainer&lt;T&gt;&amp; {</div>
-<div class="line"><a name="l00588"></a><span class="lineno">  588</span>&#160;    <span class="keywordflow">return</span> std::any_cast&lt;VariableContainer&lt;T&gt;&amp;&gt;( m_variables[std::type_index { <span class="keyword">typeid</span>( T ) }] );</div>
-<div class="line"><a name="l00589"></a><span class="lineno">  589</span>&#160;}</div>
-<div class="line"><a name="l00590"></a><span class="lineno">  590</span>&#160; </div>
-<div class="line"><a name="l00591"></a><span class="lineno">  591</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00592"></a><span class="lineno">  592</span>&#160;<span class="keywordtype">void</span> VariableSet::removeVariableStorage() {</div>
-<div class="line"><a name="l00593"></a><span class="lineno">  593</span>&#160;    <span class="keyword">auto</span> type = std::type_index { <span class="keyword">typeid</span>( T ) };</div>
-<div class="line"><a name="l00594"></a><span class="lineno">  594</span>&#160;    m_variables.erase( type );</div>
-<div class="line"><a name="l00595"></a><span class="lineno">  595</span>&#160;    m_typeIndexToVtableIndex.erase( type );</div>
-<div class="line"><a name="l00596"></a><span class="lineno">  596</span>&#160; </div>
-<div class="line"><a name="l00597"></a><span class="lineno">  597</span>&#160;    <span class="keyword">auto</span> newEnd = std::remove( m_storedType.begin(), m_storedType.end(), type );</div>
-<div class="line"><a name="l00598"></a><span class="lineno">  598</span>&#160;    m_storedType.erase( newEnd, m_storedType.end() );</div>
-<div class="line"><a name="l00599"></a><span class="lineno">  599</span>&#160;}</div>
-<div class="line"><a name="l00600"></a><span class="lineno">  600</span>&#160; </div>
-<div class="line"><a name="l00601"></a><span class="lineno">  601</span>&#160;<span class="comment">// ------------------------------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00602"></a><span class="lineno">  602</span>&#160;<span class="comment">// Templated methods definition</span></div>
-<div class="line"><a name="l00603"></a><span class="lineno">  603</span>&#160;<span class="comment">// ------------------------------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00604"></a><span class="lineno">  604</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00605"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1VariableSet.html#aa1e2566f592c1ccf81f242fae101933a">  605</a></span>&#160;<span class="keyword">auto</span> <a class="code" href="classRa_1_1Core_1_1VariableSet.html#aa1e2566f592c1ccf81f242fae101933a">VariableSet::insertVariable</a>( <span class="keyword">const</span> std::string&amp; name, <span class="keyword">const</span> T&amp; value )</div>
-<div class="line"><a name="l00606"></a><span class="lineno">  606</span>&#160;    -&gt; std::pair&lt;VariableHandle&lt;T&gt;, <span class="keywordtype">bool</span>&gt; {</div>
-<div class="line"><a name="l00607"></a><span class="lineno">  607</span>&#160;    <span class="keyword">auto</span> typeAccess = existsVariableType&lt;T&gt;();</div>
-<div class="line"><a name="l00608"></a><span class="lineno">  608</span>&#160;    <span class="comment">// If it is the first parameter of the given type, first register the type</span></div>
-<div class="line"><a name="l00609"></a><span class="lineno">  609</span>&#160;    <span class="keywordflow">if</span> ( !typeAccess ) { typeAccess = addVariableType&lt;T&gt;(); }</div>
-<div class="line"><a name="l00610"></a><span class="lineno">  610</span>&#160;    <span class="comment">// insert the parameter.</span></div>
-<div class="line"><a name="l00611"></a><span class="lineno">  611</span>&#160;    <span class="keywordflow">return</span> ( *typeAccess )-&gt;insert( { name, value } );</div>
-<div class="line"><a name="l00612"></a><span class="lineno">  612</span>&#160;}</div>
-<div class="line"><a name="l00613"></a><span class="lineno">  613</span>&#160; </div>
-<div class="line"><a name="l00614"></a><span class="lineno">  614</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00615"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1VariableSet.html#a090de4f50aa34f333bba240a4fd0f627">  615</a></span>&#160;<span class="keyword">auto</span> <a class="code" href="classRa_1_1Core_1_1VariableSet.html#a090de4f50aa34f333bba240a4fd0f627">VariableSet::getVariable</a>( <span class="keyword">const</span> std::string&amp; name ) <span class="keyword">const</span> -&gt; T&amp; {</div>
-<div class="line"><a name="l00616"></a><span class="lineno">  616</span>&#160;    assert( existsVariable&lt;T&gt;( name ) );</div>
-<div class="line"><a name="l00617"></a><span class="lineno">  617</span>&#160;    <span class="keywordflow">return</span> getVariableHandle&lt;T&gt;( name )-&gt;second;</div>
-<div class="line"><a name="l00618"></a><span class="lineno">  618</span>&#160;}</div>
-<div class="line"><a name="l00619"></a><span class="lineno">  619</span>&#160; </div>
-<div class="line"><a name="l00620"></a><span class="lineno">  620</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00621"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1VariableSet.html#a34a985578d9cceed72e615ca93b15d80">  621</a></span>&#160;<span class="keyword">auto</span> <a class="code" href="classRa_1_1Core_1_1VariableSet.html#a34a985578d9cceed72e615ca93b15d80">VariableSet::getVariableHandle</a>( <span class="keyword">const</span> std::string&amp; name ) <span class="keyword">const</span> -&gt; <a class="code" href="classRa_1_1Core_1_1VariableSet.html#a2819447e55fdbe30c43726dd10ba9791">VariableHandle&lt;T&gt;</a> {</div>
-<div class="line"><a name="l00622"></a><span class="lineno">  622</span>&#160;    assert( existsVariableType&lt;T&gt;() );</div>
-<div class="line"><a name="l00623"></a><span class="lineno">  623</span>&#160;    <span class="keywordflow">return</span> getVariableStorage&lt;T&gt;().find( name );</div>
-<div class="line"><a name="l00624"></a><span class="lineno">  624</span>&#160;}</div>
-<div class="line"><a name="l00625"></a><span class="lineno">  625</span>&#160; </div>
-<div class="line"><a name="l00626"></a><span class="lineno">  626</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> H&gt;</div>
-<div class="line"><a name="l00627"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1VariableSet.html#a2ae681263d3319088935f1ca8c0cef93">  627</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="classRa_1_1Core_1_1VariableSet.html#a2ae681263d3319088935f1ca8c0cef93">VariableSet::isHandleValid</a>( <span class="keyword">const</span> H&amp; handle )<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00628"></a><span class="lineno">  628</span>&#160;    <span class="keywordflow">if</span> ( !existsVariableType&lt;<a class="code" href="classRa_1_1Core_1_1VariableSet.html#aff3c960c4ae226d8cc6ec4a4fa093fee">VariableTypeFromHandle&lt;H&gt;</a>&gt;() ) { <span class="keywordflow">return</span> <span class="keyword">false</span>; }</div>
-<div class="line"><a name="l00629"></a><span class="lineno">  629</span>&#160;    <span class="keywordflow">return</span> handle != getVariableStorage&lt;VariableTypeFromHandle&lt;H&gt;&gt;().end();</div>
-<div class="line"><a name="l00630"></a><span class="lineno">  630</span>&#160;}</div>
-<div class="line"><a name="l00631"></a><span class="lineno">  631</span>&#160; </div>
-<div class="line"><a name="l00632"></a><span class="lineno">  632</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00633"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1VariableSet.html#a2ae4889235c18238c677b007701f8db6">  633</a></span>&#160;<span class="keyword">auto</span> <a class="code" href="classRa_1_1Core_1_1VariableSet.html#a2ae4889235c18238c677b007701f8db6">VariableSet::insertOrAssignVariable</a>( <span class="keyword">const</span> std::string&amp; name, <span class="keyword">const</span> T&amp; value )</div>
-<div class="line"><a name="l00634"></a><span class="lineno">  634</span>&#160;    -&gt; std::pair&lt;VariableHandle&lt;T&gt;, <span class="keywordtype">bool</span>&gt; {</div>
-<div class="line"><a name="l00635"></a><span class="lineno">  635</span>&#160;    <span class="keyword">auto</span> typeAccess = existsVariableType&lt;T&gt;();</div>
-<div class="line"><a name="l00636"></a><span class="lineno">  636</span>&#160;    <span class="comment">// If it is the first parameter of the given type, first register the type</span></div>
-<div class="line"><a name="l00637"></a><span class="lineno">  637</span>&#160;    <span class="keywordflow">if</span> ( !typeAccess ) { typeAccess = addVariableType&lt;T&gt;(); }</div>
-<div class="line"><a name="l00638"></a><span class="lineno">  638</span>&#160;    <span class="comment">// insert the parameter.</span></div>
-<div class="line"><a name="l00639"></a><span class="lineno">  639</span>&#160;    <span class="keywordflow">return</span> ( *typeAccess )-&gt;insert_or_assign( name, value );</div>
-<div class="line"><a name="l00640"></a><span class="lineno">  640</span>&#160;}</div>
-<div class="line"><a name="l00641"></a><span class="lineno">  641</span>&#160; </div>
-<div class="line"><a name="l00642"></a><span class="lineno">  642</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00643"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1VariableSet.html#a4f3fe97fce185a5bce5f2a5e2cf799a6">  643</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="classRa_1_1Core_1_1VariableSet.html#a4f3fe97fce185a5bce5f2a5e2cf799a6">VariableSet::deleteVariable</a>( <span class="keyword">const</span> std::string&amp; name ) {</div>
-<div class="line"><a name="l00644"></a><span class="lineno">  644</span>&#160;    <span class="keywordflow">if</span> ( <span class="keyword">auto</span> typeAccess = existsVariableType&lt;T&gt;(); typeAccess ) {</div>
-<div class="line"><a name="l00645"></a><span class="lineno">  645</span>&#160;        <span class="keyword">auto</span> removed = ( *typeAccess )-&gt;erase( name );</div>
-<div class="line"><a name="l00646"></a><span class="lineno">  646</span>&#160;        <span class="comment">// remove the type related function when the container has no more data of this type</span></div>
-<div class="line"><a name="l00647"></a><span class="lineno">  647</span>&#160;        <span class="keywordflow">if</span> ( numberOf&lt;T&gt;() == 0 ) { deleteAllVariables&lt;T&gt;(); }</div>
-<div class="line"><a name="l00648"></a><span class="lineno">  648</span>&#160;        <span class="keywordflow">return</span> removed &gt; 0;</div>
-<div class="line"><a name="l00649"></a><span class="lineno">  649</span>&#160;    }</div>
-<div class="line"><a name="l00650"></a><span class="lineno">  650</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00651"></a><span class="lineno">  651</span>&#160;}</div>
-<div class="line"><a name="l00652"></a><span class="lineno">  652</span>&#160; </div>
-<div class="line"><a name="l00653"></a><span class="lineno">  653</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> H&gt;</div>
-<div class="line"><a name="l00654"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1VariableSet.html#a06bd8863865a8adbce90f1838e0bad0c">  654</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="classRa_1_1Core_1_1VariableSet.html#a4f3fe97fce185a5bce5f2a5e2cf799a6">VariableSet::deleteVariable</a>( H&amp; handle ) {</div>
-<div class="line"><a name="l00655"></a><span class="lineno">  655</span>&#160;    assert( isHandleValid( handle ) );</div>
-<div class="line"><a name="l00656"></a><span class="lineno">  656</span>&#160;    <span class="keyword">auto</span> varname = handle-&gt;first;</div>
-<div class="line"><a name="l00657"></a><span class="lineno">  657</span>&#160;    handle       = getVariableStorage&lt;VariableTypeFromHandle&lt;H&gt;&gt;().end();</div>
-<div class="line"><a name="l00658"></a><span class="lineno">  658</span>&#160;    <span class="keywordflow">return</span> deleteVariable&lt;VariableTypeFromHandle&lt;H&gt;&gt;( varname );</div>
-<div class="line"><a name="l00659"></a><span class="lineno">  659</span>&#160;}</div>
-<div class="line"><a name="l00660"></a><span class="lineno">  660</span>&#160; </div>
-<div class="line"><a name="l00661"></a><span class="lineno">  661</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00662"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1VariableSet.html#a48baeacd56022a902deb045d865c4605">  662</a></span>&#160;<span class="keyword">auto</span> <a class="code" href="classRa_1_1Core_1_1VariableSet.html#a48baeacd56022a902deb045d865c4605">VariableSet::existsVariable</a>( <span class="keyword">const</span> std::string&amp; name ) <span class="keyword">const</span></div>
-<div class="line"><a name="l00663"></a><span class="lineno">  663</span>&#160;    -&gt; Utils::optional&lt;VariableHandle&lt;T&gt;&gt; {</div>
-<div class="line"><a name="l00664"></a><span class="lineno">  664</span>&#160;    <span class="keywordflow">if</span> ( <span class="keyword">auto</span> typeAccess = existsVariableType&lt;T&gt;(); typeAccess ) {</div>
-<div class="line"><a name="l00665"></a><span class="lineno">  665</span>&#160;        <span class="keyword">auto</span> itr = ( *typeAccess )-&gt;find( name );</div>
-<div class="line"><a name="l00666"></a><span class="lineno">  666</span>&#160;        <span class="keywordflow">if</span> ( itr != ( *typeAccess )-&gt;cend() ) { <span class="keywordflow">return</span> itr; }</div>
-<div class="line"><a name="l00667"></a><span class="lineno">  667</span>&#160;    }</div>
-<div class="line"><a name="l00668"></a><span class="lineno">  668</span>&#160;    <span class="keywordflow">return</span> {};</div>
-<div class="line"><a name="l00669"></a><span class="lineno">  669</span>&#160;}</div>
-<div class="line"><a name="l00670"></a><span class="lineno">  670</span>&#160; </div>
-<div class="line"><a name="l00671"></a><span class="lineno">  671</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00672"></a><span class="lineno">  672</span>&#160;<span class="keyword">auto</span> VariableSet::getVariableVisitTypeIndex() -&gt; std::type_index {</div>
-<div class="line"><a name="l00673"></a><span class="lineno">  673</span>&#160;    <span class="keyword">static</span> std::type_index idT(</div>
-<div class="line"><a name="l00674"></a><span class="lineno">  674</span>&#160;        <span class="keyword">typeid</span>( std::reference_wrapper&lt;<span class="keyword">typename</span> <a class="code" href="classRa_1_1Core_1_1VariableSet.html#a61f36df1dda66cf204afdec4c1e17d72">VariableSet::VariableContainer&lt;T&gt;::value_type</a>&gt; ) );</div>
-<div class="line"><a name="l00675"></a><span class="lineno">  675</span>&#160;    <span class="keywordflow">return</span> idT;</div>
-<div class="line"><a name="l00676"></a><span class="lineno">  676</span>&#160;}</div>
-<div class="line"><a name="l00677"></a><span class="lineno">  677</span>&#160; </div>
-<div class="line"><a name="l00678"></a><span class="lineno">  678</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00679"></a><span class="lineno">  679</span>&#160;<span class="keyword">auto</span> VariableSet::addVariableType() -&gt; Utils::optional&lt;VariableContainer&lt;T&gt;*&gt; {</div>
-<div class="line"><a name="l00680"></a><span class="lineno">  680</span>&#160;    <span class="keyword">auto</span> storage = createVariableStorage&lt;T&gt;();</div>
-<div class="line"><a name="l00681"></a><span class="lineno">  681</span>&#160; </div>
-<div class="line"><a name="l00682"></a><span class="lineno">  682</span>&#160;    <span class="keyword">auto</span> tidx = std::type_index( <span class="keyword">typeid</span>( T ) );</div>
-<div class="line"><a name="l00683"></a><span class="lineno">  683</span>&#160;    <span class="keyword">auto</span> it   = std::find( m_vtable-&gt;m_storedType.begin(), m_vtable-&gt;m_storedType.end(), tidx );</div>
-<div class="line"><a name="l00684"></a><span class="lineno">  684</span>&#160; </div>
-<div class="line"><a name="l00685"></a><span class="lineno">  685</span>&#160;    <span class="comment">// remember the stored type and its rank for the instance</span></div>
-<div class="line"><a name="l00686"></a><span class="lineno">  686</span>&#160;    m_typeIndexToVtableIndex[tidx] = it - m_vtable-&gt;m_storedType.begin();</div>
-<div class="line"><a name="l00687"></a><span class="lineno">  687</span>&#160;    m_storedType.push_back( tidx );</div>
-<div class="line"><a name="l00688"></a><span class="lineno">  688</span>&#160; </div>
-<div class="line"><a name="l00689"></a><span class="lineno">  689</span>&#160;    <span class="comment">// If the type is not already there, add type operations and identifier in the global vtable</span></div>
-<div class="line"><a name="l00690"></a><span class="lineno">  690</span>&#160;    <span class="keywordflow">if</span> ( it == m_vtable-&gt;m_storedType.end() ) {</div>
-<div class="line"><a name="l00691"></a><span class="lineno">  691</span>&#160;        <span class="comment">// remember the stored type in the global vtable</span></div>
-<div class="line"><a name="l00692"></a><span class="lineno">  692</span>&#160;        m_vtable-&gt;m_storedType.emplace_back( tidx );</div>
-<div class="line"><a name="l00693"></a><span class="lineno">  693</span>&#160;        <span class="comment">// used to merge (keep) the stored data from container &quot;from&quot; to container &quot;to&quot;</span></div>
-<div class="line"><a name="l00694"></a><span class="lineno">  694</span>&#160;        m_vtable-&gt;m_mergeKeepFunctions.emplace_back(</div>
-<div class="line"><a name="l00695"></a><span class="lineno">  695</span>&#160;            []( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1VariableSet.html">VariableSet</a>&amp; from, <a class="code" href="classRa_1_1Core_1_1VariableSet.html">VariableSet</a>&amp; to ) {</div>
-<div class="line"><a name="l00696"></a><span class="lineno">  696</span>&#160;                <span class="keyword">auto</span> toStorageAccess = to.<a class="code" href="classRa_1_1Core_1_1VariableSet.html#a962c68d54bfc107d007345669cf56393">existsVariableType</a>&lt;T&gt;();</div>
-<div class="line"><a name="l00697"></a><span class="lineno">  697</span>&#160;                <span class="keywordflow">if</span> ( !toStorageAccess ) { toStorageAccess = to.addVariableType&lt;T&gt;(); }</div>
-<div class="line"><a name="l00698"></a><span class="lineno">  698</span>&#160;                <span class="keyword">auto</span>&amp; toStorage   = *( toStorageAccess.value() );</div>
-<div class="line"><a name="l00699"></a><span class="lineno">  699</span>&#160;                <span class="keyword">auto</span>&amp; fromStorage = from.getVariableStorage&lt;T&gt;();</div>
-<div class="line"><a name="l00700"></a><span class="lineno">  700</span>&#160;                <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; t : fromStorage ) {</div>
-<div class="line"><a name="l00701"></a><span class="lineno">  701</span>&#160;                    toStorage.insert( t );</div>
-<div class="line"><a name="l00702"></a><span class="lineno">  702</span>&#160;                }</div>
-<div class="line"><a name="l00703"></a><span class="lineno">  703</span>&#160;            } );</div>
-<div class="line"><a name="l00704"></a><span class="lineno">  704</span>&#160;        <span class="comment">// used to merge (replace) the stored data from container &quot;from&quot; to container &quot;to&quot;</span></div>
-<div class="line"><a name="l00705"></a><span class="lineno">  705</span>&#160;        m_vtable-&gt;m_mergeReplaceFunctions.emplace_back(</div>
-<div class="line"><a name="l00706"></a><span class="lineno">  706</span>&#160;            []( <span class="keyword">const</span> VariableSet&amp; from, VariableSet&amp; to ) {</div>
-<div class="line"><a name="l00707"></a><span class="lineno">  707</span>&#160;                <span class="keyword">auto</span> toStorageAccess = to.existsVariableType&lt;T&gt;();</div>
-<div class="line"><a name="l00708"></a><span class="lineno">  708</span>&#160;                <span class="keywordflow">if</span> ( !toStorageAccess ) { toStorageAccess = to.addVariableType&lt;T&gt;(); }</div>
-<div class="line"><a name="l00709"></a><span class="lineno">  709</span>&#160;                <span class="keyword">auto</span>&amp; toStorage   = *( toStorageAccess.value() );</div>
-<div class="line"><a name="l00710"></a><span class="lineno">  710</span>&#160;                <span class="keyword">auto</span>&amp; fromStorage = from.getVariableStorage&lt;T&gt;();</div>
-<div class="line"><a name="l00711"></a><span class="lineno">  711</span>&#160;                <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; t : fromStorage ) {</div>
-<div class="line"><a name="l00712"></a><span class="lineno">  712</span>&#160;                    toStorage.insert_or_assign( t.first, t.second );</div>
-<div class="line"><a name="l00713"></a><span class="lineno">  713</span>&#160;                }</div>
-<div class="line"><a name="l00714"></a><span class="lineno">  714</span>&#160;            } );</div>
-<div class="line"><a name="l00715"></a><span class="lineno">  715</span>&#160;        <span class="comment">// use to compute gauge on the stored data</span></div>
-<div class="line"><a name="l00716"></a><span class="lineno">  716</span>&#160;        m_vtable-&gt;m_sizeFunctions.emplace_back(</div>
-<div class="line"><a name="l00717"></a><span class="lineno">  717</span>&#160;            []( <span class="keyword">const</span> VariableSet&amp; c ) { <span class="keywordflow">return</span> c.getVariableStorage&lt;T&gt;().size(); } );</div>
-<div class="line"><a name="l00718"></a><span class="lineno">  718</span>&#160;        <span class="comment">// used to visit the variableSet with a dynamic visitor</span></div>
-<div class="line"><a name="l00719"></a><span class="lineno">  719</span>&#160;        m_vtable-&gt;m_visitFunctions.emplace_back(</div>
-<div class="line"><a name="l00720"></a><span class="lineno">  720</span>&#160;            []( <span class="keyword">const</span> VariableSet&amp; c, <span class="keyword">const</span> DynamicVisitorBase&amp; v )</div>
-<div class="line"><a name="l00721"></a><span class="lineno">  721</span>&#160;                -&gt; std::pair&lt;bool, std::function&lt;void( DynamicVisitorBase&amp;, std::any &amp;&amp; )&gt;&gt; {</div>
-<div class="line"><a name="l00722"></a><span class="lineno">  722</span>&#160;                <span class="keyword">auto</span> <span class="keywordtype">id</span> = getVariableVisitTypeIndex&lt;T&gt;();</div>
-<div class="line"><a name="l00723"></a><span class="lineno">  723</span>&#160;                <span class="keywordflow">if</span> ( v.accept( <span class="keywordtype">id</span> ) ) {</div>
-<div class="line"><a name="l00724"></a><span class="lineno">  724</span>&#160;                    <span class="keyword">auto</span>&amp; storage = c.getVariableStorage&lt;T&gt;();</div>
-<div class="line"><a name="l00725"></a><span class="lineno">  725</span>&#160;                    <span class="keyword">auto</span> coll     = std::ref( storage );</div>
-<div class="line"><a name="l00726"></a><span class="lineno">  726</span>&#160;                    <span class="keywordflow">return</span> { <span class="keyword">true</span>, [coll]( DynamicVisitorBase&amp; visitor, std::any&amp;&amp; userParam ) {</div>
-<div class="line"><a name="l00727"></a><span class="lineno">  727</span>&#160;                                <span class="keywordflow">for</span> ( <span class="keyword">auto</span>&amp;&amp; t : coll.get() ) {</div>
-<div class="line"><a name="l00728"></a><span class="lineno">  728</span>&#160;                                    visitor( { std::ref( t ) },</div>
-<div class="line"><a name="l00729"></a><span class="lineno">  729</span>&#160;                                             std::forward&lt;std::any&gt;( userParam ) );</div>
-<div class="line"><a name="l00730"></a><span class="lineno">  730</span>&#160;                                }</div>
-<div class="line"><a name="l00731"></a><span class="lineno">  731</span>&#160;                            } };</div>
-<div class="line"><a name="l00732"></a><span class="lineno">  732</span>&#160;                }</div>
-<div class="line"><a name="l00733"></a><span class="lineno">  733</span>&#160;                <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00734"></a><span class="lineno">  734</span>&#160;                    <span class="keywordflow">return</span> { <span class="keyword">false</span>, <span class="keyword">nullptr</span> };</div>
-<div class="line"><a name="l00735"></a><span class="lineno">  735</span>&#160;                }</div>
-<div class="line"><a name="l00736"></a><span class="lineno">  736</span>&#160;            } );</div>
-<div class="line"><a name="l00737"></a><span class="lineno">  737</span>&#160;    }</div>
-<div class="line"><a name="l00738"></a><span class="lineno">  738</span>&#160;    <span class="keywordflow">return</span> storage;</div>
-<div class="line"><a name="l00739"></a><span class="lineno">  739</span>&#160;}</div>
-<div class="line"><a name="l00740"></a><span class="lineno">  740</span>&#160; </div>
-<div class="line"><a name="l00741"></a><span class="lineno">  741</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00742"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1VariableSet.html#a962c68d54bfc107d007345669cf56393">  742</a></span>&#160;<span class="keyword">auto</span> <a class="code" href="classRa_1_1Core_1_1VariableSet.html#a962c68d54bfc107d007345669cf56393">VariableSet::existsVariableType</a>() const -&gt; Utils::optional&lt;<a class="code" href="classRa_1_1Core_1_1VariableSet.html#a61f36df1dda66cf204afdec4c1e17d72">VariableContainer</a>&lt;T&gt;*&gt; {</div>
-<div class="line"><a name="l00743"></a><span class="lineno">  743</span>&#160;    <span class="keyword">auto</span> iter = m_variables.find( std::type_index { <span class="keyword">typeid</span>( T ) } );</div>
-<div class="line"><a name="l00744"></a><span class="lineno">  744</span>&#160;    <span class="keywordflow">if</span> ( iter == m_variables.cend() ) { <span class="keywordflow">return</span> {}; }</div>
-<div class="line"><a name="l00745"></a><span class="lineno">  745</span>&#160;    <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00746"></a><span class="lineno">  746</span>&#160;        <span class="keywordflow">return</span> std::any_cast&lt;VariableSet::VariableContainer&lt;T&gt;&gt;( &amp;( iter-&gt;second ) );</div>
-<div class="line"><a name="l00747"></a><span class="lineno">  747</span>&#160;    }</div>
-<div class="line"><a name="l00748"></a><span class="lineno">  748</span>&#160;}</div>
-<div class="line"><a name="l00749"></a><span class="lineno">  749</span>&#160; </div>
-<div class="line"><a name="l00750"></a><span class="lineno">  750</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00751"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1VariableSet.html#a3d10586d65743976c50ecd5c1e759ea1">  751</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="classRa_1_1Core_1_1VariableSet.html#a3d10586d65743976c50ecd5c1e759ea1">VariableSet::deleteAllVariables</a>() {</div>
-<div class="line"><a name="l00752"></a><span class="lineno">  752</span>&#160;    <span class="keywordflow">if</span> ( existsVariableType&lt;T&gt;() ) {</div>
-<div class="line"><a name="l00753"></a><span class="lineno">  753</span>&#160;        removeVariableStorage&lt;T&gt;();</div>
-<div class="line"><a name="l00754"></a><span class="lineno">  754</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00755"></a><span class="lineno">  755</span>&#160;    }</div>
-<div class="line"><a name="l00756"></a><span class="lineno">  756</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00757"></a><span class="lineno">  757</span>&#160;}</div>
-<div class="line"><a name="l00758"></a><span class="lineno">  758</span>&#160; </div>
-<div class="line"><a name="l00759"></a><span class="lineno">  759</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00760"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1VariableSet.html#a5a2192b239f119b250a52bf610867efb">  760</a></span>&#160;<span class="keyword">auto</span> <a class="code" href="classRa_1_1Core_1_1VariableSet.html#a5a2192b239f119b250a52bf610867efb">VariableSet::getAllVariables</a>() const -&gt; <a class="code" href="classRa_1_1Core_1_1VariableSet.html#a61f36df1dda66cf204afdec4c1e17d72">VariableContainer</a>&lt;T&gt;&amp; {</div>
-<div class="line"><a name="l00761"></a><span class="lineno">  761</span>&#160;    <span class="comment">// just assert on the existence of the type to prevent undefined behavior when dereferencing</span></div>
-<div class="line"><a name="l00762"></a><span class="lineno">  762</span>&#160;    <span class="comment">// the optional</span></div>
-<div class="line"><a name="l00763"></a><span class="lineno">  763</span>&#160;    assert( existsVariableType&lt;T&gt;() );</div>
-<div class="line"><a name="l00764"></a><span class="lineno">  764</span>&#160;    <span class="comment">// trows std::bad_any_cast if type does not exist</span></div>
-<div class="line"><a name="l00765"></a><span class="lineno">  765</span>&#160;    <span class="keywordflow">return</span> getVariableStorage&lt;T&gt;();</div>
-<div class="line"><a name="l00766"></a><span class="lineno">  766</span>&#160;}</div>
-<div class="line"><a name="l00767"></a><span class="lineno">  767</span>&#160; </div>
-<div class="line"><a name="l00768"></a><span class="lineno">  768</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> H&gt;</div>
-<div class="line"><a name="l00769"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1VariableSet.html#a89d3b97c47fe66792ff2d5a6658dbc59">  769</a></span>&#160;<span class="keyword">auto</span> <a class="code" href="classRa_1_1Core_1_1VariableSet.html#a89d3b97c47fe66792ff2d5a6658dbc59">VariableSet::getAllVariablesFromHandle</a>( <span class="keyword">const</span> H&amp; )</div>
-<div class="line"><a name="l00770"></a><span class="lineno">  770</span>&#160;    -&gt; <a class="code" href="classRa_1_1Core_1_1VariableSet.html#a61f36df1dda66cf204afdec4c1e17d72">VariableContainer&lt;VariableTypeFromHandle&lt;H&gt;</a>&gt;&amp; {</div>
-<div class="line"><a name="l00771"></a><span class="lineno">  771</span>&#160;    assert( existsVariableType&lt;<a class="code" href="classRa_1_1Core_1_1VariableSet.html#aff3c960c4ae226d8cc6ec4a4fa093fee">VariableTypeFromHandle&lt;H&gt;</a>&gt;() );</div>
-<div class="line"><a name="l00772"></a><span class="lineno">  772</span>&#160;    <span class="keywordflow">return</span> getVariableStorage&lt;VariableTypeFromHandle&lt;H&gt;&gt;();</div>
-<div class="line"><a name="l00773"></a><span class="lineno">  773</span>&#160;}</div>
-<div class="line"><a name="l00774"></a><span class="lineno">  774</span>&#160; </div>
-<div class="line"><a name="l00775"></a><span class="lineno">  775</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00776"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1VariableSet.html#a73b07cfdaf8bbcd2c720f65d052ff10d">  776</a></span>&#160;<span class="keywordtype">size_t</span> <a class="code" href="classRa_1_1Core_1_1VariableSet.html#a73b07cfdaf8bbcd2c720f65d052ff10d">VariableSet::numberOf</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00777"></a><span class="lineno">  777</span>&#160;    <span class="keywordflow">if</span> ( <span class="keyword">auto</span> variables = existsVariableType&lt;T&gt;(); variables ) { <span class="keywordflow">return</span> ( *variables )-&gt;size(); }</div>
-<div class="line"><a name="l00778"></a><span class="lineno">  778</span>&#160;    <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a name="l00779"></a><span class="lineno">  779</span>&#160;}</div>
-<div class="line"><a name="l00780"></a><span class="lineno">  780</span>&#160; </div>
-<div class="line"><a name="l00781"></a><span class="lineno">  781</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> P&gt;</div>
-<div class="line"><a name="l00782"></a><span class="lineno">  782</span>&#160;<span class="keywordtype">void</span> VariableSet::visitDynamic( DynamicVisitorBase&amp; visitor, P&amp;&amp; params )<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00783"></a><span class="lineno">  783</span>&#160;    <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; [type, index] : m_typeIndexToVtableIndex ) {</div>
-<div class="line"><a name="l00784"></a><span class="lineno">  784</span>&#160;        <span class="keyword">auto</span> [accepted, loop] = m_vtable-&gt;m_visitFunctions[index]( *<span class="keyword">this</span>, visitor );</div>
-<div class="line"><a name="l00785"></a><span class="lineno">  785</span>&#160;        <span class="keywordflow">if</span> ( accepted ) { loop( visitor, std::forward&lt;P&gt;( params ) ); }</div>
-<div class="line"><a name="l00786"></a><span class="lineno">  786</span>&#160;    }</div>
-<div class="line"><a name="l00787"></a><span class="lineno">  787</span>&#160;}</div>
-<div class="line"><a name="l00788"></a><span class="lineno">  788</span>&#160; </div>
-<div class="line"><a name="l00789"></a><span class="lineno">  789</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> F&gt;</div>
-<div class="line"><a name="l00790"></a><span class="lineno">  790</span>&#160;<span class="keywordtype">void</span> VariableSet::visitStatic( F&amp;&amp; visitor )<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00791"></a><span class="lineno">  791</span>&#160;    visitImpl( visitor, <span class="keyword">typename</span> std::decay_t&lt;F&gt;::types {} );</div>
-<div class="line"><a name="l00792"></a><span class="lineno">  792</span>&#160;}</div>
-<div class="line"><a name="l00793"></a><span class="lineno">  793</span>&#160; </div>
-<div class="line"><a name="l00794"></a><span class="lineno">  794</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> F, <span class="keyword">template</span> &lt;<span class="keyword">typename</span>...&gt; <span class="keyword">typename</span> TYPESLIST, <span class="keyword">typename</span>... TYPES&gt;</div>
-<div class="line"><a name="l00795"></a><span class="lineno">  795</span>&#160;<span class="keywordtype">void</span> VariableSet::visitImpl( F&amp;&amp; visitor, TYPESLIST&lt;TYPES...&gt; )<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00796"></a><span class="lineno">  796</span>&#160;    ( ..., visitImplHelper&lt;std::decay_t&lt;F&gt;, TYPES&gt;( visitor ) );</div>
-<div class="line"><a name="l00797"></a><span class="lineno">  797</span>&#160;}</div>
-<div class="line"><a name="l00798"></a><span class="lineno">  798</span>&#160; </div>
-<div class="line"><a name="l00799"></a><span class="lineno">  799</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> F, <span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00800"></a><span class="lineno">  800</span>&#160;<span class="keywordtype">void</span> VariableSet::visitImplHelper( F&amp; visitor )<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00801"></a><span class="lineno">  801</span>&#160;    static_assert( has_visit_callable_v&lt;F, T&gt;,</div>
-<div class="line"><a name="l00802"></a><span class="lineno">  802</span>&#160;                   <span class="stringliteral">&quot;Static visitors must provide a function with profile &quot;</span></div>
-<div class="line"><a name="l00803"></a><span class="lineno">  803</span>&#160;                   <span class="stringliteral">&quot;void( const std::string&amp; name, [const ]T[&amp;] value) for each &quot;</span></div>
-<div class="line"><a name="l00804"></a><span class="lineno">  804</span>&#160;                   <span class="stringliteral">&quot;declared visitable type T&quot;</span> );</div>
-<div class="line"><a name="l00805"></a><span class="lineno">  805</span>&#160;    <span class="keywordflow">if</span> ( <span class="keyword">auto</span> variables = existsVariableType&lt;T&gt;(); variables ) {</div>
-<div class="line"><a name="l00806"></a><span class="lineno">  806</span>&#160;        <span class="keywordflow">for</span> ( <span class="keyword">auto</span>&amp; element : *( variables.value() ) ) {</div>
-<div class="line"><a name="l00807"></a><span class="lineno">  807</span>&#160;            visitor( element.first, element.second );</div>
-<div class="line"><a name="l00808"></a><span class="lineno">  808</span>&#160;        }</div>
-<div class="line"><a name="l00809"></a><span class="lineno">  809</span>&#160;    }</div>
-<div class="line"><a name="l00810"></a><span class="lineno">  810</span>&#160;}</div>
-<div class="line"><a name="l00811"></a><span class="lineno">  811</span>&#160; </div>
-<div class="line"><a name="l00812"></a><span class="lineno">  812</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> F, <span class="keyword">typename</span> U&gt;</div>
-<div class="line"><a name="l00813"></a><span class="lineno">  813</span>&#160;<span class="keywordtype">void</span> VariableSet::visitStatic( F&amp;&amp; visitor, U&amp; userParams )<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00814"></a><span class="lineno">  814</span>&#160;    visitImplUserParam(</div>
-<div class="line"><a name="l00815"></a><span class="lineno">  815</span>&#160;        visitor, std::forward&lt;U&gt;( userParams ), <span class="keyword">typename</span> std::decay_t&lt;F&gt;::types {} );</div>
-<div class="line"><a name="l00816"></a><span class="lineno">  816</span>&#160;}</div>
-<div class="line"><a name="l00817"></a><span class="lineno">  817</span>&#160; </div>
-<div class="line"><a name="l00818"></a><span class="lineno">  818</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> F, <span class="keyword">typename</span> U&gt;</div>
-<div class="line"><a name="l00819"></a><span class="lineno">  819</span>&#160;<span class="keywordtype">void</span> VariableSet::visitStatic( F&amp;&amp; visitor, U&amp;&amp; userParams )<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00820"></a><span class="lineno">  820</span>&#160;    visitImplUserParam(</div>
-<div class="line"><a name="l00821"></a><span class="lineno">  821</span>&#160;        visitor, std::forward&lt;U&gt;( userParams ), <span class="keyword">typename</span> std::decay_t&lt;F&gt;::types {} );</div>
-<div class="line"><a name="l00822"></a><span class="lineno">  822</span>&#160;}</div>
-<div class="line"><a name="l00823"></a><span class="lineno">  823</span>&#160; </div>
-<div class="line"><a name="l00824"></a><span class="lineno">  824</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> F, <span class="keyword">typename</span> U, <span class="keyword">template</span> &lt;<span class="keyword">typename</span>...&gt; <span class="keyword">typename</span> TYPESLIST, <span class="keyword">typename</span>... TYPES&gt;</div>
-<div class="line"><a name="l00825"></a><span class="lineno">  825</span>&#160;<span class="keywordtype">void</span> VariableSet::visitImplUserParam( F&amp;&amp; visitor, U&amp;&amp; userParam, TYPESLIST&lt;TYPES...&gt; )<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00826"></a><span class="lineno">  826</span>&#160;    ( ...,</div>
-<div class="line"><a name="l00827"></a><span class="lineno">  827</span>&#160;      visitImplHelperUserParam&lt;std::decay_t&lt;F&gt;, U, TYPES&gt;( visitor,</div>
-<div class="line"><a name="l00828"></a><span class="lineno">  828</span>&#160;                                                           std::forward&lt;U&gt;( userParam ) ) );</div>
-<div class="line"><a name="l00829"></a><span class="lineno">  829</span>&#160;}</div>
-<div class="line"><a name="l00830"></a><span class="lineno">  830</span>&#160; </div>
-<div class="line"><a name="l00831"></a><span class="lineno">  831</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> F, <span class="keyword">typename</span> U, <span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00832"></a><span class="lineno">  832</span>&#160;<span class="keywordtype">void</span> VariableSet::visitImplHelperUserParam( F&amp; visitor, U&amp;&amp; userParams )<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00833"></a><span class="lineno">  833</span>&#160;    static_assert( has_visit_callable_with_user_param_v&lt;F, T, U&gt;,</div>
-<div class="line"><a name="l00834"></a><span class="lineno">  834</span>&#160;                   <span class="stringliteral">&quot;Static visitors must provide a function with profile &quot;</span></div>
-<div class="line"><a name="l00835"></a><span class="lineno">  835</span>&#160;                   <span class="stringliteral">&quot;void( const std::string&amp; name, [const ]T[&amp;] value, [const] U&amp;&amp;) for each &quot;</span></div>
-<div class="line"><a name="l00836"></a><span class="lineno">  836</span>&#160;                   <span class="stringliteral">&quot;declared visitable type T&quot;</span> );</div>
-<div class="line"><a name="l00837"></a><span class="lineno">  837</span>&#160;    <span class="keywordflow">if</span> ( <span class="keyword">auto</span> variables = existsVariableType&lt;T&gt;(); variables ) {</div>
-<div class="line"><a name="l00838"></a><span class="lineno">  838</span>&#160;        <span class="keywordflow">for</span> ( <span class="keyword">auto</span>&amp; element : *( variables.value() ) ) {</div>
-<div class="line"><a name="l00839"></a><span class="lineno">  839</span>&#160;            visitor( element.first, element.second, std::forward&lt;U&gt;( userParams ) );</div>
-<div class="line"><a name="l00840"></a><span class="lineno">  840</span>&#160;        }</div>
-<div class="line"><a name="l00841"></a><span class="lineno">  841</span>&#160;    }</div>
-<div class="line"><a name="l00842"></a><span class="lineno">  842</span>&#160;}</div>
-<div class="line"><a name="l00843"></a><span class="lineno">  843</span>&#160; </div>
-<div class="line"><a name="l00844"></a><span class="lineno">  844</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> F&gt;</div>
-<div class="line"><a name="l00845"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1VariableSet_1_1DynamicVisitor.html#aeb5b4f8b353e27e04df097ec38095772">  845</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="classRa_1_1Core_1_1VariableSet_1_1DynamicVisitor.html#aeb5b4f8b353e27e04df097ec38095772">VariableSet::DynamicVisitor::addOperator</a>( F&amp;&amp; f ) {</div>
-<div class="line"><a name="l00846"></a><span class="lineno">  846</span>&#160;    <span class="keyword">auto</span> [it, inserted] = m_visitorOperator.insert( makeVisitorOperator&lt;T, F&gt;( f ) );</div>
-<div class="line"><a name="l00847"></a><span class="lineno">  847</span>&#160;    <span class="keywordflow">return</span> inserted;</div>
-<div class="line"><a name="l00848"></a><span class="lineno">  848</span>&#160;}</div>
-<div class="line"><a name="l00849"></a><span class="lineno">  849</span>&#160; </div>
-<div class="line"><a name="l00850"></a><span class="lineno">  850</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00851"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1VariableSet_1_1DynamicVisitor.html#aa27f700e836fe5beb2927640c292fa2a">  851</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="classRa_1_1Core_1_1VariableSet_1_1DynamicVisitor.html#aa27f700e836fe5beb2927640c292fa2a">VariableSet::DynamicVisitor::hasOperator</a>() {</div>
-<div class="line"><a name="l00852"></a><span class="lineno">  852</span>&#160;    <span class="keywordflow">return</span> m_visitorOperator.find( getVariableVisitTypeIndex&lt;T&gt;() ) != m_visitorOperator.end();</div>
-<div class="line"><a name="l00853"></a><span class="lineno">  853</span>&#160;}</div>
-<div class="line"><a name="l00854"></a><span class="lineno">  854</span>&#160; </div>
-<div class="line"><a name="l00855"></a><span class="lineno">  855</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> F&gt;</div>
-<div class="line"><a name="l00856"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1VariableSet_1_1DynamicVisitor.html#aac62a0cb141a6d4b59788d717c94c3dc">  856</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Core_1_1VariableSet_1_1DynamicVisitor.html#aac62a0cb141a6d4b59788d717c94c3dc">VariableSet::DynamicVisitor::addOrReplaceOperator</a>( F&amp;&amp; f ) {</div>
-<div class="line"><a name="l00857"></a><span class="lineno">  857</span>&#160;    <span class="keyword">auto</span> op = makeVisitorOperator&lt;T, F&gt;( f );</div>
-<div class="line"><a name="l00858"></a><span class="lineno">  858</span>&#160;    m_visitorOperator.insert_or_assign( op.first, op.second );</div>
-<div class="line"><a name="l00859"></a><span class="lineno">  859</span>&#160;}</div>
-<div class="line"><a name="l00860"></a><span class="lineno">  860</span>&#160; </div>
-<div class="line"><a name="l00861"></a><span class="lineno">  861</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00862"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1VariableSet_1_1DynamicVisitor.html#a27683975806e7e57a7b1880bd021762c">  862</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="classRa_1_1Core_1_1VariableSet_1_1DynamicVisitor.html#a27683975806e7e57a7b1880bd021762c">VariableSet::DynamicVisitor::removeOperator</a>() {</div>
-<div class="line"><a name="l00863"></a><span class="lineno">  863</span>&#160;    assert( hasOperator&lt;T&gt;() );</div>
-<div class="line"><a name="l00864"></a><span class="lineno">  864</span>&#160;    <span class="keyword">auto</span> res = m_visitorOperator.erase( getVariableVisitTypeIndex&lt;T&gt;() ) &gt; 0;</div>
-<div class="line"><a name="l00865"></a><span class="lineno">  865</span>&#160;    <span class="keywordflow">return</span> res;</div>
-<div class="line"><a name="l00866"></a><span class="lineno">  866</span>&#160;}</div>
-<div class="line"><a name="l00867"></a><span class="lineno">  867</span>&#160; </div>
-<div class="line"><a name="l00868"></a><span class="lineno">  868</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> F&gt;</div>
-<div class="line"><a name="l00869"></a><span class="lineno">  869</span>&#160;<span class="keyword">struct </span>VariableSet::DynamicVisitor::MakeVisitOperatorHelper&lt;T, F, true&gt; {</div>
-<div class="line"><a name="l00870"></a><span class="lineno">  870</span>&#160;    <span class="keyword">inline</span> <span class="keyword">auto</span> makeOperator( F&amp; f ) -&gt; OperatorsStorageType::value_type {</div>
-<div class="line"><a name="l00871"></a><span class="lineno">  871</span>&#160;        <span class="keywordflow">return</span> { getVariableVisitTypeIndex&lt;T&gt;(), [&amp;f]( std::any&amp; a, std::any&amp;&amp; userParam ) {</div>
-<div class="line"><a name="l00872"></a><span class="lineno">  872</span>&#160;                    <span class="keyword">auto</span> rp = std::any_cast&lt;std::reference_wrapper&lt;VariableSet::Variable&lt;T&gt;&gt;&amp;&gt;( a );</div>
-<div class="line"><a name="l00873"></a><span class="lineno">  873</span>&#160;                    <span class="keyword">auto</span>&amp; p = rp.get();</div>
-<div class="line"><a name="l00874"></a><span class="lineno">  874</span>&#160;                    f( p.first, p.second, std::forward&lt;std::any&gt;( userParam ) );</div>
-<div class="line"><a name="l00875"></a><span class="lineno">  875</span>&#160;                } };</div>
-<div class="line"><a name="l00876"></a><span class="lineno">  876</span>&#160;    }</div>
-<div class="line"><a name="l00877"></a><span class="lineno">  877</span>&#160;};</div>
-<div class="line"><a name="l00878"></a><span class="lineno">  878</span>&#160; </div>
-<div class="line"><a name="l00879"></a><span class="lineno">  879</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> F&gt;</div>
-<div class="line"><a name="l00880"></a><span class="lineno">  880</span>&#160;<span class="keyword">struct </span>VariableSet::DynamicVisitor::MakeVisitOperatorHelper&lt;T, F, false&gt; {</div>
-<div class="line"><a name="l00881"></a><span class="lineno">  881</span>&#160;    <span class="keyword">inline</span> <span class="keyword">auto</span> makeOperator( F&amp; f ) -&gt; OperatorsStorageType::value_type {</div>
-<div class="line"><a name="l00882"></a><span class="lineno">  882</span>&#160;        <span class="keywordflow">return</span> { getVariableVisitTypeIndex&lt;T&gt;(), [&amp;f]( std::any&amp; a, std::any&amp;&amp; ) {</div>
-<div class="line"><a name="l00883"></a><span class="lineno">  883</span>&#160;                    <span class="keyword">auto</span> rp = std::any_cast&lt;std::reference_wrapper&lt;VariableSet::Variable&lt;T&gt;&gt;&amp;&gt;( a );</div>
-<div class="line"><a name="l00884"></a><span class="lineno">  884</span>&#160;                    <span class="keyword">auto</span>&amp; p = rp.get();</div>
-<div class="line"><a name="l00885"></a><span class="lineno">  885</span>&#160;                    f( p.first, p.second );</div>
-<div class="line"><a name="l00886"></a><span class="lineno">  886</span>&#160;                } };</div>
-<div class="line"><a name="l00887"></a><span class="lineno">  887</span>&#160;    }</div>
-<div class="line"><a name="l00888"></a><span class="lineno">  888</span>&#160;};</div>
-<div class="line"><a name="l00889"></a><span class="lineno">  889</span>&#160; </div>
-<div class="line"><a name="l00890"></a><span class="lineno">  890</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> T, <span class="keyword">class</span> F&gt;</div>
-<div class="line"><a name="l00891"></a><span class="lineno">  891</span>&#160;<span class="keyword">inline</span> <span class="keyword">auto</span> VariableSet::DynamicVisitor::makeVisitorOperator( F&amp; f )</div>
-<div class="line"><a name="l00892"></a><span class="lineno">  892</span>&#160;    -&gt; OperatorsStorageType::value_type {</div>
-<div class="line"><a name="l00893"></a><span class="lineno">  893</span>&#160;    <span class="keyword">auto</span> opBuilder = MakeVisitOperatorHelper &lt; T, F,</div>
-<div class="line"><a name="l00894"></a><span class="lineno">  894</span>&#160;         std::is_invocable&lt;F, const std::string&amp;, T, std::any&amp;&amp;&gt;::value ||</div>
-<div class="line"><a name="l00895"></a><span class="lineno">  895</span>&#160;             std::is_invocable&lt;F, const std::string&amp;, T&amp;, std::any&amp;&amp;&gt;::value &gt; {};</div>
-<div class="line"><a name="l00896"></a><span class="lineno">  896</span>&#160;    <span class="keywordflow">return</span> opBuilder.makeOperator( f );</div>
-<div class="line"><a name="l00897"></a><span class="lineno">  897</span>&#160;}</div>
-<div class="line"><a name="l00898"></a><span class="lineno">  898</span>&#160; </div>
-<div class="line"><a name="l00899"></a><span class="lineno">  899</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> F&gt;</div>
-<div class="line"><a name="l00900"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1VariableSet.html#abff01d871519d7cd33380f6f8bf1899d">  900</a></span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="classRa_1_1Core_1_1VariableSet.html#abff01d871519d7cd33380f6f8bf1899d">VariableSet::visit</a>( F&amp;&amp; visitor )<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00901"></a><span class="lineno">  901</span>&#160;    <span class="keywordflow">if</span> constexpr ( std::is_base_of&lt;<a class="code" href="classRa_1_1Core_1_1VariableSet_1_1DynamicVisitorBase.html">DynamicVisitorBase</a>, std::decay_t&lt;F&gt;&gt;::value ) {</div>
-<div class="line"><a name="l00902"></a><span class="lineno">  902</span>&#160;        visitDynamic( visitor );</div>
-<div class="line"><a name="l00903"></a><span class="lineno">  903</span>&#160;    }</div>
-<div class="line"><a name="l00904"></a><span class="lineno">  904</span>&#160;    <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00905"></a><span class="lineno">  905</span>&#160;        visitStatic( visitor );</div>
-<div class="line"><a name="l00906"></a><span class="lineno">  906</span>&#160;    }</div>
-<div class="line"><a name="l00907"></a><span class="lineno">  907</span>&#160;}</div>
-<div class="line"><a name="l00908"></a><span class="lineno">  908</span>&#160; </div>
-<div class="line"><a name="l00909"></a><span class="lineno">  909</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> F, <span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00910"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1VariableSet.html#a41f13d062e1be33a898983f87ec130bc">  910</a></span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="classRa_1_1Core_1_1VariableSet.html#abff01d871519d7cd33380f6f8bf1899d">VariableSet::visit</a>( F&amp;&amp; visitor, T&amp; userParams )<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00911"></a><span class="lineno">  911</span>&#160;    <span class="keywordflow">if</span> constexpr ( std::is_base_of&lt;<a class="code" href="classRa_1_1Core_1_1VariableSet_1_1DynamicVisitorBase.html">DynamicVisitorBase</a>, std::decay_t&lt;F&gt;&gt;::value ) {</div>
-<div class="line"><a name="l00912"></a><span class="lineno">  912</span>&#160;        visitDynamic( visitor, std::forward&lt;T&amp;&gt;( userParams ) );</div>
-<div class="line"><a name="l00913"></a><span class="lineno">  913</span>&#160;    }</div>
-<div class="line"><a name="l00914"></a><span class="lineno">  914</span>&#160;    <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00915"></a><span class="lineno">  915</span>&#160;        visitStatic( visitor, std::forward&lt;T&amp;&gt;( userParams ) );</div>
+<div class="line"><a name="l00474"></a><span class="lineno">  474</span>&#160;    <span class="keyword">using</span> VisitFunction =</div>
+<div class="line"><a name="l00475"></a><span class="lineno">  475</span>&#160;        decltype( std::declval&lt;F&gt;().<span class="keyword">operator</span>()( std::declval&lt;const std::string&amp;&gt;(),</div>
+<div class="line"><a name="l00476"></a><span class="lineno">  476</span>&#160;                                                std::declval&lt;T&amp;&gt;() ) );</div>
+<div class="line"><a name="l00477"></a><span class="lineno">  477</span>&#160; </div>
+<div class="line"><a name="l00479"></a><span class="lineno">  479</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> F, <span class="keyword">typename</span> T, <span class="keyword">typename</span> U&gt;</div>
+<div class="line"><a name="l00480"></a><span class="lineno">  480</span>&#160;    <span class="keyword">using</span> VisitFunctionWithUserParam =</div>
+<div class="line"><a name="l00481"></a><span class="lineno">  481</span>&#160;        decltype( std::declval&lt;F&gt;().<span class="keyword">operator</span>()( std::declval&lt;const std::string&amp;&gt;(),</div>
+<div class="line"><a name="l00482"></a><span class="lineno">  482</span>&#160;                                                std::declval&lt;T&amp;&gt;(),</div>
+<div class="line"><a name="l00483"></a><span class="lineno">  483</span>&#160;                                                std::declval&lt;U&amp;&amp;&gt;() ) );</div>
+<div class="line"><a name="l00484"></a><span class="lineno">  484</span>&#160; </div>
+<div class="line"><a name="l00486"></a><span class="lineno">  486</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> F, <span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00487"></a><span class="lineno">  487</span>&#160;    <span class="keyword">static</span> constexpr <span class="keywordtype">bool</span> has_visit_callable_v =</div>
+<div class="line"><a name="l00488"></a><span class="lineno">  488</span>&#160;        Ra::Core::Utils::is_detected&lt;VisitFunction, F, T&gt;::value;</div>
+<div class="line"><a name="l00489"></a><span class="lineno">  489</span>&#160; </div>
+<div class="line"><a name="l00491"></a><span class="lineno">  491</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> F, <span class="keyword">typename</span> T, <span class="keyword">typename</span> U&gt;</div>
+<div class="line"><a name="l00492"></a><span class="lineno">  492</span>&#160;    <span class="keyword">static</span> constexpr <span class="keywordtype">bool</span> has_visit_callable_with_user_param_v =</div>
+<div class="line"><a name="l00493"></a><span class="lineno">  493</span>&#160;        Ra::Core::Utils::is_detected&lt;VisitFunctionWithUserParam, F, T, U&gt;::value;</div>
+<div class="line"><a name="l00494"></a><span class="lineno">  494</span>&#160; </div>
+<div class="line"><a name="l00496"></a><span class="lineno">  496</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> F, <span class="keyword">template</span> &lt;<span class="keyword">typename</span>...&gt; <span class="keyword">typename</span> TYPESLIST, <span class="keyword">typename</span>... TYPES&gt;</div>
+<div class="line"><a name="l00497"></a><span class="lineno">  497</span>&#160;    <span class="keywordtype">void</span> visitImpl( F&amp;&amp; visitor, TYPESLIST&lt;TYPES...&gt; ) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00498"></a><span class="lineno">  498</span>&#160; </div>
+<div class="line"><a name="l00499"></a><span class="lineno">  499</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> F, <span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00500"></a><span class="lineno">  500</span>&#160;    <span class="keywordtype">void</span> visitImplHelper( F&amp; visitor ) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00501"></a><span class="lineno">  501</span>&#160; </div>
+<div class="line"><a name="l00503"></a><span class="lineno">  503</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> F, <span class="keyword">typename</span> U, <span class="keyword">template</span> &lt;<span class="keyword">typename</span>...&gt; <span class="keyword">typename</span> TYPESLIST, <span class="keyword">typename</span>... TYPES&gt;</div>
+<div class="line"><a name="l00504"></a><span class="lineno">  504</span>&#160;    <span class="keywordtype">void</span> visitImplUserParam( F&amp;&amp; visitor, U&amp;&amp; userParam, TYPESLIST&lt;TYPES...&gt; ) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00505"></a><span class="lineno">  505</span>&#160; </div>
+<div class="line"><a name="l00506"></a><span class="lineno">  506</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> F, <span class="keyword">typename</span> U, <span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00507"></a><span class="lineno">  507</span>&#160;    <span class="keywordtype">void</span> visitImplHelperUserParam( F&amp; visitor, U&amp;&amp; userParams ) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00508"></a><span class="lineno">  508</span>&#160; </div>
+<div class="line"><a name="l00510"></a><span class="lineno">  510</span>&#160; </div>
+<div class="line"><a name="l00514"></a><span class="lineno">  514</span>&#160; </div>
+<div class="line"><a name="l00516"></a><span class="lineno">  516</span>&#160;    <span class="keyword">class </span>VariableSetFunctions</div>
+<div class="line"><a name="l00517"></a><span class="lineno">  517</span>&#160;    {</div>
+<div class="line"><a name="l00518"></a><span class="lineno">  518</span>&#160;      <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00519"></a><span class="lineno">  519</span>&#160;        <span class="keyword">using</span> ClearFunctionType = std::function&lt;void( <a class="code" href="classRa_1_1Core_1_1VariableSet.html">VariableSet</a>&amp; )&gt;;</div>
+<div class="line"><a name="l00520"></a><span class="lineno">  520</span>&#160;        <span class="keyword">using</span> MergeFunctionType = std::function&lt;void( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1VariableSet.html">VariableSet</a>&amp;, <a class="code" href="classRa_1_1Core_1_1VariableSet.html">VariableSet</a>&amp; )&gt;;</div>
+<div class="line"><a name="l00521"></a><span class="lineno">  521</span>&#160;        <span class="keyword">using</span> SizeFunctionType  = std::function&lt;size_t( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1VariableSet.html">VariableSet</a>&amp; )&gt;;</div>
+<div class="line"><a name="l00522"></a><span class="lineno">  522</span>&#160;        <span class="comment">// Should be these simplified ????</span></div>
+<div class="line"><a name="l00523"></a><span class="lineno">  523</span>&#160;        <span class="keyword">using</span> VisitFunctorType =</div>
+<div class="line"><a name="l00524"></a><span class="lineno">  524</span>&#160;            std::function&lt;std::pair&lt;bool, std::function&lt;void( DynamicVisitorBase&amp;, std::any&amp;&amp; )&gt;&gt;(</div>
+<div class="line"><a name="l00525"></a><span class="lineno">  525</span>&#160;                <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1VariableSet.html">VariableSet</a>&amp;,</div>
+<div class="line"><a name="l00526"></a><span class="lineno">  526</span>&#160;                <span class="keyword">const</span> DynamicVisitorBase&amp; )&gt;;</div>
+<div class="line"><a name="l00527"></a><span class="lineno">  527</span>&#160; </div>
+<div class="line"><a name="l00528"></a><span class="lineno">  528</span>&#160;        VariableSetFunctions( <span class="keyword">const</span> VariableSetFunctions&amp; ) = <span class="keyword">delete</span>;</div>
+<div class="line"><a name="l00529"></a><span class="lineno">  529</span>&#160;        <span class="keywordtype">void</span> operator=( <span class="keyword">const</span> VariableSetFunctions&amp; )       = <span class="keyword">delete</span>;</div>
+<div class="line"><a name="l00530"></a><span class="lineno">  530</span>&#160; </div>
+<div class="line"><a name="l00531"></a><span class="lineno">  531</span>&#160;      <span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00532"></a><span class="lineno">  532</span>&#160;        VariableSetFunctions()  = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00533"></a><span class="lineno">  533</span>&#160;        ~VariableSetFunctions() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00534"></a><span class="lineno">  534</span>&#160; </div>
+<div class="line"><a name="l00535"></a><span class="lineno">  535</span>&#160;      <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00536"></a><span class="lineno">  536</span>&#160;        <span class="comment">// static variable ref singleton implementation.</span></div>
+<div class="line"><a name="l00537"></a><span class="lineno">  537</span>&#160;        <span class="keyword">static</span> <span class="keyword">auto</span> getInstance() -&gt; VariableSetFunctions*;</div>
+<div class="line"><a name="l00538"></a><span class="lineno">  538</span>&#160; </div>
+<div class="line"><a name="l00539"></a><span class="lineno">  539</span>&#160;        std::vector&lt;MergeFunctionType&gt; m_mergeKeepFunctions;</div>
+<div class="line"><a name="l00540"></a><span class="lineno">  540</span>&#160;        std::vector&lt;MergeFunctionType&gt; m_mergeReplaceFunctions;</div>
+<div class="line"><a name="l00541"></a><span class="lineno">  541</span>&#160;        std::vector&lt;SizeFunctionType&gt; m_sizeFunctions;</div>
+<div class="line"><a name="l00542"></a><span class="lineno">  542</span>&#160;        std::vector&lt;VisitFunctorType&gt; m_visitFunctions;</div>
+<div class="line"><a name="l00543"></a><span class="lineno">  543</span>&#160;        std::vector&lt;std::type_index&gt; m_storedType;</div>
+<div class="line"><a name="l00544"></a><span class="lineno">  544</span>&#160;    };</div>
+<div class="line"><a name="l00545"></a><span class="lineno">  545</span>&#160; </div>
+<div class="line"><a name="l00546"></a><span class="lineno">  546</span>&#160;    VariableSetFunctions* m_vtable;</div>
+<div class="line"><a name="l00547"></a><span class="lineno">  547</span>&#160; </div>
+<div class="line"><a name="l00549"></a><span class="lineno">  549</span>&#160; </div>
+<div class="line"><a name="l00552"></a><span class="lineno">  552</span>&#160;    <span class="comment">// Storage of the variable in a type-erased associative container</span></div>
+<div class="line"><a name="l00553"></a><span class="lineno">  553</span>&#160;    <span class="keyword">mutable</span> std::unordered_map&lt;std::type_index, std::any&gt; m_variables;</div>
+<div class="line"><a name="l00554"></a><span class="lineno">  554</span>&#160;    std::unordered_map&lt;std::type_index, size_t&gt; m_typeIndexToVtableIndex;</div>
+<div class="line"><a name="l00556"></a><span class="lineno">  556</span>&#160;    std::vector&lt;std::type_index&gt; m_storedType;</div>
+<div class="line"><a name="l00557"></a><span class="lineno">  557</span>&#160; </div>
+<div class="line"><a name="l00561"></a><span class="lineno">  561</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00562"></a><span class="lineno">  562</span>&#160;    <span class="keyword">auto</span> createVariableStorage() -&gt; VariableContainer&lt;T&gt;*;</div>
+<div class="line"><a name="l00563"></a><span class="lineno">  563</span>&#160; </div>
+<div class="line"><a name="l00566"></a><span class="lineno">  566</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00567"></a><span class="lineno">  567</span>&#160;    <span class="keyword">auto</span> getVariableStorage() const -&gt; VariableContainer&lt;T&gt;&amp;;</div>
+<div class="line"><a name="l00568"></a><span class="lineno">  568</span>&#160; </div>
+<div class="line"><a name="l00571"></a><span class="lineno">  571</span>&#160;    template &lt;typename T&gt;</div>
+<div class="line"><a name="l00572"></a><span class="lineno">  572</span>&#160;    <span class="keywordtype">void</span> removeVariableStorage();</div>
+<div class="line"><a name="l00573"></a><span class="lineno">  573</span>&#160; </div>
+<div class="line"><a name="l00575"></a><span class="lineno">  575</span>&#160;};</div>
+<div class="line"><a name="l00576"></a><span class="lineno">  576</span>&#160; </div>
+<div class="line"><a name="l00577"></a><span class="lineno">  577</span>&#160;<span class="comment">// ------------------------------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00578"></a><span class="lineno">  578</span>&#160;<span class="comment">// Storage management</span></div>
+<div class="line"><a name="l00579"></a><span class="lineno">  579</span>&#160;<span class="comment">// ------------------------------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00580"></a><span class="lineno">  580</span>&#160; </div>
+<div class="line"><a name="l00581"></a><span class="lineno">  581</span>&#160;template &lt;typename T&gt;</div>
+<div class="line"><a name="l00582"></a><span class="lineno">  582</span>&#160;auto VariableSet::createVariableStorage() -&gt; VariableContainer&lt;T&gt;* {</div>
+<div class="line"><a name="l00583"></a><span class="lineno">  583</span>&#160;    m_variables[std::type_index { <span class="keyword">typeid</span>( T ) }].emplace&lt;VariableContainer&lt;T&gt;&gt;();</div>
+<div class="line"><a name="l00584"></a><span class="lineno">  584</span>&#160;    <span class="keywordflow">return</span> std::any_cast&lt;VariableContainer&lt;T&gt;&gt;( &amp;( m_variables[std::type_index { <span class="keyword">typeid</span>( T ) }] ) );</div>
+<div class="line"><a name="l00585"></a><span class="lineno">  585</span>&#160;}</div>
+<div class="line"><a name="l00586"></a><span class="lineno">  586</span>&#160; </div>
+<div class="line"><a name="l00587"></a><span class="lineno">  587</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00588"></a><span class="lineno">  588</span>&#160;<span class="keyword">auto</span> VariableSet::getVariableStorage() const -&gt; VariableContainer&lt;T&gt;&amp; {</div>
+<div class="line"><a name="l00589"></a><span class="lineno">  589</span>&#160;    <span class="keywordflow">return</span> std::any_cast&lt;VariableContainer&lt;T&gt;&amp;&gt;( m_variables[std::type_index { <span class="keyword">typeid</span>( T ) }] );</div>
+<div class="line"><a name="l00590"></a><span class="lineno">  590</span>&#160;}</div>
+<div class="line"><a name="l00591"></a><span class="lineno">  591</span>&#160; </div>
+<div class="line"><a name="l00592"></a><span class="lineno">  592</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00593"></a><span class="lineno">  593</span>&#160;<span class="keywordtype">void</span> VariableSet::removeVariableStorage() {</div>
+<div class="line"><a name="l00594"></a><span class="lineno">  594</span>&#160;    <span class="keyword">auto</span> type = std::type_index { <span class="keyword">typeid</span>( T ) };</div>
+<div class="line"><a name="l00595"></a><span class="lineno">  595</span>&#160;    m_variables.erase( type );</div>
+<div class="line"><a name="l00596"></a><span class="lineno">  596</span>&#160;    m_typeIndexToVtableIndex.erase( type );</div>
+<div class="line"><a name="l00597"></a><span class="lineno">  597</span>&#160; </div>
+<div class="line"><a name="l00598"></a><span class="lineno">  598</span>&#160;    <span class="keyword">auto</span> newEnd = std::remove( m_storedType.begin(), m_storedType.end(), type );</div>
+<div class="line"><a name="l00599"></a><span class="lineno">  599</span>&#160;    m_storedType.erase( newEnd, m_storedType.end() );</div>
+<div class="line"><a name="l00600"></a><span class="lineno">  600</span>&#160;}</div>
+<div class="line"><a name="l00601"></a><span class="lineno">  601</span>&#160; </div>
+<div class="line"><a name="l00602"></a><span class="lineno">  602</span>&#160;<span class="comment">// ------------------------------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00603"></a><span class="lineno">  603</span>&#160;<span class="comment">// Templated methods definition</span></div>
+<div class="line"><a name="l00604"></a><span class="lineno">  604</span>&#160;<span class="comment">// ------------------------------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00605"></a><span class="lineno">  605</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00606"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1VariableSet.html#aa1e2566f592c1ccf81f242fae101933a">  606</a></span>&#160;<span class="keyword">auto</span> <a class="code" href="classRa_1_1Core_1_1VariableSet.html#aa1e2566f592c1ccf81f242fae101933a">VariableSet::insertVariable</a>( <span class="keyword">const</span> std::string&amp; name, <span class="keyword">const</span> T&amp; value )</div>
+<div class="line"><a name="l00607"></a><span class="lineno">  607</span>&#160;    -&gt; std::pair&lt;VariableHandle&lt;T&gt;, <span class="keywordtype">bool</span>&gt; {</div>
+<div class="line"><a name="l00608"></a><span class="lineno">  608</span>&#160;    <span class="keyword">auto</span> typeAccess = existsVariableType&lt;T&gt;();</div>
+<div class="line"><a name="l00609"></a><span class="lineno">  609</span>&#160;    <span class="comment">// If it is the first parameter of the given type, first register the type</span></div>
+<div class="line"><a name="l00610"></a><span class="lineno">  610</span>&#160;    <span class="keywordflow">if</span> ( !typeAccess ) { typeAccess = addVariableType&lt;T&gt;(); }</div>
+<div class="line"><a name="l00611"></a><span class="lineno">  611</span>&#160;    <span class="comment">// insert the parameter.</span></div>
+<div class="line"><a name="l00612"></a><span class="lineno">  612</span>&#160;    <span class="keywordflow">return</span> ( *typeAccess )-&gt;insert( { name, value } );</div>
+<div class="line"><a name="l00613"></a><span class="lineno">  613</span>&#160;}</div>
+<div class="line"><a name="l00614"></a><span class="lineno">  614</span>&#160; </div>
+<div class="line"><a name="l00615"></a><span class="lineno">  615</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00616"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1VariableSet.html#a090de4f50aa34f333bba240a4fd0f627">  616</a></span>&#160;<span class="keyword">auto</span> <a class="code" href="classRa_1_1Core_1_1VariableSet.html#a090de4f50aa34f333bba240a4fd0f627">VariableSet::getVariable</a>( <span class="keyword">const</span> std::string&amp; name ) <span class="keyword">const</span> -&gt; T&amp; {</div>
+<div class="line"><a name="l00617"></a><span class="lineno">  617</span>&#160;    assert( existsVariable&lt;T&gt;( name ) );</div>
+<div class="line"><a name="l00618"></a><span class="lineno">  618</span>&#160;    <span class="keywordflow">return</span> getVariableHandle&lt;T&gt;( name )-&gt;second;</div>
+<div class="line"><a name="l00619"></a><span class="lineno">  619</span>&#160;}</div>
+<div class="line"><a name="l00620"></a><span class="lineno">  620</span>&#160; </div>
+<div class="line"><a name="l00621"></a><span class="lineno">  621</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00622"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1VariableSet.html#a34a985578d9cceed72e615ca93b15d80">  622</a></span>&#160;<span class="keyword">auto</span> <a class="code" href="classRa_1_1Core_1_1VariableSet.html#a34a985578d9cceed72e615ca93b15d80">VariableSet::getVariableHandle</a>( <span class="keyword">const</span> std::string&amp; name ) <span class="keyword">const</span> -&gt; <a class="code" href="classRa_1_1Core_1_1VariableSet.html#a2819447e55fdbe30c43726dd10ba9791">VariableHandle&lt;T&gt;</a> {</div>
+<div class="line"><a name="l00623"></a><span class="lineno">  623</span>&#160;    assert( existsVariableType&lt;T&gt;() );</div>
+<div class="line"><a name="l00624"></a><span class="lineno">  624</span>&#160;    <span class="keywordflow">return</span> getVariableStorage&lt;T&gt;().find( name );</div>
+<div class="line"><a name="l00625"></a><span class="lineno">  625</span>&#160;}</div>
+<div class="line"><a name="l00626"></a><span class="lineno">  626</span>&#160; </div>
+<div class="line"><a name="l00627"></a><span class="lineno">  627</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> H&gt;</div>
+<div class="line"><a name="l00628"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1VariableSet.html#a2ae681263d3319088935f1ca8c0cef93">  628</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="classRa_1_1Core_1_1VariableSet.html#a2ae681263d3319088935f1ca8c0cef93">VariableSet::isHandleValid</a>( <span class="keyword">const</span> H&amp; handle )<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00629"></a><span class="lineno">  629</span>&#160;    <span class="keywordflow">if</span> ( !existsVariableType&lt;<a class="code" href="classRa_1_1Core_1_1VariableSet.html#aff3c960c4ae226d8cc6ec4a4fa093fee">VariableTypeFromHandle&lt;H&gt;</a>&gt;() ) { <span class="keywordflow">return</span> <span class="keyword">false</span>; }</div>
+<div class="line"><a name="l00630"></a><span class="lineno">  630</span>&#160;    <span class="keywordflow">return</span> handle != getVariableStorage&lt;VariableTypeFromHandle&lt;H&gt;&gt;().end();</div>
+<div class="line"><a name="l00631"></a><span class="lineno">  631</span>&#160;}</div>
+<div class="line"><a name="l00632"></a><span class="lineno">  632</span>&#160; </div>
+<div class="line"><a name="l00633"></a><span class="lineno">  633</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00634"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1VariableSet.html#a2ae4889235c18238c677b007701f8db6">  634</a></span>&#160;<span class="keyword">auto</span> <a class="code" href="classRa_1_1Core_1_1VariableSet.html#a2ae4889235c18238c677b007701f8db6">VariableSet::insertOrAssignVariable</a>( <span class="keyword">const</span> std::string&amp; name, <span class="keyword">const</span> T&amp; value )</div>
+<div class="line"><a name="l00635"></a><span class="lineno">  635</span>&#160;    -&gt; std::pair&lt;VariableHandle&lt;T&gt;, <span class="keywordtype">bool</span>&gt; {</div>
+<div class="line"><a name="l00636"></a><span class="lineno">  636</span>&#160;    <span class="keyword">auto</span> typeAccess = existsVariableType&lt;T&gt;();</div>
+<div class="line"><a name="l00637"></a><span class="lineno">  637</span>&#160;    <span class="comment">// If it is the first parameter of the given type, first register the type</span></div>
+<div class="line"><a name="l00638"></a><span class="lineno">  638</span>&#160;    <span class="keywordflow">if</span> ( !typeAccess ) { typeAccess = addVariableType&lt;T&gt;(); }</div>
+<div class="line"><a name="l00639"></a><span class="lineno">  639</span>&#160;    <span class="comment">// insert the parameter.</span></div>
+<div class="line"><a name="l00640"></a><span class="lineno">  640</span>&#160;    <span class="keywordflow">return</span> ( *typeAccess )-&gt;insert_or_assign( name, value );</div>
+<div class="line"><a name="l00641"></a><span class="lineno">  641</span>&#160;}</div>
+<div class="line"><a name="l00642"></a><span class="lineno">  642</span>&#160; </div>
+<div class="line"><a name="l00643"></a><span class="lineno">  643</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00644"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1VariableSet.html#a4f3fe97fce185a5bce5f2a5e2cf799a6">  644</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="classRa_1_1Core_1_1VariableSet.html#a4f3fe97fce185a5bce5f2a5e2cf799a6">VariableSet::deleteVariable</a>( <span class="keyword">const</span> std::string&amp; name ) {</div>
+<div class="line"><a name="l00645"></a><span class="lineno">  645</span>&#160;    <span class="keywordflow">if</span> ( <span class="keyword">auto</span> typeAccess = existsVariableType&lt;T&gt;(); typeAccess ) {</div>
+<div class="line"><a name="l00646"></a><span class="lineno">  646</span>&#160;        <span class="keyword">auto</span> removed = ( *typeAccess )-&gt;erase( name );</div>
+<div class="line"><a name="l00647"></a><span class="lineno">  647</span>&#160;        <span class="comment">// remove the type related function when the container has no more data of this type</span></div>
+<div class="line"><a name="l00648"></a><span class="lineno">  648</span>&#160;        <span class="keywordflow">if</span> ( numberOf&lt;T&gt;() == 0 ) { deleteAllVariables&lt;T&gt;(); }</div>
+<div class="line"><a name="l00649"></a><span class="lineno">  649</span>&#160;        <span class="keywordflow">return</span> removed &gt; 0;</div>
+<div class="line"><a name="l00650"></a><span class="lineno">  650</span>&#160;    }</div>
+<div class="line"><a name="l00651"></a><span class="lineno">  651</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00652"></a><span class="lineno">  652</span>&#160;}</div>
+<div class="line"><a name="l00653"></a><span class="lineno">  653</span>&#160; </div>
+<div class="line"><a name="l00654"></a><span class="lineno">  654</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> H&gt;</div>
+<div class="line"><a name="l00655"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1VariableSet.html#a06bd8863865a8adbce90f1838e0bad0c">  655</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="classRa_1_1Core_1_1VariableSet.html#a4f3fe97fce185a5bce5f2a5e2cf799a6">VariableSet::deleteVariable</a>( H&amp; handle ) {</div>
+<div class="line"><a name="l00656"></a><span class="lineno">  656</span>&#160;    assert( isHandleValid( handle ) );</div>
+<div class="line"><a name="l00657"></a><span class="lineno">  657</span>&#160;    <span class="keyword">auto</span> varname = handle-&gt;first;</div>
+<div class="line"><a name="l00658"></a><span class="lineno">  658</span>&#160;    handle       = getVariableStorage&lt;VariableTypeFromHandle&lt;H&gt;&gt;().end();</div>
+<div class="line"><a name="l00659"></a><span class="lineno">  659</span>&#160;    <span class="keywordflow">return</span> deleteVariable&lt;VariableTypeFromHandle&lt;H&gt;&gt;( varname );</div>
+<div class="line"><a name="l00660"></a><span class="lineno">  660</span>&#160;}</div>
+<div class="line"><a name="l00661"></a><span class="lineno">  661</span>&#160; </div>
+<div class="line"><a name="l00662"></a><span class="lineno">  662</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00663"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1VariableSet.html#a48baeacd56022a902deb045d865c4605">  663</a></span>&#160;<span class="keyword">auto</span> <a class="code" href="classRa_1_1Core_1_1VariableSet.html#a48baeacd56022a902deb045d865c4605">VariableSet::existsVariable</a>( <span class="keyword">const</span> std::string&amp; name ) <span class="keyword">const</span></div>
+<div class="line"><a name="l00664"></a><span class="lineno">  664</span>&#160;    -&gt; Utils::optional&lt;VariableHandle&lt;T&gt;&gt; {</div>
+<div class="line"><a name="l00665"></a><span class="lineno">  665</span>&#160;    <span class="keywordflow">if</span> ( <span class="keyword">auto</span> typeAccess = existsVariableType&lt;T&gt;(); typeAccess ) {</div>
+<div class="line"><a name="l00666"></a><span class="lineno">  666</span>&#160;        <span class="keyword">auto</span> itr = ( *typeAccess )-&gt;find( name );</div>
+<div class="line"><a name="l00667"></a><span class="lineno">  667</span>&#160;        <span class="keywordflow">if</span> ( itr != ( *typeAccess )-&gt;cend() ) { <span class="keywordflow">return</span> itr; }</div>
+<div class="line"><a name="l00668"></a><span class="lineno">  668</span>&#160;    }</div>
+<div class="line"><a name="l00669"></a><span class="lineno">  669</span>&#160;    <span class="keywordflow">return</span> {};</div>
+<div class="line"><a name="l00670"></a><span class="lineno">  670</span>&#160;}</div>
+<div class="line"><a name="l00671"></a><span class="lineno">  671</span>&#160; </div>
+<div class="line"><a name="l00672"></a><span class="lineno">  672</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00673"></a><span class="lineno">  673</span>&#160;<span class="keyword">auto</span> VariableSet::getVariableVisitTypeIndex() -&gt; std::type_index {</div>
+<div class="line"><a name="l00674"></a><span class="lineno">  674</span>&#160;    <span class="keyword">static</span> std::type_index idT(</div>
+<div class="line"><a name="l00675"></a><span class="lineno">  675</span>&#160;        <span class="keyword">typeid</span>( std::reference_wrapper&lt;<span class="keyword">typename</span> <a class="code" href="classRa_1_1Core_1_1VariableSet.html#a61f36df1dda66cf204afdec4c1e17d72">VariableSet::VariableContainer&lt;T&gt;::value_type</a>&gt; ) );</div>
+<div class="line"><a name="l00676"></a><span class="lineno">  676</span>&#160;    <span class="keywordflow">return</span> idT;</div>
+<div class="line"><a name="l00677"></a><span class="lineno">  677</span>&#160;}</div>
+<div class="line"><a name="l00678"></a><span class="lineno">  678</span>&#160; </div>
+<div class="line"><a name="l00679"></a><span class="lineno">  679</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00680"></a><span class="lineno">  680</span>&#160;<span class="keyword">auto</span> VariableSet::addVariableType() -&gt; Utils::optional&lt;VariableContainer&lt;T&gt;*&gt; {</div>
+<div class="line"><a name="l00681"></a><span class="lineno">  681</span>&#160;    <span class="keyword">auto</span> storage = createVariableStorage&lt;T&gt;();</div>
+<div class="line"><a name="l00682"></a><span class="lineno">  682</span>&#160; </div>
+<div class="line"><a name="l00683"></a><span class="lineno">  683</span>&#160;    <span class="keyword">auto</span> tidx = std::type_index( <span class="keyword">typeid</span>( T ) );</div>
+<div class="line"><a name="l00684"></a><span class="lineno">  684</span>&#160;    <span class="keyword">auto</span> it   = std::find( m_vtable-&gt;m_storedType.begin(), m_vtable-&gt;m_storedType.end(), tidx );</div>
+<div class="line"><a name="l00685"></a><span class="lineno">  685</span>&#160; </div>
+<div class="line"><a name="l00686"></a><span class="lineno">  686</span>&#160;    <span class="comment">// remember the stored type and its rank for the instance</span></div>
+<div class="line"><a name="l00687"></a><span class="lineno">  687</span>&#160;    m_typeIndexToVtableIndex[tidx] = it - m_vtable-&gt;m_storedType.begin();</div>
+<div class="line"><a name="l00688"></a><span class="lineno">  688</span>&#160;    m_storedType.push_back( tidx );</div>
+<div class="line"><a name="l00689"></a><span class="lineno">  689</span>&#160; </div>
+<div class="line"><a name="l00690"></a><span class="lineno">  690</span>&#160;    <span class="comment">// If the type is not already there, add type operations and identifier in the global vtable</span></div>
+<div class="line"><a name="l00691"></a><span class="lineno">  691</span>&#160;    <span class="keywordflow">if</span> ( it == m_vtable-&gt;m_storedType.end() ) {</div>
+<div class="line"><a name="l00692"></a><span class="lineno">  692</span>&#160;        <span class="comment">// remember the stored type in the global vtable</span></div>
+<div class="line"><a name="l00693"></a><span class="lineno">  693</span>&#160;        m_vtable-&gt;m_storedType.emplace_back( tidx );</div>
+<div class="line"><a name="l00694"></a><span class="lineno">  694</span>&#160;        <span class="comment">// used to merge (keep) the stored data from container &quot;from&quot; to container &quot;to&quot;</span></div>
+<div class="line"><a name="l00695"></a><span class="lineno">  695</span>&#160;        m_vtable-&gt;m_mergeKeepFunctions.emplace_back(</div>
+<div class="line"><a name="l00696"></a><span class="lineno">  696</span>&#160;            []( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1VariableSet.html">VariableSet</a>&amp; from, <a class="code" href="classRa_1_1Core_1_1VariableSet.html">VariableSet</a>&amp; to ) {</div>
+<div class="line"><a name="l00697"></a><span class="lineno">  697</span>&#160;                <span class="keyword">auto</span> toStorageAccess = to.<a class="code" href="classRa_1_1Core_1_1VariableSet.html#a962c68d54bfc107d007345669cf56393">existsVariableType</a>&lt;T&gt;();</div>
+<div class="line"><a name="l00698"></a><span class="lineno">  698</span>&#160;                <span class="keywordflow">if</span> ( !toStorageAccess ) { toStorageAccess = to.addVariableType&lt;T&gt;(); }</div>
+<div class="line"><a name="l00699"></a><span class="lineno">  699</span>&#160;                <span class="keyword">auto</span>&amp; toStorage   = *( toStorageAccess.value() );</div>
+<div class="line"><a name="l00700"></a><span class="lineno">  700</span>&#160;                <span class="keyword">auto</span>&amp; fromStorage = from.getVariableStorage&lt;T&gt;();</div>
+<div class="line"><a name="l00701"></a><span class="lineno">  701</span>&#160;                <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; t : fromStorage ) {</div>
+<div class="line"><a name="l00702"></a><span class="lineno">  702</span>&#160;                    toStorage.insert( t );</div>
+<div class="line"><a name="l00703"></a><span class="lineno">  703</span>&#160;                }</div>
+<div class="line"><a name="l00704"></a><span class="lineno">  704</span>&#160;            } );</div>
+<div class="line"><a name="l00705"></a><span class="lineno">  705</span>&#160;        <span class="comment">// used to merge (replace) the stored data from container &quot;from&quot; to container &quot;to&quot;</span></div>
+<div class="line"><a name="l00706"></a><span class="lineno">  706</span>&#160;        m_vtable-&gt;m_mergeReplaceFunctions.emplace_back(</div>
+<div class="line"><a name="l00707"></a><span class="lineno">  707</span>&#160;            []( <span class="keyword">const</span> VariableSet&amp; from, VariableSet&amp; to ) {</div>
+<div class="line"><a name="l00708"></a><span class="lineno">  708</span>&#160;                <span class="keyword">auto</span> toStorageAccess = to.existsVariableType&lt;T&gt;();</div>
+<div class="line"><a name="l00709"></a><span class="lineno">  709</span>&#160;                <span class="keywordflow">if</span> ( !toStorageAccess ) { toStorageAccess = to.addVariableType&lt;T&gt;(); }</div>
+<div class="line"><a name="l00710"></a><span class="lineno">  710</span>&#160;                <span class="keyword">auto</span>&amp; toStorage   = *( toStorageAccess.value() );</div>
+<div class="line"><a name="l00711"></a><span class="lineno">  711</span>&#160;                <span class="keyword">auto</span>&amp; fromStorage = from.getVariableStorage&lt;T&gt;();</div>
+<div class="line"><a name="l00712"></a><span class="lineno">  712</span>&#160;                <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; t : fromStorage ) {</div>
+<div class="line"><a name="l00713"></a><span class="lineno">  713</span>&#160;                    toStorage.insert_or_assign( t.first, t.second );</div>
+<div class="line"><a name="l00714"></a><span class="lineno">  714</span>&#160;                }</div>
+<div class="line"><a name="l00715"></a><span class="lineno">  715</span>&#160;            } );</div>
+<div class="line"><a name="l00716"></a><span class="lineno">  716</span>&#160;        <span class="comment">// use to compute gauge on the stored data</span></div>
+<div class="line"><a name="l00717"></a><span class="lineno">  717</span>&#160;        m_vtable-&gt;m_sizeFunctions.emplace_back(</div>
+<div class="line"><a name="l00718"></a><span class="lineno">  718</span>&#160;            []( <span class="keyword">const</span> VariableSet&amp; c ) { <span class="keywordflow">return</span> c.getVariableStorage&lt;T&gt;().size(); } );</div>
+<div class="line"><a name="l00719"></a><span class="lineno">  719</span>&#160;        <span class="comment">// used to visit the variableSet with a dynamic visitor</span></div>
+<div class="line"><a name="l00720"></a><span class="lineno">  720</span>&#160;        m_vtable-&gt;m_visitFunctions.emplace_back(</div>
+<div class="line"><a name="l00721"></a><span class="lineno">  721</span>&#160;            []( <span class="keyword">const</span> VariableSet&amp; c, <span class="keyword">const</span> DynamicVisitorBase&amp; v )</div>
+<div class="line"><a name="l00722"></a><span class="lineno">  722</span>&#160;                -&gt; std::pair&lt;bool, std::function&lt;void( DynamicVisitorBase&amp;, std::any &amp;&amp; )&gt;&gt; {</div>
+<div class="line"><a name="l00723"></a><span class="lineno">  723</span>&#160;                <span class="keyword">auto</span> <span class="keywordtype">id</span> = getVariableVisitTypeIndex&lt;T&gt;();</div>
+<div class="line"><a name="l00724"></a><span class="lineno">  724</span>&#160;                <span class="keywordflow">if</span> ( v.accept( <span class="keywordtype">id</span> ) ) {</div>
+<div class="line"><a name="l00725"></a><span class="lineno">  725</span>&#160;                    <span class="keyword">auto</span>&amp; storage = c.getVariableStorage&lt;T&gt;();</div>
+<div class="line"><a name="l00726"></a><span class="lineno">  726</span>&#160;                    <span class="keyword">auto</span> coll     = std::ref( storage );</div>
+<div class="line"><a name="l00727"></a><span class="lineno">  727</span>&#160;                    <span class="keywordflow">return</span> { <span class="keyword">true</span>, [coll]( DynamicVisitorBase&amp; visitor, std::any&amp;&amp; userParam ) {</div>
+<div class="line"><a name="l00728"></a><span class="lineno">  728</span>&#160;                                <span class="keywordflow">for</span> ( <span class="keyword">auto</span>&amp;&amp; t : coll.get() ) {</div>
+<div class="line"><a name="l00729"></a><span class="lineno">  729</span>&#160;                                    visitor( { std::ref( t ) },</div>
+<div class="line"><a name="l00730"></a><span class="lineno">  730</span>&#160;                                             std::forward&lt;std::any&gt;( userParam ) );</div>
+<div class="line"><a name="l00731"></a><span class="lineno">  731</span>&#160;                                }</div>
+<div class="line"><a name="l00732"></a><span class="lineno">  732</span>&#160;                            } };</div>
+<div class="line"><a name="l00733"></a><span class="lineno">  733</span>&#160;                }</div>
+<div class="line"><a name="l00734"></a><span class="lineno">  734</span>&#160;                <span class="keywordflow">else</span> { <span class="keywordflow">return</span> { <span class="keyword">false</span>, <span class="keyword">nullptr</span> }; }</div>
+<div class="line"><a name="l00735"></a><span class="lineno">  735</span>&#160;            } );</div>
+<div class="line"><a name="l00736"></a><span class="lineno">  736</span>&#160;    }</div>
+<div class="line"><a name="l00737"></a><span class="lineno">  737</span>&#160;    <span class="keywordflow">return</span> storage;</div>
+<div class="line"><a name="l00738"></a><span class="lineno">  738</span>&#160;}</div>
+<div class="line"><a name="l00739"></a><span class="lineno">  739</span>&#160; </div>
+<div class="line"><a name="l00740"></a><span class="lineno">  740</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00741"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1VariableSet.html#a962c68d54bfc107d007345669cf56393">  741</a></span>&#160;<span class="keyword">auto</span> <a class="code" href="classRa_1_1Core_1_1VariableSet.html#a962c68d54bfc107d007345669cf56393">VariableSet::existsVariableType</a>() const -&gt; Utils::optional&lt;<a class="code" href="classRa_1_1Core_1_1VariableSet.html#a61f36df1dda66cf204afdec4c1e17d72">VariableContainer</a>&lt;T&gt;*&gt; {</div>
+<div class="line"><a name="l00742"></a><span class="lineno">  742</span>&#160;    <span class="keyword">auto</span> iter = m_variables.find( std::type_index { <span class="keyword">typeid</span>( T ) } );</div>
+<div class="line"><a name="l00743"></a><span class="lineno">  743</span>&#160;    <span class="keywordflow">if</span> ( iter == m_variables.cend() ) { <span class="keywordflow">return</span> {}; }</div>
+<div class="line"><a name="l00744"></a><span class="lineno">  744</span>&#160;    <span class="keywordflow">else</span> { <span class="keywordflow">return</span> std::any_cast&lt;VariableSet::VariableContainer&lt;T&gt;&gt;( &amp;( iter-&gt;second ) ); }</div>
+<div class="line"><a name="l00745"></a><span class="lineno">  745</span>&#160;}</div>
+<div class="line"><a name="l00746"></a><span class="lineno">  746</span>&#160; </div>
+<div class="line"><a name="l00747"></a><span class="lineno">  747</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00748"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1VariableSet.html#a3d10586d65743976c50ecd5c1e759ea1">  748</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="classRa_1_1Core_1_1VariableSet.html#a3d10586d65743976c50ecd5c1e759ea1">VariableSet::deleteAllVariables</a>() {</div>
+<div class="line"><a name="l00749"></a><span class="lineno">  749</span>&#160;    <span class="keywordflow">if</span> ( existsVariableType&lt;T&gt;() ) {</div>
+<div class="line"><a name="l00750"></a><span class="lineno">  750</span>&#160;        removeVariableStorage&lt;T&gt;();</div>
+<div class="line"><a name="l00751"></a><span class="lineno">  751</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00752"></a><span class="lineno">  752</span>&#160;    }</div>
+<div class="line"><a name="l00753"></a><span class="lineno">  753</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00754"></a><span class="lineno">  754</span>&#160;}</div>
+<div class="line"><a name="l00755"></a><span class="lineno">  755</span>&#160; </div>
+<div class="line"><a name="l00756"></a><span class="lineno">  756</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00757"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1VariableSet.html#a5a2192b239f119b250a52bf610867efb">  757</a></span>&#160;<span class="keyword">auto</span> <a class="code" href="classRa_1_1Core_1_1VariableSet.html#a5a2192b239f119b250a52bf610867efb">VariableSet::getAllVariables</a>() const -&gt; <a class="code" href="classRa_1_1Core_1_1VariableSet.html#a61f36df1dda66cf204afdec4c1e17d72">VariableContainer</a>&lt;T&gt;&amp; {</div>
+<div class="line"><a name="l00758"></a><span class="lineno">  758</span>&#160;    <span class="comment">// just assert on the existence of the type to prevent undefined behavior when dereferencing</span></div>
+<div class="line"><a name="l00759"></a><span class="lineno">  759</span>&#160;    <span class="comment">// the optional</span></div>
+<div class="line"><a name="l00760"></a><span class="lineno">  760</span>&#160;    assert( existsVariableType&lt;T&gt;() );</div>
+<div class="line"><a name="l00761"></a><span class="lineno">  761</span>&#160;    <span class="comment">// trows std::bad_any_cast if type does not exist</span></div>
+<div class="line"><a name="l00762"></a><span class="lineno">  762</span>&#160;    <span class="keywordflow">return</span> getVariableStorage&lt;T&gt;();</div>
+<div class="line"><a name="l00763"></a><span class="lineno">  763</span>&#160;}</div>
+<div class="line"><a name="l00764"></a><span class="lineno">  764</span>&#160; </div>
+<div class="line"><a name="l00765"></a><span class="lineno">  765</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> H&gt;</div>
+<div class="line"><a name="l00766"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1VariableSet.html#a89d3b97c47fe66792ff2d5a6658dbc59">  766</a></span>&#160;<span class="keyword">auto</span> <a class="code" href="classRa_1_1Core_1_1VariableSet.html#a89d3b97c47fe66792ff2d5a6658dbc59">VariableSet::getAllVariablesFromHandle</a>( <span class="keyword">const</span> H&amp; )</div>
+<div class="line"><a name="l00767"></a><span class="lineno">  767</span>&#160;    -&gt; <a class="code" href="classRa_1_1Core_1_1VariableSet.html#a61f36df1dda66cf204afdec4c1e17d72">VariableContainer&lt;VariableTypeFromHandle&lt;H&gt;</a>&gt;&amp; {</div>
+<div class="line"><a name="l00768"></a><span class="lineno">  768</span>&#160;    assert( existsVariableType&lt;<a class="code" href="classRa_1_1Core_1_1VariableSet.html#aff3c960c4ae226d8cc6ec4a4fa093fee">VariableTypeFromHandle&lt;H&gt;</a>&gt;() );</div>
+<div class="line"><a name="l00769"></a><span class="lineno">  769</span>&#160;    <span class="keywordflow">return</span> getVariableStorage&lt;VariableTypeFromHandle&lt;H&gt;&gt;();</div>
+<div class="line"><a name="l00770"></a><span class="lineno">  770</span>&#160;}</div>
+<div class="line"><a name="l00771"></a><span class="lineno">  771</span>&#160; </div>
+<div class="line"><a name="l00772"></a><span class="lineno">  772</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00773"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1VariableSet.html#a73b07cfdaf8bbcd2c720f65d052ff10d">  773</a></span>&#160;<span class="keywordtype">size_t</span> <a class="code" href="classRa_1_1Core_1_1VariableSet.html#a73b07cfdaf8bbcd2c720f65d052ff10d">VariableSet::numberOf</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00774"></a><span class="lineno">  774</span>&#160;    <span class="keywordflow">if</span> ( <span class="keyword">auto</span> variables = existsVariableType&lt;T&gt;(); variables ) { <span class="keywordflow">return</span> ( *variables )-&gt;size(); }</div>
+<div class="line"><a name="l00775"></a><span class="lineno">  775</span>&#160;    <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a name="l00776"></a><span class="lineno">  776</span>&#160;}</div>
+<div class="line"><a name="l00777"></a><span class="lineno">  777</span>&#160; </div>
+<div class="line"><a name="l00778"></a><span class="lineno">  778</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> P&gt;</div>
+<div class="line"><a name="l00779"></a><span class="lineno">  779</span>&#160;<span class="keywordtype">void</span> VariableSet::visitDynamic( DynamicVisitorBase&amp; visitor, P&amp;&amp; params )<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00780"></a><span class="lineno">  780</span>&#160;    <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; [type, index] : m_typeIndexToVtableIndex ) {</div>
+<div class="line"><a name="l00781"></a><span class="lineno">  781</span>&#160;        <span class="keyword">auto</span> [accepted, loop] = m_vtable-&gt;m_visitFunctions[index]( *<span class="keyword">this</span>, visitor );</div>
+<div class="line"><a name="l00782"></a><span class="lineno">  782</span>&#160;        <span class="keywordflow">if</span> ( accepted ) { loop( visitor, std::forward&lt;P&gt;( params ) ); }</div>
+<div class="line"><a name="l00783"></a><span class="lineno">  783</span>&#160;    }</div>
+<div class="line"><a name="l00784"></a><span class="lineno">  784</span>&#160;}</div>
+<div class="line"><a name="l00785"></a><span class="lineno">  785</span>&#160; </div>
+<div class="line"><a name="l00786"></a><span class="lineno">  786</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> F&gt;</div>
+<div class="line"><a name="l00787"></a><span class="lineno">  787</span>&#160;<span class="keywordtype">void</span> VariableSet::visitStatic( F&amp;&amp; visitor )<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00788"></a><span class="lineno">  788</span>&#160;    visitImpl( visitor, <span class="keyword">typename</span> std::decay_t&lt;F&gt;::types {} );</div>
+<div class="line"><a name="l00789"></a><span class="lineno">  789</span>&#160;}</div>
+<div class="line"><a name="l00790"></a><span class="lineno">  790</span>&#160; </div>
+<div class="line"><a name="l00791"></a><span class="lineno">  791</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> F, <span class="keyword">template</span> &lt;<span class="keyword">typename</span>...&gt; <span class="keyword">typename</span> TYPESLIST, <span class="keyword">typename</span>... TYPES&gt;</div>
+<div class="line"><a name="l00792"></a><span class="lineno">  792</span>&#160;<span class="keywordtype">void</span> VariableSet::visitImpl( F&amp;&amp; visitor, TYPESLIST&lt;TYPES...&gt; )<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00793"></a><span class="lineno">  793</span>&#160;    ( ..., visitImplHelper&lt;std::decay_t&lt;F&gt;, TYPES&gt;( visitor ) );</div>
+<div class="line"><a name="l00794"></a><span class="lineno">  794</span>&#160;}</div>
+<div class="line"><a name="l00795"></a><span class="lineno">  795</span>&#160; </div>
+<div class="line"><a name="l00796"></a><span class="lineno">  796</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> F, <span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00797"></a><span class="lineno">  797</span>&#160;<span class="keywordtype">void</span> VariableSet::visitImplHelper( F&amp; visitor )<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00798"></a><span class="lineno">  798</span>&#160;    static_assert( has_visit_callable_v&lt;F, T&gt;,</div>
+<div class="line"><a name="l00799"></a><span class="lineno">  799</span>&#160;                   <span class="stringliteral">&quot;Static visitors must provide a function with profile &quot;</span></div>
+<div class="line"><a name="l00800"></a><span class="lineno">  800</span>&#160;                   <span class="stringliteral">&quot;void( const std::string&amp; name, [const ]T[&amp;] value) for each &quot;</span></div>
+<div class="line"><a name="l00801"></a><span class="lineno">  801</span>&#160;                   <span class="stringliteral">&quot;declared visitable type T&quot;</span> );</div>
+<div class="line"><a name="l00802"></a><span class="lineno">  802</span>&#160;    <span class="keywordflow">if</span> ( <span class="keyword">auto</span> variables = existsVariableType&lt;T&gt;(); variables ) {</div>
+<div class="line"><a name="l00803"></a><span class="lineno">  803</span>&#160;        <span class="keywordflow">for</span> ( <span class="keyword">auto</span>&amp; element : *( variables.value() ) ) {</div>
+<div class="line"><a name="l00804"></a><span class="lineno">  804</span>&#160;            visitor( element.first, element.second );</div>
+<div class="line"><a name="l00805"></a><span class="lineno">  805</span>&#160;        }</div>
+<div class="line"><a name="l00806"></a><span class="lineno">  806</span>&#160;    }</div>
+<div class="line"><a name="l00807"></a><span class="lineno">  807</span>&#160;}</div>
+<div class="line"><a name="l00808"></a><span class="lineno">  808</span>&#160; </div>
+<div class="line"><a name="l00809"></a><span class="lineno">  809</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> F, <span class="keyword">typename</span> U&gt;</div>
+<div class="line"><a name="l00810"></a><span class="lineno">  810</span>&#160;<span class="keywordtype">void</span> VariableSet::visitStatic( F&amp;&amp; visitor, U&amp; userParams )<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00811"></a><span class="lineno">  811</span>&#160;    visitImplUserParam(</div>
+<div class="line"><a name="l00812"></a><span class="lineno">  812</span>&#160;        visitor, std::forward&lt;U&gt;( userParams ), <span class="keyword">typename</span> std::decay_t&lt;F&gt;::types {} );</div>
+<div class="line"><a name="l00813"></a><span class="lineno">  813</span>&#160;}</div>
+<div class="line"><a name="l00814"></a><span class="lineno">  814</span>&#160; </div>
+<div class="line"><a name="l00815"></a><span class="lineno">  815</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> F, <span class="keyword">typename</span> U&gt;</div>
+<div class="line"><a name="l00816"></a><span class="lineno">  816</span>&#160;<span class="keywordtype">void</span> VariableSet::visitStatic( F&amp;&amp; visitor, U&amp;&amp; userParams )<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00817"></a><span class="lineno">  817</span>&#160;    visitImplUserParam(</div>
+<div class="line"><a name="l00818"></a><span class="lineno">  818</span>&#160;        visitor, std::forward&lt;U&gt;( userParams ), <span class="keyword">typename</span> std::decay_t&lt;F&gt;::types {} );</div>
+<div class="line"><a name="l00819"></a><span class="lineno">  819</span>&#160;}</div>
+<div class="line"><a name="l00820"></a><span class="lineno">  820</span>&#160; </div>
+<div class="line"><a name="l00821"></a><span class="lineno">  821</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> F, <span class="keyword">typename</span> U, <span class="keyword">template</span> &lt;<span class="keyword">typename</span>...&gt; <span class="keyword">typename</span> TYPESLIST, <span class="keyword">typename</span>... TYPES&gt;</div>
+<div class="line"><a name="l00822"></a><span class="lineno">  822</span>&#160;<span class="keywordtype">void</span> VariableSet::visitImplUserParam( F&amp;&amp; visitor, U&amp;&amp; userParam, TYPESLIST&lt;TYPES...&gt; )<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00823"></a><span class="lineno">  823</span>&#160;    ( ...,</div>
+<div class="line"><a name="l00824"></a><span class="lineno">  824</span>&#160;      visitImplHelperUserParam&lt;std::decay_t&lt;F&gt;, U, TYPES&gt;( visitor,</div>
+<div class="line"><a name="l00825"></a><span class="lineno">  825</span>&#160;                                                           std::forward&lt;U&gt;( userParam ) ) );</div>
+<div class="line"><a name="l00826"></a><span class="lineno">  826</span>&#160;}</div>
+<div class="line"><a name="l00827"></a><span class="lineno">  827</span>&#160; </div>
+<div class="line"><a name="l00828"></a><span class="lineno">  828</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> F, <span class="keyword">typename</span> U, <span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00829"></a><span class="lineno">  829</span>&#160;<span class="keywordtype">void</span> VariableSet::visitImplHelperUserParam( F&amp; visitor, U&amp;&amp; userParams )<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00830"></a><span class="lineno">  830</span>&#160;    static_assert( has_visit_callable_with_user_param_v&lt;F, T, U&gt;,</div>
+<div class="line"><a name="l00831"></a><span class="lineno">  831</span>&#160;                   <span class="stringliteral">&quot;Static visitors must provide a function with profile &quot;</span></div>
+<div class="line"><a name="l00832"></a><span class="lineno">  832</span>&#160;                   <span class="stringliteral">&quot;void( const std::string&amp; name, [const ]T[&amp;] value, [const] U&amp;&amp;) for each &quot;</span></div>
+<div class="line"><a name="l00833"></a><span class="lineno">  833</span>&#160;                   <span class="stringliteral">&quot;declared visitable type T&quot;</span> );</div>
+<div class="line"><a name="l00834"></a><span class="lineno">  834</span>&#160;    <span class="keywordflow">if</span> ( <span class="keyword">auto</span> variables = existsVariableType&lt;T&gt;(); variables ) {</div>
+<div class="line"><a name="l00835"></a><span class="lineno">  835</span>&#160;        <span class="keywordflow">for</span> ( <span class="keyword">auto</span>&amp; element : *( variables.value() ) ) {</div>
+<div class="line"><a name="l00836"></a><span class="lineno">  836</span>&#160;            visitor( element.first, element.second, std::forward&lt;U&gt;( userParams ) );</div>
+<div class="line"><a name="l00837"></a><span class="lineno">  837</span>&#160;        }</div>
+<div class="line"><a name="l00838"></a><span class="lineno">  838</span>&#160;    }</div>
+<div class="line"><a name="l00839"></a><span class="lineno">  839</span>&#160;}</div>
+<div class="line"><a name="l00840"></a><span class="lineno">  840</span>&#160; </div>
+<div class="line"><a name="l00841"></a><span class="lineno">  841</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> F&gt;</div>
+<div class="line"><a name="l00842"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1VariableSet_1_1DynamicVisitor.html#aeb5b4f8b353e27e04df097ec38095772">  842</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="classRa_1_1Core_1_1VariableSet_1_1DynamicVisitor.html#aeb5b4f8b353e27e04df097ec38095772">VariableSet::DynamicVisitor::addOperator</a>( F&amp;&amp; f ) {</div>
+<div class="line"><a name="l00843"></a><span class="lineno">  843</span>&#160;    <span class="keyword">auto</span> [it, inserted] = m_visitorOperator.insert( makeVisitorOperator&lt;T, F&gt;( f ) );</div>
+<div class="line"><a name="l00844"></a><span class="lineno">  844</span>&#160;    <span class="keywordflow">return</span> inserted;</div>
+<div class="line"><a name="l00845"></a><span class="lineno">  845</span>&#160;}</div>
+<div class="line"><a name="l00846"></a><span class="lineno">  846</span>&#160; </div>
+<div class="line"><a name="l00847"></a><span class="lineno">  847</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00848"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1VariableSet_1_1DynamicVisitor.html#aa27f700e836fe5beb2927640c292fa2a">  848</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="classRa_1_1Core_1_1VariableSet_1_1DynamicVisitor.html#aa27f700e836fe5beb2927640c292fa2a">VariableSet::DynamicVisitor::hasOperator</a>() {</div>
+<div class="line"><a name="l00849"></a><span class="lineno">  849</span>&#160;    <span class="keywordflow">return</span> m_visitorOperator.find( getVariableVisitTypeIndex&lt;T&gt;() ) != m_visitorOperator.end();</div>
+<div class="line"><a name="l00850"></a><span class="lineno">  850</span>&#160;}</div>
+<div class="line"><a name="l00851"></a><span class="lineno">  851</span>&#160; </div>
+<div class="line"><a name="l00852"></a><span class="lineno">  852</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> F&gt;</div>
+<div class="line"><a name="l00853"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1VariableSet_1_1DynamicVisitor.html#aac62a0cb141a6d4b59788d717c94c3dc">  853</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Core_1_1VariableSet_1_1DynamicVisitor.html#aac62a0cb141a6d4b59788d717c94c3dc">VariableSet::DynamicVisitor::addOrReplaceOperator</a>( F&amp;&amp; f ) {</div>
+<div class="line"><a name="l00854"></a><span class="lineno">  854</span>&#160;    <span class="keyword">auto</span> op = makeVisitorOperator&lt;T, F&gt;( f );</div>
+<div class="line"><a name="l00855"></a><span class="lineno">  855</span>&#160;    m_visitorOperator.insert_or_assign( op.first, op.second );</div>
+<div class="line"><a name="l00856"></a><span class="lineno">  856</span>&#160;}</div>
+<div class="line"><a name="l00857"></a><span class="lineno">  857</span>&#160; </div>
+<div class="line"><a name="l00858"></a><span class="lineno">  858</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00859"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1VariableSet_1_1DynamicVisitor.html#a27683975806e7e57a7b1880bd021762c">  859</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="classRa_1_1Core_1_1VariableSet_1_1DynamicVisitor.html#a27683975806e7e57a7b1880bd021762c">VariableSet::DynamicVisitor::removeOperator</a>() {</div>
+<div class="line"><a name="l00860"></a><span class="lineno">  860</span>&#160;    assert( hasOperator&lt;T&gt;() );</div>
+<div class="line"><a name="l00861"></a><span class="lineno">  861</span>&#160;    <span class="keyword">auto</span> res = m_visitorOperator.erase( getVariableVisitTypeIndex&lt;T&gt;() ) &gt; 0;</div>
+<div class="line"><a name="l00862"></a><span class="lineno">  862</span>&#160;    <span class="keywordflow">return</span> res;</div>
+<div class="line"><a name="l00863"></a><span class="lineno">  863</span>&#160;}</div>
+<div class="line"><a name="l00864"></a><span class="lineno">  864</span>&#160; </div>
+<div class="line"><a name="l00865"></a><span class="lineno">  865</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> F&gt;</div>
+<div class="line"><a name="l00866"></a><span class="lineno">  866</span>&#160;<span class="keyword">struct </span>VariableSet::DynamicVisitor::MakeVisitOperatorHelper&lt;T, F, true&gt; {</div>
+<div class="line"><a name="l00867"></a><span class="lineno">  867</span>&#160;    <span class="keyword">inline</span> <span class="keyword">auto</span> makeOperator( F&amp; f ) -&gt; OperatorsStorageType::value_type {</div>
+<div class="line"><a name="l00868"></a><span class="lineno">  868</span>&#160;        <span class="keywordflow">return</span> { getVariableVisitTypeIndex&lt;T&gt;(), [&amp;f]( std::any&amp; a, std::any&amp;&amp; userParam ) {</div>
+<div class="line"><a name="l00869"></a><span class="lineno">  869</span>&#160;                    <span class="keyword">auto</span> rp = std::any_cast&lt;std::reference_wrapper&lt;VariableSet::Variable&lt;T&gt;&gt;&amp;&gt;( a );</div>
+<div class="line"><a name="l00870"></a><span class="lineno">  870</span>&#160;                    <span class="keyword">auto</span>&amp; p = rp.get();</div>
+<div class="line"><a name="l00871"></a><span class="lineno">  871</span>&#160;                    f( p.first, p.second, std::forward&lt;std::any&gt;( userParam ) );</div>
+<div class="line"><a name="l00872"></a><span class="lineno">  872</span>&#160;                } };</div>
+<div class="line"><a name="l00873"></a><span class="lineno">  873</span>&#160;    }</div>
+<div class="line"><a name="l00874"></a><span class="lineno">  874</span>&#160;};</div>
+<div class="line"><a name="l00875"></a><span class="lineno">  875</span>&#160; </div>
+<div class="line"><a name="l00876"></a><span class="lineno">  876</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> F&gt;</div>
+<div class="line"><a name="l00877"></a><span class="lineno">  877</span>&#160;<span class="keyword">struct </span>VariableSet::DynamicVisitor::MakeVisitOperatorHelper&lt;T, F, false&gt; {</div>
+<div class="line"><a name="l00878"></a><span class="lineno">  878</span>&#160;    <span class="keyword">inline</span> <span class="keyword">auto</span> makeOperator( F&amp; f ) -&gt; OperatorsStorageType::value_type {</div>
+<div class="line"><a name="l00879"></a><span class="lineno">  879</span>&#160;        <span class="keywordflow">return</span> { getVariableVisitTypeIndex&lt;T&gt;(), [&amp;f]( std::any&amp; a, std::any&amp;&amp; ) {</div>
+<div class="line"><a name="l00880"></a><span class="lineno">  880</span>&#160;                    <span class="keyword">auto</span> rp = std::any_cast&lt;std::reference_wrapper&lt;VariableSet::Variable&lt;T&gt;&gt;&amp;&gt;( a );</div>
+<div class="line"><a name="l00881"></a><span class="lineno">  881</span>&#160;                    <span class="keyword">auto</span>&amp; p = rp.get();</div>
+<div class="line"><a name="l00882"></a><span class="lineno">  882</span>&#160;                    f( p.first, p.second );</div>
+<div class="line"><a name="l00883"></a><span class="lineno">  883</span>&#160;                } };</div>
+<div class="line"><a name="l00884"></a><span class="lineno">  884</span>&#160;    }</div>
+<div class="line"><a name="l00885"></a><span class="lineno">  885</span>&#160;};</div>
+<div class="line"><a name="l00886"></a><span class="lineno">  886</span>&#160; </div>
+<div class="line"><a name="l00887"></a><span class="lineno">  887</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> T, <span class="keyword">class</span> F&gt;</div>
+<div class="line"><a name="l00888"></a><span class="lineno">  888</span>&#160;<span class="keyword">inline</span> <span class="keyword">auto</span> VariableSet::DynamicVisitor::makeVisitorOperator( F&amp; f )</div>
+<div class="line"><a name="l00889"></a><span class="lineno">  889</span>&#160;    -&gt; OperatorsStorageType::value_type {</div>
+<div class="line"><a name="l00890"></a><span class="lineno">  890</span>&#160;    <span class="keyword">auto</span> opBuilder = MakeVisitOperatorHelper &lt; T, F,</div>
+<div class="line"><a name="l00891"></a><span class="lineno">  891</span>&#160;         std::is_invocable&lt;F, const std::string&amp;, T, std::any&amp;&amp;&gt;::value ||</div>
+<div class="line"><a name="l00892"></a><span class="lineno">  892</span>&#160;             std::is_invocable&lt;F, const std::string&amp;, T&amp;, std::any&amp;&amp;&gt;::value &gt; {};</div>
+<div class="line"><a name="l00893"></a><span class="lineno">  893</span>&#160;    <span class="keywordflow">return</span> opBuilder.makeOperator( f );</div>
+<div class="line"><a name="l00894"></a><span class="lineno">  894</span>&#160;}</div>
+<div class="line"><a name="l00895"></a><span class="lineno">  895</span>&#160; </div>
+<div class="line"><a name="l00896"></a><span class="lineno">  896</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> F&gt;</div>
+<div class="line"><a name="l00897"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1VariableSet.html#abff01d871519d7cd33380f6f8bf1899d">  897</a></span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="classRa_1_1Core_1_1VariableSet.html#abff01d871519d7cd33380f6f8bf1899d">VariableSet::visit</a>( F&amp;&amp; visitor )<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00898"></a><span class="lineno">  898</span>&#160;    <span class="keywordflow">if</span> constexpr ( std::is_base_of&lt;<a class="code" href="classRa_1_1Core_1_1VariableSet_1_1DynamicVisitorBase.html">DynamicVisitorBase</a>, std::decay_t&lt;F&gt;&gt;::value ) {</div>
+<div class="line"><a name="l00899"></a><span class="lineno">  899</span>&#160;        visitDynamic( visitor );</div>
+<div class="line"><a name="l00900"></a><span class="lineno">  900</span>&#160;    }</div>
+<div class="line"><a name="l00901"></a><span class="lineno">  901</span>&#160;    <span class="keywordflow">else</span> { visitStatic( visitor ); }</div>
+<div class="line"><a name="l00902"></a><span class="lineno">  902</span>&#160;}</div>
+<div class="line"><a name="l00903"></a><span class="lineno">  903</span>&#160; </div>
+<div class="line"><a name="l00904"></a><span class="lineno">  904</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> F, <span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00905"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1VariableSet.html#a41f13d062e1be33a898983f87ec130bc">  905</a></span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="classRa_1_1Core_1_1VariableSet.html#abff01d871519d7cd33380f6f8bf1899d">VariableSet::visit</a>( F&amp;&amp; visitor, T&amp; userParams )<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00906"></a><span class="lineno">  906</span>&#160;    <span class="keywordflow">if</span> constexpr ( std::is_base_of&lt;<a class="code" href="classRa_1_1Core_1_1VariableSet_1_1DynamicVisitorBase.html">DynamicVisitorBase</a>, std::decay_t&lt;F&gt;&gt;::value ) {</div>
+<div class="line"><a name="l00907"></a><span class="lineno">  907</span>&#160;        visitDynamic( visitor, std::forward&lt;T&amp;&gt;( userParams ) );</div>
+<div class="line"><a name="l00908"></a><span class="lineno">  908</span>&#160;    }</div>
+<div class="line"><a name="l00909"></a><span class="lineno">  909</span>&#160;    <span class="keywordflow">else</span> { visitStatic( visitor, std::forward&lt;T&amp;&gt;( userParams ) ); }</div>
+<div class="line"><a name="l00910"></a><span class="lineno">  910</span>&#160;}</div>
+<div class="line"><a name="l00911"></a><span class="lineno">  911</span>&#160; </div>
+<div class="line"><a name="l00912"></a><span class="lineno">  912</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> F, <span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00913"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1VariableSet.html#a16ac599636f331aaf2b67257dbd3291c">  913</a></span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="classRa_1_1Core_1_1VariableSet.html#abff01d871519d7cd33380f6f8bf1899d">VariableSet::visit</a>( F&amp;&amp; visitor, T&amp;&amp; userParams )<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00914"></a><span class="lineno">  914</span>&#160;    <span class="keywordflow">if</span> constexpr ( std::is_base_of&lt;<a class="code" href="classRa_1_1Core_1_1VariableSet_1_1DynamicVisitorBase.html">DynamicVisitorBase</a>, std::decay_t&lt;F&gt;&gt;::value ) {</div>
+<div class="line"><a name="l00915"></a><span class="lineno">  915</span>&#160;        visitDynamic( visitor, std::forward&lt;T&amp;&amp;&gt;( userParams ) );</div>
 <div class="line"><a name="l00916"></a><span class="lineno">  916</span>&#160;    }</div>
-<div class="line"><a name="l00917"></a><span class="lineno">  917</span>&#160;}</div>
-<div class="line"><a name="l00918"></a><span class="lineno">  918</span>&#160; </div>
-<div class="line"><a name="l00919"></a><span class="lineno">  919</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> F, <span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00920"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1VariableSet.html#a16ac599636f331aaf2b67257dbd3291c">  920</a></span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="classRa_1_1Core_1_1VariableSet.html#abff01d871519d7cd33380f6f8bf1899d">VariableSet::visit</a>( F&amp;&amp; visitor, T&amp;&amp; userParams )<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00921"></a><span class="lineno">  921</span>&#160;    <span class="keywordflow">if</span> constexpr ( std::is_base_of&lt;<a class="code" href="classRa_1_1Core_1_1VariableSet_1_1DynamicVisitorBase.html">DynamicVisitorBase</a>, std::decay_t&lt;F&gt;&gt;::value ) {</div>
-<div class="line"><a name="l00922"></a><span class="lineno">  922</span>&#160;        visitDynamic( visitor, std::forward&lt;T&amp;&amp;&gt;( userParams ) );</div>
-<div class="line"><a name="l00923"></a><span class="lineno">  923</span>&#160;    }</div>
-<div class="line"><a name="l00924"></a><span class="lineno">  924</span>&#160;    <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00925"></a><span class="lineno">  925</span>&#160;        visitStatic( visitor, std::forward&lt;T&amp;&amp;&gt;( userParams ) );</div>
-<div class="line"><a name="l00926"></a><span class="lineno">  926</span>&#160;    }</div>
-<div class="line"><a name="l00927"></a><span class="lineno">  927</span>&#160;}</div>
-<div class="line"><a name="l00928"></a><span class="lineno">  928</span>&#160; </div>
-<div class="line"><a name="l00929"></a><span class="lineno">  929</span>&#160;} <span class="comment">// namespace Core</span></div>
-<div class="line"><a name="l00930"></a><span class="lineno">  930</span>&#160;} <span class="comment">// namespace Ra</span></div>
+<div class="line"><a name="l00917"></a><span class="lineno">  917</span>&#160;    <span class="keywordflow">else</span> { visitStatic( visitor, std::forward&lt;T&amp;&amp;&gt;( userParams ) ); }</div>
+<div class="line"><a name="l00918"></a><span class="lineno">  918</span>&#160;}</div>
+<div class="line"><a name="l00919"></a><span class="lineno">  919</span>&#160; </div>
+<div class="line"><a name="l00920"></a><span class="lineno">  920</span>&#160;} <span class="comment">// namespace Core</span></div>
+<div class="line"><a name="l00921"></a><span class="lineno">  921</span>&#160;} <span class="comment">// namespace Ra</span></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1VariableSet_1_1DynamicVisitorBase_html"><div class="ttname"><a href="classRa_1_1Core_1_1VariableSet_1_1DynamicVisitorBase.html">Ra::Core::VariableSet::DynamicVisitorBase</a></div><div class="ttdoc">Base class for dynamically configurable visitors Users can implement this interface to build custom v...</div><div class="ttdef"><b>Definition:</b> <a href="VariableSet_8hpp_source.html#l00279">VariableSet.hpp:280</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1VariableSet_1_1DynamicVisitorBase_html_a2c83efad6ba607f9ec1dd64538dc442a"><div class="ttname"><a href="classRa_1_1Core_1_1VariableSet_1_1DynamicVisitorBase.html#a2c83efad6ba607f9ec1dd64538dc442a">Ra::Core::VariableSet::DynamicVisitorBase::accept</a></div><div class="ttdeci">virtual bool accept(const std::type_index &amp;id) const =0</div><div class="ttdoc">Acceptance function for the visitor.</div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1VariableSet_1_1DynamicVisitorBase_html_af39468f17f80e8dd3e467db737106355"><div class="ttname"><a href="classRa_1_1Core_1_1VariableSet_1_1DynamicVisitorBase.html#af39468f17f80e8dd3e467db737106355">Ra::Core::VariableSet::DynamicVisitorBase::operator()</a></div><div class="ttdeci">virtual void operator()(std::any &amp;&amp;in, std::any &amp;&amp;userParam) const =0</div><div class="ttdoc">Execute a visiting operator on accepted types.</div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1VariableSet_1_1DynamicVisitor_html"><div class="ttname"><a href="classRa_1_1Core_1_1VariableSet_1_1DynamicVisitor.html">Ra::Core::VariableSet::DynamicVisitor</a></div><div class="ttdoc">Base class for visitors with configurable per-type callbacks. Visiting will be prepared at running ti...</div><div class="ttdef"><b>Definition:</b> <a href="VariableSet_8hpp_source.html#l00307">VariableSet.hpp:308</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1VariableSet_1_1DynamicVisitor_html_a27683975806e7e57a7b1880bd021762c"><div class="ttname"><a href="classRa_1_1Core_1_1VariableSet_1_1DynamicVisitor.html#a27683975806e7e57a7b1880bd021762c">Ra::Core::VariableSet::DynamicVisitor::removeOperator</a></div><div class="ttdeci">bool removeOperator()</div><div class="ttdoc">Remove a visiting operator.</div><div class="ttdef"><b>Definition:</b> <a href="VariableSet_8hpp_source.html#l00862">VariableSet.hpp:862</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1VariableSet_1_1DynamicVisitor_html_a27683975806e7e57a7b1880bd021762c"><div class="ttname"><a href="classRa_1_1Core_1_1VariableSet_1_1DynamicVisitor.html#a27683975806e7e57a7b1880bd021762c">Ra::Core::VariableSet::DynamicVisitor::removeOperator</a></div><div class="ttdeci">bool removeOperator()</div><div class="ttdoc">Remove a visiting operator.</div><div class="ttdef"><b>Definition:</b> <a href="VariableSet_8hpp_source.html#l00859">VariableSet.hpp:859</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1VariableSet_1_1DynamicVisitor_html_a7768c6dc90b7ff0aa981ee7d963783a8"><div class="ttname"><a href="classRa_1_1Core_1_1VariableSet_1_1DynamicVisitor.html#a7768c6dc90b7ff0aa981ee7d963783a8">Ra::Core::VariableSet::DynamicVisitor::~DynamicVisitor</a></div><div class="ttdeci">~DynamicVisitor() override=default</div><div class="ttdoc">allows the class to be derived</div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1VariableSet_1_1DynamicVisitor_html_aa27f700e836fe5beb2927640c292fa2a"><div class="ttname"><a href="classRa_1_1Core_1_1VariableSet_1_1DynamicVisitor.html#aa27f700e836fe5beb2927640c292fa2a">Ra::Core::VariableSet::DynamicVisitor::hasOperator</a></div><div class="ttdeci">bool hasOperator()</div><div class="ttdoc">Test the existence of an operator associated with a type.</div><div class="ttdef"><b>Definition:</b> <a href="VariableSet_8hpp_source.html#l00851">VariableSet.hpp:851</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1VariableSet_1_1DynamicVisitor_html_aac62a0cb141a6d4b59788d717c94c3dc"><div class="ttname"><a href="classRa_1_1Core_1_1VariableSet_1_1DynamicVisitor.html#aac62a0cb141a6d4b59788d717c94c3dc">Ra::Core::VariableSet::DynamicVisitor::addOrReplaceOperator</a></div><div class="ttdeci">void addOrReplaceOperator(F &amp;&amp;f)</div><div class="ttdoc">Add or replace a visiting operator.</div><div class="ttdef"><b>Definition:</b> <a href="VariableSet_8hpp_source.html#l00856">VariableSet.hpp:856</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1VariableSet_1_1DynamicVisitor_html_aeb5b4f8b353e27e04df097ec38095772"><div class="ttname"><a href="classRa_1_1Core_1_1VariableSet_1_1DynamicVisitor.html#aeb5b4f8b353e27e04df097ec38095772">Ra::Core::VariableSet::DynamicVisitor::addOperator</a></div><div class="ttdeci">bool addOperator(F &amp;&amp;f)</div><div class="ttdoc">Add a visiting operator.</div><div class="ttdef"><b>Definition:</b> <a href="VariableSet_8hpp_source.html#l00845">VariableSet.hpp:845</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1VariableSet_1_1DynamicVisitor_html_aa27f700e836fe5beb2927640c292fa2a"><div class="ttname"><a href="classRa_1_1Core_1_1VariableSet_1_1DynamicVisitor.html#aa27f700e836fe5beb2927640c292fa2a">Ra::Core::VariableSet::DynamicVisitor::hasOperator</a></div><div class="ttdeci">bool hasOperator()</div><div class="ttdoc">Test the existence of an operator associated with a type.</div><div class="ttdef"><b>Definition:</b> <a href="VariableSet_8hpp_source.html#l00848">VariableSet.hpp:848</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1VariableSet_1_1DynamicVisitor_html_aac62a0cb141a6d4b59788d717c94c3dc"><div class="ttname"><a href="classRa_1_1Core_1_1VariableSet_1_1DynamicVisitor.html#aac62a0cb141a6d4b59788d717c94c3dc">Ra::Core::VariableSet::DynamicVisitor::addOrReplaceOperator</a></div><div class="ttdeci">void addOrReplaceOperator(F &amp;&amp;f)</div><div class="ttdoc">Add or replace a visiting operator.</div><div class="ttdef"><b>Definition:</b> <a href="VariableSet_8hpp_source.html#l00853">VariableSet.hpp:853</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1VariableSet_1_1DynamicVisitor_html_aeb5b4f8b353e27e04df097ec38095772"><div class="ttname"><a href="classRa_1_1Core_1_1VariableSet_1_1DynamicVisitor.html#aeb5b4f8b353e27e04df097ec38095772">Ra::Core::VariableSet::DynamicVisitor::addOperator</a></div><div class="ttdeci">bool addOperator(F &amp;&amp;f)</div><div class="ttdoc">Add a visiting operator.</div><div class="ttdef"><b>Definition:</b> <a href="VariableSet_8hpp_source.html#l00842">VariableSet.hpp:842</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1VariableSet_html"><div class="ttname"><a href="classRa_1_1Core_1_1VariableSet.html">Ra::Core::VariableSet</a></div><div class="ttdoc">Heterogeneous container storing &quot;Variables&quot;, that maps a name (std::string) to a value (of any type T...</div><div class="ttdef"><b>Definition:</b> <a href="VariableSet_8hpp_source.html#l00071">VariableSet.hpp:72</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1VariableSet_html_a01ef218f41f0b2bc08ad3bce52630fa5"><div class="ttname"><a href="classRa_1_1Core_1_1VariableSet.html#a01ef218f41f0b2bc08ad3bce52630fa5">Ra::Core::VariableSet::getStoredTypes</a></div><div class="ttdeci">auto getStoredTypes() const -&gt; const std::vector&lt; std::type_index &gt; &amp;</div><div class="ttdoc">Gets the stored data type.</div><div class="ttdef"><b>Definition:</b> <a href="VariableSet_8hpp_source.html#l00147">VariableSet.hpp:147</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1VariableSet_html_a090de4f50aa34f333bba240a4fd0f627"><div class="ttname"><a href="classRa_1_1Core_1_1VariableSet.html#a090de4f50aa34f333bba240a4fd0f627">Ra::Core::VariableSet::getVariable</a></div><div class="ttdeci">auto getVariable(const std::string &amp;name) const -&gt; T &amp;</div><div class="ttdoc">get the value of the given variable</div><div class="ttdef"><b>Definition:</b> <a href="VariableSet_8hpp_source.html#l00615">VariableSet.hpp:615</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1VariableSet_html_a090de4f50aa34f333bba240a4fd0f627"><div class="ttname"><a href="classRa_1_1Core_1_1VariableSet.html#a090de4f50aa34f333bba240a4fd0f627">Ra::Core::VariableSet::getVariable</a></div><div class="ttdeci">auto getVariable(const std::string &amp;name) const -&gt; T &amp;</div><div class="ttdoc">get the value of the given variable</div><div class="ttdef"><b>Definition:</b> <a href="VariableSet_8hpp_source.html#l00616">VariableSet.hpp:616</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1VariableSet_html_a2819447e55fdbe30c43726dd10ba9791"><div class="ttname"><a href="classRa_1_1Core_1_1VariableSet.html#a2819447e55fdbe30c43726dd10ba9791">Ra::Core::VariableSet::VariableHandle</a></div><div class="ttdeci">typename VariableContainer&lt; T &gt;::iterator VariableHandle</div><div class="ttdoc">Handle of a variable A handle on a variable with type T is an iterator into the BaseContainer....</div><div class="ttdef"><b>Definition:</b> <a href="VariableSet_8hpp_source.html#l00092">VariableSet.hpp:92</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1VariableSet_html_a2ae4889235c18238c677b007701f8db6"><div class="ttname"><a href="classRa_1_1Core_1_1VariableSet.html#a2ae4889235c18238c677b007701f8db6">Ra::Core::VariableSet::insertOrAssignVariable</a></div><div class="ttdeci">auto insertOrAssignVariable(const std::string &amp;name, const T &amp;value) -&gt; std::pair&lt; VariableHandle&lt; T &gt;, bool &gt;</div><div class="ttdoc">reset (or set if the variable does not exist yet) the value of the variable.</div><div class="ttdef"><b>Definition:</b> <a href="VariableSet_8hpp_source.html#l00633">VariableSet.hpp:633</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1VariableSet_html_a2ae681263d3319088935f1ca8c0cef93"><div class="ttname"><a href="classRa_1_1Core_1_1VariableSet.html#a2ae681263d3319088935f1ca8c0cef93">Ra::Core::VariableSet::isHandleValid</a></div><div class="ttdeci">bool isHandleValid(const H &amp;handle) const</div><div class="ttdoc">Test the validity of a handle.</div><div class="ttdef"><b>Definition:</b> <a href="VariableSet_8hpp_source.html#l00627">VariableSet.hpp:627</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1VariableSet_html_a34a985578d9cceed72e615ca93b15d80"><div class="ttname"><a href="classRa_1_1Core_1_1VariableSet.html#a34a985578d9cceed72e615ca93b15d80">Ra::Core::VariableSet::getVariableHandle</a></div><div class="ttdeci">auto getVariableHandle(const std::string &amp;name) const -&gt; VariableHandle&lt; T &gt;</div><div class="ttdoc">get the handle on the variable with the given name</div><div class="ttdef"><b>Definition:</b> <a href="VariableSet_8hpp_source.html#l00621">VariableSet.hpp:621</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1VariableSet_html_a3d10586d65743976c50ecd5c1e759ea1"><div class="ttname"><a href="classRa_1_1Core_1_1VariableSet.html#a3d10586d65743976c50ecd5c1e759ea1">Ra::Core::VariableSet::deleteAllVariables</a></div><div class="ttdeci">bool deleteAllVariables()</div><div class="ttdoc">Removes all variables of the given type.</div><div class="ttdef"><b>Definition:</b> <a href="VariableSet_8hpp_source.html#l00751">VariableSet.hpp:751</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1VariableSet_html_a48baeacd56022a902deb045d865c4605"><div class="ttname"><a href="classRa_1_1Core_1_1VariableSet.html#a48baeacd56022a902deb045d865c4605">Ra::Core::VariableSet::existsVariable</a></div><div class="ttdeci">auto existsVariable(const std::string &amp;name) const -&gt; Utils::optional&lt; VariableHandle&lt; T &gt;&gt;</div><div class="ttdoc">test the existence of the given variable</div><div class="ttdef"><b>Definition:</b> <a href="VariableSet_8hpp_source.html#l00662">VariableSet.hpp:662</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1VariableSet_html_a4f3fe97fce185a5bce5f2a5e2cf799a6"><div class="ttname"><a href="classRa_1_1Core_1_1VariableSet.html#a4f3fe97fce185a5bce5f2a5e2cf799a6">Ra::Core::VariableSet::deleteVariable</a></div><div class="ttdeci">bool deleteVariable(const std::string &amp;name)</div><div class="ttdoc">Remove a variable, i.e. a name-&gt;value association.</div><div class="ttdef"><b>Definition:</b> <a href="VariableSet_8hpp_source.html#l00643">VariableSet.hpp:643</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1VariableSet_html_a2ae4889235c18238c677b007701f8db6"><div class="ttname"><a href="classRa_1_1Core_1_1VariableSet.html#a2ae4889235c18238c677b007701f8db6">Ra::Core::VariableSet::insertOrAssignVariable</a></div><div class="ttdeci">auto insertOrAssignVariable(const std::string &amp;name, const T &amp;value) -&gt; std::pair&lt; VariableHandle&lt; T &gt;, bool &gt;</div><div class="ttdoc">reset (or set if the variable does not exist yet) the value of the variable.</div><div class="ttdef"><b>Definition:</b> <a href="VariableSet_8hpp_source.html#l00634">VariableSet.hpp:634</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1VariableSet_html_a2ae681263d3319088935f1ca8c0cef93"><div class="ttname"><a href="classRa_1_1Core_1_1VariableSet.html#a2ae681263d3319088935f1ca8c0cef93">Ra::Core::VariableSet::isHandleValid</a></div><div class="ttdeci">bool isHandleValid(const H &amp;handle) const</div><div class="ttdoc">Test the validity of a handle.</div><div class="ttdef"><b>Definition:</b> <a href="VariableSet_8hpp_source.html#l00628">VariableSet.hpp:628</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1VariableSet_html_a34a985578d9cceed72e615ca93b15d80"><div class="ttname"><a href="classRa_1_1Core_1_1VariableSet.html#a34a985578d9cceed72e615ca93b15d80">Ra::Core::VariableSet::getVariableHandle</a></div><div class="ttdeci">auto getVariableHandle(const std::string &amp;name) const -&gt; VariableHandle&lt; T &gt;</div><div class="ttdoc">get the handle on the variable with the given name</div><div class="ttdef"><b>Definition:</b> <a href="VariableSet_8hpp_source.html#l00622">VariableSet.hpp:622</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1VariableSet_html_a3d10586d65743976c50ecd5c1e759ea1"><div class="ttname"><a href="classRa_1_1Core_1_1VariableSet.html#a3d10586d65743976c50ecd5c1e759ea1">Ra::Core::VariableSet::deleteAllVariables</a></div><div class="ttdeci">bool deleteAllVariables()</div><div class="ttdoc">Removes all variables of the given type.</div><div class="ttdef"><b>Definition:</b> <a href="VariableSet_8hpp_source.html#l00748">VariableSet.hpp:748</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1VariableSet_html_a48baeacd56022a902deb045d865c4605"><div class="ttname"><a href="classRa_1_1Core_1_1VariableSet.html#a48baeacd56022a902deb045d865c4605">Ra::Core::VariableSet::existsVariable</a></div><div class="ttdeci">auto existsVariable(const std::string &amp;name) const -&gt; Utils::optional&lt; VariableHandle&lt; T &gt;&gt;</div><div class="ttdoc">test the existence of the given variable</div><div class="ttdef"><b>Definition:</b> <a href="VariableSet_8hpp_source.html#l00663">VariableSet.hpp:663</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1VariableSet_html_a4f3fe97fce185a5bce5f2a5e2cf799a6"><div class="ttname"><a href="classRa_1_1Core_1_1VariableSet.html#a4f3fe97fce185a5bce5f2a5e2cf799a6">Ra::Core::VariableSet::deleteVariable</a></div><div class="ttdeci">bool deleteVariable(const std::string &amp;name)</div><div class="ttdoc">Remove a variable, i.e. a name-&gt;value association.</div><div class="ttdef"><b>Definition:</b> <a href="VariableSet_8hpp_source.html#l00644">VariableSet.hpp:644</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1VariableSet_html_a521bf033d8d909ff180fc904988805cd"><div class="ttname"><a href="classRa_1_1Core_1_1VariableSet.html#a521bf033d8d909ff180fc904988805cd">Ra::Core::VariableSet::VariableType</a></div><div class="ttdeci">typename Variable&lt; T &gt;::second_type VariableType</div><div class="ttdoc">Type of the variable value.</div><div class="ttdef"><b>Definition:</b> <a href="VariableSet_8hpp_source.html#l00084">VariableSet.hpp:84</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1VariableSet_html_a55acefdbe814f2a78bdf47862dbdaa16"><div class="ttname"><a href="classRa_1_1Core_1_1VariableSet.html#a55acefdbe814f2a78bdf47862dbdaa16">Ra::Core::VariableSet::VariableSet</a></div><div class="ttdeci">VariableSet()</div><div class="ttdef"><b>Definition:</b> <a href="VariableSet_8hpp_source.html#l00103">VariableSet.hpp:103</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1VariableSet_html_a5a2192b239f119b250a52bf610867efb"><div class="ttname"><a href="classRa_1_1Core_1_1VariableSet.html#a5a2192b239f119b250a52bf610867efb">Ra::Core::VariableSet::getAllVariables</a></div><div class="ttdeci">auto getAllVariables() const -&gt; VariableContainer&lt; T &gt; &amp;</div><div class="ttdoc">Get the whole container for variables of a given type.</div><div class="ttdef"><b>Definition:</b> <a href="VariableSet_8hpp_source.html#l00760">VariableSet.hpp:760</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1VariableSet_html_a5a2192b239f119b250a52bf610867efb"><div class="ttname"><a href="classRa_1_1Core_1_1VariableSet.html#a5a2192b239f119b250a52bf610867efb">Ra::Core::VariableSet::getAllVariables</a></div><div class="ttdeci">auto getAllVariables() const -&gt; VariableContainer&lt; T &gt; &amp;</div><div class="ttdoc">Get the whole container for variables of a given type.</div><div class="ttdef"><b>Definition:</b> <a href="VariableSet_8hpp_source.html#l00757">VariableSet.hpp:757</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1VariableSet_html_a61f36df1dda66cf204afdec4c1e17d72"><div class="ttname"><a href="classRa_1_1Core_1_1VariableSet.html#a61f36df1dda66cf204afdec4c1e17d72">Ra::Core::VariableSet::VariableContainer</a></div><div class="ttdeci">std::map&lt; std::string, T &gt; VariableContainer</div><div class="ttdoc">Container type for the mapping name-&gt;value of variables with type T.</div><div class="ttdef"><b>Definition:</b> <a href="VariableSet_8hpp_source.html#l00076">VariableSet.hpp:76</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1VariableSet_html_a6bbb3dc60910fc9c82acadf3dc28d6cb"><div class="ttname"><a href="classRa_1_1Core_1_1VariableSet.html#a6bbb3dc60910fc9c82acadf3dc28d6cb">Ra::Core::VariableSet::VariableSet</a></div><div class="ttdeci">VariableSet(const VariableSet &amp;other) noexcept</div><div class="ttdoc">A VariableSet is copyable.</div><div class="ttdef"><b>Definition:</b> <a href="VariableSet_8hpp_source.html#l00106">VariableSet.hpp:106</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1VariableSet_html_a709926d7e6a4184aa22606bf182296b8"><div class="ttname"><a href="classRa_1_1Core_1_1VariableSet.html#a709926d7e6a4184aa22606bf182296b8">Ra::Core::VariableSet::Variable</a></div><div class="ttdeci">typename VariableContainer&lt; T &gt;::value_type Variable</div><div class="ttdoc">Variable type as stored in the VariableSet.</div><div class="ttdef"><b>Definition:</b> <a href="VariableSet_8hpp_source.html#l00080">VariableSet.hpp:80</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1VariableSet_html_a73b07cfdaf8bbcd2c720f65d052ff10d"><div class="ttname"><a href="classRa_1_1Core_1_1VariableSet.html#a73b07cfdaf8bbcd2c720f65d052ff10d">Ra::Core::VariableSet::numberOf</a></div><div class="ttdeci">size_t numberOf() const</div><div class="ttdoc">Get the number of variables of the given type.</div><div class="ttdef"><b>Definition:</b> <a href="VariableSet_8hpp_source.html#l00776">VariableSet.hpp:776</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1VariableSet_html_a73b07cfdaf8bbcd2c720f65d052ff10d"><div class="ttname"><a href="classRa_1_1Core_1_1VariableSet.html#a73b07cfdaf8bbcd2c720f65d052ff10d">Ra::Core::VariableSet::numberOf</a></div><div class="ttdeci">size_t numberOf() const</div><div class="ttdoc">Get the number of variables of the given type.</div><div class="ttdef"><b>Definition:</b> <a href="VariableSet_8hpp_source.html#l00773">VariableSet.hpp:773</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1VariableSet_html_a73c3d2aa19bb60c5ededeff2cb1e2aa0"><div class="ttname"><a href="classRa_1_1Core_1_1VariableSet.html#a73c3d2aa19bb60c5ededeff2cb1e2aa0">Ra::Core::VariableSet::VariableSet</a></div><div class="ttdeci">VariableSet(VariableSet &amp;&amp;other) noexcept</div><div class="ttdoc">A VariableSet is movable.</div><div class="ttdef"><b>Definition:</b> <a href="VariableSet_8hpp_source.html#l00111">VariableSet.hpp:111</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1VariableSet_html_a89d3b97c47fe66792ff2d5a6658dbc59"><div class="ttname"><a href="classRa_1_1Core_1_1VariableSet.html#a89d3b97c47fe66792ff2d5a6658dbc59">Ra::Core::VariableSet::getAllVariablesFromHandle</a></div><div class="ttdeci">auto getAllVariablesFromHandle(const H &amp;handle) -&gt; VariableContainer&lt; VariableTypeFromHandle&lt; H &gt;&gt; &amp;</div><div class="ttdoc">Get the whole container for variables of the same type than the given handled variable.</div><div class="ttdef"><b>Definition:</b> <a href="VariableSet_8hpp_source.html#l00769">VariableSet.hpp:769</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1VariableSet_html_a962c68d54bfc107d007345669cf56393"><div class="ttname"><a href="classRa_1_1Core_1_1VariableSet.html#a962c68d54bfc107d007345669cf56393">Ra::Core::VariableSet::existsVariableType</a></div><div class="ttdeci">auto existsVariableType() const -&gt; Utils::optional&lt; VariableContainer&lt; T &gt; * &gt;</div><div class="ttdoc">Test if the storage supports a given variable type.</div><div class="ttdef"><b>Definition:</b> <a href="VariableSet_8hpp_source.html#l00742">VariableSet.hpp:742</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1VariableSet_html_aa1e2566f592c1ccf81f242fae101933a"><div class="ttname"><a href="classRa_1_1Core_1_1VariableSet.html#aa1e2566f592c1ccf81f242fae101933a">Ra::Core::VariableSet::insertVariable</a></div><div class="ttdeci">auto insertVariable(const std::string &amp;name, const T &amp;value) -&gt; std::pair&lt; VariableHandle&lt; T &gt;, bool &gt;</div><div class="ttdoc">Add a variable, i.e. an association name-&gt;value, into the container.</div><div class="ttdef"><b>Definition:</b> <a href="VariableSet_8hpp_source.html#l00605">VariableSet.hpp:605</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1VariableSet_html_abff01d871519d7cd33380f6f8bf1899d"><div class="ttname"><a href="classRa_1_1Core_1_1VariableSet.html#abff01d871519d7cd33380f6f8bf1899d">Ra::Core::VariableSet::visit</a></div><div class="ttdeci">void visit(F &amp;&amp;visitor) const</div><div class="ttdoc">Visit the container using a user defined visitor.</div><div class="ttdef"><b>Definition:</b> <a href="VariableSet_8hpp_source.html#l00900">VariableSet.hpp:900</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1VariableSet_html_a89d3b97c47fe66792ff2d5a6658dbc59"><div class="ttname"><a href="classRa_1_1Core_1_1VariableSet.html#a89d3b97c47fe66792ff2d5a6658dbc59">Ra::Core::VariableSet::getAllVariablesFromHandle</a></div><div class="ttdeci">auto getAllVariablesFromHandle(const H &amp;handle) -&gt; VariableContainer&lt; VariableTypeFromHandle&lt; H &gt;&gt; &amp;</div><div class="ttdoc">Get the whole container for variables of the same type than the given handled variable.</div><div class="ttdef"><b>Definition:</b> <a href="VariableSet_8hpp_source.html#l00766">VariableSet.hpp:766</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1VariableSet_html_a962c68d54bfc107d007345669cf56393"><div class="ttname"><a href="classRa_1_1Core_1_1VariableSet.html#a962c68d54bfc107d007345669cf56393">Ra::Core::VariableSet::existsVariableType</a></div><div class="ttdeci">auto existsVariableType() const -&gt; Utils::optional&lt; VariableContainer&lt; T &gt; * &gt;</div><div class="ttdoc">Test if the storage supports a given variable type.</div><div class="ttdef"><b>Definition:</b> <a href="VariableSet_8hpp_source.html#l00741">VariableSet.hpp:741</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1VariableSet_html_aa1e2566f592c1ccf81f242fae101933a"><div class="ttname"><a href="classRa_1_1Core_1_1VariableSet.html#aa1e2566f592c1ccf81f242fae101933a">Ra::Core::VariableSet::insertVariable</a></div><div class="ttdeci">auto insertVariable(const std::string &amp;name, const T &amp;value) -&gt; std::pair&lt; VariableHandle&lt; T &gt;, bool &gt;</div><div class="ttdoc">Add a variable, i.e. an association name-&gt;value, into the container.</div><div class="ttdef"><b>Definition:</b> <a href="VariableSet_8hpp_source.html#l00606">VariableSet.hpp:606</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1VariableSet_html_abff01d871519d7cd33380f6f8bf1899d"><div class="ttname"><a href="classRa_1_1Core_1_1VariableSet.html#abff01d871519d7cd33380f6f8bf1899d">Ra::Core::VariableSet::visit</a></div><div class="ttdeci">void visit(F &amp;&amp;visitor) const</div><div class="ttdoc">Visit the container using a user defined visitor.</div><div class="ttdef"><b>Definition:</b> <a href="VariableSet_8hpp_source.html#l00897">VariableSet.hpp:897</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1VariableSet_html_aff3c960c4ae226d8cc6ec4a4fa093fee"><div class="ttname"><a href="classRa_1_1Core_1_1VariableSet.html#aff3c960c4ae226d8cc6ec4a4fa093fee">Ra::Core::VariableSet::VariableTypeFromHandle</a></div><div class="ttdeci">typename std::iterator_traits&lt; H &gt;::value_type::second_type VariableTypeFromHandle</div><div class="ttdoc">Type of the variable referenced by a VariableHandle.</div><div class="ttdef"><b>Definition:</b> <a href="VariableSet_8hpp_source.html#l00098">VariableSet.hpp:98</a></div></div>
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdef"><b>Definition:</b> <a href="Cage_8cpp_source.html#l00003">Cage.cpp:3</a></div></div>
 <div class="ttc" id="astructRa_1_1Core_1_1VariableSet_1_1StaticVisitor_html"><div class="ttname"><a href="structRa_1_1Core_1_1VariableSet_1_1StaticVisitor.html">Ra::Core::VariableSet::StaticVisitor</a></div><div class="ttdoc">Base class for visitors with static supported types. Visiting will be prepared at compile time by unf...</div><div class="ttdef"><b>Definition:</b> <a href="VariableSet_8hpp_source.html#l00271">VariableSet.hpp:271</a></div></div>
@@ -782,7 +773,7 @@ $(document).ready(function(){initNavTree('VariableSet_8hpp_source.html',''); ini
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_1456dd235032e023892318efbecb420b.html">Containers</a></li><li class="navelem"><b>VariableSet.hpp</b></li>
-    <li class="footer">Generated on Mon Apr 3 2023 19:25:22 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Wed Apr 5 2023 14:46:12 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

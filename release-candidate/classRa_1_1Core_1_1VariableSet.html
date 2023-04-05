@@ -52,7 +52,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.4.12</span>
+   &#160;<span id="projectnumber">1.4.13</span>
    </div>
   </td>
  </tr>
@@ -380,7 +380,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true if the type is deleted, false if it was not managed before the call. Unregister all the functions associated with the type and remove the storage of existing variables. If several variables are still stored, they will be destroyed. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00751">751</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00748">748</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
 
 </div>
 </div>
@@ -406,7 +406,7 @@ template&lt;typename T &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>true if the variable was removed, false if </dd></dl>
 <dl class="section pre"><dt>Precondition</dt><dd>The element <b>name</b> must exists with type <b>T</b>. If not verified (assert in debug mode) std::bad_any_cast exception could be thrown by the underlying management of type erasure </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00643">643</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00644">644</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
 
 </div>
 </div>
@@ -444,7 +444,7 @@ template&lt;typename H &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>true variable was removed, false if not. If the variable was removed, handle is invalidated </dd></dl>
 <dl class="section pre"><dt>Precondition</dt><dd>the handle must be valid. If not verified (assert in debug mode) std::bad_any_cast exception could be thrown by the underlying management of type erasure </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00654">654</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00655">655</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
 
 </div>
 </div>
@@ -469,7 +469,7 @@ template&lt;typename T &gt; </div>
 <p>test the existence of the given variable </p>
 <dl class="section return"><dt>Returns</dt><dd>an optional variable handle which contains a value if a variable with the given name and type exists in the storage. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00662">662</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00663">663</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
 
 </div>
 </div>
@@ -497,7 +497,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>an optional, empty if the type does not exists in the <a class="el" href="classRa_1_1Core_1_1VariableSet.html" title="Heterogeneous container storing &quot;Variables&quot;, that maps a name (std::string) to a value (of any type T...">VariableSet</a> or whose value is a <b>non owning</b> pointer to the variable collection if it exists. This <b>non owning</b> pointer remains valid as long as the <a class="el" href="classRa_1_1Core_1_1VariableSet.html" title="Heterogeneous container storing &quot;Variables&quot;, that maps a name (std::string) to a value (of any type T...">VariableSet</a> exists and contains the given type. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00742">742</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00741">741</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
 
 </div>
 </div>
@@ -525,7 +525,7 @@ template&lt;typename T &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>a reference to the storage of the mapping name-&gt;value for the given type. </dd></dl>
 <dl class="section pre"><dt>Precondition</dt><dd><a class="el" href="classRa_1_1Core_1_1VariableSet.html#a962c68d54bfc107d007345669cf56393" title="Test if the storage supports a given variable type.">existsVariableType&lt;T&gt;()</a>. If not verified (assert in debug mode) std::bad_any_cast exception will be thrown by the underlying management of type erasure </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00760">760</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00757">757</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
 
 </div>
 </div>
@@ -563,7 +563,7 @@ template&lt;typename H &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>a reference to the storage of the mapping name-&gt;value for the given type. </dd></dl>
 <dl class="section pre"><dt>Precondition</dt><dd>existsVariableType&lt;HandledType&lt;H&gt;&gt;(). If not verified (assert in debug mode) std::bad_any_cast exception will be thrown by the underlying management of type erasure </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00769">769</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00766">766</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
 
 </div>
 </div>
@@ -619,7 +619,7 @@ template&lt;typename T &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>a reference to the value. </dd></dl>
 <dl class="section pre"><dt>Precondition</dt><dd>The element <b>name</b> must exists with type <b>T</b>. If not verified (assert in debug mode) std::bad_any_cast exception could be thrown by the underlying management of type erasure </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00615">615</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00616">616</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
 
 </div>
 </div>
@@ -656,7 +656,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>an handle which can be de-referenced to obtain a std::pair&lt;const std::string, T&gt; representing the name and the value of the variable. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00621">621</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00622">622</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
 
 </div>
 </div>
@@ -691,7 +691,7 @@ template&lt;typename T &gt; </div>
 <p>reset (or set if the variable does not exist yet) the value of the variable. </p>
 <dl class="section return"><dt>Returns</dt><dd>a pair with the variable handle and a bool : true if the variable value was reset, false if the variable value was set. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00633">633</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00634">634</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
 
 </div>
 </div>
@@ -727,7 +727,7 @@ template&lt;typename T &gt; </div>
 <p>Operators acting on a per variable basis</p>
 <dl class="section return"><dt>Returns</dt><dd>true if the variable is inserted, false if the name was already associated with another value (of the same type). In this case, keep the old value. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00605">605</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00606">606</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
 
 </div>
 </div>
@@ -764,7 +764,7 @@ template&lt;typename H &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true if the handle is valid, false if not. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00627">627</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00628">628</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
 
 </div>
 </div>
@@ -865,7 +865,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>the number of variables with type T stored in the container </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00776">776</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00773">773</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
 
 </div>
 </div>
@@ -937,7 +937,7 @@ template&lt;typename F &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00900">900</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00897">897</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
 
 </div>
 </div>
@@ -951,7 +951,7 @@ template&lt;typename F &gt; </div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><b>Core</b></li><li class="navelem"><a class="el" href="classRa_1_1Core_1_1VariableSet.html">VariableSet</a></li>
-    <li class="footer">Generated on Mon Apr 3 2023 19:25:24 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Wed Apr 5 2023 14:46:13 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

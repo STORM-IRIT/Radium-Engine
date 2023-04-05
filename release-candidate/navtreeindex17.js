@@ -1,6 +1,5 @@
 var NAVTREEINDEX17 =
 {
-"structRa_1_1Core_1_1Animation_1_1SkinningFrameData.html#afdec7e3d9cf263036dc8bd861731c037":[10,0,0,0,0,8,4],
 "structRa_1_1Core_1_1Animation_1_1SkinningRefData.html":[10,0,0,0,0,7],
 "structRa_1_1Core_1_1Animation_1_1SkinningRefData.html#a48793a30ffc8b29f99464594622e5170":[10,0,0,0,0,7,6],
 "structRa_1_1Core_1_1Animation_1_1SkinningRefData.html#a9a372d341d2de95d9df2a452efe763cf":[10,0,0,0,0,7,2],

@@ -52,7 +52,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.4.12</span>
+   &#160;<span id="projectnumber">1.4.13</span>
    </div>
   </td>
  </tr>
@@ -132,10 +132,10 @@ $(document).ready(function(){initNavTree('EnvironmentTexture_8hpp_source.html','
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;  <span class="keyword">public</span>:</div>
 <div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1EnvironmentTexture.html#ae79b881460e54b289c8e54eddb4a82c8">   31</a></span>&#160;    <span class="keyword">enum class</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1EnvironmentTexture.html#ae79b881460e54b289c8e54eddb4a82c8">EnvMapType</a> { ENVMAP_PFM, ENVMAP_CUBE, ENVMAP_LATLON };</div>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keyword">explicit</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1EnvironmentTexture.html">EnvironmentTexture</a>( <span class="keyword">const</span> std::string&amp; mapName, <span class="keywordtype">bool</span> isSkybox = <span class="keyword">false</span> );</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <a class="code" href="classRa_1_1Engine_1_1Data_1_1EnvironmentTexture.html">EnvironmentTexture</a>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1EnvironmentTexture.html">EnvironmentTexture</a>&amp; ) = <span class="keyword">delete</span>;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <a class="code" href="classRa_1_1Engine_1_1Data_1_1EnvironmentTexture.html">EnvironmentTexture</a>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1EnvironmentTexture.html">EnvironmentTexture</a>&amp; )            = <span class="keyword">delete</span>;</div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <a class="code" href="classRa_1_1Engine_1_1Data_1_1EnvironmentTexture.html">EnvironmentTexture</a>&amp; operator=( <span class="keyword">const</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1EnvironmentTexture.html">EnvironmentTexture</a>&amp; ) = <span class="keyword">delete</span>;</div>
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <a class="code" href="classRa_1_1Engine_1_1Data_1_1EnvironmentTexture.html">EnvironmentTexture</a>( <a class="code" href="classRa_1_1Engine_1_1Data_1_1EnvironmentTexture.html">EnvironmentTexture</a>&amp;&amp; )                 = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <a class="code" href="classRa_1_1Engine_1_1Data_1_1EnvironmentTexture.html">EnvironmentTexture</a>&amp; operator=( <a class="code" href="classRa_1_1Engine_1_1Data_1_1EnvironmentTexture.html">EnvironmentTexture</a>&amp;&amp; ) = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <a class="code" href="classRa_1_1Engine_1_1Data_1_1EnvironmentTexture.html">EnvironmentTexture</a>&amp; operator=( <a class="code" href="classRa_1_1Engine_1_1Data_1_1EnvironmentTexture.html">EnvironmentTexture</a>&amp;&amp; )      = <span class="keywordflow">default</span>;</div>
 <div class="line"><a name="l00071"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1EnvironmentTexture.html#a5e95c3679fef1bcd25263f18fe6ac807">   71</a></span>&#160;    <a class="code" href="classRa_1_1Engine_1_1Data_1_1EnvironmentTexture.html#a5e95c3679fef1bcd25263f18fe6ac807">~EnvironmentTexture</a>() = <span class="keywordflow">default</span>;</div>
 <div class="line"><a name="l00078"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1EnvironmentTexture.html#a2c0455f62ced920e8e02d1ba9e0fc659">   78</a></span>&#160;    <span class="keyword">inline</span> <span class="keyword">const</span> std::string&amp; <a class="code" href="classRa_1_1Engine_1_1Data_1_1EnvironmentTexture.html#a2c0455f62ced920e8e02d1ba9e0fc659">getImageName</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> m_name; }</div>
 <div class="line"><a name="l00084"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1EnvironmentTexture.html#aed48c51b38dfe69a20b154a61ba97c94">   84</a></span>&#160;    <span class="keyword">inline</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1EnvironmentTexture.html#ae79b881460e54b289c8e54eddb4a82c8">EnvMapType</a> <a class="code" href="classRa_1_1Engine_1_1Data_1_1EnvironmentTexture.html#aed48c51b38dfe69a20b154a61ba97c94">getImageType</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> m_type; }</div>
@@ -211,7 +211,7 @@ $(document).ready(function(){initNavTree('EnvironmentTexture_8hpp_source.html','
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_a46b089ae2655285b8dddf2703c36868.html">Data</a></li><li class="navelem"><b>EnvironmentTexture.hpp</b></li>
-    <li class="footer">Generated on Mon Apr 3 2023 19:25:23 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Wed Apr 5 2023 14:46:12 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

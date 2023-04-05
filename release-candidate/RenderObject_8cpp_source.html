@@ -52,7 +52,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.4.12</span>
+   &#160;<span id="projectnumber">1.4.13</span>
    </div>
   </td>
  </tr>
@@ -398,38 +398,34 @@ $(document).ready(function(){initNavTree('RenderObject_8cpp_source.html',''); in
 <div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;    <span class="comment">// This is a hack to allow correct face culling</span></div>
 <div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;    <span class="comment">// Note that this hack implies the inclusion of OpenGL.h in this file</span></div>
 <div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;    <span class="keywordflow">if</span> ( viewParams.viewMatrix.determinant() &lt; 0 ) { glFrontFace( GL_CW ); }</div>
-<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;    <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;        glFrontFace( GL_CCW );</div>
-<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;    }</div>
-<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;    m_mesh-&gt;render( shader );</div>
-<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;}</div>
-<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160; </div>
-<div class="line"><a name="l00293"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Rendering_1_1RenderObject.html#aaa1a6ae10e11f4cb31bb340c3349a055">  293</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Engine_1_1Rendering_1_1RenderObject.html#a676f4e9e17938dca3b6740c43cd3a964">RenderObject::render</a>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html">Data::RenderParameters</a>&amp; lightParams,</div>
-<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;                           <span class="keyword">const</span> <a class="code" href="structRa_1_1Engine_1_1Data_1_1ViewingParameters.html">Data::ViewingParameters</a>&amp; viewParams,</div>
-<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;                           Core::Utils::Index passId ) {</div>
-<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;    <span class="keywordflow">if</span> ( m_visible ) {</div>
-<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;        <span class="keyword">auto</span> shader = getRenderTechnique()-&gt;getShader( passId );</div>
-<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;        <span class="keywordflow">if</span> ( !shader ) { <span class="keywordflow">return</span>; }</div>
-<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160; </div>
-<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;        <span class="keyword">auto</span> paramsProvider = getRenderTechnique()-&gt;getParametersProvider( passId );</div>
-<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;        <span class="comment">// Do not copy the provider parameters if it exists</span></div>
-<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;        <span class="keywordflow">if</span> ( paramsProvider != <span class="keyword">nullptr</span> ) {</div>
-<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;            <a class="code" href="classRa_1_1Engine_1_1Rendering_1_1RenderObject.html#a676f4e9e17938dca3b6740c43cd3a964">render</a>( lightParams, viewParams, shader, paramsProvider-&gt;getParameters() );</div>
-<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;        }</div>
-<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;        <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;            <a class="code" href="classRa_1_1Engine_1_1Rendering_1_1RenderObject.html#a676f4e9e17938dca3b6740c43cd3a964">render</a>( lightParams, viewParams, shader, {} );</div>
-<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;        }</div>
-<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;    }</div>
-<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;}</div>
-<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160; </div>
-<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;<span class="keywordtype">void</span> RenderObject::invalidateAabb() {</div>
-<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;    m_isAabbValid = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;    m_component-&gt;invalidateAabb();</div>
-<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;}</div>
-<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160; </div>
-<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;} <span class="comment">// namespace Rendering</span></div>
-<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;} <span class="comment">// namespace Engine</span></div>
-<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;} <span class="comment">// namespace Ra</span></div>
+<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;    <span class="keywordflow">else</span> { glFrontFace( GL_CCW ); }</div>
+<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;    m_mesh-&gt;render( shader );</div>
+<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;}</div>
+<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160; </div>
+<div class="line"><a name="l00291"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Rendering_1_1RenderObject.html#aaa1a6ae10e11f4cb31bb340c3349a055">  291</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Engine_1_1Rendering_1_1RenderObject.html#a676f4e9e17938dca3b6740c43cd3a964">RenderObject::render</a>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html">Data::RenderParameters</a>&amp; lightParams,</div>
+<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;                           <span class="keyword">const</span> <a class="code" href="structRa_1_1Engine_1_1Data_1_1ViewingParameters.html">Data::ViewingParameters</a>&amp; viewParams,</div>
+<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;                           Core::Utils::Index passId ) {</div>
+<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;    <span class="keywordflow">if</span> ( m_visible ) {</div>
+<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;        <span class="keyword">auto</span> shader = getRenderTechnique()-&gt;getShader( passId );</div>
+<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;        <span class="keywordflow">if</span> ( !shader ) { <span class="keywordflow">return</span>; }</div>
+<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160; </div>
+<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;        <span class="keyword">auto</span> paramsProvider = getRenderTechnique()-&gt;getParametersProvider( passId );</div>
+<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;        <span class="comment">// Do not copy the provider parameters if it exists</span></div>
+<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;        <span class="keywordflow">if</span> ( paramsProvider != <span class="keyword">nullptr</span> ) {</div>
+<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;            <a class="code" href="classRa_1_1Engine_1_1Rendering_1_1RenderObject.html#a676f4e9e17938dca3b6740c43cd3a964">render</a>( lightParams, viewParams, shader, paramsProvider-&gt;getParameters() );</div>
+<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;        }</div>
+<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;        <span class="keywordflow">else</span> { <a class="code" href="classRa_1_1Engine_1_1Rendering_1_1RenderObject.html#a676f4e9e17938dca3b6740c43cd3a964">render</a>( lightParams, viewParams, shader, {} ); }</div>
+<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;    }</div>
+<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;}</div>
+<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160; </div>
+<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;<span class="keywordtype">void</span> RenderObject::invalidateAabb() {</div>
+<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;    m_isAabbValid = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;    m_component-&gt;invalidateAabb();</div>
+<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;}</div>
+<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160; </div>
+<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;} <span class="comment">// namespace Rendering</span></div>
+<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;} <span class="comment">// namespace Engine</span></div>
+<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;} <span class="comment">// namespace Ra</span></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1IndexedObject_html"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1IndexedObject.html">Ra::Core::Utils::IndexedObject</a></div><div class="ttdef"><b>Definition:</b> <a href="IndexedObject_8hpp_source.html#l00013">IndexedObject.hpp:14</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1IndexedObject_html_a24263285593d30f98e4c131b77a42d3c"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1IndexedObject.html#a24263285593d30f98e4c131b77a42d3c">Ra::Core::Utils::IndexedObject::m_idx</a></div><div class="ttdeci">Index m_idx</div><div class="ttdoc">VARIABLE.</div><div class="ttdef"><b>Definition:</b> <a href="IndexedObject_8hpp_source.html#l00026">IndexedObject.hpp:26</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1RenderParameters_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html">Ra::Engine::Data::RenderParameters</a></div><div class="ttdef"><b>Definition:</b> <a href="RenderParameters_8hpp_source.html#l00035">RenderParameters.hpp:36</a></div></div>
@@ -459,7 +455,7 @@ $(document).ready(function(){initNavTree('RenderObject_8cpp_source.html',''); in
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_6b51c25a1fae8ca1123814c12a4ebb69.html">Rendering</a></li><li class="navelem"><b>RenderObject.cpp</b></li>
-    <li class="footer">Generated on Mon Apr 3 2023 19:25:23 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Wed Apr 5 2023 14:46:13 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

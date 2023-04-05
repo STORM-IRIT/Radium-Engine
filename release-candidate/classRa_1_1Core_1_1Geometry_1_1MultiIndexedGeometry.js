@@ -42,6 +42,5 @@ var classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry =
     [ "unlockFirstLayerOccurrence", "classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html#ab6a532926b5c184e823d32e26b278499", null ],
     [ "unlockFirstLayerOccurrence", "classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html#a301d981b1fe7bf3a79b4e1c7ed292918", null ],
     [ "unlockLayer", "classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html#ad280c9b4813f04f92ff99c868b096f19", null ],
-    [ "unlockLayer", "classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html#a83a22702a2700a786edecf026cca741a", null ],
-    [ "unlockLayer2", "classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html#a919ff1666c3d1cda717dee1af77ba86a", null ]
+    [ "unlockLayer", "classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html#a83a22702a2700a786edecf026cca741a", null ]
 ];

@@ -52,7 +52,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.4.12</span>
+   &#160;<span id="projectnumber">1.4.13</span>
    </div>
   </td>
  </tr>
@@ -271,7 +271,7 @@ $(document).ready(function(){initNavTree('Spline_8hpp_source.html',''); initResi
 <div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160; </div>
 <div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;    Scalar step = 1.f / Scalar( n - K + 2 );</div>
 <div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;    <span class="keywordflow">for</span> ( uint i = 0; i &lt; m_node.size(); ++i ) {</div>
-<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;        m_node[i] = Scalar( i ) * step - step * ( Scalar )( K - 1 );</div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;        m_node[i] = Scalar( i ) * step - step * (Scalar)( K - 1 );</div>
 <div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;    }</div>
 <div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;}</div>
 <div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160; </div>
@@ -284,77 +284,75 @@ $(document).ready(function(){initNavTree('Spline_8hpp_source.html',''); initResi
 <div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;    uint acc = 1;</div>
 <div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;    <span class="keywordflow">for</span> ( uint i = 0; i &lt; m_node.size(); ++i ) {</div>
 <div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;        <span class="keywordflow">if</span> ( i &lt; K ) { m_node[i] = 0.f; }</div>
-<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;        <span class="keywordflow">else</span> <span class="keywordflow">if</span> ( i &gt;= ( m_points.size() + 1 ) ) {</div>
-<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;            m_node[i] = 1.f;</div>
-<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;        }</div>
-<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;        <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;            m_node[i] = Scalar( acc ) / Scalar( m_points.size() + 1 - K );</div>
-<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;            acc++;</div>
-<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;        }</div>
-<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;    }</div>
-<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;}</div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;        <span class="keywordflow">else</span> <span class="keywordflow">if</span> ( i &gt;= ( m_points.size() + 1 ) ) { m_node[i] = 1.f; }</div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;        <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;            m_node[i] = Scalar( acc ) / Scalar( m_points.size() + 1 - K );</div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;            acc++;</div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;        }</div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;    }</div>
+<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;}</div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160; </div>
+<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;<span class="comment">// -----------------------------------------------------------------------------</span></div>
 <div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160; </div>
-<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;<span class="comment">// -----------------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160; </div>
-<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;<span class="keyword">template</span> &lt;u<span class="keywordtype">int</span> D, u<span class="keywordtype">int</span> K&gt;</div>
-<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;<span class="keyword">inline</span> <span class="keyword">typename</span> Spline&lt;D, K&gt;::Vector Spline&lt;D, K&gt;::eval( Scalar u,</div>
-<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;                                                         <span class="keyword">const</span> Core::VectorArray&lt;Vector&gt;&amp; points,</div>
-<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;                                                         <span class="keyword">const</span> std::vector&lt;Scalar&gt;&amp; node,</div>
-<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;                                                         uint k,</div>
-<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;                                                         <span class="keywordtype">int</span> off ) {</div>
-<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;    CORE_ASSERT( k &gt;= 2, <span class="stringliteral">&quot;K must be at least 2&quot;</span> );</div>
-<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;    CORE_ASSERT( points.size() &gt;= k, <span class="stringliteral">&quot;Not enough points&quot;</span> );</div>
-<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;    uint dec = 0;</div>
-<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;    <span class="comment">// TODO: better search with dichotomy ?</span></div>
-<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;    <span class="comment">// TODO: check for overflow</span></div>
-<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;    <span class="keywordflow">while</span> ( u &gt; node[dec + k + off] ) {</div>
-<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;        dec++;</div>
-<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;    }</div>
-<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160; </div>
-<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;    <span class="comment">// TODO: use buffers in attributes for better performances ?</span></div>
-<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;    Core::VectorArray&lt;Vector&gt; pOut( k, Vector::Zero() );</div>
-<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;    <span class="keywordflow">for</span> ( uint i = dec, j = 0; i &lt; ( dec + k ); ++i, ++j ) {</div>
-<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;        pOut[j] = points[i];</div>
-<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;    }</div>
-<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160; </div>
-<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;    std::vector&lt;Scalar&gt; nodeOut( k + k - 2, Scalar( 0 ) );</div>
-<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;    <span class="keywordflow">for</span> ( uint i = ( dec + 1 ), j = 0; i &lt; ( dec + k + k - 1 ); ++i, ++j ) {</div>
-<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;        nodeOut[j] = node[i + off];</div>
-<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;    }</div>
-<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;    <span class="keywordflow">return</span> evalRec( u, pOut, nodeOut, k );</div>
-<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;}</div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;<span class="keyword">template</span> &lt;u<span class="keywordtype">int</span> D, u<span class="keywordtype">int</span> K&gt;</div>
+<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;<span class="keyword">inline</span> <span class="keyword">typename</span> Spline&lt;D, K&gt;::Vector Spline&lt;D, K&gt;::eval( Scalar u,</div>
+<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;                                                         <span class="keyword">const</span> Core::VectorArray&lt;Vector&gt;&amp; points,</div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;                                                         <span class="keyword">const</span> std::vector&lt;Scalar&gt;&amp; node,</div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;                                                         uint k,</div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;                                                         <span class="keywordtype">int</span> off ) {</div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;    CORE_ASSERT( k &gt;= 2, <span class="stringliteral">&quot;K must be at least 2&quot;</span> );</div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;    CORE_ASSERT( points.size() &gt;= k, <span class="stringliteral">&quot;Not enough points&quot;</span> );</div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;    uint dec = 0;</div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;    <span class="comment">// TODO: better search with dichotomy ?</span></div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;    <span class="comment">// TODO: check for overflow</span></div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;    <span class="keywordflow">while</span> ( u &gt; node[dec + k + off] ) {</div>
+<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;        dec++;</div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;    }</div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160; </div>
+<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;    <span class="comment">// TODO: use buffers in attributes for better performances ?</span></div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;    Core::VectorArray&lt;Vector&gt; pOut( k, Vector::Zero() );</div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;    <span class="keywordflow">for</span> ( uint i = dec, j = 0; i &lt; ( dec + k ); ++i, ++j ) {</div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;        pOut[j] = points[i];</div>
+<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;    }</div>
+<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160; </div>
+<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;    std::vector&lt;Scalar&gt; nodeOut( k + k - 2, Scalar( 0 ) );</div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;    <span class="keywordflow">for</span> ( uint i = ( dec + 1 ), j = 0; i &lt; ( dec + k + k - 1 ); ++i, ++j ) {</div>
+<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;        nodeOut[j] = node[i + off];</div>
+<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;    }</div>
+<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;    <span class="keywordflow">return</span> evalRec( u, pOut, nodeOut, k );</div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;}</div>
+<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160; </div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;<span class="comment">// -----------------------------------------------------------------------------</span></div>
 <div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160; </div>
-<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;<span class="comment">// -----------------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160; </div>
-<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;<span class="keyword">template</span> &lt;u<span class="keywordtype">int</span> D, u<span class="keywordtype">int</span> K&gt;</div>
-<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;<span class="keyword">inline</span> <span class="keyword">typename</span> Spline&lt;D, K&gt;::Vector Spline&lt;D, K&gt;::evalRec( Scalar u,</div>
-<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;                                                            <span class="keyword">const</span> Core::VectorArray&lt;Vector&gt;&amp; points,</div>
-<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;                                                            <span class="keyword">const</span> std::vector&lt;Scalar&gt;&amp; node,</div>
-<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;                                                            uint k ) {</div>
-<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;    <span class="keywordflow">if</span> ( points.size() == 1 ) { <span class="keywordflow">return</span> points[0]; }</div>
-<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160; </div>
-<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;    <span class="comment">// TODO: use buffers in attributes for better performances ?</span></div>
-<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;    Core::VectorArray&lt;Vector&gt; pOut( k - 1, Vector::Zero() );</div>
-<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160; </div>
-<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;    <span class="keywordflow">for</span> ( uint i = 0; i &lt; ( k - 1 ); ++i ) {</div>
-<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;        <span class="keyword">const</span> Scalar n0 = node[i + k - 1];</div>
-<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;        <span class="keyword">const</span> Scalar n1 = node[i];</div>
-<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;        <span class="keyword">const</span> Scalar f0 = ( n0 - u ) / ( n0 - n1 );</div>
-<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;        <span class="keyword">const</span> Scalar f1 = ( u - n1 ) / ( n0 - n1 );</div>
-<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160; </div>
-<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;        pOut[i] = points[i] * f0 + points[i + 1] * f1;</div>
-<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;    }</div>
+<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;<span class="keyword">template</span> &lt;u<span class="keywordtype">int</span> D, u<span class="keywordtype">int</span> K&gt;</div>
+<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;<span class="keyword">inline</span> <span class="keyword">typename</span> Spline&lt;D, K&gt;::Vector Spline&lt;D, K&gt;::evalRec( Scalar u,</div>
+<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;                                                            <span class="keyword">const</span> Core::VectorArray&lt;Vector&gt;&amp; points,</div>
+<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;                                                            <span class="keyword">const</span> std::vector&lt;Scalar&gt;&amp; node,</div>
+<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;                                                            uint k ) {</div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;    <span class="keywordflow">if</span> ( points.size() == 1 ) { <span class="keywordflow">return</span> points[0]; }</div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160; </div>
+<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;    <span class="comment">// TODO: use buffers in attributes for better performances ?</span></div>
+<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;    Core::VectorArray&lt;Vector&gt; pOut( k - 1, Vector::Zero() );</div>
+<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160; </div>
+<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;    <span class="keywordflow">for</span> ( uint i = 0; i &lt; ( k - 1 ); ++i ) {</div>
+<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;        <span class="keyword">const</span> Scalar n0 = node[i + k - 1];</div>
+<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;        <span class="keyword">const</span> Scalar n1 = node[i];</div>
+<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;        <span class="keyword">const</span> Scalar f0 = ( n0 - u ) / ( n0 - n1 );</div>
+<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;        <span class="keyword">const</span> Scalar f1 = ( u - n1 ) / ( n0 - n1 );</div>
+<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160; </div>
+<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;        pOut[i] = points[i] * f0 + points[i + 1] * f1;</div>
+<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;    }</div>
+<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160; </div>
+<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;    std::vector&lt;Scalar&gt; nodeOut( node.size() - 2 );</div>
 <div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160; </div>
-<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;    std::vector&lt;Scalar&gt; nodeOut( node.size() - 2 );</div>
-<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160; </div>
-<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;    <span class="keywordflow">for</span> ( uint i = 1; i &lt; node.size() - 1; ++i ) {</div>
-<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;        nodeOut[i - 1] = node[i];</div>
-<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;    }</div>
-<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;    <span class="keywordflow">return</span> evalRec( u, pOut, nodeOut, k - 1 );</div>
-<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;}</div>
-<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;} <span class="comment">// namespace Geometry</span></div>
-<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;} <span class="comment">// namespace Core</span></div>
-<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;} <span class="comment">// namespace Ra</span></div>
+<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;    <span class="keywordflow">for</span> ( uint i = 1; i &lt; node.size() - 1; ++i ) {</div>
+<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;        nodeOut[i - 1] = node[i];</div>
+<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;    }</div>
+<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;    <span class="keywordflow">return</span> evalRec( u, pOut, nodeOut, k - 1 );</div>
+<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;}</div>
+<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;} <span class="comment">// namespace Geometry</span></div>
+<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;} <span class="comment">// namespace Core</span></div>
+<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;} <span class="comment">// namespace Ra</span></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1Spline_html"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1Spline.html">Ra::Core::Geometry::Spline</a></div><div class="ttdoc">Handling spline curves of arbitrary dimensions.</div><div class="ttdef"><b>Definition:</b> <a href="Spline_8hpp_source.html#l00023">Spline.hpp:24</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1Spline_html_a164e49e88843cb33e6ba4f9e2918a9fb"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1Spline.html#a164e49e88843cb33e6ba4f9e2918a9fb">Ra::Core::Geometry::Spline::Type</a></div><div class="ttdeci">Type</div><div class="ttdef"><b>Definition:</b> <a href="Spline_8hpp_source.html#l00026">Spline.hpp:26</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1Spline_html_a164e49e88843cb33e6ba4f9e2918a9fbac53a78216cb37d6e25dead35f63b1596"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1Spline.html#a164e49e88843cb33e6ba4f9e2918a9fbac53a78216cb37d6e25dead35f63b1596">Ra::Core::Geometry::Spline::OPEN_UNIFORM</a></div><div class="ttdeci">@ OPEN_UNIFORM</div><div class="ttdoc">Connected to the first and last control points.</div><div class="ttdef"><b>Definition:</b> <a href="Spline_8hpp_source.html#l00029">Spline.hpp:28</a></div></div>
@@ -372,7 +370,7 @@ $(document).ready(function(){initNavTree('Spline_8hpp_source.html',''); initResi
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_cb2b5dfd43482fb277f6333d539f1f06.html">Geometry</a></li><li class="navelem"><b>Spline.hpp</b></li>
-    <li class="footer">Generated on Mon Apr 3 2023 19:25:23 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Wed Apr 5 2023 14:46:12 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

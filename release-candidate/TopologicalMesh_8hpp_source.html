@@ -52,7 +52,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.4.12</span>
+   &#160;<span id="projectnumber">1.4.13</span>
    </div>
   </td>
  </tr>
@@ -1006,364 +1006,360 @@ $(document).ready(function(){initNavTree('TopologicalMesh_8hpp_source.html','');
 <div class="line"><a name="l01146"></a><span class="lineno"> 1146</span>&#160;                    vh = add_vertex( p );</div>
 <div class="line"><a name="l01147"></a><span class="lineno"> 1147</span>&#160;                    vertexHandles.insert( vtr, <span class="keyword">typename</span> VertexMap::value_type( p, vh ) );</div>
 <div class="line"><a name="l01148"></a><span class="lineno"> 1148</span>&#160;                }</div>
-<div class="line"><a name="l01149"></a><span class="lineno"> 1149</span>&#160;                <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l01150"></a><span class="lineno"> 1150</span>&#160;                    vh = vtr-&gt;second;</div>
-<div class="line"><a name="l01151"></a><span class="lineno"> 1151</span>&#160;                }</div>
-<div class="line"><a name="l01152"></a><span class="lineno"> 1152</span>&#160; </div>
-<div class="line"><a name="l01153"></a><span class="lineno"> 1153</span>&#160;                face_vhandles[j] = vh;</div>
-<div class="line"><a name="l01154"></a><span class="lineno"> 1154</span>&#160;                <span class="keywordflow">if</span> ( hasNormals ) face_normals[j] = mesh.<a class="code" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#abfd2320cb73c0cb14805c234af594b5e">normals</a>()[inMeshVertexIndex];</div>
-<div class="line"><a name="l01155"></a><span class="lineno"> 1155</span>&#160;                face_wedges[j] = WedgeIndex { inMeshVertexIndex };</div>
-<div class="line"><a name="l01156"></a><span class="lineno"> 1156</span>&#160;                m_wedges.m_data[inMeshVertexIndex].getWedgeData().m_vertexHandle = vh;</div>
-<div class="line"><a name="l01157"></a><span class="lineno"> 1157</span>&#160;            }</div>
-<div class="line"><a name="l01158"></a><span class="lineno"> 1158</span>&#160; </div>
-<div class="line"><a name="l01159"></a><span class="lineno"> 1159</span>&#160;            <span class="comment">// remove consecutive equal vertex</span></div>
-<div class="line"><a name="l01160"></a><span class="lineno"> 1160</span>&#160;            <span class="comment">// first take care of &quot;loop&quot; if begin == *end-1</span></div>
-<div class="line"><a name="l01161"></a><span class="lineno"> 1161</span>&#160;            <span class="comment">// apply the same modifications on wedges and normals</span></div>
-<div class="line"><a name="l01162"></a><span class="lineno"> 1162</span>&#160;            <span class="comment">// e.g. 1 2 1 becomes 1 2</span></div>
-<div class="line"><a name="l01163"></a><span class="lineno"> 1163</span>&#160;            {</div>
-<div class="line"><a name="l01164"></a><span class="lineno"> 1164</span>&#160;                <span class="keyword">auto</span> begin = face_vhandles.begin();</div>
-<div class="line"><a name="l01165"></a><span class="lineno"> 1165</span>&#160;                <span class="keywordflow">if</span> ( face_vhandles.size() &gt; 2 ) {</div>
-<div class="line"><a name="l01166"></a><span class="lineno"> 1166</span>&#160;                    <span class="keyword">auto</span> end       = face_vhandles.end() - 1;</div>
-<div class="line"><a name="l01167"></a><span class="lineno"> 1167</span>&#160;                    <span class="keyword">auto</span> wedgeEnd  = face_wedges.end() - 1;</div>
-<div class="line"><a name="l01168"></a><span class="lineno"> 1168</span>&#160;                    <span class="keyword">auto</span> normalEnd = face_normals.end() - 1;</div>
-<div class="line"><a name="l01169"></a><span class="lineno"> 1169</span>&#160; </div>
-<div class="line"><a name="l01170"></a><span class="lineno"> 1170</span>&#160;                    <span class="keywordflow">while</span> ( begin != end &amp;&amp; *begin == *end ) {</div>
-<div class="line"><a name="l01171"></a><span class="lineno"> 1171</span>&#160;                        end--;</div>
-<div class="line"><a name="l01172"></a><span class="lineno"> 1172</span>&#160;                        wedgeEnd--;</div>
-<div class="line"><a name="l01173"></a><span class="lineno"> 1173</span>&#160;                        normalEnd--;</div>
-<div class="line"><a name="l01174"></a><span class="lineno"> 1174</span>&#160;                    }</div>
-<div class="line"><a name="l01175"></a><span class="lineno"> 1175</span>&#160;                    face_vhandles.erase( end + 1, face_vhandles.end() );</div>
-<div class="line"><a name="l01176"></a><span class="lineno"> 1176</span>&#160;                    face_wedges.erase( wedgeEnd + 1, face_wedges.end() );</div>
-<div class="line"><a name="l01177"></a><span class="lineno"> 1177</span>&#160;                    face_normals.erase( normalEnd + 1, face_normals.end() );</div>
-<div class="line"><a name="l01178"></a><span class="lineno"> 1178</span>&#160;                }</div>
-<div class="line"><a name="l01179"></a><span class="lineno"> 1179</span>&#160;            }</div>
-<div class="line"><a name="l01180"></a><span class="lineno"> 1180</span>&#160;            <span class="comment">// then remove duplicates</span></div>
-<div class="line"><a name="l01181"></a><span class="lineno"> 1181</span>&#160;            <span class="comment">// e.g. 1 2 2 becomes 1 2</span></div>
-<div class="line"><a name="l01182"></a><span class="lineno"> 1182</span>&#160;            <span class="comment">// equiv of</span></div>
-<div class="line"><a name="l01183"></a><span class="lineno"> 1183</span>&#160;            <span class="comment">// face_vhandles.erase( std::unique( face_vhandles.begin(), face_vhandles.end() ),</span></div>
-<div class="line"><a name="l01184"></a><span class="lineno"> 1184</span>&#160;            <span class="comment">//                     face_vhandles.end() );</span></div>
-<div class="line"><a name="l01185"></a><span class="lineno"> 1185</span>&#160;            <span class="comment">// but handles wedges and normals</span></div>
-<div class="line"><a name="l01186"></a><span class="lineno"> 1186</span>&#160;            <span class="comment">// see (https://en.cppreference.com/w/cpp/algorithm/unique)</span></div>
-<div class="line"><a name="l01187"></a><span class="lineno"> 1187</span>&#160;            {</div>
-<div class="line"><a name="l01188"></a><span class="lineno"> 1188</span>&#160;                <span class="keyword">auto</span> first       = face_vhandles.begin();</div>
-<div class="line"><a name="l01189"></a><span class="lineno"> 1189</span>&#160;                <span class="keyword">auto</span> wedgeFirst  = face_wedges.begin();</div>
-<div class="line"><a name="l01190"></a><span class="lineno"> 1190</span>&#160;                <span class="keyword">auto</span> normalFirst = face_normals.begin();</div>
-<div class="line"><a name="l01191"></a><span class="lineno"> 1191</span>&#160;                <span class="keyword">auto</span> last        = face_vhandles.end();</div>
-<div class="line"><a name="l01192"></a><span class="lineno"> 1192</span>&#160; </div>
-<div class="line"><a name="l01193"></a><span class="lineno"> 1193</span>&#160;                <span class="keywordflow">if</span> ( first != last ) {</div>
-<div class="line"><a name="l01194"></a><span class="lineno"> 1194</span>&#160;                    <span class="keyword">auto</span> result       = first;</div>
-<div class="line"><a name="l01195"></a><span class="lineno"> 1195</span>&#160;                    <span class="keyword">auto</span> wedgeResult  = wedgeFirst;</div>
-<div class="line"><a name="l01196"></a><span class="lineno"> 1196</span>&#160;                    <span class="keyword">auto</span> normalResult = normalFirst;</div>
-<div class="line"><a name="l01197"></a><span class="lineno"> 1197</span>&#160;                    <span class="keywordflow">while</span> ( ++first != last ) {</div>
-<div class="line"><a name="l01198"></a><span class="lineno"> 1198</span>&#160;                        <span class="keywordflow">if</span> ( !( *result == *first ) ) {</div>
-<div class="line"><a name="l01199"></a><span class="lineno"> 1199</span>&#160;                            ++result;</div>
-<div class="line"><a name="l01200"></a><span class="lineno"> 1200</span>&#160;                            ++wedgeResult;</div>
-<div class="line"><a name="l01201"></a><span class="lineno"> 1201</span>&#160;                            ++normalResult;</div>
-<div class="line"><a name="l01202"></a><span class="lineno"> 1202</span>&#160;                            <span class="keywordflow">if</span> ( result != first ) {</div>
-<div class="line"><a name="l01203"></a><span class="lineno"> 1203</span>&#160;                                *result       = std::move( *first );</div>
-<div class="line"><a name="l01204"></a><span class="lineno"> 1204</span>&#160;                                *wedgeResult  = std::move( *wedgeFirst );</div>
-<div class="line"><a name="l01205"></a><span class="lineno"> 1205</span>&#160;                                *normalResult = std::move( *normalFirst );</div>
-<div class="line"><a name="l01206"></a><span class="lineno"> 1206</span>&#160;                            }</div>
-<div class="line"><a name="l01207"></a><span class="lineno"> 1207</span>&#160;                        }</div>
-<div class="line"><a name="l01208"></a><span class="lineno"> 1208</span>&#160;                    }</div>
-<div class="line"><a name="l01209"></a><span class="lineno"> 1209</span>&#160;                    face_vhandles.erase( result + 1, face_vhandles.end() );</div>
-<div class="line"><a name="l01210"></a><span class="lineno"> 1210</span>&#160;                    face_wedges.erase( wedgeResult + 1, face_wedges.end() );</div>
-<div class="line"><a name="l01211"></a><span class="lineno"> 1211</span>&#160;                    face_normals.erase( normalResult + 1, face_normals.end() );</div>
-<div class="line"><a name="l01212"></a><span class="lineno"> 1212</span>&#160;                }</div>
-<div class="line"><a name="l01213"></a><span class="lineno"> 1213</span>&#160;            }</div>
-<div class="line"><a name="l01214"></a><span class="lineno"> 1214</span>&#160; </div>
-<div class="line"><a name="l01216"></a><span class="lineno"> 1216</span>&#160;            <span class="comment">// unique sort size == vhandles size, if not split ...</span></div>
-<div class="line"><a name="l01217"></a><span class="lineno"> 1217</span>&#160; </div>
-<div class="line"><a name="l01218"></a><span class="lineno"> 1218</span>&#160;            TopologicalMesh::FaceHandle fh;</div>
-<div class="line"><a name="l01219"></a><span class="lineno"> 1219</span>&#160;            <span class="comment">// skip 2 vertex face</span></div>
-<div class="line"><a name="l01220"></a><span class="lineno"> 1220</span>&#160;            <span class="keywordflow">if</span> ( face_vhandles.size() &gt; 2 ) fh = add_face( face_vhandles );</div>
-<div class="line"><a name="l01221"></a><span class="lineno"> 1221</span>&#160; </div>
-<div class="line"><a name="l01222"></a><span class="lineno"> 1222</span>&#160;            <span class="comment">// In case of topological inconsistancy, face will be invalid (or uninitialized &lt;&gt;</span></div>
-<div class="line"><a name="l01223"></a><span class="lineno"> 1223</span>&#160;            <span class="comment">// invalid)</span></div>
-<div class="line"><a name="l01224"></a><span class="lineno"> 1224</span>&#160;            <span class="keywordflow">if</span> ( fh.is_valid() ) {</div>
-<div class="line"><a name="l01225"></a><span class="lineno"> 1225</span>&#160;                <span class="keywordflow">for</span> ( <span class="keywordtype">size_t</span> vindex = 0; vindex &lt; face_vhandles.size(); vindex++ ) {</div>
-<div class="line"><a name="l01226"></a><span class="lineno"> 1226</span>&#160;                    TopologicalMesh::HalfedgeHandle heh =</div>
-<div class="line"><a name="l01227"></a><span class="lineno"> 1227</span>&#160;                        <a class="code" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#afaacfdb6d79a9ccac45b78eba989d41d">halfedge_handle</a>( face_vhandles[vindex], fh );</div>
-<div class="line"><a name="l01228"></a><span class="lineno"> 1228</span>&#160;                    <span class="keywordflow">if</span> ( hasNormals ) set_normal( heh, face_normals[vindex] );</div>
-<div class="line"><a name="l01229"></a><span class="lineno"> 1229</span>&#160;                    property( m_wedgeIndexPph, heh ) = m_wedges.newReference( face_wedges[vindex] );</div>
-<div class="line"><a name="l01230"></a><span class="lineno"> 1230</span>&#160;                }</div>
-<div class="line"><a name="l01231"></a><span class="lineno"> 1231</span>&#160;            }</div>
-<div class="line"><a name="l01232"></a><span class="lineno"> 1232</span>&#160;            <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l01233"></a><span class="lineno"> 1233</span>&#160;                command.process( face_vhandles );</div>
-<div class="line"><a name="l01234"></a><span class="lineno"> 1234</span>&#160;            }</div>
-<div class="line"><a name="l01235"></a><span class="lineno"> 1235</span>&#160;            face_vhandles.clear();</div>
-<div class="line"><a name="l01236"></a><span class="lineno"> 1236</span>&#160;            face_normals.clear();</div>
-<div class="line"><a name="l01237"></a><span class="lineno"> 1237</span>&#160;        }</div>
-<div class="line"><a name="l01238"></a><span class="lineno"> 1238</span>&#160;    };</div>
-<div class="line"><a name="l01239"></a><span class="lineno"> 1239</span>&#160; </div>
-<div class="line"><a name="l01240"></a><span class="lineno"> 1240</span>&#160;    <span class="keywordflow">if</span> ( abstractLayer.hasSemantic( TriangleIndexLayer::staticSemanticName ) ) {</div>
-<div class="line"><a name="l01241"></a><span class="lineno"> 1241</span>&#160;        <span class="keyword">const</span> <span class="keyword">auto</span>&amp; faces = <span class="keyword">static_cast&lt;</span><span class="keyword">const </span><a class="code" href="structRa_1_1Core_1_1Geometry_1_1TriangleIndexLayer.html">TriangleIndexLayer</a>&amp;<span class="keyword">&gt;</span>( abstractLayer ).collection();</div>
-<div class="line"><a name="l01242"></a><span class="lineno"> 1242</span>&#160;        LOG( logDEBUG ) &lt;&lt; <span class="stringliteral">&quot;TopologicalMesh: process &quot;</span> &lt;&lt; faces.size() &lt;&lt; <span class="stringliteral">&quot; triangular faces &quot;</span>;</div>
-<div class="line"><a name="l01243"></a><span class="lineno"> 1243</span>&#160;        processFaces( faces );</div>
-<div class="line"><a name="l01244"></a><span class="lineno"> 1244</span>&#160;    }</div>
-<div class="line"><a name="l01245"></a><span class="lineno"> 1245</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span> ( abstractLayer.hasSemantic( PolyIndexLayer::staticSemanticName ) ) {</div>
-<div class="line"><a name="l01246"></a><span class="lineno"> 1246</span>&#160;        <span class="keyword">const</span> <span class="keyword">auto</span>&amp; faces = <span class="keyword">static_cast&lt;</span><span class="keyword">const </span><a class="code" href="structRa_1_1Core_1_1Geometry_1_1PolyIndexLayer.html">PolyIndexLayer</a>&amp;<span class="keyword">&gt;</span>( abstractLayer ).collection();</div>
-<div class="line"><a name="l01247"></a><span class="lineno"> 1247</span>&#160;        LOG( logDEBUG ) &lt;&lt; <span class="stringliteral">&quot;TopologicalMesh: process &quot;</span> &lt;&lt; faces.size() &lt;&lt; <span class="stringliteral">&quot; polygonal faces &quot;</span>;</div>
-<div class="line"><a name="l01248"></a><span class="lineno"> 1248</span>&#160;        processFaces( faces );</div>
-<div class="line"><a name="l01249"></a><span class="lineno"> 1249</span>&#160;    }</div>
-<div class="line"><a name="l01250"></a><span class="lineno"> 1250</span>&#160; </div>
-<div class="line"><a name="l01251"></a><span class="lineno"> 1251</span>&#160;    command.postProcess( *<span class="keyword">this</span> );</div>
-<div class="line"><a name="l01252"></a><span class="lineno"> 1252</span>&#160;    <span class="keywordflow">if</span> ( hasNormals ) {</div>
-<div class="line"><a name="l01253"></a><span class="lineno"> 1253</span>&#160;        m_normalsIndex =</div>
-<div class="line"><a name="l01254"></a><span class="lineno"> 1254</span>&#160;            m_wedges.getWedgeAttribIndex&lt;Normal&gt;( getAttribName( MeshAttrib::VERTEX_NORMAL ) );</div>
-<div class="line"><a name="l01255"></a><span class="lineno"> 1255</span>&#160; </div>
-<div class="line"><a name="l01256"></a><span class="lineno"> 1256</span>&#160;        m_vertexFaceWedgesWithSameNormals.clear();</div>
-<div class="line"><a name="l01257"></a><span class="lineno"> 1257</span>&#160;        m_vertexFaceWedgesWithSameNormals.resize( n_vertices() );</div>
-<div class="line"><a name="l01258"></a><span class="lineno"> 1258</span>&#160; </div>
-<div class="line"><a name="l01259"></a><span class="lineno"> 1259</span>&#160;        <span class="keywordflow">for</span> ( <span class="keyword">auto</span> itr = vertices_begin(), stop = vertices_end(); itr != stop; ++itr ) {</div>
-<div class="line"><a name="l01260"></a><span class="lineno"> 1260</span>&#160;            std::unordered_map&lt;TopologicalMesh::Normal,</div>
-<div class="line"><a name="l01261"></a><span class="lineno"> 1261</span>&#160;                               std::pair&lt;std::set&lt;FaceHandle&gt;, std::set&lt;WedgeIndex&gt;&gt;,</div>
-<div class="line"><a name="l01262"></a><span class="lineno"> 1262</span>&#160;                               hash_vec&gt;</div>
-<div class="line"><a name="l01263"></a><span class="lineno"> 1263</span>&#160;                normalSharedByWedges;</div>
-<div class="line"><a name="l01264"></a><span class="lineno"> 1264</span>&#160; </div>
-<div class="line"><a name="l01265"></a><span class="lineno"> 1265</span>&#160;            <span class="keyword">auto</span> vh = *itr;</div>
-<div class="line"><a name="l01266"></a><span class="lineno"> 1266</span>&#160; </div>
-<div class="line"><a name="l01267"></a><span class="lineno"> 1267</span>&#160;            <span class="keywordflow">for</span> ( ConstVertexIHalfedgeIter vh_it = cvih_iter( vh ); vh_it.is_valid(); ++vh_it ) {</div>
-<div class="line"><a name="l01268"></a><span class="lineno"> 1268</span>&#160;                <span class="keyword">const</span> <span class="keyword">auto</span>&amp; widx = property( m_wedgeIndexPph, *vh_it );</div>
-<div class="line"><a name="l01269"></a><span class="lineno"> 1269</span>&#160;                <span class="keywordflow">if</span> ( widx.isValid() &amp;&amp; !m_wedges.getWedge( widx ).isDeleted() ) {</div>
-<div class="line"><a name="l01270"></a><span class="lineno"> 1270</span>&#160;                    <span class="keyword">auto</span> oldNormal = m_wedges.getWedgeData&lt;Normal&gt;( widx, m_normalsIndex );</div>
-<div class="line"><a name="l01271"></a><span class="lineno"> 1271</span>&#160;                    normalSharedByWedges[oldNormal].first.insert( face_handle( *vh_it ) );</div>
-<div class="line"><a name="l01272"></a><span class="lineno"> 1272</span>&#160;                    normalSharedByWedges[oldNormal].second.insert( widx );</div>
-<div class="line"><a name="l01273"></a><span class="lineno"> 1273</span>&#160;                }</div>
-<div class="line"><a name="l01274"></a><span class="lineno"> 1274</span>&#160;            }</div>
-<div class="line"><a name="l01275"></a><span class="lineno"> 1275</span>&#160; </div>
-<div class="line"><a name="l01276"></a><span class="lineno"> 1276</span>&#160;            <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; pair : normalSharedByWedges ) {</div>
-<div class="line"><a name="l01277"></a><span class="lineno"> 1277</span>&#160;                <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; fh : pair.second.first ) {</div>
-<div class="line"><a name="l01278"></a><span class="lineno"> 1278</span>&#160;                    <span class="keyword">auto</span>&amp; v = m_vertexFaceWedgesWithSameNormals[vh.idx()][fh.idx()];</div>
-<div class="line"><a name="l01279"></a><span class="lineno"> 1279</span>&#160;                    v.insert( v.end(), pair.second.second.begin(), pair.second.second.end() );</div>
-<div class="line"><a name="l01280"></a><span class="lineno"> 1280</span>&#160;                }</div>
-<div class="line"><a name="l01281"></a><span class="lineno"> 1281</span>&#160;            }</div>
-<div class="line"><a name="l01282"></a><span class="lineno"> 1282</span>&#160;        }</div>
-<div class="line"><a name="l01283"></a><span class="lineno"> 1283</span>&#160;    }</div>
-<div class="line"><a name="l01284"></a><span class="lineno"> 1284</span>&#160;    LOG( logDEBUG ) &lt;&lt; <span class="stringliteral">&quot;TopologicalMesh: load end with  &quot;</span> &lt;&lt; m_wedges.size() &lt;&lt; <span class="stringliteral">&quot; wedges &quot;</span>;</div>
-<div class="line"><a name="l01285"></a><span class="lineno"> 1285</span>&#160;}</div>
-<div class="line"><a name="l01286"></a><span class="lineno"> 1286</span>&#160; </div>
-<div class="line"><a name="l01287"></a><span class="lineno"> 1287</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l01288"></a><span class="lineno"> 1288</span>&#160;<span class="keywordtype">void</span> TopologicalMesh::copyAttribToWedgeData( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html">MultiIndexedGeometry</a>&amp; mesh,</div>
-<div class="line"><a name="l01289"></a><span class="lineno"> 1289</span>&#160;                                             <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> vindex,</div>
-<div class="line"><a name="l01290"></a><span class="lineno"> 1290</span>&#160;                                             <span class="keyword">const</span> std::vector&lt;<a class="code" href="classRa_1_1Core_1_1Utils_1_1AttribHandle.html">AttribHandle&lt;T&gt;</a>&gt;&amp; attrHandleVec,</div>
-<div class="line"><a name="l01291"></a><span class="lineno"> 1291</span>&#160;                                             <a class="code" href="classRa_1_1Core_1_1VectorArray.html">VectorArray&lt;T&gt;</a>* to ) {</div>
-<div class="line"><a name="l01292"></a><span class="lineno"> 1292</span>&#160;    <span class="keywordflow">for</span> ( <span class="keyword">auto</span> handle : attrHandleVec ) {</div>
-<div class="line"><a name="l01293"></a><span class="lineno"> 1293</span>&#160;        <span class="keyword">auto</span>&amp; attr = mesh.template getAttrib&lt;T&gt;( handle );</div>
-<div class="line"><a name="l01294"></a><span class="lineno"> 1294</span>&#160;        to-&gt;push_back( attr.data()[vindex] );</div>
-<div class="line"><a name="l01295"></a><span class="lineno"> 1295</span>&#160;    }</div>
-<div class="line"><a name="l01296"></a><span class="lineno"> 1296</span>&#160;}</div>
-<div class="line"><a name="l01297"></a><span class="lineno"> 1297</span>&#160; </div>
-<div class="line"><a name="l01298"></a><span class="lineno"> 1298</span>&#160;<span class="keywordtype">void</span> TopologicalMesh::copyMeshToWedgeData( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html">MultiIndexedGeometry</a>&amp; mesh,</div>
-<div class="line"><a name="l01299"></a><span class="lineno"> 1299</span>&#160;                                           <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> vindex,</div>
-<div class="line"><a name="l01300"></a><span class="lineno"> 1300</span>&#160;                                           <span class="keyword">const</span> std::vector&lt;<a class="code" href="classRa_1_1Core_1_1Utils_1_1AttribHandle.html">AttribHandle&lt;Scalar&gt;</a>&gt;&amp; wprop_float,</div>
-<div class="line"><a name="l01301"></a><span class="lineno"> 1301</span>&#160;                                           <span class="keyword">const</span> std::vector&lt;<a class="code" href="classRa_1_1Core_1_1Utils_1_1AttribHandle.html">AttribHandle&lt;Vector2&gt;</a>&gt;&amp; wprop_vec2,</div>
-<div class="line"><a name="l01302"></a><span class="lineno"> 1302</span>&#160;                                           <span class="keyword">const</span> std::vector&lt;<a class="code" href="classRa_1_1Core_1_1Utils_1_1AttribHandle.html">AttribHandle&lt;Vector3&gt;</a>&gt;&amp; wprop_vec3,</div>
-<div class="line"><a name="l01303"></a><span class="lineno"> 1303</span>&#160;                                           <span class="keyword">const</span> std::vector&lt;<a class="code" href="classRa_1_1Core_1_1Utils_1_1AttribHandle.html">AttribHandle&lt;Vector4&gt;</a>&gt;&amp; wprop_vec4,</div>
-<div class="line"><a name="l01304"></a><span class="lineno"> 1304</span>&#160;                                           <a class="code" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh_1_1WedgeData.html">TopologicalMesh::WedgeData</a>* wd ) {</div>
-<div class="line"><a name="l01305"></a><span class="lineno"> 1305</span>&#160;    copyAttribToWedgeData( mesh, vindex, wprop_float, &amp;wd-&gt;m_floatAttrib );</div>
-<div class="line"><a name="l01306"></a><span class="lineno"> 1306</span>&#160;    copyAttribToWedgeData( mesh, vindex, wprop_vec2, &amp;wd-&gt;m_vector2Attrib );</div>
-<div class="line"><a name="l01307"></a><span class="lineno"> 1307</span>&#160;    copyAttribToWedgeData( mesh, vindex, wprop_vec3, &amp;wd-&gt;m_vector3Attrib );</div>
-<div class="line"><a name="l01308"></a><span class="lineno"> 1308</span>&#160;    copyAttribToWedgeData( mesh, vindex, wprop_vec4, &amp;wd-&gt;m_vector4Attrib );</div>
-<div class="line"><a name="l01309"></a><span class="lineno"> 1309</span>&#160;}</div>
-<div class="line"><a name="l01310"></a><span class="lineno"> 1310</span>&#160; </div>
-<div class="line"><a name="l01311"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a5a78942bcac6ce938207057dcab51f72"> 1311</a></span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a5a78942bcac6ce938207057dcab51f72">TopologicalMesh::propagate_normal_to_wedges</a>( VertexHandle vh ) {</div>
-<div class="line"><a name="l01312"></a><span class="lineno"> 1312</span>&#160;    <span class="keywordflow">if</span> ( !has_halfedge_normals() ) {</div>
-<div class="line"><a name="l01313"></a><span class="lineno"> 1313</span>&#160;        LOG( logERROR ) &lt;&lt; <span class="stringliteral">&quot;TopologicalMesh has no normals, nothing set&quot;</span>;</div>
-<div class="line"><a name="l01314"></a><span class="lineno"> 1314</span>&#160;        <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l01315"></a><span class="lineno"> 1315</span>&#160;    }</div>
-<div class="line"><a name="l01316"></a><span class="lineno"> 1316</span>&#160;    <span class="keywordflow">for</span> ( VertexIHalfedgeIter vih_it = vih_iter( vh ); vih_it.is_valid(); ++vih_it ) {</div>
-<div class="line"><a name="l01317"></a><span class="lineno"> 1317</span>&#160;        <span class="keyword">auto</span> wd = <a class="code" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#af04d4910fbeb0e3e13815cc36995dab7">getWedgeData</a>( property( getWedgeIndexPph(), *vih_it ) );</div>
-<div class="line"><a name="l01318"></a><span class="lineno"> 1318</span>&#160; </div>
-<div class="line"><a name="l01319"></a><span class="lineno"> 1319</span>&#160;        m_wedges.setWedgeAttrib( wd, getAttribName( MeshAttrib::VERTEX_NORMAL ), normal( vh ) );</div>
+<div class="line"><a name="l01149"></a><span class="lineno"> 1149</span>&#160;                <span class="keywordflow">else</span> { vh = vtr-&gt;second; }</div>
+<div class="line"><a name="l01150"></a><span class="lineno"> 1150</span>&#160; </div>
+<div class="line"><a name="l01151"></a><span class="lineno"> 1151</span>&#160;                face_vhandles[j] = vh;</div>
+<div class="line"><a name="l01152"></a><span class="lineno"> 1152</span>&#160;                <span class="keywordflow">if</span> ( hasNormals ) face_normals[j] = mesh.<a class="code" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#abfd2320cb73c0cb14805c234af594b5e">normals</a>()[inMeshVertexIndex];</div>
+<div class="line"><a name="l01153"></a><span class="lineno"> 1153</span>&#160;                face_wedges[j] = WedgeIndex { inMeshVertexIndex };</div>
+<div class="line"><a name="l01154"></a><span class="lineno"> 1154</span>&#160;                m_wedges.m_data[inMeshVertexIndex].getWedgeData().m_vertexHandle = vh;</div>
+<div class="line"><a name="l01155"></a><span class="lineno"> 1155</span>&#160;            }</div>
+<div class="line"><a name="l01156"></a><span class="lineno"> 1156</span>&#160; </div>
+<div class="line"><a name="l01157"></a><span class="lineno"> 1157</span>&#160;            <span class="comment">// remove consecutive equal vertex</span></div>
+<div class="line"><a name="l01158"></a><span class="lineno"> 1158</span>&#160;            <span class="comment">// first take care of &quot;loop&quot; if begin == *end-1</span></div>
+<div class="line"><a name="l01159"></a><span class="lineno"> 1159</span>&#160;            <span class="comment">// apply the same modifications on wedges and normals</span></div>
+<div class="line"><a name="l01160"></a><span class="lineno"> 1160</span>&#160;            <span class="comment">// e.g. 1 2 1 becomes 1 2</span></div>
+<div class="line"><a name="l01161"></a><span class="lineno"> 1161</span>&#160;            {</div>
+<div class="line"><a name="l01162"></a><span class="lineno"> 1162</span>&#160;                <span class="keyword">auto</span> begin = face_vhandles.begin();</div>
+<div class="line"><a name="l01163"></a><span class="lineno"> 1163</span>&#160;                <span class="keywordflow">if</span> ( face_vhandles.size() &gt; 2 ) {</div>
+<div class="line"><a name="l01164"></a><span class="lineno"> 1164</span>&#160;                    <span class="keyword">auto</span> end       = face_vhandles.end() - 1;</div>
+<div class="line"><a name="l01165"></a><span class="lineno"> 1165</span>&#160;                    <span class="keyword">auto</span> wedgeEnd  = face_wedges.end() - 1;</div>
+<div class="line"><a name="l01166"></a><span class="lineno"> 1166</span>&#160;                    <span class="keyword">auto</span> normalEnd = face_normals.end() - 1;</div>
+<div class="line"><a name="l01167"></a><span class="lineno"> 1167</span>&#160; </div>
+<div class="line"><a name="l01168"></a><span class="lineno"> 1168</span>&#160;                    <span class="keywordflow">while</span> ( begin != end &amp;&amp; *begin == *end ) {</div>
+<div class="line"><a name="l01169"></a><span class="lineno"> 1169</span>&#160;                        end--;</div>
+<div class="line"><a name="l01170"></a><span class="lineno"> 1170</span>&#160;                        wedgeEnd--;</div>
+<div class="line"><a name="l01171"></a><span class="lineno"> 1171</span>&#160;                        normalEnd--;</div>
+<div class="line"><a name="l01172"></a><span class="lineno"> 1172</span>&#160;                    }</div>
+<div class="line"><a name="l01173"></a><span class="lineno"> 1173</span>&#160;                    face_vhandles.erase( end + 1, face_vhandles.end() );</div>
+<div class="line"><a name="l01174"></a><span class="lineno"> 1174</span>&#160;                    face_wedges.erase( wedgeEnd + 1, face_wedges.end() );</div>
+<div class="line"><a name="l01175"></a><span class="lineno"> 1175</span>&#160;                    face_normals.erase( normalEnd + 1, face_normals.end() );</div>
+<div class="line"><a name="l01176"></a><span class="lineno"> 1176</span>&#160;                }</div>
+<div class="line"><a name="l01177"></a><span class="lineno"> 1177</span>&#160;            }</div>
+<div class="line"><a name="l01178"></a><span class="lineno"> 1178</span>&#160;            <span class="comment">// then remove duplicates</span></div>
+<div class="line"><a name="l01179"></a><span class="lineno"> 1179</span>&#160;            <span class="comment">// e.g. 1 2 2 becomes 1 2</span></div>
+<div class="line"><a name="l01180"></a><span class="lineno"> 1180</span>&#160;            <span class="comment">// equiv of</span></div>
+<div class="line"><a name="l01181"></a><span class="lineno"> 1181</span>&#160;            <span class="comment">// face_vhandles.erase( std::unique( face_vhandles.begin(), face_vhandles.end() ),</span></div>
+<div class="line"><a name="l01182"></a><span class="lineno"> 1182</span>&#160;            <span class="comment">//                     face_vhandles.end() );</span></div>
+<div class="line"><a name="l01183"></a><span class="lineno"> 1183</span>&#160;            <span class="comment">// but handles wedges and normals</span></div>
+<div class="line"><a name="l01184"></a><span class="lineno"> 1184</span>&#160;            <span class="comment">// see (https://en.cppreference.com/w/cpp/algorithm/unique)</span></div>
+<div class="line"><a name="l01185"></a><span class="lineno"> 1185</span>&#160;            {</div>
+<div class="line"><a name="l01186"></a><span class="lineno"> 1186</span>&#160;                <span class="keyword">auto</span> first       = face_vhandles.begin();</div>
+<div class="line"><a name="l01187"></a><span class="lineno"> 1187</span>&#160;                <span class="keyword">auto</span> wedgeFirst  = face_wedges.begin();</div>
+<div class="line"><a name="l01188"></a><span class="lineno"> 1188</span>&#160;                <span class="keyword">auto</span> normalFirst = face_normals.begin();</div>
+<div class="line"><a name="l01189"></a><span class="lineno"> 1189</span>&#160;                <span class="keyword">auto</span> last        = face_vhandles.end();</div>
+<div class="line"><a name="l01190"></a><span class="lineno"> 1190</span>&#160; </div>
+<div class="line"><a name="l01191"></a><span class="lineno"> 1191</span>&#160;                <span class="keywordflow">if</span> ( first != last ) {</div>
+<div class="line"><a name="l01192"></a><span class="lineno"> 1192</span>&#160;                    <span class="keyword">auto</span> result       = first;</div>
+<div class="line"><a name="l01193"></a><span class="lineno"> 1193</span>&#160;                    <span class="keyword">auto</span> wedgeResult  = wedgeFirst;</div>
+<div class="line"><a name="l01194"></a><span class="lineno"> 1194</span>&#160;                    <span class="keyword">auto</span> normalResult = normalFirst;</div>
+<div class="line"><a name="l01195"></a><span class="lineno"> 1195</span>&#160;                    <span class="keywordflow">while</span> ( ++first != last ) {</div>
+<div class="line"><a name="l01196"></a><span class="lineno"> 1196</span>&#160;                        <span class="keywordflow">if</span> ( !( *result == *first ) ) {</div>
+<div class="line"><a name="l01197"></a><span class="lineno"> 1197</span>&#160;                            ++result;</div>
+<div class="line"><a name="l01198"></a><span class="lineno"> 1198</span>&#160;                            ++wedgeResult;</div>
+<div class="line"><a name="l01199"></a><span class="lineno"> 1199</span>&#160;                            ++normalResult;</div>
+<div class="line"><a name="l01200"></a><span class="lineno"> 1200</span>&#160;                            <span class="keywordflow">if</span> ( result != first ) {</div>
+<div class="line"><a name="l01201"></a><span class="lineno"> 1201</span>&#160;                                *result       = std::move( *first );</div>
+<div class="line"><a name="l01202"></a><span class="lineno"> 1202</span>&#160;                                *wedgeResult  = std::move( *wedgeFirst );</div>
+<div class="line"><a name="l01203"></a><span class="lineno"> 1203</span>&#160;                                *normalResult = std::move( *normalFirst );</div>
+<div class="line"><a name="l01204"></a><span class="lineno"> 1204</span>&#160;                            }</div>
+<div class="line"><a name="l01205"></a><span class="lineno"> 1205</span>&#160;                        }</div>
+<div class="line"><a name="l01206"></a><span class="lineno"> 1206</span>&#160;                    }</div>
+<div class="line"><a name="l01207"></a><span class="lineno"> 1207</span>&#160;                    face_vhandles.erase( result + 1, face_vhandles.end() );</div>
+<div class="line"><a name="l01208"></a><span class="lineno"> 1208</span>&#160;                    face_wedges.erase( wedgeResult + 1, face_wedges.end() );</div>
+<div class="line"><a name="l01209"></a><span class="lineno"> 1209</span>&#160;                    face_normals.erase( normalResult + 1, face_normals.end() );</div>
+<div class="line"><a name="l01210"></a><span class="lineno"> 1210</span>&#160;                }</div>
+<div class="line"><a name="l01211"></a><span class="lineno"> 1211</span>&#160;            }</div>
+<div class="line"><a name="l01212"></a><span class="lineno"> 1212</span>&#160; </div>
+<div class="line"><a name="l01214"></a><span class="lineno"> 1214</span>&#160;            <span class="comment">// unique sort size == vhandles size, if not split ...</span></div>
+<div class="line"><a name="l01215"></a><span class="lineno"> 1215</span>&#160; </div>
+<div class="line"><a name="l01216"></a><span class="lineno"> 1216</span>&#160;            TopologicalMesh::FaceHandle fh;</div>
+<div class="line"><a name="l01217"></a><span class="lineno"> 1217</span>&#160;            <span class="comment">// skip 2 vertex face</span></div>
+<div class="line"><a name="l01218"></a><span class="lineno"> 1218</span>&#160;            <span class="keywordflow">if</span> ( face_vhandles.size() &gt; 2 ) fh = add_face( face_vhandles );</div>
+<div class="line"><a name="l01219"></a><span class="lineno"> 1219</span>&#160; </div>
+<div class="line"><a name="l01220"></a><span class="lineno"> 1220</span>&#160;            <span class="comment">// In case of topological inconsistancy, face will be invalid (or uninitialized &lt;&gt;</span></div>
+<div class="line"><a name="l01221"></a><span class="lineno"> 1221</span>&#160;            <span class="comment">// invalid)</span></div>
+<div class="line"><a name="l01222"></a><span class="lineno"> 1222</span>&#160;            <span class="keywordflow">if</span> ( fh.is_valid() ) {</div>
+<div class="line"><a name="l01223"></a><span class="lineno"> 1223</span>&#160;                <span class="keywordflow">for</span> ( <span class="keywordtype">size_t</span> vindex = 0; vindex &lt; face_vhandles.size(); vindex++ ) {</div>
+<div class="line"><a name="l01224"></a><span class="lineno"> 1224</span>&#160;                    TopologicalMesh::HalfedgeHandle heh =</div>
+<div class="line"><a name="l01225"></a><span class="lineno"> 1225</span>&#160;                        <a class="code" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#afaacfdb6d79a9ccac45b78eba989d41d">halfedge_handle</a>( face_vhandles[vindex], fh );</div>
+<div class="line"><a name="l01226"></a><span class="lineno"> 1226</span>&#160;                    <span class="keywordflow">if</span> ( hasNormals ) set_normal( heh, face_normals[vindex] );</div>
+<div class="line"><a name="l01227"></a><span class="lineno"> 1227</span>&#160;                    property( m_wedgeIndexPph, heh ) = m_wedges.newReference( face_wedges[vindex] );</div>
+<div class="line"><a name="l01228"></a><span class="lineno"> 1228</span>&#160;                }</div>
+<div class="line"><a name="l01229"></a><span class="lineno"> 1229</span>&#160;            }</div>
+<div class="line"><a name="l01230"></a><span class="lineno"> 1230</span>&#160;            <span class="keywordflow">else</span> { command.process( face_vhandles ); }</div>
+<div class="line"><a name="l01231"></a><span class="lineno"> 1231</span>&#160;            face_vhandles.clear();</div>
+<div class="line"><a name="l01232"></a><span class="lineno"> 1232</span>&#160;            face_normals.clear();</div>
+<div class="line"><a name="l01233"></a><span class="lineno"> 1233</span>&#160;        }</div>
+<div class="line"><a name="l01234"></a><span class="lineno"> 1234</span>&#160;    };</div>
+<div class="line"><a name="l01235"></a><span class="lineno"> 1235</span>&#160; </div>
+<div class="line"><a name="l01236"></a><span class="lineno"> 1236</span>&#160;    <span class="keywordflow">if</span> ( abstractLayer.hasSemantic( TriangleIndexLayer::staticSemanticName ) ) {</div>
+<div class="line"><a name="l01237"></a><span class="lineno"> 1237</span>&#160;        <span class="keyword">const</span> <span class="keyword">auto</span>&amp; faces = <span class="keyword">static_cast&lt;</span><span class="keyword">const </span><a class="code" href="structRa_1_1Core_1_1Geometry_1_1TriangleIndexLayer.html">TriangleIndexLayer</a>&amp;<span class="keyword">&gt;</span>( abstractLayer ).collection();</div>
+<div class="line"><a name="l01238"></a><span class="lineno"> 1238</span>&#160;        LOG( logDEBUG ) &lt;&lt; <span class="stringliteral">&quot;TopologicalMesh: process &quot;</span> &lt;&lt; faces.size() &lt;&lt; <span class="stringliteral">&quot; triangular faces &quot;</span>;</div>
+<div class="line"><a name="l01239"></a><span class="lineno"> 1239</span>&#160;        processFaces( faces );</div>
+<div class="line"><a name="l01240"></a><span class="lineno"> 1240</span>&#160;    }</div>
+<div class="line"><a name="l01241"></a><span class="lineno"> 1241</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span> ( abstractLayer.hasSemantic( PolyIndexLayer::staticSemanticName ) ) {</div>
+<div class="line"><a name="l01242"></a><span class="lineno"> 1242</span>&#160;        <span class="keyword">const</span> <span class="keyword">auto</span>&amp; faces = <span class="keyword">static_cast&lt;</span><span class="keyword">const </span><a class="code" href="structRa_1_1Core_1_1Geometry_1_1PolyIndexLayer.html">PolyIndexLayer</a>&amp;<span class="keyword">&gt;</span>( abstractLayer ).collection();</div>
+<div class="line"><a name="l01243"></a><span class="lineno"> 1243</span>&#160;        LOG( logDEBUG ) &lt;&lt; <span class="stringliteral">&quot;TopologicalMesh: process &quot;</span> &lt;&lt; faces.size() &lt;&lt; <span class="stringliteral">&quot; polygonal faces &quot;</span>;</div>
+<div class="line"><a name="l01244"></a><span class="lineno"> 1244</span>&#160;        processFaces( faces );</div>
+<div class="line"><a name="l01245"></a><span class="lineno"> 1245</span>&#160;    }</div>
+<div class="line"><a name="l01246"></a><span class="lineno"> 1246</span>&#160; </div>
+<div class="line"><a name="l01247"></a><span class="lineno"> 1247</span>&#160;    command.postProcess( *<span class="keyword">this</span> );</div>
+<div class="line"><a name="l01248"></a><span class="lineno"> 1248</span>&#160;    <span class="keywordflow">if</span> ( hasNormals ) {</div>
+<div class="line"><a name="l01249"></a><span class="lineno"> 1249</span>&#160;        m_normalsIndex =</div>
+<div class="line"><a name="l01250"></a><span class="lineno"> 1250</span>&#160;            m_wedges.getWedgeAttribIndex&lt;Normal&gt;( getAttribName( MeshAttrib::VERTEX_NORMAL ) );</div>
+<div class="line"><a name="l01251"></a><span class="lineno"> 1251</span>&#160; </div>
+<div class="line"><a name="l01252"></a><span class="lineno"> 1252</span>&#160;        m_vertexFaceWedgesWithSameNormals.clear();</div>
+<div class="line"><a name="l01253"></a><span class="lineno"> 1253</span>&#160;        m_vertexFaceWedgesWithSameNormals.resize( n_vertices() );</div>
+<div class="line"><a name="l01254"></a><span class="lineno"> 1254</span>&#160; </div>
+<div class="line"><a name="l01255"></a><span class="lineno"> 1255</span>&#160;        <span class="keywordflow">for</span> ( <span class="keyword">auto</span> itr = vertices_begin(), stop = vertices_end(); itr != stop; ++itr ) {</div>
+<div class="line"><a name="l01256"></a><span class="lineno"> 1256</span>&#160;            std::unordered_map&lt;TopologicalMesh::Normal,</div>
+<div class="line"><a name="l01257"></a><span class="lineno"> 1257</span>&#160;                               std::pair&lt;std::set&lt;FaceHandle&gt;, std::set&lt;WedgeIndex&gt;&gt;,</div>
+<div class="line"><a name="l01258"></a><span class="lineno"> 1258</span>&#160;                               hash_vec&gt;</div>
+<div class="line"><a name="l01259"></a><span class="lineno"> 1259</span>&#160;                normalSharedByWedges;</div>
+<div class="line"><a name="l01260"></a><span class="lineno"> 1260</span>&#160; </div>
+<div class="line"><a name="l01261"></a><span class="lineno"> 1261</span>&#160;            <span class="keyword">auto</span> vh = *itr;</div>
+<div class="line"><a name="l01262"></a><span class="lineno"> 1262</span>&#160; </div>
+<div class="line"><a name="l01263"></a><span class="lineno"> 1263</span>&#160;            <span class="keywordflow">for</span> ( ConstVertexIHalfedgeIter vh_it = cvih_iter( vh ); vh_it.is_valid(); ++vh_it ) {</div>
+<div class="line"><a name="l01264"></a><span class="lineno"> 1264</span>&#160;                <span class="keyword">const</span> <span class="keyword">auto</span>&amp; widx = property( m_wedgeIndexPph, *vh_it );</div>
+<div class="line"><a name="l01265"></a><span class="lineno"> 1265</span>&#160;                <span class="keywordflow">if</span> ( widx.isValid() &amp;&amp; !m_wedges.getWedge( widx ).isDeleted() ) {</div>
+<div class="line"><a name="l01266"></a><span class="lineno"> 1266</span>&#160;                    <span class="keyword">auto</span> oldNormal = m_wedges.getWedgeData&lt;Normal&gt;( widx, m_normalsIndex );</div>
+<div class="line"><a name="l01267"></a><span class="lineno"> 1267</span>&#160;                    normalSharedByWedges[oldNormal].first.insert( face_handle( *vh_it ) );</div>
+<div class="line"><a name="l01268"></a><span class="lineno"> 1268</span>&#160;                    normalSharedByWedges[oldNormal].second.insert( widx );</div>
+<div class="line"><a name="l01269"></a><span class="lineno"> 1269</span>&#160;                }</div>
+<div class="line"><a name="l01270"></a><span class="lineno"> 1270</span>&#160;            }</div>
+<div class="line"><a name="l01271"></a><span class="lineno"> 1271</span>&#160; </div>
+<div class="line"><a name="l01272"></a><span class="lineno"> 1272</span>&#160;            <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; pair : normalSharedByWedges ) {</div>
+<div class="line"><a name="l01273"></a><span class="lineno"> 1273</span>&#160;                <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; fh : pair.second.first ) {</div>
+<div class="line"><a name="l01274"></a><span class="lineno"> 1274</span>&#160;                    <span class="keyword">auto</span>&amp; v = m_vertexFaceWedgesWithSameNormals[vh.idx()][fh.idx()];</div>
+<div class="line"><a name="l01275"></a><span class="lineno"> 1275</span>&#160;                    v.insert( v.end(), pair.second.second.begin(), pair.second.second.end() );</div>
+<div class="line"><a name="l01276"></a><span class="lineno"> 1276</span>&#160;                }</div>
+<div class="line"><a name="l01277"></a><span class="lineno"> 1277</span>&#160;            }</div>
+<div class="line"><a name="l01278"></a><span class="lineno"> 1278</span>&#160;        }</div>
+<div class="line"><a name="l01279"></a><span class="lineno"> 1279</span>&#160;    }</div>
+<div class="line"><a name="l01280"></a><span class="lineno"> 1280</span>&#160;    LOG( logDEBUG ) &lt;&lt; <span class="stringliteral">&quot;TopologicalMesh: load end with  &quot;</span> &lt;&lt; m_wedges.size() &lt;&lt; <span class="stringliteral">&quot; wedges &quot;</span>;</div>
+<div class="line"><a name="l01281"></a><span class="lineno"> 1281</span>&#160;}</div>
+<div class="line"><a name="l01282"></a><span class="lineno"> 1282</span>&#160; </div>
+<div class="line"><a name="l01283"></a><span class="lineno"> 1283</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l01284"></a><span class="lineno"> 1284</span>&#160;<span class="keywordtype">void</span> TopologicalMesh::copyAttribToWedgeData( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html">MultiIndexedGeometry</a>&amp; mesh,</div>
+<div class="line"><a name="l01285"></a><span class="lineno"> 1285</span>&#160;                                             <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> vindex,</div>
+<div class="line"><a name="l01286"></a><span class="lineno"> 1286</span>&#160;                                             <span class="keyword">const</span> std::vector&lt;<a class="code" href="classRa_1_1Core_1_1Utils_1_1AttribHandle.html">AttribHandle&lt;T&gt;</a>&gt;&amp; attrHandleVec,</div>
+<div class="line"><a name="l01287"></a><span class="lineno"> 1287</span>&#160;                                             <a class="code" href="classRa_1_1Core_1_1VectorArray.html">VectorArray&lt;T&gt;</a>* to ) {</div>
+<div class="line"><a name="l01288"></a><span class="lineno"> 1288</span>&#160;    <span class="keywordflow">for</span> ( <span class="keyword">auto</span> handle : attrHandleVec ) {</div>
+<div class="line"><a name="l01289"></a><span class="lineno"> 1289</span>&#160;        <span class="keyword">auto</span>&amp; attr = mesh.template getAttrib&lt;T&gt;( handle );</div>
+<div class="line"><a name="l01290"></a><span class="lineno"> 1290</span>&#160;        to-&gt;push_back( attr.data()[vindex] );</div>
+<div class="line"><a name="l01291"></a><span class="lineno"> 1291</span>&#160;    }</div>
+<div class="line"><a name="l01292"></a><span class="lineno"> 1292</span>&#160;}</div>
+<div class="line"><a name="l01293"></a><span class="lineno"> 1293</span>&#160; </div>
+<div class="line"><a name="l01294"></a><span class="lineno"> 1294</span>&#160;<span class="keywordtype">void</span> TopologicalMesh::copyMeshToWedgeData( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html">MultiIndexedGeometry</a>&amp; mesh,</div>
+<div class="line"><a name="l01295"></a><span class="lineno"> 1295</span>&#160;                                           <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> vindex,</div>
+<div class="line"><a name="l01296"></a><span class="lineno"> 1296</span>&#160;                                           <span class="keyword">const</span> std::vector&lt;<a class="code" href="classRa_1_1Core_1_1Utils_1_1AttribHandle.html">AttribHandle&lt;Scalar&gt;</a>&gt;&amp; wprop_float,</div>
+<div class="line"><a name="l01297"></a><span class="lineno"> 1297</span>&#160;                                           <span class="keyword">const</span> std::vector&lt;<a class="code" href="classRa_1_1Core_1_1Utils_1_1AttribHandle.html">AttribHandle&lt;Vector2&gt;</a>&gt;&amp; wprop_vec2,</div>
+<div class="line"><a name="l01298"></a><span class="lineno"> 1298</span>&#160;                                           <span class="keyword">const</span> std::vector&lt;<a class="code" href="classRa_1_1Core_1_1Utils_1_1AttribHandle.html">AttribHandle&lt;Vector3&gt;</a>&gt;&amp; wprop_vec3,</div>
+<div class="line"><a name="l01299"></a><span class="lineno"> 1299</span>&#160;                                           <span class="keyword">const</span> std::vector&lt;<a class="code" href="classRa_1_1Core_1_1Utils_1_1AttribHandle.html">AttribHandle&lt;Vector4&gt;</a>&gt;&amp; wprop_vec4,</div>
+<div class="line"><a name="l01300"></a><span class="lineno"> 1300</span>&#160;                                           <a class="code" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh_1_1WedgeData.html">TopologicalMesh::WedgeData</a>* wd ) {</div>
+<div class="line"><a name="l01301"></a><span class="lineno"> 1301</span>&#160;    copyAttribToWedgeData( mesh, vindex, wprop_float, &amp;wd-&gt;m_floatAttrib );</div>
+<div class="line"><a name="l01302"></a><span class="lineno"> 1302</span>&#160;    copyAttribToWedgeData( mesh, vindex, wprop_vec2, &amp;wd-&gt;m_vector2Attrib );</div>
+<div class="line"><a name="l01303"></a><span class="lineno"> 1303</span>&#160;    copyAttribToWedgeData( mesh, vindex, wprop_vec3, &amp;wd-&gt;m_vector3Attrib );</div>
+<div class="line"><a name="l01304"></a><span class="lineno"> 1304</span>&#160;    copyAttribToWedgeData( mesh, vindex, wprop_vec4, &amp;wd-&gt;m_vector4Attrib );</div>
+<div class="line"><a name="l01305"></a><span class="lineno"> 1305</span>&#160;}</div>
+<div class="line"><a name="l01306"></a><span class="lineno"> 1306</span>&#160; </div>
+<div class="line"><a name="l01307"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a5a78942bcac6ce938207057dcab51f72"> 1307</a></span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a5a78942bcac6ce938207057dcab51f72">TopologicalMesh::propagate_normal_to_wedges</a>( VertexHandle vh ) {</div>
+<div class="line"><a name="l01308"></a><span class="lineno"> 1308</span>&#160;    <span class="keywordflow">if</span> ( !has_halfedge_normals() ) {</div>
+<div class="line"><a name="l01309"></a><span class="lineno"> 1309</span>&#160;        LOG( logERROR ) &lt;&lt; <span class="stringliteral">&quot;TopologicalMesh has no normals, nothing set&quot;</span>;</div>
+<div class="line"><a name="l01310"></a><span class="lineno"> 1310</span>&#160;        <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l01311"></a><span class="lineno"> 1311</span>&#160;    }</div>
+<div class="line"><a name="l01312"></a><span class="lineno"> 1312</span>&#160;    <span class="keywordflow">for</span> ( VertexIHalfedgeIter vih_it = vih_iter( vh ); vih_it.is_valid(); ++vih_it ) {</div>
+<div class="line"><a name="l01313"></a><span class="lineno"> 1313</span>&#160;        <span class="keyword">auto</span> wd = <a class="code" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#af04d4910fbeb0e3e13815cc36995dab7">getWedgeData</a>( property( getWedgeIndexPph(), *vih_it ) );</div>
+<div class="line"><a name="l01314"></a><span class="lineno"> 1314</span>&#160; </div>
+<div class="line"><a name="l01315"></a><span class="lineno"> 1315</span>&#160;        m_wedges.setWedgeAttrib( wd, getAttribName( MeshAttrib::VERTEX_NORMAL ), normal( vh ) );</div>
+<div class="line"><a name="l01316"></a><span class="lineno"> 1316</span>&#160; </div>
+<div class="line"><a name="l01317"></a><span class="lineno"> 1317</span>&#160;        <a class="code" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a2f9edf9c78cb2d1d060b8a7d99fe87e9">replaceWedge</a>( *vih_it, wd );</div>
+<div class="line"><a name="l01318"></a><span class="lineno"> 1318</span>&#160;    }</div>
+<div class="line"><a name="l01319"></a><span class="lineno"> 1319</span>&#160;}</div>
 <div class="line"><a name="l01320"></a><span class="lineno"> 1320</span>&#160; </div>
-<div class="line"><a name="l01321"></a><span class="lineno"> 1321</span>&#160;        <a class="code" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a2f9edf9c78cb2d1d060b8a7d99fe87e9">replaceWedge</a>( *vih_it, wd );</div>
-<div class="line"><a name="l01322"></a><span class="lineno"> 1322</span>&#160;    }</div>
-<div class="line"><a name="l01323"></a><span class="lineno"> 1323</span>&#160;}</div>
-<div class="line"><a name="l01324"></a><span class="lineno"> 1324</span>&#160; </div>
-<div class="line"><a name="l01325"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#afaacfdb6d79a9ccac45b78eba989d41d"> 1325</a></span>&#160;<span class="keyword">inline</span> TopologicalMesh::HalfedgeHandle <a class="code" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#afaacfdb6d79a9ccac45b78eba989d41d">TopologicalMesh::halfedge_handle</a>( VertexHandle vh,</div>
-<div class="line"><a name="l01326"></a><span class="lineno"> 1326</span>&#160;                                                                         FaceHandle fh )<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l01327"></a><span class="lineno"> 1327</span>&#160;    <span class="keywordflow">for</span> ( ConstVertexIHalfedgeIter vih_it = cvih_iter( vh ); vih_it.is_valid(); ++vih_it ) {</div>
-<div class="line"><a name="l01328"></a><span class="lineno"> 1328</span>&#160;        <span class="keywordflow">if</span> ( face_handle( *vih_it ) == fh ) { <span class="keywordflow">return</span> *vih_it; }</div>
-<div class="line"><a name="l01329"></a><span class="lineno"> 1329</span>&#160;    }</div>
-<div class="line"><a name="l01330"></a><span class="lineno"> 1330</span>&#160;    CORE_ASSERT( <span class="keyword">false</span>, <span class="stringliteral">&quot;vh is not a vertex of face fh&quot;</span> );</div>
-<div class="line"><a name="l01331"></a><span class="lineno"> 1331</span>&#160;    <span class="keywordflow">return</span> HalfedgeHandle();</div>
-<div class="line"><a name="l01332"></a><span class="lineno"> 1332</span>&#160;}</div>
-<div class="line"><a name="l01333"></a><span class="lineno"> 1333</span>&#160; </div>
-<div class="line"><a name="l01334"></a><span class="lineno"> 1334</span>&#160;<span class="keyword">inline</span> <span class="keyword">const</span> OpenMesh::HPropHandleT&lt;TopologicalMesh::Index&gt;&amp;</div>
-<div class="line"><a name="l01335"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#aa3ea268f1828a54153b4fc653c1d3a38"> 1335</a></span>&#160;<a class="code" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#aa3ea268f1828a54153b4fc653c1d3a38">TopologicalMesh::getInputTriangleMeshIndexPropHandle</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l01336"></a><span class="lineno"> 1336</span>&#160;    <span class="keywordflow">return</span> m_inputTriangleMeshIndexPph;</div>
-<div class="line"><a name="l01337"></a><span class="lineno"> 1337</span>&#160;}</div>
-<div class="line"><a name="l01338"></a><span class="lineno"> 1338</span>&#160; </div>
-<div class="line"><a name="l01339"></a><span class="lineno"> 1339</span>&#160;<span class="keyword">inline</span> <span class="keyword">const</span> OpenMesh::HPropHandleT&lt;TopologicalMesh::Index&gt;&amp;</div>
-<div class="line"><a name="l01340"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#ab9db8ffcd07686111a853b67eb85b2f6"> 1340</a></span>&#160;<a class="code" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#ab9db8ffcd07686111a853b67eb85b2f6">TopologicalMesh::getOutputTriangleMeshIndexPropHandle</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l01341"></a><span class="lineno"> 1341</span>&#160;    <span class="keywordflow">return</span> m_outputTriangleMeshIndexPph;</div>
-<div class="line"><a name="l01342"></a><span class="lineno"> 1342</span>&#160;}</div>
+<div class="line"><a name="l01321"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#afaacfdb6d79a9ccac45b78eba989d41d"> 1321</a></span>&#160;<span class="keyword">inline</span> TopologicalMesh::HalfedgeHandle <a class="code" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#afaacfdb6d79a9ccac45b78eba989d41d">TopologicalMesh::halfedge_handle</a>( VertexHandle vh,</div>
+<div class="line"><a name="l01322"></a><span class="lineno"> 1322</span>&#160;                                                                         FaceHandle fh )<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l01323"></a><span class="lineno"> 1323</span>&#160;    <span class="keywordflow">for</span> ( ConstVertexIHalfedgeIter vih_it = cvih_iter( vh ); vih_it.is_valid(); ++vih_it ) {</div>
+<div class="line"><a name="l01324"></a><span class="lineno"> 1324</span>&#160;        <span class="keywordflow">if</span> ( face_handle( *vih_it ) == fh ) { <span class="keywordflow">return</span> *vih_it; }</div>
+<div class="line"><a name="l01325"></a><span class="lineno"> 1325</span>&#160;    }</div>
+<div class="line"><a name="l01326"></a><span class="lineno"> 1326</span>&#160;    CORE_ASSERT( <span class="keyword">false</span>, <span class="stringliteral">&quot;vh is not a vertex of face fh&quot;</span> );</div>
+<div class="line"><a name="l01327"></a><span class="lineno"> 1327</span>&#160;    <span class="keywordflow">return</span> HalfedgeHandle();</div>
+<div class="line"><a name="l01328"></a><span class="lineno"> 1328</span>&#160;}</div>
+<div class="line"><a name="l01329"></a><span class="lineno"> 1329</span>&#160; </div>
+<div class="line"><a name="l01330"></a><span class="lineno"> 1330</span>&#160;<span class="keyword">inline</span> <span class="keyword">const</span> OpenMesh::HPropHandleT&lt;TopologicalMesh::Index&gt;&amp;</div>
+<div class="line"><a name="l01331"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#aa3ea268f1828a54153b4fc653c1d3a38"> 1331</a></span>&#160;<a class="code" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#aa3ea268f1828a54153b4fc653c1d3a38">TopologicalMesh::getInputTriangleMeshIndexPropHandle</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l01332"></a><span class="lineno"> 1332</span>&#160;    <span class="keywordflow">return</span> m_inputTriangleMeshIndexPph;</div>
+<div class="line"><a name="l01333"></a><span class="lineno"> 1333</span>&#160;}</div>
+<div class="line"><a name="l01334"></a><span class="lineno"> 1334</span>&#160; </div>
+<div class="line"><a name="l01335"></a><span class="lineno"> 1335</span>&#160;<span class="keyword">inline</span> <span class="keyword">const</span> OpenMesh::HPropHandleT&lt;TopologicalMesh::Index&gt;&amp;</div>
+<div class="line"><a name="l01336"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#ab9db8ffcd07686111a853b67eb85b2f6"> 1336</a></span>&#160;<a class="code" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#ab9db8ffcd07686111a853b67eb85b2f6">TopologicalMesh::getOutputTriangleMeshIndexPropHandle</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l01337"></a><span class="lineno"> 1337</span>&#160;    <span class="keywordflow">return</span> m_outputTriangleMeshIndexPph;</div>
+<div class="line"><a name="l01338"></a><span class="lineno"> 1338</span>&#160;}</div>
+<div class="line"><a name="l01339"></a><span class="lineno"> 1339</span>&#160; </div>
+<div class="line"><a name="l01340"></a><span class="lineno"> 1340</span>&#160;<span class="keyword">inline</span> std::set&lt;TopologicalMesh::WedgeIndex&gt;</div>
+<div class="line"><a name="l01341"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a88b037b40acc05092f9e2d9371ba0c1f"> 1341</a></span>&#160;<a class="code" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a88b037b40acc05092f9e2d9371ba0c1f">TopologicalMesh::getVertexWedges</a>( OpenMesh::VertexHandle vh )<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l01342"></a><span class="lineno"> 1342</span>&#160;    std::set&lt;TopologicalMesh::WedgeIndex&gt; ret;</div>
 <div class="line"><a name="l01343"></a><span class="lineno"> 1343</span>&#160; </div>
-<div class="line"><a name="l01344"></a><span class="lineno"> 1344</span>&#160;<span class="keyword">inline</span> std::set&lt;TopologicalMesh::WedgeIndex&gt;</div>
-<div class="line"><a name="l01345"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a88b037b40acc05092f9e2d9371ba0c1f"> 1345</a></span>&#160;<a class="code" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a88b037b40acc05092f9e2d9371ba0c1f">TopologicalMesh::getVertexWedges</a>( OpenMesh::VertexHandle vh )<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l01346"></a><span class="lineno"> 1346</span>&#160;    std::set&lt;TopologicalMesh::WedgeIndex&gt; ret;</div>
-<div class="line"><a name="l01347"></a><span class="lineno"> 1347</span>&#160; </div>
-<div class="line"><a name="l01348"></a><span class="lineno"> 1348</span>&#160;    <span class="keywordflow">for</span> ( ConstVertexIHalfedgeIter vh_it = cvih_iter( vh ); vh_it.is_valid(); ++vh_it ) {</div>
-<div class="line"><a name="l01349"></a><span class="lineno"> 1349</span>&#160;        <span class="keyword">auto</span> widx = property( m_wedgeIndexPph, *vh_it );</div>
-<div class="line"><a name="l01350"></a><span class="lineno"> 1350</span>&#160;        <span class="keywordflow">if</span> ( widx.isValid() &amp;&amp; !m_wedges.getWedge( widx ).isDeleted() ) ret.insert( widx );</div>
-<div class="line"><a name="l01351"></a><span class="lineno"> 1351</span>&#160;    }</div>
-<div class="line"><a name="l01352"></a><span class="lineno"> 1352</span>&#160;    <span class="keywordflow">return</span> ret;</div>
-<div class="line"><a name="l01353"></a><span class="lineno"> 1353</span>&#160;}</div>
-<div class="line"><a name="l01354"></a><span class="lineno"> 1354</span>&#160; </div>
-<div class="line"><a name="l01355"></a><span class="lineno"> 1355</span>&#160;<span class="keyword">inline</span> TopologicalMesh::WedgeIndex</div>
-<div class="line"><a name="l01356"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a1ff1d09485ae33f3070ea2f0bd41abf9"> 1356</a></span>&#160;<a class="code" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a1ff1d09485ae33f3070ea2f0bd41abf9">TopologicalMesh::getWedgeIndex</a>( OpenMesh::HalfedgeHandle heh )<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l01357"></a><span class="lineno"> 1357</span>&#160;    <span class="keywordflow">return</span> property( getWedgeIndexPph(), heh );</div>
+<div class="line"><a name="l01344"></a><span class="lineno"> 1344</span>&#160;    <span class="keywordflow">for</span> ( ConstVertexIHalfedgeIter vh_it = cvih_iter( vh ); vh_it.is_valid(); ++vh_it ) {</div>
+<div class="line"><a name="l01345"></a><span class="lineno"> 1345</span>&#160;        <span class="keyword">auto</span> widx = property( m_wedgeIndexPph, *vh_it );</div>
+<div class="line"><a name="l01346"></a><span class="lineno"> 1346</span>&#160;        <span class="keywordflow">if</span> ( widx.isValid() &amp;&amp; !m_wedges.getWedge( widx ).isDeleted() ) ret.insert( widx );</div>
+<div class="line"><a name="l01347"></a><span class="lineno"> 1347</span>&#160;    }</div>
+<div class="line"><a name="l01348"></a><span class="lineno"> 1348</span>&#160;    <span class="keywordflow">return</span> ret;</div>
+<div class="line"><a name="l01349"></a><span class="lineno"> 1349</span>&#160;}</div>
+<div class="line"><a name="l01350"></a><span class="lineno"> 1350</span>&#160; </div>
+<div class="line"><a name="l01351"></a><span class="lineno"> 1351</span>&#160;<span class="keyword">inline</span> TopologicalMesh::WedgeIndex</div>
+<div class="line"><a name="l01352"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a1ff1d09485ae33f3070ea2f0bd41abf9"> 1352</a></span>&#160;<a class="code" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a1ff1d09485ae33f3070ea2f0bd41abf9">TopologicalMesh::getWedgeIndex</a>( OpenMesh::HalfedgeHandle heh )<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l01353"></a><span class="lineno"> 1353</span>&#160;    <span class="keywordflow">return</span> property( getWedgeIndexPph(), heh );</div>
+<div class="line"><a name="l01354"></a><span class="lineno"> 1354</span>&#160;}</div>
+<div class="line"><a name="l01355"></a><span class="lineno"> 1355</span>&#160; </div>
+<div class="line"><a name="l01356"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#aa905a256aa1dc66d1a9124e6cf6ab44b"> 1356</a></span>&#160;<span class="keyword">inline</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#aa905a256aa1dc66d1a9124e6cf6ab44b">TopologicalMesh::getWedgeRefCount</a>( <span class="keyword">const</span> WedgeIndex&amp; idx )<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l01357"></a><span class="lineno"> 1357</span>&#160;    <span class="keywordflow">return</span> m_wedges.getWedgeRefCount( idx );</div>
 <div class="line"><a name="l01358"></a><span class="lineno"> 1358</span>&#160;}</div>
 <div class="line"><a name="l01359"></a><span class="lineno"> 1359</span>&#160; </div>
-<div class="line"><a name="l01360"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#aa905a256aa1dc66d1a9124e6cf6ab44b"> 1360</a></span>&#160;<span class="keyword">inline</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#aa905a256aa1dc66d1a9124e6cf6ab44b">TopologicalMesh::getWedgeRefCount</a>( <span class="keyword">const</span> WedgeIndex&amp; idx )<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l01361"></a><span class="lineno"> 1361</span>&#160;    <span class="keywordflow">return</span> m_wedges.getWedgeRefCount( idx );</div>
-<div class="line"><a name="l01362"></a><span class="lineno"> 1362</span>&#160;}</div>
-<div class="line"><a name="l01363"></a><span class="lineno"> 1363</span>&#160; </div>
-<div class="line"><a name="l01364"></a><span class="lineno"> 1364</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l01365"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a07b9f45a2a4f79f8ea92b6617f1681fb"> 1365</a></span>&#160;<span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a749c3f1b1fd167ebfde302c2f2534a60">TopologicalMesh::setWedgeData</a>( <span class="keyword">const</span> TopologicalMesh::WedgeIndex&amp; idx,</div>
-<div class="line"><a name="l01366"></a><span class="lineno"> 1366</span>&#160;                                           <span class="keyword">const</span> std::string&amp; name,</div>
-<div class="line"><a name="l01367"></a><span class="lineno"> 1367</span>&#160;                                           <span class="keyword">const</span> T&amp; value ) {</div>
-<div class="line"><a name="l01368"></a><span class="lineno"> 1368</span>&#160;    <span class="keywordflow">return</span> setWedgeAttrib( idx, name, value );</div>
-<div class="line"><a name="l01369"></a><span class="lineno"> 1369</span>&#160;}</div>
-<div class="line"><a name="l01370"></a><span class="lineno"> 1370</span>&#160; </div>
-<div class="line"><a name="l01371"></a><span class="lineno"> 1371</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l01372"></a><span class="lineno"> 1372</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">bool</span> TopologicalMesh::setWedgeAttrib( <span class="keyword">const</span> TopologicalMesh::WedgeIndex&amp; idx,</div>
-<div class="line"><a name="l01373"></a><span class="lineno"> 1373</span>&#160;                                             <span class="keyword">const</span> std::string&amp; name,</div>
-<div class="line"><a name="l01374"></a><span class="lineno"> 1374</span>&#160;                                             <span class="keyword">const</span> T&amp; value ) {</div>
-<div class="line"><a name="l01375"></a><span class="lineno"> 1375</span>&#160;    <span class="keywordflow">return</span> m_wedges.setWedgeAttrib( idx, name, value );</div>
-<div class="line"><a name="l01376"></a><span class="lineno"> 1376</span>&#160;}</div>
-<div class="line"><a name="l01377"></a><span class="lineno"> 1377</span>&#160; </div>
-<div class="line"><a name="l01378"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a749c3f1b1fd167ebfde302c2f2534a60"> 1378</a></span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a749c3f1b1fd167ebfde302c2f2534a60">TopologicalMesh::setWedgeData</a>( TopologicalMesh::WedgeIndex widx,</div>
-<div class="line"><a name="l01379"></a><span class="lineno"> 1379</span>&#160;                                           <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh_1_1WedgeData.html">TopologicalMesh::WedgeData</a>&amp; wedge ) {</div>
-<div class="line"><a name="l01380"></a><span class="lineno"> 1380</span>&#160;    m_wedges.setWedgeData( widx, wedge );</div>
-<div class="line"><a name="l01381"></a><span class="lineno"> 1381</span>&#160;}</div>
-<div class="line"><a name="l01382"></a><span class="lineno"> 1382</span>&#160; </div>
-<div class="line"><a name="l01383"></a><span class="lineno"> 1383</span>&#160;<span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh_1_1WedgeData.html">TopologicalMesh::WedgeData</a>&amp;</div>
-<div class="line"><a name="l01384"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#af04d4910fbeb0e3e13815cc36995dab7"> 1384</a></span>&#160;<a class="code" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#af04d4910fbeb0e3e13815cc36995dab7">TopologicalMesh::getWedgeData</a>( <span class="keyword">const</span> WedgeIndex&amp; idx )<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l01385"></a><span class="lineno"> 1385</span>&#160;    <span class="keywordflow">return</span> m_wedges.getWedgeData( idx );</div>
-<div class="line"><a name="l01386"></a><span class="lineno"> 1386</span>&#160;}</div>
-<div class="line"><a name="l01387"></a><span class="lineno"> 1387</span>&#160; </div>
-<div class="line"><a name="l01388"></a><span class="lineno"> 1388</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l01389"></a><span class="lineno"> 1389</span>&#160;<span class="keyword">inline</span> <span class="keyword">const</span> T&amp; <a class="code" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#af04d4910fbeb0e3e13815cc36995dab7">TopologicalMesh::getWedgeData</a>( <span class="keyword">const</span> TopologicalMesh::WedgeIndex&amp; idx,</div>
-<div class="line"><a name="l01390"></a><span class="lineno"> 1390</span>&#160;                                               <span class="keyword">const</span> std::string&amp; name )<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l01391"></a><span class="lineno"> 1391</span>&#160;    <span class="keywordflow">return</span> getWedgeAttrib&lt;T&gt;( idx, name );</div>
-<div class="line"><a name="l01392"></a><span class="lineno"> 1392</span>&#160;}</div>
-<div class="line"><a name="l01393"></a><span class="lineno"> 1393</span>&#160; </div>
-<div class="line"><a name="l01394"></a><span class="lineno"> 1394</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l01395"></a><span class="lineno"> 1395</span>&#160;<span class="keyword">inline</span> <span class="keyword">const</span> T&amp; TopologicalMesh::getWedgeAttrib( <span class="keyword">const</span> TopologicalMesh::WedgeIndex&amp; idx,</div>
-<div class="line"><a name="l01396"></a><span class="lineno"> 1396</span>&#160;                                                 <span class="keyword">const</span> std::string&amp; name )<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l01397"></a><span class="lineno"> 1397</span>&#160;    <span class="keywordflow">return</span> m_wedges.getWedgeData&lt;T&gt;( idx, name );</div>
-<div class="line"><a name="l01398"></a><span class="lineno"> 1398</span>&#160;}</div>
-<div class="line"><a name="l01399"></a><span class="lineno"> 1399</span>&#160; </div>
-<div class="line"><a name="l01400"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a2f9edf9c78cb2d1d060b8a7d99fe87e9"> 1400</a></span>&#160;<span class="keyword">inline</span> TopologicalMesh::WedgeIndex <a class="code" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a2f9edf9c78cb2d1d060b8a7d99fe87e9">TopologicalMesh::replaceWedge</a>( OpenMesh::HalfedgeHandle he,</div>
-<div class="line"><a name="l01401"></a><span class="lineno"> 1401</span>&#160;                                                                  <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh_1_1WedgeData.html">WedgeData</a>&amp; wd ) {</div>
-<div class="line"><a name="l01402"></a><span class="lineno"> 1402</span>&#160;    m_wedges.del( property( getWedgeIndexPph(), he ) );</div>
-<div class="line"><a name="l01403"></a><span class="lineno"> 1403</span>&#160;    <span class="keyword">auto</span> index                         = m_wedges.add( wd );</div>
-<div class="line"><a name="l01404"></a><span class="lineno"> 1404</span>&#160;    property( getWedgeIndexPph(), he ) = index;</div>
-<div class="line"><a name="l01405"></a><span class="lineno"> 1405</span>&#160;    <span class="keywordflow">return</span> index;</div>
-<div class="line"><a name="l01406"></a><span class="lineno"> 1406</span>&#160;}</div>
-<div class="line"><a name="l01407"></a><span class="lineno"> 1407</span>&#160; </div>
-<div class="line"><a name="l01408"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a20d3efd4604adfb62144d193d61a7c56"> 1408</a></span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a20d3efd4604adfb62144d193d61a7c56">TopologicalMesh::replaceWedgeIndex</a>( OpenMesh::HalfedgeHandle he,</div>
-<div class="line"><a name="l01409"></a><span class="lineno"> 1409</span>&#160;                                                <span class="keyword">const</span> WedgeIndex&amp; widx ) {</div>
-<div class="line"><a name="l01410"></a><span class="lineno"> 1410</span>&#160;    m_wedges.del( property( getWedgeIndexPph(), he ) );</div>
-<div class="line"><a name="l01411"></a><span class="lineno"> 1411</span>&#160;    property( getWedgeIndexPph(), he ) = m_wedges.newReference( widx );</div>
-<div class="line"><a name="l01412"></a><span class="lineno"> 1412</span>&#160;}</div>
-<div class="line"><a name="l01413"></a><span class="lineno"> 1413</span>&#160; </div>
-<div class="line"><a name="l01414"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a4d18bb4bf4fcfeffa145797122118004"> 1414</a></span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a4d18bb4bf4fcfeffa145797122118004">TopologicalMesh::mergeEqualWedges</a>() {</div>
-<div class="line"><a name="l01415"></a><span class="lineno"> 1415</span>&#160;    <span class="keywordflow">for</span> ( <span class="keyword">auto</span> itr = vertices_begin(), stop = vertices_end(); itr != stop; ++itr ) {</div>
-<div class="line"><a name="l01416"></a><span class="lineno"> 1416</span>&#160;        <a class="code" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a4d18bb4bf4fcfeffa145797122118004">mergeEqualWedges</a>( *itr );</div>
-<div class="line"><a name="l01417"></a><span class="lineno"> 1417</span>&#160;    }</div>
-<div class="line"><a name="l01418"></a><span class="lineno"> 1418</span>&#160;}</div>
-<div class="line"><a name="l01419"></a><span class="lineno"> 1419</span>&#160; </div>
-<div class="line"><a name="l01420"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#aa459f5689069654aabe66cd8d72d2ea6"> 1420</a></span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a4d18bb4bf4fcfeffa145797122118004">TopologicalMesh::mergeEqualWedges</a>( OpenMesh::VertexHandle vh ) {</div>
-<div class="line"><a name="l01421"></a><span class="lineno"> 1421</span>&#160;    <span class="keywordflow">for</span> ( <span class="keyword">auto</span> itr = vih_iter( vh ); itr.is_valid(); ++itr ) {</div>
-<div class="line"><a name="l01422"></a><span class="lineno"> 1422</span>&#160;        <span class="comment">// replace will search if wedge already present and use it, so merge occurs.</span></div>
-<div class="line"><a name="l01423"></a><span class="lineno"> 1423</span>&#160;        <span class="keywordflow">if</span> ( !is_boundary( *itr ) )</div>
-<div class="line"><a name="l01424"></a><span class="lineno"> 1424</span>&#160;            <a class="code" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a2f9edf9c78cb2d1d060b8a7d99fe87e9">replaceWedge</a>( *itr, <a class="code" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#af04d4910fbeb0e3e13815cc36995dab7">getWedgeData</a>( property( getWedgeIndexPph(), *itr ) ) );</div>
-<div class="line"><a name="l01425"></a><span class="lineno"> 1425</span>&#160;    }</div>
+<div class="line"><a name="l01360"></a><span class="lineno"> 1360</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l01361"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a07b9f45a2a4f79f8ea92b6617f1681fb"> 1361</a></span>&#160;<span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a749c3f1b1fd167ebfde302c2f2534a60">TopologicalMesh::setWedgeData</a>( <span class="keyword">const</span> TopologicalMesh::WedgeIndex&amp; idx,</div>
+<div class="line"><a name="l01362"></a><span class="lineno"> 1362</span>&#160;                                           <span class="keyword">const</span> std::string&amp; name,</div>
+<div class="line"><a name="l01363"></a><span class="lineno"> 1363</span>&#160;                                           <span class="keyword">const</span> T&amp; value ) {</div>
+<div class="line"><a name="l01364"></a><span class="lineno"> 1364</span>&#160;    <span class="keywordflow">return</span> setWedgeAttrib( idx, name, value );</div>
+<div class="line"><a name="l01365"></a><span class="lineno"> 1365</span>&#160;}</div>
+<div class="line"><a name="l01366"></a><span class="lineno"> 1366</span>&#160; </div>
+<div class="line"><a name="l01367"></a><span class="lineno"> 1367</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l01368"></a><span class="lineno"> 1368</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">bool</span> TopologicalMesh::setWedgeAttrib( <span class="keyword">const</span> TopologicalMesh::WedgeIndex&amp; idx,</div>
+<div class="line"><a name="l01369"></a><span class="lineno"> 1369</span>&#160;                                             <span class="keyword">const</span> std::string&amp; name,</div>
+<div class="line"><a name="l01370"></a><span class="lineno"> 1370</span>&#160;                                             <span class="keyword">const</span> T&amp; value ) {</div>
+<div class="line"><a name="l01371"></a><span class="lineno"> 1371</span>&#160;    <span class="keywordflow">return</span> m_wedges.setWedgeAttrib( idx, name, value );</div>
+<div class="line"><a name="l01372"></a><span class="lineno"> 1372</span>&#160;}</div>
+<div class="line"><a name="l01373"></a><span class="lineno"> 1373</span>&#160; </div>
+<div class="line"><a name="l01374"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a749c3f1b1fd167ebfde302c2f2534a60"> 1374</a></span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a749c3f1b1fd167ebfde302c2f2534a60">TopologicalMesh::setWedgeData</a>( TopologicalMesh::WedgeIndex widx,</div>
+<div class="line"><a name="l01375"></a><span class="lineno"> 1375</span>&#160;                                           <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh_1_1WedgeData.html">TopologicalMesh::WedgeData</a>&amp; wedge ) {</div>
+<div class="line"><a name="l01376"></a><span class="lineno"> 1376</span>&#160;    m_wedges.setWedgeData( widx, wedge );</div>
+<div class="line"><a name="l01377"></a><span class="lineno"> 1377</span>&#160;}</div>
+<div class="line"><a name="l01378"></a><span class="lineno"> 1378</span>&#160; </div>
+<div class="line"><a name="l01379"></a><span class="lineno"> 1379</span>&#160;<span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh_1_1WedgeData.html">TopologicalMesh::WedgeData</a>&amp;</div>
+<div class="line"><a name="l01380"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#af04d4910fbeb0e3e13815cc36995dab7"> 1380</a></span>&#160;<a class="code" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#af04d4910fbeb0e3e13815cc36995dab7">TopologicalMesh::getWedgeData</a>( <span class="keyword">const</span> WedgeIndex&amp; idx )<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l01381"></a><span class="lineno"> 1381</span>&#160;    <span class="keywordflow">return</span> m_wedges.getWedgeData( idx );</div>
+<div class="line"><a name="l01382"></a><span class="lineno"> 1382</span>&#160;}</div>
+<div class="line"><a name="l01383"></a><span class="lineno"> 1383</span>&#160; </div>
+<div class="line"><a name="l01384"></a><span class="lineno"> 1384</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l01385"></a><span class="lineno"> 1385</span>&#160;<span class="keyword">inline</span> <span class="keyword">const</span> T&amp; <a class="code" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#af04d4910fbeb0e3e13815cc36995dab7">TopologicalMesh::getWedgeData</a>( <span class="keyword">const</span> TopologicalMesh::WedgeIndex&amp; idx,</div>
+<div class="line"><a name="l01386"></a><span class="lineno"> 1386</span>&#160;                                               <span class="keyword">const</span> std::string&amp; name )<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l01387"></a><span class="lineno"> 1387</span>&#160;    <span class="keywordflow">return</span> getWedgeAttrib&lt;T&gt;( idx, name );</div>
+<div class="line"><a name="l01388"></a><span class="lineno"> 1388</span>&#160;}</div>
+<div class="line"><a name="l01389"></a><span class="lineno"> 1389</span>&#160; </div>
+<div class="line"><a name="l01390"></a><span class="lineno"> 1390</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l01391"></a><span class="lineno"> 1391</span>&#160;<span class="keyword">inline</span> <span class="keyword">const</span> T&amp; TopologicalMesh::getWedgeAttrib( <span class="keyword">const</span> TopologicalMesh::WedgeIndex&amp; idx,</div>
+<div class="line"><a name="l01392"></a><span class="lineno"> 1392</span>&#160;                                                 <span class="keyword">const</span> std::string&amp; name )<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l01393"></a><span class="lineno"> 1393</span>&#160;    <span class="keywordflow">return</span> m_wedges.getWedgeData&lt;T&gt;( idx, name );</div>
+<div class="line"><a name="l01394"></a><span class="lineno"> 1394</span>&#160;}</div>
+<div class="line"><a name="l01395"></a><span class="lineno"> 1395</span>&#160; </div>
+<div class="line"><a name="l01396"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a2f9edf9c78cb2d1d060b8a7d99fe87e9"> 1396</a></span>&#160;<span class="keyword">inline</span> TopologicalMesh::WedgeIndex <a class="code" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a2f9edf9c78cb2d1d060b8a7d99fe87e9">TopologicalMesh::replaceWedge</a>( OpenMesh::HalfedgeHandle he,</div>
+<div class="line"><a name="l01397"></a><span class="lineno"> 1397</span>&#160;                                                                  <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh_1_1WedgeData.html">WedgeData</a>&amp; wd ) {</div>
+<div class="line"><a name="l01398"></a><span class="lineno"> 1398</span>&#160;    m_wedges.del( property( getWedgeIndexPph(), he ) );</div>
+<div class="line"><a name="l01399"></a><span class="lineno"> 1399</span>&#160;    <span class="keyword">auto</span> index                         = m_wedges.add( wd );</div>
+<div class="line"><a name="l01400"></a><span class="lineno"> 1400</span>&#160;    property( getWedgeIndexPph(), he ) = index;</div>
+<div class="line"><a name="l01401"></a><span class="lineno"> 1401</span>&#160;    <span class="keywordflow">return</span> index;</div>
+<div class="line"><a name="l01402"></a><span class="lineno"> 1402</span>&#160;}</div>
+<div class="line"><a name="l01403"></a><span class="lineno"> 1403</span>&#160; </div>
+<div class="line"><a name="l01404"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a20d3efd4604adfb62144d193d61a7c56"> 1404</a></span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a20d3efd4604adfb62144d193d61a7c56">TopologicalMesh::replaceWedgeIndex</a>( OpenMesh::HalfedgeHandle he,</div>
+<div class="line"><a name="l01405"></a><span class="lineno"> 1405</span>&#160;                                                <span class="keyword">const</span> WedgeIndex&amp; widx ) {</div>
+<div class="line"><a name="l01406"></a><span class="lineno"> 1406</span>&#160;    m_wedges.del( property( getWedgeIndexPph(), he ) );</div>
+<div class="line"><a name="l01407"></a><span class="lineno"> 1407</span>&#160;    property( getWedgeIndexPph(), he ) = m_wedges.newReference( widx );</div>
+<div class="line"><a name="l01408"></a><span class="lineno"> 1408</span>&#160;}</div>
+<div class="line"><a name="l01409"></a><span class="lineno"> 1409</span>&#160; </div>
+<div class="line"><a name="l01410"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a4d18bb4bf4fcfeffa145797122118004"> 1410</a></span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a4d18bb4bf4fcfeffa145797122118004">TopologicalMesh::mergeEqualWedges</a>() {</div>
+<div class="line"><a name="l01411"></a><span class="lineno"> 1411</span>&#160;    <span class="keywordflow">for</span> ( <span class="keyword">auto</span> itr = vertices_begin(), stop = vertices_end(); itr != stop; ++itr ) {</div>
+<div class="line"><a name="l01412"></a><span class="lineno"> 1412</span>&#160;        <a class="code" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a4d18bb4bf4fcfeffa145797122118004">mergeEqualWedges</a>( *itr );</div>
+<div class="line"><a name="l01413"></a><span class="lineno"> 1413</span>&#160;    }</div>
+<div class="line"><a name="l01414"></a><span class="lineno"> 1414</span>&#160;}</div>
+<div class="line"><a name="l01415"></a><span class="lineno"> 1415</span>&#160; </div>
+<div class="line"><a name="l01416"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#aa459f5689069654aabe66cd8d72d2ea6"> 1416</a></span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a4d18bb4bf4fcfeffa145797122118004">TopologicalMesh::mergeEqualWedges</a>( OpenMesh::VertexHandle vh ) {</div>
+<div class="line"><a name="l01417"></a><span class="lineno"> 1417</span>&#160;    <span class="keywordflow">for</span> ( <span class="keyword">auto</span> itr = vih_iter( vh ); itr.is_valid(); ++itr ) {</div>
+<div class="line"><a name="l01418"></a><span class="lineno"> 1418</span>&#160;        <span class="comment">// replace will search if wedge already present and use it, so merge occurs.</span></div>
+<div class="line"><a name="l01419"></a><span class="lineno"> 1419</span>&#160;        <span class="keywordflow">if</span> ( !is_boundary( *itr ) )</div>
+<div class="line"><a name="l01420"></a><span class="lineno"> 1420</span>&#160;            <a class="code" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a2f9edf9c78cb2d1d060b8a7d99fe87e9">replaceWedge</a>( *itr, <a class="code" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#af04d4910fbeb0e3e13815cc36995dab7">getWedgeData</a>( property( getWedgeIndexPph(), *itr ) ) );</div>
+<div class="line"><a name="l01421"></a><span class="lineno"> 1421</span>&#160;    }</div>
+<div class="line"><a name="l01422"></a><span class="lineno"> 1422</span>&#160;}</div>
+<div class="line"><a name="l01423"></a><span class="lineno"> 1423</span>&#160; </div>
+<div class="line"><a name="l01424"></a><span class="lineno"> 1424</span>&#160;<span class="keyword">inline</span> <span class="keyword">const</span> std::vector&lt;std::string&gt;&amp; TopologicalMesh::getVec4AttribNames()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l01425"></a><span class="lineno"> 1425</span>&#160;    <span class="keywordflow">return</span> m_wedges.m_vector4AttribNames;</div>
 <div class="line"><a name="l01426"></a><span class="lineno"> 1426</span>&#160;}</div>
-<div class="line"><a name="l01427"></a><span class="lineno"> 1427</span>&#160; </div>
-<div class="line"><a name="l01428"></a><span class="lineno"> 1428</span>&#160;<span class="keyword">inline</span> <span class="keyword">const</span> std::vector&lt;std::string&gt;&amp; TopologicalMesh::getVec4AttribNames()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l01429"></a><span class="lineno"> 1429</span>&#160;    <span class="keywordflow">return</span> m_wedges.m_vector4AttribNames;</div>
-<div class="line"><a name="l01430"></a><span class="lineno"> 1430</span>&#160;}</div>
-<div class="line"><a name="l01431"></a><span class="lineno"> 1431</span>&#160;<span class="keyword">inline</span> <span class="keyword">const</span> std::vector&lt;std::string&gt;&amp; TopologicalMesh::getVec3AttribNames()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l01432"></a><span class="lineno"> 1432</span>&#160;    <span class="keywordflow">return</span> m_wedges.m_vector3AttribNames;</div>
-<div class="line"><a name="l01433"></a><span class="lineno"> 1433</span>&#160;}</div>
-<div class="line"><a name="l01434"></a><span class="lineno"> 1434</span>&#160;<span class="keyword">inline</span> <span class="keyword">const</span> std::vector&lt;std::string&gt;&amp; TopologicalMesh::getVec2AttribNames()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l01435"></a><span class="lineno"> 1435</span>&#160;    <span class="keywordflow">return</span> m_wedges.m_vector2AttribNames;</div>
-<div class="line"><a name="l01436"></a><span class="lineno"> 1436</span>&#160;}</div>
-<div class="line"><a name="l01437"></a><span class="lineno"> 1437</span>&#160;<span class="keyword">inline</span> <span class="keyword">const</span> std::vector&lt;std::string&gt;&amp; TopologicalMesh::getFloatAttribNames()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l01438"></a><span class="lineno"> 1438</span>&#160;    <span class="keywordflow">return</span> m_wedges.m_floatAttribNames;</div>
+<div class="line"><a name="l01427"></a><span class="lineno"> 1427</span>&#160;<span class="keyword">inline</span> <span class="keyword">const</span> std::vector&lt;std::string&gt;&amp; TopologicalMesh::getVec3AttribNames()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l01428"></a><span class="lineno"> 1428</span>&#160;    <span class="keywordflow">return</span> m_wedges.m_vector3AttribNames;</div>
+<div class="line"><a name="l01429"></a><span class="lineno"> 1429</span>&#160;}</div>
+<div class="line"><a name="l01430"></a><span class="lineno"> 1430</span>&#160;<span class="keyword">inline</span> <span class="keyword">const</span> std::vector&lt;std::string&gt;&amp; TopologicalMesh::getVec2AttribNames()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l01431"></a><span class="lineno"> 1431</span>&#160;    <span class="keywordflow">return</span> m_wedges.m_vector2AttribNames;</div>
+<div class="line"><a name="l01432"></a><span class="lineno"> 1432</span>&#160;}</div>
+<div class="line"><a name="l01433"></a><span class="lineno"> 1433</span>&#160;<span class="keyword">inline</span> <span class="keyword">const</span> std::vector&lt;std::string&gt;&amp; TopologicalMesh::getFloatAttribNames()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l01434"></a><span class="lineno"> 1434</span>&#160;    <span class="keywordflow">return</span> m_wedges.m_floatAttribNames;</div>
+<div class="line"><a name="l01435"></a><span class="lineno"> 1435</span>&#160;}</div>
+<div class="line"><a name="l01436"></a><span class="lineno"> 1436</span>&#160; </div>
+<div class="line"><a name="l01437"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a717f9e6f73f9a9d322d34fdf45ebdedf"> 1437</a></span>&#160;<span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a717f9e6f73f9a9d322d34fdf45ebdedf">TopologicalMesh::isFeatureVertex</a>( <span class="keyword">const</span> VertexHandle&amp; vh )<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l01438"></a><span class="lineno"> 1438</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a88b037b40acc05092f9e2d9371ba0c1f">getVertexWedges</a>( vh ).size() != 1;</div>
 <div class="line"><a name="l01439"></a><span class="lineno"> 1439</span>&#160;}</div>
 <div class="line"><a name="l01440"></a><span class="lineno"> 1440</span>&#160; </div>
-<div class="line"><a name="l01441"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a717f9e6f73f9a9d322d34fdf45ebdedf"> 1441</a></span>&#160;<span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a717f9e6f73f9a9d322d34fdf45ebdedf">TopologicalMesh::isFeatureVertex</a>( <span class="keyword">const</span> VertexHandle&amp; vh )<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l01442"></a><span class="lineno"> 1442</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a88b037b40acc05092f9e2d9371ba0c1f">getVertexWedges</a>( vh ).size() != 1;</div>
-<div class="line"><a name="l01443"></a><span class="lineno"> 1443</span>&#160;}</div>
+<div class="line"><a name="l01441"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a4f2209deb980debd0c4676c9a72c9570"> 1441</a></span>&#160;<span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a4f2209deb980debd0c4676c9a72c9570">TopologicalMesh::isFeatureEdge</a>( <span class="keyword">const</span> EdgeHandle&amp; eh )<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l01442"></a><span class="lineno"> 1442</span>&#160;    <span class="keyword">auto</span> heh0 = <a class="code" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#afaacfdb6d79a9ccac45b78eba989d41d">halfedge_handle</a>( eh, 0 );</div>
+<div class="line"><a name="l01443"></a><span class="lineno"> 1443</span>&#160;    <span class="keyword">auto</span> heh1 = <a class="code" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#afaacfdb6d79a9ccac45b78eba989d41d">halfedge_handle</a>( eh, 1 );</div>
 <div class="line"><a name="l01444"></a><span class="lineno"> 1444</span>&#160; </div>
-<div class="line"><a name="l01445"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a4f2209deb980debd0c4676c9a72c9570"> 1445</a></span>&#160;<span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a4f2209deb980debd0c4676c9a72c9570">TopologicalMesh::isFeatureEdge</a>( <span class="keyword">const</span> EdgeHandle&amp; eh )<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l01446"></a><span class="lineno"> 1446</span>&#160;    <span class="keyword">auto</span> heh0 = <a class="code" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#afaacfdb6d79a9ccac45b78eba989d41d">halfedge_handle</a>( eh, 0 );</div>
-<div class="line"><a name="l01447"></a><span class="lineno"> 1447</span>&#160;    <span class="keyword">auto</span> heh1 = <a class="code" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#afaacfdb6d79a9ccac45b78eba989d41d">halfedge_handle</a>( eh, 1 );</div>
-<div class="line"><a name="l01448"></a><span class="lineno"> 1448</span>&#160; </div>
-<div class="line"><a name="l01449"></a><span class="lineno"> 1449</span>&#160;    <span class="keywordflow">return</span> property( m_wedgeIndexPph, heh0 ) !=</div>
-<div class="line"><a name="l01450"></a><span class="lineno"> 1450</span>&#160;               property( m_wedgeIndexPph,</div>
-<div class="line"><a name="l01451"></a><span class="lineno"> 1451</span>&#160;                         prev_halfedge_handle( opposite_halfedge_handle( heh0 ) ) ) ||</div>
-<div class="line"><a name="l01452"></a><span class="lineno"> 1452</span>&#160;           property( m_wedgeIndexPph, heh1 ) !=</div>
-<div class="line"><a name="l01453"></a><span class="lineno"> 1453</span>&#160;               property( m_wedgeIndexPph,</div>
-<div class="line"><a name="l01454"></a><span class="lineno"> 1454</span>&#160;                         prev_halfedge_handle( opposite_halfedge_handle( heh1 ) ) );</div>
-<div class="line"><a name="l01455"></a><span class="lineno"> 1455</span>&#160;}</div>
-<div class="line"><a name="l01456"></a><span class="lineno"> 1456</span>&#160; </div>
-<div class="line"><a name="l01457"></a><span class="lineno"> 1457</span>&#160;<span class="keyword">inline</span> <span class="keyword">const</span> OpenMesh::HPropHandleT&lt;TopologicalMesh::WedgeIndex&gt;&amp;</div>
-<div class="line"><a name="l01458"></a><span class="lineno"> 1458</span>&#160;TopologicalMesh::getWedgeIndexPph()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l01459"></a><span class="lineno"> 1459</span>&#160;    <span class="keywordflow">return</span> m_wedgeIndexPph;</div>
-<div class="line"><a name="l01460"></a><span class="lineno"> 1460</span>&#160;}</div>
-<div class="line"><a name="l01461"></a><span class="lineno"> 1461</span>&#160; </div>
-<div class="line"><a name="l01462"></a><span class="lineno"> 1462</span>&#160;} <span class="comment">// namespace Geometry</span></div>
-<div class="line"><a name="l01463"></a><span class="lineno"> 1463</span>&#160;} <span class="comment">// namespace Core</span></div>
-<div class="line"><a name="l01464"></a><span class="lineno"> 1464</span>&#160;} <span class="comment">// namespace Ra</span></div>
+<div class="line"><a name="l01445"></a><span class="lineno"> 1445</span>&#160;    <span class="keywordflow">return</span> property( m_wedgeIndexPph, heh0 ) !=</div>
+<div class="line"><a name="l01446"></a><span class="lineno"> 1446</span>&#160;               property( m_wedgeIndexPph,</div>
+<div class="line"><a name="l01447"></a><span class="lineno"> 1447</span>&#160;                         prev_halfedge_handle( opposite_halfedge_handle( heh0 ) ) ) ||</div>
+<div class="line"><a name="l01448"></a><span class="lineno"> 1448</span>&#160;           property( m_wedgeIndexPph, heh1 ) !=</div>
+<div class="line"><a name="l01449"></a><span class="lineno"> 1449</span>&#160;               property( m_wedgeIndexPph,</div>
+<div class="line"><a name="l01450"></a><span class="lineno"> 1450</span>&#160;                         prev_halfedge_handle( opposite_halfedge_handle( heh1 ) ) );</div>
+<div class="line"><a name="l01451"></a><span class="lineno"> 1451</span>&#160;}</div>
+<div class="line"><a name="l01452"></a><span class="lineno"> 1452</span>&#160; </div>
+<div class="line"><a name="l01453"></a><span class="lineno"> 1453</span>&#160;<span class="keyword">inline</span> <span class="keyword">const</span> OpenMesh::HPropHandleT&lt;TopologicalMesh::WedgeIndex&gt;&amp;</div>
+<div class="line"><a name="l01454"></a><span class="lineno"> 1454</span>&#160;TopologicalMesh::getWedgeIndexPph()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l01455"></a><span class="lineno"> 1455</span>&#160;    <span class="keywordflow">return</span> m_wedgeIndexPph;</div>
+<div class="line"><a name="l01456"></a><span class="lineno"> 1456</span>&#160;}</div>
+<div class="line"><a name="l01457"></a><span class="lineno"> 1457</span>&#160; </div>
+<div class="line"><a name="l01458"></a><span class="lineno"> 1458</span>&#160;} <span class="comment">// namespace Geometry</span></div>
+<div class="line"><a name="l01459"></a><span class="lineno"> 1459</span>&#160;} <span class="comment">// namespace Core</span></div>
+<div class="line"><a name="l01460"></a><span class="lineno"> 1460</span>&#160;} <span class="comment">// namespace Ra</span></div>
 <div class="ttc" id="aTypes_8hpp_html"><div class="ttname"><a href="Types_8hpp.html">Types.hpp</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry_html_abfd2320cb73c0cb14805c234af594b5e"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#abfd2320cb73c0cb14805c234af594b5e">Ra::Core::Geometry::AttribArrayGeometry::normals</a></div><div class="ttdeci">const NormalAttribHandle::Container &amp; normals() const</div><div class="ttdoc">Access the vertices normals.</div><div class="ttdef"><b>Definition:</b> <a href="TriangleMesh_8hpp_source.html#l00339">TriangleMesh.hpp:339</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry_html_acabe05880d71a8dc4406964c258fff5a"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#acabe05880d71a8dc4406964c258fff5a">Ra::Core::Geometry::AttribArrayGeometry::vertices</a></div><div class="ttdeci">const PointAttribHandle::Container &amp; vertices() const</div><div class="ttdoc">Access the vertices positions.</div><div class="ttdef"><b>Definition:</b> <a href="TriangleMesh_8hpp_source.html#l00327">TriangleMesh.hpp:327</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry_html_afb7540bb4cee8ad41bcb15d1dcb118a6"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#afb7540bb4cee8ad41bcb15d1dcb118a6">Ra::Core::Geometry::AttribArrayGeometry::vertexAttribs</a></div><div class="ttdeci">Utils::AttribManager &amp; vertexAttribs()</div><div class="ttdef"><b>Definition:</b> <a href="TriangleMesh_8hpp_source.html#l00419">TriangleMesh.hpp:419</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1IndexedGeometry_html"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html">Ra::Core::Geometry::IndexedGeometry</a></div><div class="ttdoc">A single layer MultiIndexedGeometry.</div><div class="ttdef"><b>Definition:</b> <a href="IndexedGeometry_8hpp_source.html#l00515">IndexedGeometry.hpp:516</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1IndexedGeometry_html"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html">Ra::Core::Geometry::IndexedGeometry</a></div><div class="ttdoc">A single layer MultiIndexedGeometry.</div><div class="ttdef"><b>Definition:</b> <a href="IndexedGeometry_8hpp_source.html#l00514">IndexedGeometry.hpp:515</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry_html"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html">Ra::Core::Geometry::MultiIndexedGeometry</a></div><div class="ttdoc">AbstractGeometry with per-vertex attributes and layers of indices. Each layer represents a different ...</div><div class="ttdef"><b>Definition:</b> <a href="IndexedGeometry_8hpp_source.html#l00131">IndexedGeometry.hpp:132</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry_html_a09ce4cede90c87b596f0a942d175697e"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html#a09ce4cede90c87b596f0a942d175697e">Ra::Core::Geometry::MultiIndexedGeometry::getLayer</a></div><div class="ttdeci">const GeometryIndexLayerBase &amp; getLayer(const LayerKeyType &amp;layerKey) const</div><div class="ttdoc">Read-only access to a layer.</div><div class="ttdef"><b>Definition:</b> <a href="IndexedGeometry_8hpp_source.html#l00680">IndexedGeometry.hpp:680</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry_html_a09ce4cede90c87b596f0a942d175697e"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html#a09ce4cede90c87b596f0a942d175697e">Ra::Core::Geometry::MultiIndexedGeometry::getLayer</a></div><div class="ttdeci">const GeometryIndexLayerBase &amp; getLayer(const LayerKeyType &amp;layerKey) const</div><div class="ttdoc">Read-only access to a layer.</div><div class="ttdef"><b>Definition:</b> <a href="IndexedGeometry_8hpp_source.html#l00679">IndexedGeometry.hpp:679</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1TopologicalMesh_1_1WedgeData_html"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh_1_1WedgeData.html">Ra::Core::Geometry::TopologicalMesh::WedgeData</a></div><div class="ttdef"><b>Definition:</b> <a href="TopologicalMesh_8hpp_source.html#l00371">TopologicalMesh.hpp:372</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1TopologicalMesh_html"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html">Ra::Core::Geometry::TopologicalMesh</a></div><div class="ttdef"><b>Definition:</b> <a href="TopologicalMesh_8hpp_source.html#l00055">TopologicalMesh.hpp:56</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1TopologicalMesh_html_a1ff1d09485ae33f3070ea2f0bd41abf9"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a1ff1d09485ae33f3070ea2f0bd41abf9">Ra::Core::Geometry::TopologicalMesh::getWedgeIndex</a></div><div class="ttdeci">WedgeIndex getWedgeIndex(OpenMesh::HalfedgeHandle heh) const</div><div class="ttdef"><b>Definition:</b> <a href="TopologicalMesh_8hpp_source.html#l01356">TopologicalMesh.hpp:1356</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1TopologicalMesh_html_a20d3efd4604adfb62144d193d61a7c56"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a20d3efd4604adfb62144d193d61a7c56">Ra::Core::Geometry::TopologicalMesh::replaceWedgeIndex</a></div><div class="ttdeci">void replaceWedgeIndex(OpenMesh::HalfedgeHandle he, const WedgeIndex &amp;widx)</div><div class="ttdef"><b>Definition:</b> <a href="TopologicalMesh_8hpp_source.html#l01408">TopologicalMesh.hpp:1408</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1TopologicalMesh_html_a1ff1d09485ae33f3070ea2f0bd41abf9"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a1ff1d09485ae33f3070ea2f0bd41abf9">Ra::Core::Geometry::TopologicalMesh::getWedgeIndex</a></div><div class="ttdeci">WedgeIndex getWedgeIndex(OpenMesh::HalfedgeHandle heh) const</div><div class="ttdef"><b>Definition:</b> <a href="TopologicalMesh_8hpp_source.html#l01352">TopologicalMesh.hpp:1352</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1TopologicalMesh_html_a20d3efd4604adfb62144d193d61a7c56"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a20d3efd4604adfb62144d193d61a7c56">Ra::Core::Geometry::TopologicalMesh::replaceWedgeIndex</a></div><div class="ttdeci">void replaceWedgeIndex(OpenMesh::HalfedgeHandle he, const WedgeIndex &amp;widx)</div><div class="ttdef"><b>Definition:</b> <a href="TopologicalMesh_8hpp_source.html#l01404">TopologicalMesh.hpp:1404</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1TopologicalMesh_html_a230a66be9ab206e7af343302646f6d89"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a230a66be9ab206e7af343302646f6d89">Ra::Core::Geometry::TopologicalMesh::TopologicalMesh</a></div><div class="ttdeci">TopologicalMesh([[deprecated(&quot;Use MultiIndexedGeometry instead&quot;)]] const Ra::Core::Geometry::IndexedGeometry&lt; MeshIndex &gt; &amp;mesh, NonManifoldFaceCommand command)</div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1TopologicalMesh_html_a2f9edf9c78cb2d1d060b8a7d99fe87e9"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a2f9edf9c78cb2d1d060b8a7d99fe87e9">Ra::Core::Geometry::TopologicalMesh::replaceWedge</a></div><div class="ttdeci">WedgeIndex replaceWedge(OpenMesh::HalfedgeHandle he, const WedgeData &amp;wd)</div><div class="ttdef"><b>Definition:</b> <a href="TopologicalMesh_8hpp_source.html#l01400">TopologicalMesh.hpp:1400</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1TopologicalMesh_html_a4d18bb4bf4fcfeffa145797122118004"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a4d18bb4bf4fcfeffa145797122118004">Ra::Core::Geometry::TopologicalMesh::mergeEqualWedges</a></div><div class="ttdeci">void mergeEqualWedges()</div><div class="ttdef"><b>Definition:</b> <a href="TopologicalMesh_8hpp_source.html#l01414">TopologicalMesh.hpp:1414</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1TopologicalMesh_html_a4f2209deb980debd0c4676c9a72c9570"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a4f2209deb980debd0c4676c9a72c9570">Ra::Core::Geometry::TopologicalMesh::isFeatureEdge</a></div><div class="ttdeci">bool isFeatureEdge(const EdgeHandle &amp;eh) const</div><div class="ttdef"><b>Definition:</b> <a href="TopologicalMesh_8hpp_source.html#l01445">TopologicalMesh.hpp:1445</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1TopologicalMesh_html_a5a78942bcac6ce938207057dcab51f72"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a5a78942bcac6ce938207057dcab51f72">Ra::Core::Geometry::TopologicalMesh::propagate_normal_to_wedges</a></div><div class="ttdeci">void propagate_normal_to_wedges(VertexHandle vh)</div><div class="ttdef"><b>Definition:</b> <a href="TopologicalMesh_8hpp_source.html#l01311">TopologicalMesh.hpp:1311</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1TopologicalMesh_html_a717f9e6f73f9a9d322d34fdf45ebdedf"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a717f9e6f73f9a9d322d34fdf45ebdedf">Ra::Core::Geometry::TopologicalMesh::isFeatureVertex</a></div><div class="ttdeci">bool isFeatureVertex(const VertexHandle &amp;vh) const</div><div class="ttdoc">true if more than one wedge arount vertex vh, false if only one wedge</div><div class="ttdef"><b>Definition:</b> <a href="TopologicalMesh_8hpp_source.html#l01441">TopologicalMesh.hpp:1441</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1TopologicalMesh_html_a749c3f1b1fd167ebfde302c2f2534a60"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a749c3f1b1fd167ebfde302c2f2534a60">Ra::Core::Geometry::TopologicalMesh::setWedgeData</a></div><div class="ttdeci">void setWedgeData(WedgeIndex widx, const WedgeData &amp;wd)</div><div class="ttdef"><b>Definition:</b> <a href="TopologicalMesh_8hpp_source.html#l01378">TopologicalMesh.hpp:1378</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1TopologicalMesh_html_a88b037b40acc05092f9e2d9371ba0c1f"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a88b037b40acc05092f9e2d9371ba0c1f">Ra::Core::Geometry::TopologicalMesh::getVertexWedges</a></div><div class="ttdeci">std::set&lt; WedgeIndex &gt; getVertexWedges(OpenMesh::VertexHandle vh) const</div><div class="ttdef"><b>Definition:</b> <a href="TopologicalMesh_8hpp_source.html#l01345">TopologicalMesh.hpp:1345</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1TopologicalMesh_html_a2f9edf9c78cb2d1d060b8a7d99fe87e9"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a2f9edf9c78cb2d1d060b8a7d99fe87e9">Ra::Core::Geometry::TopologicalMesh::replaceWedge</a></div><div class="ttdeci">WedgeIndex replaceWedge(OpenMesh::HalfedgeHandle he, const WedgeData &amp;wd)</div><div class="ttdef"><b>Definition:</b> <a href="TopologicalMesh_8hpp_source.html#l01396">TopologicalMesh.hpp:1396</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1TopologicalMesh_html_a4d18bb4bf4fcfeffa145797122118004"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a4d18bb4bf4fcfeffa145797122118004">Ra::Core::Geometry::TopologicalMesh::mergeEqualWedges</a></div><div class="ttdeci">void mergeEqualWedges()</div><div class="ttdef"><b>Definition:</b> <a href="TopologicalMesh_8hpp_source.html#l01410">TopologicalMesh.hpp:1410</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1TopologicalMesh_html_a4f2209deb980debd0c4676c9a72c9570"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a4f2209deb980debd0c4676c9a72c9570">Ra::Core::Geometry::TopologicalMesh::isFeatureEdge</a></div><div class="ttdeci">bool isFeatureEdge(const EdgeHandle &amp;eh) const</div><div class="ttdef"><b>Definition:</b> <a href="TopologicalMesh_8hpp_source.html#l01441">TopologicalMesh.hpp:1441</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1TopologicalMesh_html_a5a78942bcac6ce938207057dcab51f72"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a5a78942bcac6ce938207057dcab51f72">Ra::Core::Geometry::TopologicalMesh::propagate_normal_to_wedges</a></div><div class="ttdeci">void propagate_normal_to_wedges(VertexHandle vh)</div><div class="ttdef"><b>Definition:</b> <a href="TopologicalMesh_8hpp_source.html#l01307">TopologicalMesh.hpp:1307</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1TopologicalMesh_html_a717f9e6f73f9a9d322d34fdf45ebdedf"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a717f9e6f73f9a9d322d34fdf45ebdedf">Ra::Core::Geometry::TopologicalMesh::isFeatureVertex</a></div><div class="ttdeci">bool isFeatureVertex(const VertexHandle &amp;vh) const</div><div class="ttdoc">true if more than one wedge arount vertex vh, false if only one wedge</div><div class="ttdef"><b>Definition:</b> <a href="TopologicalMesh_8hpp_source.html#l01437">TopologicalMesh.hpp:1437</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1TopologicalMesh_html_a749c3f1b1fd167ebfde302c2f2534a60"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a749c3f1b1fd167ebfde302c2f2534a60">Ra::Core::Geometry::TopologicalMesh::setWedgeData</a></div><div class="ttdeci">void setWedgeData(WedgeIndex widx, const WedgeData &amp;wd)</div><div class="ttdef"><b>Definition:</b> <a href="TopologicalMesh_8hpp_source.html#l01374">TopologicalMesh.hpp:1374</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1TopologicalMesh_html_a88b037b40acc05092f9e2d9371ba0c1f"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a88b037b40acc05092f9e2d9371ba0c1f">Ra::Core::Geometry::TopologicalMesh::getVertexWedges</a></div><div class="ttdeci">std::set&lt; WedgeIndex &gt; getVertexWedges(OpenMesh::VertexHandle vh) const</div><div class="ttdef"><b>Definition:</b> <a href="TopologicalMesh_8hpp_source.html#l01341">TopologicalMesh.hpp:1341</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1TopologicalMesh_html_aa274a29cbe633b101abb2cdf2618f629"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#aa274a29cbe633b101abb2cdf2618f629">Ra::Core::Geometry::TopologicalMesh::newWedgeData</a></div><div class="ttdeci">WedgeData newWedgeData() const</div><div class="ttdef"><b>Definition:</b> <a href="TopologicalMesh_8hpp_source.html#l00291">TopologicalMesh.hpp:291</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1TopologicalMesh_html_aa3ea268f1828a54153b4fc653c1d3a38"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#aa3ea268f1828a54153b4fc653c1d3a38">Ra::Core::Geometry::TopologicalMesh::getInputTriangleMeshIndexPropHandle</a></div><div class="ttdeci">const OpenMesh::HPropHandleT&lt; Index &gt; &amp; getInputTriangleMeshIndexPropHandle() const</div><div class="ttdef"><b>Definition:</b> <a href="TopologicalMesh_8hpp_source.html#l01335">TopologicalMesh.hpp:1335</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1TopologicalMesh_html_aa905a256aa1dc66d1a9124e6cf6ab44b"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#aa905a256aa1dc66d1a9124e6cf6ab44b">Ra::Core::Geometry::TopologicalMesh::getWedgeRefCount</a></div><div class="ttdeci">unsigned int getWedgeRefCount(const WedgeIndex &amp;idx) const</div><div class="ttdef"><b>Definition:</b> <a href="TopologicalMesh_8hpp_source.html#l01360">TopologicalMesh.hpp:1360</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1TopologicalMesh_html_ab71f7b807bf20ff4b85d03a4db6961e6"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#ab71f7b807bf20ff4b85d03a4db6961e6">Ra::Core::Geometry::TopologicalMesh::TopologicalMesh</a></div><div class="ttdeci">TopologicalMesh()</div><div class="ttdef"><b>Definition:</b> <a href="TopologicalMesh_8cpp_source.html#l00185">TopologicalMesh.cpp:185</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1TopologicalMesh_html_ab9db8ffcd07686111a853b67eb85b2f6"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#ab9db8ffcd07686111a853b67eb85b2f6">Ra::Core::Geometry::TopologicalMesh::getOutputTriangleMeshIndexPropHandle</a></div><div class="ttdeci">const OpenMesh::HPropHandleT&lt; Index &gt; &amp; getOutputTriangleMeshIndexPropHandle() const</div><div class="ttdef"><b>Definition:</b> <a href="TopologicalMesh_8hpp_source.html#l01340">TopologicalMesh.hpp:1340</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1TopologicalMesh_html_aa3ea268f1828a54153b4fc653c1d3a38"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#aa3ea268f1828a54153b4fc653c1d3a38">Ra::Core::Geometry::TopologicalMesh::getInputTriangleMeshIndexPropHandle</a></div><div class="ttdeci">const OpenMesh::HPropHandleT&lt; Index &gt; &amp; getInputTriangleMeshIndexPropHandle() const</div><div class="ttdef"><b>Definition:</b> <a href="TopologicalMesh_8hpp_source.html#l01331">TopologicalMesh.hpp:1331</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1TopologicalMesh_html_aa905a256aa1dc66d1a9124e6cf6ab44b"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#aa905a256aa1dc66d1a9124e6cf6ab44b">Ra::Core::Geometry::TopologicalMesh::getWedgeRefCount</a></div><div class="ttdeci">unsigned int getWedgeRefCount(const WedgeIndex &amp;idx) const</div><div class="ttdef"><b>Definition:</b> <a href="TopologicalMesh_8hpp_source.html#l01356">TopologicalMesh.hpp:1356</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1TopologicalMesh_html_ab71f7b807bf20ff4b85d03a4db6961e6"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#ab71f7b807bf20ff4b85d03a4db6961e6">Ra::Core::Geometry::TopologicalMesh::TopologicalMesh</a></div><div class="ttdeci">TopologicalMesh()</div><div class="ttdef"><b>Definition:</b> <a href="TopologicalMesh_8cpp_source.html#l00183">TopologicalMesh.cpp:183</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1TopologicalMesh_html_ab9db8ffcd07686111a853b67eb85b2f6"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#ab9db8ffcd07686111a853b67eb85b2f6">Ra::Core::Geometry::TopologicalMesh::getOutputTriangleMeshIndexPropHandle</a></div><div class="ttdeci">const OpenMesh::HPropHandleT&lt; Index &gt; &amp; getOutputTriangleMeshIndexPropHandle() const</div><div class="ttdef"><b>Definition:</b> <a href="TopologicalMesh_8hpp_source.html#l01336">TopologicalMesh.hpp:1336</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1TopologicalMesh_html_aeab1e7c2acc366d853d40b121e27b72a"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#aeab1e7c2acc366d853d40b121e27b72a">Ra::Core::Geometry::TopologicalMesh::TopologicalMesh</a></div><div class="ttdeci">TopologicalMesh([[deprecated(&quot;Use MultiIndexedGeometry instead&quot;)]] const Ra::Core::Geometry::IndexedGeometry&lt; MeshIndex &gt; &amp;mesh)</div><div class="ttdoc">Convenience constructor.</div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1TopologicalMesh_html_af04d4910fbeb0e3e13815cc36995dab7"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#af04d4910fbeb0e3e13815cc36995dab7">Ra::Core::Geometry::TopologicalMesh::getWedgeData</a></div><div class="ttdeci">const WedgeData &amp; getWedgeData(const WedgeIndex &amp;idx) const</div><div class="ttdef"><b>Definition:</b> <a href="TopologicalMesh_8hpp_source.html#l01384">TopologicalMesh.hpp:1384</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1TopologicalMesh_html_af04d4910fbeb0e3e13815cc36995dab7"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#af04d4910fbeb0e3e13815cc36995dab7">Ra::Core::Geometry::TopologicalMesh::getWedgeData</a></div><div class="ttdeci">const WedgeData &amp; getWedgeData(const WedgeIndex &amp;idx) const</div><div class="ttdef"><b>Definition:</b> <a href="TopologicalMesh_8hpp_source.html#l01380">TopologicalMesh.hpp:1380</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1TopologicalMesh_html_af5df40b6a44c071e39aa9367455128ab"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#af5df40b6a44c071e39aa9367455128ab">Ra::Core::Geometry::TopologicalMesh::newWedgeData</a></div><div class="ttdeci">WedgeData newWedgeData(HalfedgeHandle he) const</div><div class="ttdef"><b>Definition:</b> <a href="TopologicalMesh_8hpp_source.html#l00294">TopologicalMesh.hpp:294</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1TopologicalMesh_html_afaacfdb6d79a9ccac45b78eba989d41d"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#afaacfdb6d79a9ccac45b78eba989d41d">Ra::Core::Geometry::TopologicalMesh::halfedge_handle</a></div><div class="ttdeci">HalfedgeHandle halfedge_handle(VertexHandle vh, FaceHandle fh) const</div><div class="ttdef"><b>Definition:</b> <a href="TopologicalMesh_8hpp_source.html#l01325">TopologicalMesh.hpp:1325</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1TopologicalMesh_html_afaacfdb6d79a9ccac45b78eba989d41d"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#afaacfdb6d79a9ccac45b78eba989d41d">Ra::Core::Geometry::TopologicalMesh::halfedge_handle</a></div><div class="ttdeci">HalfedgeHandle halfedge_handle(VertexHandle vh, FaceHandle fh) const</div><div class="ttdef"><b>Definition:</b> <a href="TopologicalMesh_8hpp_source.html#l01321">TopologicalMesh.hpp:1321</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1AttribHandle_html"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1AttribHandle.html">Ra::Core::Utils::AttribHandle</a></div><div class="ttdoc">An attrib handle basically store an Index and a name.</div><div class="ttdef"><b>Definition:</b> <a href="Attribs_8hpp_source.html#l00145">Attribs.hpp:146</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1AttribManager_html_aebe4f9163305d76dec2fc1b8c34d68fb"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1AttribManager.html#aebe4f9163305d76dec2fc1b8c34d68fb">Ra::Core::Utils::AttribManager::for_each_attrib</a></div><div class="ttdeci">void for_each_attrib(const F &amp;func) const</div><div class="ttdef"><b>Definition:</b> <a href="Attribs_8hpp_source.html#l00755">Attribs.hpp:755</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1VectorArray_html"><div class="ttname"><a href="classRa_1_1Core_1_1VectorArray.html">Ra::Core::VectorArray&lt; T &gt;</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Core_1_1Math_html_a0523a53d2d94a623e194830837863c4c"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Math.html#a0523a53d2d94a623e194830837863c4c">Ra::Core::Math::add</a></div><div class="ttdeci">Quaternion add(const Quaternion &amp;q1, const Quaternion &amp;q2)</div><div class="ttdoc">Returns the sum of two quaternions.</div><div class="ttdef"><b>Definition:</b> <a href="LinearAlgebra_8hpp_source.html#l00245">LinearAlgebra.hpp:245</a></div></div>
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdef"><b>Definition:</b> <a href="Cage_8cpp_source.html#l00003">Cage.cpp:3</a></div></div>
-<div class="ttc" id="astructRa_1_1Core_1_1Geometry_1_1PolyIndexLayer_html"><div class="ttname"><a href="structRa_1_1Core_1_1Geometry_1_1PolyIndexLayer.html">Ra::Core::Geometry::PolyIndexLayer</a></div><div class="ttdoc">Index layer for polygonal mesh.</div><div class="ttdef"><b>Definition:</b> <a href="IndexedGeometry_8hpp_source.html#l00449">IndexedGeometry.hpp:449</a></div></div>
+<div class="ttc" id="astructRa_1_1Core_1_1Geometry_1_1PolyIndexLayer_html"><div class="ttname"><a href="structRa_1_1Core_1_1Geometry_1_1PolyIndexLayer.html">Ra::Core::Geometry::PolyIndexLayer</a></div><div class="ttdoc">Index layer for polygonal mesh.</div><div class="ttdef"><b>Definition:</b> <a href="IndexedGeometry_8hpp_source.html#l00448">IndexedGeometry.hpp:448</a></div></div>
 <div class="ttc" id="astructRa_1_1Core_1_1Geometry_1_1TopologicalMeshTraits_html"><div class="ttname"><a href="structRa_1_1Core_1_1Geometry_1_1TopologicalMeshTraits.html">Ra::Core::Geometry::TopologicalMeshTraits</a></div><div class="ttdef"><b>Definition:</b> <a href="TopologicalMesh_8hpp_source.html#l00034">TopologicalMesh.hpp:34</a></div></div>
-<div class="ttc" id="astructRa_1_1Core_1_1Geometry_1_1TriangleIndexLayer_html"><div class="ttname"><a href="structRa_1_1Core_1_1Geometry_1_1TriangleIndexLayer.html">Ra::Core::Geometry::TriangleIndexLayer</a></div><div class="ttdoc">Index layer for triangle mesh.</div><div class="ttdef"><b>Definition:</b> <a href="IndexedGeometry_8hpp_source.html#l00426">IndexedGeometry.hpp:426</a></div></div>
+<div class="ttc" id="astructRa_1_1Core_1_1Geometry_1_1TriangleIndexLayer_html"><div class="ttname"><a href="structRa_1_1Core_1_1Geometry_1_1TriangleIndexLayer.html">Ra::Core::Geometry::TriangleIndexLayer</a></div><div class="ttdoc">Index layer for triangle mesh.</div><div class="ttdef"><b>Definition:</b> <a href="IndexedGeometry_8hpp_source.html#l00425">IndexedGeometry.hpp:425</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_cb2b5dfd43482fb277f6333d539f1f06.html">Geometry</a></li><li class="navelem"><b>TopologicalMesh.hpp</b></li>
-    <li class="footer">Generated on Mon Apr 3 2023 19:25:23 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Wed Apr 5 2023 14:46:12 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

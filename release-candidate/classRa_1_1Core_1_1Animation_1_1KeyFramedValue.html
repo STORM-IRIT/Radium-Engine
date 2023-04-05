@@ -52,7 +52,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.4.12</span>
+   &#160;<span id="projectnumber">1.4.13</span>
    </div>
   </td>
  </tr>
@@ -298,7 +298,7 @@ template&lt;typename VALUE_TYPE &gt; </div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>the value at time <code>t</code>, interpolated from the keyframes using the given interpolator. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="KeyFramedValue_8hpp_source.html#l00165">165</a> of file <a class="el" href="KeyFramedValue_8hpp_source.html">KeyFramedValue.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="KeyFramedValue_8hpp_source.html#l00163">163</a> of file <a class="el" href="KeyFramedValue_8hpp_source.html">KeyFramedValue.hpp</a>.</p>
 
 </div>
 </div>
@@ -336,7 +336,7 @@ template&lt;typename VALUE_TYPE &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>a triplet(i,j,dt), where i is the index for the keyframe preceding t, j is the index for the keyframe following t and dt \( \in [0;1] \) is the linear parameter of <code>t</code> between times <code>ti</code> and <code>tj</code> at keyframes i and j. </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>If <code>t</code> is lower than the first keyframe's time tf, then <code>i</code> = <code>j</code> = 0 and <code>dt</code> = 0. If <code>t</code> is higher than the last keyframe's time tl, then <code>i</code> = <code>j</code> = the index of the last keyframe and <code>dt</code> = 0. If <code>t</code> is an exact match on a keyframe's time tt, then <code>i</code> = <code>j</code> = the index of the keyframe and <code>dt</code> = 0. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="KeyFramedValue_8hpp_source.html#l00183">183</a> of file <a class="el" href="KeyFramedValue_8hpp_source.html">KeyFramedValue.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="KeyFramedValue_8hpp_source.html#l00181">181</a> of file <a class="el" href="KeyFramedValue_8hpp_source.html">KeyFramedValue.hpp</a>.</p>
 <div id="dynsection-3" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-3-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-3-summary" class="dynsummary" style="display:block;">
@@ -447,7 +447,7 @@ template&lt;typename VALUE_TYPE &gt; </div>
 </div><div class="memdoc">
 <p>Inserts a keyframe at time <code>t</code> corresponding to the value interpolated at <code>t</code> using the given interpolator. </p>
 
-<p class="definition">Definition at line <a class="el" href="KeyFramedValue_8hpp_source.html#l00136">136</a> of file <a class="el" href="KeyFramedValue_8hpp_source.html">KeyFramedValue.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="KeyFramedValue_8hpp_source.html#l00134">134</a> of file <a class="el" href="KeyFramedValue_8hpp_source.html">KeyFramedValue.hpp</a>.</p>
 <div id="dynsection-4" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-4-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-4-summary" class="dynsummary" style="display:block;">
@@ -547,7 +547,7 @@ template&lt;typename VALUE_TYPE &gt; </div>
 
 <p>Implements <a class="el" href="classRa_1_1Core_1_1Animation_1_1KeyFramedValueBase.html#a670898a9faa41d69a540efbb1db240ee">Ra::Core::Animation::KeyFramedValueBase</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="KeyFramedValue_8hpp_source.html#l00153">153</a> of file <a class="el" href="KeyFramedValue_8hpp_source.html">KeyFramedValue.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="KeyFramedValue_8hpp_source.html#l00151">151</a> of file <a class="el" href="KeyFramedValue_8hpp_source.html">KeyFramedValue.hpp</a>.</p>
 <div id="dynsection-6" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-6-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-6-summary" class="dynsummary" style="display:block;">
@@ -586,7 +586,7 @@ template&lt;typename VALUE_TYPE &gt; </div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>true if *this and <code>keyframe</code> do not have the exact same keyframes, false otherwise. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="KeyFramedValue_8hpp_source.html#l00229">229</a> of file <a class="el" href="KeyFramedValue_8hpp_source.html">KeyFramedValue.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="KeyFramedValue_8hpp_source.html#l00227">227</a> of file <a class="el" href="KeyFramedValue_8hpp_source.html">KeyFramedValue.hpp</a>.</p>
 
 </div>
 </div>
@@ -617,7 +617,7 @@ template&lt;typename VALUE_TYPE &gt; </div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>true if *this and <code>keyframe</code> have the exact same keyframes, false otherwise. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="KeyFramedValue_8hpp_source.html#l00221">221</a> of file <a class="el" href="KeyFramedValue_8hpp_source.html">KeyFramedValue.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="KeyFramedValue_8hpp_source.html#l00219">219</a> of file <a class="el" href="KeyFramedValue_8hpp_source.html">KeyFramedValue.hpp</a>.</p>
 
 </div>
 </div>
@@ -681,7 +681,7 @@ template&lt;typename VALUE_TYPE &gt; </div>
 
 <p>Implements <a class="el" href="classRa_1_1Core_1_1Animation_1_1KeyFramedValueBase.html#acf23ff1af56986827f10a4636fa383da">Ra::Core::Animation::KeyFramedValueBase</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="KeyFramedValue_8hpp_source.html#l00144">144</a> of file <a class="el" href="KeyFramedValue_8hpp_source.html">KeyFramedValue.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="KeyFramedValue_8hpp_source.html#l00142">142</a> of file <a class="el" href="KeyFramedValue_8hpp_source.html">KeyFramedValue.hpp</a>.</p>
 <div id="dynsection-7" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-7-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-7-summary" class="dynsummary" style="display:block;">
@@ -734,7 +734,7 @@ template&lt;typename VALUE_TYPE &gt; </div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><b>Core</b></li><li class="navelem"><b>Animation</b></li><li class="navelem"><a class="el" href="classRa_1_1Core_1_1Animation_1_1KeyFramedValue.html">KeyFramedValue</a></li>
-    <li class="footer">Generated on Mon Apr 3 2023 19:25:24 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Wed Apr 5 2023 14:46:13 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>
