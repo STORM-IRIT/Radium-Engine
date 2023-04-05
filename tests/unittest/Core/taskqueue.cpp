@@ -40,7 +40,9 @@ TEST_CASE( "Core/TaskQueue", "[Core][TaskQueue]" ) {
             taskQueue.waitForTasks();
             taskQueue.flushTaskQueue();
         }
-        SECTION( "one thread run" ) { taskQueue.runTasksInThisThread(); }
+        SECTION( "one thread run" ) {
+            taskQueue.runTasksInThisThread();
+        }
         for ( int tidx = 0; tidx < arraySize; ++tidx ) {
             REQUIRE( array[tidx] == tidx );
         }
@@ -86,7 +88,9 @@ TEST_CASE( "Core/TaskQueue", "[Core][TaskQueue]" ) {
             taskQueue.waitForTasks();
             taskQueue.flushTaskQueue();
         }
-        SECTION( "one thread run" ) { taskQueue.runTasksInThisThread(); }
+        SECTION( "one thread run" ) {
+            taskQueue.runTasksInThisThread();
+        }
         REQUIRE( array[0] == 0 );
         REQUIRE( array[1] == 1 );
         REQUIRE( array[2] == 2 );
@@ -144,7 +148,9 @@ TEST_CASE( "Core/TaskQueue", "[Core][TaskQueue]" ) {
             taskQueue.flushTaskQueue();
         }
 
-        SECTION( "one thread run" ) { taskQueue.runTasksInThisThread(); }
+        SECTION( "one thread run" ) {
+            taskQueue.runTasksInThisThread();
+        }
 
         REQUIRE( array[0] == -1 ); // task 0 removed
         REQUIRE( array[1] == 1 );

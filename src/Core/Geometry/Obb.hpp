@@ -23,7 +23,7 @@ class Obb
     inline Obb( const Aabb& aabb, const Transform& tr ) : m_aabb( aabb ), m_transform( tr ) {}
 
     /// Default copy constructor and assignment operator.
-    Obb( const Obb& other ) = default;
+    Obb( const Obb& other )            = default;
     Obb& operator=( const Obb& other ) = default;
 
     virtual inline ~Obb() {}

@@ -178,9 +178,7 @@ TriangleMesh TopologicalMesh::toTriangleMesh() {
                 copyAttribToCore( out, v._vec3 );
                 copyAttribToCore( out, v._vec4 );
             }
-            else {
-                vi = vtr->second;
-            }
+            else { vi = vtr->second; }
             tindices[i]                                      = vi;
             property( m_outputTriangleMeshIndexPph, *fh_it ) = vi;
             i++;

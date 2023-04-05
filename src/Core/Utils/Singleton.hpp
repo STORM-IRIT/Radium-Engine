@@ -20,7 +20,7 @@
 /// specifier.
 #define RA_SINGLETON_INTERFACE( TYPE )                                                 \
   protected:                                                                           \
-    TYPE( const TYPE& ) = delete;                                                      \
+    TYPE( const TYPE& )           = delete;                                            \
     void operator=( const TYPE& ) = delete;                                            \
     struct Deleter {                                                                   \
         void operator()( TYPE* p ) const { delete p; }                                 \

@@ -119,9 +119,7 @@ class Validator
                 std::string value = str;
                 retstring         = func_( value );
             }
-            else {
-                retstring = func_( str );
-            }
+            else { retstring = func_( str ); }
         }
         return retstring;
     }
@@ -663,9 +661,7 @@ inline typename std::enable_if<std::is_signed<T>::value, T>::type overflowCheck(
     if ( ( a > 0 ) == ( b > 0 ) ) {
         return ( ( std::numeric_limits<T>::max )() / ( std::abs )( a ) < ( std::abs )( b ) );
     }
-    else {
-        return ( ( std::numeric_limits<T>::min )() / ( std::abs )( a ) > -( std::abs )( b ) );
-    }
+    else { return ( ( std::numeric_limits<T>::min )() / ( std::abs )( a ) > -( std::abs )( b ) ); }
 }
 /// Do a check for overflow on unsigned numbers
 template <typename T>
@@ -1037,9 +1033,7 @@ class AsNumberWithUnit : public Validator
                         " factor would cause number overflow. Use smaller value." );
                 }
             }
-            else {
-                num = static_cast<Number>( it->second );
-            }
+            else { num = static_cast<Number>( it->second ); }
 
             input = detail::to_string( num );
 
@@ -1082,9 +1076,7 @@ class AsNumberWithUnit : public Validator
         std::stringstream out;
         out << detail::type_name<Number>() << ' ';
         if ( opts & UNIT_REQUIRED ) { out << name; }
-        else {
-            out << '[' << name << ']';
-        }
+        else { out << '[' << name << ']'; }
         return out.str();
     }
 };
@@ -1111,9 +1103,7 @@ class AsSizeValue : public AsNumberWithUnit
     /// (see https://en.wikipedia.org/wiki/Binary_prefix).
     explicit AsSizeValue( bool kb_is_1000 ) : AsNumberWithUnit( get_mapping( kb_is_1000 ) ) {
         if ( kb_is_1000 ) { description( "SIZE [b, kb(=1000b), kib(=1024b), ...]" ); }
-        else {
-            description( "SIZE [b, kb(=1024b), ...]" );
-        }
+        else { description( "SIZE [b, kb(=1024b), ...]" ); }
     }
 
   private:

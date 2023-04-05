@@ -1146,9 +1146,7 @@ void TopologicalMesh::initWithWedge(
                     vh = add_vertex( p );
                     vertexHandles.insert( vtr, typename VertexMap::value_type( p, vh ) );
                 }
-                else {
-                    vh = vtr->second;
-                }
+                else { vh = vtr->second; }
 
                 face_vhandles[j] = vh;
                 if ( hasNormals ) face_normals[j] = mesh.normals()[inMeshVertexIndex];
@@ -1229,9 +1227,7 @@ void TopologicalMesh::initWithWedge(
                     property( m_wedgeIndexPph, heh ) = m_wedges.newReference( face_wedges[vindex] );
                 }
             }
-            else {
-                command.process( face_vhandles );
-            }
+            else { command.process( face_vhandles ); }
             face_vhandles.clear();
             face_normals.clear();
         }

@@ -18,7 +18,7 @@ struct NonCopy {
     int value;
 
   private:
-    NonCopy( const NonCopy& ) = delete;
+    NonCopy( const NonCopy& )            = delete;
     NonCopy& operator=( const NonCopy& ) = delete;
 };
 

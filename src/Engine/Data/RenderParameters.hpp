@@ -305,9 +305,7 @@ class RA_ENGINE_API RenderParameters final
                          const Data::ShaderProgram* shader ) {
             auto [tex, texUnit] = p;
             if ( texUnit == -1 ) { shader->setUniformTexture( name.c_str(), tex ); }
-            else {
-                shader->setUniform( name.c_str(), tex, texUnit );
-            }
+            else { shader->setUniform( name.c_str(), tex, texUnit ); }
         }
 
         /**
@@ -461,9 +459,7 @@ RenderParameters::addParameter( const std::string& name,
         auto v = static_cast<typename std::underlying_type<T>::type>( value );
         m_parameterSets.insertOrAssignVariable( name, v );
     }
-    else {
-        m_parameterSets.insertOrAssignVariable( name, value );
-    }
+    else { m_parameterSets.insertOrAssignVariable( name, value ); }
 }
 
 template <typename T, typename std::enable_if<std::is_class<T> {}, bool>::type>
@@ -509,9 +505,7 @@ RenderParameters::hasParameterSet() const {
         // to prevent misuse of this function. The user should infer this with another logic.
         return {};
     }
-    else {
-        return m_parameterSets.existsVariableType<T>();
-    }
+    else { return m_parameterSets.existsVariableType<T>(); }
 }
 
 template <typename T>
@@ -520,9 +514,7 @@ RenderParameters::containsParameter( const std::string& name ) const {
     if constexpr ( std::is_enum<T>::value ) {
         return m_parameterSets.existsVariable<typename std::underlying_type<T>::type>( name );
     }
-    else {
-        return m_parameterSets.existsVariable<T>( name );
-    }
+    else { return m_parameterSets.existsVariable<T>( name ); }
 }
 
 template <typename T>
@@ -532,9 +524,7 @@ inline const T& RenderParameters::getParameter( const std::string& name ) const 
         return reinterpret_cast<const T&>(
             m_parameterSets.getVariable<typename std::underlying_type<T>::type>( name ) );
     }
-    else {
-        return m_parameterSets.getVariable<T>( name );
-    }
+    else { return m_parameterSets.getVariable<T>( name ); }
 }
 
 template <typename T>

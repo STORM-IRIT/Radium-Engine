@@ -173,9 +173,7 @@ inline Index IndexMap<T>::insert( const T& obj ) {
         typename std::deque<Index>::iterator it =
             std::lower_bound( m_index.begin(), m_index.end(), idx );
         if ( it == m_index.end() ) { m_data.insert( m_data.end(), obj ); }
-        else {
-            m_data.insert( citfromIndex( it ), obj );
-        }
+        else { m_data.insert( citfromIndex( it ), obj ); }
         m_index.insert( it, idx );
     }
     return idx;
@@ -189,9 +187,7 @@ Index IndexMap<T>::emplace( const Args&&... args ) {
         typename std::deque<Index>::iterator it =
             std::lower_bound( m_index.begin(), m_index.end(), idx );
         if ( it == m_index.end() ) { m_data.emplace( m_data.end(), args... ); }
-        else {
-            m_data.emplace( citfromIndex( it ), args... );
-        }
+        else { m_data.emplace( citfromIndex( it ), args... ); }
         m_index.insert( it, idx );
     }
     return idx;

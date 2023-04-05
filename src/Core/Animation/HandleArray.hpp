@@ -27,7 +27,7 @@ class RA_CORE_API HandleArray
                    "SpaceType is not a boolean" );
     HandleArray();
     explicit HandleArray( const uint n );
-    HandleArray( const HandleArray& handle ) = default;
+    HandleArray( const HandleArray& handle )            = default;
     HandleArray& operator=( const HandleArray& handle ) = default;
 
     virtual ~HandleArray();
