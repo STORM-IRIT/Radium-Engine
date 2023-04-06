@@ -14,6 +14,7 @@ add_custom_target(Install_${PROJECT_NAME})
 foreach(
     APP
     CoreExample
+    CurveEditor
     CustomCameraManipulator
     DrawPrimitives
     EntityAnimation
