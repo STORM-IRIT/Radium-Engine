@@ -3,12 +3,15 @@
 #include <Core/Asset/FileLoaderInterface.hpp>
 #include <Core/Utils/Log.hpp>
 
+#include <Engine/Data/Material.hpp>
 #include <Engine/Rendering/ForwardRenderer.hpp>
+#include <Engine/Rendering/RenderObjectManager.hpp>
 #include <Engine/Scene/EntityManager.hpp>
 
 #include <Dataflow/Rendering/Renderer/RenderGraphController.hpp>
 
 #include <Gui/BaseApplication.hpp>
+#include <Gui/ParameterSetEditor/MaterialParameterEditor.hpp>
 #include <Gui/RadiumWindow/SimpleWindow.hpp>
 #include <Gui/Viewer/Viewer.hpp>
 
@@ -157,18 +160,58 @@ class DemoWindowFactory : public BaseApplication::WindowFactory
 #endif
         addFileMenu( window );
         addRendererMenu( window, m_renderers );
+        auto processPicking =
+            [viewer = window->getViewer()](
+                const Ra::Engine::Rendering::Renderer::PickingResult& pickingResult ) {
+                if ( pickingResult.getRoIdx().isValid() ) {
+                    std::cout << "Pick Ro number " << pickingResult.getRoIdx() << "\n";
+                    auto roManager =
+                        Ra::Engine::RadiumEngine::getInstance()->getRenderObjectManager();
+                    auto editedRo       = roManager->getRenderObject( pickingResult.getRoIdx() );
+                    auto pickedMaterial = editedRo->getMaterial();
+
+                    // Update the viewer whenever a parameter gets modified
+                    auto on_materialParametersModified = [editedRo,
+                                                          viewer]( const std::string& nm ) {
+                        if ( editedRo ) {
+                            editedRo->getMaterial()->updateFromParameters();
+                            editedRo->setTransparent( editedRo->getMaterial()->isTransparent() );
+                        }
+                        viewer->needUpdate();
+                    };
+                    std::cout << "Create materialEditor for Ro " << editedRo->getIndex() << " ("
+                              << editedRo->getName() << ")\n";
+                    auto matParamsEditor = new Ra::Gui::MaterialParameterEditor;
+                    matParamsEditor->setAttribute( Qt::WA_DeleteOnClose, true );
+                    QObject::connect( matParamsEditor,
+                                      &Ra::Gui::MaterialParameterEditor::materialParametersModified,
+                                      on_materialParametersModified );
+                    /*
+                    QObject::connect(
+                        matParamsEditor, &QObject::destroyed, [matParamsEditor, editedRo]() {
+                            std::cout << "Destroying editor for  Ro " << editedRo->getIndex() << "
+                    ("
+                                      << editedRo->getName() << ")\n";
+                        } );
+                    */
+                    matParamsEditor->setupFromMaterial( pickedMaterial );
+                    matParamsEditor->show();
+                }
+            };
+
+        QObject::connect(
+            window->getViewer(), &Ra::Gui::Viewer::rightClickPicking, processPicking );
+
         return window;
     }
 };
 /* ----------------------------------------------------------------------------------- */
 // Renderer controller
-#include <Dataflow/Rendering/Nodes/RenderNodes/ClearColorNode.hpp>
 #include <Dataflow/Rendering/Nodes/RenderNodes/GeometryAovsNode.hpp>
 #include <Dataflow/Rendering/Nodes/RenderNodes/SimpleRenderNode.hpp>
 #include <Dataflow/Rendering/Nodes/Sinks/DisplaySinkNode.hpp>
 
 #include <Dataflow/Rendering/Nodes/Sources/Scene.hpp>
-#include <Dataflow/Rendering/Nodes/Sources/TextureSourceNode.hpp>
 
 class MyRendererController : public RenderGraphController
 {
@@ -256,17 +299,6 @@ class MyRendererController : public RenderGraphController
             m_renderGraph->addNode( std::unique_ptr<Node>( resultNode ) );
             auto geomAovs = new GeometryAovsNode( "Geometry Aovs" );
             m_renderGraph->addNode( std::unique_ptr<Node>( geomAovs ) );
-#if 0
-            auto textureSource = new ColorTextureNode( "Beauty" );
-            m_renderGraph->addNode( std::unique_ptr<Node>( textureSource ) );
-            auto clearNode = new ClearColorNode( " Clear" );
-            m_renderGraph->addNode( std::unique_ptr<Node>( clearNode ) );
-
-            bool linksOK = true;
-            linksOK      = m_renderGraph->addLink(
-                textureSource, "texture", clearNode, "colorTextureToClear" );
-            linksOK = linksOK && m_renderGraph->addLink( clearNode, "image", resultNode, "Beauty" );
-#endif
             auto simpleRenderNode = new SimpleRenderNode( "renderOperator" );
             m_renderGraph->addNode( std::unique_ptr<Node>( simpleRenderNode ) );
             bool linksOK = true;
@@ -297,21 +329,6 @@ class MyRendererController : public RenderGraphController
         }
     };
 
-#if 0
-    /// Resize function
-    /// Called each time the renderer is resized
-    void resize( int w, int h ) override {
-        LOG( logINFO ) << "MyRendererController::resize";
-        RenderGraphController::resize( w, h );
-    };
-
-    /// Update function
-    /// Called once before each frame to update the internal state of the renderer
-    void update( const Ra::Engine::Data::ViewingParameters& renderData ) override {
-        LOG( logINFO ) << "MyRendererController::update";
-        RenderGraphController::update( renderData );
-    };
-#endif
     [[nodiscard]] std::string getRendererName() const override { return "Custom Node Renderer"; }
 };
 
