@@ -49,7 +49,7 @@ namespace Renderer {
  *
  * @see rendering.md for description of the renderer
  */
-class RA_DATAFLOW_API DataflowRenderer : public Ra::Engine::Rendering::Renderer
+class RA_DATAFLOW_API ControllableRenderer : public Ra::Engine::Rendering::Renderer
 {
 
   public:
