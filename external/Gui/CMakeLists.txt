@@ -39,7 +39,7 @@ endif()
 
 if(DEFINED QT_DEFAULT_MAJOR_VERSION)
     set(Qt_CONFIGURATION
-        "${Qt_CONFIGURATION} -DQT_DEFAULT_MAJOR_VERSION=${QT_DEFAULT_MAJOR_VERSION}"
+        "${Qt_CONFIGURATION};-DQT_DEFAULT_MAJOR_VERSION=${QT_DEFAULT_MAJOR_VERSION}"
     )
 endif()
 
@@ -71,7 +71,7 @@ if(NOT DEFINED PowerSlider_DIR)
         INSTALL_DIR "${CMAKE_INSTALL_PREFIX}"
         CMAKE_ARGS ${RADIUM_EXTERNAL_CMAKE_OPTIONS} ${Qt_CONFIGURATION} -DBUILD_DESIGNER_PLUGIN=OFF
                    ${RPATH_CONFIG} -DBUILD_EXAMPLE_APP=OFF
-                   -DCMAKE_MESSAGE_INDENT=${indent_string}\;
+                   "-DCMAKE_MESSAGE_INDENT=${indent_string}\;"
     )
 
     set_external_dir(PowerSlider "lib/cmake/PowerSlider/")
