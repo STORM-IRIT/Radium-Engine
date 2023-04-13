@@ -513,7 +513,7 @@ class RA_CORE_API VariableSet
     /// Type of the constructed visit function that returns a lambda
 
     /// Shared VariableSetFunctions among VariableSet instances.
-    class VariableSetFunctions
+    class RA_CORE_API VariableSetFunctions
     {
       public:
         using ClearFunctionType = std::function<void( VariableSet& )>;
