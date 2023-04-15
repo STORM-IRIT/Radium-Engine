@@ -42,10 +42,6 @@ class RA_CORE_API MaterialData : public AssetData
   public:
     /// MATERIAL DATA
     MaterialData( const std::string& name = "" ) : AssetData( name ) {}
-    ~MaterialData() = default;
-
-    /// NAME
-    void setName( const std::string& name ) { m_name = name; }
 
     /// DEBUG
     void displayInfo() const {
