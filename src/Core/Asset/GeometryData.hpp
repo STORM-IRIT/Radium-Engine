@@ -1,87 +1,70 @@
 #pragma once
+#include <Core/RaCore.hpp>
 
 #include <Core/Asset/AssetData.hpp>
 #include <Core/Asset/MaterialData.hpp>
-#include <Core/Containers/VectorArray.hpp>
-#include <Core/Geometry/StandardAttribNames.hpp>
-#include <Core/Geometry/TriangleMesh.hpp>
-#include <Core/RaCore.hpp>
+#include <Core/Geometry/IndexedGeometry.hpp>
 #include <Core/Types.hpp>
-#include <Core/Utils/Attribs.hpp>
-#include <Core/Utils/Index.hpp>
 
-#include <memory>
 #include <string>
-#include <vector>
-
-#include <algorithm> //std::transform
 
 namespace Ra {
 namespace Core {
+using namespace Geometry;
+
 namespace Asset {
-
-class MaterialData;
-
 /**
  * The GeometryData class stores all the geometry related data of a loaded object.
  */
 class RA_CORE_API GeometryData : public AssetData
 {
   public:
-    using ColorArray = Vector4Array;
-
-  public:
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
     /**
      * The type of geometry.
      */
-    enum GeometryType {
-        UNKNOWN     = 1 << 0,
-        POINT_CLOUD = 1 << 1,
-        LINE_MESH   = 1 << 2,
-        TRI_MESH    = 1 << 3,
-        QUAD_MESH   = 1 << 4,
-        POLY_MESH   = 1 << 5,
-        TETRA_MESH  = 1 << 6,
-        HEX_MESH    = 1 << 7
+    enum GeometryType : unsigned int {
+        UNKNOWN     = 1u << 0u,
+        POINT_CLOUD = 1u << 1u,
+        LINE_MESH   = 1u << 2u,
+        TRI_MESH    = 1u << 3u,
+        QUAD_MESH   = 1u << 4u,
+        POLY_MESH   = 1u << 5u,
+        TETRA_MESH  = 1u << 6u,
+        HEX_MESH    = 1u << 7u
     };
 
-    GeometryData( const std::string& name = "", const GeometryType& type = UNKNOWN );
+    explicit GeometryData( const std::string& name = "", const GeometryType& type = UNKNOWN );
 
     GeometryData( const GeometryData& data ) = delete;
-
-    ~GeometryData();
 
     /// \name Data access
     /// \{
 
-    /// Return the name of the object.
-    inline void setName( const std::string& name );
-
     /// Return the type of geometry.
-    inline GeometryType getType() const;
+    inline GeometryType getType() const { return m_type; }
 
     /// Set the type of geometry.
-    inline void setType( const GeometryType& type );
+    inline void setType( const GeometryType& type ) { m_type = type; }
 
     /// Return the Transform of the object.
-    inline Transform getFrame() const;
+    inline Transform getFrame() const { return m_frame; }
 
     /// Set the Transform of the object.
-    inline void setFrame( const Transform& frame );
+    inline void setFrame( const Transform& frame ) { m_frame = frame; }
 
     /// Return the MaterialData associated to the objet.
-    inline const MaterialData& getMaterial() const;
+    inline const MaterialData& getMaterial() const { return m_material; }
 
     /// Set the MaterialData for the object.
-    inline void setMaterial( MaterialData material );
+    inline void setMaterial( MaterialData material ) { m_material = material; }
 
     /// Read/write access to the multiIndexedGeometry;
-    inline Geometry::MultiIndexedGeometry& getGeometry();
+    inline MultiIndexedGeometry& getGeometry() { return m_geometry; }
 
     /// Read only access to the multiIndexedGeometry;
-    inline const Geometry::MultiIndexedGeometry& getGeometry() const;
+    inline const MultiIndexedGeometry& getGeometry() const { return m_geometry; }
 
     /// \}
 
@@ -89,26 +72,26 @@ class RA_CORE_API GeometryData : public AssetData
     /// \{
 
     /// Return true if the object is a Point Cloud.
-    inline bool isPointCloud() const;
+    inline bool isPointCloud() const { return m_type == POINT_CLOUD; }
 
     /// Return true if the object is a Line Mesh.
-    inline bool isLineMesh() const;
+    inline bool isLineMesh() const { return m_type == LINE_MESH; }
 
     /// Return true if the object is a Triangle Mesh.
-    inline bool isTriMesh() const;
+    inline bool isTriMesh() const { return m_type == TRI_MESH; }
 
     /// Return true if the object is a Quadrangle Mesh.
-    inline bool isQuadMesh() const;
+    inline bool isQuadMesh() const { return m_type == QUAD_MESH; }
 
     /// Return true if the object is a Polygon Mesh.
     /// \note Return false for Triangle and Quadrangle meshes.
-    inline bool isPolyMesh() const;
+    inline bool isPolyMesh() const { return m_type == POLY_MESH; }
 
     /// Return true if the object is a Tetrahedron Mesh.
-    inline bool isTetraMesh() const;
+    inline bool isTetraMesh() const { return m_type == TETRA_MESH; }
 
-    /// Return true if the object is a Hexahedron Mesh.
-    inline bool isHexMesh() const;
+    /// Return true if the object is a hexahedron Mesh.
+    inline bool isHexMesh() const { return m_type == HEX_MESH; }
 
     /// Return true if the object has lines.
     inline bool hasEdges() const;
@@ -120,17 +103,17 @@ class RA_CORE_API GeometryData : public AssetData
     inline bool hasPolyhedra() const;
 
     /// Return true if the object has MaterialData.
-    inline bool hasMaterial() const;
+    inline bool hasMaterial() const { return m_material.getMaterialModel() != nullptr; }
 
     /// Used to track easily the number of primitives in the geometry data
-    inline void setPrimitiveCount( int n );
+    inline void setPrimitiveCount( int n ) { m_primitiveCount = n; }
 
     /// Return the number of primitives in the geometry data
-    inline int getPrimitiveCount() const;
+    inline int getPrimitiveCount() const { return m_primitiveCount; }
 
     /// \}
 
-    /// Print stast info to the Debug output.
+    /// Print stat info to the Debug output.
     void displayInfo() const;
 
   protected:
@@ -141,7 +124,7 @@ class RA_CORE_API GeometryData : public AssetData
     GeometryType m_type;
 
     /// Named attributes
-    Core::Geometry::MultiIndexedGeometry m_geometry;
+    MultiIndexedGeometry m_geometry;
 
     /// Simple tracking of geometric primitive number
     int m_primitiveCount { -1 };
@@ -150,77 +133,21 @@ class RA_CORE_API GeometryData : public AssetData
     MaterialData m_material;
 };
 
-inline void GeometryData::setName( const std::string& name ) {
-    m_name = name;
-}
-
-inline GeometryData::GeometryType GeometryData::getType() const {
-    return m_type;
-}
-
-inline void GeometryData::setType( const GeometryType& type ) {
-    m_type = type;
-}
-
-inline Transform GeometryData::getFrame() const {
-    return m_frame;
-}
-
-inline void GeometryData::setFrame( const Transform& frame ) {
-    m_frame = frame;
-}
-
-inline const MaterialData& GeometryData::getMaterial() const {
-    return m_material;
-}
-
-inline void GeometryData::setMaterial( MaterialData material ) {
-    m_material = material;
-}
-
-inline bool GeometryData::isPointCloud() const {
-    return ( m_type == POINT_CLOUD );
-}
-
-inline bool GeometryData::isLineMesh() const {
-    return ( m_type == LINE_MESH );
-}
-
-inline bool GeometryData::isTriMesh() const {
-    return ( m_type == TRI_MESH );
-}
-
-inline bool GeometryData::isQuadMesh() const {
-    return ( m_type == QUAD_MESH );
-}
-
-inline bool GeometryData::isPolyMesh() const {
-    return ( m_type == POLY_MESH );
-}
-
-inline bool GeometryData::isTetraMesh() const {
-    return ( m_type == TETRA_MESH );
-}
-
-inline bool GeometryData::isHexMesh() const {
-    return ( m_type == HEX_MESH );
-}
-
 inline bool GeometryData::hasEdges() const {
-    return m_geometry.containsLayer( { Geometry::LineIndexLayer::staticSemanticName }, "indices" );
+    return m_geometry.containsLayer( { LineIndexLayer::staticSemanticName }, "indices" );
 }
 
 inline bool GeometryData::hasFaces() const {
     std::string layerSemanticName;
     switch ( m_type ) {
     case TRI_MESH:
-        layerSemanticName = std::string( Geometry::TriangleIndexLayer::staticSemanticName );
+        layerSemanticName = std::string( TriangleIndexLayer::staticSemanticName );
         break;
     case QUAD_MESH:
-        layerSemanticName = std::string( Geometry::QuadIndexLayer::staticSemanticName );
+        layerSemanticName = std::string( QuadIndexLayer::staticSemanticName );
         break;
     case POLY_MESH:
-        layerSemanticName = std::string( Geometry::PolyIndexLayer::staticSemanticName );
+        layerSemanticName = std::string( PolyIndexLayer::staticSemanticName );
         break;
     default:
         return false;
@@ -229,26 +156,7 @@ inline bool GeometryData::hasFaces() const {
 }
 
 inline bool GeometryData::hasPolyhedra() const {
-    return m_geometry.containsLayer( { Geometry::PolyIndexLayer::staticSemanticName }, "indices" );
-}
-
-inline bool GeometryData::hasMaterial() const {
-    return m_material.getMaterialModel() != nullptr;
-}
-
-const Geometry::MultiIndexedGeometry& GeometryData::getGeometry() const {
-    return m_geometry;
-}
-
-Geometry::MultiIndexedGeometry& GeometryData::getGeometry() {
-    return m_geometry;
-}
-
-inline void GeometryData::setPrimitiveCount( int n ) {
-    m_primitiveCount = n;
-}
-inline int GeometryData::getPrimitiveCount() const {
-    return m_primitiveCount;
+    return m_geometry.containsLayer( { PolyIndexLayer::staticSemanticName }, "indices" );
 }
 
 } // namespace Asset
