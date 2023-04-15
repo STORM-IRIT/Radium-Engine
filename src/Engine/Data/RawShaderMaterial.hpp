@@ -156,8 +156,8 @@ class RA_ENGINE_API RawShaderMaterial : public Material
 };
 
 inline Material*
-RawShaderMaterialConverter::operator()( const Ra::Core::Asset::MaterialData* toconvert ) {
-    auto mat = static_cast<const Core::Asset::RawShaderMaterialData*>( toconvert );
+RawShaderMaterialConverter::operator()( const Ra::Core::Material::MaterialModel* toconvert ) {
+    auto mat = static_cast<const Core::Material::RawShaderMaterialModel*>( toconvert );
     return new RawShaderMaterial( mat->getName(), mat->m_shaders, mat->m_paramProvider );
 }
 
