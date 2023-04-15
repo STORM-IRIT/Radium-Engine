@@ -1,19 +1,13 @@
 #include <Core/Asset/Camera.hpp>
-#include <Core/Containers/MakeShared.hpp>
-#include <Core/Math/Math.hpp>
 
 namespace Ra {
-
-using Core::Math::Pi;
-using Core::Math::PiDiv2;
-using Core::Math::PiDiv4;
-
 namespace Core {
 
-namespace Asset {
+using Math::Pi;
+using Math::PiDiv2;
+using Math::PiDiv4;
 
-Camera::Camera( Scalar width, Scalar height ) :
-    m_width { width }, m_height { height }, m_aspect { width / height } {}
+namespace Asset {
 
 Camera& Camera::operator=( const Camera& rhs ) {
     m_frame      = rhs.getFrame();
