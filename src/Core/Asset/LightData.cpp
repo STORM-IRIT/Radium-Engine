@@ -1,12 +1,12 @@
 #include <Core/Asset/LightData.hpp>
 
+#include <Core/Utils/Log.hpp>
+
 namespace Ra {
 namespace Core {
 namespace Asset {
 
 /// CONSTRUCTOR
-LightData::LightData( const std::string& name, const LightType& type ) :
-    AssetData( name ), m_frame( Eigen::Matrix<Scalar, 4, 4>::Identity() ), m_type( type ) {}
 
 LightData::LightData( const LightData& data ) :
     AssetData( data ), m_frame( data.m_frame ), m_type( data.m_type ), m_color( data.m_color ) {
@@ -29,8 +29,31 @@ LightData::LightData( const LightData& data ) :
     }
 }
 
-/// DESTRUCTOR
-LightData::~LightData() {}
+void LightData::displayInfo() const {
+    using namespace Core::Utils; // log
+    std::string type;
+    switch ( m_type ) {
+    case POINT_LIGHT:
+        type = "POINT LIGHT";
+        break;
+    case SPOT_LIGHT:
+        type = "SPOT LIGHT";
+        break;
+    case DIRECTIONAL_LIGHT:
+        type = "DIRECTIONAL LIGHT";
+        break;
+    case AREA_LIGHT:
+        type = "AREA LIGHT";
+        break;
+    case UNKNOWN:
+    default:
+        type = "UNKNOWN";
+        break;
+    }
+    LOG( logINFO ) << "======== LIGHT INFO ========";
+    LOG( logINFO ) << " Name           : " << getName();
+    LOG( logINFO ) << " Type           : " << type;
+}
 
 } // namespace Asset
 } // namespace Core
