@@ -1,6 +1,6 @@
 #pragma once
-
 #include <Core/RaCore.hpp>
+
 #include <algorithm>
 #include <limits>
 
@@ -20,12 +20,8 @@ class RA_CORE_API AnimationTime
     using Time = Scalar;
 
     AnimationTime( const Time& start = std::numeric_limits<Time>::max(),
-                   const Time& end   = -std::numeric_limits<Time>::max() ) :
+                   const Time& end   = std::numeric_limits<Time>::lowest() ) :
         m_start( start ), m_end( end ) {}
-
-    AnimationTime( const AnimationTime& time ) = default;
-
-    ~AnimationTime() {}
 
     ///\name Time
     /// \{
@@ -85,14 +81,14 @@ class RA_CORE_API AnimationTime
     /**
      * Return true if \f$ t \in [start,end] \f$.
      */
-    inline bool contains( const Time& t ) const { return ( ( t >= m_start ) && ( t <= m_end ) ); }
+    inline bool contains( const Time& t ) const { return ( t >= m_start ) && ( t <= m_end ); }
 
     /**
      * Return true if \f$ *this \cap time \neq \emptyset \f$.
      */
     inline bool intersect( const AnimationTime& time ) const {
-        return ( contains( time.m_start ) || contains( time.m_end ) || time.contains( m_start ) ||
-                 time.contains( m_end ) );
+        return contains( time.m_start ) || contains( time.m_end ) || time.contains( m_start ) ||
+               time.contains( m_end );
     }
     /// \}
 
@@ -103,7 +99,7 @@ class RA_CORE_API AnimationTime
      * Returns true if *this and \p time represent the same animation time.
      */
     inline bool operator==( const AnimationTime& time ) const {
-        return ( ( m_start == time.m_start ) && ( m_end == time.m_end ) );
+        return ( m_start == time.m_start ) && ( m_end == time.m_end );
     }
 
     /**
@@ -119,19 +115,19 @@ class RA_CORE_API AnimationTime
     /**
      * Returns true if \f$ t < end \f$.
      */
-    inline bool operator<( const Time& t ) const { return ( t < m_end ); }
+    inline bool operator<( const Time& t ) const { return t < m_end; }
 
     /**
      * Returns true if \f$ t > start \f$.
      */
-    inline bool operator>( const Time& t ) const { return ( t > m_start ); }
+    inline bool operator>( const Time& t ) const { return t > m_start; }
 
-  protected:
+  private:
     /// Animation starting time.
-    Time m_start;
+    Time m_start { std::numeric_limits<Time>::max() };
 
     /// Animation ending time.
-    Time m_end;
+    Time m_end { std::numeric_limits<Time>::lowest() };
 };
 
 } // namespace Asset
