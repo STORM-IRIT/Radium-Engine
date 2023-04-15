@@ -128,6 +128,17 @@ inline TextureParameters& SimpleMaterial::addTexture( const TextureSemantic& sem
     return m_pendingTextures[semantic];
 }
 
+// Add a texture as material parameter with texture parameter set by default for this material
+inline TextureParameters& SimpleMaterial::addTexture( const TextureSemantic& semantic,
+                                                      const std::string& texture ) {
+    CORE_ASSERT( !texture.empty(), "Invalid texture name" );
+    TextureParameters data;
+    data.name  = texture;
+    data.wrapS = GL_REPEAT;
+    data.wrapT = GL_REPEAT;
+    return addTexture( semantic, data );
+}
+
 inline Texture* SimpleMaterial::getTexture( const TextureSemantic& semantic ) const {
     Texture* tex = nullptr;
 

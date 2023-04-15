@@ -171,11 +171,11 @@ inline void GeometryData::setFrame( const Transform& frame ) {
 }
 
 inline const MaterialData& GeometryData::getMaterial() const {
-    return *( m_material.get() );
+    return m_material;
 }
 
-inline void GeometryData::setMaterial( MaterialData* material ) {
-    m_material.reset( material );
+inline void GeometryData::setMaterial( MaterialData material ) {
+    m_material = material;
 }
 
 inline bool GeometryData::isPointCloud() const {
@@ -233,7 +233,7 @@ inline bool GeometryData::hasPolyhedra() const {
 }
 
 inline bool GeometryData::hasMaterial() const {
-    return m_material != nullptr;
+    return m_material.getMaterialModel() != nullptr;
 }
 
 const Geometry::MultiIndexedGeometry& GeometryData::getGeometry() const {
