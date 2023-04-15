@@ -90,7 +90,7 @@ void SkeletonComponent::handleSkeletonLoading( const Core::Asset::HandleData* da
 }
 
 void SkeletonComponent::handleAnimationLoading(
-    const std::vector<Core::Asset::AnimationData*>& data ) {
+    const std::vector<std::unique_ptr<Core::Asset::AnimationData>>& data ) {
     CORE_ASSERT( ( m_skel.size() != 0 ), "A Skeleton should be loaded first." );
     m_animations.clear();
     m_animations.reserve( data.size() );

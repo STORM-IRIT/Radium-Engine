@@ -96,9 +96,9 @@ void CameraManager::generateTasks( Core::TaskQueue* taskQueue,
 }
 
 void CameraManager::handleAssetLoading( Entity* entity, const FileData* filedata ) {
-    std::vector<Camera*> cameraData = filedata->getCameraData();
-    uint id                         = 0;
-    uint cpt                        = 0;
+    const auto& cameraData = filedata->getCameraData();
+    uint id                = 0;
+    uint cpt               = 0;
     for ( const auto& data : cameraData ) {
         std::string componentName = "CAMERA_" + entity->getName() + std::to_string( id++ );
         auto comp                 = new CameraComponent( entity, componentName, 100, 100 );

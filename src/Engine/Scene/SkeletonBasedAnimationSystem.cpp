@@ -87,15 +87,15 @@ void SkeletonBasedAnimationSystem::generateTasks( Core::TaskQueue* taskQueue,
 
 void SkeletonBasedAnimationSystem::handleAssetLoading( Entity* entity,
                                                        const Core::Asset::FileData* fileData ) {
-    auto skelData = fileData->getHandleData();
-    auto animData = fileData->getAnimationData();
+    const auto& skelData = fileData->getHandleData();
+    const auto& animData = fileData->getAnimationData();
 
     // deal with AnimationComponents
     Scalar startTime = std::numeric_limits<Scalar>::max();
     Scalar endTime   = 0;
     for ( const auto& skel : skelData ) {
         auto component = new SkeletonComponent( "AC_" + skel->getName(), entity );
-        component->handleSkeletonLoading( skel );
+        component->handleSkeletonLoading( skel.get() );
         component->handleAnimationLoading( animData );
         auto [s, e] = component->getAnimationTimeInterval();
         startTime   = std::min( startTime, s );
@@ -109,7 +109,7 @@ void SkeletonBasedAnimationSystem::handleAssetLoading( Entity* entity,
     engine->setEndTime( endTime );
 
     // deal with SkinningComponents
-    auto geomData = fileData->getGeometryData();
+    const auto& geomData = fileData->getGeometryData();
     if ( geomData.size() > 0 && skelData.size() > 0 ) {
         for ( const auto& geom : geomData ) {
             // look for a skeleton skinning this mesh
@@ -125,7 +125,7 @@ void SkeletonBasedAnimationSystem::handleAssetLoading( Entity* entity,
                 const auto& skel             = *it;
                 SkinningComponent* component = new SkinningComponent(
                     "SkC_" + geom->getName(), SkinningComponent::LBS, entity );
-                component->handleSkinDataLoading( skel, geom->getName() );
+                component->handleSkinDataLoading( skel.get(), geom->getName() );
                 registerComponent( entity, component );
             }
         }

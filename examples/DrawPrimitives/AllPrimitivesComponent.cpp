@@ -693,22 +693,22 @@ void AllPrimitivesComponent::initialize() {
         data                 = l.loadFile( filename );
 #endif
         if ( data != nullptr ) {
-            auto geomData = data->getGeometryData();
+            const auto& geomData = data->getGeometryData();
 
             for ( const auto& gd : geomData ) {
                 std::shared_ptr<AttribArrayDisplayable> mesh { nullptr };
                 switch ( gd->getType() ) {
                 case Ra::Core::Asset::GeometryData::TRI_MESH:
                     mesh = std::shared_ptr<Mesh> {
-                        createMeshFromGeometryData<Geometry::TriangleMesh>( "logo", gd ) };
+                        createMeshFromGeometryData<Geometry::TriangleMesh>( "logo", gd.get() ) };
                     break;
                 case Ra::Core::Asset::GeometryData::QUAD_MESH:
                     mesh = std::shared_ptr<Data::QuadMesh> {
-                        createMeshFromGeometryData<Geometry::QuadMesh>( "logo", gd ) };
+                        createMeshFromGeometryData<Geometry::QuadMesh>( "logo", gd.get() ) };
                     break;
                 case Ra::Core::Asset::GeometryData::POLY_MESH:
                     mesh = std::shared_ptr<Data::PolyMesh> {
-                        createMeshFromGeometryData<Geometry::PolyMesh>( "logo", gd ) };
+                        createMeshFromGeometryData<Geometry::PolyMesh>( "logo", gd.get() ) };
                     break;
                 default:
                     break;

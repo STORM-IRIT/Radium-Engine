@@ -75,7 +75,8 @@ class RA_ENGINE_API SkeletonComponent : public Component
     void handleSkeletonLoading( const Core::Asset::HandleData* data );
 
     /// Create the animations from the given data.
-    void handleAnimationLoading( const std::vector<Core::Asset::AnimationData*>& data );
+    void
+    handleAnimationLoading( const std::vector<std::unique_ptr<Core::Asset::AnimationData>>& data );
     /// \}
 
     /// \name Skeleton-based animation data

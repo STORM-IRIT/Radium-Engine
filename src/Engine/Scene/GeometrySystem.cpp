@@ -18,7 +18,7 @@ GeometrySystem::GeometrySystem() : System() {}
 
 void GeometrySystem::handleAssetLoading( Entity* entity,
                                          const Ra::Core::Asset::FileData* fileData ) {
-    auto geomData = fileData->getGeometryData();
+    const auto& geomData = fileData->getGeometryData();
 
     uint id = 0;
 
@@ -27,19 +27,19 @@ void GeometrySystem::handleAssetLoading( Entity* entity,
         std::string componentName = "GEOM_" + entity->getName() + std::to_string( id++ );
         switch ( data->getType() ) {
         case Ra::Core::Asset::GeometryData::POINT_CLOUD:
-            comp = new PointCloudComponent( componentName, entity, data );
+            comp = new PointCloudComponent( componentName, entity, data.get() );
             break;
         case Ra::Core::Asset::GeometryData::LINE_MESH:
-            //            comp = new LineMeshComponent( componentName, entity, data );
+            //            comp = new LineMeshComponent( componentName, entity, data.get() );
             //            break;
         case Ra::Core::Asset::GeometryData::TRI_MESH:
-            comp = new TriangleMeshComponent( componentName, entity, data );
+            comp = new TriangleMeshComponent( componentName, entity, data.get() );
             break;
         case Ra::Core::Asset::GeometryData::QUAD_MESH:
-            comp = new QuadMeshComponent( componentName, entity, data );
+            comp = new QuadMeshComponent( componentName, entity, data.get() );
             break;
         case Ra::Core::Asset::GeometryData::POLY_MESH:
-            comp = new PolyMeshComponent( componentName, entity, data );
+            comp = new PolyMeshComponent( componentName, entity, data.get() );
             break;
         case Ra::Core::Asset::GeometryData::TETRA_MESH:
         case Ra::Core::Asset::GeometryData::HEX_MESH:
@@ -50,13 +50,13 @@ void GeometrySystem::handleAssetLoading( Entity* entity,
         registerComponent( entity, comp );
     }
 
-    auto volumeData = fileData->getVolumeData();
+    const auto& volumeData = fileData->getVolumeData();
 
     id = 0;
 
     for ( const auto& data : volumeData ) {
         std::string componentName = "VOL_" + entity->getName() + std::to_string( id++ );
-        auto comp                 = new VolumeComponent( componentName, entity, data );
+        auto comp                 = new VolumeComponent( componentName, entity, data.get() );
         registerComponent( entity, comp );
     }
 }
