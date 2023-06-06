@@ -10,9 +10,7 @@ void SimpleMaterialModel::displayInfo() const {
     using namespace Core::Utils; // log
     auto print = []( bool ok, const std::string& name, const auto& value ) {
         if ( ok ) { LOG( logINFO ) << name << value; }
-        else {
-            LOG( logINFO ) << name << "NO";
-        }
+        else { LOG( logINFO ) << name << "NO"; }
     };
 
     LOG( logINFO ) << "======== MATERIAL INFO ========";
@@ -27,9 +25,7 @@ void LambertianMaterialModel::displayInfo() const {
     using namespace Core::Utils; // log
     auto print = []( bool ok, const std::string& name, const auto& value ) {
         if ( ok ) { LOG( logINFO ) << name << value; }
-        else {
-            LOG( logINFO ) << name << "NO";
-        }
+        else { LOG( logINFO ) << name << "NO"; }
     };
 
     LOG( logINFO ) << "======== MATERIAL INFO ========";

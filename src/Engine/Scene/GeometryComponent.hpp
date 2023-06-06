@@ -5,9 +5,9 @@
 #include <Core/Containers/MakeShared.hpp>
 #include <Core/Geometry/TriangleMesh.hpp>
 #include <Core/Geometry/Volume.hpp>
+#include <Core/Material/MaterialModel.hpp>
 #include <Engine/Data/BlinnPhongMaterial.hpp>
 #include <Engine/Data/MaterialConverters.hpp>
-#include <Core/Material/MaterialModel.hpp>
 #include <Engine/Data/Mesh.hpp>
 #include <Engine/Rendering/RenderObject.hpp>
 #include <Engine/Scene/Component.hpp>
@@ -258,8 +258,9 @@ void SurfaceMeshComponent<CoreMeshType>::finalizeROFromGeometry(
     std::shared_ptr<Data::Material> roMaterial;
     // First extract the material from asset or create a default one
     if ( matModel != nullptr ) {
-        auto converter = Data::EngineMaterialConverters::getMaterialConverter( matModel->getType() );
-        auto mat       = converter.second( matModel.get() );
+        auto converter =
+            Data::EngineMaterialConverters::getMaterialConverter( matModel->getType() );
+        auto mat = converter.second( matModel.get() );
         roMaterial.reset( mat );
     }
     else {

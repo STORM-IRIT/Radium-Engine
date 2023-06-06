@@ -354,9 +354,7 @@ void AssimpGeometryDataLoader::loadMaterial( const aiMaterial& material,
         }
         }
     }
-    else {
-        LOG( logINFO ) << "Found assimp default material " << matName;
-    }
+    else { LOG( logINFO ) << "Found assimp default material " << matName; }
     data.setMaterial( assetMaterial );
 }
 
