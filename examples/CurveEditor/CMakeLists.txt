@@ -96,5 +96,5 @@ target_link_libraries(
 
 # configure the application
 configure_radium_app(
-    NAME ${PROJECT_NAME} PREFIX Examples RESOURCES "${CMAKE_CURRENT_SOURCE_DIR}/Assets"
+    NAME ${PROJECT_NAME} PREFIX Examples
 )
