@@ -8,7 +8,7 @@
 namespace Ra {
 namespace Core {
 namespace Geometry {
-class Curve2D
+class RA_CORE_API Curve2D
 {
   public:
     enum CurveType { LINE, CUBICBEZIER, SPLINE, SIZE };
@@ -26,7 +26,7 @@ class Curve2D
     int size;
 };
 
-class QuadraSpline : public Curve2D
+class RA_CORE_API QuadraSpline : public Curve2D
 {
   public:
     QuadraSpline() { this->size = 0; }
@@ -48,7 +48,7 @@ class QuadraSpline : public Curve2D
     Core::VectorArray<Vector> m_points;
 };
 
-class CubicBezier : public Curve2D
+class RA_CORE_API CubicBezier : public Curve2D
 {
   public:
     CubicBezier() { this->size = 0; }
@@ -89,7 +89,7 @@ class CubicBezier : public Curve2D
     Vector m_points[4];
 };
 
-class Line : public Curve2D
+class RA_CORE_API Line : public Curve2D
 {
   public:
     Line() { this->size = 0; }
@@ -106,7 +106,7 @@ class Line : public Curve2D
     Vector m_points[2];
 };
 
-class SplineCurve : public Curve2D
+class RA_CORE_API SplineCurve : public Curve2D
 {
   public:
     SplineCurve() { this->size = 0; }
@@ -125,7 +125,7 @@ class SplineCurve : public Curve2D
     Core::VectorArray<Vector> m_points;
 };
 
-class PiecewiseCubicBezier : public Curve2D
+class RA_CORE_API PiecewiseCubicBezier : public Curve2D
 {
   public:
     PiecewiseCubicBezier() {}
