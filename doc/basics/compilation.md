@@ -203,9 +203,9 @@ For instance, with directory structure for externals as defined in \ref dependen
 {
     "environments": [
     {
-        "QtDir": "C:/Qt/6.3.0/msvc2019_64/"
+        "QtDir": "C:/Qt/6.3.0/msvc2019_64/",
         "glfwDir" : "C:/path/to/glfwInstallation",
-        "ExternalInstallDir": "${projectDir}/../radium-externals/install;${projectDir}/../radium-externals/install/${name}/cpplocate;"
+        "ExternalInstallDir": "${projectDir}/../radium-externals/install/${name}/bin;${projectDir}/../radium-externals/install/${name}/cpplocate;${projectDir}/../radium-externals/install/${name}/globjects;${projectDir}/../radium-externals/install/${name}/glbinding",
     }
     ],
     "configurations": [
@@ -275,7 +275,7 @@ Then, select in the menu `<Debug>/Debug and Launch Settings for DrawPrimmitives`
      "project": "CMakeLists.txt",
      "projectTarget": "DrawPrimitives.exe (examples\\DrawPrimitives\\DrawPrimitives.exe)",
      "name": "DrawPrimitives.exe (examples\\DrawPrimitives\\DrawPrimitives.exe)",
-     "inheritEnvironments": [ "RadiumDllLocations" ],
+     "inheritEnvironments": [ "RadiumDllsLocations" ],
      "env": {
        "PATH": "${env.QtDllsDIR};${env.ExternalDllsDIR};${env.RadiumDlls};${env.PATH}"
      }
@@ -287,7 +287,7 @@ Then, select in the menu `<Debug>/Debug and Launch Settings for DrawPrimmitives`
 For any target you want to execute, the same should be done, i.e. adding the following to the target configuration
 
 ~~~{.json}
- "inheritEnvironments": [ "RadiumDllLocations" ],
+ "inheritEnvironments": [ "RadiumDllsLocations" ],
  "env": {
    "PATH": "${env.QtDllsDIR};${env.ExternalDllsDIR};${env.RadiumDlls};${env.PATH}"
  }
