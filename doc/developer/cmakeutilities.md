@@ -364,7 +364,7 @@ install_target_resources(
 )
 ~~~
 
-### configure_radium_package {#configurePackage}
+### configure_radium_package {#configure_radium_package}
 
 ~~~{.cmake}
 configure_radium_package(
@@ -716,7 +716,7 @@ When configuring a library, a cmake package configuration file should be written
 Meanwhile, when several libraries must be used as components in a single package (e.g. the Radium internal libraries are all gathered into the single Radium package), a more general configuration module has to be defined.
 
 For this, instead of defining a configuration package for each configured library, the parameter `PACKAGE_CONFIG` of the function [`configure_radium_library`](#configure_radium_library) should be omitted
-and the function [`configure_radium_package`](#configurePackage) should be used.
+and the function [`configure_radium_package`](#configure_radium_package) should be used.
 
 Standard usage of this function requires to have some libraries configured like the following:
 
