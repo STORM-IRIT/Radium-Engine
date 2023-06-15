@@ -580,8 +580,8 @@ Note that these are only guidelines and that you can always write your cmake scr
 # -------------------------------------------------------
 # Recommended preamble for cmake configuration
 # -------------------------------------------------------
-# Radium package requires cmake minimum version 3.13
-cmake_minimum_required(3.13)
+# Radium package requires cmake minimum version 3.18
+cmake_minimum_required(3.18)
 # It is recommended to disable in-source build
 set(CMAKE_DISABLE_SOURCE_CHANGES ON)
 set(CMAKE_DISABLE_IN_SOURCE_BUILD ON)

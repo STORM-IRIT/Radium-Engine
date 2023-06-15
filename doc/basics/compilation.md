@@ -6,7 +6,7 @@
 The following platforms and tool chains have been tested and should work :
 
 * *Windows* : IDEs: Visual Studio 2019, 2022 (2017 is not supported due to embedded cmake version), QtCreator. Command Line: cmake+ninja+MSVC(2017, 2019, 2022) .
-* *Mac OSX* : gcc 10 or higher, Apple clang
+* *Mac OSX* : gcc 10 or higher, Apple clang, llvm clang 11 or higher
 * *Linux* : gcc 8  or higher, clang
 
 See also our Continuous Integration system at <https://github.com/STORM-IRIT/Radium-Engine/actions>.
@@ -14,7 +14,7 @@ See also our Continuous Integration system at <https://github.com/STORM-IRIT/Rad
 Minimal requirements
 
 * OpenGL 4.1+ / GLSL 410+
-* CMake 3.16+
+* CMake 3.18+
 * Qt5 (minimal version 5.15) or Qt6 (experimental)
 
 # Build instructions

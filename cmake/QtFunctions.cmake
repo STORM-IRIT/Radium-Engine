@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.16)
+cmake_minimum_required(VERSION 3.18)
 
 # Find Qt5 or Qt6 packages Parameters: COMPONENTS <component_list>: optional parameter listing the
 # Qt packages (e.g. Core, Widgets REQUIRED: optional parameter propagated to find_package
