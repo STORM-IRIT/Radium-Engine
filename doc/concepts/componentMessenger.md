@@ -1,4 +1,4 @@
-\page componentMessenger [deprecated] Component Messenger
+\page componentMessenger _deprecated_ Component Messenger
 \todo check and update
 [TOC]
 

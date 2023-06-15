@@ -266,7 +266,7 @@ In order to keep the appearance computation agnostic on the way vertex attribs a
 propose an abstract interface. But, and this is particular to these attributes, one can access to the attributes
 himself, on the vertex, or to the attributes interpolated by the rasterizer, on the fragment.
 Accessing the Attribute directly on the vertex (i.e. on a vertex shader) does not necessitate an interface as
-each shader must define its attributes and as the [Mesh API](./mesh.md) allows to communicate between C++ and GLSL.
+each shader must define its attributes and as the [Mesh API](\ref develmeshes) allows to communicate between C++ and GLSL.
 
 Note that the attributes accessed through the Vertex attrib interface **must** be defined in world space.
 Even if not necessarily efficient (some transformations might be computed twice), this will ensure more simple
@@ -646,7 +646,9 @@ addRenderObject( renderObject );
 Then the draw call of ``renderObject`` uses the ``myConfig`` as shader configuration.
 Before rendering, the method ``updateGL`` on the ``parameterProvider`` instance is called so that the shader's uniforms values are updated according the one stored in ``parameterProvider``.
 
-# \todo TO UPDATE
+# TO UPDATE
+
+\todo TO UPDATE
 
 Shader programs are managed through their `ShaderConfiguration`, which contains the _shader objects_ (vertex, fragment, ... shader) and the _shader properties_ (not used for now though).
 
