@@ -63,7 +63,7 @@ to the material
 
 Note that this way of using the _Radium Material Library_ is very related to the default Radium rendering capabilities
 exposed by the [Radium forward renderer](@ref forwardRenderer).
-See the [Render technique management](./rendertechnique) documentation to learn how to create your own
+See the [Render technique management](#render-technique) documentation to learn how to create your own
 Ra::Engine::Rendering::RenderTechnique, potentially without associated material.
 
 If one wants to render objects without BSDF computation but with a specific color computation for the fragment,
@@ -123,7 +123,7 @@ public:
 }
 ~~~
 
-See the [Render technique management](./rendertechnique) for documentation on how to build such an helper function.
+See the [Render technique management](#render-technique) for documentation on how to build such an helper function.
 
 ### Making a material editable {#editable-interface}
 
@@ -496,7 +496,7 @@ auto theConfig =
                 Ra::Engine::Data::ShaderConfigurationFactory::getConfiguration( "ConfigName" );
 ~~~
 
-### Registering a RenderTechnique
+### Registering a RenderTechnique {#render-technique}
 
 A Ra::Engine::Rendering::RenderTechnique describes which Ra::Engine::Data::ShaderConfiguration a renderer will use for each of its
 rendering passes. Such a render technique could encompass a Ra::Engine::Data::Material but its meaning is larger than just
