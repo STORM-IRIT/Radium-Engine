@@ -166,6 +166,11 @@ if(DOXYGEN_FOUND)
     set(DOXYGEN_DOT_GRAPH_MAX_NODES "60")
     set(DOXYGEN_ALIASES [[complexity="@par Complexity:^^"]])
     set(DOXYGEN_VERBATIM_VARS DOXYGEN_ALIASES)
+    # resolve std to cpp ref
+    # https://upload.cppreference.com/mwiki/images/f/f8/cppreference-doxygen-web.tag.xml
+    set(DOXYGEN_TAGFILES
+        "${CMAKE_CURRENT_SOURCE_DIR}/cppreference-doxygen-web.tag.xml=http://en.cppreference.com/w/"
+    )
 
     doxygen_add_docs(
         RadiumDoc ${md_pages_order} ${md_files} ${CMAKE_CURRENT_SOURCE_DIR}/../src/
