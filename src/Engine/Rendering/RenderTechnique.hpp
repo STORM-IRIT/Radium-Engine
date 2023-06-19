@@ -160,8 +160,8 @@ class RA_ENGINE_API RenderTechnique final
     inline void clearDirty( Core::Utils::Index pass = DefaultRenderingPasses::LIGHTING_OPAQUE );
 
     /**
-     * Add properties (several #define in the shader) for the given pass
-     * @param props the properties list, only strings without the #define
+     * Add properties (several \#define in the shader) for the given pass
+     * @param props the properties list, only strings without the \#define
      * @param pass the pass. If left by default, all active passes will get the properties
      */
     void addPassProperties( const std::list<std::string>& props,

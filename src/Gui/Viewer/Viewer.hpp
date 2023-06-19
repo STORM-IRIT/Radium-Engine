@@ -225,7 +225,7 @@ class RA_GUI_API Viewer : public WindowQt, public KeyMappingManageable<Viewer>
 
     /// Initialize openGL. Called on by the first "show" call to the main window.
     /// \warning This function is NOT reentrant, and may behave incorrectly
-    /// if called at the same time than #intializeRenderer
+    /// if called at the same time than initializeRenderer()
     /// @note Must be called only when a valid openGLContext is bound (see WindowsQt::initialize)
     bool initializeGL() override;
 
