@@ -1,4 +1,4 @@
-#set the compile definition for current directory (i.e.
+#set the compile definition for current directory (i.e. externals)
 set(RADIUM_EXTERNAL_CMAKE_OPTIONS
     -DCMAKE_CXX_STANDARD=${CMAKE_CXX_STANDARD}
     -DCMAKE_CXX_STANDARD_REQUIRED=${CMAKE_CXX_STANDARD_REQUIRED}
