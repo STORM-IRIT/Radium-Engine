@@ -17,7 +17,7 @@ To compile and use a plugin, the Radium libraries must be configured, compiled a
 Example CMakeLists.txt setup to compile a Radium plugin:
 
 ```cmake
- cmake_minimum_required(VERSION 3.6)
+ cmake_minimum_required(VERSION 3.18)
  #------------------------------------------------------------------------------
  # Policies and global parameters for CMake
  if (POLICY CMP0077)

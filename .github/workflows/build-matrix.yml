@@ -172,6 +172,7 @@ jobs:
           echo "${{ env.ext-dir }}/bin" >> $GITHUB_PATH
           echo "${{ env.ext-dir }}/glbinding" >> $GITHUB_PATH
           echo "${{ env.ext-dir }}/globjects" >> $GITHUB_PATH
+          echo "${{ env.ext-dir }}/cpplocate" >> $GITHUB_PATH
       - name: Prepare directories
         run: |
           mkdir -p install/

@@ -6,7 +6,7 @@
 The following platforms and tool chains have been tested and should work :
 
 * *Windows* : IDEs: Visual Studio 2019, 2022 (2017 is not supported due to embedded cmake version), QtCreator. Command Line: cmake+ninja+MSVC(2017, 2019, 2022) .
-* *Mac OSX* : gcc 10 or higher, Apple clang
+* *Mac OSX* : gcc 10 or higher, Apple clang, llvm clang 11 or higher
 * *Linux* : gcc 8  or higher, clang
 
 See also our Continuous Integration system at <https://github.com/STORM-IRIT/Radium-Engine/actions>.
@@ -14,7 +14,7 @@ See also our Continuous Integration system at <https://github.com/STORM-IRIT/Rad
 Minimal requirements
 
 * OpenGL 4.1+ / GLSL 410+
-* CMake 3.16+
+* CMake 3.18+
 * Qt5 (minimal version 5.15) or Qt6 (experimental)
 
 # Build instructions
@@ -205,7 +205,7 @@ For instance, with directory structure for externals as defined in \ref dependen
     {
         "QtDir": "C:/Qt/6.3.0/msvc2019_64/"
         "glfwDir" : "C:/path/to/glfwInstallation",
-        "ExternalInstallDir": "${projectDir}/../radium-externals/install"
+        "ExternalInstallDir": "${projectDir}/../radium-externals/install;${projectDir}/../radium-externals/install/${name}/cpplocate;"
     }
     ],
     "configurations": [
@@ -222,7 +222,7 @@ For instance, with directory structure for externals as defined in \ref dependen
         "environments": [
         {
             "environment": "RadiumDllsLocations",
-            "ExternalDllsDIR": "${env.ExternalInstallDir}/${name}/bin;${env.ExternalInstallDir}/${name}/glbinding;${env.ExternalInstallDir}/${name}/globjects",
+            "ExternalDllsDIR": "${env.ExternalInstallDir}/${name}/bin;${env.ExternalInstallDir}/${name}/cpplocate;${env.ExternalInstallDir}/${name}/glbinding;${env.ExternalInstallDir}/${name}/globjects",
             "QtDllsDIR": "${env.QtDir}/bin",
             "RadiumDlls": "${buildRoot}/src/Core;${buildRoot}/src/Engine;${buildRoot}/src/Gui;${buildRoot}/src/Headless;${buildRoot}/src/IO;${buildRoot}/src/PluginBase"
         }
@@ -241,7 +241,7 @@ For instance, with directory structure for externals as defined in \ref dependen
         "environments": [
         {
             "environment": "RadiumDllsLocations",
-            "ExternalDllsDIR": "${env.ExternalInstallDir}/${name}/bin;${env.ExternalInstallDir}/${name}/glbinding;${env.ExternalInstallDir}/${name}/globjects",
+            "ExternalDllsDIR": "${env.ExternalInstallDir}/${name}/bin;${env.ExternalInstallDir}/${name}/cpplocate;${env.ExternalInstallDir}/${name}/glbinding;${env.ExternalInstallDir}/${name}/globjects",
             "QtDllsDIR": "${env.QtDir}/bin",
             "RadiumDlls": "${buildRoot}/src/Core;${buildRoot}/src/Engine;${buildRoot}/src/Gui;${buildRoot}/src/Headless;${buildRoot}/src/IO;${buildRoot}/src/PluginBase"
         }
