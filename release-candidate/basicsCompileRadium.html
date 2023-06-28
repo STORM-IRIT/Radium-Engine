@@ -52,7 +52,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.5.1</span>
+   &#160;<span id="projectnumber">1.5.2</span>
    </div>
   </td>
  </tr>
@@ -126,14 +126,14 @@ Supported compiler and platforms</h1>
 <p>The following platforms and tool chains have been tested and should work :</p>
 <ul>
 <li><em>Windows</em> : IDEs: Visual Studio 2019, 2022 (2017 is not supported due to embedded cmake version), QtCreator. Command Line: cmake+ninja+MSVC(2017, 2019, 2022) .</li>
-<li><em>Mac OSX</em> : gcc 10 or higher, Apple clang</li>
+<li><em>Mac OSX</em> : gcc 10 or higher, Apple clang, llvm clang 11 or higher</li>
 <li><em>Linux</em> : gcc 8 or higher, clang</li>
 </ul>
 <p>See also our Continuous Integration system at <a href="https://github.com/STORM-IRIT/Radium-Engine/actions">https://github.com/STORM-IRIT/Radium-Engine/actions</a>.</p>
 <p>Minimal requirements</p>
 <ul>
 <li>OpenGL 4.1+ / GLSL 410+</li>
-<li>CMake 3.16+</li>
+<li>CMake 3.18+</li>
 <li>Qt5 (minimal version 5.15) or Qt6 (experimental)</li>
 </ul>
 <h1><a class="anchor" id="autotoc_md12"></a>
@@ -261,7 +261,7 @@ Integration with Visual Studio (Microsoft Windows)</h2>
 <div class="line">    {</div>
 <div class="line">        &quot;QtDir&quot;: &quot;C:/Qt/6.3.0/msvc2019_64/&quot;</div>
 <div class="line">        &quot;glfwDir&quot; : &quot;C:/path/to/glfwInstallation&quot;,</div>
-<div class="line">        &quot;ExternalInstallDir&quot;: &quot;${projectDir}/../radium-externals/install&quot;</div>
+<div class="line">        &quot;ExternalInstallDir&quot;: &quot;${projectDir}/../radium-externals/install;${projectDir}/../radium-externals/install/${name}/cpplocate;&quot;</div>
 <div class="line">    }</div>
 <div class="line">    ],</div>
 <div class="line">    &quot;configurations&quot;: [</div>
@@ -278,7 +278,7 @@ Integration with Visual Studio (Microsoft Windows)</h2>
 <div class="line">        &quot;environments&quot;: [</div>
 <div class="line">        {</div>
 <div class="line">            &quot;environment&quot;: &quot;RadiumDllsLocations&quot;,</div>
-<div class="line">            &quot;ExternalDllsDIR&quot;: &quot;${env.ExternalInstallDir}/${name}/bin;${env.ExternalInstallDir}/${name}/glbinding;${env.ExternalInstallDir}/${name}/globjects&quot;,</div>
+<div class="line">            &quot;ExternalDllsDIR&quot;: &quot;${env.ExternalInstallDir}/${name}/bin;${env.ExternalInstallDir}/${name}/cpplocate;${env.ExternalInstallDir}/${name}/glbinding;${env.ExternalInstallDir}/${name}/globjects&quot;,</div>
 <div class="line">            &quot;QtDllsDIR&quot;: &quot;${env.QtDir}/bin&quot;,</div>
 <div class="line">            &quot;RadiumDlls&quot;: &quot;${buildRoot}/src/Core;${buildRoot}/src/Engine;${buildRoot}/src/Gui;${buildRoot}/src/Headless;${buildRoot}/src/IO;${buildRoot}/src/PluginBase&quot;</div>
 <div class="line">        }</div>
@@ -297,7 +297,7 @@ Integration with Visual Studio (Microsoft Windows)</h2>
 <div class="line">        &quot;environments&quot;: [</div>
 <div class="line">        {</div>
 <div class="line">            &quot;environment&quot;: &quot;RadiumDllsLocations&quot;,</div>
-<div class="line">            &quot;ExternalDllsDIR&quot;: &quot;${env.ExternalInstallDir}/${name}/bin;${env.ExternalInstallDir}/${name}/glbinding;${env.ExternalInstallDir}/${name}/globjects&quot;,</div>
+<div class="line">            &quot;ExternalDllsDIR&quot;: &quot;${env.ExternalInstallDir}/${name}/bin;${env.ExternalInstallDir}/${name}/cpplocate;${env.ExternalInstallDir}/${name}/glbinding;${env.ExternalInstallDir}/${name}/globjects&quot;,</div>
 <div class="line">            &quot;QtDllsDIR&quot;: &quot;${env.QtDir}/bin&quot;,</div>
 <div class="line">            &quot;RadiumDlls&quot;: &quot;${buildRoot}/src/Core;${buildRoot}/src/Engine;${buildRoot}/src/Gui;${buildRoot}/src/Headless;${buildRoot}/src/IO;${buildRoot}/src/PluginBase&quot;</div>
 <div class="line">        }</div>
@@ -344,7 +344,7 @@ When compiling the dependencies you may hit the max path length fixed by Microso
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="basicsmanual.html">Radium Basics</a></li>
-    <li class="footer">Generated on Wed Apr 26 2023 12:38:02 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Wed Jun 28 2023 11:29:09 for Radium Engine by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>
