@@ -1,4 +1,5 @@
 <map id="Ra::Gui::MaterialParameterEditor::showUnspecified" name="Ra::Gui::MaterialParameterEditor::showUnspecified">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,204,47"/>
-<area shape="rect" id="node2" href="$classRa_1_1Gui_1_1ParameterSetEditor.html#ab2c692612c3266567c0d796ad7139f5b" title=" " alt="" coords="252,5,455,47"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,204,45"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Gui_1_1ParameterSetEditor.html#ab2c692612c3266567c0d796ad7139f5b" title=" " alt="" coords="252,5,455,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="204,23,239,23,239,28,204,28"/>
 </map>

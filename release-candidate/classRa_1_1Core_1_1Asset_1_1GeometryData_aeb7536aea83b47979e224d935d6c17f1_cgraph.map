@@ -1,0 +1,5 @@
+<map id="Ra::Core::Asset::GeometryData::hasEdges" name="Ra::Core::Asset::GeometryData::hasEdges">
+<area shape="rect" id="Node000001" title="Return true if the object has lines." alt="" coords="5,13,200,53"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html#a6192bea8770876bd8d0f22e56ac7799e" title="Check if at least one layer with such properties exists." alt="" coords="248,5,427,60"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="200,30,234,30,234,35,200,35"/>
+</map>

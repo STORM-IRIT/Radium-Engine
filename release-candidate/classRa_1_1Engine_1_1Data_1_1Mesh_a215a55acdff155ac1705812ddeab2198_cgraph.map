@@ -1,0 +1,11 @@
+<map id="Ra::Engine::Data::Mesh::loadGeometry" name="Ra::Engine::Data::Mesh::loadGeometry">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,73,179,113"/>
+<area shape="rect" id="Node000002" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector/empty.html#" title=" " alt="" coords="240,5,381,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="143,70,226,39,249,32,251,37,228,45,145,75"/>
+<area shape="rect" id="Node000003" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/utility/move.html#" title=" " alt="" coords="267,55,354,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="178,80,253,71,254,77,179,85"/>
+<area shape="rect" id="Node000004" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector/push_back.html#" title=" " alt="" coords="227,104,395,129"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="179,100,213,103,213,109,178,105"/>
+<area shape="rect" id="Node000005" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector/size.html#" title=" " alt="" coords="248,153,373,179"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="149,110,228,138,254,147,253,152,226,143,147,115"/>
+</map>

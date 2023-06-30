@@ -1,8 +1,13 @@
 <map id="Ra::Engine::Scene::System" name="Ra::Engine::Scene::System">
-<area shape="rect" id="node1" title=" " alt="" coords="244,5,456,215"/>
-<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Scene_1_1CameraManager.html" title=" " alt="" coords="5,263,220,692"/>
-<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Scene_1_1LightManager.html" title=" " alt="" coords="244,351,456,604"/>
-<area shape="rect" id="node6" href="$classRa_1_1Engine_1_1Scene_1_1SkeletonBasedAnimationSystem.html" title=" " alt="" coords="480,329,751,626"/>
-<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Scene_1_1DefaultCameraManager.html" title="DefaultCameraManager. A simple Camera Manager with a list of Cameras." alt="" coords="11,740,214,861"/>
-<area shape="rect" id="node5" href="$classRa_1_1Engine_1_1Scene_1_1DefaultLightManager.html" title="DefaultLightManager. A simple Light Manager with a list of lights." alt="" coords="258,740,442,861"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="236,5,440,245"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Engine_1_1Scene_1_1CameraManager.html" title=" " alt="" coords="5,293,212,833"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="248,258,227,295,215,318,210,316,222,292,244,256"/>
+<area shape="rect" id="Node000004" href="$classRa_1_1Engine_1_1Scene_1_1LightManager.html" title=" " alt="" coords="236,413,440,713"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="341,259,341,413,335,413,335,259"/>
+<area shape="rect" id="Node000006" href="$classRa_1_1Engine_1_1Scene_1_1SkeletonBasedAnimationSystem.html" title=" " alt="" coords="465,383,726,743"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="432,255,455,292,506,382,502,384,450,295,427,258"/>
+<area shape="rect" id="Node000003" href="$classRa_1_1Engine_1_1Scene_1_1DefaultCameraManager.html" title="DefaultCameraManager. A simple Camera Manager with a list of Cameras." alt="" coords="11,881,206,1001"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="111,847,111,881,106,881,106,847"/>
+<area shape="rect" id="Node000005" href="$classRa_1_1Engine_1_1Scene_1_1DefaultLightManager.html" title="DefaultLightManager. A simple Light Manager with a list of lights." alt="" coords="250,881,426,1001"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="341,727,341,881,335,881,335,727"/>
 </map>

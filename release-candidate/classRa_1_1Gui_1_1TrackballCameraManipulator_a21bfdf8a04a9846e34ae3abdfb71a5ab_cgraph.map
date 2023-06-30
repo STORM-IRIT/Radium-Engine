@@ -1,4 +1,6 @@
 <map id="Ra::Gui::TrackballCameraManipulator::handleKeyPressEvent" name="Ra::Gui::TrackballCameraManipulator::handleKeyPressEvent">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,253,47"/>
-<area shape="rect" id="node2" href="$classRa_1_1Gui_1_1KeyMappingCallbackManager.html#a80b3750145c2d398caf7d5dc8f402243" title=" " alt="" coords="301,5,524,47"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,29,253,69"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Gui_1_1KeyMappingCallbackManager.html#a80b3750145c2d398caf7d5dc8f402243" title=" " alt="" coords="301,29,524,69"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="253,47,288,47,288,52,253,52"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="360,30,357,20,366,10,384,5,413,3,445,5,463,13,461,18,444,11,413,8,385,10,369,15,362,21,365,28"/>
 </map>

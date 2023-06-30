@@ -1,0 +1,7 @@
+<map id="Ra::Gui::Viewer::~Viewer" name="Ra::Gui::Viewer::~Viewer">
+<area shape="rect" id="Node000001" title="Destructor." alt="" coords="5,45,192,70"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Gui_1_1WindowQt.html#acd31b9e580f049491d13c16ef954d964" title=" " alt="" coords="240,5,392,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="185,42,226,36,227,41,186,47"/>
+<area shape="rect" id="Node000003" href="$classRa_1_1Gui_1_1WindowQt.html#a78476baacd2df24a260f604d02c8ddc4" title=" " alt="" coords="240,69,392,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="186,67,227,74,226,79,185,73"/>
+</map>

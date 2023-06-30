@@ -1,5 +1,7 @@
 <map id="Ra::Core::Utils::IndexMap&lt; T &gt;" name="Ra::Core::Utils::IndexMap&lt; T &gt;">
-<area shape="rect" id="node1" title=" " alt="" coords="113,5,338,435"/>
-<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Utils_1_1IndexMap.html" title=" " alt="" coords="5,527,195,985"/>
-<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Utils_1_1IndexMap.html" title=" " alt="" coords="219,527,485,985"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="147,5,365,551"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Core_1_1Utils_1_1IndexMap.html" title=" " alt="" coords="5,643,264,1217"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="205,565,191,643,186,642,200,564"/>
+<area shape="rect" id="Node000003" href="$classRa_1_1Core_1_1Utils_1_1IndexMap.html" title=" " alt="" coords="288,643,469,1217"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="350,563,352,574,363,642,358,643,347,575,345,564"/>
 </map>

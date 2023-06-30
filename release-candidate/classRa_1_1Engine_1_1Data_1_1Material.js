@@ -6,10 +6,9 @@ var classRa_1_1Engine_1_1Data_1_1Material =
       [ "MAT_DENSITY", "classRa_1_1Engine_1_1Data_1_1Material.html#accea1b072e372d94e28bc461e63daab2a6f1de8b47e04941d10e4d333ad70af41", null ]
     ] ],
     [ "Material", "classRa_1_1Engine_1_1Data_1_1Material.html#a2f31d488e39cc4841fe89cfda20a24fc", null ],
-    [ "~Material", "classRa_1_1Engine_1_1Data_1_1Material.html#a3e23b2b016a99ce802a438d6381fffa2", null ],
-    [ "getInstanceName", "classRa_1_1Engine_1_1Data_1_1Material.html#ae5cb5d463bb5265073a130f31d1378e2", null ],
-    [ "getMaterialAspect", "classRa_1_1Engine_1_1Data_1_1Material.html#a432ae2ec13a59667b6bc7082e810e2ae", null ],
-    [ "getMaterialName", "classRa_1_1Engine_1_1Data_1_1Material.html#a4ccee5a44c9e840b3a4b380e9e14386c", null ],
+    [ "getInstanceName", "classRa_1_1Engine_1_1Data_1_1Material.html#a04361b455663fd68ec7235f4219262f0", null ],
+    [ "getMaterialAspect", "classRa_1_1Engine_1_1Data_1_1Material.html#afdf3c0dbd08617847e429c2f2fece282", null ],
+    [ "getMaterialName", "classRa_1_1Engine_1_1Data_1_1Material.html#a12b6f71b149e59868927a7a5f76d9f08", null ],
     [ "getPropertyList", "classRa_1_1Engine_1_1Data_1_1Material.html#a7fab8c75a56db577b77d8168bf600420", null ],
     [ "isColoredByVertexAttrib", "classRa_1_1Engine_1_1Data_1_1Material.html#ac2c70fc1f57836e1e34dc55ccd814550", null ],
     [ "isTransparent", "classRa_1_1Engine_1_1Data_1_1Material.html#a99184fa8c3c787b18737bea7dd1e1a1f", null ],

@@ -1,0 +1,7 @@
+<map id="Ra::Engine::Data::DrawPrimitives::Capsule" name="Ra::Engine::Data::DrawPrimitives::Capsule">
+<area shape="rect" id="Node000001" title="Displays a capsule computed with given endpoints and radius." alt="" coords="5,23,244,63"/>
+<area shape="rect" id="Node000002" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/algorithm/for_each.html#" title=" " alt="" coords="292,5,399,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="244,27,278,23,279,28,245,32"/>
+<area shape="rect" id="Node000003" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/utility/move.html#" title=" " alt="" coords="302,55,389,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="245,54,289,59,288,64,244,59"/>
+</map>

@@ -1,6 +1,9 @@
 <map id="Ra::IO::FileManager&lt; DATA, Binary &gt;" name="Ra::IO::FileManager&lt; DATA, Binary &gt;">
-<area shape="rect" id="node1" title=" " alt="" coords="99,5,281,259"/>
-<area shape="rect" id="node2" href="$classRa_1_1IO_1_1FileManager.html" title=" " alt="" coords="91,336,289,604"/>
-<area shape="rect" id="node3" href="$classRa_1_1IO_1_1OBJFileManager.html" title=" " alt="" coords="5,661,177,797"/>
-<area shape="rect" id="node4" href="$classRa_1_1IO_1_1OFFFileManager.html" title=" " alt="" coords="201,653,376,804"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="95,5,269,305"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1IO_1_1FileManager.html" title=" " alt="" coords="87,383,277,697"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="185,319,185,382,179,382,179,319"/>
+<area shape="rect" id="Node000003" href="$classRa_1_1IO_1_1OBJFileManager.html" title=" " alt="" coords="5,757,169,902"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="129,711,113,757,108,756,124,710"/>
+<area shape="rect" id="Node000004" href="$classRa_1_1IO_1_1OFFFileManager.html" title=" " alt="" coords="193,747,360,912"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="240,710,252,745,247,747,235,711"/>
 </map>

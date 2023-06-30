@@ -19,12 +19,5 @@ var classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial =
     [ "setColoredByVertexAttrib", "classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#acfc60e7282b200f28fac471a024737ea", null ],
     [ "unregisterMaterial", "classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#af10c9fac9f32f1966eb2331e2790a6d1", null ],
     [ "updateFromParameters", "classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#ac270bc7fab86554604222c1eefc83bc1", null ],
-    [ "updateGL", "classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#af66d6609fafb6c0544e8470a680d833b", null ],
-    [ "BlinnPhongMaterialConverter", "classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#ac56b0d531d935508b1b5669010fe7ec1", null ],
-    [ "m_alpha", "classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#a3b529b435a9c08fd6c9653edc65d8e81", null ],
-    [ "m_kd", "classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#abed6ddbc3f83f32600b31948c3863024", null ],
-    [ "m_ks", "classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#ac5d7e21624a7ebedf8d185556be5a8fa", null ],
-    [ "m_ns", "classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#a442f602a183882229b719cd51d2c6b49", null ],
-    [ "m_perVertexColor", "classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#ad77260d355f7a6bfa7a8627fda5be6c3", null ],
-    [ "m_renderAsSplat", "classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#a0fed73d9efd1eea8fde5d8d1b2583d55", null ]
+    [ "updateGL", "classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#af66d6609fafb6c0544e8470a680d833b", null ]
 ];

@@ -1,0 +1,12 @@
+<map id="Ra::Engine::Data::DrawPrimitives::LineStrip" name="Ra::Engine::Data::DrawPrimitives::LineStrip">
+<area shape="rect" id="Node000001" title="Display a line strip." alt="" coords="5,73,244,113"/>
+<area shape="poly" id="edge4_Node000001_Node000001" title=" " alt="" coords="78,73,75,63,83,54,99,48,125,46,154,49,170,56,167,61,152,54,125,51,100,53,86,58,80,64,83,72"/>
+<area shape="rect" id="Node000002" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector/begin.html#" title=" " alt="" coords="309,5,443,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="190,70,291,39,317,32,318,37,293,45,192,75"/>
+<area shape="rect" id="Node000003" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector/end.html#" title=" " alt="" coords="315,55,437,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="244,78,301,72,301,77,244,83"/>
+<area shape="rect" id="Node000004" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/algorithm/iota.html#" title=" " alt="" coords="339,104,413,129"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="244,101,325,109,325,115,244,107"/>
+<area shape="rect" id="Node000005" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector/push_back.html#" title=" " alt="" coords="292,153,460,179"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="195,110,319,147,318,152,193,115"/>
+</map>

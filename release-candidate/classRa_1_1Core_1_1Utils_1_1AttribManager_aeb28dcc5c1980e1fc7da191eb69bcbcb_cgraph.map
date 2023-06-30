@@ -1,4 +1,11 @@
 <map id="Ra::Core::Utils::AttribManager::removeAttrib" name="Ra::Core::Utils::AttribManager::removeAttrib">
-<area shape="rect" id="node1" title=" " alt="" coords="5,13,221,54"/>
-<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Utils_1_1Observable.html#a7e5fe761726d56a51f95192eb6555f8f" title="Notify (i.e. call) each attached observer with argument p." alt="" coords="269,5,467,61"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,73,221,113"/>
+<area shape="rect" id="Node000002" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/map/end.html#" title=" " alt="" coords="313,5,423,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="172,70,269,39,299,31,300,36,270,45,173,75"/>
+<area shape="rect" id="Node000003" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/map/erase.html#" title=" " alt="" coords="307,55,429,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="221,79,293,72,293,77,222,85"/>
+<area shape="rect" id="Node000004" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/map/find.html#" title=" " alt="" coords="313,104,423,129"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="222,100,299,108,299,113,221,105"/>
+<area shape="rect" id="Node000005" href="$classRa_1_1Core_1_1Utils_1_1Observable.html#a7e5fe761726d56a51f95192eb6555f8f" title="Notify (i.e. call) each attached observer with argument p." alt="" coords="269,153,467,208"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="173,110,276,146,274,151,172,115"/>
 </map>

@@ -1,3 +1,13 @@
 <map id="Ra::Core::Animation::HandleArray" name="Ra::Core::Animation::HandleArray">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,157,332"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="165,2711,309,3071"/>
+<area shape="rect" id="Node000002" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector.html" title=" " alt="" coords="39,1075,172,1780"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="41,1755,17,1959,10,2071,8,2186,12,2303,23,2420,43,2535,72,2647,88,2688,108,2727,157,2797,153,2800,104,2729,83,2690,67,2649,38,2537,18,2421,7,2303,3,2186,5,2070,12,1959,36,1755"/>
+<area shape="rect" id="Node000005" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector.html" title=" " alt="" coords="148,1943,327,2648"/>
+<area shape="poly" id="edge6_Node000005_Node000002" title=" " alt="" coords="134,1793,151,1918,155,1942,149,1943,145,1919,129,1794"/>
+<area shape="rect" id="Node000003" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/string/basic_string.html" title=" " alt="" coords="205,975,347,1880"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="350,1837,369,2027,377,2232,375,2337,369,2443,358,2547,341,2649,318,2729,313,2728,336,2647,353,2546,364,2442,370,2337,371,2232,363,2027,345,1838"/>
+<area shape="poly" id="edge5_Node000005_Node000003" title=" " alt="" coords="259,1880,257,1926,251,1926,253,1880"/>
+<area shape="rect" id="Node000004" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/string/basic_string.html" title=" " alt="" coords="205,5,347,925"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="279,939,279,974,273,974,273,939"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="240,2648,240,2694,235,2694,235,2648"/>
 </map>

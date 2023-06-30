@@ -1,5 +1,7 @@
 <map id="Ra::Engine::Scene::Entity" name="Ra::Engine::Scene::Entity">
-<area shape="rect" id="node1" title="An entity is an scene element. It ties together components with a transform." alt="" coords="5,204,216,575"/>
-<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Scene_1_1SystemEntity.html" title=" " alt="" coords="37,623,184,759"/>
-<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Utils_1_1IndexedObject.html" title=" " alt="" coords="23,5,198,156"/>
+<area shape="rect" id="Node000001" title="An entity is an scene element. It ties together components with a transform." alt="" coords="5,213,207,673"/>
+<area shape="rect" id="Node000003" href="$classRa_1_1Engine_1_1Scene_1_1SystemEntity.html" title=" " alt="" coords="37,721,175,861"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="109,687,109,721,103,721,103,687"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Core_1_1Utils_1_1IndexedObject.html" title=" " alt="" coords="23,5,189,165"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="109,179,109,213,103,213,103,179"/>
 </map>

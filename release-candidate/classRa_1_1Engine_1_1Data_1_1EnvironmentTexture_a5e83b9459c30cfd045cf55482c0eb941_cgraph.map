@@ -1,0 +1,25 @@
+<map id="Ra::Engine::Data::EnvironmentTexture::updateGL" name="Ra::Engine::Data::EnvironmentTexture::updateGL">
+<area shape="rect" id="Node000001" title="Update the OpenGL state of the envmap : texture, skybox and shaders if needed." alt="" coords="5,69,227,109"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Engine_1_1Data_1_1ShaderConfiguration.html#a817ed4e22a81e034776cc21e8cfc6b8b" title=" " alt="" coords="276,5,507,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="202,67,291,46,292,51,203,72"/>
+<area shape="rect" id="Node000003" href="$classRa_1_1Engine_1_1Data_1_1Texture.html#a55e3131773e12d21280b10dcd0bc7f7a" title="Generate the OpenGL representation of the texture according to the stored TextureData." alt="" coords="298,69,485,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="227,87,284,87,284,92,227,92"/>
+<area shape="rect" id="Node000006" href="$classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html#a185171226018c59fb689efcb2154619b" title="Update (i.e. send to GPU) the buffers marked as dirty." alt="" coords="275,292,508,332"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="144,107,356,281,353,285,140,112"/>
+<area shape="rect" id="Node000004" href="$classRa_1_1Engine_1_1Data_1_1Texture.html#a223eab722d3f56c1c8a50ee5cc9e959b" title=" " alt="" coords="563,5,749,45"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="474,67,559,46,560,51,475,72"/>
+<area shape="rect" id="Node000005" href="$classRa_1_1Engine_1_1Data_1_1Texture.html#ae88bb2f346291aaba4cbaebf4278095b" title=" " alt="" coords="563,69,749,109"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="485,87,549,87,549,92,485,92"/>
+<area shape="rect" id="Node000007" href="$classRa_1_1Core_1_1Utils_1_1ContainerIntrospectionInterface.html#a3b7b90613b57a821078ac3e26dc17caa" title=" " alt="" coords="563,134,749,189"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="417,290,478,245,555,198,566,192,568,197,557,202,481,249,420,294"/>
+<area shape="rect" id="Node000008" href="$classRa_1_1Core_1_1Utils_1_1ContainerIntrospectionInterface.html#ada4b796b352795c049579cadb3d946ba" title=" " alt="" coords="563,213,749,267"/>
+<area shape="poly" id="edge7_Node000006_Node000008" title=" " alt="" coords="465,289,549,266,550,272,466,295"/>
+<area shape="rect" id="Node000009" href="$classRa_1_1Core_1_1Utils_1_1AttribBase.html#ae2dd0a9753d036b781460b05348c13ca" title="Return the attribute&#39;s name." alt="" coords="561,292,751,332"/>
+<area shape="poly" id="edge8_Node000006_Node000009" title=" " alt="" coords="508,309,547,309,547,315,508,315"/>
+<area shape="rect" id="Node000010" href="$classRa_1_1Core_1_1Utils_1_1ContainerIntrospectionInterface.html#aaa913325b3c078ea95ddce44ba6cc6eb" title=" " alt="" coords="556,357,756,411"/>
+<area shape="poly" id="edge9_Node000006_Node000010" title=" " alt="" coords="466,329,543,351,542,356,465,335"/>
+<area shape="rect" id="Node000011" href="$classRa_1_1Core_1_1Utils_1_1ContainerIntrospectionInterface.html#a709e66ce8c7c2f28a6330df869fc57ce" title=" " alt="" coords="563,435,749,490"/>
+<area shape="poly" id="edge10_Node000006_Node000011" title=" " alt="" coords="420,330,481,374,557,420,571,427,568,432,555,425,479,378,417,334"/>
+<area shape="rect" id="Node000012" href="$classRa_1_1Core_1_1Utils_1_1ContainerIntrospectionInterface.html#a61a035c5d5357d01e2df74bc441b770e" title=" " alt="" coords="563,514,749,569"/>
+<area shape="poly" id="edge11_Node000006_Node000012" title=" " alt="" coords="407,331,466,412,509,459,558,501,564,505,561,509,554,505,505,463,462,415,403,334"/>
+</map>

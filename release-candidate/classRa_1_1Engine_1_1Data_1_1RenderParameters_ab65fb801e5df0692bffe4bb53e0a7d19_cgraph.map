@@ -1,4 +1,5 @@
 <map id="Ra::Engine::Data::RenderParameters::getEnumConverter" name="Ra::Engine::Data::RenderParameters::getEnumConverter">
-<area shape="rect" id="node1" title="Search for a converter associated with an enumeration parameter." alt="" coords="5,5,232,47"/>
-<area shape="rect" id="node2" href="$classRa_1_1Core_1_1VariableSet.html#a48baeacd56022a902deb045d865c4605" title="test the existence of the given variable" alt="" coords="280,5,439,47"/>
+<area shape="rect" id="Node000001" title="Search for a converter associated with an enumeration parameter." alt="" coords="5,5,232,45"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Core_1_1VariableSet.html#a3ff99db838e08eeb1731bbdd992671a1" title="test the existence of the given variable" alt="" coords="280,5,439,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="232,23,266,23,266,28,232,28"/>
 </map>

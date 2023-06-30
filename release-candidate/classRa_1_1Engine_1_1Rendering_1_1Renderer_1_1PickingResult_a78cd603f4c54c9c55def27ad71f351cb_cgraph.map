@@ -1,0 +1,7 @@
+<map id="Ra::Engine::Rendering::Renderer::PickingResult::removeDuplicatedIndices" name="Ra::Engine::Rendering::Renderer::PickingResult::removeDuplicatedIndices">
+<area shape="rect" id="Node000001" title="Remove duplicates in m_indices." alt="" coords="5,16,201,71"/>
+<area shape="rect" id="Node000002" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/algorithm/sort.html#" title=" " alt="" coords="259,5,334,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="201,28,245,22,246,27,202,33"/>
+<area shape="rect" id="Node000003" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/algorithm/unique.html#" title=" " alt="" coords="249,55,344,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="202,53,236,57,235,62,201,58"/>
+</map>

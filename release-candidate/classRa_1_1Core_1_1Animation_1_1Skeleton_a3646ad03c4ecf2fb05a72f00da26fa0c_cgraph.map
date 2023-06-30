@@ -1,0 +1,12 @@
+<map id="Ra::Core::Animation::Skeleton::projectOnBone" name="Ra::Core::Animation::Skeleton::projectOnBone">
+<area shape="rect" id="Node000001" title="Projects point pos, given in Model Space, onto the bone with index boneIdx." alt="" coords="5,35,196,75"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Core_1_1Animation_1_1Skeleton.html#a8c7b89d8b68d4b42174bc3e377fdd8fa" title=" " alt="" coords="244,35,432,75"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="196,52,230,52,230,57,196,57"/>
+<area shape="rect" id="Node000003" href="$classRa_1_1Core_1_1AdjacencyList.html#a778181dcdae7c7a6a482401c89d75253" title="Return true if the node is a leaf node." alt="" coords="480,5,655,45"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="432,40,466,36,467,41,433,45"/>
+<area shape="rect" id="Node000005" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector/size.html#" title=" " alt="" coords="925,42,1051,67"/>
+<area shape="poly" id="edge5_Node000002_Node000005" title=" " alt="" coords="432,54,480,55,877,55,911,54,911,59,877,60,480,60,432,59"/>
+<area shape="rect" id="Node000004" href="$classRa_1_1Core_1_1AdjacencyList.html#a48b78362d882a41b32f0df6aa1d42855" title="Return the number of nodes in the graph." alt="" coords="703,5,877,45"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="655,23,689,23,689,28,655,28"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="878,36,912,41,911,46,877,41"/>
+</map>

@@ -1,0 +1,9 @@
+<map id="Ra::Engine::Data::EnvironmentTexture::EnvironmentTexture" name="Ra::Engine::Data::EnvironmentTexture::EnvironmentTexture">
+<area shape="rect" id="Node000001" title="Construct an envmap from a file. Supported image component of the envmap are the following." alt="" coords="5,47,227,87"/>
+<area shape="rect" id="Node000002" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/string/basic_string/find.html#" title=" " alt="" coords="283,5,401,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="208,45,269,31,271,36,209,50"/>
+<area shape="rect" id="Node000003" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/string/basic_string/size.html#" title=" " alt="" coords="281,55,403,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="227,65,267,65,267,70,227,70"/>
+<area shape="rect" id="Node000004" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/string/basic_string/substr.html#" title=" " alt="" coords="275,104,409,129"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="209,85,271,98,269,104,208,90"/>
+</map>

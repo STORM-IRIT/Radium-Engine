@@ -1,0 +1,9 @@
+<map id="Ra::Core::Geometry::TopologicalMesh::toPolyMesh" name="Ra::Core::Geometry::TopologicalMesh::toPolyMesh">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,77,228,117"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#ad0eb9c1c7711f3aa24ad612b339942bc" title="Remove deleted element from the mesh, including wedges." alt="" coords="276,5,475,60"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="198,74,262,58,263,63,199,79"/>
+<area shape="rect" id="Node000003" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/utility/move.html#" title=" " alt="" coords="332,84,419,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="228,94,318,94,318,99,228,99"/>
+<area shape="rect" id="Node000004" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector/push_back.html#" title=" " alt="" coords="291,133,459,159"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="223,114,295,128,294,133,222,119"/>
+</map>

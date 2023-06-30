@@ -1,5 +1,13 @@
 <map id="Ra::Core::Geometry::AttribArrayGeometry::removeAttrib" name="Ra::Core::Geometry::AttribArrayGeometry::removeAttrib">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,172,61"/>
-<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#aeb28dcc5c1980e1fc7da191eb69bcbcb" title=" " alt="" coords="220,13,436,54"/>
-<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Utils_1_1Observable.html#a7e5fe761726d56a51f95192eb6555f8f" title="Notify (i.e. call) each attached observer with argument p." alt="" coords="484,5,681,61"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,65,172,120"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#aeb28dcc5c1980e1fc7da191eb69bcbcb" title=" " alt="" coords="220,73,436,113"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="172,90,206,90,206,95,172,95"/>
+<area shape="rect" id="Node000003" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/map/end.html#" title=" " alt="" coords="527,5,638,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="386,70,483,39,513,31,515,36,485,45,388,75"/>
+<area shape="rect" id="Node000004" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/map/erase.html#" title=" " alt="" coords="521,55,644,80"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="436,79,507,72,508,77,436,85"/>
+<area shape="rect" id="Node000005" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/map/find.html#" title=" " alt="" coords="527,104,638,129"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="436,100,514,108,513,113,436,105"/>
+<area shape="rect" id="Node000006" href="$classRa_1_1Core_1_1Utils_1_1Observable.html#a7e5fe761726d56a51f95192eb6555f8f" title="Notify (i.e. call) each attached observer with argument p." alt="" coords="484,153,681,208"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="388,110,491,146,489,151,386,115"/>
 </map>

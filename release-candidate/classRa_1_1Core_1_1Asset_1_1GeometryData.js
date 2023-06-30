@@ -1,6 +1,5 @@
 var classRa_1_1Core_1_1Asset_1_1GeometryData =
 [
-    [ "ColorArray", "classRa_1_1Core_1_1Asset_1_1GeometryData.html#a4aa5b2242d0f388dac227358fd4c9fe0", null ],
     [ "GeometryType", "classRa_1_1Core_1_1Asset_1_1GeometryData.html#ab19ec3bb4698304d3d83487b125f9e05", [
       [ "UNKNOWN", "classRa_1_1Core_1_1Asset_1_1GeometryData.html#ab19ec3bb4698304d3d83487b125f9e05a8e8ecf873b3b2975fa4a00aaeb924d93", null ],
       [ "POINT_CLOUD", "classRa_1_1Core_1_1Asset_1_1GeometryData.html#ab19ec3bb4698304d3d83487b125f9e05a70c20fd43bb71a0034f5da1aaff3b3d7", null ],
@@ -11,9 +10,6 @@ var classRa_1_1Core_1_1Asset_1_1GeometryData =
       [ "TETRA_MESH", "classRa_1_1Core_1_1Asset_1_1GeometryData.html#ab19ec3bb4698304d3d83487b125f9e05a9d4e27e140431894028e1efba1a1156d", null ],
       [ "HEX_MESH", "classRa_1_1Core_1_1Asset_1_1GeometryData.html#ab19ec3bb4698304d3d83487b125f9e05ae10118df9038bb2204318b8ea402459e", null ]
     ] ],
-    [ "GeometryData", "classRa_1_1Core_1_1Asset_1_1GeometryData.html#ae1b25ab30e733b01341f876105ddadfb", null ],
-    [ "GeometryData", "classRa_1_1Core_1_1Asset_1_1GeometryData.html#a370579fa16e3771d173829b5718e7103", null ],
-    [ "~GeometryData", "classRa_1_1Core_1_1Asset_1_1GeometryData.html#a7dff25c7c6df77a54541b4726916596a", null ],
     [ "displayInfo", "classRa_1_1Core_1_1Asset_1_1GeometryData.html#a7ae5d35a0639bd16020abc828fc29e52", null ],
     [ "getFrame", "classRa_1_1Core_1_1Asset_1_1GeometryData.html#ac5f327cf5c09a41022e76c439f882937", null ],
     [ "getGeometry", "classRa_1_1Core_1_1Asset_1_1GeometryData.html#a8d05725649ec315b28b422fbbc856af4", null ],

@@ -1,6 +1,15 @@
 <map id="Ra::Core::Animation::Skeleton::setPose" name="Ra::Core::Animation::Skeleton::setPose">
-<area shape="rect" id="node1" title=" " alt="" coords="5,64,157,105"/>
-<area shape="rect" id="node2" href="$classRa_1_1Core_1_1AdjacencyList.html#a9bf4ac88fdea50ef9916b641617d4827" title="Return true if a node is a root node." alt="" coords="205,5,380,47"/>
-<area shape="rect" id="node3" href="$classRa_1_1Core_1_1AdjacencyList.html#a48b78362d882a41b32f0df6aa1d42855" title="Return the number of nodes in the graph." alt="" coords="428,35,603,76"/>
-<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Animation_1_1Skeleton.html#a5679e1beb544b515c4539ce48a2f2ba3" title=" " alt="" coords="217,123,369,164"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,113,157,153"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Core_1_1AdjacencyList.html#a9bf4ac88fdea50ef9916b641617d4827" title="Return true if a node is a root node." alt="" coords="205,5,380,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="115,111,204,62,231,49,233,53,207,66,118,115"/>
+<area shape="rect" id="Node000003" href="$classRa_1_1Core_1_1AdjacencyList.html#a48b78362d882a41b32f0df6aa1d42855" title="Return the number of nodes in the graph." alt="" coords="428,56,603,96"/>
+<area shape="poly" id="edge5_Node000001_Node000003" title=" " alt="" coords="157,119,205,112,414,85,414,90,206,117,158,124"/>
+<area shape="rect" id="Node000004" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector/size.html#" title=" " alt="" coords="651,93,776,118"/>
+<area shape="poly" id="edge7_Node000001_Node000004" title=" " alt="" coords="158,127,637,106,637,111,158,133"/>
+<area shape="rect" id="Node000005" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector/resize.html#" title=" " alt="" coords="223,171,362,197"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="158,149,226,165,225,171,157,154"/>
+<area shape="rect" id="Node000006" href="$classRa_1_1Core_1_1Animation_1_1Skeleton.html#a5679e1beb544b515c4539ce48a2f2ba3" title=" " alt="" coords="217,221,369,261"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="113,151,156,179,207,207,221,214,219,218,204,212,154,184,110,156"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="381,43,415,51,414,56,380,48"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="603,86,637,91,637,97,603,92"/>
 </map>

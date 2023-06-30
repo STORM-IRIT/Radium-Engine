@@ -1,4 +1,5 @@
 <map id="Ra::Engine::Data::Material::getPropertyList" name="Ra::Engine::Data::Material::getPropertyList">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,197,47"/>
-<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html#ae73e4271a8d07ae0eab25782831814ee" title="Get the list of properties the provider might use in a shader. Each property will be added to the sha..." alt="" coords="245,5,496,47"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,197,45"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html#ae3cf5544be7650456e51625936311cd5" title="Get the list of properties the provider might use in a shader. Each property will be added to the sha..." alt="" coords="245,5,496,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="197,23,232,23,232,28,197,28"/>
 </map>

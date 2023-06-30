@@ -1,5 +1,7 @@
 <map id="Ra::Core::Utils::BijectiveAssociation&lt; T1, T2 &gt;" name="Ra::Core::Utils::BijectiveAssociation&lt; T1, T2 &gt;">
-<area shape="rect" id="node1" title="Bijective association between two sets {keys} and {values} having the same cardinality...." alt="" coords="133,5,313,347"/>
-<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Utils_1_1BijectiveAssociation.html" title=" " alt="" coords="5,424,220,780"/>
-<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Utils_1_1BijectiveAssociation.html" title=" " alt="" coords="245,424,426,780"/>
+<area shape="rect" id="Node000001" title="Bijective association between two sets {keys} and {values} having the same cardinality...." alt="" coords="113,5,285,425"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Core_1_1Utils_1_1BijectiveAssociation.html" title=" " alt="" coords="5,503,179,937"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="154,439,141,503,135,502,149,438"/>
+<area shape="rect" id="Node000003" href="$classRa_1_1Core_1_1Utils_1_1BijectiveAssociation.html" title=" " alt="" coords="203,503,410,937"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="268,438,271,449,281,502,276,503,265,450,263,439"/>
 </map>

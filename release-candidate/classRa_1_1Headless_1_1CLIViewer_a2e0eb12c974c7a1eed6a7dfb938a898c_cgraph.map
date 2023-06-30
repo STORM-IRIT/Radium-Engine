@@ -1,0 +1,19 @@
+<map id="Ra::Headless::CLIViewer::~CLIViewer" name="Ra::Headless::CLIViewer::~CLIViewer">
+<area shape="rect" id="Node000001" title="Base destructor." alt="" coords="5,149,185,189"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Engine_1_1RadiumEngine.html#a2980ef582a2e985abf53e51d147ac489" title=" " alt="" coords="233,119,427,159"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="185,155,220,150,220,156,186,160"/>
+<area shape="rect" id="Node000009" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/memory/shared_ptr/reset.html#" title=" " alt="" coords="250,184,410,209"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="186,177,237,183,236,188,185,182"/>
+<area shape="rect" id="Node000003" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/memory/unique_ptr/reset.html#" title=" " alt="" coords="507,5,667,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="354,117,407,78,474,41,498,32,500,37,476,46,410,83,357,121"/>
+<area shape="rect" id="Node000004" href="$classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#af10c9fac9f32f1966eb2331e2790a6d1" title=" " alt="" coords="481,55,692,95"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="410,117,492,96,494,101,412,122"/>
+<area shape="rect" id="Node000006" href="$classRa_1_1Engine_1_1Data_1_1LambertianMaterial.html#aaf4d341e54a5c0dfde83e38e5af55a86" title=" " alt="" coords="481,119,693,159"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="427,137,467,137,467,142,427,142"/>
+<area shape="rect" id="Node000007" href="$classRa_1_1Engine_1_1Data_1_1PlainMaterial.html#a69e669c6df549aa0185cb2eaa14f5de9" title=" " alt="" coords="475,183,699,223"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="412,157,494,177,492,183,410,162"/>
+<area shape="rect" id="Node000008" href="$classRa_1_1Engine_1_1Data_1_1VolumetricMaterial.html#a23f911ca6e81eadd78e4c67cad032efb" title=" " alt="" coords="483,247,691,287"/>
+<area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="407,157,428,169,444,186,453,202,461,218,476,233,485,239,482,243,473,237,457,221,448,205,440,189,425,173,405,162"/>
+<area shape="rect" id="Node000005" href="$namespaceRa_1_1Engine_1_1Data_1_1EngineMaterialConverters.html#a07edf6afa24bd87c14434820c6ac9037" title=" " alt="" coords="747,48,1005,103"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="692,73,733,73,733,78,692,78"/>
+</map>

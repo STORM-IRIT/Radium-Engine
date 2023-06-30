@@ -1,5 +1,7 @@
 <map id="Ra::Core::Geometry::GeometryIndexLayerBase" name="Ra::Core::Geometry::GeometryIndexLayerBase">
-<area shape="rect" id="node1" title="Base class for index collections stored in MultiIndexedGeometry." alt="" coords="116,277,343,472"/>
-<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Utils_1_1ObjectWithSemantic.html" title="Object associated with one or multiple semantic names." alt="" coords="5,5,200,229"/>
-<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Utils_1_1ContainerIntrospectionInterface.html" title="This class defines the introspection interface a container need to implement." alt="" coords="224,35,488,200"/>
+<area shape="rect" id="Node000001" title="Base class for index collections stored in MultiIndexedGeometry." alt="" coords="112,313,331,533"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Core_1_1Utils_1_1ObjectWithSemantic.html" title="Object associated with one or multiple semantic names." alt="" coords="5,5,192,265"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="162,277,177,312,172,314,157,279"/>
+<area shape="rect" id="Node000003" href="$classRa_1_1Core_1_1Utils_1_1ContainerIntrospectionInterface.html" title="This class defines the introspection interface a container need to implement." alt="" coords="216,45,472,225"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="303,239,271,314,266,312,298,237"/>
 </map>

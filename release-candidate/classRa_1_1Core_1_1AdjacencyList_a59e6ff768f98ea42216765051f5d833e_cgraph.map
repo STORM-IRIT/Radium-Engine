@@ -1,4 +1,9 @@
 <map id="Ra::Core::AdjacencyList::addRoot" name="Ra::Core::AdjacencyList::addRoot">
-<area shape="rect" id="node1" title="Return the index of the added root." alt="" coords="5,5,180,47"/>
-<area shape="rect" id="node2" href="$classRa_1_1Core_1_1AdjacencyList.html#a48b78362d882a41b32f0df6aa1d42855" title="Return the number of nodes in the graph." alt="" coords="228,5,403,47"/>
+<area shape="rect" id="Node000001" title="Return the index of the added root." alt="" coords="5,27,180,67"/>
+<area shape="rect" id="Node000002" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector/push_back.html#" title=" " alt="" coords="231,5,399,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="180,33,217,28,218,33,181,38"/>
+<area shape="rect" id="Node000003" href="$classRa_1_1Core_1_1AdjacencyList.html#a48b78362d882a41b32f0df6aa1d42855" title="Return the number of nodes in the graph." alt="" coords="228,55,403,95"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="181,56,215,60,214,65,180,61"/>
+<area shape="rect" id="Node000004" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector/size.html#" title=" " alt="" coords="451,63,576,88"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="403,73,437,73,437,78,403,78"/>
 </map>

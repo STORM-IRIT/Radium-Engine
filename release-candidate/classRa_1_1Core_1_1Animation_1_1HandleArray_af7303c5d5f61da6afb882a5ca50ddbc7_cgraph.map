@@ -1,4 +1,5 @@
 <map id="Ra::Core::Animation::HandleArray::setLabel" name="Ra::Core::Animation::HandleArray::setLabel">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,179,47"/>
-<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Animation_1_1HandleArray.html#a9593102d9745c32e1f4e7da738a409e3" title=" " alt="" coords="227,5,379,47"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,179,45"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Core_1_1Animation_1_1HandleArray.html#a9593102d9745c32e1f4e7da738a409e3" title=" " alt="" coords="227,5,379,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="179,23,213,23,213,28,179,28"/>
 </map>

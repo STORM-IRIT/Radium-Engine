@@ -1,4 +1,5 @@
 <map id="Ra::Core::Animation::Skeleton" name="Ra::Core::Animation::Skeleton">
-<area shape="rect" id="node1" title=" " alt="" coords="5,380,177,721"/>
-<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Animation_1_1HandleArray.html" title=" " alt="" coords="15,5,167,332"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,453,169,873"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Core_1_1Animation_1_1HandleArray.html" title=" " alt="" coords="15,5,159,405"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="90,419,90,453,85,453,85,419"/>
 </map>

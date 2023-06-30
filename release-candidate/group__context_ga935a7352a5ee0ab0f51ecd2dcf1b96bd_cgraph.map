@@ -1,0 +1,11 @@
+<map id="Ra::Headless::OpenGLContext::getInfo" name="Ra::Headless::OpenGLContext::getInfo">
+<area shape="rect" id="Node000001" title="Return a string identifying the openGL Context and its supported versions." alt="" coords="5,92,223,132"/>
+<area shape="rect" id="Node000002" href="$group__context.html#ga2efa34f2cdf70041cc594eadcbca55c9" title="make the context inactive" alt="" coords="271,5,488,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="169,89,270,55,295,47,296,52,272,60,171,95"/>
+<area shape="rect" id="Node000003" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/io/manip/endl.html#" title=" " alt="" coords="340,70,419,95"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="223,97,326,86,327,91,223,103"/>
+<area shape="rect" id="Node000004" href="$group__context.html#ga6b659ca2f27ffe695eea27f1e8d624a7" title="make the context active" alt="" coords="271,120,488,160"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="223,121,257,124,257,130,223,126"/>
+<area shape="rect" id="Node000005" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/io/basic_stringstream/str.html#" title=" " alt="" coords="300,185,459,210"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="163,130,271,169,305,179,304,184,270,175,161,135"/>
+</map>

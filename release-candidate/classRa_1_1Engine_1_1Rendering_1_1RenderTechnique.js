@@ -1,8 +1,6 @@
 var classRa_1_1Engine_1_1Rendering_1_1RenderTechnique =
 [
-    [ "RenderTechnique", "classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a72aec5fb40b50e7aca58a0e47736ea14", null ],
     [ "RenderTechnique", "classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a75c11aa6619ad2731a3e9ea8dad175ad", null ],
-    [ "~RenderTechnique", "classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a26f4c84d2add3713cb061d456c6a04dc", null ],
     [ "addPassProperties", "classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a57252b7d28229ba476980f30cbac19e4", null ],
     [ "clearConfiguration", "classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a1f9c2228b3ae2c25fc6f0e359b46246c", null ],
     [ "clearDirty", "classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a1664629a08900982a327d85fe97ce579", null ],

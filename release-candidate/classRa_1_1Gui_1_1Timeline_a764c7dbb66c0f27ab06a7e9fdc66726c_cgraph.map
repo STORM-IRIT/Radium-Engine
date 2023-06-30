@@ -1,5 +1,11 @@
 <map id="Ra::Gui::Timeline::registerKeyFramedValue" name="Ra::Gui::Timeline::registerKeyFramedValue">
-<area shape="rect" id="node1" title=" " alt="" coords="5,39,187,80"/>
-<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Scene_1_1Component.html#ae2365d903a35539fa7bf061aa749a84f" title="Return the entity the component belongs to." alt="" coords="235,5,399,47"/>
-<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Scene_1_1Component.html#aa30f6f7a3f3414c4e9c80ca89627f4b9" title="Return the component&#39;s name." alt="" coords="235,71,400,112"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,77,187,117"/>
+<area shape="rect" id="Node000002" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/io/manip/endl.html#" title=" " alt="" coords="278,5,357,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="144,74,234,39,264,30,266,35,236,45,146,79"/>
+<area shape="rect" id="Node000003" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/algorithm/find.html#" title=" " alt="" coords="272,55,363,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="187,82,258,72,258,78,187,87"/>
+<area shape="rect" id="Node000004" href="$classRa_1_1Engine_1_1Scene_1_1Component.html#a28dba9115491fdfd4803f7f32ee53af3" title="Return the entity the component belongs to." alt="" coords="235,105,399,145"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="187,105,222,110,221,115,187,111"/>
+<area shape="rect" id="Node000005" href="$classRa_1_1Engine_1_1Scene_1_1Component.html#a1d4c8227d4c1c7dacb860e6b44f1f698" title="Return the component&#39;s name." alt="" coords="235,169,400,209"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="143,114,236,154,253,161,251,166,234,159,141,119"/>
 </map>

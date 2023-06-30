@@ -1,0 +1,6 @@
+<map id="Ra::Engine::Data::DrawPrimitives::Line" name="Ra::Engine::Data::DrawPrimitives::Line">
+<area shape="rect" id="Node000001" title="Displays given line." alt="" coords="5,29,244,69"/>
+<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="85,30,83,20,89,10,103,5,125,3,149,6,163,13,160,18,148,11,125,8,104,10,92,15,88,21,90,28"/>
+<area shape="rect" id="Node000002" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/utility/move.html#" title=" " alt="" coords="292,37,379,62"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="245,47,278,47,278,52,245,52"/>
+</map>

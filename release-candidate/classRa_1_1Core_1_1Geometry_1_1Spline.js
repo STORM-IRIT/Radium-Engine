@@ -1,6 +1,5 @@
 var classRa_1_1Core_1_1Geometry_1_1Spline =
 [
-    [ "Vector", "classRa_1_1Core_1_1Geometry_1_1Spline.html#a965db2c67b6e77a8777975df596d5084", null ],
     [ "Type", "classRa_1_1Core_1_1Geometry_1_1Spline.html#a164e49e88843cb33e6ba4f9e2918a9fb", [
       [ "UNIFORM", "classRa_1_1Core_1_1Geometry_1_1Spline.html#a164e49e88843cb33e6ba4f9e2918a9fbaf21efa3e3073d7f9ad5f9d0b7afc28b5", null ],
       [ "OPEN_UNIFORM", "classRa_1_1Core_1_1Geometry_1_1Spline.html#a164e49e88843cb33e6ba4f9e2918a9fbac53a78216cb37d6e25dead35f63b1596", null ]

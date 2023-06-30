@@ -1,0 +1,13 @@
+<map id="Ra::Engine::Scene::SkinningComponent::skin" name="Ra::Engine::Scene::SkinningComponent::skin">
+<area shape="rect" id="Node000001" title="Apply the Skinning Method and update the SkinningFrameData." alt="" coords="5,69,193,109"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Engine_1_1Scene_1_1Component.html#a28dba9115491fdfd4803f7f32ee53af3" title="Return the entity the component belongs to." alt="" coords="269,5,433,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="178,67,258,46,259,51,179,72"/>
+<area shape="rect" id="Node000003" href="$namespaceRa_1_1Core_1_1Math.html#a5f25a31a29b0688e349dc35a353b9766" title=" " alt="" coords="241,69,460,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="194,87,228,87,228,92,194,92"/>
+<area shape="rect" id="Node000006" href="$classRa_1_1Core_1_1Animation_1_1Skeleton.html#acb6381c3f288f580800589eb718c1759" title=" " alt="" coords="275,133,427,173"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="179,107,262,128,261,133,178,112"/>
+<area shape="rect" id="Node000004" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/numeric/math/copysign.html#" title=" " alt="" coords="531,53,639,78"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="460,75,517,70,517,75,460,81"/>
+<area shape="rect" id="Node000005" href="$namespaceRa_1_1Core_1_1Math.html#a90f0fe9079f5bb86c721ea4b61738470" title="Returns the sign of any numeric type as { &#45;1, 0, 1}." alt="" coords="508,102,661,127"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="461,99,494,102,494,108,460,104"/>
+</map>

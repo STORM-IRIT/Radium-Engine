@@ -1,8 +1,13 @@
 <map id="Ra::Engine::Data::ParameterSetEditingInterface" name="Ra::Engine::Data::ParameterSetEditingInterface">
-<area shape="rect" id="node1" title=" " alt="" coords="223,5,472,127"/>
-<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html" title=" " alt="" coords="5,175,217,516"/>
-<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Data_1_1SimpleMaterial.html" title=" " alt="" coords="241,233,453,457"/>
-<area shape="rect" id="node6" href="$classRa_1_1Engine_1_1Data_1_1VolumetricMaterial.html" title=" " alt="" coords="478,197,686,494"/>
-<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Data_1_1LambertianMaterial.html" title=" " alt="" coords="120,564,332,729"/>
-<area shape="rect" id="node5" href="$classRa_1_1Engine_1_1Data_1_1PlainMaterial.html" title=" " alt="" coords="355,571,579,722"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="215,5,456,125"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html" title=" " alt="" coords="5,173,209,593"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="258,137,224,175,212,192,208,188,220,172,254,133"/>
+<area shape="rect" id="Node000003" href="$classRa_1_1Engine_1_1Data_1_1SimpleMaterial.html" title=" " alt="" coords="233,253,437,513"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="338,139,338,253,333,253,333,139"/>
+<area shape="rect" id="Node000006" href="$classRa_1_1Engine_1_1Data_1_1VolumetricMaterial.html" title=" " alt="" coords="462,203,662,563"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="418,134,452,172,473,201,469,205,448,175,414,137"/>
+<area shape="rect" id="Node000004" href="$classRa_1_1Engine_1_1Data_1_1LambertianMaterial.html" title=" " alt="" coords="116,641,320,821"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="290,528,251,642,246,640,285,526"/>
+<area shape="rect" id="Node000005" href="$classRa_1_1Engine_1_1Data_1_1PlainMaterial.html" title=" " alt="" coords="345,649,561,814"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="386,526,428,648,422,650,381,527"/>
 </map>

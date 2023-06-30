@@ -1,7 +1,11 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classRa_1_1Gui_1_1CameraManipulator.html" title="The CameraManipulator class is the generic class for camera manipulators." alt="" coords="21,71,228,98"/>
-<area shape="rect" id="node2" href="$classRa_1_1Gui_1_1FlightCameraManipulator.html" title=" " alt="" coords="292,27,535,54"/>
-<area shape="rect" id="node3" href="$classRa_1_1Gui_1_1TrackballCameraManipulator.html" title="A Trackball manipulator for Cameras." alt="" coords="320,93,507,135"/>
-<area shape="rect" id="node4" href="$classRa_1_1Gui_1_1KeyMappingManageable.html" title=" " alt="" coords="6,5,243,47"/>
-<area shape="rect" id="node5" href="$classRa_1_1Gui_1_1KeyMappingManageable.html" title=" " alt="" coords="5,123,244,164"/>
+<area shape="rect" id="Node000000" href="$classRa_1_1Gui_1_1CameraManipulator.html" title="The CameraManipulator class is the generic class for camera manipulators." alt="" coords="21,70,228,95"/>
+<area shape="rect" id="Node000001" href="$classRa_1_1Gui_1_1FlightCameraManipulator.html" title=" " alt="" coords="292,27,535,53"/>
+<area shape="poly" id="edge116_Node000000_Node000001" title=" " alt="" coords="224,65,326,50,327,55,225,71"/>
+<area shape="rect" id="Node000003" href="$classRa_1_1Gui_1_1TrackballCameraManipulator.html" title="A Trackball manipulator for Cameras." alt="" coords="320,92,507,132"/>
+<area shape="poly" id="edge117_Node000000_Node000003" title=" " alt="" coords="242,92,320,100,320,105,241,97"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Gui_1_1KeyMappingManageable.html" title=" " alt="" coords="6,5,243,45"/>
+<area shape="poly" id="edge118_Node000002_Node000001" title=" " alt="" coords="257,29,292,31,292,36,257,35"/>
+<area shape="rect" id="Node000004" href="$classRa_1_1Gui_1_1KeyMappingManageable.html" title=" " alt="" coords="5,120,244,160"/>
+<area shape="poly" id="edge119_Node000004_Node000003" title=" " alt="" coords="258,124,320,118,320,124,258,130"/>
 </map>

@@ -1,5 +1,7 @@
 <map id="Ra::Core::Asset::AnimationData::displayInfo" name="Ra::Core::Asset::AnimationData::displayInfo">
-<area shape="rect" id="node1" title=" " alt="" coords="5,39,201,80"/>
-<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Asset_1_1AnimationTime.html#a898a89c655528ebc3892a4739d3a3689" title=" " alt="" coords="249,5,445,47"/>
-<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Asset_1_1AnimationTime.html#a05706a4836ec061b36cb49d7ab04f9cc" title=" " alt="" coords="249,71,445,112"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,37,201,77"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Core_1_1Asset_1_1AnimationTime.html#a898a89c655528ebc3892a4739d3a3689" title=" " alt="" coords="249,5,445,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="201,42,235,37,236,43,202,47"/>
+<area shape="rect" id="Node000003" href="$classRa_1_1Core_1_1Asset_1_1AnimationTime.html#a05706a4836ec061b36cb49d7ab04f9cc" title=" " alt="" coords="249,69,445,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="202,68,236,72,235,77,201,73"/>
 </map>

@@ -1,5 +1,7 @@
 <map id="Ra::Core::Grid&lt; T, D &gt;" name="Ra::Core::Grid&lt; T, D &gt;">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,173,391"/>
-<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Grid.html" title=" " alt="" coords="5,453,173,839"/>
-<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Tex.html" title=" " alt="" coords="8,888,171,1039"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,165,491"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Core_1_1Grid.html" title=" " alt="" coords="5,553,165,1039"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="88,504,88,553,83,553,83,504"/>
+<area shape="rect" id="Node000003" href="$classRa_1_1Core_1_1Tex.html" title=" " alt="" coords="8,1088,163,1253"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="88,1052,88,1088,83,1088,83,1052"/>
 </map>

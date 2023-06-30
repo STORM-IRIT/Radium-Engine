@@ -1,8 +1,13 @@
 <map id="Ra::IO::AssimpAnimationDataLoader::fetchTime" name="Ra::IO::AssimpAnimationDataLoader::fetchTime">
-<area shape="rect" id="node1" title="TIME." alt="" coords="5,136,220,177"/>
-<area shape="rect" id="node2" href="$namespaceRa_1_1Core_1_1Math.html#a5d4492c5ddee7e4fa37dfdad0c4f8ba1" title="Compare two numbers such that |x&#45;y| &lt; espilon*epsilonBoostFactor." alt="" coords="269,5,463,47"/>
-<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Asset_1_1AnimationTime.html#a885a9b6ea9485d5fcbf9c47009bf8d79" title=" " alt="" coords="268,71,464,112"/>
-<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Asset_1_1AnimationTime.html#a14af25876f8e122d4d1c8eb8dccd636a" title=" " alt="" coords="268,136,464,177"/>
-<area shape="rect" id="node5" href="$classRa_1_1Core_1_1Asset_1_1AnimationData.html#af71f668049bf4cdd1d54d8a496f931f8" title=" " alt="" coords="268,201,464,243"/>
-<area shape="rect" id="node6" href="$classRa_1_1Core_1_1Asset_1_1AnimationData.html#ae3b9cee02a035e89ce06f938e9f756d9" title=" " alt="" coords="268,267,464,308"/>
+<area shape="rect" id="Node000001" title="TIME." alt="" coords="5,97,220,137"/>
+<area shape="rect" id="Node000002" href="$namespaceRa_1_1Core_1_1Math.html#a46540d56930b4c1ff3b115872cde4893" title="Compare two numbers such that |x&#45;y| &lt; espilon*epsilonBoostFactor." alt="" coords="269,33,463,73"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="192,95,272,74,274,79,193,100"/>
+<area shape="rect" id="Node000005" href="$classRa_1_1Core_1_1Asset_1_1AnimationData.html#af71f668049bf4cdd1d54d8a496f931f8" title=" " alt="" coords="268,97,464,137"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="220,115,254,115,254,120,220,120"/>
+<area shape="rect" id="Node000006" href="$classRa_1_1Core_1_1Asset_1_1AnimationData.html#ae3b9cee02a035e89ce06f938e9f756d9" title=" " alt="" coords="268,161,464,201"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="193,135,274,155,272,161,192,140"/>
+<area shape="rect" id="Node000003" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/types/numeric_limits/epsilon.html#" title=" " alt="" coords="529,5,675,45"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="463,39,515,33,515,38,463,45"/>
+<area shape="rect" id="Node000004" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/types/numeric_limits/min.html#" title=" " alt="" coords="512,70,692,95"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="463,63,499,67,498,72,463,68"/>
 </map>

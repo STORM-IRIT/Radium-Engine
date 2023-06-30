@@ -1,8 +1,27 @@
 <map id="Ra::Engine::Scene::DefaultCameraManager" name="Ra::Engine::Scene::DefaultCameraManager">
-<area shape="rect" id="node1" title="DefaultCameraManager. A simple Camera Manager with a list of Cameras." alt="" coords="235,1585,438,1707"/>
-<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Scene_1_1CameraManager.html" title=" " alt="" coords="229,1151,444,1536"/>
-<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Scene_1_1System.html" title=" " alt="" coords="5,578,217,787"/>
-<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Utils_1_1Observable.html" title=" " alt="" coords="242,571,439,795"/>
-<area shape="rect" id="node5" href="$classRa_1_1Core_1_1Utils_1_1Observable.html" title=" " alt="" coords="242,5,439,229"/>
-<area shape="rect" id="node6" href="$classRa_1_1Core_1_1Asset_1_1Camera.html" title="Camera class storing the Camera frame and the projection properties The view direction is &#45;z in camer..." alt="" coords="468,292,653,1073"/>
+<area shape="rect" id="Node000001" title="DefaultCameraManager. A simple Camera Manager with a list of Cameras." alt="" coords="385,3453,579,3573"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Engine_1_1Scene_1_1CameraManager.html" title=" " alt="" coords="379,2944,585,3404"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="485,3418,485,3453,479,3453,479,3418"/>
+<area shape="rect" id="Node000003" href="$classRa_1_1Engine_1_1Scene_1_1System.html" title=" " alt="" coords="68,2234,272,2474"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="189,2487,203,2574,224,2670,251,2769,286,2866,330,2953,381,3035,376,3038,325,2956,281,2868,246,2771,219,2671,198,2575,183,2488"/>
+<area shape="rect" id="Node000004" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector.html" title=" " alt="" coords="73,1015,267,1764"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="173,1764,173,2218,167,2218,167,1764"/>
+<area shape="rect" id="Node000005" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/utility/pair.html" title=" " alt="" coords="5,481,164,630"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="95,630,133,998,127,998,90,630"/>
+<area shape="rect" id="Node000006" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/utility/pair.html" title=" " alt="" coords="32,5,137,111"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="87,124,87,481,82,481,82,124"/>
+<area shape="rect" id="Node000007" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector.html" title=" " alt="" coords="189,203,322,908"/>
+<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="221,922,211,1015,206,1014,215,921"/>
+<area shape="rect" id="Node000008" href="$classRa_1_1Core_1_1Asset_1_1Camera.html" title="Camera class storing the Camera frame and the projection properties The view direction is &#45;z in camer..." alt="" coords="296,1841,473,2867"/>
+<area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="419,2867,426,2920,427,2927,422,2928,421,2920,413,2867"/>
+<area shape="rect" id="Node000009" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/memory/unique_ptr.html" title=" " alt="" coords="498,2204,735,2504"/>
+<area shape="poly" id="edge8_Node000002_Node000009" title=" " alt="" coords="608,2505,586,2703,553,2920,551,2928,546,2927,547,2920,581,2702,602,2504"/>
+<area shape="rect" id="Node000010" href="$classRa_1_1Engine_1_1Scene_1_1CameraStorage.html" title=" " alt="" coords="388,1289,539,1489"/>
+<area shape="poly" id="edge9_Node000009_Node000010" title=" " alt="" coords="482,1489,593,2187,588,2188,476,1490"/>
+<area shape="rect" id="Node000011" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/memory/unique_ptr.html" title=" " alt="" coords="563,1247,713,1532"/>
+<area shape="poly" id="edge10_Node000009_Node000011" title=" " alt="" coords="637,1546,623,2204,617,2204,632,1545"/>
+<area shape="rect" id="Node000012" href="$classRa_1_1Core_1_1Utils_1_1Observable.html" title=" " alt="" coords="759,2224,949,2484"/>
+<area shape="poly" id="edge11_Node000002_Node000012" title=" " alt="" coords="848,2484,836,2572,817,2671,789,2772,750,2868,718,2923,680,2977,599,3070,595,3066,676,2973,713,2921,745,2865,784,2770,812,2669,831,2572,843,2484"/>
+<area shape="rect" id="Node000013" href="$classRa_1_1Core_1_1Utils_1_1Observable.html" title=" " alt="" coords="759,1259,949,1519"/>
+<area shape="poly" id="edge12_Node000012_Node000013" title=" " alt="" coords="857,1533,857,2224,851,2224,851,1533"/>
 </map>

@@ -1,8 +1,17 @@
 <map id="Ra::Gui::MaterialParameterEditor::setupFromMaterial" name="Ra::Gui::MaterialParameterEditor::setupFromMaterial">
-<area shape="rect" id="node1" title=" " alt="" coords="5,71,204,112"/>
-<area shape="rect" id="node2" href="$classRa_1_1Gui_1_1ParameterSetEditor.html#ab9d18d7b290d3ada273516c162280451" title="Update the different UI element with the given renderParameter, using the given constraints." alt="" coords="252,37,455,79"/>
-<area shape="rect" id="node6" href="$classRa_1_1Gui_1_1ParameterSetEditor.html#ab2c692612c3266567c0d796ad7139f5b" title=" " alt="" coords="252,103,455,144"/>
-<area shape="rect" id="node3" href="$classRa_1_1Gui_1_1Widgets_1_1ControlPanel.html#ac0b05ce960061203216eb79d7f79d14d" title=" " alt="" coords="503,5,688,47"/>
-<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Data_1_1RenderParameters.html#af7a7544b9c818cd5d4e940fb68d9a08e" title=" " alt="" coords="503,71,687,112"/>
-<area shape="rect" id="node5" href="$classRa_1_1Core_1_1VariableSet.html#abff01d871519d7cd33380f6f8bf1899d" title="Visit the container using a user defined visitor." alt="" coords="736,71,895,112"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,101,204,141"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Gui_1_1MaterialParameterEditor.html#a63c5ac4568362b783de3ce9d522344cd" title=" " alt="" coords="252,5,505,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="146,99,251,55,277,47,279,52,253,60,148,104"/>
+<area shape="rect" id="Node000003" href="$classRa_1_1Gui_1_1ParameterSetEditor.html#a3c4b1a96671fb3d0dfa6eb3541792dcf" title=" " alt="" coords="277,69,480,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="204,107,263,100,264,105,205,112"/>
+<area shape="rect" id="Node000004" href="$classRa_1_1Gui_1_1ParameterSetEditor.html#ab9d18d7b290d3ada273516c162280451" title="Update the different UI element with the given renderParameter, using the given constraints." alt="" coords="277,133,480,173"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="205,130,264,137,263,143,204,136"/>
+<area shape="rect" id="Node000008" href="$classRa_1_1Gui_1_1ParameterSetEditor.html#ab2c692612c3266567c0d796ad7139f5b" title=" " alt="" coords="277,197,480,237"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="148,139,253,183,279,191,277,196,251,188,146,144"/>
+<area shape="rect" id="Node000005" href="$classRa_1_1Gui_1_1Widgets_1_1ControlPanel.html#ac0b05ce960061203216eb79d7f79d14d" title=" " alt="" coords="553,101,739,141"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="480,139,539,131,540,137,480,144"/>
+<area shape="rect" id="Node000006" href="$classRa_1_1Engine_1_1Data_1_1RenderParameters.html#af7a7544b9c818cd5d4e940fb68d9a08e" title=" " alt="" coords="554,165,738,205"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="480,163,540,170,540,175,480,168"/>
+<area shape="rect" id="Node000007" href="$classRa_1_1Core_1_1VariableSet.html#abff01d871519d7cd33380f6f8bf1899d" title="Visit the container using a user defined visitor." alt="" coords="787,165,945,205"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="738,183,773,183,773,188,738,188"/>
 </map>

@@ -1,0 +1,5 @@
+<map id="Ra::Engine::Scene::CameraComponent::initialize" name="Ra::Engine::Scene::CameraComponent::initialize">
+<area shape="rect" id="Node000001" title="Pure virtual method to be overridden by any component. When this method is called you are guaranteed ..." alt="" coords="5,5,217,45"/>
+<area shape="rect" id="Node000002" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/utility/move.html#" title=" " alt="" coords="265,13,352,38"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="217,23,252,23,252,28,217,28"/>
+</map>

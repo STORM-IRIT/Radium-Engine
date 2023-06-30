@@ -1,5 +1,17 @@
 <map id="Ra::Engine::Data::DrawPrimitives::CircleArc" name="Ra::Engine::Data::DrawPrimitives::CircleArc">
-<area shape="rect" id="node1" title=" " alt="" coords="5,29,244,71"/>
-<area shape="rect" id="node2" href="$namespaceRa_1_1Core_1_1Math.html#a5f25a31a29b0688e349dc35a353b9766" title=" " alt="" coords="292,29,511,71"/>
-<area shape="rect" id="node3" href="$namespaceRa_1_1Core_1_1Math.html#a90f0fe9079f5bb86c721ea4b61738470" title="Returns the sign of any numeric type as { &#45;1, 0, 1}." alt="" coords="559,37,712,63"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,113,244,153"/>
+<area shape="rect" id="Node000002" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/numeric/math/cos.html#" title=" " alt="" coords="365,5,437,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="156,110,217,75,291,41,351,24,353,29,293,46,220,80,159,115"/>
+<area shape="rect" id="Node000003" href="$namespaceRa_1_1Core_1_1Math.html#a5f25a31a29b0688e349dc35a353b9766" title=" " alt="" coords="292,55,511,95"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="221,110,290,96,291,101,222,115"/>
+<area shape="rect" id="Node000006" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/utility/move.html#" title=" " alt="" coords="358,120,445,145"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="244,130,344,130,344,135,244,135"/>
+<area shape="rect" id="Node000007" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/numeric/math/sin.html#" title=" " alt="" coords="367,169,436,195"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="238,150,353,171,352,176,237,155"/>
+<area shape="rect" id="Node000008" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/string/basic_string/size.html#" title=" " alt="" coords="341,219,462,244"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="166,150,225,178,293,205,328,215,327,220,291,210,223,183,164,155"/>
+<area shape="rect" id="Node000004" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/numeric/math/copysign.html#" title=" " alt="" coords="581,39,689,64"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="511,61,567,56,568,61,511,67"/>
+<area shape="rect" id="Node000005" href="$namespaceRa_1_1Core_1_1Math.html#a90f0fe9079f5bb86c721ea4b61738470" title="Returns the sign of any numeric type as { &#45;1, 0, 1}." alt="" coords="559,88,712,113"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="511,85,545,88,545,94,511,90"/>
 </map>

@@ -1,0 +1,17 @@
+<map id="Ra::Core::Geometry::AttribArrayGeometry::setVertices" name="Ra::Core::Geometry::AttribArrayGeometry::setVertices">
+<area shape="rect" id="Node000001" title="Set vertices." alt="" coords="5,41,172,96"/>
+<area shape="rect" id="Node000002" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/utility/move.html#" title=" " alt="" coords="260,5,347,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="172,46,246,29,247,34,173,52"/>
+<area shape="rect" id="Node000003" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#a056b7697cfbedd6b20dde6ce7955094e" title=" " alt="" coords="435,50,651,90"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="172,66,421,67,421,72,172,72"/>
+<area shape="rect" id="Node000006" href="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#acabe05880d71a8dc4406964c258fff5a" title="Access the vertices positions." alt="" coords="220,107,387,161"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="173,92,208,102,206,107,172,97"/>
+<area shape="rect" id="Node000004" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector/at.html#" title=" " alt="" coords="717,61,829,87"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="651,69,703,70,703,75,651,75"/>
+<area shape="rect" id="Node000005" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/memory/unique_ptr/get.html#" title=" " alt="" coords="699,115,847,140"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="624,87,708,109,707,114,623,93"/>
+<area shape="rect" id="Node000007" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#ae0cb7281ec72606a5392602b4ea50d2c" title=" " alt="" coords="435,114,651,154"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="387,131,421,131,421,137,387,137"/>
+<area shape="poly" id="edge7_Node000007_Node000004" title=" " alt="" coords="620,111,710,88,711,93,621,116"/>
+<area shape="poly" id="edge8_Node000007_Node000005" title=" " alt="" coords="651,128,685,127,685,133,651,134"/>
+</map>

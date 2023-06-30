@@ -1,0 +1,11 @@
+<map id="Ra::Core::Geometry::PolyLine::distance" name="Ra::Core::Geometry::PolyLine::distance">
+<area shape="rect" id="Node000001" title="Return the distance between the line and a given point p." alt="" coords="5,27,156,67"/>
+<area shape="rect" id="Node000002" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/numeric/math/sqrt.html#" title=" " alt="" coords="268,5,343,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="156,35,254,22,255,27,157,40"/>
+<area shape="rect" id="Node000003" href="$classRa_1_1Core_1_1Geometry_1_1PolyLine.html#abb3f6a5edf3ad6bb720878fb12a7dece" title="Return the squared distance between the line and a given point p." alt="" coords="204,55,407,95"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="157,54,191,58,190,64,156,59"/>
+<area shape="rect" id="Node000004" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/types/numeric_limits/max.html#" title=" " alt="" coords="455,37,639,63"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="407,62,441,58,442,64,407,67"/>
+<area shape="rect" id="Node000005" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/algorithm/min.html#" title=" " alt="" coords="509,87,584,112"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="407,83,496,92,495,97,407,88"/>
+</map>

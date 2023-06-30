@@ -1,4 +1,8 @@
 <map id="Ra::Engine::Rendering::RenderTechnique::setConfiguration" name="Ra::Engine::Rendering::RenderTechnique::setConfiguration">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,261,47"/>
-<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#af3b58075507144820fe06f6a129b0107" title=" " alt="" coords="309,5,511,47"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,29,261,69"/>
+<area shape="poly" id="edge2_Node000001_Node000001" title=" " alt="" coords="83,30,79,20,88,10,106,5,133,3,165,5,182,13,180,18,164,11,133,8,107,10,90,15,85,21,88,28"/>
+<area shape="rect" id="Node000002" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/algorithm/max.html#" title=" " alt="" coords="371,7,449,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="261,33,356,23,357,28,262,38"/>
+<area shape="rect" id="Node000003" href="$classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#af3b58075507144820fe06f6a129b0107" title=" " alt="" coords="309,57,511,97"/>
+<area shape="poly" id="edge3_Node000001_Node000003" title=" " alt="" coords="262,60,296,63,295,68,261,65"/>
 </map>

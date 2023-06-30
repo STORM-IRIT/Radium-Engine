@@ -1,6 +1,5 @@
 var structRa_1_1Core_1_1Asset_1_1VolumeData =
 [
-    [ "VolumeData", "structRa_1_1Core_1_1Asset_1_1VolumeData.html#a7cf99d57068c90b2919ff6716ca3ab34", null ],
     [ "boundingBox", "structRa_1_1Core_1_1Asset_1_1VolumeData.html#a82c474c8d14fb0c2db52b87c57387c1e", null ],
     [ "densityToModel", "structRa_1_1Core_1_1Asset_1_1VolumeData.html#a31b347cea03e5421175e19f4f410db83", null ],
     [ "modelToWorld", "structRa_1_1Core_1_1Asset_1_1VolumeData.html#a9c9d949f6ae5953a09414a61c8c859df", null ],

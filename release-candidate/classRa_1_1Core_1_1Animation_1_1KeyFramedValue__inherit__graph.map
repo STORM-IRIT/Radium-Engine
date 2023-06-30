@@ -1,5 +1,7 @@
 <map id="Ra::Core::Animation::KeyFramedValue&lt; VALUE_TYPE &gt;" name="Ra::Core::Animation::KeyFramedValue&lt; VALUE_TYPE &gt;">
-<area shape="rect" id="node1" title=" " alt="" coords="9,220,237,693"/>
-<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Animation_1_1KeyFramedValue.html" title=" " alt="" coords="5,756,240,1215"/>
-<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Animation_1_1KeyFramedValueBase.html" title=" " alt="" coords="23,5,222,171"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="9,235,229,829"/>
+<area shape="rect" id="Node000003" href="$classRa_1_1Core_1_1Animation_1_1KeyFramedValue.html" title=" " alt="" coords="5,892,232,1472"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="121,843,121,892,116,892,116,843"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Core_1_1Animation_1_1KeyFramedValueBase.html" title=" " alt="" coords="23,5,214,185"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="121,199,121,234,116,234,116,199"/>
 </map>

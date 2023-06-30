@@ -1,5 +1,7 @@
 <map id="Ra::Core::Utils::AttribManager" name="Ra::Core::Utils::AttribManager">
-<area shape="rect" id="node1" title="The AttribManager provides attributes management by handles." alt="" coords="5,565,221,1347"/>
-<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Utils_1_1Observable.html" title=" " alt="" coords="15,292,212,516"/>
-<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Utils_1_1Observable.html" title=" " alt="" coords="15,5,212,229"/>
+<area shape="rect" id="Node000001" title="The AttribManager provides attributes management by handles." alt="" coords="5,637,213,1663"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Core_1_1Utils_1_1Observable.html" title=" " alt="" coords="15,328,204,588"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="112,602,112,637,107,637,107,602"/>
+<area shape="rect" id="Node000003" href="$classRa_1_1Core_1_1Utils_1_1Observable.html" title=" " alt="" coords="15,5,204,265"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="112,279,112,328,107,328,107,279"/>
 </map>

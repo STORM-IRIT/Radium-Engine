@@ -1,4 +1,5 @@
 <map id="Ra::Engine::Scene::CameraStorage" name="Ra::Engine::Scene::CameraStorage">
-<area shape="rect" id="node1" title=" " alt="" coords="24,5,183,185"/>
-<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Scene_1_1DefaultCameraStorage.html" title=" " alt="" coords="5,233,201,399"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="24,5,175,205"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Engine_1_1Scene_1_1DefaultCameraStorage.html" title=" " alt="" coords="5,253,193,433"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="102,219,102,253,97,253,97,219"/>
 </map>

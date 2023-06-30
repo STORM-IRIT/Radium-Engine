@@ -1,4 +1,6 @@
 <map id="Ra::Gui::FlightCameraManipulator::handleKeyPressEvent" name="Ra::Gui::FlightCameraManipulator::handleKeyPressEvent">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,248,47"/>
-<area shape="rect" id="node2" href="$classRa_1_1Gui_1_1KeyMappingCallbackManager.html#a80b3750145c2d398caf7d5dc8f402243" title=" " alt="" coords="296,5,519,47"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,29,248,69"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Gui_1_1KeyMappingCallbackManager.html#a80b3750145c2d398caf7d5dc8f402243" title=" " alt="" coords="296,29,519,69"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="248,47,282,47,282,52,248,52"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="356,30,352,20,361,10,379,5,407,3,440,5,457,13,455,18,438,11,407,8,380,10,364,15,358,21,361,28"/>
 </map>

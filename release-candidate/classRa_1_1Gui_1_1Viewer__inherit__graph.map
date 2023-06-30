@@ -1,6 +1,9 @@
 <map id="Ra::Gui::Viewer" name="Ra::Gui::Viewer">
-<area shape="rect" id="node1" title=" " alt="" coords="48,624,297,1904"/>
-<area shape="rect" id="node2" href="$classRa_1_1Gui_1_1WindowQt.html" title="Base class for OpenGL widgets, compatble with Qt and globjects/glbindings." alt="" coords="5,189,204,575"/>
-<area shape="rect" id="node3" href="$classRa_1_1Gui_1_1KeyMappingManageable.html" title=" " alt="" coords="227,314,465,450"/>
-<area shape="rect" id="node4" href="$classRa_1_1Gui_1_1KeyMappingManageable.html" title="KeyMappingManageable decorator to use as CRTP." alt="" coords="209,5,483,127"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="46,728,287,2433"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Gui_1_1WindowQt.html" title="Base class for OpenGL widgets, compatble with Qt and globjects/glbindings." alt="" coords="5,193,195,679"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="118,692,120,728,114,728,112,692"/>
+<area shape="rect" id="Node000003" href="$classRa_1_1Gui_1_1KeyMappingManageable.html" title=" " alt="" coords="219,366,448,506"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="324,520,290,752,285,752,319,519"/>
+<area shape="rect" id="Node000004" href="$classRa_1_1Gui_1_1KeyMappingManageable.html" title="KeyMappingManageable decorator to use as CRTP." alt="" coords="200,5,467,131"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="336,144,336,365,331,365,331,144"/>
 </map>

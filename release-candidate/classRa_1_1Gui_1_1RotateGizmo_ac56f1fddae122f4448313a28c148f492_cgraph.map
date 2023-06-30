@@ -1,4 +1,15 @@
 <map id="Ra::Gui::RotateGizmo::mouseMove" name="Ra::Gui::RotateGizmo::mouseMove">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,168,47"/>
-<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#ac1ab9a2afcc61f7505f185e895bf6b1d" title="Return the screen coordinates + depth of the given point p (in world coordinates)." alt="" coords="216,5,396,47"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,149,168,189"/>
+<area shape="rect" id="Node000002" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/numeric/math/atan2.html#" title=" " alt="" coords="263,5,349,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="101,147,148,94,180,66,215,41,248,27,250,32,217,46,183,70,152,98,105,150"/>
+<area shape="rect" id="Node000003" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a627f8c3e741a1d0f305886f1d8375de3" title="Return the height of the viewport." alt="" coords="216,55,396,95"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="126,146,215,105,232,98,234,103,217,110,128,151"/>
+<area shape="rect" id="Node000004" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a2b2f8b09a65409166a96b9bb30e3ee20" title="Return the width of the viewport." alt="" coords="216,119,396,159"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="168,155,202,151,203,156,168,160"/>
+<area shape="rect" id="Node000005" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/numeric/math/isnan.html#" title=" " alt="" coords="263,184,349,209"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="168,176,250,187,249,192,168,182"/>
+<area shape="rect" id="Node000006" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/algorithm/min.html#" title=" " alt="" coords="269,233,343,259"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="135,186,217,218,256,230,255,236,215,223,133,191"/>
+<area shape="rect" id="Node000007" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#ac1ab9a2afcc61f7505f185e895bf6b1d" title="Return the screen coordinates + depth of the given point p (in world coordinates)." alt="" coords="216,283,396,323"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="111,187,158,227,217,268,232,275,230,280,215,272,155,231,107,191"/>
 </map>

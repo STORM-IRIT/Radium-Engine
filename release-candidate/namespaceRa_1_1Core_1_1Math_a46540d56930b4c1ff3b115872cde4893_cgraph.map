@@ -1,0 +1,7 @@
+<map id="Ra::Core::Math::areApproxEqual" name="Ra::Core::Math::areApproxEqual">
+<area shape="rect" id="Node000001" title="Compare two numbers such that |x&#45;y| &lt; espilon*epsilonBoostFactor." alt="" coords="5,35,199,75"/>
+<area shape="rect" id="Node000002" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/types/numeric_limits/epsilon.html#" title=" " alt="" coords="263,5,410,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="198,40,249,34,250,39,199,45"/>
+<area shape="rect" id="Node000003" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/types/numeric_limits/min.html#" title=" " alt="" coords="247,70,427,95"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="199,64,233,68,233,73,198,69"/>
+</map>

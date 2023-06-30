@@ -1,3 +1,5 @@
 <map id="Ra::Engine::Data::DrawPrimitives::Triangle" name="Ra::Engine::Data::DrawPrimitives::Triangle">
-<area shape="rect" id="node1" title=" " alt="" coords="5,29,244,71"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,244,45"/>
+<area shape="rect" id="Node000002" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/utility/move.html#" title=" " alt="" coords="292,13,379,38"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="245,23,278,23,278,28,245,28"/>
 </map>

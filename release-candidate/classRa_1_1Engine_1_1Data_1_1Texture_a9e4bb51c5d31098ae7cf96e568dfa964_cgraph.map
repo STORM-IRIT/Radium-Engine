@@ -1,6 +1,9 @@
 <map id="Ra::Engine::Data::Texture::resize" name="Ra::Engine::Data::Texture::resize">
-<area shape="rect" id="node1" title=" " alt="" coords="5,39,192,80"/>
-<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Data_1_1Texture.html#a55e3131773e12d21280b10dcd0bc7f7a" title="Generate the OpenGL representation of the texture according to the stored TextureData." alt="" coords="240,39,427,80"/>
-<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Data_1_1Texture.html#a223eab722d3f56c1c8a50ee5cc9e959b" title=" " alt="" coords="475,5,661,47"/>
-<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Data_1_1Texture.html#ae88bb2f346291aaba4cbaebf4278095b" title=" " alt="" coords="475,71,661,112"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,37,192,77"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Engine_1_1Data_1_1Texture.html#a55e3131773e12d21280b10dcd0bc7f7a" title="Generate the OpenGL representation of the texture according to the stored TextureData." alt="" coords="240,37,427,77"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="192,55,226,55,226,60,192,60"/>
+<area shape="rect" id="Node000003" href="$classRa_1_1Engine_1_1Data_1_1Texture.html#a223eab722d3f56c1c8a50ee5cc9e959b" title=" " alt="" coords="475,5,661,45"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="426,42,461,37,461,43,427,47"/>
+<area shape="rect" id="Node000004" href="$classRa_1_1Engine_1_1Data_1_1Texture.html#ae88bb2f346291aaba4cbaebf4278095b" title=" " alt="" coords="475,69,661,109"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="427,67,461,72,461,77,426,73"/>
 </map>

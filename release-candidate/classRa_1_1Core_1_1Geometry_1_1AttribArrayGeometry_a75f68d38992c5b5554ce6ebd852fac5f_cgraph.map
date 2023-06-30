@@ -1,0 +1,9 @@
+<map id="Ra::Core::Geometry::AttribArrayGeometry::clear" name="Ra::Core::Geometry::AttribArrayGeometry::clear">
+<area shape="rect" id="Node000001" title="Erases all data, making the AttribArrayGeometry empty." alt="" coords="5,16,172,71"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#ae99bb77d3d29e9d99b4bcc257919ecda" title="clear all attribs, invalidate handles." alt="" coords="220,23,436,63"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="172,41,206,41,206,46,172,46"/>
+<area shape="rect" id="Node000003" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector/clear.html#" title=" " alt="" coords="484,5,615,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="436,28,470,24,471,30,436,34"/>
+<area shape="rect" id="Node000004" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/map/clear.html#" title=" " alt="" coords="490,55,609,80"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="436,52,476,57,476,62,436,58"/>
+</map>

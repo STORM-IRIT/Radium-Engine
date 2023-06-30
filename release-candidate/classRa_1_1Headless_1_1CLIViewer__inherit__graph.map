@@ -1,4 +1,5 @@
 <map id="Ra::Headless::CLIViewer" name="Ra::Headless::CLIViewer">
-<area shape="rect" id="node1" title=" " alt="" coords="7,189,243,560"/>
-<area shape="rect" id="node2" href="$classRa_1_1Headless_1_1CLIBaseApplication.html" title=" " alt="" coords="5,5,245,141"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="7,199,235,664"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Headless_1_1CLIBaseApplication.html" title=" " alt="" coords="5,5,237,151"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="124,164,124,198,119,198,119,164"/>
 </map>

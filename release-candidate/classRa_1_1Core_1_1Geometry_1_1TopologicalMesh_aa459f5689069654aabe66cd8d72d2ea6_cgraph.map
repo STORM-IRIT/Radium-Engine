@@ -1,5 +1,7 @@
 <map id="Ra::Core::Geometry::TopologicalMesh::mergeEqualWedges" name="Ra::Core::Geometry::TopologicalMesh::mergeEqualWedges">
-<area shape="rect" id="node1" title=" " alt="" coords="5,35,229,91"/>
-<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#af04d4910fbeb0e3e13815cc36995dab7" title=" " alt="" coords="277,5,520,47"/>
-<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a2f9edf9c78cb2d1d060b8a7d99fe87e9" title=" " alt="" coords="301,71,496,127"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,34,229,89"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#af04d4910fbeb0e3e13815cc36995dab7" title=" " alt="" coords="277,5,520,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="229,44,263,40,264,45,230,50"/>
+<area shape="rect" id="Node000003" href="$classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a2f9edf9c78cb2d1d060b8a7d99fe87e9" title=" " alt="" coords="301,70,496,125"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="230,73,288,80,287,86,229,78"/>
 </map>

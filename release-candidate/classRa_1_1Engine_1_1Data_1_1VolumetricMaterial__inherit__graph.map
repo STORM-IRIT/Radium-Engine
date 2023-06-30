@@ -1,6 +1,9 @@
 <map id="Ra::Engine::Data::VolumetricMaterial" name="Ra::Engine::Data::VolumetricMaterial">
-<area shape="rect" id="node1" title=" " alt="" coords="140,535,348,832"/>
-<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Data_1_1Material.html" title=" " alt="" coords="11,219,223,487"/>
-<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html" title=" " alt="" coords="5,5,229,171"/>
-<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Data_1_1ParameterSetEditingInterface.html" title=" " alt="" coords="247,292,497,413"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="136,607,336,967"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Engine_1_1Data_1_1Material.html" title=" " alt="" coords="11,233,215,559"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="171,571,182,605,177,607,166,573"/>
+<area shape="rect" id="Node000003" href="$classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html" title=" " alt="" coords="5,5,221,185"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="116,199,116,233,111,233,111,199"/>
+<area shape="rect" id="Node000004" href="$classRa_1_1Engine_1_1Data_1_1ParameterSetEditingInterface.html" title=" " alt="" coords="239,336,481,456"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="340,470,296,607,291,606,335,468"/>
 </map>

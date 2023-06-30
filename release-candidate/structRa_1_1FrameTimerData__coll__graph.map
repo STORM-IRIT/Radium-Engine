@@ -1,4 +1,21 @@
 <map id="Ra::FrameTimerData" name="Ra::FrameTimerData">
-<area shape="rect" id="node1" title="This struct holds all timings for one frame of the engine." alt="" coords="19,233,177,384"/>
-<area shape="rect" id="node2" href="$structRa_1_1Engine_1_1Rendering_1_1Renderer_1_1TimerData.html" title=" " alt="" coords="5,5,191,171"/>
+<area shape="rect" id="Node000001" title="This struct holds all timings for one frame of the engine." alt="" coords="303,3645,452,3711"/>
+<area shape="rect" id="Node000002" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/chrono/time_point.html" title=" " alt="" coords="295,1351,459,1531"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="379,1531,376,2839,380,3629,374,3629,371,2839,374,1531"/>
+<area shape="rect" id="Node000004" href="$structRa_1_1Engine_1_1Rendering_1_1Renderer_1_1TimerData.html" title=" " alt="" coords="466,2759,625,2839"/>
+<area shape="poly" id="edge4_Node000004_Node000002" title=" " alt="" coords="391,1531,541,2742,536,2742,386,1531"/>
+<area shape="rect" id="Node000006" href="$structRa_1_1Core_1_1TaskQueue_1_1TimerData.html" title="Record of a task&#39;s start and end time." alt="" coords="182,2342,330,2422"/>
+<area shape="poly" id="edge7_Node000006_Node000002" title=" " alt="" coords="369,1531,266,2326,260,2325,363,1530"/>
+<area shape="rect" id="Node000003" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/chrono/time_point.html" title=" " alt="" coords="295,383,459,548"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="380,562,380,1350,375,1350,375,562"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="543,2839,494,3164,451,3391,399,3622,396,3631,391,3629,393,3621,446,3390,488,3163,538,2839"/>
+<area shape="rect" id="Node000005" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector.html" title=" " alt="" coords="154,2863,339,3583"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="266,3581,286,3620,297,3633,292,3636,282,3623,261,3584"/>
+<area shape="poly" id="edge6_Node000005_Node000006" title=" " alt="" coords="258,2422,254,2846,248,2846,253,2422"/>
+<area shape="rect" id="Node000007" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/string/basic_string.html" title=" " alt="" coords="129,988,271,1893"/>
+<area shape="poly" id="edge8_Node000006_Node000007" title=" " alt="" coords="199,1893,205,2005,225,2181,248,2326,243,2326,220,2182,200,2006,194,1894"/>
+<area shape="rect" id="Node000008" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/string/basic_string.html" title=" " alt="" coords="129,5,271,925"/>
+<area shape="poly" id="edge9_Node000007_Node000008" title=" " alt="" coords="203,939,203,988,197,988,197,939"/>
+<area shape="rect" id="Node000009" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector.html" title=" " alt="" coords="5,2029,139,2735"/>
+<area shape="poly" id="edge10_Node000005_Node000009" title=" " alt="" coords="81,2748,96,2838,122,2933,156,3025,151,3027,117,2935,91,2839,76,2749"/>
 </map>

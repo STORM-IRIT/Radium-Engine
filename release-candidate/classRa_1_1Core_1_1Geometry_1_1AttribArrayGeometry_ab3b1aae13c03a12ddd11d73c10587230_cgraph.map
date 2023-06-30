@@ -1,0 +1,15 @@
+<map id="Ra::Core::Geometry::AttribArrayGeometry::setNormals" name="Ra::Core::Geometry::AttribArrayGeometry::setNormals">
+<area shape="rect" id="Node000001" title="Set normals." alt="" coords="5,39,172,93"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#abfd2320cb73c0cb14805c234af594b5e" title="Access the vertices normals." alt="" coords="220,5,387,60"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="172,50,206,45,207,50,173,56"/>
+<area shape="rect" id="Node000006" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#a056b7697cfbedd6b20dde6ce7955094e" title=" " alt="" coords="435,78,651,118"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="172,69,421,87,421,92,172,74"/>
+<area shape="rect" id="Node000003" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#ae0cb7281ec72606a5392602b4ea50d2c" title=" " alt="" coords="435,14,651,54"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="387,30,421,31,421,36,387,36"/>
+<area shape="rect" id="Node000004" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector/at.html#" title=" " alt="" coords="717,25,829,51"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="651,33,703,34,703,39,651,39"/>
+<area shape="rect" id="Node000005" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/memory/unique_ptr/get.html#" title=" " alt="" coords="699,79,847,104"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="624,51,708,73,707,78,623,57"/>
+<area shape="poly" id="edge6_Node000006_Node000004" title=" " alt="" coords="620,75,710,52,711,57,621,80"/>
+<area shape="poly" id="edge7_Node000006_Node000005" title=" " alt="" coords="651,92,685,91,685,97,651,98"/>
+</map>

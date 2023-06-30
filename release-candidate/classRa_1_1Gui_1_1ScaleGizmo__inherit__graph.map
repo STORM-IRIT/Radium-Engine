@@ -1,4 +1,5 @@
 <map id="Ra::Gui::ScaleGizmo" name="Ra::Gui::ScaleGizmo">
-<area shape="rect" id="node1" title=" " alt="" coords="24,380,181,531"/>
-<area shape="rect" id="node2" href="$classRa_1_1Gui_1_1Gizmo.html" title=" " alt="" coords="5,5,200,332"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="23,459,173,624"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Gui_1_1Gizmo.html" title=" " alt="" coords="5,5,191,411"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="101,424,101,459,95,459,95,424"/>
 </map>

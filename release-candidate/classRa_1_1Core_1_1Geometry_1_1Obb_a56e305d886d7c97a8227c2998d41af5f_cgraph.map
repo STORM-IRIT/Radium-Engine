@@ -1,0 +1,5 @@
+<map id="Ra::Core::Geometry::Obb::toAabb" name="Ra::Core::Geometry::Obb::toAabb">
+<area shape="rect" id="Node000001" title="Return the AABB enclosing this." alt="" coords="5,5,156,45"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Core_1_1Geometry_1_1Obb.html#ab13e256ec8828e01fc8204a163e80fbb" title="Returns the position of the ith corner of the OBB ( world space )" alt="" coords="204,5,355,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="156,23,190,23,190,28,156,28"/>
+</map>

@@ -1,0 +1,13 @@
+<map id="Ra::Headless::CLIViewer::grabFrame" name="Ra::Headless::CLIViewer::grabFrame">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,101,185,141"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a91618e8af83863c37d30cc5274ad60c7" title=" " alt="" coords="233,101,400,141"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="186,119,220,119,220,124,186,124"/>
+<area shape="rect" id="Node000003" href="$classRa_1_1Engine_1_1Data_1_1Texture.html#a04f41cf6b664f77b4077b78b2f566422" title="Bind the texture to enable its use in a shader." alt="" coords="462,5,649,45"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="354,99,447,55,468,47,470,52,449,60,356,104"/>
+<area shape="rect" id="Node000004" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a6d0b36b4cca4646de24d1691d929d6c0" title=" " alt="" coords="448,69,663,109"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="400,107,434,103,435,108,401,113"/>
+<area shape="rect" id="Node000005" href="$classRa_1_1Engine_1_1Data_1_1Texture.html#a581ce6e7e5a42451ffda65d4de48f270" title=" " alt="" coords="462,133,649,173"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="401,130,449,136,448,142,400,135"/>
+<area shape="rect" id="Node000006" href="$classRa_1_1Engine_1_1Data_1_1Texture.html#a84a003d44d99296a324a4855d18b9587" title=" " alt="" coords="462,197,649,237"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="356,139,449,183,470,190,468,195,447,188,354,144"/>
+</map>

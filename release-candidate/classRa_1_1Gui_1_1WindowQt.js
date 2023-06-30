@@ -1,7 +1,5 @@
 var classRa_1_1Gui_1_1WindowQt =
 [
-    [ "WindowQt", "classRa_1_1Gui_1_1WindowQt.html#aeaf44d6f885ecf78f4c44045ef69aeea", null ],
-    [ "~WindowQt", "classRa_1_1Gui_1_1WindowQt.html#ab2b17163135b98c3eed80326f5d6e40c", null ],
     [ "activateScopedContext", "classRa_1_1Gui_1_1WindowQt.html#a306cc7425eb608c8de3a58f3f560f587", null ],
     [ "cleanupGL", "classRa_1_1Gui_1_1WindowQt.html#a190a81dd418c60026d3579333c2cc94d", null ],
     [ "context", "classRa_1_1Gui_1_1WindowQt.html#ad3274b69a7a5d5c36ce74f44a1a5d1de", null ],
@@ -9,19 +7,7 @@ var classRa_1_1Gui_1_1WindowQt =
     [ "doneCurrent", "classRa_1_1Gui_1_1WindowQt.html#acd31b9e580f049491d13c16ef954d964", null ],
     [ "dpiChanged", "classRa_1_1Gui_1_1WindowQt.html#a2240cfd87ac929d5c43f95533a902856", null ],
     [ "enterEvent", "classRa_1_1Gui_1_1WindowQt.html#a877eea734becb3be6835688f9023b39c", null ],
-    [ "exposeEvent", "classRa_1_1Gui_1_1WindowQt.html#a42ef36929421a865ca2d0424e515292d", null ],
-    [ "getProcAddress", "classRa_1_1Gui_1_1WindowQt.html#aac16a1388a3a2f9d0ea1127ea700cafe", null ],
-    [ "initialize", "classRa_1_1Gui_1_1WindowQt.html#a44dfd5a3bfdc9a9c285a6ccbd681999a", null ],
     [ "initializeGL", "classRa_1_1Gui_1_1WindowQt.html#a44dcba0a79c9be83bb96b5bb0db1ab01", null ],
-    [ "isOpenGlInitialized", "classRa_1_1Gui_1_1WindowQt.html#a2e0925fd8de20599b9f604043ecea8b5", null ],
-    [ "leaveEvent", "classRa_1_1Gui_1_1WindowQt.html#ac6edbd05736a56854c8f9348d18ffc87", null ],
     [ "makeCurrent", "classRa_1_1Gui_1_1WindowQt.html#a78476baacd2df24a260f604d02c8ddc4", null ],
-    [ "resizeEvent", "classRa_1_1Gui_1_1WindowQt.html#a5e730ff2c5e6a199047ad3206500a4a1", null ],
-    [ "resizeGL", "classRa_1_1Gui_1_1WindowQt.html#a8562ae7db9d5118c81cbbbaa063617c5", null ],
-    [ "resizeInternal", "classRa_1_1Gui_1_1WindowQt.html#a2643ef1e4f027f6967dc0dd362cf21dc", null ],
-    [ "screenChanged", "classRa_1_1Gui_1_1WindowQt.html#aef47b3f06761a4c39b6c5a47a9747fe1", null ],
-    [ "showEvent", "classRa_1_1Gui_1_1WindowQt.html#a9e218f1715f8207ad38140386120e8ae", null ],
-    [ "m_context", "classRa_1_1Gui_1_1WindowQt.html#a491aec3ef3823063794a0412ff9673df", null ],
-    [ "m_glInitialized", "classRa_1_1Gui_1_1WindowQt.html#a5829f24c3ea2936025df81c65d7e4854", null ],
-    [ "m_updatePending", "classRa_1_1Gui_1_1WindowQt.html#af022c0986f1c5c62c5341518c29c08e0", null ]
+    [ "resizeGL", "classRa_1_1Gui_1_1WindowQt.html#a8562ae7db9d5118c81cbbbaa063617c5", null ]
 ];

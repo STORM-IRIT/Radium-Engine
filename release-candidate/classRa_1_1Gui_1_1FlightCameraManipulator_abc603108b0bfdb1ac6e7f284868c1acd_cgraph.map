@@ -1,7 +1,11 @@
 <map id="Ra::Gui::FlightCameraManipulator::updateCamera" name="Ra::Gui::FlightCameraManipulator::updateCamera">
-<area shape="rect" id="node1" title=" " alt="" coords="5,104,248,145"/>
-<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#aec6212574317a5395be2b49c19a90466" title="Return the direction the camera is looking at." alt="" coords="296,5,476,47"/>
-<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a773a6d2a393cf8ec195afffe2030ed22" title="Return the position." alt="" coords="296,71,476,112"/>
-<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Scene_1_1Light.html#ae0f8f50409ee68466a207b46f6f82fb7" title=" " alt="" coords="313,136,459,177"/>
-<area shape="rect" id="node5" href="$classRa_1_1Engine_1_1Scene_1_1Light.html#aff5fe72f3c665098c2c985a22ed46e6f" title=" " alt="" coords="313,201,459,243"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,101,248,141"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#aec6212574317a5395be2b49c19a90466" title="Return the direction the camera is looking at." alt="" coords="296,5,476,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="179,99,295,55,315,48,317,53,297,60,181,104"/>
+<area shape="rect" id="Node000003" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a773a6d2a393cf8ec195afffe2030ed22" title="Return the position." alt="" coords="296,69,476,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="248,104,282,99,283,105,248,109"/>
+<area shape="rect" id="Node000004" href="$classRa_1_1Engine_1_1Scene_1_1Light.html#ae0f8f50409ee68466a207b46f6f82fb7" title=" " alt="" coords="313,133,459,173"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="248,134,299,140,299,145,248,139"/>
+<area shape="rect" id="Node000005" href="$classRa_1_1Engine_1_1Scene_1_1Light.html#aff5fe72f3c665098c2c985a22ed46e6f" title=" " alt="" coords="313,197,459,237"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="181,139,297,183,317,190,315,195,295,188,179,144"/>
 </map>

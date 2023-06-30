@@ -1,6 +1,9 @@
 <map id="Ra::Gui::TrackballCameraManipulator" name="Ra::Gui::TrackballCameraManipulator">
-<area shape="rect" id="node1" title="A Trackball manipulator for Cameras." alt="" coords="25,932,274,1449"/>
-<area shape="rect" id="node2" href="$classRa_1_1Gui_1_1CameraManipulator.html" title="The CameraManipulator class is the generic class for camera manipulators." alt="" coords="5,189,261,883"/>
-<area shape="rect" id="node3" href="$classRa_1_1Gui_1_1KeyMappingManageable.html" title=" " alt="" coords="286,468,525,604"/>
-<area shape="rect" id="node4" href="$classRa_1_1Gui_1_1KeyMappingManageable.html" title="KeyMappingManageable decorator to use as CRTP." alt="" coords="268,5,543,127"/>
+<area shape="rect" id="Node000001" title="A Trackball manipulator for Cameras." alt="" coords="25,1148,266,1808"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Gui_1_1CameraManipulator.html" title="The CameraManipulator class is the generic class for camera manipulators." alt="" coords="5,193,253,1099"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="141,1112,142,1148,136,1148,136,1112"/>
+<area shape="rect" id="Node000003" href="$classRa_1_1Gui_1_1KeyMappingManageable.html" title=" " alt="" coords="278,576,509,716"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="373,730,268,1099,253,1148,248,1147,263,1098,368,729"/>
+<area shape="rect" id="Node000004" href="$classRa_1_1Gui_1_1KeyMappingManageable.html" title="KeyMappingManageable decorator to use as CRTP." alt="" coords="260,5,527,131"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="396,144,396,576,391,576,391,144"/>
 </map>

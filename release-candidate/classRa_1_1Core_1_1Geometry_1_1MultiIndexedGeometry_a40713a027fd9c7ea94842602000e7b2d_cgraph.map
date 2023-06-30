@@ -1,4 +1,5 @@
 <map id="Ra::Core::Geometry::MultiIndexedGeometry::getLayerWithLock" name="Ra::Core::Geometry::MultiIndexedGeometry::getLayerWithLock">
-<area shape="rect" id="node1" title="Write access to a layer." alt="" coords="5,5,184,61"/>
-<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html#a659ac8bc63a750800f0f2ca7f4532b58" title="Write access to a layer." alt="" coords="232,5,411,61"/>
+<area shape="rect" id="Node000001" title="Write access to a layer." alt="" coords="5,5,184,60"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html#a659ac8bc63a750800f0f2ca7f4532b58" title="Write access to a layer." alt="" coords="232,5,411,60"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="185,30,218,30,218,35,185,35"/>
 </map>

@@ -1,9 +1,32 @@
 <map id="Ra::Core::Geometry::TopologicalMesh::WedgeData" name="Ra::Core::Geometry::TopologicalMesh::WedgeData">
-<area shape="rect" id="node1" title=" " alt="" coords="337,896,558,1091"/>
-<area shape="rect" id="node2" href="$classRa_1_1Core_1_1VectorArray.html" title=" " alt="" coords="247,551,464,833"/>
-<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Utils_1_1ContainerIntrospectionInterface.html" title="This class defines the introspection interface a container need to implement." alt="" coords="302,5,566,171"/>
-<area shape="rect" id="node4" href="$classRa_1_1Core_1_1VectorArray.html" title="This class implements ContainerIntrospectionInterface for AlignedStdVector." alt="" coords="325,220,543,488"/>
-<area shape="rect" id="node5" href="$classRa_1_1Core_1_1VectorArray.html" title=" " alt="" coords="5,551,223,833"/>
-<area shape="rect" id="node6" href="$classRa_1_1Core_1_1VectorArray.html" title=" " alt="" coords="729,551,947,833"/>
-<area shape="rect" id="node7" href="$classRa_1_1Core_1_1VectorArray.html" title=" " alt="" coords="488,551,705,833"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="681,1931,894,2151"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Core_1_1VectorArray.html" title=" " alt="" coords="236,1528,445,1868"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="447,1794,534,1866,668,1961,665,1965,531,1870,444,1798"/>
+<area shape="rect" id="Node000003" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector.html" title=" " alt="" coords="157,760,356,1465"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="312,1479,319,1527,314,1528,307,1479"/>
+<area shape="rect" id="Node000004" href="$classRa_1_1Core_1_1Utils_1_1ContainerIntrospectionInterface.html" title="This class defines the introspection interface a container need to implement." alt="" coords="733,268,989,448"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="721,420,561,493,387,581,306,627,237,674,182,719,147,761,97,857,65,944,49,1025,47,1104,58,1184,79,1268,110,1361,147,1464,164,1502,186,1538,238,1602,234,1605,182,1541,159,1505,142,1466,105,1362,74,1270,53,1185,42,1104,44,1024,60,942,92,855,142,759,178,715,233,670,304,623,384,576,558,488,719,415"/>
+<area shape="rect" id="Node000005" href="$classRa_1_1Core_1_1VectorArray.html" title="This class implements ContainerIntrospectionInterface for AlignedStdVector." alt="" coords="613,950,823,1275"/>
+<area shape="poly" id="edge6_Node000005_Node000004" title=" " alt="" coords="844,462,751,950,746,949,839,461"/>
+<area shape="rect" id="Node000007" href="$classRa_1_1Core_1_1VectorArray.html" title=" " alt="" coords="545,1528,755,1868"/>
+<area shape="poly" id="edge9_Node000007_Node000004" title=" " alt="" coords="868,461,877,724,882,1050,880,1207,874,1343,863,1446,854,1482,844,1506,831,1517,816,1521,802,1523,786,1530,757,1556,753,1552,783,1526,800,1518,815,1516,828,1513,840,1502,849,1480,857,1445,869,1342,875,1207,877,1050,872,724,863,462"/>
+<area shape="rect" id="Node000009" href="$classRa_1_1Core_1_1VectorArray.html" title=" " alt="" coords="797,1528,1007,1868"/>
+<area shape="poly" id="edge13_Node000009_Node000004" title=" " alt="" coords="950,457,997,521,1045,594,1088,675,1121,759,1136,827,1147,913,1155,1011,1159,1114,1158,1218,1151,1315,1139,1400,1120,1467,1009,1588,1005,1584,1116,1464,1134,1399,1146,1314,1152,1218,1153,1114,1150,1011,1142,913,1130,828,1115,761,1083,677,1041,597,993,524,946,460"/>
+<area shape="rect" id="Node000011" href="$classRa_1_1Core_1_1VectorArray.html" title=" " alt="" coords="1073,1528,1283,1868"/>
+<area shape="poly" id="edge17_Node000011_Node000004" title=" " alt="" coords="963,456,1017,519,1071,592,1120,673,1158,759,1173,822,1184,905,1194,1109,1194,1330,1189,1528,1183,1528,1189,1330,1189,1109,1178,906,1168,823,1153,761,1116,676,1067,595,1012,522,959,460"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="687,1290,653,1382,630,1426,603,1467,585,1481,565,1492,505,1542,447,1594,444,1590,501,1538,562,1487,582,1476,599,1464,626,1423,648,1379,682,1288"/>
+<area shape="poly" id="edge10_Node000007_Node000005" title=" " alt="" coords="671,1289,653,1395,647,1450,646,1504,646,1527,641,1528,641,1504,642,1450,647,1394,666,1288"/>
+<area shape="poly" id="edge14_Node000009_Node000005" title=" " alt="" coords="776,1288,851,1527,846,1529,771,1289"/>
+<area shape="poly" id="edge18_Node000011_Node000005" title=" " alt="" coords="776,1287,797,1333,823,1380,853,1424,888,1463,914,1480,952,1496,992,1511,1021,1526,1075,1572,1071,1576,1018,1530,989,1516,950,1501,912,1485,884,1467,849,1427,819,1383,793,1336,771,1289"/>
+<area shape="rect" id="Node000006" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector.html" title=" " alt="" coords="5,5,169,711"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="183,407,281,468,394,548,451,595,506,646,557,700,603,758,630,803,654,851,688,949,683,951,649,853,626,806,598,762,553,704,502,650,447,599,390,552,278,472,180,412"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="695,1867,710,1906,714,1915,709,1917,705,1908,690,1869"/>
+<area shape="rect" id="Node000008" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector.html" title=" " alt="" coords="381,760,589,1465"/>
+<area shape="poly" id="edge8_Node000007_Node000008" title=" " alt="" coords="498,1478,506,1503,524,1543,547,1580,543,1583,519,1545,501,1505,493,1480"/>
+<area shape="poly" id="edge11_Node000001_Node000009" title=" " alt="" coords="848,1869,832,1916,827,1914,842,1867"/>
+<area shape="rect" id="Node000010" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector.html" title=" " alt="" coords="898,760,1106,1465"/>
+<area shape="poly" id="edge12_Node000009_Node000010" title=" " alt="" coords="942,1479,934,1528,928,1527,937,1479"/>
+<area shape="poly" id="edge15_Node000001_Node000011" title=" " alt="" coords="1075,1818,1021,1870,909,1959,906,1955,1018,1866,1071,1814"/>
+<area shape="rect" id="Node000012" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector.html" title=" " alt="" coords="1231,760,1439,1465"/>
+<area shape="poly" id="edge16_Node000011_Node000012" title=" " alt="" coords="1239,1479,1226,1529,1221,1527,1234,1478"/>
 </map>

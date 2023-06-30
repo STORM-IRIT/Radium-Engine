@@ -1,12 +1,52 @@
 <map id="Ra::Headless::CLIViewer::oneFrame" name="Ra::Headless::CLIViewer::oneFrame">
-<area shape="rect" id="node1" title=" " alt="" coords="5,267,185,308"/>
-<area shape="rect" id="node2" href="$classRa_1_1Core_1_1TaskQueue.html#a133a9b42dbb00afd3873b83a044c447f" title="Erases all tasks. Will assert if tasks are unprocessed." alt="" coords="273,5,429,47"/>
-<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#aa461c56f0e95754cfb18d0616247d848" title="Return the projection matrix." alt="" coords="261,71,441,112"/>
-<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1RadiumEngine.html#a0d17139d200315d89d81d54a31c0b69f" title=" " alt="" coords="254,136,447,177"/>
-<area shape="rect" id="node5" href="$classRa_1_1Engine_1_1RadiumEngine.html#a35e421132933b7c8d1a977ec3ea0b744" title=" " alt="" coords="254,201,447,243"/>
-<area shape="rect" id="node6" href="$classRa_1_1Engine_1_1RadiumEngine.html#ad52558a6a92db22bb4e24eedd00705e0" title="Sets the time delta between two frames for Constant&#45;time time flow." alt="" coords="254,267,447,308"/>
-<area shape="rect" id="node7" href="$classRa_1_1Core_1_1TaskQueue.html#a462ea1280f62fb46db3fa74b805857b0" title=" " alt="" coords="273,332,429,373"/>
-<area shape="rect" id="node8" href="$classRa_1_1Engine_1_1RadiumEngine.html#a24b6f3a111091bc4ba4b6f2b6a41498b" title=" " alt="" coords="254,397,447,439"/>
-<area shape="rect" id="node9" href="$classRa_1_1Engine_1_1Scene_1_1SkeletonBasedAnimationSystem.html#afbc168860dd06437a423bb160a6038c1" title="Toggles skeleton display for all AnimationComponents." alt="" coords="233,463,468,519"/>
-<area shape="rect" id="node10" href="$classRa_1_1Core_1_1TaskQueue.html#ae4263fcdad580ffb7b5f28d29d5b7805" title="Blocks until all tasks and dependencies are finished." alt="" coords="273,544,429,585"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,325,185,365"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Core_1_1TaskQueue.html#a133a9b42dbb00afd3873b83a044c447f" title="Erases all tasks. Will assert if tasks are unprocessed." alt="" coords="273,133,429,173"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="106,324,155,255,190,216,232,183,258,170,261,175,235,188,194,220,159,258,110,327"/>
+<area shape="rect" id="Node000005" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#aa461c56f0e95754cfb18d0616247d848" title="Return the projection matrix." alt="" coords="261,69,441,109"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="101,324,117,281,145,226,182,168,206,142,232,119,247,110,249,114,235,123,209,146,187,172,149,228,122,283,106,326"/>
+<area shape="rect" id="Node000006" href="$classRa_1_1Engine_1_1RadiumEngine.html#a0d17139d200315d89d81d54a31c0b69f" title=" " alt="" coords="254,5,447,45"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="98,324,111,271,136,198,153,159,175,121,201,86,232,55,240,49,243,53,235,59,205,89,179,124,158,162,140,200,116,272,103,326"/>
+<area shape="rect" id="Node000008" href="$classRa_1_1Engine_1_1RadiumEngine.html#a35e421132933b7c8d1a977ec3ea0b744" title=" " alt="" coords="254,197,447,237"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="118,323,169,285,232,247,249,240,251,245,235,252,172,289,121,327"/>
+<area shape="rect" id="Node000009" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/thread/thread/hardware_concurrency.html#" title=" " alt="" coords="270,261,431,301"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="175,323,256,302,258,307,177,328"/>
+<area shape="rect" id="Node000010" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a027cf22a1f9f48ea9f7dd7fae7108856" title="Tell the renderer it needs to render. This method does the following steps :" alt="" coords="268,389,433,429"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="177,363,258,383,256,389,175,368"/>
+<area shape="rect" id="Node000017" href="$classRa_1_1Engine_1_1RadiumEngine.html#ad52558a6a92db22bb4e24eedd00705e0" title="Sets the time delta between two frames for Constant&#45;time time flow." alt="" coords="254,453,447,493"/>
+<area shape="poly" id="edge16_Node000001_Node000017" title=" " alt="" coords="121,363,172,402,235,439,251,446,249,451,232,444,169,406,118,367"/>
+<area shape="rect" id="Node000019" href="$classRa_1_1Core_1_1TaskQueue.html#a462ea1280f62fb46db3fa74b805857b0" title=" " alt="" coords="273,699,429,739"/>
+<area shape="poly" id="edge18_Node000001_Node000019" title=" " alt="" coords="104,365,119,419,145,493,183,573,208,612,235,648,261,671,291,690,288,694,258,675,231,651,203,615,179,576,140,495,114,420,99,366"/>
+<area shape="rect" id="Node000022" href="$classRa_1_1Engine_1_1RadiumEngine.html#a24b6f3a111091bc4ba4b6f2b6a41498b" title=" " alt="" coords="254,517,447,557"/>
+<area shape="poly" id="edge21_Node000001_Node000022" title=" " alt="" coords="110,364,159,433,194,471,235,503,246,509,243,514,232,508,190,475,155,436,106,367"/>
+<area shape="rect" id="Node000023" href="$classRa_1_1Engine_1_1Scene_1_1SkeletonBasedAnimationSystem.html#afbc168860dd06437a423bb160a6038c1" title="Toggles skeleton display for all AnimationComponents." alt="" coords="233,582,468,637"/>
+<area shape="poly" id="edge22_Node000001_Node000023" title=" " alt="" coords="106,365,123,407,150,462,188,518,210,544,235,567,242,573,239,577,232,571,206,548,184,521,146,464,118,409,101,367"/>
+<area shape="rect" id="Node000024" href="$classRa_1_1Core_1_1TaskQueue.html#ae4263fcdad580ffb7b5f28d29d5b7805" title="Blocks until all tasks and dependencies are finished." alt="" coords="273,325,429,365"/>
+<area shape="poly" id="edge23_Node000001_Node000024" title=" " alt="" coords="185,343,259,343,259,348,185,348"/>
+<area shape="rect" id="Node000003" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector/clear.html#" title=" " alt="" coords="563,102,694,127"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="428,140,549,123,550,128,429,145"/>
+<area shape="rect" id="Node000004" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/deque/empty.html#" title=" " alt="" coords="559,151,699,177"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="429,154,545,158,545,163,429,159"/>
+<area shape="rect" id="Node000007" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/map/end.html#" title=" " alt="" coords="573,13,684,38"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="448,23,560,23,560,28,448,28"/>
+<area shape="rect" id="Node000011" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a30c9f288f2ac8406c804c55b2623e348" title="Add the debug layer with useful informations." alt="" coords="535,251,722,291"/>
+<area shape="poly" id="edge10_Node000010_Node000011" title=" " alt="" coords="432,393,466,375,482,358,490,339,497,320,514,301,522,295,525,300,518,305,502,322,495,341,487,361,470,379,435,397"/>
+<area shape="rect" id="Node000012" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/chrono/high_resolution_clock/now.html#" title=" " alt="" coords="527,315,730,355"/>
+<area shape="poly" id="edge11_Node000010_Node000012" title=" " alt="" coords="425,387,539,356,541,361,426,392"/>
+<area shape="rect" id="Node000013" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a5fc9b2cb6c8fb0a7d1a7640a2ddc31b6" title="Do all post processing stuff. If you override this method, be careful to fill." alt="" coords="516,379,741,419"/>
+<area shape="poly" id="edge12_Node000010_Node000013" title=" " alt="" coords="433,404,502,401,502,406,434,409"/>
+<area shape="rect" id="Node000014" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#afe2f99ba86df2575f32a79d3d01d8d2f" title="All the scene rendering magics basically happens here." alt="" coords="534,443,723,483"/>
+<area shape="poly" id="edge13_Node000010_Node000014" title=" " alt="" coords="434,423,521,439,520,445,433,428"/>
+<area shape="rect" id="Node000015" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#abad46a9149c0d4578327325450b2472e" title="Draw the UI data." alt="" coords="546,507,711,547"/>
+<area shape="poly" id="edge14_Node000010_Node000015" title=" " alt="" coords="435,423,469,439,485,453,494,466,503,480,518,492,535,502,532,506,514,497,499,483,490,469,481,456,467,444,433,428"/>
+<area shape="rect" id="Node000016" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#ac3f6b287470f899b6aa9306b82249765" title=" " alt="" coords="518,571,739,611"/>
+<area shape="poly" id="edge15_Node000010_Node000016" title=" " alt="" coords="435,419,453,428,470,439,483,454,490,469,495,500,499,529,506,543,518,557,523,561,520,565,514,561,501,546,494,531,489,500,485,471,478,457,466,443,450,432,432,424"/>
+<area shape="rect" id="Node000018" href="$classRa_1_1Engine_1_1RadiumEngine.html#a415971178b10dccaf642d77b7bfe51e3" title="Toggles Real&#45;time (on) or Constant (off) time flow." alt="" coords="532,635,725,675"/>
+<area shape="poly" id="edge17_Node000017_Node000018" title=" " alt="" coords="449,489,470,503,483,518,490,533,495,564,499,593,506,607,518,621,523,625,520,629,514,625,501,610,494,595,489,564,485,535,478,521,466,507,446,494"/>
+<area shape="rect" id="Node000020" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector/empty.html#" title=" " alt="" coords="558,763,699,789"/>
+<area shape="poly" id="edge19_Node000019_Node000020" title=" " alt="" coords="429,732,554,758,553,763,428,737"/>
+<area shape="rect" id="Node000021" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/thread/condition_variable/notify_all.html#" title=" " alt="" coords="543,699,714,739"/>
+<area shape="poly" id="edge20_Node000019_Node000021" title=" " alt="" coords="429,716,530,716,530,721,429,721"/>
+<area shape="poly" id="edge24_Node000024_Node000004" title=" " alt="" coords="428,333,448,324,466,311,479,297,485,282,489,250,493,218,501,201,514,186,544,169,546,174,518,190,505,204,498,219,494,251,490,283,483,299,470,315,451,328,430,337"/>
+<area shape="rect" id="Node000025" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/thread/yield.html#" title=" " alt="" coords="547,201,710,226"/>
+<area shape="poly" id="edge25_Node000024_Node000025" title=" " alt="" coords="427,330,466,311,482,294,489,275,497,255,514,237,533,226,536,231,518,241,502,258,494,277,487,296,470,315,430,335"/>
 </map>

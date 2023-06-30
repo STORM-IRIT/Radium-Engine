@@ -1,4 +1,7 @@
 <map id="Ra::Gui::Viewer::mouseMoveEvent" name="Ra::Gui::Viewer::mouseMoveEvent">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,216,47"/>
-<area shape="rect" id="node2" href="$classRa_1_1Gui_1_1Viewer.html#a6f709f315a47d4fc0dee01e8c80016dd" title=" " alt="" coords="264,13,452,39"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,23,216,63"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Gui_1_1Viewer.html#acf4e392035ada48c6f13af74c82ef58f" title="Event sent after a mouse move event has been processed, but before emitting needUpdate()" alt="" coords="264,5,489,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="216,31,250,27,251,33,216,36"/>
+<area shape="rect" id="Node000003" href="$classRa_1_1Gui_1_1Viewer.html#a6f709f315a47d4fc0dee01e8c80016dd" title=" " alt="" coords="283,55,471,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="216,50,269,55,268,60,216,55"/>
 </map>

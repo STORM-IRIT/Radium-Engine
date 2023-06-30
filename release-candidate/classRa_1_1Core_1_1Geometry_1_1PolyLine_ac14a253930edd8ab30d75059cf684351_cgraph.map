@@ -1,5 +1,9 @@
 <map id="Ra::Core::Geometry::PolyLine::projectOnSegment" name="Ra::Core::Geometry::PolyLine::projectOnSegment">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,220,47"/>
-<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Geometry_1_1PolyLine.html#aae02568a84d24193c5f129f4dd60933c" title=" " alt="" coords="268,5,476,47"/>
-<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Geometry_1_1PolyLine.html#ad9ec64926bd98bb0417655c31e639a67" title="Get the total length of the line ." alt="" coords="524,5,675,47"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,220,45"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Core_1_1Geometry_1_1PolyLine.html#aae02568a84d24193c5f129f4dd60933c" title=" " alt="" coords="268,5,476,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="220,23,254,23,254,28,220,28"/>
+<area shape="rect" id="Node000003" href="$classRa_1_1Core_1_1Geometry_1_1PolyLine.html#ad9ec64926bd98bb0417655c31e639a67" title="Get the total length of the line ." alt="" coords="524,5,675,45"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="476,23,510,23,510,28,476,28"/>
+<area shape="rect" id="Node000004" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector/back.html#" title=" " alt="" coords="723,13,853,38"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="675,23,709,23,709,28,675,28"/>
 </map>

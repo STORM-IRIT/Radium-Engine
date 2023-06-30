@@ -1,9 +1,19 @@
 <map id="Ra::Engine::Data::Mesh" name="Ra::Engine::Data::Mesh">
-<area shape="rect" id="node1" title="Mesh, own a Core::Geometry::TriangleMesh." alt="" coords="92,1708,265,1800"/>
-<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html" title=" " alt="" coords="76,1508,281,1659"/>
-<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html" title="Template class to manage the Displayable aspect of a Core Geomertry, such as TriangleMesh." alt="" coords="250,801,497,1245"/>
-<area shape="rect" id="node7" href="$classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html" title="An engine mesh owning CoreGeometry, with indices." alt="" coords="141,1295,342,1431"/>
-<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html" title=" " alt="" coords="263,293,484,752"/>
-<area shape="rect" id="node5" href="$classRa_1_1Engine_1_1Data_1_1Displayable.html" title=" " alt="" coords="266,5,481,244"/>
-<area shape="rect" id="node6" href="$classRa_1_1Engine_1_1Data_1_1VaoIndices.html" title="Concept class to ensure consistent naming of VaoIndices accross derived classes." alt="" coords="5,970,213,1077"/>
+<area shape="rect" id="Node000001" title="Mesh, own a Core::Geometry::TriangleMesh." alt="" coords="182,2559,347,2644"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html" title=" " alt="" coords="166,2355,363,2509"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="267,2523,267,2558,262,2558,262,2523"/>
+<area shape="rect" id="Node000003" href="$classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html" title="Template class to manage the Displayable aspect of a Core Geomertry, such as TriangleMesh." alt="" coords="5,1553,244,2113"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="196,2126,249,2354,244,2355,191,2128"/>
+<area shape="rect" id="Node000004" href="$classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html" title=" " alt="" coords="35,340,249,920"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="140,934,131,1553,126,1553,135,934"/>
+<area shape="rect" id="Node000008" href="$classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html" title="Template class to manage the Displayable aspect of a Core Geomertry, such as TriangleMesh." alt="" coords="388,969,627,1529"/>
+<area shape="poly" id="edge8_Node000008_Node000004" title=" " alt="" coords="259,785,320,874,378,968,390,990,386,993,373,971,315,877,255,788"/>
+<area shape="rect" id="Node000005" href="$classRa_1_1Engine_1_1Data_1_1Displayable.html" title=" " alt="" coords="39,5,245,291"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="145,305,145,340,139,340,139,305"/>
+<area shape="rect" id="Node000006" href="$classRa_1_1Engine_1_1Data_1_1VaoIndices.html" title="Concept class to ensure consistent naming of VaoIndices accross derived classes." alt="" coords="163,1197,363,1302"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="266,1316,267,2354,262,2354,261,1316"/>
+<area shape="rect" id="Node000007" href="$classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html" title="An engine mesh owning CoreGeometry, with indices." alt="" coords="303,2137,496,2277"/>
+<area shape="poly" id="edge9_Node000007_Node000006" title=" " alt="" coords="275,1315,392,2137,387,2137,270,1316"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="353,2291,313,2356,309,2353,348,2288"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="477,1543,410,2137,404,2137,472,1543"/>
 </map>

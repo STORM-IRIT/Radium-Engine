@@ -1,6 +1,11 @@
 <map id="Ra::Engine::Scene::CameraManager::unregisterComponent" name="Ra::Engine::Scene::CameraManager::unregisterComponent">
-<area shape="rect" id="node1" title=" " alt="" coords="5,39,284,80"/>
-<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Scene_1_1System.html#adc55c303d8378bee461f1f14f385100e" title=" " alt="" coords="332,39,552,80"/>
-<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Scene_1_1Component.html#ae2365d903a35539fa7bf061aa749a84f" title="Return the entity the component belongs to." alt="" coords="605,5,769,47"/>
-<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Scene_1_1Component.html#af211eaa6fd1c608ef143920678da3d52" title="Set the system to which the component belongs." alt="" coords="600,71,775,112"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,55,284,95"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Engine_1_1Scene_1_1System.html#adc55c303d8378bee461f1f14f385100e" title=" " alt="" coords="332,55,552,95"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="284,73,318,73,318,78,284,78"/>
+<area shape="rect" id="Node000003" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/algorithm/find.html#" title=" " alt="" coords="642,5,733,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="528,53,628,29,629,34,529,58"/>
+<area shape="rect" id="Node000004" href="$classRa_1_1Engine_1_1Scene_1_1Component.html#a28dba9115491fdfd4803f7f32ee53af3" title="Return the entity the component belongs to." alt="" coords="605,55,769,95"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="552,73,591,73,591,78,552,78"/>
+<area shape="rect" id="Node000005" href="$classRa_1_1Engine_1_1Scene_1_1Component.html#af211eaa6fd1c608ef143920678da3d52" title="Set the system to which the component belongs." alt="" coords="600,119,775,159"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="520,93,598,113,596,118,519,98"/>
 </map>

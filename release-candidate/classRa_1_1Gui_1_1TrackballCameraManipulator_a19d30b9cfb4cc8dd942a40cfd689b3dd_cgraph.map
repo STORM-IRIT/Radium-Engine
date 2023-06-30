@@ -1,8 +1,14 @@
 <map id="Ra::Gui::TrackballCameraManipulator::handleWheelEvent" name="Ra::Gui::TrackballCameraManipulator::handleWheelEvent">
-<area shape="rect" id="node1" title=" " alt="" coords="5,136,236,177"/>
-<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#aec6212574317a5395be2b49c19a90466" title="Return the direction the camera is looking at." alt="" coords="305,5,485,47"/>
-<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a773a6d2a393cf8ec195afffe2030ed22" title="Return the position." alt="" coords="305,71,485,112"/>
-<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Scene_1_1Light.html#ae0f8f50409ee68466a207b46f6f82fb7" title=" " alt="" coords="322,136,469,177"/>
-<area shape="rect" id="node5" href="$classRa_1_1Engine_1_1Scene_1_1Light.html#aff5fe72f3c665098c2c985a22ed46e6f" title=" " alt="" coords="322,201,469,243"/>
-<area shape="rect" id="node6" href="$classRa_1_1Gui_1_1KeyMappingCallbackManager.html#a80b3750145c2d398caf7d5dc8f402243" title=" " alt="" coords="284,267,507,308"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,133,236,173"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#aec6212574317a5395be2b49c19a90466" title="Return the direction the camera is looking at." alt="" coords="305,5,485,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="149,131,209,93,283,55,302,48,304,52,285,60,212,98,152,136"/>
+<area shape="rect" id="Node000003" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a773a6d2a393cf8ec195afffe2030ed22" title="Return the position." alt="" coords="305,69,485,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="207,131,295,110,296,115,208,136"/>
+<area shape="rect" id="Node000004" href="$classRa_1_1Engine_1_1Scene_1_1Light.html#ae0f8f50409ee68466a207b46f6f82fb7" title=" " alt="" coords="322,133,469,173"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="236,151,308,151,308,156,236,156"/>
+<area shape="rect" id="Node000005" href="$classRa_1_1Engine_1_1Scene_1_1Light.html#aff5fe72f3c665098c2c985a22ed46e6f" title=" " alt="" coords="322,197,469,237"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="208,171,309,195,308,200,207,176"/>
+<area shape="rect" id="Node000006" href="$classRa_1_1Gui_1_1KeyMappingCallbackManager.html#a80b3750145c2d398caf7d5dc8f402243" title=" " alt="" coords="284,285,507,325"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="156,171,285,247,342,277,340,281,283,252,153,176"/>
+<area shape="poly" id="edge6_Node000006_Node000006" title=" " alt="" coords="345,286,341,276,350,266,368,261,395,259,427,261,444,269,442,274,426,267,395,264,369,266,352,271,347,277,350,284"/>
 </map>

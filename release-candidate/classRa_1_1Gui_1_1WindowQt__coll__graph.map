@@ -1,3 +1,7 @@
 <map id="Ra::Gui::WindowQt" name="Ra::Gui::WindowQt">
-<area shape="rect" id="node1" title="Base class for OpenGL widgets, compatble with Qt and globjects/glbindings." alt="" coords="5,5,204,391"/>
+<area shape="rect" id="Node000001" title="Base class for OpenGL widgets, compatble with Qt and globjects/glbindings." alt="" coords="37,701,227,1167"/>
+<area shape="rect" id="Node000002" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/memory/unique_ptr.html" title=" " alt="" coords="5,353,259,639"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="135,639,135,685,129,685,129,639"/>
+<area shape="rect" id="Node000003" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/memory/unique_ptr.html" title=" " alt="" coords="57,5,207,291"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="135,304,135,353,129,353,129,304"/>
 </map>

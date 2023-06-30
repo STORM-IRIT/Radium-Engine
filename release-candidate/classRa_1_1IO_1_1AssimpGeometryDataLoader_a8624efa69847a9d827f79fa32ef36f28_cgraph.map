@@ -1,0 +1,9 @@
+<map id="Ra::IO::AssimpGeometryDataLoader::loadMeshFrame" name="Ra::IO::AssimpGeometryDataLoader::loadMeshFrame">
+<area shape="rect" id="Node000001" title="Fill data with the transformation data from node and parentFrame." alt="" coords="5,47,219,87"/>
+<area shape="rect" id="Node000002" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/map/end.html#" title=" " alt="" coords="309,5,419,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="214,45,295,29,296,34,215,50"/>
+<area shape="rect" id="Node000003" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/map/find.html#" title=" " alt="" coords="309,55,419,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="219,65,295,65,295,70,219,70"/>
+<area shape="rect" id="Node000004" href="$classRa_1_1Core_1_1Asset_1_1GeometryData.html#aa79a0e8395a3be53e284bb72e6baabb7" title="Set the Transform of the object." alt="" coords="267,105,461,145"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="201,85,263,99,262,104,200,90"/>
+</map>

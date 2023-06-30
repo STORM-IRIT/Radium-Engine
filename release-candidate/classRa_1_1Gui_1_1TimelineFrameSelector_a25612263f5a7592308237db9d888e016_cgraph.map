@@ -1,4 +1,15 @@
 <map id="Ra::Gui::TimelineFrameSelector::onMoveKeyFrame" name="Ra::Gui::TimelineFrameSelector::onMoveKeyFrame">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,233,47"/>
-<area shape="rect" id="node2" href="$namespaceRa_1_1Core_1_1Math.html#a5d4492c5ddee7e4fa37dfdad0c4f8ba1" title="Compare two numbers such that |x&#45;y| &lt; espilon*epsilonBoostFactor." alt="" coords="281,5,475,47"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,116,233,156"/>
+<area shape="rect" id="Node000002" href="$namespaceRa_1_1Core_1_1Math.html#a46540d56930b4c1ff3b115872cde4893" title="Compare two numbers such that |x&#45;y| &lt; espilon*epsilonBoostFactor." alt="" coords="281,33,475,73"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="182,113,301,75,302,80,183,119"/>
+<area shape="rect" id="Node000005" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/iterator/distance.html#" title=" " alt="" coords="325,98,431,123"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="233,122,311,114,312,120,234,127"/>
+<area shape="rect" id="Node000006" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/algorithm/find.html#" title=" " alt="" coords="333,147,423,173"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="234,144,319,152,318,157,233,149"/>
+<area shape="rect" id="Node000007" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/algorithm/sort.html#" title=" " alt="" coords="341,197,415,222"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="184,154,282,183,328,195,327,200,281,188,183,159"/>
+<area shape="rect" id="Node000003" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/types/numeric_limits/epsilon.html#" title=" " alt="" coords="539,5,686,45"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="474,39,525,33,526,38,475,44"/>
+<area shape="rect" id="Node000004" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/types/numeric_limits/min.html#" title=" " alt="" coords="523,70,703,95"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="475,63,509,67,509,72,474,68"/>
 </map>

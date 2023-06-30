@@ -1,15 +1,32 @@
 <map id="Ra::Core::Utils::ObjectWithSemantic" name="Ra::Core::Utils::ObjectWithSemantic">
-<area shape="rect" id="node1" title="Object associated with one or multiple semantic names." alt="" coords="633,5,827,229"/>
-<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Geometry_1_1GeometryIndexLayerBase.html" title="Base class for index collections stored in MultiIndexedGeometry." alt="" coords="617,279,843,473"/>
-<area shape="rect" id="node3" href="$structRa_1_1Core_1_1Geometry_1_1GeometryIndexLayer.html" title=" " alt="" coords="247,824,464,1077"/>
-<area shape="rect" id="node5" href="$structRa_1_1Core_1_1Geometry_1_1GeometryIndexLayer.html" title=" " alt="" coords="5,824,223,1077"/>
-<area shape="rect" id="node7" href="$structRa_1_1Core_1_1Geometry_1_1GeometryIndexLayer.html" title=" " alt="" coords="488,824,705,1077"/>
-<area shape="rect" id="node9" href="$structRa_1_1Core_1_1Geometry_1_1GeometryIndexLayer.html" title=" " alt="" coords="971,824,1188,1077"/>
-<area shape="rect" id="node11" href="$structRa_1_1Core_1_1Geometry_1_1GeometryIndexLayer.html" title=" " alt="" coords="729,824,947,1077"/>
-<area shape="rect" id="node13" href="$structRa_1_1Core_1_1Geometry_1_1GeometryIndexLayer.html" title="Typed index collection." alt="" coords="440,523,657,761"/>
-<area shape="rect" id="node4" href="$structRa_1_1Core_1_1Geometry_1_1PointCloudIndexLayer.html" title="Index layer for a point cloud." alt="" coords="261,1127,450,1263"/>
-<area shape="rect" id="node6" href="$structRa_1_1Core_1_1Geometry_1_1PolyIndexLayer.html" title="Index layer for polygonal mesh." alt="" coords="27,1141,201,1248"/>
-<area shape="rect" id="node8" href="$structRa_1_1Core_1_1Geometry_1_1LineIndexLayer.html" title="Index layer for line mesh." alt="" coords="510,1141,683,1248"/>
-<area shape="rect" id="node10" href="$structRa_1_1Core_1_1Geometry_1_1TriangleIndexLayer.html" title="Index layer for triangle mesh." alt="" coords="993,1141,1166,1248"/>
-<area shape="rect" id="node12" href="$structRa_1_1Core_1_1Geometry_1_1QuadIndexLayer.html" title="Index layer for quadrilateral mesh." alt="" coords="751,1141,925,1248"/>
+<area shape="rect" id="Node000001" title="Object associated with one or multiple semantic names." alt="" coords="619,5,806,265"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Core_1_1Geometry_1_1GeometryIndexLayerBase.html" title="Base class for index collections stored in MultiIndexedGeometry." alt="" coords="603,315,822,535"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="715,279,715,314,710,314,710,279"/>
+<area shape="rect" id="Node000003" href="$structRa_1_1Core_1_1Geometry_1_1GeometryIndexLayer.html" title=" " alt="" coords="239,927,448,1221"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="592,473,500,521,455,551,415,586,349,658,308,722,279,794,254,888,252,926,247,926,249,888,274,792,303,720,345,655,411,582,452,547,497,516,589,468"/>
+<area shape="rect" id="Node000005" href="$structRa_1_1Core_1_1Geometry_1_1GeometryIndexLayer.html" title=" " alt="" coords="5,927,215,1221"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="590,440,506,456,416,484,372,503,329,527,290,554,255,586,224,622,199,662,177,705,160,750,135,841,120,927,115,926,129,840,155,748,172,703,194,660,220,619,251,582,287,550,327,522,370,499,414,479,505,451,589,435"/>
+<area shape="rect" id="Node000007" href="$structRa_1_1Core_1_1Geometry_1_1GeometryIndexLayer.html" title=" " alt="" coords="472,927,681,1221"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="748,548,761,630,766,721,763,768,756,815,744,861,727,904,720,913,713,918,696,929,683,941,680,938,692,925,710,914,717,909,722,901,739,859,751,814,758,768,760,721,756,630,743,548"/>
+<area shape="rect" id="Node000009" href="$structRa_1_1Core_1_1Geometry_1_1GeometryIndexLayer.html" title=" " alt="" coords="939,927,1148,1221"/>
+<area shape="poly" id="edge8_Node000002_Node000009" title=" " alt="" coords="828,544,855,583,901,668,942,757,976,845,1004,925,999,927,971,846,937,759,897,670,850,585,824,547"/>
+<area shape="rect" id="Node000011" href="$structRa_1_1Core_1_1Geometry_1_1GeometryIndexLayer.html" title=" " alt="" coords="705,927,915,1221"/>
+<area shape="poly" id="edge10_Node000002_Node000011" title=" " alt="" coords="774,546,806,621,838,706,866,796,887,888,888,927,883,927,882,888,861,798,833,708,801,623,769,549"/>
+<area shape="rect" id="Node000013" href="$structRa_1_1Core_1_1Geometry_1_1GeometryIndexLayer.html" title="Typed index collection." alt="" coords="425,584,635,864"/>
+<area shape="poly" id="edge12_Node000002_Node000013" title=" " alt="" coords="641,548,618,585,613,582,636,545"/>
+<area shape="rect" id="Node000004" href="$structRa_1_1Core_1_1Geometry_1_1LineIndexLayer.html" title="Index layer for line mesh." alt="" coords="261,1291,426,1391"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="346,1235,346,1290,341,1290,341,1235"/>
+<area shape="rect" id="Node000006" href="$structRa_1_1Core_1_1Geometry_1_1PointCloudIndexLayer.html" title="Index layer for a point cloud." alt="" coords="19,1271,201,1411"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="113,1235,113,1270,107,1270,107,1235"/>
+<area shape="rect" id="Node000008" href="$structRa_1_1Core_1_1Geometry_1_1PolyIndexLayer.html" title="Index layer for polygonal mesh." alt="" coords="494,1291,659,1391"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="579,1235,579,1290,574,1290,574,1235"/>
+<area shape="rect" id="Node000010" href="$structRa_1_1Core_1_1Geometry_1_1QuadIndexLayer.html" title="Index layer for quadrilateral mesh." alt="" coords="961,1291,1126,1391"/>
+<area shape="poly" id="edge9_Node000009_Node000010" title=" " alt="" coords="1046,1235,1046,1290,1041,1290,1041,1235"/>
+<area shape="rect" id="Node000012" href="$structRa_1_1Core_1_1Geometry_1_1TriangleIndexLayer.html" title="Index layer for triangle mesh." alt="" coords="727,1291,893,1391"/>
+<area shape="poly" id="edge11_Node000011_Node000012" title=" " alt="" coords="813,1235,813,1290,807,1290,807,1235"/>
+<area shape="poly" id="edge13_Node000013_Node000003" title=" " alt="" coords="420,856,400,889,383,927,378,925,396,887,415,854"/>
+<area shape="poly" id="edge14_Node000013_Node000005" title=" " alt="" coords="415,793,320,855,228,929,217,939,213,935,224,925,317,850,412,788"/>
+<area shape="poly" id="edge15_Node000013_Node000007" title=" " alt="" coords="500,877,503,902,509,926,504,927,498,903,495,878"/>
+<area shape="poly" id="edge16_Node000013_Node000009" title=" " alt="" coords="648,767,716,796,788,833,861,876,929,925,940,934,937,938,926,929,858,880,786,837,713,801,646,771"/>
+<area shape="poly" id="edge17_Node000013_Node000011" title=" " alt="" coords="638,873,664,901,696,925,707,936,703,940,692,929,660,905,634,877"/>
 </map>
