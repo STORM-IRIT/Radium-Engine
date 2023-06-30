@@ -35,7 +35,7 @@ Remember that compiling Radium in Debug mode needs to have the dependencies comp
 
 For command line, tested on Linux and mac OS, **for windows might need more configuration options**.
 
-Follow the usual sequence, assuming you have build dependecies as explained [here](@ref builddep):
+Follow the usual sequence, assuming you have build dependencies as explained [here](@ref builddep):
 
 ~~~{.bash}
 cmake -S Radium-Engine -B builds/radium-build-r -DCMAKE_BUILD_TYPE=Release -C installs/radium-external-r/radium-options.cmake
