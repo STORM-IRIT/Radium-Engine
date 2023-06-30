@@ -1,4 +1,4 @@
-#include <Core/Asset/BlinnPhongMaterialData.hpp>
+#include <Core/Material/BlinnPhongMaterialModel.hpp>
 #include <Engine/Data/BlinnPhongMaterial.hpp>
 #include <Engine/Data/MaterialConverters.hpp>
 #include <Engine/Data/ShaderConfigFactory.hpp>
@@ -148,16 +148,16 @@ void BlinnPhongMaterial::unregisterMaterial() {
 }
 
 Material*
-BlinnPhongMaterialConverter::operator()( const Ra::Core::Asset::MaterialData* toconvert ) {
+BlinnPhongMaterialConverter::operator()( const Ra::Core::Material::MaterialModel* toconvert ) {
     auto result = new BlinnPhongMaterial( toconvert->getName() );
     // we are sure here that the concrete type of "toconvert" is BlinnPhongMaterialData
     // static cst is safe here
-    auto source = static_cast<const Ra::Core::Asset::BlinnPhongMaterialData*>( toconvert );
+    auto source = static_cast<const Ra::Core::Material::BlinnPhongMaterialModel*>( toconvert );
 
-    if ( source->hasDiffuse() ) result->m_kd = source->m_diffuse;
-    if ( source->hasSpecular() ) result->m_ks = source->m_specular;
-    if ( source->hasShininess() ) result->m_ns = source->m_shininess;
-    if ( source->hasOpacity() ) result->m_alpha = source->m_opacity;
+    result->m_kd    = source->m_kd;
+    result->m_ks    = source->m_ks;
+    result->m_ns    = source->m_ns;
+    result->m_alpha = source->m_alpha;
     if ( source->hasDiffuseTexture() )
         result->addTexture( BlinnPhongMaterial::TextureSemantic::TEX_DIFFUSE,
                             source->m_texDiffuse );

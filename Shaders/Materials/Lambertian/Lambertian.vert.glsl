@@ -5,6 +5,7 @@
 // declare expected attributes
 layout( location = 0 ) in vec3 in_position;
 layout( location = 1 ) in vec3 in_normal;
+layout( location = 2 ) in vec3 in_tangent;
 layout( location = 4 ) in vec3 in_texcoord;
 layout( location = 5 ) in vec4 in_color;
 
@@ -17,6 +18,7 @@ layout( location = 0 ) out vec3 out_position;
 layout( location = 1 ) out vec3 out_normal;
 layout( location = 2 ) out vec3 out_texcoord;
 layout( location = 3 ) out vec3 out_vertexcolor;
+layout( location = 4 ) out vec3 out_tangent;
 layout( location = 6 ) out vec3 out_lightVector;
 
 // Main function for vertex shader
@@ -45,6 +47,9 @@ void main() {
 
     vec3 normal = mat3( transform.worldNormal ) * in_normal;
     out_normal  = normal;
+
+    vec3 tangent = mat3( transform.model ) * in_tangent;
+    out_tangent = tangent;
 
     out_lightVector = getLightDirection( light, out_position );
 }

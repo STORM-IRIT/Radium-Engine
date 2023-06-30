@@ -4,7 +4,6 @@
 #include <Core/Containers/AlignedStdVector.hpp>
 #include <Core/RaCore.hpp>
 #include <Core/Types.hpp>
-#include <Core/Utils/Log.hpp>
 
 #include <map>
 #include <set>
@@ -21,8 +20,6 @@ namespace Asset {
 struct RA_CORE_API HandleComponentData {
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
-    HandleComponentData();
-
     /// Handle name.
     std::string m_name;
 
@@ -32,7 +29,7 @@ struct RA_CORE_API HandleComponentData {
     /// Per skinned-mesh matrix from mesh space to bone space (local).
     std::map<std::string, Core::Transform> m_bindMatrices;
 
-    /// Per skinned-mesh vertex weigths.
+    /// Per skinned-mesh vertex weights.
     std::map<std::string, std::vector<std::pair<uint, Scalar>>> m_weights;
 };
 
@@ -49,65 +46,59 @@ class RA_CORE_API HandleData : public AssetData
      */
     enum HandleType { UNKNOWN = 1 << 0, POINT_CLOUD = 1 << 1, SKELETON = 1 << 2, CAGE = 1 << 3 };
 
-    HandleData( const std::string& name = "", const HandleType& type = UNKNOWN );
-
-    HandleData( const HandleData& data ) = default;
-
-    ~HandleData();
+    explicit HandleData( const std::string& name = "", const HandleType& type = UNKNOWN ) :
+        AssetData( name ), m_type( type ) {}
 
     /// \name HandleArray
     /// \{
 
     /**
-     * Set the name of the Handle system.
-     */
-    inline void setName( const std::string& name );
-
-    /**
      * Return the type of the Handle system.
      */
-    inline HandleType getType() const;
+    inline HandleType getType() const { return m_type; }
 
     /**
      * Set the type of the Handle system.
      */
-    inline void setType( const HandleType& type );
+    inline void setType( const HandleType& type ) { m_type = type; }
 
     /**
      * Return the transformation of the Handle system.
      */
-    inline Core::Transform getFrame() const;
+    inline Core::Transform getFrame() const { return m_frame; }
 
     /**
      * Set the transformation of the Handle system.
      */
-    inline void setFrame( const Core::Transform& frame );
+    inline void setFrame( const Core::Transform& frame ) { m_frame = frame; }
 
     /**
      * Add \p name to the list of bound mesh names.
      */
-    inline void addBindMesh( const std::string& name );
+    inline void addBindMesh( const std::string& name ) { m_bindMeshes.insert( name ); }
 
     /**
      * Returns the list of bound mesh names.
      */
-    inline const std::set<std::string>& getBindMeshes() const;
+    inline const std::set<std::string>& getBindMeshes() const { return m_bindMeshes; }
     /// \}
 
     /**
      * Return the maximal number of vertices influenced by a Handle.
      */
-    inline uint getVertexSize() const;
+    inline uint getVertexSize() const { return m_vertexSize; }
 
     /**
      * Set the maximal number of vertices influenced by a Handle.
      */
-    inline void setVertexSize( uint size );
+    inline void setVertexSize( uint size ) { m_vertexSize = size; }
 
     /**
      * Set the map from Handle names to Handle storage index.
      */
-    inline void setNameTable( const std::map<std::string, uint>& nameTable );
+    inline void setNameTable( const std::map<std::string, uint>& nameTable ) {
+        m_nameTable = nameTable;
+    }
 
     /**
      * Recompute the map from Handle names to Handle storage index.
@@ -120,17 +111,17 @@ class RA_CORE_API HandleData : public AssetData
     /**
      * Return the number of Handles in the system.
      */
-    inline uint getComponentDataSize() const;
+    inline uint getComponentDataSize() const { return m_component.size(); }
 
     /**
      * Return the list of HandleComponentData.
      */
-    inline const Core::AlignedStdVector<HandleComponentData>& getComponentData() const;
+    inline const auto& getComponentData() const { return m_component; }
 
     /**
      * Return the list of HandleComponentData.
      */
-    inline Core::AlignedStdVector<HandleComponentData>& getComponentData();
+    inline auto& getComponentData() { return m_component; }
 
     /**
      * Return the \p i-th HandleComponentData.
@@ -145,42 +136,48 @@ class RA_CORE_API HandleData : public AssetData
     /**
      * Set the HandleComponentData for the Handle system.
      */
-    inline void setComponents( const Core::AlignedStdVector<HandleComponentData>& components );
+    inline void setComponents( Core::AlignedStdVector<HandleComponentData>&& components ) {
+        m_component = std::move( components );
+    }
 
     /**
      * Return the HandleArray hierarchy, i.e.\ bones hierarchy.
      */
-    inline const Core::AlignedStdVector<Core::Vector2ui>& getEdgeData() const;
+    inline const auto& getEdgeData() const { return m_edge; }
 
     /**
      * Return the HandleArray hierarchy, i.e.\ bones hierarchy.
      */
-    inline Core::AlignedStdVector<Core::Vector2ui>& getEdgeData();
+    inline auto& getEdgeData() { return m_edge; }
 
     /**
      * Set the HandleArray linear hierarchy part, i.e.\ bones hierarchy.
      */
-    inline void setEdges( const Core::AlignedStdVector<Core::Vector2ui>& edgeList );
+    inline void setEdges( Core::AlignedStdVector<Core::Vector2ui>&& edgeList ) {
+        m_edge = std::move( edgeList );
+    }
 
     /**
      * Return the HandleArray N-Dimensional parts, i.e.\ cage polyhedra.
      */
-    inline const Core::AlignedStdVector<Core::VectorNui>& getFaceData() const;
+    inline const auto& getFaceData() const { return m_face; }
 
     /**
      * Return the HandleArray N-Dimensional parts, i.e.\ cage polyhedra.
      */
-    inline Core::AlignedStdVector<Core::VectorNui>& getFaceData();
+    inline auto& getFaceData() { return m_face; }
 
     /**
      * Set the HandleArray N-Dimensional parts, i.e.\ cage polyhedra.
      */
-    inline void setFaces( const Core::AlignedStdVector<Core::VectorNui>& faceList );
-
+    // inline void setFaces( const Core::AlignedStdVector<Core::VectorNui>& faceList );
+    inline void setFaces( Core::AlignedStdVector<Core::VectorNui>&& faceList ) {
+        m_face = std::move( faceList );
+    }
     /**
      * Set whether the Handle system needs end bones.
      */
-    inline void needEndNodes( bool need );
+    inline void needEndNodes( bool need ) { m_endNode = need; }
     /// \}
 
     /// \name Status querries
@@ -189,37 +186,37 @@ class RA_CORE_API HandleData : public AssetData
     /**
      * Return true if the Handle system is a Point Cloud.
      */
-    inline bool isPointCloud() const;
+    inline bool isPointCloud() const { return m_type == POINT_CLOUD; }
 
     /**
      * Return true if the Handle system is a Skeleton.
      */
-    inline bool isSkeleton() const;
+    inline bool isSkeleton() const { return m_type == SKELETON; }
 
     /**
      * Return true if the Handle system is a Cage.
      */
-    inline bool isCage() const;
+    inline bool isCage() const { return m_type == CAGE; }
 
     /**
      * Return true if the Handle system has Handles.
      */
-    inline bool hasComponents() const;
+    inline bool hasComponents() const { return !m_component.empty(); }
 
     /**
      * Return true if the Handle system has a hierarchy.
      */
-    inline bool hasEdges() const;
+    inline bool hasEdges() const { return !m_edge.empty(); }
 
     /**
      * Return true if the Handle system has N-Dimensional parts.
      */
-    inline bool hasFaces() const;
+    inline bool hasFaces() const { return !m_face.empty(); }
 
     /**
      * Return true if the Handle system needs end bones.
      */
-    inline bool needsEndNodes() const;
+    inline bool needsEndNodes() const { return m_endNode; }
 
     /**
      * Return the storage index of the Handle with the given name
@@ -231,7 +228,7 @@ class RA_CORE_API HandleData : public AssetData
     /**
      * Print stat info to the Debug output.
      */
-    inline void displayInfo() const;
+    void displayInfo() const;
 
   private:
     /// The type of the Handle system.
@@ -262,59 +259,6 @@ class RA_CORE_API HandleData : public AssetData
     Core::AlignedStdVector<Core::VectorNui> m_face;
 };
 
-inline void HandleData::setName( const std::string& name ) {
-    m_name = name;
-}
-
-inline HandleData::HandleType HandleData::getType() const {
-    return m_type;
-}
-
-inline void HandleData::setType( const HandleType& type ) {
-    m_type = type;
-}
-
-inline Core::Transform HandleData::getFrame() const {
-    return m_frame;
-}
-
-inline void HandleData::setFrame( const Core::Transform& frame ) {
-    m_frame = frame;
-}
-
-inline uint HandleData::getVertexSize() const {
-    return m_vertexSize;
-}
-inline void HandleData::setVertexSize( uint size ) {
-    m_vertexSize = size;
-}
-
-inline void HandleData::setNameTable( const std::map<std::string, uint>& nameTable ) {
-    m_nameTable = nameTable;
-}
-
-inline uint HandleData::getComponentDataSize() const {
-    return m_component.size();
-}
-
-inline const Core::AlignedStdVector<HandleComponentData>& HandleData::getComponentData() const {
-    return m_component;
-}
-
-inline Core::AlignedStdVector<HandleComponentData>& HandleData::getComponentData() {
-    return m_component;
-}
-
-inline void
-HandleData::setComponents( const Core::AlignedStdVector<HandleComponentData>& components ) {
-    const uint size = components.size();
-    m_component.resize( size );
-#pragma omp parallel for
-    for ( int i = 0; i < int( size ); ++i ) {
-        m_component[i] = components[i];
-    }
-}
-
 inline const HandleComponentData& HandleData::getComponent( const uint i ) const {
     CORE_ASSERT( ( i < m_component.size() ), "Index i out of bound" );
     return m_component[i];
@@ -325,40 +269,6 @@ inline HandleComponentData& HandleData::getComponent( const uint i ) {
     return m_component[i];
 }
 
-inline const Core::AlignedStdVector<Core::Vector2ui>& HandleData::getEdgeData() const {
-    return m_edge;
-}
-
-inline Core::AlignedStdVector<Core::Vector2ui>& HandleData::getEdgeData() {
-    return m_edge;
-}
-
-inline void HandleData::setEdges( const Core::AlignedStdVector<Core::Vector2ui>& edgeList ) {
-    const uint size = edgeList.size();
-    m_edge.resize( size );
-#pragma omp parallel for
-    for ( int i = 0; i < int( size ); ++i ) {
-        m_edge[i] = edgeList[i];
-    }
-}
-
-inline const Core::AlignedStdVector<Core::VectorNui>& HandleData::getFaceData() const {
-    return m_face;
-}
-
-inline Core::AlignedStdVector<Core::VectorNui>& HandleData::getFaceData() {
-    return m_face;
-}
-
-inline void HandleData::setFaces( const Core::AlignedStdVector<Core::VectorNui>& faceList ) {
-    const uint size = faceList.size();
-    m_face.resize( size );
-#pragma omp parallel for
-    for ( int i = 0; i < int( size ); ++i ) {
-        m_face[i] = faceList[i];
-    }
-}
-
 inline void HandleData::recomputeAllIndices() {
     m_nameTable.clear();
     for ( uint i = 0; i < getComponentDataSize(); ++i ) {
@@ -366,77 +276,10 @@ inline void HandleData::recomputeAllIndices() {
     }
 }
 
-inline bool HandleData::isPointCloud() const {
-    return ( m_type == POINT_CLOUD );
-}
-
-inline bool HandleData::isSkeleton() const {
-    return ( m_type == SKELETON );
-}
-
-inline bool HandleData::isCage() const {
-    return ( m_type == CAGE );
-}
-
-inline bool HandleData::hasComponents() const {
-    return !m_component.empty();
-}
-
-inline bool HandleData::hasEdges() const {
-    return !m_edge.empty();
-}
-
-inline bool HandleData::hasFaces() const {
-    return !m_face.empty();
-}
-
-inline bool HandleData::needsEndNodes() const {
-    return m_endNode;
-}
-
 inline int HandleData::getIndexOf( const std::string& name ) const {
     auto it = m_nameTable.find( name );
     if ( it == m_nameTable.end() ) { return -1; }
     return it->second;
-}
-
-inline void HandleData::needEndNodes( bool need ) {
-    m_endNode = need;
-}
-
-inline void HandleData::addBindMesh( const std::string& name ) {
-    m_bindMeshes.insert( name );
-}
-
-inline const std::set<std::string>& HandleData::getBindMeshes() const {
-    return m_bindMeshes;
-}
-
-inline void HandleData::displayInfo() const {
-    using namespace Core::Utils; // log
-    std::string type;
-    switch ( m_type ) {
-    case POINT_CLOUD:
-        type = "POINT CLOUD";
-        break;
-    case SKELETON:
-        type = "SKELETON";
-        break;
-    case CAGE:
-        type = "CAGE";
-        break;
-    case UNKNOWN:
-    default:
-        type = "UNKNOWN";
-        break;
-    }
-    LOG( logINFO ) << "======== HANDLE INFO ========";
-    LOG( logINFO ) << " Name            : " << m_name;
-    LOG( logINFO ) << " Type            : " << type;
-    LOG( logINFO ) << " Element #       : " << m_component.size();
-    LOG( logINFO ) << " Edge #          : " << m_edge.size();
-    LOG( logINFO ) << " Face #          : " << m_face.size();
-    LOG( logINFO ) << " Need EndNodes ? : " << ( ( m_endNode ) ? "YES" : "NO" );
 }
 
 } // namespace Asset

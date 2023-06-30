@@ -693,35 +693,34 @@ void AllPrimitivesComponent::initialize() {
         data                 = l.loadFile( filename );
 #endif
         if ( data != nullptr ) {
-            auto geomData = data->getGeometryData();
+            const auto& geomData = data->getGeometryData();
 
             for ( const auto& gd : geomData ) {
                 std::shared_ptr<AttribArrayDisplayable> mesh { nullptr };
                 switch ( gd->getType() ) {
                 case Ra::Core::Asset::GeometryData::TRI_MESH:
                     mesh = std::shared_ptr<Mesh> {
-                        createMeshFromGeometryData<Geometry::TriangleMesh>( "logo", gd ) };
+                        createMeshFromGeometryData<Geometry::TriangleMesh>( "logo", gd.get() ) };
                     break;
                 case Ra::Core::Asset::GeometryData::QUAD_MESH:
                     mesh = std::shared_ptr<Data::QuadMesh> {
-                        createMeshFromGeometryData<Geometry::QuadMesh>( "logo", gd ) };
+                        createMeshFromGeometryData<Geometry::QuadMesh>( "logo", gd.get() ) };
                     break;
                 case Ra::Core::Asset::GeometryData::POLY_MESH:
                     mesh = std::shared_ptr<Data::PolyMesh> {
-                        createMeshFromGeometryData<Geometry::PolyMesh>( "logo", gd ) };
+                        createMeshFromGeometryData<Geometry::PolyMesh>( "logo", gd.get() ) };
                     break;
                 default:
                     break;
                 }
 
                 std::shared_ptr<Data::Material> roMaterial;
-                const Core::Asset::MaterialData* md =
-                    gd->hasMaterial() ? &( gd->getMaterial() ) : nullptr;
+                auto mm = gd->hasMaterial() ? gd->getMaterial().getMaterialModel() : nullptr;
                 // First extract the material from asset or create a default one
-                if ( md != nullptr ) {
+                if ( mm != nullptr ) {
                     auto converter =
-                        Data::EngineMaterialConverters::getMaterialConverter( md->getType() );
-                    auto mat = converter.second( md );
+                        Data::EngineMaterialConverters::getMaterialConverter( mm->getType() );
+                    auto mat = converter.second( mm.get() );
                     roMaterial.reset( mat );
                 }
                 else {

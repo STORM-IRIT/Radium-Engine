@@ -5,11 +5,14 @@
 #include <Core/Asset/AssetData.hpp>
 #include <Core/RaCore.hpp>
 
+#include <Core/Material/MaterialModel.hpp>
+
 namespace Ra {
 namespace Core {
 namespace Asset {
 
-/** @brief represent material data loaded by a file loader.
+/** \brief represent material data loaded by a file loader.
+ * \todo rewrite the doc
  * Material data must be identified by a unique name.
  * Radium Engine reserves the following names
  *  "AbstractMaterial"  --> unknown material, might serve for error management
@@ -32,57 +35,26 @@ namespace Asset {
  *
  *      The active system (GeometrySystem is the Radium Default), will then automatically use your
  * new material and technique so that the rendering will be fine. When writing your own system, see
- * GeometrySystem implementation as an example.
- *
- *  That's all folks.
+ * GeometrySystem implementation as an example
  */
 class RA_CORE_API MaterialData : public AssetData
 {
   public:
     /// MATERIAL DATA
-    MaterialData( const std::string& name = "", const std::string& type = "AbstractMaterial" );
-    virtual ~MaterialData();
-
-    /// NAME
-    inline void setName( const std::string& name );
-
-    /// TYPE
-    inline std::string getType() const;
-
-    inline void setType( const std::string& type );
+    MaterialData( const std::string& name = "" ) : AssetData( name ) {}
 
     /// DEBUG
-    virtual void displayInfo() const;
+    void displayInfo() const {
+        if ( m_material ) { m_material->displayInfo(); }
+    }
+
+    /// Model
+    void setMaterialModel( Material::MaterialModelPtr model ) { m_material = model; }
+    Material::MaterialModelPtr getMaterialModel() const { return m_material; }
 
   private:
-    std::string m_type;
+    Material::MaterialModelPtr m_material;
 };
-
-} // namespace Asset
-} // namespace Core
-} // namespace Ra
-
-namespace Ra {
-namespace Core {
-namespace Asset {
-
-////////////////
-/// MATERIAL ///
-////////////////
-
-/// NAME
-inline void MaterialData::setName( const std::string& name ) {
-    m_name = name;
-}
-
-/// TYPE
-inline std::string MaterialData::getType() const {
-    return m_type;
-}
-
-inline void MaterialData::setType( const std::string& type ) {
-    m_type = type;
-}
 
 } // namespace Asset
 } // namespace Core

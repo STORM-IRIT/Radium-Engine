@@ -19,7 +19,7 @@ using namespace Core::Utils; // log
 
 namespace EngineMaterialConverters {
 /// Map that stores each conversion function
-static std::map<std::string, std::function<RadiumMaterialPtr( AssetMaterialPtr )>>
+static std::map<std::string, std::function<RadiumMaterialPtr( MaterialModelPtr )>>
     MaterialConverterRegistry;
 
 bool registerMaterialConverter( const std::string& name, ConverterFunction converter ) {
@@ -35,7 +35,7 @@ bool removeMaterialConverter( const std::string& name ) {
 std::pair<bool, ConverterFunction> getMaterialConverter( const std::string& name ) {
     auto search = MaterialConverterRegistry.find( name );
     if ( search != MaterialConverterRegistry.end() ) { return { true, search->second }; }
-    auto result = std::make_pair( false, [name]( AssetMaterialPtr ) -> RadiumMaterialPtr {
+    auto result = std::make_pair( false, [name]( MaterialModelPtr ) -> RadiumMaterialPtr {
         LOG( logERROR ) << "Required material converter " << name << " not found!";
         return nullptr;
     } );

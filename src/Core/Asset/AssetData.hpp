@@ -1,6 +1,6 @@
 #pragma once
-
 #include <Core/RaCore.hpp>
+
 #include <string>
 
 namespace Ra {
@@ -19,16 +19,15 @@ class RA_CORE_API AssetData
     /// Construct an asset data given its name.
     explicit AssetData( const std::string& name ) : m_name( name ) {}
 
-    /// Copy constructor. Default here
-    AssetData( const AssetData& other ) = default;
-
     /// Simple delete operator
-    virtual ~AssetData() {}
+    virtual ~AssetData() = default;
 
-    /// Acces to the name of the asset
-    inline virtual const std::string& getName() const { return m_name; }
+    /// Access to the name of the asset
+    inline const std::string& getName() const { return m_name; }
+    /// Set the name of the asset
+    inline void setName( const std::string& name ) { m_name = name; }
 
-  protected:
+  private:
     std::string m_name;
 };
 

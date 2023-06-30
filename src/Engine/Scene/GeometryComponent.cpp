@@ -53,7 +53,7 @@ PointCloudComponent::PointCloudComponent( const std::string& name,
 PointCloudComponent::PointCloudComponent( const std::string& name,
                                           Entity* entity,
                                           Core::Geometry::PointCloud&& mesh,
-                                          Core::Asset::MaterialData* mat ) :
+                                          Core::Material::MaterialModelPtr mat ) :
     GeometryComponent( name, entity ),
     m_displayMesh( new Data::PointCloud( name, std::move( mesh ) ) ) {
     finalizeROFromGeometry( mat, Core::Transform::Identity() );
@@ -78,18 +78,20 @@ void PointCloudComponent::generatePointCloud( const Ra::Core::Asset::GeometryDat
 
     m_displayMesh->loadGeometry( std::move( mesh ) );
 
-    finalizeROFromGeometry( data->hasMaterial() ? &( data->getMaterial() ) : nullptr,
+    finalizeROFromGeometry( data->hasMaterial() ? data->getMaterial().getMaterialModel() : nullptr,
                             data->getFrame() );
 }
 
-void PointCloudComponent::finalizeROFromGeometry( const Core::Asset::MaterialData* data,
+void PointCloudComponent::finalizeROFromGeometry( Core::Material::MaterialModelPtr matModel,
                                                   Core::Transform transform ) {
     // The technique for rendering this component
     std::shared_ptr<Data::Material> roMaterial;
     // First extract the material from asset or create a default one
-    if ( data != nullptr ) {
-        auto converter = Data::EngineMaterialConverters::getMaterialConverter( data->getType() );
-        auto mat       = converter.second( data );
+    if ( matModel != nullptr ) {
+        auto converter =
+            Data::EngineMaterialConverters::getMaterialConverter( matModel->getType() );
+        // todo : convert from the shared ptr instead of from the raw ptr
+        auto mat = converter.second( matModel.get() );
         roMaterial.reset( mat );
     }
     else {
@@ -99,7 +101,7 @@ void PointCloudComponent::finalizeROFromGeometry( const Core::Asset::MaterialDat
             Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::VERTEX_COLOR ) );
         roMaterial.reset( mat );
     }
-    // initialize with a default rendertechique that draws nothing
+    // initialize with a default rendertechnique that draws nothing
     std::string roName( m_name + "_" + m_contentName + "_RO" );
     auto ro = Rendering::RenderObject::createRenderObject( roName,
                                                            this,

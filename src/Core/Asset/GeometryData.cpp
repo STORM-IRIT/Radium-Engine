@@ -1,6 +1,6 @@
-#include "Core/Geometry/StandardAttribNames.hpp"
 #include <Core/Asset/GeometryData.hpp>
 
+#include <Core/Geometry/StandardAttribNames.hpp>
 #include <Core/Utils/Log.hpp>
 
 namespace Ra {
@@ -13,8 +13,6 @@ GeometryData::GeometryData( const std::string& name, const GeometryType& type ) 
     m_type( type ),
     m_geometry(),
     m_material() {}
-
-GeometryData::~GeometryData() {}
 
 void GeometryData::displayInfo() const {
     using namespace Core::Utils; // log
@@ -58,7 +56,7 @@ void GeometryData::displayInfo() const {
 
     using namespace Geometry;
     LOG( logINFO ) << "======== MESH INFO ========";
-    LOG( logINFO ) << " Name           : " << m_name;
+    LOG( logINFO ) << " Name           : " << getName();
     LOG( logINFO ) << " Type           : " << type;
     LOG( logINFO ) << " Edge #         : " << ( hasEdges() ? getPrimitiveCount() : 0 );
     LOG( logINFO ) << " Face #         : " << ( hasFaces() ? getPrimitiveCount() : 0 );
@@ -70,7 +68,7 @@ void GeometryData::displayInfo() const {
     LOG( logINFO ) << " Color ?        : " << hasAttrib( MeshAttrib::VERTEX_COLOR );
     LOG( logINFO ) << " Material ?     : " << ( ( !hasMaterial() ) ? "NO" : "YES" );
 
-    if ( hasMaterial() ) { m_material->displayInfo(); }
+    if ( hasMaterial() ) { m_material.displayInfo(); }
 }
 } // namespace Asset
 } // namespace Core

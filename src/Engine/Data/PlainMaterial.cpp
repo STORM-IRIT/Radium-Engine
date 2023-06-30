@@ -1,5 +1,6 @@
+#include <Core/Material/SimpleMaterialModel.hpp>
+#include <Engine/Data/MaterialConverters.hpp>
 #include <Engine/Data/PlainMaterial.hpp>
-
 #include <Engine/Data/ShaderConfigFactory.hpp>
 #include <Engine/Data/ShaderProgramManager.hpp>
 #include <Engine/Data/TextureManager.hpp>
@@ -25,6 +26,8 @@ void PlainMaterial::registerMaterial() {
     // Get the Radium Resource location on the filesystem
     auto resourcesRootDir { RadiumEngine::getInstance()->getResourcesDir() };
     auto shaderProgramManager = RadiumEngine::getInstance()->getShaderProgramManager();
+
+    EngineMaterialConverters::registerMaterialConverter( materialName, PlainMaterialConverter() );
 
     shaderProgramManager->addNamedString( "/Plain.glsl",
                                           resourcesRootDir + "Shaders/Materials/Plain/Plain.glsl" );
@@ -58,6 +61,7 @@ void PlainMaterial::registerMaterial() {
 }
 
 void PlainMaterial::unregisterMaterial() {
+    EngineMaterialConverters::removeMaterialConverter( materialName );
     Rendering::EngineRenderTechniques::removeDefaultTechnique( "Plain" );
 }
 
@@ -69,6 +73,23 @@ void PlainMaterial::updateFromParameters() {
 
 nlohmann::json PlainMaterial::getParametersMetadata() const {
     return s_parametersMetadata;
+}
+
+Material* PlainMaterialConverter::operator()( const Ra::Core::Material::MaterialModel* toconvert ) {
+    auto result = new PlainMaterial( toconvert->getName() );
+    // we are sure here that the concrete type of "toconvert" is BlinnPhongMaterialData
+    // static cst is safe here
+    auto source = static_cast<const Ra::Core::Material::SimpleMaterialModel*>( toconvert );
+
+    result->m_color = source->m_kd;
+    result->m_alpha = source->m_alpha;
+
+    if ( source->hasDiffuseTexture() )
+        result->addTexture( SimpleMaterial::TextureSemantic::TEX_COLOR, source->m_texDiffuse );
+    if ( source->hasOpacityTexture() )
+        result->addTexture( SimpleMaterial::TextureSemantic::TEX_MASK, source->m_texOpacity );
+
+    return result;
 }
 
 } // namespace Data

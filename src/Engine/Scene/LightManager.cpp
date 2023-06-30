@@ -39,8 +39,8 @@ void LightManager::generateTasks( Core::TaskQueue* /*taskQueue*/,
 }
 
 void LightManager::handleAssetLoading( Entity* entity, const FileData* filedata ) {
-    std::vector<LightData*> lightData = filedata->getLightData();
-    uint id                           = 0;
+    const auto& lightData = filedata->getLightData();
+    uint id               = 0;
 
     // If thereis some lights already in the manager, just remove from the manager the lights that
     // belong to the system entity (e.g. the headlight) from the list of managed lights. Beware to

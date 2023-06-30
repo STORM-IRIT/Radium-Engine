@@ -2,7 +2,7 @@
 
 #include <Engine/RaEngine.hpp>
 
-#include <Core/Asset/MaterialData.hpp>
+#include <Core/Material/MaterialModel.hpp>
 #include <Engine/Data/Material.hpp>
 
 namespace Ra {
@@ -14,12 +14,12 @@ class RawShaderMaterialConverter;
 } // namespace Engine
 
 namespace Core {
-namespace Asset {
+namespace Material {
 
 /**
  * External shaderMaterial representation
  */
-class RA_ENGINE_API RawShaderMaterialData : public MaterialData
+class RA_ENGINE_API RawShaderMaterialModel : public MaterialModel
 {
     /// allow converter to access private members
     friend class Ra::Engine::Data::RawShaderMaterialConverter;
@@ -32,23 +32,23 @@ class RA_ENGINE_API RawShaderMaterialData : public MaterialData
      * allowed)
      * @param paramProvider The parameter provider for the resulting program
      */
-    RawShaderMaterialData(
+    RawShaderMaterialModel(
         const std::string& instanceName,
         const std::vector<std::pair<Ra::Engine::Data::ShaderType, std::string>>& shaders,
         std::shared_ptr<Ra::Engine::Data::ShaderParameterProvider> paramProvider ) :
-        MaterialData( instanceName, "Ra::Engine::Data::RawShaderMaterial" ),
+        MaterialModel( instanceName, "Ra::Engine::Data::RawShaderMaterial" ),
         m_shaders { shaders },
         m_paramProvider { std::move( paramProvider ) } {}
-    RawShaderMaterialData()                               = delete;
-    RawShaderMaterialData( const RawShaderMaterialData& ) = delete;
-    ~RawShaderMaterialData()                              = default;
+    RawShaderMaterialModel()                                = delete;
+    RawShaderMaterialModel( const RawShaderMaterialModel& ) = delete;
+    ~RawShaderMaterialModel()                               = default;
 
   private:
     std::vector<std::pair<Ra::Engine::Data::ShaderType, std::string>> m_shaders;
     std::shared_ptr<Ra::Engine::Data::ShaderParameterProvider> m_paramProvider;
 };
 
-} // namespace Asset
+} // namespace Material
 } // namespace Core
 
 namespace Engine {
@@ -63,7 +63,7 @@ class RA_ENGINE_API RawShaderMaterialConverter final
   public:
     RawShaderMaterialConverter()  = default;
     ~RawShaderMaterialConverter() = default;
-    inline Material* operator()( const Ra::Core::Asset::MaterialData* toconvert );
+    inline Material* operator()( const Ra::Core::Material::MaterialModel* toconvert );
 };
 
 /**
@@ -156,8 +156,8 @@ class RA_ENGINE_API RawShaderMaterial : public Material
 };
 
 inline Material*
-RawShaderMaterialConverter::operator()( const Ra::Core::Asset::MaterialData* toconvert ) {
-    auto mat = static_cast<const Core::Asset::RawShaderMaterialData*>( toconvert );
+RawShaderMaterialConverter::operator()( const Ra::Core::Material::MaterialModel* toconvert ) {
+    auto mat = static_cast<const Core::Material::RawShaderMaterialModel*>( toconvert );
     return new RawShaderMaterial( mat->getName(), mat->m_shaders, mat->m_paramProvider );
 }
 

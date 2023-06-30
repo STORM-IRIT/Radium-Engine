@@ -20,7 +20,7 @@ class RA_ENGINE_API SimpleMaterial : public Material, public ParameterSetEditing
 {
   public:
     /// Semantic of the texture : define which BSDF parameter is controled by the texture
-    enum class TextureSemantic { TEX_COLOR, TEX_MASK };
+    enum class TextureSemantic { TEX_COLOR, TEX_MASK, TEX_NORMAL };
 
     /**
      * Construct a named  material
@@ -75,9 +75,21 @@ class RA_ENGINE_API SimpleMaterial : public Material, public ParameterSetEditing
   public:
     /// The base color of the material
     Core::Utils::Color m_color { 0.9, 0.9, 0.9, 1.0 };
+    /// Transparency of the material (not use right now)
+    Scalar m_alpha { 1.0 };
     /// Indicates if the material will takes its base color from vertices' attributes.
     /// \todo make this private ?
     bool m_perVertexColor { false };
+
+  protected:
+    /**
+     * Add an new texture, from a given file, to control the specified BSDF parameter.
+     * @param semantic The texture semantic
+     * @param texture  The texture to use (file)
+     * @return the corresponding TextureData struct
+     */
+    inline TextureParameters& addTexture( const TextureSemantic& semantic,
+                                          const std::string& texture );
 
   private:
     /**
@@ -114,6 +126,17 @@ inline TextureParameters& SimpleMaterial::addTexture( const TextureSemantic& sem
     m_isDirty                   = true;
 
     return m_pendingTextures[semantic];
+}
+
+// Add a texture as material parameter with texture parameter set by default for this material
+inline TextureParameters& SimpleMaterial::addTexture( const TextureSemantic& semantic,
+                                                      const std::string& texture ) {
+    CORE_ASSERT( !texture.empty(), "Invalid texture name" );
+    TextureParameters data;
+    data.name  = texture;
+    data.wrapS = GL_REPEAT;
+    data.wrapT = GL_REPEAT;
+    return addTexture( semantic, data );
 }
 
 inline Texture* SimpleMaterial::getTexture( const TextureSemantic& semantic ) const {

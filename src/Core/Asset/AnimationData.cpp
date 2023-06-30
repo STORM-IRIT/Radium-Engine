@@ -1,17 +1,20 @@
 #include <Core/Asset/AnimationData.hpp>
 
+#include <Core/Utils/Log.hpp>
+
 namespace Ra {
 namespace Core {
 namespace Asset {
 
-HandleAnimation::HandleAnimation( const std::string& name ) :
-    m_name( name ), m_anim( -1, Transform::Identity() ) {}
-
-AnimationData::AnimationData( const std::string& name ) :
-    AssetData( name ), m_time(), m_dt( 0.0 ), m_keyFrame() {}
-
-AnimationData::~AnimationData() {}
-
+void AnimationData::displayInfo() const {
+    using namespace Core::Utils; // log
+    LOG( logDEBUG ) << "======== ANIMATION INFO ========";
+    LOG( logDEBUG ) << " Name              : " << getName();
+    LOG( logDEBUG ) << " Start Time        : " << m_time.getStart();
+    LOG( logDEBUG ) << " End   Time        : " << m_time.getEnd();
+    LOG( logDEBUG ) << " Time Step         : " << m_dt;
+    LOG( logDEBUG ) << " Animated Object # : " << m_keyFrame.size();
+}
 } // namespace Asset
 } // namespace Core
 } // namespace Ra

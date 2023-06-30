@@ -3,6 +3,12 @@
 #include <Engine/Data/SimpleMaterial.hpp>
 
 namespace Ra {
+namespace Core {
+namespace Material {
+class MaterialModel;
+}
+} // namespace Core
+
 namespace Engine {
 namespace Data {
 /**
@@ -18,6 +24,8 @@ namespace Data {
  */
 class RA_ENGINE_API LambertianMaterial final : public SimpleMaterial
 {
+    friend class LambertianMaterialConverter;
+
   public:
     /**
      * Construct a named Lambertian material
@@ -56,6 +64,18 @@ class RA_ENGINE_API LambertianMaterial final : public SimpleMaterial
 
   private:
     static nlohmann::json s_parametersMetadata;
+};
+
+/**
+ * Converter from an external representation coming from FileData to internal representation.
+ */
+class RA_ENGINE_API LambertianMaterialConverter final
+{
+  public:
+    LambertianMaterialConverter()  = default;
+    ~LambertianMaterialConverter() = default;
+
+    Material* operator()( const Ra::Core::Material::MaterialModel* toconvert );
 };
 
 } // namespace Data

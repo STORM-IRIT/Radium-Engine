@@ -1,9 +1,9 @@
 #pragma once
+#include <Core/RaCore.hpp>
 
 #include <Core/Asset/AssetData.hpp>
-#include <Core/RaCore.hpp>
+#include <Core/Types.hpp>
 #include <Core/Utils/Color.hpp>
-#include <Core/Utils/Log.hpp>
 
 #include <memory>
 #include <string>
@@ -31,23 +31,23 @@ class RA_CORE_API LightData : public AssetData
     /** Supported light type
      *
      */
-    enum LightType {
-        UNKNOWN           = 1 << 0,
-        POINT_LIGHT       = 1 << 1,
-        SPOT_LIGHT        = 1 << 2,
-        DIRECTIONAL_LIGHT = 1 << 3,
-        AREA_LIGHT        = 1 << 4
+    enum LightType : unsigned int {
+        UNKNOWN           = 1u << 0u,
+        POINT_LIGHT       = 1u << 1u,
+        SPOT_LIGHT        = 1u << 2u,
+        DIRECTIONAL_LIGHT = 1u << 3u,
+        AREA_LIGHT        = 1u << 4u
     };
 
     /**
      * Define the parameters of the attenuation function.
-     * The only supported attenuation function is 1/ (constant + linear*dist + quadradic*dist^2 )
+     * The only supported attenuation function is 1/ (constant + linear*dist + quadratic*dist^2 )
      */
     struct LightAttenuation {
-        Scalar constant;
-        Scalar linear;
-        Scalar quadratic;
-        explicit LightAttenuation( Scalar c = 1, Scalar l = 0, Scalar q = 0 ) :
+        Scalar constant { 1_ra };
+        Scalar linear { 0_ra };
+        Scalar quadratic { 0_ra };
+        explicit LightAttenuation( Scalar c = 1_ra, Scalar l = 0_ra, Scalar q = 0_ra ) :
             constant( c ), linear( l ), quadratic( q ) {}
     };
     // TODO : allow to define other attenuation function such
@@ -55,9 +55,10 @@ class RA_CORE_API LightData : public AssetData
 
     /**
      * Light constructor.
-     * Must be called explicitely with a name for the light and its type.
+     * Must be called explicitly with a name for the light and its type.
      */
-    explicit LightData( const std::string& name = "", const LightType& type = UNKNOWN );
+    explicit LightData( const std::string& name = "", const LightType& type = UNKNOWN ) :
+        AssetData( name ), m_type( type ) {}
 
     /**
      * Copy constructor.
@@ -67,27 +68,17 @@ class RA_CORE_API LightData : public AssetData
      */
     LightData( const LightData& data );
 
-    /// Destructor
-    ~LightData();
-
     /**
-     * Extension of of the AssetData interface so that we can modify an abcet afeter ts creation.
-     * This has no impact on the coherence of the LightData object and could be used without
-     * restriction.
-     */
-    inline void setName( const std::string& name );
-
-    /**
-     * Acces to the local frame of the light.
+     * Access to the local frame of the light.
      * @return the local frame
      */
-    inline const Eigen::Matrix<Scalar, 4, 4>& getFrame() const;
+    inline const Matrix4& getFrame() const { return m_frame; }
 
     /**
      * Set the local frame of the light.
      * @param frame the local frame
      */
-    inline void setFrame( const Eigen::Matrix<Scalar, 4, 4>& frame );
+    inline void setFrame( const Matrix4& frame ) { m_frame = frame; }
 
     /**
      * Construct a directional light.
@@ -97,8 +88,7 @@ class RA_CORE_API LightData : public AssetData
      * ``DIRECTIONAL_LIGHT`` light, whatever it was before the call and only the directional light
      * part of the union is consistent after the call
      */
-    inline void setLight( const Core::Utils::Color& color,
-                          const Eigen::Matrix<Scalar, 3, 1>& direction );
+    inline void setLight( const Core::Utils::Color& color, const Vector3& direction );
 
     /**
      * Construct a point light.
@@ -108,98 +98,98 @@ class RA_CORE_API LightData : public AssetData
      * the union is consistent after the call
      */
     inline void setLight( const Core::Utils::Color& color,
-                          const Eigen::Matrix<Scalar, 3, 1>& position,
+                          const Vector3& position,
                           LightAttenuation attenuation );
 
     /**
      * Construct a spot light.
      * A spot light is defined by its color, its position, the cone axis and light distribution
-     * (constant inside inangle, quadratically deacreasing toward 0 fron inAngle to ouAngle) and its
+     * (constant inside inAngle, quadratically decreasing toward 0 from inAngle to ouAngle) and its
      * attenuation. \note The object on which this method is called is unconditionally promoted to
      * ``SPOT_LIGHT`` light, whatever it was before the call and only the directional light part of
      * the union is consistent after the call
      */
     inline void setLight( const Core::Utils::Color& color,
-                          const Eigen::Matrix<Scalar, 3, 1>& position,
-                          const Eigen::Matrix<Scalar, 3, 1>& direction,
+                          const Vector3& position,
+                          const Vector3& direction,
                           Scalar inAngle,
                           Scalar outAngle,
                           LightAttenuation attenuation );
 
     /**
      * Construct a area light.
-     * An area light, (isotropic with constant emision defined by its color) is approximated by its
+     * An area light, (isotropic with constant emission defined by its color) is approximated by its
      * center and the covariance matrices modelling the spatial extent as well as the elliptical
      * distribution of normals. \note The object on which this method is called is unconditionally
      * promoted to ``AREA_LIGHT`` light, whatever it was before the call and only the directional
      * light part of the union is consistent after the call
      */
     inline void setLight( const Core::Utils::Color& color,
-                          const Eigen::Matrix<Scalar, 3, 1>& cog,
-                          const Eigen::Matrix<Scalar, 3, 3>& spatialCov,
-                          const Eigen::Matrix<Scalar, 3, 3>& normalCov,
+                          const Vector3& cog,
+                          const Matrix3& spatialCov,
+                          const Matrix3& normalCov,
                           LightAttenuation attenuation );
 
     /**
      * Access to the type of the object
      */
-    inline LightType getType() const;
+    inline LightType getType() const { return m_type; }
 
     /**
      * Returns true if the light is a PointLight
      */
-    inline bool isPointLight() const;
+    inline bool isPointLight() const { return m_type == POINT_LIGHT; }
 
     /**
      * Returns true if the light is a SpotLight
      */
-    inline bool isSpotLight() const;
+    inline bool isSpotLight() const { return m_type == SPOT_LIGHT; }
 
     /**
      * Returns true if the light is a DirectionalLight
      */
-    inline bool isDirectionalLight() const;
+    inline bool isDirectionalLight() const { return m_type == DIRECTIONAL_LIGHT; }
 
     /**
      * Returns true if the light is an AreaLight
      */
-    inline bool isAreaLight() const;
+    inline bool isAreaLight() const { return m_type == AREA_LIGHT; }
 
     /**
-     * For debugging purpose, prints out the formated content of the LightData object.
+     * For debugging purpose, prints out the formatted content of the LightData object.
      */
-    inline void displayInfo() const;
+    void displayInfo() const;
 
   protected:
     /// VARIABLE
 
-    Eigen::Matrix<Scalar, 4, 4> m_frame;
-    LightType m_type;
+    Matrix4 m_frame { Matrix4::Identity() };
+    LightType m_type { UNKNOWN };
 
     // This part is public so that systems handling lights could access to the data.
-    // TODO : make these protected with getters ? Define independant types ?
+    // TODO : make these protected with getters ? Define independent types ?
   public:
-    Core::Utils::Color m_color;
+    Core::Utils::Color m_color { Utils::Color::White() };
 
     struct DirLight {
-        Eigen::Matrix<Scalar, 3, 1> direction;
+        Vector3 direction;
     };
     struct PointLight {
-        Eigen::Matrix<Scalar, 3, 1> position;
+        Vector3 position;
         LightAttenuation attenuation;
     };
     struct SpotLight {
-        Eigen::Matrix<Scalar, 3, 1> position;
-        Eigen::Matrix<Scalar, 3, 1> direction;
+        Vector3 position;
+        Vector3 direction;
         Scalar innerAngle;
         Scalar outerAngle;
         LightAttenuation attenuation;
     };
     struct AreaLight {
-        // TODO : this representation is usefull but might be improved
-        Eigen::Matrix<Scalar, 3, 1> position;
-        Eigen::Matrix<Scalar, 3, 3> spatialCovariance;
-        Eigen::Matrix<Scalar, 3, 3> normalCovariance;
+        // TODO : this representation is useful but might be improved
+        Vector3 position;
+        Matrix3 spatialCovariance;
+        Matrix3 normalCovariance;
         LightAttenuation attenuation;
     };
 
@@ -215,28 +205,8 @@ class RA_CORE_API LightData : public AssetData
 ///  LIGHT DATA   ///
 /////////////////////
 
-/// NAME
-inline void LightData::setName( const std::string& name ) {
-    m_name = name;
-}
-
-/// TYPE
-inline LightData::LightType LightData::getType() const {
-    return m_type;
-}
-
-/// FRAME
-inline const Eigen::Matrix<Scalar, 4, 4>& LightData::getFrame() const {
-    return m_frame;
-}
-
-inline void LightData::setFrame( const Eigen::Matrix<Scalar, 4, 4>& frame ) {
-    m_frame = frame;
-}
-
 /// construct a directional light
-inline void LightData::setLight( const Core::Utils::Color& color,
-                                 const Eigen::Matrix<Scalar, 3, 1>& direction ) {
+inline void LightData::setLight( const Core::Utils::Color& color, const Vector3& direction ) {
     m_type               = DIRECTIONAL_LIGHT;
     m_color              = color;
     m_dirlight.direction = direction;
@@ -244,7 +214,7 @@ inline void LightData::setLight( const Core::Utils::Color& color,
 
 /// construct a point light
 inline void LightData::setLight( const Core::Utils::Color& color,
-                                 const Eigen::Matrix<Scalar, 3, 1>& position,
+                                 const Vector3& position,
                                  LightAttenuation attenuation ) {
     m_type                   = POINT_LIGHT;
     m_color                  = color;
@@ -254,8 +224,8 @@ inline void LightData::setLight( const Core::Utils::Color& color,
 
 /// construct a spot light
 inline void LightData::setLight( const Core::Utils::Color& color,
-                                 const Eigen::Matrix<Scalar, 3, 1>& position,
-                                 const Eigen::Matrix<Scalar, 3, 1>& direction,
+                                 const Vector3& position,
+                                 const Vector3& direction,
                                  Scalar inAngle,
                                  Scalar outAngle,
                                  LightAttenuation attenuation ) {
@@ -270,9 +240,9 @@ inline void LightData::setLight( const Core::Utils::Color& color,
 
 /// construct an area light
 inline void LightData::setLight( const Core::Utils::Color& color,
-                                 const Eigen::Matrix<Scalar, 3, 1>& cog,
-                                 const Eigen::Matrix<Scalar, 3, 3>& spatialCov,
-                                 const Eigen::Matrix<Scalar, 3, 3>& normalCov,
+                                 const Vector3& cog,
+                                 const Matrix3& spatialCov,
+                                 const Matrix3& normalCov,
                                  LightAttenuation attenuation ) {
     m_type                        = AREA_LIGHT;
     m_color                       = color;
@@ -280,50 +250,6 @@ inline void LightData::setLight( const Core::Utils::Color& color,
     m_arealight.spatialCovariance = spatialCov;
     m_arealight.normalCovariance  = normalCov;
     m_arealight.attenuation       = attenuation;
-}
-
-/// QUERY
-inline bool LightData::isPointLight() const {
-    return ( m_type == POINT_LIGHT );
-}
-
-inline bool LightData::isSpotLight() const {
-    return ( m_type == SPOT_LIGHT );
-}
-
-inline bool LightData::isDirectionalLight() const {
-    return ( m_type == DIRECTIONAL_LIGHT );
-}
-
-inline bool LightData::isAreaLight() const {
-    return ( m_type == AREA_LIGHT );
-}
-
-/// DEBUG
-inline void LightData::displayInfo() const {
-    using namespace Core::Utils; // log
-    std::string type;
-    switch ( m_type ) {
-    case POINT_LIGHT:
-        type = "POINT LIGHT";
-        break;
-    case SPOT_LIGHT:
-        type = "SPOT LIGHT";
-        break;
-    case DIRECTIONAL_LIGHT:
-        type = "DIRECTIONAL LIGHT";
-        break;
-    case AREA_LIGHT:
-        type = "AREA LIGHT";
-        break;
-    case UNKNOWN:
-    default:
-        type = "UNKNOWN";
-        break;
-    }
-    LOG( logINFO ) << "======== LIGHT INFO ========";
-    LOG( logINFO ) << " Name           : " << m_name;
-    LOG( logINFO ) << " Type           : " << type;
 }
 
 } // namespace Asset

@@ -27,6 +27,9 @@ void SimpleMaterial::updateRenderingParameters() {
     tex = getTexture( SimpleMaterial::TextureSemantic::TEX_MASK );
     if ( tex != nullptr ) { renderParameters.addParameter( "material.tex.mask", tex ); }
     renderParameters.addParameter( "material.tex.hasMask", tex != nullptr );
+    tex = getTexture( SimpleMaterial::TextureSemantic::TEX_NORMAL );
+    if ( tex != nullptr ) { renderParameters.addParameter( "material.tex.normal", tex ); }
+    renderParameters.addParameter( "material.tex.hasNormal", tex != nullptr );
 }
 
 void SimpleMaterial::updateGL() {
