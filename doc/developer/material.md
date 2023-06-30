@@ -63,7 +63,7 @@ to the material
 
 Note that this way of using the _Radium Material Library_ is very related to the default Radium rendering capabilities
 exposed by the [Radium forward renderer](@ref forwardRenderer).
-See the [Render technique management](./rendertechnique) documentation to learn how to create your own
+See the [Render technique management](#render-technique) documentation to learn how to create your own
 Ra::Engine::Rendering::RenderTechnique, potentially without associated material.
 
 If one wants to render objects without BSDF computation but with a specific color computation for the fragment,
@@ -123,7 +123,7 @@ public:
 }
 ~~~
 
-See the [Render technique management](./rendertechnique) for documentation on how to build such an helper function.
+See the [Render technique management](#render-technique) for documentation on how to build such an helper function.
 
 ### Making a material editable {#editable-interface}
 
@@ -266,7 +266,7 @@ In order to keep the appearance computation agnostic on the way vertex attribs a
 propose an abstract interface. But, and this is particular to these attributes, one can access to the attributes
 himself, on the vertex, or to the attributes interpolated by the rasterizer, on the fragment.
 Accessing the Attribute directly on the vertex (i.e. on a vertex shader) does not necessitate an interface as
-each shader must define its attributes and as the [Mesh API](./mesh.md) allows to communicate between C++ and GLSL.
+each shader must define its attributes and as the [Mesh API](\ref develmeshes) allows to communicate between C++ and GLSL.
 
 Note that the attributes accessed through the Vertex attrib interface **must** be defined in world space.
 Even if not necessarily efficient (some transformations might be computed twice), this will ensure more simple
@@ -496,7 +496,7 @@ auto theConfig =
                 Ra::Engine::Data::ShaderConfigurationFactory::getConfiguration( "ConfigName" );
 ~~~
 
-### Registering a RenderTechnique
+### Registering a RenderTechnique {#render-technique}
 
 A Ra::Engine::Rendering::RenderTechnique describes which Ra::Engine::Data::ShaderConfiguration a renderer will use for each of its
 rendering passes. Such a render technique could encompass a Ra::Engine::Data::Material but its meaning is larger than just
@@ -646,7 +646,9 @@ addRenderObject( renderObject );
 Then the draw call of ``renderObject`` uses the ``myConfig`` as shader configuration.
 Before rendering, the method ``updateGL`` on the ``parameterProvider`` instance is called so that the shader's uniforms values are updated according the one stored in ``parameterProvider``.
 
-# \todo TO UPDATE
+# TO UPDATE
+
+\todo TO UPDATE
 
 Shader programs are managed through their `ShaderConfiguration`, which contains the _shader objects_ (vertex, fragment, ... shader) and the _shader properties_ (not used for now though).
 

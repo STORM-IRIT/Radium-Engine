@@ -108,8 +108,10 @@ class RA_CORE_API Camera
 
     /// Set the Field Of View to 'fov' in the x (horizontal) direction.
     /// If you have an vertical field of view, you can convert it to horizontal as
-    /// Scalar fovx = 2_ra*std::atan( radiumCam->getAspect() * std::tan( cam.yfov / 2_ra ) );
-    //        if ( fovxDiv2 < 0_ra ) { fovxDiv2 = Ra::Core::Math::PiDiv2; }
+    /// \code{.cpp}
+    /// Scalar fovx = 2_ra * std::atan( radiumCam->getAspect() * std::tan( cam.yfov / 2_ra ) );
+    ///        if ( fovxDiv2 < 0_ra ) { fovxDiv2 = Ra::Core::Math::PiDiv2; }
+    /// \endcode
     /// \note Meaningless for orthogonal projection.
     /// \warning Trigger a rebuild of the projection matrix.
     inline void setFOV( Scalar fov );

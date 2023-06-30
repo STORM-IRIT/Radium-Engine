@@ -30,6 +30,8 @@ We provide a standalone cmake project (`Radium-Engine/external/CMakeLists.txt`) 
 
 ## Configuration and compilation of the dependencies
 
+For command line, tested on Linux and mac OS, **for windows might need more configuration options**.
+
 External dependencies have to be installed outside Radium-Engine source tree.
 
 ~~~{.bash}
@@ -45,9 +47,9 @@ cmake --build builds/radium-external-build-d --config Debug --parallel
 
 If not given on the command line, the installation directory is set by default to `Radium-Engine/{CMAKE_CURRENT_BINARY_DIR}/Bundle-${CMAKE_CXX_COMPILER_ID}` for `CMAKE_BUILD_TYPE=Release`, and  `Radium-Engine/{CMAKE_CURRENT_BINARY_DIR}/Bundle-${CMAKE_CXX_COMPILER_ID}-${CMAKE_BUILD_TYPE}` for any other `CMAKE_BUILD_TYPE`.
 
-### Getting started with Visual Studio
+### Visual Studio configuration
 
-Open `external/CMakeLists.txt` and edit cmake settings or `CMakeSettings.json`. External build and install have to be outside Radium-Engine source directory. For instance
+Open the external folder in VS using "Open a local folder" and edit cmake settings or `CMakeSettings.json`. External build and install have to be outside Radium-Engine source directory. For instance
 
 ~~~{.json}
 {
@@ -120,7 +122,7 @@ You can  use your own installation of a local dependency instead of letting cmak
 To this end, just provide the corresponding '*_DIR' to cmake at configuration time as show before (with '-D' option, configuration file or toolchain file, please refer to cmake documentation).
 
 Currently supported (note that these paths must refer to the installation directory of the corresponding library):
-<!--  (generated running ../script/list_dep.py from Radium-Engine/external directory) -->
+<!--  (generated running ../scripts/list_dep.py from Radium-Engine/external directory) -->
 
 * `assimp_DIR`
 * `tinyply_DIR`
