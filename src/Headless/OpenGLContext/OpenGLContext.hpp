@@ -38,8 +38,11 @@ class HEADLESS_API OpenGLContext
      *  be compatible with. If there is no compatible context, the application will stop
      * \param size
      */
-    explicit OpenGLContext( const glbinding::Version& /*glVersion*/ = { 4, 1 },
-                            const std::array<int, 2>& /*size*/      = { { 1, 1 } } ) {};
+    explicit OpenGLContext( const glbinding::Version& glVersion = { 4, 1 },
+                            const std::array<int, 2>& size      = { { 1, 1 } } ) {
+        CORE_UNUSED( glVersion );
+        CORE_UNUSED( size );
+    };
     /// destructor
     virtual ~OpenGLContext() = default;
     /// make the context active

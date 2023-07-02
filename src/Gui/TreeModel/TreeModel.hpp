@@ -8,6 +8,7 @@
 #include <QAbstractItemModel>
 #include <QVariant>
 
+/// \file TreeModel.hpp
 /// This file contains a basic implementation of a tree model object with QAbstractItemModel
 /// See http://doc.qt.io/qt-5/qtwidgets-itemviews-simpletreemodel-example.html
 /// This could have been a template with the object type, but QObjects cannot be
@@ -22,7 +23,8 @@ namespace Ra {
 namespace Gui {
 
 /**
- * Base class for element of the tree representation.
+ * \brief Base class for element of the tree representation.
+ *
  * It just maintains a tree structure leaving the data storage to derived classes.
  */
 class RA_GUI_API TreeItem

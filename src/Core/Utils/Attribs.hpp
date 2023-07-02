@@ -280,7 +280,6 @@ class RA_CORE_API AttribManager : public Observable<const std::string&>
      * \brief Unlock the handle data
      * \tparam T
      * \param h
-     * \return
      */
     template <typename T>
     void unlock( const AttribHandle<T>& h );
