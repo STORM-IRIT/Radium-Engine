@@ -48,7 +48,7 @@ In order to execute Radium demos from the buildtree (installing them takes time 
 you also need to define environment variables that point to the various dlls used by Radium components that will be used on the per-target `launch.vs.json` configuration file.
 Note that it is recommended to compile or install glfw as a static library, the example below assume that.
 
-For instance, with directory structure for externals as defined in \ref dependenciesmanagement, the configuration is
+For instance, with directory structure for externals as defined above the configuration is
 
 ~~~{.json}
 {

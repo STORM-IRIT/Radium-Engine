@@ -166,6 +166,7 @@ if(DOXYGEN_FOUND)
     set(DOXYGEN_DOT_GRAPH_MAX_NODES "60")
     set(DOXYGEN_ALIASES [[complexity="@par Complexity:^^"]])
     set(DOXYGEN_VERBATIM_VARS DOXYGEN_ALIASES)
+    set(DOXYGEN_WARN_IF_UNDOCUMENTED "NO")
     # resolve std to cpp ref
     # https://upload.cppreference.com/mwiki/images/f/f8/cppreference-doxygen-web.tag.xml
     set(DOXYGEN_TAGFILES
