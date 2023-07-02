@@ -88,9 +88,8 @@ default Radium-Engine install prefix is `Radium-Engine/Bundle-${CMAKE_CXX_COMPIL
 
 More details and other systems information (including visual studio setup) are in the following pages, to be read in order.
 
-* \subpage basicsCompileRadiumVs
-* \subpage basicsCompileRadiumCommand
+* \subpage basicsCompileVs
+* \subpage basicsCompileCommand
 * \subpage basicsRadiumSubmodule : Link to Radium using cmake package
-* \subpage depencenciesmanagement
 * \subpage basicsCompileRadiumDetails
 * \subpage basicsTroubleshooting : Handle usual errors

@@ -34,7 +34,7 @@ Open the external folder in VS using "Open a local folder" and edit cmake settin
 }
 ~~~
 
-Build and install the project.
+Build the project, this will install the external dependencies.
 
 # Build Radium
 
