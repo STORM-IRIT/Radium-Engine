@@ -9,7 +9,10 @@
 #include <Eigen/Geometry>
 #include <Eigen/Sparse>
 
+/// Radium Namespaces prefix
 namespace Ra {
+
+/// This namespace contains everything "low level", related to data, datastuctures, and computation.
 namespace Core {
 
 /// @name
