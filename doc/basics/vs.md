@@ -112,7 +112,7 @@ Right click on `CMakeList.txt > build > all`.
 
 ## Execution of a demo app
 
-To execute a demo application, select in the `Startup Item` list the target you want to execute.
+To execute a demo application from the buildtree, i.e. without installing Radium, select in the `Startup Item` list the target you want to execute.
 For instance, `DrawPrimitives.exe (examples/...)`.
 Then, select in the menu `<Debug>/Debug and Launch Settings for DrawPrimmitives` and modify the `launch.vs.json` file that is opened so that it contains the following.
 
