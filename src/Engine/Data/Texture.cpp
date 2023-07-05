@@ -18,6 +18,25 @@ using namespace Core::Utils; // log
 Texture::Texture( const TextureParameters& texParameters ) :
     m_textureParameters { texParameters }, m_texture { nullptr }, m_isMipMapped { false } {}
 
+class DeleteTextureTask : public Core::Task
+{
+  public:
+    DeleteTextureTask( std::unique_ptr<globjects::Texture> texture ) :
+        m_texture( std::move( texture ) ) {}
+
+    /// Return the name of the task.
+    std::string getName() const override { return "DeleteTextureTask"; };
+
+    /// Do the task job. Will be called from the task queue threads.
+    virtual void process() override {
+        m_texture->detach();
+        m_texture.reset();
+    };
+
+  private:
+    std::unique_ptr<globjects::Texture> m_texture;
+};
+
 Texture::~Texture() {
     if ( m_updateImageTaskId.isValid() ) {
         RadiumEngine::getInstance()->removeGpuTask( m_updateImageTaskId );
@@ -26,12 +45,16 @@ Texture::~Texture() {
     if ( m_updateSamplerTaskId.isValid() ) {
         RadiumEngine::getInstance()->removeGpuTask( m_updateSamplerTaskId );
     }
+    if ( m_texture ) {
+        auto task = std::make_unique<DeleteTextureTask>( std::move( m_texture ) );
+        RadiumEngine::getInstance()->addGpuTask( std::move( task ) );
+        m_texture.reset();
+    }
 }
 
-void Texture::initialize( bool needLinearization ) {
+void Texture::initialize() {
     if ( !isSupportedTarget() ) return;
     // Transform texels if needed
-    if ( needLinearization ) { linearize( m_textureParameters.image ); }
 
     computeIsMipMappedFlag();
 
@@ -40,6 +63,19 @@ void Texture::initialize( bool needLinearization ) {
 
     // upload texture to the GPU
     registerUpdateImageDataTask();
+}
+
+void Texture::destroy() {
+    if ( m_destroyTaskId.isInvalid() ) {
+        auto task = std::make_unique<DeleteTextureTask>( std::move( m_texture ) );
+        RadiumEngine::getInstance()->addGpuTask( std::move( task ) );
+        m_texture.reset();
+    }
+}
+
+void Texture::destroyNow() {
+    m_texture->detach();
+    m_texture.reset();
 }
 
 void Texture::updateData( std::shared_ptr<void> newData ) {
@@ -63,15 +99,8 @@ void Texture::resize( size_t w, size_t h, size_t d, std::shared_ptr<void> pix ) 
 }
 
 void Texture::setParameters( const TextureParameters& textureParameters ) {
-    m_updateMutex.lock();
-    bool test1 = ( textureParameters.sampler != m_textureParameters.sampler );
-    m_updateMutex.unlock();
-    if ( test1 ) setSamplerParameters( textureParameters.sampler );
-
-    m_updateMutex.lock();
-    bool test2 = ( textureParameters.image != m_textureParameters.image );
-    m_updateMutex.unlock();
-    if ( test2 ) setImageParameters( textureParameters.image );
+    setSamplerParameters( textureParameters.sampler );
+    setImageParameters( textureParameters.image );
 }
 
 void Texture::setImageParameters( const ImageParameters& imageParameters ) {

@@ -16,28 +16,7 @@ using namespace Core::Utils; // log
 
 TextureManager::TextureManager() = default;
 
-TextureManager::~TextureManager() {
-    for ( auto& tex : m_textures ) {
-        delete tex.second;
-    }
-    m_textures.clear();
-    m_pendingTextures.clear();
-}
-
-TextureParameters& TextureManager::addTexture2( const std::string& name,
-                                                uint width,
-                                                uint height,
-                                                std::shared_ptr<void> data ) {
-    TextureParameters texData;
-    texData.name         = name;
-    texData.image.width  = width;
-    texData.image.height = height;
-    texData.image.texels = data;
-
-    m_pendingTextures[name] = texData;
-
-    return m_pendingTextures[name];
-}
+TextureManager::~TextureManager() = default;
 
 TextureManager::TextureHandle TextureManager::addTexture( const TextureParameters& parameters ) {
     // find first free slot in m_newTextures
@@ -105,43 +84,6 @@ ImageParameters TextureManager::loadTextureImage( const std::string& filename, b
     return image;
 }
 
-Texture* TextureManager::loadTexture2( const TextureParameters& texParameters, bool linearize ) {
-    TextureParameters texParams = texParameters;
-    // No texels ? load image to texels
-    if ( texParams.image.texels == nullptr ) {
-        auto image      = loadTextureImage( texParams.name );
-        texParams.image = image;
-    }
-    auto ret = new Texture( texParams );
-    ret->initializeNow( linearize );
-    return ret;
-}
-
-Texture* TextureManager::getOrLoadTexture2( const TextureParameters& texParameters,
-                                            bool linearize ) {
-    {
-        // Is texture in the manager ?
-        auto it = m_textures.find( texParameters.name );
-        if ( it != m_textures.end() ) { return it->second; }
-    }
-    {
-        // Is texture pending but registered in the manager
-        auto it = m_pendingTextures.find( texParameters.name );
-        if ( it != m_pendingTextures.end() ) {
-            auto pendingParams             = it->second;
-            auto ret                       = loadTexture2( pendingParams, linearize );
-            m_textures[pendingParams.name] = ret;
-            m_pendingTextures.erase( it );
-            return ret;
-        }
-    }
-    // Texture is not in the manager, add it
-    auto ret = loadTexture2( texParameters, linearize );
-
-    m_textures[texParameters.name] = ret;
-    return ret;
-}
-
 Texture* TextureManager::getTexture( const TextureHandle& handle ) {
     return handle.isValid() ? m_newTextures[handle.getValue()].get() : nullptr;
 }
@@ -155,28 +97,8 @@ TextureManager::TextureHandle TextureManager::getTextureHandle( const std::strin
                                      : TextureHandle::Invalid();
 };
 
-void TextureManager::deleteTexture2( const std::string& filename ) {
-    auto it = m_textures.find( filename );
-
-    if ( it != m_textures.end() ) {
-        delete it->second;
-        m_textures.erase( it );
-    }
-}
-
-void TextureManager::deleteTexture2( Texture* texture ) {
-    deleteTexture2( texture->getName() );
-}
-
 void TextureManager::deleteTexture( const TextureHandle& handle ) {
     if ( handle.isValid() ) m_newTextures[handle.getValue()].reset( nullptr );
-}
-
-void TextureManager::updateTextureContent( const std::string& texture,
-                                           std::shared_ptr<void> content ) {
-    CORE_ASSERT( m_textures.find( texture ) != m_textures.end(),
-                 "Trying to update non existing texture" );
-    m_textures[texture]->updateData( content );
 }
 
 } // namespace Data

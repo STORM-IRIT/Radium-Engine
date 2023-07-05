@@ -689,7 +689,7 @@ void EnvironmentTexture::updateGL() {
             m_isSkyBox = false;
         }
         m_displayMesh->updateGL();
-        m_skyTexture->initialize();
+        m_skyTexture->initializeNow();
         glEnable( GL_TEXTURE_CUBE_MAP_SEAMLESS );
         m_glReady = true;
     }

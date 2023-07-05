@@ -30,15 +30,6 @@ struct SamplerParameters {
     GLenum magFilter { GL_LINEAR };
 };
 
-inline bool operator==( const SamplerParameters& lhs, const SamplerParameters& rhs ) {
-    return lhs.wrapS == rhs.wrapS && lhs.wrapT == rhs.wrapT && lhs.wrapP == rhs.wrapP &&
-           lhs.minFilter == rhs.minFilter && lhs.magFilter == rhs.magFilter;
-}
-
-inline bool operator!=( const SamplerParameters& lhs, const SamplerParameters& rhs ) {
-    return !( lhs == rhs );
-}
-
 struct ImageParameters {
     /// OpenGL target
     GLenum target { GL_TEXTURE_2D };
@@ -60,37 +51,19 @@ struct ImageParameters {
     std::array<std::shared_ptr<void>, 6> cubeMap {};
 };
 
-inline bool operator==( const ImageParameters& lhs, const ImageParameters rhs ) {
-    return lhs.target == rhs.target && lhs.width == rhs.width && lhs.height == rhs.height &&
-           lhs.format == rhs.format && lhs.internalFormat == rhs.internalFormat &&
-           lhs.type == rhs.type && lhs.texels == rhs.texels && lhs.cubeMap == rhs.cubeMap;
-}
-
-inline bool operator!=( const ImageParameters& lhs, const ImageParameters& rhs ) {
-    return !( lhs == rhs );
-}
-
 /** \brief Describes the content and parameters of a texture.
  * This structures encapsulates all the states used for creating an OpenGL texture.
  *  These parameters describe the image data of the texture :
- *    - target, width, height, depth, format, internalFormat, type and texels for describing image
- * data
- *    - wrapS, wrapT, wrapP, minFilter and magFilter for describing the sampler of the texture.
- *
- *  When one wants to create a texture, the first thing to do is to create and fill a Texture
- * parameter structure that will describe the Texture.
- *
- *  The Texture creation could be done either using the TextureManager or directly on the client
- * class/function.
- *
- *  When a texture is created, no OpenGL initialisation is realized. The user must first call
- * initializeGL before being able to use this texture in an OpenGL operation.
+ *    - ImageParameters: target, width, height, depth, format, internalFormat, type and texels for
+ * describing image data
+ *    - SampleParameters: wrapS, wrapT, wrapP, minFilter and magFilter for describing the sampler of
+ * the texture.
  *
  *  MipMap representation of the texture is automatically generated as soon as the minFilter
  * parameter is something else than GL_LINEAR or GL_NEAREST
  *
  * \note No coherence checking will be done on the content of this structure. User must ensure
- * coherent data and parameters before creating the OpenGL texture with Texture::initializeGL
+ * coherent data and parameters.
  */
 struct TextureParameters {
     std::string name {};
@@ -100,6 +73,16 @@ struct TextureParameters {
 
 /** \brief Represent a Texture of the engine.
  *
+ *  When one wants to create a texture, the first thing to do is to create and fill a
+ * TextureParameters to describe the Texture.
+ *
+ *  The Texture creation could be done either using the TextureManager or directly on the client
+ * class/function.
+ *
+ *  When a texture is created, no GPU initialisation is realized. The user must first call
+ * either initialize() to register delayed initialisation by RadiumEngine using
+ * RadiumEngine::runGpuTasks() or intializeNow() to peform GPU initialization directly, with an
+ * active bound context.
  * See TextureManager for information about how unique texture are defined.
  */
 class RA_ENGINE_API Texture final
@@ -113,13 +96,13 @@ class RA_ENGINE_API Texture final
      */
     void operator=( const Texture& ) = delete;
 
-    /** \brief Texture constructor. No OpenGL initialization is done there.
+    /** \brief Texture constructor. No GPU initialization is done there.
      *
      * \param texParameters Name of the texture
      */
     explicit Texture( const TextureParameters& texParameters );
 
-    /** \brief Texture destructor. Both internal data and OpenGL stuff are deleted.
+    /** \brief Texture destructor. Both internal data and GPU representation are deleted.
      */
     ~Texture();
 
@@ -129,27 +112,24 @@ class RA_ENGINE_API Texture final
      * This method use the stored TextureParameters to generate and configure OpenGL
      * texture. It creates gpu tasks the engine will run during next draw call, so it can be called
      * without active opengl context.
-     *
-     * This method will apply RGB space conversion if \a linearize is true.
-     *
-     * \param linearize (default false) : convert the texture from sRGB to Linear RGB color space
-     * before OpenGL initialisation
      */
-    void initialize( bool linearize = false );
+    void initialize();
 
     /** \brief Generate the GPU representation of the texture <b>right now</b>. Need an active
      * OpenGL context.
      *
      * see initialze() which is the same method, but delay gpu stuff to engine gpu tasks.
      */
-    void initializeNow( bool needLinearization = false ) {
+    void initializeNow() {
         if ( !isSupportedTarget() ) return;
-        if ( needLinearization ) { linearize( m_textureParameters.image ); }
         createTexture();
         computeIsMipMappedFlag();
         sendSamplerParametersToGpu();
         sendImageDataToGpu();
     }
+
+    void destroy();
+    void destroyNow();
 
     /// \return Name of the texture.
     inline std::string getName() const { return m_textureParameters.name; }
@@ -205,9 +185,9 @@ class RA_ENGINE_API Texture final
 
     /** \brief set TextureParameters.
      *
-     * If imageParameters is changed, the method call setImageParameters() to register update GPU
-     * representation task. If samplerParameter is change, the method call setSamplerParameters() to
-     * register update GPU sample task.
+     * Call setImageParameters() and setSamplerParameters() to
+     * register update GPU sample task. No check is peformed to see if data need to be updated, gpu
+     * update is triggered inconditionnally.
      */
     void setParameters( const TextureParameters& textureParameters );
     /// \brief set TextureParameters.image
@@ -252,16 +232,18 @@ class RA_ENGINE_API Texture final
     /// \brief set m_isMipMapped according to sampler.minFilter
     void computeIsMipMappedFlag();
 
-    /** \brief Allocate m_texture if nullptr.
+    /** \brief Allocate gup texture representation (m_texture) if not already allocated (nullptr).
      *
-     * \return true if allocation is actually performed
+     * \return true if allocation is performed.
      */
     bool createTexture();
 
-    /// \brief Regiter gpu task to RadiumEngine
+    /// \brief Regiter gpu task to RadiumEngine. Will call sendImageDataToGpu during next
+    /// RadiumEngine::runGpuTasks() call.
     void registerUpdateImageDataTask();
 
-    /// \brief Regiter gpu task to RadiumEngine
+    /// \brief Regiter gpu task to RadiumEngine. Will call sendSamplerParametersToGpu during next
+    /// RadiumEngine::runGpuTasks() call.
     void registerUpdateSamplerParametersTask();
 
     /// \brief Send image data to the GPU and generate mipmap if needed
@@ -304,6 +286,7 @@ class RA_ENGINE_API Texture final
     /// \brief This task is valid when a gpu sampler task is registered.
     /// e.g. after a call to initialize, setParamaters or setSamplerParamters).
     Core::TaskQueue::TaskId m_updateSamplerTaskId;
+    Core::TaskQueue::TaskId m_destroyTaskId;
     /// mutex to protect non gpu setters, in a thread safe way.
     std::mutex m_updateMutex;
 };

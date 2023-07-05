@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Engine/Data/BlinnPhongMaterial.hpp"
 #include <Engine/RaEngine.hpp>
 
 #include <Core/Utils/Color.hpp>
@@ -14,18 +15,32 @@
 namespace Ra {
 namespace Engine {
 namespace Data {
+
+/** \brief Namespace to define materials' texture semantics.
+ *
+ * Convention: add you're material's MyMaterial TextureSemantic Enum inside it's MyMaterial nested
+ * namespace.
+ */
+namespace TextureSemantics {
+namespace SimpleMaterial {
+/// Semantic of the texture : define which BSDF parameter is controled by the texture
+enum class TextureSemantic { TEX_COLOR, TEX_MASK };
+} // namespace SimpleMaterial
+} // namespace TextureSemantics
+
 /**
  * Base implementation for simple, monocolored, materials.
  * This material could not be used as is. Only derived class could be used by a renderer.
  */
-class RA_ENGINE_API SimpleMaterial : public Material, public ParameterSetEditingInterface
+class RA_ENGINE_API SimpleMaterial
+    : public Material,
+      public ParameterSetEditingInterface,
+      public MaterialTextureSet<TextureSemantics::SimpleMaterial::TextureSemantic>
 {
   public:
-    /// Semantic of the texture : define which BSDF parameter is controled by the texture
-    enum class TextureSemantic { TEX_COLOR, TEX_MASK };
-
+    using TextureSemantic = TextureSemantics::SimpleMaterial::TextureSemantic;
     /**
-     * Construct a named  material
+     * Construct a named  materialhmb
      * \param name The name of the material
      */
     explicit SimpleMaterial( const std::string& instanceName,
@@ -44,31 +59,6 @@ class RA_ENGINE_API SimpleMaterial : public Material, public ParameterSetEditing
      * This state only consists on associated textures.
      */
     void updateGL() override final;
-
-    /**
-     * Add an new texture, from a TextureParameters, to control the specified BSDF parameter.
-     * The textures will be finalized (i.e loaded from a file if needed and transformed to OpenGL
-     * texture) only when needed by the updateGL method.
-     * \param semantic The texture semantic
-     * \param texture  The texture to use (Descriptor of the texture by its parameters)
-     * \return the corresponding TextureData struct
-     */
-    inline void addTexture( const TextureSemantic& semantic,
-                            const TextureManager::TextureHandle& texture );
-
-    /**
-     * Add an already existing texture to control the specified BSDF parameter.
-     * \param semantic The texture semantic
-     * \param texture  The texture to use
-     */
-    inline void addTexture( const TextureSemantic& semantic, const TextureParameters& texture );
-
-    /**
-     * Get the texture associated to the given semantic.
-     * \param semantic
-     * \return
-     */
-    inline Texture* getTexture( const TextureSemantic& semantic ) const;
 
     inline void setColoredByVertexAttrib( bool state ) override;
 
@@ -96,27 +86,6 @@ class RA_ENGINE_API SimpleMaterial : public Material, public ParameterSetEditing
     /// Load the material parameter description
     static void loadMetaData( nlohmann::json& destination );
 };
-
-// Add a texture as material parameter from an already existing Radium Texture
-inline void SimpleMaterial::addTexture( const TextureSemantic& semantic,
-                                        const TextureManager::TextureHandle& texture ) {
-    m_textures[semantic] = texture;
-}
-
-// Add a texture as material parameter with texture parameter set by the caller
-inline void SimpleMaterial::addTexture( const TextureSemantic& semantic,
-                                        const TextureParameters& texture ) {
-    auto texManager      = RadiumEngine::getInstance()->getTextureManager();
-    m_textures[semantic] = texManager->addTexture( texture );
-}
-
-inline Texture* SimpleMaterial::getTexture( const TextureSemantic& semantic ) const {
-    Texture* tex    = nullptr;
-    auto texManager = RadiumEngine::getInstance()->getTextureManager();
-    auto it         = m_textures.find( semantic );
-    if ( it != m_textures.end() ) { tex = texManager->getTexture( it->second ); }
-    return tex;
-}
 
 inline void SimpleMaterial::setColoredByVertexAttrib( bool state ) {
     bool oldState    = m_perVertexColor;

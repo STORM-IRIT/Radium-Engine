@@ -33,8 +33,6 @@ class RA_ENGINE_API TextureManager final
      * \return a texture descriptor that could be further specialized (filtering parameters ..)
      * before the texture is inserted into Radium OpenGL system by getOrLoadTexture
      */
-    TextureParameters&
-    addTexture2( const std::string& name, uint width, uint height, std::shared_ptr<void> data );
 
     TextureHandle addTexture( const TextureParameters& );
 
@@ -56,37 +54,13 @@ class RA_ENGINE_API TextureManager final
      * sRGB to LinearRGB
      * \return The texture as inserted into the Radium available openGL system
      */
-    Texture* getOrLoadTexture2( const TextureParameters& texParameters, bool linearize = false );
     Texture* getTexture( const TextureHandle& handle );
-    TextureHandle getTextureHandle( const std::string& handle );
+    TextureHandle getTextureHandle( const std::string& name );
+    Texture* getTexture( const std::string& name ) {
+        return getTexture( getTextureHandle( name ) );
+    }
 
-    /**
-     * Helper function, load the texture without adding it to the manager.
-     * \see getOrLoadTexture() for parameters description.
-     */
-    Texture* loadTexture2( const TextureParameters& texParameters, bool linearize = false );
-
-    /**
-     * Delete a named texture from the manager
-     * \param filename
-     */
-    void deleteTexture2( const std::string& filename );
-
-    /**
-     * Delete a texture from the manager
-     * \param texture
-     */
-    void deleteTexture2( Texture* texture );
     void deleteTexture( const TextureHandle& handle );
-    /**
-     * Lazy update the texture content from the raw pointer content.
-     * The real update will be done when calling RadiumEngine::runGpuTasks() (e.g. during next
-     * BaseApplication::radiumFrame() )
-     * \note User must ensure that the data pointed by content are of the good type wrt the texture.
-     * \param texture
-     * \param content
-     */
-    void updateTextureContent( const std::string& texture, std::shared_ptr<void> content );
 
     /** Load \a filename and fill ImageParameters according to \a filename content.
      * \note : only loads 2D image file for now.
@@ -102,15 +76,7 @@ class RA_ENGINE_API TextureManager final
     ~TextureManager();
 
   private:
-    /// Textures that have a usable and up to date OpenGL state
-    std::map<std::string, Texture*> m_textures;
     std::vector<std::unique_ptr<Texture>> m_newTextures;
-
-    /// Textures that do not have a usable OpenGL state
-    std::map<std::string, TextureParameters> m_pendingTextures;
-
-    /// Handle to filename correspondance, if texture image is loaded from file.
-    std::map<TextureHandle, std::string> m_filenames;
 };
 
 } // namespace Data
