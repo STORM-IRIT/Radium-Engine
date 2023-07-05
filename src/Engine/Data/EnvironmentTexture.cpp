@@ -187,6 +187,7 @@ void EnvironmentTexture::initializeTexture() {
                                                    GL_RGBA,
                                                    GL_RGBA,
                                                    GL_FLOAT,
+                                                   false,
                                                    nullptr,
                                                    { m_skyData[0],
                                                      m_skyData[1],
@@ -636,6 +637,7 @@ Ra::Engine::Data::Texture* EnvironmentTexture::getSHImage() {
           GL_RGBA,
           GL_RGBA,
           GL_UNSIGNED_BYTE,
+          false,
           thepixels } };
     m_shtexture = std::make_unique<Ra::Engine::Data::Texture>( params );
     return m_shtexture.get();

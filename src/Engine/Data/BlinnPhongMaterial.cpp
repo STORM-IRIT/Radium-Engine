@@ -51,22 +51,7 @@ void BlinnPhongMaterial::updateRenderingParameters() {
 
 void BlinnPhongMaterial::updateGL() {
     if ( !m_isDirty ) { return; }
-
-    // Load textures
-    auto texManager = RadiumEngine::getInstance()->getTextureManager();
-    for ( const auto& tex : m_pendingTextures ) {
-        // ask to convert color textures from sRGB to Linear RGB
-        bool tolinear         = ( tex.first == TextureSemantic::TEX_DIFFUSE ||
-                          tex.first == TextureSemantic::TEX_SPECULAR );
-        auto texture          = texManager->getOrLoadTexture( tex.second, tolinear );
-        m_textures[tex.first] = texture;
-        // do not call addTexture since it invalidate m_pendingTextures itr
-        //       addTexture( tex.first, texture );
-    }
-
-    m_pendingTextures.clear();
     m_isDirty = false;
-
     updateRenderingParameters();
 }
 

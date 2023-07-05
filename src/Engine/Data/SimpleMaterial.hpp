@@ -2,12 +2,14 @@
 
 #include <Engine/RaEngine.hpp>
 
-#include <map>
-#include <string>
-
 #include <Core/Utils/Color.hpp>
 #include <Engine/Data/Material.hpp>
 #include <Engine/Data/Texture.hpp>
+#include <Engine/Data/TextureManager.hpp>
+#include <Engine/RadiumEngine.hpp>
+
+#include <map>
+#include <string>
 
 namespace Ra {
 namespace Engine {
@@ -51,15 +53,15 @@ class RA_ENGINE_API SimpleMaterial : public Material, public ParameterSetEditing
      * \param texture  The texture to use (Descriptor of the texture by its parameters)
      * \return the corresponding TextureData struct
      */
-    inline TextureParameters& addTexture( const TextureSemantic& semantic,
-                                          const TextureParameters& texture );
+    inline void addTexture( const TextureSemantic& semantic,
+                            const TextureManager::TextureHandle& texture );
 
     /**
      * Add an already existing texture to control the specified BSDF parameter.
      * \param semantic The texture semantic
      * \param texture  The texture to use
      */
-    inline void addTexture( const TextureSemantic& semantic, Texture* texture );
+    inline void addTexture( const TextureSemantic& semantic, const TextureParameters& texture );
 
     /**
      * Get the texture associated to the given semantic.
@@ -88,11 +90,7 @@ class RA_ENGINE_API SimpleMaterial : public Material, public ParameterSetEditing
     /**
      * The openGL initialized textures.
      */
-    std::map<TextureSemantic, Texture*> m_textures;
-    /**
-     * The textures that are associated with the material but ar not yet loaded nor initialized.
-     */
-    std::map<TextureSemantic, TextureParameters> m_pendingTextures;
+    std::map<TextureSemantic, TextureManager::TextureHandle> m_textures;
 
   protected:
     /// Load the material parameter description
@@ -100,28 +98,23 @@ class RA_ENGINE_API SimpleMaterial : public Material, public ParameterSetEditing
 };
 
 // Add a texture as material parameter from an already existing Radium Texture
-inline void SimpleMaterial::addTexture( const TextureSemantic& semantic, Texture* texture ) {
+inline void SimpleMaterial::addTexture( const TextureSemantic& semantic,
+                                        const TextureManager::TextureHandle& texture ) {
     m_textures[semantic] = texture;
-    // remove pendingTexture with same semantic, since the latter would
-    // overwrite the former when updateGL will be called.
-    m_pendingTextures.erase( semantic );
 }
 
 // Add a texture as material parameter with texture parameter set by the caller
-inline TextureParameters& SimpleMaterial::addTexture( const TextureSemantic& semantic,
-                                                      const TextureParameters& texture ) {
-    m_pendingTextures[semantic] = texture;
-    m_isDirty                   = true;
-
-    return m_pendingTextures[semantic];
+inline void SimpleMaterial::addTexture( const TextureSemantic& semantic,
+                                        const TextureParameters& texture ) {
+    auto texManager      = RadiumEngine::getInstance()->getTextureManager();
+    m_textures[semantic] = texManager->addTexture( texture );
 }
 
 inline Texture* SimpleMaterial::getTexture( const TextureSemantic& semantic ) const {
-    Texture* tex = nullptr;
-
-    auto it = m_textures.find( semantic );
-    if ( it != m_textures.end() ) { tex = it->second; }
-
+    Texture* tex    = nullptr;
+    auto texManager = RadiumEngine::getInstance()->getTextureManager();
+    auto it         = m_textures.find( semantic );
+    if ( it != m_textures.end() ) { tex = texManager->getTexture( it->second ); }
     return tex;
 }
 

@@ -34,11 +34,16 @@ int main( int argc, char* argv[] ) {
                                                    std::cos( j * i * M_PI / 96.0 ) ) );
         }
     }
-    auto& textureParameters =
-        app.m_engine->getTextureManager()->addTexture( "myTexture", width, height, data );
-    // these values will be used when engine initialize texture GL representation.
+
+    Ra::Engine::Data::TextureParameters textureParameters { "myTexture", {}, {} };
     textureParameters.image.format         = gl::GLenum::GL_RED;
     textureParameters.image.internalFormat = gl::GLenum::GL_R8;
+    textureParameters.image.width          = width;
+    textureParameters.image.height         = height;
+    textureParameters.image.texels         = data;
+
+    auto texHandle = app.m_engine->getTextureManager()->addTexture( textureParameters );
+    // these values will be used when engine initialize texture GL representation.
     //! [Creating a texture]
 
     //! [Create an entity and component to draw or data]

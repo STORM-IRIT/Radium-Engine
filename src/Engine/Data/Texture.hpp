@@ -29,10 +29,12 @@ struct SamplerParameters {
     /// OpenGL magnification filter ( GL_LINEAR or GL_NEAREST )
     GLenum magFilter { GL_LINEAR };
 };
+
 inline bool operator==( const SamplerParameters& lhs, const SamplerParameters& rhs ) {
     return lhs.wrapS == rhs.wrapS && lhs.wrapT == rhs.wrapT && lhs.wrapP == rhs.wrapP &&
            lhs.minFilter == rhs.minFilter && lhs.magFilter == rhs.magFilter;
 }
+
 inline bool operator!=( const SamplerParameters& lhs, const SamplerParameters& rhs ) {
     return !( lhs == rhs );
 }
@@ -52,9 +54,9 @@ struct ImageParameters {
     GLenum internalFormat { GL_RGB };
     /// Type of the components in external data
     GLenum type { GL_UNSIGNED_BYTE };
-
+    bool isLinear { false };
     /// texels OR cubeMap, shared ownership
-    std::shared_ptr<void> texels { nullptr };
+    std::shared_ptr<void> texels {};
     std::array<std::shared_ptr<void>, 6> cubeMap {};
 };
 
@@ -63,6 +65,7 @@ inline bool operator==( const ImageParameters& lhs, const ImageParameters rhs ) 
            lhs.format == rhs.format && lhs.internalFormat == rhs.internalFormat &&
            lhs.type == rhs.type && lhs.texels == rhs.texels && lhs.cubeMap == rhs.cubeMap;
 }
+
 inline bool operator!=( const ImageParameters& lhs, const ImageParameters& rhs ) {
     return !( lhs == rhs );
 }
@@ -139,13 +142,13 @@ class RA_ENGINE_API Texture final
      *
      * see initialze() which is the same method, but delay gpu stuff to engine gpu tasks.
      */
-    void initializeNow( bool linearize = false ) {
+    void initializeNow( bool needLinearization = false ) {
         if ( !isSupportedTarget() ) return;
-        if ( linearize ) { this->linearize(); }
+        if ( needLinearization ) { linearize( m_textureParameters.image ); }
         createTexture();
         computeIsMipMappedFlag();
-        sendSamplerParametersToGPU();
-        sendImageDataToGPU();
+        sendSamplerParametersToGpu();
+        sendImageDataToGpu();
     }
 
     /// \return Name of the texture.
@@ -172,7 +175,7 @@ class RA_ENGINE_API Texture final
      * of image and sampler parameters between cpu Data::Texture and gpu side globlects::Texture.
      * \return the globjects::Texture associated with the texture.
      */
-    globjects::Texture* getGPUTexture() const { return m_texture.get(); }
+    globjects::Texture* getGpuTexture() const { return m_texture.get(); }
 
     /// get read access to texture parameters
     const TextureParameters& getParameters() const { return m_textureParameters; }
@@ -236,7 +239,7 @@ class RA_ENGINE_API Texture final
      * Only GL_RGB[8, 16, 16F, 32F] and GL_RGBA[8, 16, 16F, 32F] are managed.
      * Full transformation as described at https://en.wikipedia.org/wiki/SRGB
      */
-    void linearize();
+    static void linearize( ImageParameters& image );
 
   private:
     /**
@@ -262,10 +265,10 @@ class RA_ENGINE_API Texture final
     void registerUpdateSamplerParametersTask();
 
     /// \brief Send image data to the GPU and generate mipmap if needed
-    void sendImageDataToGPU();
+    void sendImageDataToGpu();
 
     /// \brief Send sampler parameters to the GPU
-    void sendSamplerParametersToGPU();
+    void sendSamplerParametersToGpu();
 
     /** \brief Convert a color texture from sRGB to Linear RGB spaces.
      *
@@ -278,10 +281,15 @@ class RA_ENGINE_API Texture final
      * \param gamma the gama value to use (sRGB is 2.4)
      * \note only 8 bit (GL_UNSIGNED_BYTE data format) textures are managed by this operator.
      */
-    void sRGBToLinearRGB( uint8_t* texels, uint numComponent, bool hasAlphaChannel );
+    static void srgbToLinearRgb( uint8_t* texels,
+                                 uint width,
+                                 uint height,
+                                 uint depth,
+                                 uint numComponent,
+                                 bool hasAlphaChannel );
 
     /// \brief linearize a cube map by calling sRGBToLinearRGB fore each face
-    void linearizeCubeMap( uint numComponent, bool hasAlphaChannel );
+    static void linearizeCubeMap( ImageParameters& image, uint numComponent, bool hasAlphaChannel );
 
     /// Texture parameters
     TextureParameters m_textureParameters;
@@ -290,8 +298,6 @@ class RA_ENGINE_API Texture final
     std::unique_ptr<globjects::Texture> m_texture;
     /// Is the texture mip-mapped ?
     bool m_isMipMapped { false };
-    /// Is the texture in LinearRGB ?
-    bool m_isLinear { false };
     /// \brief This task is valid when a gpu image update task is registered (e.g. after a call to
     /// initialize, setParameters, setImageParameters or setData).
     Core::TaskQueue::TaskId m_updateImageTaskId;

@@ -16,10 +16,7 @@ namespace Data {
 using namespace Core::Utils; // log
 
 Texture::Texture( const TextureParameters& texParameters ) :
-    m_textureParameters { texParameters },
-    m_texture { nullptr },
-    m_isMipMapped { false },
-    m_isLinear { false } {}
+    m_textureParameters { texParameters }, m_texture { nullptr }, m_isMipMapped { false } {}
 
 Texture::~Texture() {
     if ( m_updateImageTaskId.isValid() ) {
@@ -31,10 +28,10 @@ Texture::~Texture() {
     }
 }
 
-void Texture::initialize( bool linearize ) {
+void Texture::initialize( bool needLinearization ) {
     if ( !isSupportedTarget() ) return;
     // Transform texels if needed
-    if ( linearize ) { this->linearize(); }
+    if ( needLinearization ) { linearize( m_textureParameters.image ); }
 
     computeIsMipMappedFlag();
 
@@ -59,10 +56,10 @@ void Texture::resize( size_t w, size_t h, size_t d, std::shared_ptr<void> pix ) 
     m_textureParameters.image.texels = pix;
     if ( createTexture() ) {
         computeIsMipMappedFlag();
-        sendSamplerParametersToGPU();
-        sendImageDataToGPU();
+        sendSamplerParametersToGpu();
+        sendImageDataToGpu();
     }
-    else { sendImageDataToGPU(); }
+    else { sendImageDataToGpu(); }
 }
 
 void Texture::setParameters( const TextureParameters& textureParameters ) {
@@ -103,35 +100,38 @@ void Texture::bindImageTexture( int unit,
         uint( unit ), level, layered, layer, access, m_textureParameters.image.internalFormat );
 }
 
-void Texture::linearize() {
-    // Only RGB and RGBA texture contains color information
-    // (others are not really colors and must be managed explicitly by the user)
-    uint numComp  = 0;
-    bool hasAlpha = false;
-    switch ( m_textureParameters.image.format ) {
-        // RED texture store a gray scale color. Verify if we need to convert
-    case GL_RED:
-        numComp = 1;
-        break;
-    case GL_RGB:
-        numComp = 3;
-        break;
-    case GL_RGBA:
-        numComp  = 4;
-        hasAlpha = true;
-        break;
-    default:
-        LOG( logERROR ) << "Textures with format " << m_textureParameters.image.format
-                        << " can't be linearized." << m_textureParameters.name;
-        return;
-    }
-    if ( m_textureParameters.image.type == GL_TEXTURE_CUBE_MAP ) {
-        linearizeCubeMap( numComp, hasAlpha );
-    }
-    else {
-        sRGBToLinearRGB( reinterpret_cast<uint8_t*>( m_textureParameters.image.texels.get() ),
-                         numComp,
-                         hasAlpha );
+void Texture::linearize( ImageParameters& image ) {
+    if ( !image.isLinear ) {
+        // Only RGB and RGBA texture contains color information
+        // (others are not really colors and must be managed explicitly by the user)
+        uint numComp  = 0;
+        bool hasAlpha = false;
+        switch ( image.format ) {
+            // RED texture store a gray scale color. Verify if we need to convert
+        case GL_RED:
+            numComp = 1;
+            break;
+        case GL_RGB:
+            numComp = 3;
+            break;
+        case GL_RGBA:
+            numComp  = 4;
+            hasAlpha = true;
+            break;
+        default:
+            LOG( logERROR ) << "Textures with format " << image.format << " can't be linearized.\n";
+            return;
+        }
+        if ( image.type == GL_TEXTURE_CUBE_MAP ) { linearizeCubeMap( image, numComp, hasAlpha ); }
+        else {
+            srgbToLinearRgb( reinterpret_cast<uint8_t*>( image.texels.get() ),
+                             image.width,
+                             image.height,
+                             image.depth,
+                             numComp,
+                             hasAlpha );
+        }
+        image.isLinear = true;
     }
 }
 
@@ -169,7 +169,7 @@ void Texture::registerUpdateImageDataTask() {
             std::lock_guard<std::mutex> taskLock( m_updateMutex );
             // Generate OpenGL texture
             this->createTexture();
-            this->sendImageDataToGPU();
+            this->sendImageDataToGpu();
             m_updateImageTaskId = Core::TaskQueue::TaskId::Invalid();
         };
         auto task           = std::make_unique<Core::FunctionTask>( taskFunc, getName() );
@@ -183,7 +183,7 @@ void Texture::registerUpdateSamplerParametersTask() {
             std::lock_guard<std::mutex> taskLock( m_updateMutex );
             // Generate OpenGL texture
             this->createTexture();
-            this->sendSamplerParametersToGPU();
+            this->sendSamplerParametersToGpu();
             m_updateSamplerTaskId = Core::TaskQueue::TaskId::Invalid();
         };
         auto task             = std::make_unique<Core::FunctionTask>( taskFunc, getName() );
@@ -191,7 +191,7 @@ void Texture::registerUpdateSamplerParametersTask() {
     }
 }
 
-void Texture::sendImageDataToGPU() {
+void Texture::sendImageDataToGpu() {
     CORE_ASSERT( m_texture != nullptr, "Cannot update non initialized texture" );
     switch ( m_texture->target() ) {
     case GL_TEXTURE_1D: {
@@ -305,7 +305,7 @@ void Texture::sendImageDataToGPU() {
 }
 
 // let the compiler warn about case fallthrough
-void Texture::sendSamplerParametersToGPU() {
+void Texture::sendSamplerParametersToGpu() {
     switch ( m_texture->target() ) {
     case GL_TEXTURE_CUBE_MAP:
     case GL_TEXTURE_3D:
@@ -331,41 +331,41 @@ void Texture::sendSamplerParametersToGPU() {
 }
 
 /// \todo template by texels type
-void Texture::sRGBToLinearRGB( uint8_t* texels, uint numComponent, bool hasAlphaChannel ) {
-    std::lock_guard<std::mutex> lock( m_updateMutex );
-    if ( !m_isLinear ) {
-        m_isLinear = true;
-        // auto linearize = [gamma](float in)-> float {
-        auto linearize = []( uint8_t in ) -> uint8_t {
-            // Constants are described at https://en.wikipedia.org/wiki/SRGB
-            float c = float( in ) / 255;
-            if ( c < 0.04045 ) { c = c / 12.92f; }
-            else { c = std::pow( ( ( c + 0.055f ) / ( 1.055f ) ), 2.4f ); }
-            return uint8_t( c * 255 );
-        };
-        uint numValues = hasAlphaChannel ? numComponent - 1 : numComponent;
+void Texture::srgbToLinearRgb( uint8_t* texels,
+                               uint width,
+                               uint height,
+                               uint depth,
+                               uint numComponent,
+                               bool hasAlphaChannel ) {
+    // auto linearize = [gamma](float in)-> float {
+    auto linearize = []( uint8_t in ) -> uint8_t {
+        // Constants are described at https://en.wikipedia.org/wiki/SRGB
+        float c = float( in ) / 255;
+        if ( c < 0.04045 ) { c = c / 12.92f; }
+        else { c = std::pow( ( ( c + 0.055f ) / ( 1.055f ) ), 2.4f ); }
+        return uint8_t( c * 255 );
+    };
+    uint numValues = hasAlphaChannel ? numComponent - 1 : numComponent;
 #pragma omp parallel for
-        for ( int i = 0;
-              i < int( m_textureParameters.image.width * m_textureParameters.image.height *
-                       m_textureParameters.image.depth );
-              ++i ) {
-            // Convert each R or RGB value while keeping alpha unchanged
-            for ( uint p = i * numComponent; p < i * numComponent + numValues; ++p ) {
-                texels[p] = linearize( texels[p] );
-            }
+    for ( int i = 0; i < int( width * height * depth ); ++i ) {
+        // Convert each R or RGB value while keeping alpha unchanged
+        for ( uint p = i * numComponent; p < i * numComponent + numValues; ++p ) {
+            texels[p] = linearize( texels[p] );
         }
     }
 }
 
-void Texture::linearizeCubeMap( uint numComponent, bool hasAlphaChannel ) {
-    if ( m_textureParameters.image.type == gl::GLenum::GL_UNSIGNED_BYTE ) {
+void Texture::linearizeCubeMap( ImageParameters& image, uint numComponent, bool hasAlphaChannel ) {
+    if ( image.type == gl::GLenum::GL_UNSIGNED_BYTE ) {
         /// Only unsigned byte texture could be linearized. Considering other formats where
         /// already linear
         for ( int i = 0; i < 6; ++i ) {
-            sRGBToLinearRGB(
-                reinterpret_cast<uint8_t*>( m_textureParameters.image.cubeMap[i].get() ),
-                numComponent,
-                hasAlphaChannel );
+            srgbToLinearRgb( reinterpret_cast<uint8_t*>( image.cubeMap[i].get() ),
+                             image.width,
+                             image.height,
+                             image.depth,
+                             numComponent,
+                             hasAlphaChannel );
         }
     }
 }

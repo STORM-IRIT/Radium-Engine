@@ -2,12 +2,14 @@
 
 #include <Engine/RaEngine.hpp>
 
-#include <map>
-#include <string>
-
 #include <Core/Utils/Color.hpp>
 #include <Engine/Data/Material.hpp>
 #include <Engine/Data/Texture.hpp>
+#include <Engine/Data/TextureManager.hpp>
+#include <Engine/RadiumEngine.hpp>
+
+#include <map>
+#include <string>
 
 namespace Ra {
 namespace Core {
@@ -40,6 +42,7 @@ class RA_ENGINE_API BlinnPhongMaterial final : public Material, public Parameter
      * \param instanceName The name of this instance of the material
      */
     explicit BlinnPhongMaterial( const std::string& instanceName );
+
     /**
      * Destructor.
      * \note The material does not have ownership on its texture. This destructor do not delete the
@@ -56,8 +59,9 @@ class RA_ENGINE_API BlinnPhongMaterial final : public Material, public Parameter
      * \param semantic The texture semantic
      * \param texture  The texture to use
      */
-    inline void addTexture( const TextureSemantic& semantic, Texture* texture );
-
+    inline void addTexture( const TextureSemantic& semantic,
+                            const TextureManager::TextureHandle& texture );
+    inline void addTexture( const TextureSemantic& semantic, const std::string& texture );
     /**
      * Get the texture associated to the given semantic.
      * \param semantic
@@ -102,22 +106,11 @@ class RA_ENGINE_API BlinnPhongMaterial final : public Material, public Parameter
      * \param texture  The texture to use (file)
      * \return the corresponding TextureData struct
      */
-    inline TextureParameters& addTexture( const TextureSemantic& semantic,
-                                          const TextureParameters& texture );
+    inline void addTexture( const TextureSemantic& semantic, const TextureParameters& texture );
 
   private:
-    std::map<TextureSemantic, Texture*> m_textures;
-    std::map<TextureSemantic, TextureParameters> m_pendingTextures;
+    std::map<TextureSemantic, TextureManager::TextureHandle> m_textures;
     static nlohmann::json s_parametersMetadata;
-
-    /**
-     * Add an new texture, from a given file, to control the specified BSDF parameter.
-     * \param semantic The texture semantic
-     * \param texture  The texture to use (file)
-     * \return the corresponding TextureData struct
-     */
-    inline TextureParameters& addTexture( const TextureSemantic& semantic,
-                                          const std::string& texture );
 
     /**
      * Update the rendering parameters for the Material
@@ -138,45 +131,44 @@ class RA_ENGINE_API BlinnPhongMaterialConverter final
 };
 
 // Add a texture as material parameter from an already existing Radium Texture
-inline void BlinnPhongMaterial::addTexture( const TextureSemantic& semantic, Texture* texture ) {
+inline void BlinnPhongMaterial::addTexture( const TextureSemantic& semantic,
+                                            const TextureManager::TextureHandle& texture ) {
     m_textures[semantic] = texture;
-    // remove pendingTexture with same semantic, since the latter would
-    // overwrite the former when updateGL will be called.
-    m_pendingTextures.erase( semantic );
 }
 
 // Add a texture as material parameter with texture parameter set by default for this material
-inline TextureParameters& BlinnPhongMaterial::addTexture( const TextureSemantic& semantic,
-                                                          const std::string& texture ) {
+inline void BlinnPhongMaterial::addTexture( const TextureSemantic& semantic,
+                                            const std::string& texture ) {
     CORE_ASSERT( !texture.empty(), "Invalid texture name" );
-
-    TextureParameters data;
-    data.name          = texture;
-    data.sampler.wrapS = GL_REPEAT;
-    data.sampler.wrapT = GL_REPEAT;
-    if ( semantic != TextureSemantic::TEX_NORMAL ) {
-        data.sampler.minFilter = GL_LINEAR_MIPMAP_LINEAR;
+    auto texManager = RadiumEngine::getInstance()->getTextureManager();
+    auto texHandle  = texManager->getTextureHandle( texture );
+    if ( texHandle.isValid() ) { addTexture( semantic, texHandle ); }
+    else {
+        TextureParameters data;
+        data.name          = texture;
+        data.sampler.wrapS = GL_REPEAT;
+        data.sampler.wrapT = GL_REPEAT;
+        if ( semantic != TextureSemantic::TEX_NORMAL ) {
+            data.sampler.minFilter = GL_LINEAR_MIPMAP_LINEAR;
+        }
+        addTexture( semantic, data );
     }
-    return addTexture( semantic, data );
 }
 
 // Add a texture as material parameter with texture parameter set by the caller
 // The textures will be finalized (i.e loaded from a file if needed and transformed to OpenGL
 // texture) only when needed by the updateGL method.
-inline TextureParameters& BlinnPhongMaterial::addTexture( const TextureSemantic& semantic,
-                                                          const TextureParameters& texture ) {
-    m_pendingTextures[semantic] = texture;
-    m_isDirty                   = true;
-
-    return m_pendingTextures[semantic];
+inline void BlinnPhongMaterial::addTexture( const TextureSemantic& semantic,
+                                            const TextureParameters& texture ) {
+    auto texManager      = RadiumEngine::getInstance()->getTextureManager();
+    m_textures[semantic] = texManager->addTexture( texture );
 }
 
 inline Texture* BlinnPhongMaterial::getTexture( const TextureSemantic& semantic ) const {
-    Texture* tex = nullptr;
-
-    auto it = m_textures.find( semantic );
-    if ( it != m_textures.end() ) { tex = it->second; }
-
+    Texture* tex    = nullptr;
+    auto texManager = RadiumEngine::getInstance()->getTextureManager();
+    auto it         = m_textures.find( semantic );
+    if ( it != m_textures.end() ) { tex = texManager->getTexture( it->second ); }
     return tex;
 }
 

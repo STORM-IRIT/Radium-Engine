@@ -621,23 +621,23 @@ void ForwardRenderer::resizeInternal() {
 
     m_fbo->bind();
     m_fbo->attachTexture( GL_DEPTH_ATTACHMENT,
-                          m_textures[RendererTextures_Depth]->getGPUTexture() );
-    m_fbo->attachTexture( GL_COLOR_ATTACHMENT0, m_textures[RendererTextures_HDR]->getGPUTexture() );
+                          m_textures[RendererTextures_Depth]->getGpuTexture() );
+    m_fbo->attachTexture( GL_COLOR_ATTACHMENT0, m_textures[RendererTextures_HDR]->getGpuTexture() );
     m_fbo->attachTexture( GL_COLOR_ATTACHMENT1,
-                          m_textures[RendererTextures_Normal]->getGPUTexture() );
+                          m_textures[RendererTextures_Normal]->getGpuTexture() );
     m_fbo->attachTexture( GL_COLOR_ATTACHMENT2,
-                          m_textures[RendererTextures_Diffuse]->getGPUTexture() );
+                          m_textures[RendererTextures_Diffuse]->getGpuTexture() );
     m_fbo->attachTexture( GL_COLOR_ATTACHMENT3,
-                          m_textures[RendererTextures_Specular]->getGPUTexture() );
+                          m_textures[RendererTextures_Specular]->getGpuTexture() );
     if ( m_fbo->checkStatus() != GL_FRAMEBUFFER_COMPLETE ) {
         LOG( logERROR ) << "FBO Error (ForwardRenderer::m_fbo): " << m_fbo->checkStatus();
     }
 
     m_volumeFbo->bind();
     m_volumeFbo->attachTexture( GL_DEPTH_ATTACHMENT,
-                                m_textures[RendererTextures_Depth]->getGPUTexture() );
+                                m_textures[RendererTextures_Depth]->getGpuTexture() );
     m_volumeFbo->attachTexture( GL_COLOR_ATTACHMENT0,
-                                m_textures[RendererTextures_Volume]->getGPUTexture() );
+                                m_textures[RendererTextures_Volume]->getGpuTexture() );
     if ( m_volumeFbo->checkStatus() != GL_FRAMEBUFFER_COMPLETE ) {
         LOG( logERROR ) << "FBO Error (ForwardRenderer::m_volumeFbo) : "
                         << m_volumeFbo->checkStatus();
@@ -645,19 +645,19 @@ void ForwardRenderer::resizeInternal() {
 
     m_oitFbo->bind();
     m_oitFbo->attachTexture( GL_DEPTH_ATTACHMENT,
-                             m_textures[RendererTextures_Depth]->getGPUTexture() );
+                             m_textures[RendererTextures_Depth]->getGpuTexture() );
     m_oitFbo->attachTexture( GL_COLOR_ATTACHMENT0,
-                             m_textures[RendererTextures_OITAccum]->getGPUTexture() );
+                             m_textures[RendererTextures_OITAccum]->getGpuTexture() );
     m_oitFbo->attachTexture( GL_COLOR_ATTACHMENT1,
-                             m_textures[RendererTextures_OITRevealage]->getGPUTexture() );
+                             m_textures[RendererTextures_OITRevealage]->getGpuTexture() );
     if ( m_oitFbo->checkStatus() != GL_FRAMEBUFFER_COMPLETE ) {
         LOG( logERROR ) << "FBO Error (ForwardRenderer::m_oitFbo) : " << m_oitFbo->checkStatus();
     }
 
     m_postprocessFbo->bind();
     m_postprocessFbo->attachTexture( GL_DEPTH_ATTACHMENT,
-                                     m_textures[RendererTextures_Depth]->getGPUTexture() );
-    m_postprocessFbo->attachTexture( GL_COLOR_ATTACHMENT0, m_fancyTexture->getGPUTexture() );
+                                     m_textures[RendererTextures_Depth]->getGpuTexture() );
+    m_postprocessFbo->attachTexture( GL_COLOR_ATTACHMENT0, m_fancyTexture->getGpuTexture() );
     if ( m_postprocessFbo->checkStatus() != GL_FRAMEBUFFER_COMPLETE ) {
         LOG( logERROR ) << "FBO Error (ForwardRenderer::m_postprocessFbo) : "
                         << m_postprocessFbo->checkStatus();
@@ -668,8 +668,8 @@ void ForwardRenderer::resizeInternal() {
     // render eveything else than the scene. Create several FBO with ther own configuration
     // (uncomment Renderer::m_depthTexture->texture() to see the difference.)
     m_uiXrayFbo->bind();
-    m_uiXrayFbo->attachTexture( GL_DEPTH_ATTACHMENT, Renderer::m_depthTexture->getGPUTexture() );
-    m_uiXrayFbo->attachTexture( GL_COLOR_ATTACHMENT0, m_fancyTexture->getGPUTexture() );
+    m_uiXrayFbo->attachTexture( GL_DEPTH_ATTACHMENT, Renderer::m_depthTexture->getGpuTexture() );
+    m_uiXrayFbo->attachTexture( GL_COLOR_ATTACHMENT0, m_fancyTexture->getGpuTexture() );
     if ( m_uiXrayFbo->checkStatus() != GL_FRAMEBUFFER_COMPLETE ) {
         LOG( logERROR ) << "FBO Error (ForwardRenderer::m_uiXrayFbo) : "
                         << m_uiXrayFbo->checkStatus();

@@ -39,12 +39,17 @@ int main( int argc, char* argv[] ) {
                                                    std::cos( j * i * M_PI / 96.0 ) ) );
         }
     }
-    auto& textureParameters =
-        app.m_engine->getTextureManager()->addTexture( "myTexture", width, height, data );
-    // these values will be used when engine initialize texture GL representation.
+    Ra::Engine::Data::TextureParameters textureParameters { "myTexture", {}, {} };
     textureParameters.image.format         = gl::GLenum::GL_RED;
     textureParameters.image.internalFormat = gl::GLenum::GL_R8;
+    textureParameters.image.width          = width;
+    textureParameters.image.height         = height;
+    textureParameters.image.texels         = data;
     textureParameters.sampler.minFilter    = gl::GLenum::GL_LINEAR_MIPMAP_LINEAR;
+
+    auto textureManager = app.m_engine->getTextureManager();
+    auto textureHandle  = textureManager->addTexture( textureParameters );
+    auto texture        = textureManager->getTexture( textureHandle );
     //! [Creating a texture]
 
     //! [Create an entity and component to draw or data]
@@ -66,11 +71,6 @@ int main( int argc, char* argv[] ) {
     //! [Tell the window that something is to be displayed]
     app.m_mainWindow->prepareDisplay();
     //! [Tell the window that something is to be displayed]
-
-    auto viewer = app.m_mainWindow->getViewer();
-    viewer->makeCurrent();
-    auto texture = app.m_engine->getTextureManager()->getOrLoadTexture( textureParameters );
-    viewer->doneCurrent();
 
     constexpr int nSec = 4;
     // terminate the app after nSec second (approximatively). Camera can be moved using mouse moves.

@@ -70,6 +70,7 @@ void VolumeObject::loadGeometry( Core::Geometry::AbstractVolume* volume, const C
               GL_RED,
               GL_R32F,
               GL_SCALAR,
+              false,
               data } };
         m_tex.setParameters( texparam );
 

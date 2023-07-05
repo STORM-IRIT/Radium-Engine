@@ -680,8 +680,8 @@ void Renderer::resize( uint w, uint h ) {
         m_fancyTexture->resize( m_width, m_height );
 
         m_pickingFbo->bind();
-        m_pickingFbo->attachTexture( GL_DEPTH_ATTACHMENT, m_depthTexture->getGPUTexture() );
-        m_pickingFbo->attachTexture( GL_COLOR_ATTACHMENT0, m_pickingTexture->getGPUTexture() );
+        m_pickingFbo->attachTexture( GL_DEPTH_ATTACHMENT, m_depthTexture->getGpuTexture() );
+        m_pickingFbo->attachTexture( GL_COLOR_ATTACHMENT0, m_pickingTexture->getGpuTexture() );
         if ( m_pickingFbo->checkStatus() != GL_FRAMEBUFFER_COMPLETE ) {
             LOG( logERROR ) << "File " << __FILE__ << "(" << __LINE__ << ") Picking FBO Error "
                             << m_pickingFbo->checkStatus();

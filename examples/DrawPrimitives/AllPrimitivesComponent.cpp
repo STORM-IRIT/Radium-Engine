@@ -80,7 +80,9 @@ void AllPrimitivesComponent::initialize() {
     blinnPhongTexturedMaterial->m_ns             = 100_ra;
 
     Ra::Engine::Data::TextureParameters textureParameters;
-    textureParameters.name              = *rp + "/Examples/DrawPrimitives/Assets/grid.png";
+    textureParameters.name = "grid";
+    textureParameters.image =
+        TextureManager::loadTextureImage( *rp + "/Examples/DrawPrimitives/Assets/grid.png", true );
     textureParameters.sampler.wrapS     = GL_REPEAT;
     textureParameters.sampler.wrapT     = GL_REPEAT;
     textureParameters.sampler.minFilter = GL_LINEAR_MIPMAP_LINEAR;
