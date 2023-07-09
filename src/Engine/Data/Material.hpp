@@ -47,12 +47,10 @@ class MaterialTextureSet
         if ( texHandle.isValid() ) { addTexture( semantic, texHandle ); }
         else {
             TextureParameters data;
-            data.name          = texture;
-            data.sampler.wrapS = GL_REPEAT;
-            data.sampler.wrapT = GL_REPEAT;
-            if ( semantic != TextureSemantic::TEX_NORMAL ) {
-                data.sampler.minFilter = GL_LINEAR_MIPMAP_LINEAR;
-            }
+            data.name              = texture;
+            data.sampler.wrapS     = GL_REPEAT;
+            data.sampler.wrapT     = GL_REPEAT;
+            data.sampler.minFilter = GL_LINEAR_MIPMAP_LINEAR;
             addTexture( semantic, data );
         }
     }

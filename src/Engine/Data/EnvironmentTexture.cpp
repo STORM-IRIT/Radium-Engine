@@ -172,6 +172,10 @@ void EnvironmentTexture::initializeTexture() {
     }
     computeSHMatrices();
     // make the envmap cube texture
+
+    // proper convert shared ptr float[] to void
+    std::array<std::shared_ptr<void>, 6> cubeMap = {
+        m_skyData[0], m_skyData[1], m_skyData[2], m_skyData[3], m_skyData[4], m_skyData[5] };
     Ra::Engine::Data::TextureParameters params { m_name,
                                                  {
                                                      GL_CLAMP_TO_EDGE,
@@ -188,13 +192,7 @@ void EnvironmentTexture::initializeTexture() {
                                                    GL_RGBA,
                                                    GL_FLOAT,
                                                    false,
-                                                   nullptr,
-                                                   { m_skyData[0],
-                                                     m_skyData[1],
-                                                     m_skyData[2],
-                                                     m_skyData[3],
-                                                     m_skyData[4],
-                                                     m_skyData[5] } } };
+                                                   std::move( cubeMap ) } };
     m_skyTexture = std::make_unique<Ra::Engine::Data::Texture>( params );
 
     if ( m_isSkyBox ) {

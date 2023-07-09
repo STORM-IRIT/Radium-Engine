@@ -95,7 +95,7 @@ TextureManager::TextureHandle TextureManager::getTextureHandle( const std::strin
 
     return it != m_newTextures.end() ? TextureHandle { std::distance( m_newTextures.begin(), it ) }
                                      : TextureHandle::Invalid();
-};
+}
 
 void TextureManager::deleteTexture( const TextureHandle& handle ) {
     if ( handle.isValid() ) m_newTextures[handle.getValue()].reset( nullptr );

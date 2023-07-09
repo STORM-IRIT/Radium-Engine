@@ -43,15 +43,6 @@ class RA_ENGINE_API BlinnPhongMaterial final
     friend class BlinnPhongMaterialConverter;
 
   public:
-    /// Semantic of the texture : define which BSDF parameter is controled by the texture
-    enum class TextureSemanticEnum {
-        TEX_DIFFUSE,
-        TEX_SPECULAR,
-        TEX_NORMAL,
-        TEX_SHININESS,
-        TEX_ALPHA
-    };
-
     using TextureSemantic = TextureSemantics::BlinnPhongMaterial::TextureSemantic;
 
   public:
@@ -67,6 +58,30 @@ class RA_ENGINE_API BlinnPhongMaterial final
      * associated textures.
      */
     ~BlinnPhongMaterial() override;
+    using MaterialTextureSet<TextureSemantics::BlinnPhongMaterial::TextureSemantic>::addTexture;
+
+    /// \todo Fix this specialisation. Maybe assume that named texture have to be added to manager
+    /// before hand, and that texture on the fly addition is a fix, hence no special care for normal
+    /// maps.
+    void addTexture( const TextureSemantic& semantic, const std::string& texture ) {
+        CORE_ASSERT( !texture.empty(), "Invalid texture name" );
+        auto texManager = RadiumEngine::getInstance()->getTextureManager();
+        auto texHandle  = texManager->getTextureHandle( texture );
+        if ( texHandle.isValid() ) {
+            MaterialTextureSet<TextureSemantics::BlinnPhongMaterial::TextureSemantic>::addTexture(
+                semantic, texHandle );
+        }
+        else {
+            TextureParameters data;
+            data.name          = texture;
+            data.sampler.wrapS = GL_REPEAT;
+            data.sampler.wrapT = GL_REPEAT;
+            if ( semantic != TextureSemantic::TEX_NORMAL )
+                data.sampler.minFilter = GL_LINEAR_MIPMAP_LINEAR;
+            MaterialTextureSet<TextureSemantics::BlinnPhongMaterial::TextureSemantic>::addTexture(
+                semantic, data );
+        }
+    }
 
     void updateGL() override;
     void updateFromParameters() override;
