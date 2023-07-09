@@ -108,10 +108,11 @@ int CLIViewer::oneFrame( float timeStep ) {
     tasks.waitForTasks();
     tasks.flushTaskQueue();
 
+    m_engine->runGpuTasks();
+
     Ra::Engine::Data::ViewingParameters data {
         m_camera->getViewMatrix(), m_camera->getProjMatrix(), timeStep };
-    m_renderer->render( data );
-
+    if ( m_renderer ) m_renderer->render( data );
     return 0;
 }
 
