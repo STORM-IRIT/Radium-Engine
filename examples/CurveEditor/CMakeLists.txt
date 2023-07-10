@@ -95,6 +95,4 @@ target_link_libraries(
 )
 
 # configure the application
-configure_radium_app(
-    NAME ${PROJECT_NAME} PREFIX Examples
-)
+configure_radium_app(NAME ${PROJECT_NAME} PREFIX Examples)
