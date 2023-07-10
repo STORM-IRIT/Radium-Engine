@@ -260,11 +260,6 @@ jobs:
         if: ${{ inputs.coverage == 'true' }}
         run: |
           cd build/Radium-Engine
-          cmake --build . --config Debug --target lcov_init
-          cmake --build . --config Debug --target lcov_zerocounter
-          cmake --build . --config Debug --target check
-          cmake --build . --config Debug --target lcov_capture
-          # show report for debug
-          cmake --build . --config Debug --target lcov_list
+          cmake --build . --config Debug --target coverage
           # Uploading report to CodeCov
-          bash <(curl -s https://codecov.io/bash) -f total.info -R ../../src/Radium-Engine || echo "Codecov did not collect coverage reports"
+          bash <(curl -s https://codecov.io/bash) -f coverage.info -R ../../src/Radium-Engine || echo "Codecov did not collect coverage reports"
