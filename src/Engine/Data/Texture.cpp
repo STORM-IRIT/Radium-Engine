@@ -21,7 +21,7 @@ Texture::Texture( const TextureParameters& texParameters ) :
 class DeleteTextureTask : public Core::Task
 {
   public:
-    DeleteTextureTask( std::unique_ptr<globjects::Texture> texture ) :
+    explicit DeleteTextureTask( std::unique_ptr<globjects::Texture> texture ) :
         m_texture( std::move( texture ) ) {}
 
     /// Return the name of the task.

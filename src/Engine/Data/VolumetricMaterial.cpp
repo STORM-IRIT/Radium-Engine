@@ -23,10 +23,10 @@ VolumetricMaterial::VolumetricMaterial( const std::string& name ) :
 VolumetricMaterial::~VolumetricMaterial() {}
 
 void VolumetricMaterial::updateGL() {
-    if ( !m_isDirty ) { return; }
+    if ( !isDirty() ) { return; }
 
-    m_isDirty = false;
     updateRenderingParameters();
+    setClean();
 }
 
 void VolumetricMaterial::updateFromParameters() {

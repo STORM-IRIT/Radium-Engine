@@ -19,10 +19,6 @@ nlohmann::json BlinnPhongMaterial::s_parametersMetadata = {};
 BlinnPhongMaterial::BlinnPhongMaterial( const std::string& instanceName ) :
     Material( instanceName, materialName, Material::MaterialAspect::MAT_OPAQUE ) {}
 
-BlinnPhongMaterial::~BlinnPhongMaterial() {
-    m_textures.clear();
-}
-
 void BlinnPhongMaterial::updateRenderingParameters() {
     // update the rendering parameters
     auto& renderParameters = getParameters();
@@ -50,9 +46,10 @@ void BlinnPhongMaterial::updateRenderingParameters() {
 }
 
 void BlinnPhongMaterial::updateGL() {
-    if ( !m_isDirty ) { return; }
-    m_isDirty = false;
+    if ( !isDirty() ) { return; }
+
     updateRenderingParameters();
+    setClean();
 }
 
 void BlinnPhongMaterial::updateFromParameters() {

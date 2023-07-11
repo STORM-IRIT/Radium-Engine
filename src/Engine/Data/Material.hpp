@@ -14,14 +14,14 @@ namespace Ra {
 namespace Engine {
 namespace Data {
 
-/// Semantic of the texture : define which BSDF parameter is controled by the texture
-
-/** @brief Base class to manage a set of textures indexed by semantic (enum).
+/** \brief Base class to manage a set of textures indexed by semantic (enum).
  */
 template <typename TextureSemantic>
 class MaterialTextureSet
 {
   public:
+    virtual ~MaterialTextureSet() = default;
+
     void addTexture( const TextureSemantic& semantic,
                      const TextureManager::TextureHandle& texture ) {
         m_textures[semantic] = texture;
@@ -79,24 +79,6 @@ class RA_ENGINE_API Material : public Data::ShaderParameterProvider
         MAT_DENSITY      /// <- The material implements the VOLUME interface
     };
 
-  public:
-  protected:
-    /**
-     * Creates a named material with the given aspect
-     * \param instanceName
-     * \param materialName
-     * \param aspect
-     */
-    explicit Material( const std::string& instanceName,
-                       const std::string& materialName,
-                       MaterialAspect aspect = MaterialAspect::MAT_OPAQUE );
-
-    /** Change the Material Name
-     * \note This method should be used carefully as the name is a key for render technique factory
-     */
-    inline void setMaterialName( std::string newName ) { m_materialName = std::move( newName ); }
-
-  public:
     virtual ~Material() = default;
 
     /**
@@ -159,6 +141,26 @@ class RA_ENGINE_API Material : public Data::ShaderParameterProvider
     inline void needUpdate() { m_isDirty = true; }
 
   protected:
+    /**
+     * Creates a named material with the given aspect
+     * \param instanceName
+     * \param materialName
+     * \param aspect
+     */
+    explicit Material( const std::string& instanceName,
+                       const std::string& materialName,
+                       MaterialAspect aspect = MaterialAspect::MAT_OPAQUE );
+
+    /** Change the Material Name
+     * \note This method should be used carefully as the name is a key for render technique factory
+     */
+    inline void setMaterialName( std::string newName ) { m_materialName = std::move( newName ); }
+
+    bool isDirty() { return m_isDirty; }
+    void setDirty() { m_isDirty = true; }
+    void setClean() { m_isDirty = false; }
+
+  private:
     /// Material instance name
     std::string m_instanceName {};
     /// Material aspect
@@ -166,8 +168,6 @@ class RA_ENGINE_API Material : public Data::ShaderParameterProvider
     /// Dirty mark : true if the openGL state of the material need to be updated before next draw
     /// call
     bool m_isDirty { true };
-
-  private:
     /// Unique material name that can be used to identify the material class
     std::string m_materialName;
 };

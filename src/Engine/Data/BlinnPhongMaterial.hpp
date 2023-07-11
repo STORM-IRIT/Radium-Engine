@@ -24,9 +24,7 @@ namespace Data {
 class ShaderProgram;
 
 namespace TextureSemantics {
-namespace BlinnPhongMaterial {
-enum class TextureSemantic { TEX_DIFFUSE, TEX_SPECULAR, TEX_NORMAL, TEX_SHININESS, TEX_ALPHA };
-}
+enum class BlinnPhongMaterial { TEX_DIFFUSE, TEX_SPECULAR, TEX_NORMAL, TEX_SHININESS, TEX_ALPHA };
 } // namespace TextureSemantics
 
 /**
@@ -38,27 +36,20 @@ enum class TextureSemantic { TEX_DIFFUSE, TEX_SPECULAR, TEX_NORMAL, TEX_SHININES
 class RA_ENGINE_API BlinnPhongMaterial final
     : public Material,
       public ParameterSetEditingInterface,
-      public MaterialTextureSet<TextureSemantics::BlinnPhongMaterial::TextureSemantic>
+      public MaterialTextureSet<TextureSemantics::BlinnPhongMaterial>
 {
     friend class BlinnPhongMaterialConverter;
 
   public:
-    using TextureSemantic = TextureSemantics::BlinnPhongMaterial::TextureSemantic;
+    using TextureSemantic = TextureSemantics::BlinnPhongMaterial;
 
-  public:
     /**
      * Construct a named Blinn-Phongmaterial
      * \param instanceName The name of this instance of the material
      */
     explicit BlinnPhongMaterial( const std::string& instanceName );
 
-    /**
-     * Destructor.
-     * \note The material does not have ownership on its texture. This destructor do not delete the
-     * associated textures.
-     */
-    ~BlinnPhongMaterial() override;
-    using MaterialTextureSet<TextureSemantics::BlinnPhongMaterial::TextureSemantic>::addTexture;
+    using MaterialTextureSet<TextureSemantic>::addTexture;
 
     /// \todo Fix this specialisation. Maybe assume that named texture have to be added to manager
     /// before hand, and that texture on the fly addition is a fix, hence no special care for normal
@@ -68,8 +59,7 @@ class RA_ENGINE_API BlinnPhongMaterial final
         auto texManager = RadiumEngine::getInstance()->getTextureManager();
         auto texHandle  = texManager->getTextureHandle( texture );
         if ( texHandle.isValid() ) {
-            MaterialTextureSet<TextureSemantics::BlinnPhongMaterial::TextureSemantic>::addTexture(
-                semantic, texHandle );
+            MaterialTextureSet<TextureSemantic>::addTexture( semantic, texHandle );
         }
         else {
             TextureParameters data;
@@ -78,8 +68,7 @@ class RA_ENGINE_API BlinnPhongMaterial final
             data.sampler.wrapT = GL_REPEAT;
             if ( semantic != TextureSemantic::TEX_NORMAL )
                 data.sampler.minFilter = GL_LINEAR_MIPMAP_LINEAR;
-            MaterialTextureSet<TextureSemantics::BlinnPhongMaterial::TextureSemantic>::addTexture(
-                semantic, data );
+            MaterialTextureSet<TextureSemantic>::addTexture( semantic, data );
         }
     }
 
@@ -119,7 +108,6 @@ class RA_ENGINE_API BlinnPhongMaterial final
     bool m_renderAsSplat { false };
 
   private:
-    std::map<TextureSemantic, TextureManager::TextureHandle> m_textures;
     static nlohmann::json s_parametersMetadata;
 
     /**

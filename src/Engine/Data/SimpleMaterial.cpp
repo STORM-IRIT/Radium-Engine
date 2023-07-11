@@ -12,10 +12,6 @@ SimpleMaterial::SimpleMaterial( const std::string& instanceName,
                                 MaterialAspect aspect ) :
     Material( instanceName, materialName, aspect ) {}
 
-SimpleMaterial::~SimpleMaterial() {
-    m_textures.clear();
-}
-
 void SimpleMaterial::updateRenderingParameters() {
     auto& renderParameters = getParameters();
     // update the rendering paramaters
@@ -30,9 +26,10 @@ void SimpleMaterial::updateRenderingParameters() {
 }
 
 void SimpleMaterial::updateGL() {
-    if ( !m_isDirty ) { return; }
-    m_isDirty = false;
+    if ( !isDirty() ) { return; }
+
     updateRenderingParameters();
+    setClean();
 }
 
 void SimpleMaterial::loadMetaData( nlohmann::json& destination ) {

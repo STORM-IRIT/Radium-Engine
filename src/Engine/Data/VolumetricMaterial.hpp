@@ -93,6 +93,7 @@ class RA_ENGINE_API VolumetricMaterial final : public Material, public Parameter
 
   private:
     // The density matrix
+    /// \todo get rid of the raw ptr.
     Texture* m_texture;
 
     /**

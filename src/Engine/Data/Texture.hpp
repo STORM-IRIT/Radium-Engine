@@ -35,13 +35,19 @@ struct ImageParameters {
 
     using Image2DType = std::shared_ptr<void>;
     using CubeMapType = std::array<std::shared_ptr<void>, 6>;
-    const Image2DType* getImage2D() const {
-        return std::get_if<ImageParameters::Image2DType>( &texels );
+
+    template <typename TexelType>
+    const TexelType* getTexels() const {
+        return std::get_if<TexelType>( &texels );
     }
 
-    const CubeMapType* getCubeMap() const {
-        return std::get_if<ImageParameters::CubeMapType>( &texels );
+    template <typename TexelType>
+    bool isTexelOfType() const {
+        return std::holds_alternative<TexelType>( texels );
     }
+
+    const Image2DType* getImage2D() const { return getTexels<Image2DType>(); }
+    const CubeMapType* getCubeMap() const { return getTexels<CubeMapType>(); }
 
     /// OpenGL target
     GLenum target { GL_TEXTURE_2D };

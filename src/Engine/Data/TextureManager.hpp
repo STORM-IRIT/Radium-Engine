@@ -74,6 +74,10 @@ class RA_ENGINE_API TextureManager final
   public:
     TextureManager();
     ~TextureManager();
+    TextureManager( TextureManager const& )            = delete;
+    TextureManager( TextureManager&& )                 = delete;
+    TextureManager& operator=( TextureManager const& ) = delete;
+    TextureManager& operator=( TextureManager&& )      = delete;
 
   private:
     std::vector<std::unique_ptr<Texture>> m_newTextures;
