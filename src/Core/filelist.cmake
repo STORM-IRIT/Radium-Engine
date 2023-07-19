@@ -35,6 +35,9 @@ set(core_sources
     Geometry/TriangleMesh.cpp
     Geometry/Volume.cpp
     Geometry/deprecated/TopologicalMesh.cpp
+    Material/BaseGLTFMaterial.cpp
+    Material/MetallicRoughnessMaterialData.cpp
+    Material/SpecularGlossinessMaterialData.cpp
     Resources/Resources.cpp
     Tasks/TaskQueue.cpp
     Utils/Attribs.cpp
@@ -101,6 +104,10 @@ set(core_headers
     Geometry/TriangleMesh.hpp
     Geometry/Volume.hpp
     Geometry/deprecated/TopologicalMesh.hpp
+    Material/BaseGLTFMaterial.hpp
+    Material/GLTFTextureParameters.hpp
+    Material/MetallicRoughnessMaterialData.hpp
+    Material/SpecularGlossinessMaterialData.hpp
     Math/DualQuaternion.hpp
     Math/Interpolation.hpp
     Math/LinearAlgebra.hpp
