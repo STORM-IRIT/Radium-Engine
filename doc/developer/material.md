@@ -23,7 +23,9 @@ to the Ra::Engine::Rendering::ForwardRenderer default renderer.
 The Radium Material Library defines two default material :
 
 - BlinnPhong, Ra::Engine::Data::BlinnPhongMaterial, corresponding to the Blinn-Phong BSDF.
+- Lambertian, Ra::Engine::Data::LambertianMaterial, corresponding to the _Lambertian_ (Oren-Nayar model) BSDF.
 - Plain, Ra::Engine::Data::PlainMaterial, corresponding to a diffuse, lambertian BSDF.
+- GLTF materials, see chapter on [GLTF 2.0 support](@ref gltfConformance) ).
 
 The _Radium Material Library_ can be used as this by any Radium Application or can be extended by an application or a
 Radium Plugin by implementing the corresponding interfaces as described in the
