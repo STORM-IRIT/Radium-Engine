@@ -8,7 +8,8 @@
 #include <Core/Utils/StringUtils.hpp>
 #include <Engine/Data/BlinnPhongMaterial.hpp>
 #include <Engine/Data/LambertianMaterial.hpp>
-#include <Engine/Data/MaterialConverters.hpp>
+// #include <Engine/Data/MaterialConverters.hpp>
+#include <Engine/Data/GLTFMaterial.hpp>
 #include <Engine/Data/PlainMaterial.hpp>
 #include <Engine/Data/ShaderConfigFactory.hpp>
 #include <Engine/Data/ShaderProgramManager.hpp>
@@ -136,6 +137,8 @@ void RadiumEngine::registerDefaultPrograms() {
     Data::BlinnPhongMaterial::registerMaterial();
     Data::LambertianMaterial::registerMaterial();
     Data::VolumetricMaterial::registerMaterial();
+    // Load gltf material resources
+    Data::GLTFMaterial::registerMaterial();
 }
 
 void RadiumEngine::cleanup() {
