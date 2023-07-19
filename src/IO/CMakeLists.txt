@@ -76,5 +76,7 @@ configure_radium_library(
 set(RADIUM_COMPONENTS ${RADIUM_COMPONENTS} ${ra_io_target} PARENT_SCOPE)
 
 if(RADIUM_ENABLE_PCH)
-    target_precompile_headers(${ra_io_target} PRIVATE pch.hpp)
+    target_precompile_headers(
+        ${ra_io_target} PRIVATE "$<$<COMPILE_LANGUAGE:CXX>:${CMAKE_CURRENT_SOURCE_DIR}/pch.hpp>"
+    )
 endif()
