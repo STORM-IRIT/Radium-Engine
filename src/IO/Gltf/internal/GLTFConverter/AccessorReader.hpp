@@ -32,7 +32,9 @@ class AccessorReader
      * Read the accessor
      * @param accessorIndex index of the gltf's accessor
      * @return a pointer to the data. The pointer can be cast the the corresponding type.
-     * If the data should be normalized, the stored data's type is float
+     * If the data should be normalized, the stored data's type is float. returns nullptr if
+     * accessorIndex is invalid
+     *
      */
     uint8_t* read( int32_t accessorIndex );
 

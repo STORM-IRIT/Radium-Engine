@@ -63,7 +63,7 @@ HandleDataLoader::loadSkeleton( const fx::gltf::Document& gltfScene,
     size_t nodeNum = 0;
     for ( auto visited : visitedNodes ) {
         auto& graphNode = graphNodes[visited];
-        if ( graphNode.m_skinIndex == skinIndex ) {
+        if ( graphNode.m_skinIndex == int32_t( skinIndex ) ) {
             addMeshesWeightsAndBindMatrices( gltfScene,
                                              graphNode,
                                              nodeNum,
@@ -85,7 +85,7 @@ HandleDataLoader::loadSkeleton( const fx::gltf::Document& gltfScene,
     std::set<int32_t> skinnedNodes;
 
     // fill all the joints data
-    for ( int32_t i = 0; i < skeletonJoints.size(); ++i ) {
+    for ( int32_t i = 0; i < int32_t( skeletonJoints.size() ); ++i ) {
         // initialize the weighs and bind matrices
         for ( auto it : allJointWeights ) {
             if ( !it.second[i].empty() ) { skeletonJoints[i].m_weights[it.first] = it.second[i]; }
@@ -142,7 +142,8 @@ std::vector<Ra::Core::Transform>
 HandleDataLoader::getBindMatrices( const fx::gltf::Document& gltfScene,
                                    const fx::gltf::Skin& skin ) {
     std::vector<Transform> jointBindMatrix( skin.joints.size(), Transform::Identity() );
-    float* invBindMatrices = (float*)AccessorReader( gltfScene ).read( skin.inverseBindMatrices );
+    auto* invBindMatrices =
+        reinterpret_cast<float*>( AccessorReader( gltfScene ).read( skin.inverseBindMatrices ) );
     for ( uint i = 0; i < skin.joints.size(); ++i ) {
         Matrix4 mat;
         mat << invBindMatrices[16 * i], invBindMatrices[16 * i + 1], invBindMatrices[16 * i + 2],
@@ -235,7 +236,7 @@ void HandleDataLoader::buildSkeletonTopology( const std::vector<SceneNode>& grap
     const auto& skeletonJoints = handle->getComponentData();
     for ( auto& component : skeletonJoints ) {
         const auto& node = graphNodes[componentNameToNodeNum.at( component.m_name )];
-        for ( auto j = 0; j < node.children.size(); ++j ) {
+        for ( auto j = 0; j < int32_t( node.children.size() ); ++j ) {
             const auto itChild = skinnedNodes.find( node.children[j] );
             if ( itChild != skinnedNodes.end() ) {
                 edgeList.emplace_back( std::pair<std::string, std::string> {

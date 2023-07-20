@@ -33,9 +33,9 @@ template <typename T>
 void minmax( uint8_t* data, const gltf::Accessor& accessor, int nbComponents ) {
     std::vector<T> min;
     std::vector<T> max;
-    T defaultMin        = std::numeric_limits<T>::min();
-    T defaultMax        = std::numeric_limits<T>::max();
-    auto* convertedData = (T*)data;
+    T defaultMin       = std::numeric_limits<T>::min();
+    T defaultMax       = std::numeric_limits<T>::max();
+    auto convertedData = reinterpret_cast<T*>( data );
     if ( accessor.min.empty() ) { min = std::vector<T>( nbComponents, defaultMin ); }
     else {
         std::transform( accessor.min.begin(),
@@ -66,7 +66,7 @@ void sparseData( uint8_t* data,
                  int nbBytesByComponents,
                  const uint8_t* indices,
                  const uint8_t* values ) {
-    auto* indicesT = (T*)indices;
+    auto indicesT = reinterpret_cast<const T*>( indices );
     for ( int i = 0; i < sparse.count; ++i ) {
         for ( int j = 0; j < nbBytesByComponents; ++j ) {
             data[indicesT[i] * nbBytesByComponents + j] = values[i * nbBytesByComponents + j];
@@ -77,7 +77,7 @@ void sparseData( uint8_t* data,
 template <typename T>
 uint8_t* normalizeData( uint8_t* data, uint32_t nbComponents ) {
     T max           = std::numeric_limits<T>::max();
-    T* dataT        = (T*)data;
+    auto dataT      = reinterpret_cast<T*>( data );
     auto* dataFloat = new float[nbComponents];
     for ( uint32_t i = 0; i < nbComponents; ++i ) {
         dataFloat[i] = std::max( dataT[i] / (float)max, -1.0f );
@@ -205,20 +205,23 @@ uint8_t* AccessorReader::read( int32_t accessorIndex ) {
         return m_accessors[accessorIndex];
     }
     const gltf::Document& doc = m_doc;
-    gltf::Accessor accessor   = doc.accessors[accessorIndex];
-    int nbByteByValue         = nbByteByValueMap.at( accessor.componentType );
-    int nbValueByComponent    = nbValueByComponentMap.at( accessor.type );
-    uint8_t* data             = readBufferView( doc,
-                                    accessor.bufferView,
-                                    accessor.byteOffset,
-                                    accessor.count,
-                                    nbValueByComponent,
-                                    nbByteByValue );
-    // sparse and min-max
-    sparseCapDataNormalize( data, doc, accessorIndex );
-    // add data to map
-    m_accessors.insert( std::pair<int32_t, uint8_t*>( accessorIndex, data ) );
-    return data;
+    if ( 0 <= accessorIndex && accessorIndex < int32_t( doc.accessors.size() ) ) {
+        gltf::Accessor accessor = doc.accessors[accessorIndex];
+        int nbByteByValue       = nbByteByValueMap.at( accessor.componentType );
+        int nbValueByComponent  = nbValueByComponentMap.at( accessor.type );
+        uint8_t* data           = readBufferView( doc,
+                                        accessor.bufferView,
+                                        accessor.byteOffset,
+                                        accessor.count,
+                                        nbValueByComponent,
+                                        nbByteByValue );
+        // sparse and min-max
+        sparseCapDataNormalize( data, doc, accessorIndex );
+        // add data to map
+        m_accessors.insert( std::pair<int32_t, uint8_t*>( accessorIndex, data ) );
+        return data;
+    }
+    return nullptr;
 }
 
 } // namespace GLTF

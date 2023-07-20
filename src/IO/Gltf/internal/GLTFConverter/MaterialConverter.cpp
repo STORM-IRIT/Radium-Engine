@@ -78,7 +78,8 @@ GLTFSampler convertSampler( const fx::gltf::Sampler& sampler ) {
     return rasampler;
 }
 
-void getMaterialExtensions( const nlohmann::json& extensionsAndExtras, BaseGLTFMaterial* mat ) {
+void getMaterialExtensions( const nlohmann::json& /*extensionsAndExtras*/,
+                            BaseGLTFMaterial* /*mat*/ ) {
     // Manage non standard material extensions
 #if 0
     if ( !extensionsAndExtras.empty() ) {
@@ -190,15 +191,15 @@ std::map<std::string,
                                                                    const std::string& basename )>>
     instanciateExtension {
         { "KHR_materials_ior",
-          []( const gltf::Document& doc,
-              const std::string& filePath,
+          []( const gltf::Document& /*doc*/,
+              const std::string& /*filePath*/,
               const nlohmann::json& jsonData,
               const std::string& basename ) {
               gltf_KHRMaterialsIor data;
               from_json( jsonData, data );
               auto built   = std::make_unique<GLTFIor>( basename + " - IOR" );
               built->m_ior = data.ior;
-              return std::move( built );
+              return built;
           } },
         { "KHR_materials_clearcoat",
           []( const gltf::Document& doc,
@@ -261,7 +262,7 @@ std::map<std::string,
                   getMaterialTextureTransform( data.clearcoatNormalTexture.extensionsAndExtras,
                                                built->m_clearcoatNormalTextureTransform );
               }
-              return std::move( built );
+              return built;
           } },
         { "KHR_materials_specular",
           []( const gltf::Document& doc,
@@ -308,7 +309,7 @@ std::map<std::string,
                   getMaterialTextureTransform( data.specularColorTexture.extensionsAndExtras,
                                                built->m_specularColorTextureTransform );
               }
-              return std::move( built );
+              return built;
           } },
         { "KHR_materials_sheen",
           []( const gltf::Document& doc,
@@ -357,19 +358,19 @@ std::map<std::string,
                   getMaterialTextureTransform( data.sheenRoughnessTexture.extensionsAndExtras,
                                                built->m_sheenRoughnessTextureTransform );
               }
-              return std::move( built );
+              return built;
           } } };
 
 void getMaterialExtensions( const gltf::Document& doc,
                             const std::string& filePath,
                             const MaterialData& meshMaterial,
                             BaseGLTFMaterial* mat,
-                            const std::vector<std::string> exept = {} ) {
+                            const std::vector<std::string>& except = {} ) {
     auto extensionsAndExtras = meshMaterial.Data().extensionsAndExtras;
     if ( !extensionsAndExtras.empty() ) {
         auto extensions = extensionsAndExtras.find( "extensions" );
         if ( extensions != extensionsAndExtras.end() ) {
-            // first search for unlit extension becaus  it will prevent the use of other extensions
+            // first search for unlit extension because it will prevent the use of other extensions
             // (Specification of 12/2021)
             // https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/Khronos/KHR_materials_unlit
             // Here, according to "Implementation Note: When KHR_materials_unlit is included with
@@ -382,7 +383,7 @@ void getMaterialExtensions( const gltf::Document& doc,
             // load supported extensions
             auto& extensionList = *extensions;
             for ( auto& [key, value] : extensionList.items() ) {
-                if ( std::any_of( exept.begin(), exept.end(), [k = key]( const auto& e ) {
+                if ( std::any_of( except.begin(), except.end(), [k = key]( const auto& e ) {
                          return e == k;
                      } ) ) {
                     continue;

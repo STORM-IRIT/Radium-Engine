@@ -183,7 +183,7 @@ class MeshData
             else {
                 switch ( buf.Accessor->componentType ) {
                 case fx::gltf::Accessor::ComponentType::Float: {
-                    auto mem = reinterpret_cast<const float*>( buf.Data );
+                    const auto mem = reinterpret_cast<const float*>( buf.Data );
                     for ( uint32_t i = 0; i < buf.Accessor->count; ++i ) {
                         weights.push_back( Ra::Core::Vector4f {
                             mem[4 * i], mem[4 * i + 1], mem[4 * i + 2], mem[4 * i + 3] } );

@@ -57,7 +57,7 @@ bool checkExtensions( const gltf::Document& gltfscene ) {
 
 LightData*
 getLight( const gltf_KHR_lights_punctual& lights, int32_t lightIndex, const Transform& transform ) {
-    if ( lightIndex < lights.lights.size() ) {
+    if ( lightIndex < int32_t( lights.lights.size() ) ) {
         const auto gltfLight  = lights.lights[lightIndex];
         std::string lightName = gltfLight.name;
         if ( lightName.empty() ) { lightName = "light_" + std::to_string( lightIndex ); }
@@ -104,7 +104,7 @@ getLight( const gltf_KHR_lights_punctual& lights, int32_t lightIndex, const Tran
 Camera* buildCamera( const gltf::Document& doc,
                      int32_t cameraIndex,
                      const Transform& parentTransform,
-                     const std::string& filePath,
+                     const std::string& /*filePath*/,
                      int32_t nodeNum ) {
     // Radium Camera have problems if there is a scaling in the matrix : remove the scaling
     // TODO : verify and check against the gltf specification
@@ -230,8 +230,8 @@ void buildAnimation( std::vector<HandleAnimation>& animations,
         gltf::Animation::Sampler sampler        = samplers[channel.sampler];
         // weights' and scale's animations not handle by radium  =>  now it does, so what is that
         // comment for?
-        auto* times          = (float*)accessorReader.read( sampler.input );
-        auto* transformation = (float*)accessorReader.read( sampler.output );
+        auto times          = reinterpret_cast<float*>( accessorReader.read( sampler.input ) );
+        auto transformation = reinterpret_cast<float*>( accessorReader.read( sampler.output ) );
         transformationManager.insert( target.node,
                                       target.path,
                                       times,
@@ -335,14 +335,14 @@ bool Converter::operator()( const gltf::Document& gltfscene ) {
         if ( !gltfscene.animations.empty() ) {
             int activeAnimation = 0;
             // find the first animation that affect the scene
-            while ( activeAnimation < gltfscene.animations.size() &&
+            while ( activeAnimation < int( gltfscene.animations.size() ) &&
                     ( visitedNodes.find(
                           gltfscene.animations[activeAnimation].channels[0].target.node ) ==
                       visitedNodes.end() ) ) {
                 ++activeAnimation;
             }
             // if animation found
-            if ( activeAnimation < gltfscene.animations.size() ) {
+            if ( activeAnimation < int( gltfscene.animations.size() ) ) {
                 auto animationData = new AnimationData();
                 // set m_dt
                 animationData->setTimeStep( 1.0f / 60.0f );
