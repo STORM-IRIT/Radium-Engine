@@ -174,7 +174,7 @@ class MeshData
     static void GetWeights( Ra::Core::VectorArray<Ra::Core::Vector4f>& weights,
                             const fx::gltf::Document& doc,
                             const fx::gltf::Accessor& accessor ) {
-        MeshData::BufferInfo buf = MeshData::GetData( doc, accessor );
+        const auto buf = MeshData::GetData( doc, accessor );
         if ( buf.HasData() ) {
             if ( buf.Accessor->type != fx::gltf::Accessor::Type::Vec4 ) {
                 LOG( Ra::Core::Utils::logERROR ) << "GLTF GetWeights -- Weights must be Vec4 !"
@@ -183,7 +183,8 @@ class MeshData
             else {
                 switch ( buf.Accessor->componentType ) {
                 case fx::gltf::Accessor::ComponentType::Float: {
-                    const auto mem = reinterpret_cast<const float*>( buf.Data );
+                    const auto* mem =
+                        reinterpret_cast<const float*>( reinterpret_cast<const void*>( buf.Data ) );
                     for ( uint32_t i = 0; i < buf.Accessor->count; ++i ) {
                         weights.push_back( Ra::Core::Vector4f {
                             mem[4 * i], mem[4 * i + 1], mem[4 * i + 2], mem[4 * i + 3] } );
@@ -191,7 +192,7 @@ class MeshData
                     break;
                 }
                 case fx::gltf::Accessor::ComponentType::UnsignedByte: {
-                    auto mem = buf.Data;
+                    const auto* mem = buf.Data;
                     for ( uint32_t i = 0; i < buf.Accessor->count; ++i ) {
                         weights.push_back(
                             Ra::Core::Vector4f { float( mem[4 * i] ) / UCHAR_MAX,
@@ -202,7 +203,7 @@ class MeshData
                     break;
                 }
                 case fx::gltf::Accessor::ComponentType::UnsignedShort: {
-                    auto mem = reinterpret_cast<const unsigned short*>( buf.Data );
+                    const auto* mem = reinterpret_cast<const unsigned short*>( buf.Data );
                     for ( uint32_t i = 0; i < buf.Accessor->count; ++i ) {
                         weights.push_back(
                             Ra::Core::Vector4f { float( mem[4 * i] ) / USHRT_MAX,
