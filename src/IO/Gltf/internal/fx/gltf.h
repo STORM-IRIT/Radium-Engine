@@ -1464,6 +1464,9 @@ inline Document Create( nlohmann::json const& json, DataContext const& dataConte
 
                 buffer.data.resize( buffer.byteLength );
                 fileData.read( reinterpret_cast<char*>( &buffer.data[0] ), buffer.byteLength );
+                if ( fileData.gcount() != buffer.byteLength ) {
+                    throw invalid_gltf_document( "Unable to read buffer", buffer.uri );
+                }
             }
         }
         else if ( dataContext.binaryData != nullptr ) {

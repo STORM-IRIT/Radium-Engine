@@ -203,7 +203,7 @@ void VertexAttribWriter::operator()( const Ra::Core::Utils::AttribBase* att ) co
             reinterpret_cast<const Ra::Core::Vector3*>( dataToCopy );
         Ra::Core::Vector3 minAtt = arrayOfAttribs[0];
         Ra::Core::Vector3 maxAtt = arrayOfAttribs[0];
-        for ( auto i = 0; i < att->getSize(); ++i ) {
+        for ( size_t i = 0; i < att->getSize(); ++i ) {
             if ( arrayOfAttribs[i].x() < minAtt.x() ) { minAtt.x() = arrayOfAttribs[i].x(); }
             else if ( arrayOfAttribs[i].x() > maxAtt.x() ) { maxAtt.x() = arrayOfAttribs[i].x(); }
             if ( arrayOfAttribs[i].y() < minAtt.y() ) { minAtt.y() = arrayOfAttribs[i].y(); }
@@ -296,7 +296,7 @@ void VertexAttribWriter::operator()( const Ra::Core::Utils::AttribBase* att ) co
             reinterpret_cast<const Ra::Core::Vector2*>( dataToCopy );
         Ra::Core::Vector2 minAtt = arrayOfAttribs[0];
         Ra::Core::Vector2 maxAtt = arrayOfAttribs[0];
-        for ( auto i = 0; i < att->getSize(); ++i ) {
+        for ( size_t i = 0; i < att->getSize(); ++i ) {
             if ( arrayOfAttribs[i].x() < minAtt.x() ) { minAtt.x() = arrayOfAttribs[i].x(); }
             else if ( arrayOfAttribs[i].x() > maxAtt.x() ) { maxAtt.x() = arrayOfAttribs[i].x(); }
             if ( arrayOfAttribs[i].y() < minAtt.y() ) { minAtt.y() = arrayOfAttribs[i].y(); }
@@ -357,6 +357,7 @@ int addImage( gltf::Document& document, gltf::Image img ) {
 int addTexture( gltf::Document& document,
                 int /* buffer // Use this to save embeded textures */,
                 const Ra::Engine::Data::TextureParameters& params ) {
+
     gltf::Texture texture;
 
     gltf::Image image;
@@ -602,6 +603,10 @@ void glTFFileWriter::write( std::vector<Ra::Engine::Scene::Entity*> toExport ) {
     if ( toExport.empty() ) {
         LOG( logWARNING ) << "No entities selected : abort file save.";
         return;
+    }
+    if ( m_writeImages ) {
+        LOG( logWARNING ) << "Texture image writing is not yet supported. exporting only texture "
+                             "uri (file name) ";
     }
     g_texturePrefix = m_texturePrefix;
     auto roManager  = RadiumEngine::getInstance()->getRenderObjectManager();

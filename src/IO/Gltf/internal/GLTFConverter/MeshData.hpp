@@ -131,7 +131,7 @@ class MeshData
     static void GetJoints( Ra::Core::VectorArray<Ra::Core::Vector4ui>& joints,
                            const fx::gltf::Document& doc,
                            const fx::gltf::Accessor& accessor ) {
-        MeshData::BufferInfo buf = MeshData::GetData( doc, accessor );
+        const auto buf = MeshData::GetData( doc, accessor );
         if ( buf.HasData() ) {
             if ( buf.Accessor->type != fx::gltf::Accessor::Type::Vec4 ) {
                 LOG( Ra::Core::Utils::logERROR )
@@ -183,7 +183,7 @@ class MeshData
             else {
                 switch ( buf.Accessor->componentType ) {
                 case fx::gltf::Accessor::ComponentType::Float: {
-                    const auto* mem =
+                    const auto mem =
                         reinterpret_cast<const float*>( reinterpret_cast<const void*>( buf.Data ) );
                     for ( uint32_t i = 0; i < buf.Accessor->count; ++i ) {
                         weights.push_back( Ra::Core::Vector4f {
@@ -192,7 +192,7 @@ class MeshData
                     break;
                 }
                 case fx::gltf::Accessor::ComponentType::UnsignedByte: {
-                    const auto* mem = buf.Data;
+                    const auto mem = buf.Data;
                     for ( uint32_t i = 0; i < buf.Accessor->count; ++i ) {
                         weights.push_back(
                             Ra::Core::Vector4f { float( mem[4 * i] ) / UCHAR_MAX,
@@ -203,7 +203,7 @@ class MeshData
                     break;
                 }
                 case fx::gltf::Accessor::ComponentType::UnsignedShort: {
-                    const auto* mem = reinterpret_cast<const unsigned short*>( buf.Data );
+                    const auto mem = reinterpret_cast<const unsigned short*>( buf.Data );
                     for ( uint32_t i = 0; i < buf.Accessor->count; ++i ) {
                         weights.push_back(
                             Ra::Core::Vector4f { float( mem[4 * i] ) / USHRT_MAX,
@@ -238,11 +238,10 @@ class MeshData
         const fx::gltf::Buffer& buffer         = doc.buffers[bufferView.buffer];
 
         const uint32_t dataTypeSize = CalculateDataTypeSize( accessor );
-        return BufferInfo {
-            &accessor,
-            &buffer.data[static_cast<uint64_t>( bufferView.byteOffset ) + accessor.byteOffset],
-            dataTypeSize,
-            accessor.count * dataTypeSize };
+        return BufferInfo { &accessor,
+                            &buffer.data[bufferView.byteOffset + accessor.byteOffset],
+                            dataTypeSize,
+                            accessor.count * dataTypeSize };
     }
 
     static uint32_t CalculateDataTypeSize( const fx::gltf::Accessor& accessor ) noexcept {

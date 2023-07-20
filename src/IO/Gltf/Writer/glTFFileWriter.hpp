@@ -39,7 +39,7 @@ class RA_IO_API glTFFileWriter
   private:
     std::string m_fileName;
     std::string m_texturePrefix;
-    bool m_writeImages;
+    bool m_writeImages { false };
     std::string m_bufferName;
     std::string m_rootName;
 };

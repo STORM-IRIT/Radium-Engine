@@ -142,7 +142,7 @@ std::vector<Ra::Core::Transform>
 HandleDataLoader::getBindMatrices( const fx::gltf::Document& gltfScene,
                                    const fx::gltf::Skin& skin ) {
     std::vector<Transform> jointBindMatrix( skin.joints.size(), Transform::Identity() );
-    auto* invBindMatrices =
+    auto invBindMatrices =
         reinterpret_cast<float*>( AccessorReader( gltfScene ).read( skin.inverseBindMatrices ) );
     for ( uint i = 0; i < skin.joints.size(); ++i ) {
         Matrix4 mat;

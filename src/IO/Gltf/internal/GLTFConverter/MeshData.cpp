@@ -68,7 +68,8 @@ std::vector<std::unique_ptr<Ra::Core::Asset::GeometryData>> buildMesh( const glt
                                                                        const std::string& filePath,
                                                                        int32_t nodeNum ) {
     std::vector<std::unique_ptr<Ra::Core::Asset::GeometryData>> meshParts;
-    for ( int32_t meshPartNumber = 0; meshPartNumber < doc.meshes[meshIndex].primitives.size();
+    for ( int32_t meshPartNumber = 0;
+          meshPartNumber < int32_t( doc.meshes[meshIndex].primitives.size() );
           ++meshPartNumber ) {
         MeshData mesh { doc, meshIndex, meshPartNumber };
         if ( mesh.mode() != fx::gltf::Primitive::Mode::Triangles ) {
@@ -152,7 +153,7 @@ std::vector<std::unique_ptr<Ra::Core::Asset::GeometryData>> buildMesh( const glt
                 auto layer    = std::make_unique<Ra::Core::Geometry::TriangleIndexLayer>();
                 auto& indices = layer->collection();
                 indices.reserve( meshPart->getPrimitiveCount() );
-                for ( uint vi = 0; vi < meshPart->getPrimitiveCount(); ++vi ) {
+                for ( uint vi = 0; vi < uint( meshPart->getPrimitiveCount() ); ++vi ) {
                     indices.emplace_back( Vector3ui { 3 * vi, 3 * vi + 1, 3 * vi + 2 } );
                 }
                 meshPart->getGeometry().addLayer( std::move( layer ), false, "indices" );
