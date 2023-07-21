@@ -1,0 +1,118 @@
+#pragma once
+#pragma once
+#include <Dataflow/Core/Node.hpp>
+
+#include <iostream>
+#include <utility>
+
+namespace Ra {
+namespace Dataflow {
+namespace Core {
+namespace Sources {
+
+/**
+ * \brief Node that deliver a std::function<R( Args... )>
+ * \tparam R return type of the function
+ * \tparam Type of the function arguments
+ */
+template <class R, class... Args>
+class FunctionSourceNode : public Node
+{
+
+  public:
+    using function_type = std::function<R( Args... )>;
+
+    explicit FunctionSourceNode( const std::string& name ) :
+        FunctionSourceNode( name, FunctionSourceNode<R, Args...>::getTypename() ) {}
+
+    bool execute() override;
+
+    /** \brief Set the function to be delivered by the node.
+     * @param data
+     */
+    void setData( function_type* data );
+
+    /**
+     * \brief Get the delivered data
+     * @return The non owning pointer (alias) to the delivered data.
+     */
+    function_type* getData() const;
+
+  protected:
+    FunctionSourceNode( const std::string& instanceName, const std::string& typeName );
+
+    bool fromJsonInternal( const nlohmann::json& ) override;
+    void toJsonInternal( nlohmann::json& data ) const override;
+
+    /// @{
+    /// The data provided by the node
+    function_type m_localData { []( Args... ) { return R {}; } };
+    function_type* m_data { &m_localData };
+    /// @}
+
+    /// Alias to the output port
+    PortOut<function_type>* m_portOut { new PortOut<function_type>( "f", this ) };
+
+  public:
+    static const std::string& getTypename();
+};
+
+// -----------------------------------------------------------------
+// ---------------------- inline methods ---------------------------
+
+template <class R, class... Args>
+FunctionSourceNode<R, Args...>::FunctionSourceNode( const std::string& instanceName,
+                                                    const std::string& typeName ) :
+    Node( instanceName, typeName ) {
+    addOutput( m_portOut, m_data );
+}
+
+template <class R, class... Args>
+bool FunctionSourceNode<R, Args...>::execute() {
+    auto interfacePort = static_cast<PortIn<function_type>*>( m_interface[0] );
+    if ( interfacePort->isLinked() ) { m_data = &( interfacePort->getData() ); }
+    else { m_data = &m_localData; }
+    m_portOut->setData( m_data );
+    return true;
+}
+
+template <class R, class... Args>
+void FunctionSourceNode<R, Args...>::setData( function_type* data ) {
+    m_localData = *data;
+    m_data      = &m_localData;
+    m_portOut->setData( m_data );
+}
+
+template <class R, class... Args>
+typename FunctionSourceNode<R, Args...>::function_type*
+FunctionSourceNode<R, Args...>::getData() const {
+    return m_data;
+}
+
+template <class R, class... Args>
+const std::string& FunctionSourceNode<R, Args...>::getTypename() {
+    static std::string demangledTypeName =
+        std::string { "Source<" } + Ra::Dataflow::Core::simplifiedDemangledType<function_type>() +
+        ">";
+    return demangledTypeName;
+}
+
+template <class R, class... Args>
+void FunctionSourceNode<R, Args...>::toJsonInternal( nlohmann::json& data ) const {
+    data["comment"] = std::string( "Unable to save data when serializing a FunctionSourceNode<" ) +
+                      Ra::Dataflow::Core::simplifiedDemangledType<function_type>() + ">.";
+    LOG( Ra::Core::Utils::logDEBUG )
+        << "Unable to save data when serializing a " << getTypeName() << ".";
+}
+
+template <class R, class... Args>
+bool FunctionSourceNode<R, Args...>::fromJsonInternal( const nlohmann::json& ) {
+    LOG( Ra::Core::Utils::logDEBUG )
+        << "Unable to read data when un-serializing a " << getTypeName() << ".";
+    return true;
+}
+
+} // namespace Sources
+} // namespace Core
+} // namespace Dataflow
+} // namespace Ra

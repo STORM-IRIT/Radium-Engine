@@ -309,6 +309,13 @@ void BaseApplication::initialize( const WindowFactory& factory,
              pluginsPath, parser.values( "loadPlugin" ), parser.values( "ignorePlugin" ) ) ) {
         LOG( logDEBUG ) << "No plugin found in default path " << pluginsPath;
     }
+    // if a plugin path was set on the command line, load plugins from this path
+    if ( !m_pluginPath.empty() ) {
+        if ( !loadPlugins(
+                 m_pluginPath, parser.values( "loadPlugin" ), parser.values( "ignorePlugin" ) ) ) {
+            LOG( logDEBUG ) << "No plugin found in command line given plugin path " << m_pluginPath;
+        }
+    }
     // load supplemental plugins
     {
         QSettings settings;

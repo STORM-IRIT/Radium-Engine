@@ -425,13 +425,14 @@ void EnvironmentTexture::setupTexturesFromSphericalEquiRectangular() {
                 Scalar v  = -1 + j * duv;
                 Vector3 d = bases[imgIdx][0] + u * bases[imgIdx][1] + v * bases[imgIdx][2];
                 d         = d.normalized();
-                Vector2 st { w * sphericalPhi( d ) / ( 2 * M_PI ), h * sphericalTheta( d ) / M_PI };
+                Vector2 st { w * sphericalPhi( d ) / ( 2_ra * M_PI ),
+                             h * sphericalTheta( d ) / M_PI };
                 // TODO : use st to access and filter the original envmap
                 // for now, no filtering is done. (eq to GL_NEAREST)
-                int s  = int( st.x() );
-                int t  = int( st.y() );
-                int cu = int( ( u / 2 + 0.5 ) * textureSize );
-                int cv = int( ( v / 2 + 0.5 ) * textureSize );
+                int s  = std::min( int( st.x() ), w - 1 );
+                int t  = std::min( int( st.y() ), h - 1 );
+                int cu = int( ( u / 2_ra + 0.5_ra ) * textureSize );
+                int cv = int( ( v / 2_ra + 0.5_ra ) * textureSize );
 
                 m_skyData[imgIdx][4 * ( cv * textureSize + cu ) + 0] =
                     latlonPix[4 * ( t * w + s ) + 0];
@@ -664,10 +665,11 @@ void EnvironmentTexture::updateGL() {
             "in vec3 incidentDirection;\n"
             "uniform samplerCube skyTexture;\n"
             "uniform float strength;\n"
+            "uniform float alpha;\n"
             "void main(void)\n"
             "{\n"
             "    vec3 envColor = texture(skyTexture, normalize(incidentDirection)).rgb;\n"
-            "    outColor =vec4(strength*envColor, 1);\n"
+            "    outColor =vec4(strength*envColor, alpha); \n"
             "}\n" };
         Ra::Engine::Data::ShaderConfiguration config { "EnvironmentTexture::Builtin SkyBox" };
         config.addShaderSource( Ra::Engine::Data::ShaderType::ShaderType_VERTEX,
@@ -688,7 +690,8 @@ void EnvironmentTexture::updateGL() {
     }
 }
 
-void EnvironmentTexture::render( const Ra::Engine::Data::ViewingParameters& viewParams ) {
+void EnvironmentTexture::render( const Ra::Engine::Data::ViewingParameters& viewParams,
+                                 bool asOpaque ) {
     if ( m_isSkyBox ) {
         // put this in a initializeGL method ?
         if ( !m_glReady ) { updateGL(); }
@@ -709,6 +712,8 @@ void EnvironmentTexture::render( const Ra::Engine::Data::ViewingParameters& view
         m_skyTexture->bind( 0 );
         m_skyShader->setUniform( "skytexture", 0 );
         m_skyShader->setUniform( "strength", m_environmentStrength );
+        if ( asOpaque ) { m_skyShader->setUniform( "alpha", float( 1 ) ); }
+        else { m_skyShader->setUniform( "alpha", float( 0 ) ); }
         GLboolean depthEnabled;
         glGetBooleanv( GL_DEPTH_WRITEMASK, &depthEnabled );
         glDepthMask( GL_FALSE );

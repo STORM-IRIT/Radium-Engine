@@ -1,0 +1,465 @@
+{
+    "instance": "fullRenderingGraph",
+    "model": {
+        "graph": {
+            "connections": [
+                {
+                    "in_node": "Display Node",
+                    "in_port": "Beauty",
+                    "out_node": "wireframe_14",
+                    "out_port": "Beauty"
+                },
+                {
+                    "in_node": "Display Node",
+                    "in_port": "AOV_0",
+                    "out_node": "geometryAovs_6",
+                    "out_port": "world normal"
+                },
+                {
+                    "in_node": "Display Node",
+                    "in_port": "AOV_1",
+                    "out_node": "geometryAovs_6",
+                    "out_port": "world pos"
+                },
+                {
+                    "in_node": "Display Node",
+                    "in_port": "AOV_2",
+                    "out_node": "transparency_11",
+                    "out_port": "revealage"
+                },
+                {
+                    "in_node": "Display Node",
+                    "in_port": "AOV_3",
+                    "out_node": "transparency_11",
+                    "out_port": "accum"
+                },
+                {
+                    "in_node": "Display Node",
+                    "in_port": "AOV_4",
+                    "out_node": "ssao_12",
+                    "out_port": "ssao"
+                },
+                {
+                    "in_node": "clearFrame_9",
+                    "in_port": "texture",
+                    "out_node": "colorTex_8",
+                    "out_port": "texture"
+                },
+                {
+                    "in_node": "clearFrame_9",
+                    "in_port": "clear color",
+                    "out_node": "Source<Color>_1",
+                    "out_port": "to"
+                },
+                {
+                    "in_node": "clearFrame_9",
+                    "in_port": "environment",
+                    "out_node": "envmap_10",
+                    "out_port": "to"
+                },
+                {
+                    "in_node": "clearFrame_9",
+                    "in_port": "camera",
+                    "out_node": "scene_6",
+                    "out_port": "camera"
+                },
+                {
+                    "in_node": "geometryAovs_6",
+                    "in_port": "objects",
+                    "out_node": "scene_6",
+                    "out_port": "objects"
+                },
+                {
+                    "in_node": "geometryAovs_6",
+                    "in_port": "camera",
+                    "out_node": "scene_6",
+                    "out_port": "camera"
+                },
+                {
+                    "in_node": "emissivity_7",
+                    "in_port": "objects",
+                    "out_node": "scene_6",
+                    "out_port": "objects"
+                },
+                {
+                    "in_node": "emissivity_7",
+                    "in_port": "camera",
+                    "out_node": "scene_6",
+                    "out_port": "camera"
+                },
+                {
+                    "in_node": "emissivity_7",
+                    "in_port": "color",
+                    "out_node": "clearFrame_9",
+                    "out_port": "Beauty"
+                },
+                {
+                    "in_node": "emissivity_7",
+                    "in_port": "depth",
+                    "out_node": "geometryAovs_6",
+                    "out_port": "depth"
+                },
+                {
+                    "in_node": "emissivity_7",
+                    "in_port": "AO",
+                    "out_node": "ssao_12",
+                    "out_port": "ssao"
+                },
+                {
+                    "in_node": "ssao_12",
+                    "in_port": "worldPosition",
+                    "out_node": "geometryAovs_6",
+                    "out_port": "world pos"
+                },
+                {
+                    "in_node": "ssao_12",
+                    "in_port": "worldNormal",
+                    "out_node": "geometryAovs_6",
+                    "out_port": "world normal"
+                },
+                {
+                    "in_node": "ssao_12",
+                    "in_port": "camera",
+                    "out_node": "scene_6",
+                    "out_port": "camera"
+                },
+                {
+                    "in_node": "envlight_8",
+                    "in_port": "objects",
+                    "out_node": "scene_6",
+                    "out_port": "objects"
+                },
+                {
+                    "in_node": "envlight_8",
+                    "in_port": "camera",
+                    "out_node": "scene_6",
+                    "out_port": "camera"
+                },
+                {
+                    "in_node": "envlight_8",
+                    "in_port": "envmap",
+                    "out_node": "envmap_10",
+                    "out_port": "to"
+                },
+                {
+                    "in_node": "envlight_8",
+                    "in_port": "color",
+                    "out_node": "emissivity_7",
+                    "out_port": "Beauty"
+                },
+                {
+                    "in_node": "envlight_8",
+                    "in_port": "depth",
+                    "out_node": "geometryAovs_6",
+                    "out_port": "depth"
+                },
+                {
+                    "in_node": "localLight_9",
+                    "in_port": "objects",
+                    "out_node": "scene_10",
+                    "out_port": "objects"
+                },
+                {
+                    "in_node": "localLight_9",
+                    "in_port": "lights",
+                    "out_node": "scene_10",
+                    "out_port": "lights"
+                },
+                {
+                    "in_node": "localLight_9",
+                    "in_port": "camera",
+                    "out_node": "scene_10",
+                    "out_port": "camera"
+                },
+                {
+                    "in_node": "localLight_9",
+                    "in_port": "color",
+                    "out_node": "envlight_8",
+                    "out_port": "Beauty"
+                },
+                {
+                    "in_node": "localLight_9",
+                    "in_port": "depth",
+                    "out_node": "geometryAovs_6",
+                    "out_port": "depth"
+                },
+                {
+                    "in_node": "localLight_9",
+                    "in_port": "AO",
+                    "out_node": "ssao_12",
+                    "out_port": "ssao"
+                },
+                {
+                    "in_node": "transparency_11",
+                    "in_port": "objects",
+                    "out_node": "scene_10",
+                    "out_port": "objects"
+                },
+                {
+                    "in_node": "transparency_11",
+                    "in_port": "lights",
+                    "out_node": "scene_10",
+                    "out_port": "lights"
+                },
+                {
+                    "in_node": "transparency_11",
+                    "in_port": "camera",
+                    "out_node": "scene_10",
+                    "out_port": "camera"
+                },
+                {
+                    "in_node": "transparency_11",
+                    "in_port": "color",
+                    "out_node": "localLight_9",
+                    "out_port": "Beauty"
+                },
+                {
+                    "in_node": "transparency_11",
+                    "in_port": "depth",
+                    "out_node": "geometryAovs_6",
+                    "out_port": "depth"
+                },
+                {
+                    "in_node": "volumeLighting_13",
+                    "in_port": "objects",
+                    "out_node": "scene_10",
+                    "out_port": "objects"
+                },
+                {
+                    "in_node": "volumeLighting_13",
+                    "in_port": "lights",
+                    "out_node": "scene_10",
+                    "out_port": "lights"
+                },
+                {
+                    "in_node": "volumeLighting_13",
+                    "in_port": "camera",
+                    "out_node": "scene_10",
+                    "out_port": "camera"
+                },
+                {
+                    "in_node": "volumeLighting_13",
+                    "in_port": "color",
+                    "out_node": "transparency_11",
+                    "out_port": "Beauty"
+                },
+                {
+                    "in_node": "volumeLighting_13",
+                    "in_port": "depth",
+                    "out_node": "geometryAovs_6",
+                    "out_port": "depth"
+                },
+                {
+                    "in_node": "wireframe_14",
+                    "in_port": "objects",
+                    "out_node": "scene_10",
+                    "out_port": "objects"
+                },
+                {
+                    "in_node": "wireframe_14",
+                    "in_port": "camera",
+                    "out_node": "scene_10",
+                    "out_port": "camera"
+                },
+                {
+                    "in_node": "wireframe_14",
+                    "in_port": "color",
+                    "out_node": "volumeLighting_13",
+                    "out_port": "Beauty"
+                },
+                {
+                    "in_node": "wireframe_14",
+                    "in_port": "depth",
+                    "out_node": "geometryAovs_6",
+                    "out_port": "depth"
+                },
+                {
+                    "in_node": "wireframe_14",
+                    "in_port": "activate",
+                    "out_node": "Source<bool>_2",
+                    "out_port": "to"
+                }
+            ],
+            "factories": [
+                "RenderingNodes"
+            ],
+            "nodes": [
+                {
+                    "instance": "scene_6",
+                    "model": {
+                        "name": "Scene data provider"
+                    },
+                    "position": {
+                        "x": 247.2943878173828,
+                        "y": 323.0783996582031
+                    }
+                },
+                {
+                    "instance": "Source<Color>_1",
+                    "model": {
+                        "color": [
+                            1.7104668586398475e-05,
+                            1.7104668586398475e-05,
+                            1.7104668586398475e-05,
+                            1.0
+                        ],
+                        "name": "Source<Color>"
+                    },
+                    "position": {
+                        "x": 232.92669677734375,
+                        "y": 11.072956085205078
+                    }
+                },
+                {
+                    "instance": "scene_10",
+                    "model": {
+                        "name": "Scene data provider"
+                    },
+                    "position": {
+                        "x": 1360.0,
+                        "y": 829.5999755859375
+                    }
+                },
+                {
+                    "instance": "Source<bool>_2",
+                    "model": {
+                        "boolean": false,
+                        "name": "Source<bool>"
+                    },
+                    "position": {
+                        "x": 2300.37158203125,
+                        "y": 933.0
+                    }
+                },
+                {
+                    "instance": "Display Node",
+                    "model": {
+                        "name": "Display Sink"
+                    },
+                    "position": {
+                        "x": 2938.12109375,
+                        "y": 690.5317993164063
+                    }
+                },
+                {
+                    "instance": "colorTex_8",
+                    "model": {
+                        "name": "Color Texture"
+                    },
+                    "position": {
+                        "x": 350.04608154296875,
+                        "y": -71.95873260498047
+                    }
+                },
+                {
+                    "instance": "clearFrame_9",
+                    "model": {
+                        "clearColor": [
+                            0.45098042488098145,
+                            0.45098042488098145,
+                            0.45098042488098145
+                        ],
+                        "name": "Clear Color Pass"
+                    },
+                    "position": {
+                        "x": 541.1845703125,
+                        "y": 60.45983123779297
+                    }
+                },
+                {
+                    "instance": "envmap_10",
+                    "model": {
+                        "name": "Source<Environment>"
+                    },
+                    "position": {
+                        "x": 51.3619384765625,
+                        "y": 477.6835021972656
+                    }
+                },
+                {
+                    "instance": "geometryAovs_6",
+                    "model": {
+                        "name": "Geometry AOVs"
+                    },
+                    "position": {
+                        "x": 639.5306396484375,
+                        "y": 562.627197265625
+                    }
+                },
+                {
+                    "instance": "emissivity_7",
+                    "model": {
+                        "name": "Emissivity Render Node"
+                    },
+                    "position": {
+                        "x": 1031.2784423828125,
+                        "y": 155.7407989501953
+                    }
+                },
+                {
+                    "instance": "ssao_12",
+                    "model": {
+                        "name": "SSAO Node",
+                        "radius": 0.0
+                    },
+                    "position": {
+                        "x": 802.4400024414063,
+                        "y": 758.280029296875
+                    }
+                },
+                {
+                    "instance": "envlight_8",
+                    "model": {
+                        "name": "Env Lighting Node"
+                    },
+                    "position": {
+                        "x": 1358.296630859375,
+                        "y": 230.74176025390625
+                    }
+                },
+                {
+                    "instance": "localLight_9",
+                    "model": {
+                        "name": "Local Lighting Node"
+                    },
+                    "position": {
+                        "x": 1661.003173828125,
+                        "y": 308.92669677734375
+                    }
+                },
+                {
+                    "instance": "transparency_11",
+                    "model": {
+                        "name": "Transparency Local Lighting Node"
+                    },
+                    "position": {
+                        "x": 1962.969970703125,
+                        "y": 383.0400085449219
+                    }
+                },
+                {
+                    "instance": "volumeLighting_13",
+                    "model": {
+                        "name": "Volume Local Lighting Node"
+                    },
+                    "position": {
+                        "x": 2292.723388671875,
+                        "y": 455.3833312988281
+                    }
+                },
+                {
+                    "instance": "wireframe_14",
+                    "model": {
+                        "activated": false,
+                        "name": "Wireframe Node"
+                    },
+                    "position": {
+                        "x": 2602.789794921875,
+                        "y": 590.2335815429688
+                    }
+                }
+            ]
+        },
+        "name": "Rendering Graph"
+    }
+}

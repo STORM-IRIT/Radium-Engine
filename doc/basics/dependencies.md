@@ -7,6 +7,7 @@ Radium relies on several external libraries to load files or to represent some d
 * [Engine] glm, globjects, glbindings, tinyEXR
 * [IO] Assimp
 * [Gui] Qt Core, Qt Widgets and Qt OpenGL v5.5+ (5.14 at least, Qt6 support is experimental), PowerSlider
+* [Dataflow] RadiumNodeEditor
 * [doc] Doxygen-awesome-css
 * stb_image
 
@@ -102,6 +103,7 @@ set(tinyEXR_DIR "/path/to/external/install/share/tinyEXR/cmake/" CACHE PATH "My 
 set(assimp_DIR "/path/to/external/install/lib/cmake/assimp-5.0/" CACHE PATH "My assimp location")
 set(tinyply_DIR "/path/to/external/install/lib/cmake/tinyply/" CACHE PATH "My tinyply location")
 set(PowerSlider_DIR "/path/to/external/install/lib/cmake/PowerSlider/" CACHE PATH "My PowerSlider location")
+set(RadiumNodeEditor_DIR "/path/to/external/install/lib/cmake/RadiumNodeEditor/" CACHE PATH "My NodeEditor")
 set(RADIUM_IO_ASSIMP ON CACHE BOOL "Radium uses assimp io")
 set(RADIUM_IO_TINYPLY ON CACHE BOOL "Radium uses tinyply io")
 ~~~
@@ -124,6 +126,7 @@ To this end, just provide the corresponding '*_DIR' to cmake at configuration ti
 Currently supported (note that these paths must refer to the installation directory of the corresponding library):
 <!--  (generated running ../scripts/list_dep.py from Radium-Engine/external directory) -->
 
+* `RadiumNodeEditor_DIR`
 * `assimp_DIR`
 * `tinyply_DIR`
 * `PowerSlider_DIR`
@@ -139,6 +142,8 @@ Currently supported (note that these paths must refer to the installation direct
 
 Radium is compiled and tested with specific version of dependencies, as given in the external's folder CMakeLists.txt and state here for the record
 
+* RadiumNodeEditor: https://github.com/MathiasPaulin/RadiumQtNodeEditor.git, [main],
+  * with options `None`
 * assimp: https://github.com/assimp/assimp.git, [tags/v5.0.1],
   * with options `-DASSIMP_BUILD_ASSIMP_TOOLS=False -DASSIMP_BUILD_SAMPLES=False -DASSIMP_BUILD_TESTS=False -DIGNORE_GIT_HASH=True -DASSIMP_NO_EXPORT=True`
 * tinyply: https://github.com/ddiakopoulos/tinyply.git, [tags/2.3.2],

@@ -20,6 +20,7 @@ set(engine_sources
     Data/ShaderProgram.cpp
     Data/ShaderProgramManager.cpp
     Data/SimpleMaterial.cpp
+    Data/SphereSampler.cpp
     Data/Texture.cpp
     Data/TextureManager.cpp
     Data/VolumeObject.cpp
@@ -73,6 +74,7 @@ set(engine_headers
     Data/ShaderProgram.hpp
     Data/ShaderProgramManager.hpp
     Data/SimpleMaterial.hpp
+    Data/SphereSampler.hpp
     Data/Texture.hpp
     Data/TextureManager.hpp
     Data/ViewingParameters.hpp
