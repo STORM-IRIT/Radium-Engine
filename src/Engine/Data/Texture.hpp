@@ -32,40 +32,43 @@ struct SamplerParameters {
 };
 
 struct ImageParameters {
-
-    using Image2DType = std::shared_ptr<void>;
+    /// Types for texels variant
+    using ImageType   = std::shared_ptr<void>;
     using CubeMapType = std::array<std::shared_ptr<void>, 6>;
 
-    template <typename TexelType>
-    const TexelType* getTexels() const {
-        return std::get_if<TexelType>( &texels );
-    }
-
+    /// check which type is held by texels
     template <typename TexelType>
     bool isTexelOfType() const {
         return std::holds_alternative<TexelType>( texels );
     }
 
-    const Image2DType* getImage2D() const { return getTexels<Image2DType>(); }
-    const CubeMapType* getCubeMap() const { return getTexels<CubeMapType>(); }
+    /// get texels raw pointer
+    /// throws std::bad_variant_access if !isTexelOfType<ImageType>()
+    /// see std::get
+    const void* getTexels() const {
+        CORE_ASSERT( isTexelOfType<ImageType>(), "texture variant is not ImageType" );
+        return std::get<ImageType>( texels ).get();
+    }
 
-    /// OpenGL target
-    GLenum target { GL_TEXTURE_2D };
-    /// width of the texture (s dimension)
-    size_t width { 1 };
-    /// height of the texture (t dimension)
-    size_t height { 1 };
-    /// width of the texture (p dimension)
-    size_t depth { 1 };
-    /// Format of the external data
-    GLenum format { GL_RGB };
+    /// get cube map array of shared ptr
+    /// throws std::bad_variant_access if !isTexelOfType<CubeMapType>()
+    /// see std::get
+    const CubeMapType getCubeMap() const {
+        CORE_ASSERT( isTexelOfType<CubeMapType>(), "texture variant is not CubeMapType" );
+        return std::get<CubeMapType>( texels );
+    }
+
+    GLenum target { GL_TEXTURE_2D }; //< OpenGL target
+    size_t width { 1 };              //< width of the texture (s dimension)
+    size_t height { 1 };             //< height of the texture (t dimension)
+    size_t depth { 1 };              //< width of the texture (p dimension)
+    GLenum format { GL_RGB };        //< Format of the external data
     /// OpenGL internal format (WARNING, for Integer textures, must be GL_XXX_INTEGER)
     GLenum internalFormat { GL_RGB };
-    /// Type of the components in external data
-    GLenum type { GL_UNSIGNED_BYTE };
+    GLenum type { GL_UNSIGNED_BYTE }; //< Type of the components in external data
+    /// set to true when linearize texture rgb component. If true, linearize has no effect.
     bool isLinear { false };
-    /// texels OR cubeMap, shared ownership
-    std::variant<Image2DType, CubeMapType> texels;
+    std::variant<ImageType, CubeMapType> texels; //< texels OR cubeMap, shared ownership
 };
 
 /** \brief Describes the content and parameters of a texture.
@@ -137,13 +140,7 @@ class RA_ENGINE_API Texture final
      *
      * see initialze() which is the same method, but delay gpu stuff to engine gpu tasks.
      */
-    void initializeNow() {
-        if ( !isSupportedTarget() ) return;
-        createTexture();
-        computeIsMipMappedFlag();
-        sendSamplerParametersToGpu();
-        sendImageDataToGpu();
-    }
+    void initializeNow();
 
     void destroy();
     void destroyNow();
@@ -164,10 +161,7 @@ class RA_ENGINE_API Texture final
     size_t getDepth() const { return m_textureParameters.image.depth; }
 
     /// \return raw pointer to texels (or nullptr if cubeMap or no cpu side representation).
-    void* getTexels() {
-        const auto texels = m_textureParameters.image.getImage2D();
-        return texels ? texels->get() : nullptr;
-    }
+    const void* getTexels() { return m_textureParameters.image.getTexels(); }
 
     /** \brief Get the underlying globjects::Texture.
      *

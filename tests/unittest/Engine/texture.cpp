@@ -11,6 +11,7 @@
 #include <Engine/RadiumEngine.hpp>
 
 #include <Headless/CLIViewer.hpp>
+#include <glbinding/gl/enum.h>
 #include <globjects/Texture.h>
 #include <memory>
 #ifdef HEADLESS_HAS_EGL
@@ -160,6 +161,7 @@ TEST_CASE( "Engine/Data/Texture", "[Engine][Engine/Data][Textures]" ) {
         TextureParameters params2 = { {}, {} };
 
         params1.image.texels = data1;
+        params2.image.target = GL_TEXTURE_CUBE_MAP;
         params2.image.texels = data2void;
 
         Texture texture1( params1 );
@@ -170,10 +172,11 @@ TEST_CASE( "Engine/Data/Texture", "[Engine][Engine/Data][Textures]" ) {
         viewer.bindOpenGLContext( true );
         viewer.oneFrame();
 
+        REQUIRE( texture1.getParameters().image.isTexelOfType<ImageParameters::ImageType>() );
         REQUIRE( texture1.getTexels() != nullptr );
-        REQUIRE( static_cast<uchar*>( texture1.getTexels() )[0] == 0 );
-        REQUIRE( static_cast<uchar*>( texture1.getTexels() )[1] == 1 );
-        REQUIRE( static_cast<uchar*>( texture1.getTexels() )[2] == 2 );
+        REQUIRE( static_cast<const uchar*>( texture1.getTexels() )[0] == 0 );
+        REQUIRE( static_cast<const uchar*>( texture1.getTexels() )[1] == 1 );
+        REQUIRE( static_cast<const uchar*>( texture1.getTexels() )[2] == 2 );
 
         auto gpuTexture1 = texture1.getGpuTexture();
         REQUIRE( gpuTexture1 != nullptr );

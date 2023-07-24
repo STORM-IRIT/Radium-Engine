@@ -63,6 +63,14 @@ void Texture::initialize() {
     registerUpdateImageDataTask();
 }
 
+void Texture::initializeNow() {
+    if ( !isSupportedTarget() ) return;
+    createTexture();
+    computeIsMipMappedFlag();
+    sendSamplerParametersToGpu();
+    sendImageDataToGpu();
+}
+
 void Texture::destroy() {
     if ( m_texture ) {
         auto task = std::make_unique<DeleteTextureTask>( std::move( m_texture ) );
@@ -259,11 +267,9 @@ void Texture::sendImageDataToGpu() {
         // Load the 6 faces of the cube-map
         auto cubeMap = m_textureParameters.image.getCubeMap();
 
-        CORE_ASSERT( cubeMap != nullptr, "cubeMap variant not set" );
-
         std::array<const gl::GLvoid*, 6> data;
-        std::transform( std::begin( *cubeMap ),
-                        std::end( *cubeMap ),
+        std::transform( std::begin( cubeMap ),
+                        std::end( cubeMap ),
                         std::begin( data ),
                         []( const std::shared_ptr<void>& val ) { return val.get(); } );
 
@@ -345,7 +351,7 @@ void Texture::linearizeCubeMap( ImageParameters& image, uint numComponent, bool 
         /// already linear
         const auto cubeMap = image.getCubeMap();
         for ( int i = 0; i < 6; ++i ) {
-            srgbToLinearRgb( reinterpret_cast<uint8_t*>( ( *cubeMap )[i].get() ),
+            srgbToLinearRgb( reinterpret_cast<uint8_t*>( cubeMap[i].get() ),
                              image.width,
                              image.height,
                              image.depth,
