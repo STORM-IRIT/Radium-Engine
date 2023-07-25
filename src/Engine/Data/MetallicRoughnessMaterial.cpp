@@ -1,8 +1,8 @@
+#include <Core/Material/MetallicRoughnessMaterialData.hpp>
 #include <Core/Resources/Resources.hpp>
 #include <Engine/Data/GLTFMaterial.hpp>
 #include <Engine/Data/MaterialConverters.hpp>
 #include <Engine/Data/MetallicRoughnessMaterial.hpp>
-#include <Engine/Data/MetallicRoughnessMaterialConverter.hpp>
 #include <Engine/Data/ShaderConfigFactory.hpp>
 #include <Engine/Data/ShaderProgramManager.hpp>
 #include <Engine/RadiumEngine.hpp>
@@ -158,6 +158,37 @@ MetallicRoughness::getTextureTransform( const TextureSemantic& semantic ) const 
     if ( semantic == "TEX_BASECOLOR" ) { return m_baseTextureTransform.get(); }
     if ( semantic == "TEX_METALLICROUGHNESS" ) { return m_metallicRoughnessTextureTransform.get(); }
     return GLTFMaterial::getTextureTransform( semantic );
+}
+
+/*
+ * Core to Engine converter
+ */
+using namespace Ra::Core::Asset;
+
+Material*
+MetallicRoughnessMaterialConverter::operator()( const Ra::Core::Asset::MaterialData* toconvert ) {
+    auto result = new MetallicRoughness( toconvert->getName() );
+    auto source = static_cast<const Core::Material::MetallicRoughnessData*>( toconvert );
+
+    result->fillBaseFrom( source );
+
+    result->m_baseColorFactor = source->m_baseColorFactor;
+    if ( source->m_hasBaseColorTexture ) {
+        result->addTexture(
+            { "TEX_BASECOLOR" }, source->m_baseColorTexture, source->m_baseSampler );
+        result->m_baseTextureTransform = std::move( source->m_baseTextureTransform );
+    }
+    result->m_metallicFactor  = source->m_metallicFactor;
+    result->m_roughnessFactor = source->m_roughnessFactor;
+    if ( source->m_hasMetallicRoughnessTexture ) {
+        result->addTexture( { "TEX_METALLICROUGHNESS" },
+                            source->m_metallicRoughnessTexture,
+                            source->m_metallicRoughnessSampler );
+        result->m_metallicRoughnessTextureTransform =
+            std::move( source->m_metallicRoughnessTextureTransform );
+    }
+
+    return result;
 }
 
 } // namespace Data

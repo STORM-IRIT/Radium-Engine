@@ -14,7 +14,6 @@ set(engine_sources
     Data/MaterialConverters.cpp
     Data/Mesh.cpp
     Data/MetallicRoughnessMaterial.cpp
-    Data/MetallicRoughnessMaterialConverter.cpp
     Data/PlainMaterial.cpp
     Data/RawShaderMaterial.cpp
     Data/RenderParameters.cpp
@@ -24,7 +23,6 @@ set(engine_sources
     Data/ShaderProgramManager.cpp
     Data/SimpleMaterial.cpp
     Data/SpecularGlossinessMaterial.cpp
-    Data/SpecularGlossinessMaterialConverter.cpp
     Data/Texture.cpp
     Data/TextureManager.cpp
     Data/VolumeObject.cpp
@@ -72,7 +70,6 @@ set(engine_headers
     Data/MaterialConverters.hpp
     Data/Mesh.hpp
     Data/MetallicRoughnessMaterial.hpp
-    Data/MetallicRoughnessMaterialConverter.hpp
     Data/PlainMaterial.hpp
     Data/RawShaderMaterial.hpp
     Data/RenderParameters.hpp
@@ -82,7 +79,6 @@ set(engine_headers
     Data/ShaderProgramManager.hpp
     Data/SimpleMaterial.hpp
     Data/SpecularGlossinessMaterial.hpp
-    Data/SpecularGlossinessMaterialConverter.hpp
     Data/Texture.hpp
     Data/TextureManager.hpp
     Data/ViewingParameters.hpp

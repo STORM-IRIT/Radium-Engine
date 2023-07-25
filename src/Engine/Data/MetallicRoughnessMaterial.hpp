@@ -12,7 +12,14 @@ namespace Ra {
 namespace Engine {
 namespace Data {
 
-class MetallicRoughnessMaterialConverter;
+/**
+ * Radium IO to Engine conversion for pbrMetallicRoughness
+ */
+class RA_ENGINE_API MetallicRoughnessMaterialConverter
+{
+  public:
+    Ra::Engine::Data::Material* operator()( const Ra::Core::Asset::MaterialData* toconvert );
+};
 
 /**
  * Radium Engine material representation of pbrMetallicRoughness

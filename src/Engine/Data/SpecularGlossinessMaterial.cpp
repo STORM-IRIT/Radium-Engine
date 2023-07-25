@@ -1,9 +1,9 @@
+#include <Core/Material/SpecularGlossinessMaterialData.hpp>
 #include <Core/Resources/Resources.hpp>
 #include <Engine/Data/MaterialConverters.hpp>
 #include <Engine/Data/ShaderConfigFactory.hpp>
 #include <Engine/Data/ShaderProgramManager.hpp>
 #include <Engine/Data/SpecularGlossinessMaterial.hpp>
-#include <Engine/Data/SpecularGlossinessMaterialConverter.hpp>
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Rendering/RenderTechnique.hpp>
 
@@ -174,6 +174,33 @@ SpecularGlossiness::getTextureTransform( const TextureSemantic& semantic ) const
     return GLTFMaterial::getTextureTransform( semantic );
 }
 
+/*
+ * Core to Engine converter
+ */
+using namespace Ra::Core::Asset;
+
+Material* SpecularGlossinessMaterialConverter::operator()( const MaterialData* toconvert ) {
+    auto result = new SpecularGlossiness( toconvert->getName() );
+    auto source = static_cast<const Core::Material::SpecularGlossinessData*>( toconvert );
+
+    result->fillBaseFrom( source );
+
+    result->m_diffuseFactor = source->m_diffuseFactor;
+    if ( source->m_hasDiffuseTexture ) {
+        result->addTexture( { "TEX_DIFFUSE" }, source->m_diffuseTexture, source->m_diffuseSampler );
+        result->m_diffuseTextureTransform = std::move( source->m_diffuseTextureTransform );
+    }
+    result->m_specularFactor   = source->m_specularFactor;
+    result->m_glossinessFactor = source->m_glossinessFactor;
+    if ( source->m_hasSpecularGlossinessTexture ) {
+        result->addTexture( { "TEX_SPECULARGLOSSINESS" },
+                            source->m_specularGlossinessTexture,
+                            source->m_specularGlossinessSampler );
+        result->m_specularGlossinessTransform = std::move( source->m_specularGlossinessTransform );
+    }
+
+    return result;
+}
 } // namespace Data
 } // namespace Engine
 } // namespace Ra
