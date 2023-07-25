@@ -16,7 +16,7 @@ sample models available at https://github.com/KhronosGroup/glTF-Sample-Models.
 The structure of this document is the same than those of the
 [official specification](https://github.com/KhronosGroup/glTF/tree/master/specification/2.0)
 
-* [Concepts](#concepts)
+* [GLTF 2.0 elements](#gltf_elements)
   * [Asset](#asset)
   * [Indices and Names](#indices-and-names)
   * [Coordinate System and Units](#coordinate-system-and-units)
@@ -52,10 +52,11 @@ The structure of this document is the same than those of the
   * [Cameras](#cameras)
     * [Projection Matrices](#projection-matrices)
   * [Animations](#animations)
-  * [Specifying Extensions](#specifying-extensions)
-    * [Supported extensions](#supported-extensions)
+* [Specifying Extensions](#extensions)
+  * [Supported extensions](#supported-extensions)
+  * [Unsupported extensions](#unsupported-extensions)
 
-## Concepts {#concepts}
+## GLTF 2.0 elements {#gltf_elements}
 
 ### Asset {#asset}
 
@@ -219,12 +220,14 @@ Animation key-framed definition is properly loaded and transmitted to Radium. No
 
 > In a next version, support all the key-frames interpolators.
 
-### Specifying Extensions {#specifying-extensions}
+## Extensions {#extensions}
 
 glTF defines an extension mechanism that allows the base format to be extended with new capabilities.
-Any glTF object can have an optional `extensions` property, as in the following example:
+Some extensions are ratified by Khronos Groups (__KHR_extensions__), others are proposed by vendors (Adobe, nvidia, microsoft, ...).
+Radium GLTF will integrate __KHR__ extensions as much as possible.
+Bellow is the list of supported, WIP and unsupported extensions in RadiumGLTF.
 
-#### Supported extensions {#supported-extensions}
+### Supported extensions {#supported-extensions}
 
 * __KHR_materials_pbrSpecularGlossiness__, defines a PBR material based on specular color and
   shininess exponent is supported (spec at https://github.com/KhronosGroup/glTF/tree/master/extensions/2.0/Khronos/KHR_materials_pbrSpecularGlossiness).
@@ -248,3 +251,50 @@ intensities. (spec at https://github.com/KhronosGroup/glTF/tree/main/extensions/
 * __KHR_materials_sheen__, defines a sheen that can be layered on top of an existing glTF material definition. A sheen
 layer is a common technique used in Physically-Based Rendering to represent cloth and fabric materials
 (spec at https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/Khronos/KHR_materials_sheen)
+
+* __KHR_materials_unlit__, defines an unlit shading model for use in glTF 2.0 materials, as an alternative to the
+Physically Based Rendering (PBR) shading models provided by the core specification. Three motivating uses cases for
+unlit materials include:
+  * Mobile devices with limited resources, where unlit materials offer a performant alternative to higher-quality
+shading models.
+  * Photogrammetry, in which lighting information is already present and additional lighting should not be applied.
+  * Stylized materials (such as "anime" or "hand-drawn" looks) in which lighting is undesirable for aesthetic reasons.
+
+  (spec at https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/Khronos/KHR_materials_unlit)
+
+### Unsupported extensions {#unsupported-extensions}
+
+* __KHR_draco_mesh_compression__, defines a schema to use Draco geometry compression (non-normative) libraries in glTF format.
+  (spec at https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/Khronos/KHR_draco_mesh_compression)
+
+* __KHR_materials_anisotropy (WIP)__, defines the anisotropic property of a material as observable with brushed metals for example.
+  (spec at https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/Khronos/KHR_materials_anisotropy)
+
+* __KHR_materials_emissive_strength (WIP)__, defines emissiveStrength scalar factor, that governs the upper limit of emissive
+strength per material.
+  (spec at https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/Khronos/KHR_materials_emissive_strength)
+
+* __KHR_materials_iridescence (WIP)__, describes an effect where hue varies depending on the viewing angle and illumination angle.
+  (spec at https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/Khronos/KHR_materials_iridescence)
+
+* __KHR_materials_transmission (WIP)__, describes transparency in a PBR way.
+  (spec at https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/Khronos/KHR_materials_transmission)
+
+* __KHR_materials_variants__, allows for a compact glTF representation of multiple material variants of an asset,
+structured to allow low-latency switching at runtime.
+  (spec at https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/Khronos/KHR_materials_variants)
+
+* __KHR_materials_volume__, makes it possible to turn the surface into an interface between volumes. The volume
+extension needs to be combined with an extension which allows light to transmit through the surface, e.g.
+__KHR_materials_transmission__.
+  (spec at https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/Khronos/KHR_materials_volume)
+
+* __KHR_mesh_quantization__, expands the set of allowed component types for mesh attribute storage to provide a
+memory/precision tradeoff - depending on the application needs, 16-bit or 8-bit storage can be sufficient.
+  (spec at https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/Khronos/KHR_mesh_quantization)
+
+* __KHR_texture_basisu__, adds the ability to specify textures using KTX v2 images with Basis Universal supercompression.
+  (spec at https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/Khronos/KHR_texture_basisu)
+
+* __KHR_xmp_json_ld__, adds support for XMP (Extensible Metadata Platform) (ISO 16684-1) metadata to glTF.
+  (spec at https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/Khronos/KHR_xmp_json_ld)
