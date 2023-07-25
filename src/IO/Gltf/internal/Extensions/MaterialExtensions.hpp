@@ -328,15 +328,16 @@ inline void to_json( nlohmann::json& json, gltf_KHRMaterialsUnlit const& khrMate
  * Adding a material extension
  * 1. define in this file the json parsing of the extension, based on its specification and json
  *    schema from https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/
- * 2. add the extension in the supported extensions list in Core/Material/xxGLTFxx.cpp (for
+ * 2. add the extension in the supported extensions list (gltfSupportedExtensions) in Converter.cpp
+ * 3. add the extension in the compatible extensions list in Core/Material/xxGLTFxx.cpp (for
  * materials accepting this extension)
- * 3. add the extension in the supported extensions list (gltfSupportedExtensions) in Converter.cpp
- * 3. Define the Core/Material representation of the extension as inheriting from
+ * 4. Define the Core/Material representation of the extension as inheriting from
  * GLTFMaterialExtensionData
- * 4. Add the extension converter in MaterialConverter.cpp
- * 5. Define the Engine/Data representation and management of the extension as a material layer in
+ * 5. Add the extension converter in MaterialConverter.cpp that translate gltf representation of
+ * the extension to its Radium Core representation
+ * 6. Define the Engine/Data representation and management of the extension as a material layer in
  * Engine/Data/GLTFMaterial.xpp
- * 6. Write the glsl management of the extension in the shaders
+ * 7. Write the glsl management of the extension in the shaders
  */
 } // namespace GLTF
 } // namespace IO
