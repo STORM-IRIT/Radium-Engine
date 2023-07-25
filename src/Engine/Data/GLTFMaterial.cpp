@@ -197,7 +197,17 @@ std::map<std::string,
               const std::string& /*instanceName*/,
               const auto* source ) {
               auto iorProvider = reinterpret_cast<const Core::Material::GLTFIor*>( source );
+              // Not a layer, set a property on the material
               baseMaterial.setIndexOfRefraction( iorProvider->m_ior );
+              return nullptr;
+          } },
+        { "KHR_materials_unlit",
+          []( GLTFMaterial& baseMaterial,
+              const std::string& /*instanceName*/,
+              const auto* source ) {
+              auto unlitProvider = reinterpret_cast<const Core::Material::GLTFUnlit*>( source );
+              // Not a layer, set a property on the material
+              baseMaterial.setUnlitStatus( unlitProvider->active );
               return nullptr;
           } },
         { "KHR_materials_clearcoat",
@@ -262,6 +272,8 @@ std::list<std::string> GLTFMaterial::getPropertyList() const {
     // Expose the new GLTF__INTERFACE that will eveolve until it is submitted to Radium
     // GLSL/Material interface
     props.emplace_back( "GLTF_MATERIAL_INTERFACE" );
+    // unlit
+    if ( getUnlitStatus() ) { props.emplace_back( "MATERIAL_UNLIT" ); }
     // textures
     if ( m_pendingTextures.find( { "TEX_NORMAL" } ) != m_pendingTextures.end() ||
          getTexture( { "TEX_NORMAL" } ) != nullptr ) {

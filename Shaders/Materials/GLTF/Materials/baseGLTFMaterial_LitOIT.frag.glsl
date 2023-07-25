@@ -40,6 +40,9 @@ float weight( float z, float alpha ) {
 }
 
 void main() {
+#ifdef MATERIAL_UNLIT
+    discard;
+#else
     vec3 tc = getPerVertexTexCoord();
     // only render non opaque fragments and not fully transparent fragments
     vec4 bc = getBaseColor( material, tc );
@@ -66,4 +69,5 @@ void main() {
     float w        = weight( gl_FragCoord.z, a );
     f_Accumulation = vec4( color * a, a ) * w;
     f_Revealage    = vec4( a );
+#endif
 }

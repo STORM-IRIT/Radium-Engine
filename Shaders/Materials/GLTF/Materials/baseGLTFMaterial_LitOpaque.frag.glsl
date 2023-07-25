@@ -14,6 +14,12 @@ layout( location = 5 ) in vec3 in_viewVector;
 layout( location = 6 ) in vec3 in_lightVector;
 
 void main() {
+// Unefficient but simple workaround to support unlit GLTF material
+// This restrict unlit to opaque materials even if the spec allows unlit transparent
+// TODO, modify radium renderers to support unlit opaque and transparent objects
+#ifdef MATERIAL_UNLIT
+    discard;
+#else
     vec3 tc = getPerVertexTexCoord();
     // discard non opaque fragment
     vec4 bc = getBaseColor( material, tc );
@@ -40,4 +46,5 @@ void main() {
 #endif
     // color      = color + getEmissiveColor(material.baseMaterial, getPerVertexTexCoord());
     fragColor = vec4( color, 1.0 );
+#endif
 }

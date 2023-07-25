@@ -307,37 +307,37 @@ inline void to_json( nlohmann::json& json, gltf_KHRMaterialsSheen const& khrMate
 }
 
 /**
- * INN_material_atlas_V1
- *
+ * KHR_materials_unlit
+ * https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/Khronos/KHR_materials_unlit
  */
-struct gltf_INNMaterialAtlas {
-    struct INN_AtlasTexture : fx::gltf::Material::Texture {
-        int nbMaterial { 0 };
-    };
-
-    INN_AtlasTexture atlasTexture;
+struct gltf_KHRMaterialsUnlit {
+    bool active { false };
+    nlohmann::json extensionsAndExtras {};
 };
 
-inline void from_json( nlohmann::json const& json,
-                       gltf_INNMaterialAtlas::INN_AtlasTexture& atlasTexture ) {
-    from_json( json, static_cast<fx::gltf::Material::Texture&>( atlasTexture ) );
-    fx::gltf::detail::ReadRequiredField( "nbMaterial", json, atlasTexture.nbMaterial );
+inline void from_json( nlohmann::json const& json, gltf_KHRMaterialsUnlit& khrMaterialsUnlit ) {
+    khrMaterialsUnlit.active = true;
+    fx::gltf::detail::ReadExtensionsAndExtras( json, khrMaterialsUnlit.extensionsAndExtras );
 }
 
-inline void from_json( nlohmann::json const& json, gltf_INNMaterialAtlas& textureAtlas ) {
-    fx::gltf::detail::ReadRequiredField( "atlasTexture", json, textureAtlas.atlasTexture );
+inline void to_json( nlohmann::json& json, gltf_KHRMaterialsUnlit const& khrMaterialsUnlit ) {
+    fx::gltf::detail::WriteExtensions( json, khrMaterialsUnlit.extensionsAndExtras );
 }
 
-inline void to_json( nlohmann::json& json,
-                     gltf_INNMaterialAtlas::INN_AtlasTexture const& atlasTexture ) {
-    to_json( json, static_cast<fx::gltf::Material::Texture const&>( atlasTexture ) );
-    fx::gltf::detail::WriteField( { "nbMaterial" }, json, atlasTexture.nbMaterial, 0 );
-}
-
-inline void to_json( nlohmann::json& json, gltf_INNMaterialAtlas const& textureAtlas ) {
-    fx::gltf::detail::WriteField( { "atlasTexture" }, json, textureAtlas.atlasTexture );
-}
-
+/**
+ * Adding a material extension
+ * 1. define in this file the json parsing of the extension, based on its specification and json
+ *    schema from https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/
+ * 2. add the extension in the supported extensions list in Core/Material/xxGLTFxx.cpp (for
+ * materials accepting this extension)
+ * 3. add the extension in the supported extensions list (gltfSupportedExtensions) in Converter.cpp
+ * 3. Define the Core/Material representation of the extension as inheriting from
+ * GLTFMaterialExtensionData
+ * 4. Add the extension converter in MaterialConverter.cpp
+ * 5. Define the Engine/Data representation and management of the extension as a material layer in
+ * Engine/Data/GLTFMaterial.xpp
+ * 6. Write the glsl management of the extension in the shaders
+ */
 } // namespace GLTF
 } // namespace IO
 } // namespace Ra

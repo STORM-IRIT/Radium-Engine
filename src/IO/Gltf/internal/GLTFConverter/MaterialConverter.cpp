@@ -54,24 +54,24 @@ GLTFSampler convertSampler( const fx::gltf::Sampler& sampler ) {
     }
     switch ( sampler.wrapS ) {
     case fx::gltf::Sampler::WrappingMode::ClampToEdge:
-        rasampler.wrapS = GLTFSampler::WrappingMode ::ClampToEdge;
+        rasampler.wrapS = GLTFSampler::WrappingMode::ClampToEdge;
         break;
     case fx::gltf::Sampler::WrappingMode::MirroredRepeat:
-        rasampler.wrapS = GLTFSampler::WrappingMode ::MirroredRepeat;
+        rasampler.wrapS = GLTFSampler::WrappingMode::MirroredRepeat;
         break;
     case fx::gltf::Sampler::WrappingMode::Repeat:
-        rasampler.wrapS = GLTFSampler::WrappingMode ::Repeat;
+        rasampler.wrapS = GLTFSampler::WrappingMode::Repeat;
         break;
     }
     switch ( sampler.wrapT ) {
     case fx::gltf::Sampler::WrappingMode::ClampToEdge:
-        rasampler.wrapT = GLTFSampler::WrappingMode ::ClampToEdge;
+        rasampler.wrapT = GLTFSampler::WrappingMode::ClampToEdge;
         break;
     case fx::gltf::Sampler::WrappingMode::MirroredRepeat:
-        rasampler.wrapT = GLTFSampler::WrappingMode ::MirroredRepeat;
+        rasampler.wrapT = GLTFSampler::WrappingMode::MirroredRepeat;
         break;
     case fx::gltf::Sampler::WrappingMode::Repeat:
-        rasampler.wrapT = GLTFSampler::WrappingMode ::Repeat;
+        rasampler.wrapT = GLTFSampler::WrappingMode::Repeat;
         break;
     }
 
@@ -81,19 +81,6 @@ GLTFSampler convertSampler( const fx::gltf::Sampler& sampler ) {
 void getMaterialExtensions( const nlohmann::json& /*extensionsAndExtras*/,
                             BaseGLTFMaterial* /*mat*/ ) {
     // Manage non standard material extensions
-#if 0
-    if ( !extensionsAndExtras.empty() ) {
-        auto ext = extensionsAndExtras.find( "extensions" );
-        if ( ext != extensionsAndExtras.end() ) {
-            auto extensions                           = *ext;
-            const nlohmann::json::const_iterator iter = extensions.find( "INN_material_atlas_V1" );
-            if ( iter != extensions.end() ) {
-                mat->m_inn_materialAtlas = new gltf_INNMaterialAtlas;
-                from_json( *iter, *( mat->m_inn_materialAtlas ) );
-            }
-        }
-    }
-#endif
 }
 
 void getMaterialTextureTransform( const nlohmann::json& extensionsAndExtras,
@@ -184,182 +171,204 @@ void getCommonMaterialParameters( const gltf::Document& doc,
     getMaterialExtensions( gltfMaterial.extensionsAndExtras, mat );
 }
 
-std::map<std::string,
-         std::function<std::unique_ptr<GLTFMaterialExtensionData>( const gltf::Document& doc,
-                                                                   const std::string& filePath,
-                                                                   const nlohmann::json& jsonData,
-                                                                   const std::string& basename )>>
-    instanciateExtension {
-        { "KHR_materials_ior",
-          []( const gltf::Document& /*doc*/,
-              const std::string& /*filePath*/,
-              const nlohmann::json& jsonData,
-              const std::string& basename ) {
-              gltf_KHRMaterialsIor data;
-              from_json( jsonData, data );
-              auto built   = std::make_unique<GLTFIor>( basename + " - IOR" );
-              built->m_ior = data.ior;
-              return built;
-          } },
-        { "KHR_materials_clearcoat",
-          []( const gltf::Document& doc,
-              const std::string& filePath,
-              const nlohmann::json& jsonData,
-              const std::string& basename ) {
-              gltf_KHRMaterialsClearcoat data;
-              from_json( jsonData, data );
-              auto built = std::make_unique<GLTFClearcoatLayer>( basename + " - Clearcoat layer" );
-              // clearcoat layer
-              built->m_clearcoatFactor = data.clearcoatFactor;
-              if ( !data.clearcoatTexture.empty() ) {
-                  ImageData tex { doc, data.clearcoatTexture.index, filePath };
-                  if ( !tex.Info().IsBinary() ) {
-                      built->m_clearcoatTexture    = tex.Info().FileName;
-                      built->m_hasClearcoatTexture = true;
-                  }
-                  else { LOG( logINFO ) << "GLTF converter -- Embeded texture not supported yet"; }
-                  // get sampler information for this texture
-                  int samplerIndex = doc.textures[data.clearcoatTexture.index].sampler;
-                  if ( samplerIndex >= 0 ) {
-                      built->m_clearcoatSampler = convertSampler( doc.samplers[samplerIndex] );
-                  }
-                  getMaterialTextureTransform( data.clearcoatTexture.extensionsAndExtras,
-                                               built->m_clearcoatTextureTransform );
-              }
-              // clearcoat roughness
-              built->m_clearcoatRoughnessFactor = data.clearcoatRoughnessFactor;
-              if ( !data.clearcoatRoughnessTexture.empty() ) {
-                  ImageData tex { doc, data.clearcoatRoughnessTexture.index, filePath };
-                  if ( !tex.Info().IsBinary() ) {
-                      built->m_clearcoatRoughnessTexture    = tex.Info().FileName;
-                      built->m_hasClearcoatRoughnessTexture = true;
-                  }
-                  else { LOG( logINFO ) << "GLTF converter -- Embeded texture not supported yet"; }
-                  // get sampler information for this texture
-                  int samplerIndex = doc.textures[data.clearcoatRoughnessTexture.index].sampler;
-                  if ( samplerIndex >= 0 ) {
-                      built->m_clearcoatRoughnessSampler =
-                          convertSampler( doc.samplers[samplerIndex] );
-                  }
-                  getMaterialTextureTransform( data.clearcoatRoughnessTexture.extensionsAndExtras,
-                                               built->m_clearcoatRoughnessTextureTransform );
-              }
-              // clearcoat Normal texture
-              if ( !data.clearcoatNormalTexture.empty() ) {
-                  ImageData tex { doc, data.clearcoatNormalTexture.index, filePath };
-                  if ( !tex.Info().IsBinary() ) {
-                      built->m_clearcoatNormalTexture      = tex.Info().FileName;
-                      built->m_clearcoatNormalTextureScale = data.clearcoatNormalTexture.scale;
-                      built->m_hasClearcoatNormalTexture   = true;
-                  }
-                  else { LOG( logINFO ) << "GLTF converter -- Embeded texture not supported yet"; }
-                  // get sampler information for this texture
-                  int samplerIndex = doc.textures[data.clearcoatNormalTexture.index].sampler;
-                  if ( samplerIndex >= 0 ) {
-                      built->m_clearcoatNormalSampler =
-                          convertSampler( doc.samplers[samplerIndex] );
-                  }
-                  getMaterialTextureTransform( data.clearcoatNormalTexture.extensionsAndExtras,
-                                               built->m_clearcoatNormalTextureTransform );
-              }
-              return built;
-          } },
-        { "KHR_materials_specular",
-          []( const gltf::Document& doc,
-              const std::string& filePath,
-              const nlohmann::json& jsonData,
-              const std::string& basename ) {
-              gltf_KHRMaterialsSpecular data;
-              from_json( jsonData, data );
-              auto built = std::make_unique<GLTFSpecularLayer>( basename + " - Specular layer" );
-              // spacular strength
-              built->m_specularFactor = data.specularFactor;
-              if ( !data.specularTexture.empty() ) {
-                  ImageData tex { doc, data.specularTexture.index, filePath };
-                  if ( !tex.Info().IsBinary() ) {
-                      built->m_specularTexture    = tex.Info().FileName;
-                      built->m_hasSpecularTexture = true;
-                  }
-                  else { LOG( logINFO ) << "GLTF converter -- Embeded texture not supported yet"; }
-                  // get sampler information for this texture
-                  int samplerIndex = doc.textures[data.specularTexture.index].sampler;
-                  if ( samplerIndex >= 0 ) {
-                      built->m_specularSampler = convertSampler( doc.samplers[samplerIndex] );
-                  }
-                  getMaterialTextureTransform( data.specularTexture.extensionsAndExtras,
-                                               built->m_specularTextureTransform );
-              }
-              // specular color
-              built->m_specularColorFactor = Ra::Core::Utils::Color { data.specularColorFactor[0],
-                                                                      data.specularColorFactor[1],
-                                                                      data.specularColorFactor[2],
-                                                                      1_ra };
-              if ( !data.specularColorTexture.empty() ) {
-                  ImageData tex { doc, data.specularColorTexture.index, filePath };
-                  if ( !tex.Info().IsBinary() ) {
-                      built->m_specularColorTexture    = tex.Info().FileName;
-                      built->m_hasSpecularColorTexture = true;
-                  }
-                  else { LOG( logINFO ) << "GLTF converter -- Embeded texture not supported yet"; }
-                  // get sampler information for this texture
-                  int samplerIndex = doc.textures[data.specularColorTexture.index].sampler;
-                  if ( samplerIndex >= 0 ) {
-                      built->m_specularColorSampler = convertSampler( doc.samplers[samplerIndex] );
-                  }
-                  getMaterialTextureTransform( data.specularColorTexture.extensionsAndExtras,
-                                               built->m_specularColorTextureTransform );
-              }
-              return built;
-          } },
-        { "KHR_materials_sheen",
-          []( const gltf::Document& doc,
-              const std::string& filePath,
-              const nlohmann::json& jsonData,
-              const std::string& basename ) {
-              gltf_KHRMaterialsSheen data;
-              from_json( jsonData, data );
-              auto built = std::make_unique<GLTFSheenLayer>( basename + " - Sheen layer" );
-              // Sheen color.
-              built->m_sheenColorFactor = Ra::Core::Utils::Color { data.sheenColorFactor[0],
-                                                                   data.sheenColorFactor[1],
-                                                                   data.sheenColorFactor[2],
-                                                                   1_ra };
-              if ( !data.sheenColorTexture.empty() ) {
-                  ImageData tex { doc, data.sheenColorTexture.index, filePath };
-                  if ( !tex.Info().IsBinary() ) {
-                      built->m_sheenColorTexture    = tex.Info().FileName;
-                      built->m_hasSheenColorTexture = true;
-                  }
-                  else { LOG( logINFO ) << "GLTF converter -- Embeded texture not supported yet"; }
-                  // get sampler information for this texture
-                  int samplerIndex = doc.textures[data.sheenColorTexture.index].sampler;
-                  if ( samplerIndex >= 0 ) {
-                      built->m_sheenColorTextureSampler =
-                          convertSampler( doc.samplers[samplerIndex] );
-                  }
-                  getMaterialTextureTransform( data.sheenColorTexture.extensionsAndExtras,
-                                               built->m_sheenColorTextureTransform );
-              }
-              // Sheen roughness
-              built->m_sheenRoughnessFactor = data.sheenRoughnessFactor;
-              if ( !data.sheenRoughnessTexture.empty() ) {
-                  ImageData tex { doc, data.sheenRoughnessTexture.index, filePath };
-                  if ( !tex.Info().IsBinary() ) {
-                      built->m_sheenRoughnessTexture    = tex.Info().FileName;
-                      built->m_hasSheenRoughnessTexture = true;
-                  }
-                  else { LOG( logINFO ) << "GLTF converter -- Embeded texture not supported yet"; }
-                  // get sampler information for this texture
-                  int samplerIndex = doc.textures[data.sheenRoughnessTexture.index].sampler;
-                  if ( samplerIndex >= 0 ) {
-                      built->m_sheenRoughnessTextureSampler =
-                          convertSampler( doc.samplers[samplerIndex] );
-                  }
-                  getMaterialTextureTransform( data.sheenRoughnessTexture.extensionsAndExtras,
-                                               built->m_sheenRoughnessTextureTransform );
-              }
-              return built;
-          } } };
+// Converter functor for material supported extensions.
+
+using ExtensionConverter =
+    std::function<std::unique_ptr<GLTFMaterialExtensionData>( const gltf::Document& doc,
+                                                              const std::string& filePath,
+                                                              const nlohmann::json& jsonData,
+                                                              const std::string& basename )>;
+
+// Material extension converters
+ExtensionConverter KHR_materials_iorConverter = []( const gltf::Document& /*doc*/,
+                                                    const std::string& /*filePath*/,
+                                                    const nlohmann::json& jsonData,
+                                                    const std::string& basename ) {
+    gltf_KHRMaterialsIor data;
+    from_json( jsonData, data );
+    auto built   = std::make_unique<GLTFIor>( basename + " - IOR" );
+    built->m_ior = data.ior;
+    return built;
+};
+
+struct KHR_materials_clearcoatConverter {
+    std::unique_ptr<GLTFMaterialExtensionData> operator()( const gltf::Document& doc,
+                                                           const std::string& filePath,
+                                                           const nlohmann::json& jsonData,
+                                                           const std::string& basename ) {
+        gltf_KHRMaterialsClearcoat data;
+        from_json( jsonData, data );
+        auto built = std::make_unique<GLTFClearcoatLayer>( basename + " - Clearcoat layer" );
+        // clearcoat layer
+        built->m_clearcoatFactor = data.clearcoatFactor;
+        if ( !data.clearcoatTexture.empty() ) {
+            ImageData tex { doc, data.clearcoatTexture.index, filePath };
+            if ( !tex.Info().IsBinary() ) {
+                built->m_clearcoatTexture    = tex.Info().FileName;
+                built->m_hasClearcoatTexture = true;
+            }
+            else { LOG( logINFO ) << "GLTF converter -- Embeded texture not supported yet"; }
+            // get sampler information for this texture
+            int samplerIndex = doc.textures[data.clearcoatTexture.index].sampler;
+            if ( samplerIndex >= 0 ) {
+                built->m_clearcoatSampler = convertSampler( doc.samplers[samplerIndex] );
+            }
+            getMaterialTextureTransform( data.clearcoatTexture.extensionsAndExtras,
+                                         built->m_clearcoatTextureTransform );
+        }
+        // clearcoat roughness
+        built->m_clearcoatRoughnessFactor = data.clearcoatRoughnessFactor;
+        if ( !data.clearcoatRoughnessTexture.empty() ) {
+            ImageData tex { doc, data.clearcoatRoughnessTexture.index, filePath };
+            if ( !tex.Info().IsBinary() ) {
+                built->m_clearcoatRoughnessTexture    = tex.Info().FileName;
+                built->m_hasClearcoatRoughnessTexture = true;
+            }
+            else { LOG( logINFO ) << "GLTF converter -- Embeded texture not supported yet"; }
+            // get sampler information for this texture
+            int samplerIndex = doc.textures[data.clearcoatRoughnessTexture.index].sampler;
+            if ( samplerIndex >= 0 ) {
+                built->m_clearcoatRoughnessSampler = convertSampler( doc.samplers[samplerIndex] );
+            }
+            getMaterialTextureTransform( data.clearcoatRoughnessTexture.extensionsAndExtras,
+                                         built->m_clearcoatRoughnessTextureTransform );
+        }
+        // clearcoat Normal texture
+        if ( !data.clearcoatNormalTexture.empty() ) {
+            ImageData tex { doc, data.clearcoatNormalTexture.index, filePath };
+            if ( !tex.Info().IsBinary() ) {
+                built->m_clearcoatNormalTexture      = tex.Info().FileName;
+                built->m_clearcoatNormalTextureScale = data.clearcoatNormalTexture.scale;
+                built->m_hasClearcoatNormalTexture   = true;
+            }
+            else { LOG( logINFO ) << "GLTF converter -- Embeded texture not supported yet"; }
+            // get sampler information for this texture
+            int samplerIndex = doc.textures[data.clearcoatNormalTexture.index].sampler;
+            if ( samplerIndex >= 0 ) {
+                built->m_clearcoatNormalSampler = convertSampler( doc.samplers[samplerIndex] );
+            }
+            getMaterialTextureTransform( data.clearcoatNormalTexture.extensionsAndExtras,
+                                         built->m_clearcoatNormalTextureTransform );
+        }
+        return built;
+    }
+};
+
+struct KHR_materials_specularConverter {
+    std::unique_ptr<GLTFMaterialExtensionData> operator()( const gltf::Document& doc,
+                                                           const std::string& filePath,
+                                                           const nlohmann::json& jsonData,
+                                                           const std::string& basename ) {
+        gltf_KHRMaterialsSpecular data;
+        from_json( jsonData, data );
+        auto built = std::make_unique<GLTFSpecularLayer>( basename + " - Specular layer" );
+        // spacular strength
+        built->m_specularFactor = data.specularFactor;
+        if ( !data.specularTexture.empty() ) {
+            ImageData tex { doc, data.specularTexture.index, filePath };
+            if ( !tex.Info().IsBinary() ) {
+                built->m_specularTexture    = tex.Info().FileName;
+                built->m_hasSpecularTexture = true;
+            }
+            else { LOG( logINFO ) << "GLTF converter -- Embeded texture not supported yet"; }
+            // get sampler information for this texture
+            int samplerIndex = doc.textures[data.specularTexture.index].sampler;
+            if ( samplerIndex >= 0 ) {
+                built->m_specularSampler = convertSampler( doc.samplers[samplerIndex] );
+            }
+            getMaterialTextureTransform( data.specularTexture.extensionsAndExtras,
+                                         built->m_specularTextureTransform );
+        }
+        // specular color
+        built->m_specularColorFactor = Ra::Core::Utils::Color { data.specularColorFactor[0],
+                                                                data.specularColorFactor[1],
+                                                                data.specularColorFactor[2],
+                                                                1_ra };
+        if ( !data.specularColorTexture.empty() ) {
+            ImageData tex { doc, data.specularColorTexture.index, filePath };
+            if ( !tex.Info().IsBinary() ) {
+                built->m_specularColorTexture    = tex.Info().FileName;
+                built->m_hasSpecularColorTexture = true;
+            }
+            else { LOG( logINFO ) << "GLTF converter -- Embeded texture not supported yet"; }
+            // get sampler information for this texture
+            int samplerIndex = doc.textures[data.specularColorTexture.index].sampler;
+            if ( samplerIndex >= 0 ) {
+                built->m_specularColorSampler = convertSampler( doc.samplers[samplerIndex] );
+            }
+            getMaterialTextureTransform( data.specularColorTexture.extensionsAndExtras,
+                                         built->m_specularColorTextureTransform );
+        }
+        return built;
+    }
+};
+
+struct KHR_materials_sheenConverter {
+    std::unique_ptr<GLTFMaterialExtensionData> operator()( const gltf::Document& doc,
+                                                           const std::string& filePath,
+                                                           const nlohmann::json& jsonData,
+                                                           const std::string& basename ) {
+        gltf_KHRMaterialsSheen data;
+        from_json( jsonData, data );
+        auto built = std::make_unique<GLTFSheenLayer>( basename + " - Sheen layer" );
+        // Sheen color.
+        built->m_sheenColorFactor = Ra::Core::Utils::Color {
+            data.sheenColorFactor[0], data.sheenColorFactor[1], data.sheenColorFactor[2], 1_ra };
+        if ( !data.sheenColorTexture.empty() ) {
+            ImageData tex { doc, data.sheenColorTexture.index, filePath };
+            if ( !tex.Info().IsBinary() ) {
+                built->m_sheenColorTexture    = tex.Info().FileName;
+                built->m_hasSheenColorTexture = true;
+            }
+            else { LOG( logINFO ) << "GLTF converter -- Embeded texture not supported yet"; }
+            // get sampler information for this texture
+            int samplerIndex = doc.textures[data.sheenColorTexture.index].sampler;
+            if ( samplerIndex >= 0 ) {
+                built->m_sheenColorTextureSampler = convertSampler( doc.samplers[samplerIndex] );
+            }
+            getMaterialTextureTransform( data.sheenColorTexture.extensionsAndExtras,
+                                         built->m_sheenColorTextureTransform );
+        }
+        // Sheen roughness
+        built->m_sheenRoughnessFactor = data.sheenRoughnessFactor;
+        if ( !data.sheenRoughnessTexture.empty() ) {
+            ImageData tex { doc, data.sheenRoughnessTexture.index, filePath };
+            if ( !tex.Info().IsBinary() ) {
+                built->m_sheenRoughnessTexture    = tex.Info().FileName;
+                built->m_hasSheenRoughnessTexture = true;
+            }
+            else { LOG( logINFO ) << "GLTF converter -- Embeded texture not supported yet"; }
+            // get sampler information for this texture
+            int samplerIndex = doc.textures[data.sheenRoughnessTexture.index].sampler;
+            if ( samplerIndex >= 0 ) {
+                built->m_sheenRoughnessTextureSampler =
+                    convertSampler( doc.samplers[samplerIndex] );
+            }
+            getMaterialTextureTransform( data.sheenRoughnessTexture.extensionsAndExtras,
+                                         built->m_sheenRoughnessTextureTransform );
+        }
+        return built;
+    }
+};
+
+ExtensionConverter KHR_materials_unlitConverter = []( const gltf::Document& /*doc*/,
+                                                      const std::string& /*filePath*/,
+                                                      const nlohmann::json& jsonData,
+                                                      const std::string& basename ) {
+    gltf_KHRMaterialsUnlit data;
+    from_json( jsonData, data );
+    auto built    = std::make_unique<GLTFUnlit>( basename + " - unlit" );
+    built->active = true;
+    return built;
+};
+
+// Populate this map with each supported material extension
+std::map<std::string, ExtensionConverter> instantiateExtension {
+    { "KHR_materials_ior", KHR_materials_iorConverter },
+    { "KHR_materials_clearcoat", KHR_materials_clearcoatConverter() },
+    { "KHR_materials_specular", KHR_materials_specularConverter() },
+    { "KHR_materials_sheen", KHR_materials_sheenConverter() },
+    { "KHR_materials_unlit", KHR_materials_unlitConverter } };
 
 void getMaterialExtensions( const gltf::Document& doc,
                             const std::string& filePath,
@@ -390,7 +399,7 @@ void getMaterialExtensions( const gltf::Document& doc,
                 }
                 if ( mat->supportExtension( key ) ) {
                     mat->m_extensions[key] =
-                        instanciateExtension[key]( doc, filePath, value, mat->getName() );
+                        instantiateExtension[key]( doc, filePath, value, mat->getName() );
                 }
                 else {
                     LOG( logINFO ) << "Extension " << key << " is NOT allowed for      "
@@ -551,30 +560,7 @@ Ra::Core::Asset::MaterialData* buildMaterial( const gltf::Document& doc,
                                               const std::string& filePath,
                                               int32_t meshPartNumber,
                                               const MaterialData& meshMaterial ) {
-#ifdef LEGACY_IMPLEMENTATION
-    if ( meshMaterial.isMetallicRoughness() ) {
-        return buildMetallicRoughnessMaterial(
-            doc, meshIndex, filePath, meshPartNumber, meshMaterial );
-    }
-    else {
-        // Check if extension "KHR_materials_pbrSpecularGlossiness" is available
-        auto extensionsAndExtras = meshMaterial.Data().extensionsAndExtras;
-        if ( !extensionsAndExtras.empty() ) {
-            auto extensions = extensionsAndExtras.find( "extensions" );
-            if ( extensions != extensionsAndExtras.end() ) {
-                auto iter = extensions->find( "KHR_materials_pbrSpecularGlossiness" );
-                if ( iter != extensions->end() ) {
-                    gltf_PBRSpecularGlossiness gltfMaterial;
-                    from_json( *iter, gltfMaterial );
-                    return buildSpecularGlossinessMaterial(
-                        doc, meshIndex, filePath, meshPartNumber, meshMaterial, gltfMaterial );
-                }
-            }
-        }
-        /// TODO : generate a default MetallicRoughness with the base parameters
-        return buildDefaultMaterial( doc, meshIndex, filePath, meshPartNumber, meshMaterial );
-    }
-#else
+
     if ( meshMaterial.isSpecularGlossiness() ) {
         auto extensions = meshMaterial.Data().extensionsAndExtras.find( "extensions" );
         auto iter       = extensions->find( "KHR_materials_pbrSpecularGlossiness" );
@@ -593,7 +579,6 @@ Ra::Core::Asset::MaterialData* buildMaterial( const gltf::Document& doc,
             return buildDefaultMaterial( doc, meshIndex, filePath, meshPartNumber, meshMaterial );
         }
     }
-#endif
 }
 
 } // namespace GLTF

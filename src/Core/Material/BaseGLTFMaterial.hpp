@@ -160,6 +160,15 @@ struct RA_CORE_API GLTFIor : public GLTFMaterialExtensionData {
     float m_ior { 1.5 };
 };
 
+/**
+ * \brief Unlit extension
+ */
+struct RA_CORE_API GLTFUnlit : public GLTFMaterialExtensionData {
+    explicit GLTFUnlit( const std::string& name = std::string {} ) :
+        GLTFMaterialExtensionData( "Unlit", name ) {}
+    bool active { false };
+};
+
 } // namespace Material
 } // namespace Core
 } // namespace Ra

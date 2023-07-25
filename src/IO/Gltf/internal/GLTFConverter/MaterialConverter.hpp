@@ -35,17 +35,11 @@ class MaterialData
      */
     [[nodiscard]] fx::gltf::Material const& Data() const noexcept { return m_material; }
 
-#ifdef LEGACY_IMPLEMENTATION
-    /***
-     * Test if the data are valid
-     * @return
-     */
-    [[nodiscard]] bool isMetallicRoughness() const noexcept {
-        return m_hasData && !m_material.pbrMetallicRoughness.empty();
-    }
-#else
     /**
-     * Test if material is specularGlossiness
+     * Test if material is specularGlossiness.
+     * Right now, two materials are defined for RadiumGLTF : specularGlossiness and
+     * MetallicRoughness Each of these materials accepts some extensions described in the spec.
+     * \note specularGlossiness is deprecated in the spec
      */
     [[nodiscard]] bool isSpecularGlossiness() const noexcept {
         auto extensionsAndExtras = Data().extensionsAndExtras;
@@ -60,7 +54,7 @@ class MaterialData
     }
 
     [[nodiscard]] bool hasData() const noexcept { return m_hasData; }
-#endif
+
   private:
     fx::gltf::Material m_material {};
     bool m_hasData {};

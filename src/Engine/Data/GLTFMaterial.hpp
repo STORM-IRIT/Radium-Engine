@@ -241,7 +241,7 @@ class RA_ENGINE_API GLTFMaterial : public Material, public ParameterSetEditingIn
     [[nodiscard]] bool isTransparent() const override;
 
     /**
-     * Get the list of properties the material migh use in a shader.
+     * Get the list of properties the material might use in a shader.
      */
     [[nodiscard]] std::list<std::string> getPropertyList() const override;
 
@@ -293,6 +293,10 @@ class RA_ENGINE_API GLTFMaterial : public Material, public ParameterSetEditingIn
 
     float getIndexOfRefraction() const { return m_indexOfRefraction; }
     void setIndexOfRefraction( float ior ) { m_indexOfRefraction = ior; }
+
+    float getUnlitStatus() const { return m_isUnlit; }
+    void setUnlitStatus( bool status ) { m_isUnlit = status; }
+
     /******************************************************************/
 
   protected:
@@ -309,6 +313,9 @@ class RA_ENGINE_API GLTFMaterial : public Material, public ParameterSetEditingIn
 
     // attributes having default value in the spec with allowed modifications from extensions
     float m_indexOfRefraction { 1.5 };
+
+    // Should the material be lit ? (manage by the extension KHR_materials_unlit),
+    bool m_isUnlit { false };
 
     std::map<TextureSemantic, Ra::Engine::Data::Texture*> m_textures;
     std::map<TextureSemantic, Ra::Engine::Data::TextureParameters> m_pendingTextures;

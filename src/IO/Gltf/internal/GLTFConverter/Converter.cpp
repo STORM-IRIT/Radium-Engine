@@ -24,7 +24,7 @@ static std::vector<std::string> gltfSupportedExtensions { { "KHR_lights_punctual
                                                           { "KHR_materials_clearcoat" },
                                                           { "KHR_materials_specular" },
                                                           { "KHR_materials_sheen" },
-                                                          { "INN_material_atlas_V1" } };
+                                                          { "KHR_materials_unlit" } };
 
 // Check extensions used or required by this gltf scene
 bool checkExtensions( const gltf::Document& gltfscene ) {
@@ -211,7 +211,7 @@ void glTfVisitor( const gltf::Document& scene,
         else { graphNode.initPropsFromExtensionsAndExtra( node.extensionsAndExtras ); }
 
         graphNode.children = node.children;
-        for ( auto childIndex : node.children ) {
+        for ( auto childIndex : graphNode.children ) {
             glTfVisitor( scene, childIndex, graphNode.m_transform, graphNodes, visitedNodes );
         }
     }
@@ -280,14 +280,13 @@ bool Converter::operator()( const gltf::Document& gltfscene ) {
         int activeScene = gltfscene.scene;
         if ( activeScene == -1 ) activeScene = 0;
         std::set<int32_t> visitedNodes;
-        for ( const uint32_t sceneNode : gltfscene.scenes[activeScene].nodes ) {
+        for ( auto sceneNode : gltfscene.scenes[activeScene].nodes ) {
             glTfVisitor( gltfscene, sceneNode, rootTransform, graphNodes, visitedNodes );
         }
 
         int32_t nodeNum = 0;
-        // For skeleton and animation data
-        HandleDataLoader::IntToString nodeNumToComponentName;
 
+        // build Radium representation of the scene elements
         for ( auto visited : visitedNodes ) {
             auto& graphNode = graphNodes[visited];
             // Is the node a mesh ?
@@ -318,7 +317,8 @@ bool Converter::operator()( const gltf::Document& gltfscene ) {
             }
         }
 
-        // Build Skeletons
+        // build Radium Skeletons
+        HandleDataLoader::IntToString nodeNumToComponentName;
         if ( !gltfscene.skins.empty() ) {
             size_t skinIndex = 0;
             for ( const auto& skin : gltfscene.skins ) {
