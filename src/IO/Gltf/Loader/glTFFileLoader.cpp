@@ -31,8 +31,7 @@ FileData* glTFFileLoader::loadFile( const std::string& filename ) {
         return nullptr;
     }
 
-    std::clock_t startTime;
-    startTime = std::clock();
+    auto startTime = std::clock();
 
     fileData->m_geometryData.clear();
     fileData->m_animationData.clear();
@@ -53,7 +52,7 @@ FileData* glTFFileLoader::loadFile( const std::string& filename ) {
         else { gltfFile = fx::gltf::LoadFromText( filename, readQuotas ); }
     }
     catch ( std::exception& e ) {
-        LOG( logERROR ) << "Catched std::exception exception : " << e.what();
+        LOG( logERROR ) << "glTFFileLoader::loadFile : Catch std::exception : " << e.what();
         delete fileData;
         return nullptr;
     }

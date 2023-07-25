@@ -66,8 +66,9 @@ class MeshData
             else if ( attrib.first == "TANGENT" ) {
                 m_tangentBuffer = GetData( doc, doc.accessors[attrib.second] );
             }
-            else if ( attrib.first == "TEXCOORD_0" ) {
-                m_texCoord0Buffer = GetData( doc, doc.accessors[attrib.second] );
+            else if ( attrib.first.substr( 0, 9 ) == "TEXCOORD_" ) {
+                auto idTexCoord               = std::stoi( attrib.first.substr( 9 ) );
+                m_texCoordBuffers[idTexCoord] = GetData( doc, doc.accessors[attrib.second] );
             }
         }
 
@@ -106,9 +107,11 @@ class MeshData
 
     /**
      *
-     * @return the texcoord buffer of the mesh
+     * @return the textcoord buffer i of the mesh.
      */
-    [[nodiscard]] const BufferInfo& TexCoord0Buffer() const noexcept { return m_texCoord0Buffer; }
+    [[nodiscard]] const BufferInfo& TexCoordBuffer( int i ) const noexcept {
+        return m_texCoordBuffers[i];
+    }
 
     /**
      *
@@ -227,7 +230,9 @@ class MeshData
     BufferInfo m_vertexBuffer {};
     BufferInfo m_normalBuffer {};
     BufferInfo m_tangentBuffer {};
-    BufferInfo m_texCoord0Buffer {};
+    // TODO : spec require to manage at least two texture coordinate sets
+    std::array<BufferInfo, 2> m_texCoordBuffers;
+    // BufferInfo m_texCoord0Buffer {};
 
     MaterialData m_materialData {};
 

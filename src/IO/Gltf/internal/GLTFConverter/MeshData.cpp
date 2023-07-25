@@ -77,13 +77,9 @@ std::vector<std::unique_ptr<Ra::Core::Asset::GeometryData>> buildMesh( const glt
                 << "GLTF buildMesh -- RadiumGLTF only supports Triangles primitive right now !";
             continue;
         }
-        const MeshData::BufferInfo& vBuffer = mesh.VertexBuffer();
-        const MeshData::BufferInfo& nBuffer = mesh.NormalBuffer();
-        const MeshData::BufferInfo& tBuffer = mesh.TangentBuffer();
-        const MeshData::BufferInfo& cBuffer = mesh.TexCoord0Buffer();
-        const MeshData::BufferInfo& iBuffer = mesh.IndexBuffer();
 
         // we need at least vertices to render an object
+        const MeshData::BufferInfo& vBuffer = mesh.VertexBuffer();
         if ( vBuffer.HasData() ) {
             std::string meshName = doc.meshes[meshIndex].name;
             if ( meshName.empty() ) {
@@ -112,7 +108,9 @@ std::vector<std::unique_ptr<Ra::Core::Asset::GeometryData>> buildMesh( const glt
             vertices.reserve( vBuffer.Accessor->count );
             convertVectors<float>( vertices, vBuffer.Data, vBuffer.Accessor->count );
             meshPart->getGeometry().vertexAttribs().unlock( attribVertices );
+
             // Convert faces
+            const MeshData::BufferInfo& iBuffer = mesh.IndexBuffer();
             if ( iBuffer.HasData() ) {
                 if ( iBuffer.Accessor->type != gltf::Accessor::Type::Scalar ) {
                     if ( iBuffer.Accessor->type == gltf::Accessor::Type::None ) {
@@ -158,7 +156,9 @@ std::vector<std::unique_ptr<Ra::Core::Asset::GeometryData>> buildMesh( const glt
                 }
                 meshPart->getGeometry().addLayer( std::move( layer ), false, "indices" );
             }
+
             // Convert or compute normals
+            const MeshData::BufferInfo& nBuffer = mesh.NormalBuffer();
             if ( nBuffer.HasData() ) {
                 if ( ( nBuffer.Accessor->type != gltf::Accessor::Type::Vec3 ) ||
                      ( nBuffer.Accessor->componentType != gltf::Accessor::ComponentType::Float ) ) {
@@ -177,7 +177,10 @@ std::vector<std::unique_ptr<Ra::Core::Asset::GeometryData>> buildMesh( const glt
                 NormalCalculator nrmCalculator;
                 nrmCalculator( meshPart.get() );
             }
+
             // Convert TexCoord if any
+            // As Radium only manage 1 texture coordinate set, only use the texcoord0
+            const MeshData::BufferInfo& cBuffer = mesh.TexCoordBuffer( 0 );
             if ( cBuffer.HasData() ) {
                 if ( ( cBuffer.Accessor->type != gltf::Accessor::Type::Vec2 ) ) {
                     LOG( logERROR ) << "GLTF buildMesh -- TexCoord must be Vec2";
@@ -208,7 +211,9 @@ std::vector<std::unique_ptr<Ra::Core::Asset::GeometryData>> buildMesh( const glt
                 meshPart->getGeometry().vertexAttribs().unlock( attribHandle );
             }
             else { LOG( logDEBUG ) << "GLTF buildMesh -- No texCoord provided. !"; }
+
             // Convert tangent if any
+            const MeshData::BufferInfo& tBuffer = mesh.TangentBuffer();
             if ( tBuffer.HasData() ) {
                 if ( ( tBuffer.Accessor->type != gltf::Accessor::Type::Vec4 ) ||
                      ( tBuffer.Accessor->componentType != gltf::Accessor::ComponentType::Float ) ) {
