@@ -245,7 +245,7 @@ class MeshData
         const uint32_t dataTypeSize = CalculateDataTypeSize( accessor );
         return BufferInfo { &accessor,
                             &buffer.data[bufferView.byteOffset + accessor.byteOffset],
-                            dataTypeSize,
+                            bufferView.byteStride,
                             accessor.count * dataTypeSize };
     }
 

@@ -13,31 +13,45 @@ using namespace Ra::Core::Asset;
 using namespace Ra::Core::Utils;
 
 // used to convert position and normals and ...
+// takes care of interleaved buffers
 template <typename T>
-void convertVectors( Vector3Array& vectors, const void* data, int count ) {
-    auto mem = reinterpret_cast<const T*>( data );
-    for ( int i = 0; i < count; ++i ) {
-        vectors.emplace_back( mem[3 * i], mem[3 * i + 1], mem[3 * i + 2] );
+void convertVectors( Vector3Array& vectors,
+                     const uint8_t* data,
+                     uint32_t count,
+                     uint32_t stride = 0 ) {
+    for ( uint32_t i = 0; i < count; ++i ) {
+        auto rawVector = reinterpret_cast<const T*>( data );
+        vectors.emplace_back( rawVector[0], rawVector[1], rawVector[2] );
+        data += std::max( uint32_t( 3 * sizeof( T ) ), stride );
     }
 }
 
 // GLTF texCoord are vec2
+// takes care of interleaved buffers
 // Warning : textCoord could be normalized integers
 template <typename T>
-void convertTexCoord( Vector3Array& vectors, const void* data, int count ) {
-    auto mem = reinterpret_cast<const T*>( data );
-    for ( int i = 0; i < count; ++i ) {
-        float u = float( mem[2 * i] ) / std::numeric_limits<T>::max();
-        float v = 1 - float( mem[2 * i + 1] ) / std::numeric_limits<T>::max();
+void convertTexCoord( Vector3Array& vectors,
+                      const uint8_t* data,
+                      uint32_t count,
+                      uint32_t stride = 0 ) {
+    for ( uint32_t i = 0; i < count; ++i ) {
+        auto rawTexCoord = reinterpret_cast<const T*>( data );
+        float u          = float( rawTexCoord[0] ) / std::numeric_limits<T>::max();
+        float v          = 1 - float( rawTexCoord[1] ) / std::numeric_limits<T>::max();
         vectors.emplace_back( u, v, 0 );
+        data += std::max( uint32_t( 2 * sizeof( T ) ), stride );
     }
 }
 
 template <>
-void convertTexCoord<float>( Vector3Array& vectors, const void* data, int count ) {
-    auto mem = reinterpret_cast<const float*>( data );
-    for ( int i = 0; i < count; ++i ) {
-        vectors.emplace_back( mem[2 * i], 1 - mem[2 * i + 1], 0 );
+void convertTexCoord<float>( Vector3Array& vectors,
+                             const uint8_t* data,
+                             uint32_t count,
+                             uint32_t stride ) {
+    for ( uint32_t i = 0; i < count; ++i ) {
+        auto rawVector = reinterpret_cast<const float*>( data );
+        vectors.emplace_back( rawVector[0], 1 - rawVector[1], 0 );
+        data += std::max( uint32_t( 2 * sizeof( float ) ), stride );
     }
 }
 
@@ -45,12 +59,15 @@ void convertTexCoord<float>( Vector3Array& vectors, const void* data, int count 
 // Multiply the tangent coordinates by the handedness to have always right handed local frame
 // Must verify this
 template <typename T>
-void convertTangents( Vector3Array& vectors, const void* data, int count ) {
-    auto mem = reinterpret_cast<const T*>( data );
-    for ( int i = 0; i < count; ++i ) {
-        vectors.emplace_back( mem[4 * i] * mem[4 * i + 3],
-                              mem[4 * i + 1] * mem[4 * i + 3],
-                              mem[4 * i + 2] * mem[4 * i + 3] );
+void convertTangents( Vector3Array& vectors,
+                      const uint8_t* data,
+                      uint32_t count,
+                      uint32_t stride = 0 ) {
+    for ( uint32_t i = 0; i < count; ++i ) {
+        auto rawVector = reinterpret_cast<const T*>( data );
+        vectors.emplace_back(
+            rawVector[0] * rawVector[3], rawVector[1] * rawVector[3], rawVector[2] * rawVector[3] );
+        data += std::max( uint32_t( 4 * sizeof( T ) ), stride );
     }
 }
 
@@ -106,7 +123,8 @@ std::vector<std::unique_ptr<Ra::Core::Asset::GeometryData>> buildMesh( const glt
             auto& vertices =
                 meshPart->getGeometry().vertexAttribs().getDataWithLock( attribVertices );
             vertices.reserve( vBuffer.Accessor->count );
-            convertVectors<float>( vertices, vBuffer.Data, vBuffer.Accessor->count );
+            convertVectors<float>(
+                vertices, vBuffer.Data, vBuffer.Accessor->count, vBuffer.DataStride );
             meshPart->getGeometry().vertexAttribs().unlock( attribVertices );
 
             // Convert faces
@@ -170,7 +188,8 @@ std::vector<std::unique_ptr<Ra::Core::Asset::GeometryData>> buildMesh( const glt
                 auto& normals =
                     meshPart->getGeometry().vertexAttribs().getDataWithLock( attribHandle );
                 normals.reserve( nBuffer.Accessor->count );
-                convertVectors<float>( normals, nBuffer.Data, nBuffer.Accessor->count );
+                convertVectors<float>(
+                    normals, nBuffer.Data, nBuffer.Accessor->count, nBuffer.DataStride );
                 meshPart->getGeometry().vertexAttribs().unlock( attribHandle );
             }
             else {
@@ -194,14 +213,15 @@ std::vector<std::unique_ptr<Ra::Core::Asset::GeometryData>> buildMesh( const glt
                 switch ( cBuffer.Accessor->componentType ) {
                 case gltf::Accessor::ComponentType::UnsignedByte:
                     convertTexCoord<unsigned char>(
-                        texcoords, cBuffer.Data, cBuffer.Accessor->count );
+                        texcoords, cBuffer.Data, cBuffer.Accessor->count, cBuffer.DataStride );
                     break;
                 case gltf::Accessor::ComponentType::UnsignedShort:
                     convertTexCoord<unsigned short>(
-                        texcoords, cBuffer.Data, cBuffer.Accessor->count );
+                        texcoords, cBuffer.Data, cBuffer.Accessor->count, cBuffer.DataStride );
                     break;
                 case gltf::Accessor::ComponentType::Float:
-                    convertTexCoord<float>( texcoords, cBuffer.Data, cBuffer.Accessor->count );
+                    convertTexCoord<float>(
+                        texcoords, cBuffer.Data, cBuffer.Accessor->count, cBuffer.DataStride );
                     break;
                 default:
                     LOG( logERROR ) << "GLTF buildMesh -- texCoord must be UnsignedByte, "
@@ -225,7 +245,8 @@ std::vector<std::unique_ptr<Ra::Core::Asset::GeometryData>> buildMesh( const glt
                 auto& tangents =
                     meshPart->getGeometry().vertexAttribs().getDataWithLock( attribHandle );
                 tangents.reserve( tBuffer.Accessor->count );
-                convertTangents<float>( tangents, tBuffer.Data, tBuffer.Accessor->count );
+                convertTangents<float>(
+                    tangents, tBuffer.Data, tBuffer.Accessor->count, tBuffer.DataStride );
                 meshPart->getGeometry().vertexAttribs().unlock( attribHandle );
             }
             else {
