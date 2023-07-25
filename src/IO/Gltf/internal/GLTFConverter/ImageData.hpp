@@ -38,7 +38,8 @@ class ImageData
 
         bool isEmbedded = image.IsEmbeddedResource();
         if ( !image.uri.empty() && !isEmbedded ) {
-            m_info.FileName = fx::gltf::detail::GetDocumentRootPath( modelPath ) + "/" + image.uri;
+            m_info.FileName = fx::gltf::detail::GetDocumentRootPath( modelPath ) + "/" +
+                              fx::gltf::detail::UriDecode( image.uri );
         }
         else {
             if ( isEmbedded ) {
