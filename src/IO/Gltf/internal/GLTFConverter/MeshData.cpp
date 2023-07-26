@@ -20,8 +20,9 @@ void convertVectors( Vector3Array& vectors,
                      uint32_t count,
                      uint32_t stride = 0 ) {
     for ( uint32_t i = 0; i < count; ++i ) {
-        auto rawVector = reinterpret_cast<const T*>( data );
-        vectors.emplace_back( rawVector[0], rawVector[1], rawVector[2] );
+        std::array<T, 3> values { 0, 0, 0 };
+        std::memcpy( values.data(), data, 3 * sizeof( float ) );
+        vectors.emplace_back( values[0], values[1], values[2] );
         data += std::max( uint32_t( 3 * sizeof( T ) ), stride );
     }
 }
@@ -29,28 +30,32 @@ void convertVectors( Vector3Array& vectors,
 // GLTF texCoord are vec2
 // takes care of interleaved buffers
 // Warning : textCoord could be normalized integers
+// any normalized integer version
 template <typename T>
 void convertTexCoord( Vector3Array& vectors,
                       const uint8_t* data,
                       uint32_t count,
                       uint32_t stride = 0 ) {
     for ( uint32_t i = 0; i < count; ++i ) {
-        auto rawTexCoord = reinterpret_cast<const T*>( data );
-        float u          = float( rawTexCoord[0] ) / std::numeric_limits<T>::max();
-        float v          = 1 - float( rawTexCoord[1] ) / std::numeric_limits<T>::max();
-        vectors.emplace_back( u, v, 0 );
+        std::array<T, 2> values { 0, 0 };
+        std::memcpy( values.data(), data, 2 * sizeof( T ) );
+        vectors.emplace_back( Scalar( values[0] ) / std::numeric_limits<T>::max(),
+                              1 - Scalar( values[1] ) / std::numeric_limits<T>::max(),
+                              0 );
         data += std::max( uint32_t( 2 * sizeof( T ) ), stride );
     }
 }
 
+// specialization for float
 template <>
 void convertTexCoord<float>( Vector3Array& vectors,
                              const uint8_t* data,
                              uint32_t count,
                              uint32_t stride ) {
     for ( uint32_t i = 0; i < count; ++i ) {
-        auto rawVector = reinterpret_cast<const float*>( data );
-        vectors.emplace_back( rawVector[0], 1 - rawVector[1], 0 );
+        std::array<float, 2> values { 0, 0 };
+        std::memcpy( values.data(), data, 2 * sizeof( float ) );
+        vectors.emplace_back( values[0], 1 - values[1], 0 );
         data += std::max( uint32_t( 2 * sizeof( float ) ), stride );
     }
 }
@@ -67,11 +72,11 @@ void convertColor( Vector4Array& colors,
     uint32_t numComponents = 3;
     if ( type == gltf::Accessor::Type::Vec4 ) { numComponents = 4; }
     for ( uint32_t i = 0; i < count; ++i ) {
-        auto rawColors = reinterpret_cast<const T*>( data );
-        Vector4 clr { 0, 0, 0, 1 };
-        for ( uint32_t c = 0; c < numComponents; c++ ) {
-            clr[c] = float( rawColors[c] ) / std::numeric_limits<T>::max();
-        }
+        std::array<T, 4> values { 0, 0, 0, std::numeric_limits<T>::max() };
+        std::memcpy( values.data(), data, numComponents * sizeof( T ) );
+        Vector4 clr {
+            Scalar( values[0] ), Scalar( values[1] ), Scalar( values[2] ), Scalar( values[3] ) };
+        clr /= std::numeric_limits<T>::max();
         colors.emplace_back( clr );
         data += std::max( uint32_t( numComponents * sizeof( T ) ), stride );
     }
@@ -86,12 +91,9 @@ void convertColor<float>( Vector4Array& colors,
     uint32_t numComponents = 3;
     if ( type == gltf::Accessor::Type::Vec4 ) { numComponents = 4; }
     for ( uint32_t i = 0; i < count; ++i ) {
-        auto rawColors = reinterpret_cast<const float*>( data );
-        Vector4 clr { 0, 0, 0, 1 };
-        for ( uint32_t c = 0; c < numComponents; c++ ) {
-            clr[c] = rawColors[c];
-        }
-        colors.emplace_back( clr );
+        std::array<float, 4> values { 0, 0, 0, 1 };
+        std::memcpy( values.data(), data, numComponents * sizeof( float ) );
+        colors.emplace_back( values[0], values[1], values[2], values[3] );
         data += std::max( uint32_t( numComponents * sizeof( float ) ), stride );
     }
 }
@@ -105,9 +107,9 @@ void convertTangents( Vector3Array& vectors,
                       uint32_t count,
                       uint32_t stride = 0 ) {
     for ( uint32_t i = 0; i < count; ++i ) {
-        auto rawVector = reinterpret_cast<const T*>( data );
-        vectors.emplace_back(
-            rawVector[0] * rawVector[3], rawVector[1] * rawVector[3], rawVector[2] * rawVector[3] );
+        std::array<T, 4> values { 0, 0, 0, 1 };
+        std::memcpy( values.data(), data, 4 * sizeof( T ) );
+        vectors.emplace_back( values[0] * values[3], values[1] * values[3], values[2] * values[3] );
         data += std::max( uint32_t( 4 * sizeof( T ) ), stride );
     }
 }
@@ -115,9 +117,11 @@ void convertTangents( Vector3Array& vectors,
 // used to convert face indices
 template <typename T>
 void convertIndices( Vector3uArray& indices, const uint8_t* data, uint32_t count ) {
-    auto mem = reinterpret_cast<const T*>( data );
     for ( uint32_t i = 0; i < count; ++i ) {
-        indices.push_back( { mem[3 * i], mem[3 * i + 1], mem[3 * i + 2] } );
+        std::array<T, 3> values { 0, 0, 0 };
+        std::memcpy( values.data(), data, 3 * sizeof( T ) );
+        indices.push_back( { uint( values[0] ), uint( values[1] ), uint( values[2] ) } );
+        data += uint32_t( 3 * sizeof( T ) );
     }
 }
 
