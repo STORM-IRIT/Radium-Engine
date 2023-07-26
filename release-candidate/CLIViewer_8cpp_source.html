@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.5.4</span>
+   &#160;<span id="projectnumber">1.5.5</span>
    </div>
   </td>
  </tr>
@@ -133,7 +133,7 @@ $(document).ready(function(){initNavTree('CLIViewer_8cpp_source.html',''); initR
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;Engine/Scene/DirLight.hpp&gt;</span></div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;Engine/Scene/GeometrySystem.hpp&gt;</span></div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;Engine/Scene/SkeletonBasedAnimationSystem.hpp&gt;</span></div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &lt;Engine/Scene/SystemDisplay.hpp&gt;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &lt;<a class="code" href="SystemDisplay_8hpp.html">Engine/Scene/SystemDisplay.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespaceRa.html">Ra</a> {</div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="keyword">namespace </span>Headless {</div>
@@ -336,6 +336,7 @@ $(document).ready(function(){initNavTree('CLIViewer_8cpp_source.html',''); initR
 <div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span> </div>
 <div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>} <span class="comment">// namespace Headless</span></div>
 <div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>} <span class="comment">// namespace Ra</span></div>
+<div class="ttc" id="aSystemDisplay_8hpp_html"><div class="ttname"><a href="SystemDisplay_8hpp.html">SystemDisplay.hpp</a></div></div>
 <div class="ttc" id="abasic_string_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/string/basic_string.html">std::string</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1Camera_html"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1Camera.html">Ra::Core::Asset::Camera</a></div><div class="ttdoc">Camera class storing the Camera frame and the projection properties The view direction is -z in camer...</div><div class="ttdef"><b>Definition</b> <a href="Camera_8hpp_source.html#l00015">Camera.hpp:16</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1Camera_html_a05d8b61c4135de535eb61a6608fd33d6"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1Camera.html#a05d8b61c4135de535eb61a6608fd33d6">Ra::Core::Asset::Camera::setViewport</a></div><div class="ttdeci">void setViewport(Scalar width, Scalar height)</div><div class="ttdoc">Change the viewport size. Also compute aspectRatio.</div><div class="ttdef"><b>Definition</b> <a href="Camera_8cpp_source.html#l00050">Camera.cpp:50</a></div></div>
@@ -398,11 +399,11 @@ $(document).ready(function(){initNavTree('CLIViewer_8cpp_source.html',''); initR
 <div class="ttc" id="aclassRa_1_1Headless_1_1CLIViewer_html_ae3e8afdbe2862a37e78a8d2780765571"><div class="ttname"><a href="classRa_1_1Headless_1_1CLIViewer.html#ae3e8afdbe2862a37e78a8d2780765571">Ra::Headless::CLIViewer::compileScene</a></div><div class="ttdeci">void compileScene()</div><div class="ttdef"><b>Definition</b> <a href="CLIViewer_8cpp_source.html#l00137">CLIViewer.cpp:137</a></div></div>
 <div class="ttc" id="aclassRa_1_1Headless_1_1CLIViewer_html_ae56022d33a18ce9d3eac85483a6663bb"><div class="ttname"><a href="classRa_1_1Headless_1_1CLIViewer.html#ae56022d33a18ce9d3eac85483a6663bb">Ra::Headless::CLIViewer::openGlAddOns</a></div><div class="ttdeci">void openGlAddOns(std::function&lt; void()&gt; f)</div><div class="ttdef"><b>Definition</b> <a href="CLIViewer_8cpp_source.html#l00150">CLIViewer.cpp:150</a></div></div>
 <div class="ttc" id="afunction_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/utility/functional/function.html">std::function</a></div></div>
-<div class="ttc" id="agroup__window_html_ga6b9387dfd25cfc93f6f504cc5bda9817"><div class="ttname"><a href="group__window.html#ga6b9387dfd25cfc93f6f504cc5bda9817">Ra::Headless::OpenGLContext::EventMode</a></div><div class="ttdeci">EventMode</div><div class="ttdef"><b>Definition</b> <a href="OpenGLContext_8hpp_source.html#l00067">OpenGLContext.hpp:67</a></div></div>
+<div class="ttc" id="agroup__window_html_ga6b9387dfd25cfc93f6f504cc5bda9817"><div class="ttname"><a href="group__window.html#ga6b9387dfd25cfc93f6f504cc5bda9817">Ra::Headless::OpenGLContext::EventMode</a></div><div class="ttdeci">EventMode</div><div class="ttdef"><b>Definition</b> <a href="OpenGLContext_8hpp_source.html#l00070">OpenGLContext.hpp:70</a></div></div>
 <div class="ttc" id="ahardware_concurrency_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/thread/thread/hardware_concurrency.html">std::thread::hardware_concurrency</a></div><div class="ttdeci">T hardware_concurrency(T... args)</div></div>
 <div class="ttc" id="amax_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/algorithm/max.html">std::max</a></div><div class="ttdeci">T max(T... args)</div></div>
 <div class="ttc" id="amove_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/utility/move.html">std::move</a></div><div class="ttdeci">T move(T... args)</div></div>
-<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdef"><b>Definition</b> <a href="Cage_8cpp_source.html#l00003">Cage.cpp:3</a></div></div>
+<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">Radium Namespaces prefix.</div><div class="ttdef"><b>Definition</b> <a href="Cage_8cpp_source.html#l00003">Cage.cpp:3</a></div></div>
 <div class="ttc" id="anamespacestd_html"><div class="ttname"><a href="namespacestd.html">std</a></div><div class="ttdoc">STL namespace.</div></div>
 <div class="ttc" id="areset_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/memory/shared_ptr/reset.html">std::shared_ptr::reset</a></div><div class="ttdeci">T reset(T... args)</div></div>
 <div class="ttc" id="ashared_ptr_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/memory/shared_ptr.html">std::shared_ptr</a></div></div>

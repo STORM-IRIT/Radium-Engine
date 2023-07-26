@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.5.4</span>
+   &#160;<span id="projectnumber">1.5.5</span>
    </div>
   </td>
  </tr>
@@ -157,7 +157,7 @@ $(document).ready(function(){initNavTree('RenderObject_8hpp_source.html',''); in
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <a class="code hl_class" href="classRa_1_1Engine_1_1Rendering_1_1RenderObject.html">RenderObject</a>( <span class="keyword">const</span> <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/string/basic_string.html">std::string</a>&amp; name,</div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>                  <a class="code hl_class" href="classRa_1_1Engine_1_1Scene_1_1Component.html">Scene::Component</a>* comp,</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>                  <span class="keyword">const</span> RenderObjectType&amp; type,</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>                  <span class="keyword">const</span> <a class="code hl_enumeration" href="namespaceRa_1_1Engine_1_1Rendering.html#a49447e503c13eb01d7b4d279e127f8e1">RenderObjectType</a>&amp; type,</div>
 <div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>                  <span class="keywordtype">int</span> lifetime = -1 );</div>
 <div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
 <div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <a class="code hl_class" href="classRa_1_1Engine_1_1Rendering_1_1RenderObject.html">~RenderObject</a>() <span class="keyword">override</span>;</div>
@@ -165,7 +165,7 @@ $(document).ready(function(){initNavTree('RenderObject_8hpp_source.html',''); in
 <div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    <span class="keyword">static</span> <a class="code hl_class" href="classRa_1_1Engine_1_1Rendering_1_1RenderObject.html">RenderObject</a>* createRenderObject(</div>
 <div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>        <span class="keyword">const</span> <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/string/basic_string.html">std::string</a>&amp; name,</div>
 <div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>        <a class="code hl_class" href="classRa_1_1Engine_1_1Scene_1_1Component.html">Scene::Component</a>* comp,</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>        <span class="keyword">const</span> RenderObjectType&amp; type,</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>        <span class="keyword">const</span> <a class="code hl_enumeration" href="namespaceRa_1_1Engine_1_1Rendering.html#a49447e503c13eb01d7b4d279e127f8e1">RenderObjectType</a>&amp; type,</div>
 <div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>        <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/memory/shared_ptr.html">std::shared_ptr&lt;Data::Displayable&gt;</a> mesh,</div>
 <div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>        <span class="keyword">const</span> <a class="code hl_class" href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html">RenderTechnique</a>&amp; techniqueConfig = RenderTechnique::createDefaultRenderTechnique() );</div>
 <div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span> </div>
@@ -175,8 +175,8 @@ $(document).ready(function(){initNavTree('RenderObject_8hpp_source.html',''); in
 <div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    <span class="keyword">const</span> <a class="code hl_class" href="classRa_1_1Engine_1_1Scene_1_1Component.html">Scene::Component</a>* getComponent() <span class="keyword">const</span>;</div>
 <div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    <a class="code hl_class" href="classRa_1_1Engine_1_1Scene_1_1Component.html">Scene::Component</a>* getComponent();</div>
 <div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span> </div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    <span class="keyword">const</span> RenderObjectType&amp; getType() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    <span class="keywordtype">void</span> setType( <span class="keyword">const</span> RenderObjectType&amp; t );</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    <span class="keyword">const</span> <a class="code hl_enumeration" href="namespaceRa_1_1Engine_1_1Rendering.html#a49447e503c13eb01d7b4d279e127f8e1">RenderObjectType</a>&amp; getType() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    <span class="keywordtype">void</span> setType( <span class="keyword">const</span> <a class="code hl_enumeration" href="namespaceRa_1_1Engine_1_1Rendering.html#a49447e503c13eb01d7b4d279e127f8e1">RenderObjectType</a>&amp; t );</div>
 <div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span> </div>
 <div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    <span class="keywordtype">void</span> setVisible( <span class="keywordtype">bool</span> visible );</div>
 <div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    <span class="keywordtype">void</span> toggleVisible();</div>
@@ -245,7 +245,7 @@ $(document).ready(function(){initNavTree('RenderObject_8hpp_source.html',''); in
 <div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>    <a class="code hl_class" href="classRa_1_1Engine_1_1Scene_1_1Component.html">Scene::Component</a>* m_component { <span class="keyword">nullptr</span> };</div>
 <div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>    <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/string/basic_string.html">std::string</a> m_name {};</div>
 <div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span> </div>
-<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>    RenderObjectType m_type { RenderObjectType::Geometry };</div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>    <a class="code hl_enumeration" href="namespaceRa_1_1Engine_1_1Rendering.html#a49447e503c13eb01d7b4d279e127f8e1">RenderObjectType</a> m_type { RenderObjectType::Geometry };</div>
 <div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>    <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/memory/shared_ptr.html">std::shared_ptr&lt;RenderTechnique&gt;</a> m_renderTechnique { <span class="keyword">nullptr</span> };</div>
 <div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>    <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/memory/shared_ptr.html">std::shared_ptr&lt;Data::Displayable&gt;</a> m_mesh { <span class="keyword">nullptr</span> };</div>
 <div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>    <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/memory/shared_ptr.html">std::shared_ptr&lt;Data::Material&gt;</a> m_material { <span class="keyword">nullptr</span> };</div>
@@ -277,7 +277,8 @@ $(document).ready(function(){initNavTree('RenderObject_8hpp_source.html',''); in
 <div class="ttc" id="aclassRa_1_1Engine_1_1Rendering_1_1RenderTechnique_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html">Ra::Engine::Rendering::RenderTechnique</a></div><div class="ttdef"><b>Definition</b> <a href="RenderTechnique_8hpp_source.html#l00063">RenderTechnique.hpp:64</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1Component_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1Component.html">Ra::Engine::Scene::Component</a></div><div class="ttdoc">A component is an element that can be updated by a system. It is also linked to some other components...</div><div class="ttdef"><b>Definition</b> <a href="Component_8hpp_source.html#l00030">Component.hpp:31</a></div></div>
 <div class="ttc" id="amutex_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/thread/mutex.html">std::mutex</a></div></div>
-<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdef"><b>Definition</b> <a href="Cage_8cpp_source.html#l00003">Cage.cpp:3</a></div></div>
+<div class="ttc" id="anamespaceRa_1_1Engine_1_1Rendering_html_a49447e503c13eb01d7b4d279e127f8e1"><div class="ttname"><a href="namespaceRa_1_1Engine_1_1Rendering.html#a49447e503c13eb01d7b4d279e127f8e1">Ra::Engine::Rendering::RenderObjectType</a></div><div class="ttdeci">RenderObjectType</div><div class="ttdef"><b>Definition</b> <a href="RenderObjectTypes_8hpp_source.html#l00009">RenderObjectTypes.hpp:9</a></div></div>
+<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">Radium Namespaces prefix.</div><div class="ttdef"><b>Definition</b> <a href="Cage_8cpp_source.html#l00003">Cage.cpp:3</a></div></div>
 <div class="ttc" id="ashared_ptr_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/memory/shared_ptr.html">std::shared_ptr</a></div></div>
 <div class="ttc" id="astructRa_1_1Engine_1_1Data_1_1ViewingParameters_html"><div class="ttname"><a href="structRa_1_1Engine_1_1Data_1_1ViewingParameters.html">Ra::Engine::Data::ViewingParameters</a></div><div class="ttdoc">the set of viewing parameters extracted from the camera and given to the renderer</div><div class="ttdef"><b>Definition</b> <a href="ViewingParameters_8hpp_source.html#l00010">ViewingParameters.hpp:10</a></div></div>
 </div><!-- fragment --></div><!-- contents -->

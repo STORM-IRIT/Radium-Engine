@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.5.4</span>
+   &#160;<span id="projectnumber">1.5.5</span>
    </div>
   </td>
  </tr>
@@ -171,7 +171,7 @@ $(document).ready(function(){initNavTree('ShaderProgram_8hpp_source.html',''); i
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
 <div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    globjects::Program* getProgramObject() <span class="keyword">const</span>;</div>
 <div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    <span class="keywordtype">void</span> addShaderFromSource( Data::ShaderType type,</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    <span class="keywordtype">void</span> addShaderFromSource( <a class="code hl_enumeration" href="namespaceRa_1_1Engine_1_1Data.html#a7c546bc5ccbcfd57b78b5f4b689b1e5a">Data::ShaderType</a> type,</div>
 <div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>                              <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/memory/unique_ptr.html">std::unique_ptr&lt;globjects::StaticStringSource&gt;</a>&amp;&amp; source,</div>
 <div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>                              <span class="keyword">const</span> <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/string/basic_string.html">std::string</a>&amp; name = <span class="stringliteral">&quot;&quot;</span>,</div>
 <div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>                              <span class="keywordtype">bool</span> fromFile           = <span class="keyword">true</span> );</div>
@@ -188,7 +188,7 @@ $(document).ready(function(){initNavTree('ShaderProgram_8hpp_source.html',''); i
 <div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    <span class="keyword">using </span><a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/map.html">TextureUnits</a> = <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/map.html">std::map&lt;std::string, TextureBinding&gt;</a>;</div>
 <div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/map.html">TextureUnits</a> textureUnits;</div>
 <div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span> </div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    <span class="keywordtype">void</span> loadShader( Data::ShaderType type,</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    <span class="keywordtype">void</span> loadShader( <a class="code hl_enumeration" href="namespaceRa_1_1Engine_1_1Data.html#a7c546bc5ccbcfd57b78b5f4b689b1e5a">Data::ShaderType</a> type,</div>
 <div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>                     <span class="keyword">const</span> <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/string/basic_string.html">std::string</a>&amp; name,</div>
 <div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>                     <span class="keyword">const</span> <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/set.html">std::set&lt;std::string&gt;</a>&amp; props,</div>
 <div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>                     <span class="keyword">const</span> <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector.html">std::vector</a>&lt;<a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/utility/pair.html">std::pair&lt;std::string, Data::ShaderType&gt;</a>&gt;&amp; includes,</div>
@@ -255,7 +255,8 @@ $(document).ready(function(){initNavTree('ShaderProgram_8hpp_source.html',''); i
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1ShaderProgram_html_a02b209f3800adee9a6b039dc8c8d5f62"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1ShaderProgram.html#a02b209f3800adee9a6b039dc8c8d5f62">Ra::Engine::Data::ShaderProgram::setUniform</a></div><div class="ttdeci">void setUniform(const char *name, const T &amp;value) const</div><div class="ttdoc">Uniform setters.</div><div class="ttdef"><b>Definition</b> <a href="ShaderProgram_8hpp_source.html#l00133">ShaderProgram.hpp:133</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1Texture_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1Texture.html">Ra::Engine::Data::Texture</a></div><div class="ttdef"><b>Definition</b> <a href="Texture_8hpp_source.html#l00086">Texture.hpp:87</a></div></div>
 <div class="ttc" id="amap_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/container/map.html">std::map&lt; std::string, TextureBinding &gt;</a></div></div>
-<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdef"><b>Definition</b> <a href="Cage_8cpp_source.html#l00003">Cage.cpp:3</a></div></div>
+<div class="ttc" id="anamespaceRa_1_1Engine_1_1Data_html_a7c546bc5ccbcfd57b78b5f4b689b1e5a"><div class="ttname"><a href="namespaceRa_1_1Engine_1_1Data.html#a7c546bc5ccbcfd57b78b5f4b689b1e5a">Ra::Engine::Data::ShaderType</a></div><div class="ttdeci">ShaderType</div><div class="ttdef"><b>Definition</b> <a href="ShaderConfiguration_8hpp_source.html#l00018">ShaderConfiguration.hpp:18</a></div></div>
+<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">Radium Namespaces prefix.</div><div class="ttdef"><b>Definition</b> <a href="Cage_8cpp_source.html#l00003">Cage.cpp:3</a></div></div>
 <div class="ttc" id="apair_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/utility/pair.html">std::pair</a></div></div>
 <div class="ttc" id="aset_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/container/set.html">std::set</a></div></div>
 <div class="ttc" id="aunique_ptr_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/memory/unique_ptr.html">std::unique_ptr</a></div></div>

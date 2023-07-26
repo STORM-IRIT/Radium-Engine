@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.5.4</span>
+   &#160;<span id="projectnumber">1.5.5</span>
    </div>
   </td>
  </tr>
@@ -119,7 +119,7 @@ $(document).ready(function(){initNavTree('develpicking.html',''); initResizable(
   <div class="headertitle"><div class="title">Feature Picking</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><h1><a class="anchor" id="autotoc_md75"></a>
+<div class="textblock"><h1><a class="anchor" id="autotoc_md81"></a>
 Usage</h1>
 <p>The RadiumEngine's <a class="el" href="classRa_1_1Engine_1_1Rendering_1_1Renderer.html">Ra::Engine::Rendering::Renderer</a> provides a picking method for <a class="el" href="classRa_1_1Engine_1_1Rendering_1_1RenderObject.html">Ra::Engine::Rendering::RenderObject</a> selection.</p>
 <p>The <code>FeaturePicking</code> feature enables to enhance the selection process up to selecting vertices, edges and triangles. The result of a <a class="el" href="structRa_1_1Engine_1_1Rendering_1_1Renderer_1_1PickingQuery.html">Ra::Engine::Rendering::Renderer::PickingQuery</a> is a <a class="el" href="classRa_1_1Engine_1_1Rendering_1_1Renderer_1_1PickingResult.html" title="Result of a PickingQuery.">Ra::Engine::Rendering::Renderer::PickingResult</a> containing the following data:</p>
@@ -132,12 +132,12 @@ Usage</h1>
 </ul>
 <p>Right after a selection, the <a class="el" href="classRa_1_1Engine_1_1Rendering_1_1Renderer_1_1PickingResult.html" title="Result of a PickingQuery.">Ra::Engine::Rendering::Renderer::PickingResult</a> are stored in the Ra::Gui::PickingManager and the Ra::Gui::SelectionManager emits Ra::Gui::SelectionManager::currentChanged signal so that Plugins are told a new selection has been made.</p>
 <p>The selection of a mesh feature is activated by holding a specific key while selecting the object (see the <code>KeyMappingManager</code> configuration file for those). Multiple selection activation can be activated/de-activated by pressing the corresponding key, which would also make a circle shape, representing the selection area, appear on the screen.</p>
-<h1><a class="anchor" id="autotoc_md76"></a>
+<h1><a class="anchor" id="autotoc_md82"></a>
 MeshFeatureTracking Plugin</h1>
 <p>The <code>MeshFeatureTracking</code> Plugin (<b>Radium Official Plugins</b> (<a href="https://gitlab.com/Storm-IRIT/radium-official-plugins">https://gitlab.com/Storm-IRIT/radium-official-plugins</a>)) is an example of how mesh features information can be displayed either through the <code>Gui</code> or as displayed objects. The <code>SelectionManager</code>'s <code>currentChanged</code> signal is connected to the slot <code>onCurrentChanged</code>.</p>
 <p>When this slot is triggered, the <code>MeshFeatureTracking</code> Plugin accesses the picking data through the <code>PickingManager</code> and updates both its information widget with the new picking data and the tracking sphere. The <code>MeshFeatureTracking</code> plugin also keeps its information widget updated at the end of each frame.</p>
 <p>The <code>MeshFeatureTracking</code> plugin only manage simple feature selection. For an example on how to deal with multiple selection, please see the <code>MeshPaint</code> Plugin.</p>
-<h1><a class="anchor" id="autotoc_md77"></a>
+<h1><a class="anchor" id="autotoc_md83"></a>
 MeshPaint Plugin</h1>
 <p>The <code>MeshPaint</code> Plugin (<b>Radium Official Plugins</b> (<a href="https://gitlab.com/Storm-IRIT/radium-official-plugins">https://gitlab.com/Storm-IRIT/radium-official-plugins</a>)) is an example of how to use mesh feature multi-selection. Here again, the <code>SelectionManager</code>'s <code>currentChanged</code> signal is connected to the slot <code>onCurrentChanged</code>.</p>
 <p>When this slot is triggered, and if the painting is enabled, the <code>MeshPaint</code> Plugin directly changes the render color of the vertices corresponding to the current picking data. </p>

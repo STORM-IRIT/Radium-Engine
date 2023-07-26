@@ -5,6 +5,6 @@ var group__context =
     [ "Ra::Headless::OpenGLContext::isValid", "group__context.html#gac575eef2c9317041cc7396539e2da20b", null ],
     [ "Ra::Headless::OpenGLContext::isWindow", "group__context.html#gafe34fc2493689e18880aac396f8fb75c", null ],
     [ "Ra::Headless::OpenGLContext::makeCurrent", "group__context.html#ga6b659ca2f27ffe695eea27f1e8d624a7", null ],
-    [ "Ra::Headless::OpenGLContext::OpenGLContext", "group__context.html#gaa3abdf782b1cf876777bdc3f66bc135e", null ],
+    [ "Ra::Headless::OpenGLContext::OpenGLContext", "group__context.html#ga7c32b31b6e9f1bf10aa8415a172eede3", null ],
     [ "Ra::Headless::OpenGLContext::~OpenGLContext", "group__context.html#ga2e3d1002bcd60f64e3cde3f0364564b9", null ]
 ];

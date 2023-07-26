@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.5.4</span>
+   &#160;<span id="projectnumber">1.5.5</span>
    </div>
   </td>
  </tr>
@@ -117,11 +117,24 @@ $(document).ready(function(){initNavTree('namespaceRa.html',''); initResizable()
 
 <div class="header">
   <div class="summary">
+<a href="#namespaces">Namespaces</a> &#124;
 <a href="#nested-classes">Classes</a>  </div>
   <div class="headertitle"><div class="title">Ra Namespace Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Radium Namespaces prefix.  
+<a href="namespaceRa.html#details">More...</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:namespaceRa_1_1Core"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Core.html">Core</a></td></tr>
+<tr class="memdesc:namespaceRa_1_1Core"><td class="mdescLeft">&#160;</td><td class="mdescRight">This namespace contains everything "low level", related to data, datastuctures, and computation. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:namespaceRa_1_1Engine"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Engine.html">Engine</a></td></tr>
+<tr class="memdesc:namespaceRa_1_1Engine"><td class="mdescLeft">&#160;</td><td class="mdescRight">This namespace contains engine and ECS related stuff. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structRa_1_1FrameTimerData.html">FrameTimerData</a></td></tr>
@@ -129,14 +142,10 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Functions in this file are utilities to compute the distance between various geometric sets. They always return the squared distance.</p>
+<div class="textblock"><p>Radium Namespaces prefix. </p>
+<p>Functions in this file are utilities to compute the distance between various geometric sets. They always return the squared distance.</p>
 <p>This file contains utilities and wrapper to the standard library that didn't fit into any other category (see Containers)</p>
-<p>This file provides portable inclusion of OpenGL headers. In addition it defines the following debug macros GL_ASSERT(x) : executes code x and, if in debug, asserts when an openGL error is detected. GL_CHECK_ERROR : queries the last openGL error in debug (no effect in release) glFlushError() : Ignores the previous openGL errors (no effect in release).</p>
-<p>This file's main purpose is to declare a set of macros to allow drawing primitives from everywhere in the code, for debug purposes. These macros can be completely disabled by #defining the following constant :</p>
-<p>This file contains a basic implementation of a tree model object with QAbstractItemModel See <a href="http://doc.qt.io/qt-5/qtwidgets-itemviews-simpletreemodel-example.html">http://doc.qt.io/qt-5/qtwidgets-itemviews-simpletreemodel-example.html</a> This could have been a template with the object type, but QObjects cannot be templated, which is very sad. To use this base class you must :</p><ul>
-<li>create a derived class from TreeItem which links the model with actual objects for example by storing a handle or a pointer.</li>
-<li>create a derived class from TreeModel. Add items of the derived TreeItem class to the tree, and static_cast the result of getItem to the concrete class to use it. </li>
-</ul>
+<p>This file provides portable inclusion of OpenGL headers. In addition it defines the following debug macros GL_ASSERT(x) : executes code x and, if in debug, asserts when an openGL error is detected. GL_CHECK_ERROR : queries the last openGL error in debug (no effect in release) glFlushError() : Ignores the previous openGL errors (no effect in release). </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

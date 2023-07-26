@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.5.4</span>
+   &#160;<span id="projectnumber">1.5.5</span>
    </div>
   </td>
  </tr>
@@ -145,7 +145,7 @@ $(document).ready(function(){initNavTree('ShaderProgram_8cpp_source.html',''); i
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="comment">// The two following methods are independent of any ShaderProgram object.</span></div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="comment">// Fixed : made them local function to remove dependency on openGL.h for the class header</span></div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>GLenum getTypeAsGLEnum( ShaderType type ) {</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>GLenum getTypeAsGLEnum( <a class="code hl_enumeration" href="namespaceRa_1_1Engine_1_1Data.html#a7c546bc5ccbcfd57b78b5f4b689b1e5a">ShaderType</a> type ) {</div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <span class="keywordflow">switch</span> ( type ) {</div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="keywordflow">case</span> ShaderType_VERTEX:</div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        <span class="keywordflow">return</span> GL_VERTEX_SHADER;</div>
@@ -170,7 +170,7 @@ $(document).ready(function(){initNavTree('ShaderProgram_8cpp_source.html',''); i
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <span class="keywordflow">return</span> GL_ZERO;</div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>}</div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>ShaderType getGLenumAsType( GLenum type ) {</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><a class="code hl_enumeration" href="namespaceRa_1_1Engine_1_1Data.html#a7c546bc5ccbcfd57b78b5f4b689b1e5a">ShaderType</a> getGLenumAsType( GLenum type ) {</div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <span class="keywordflow">switch</span> ( type ) {</div>
 <div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <span class="keywordflow">case</span> GL_VERTEX_SHADER:</div>
 <div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        <span class="keywordflow">return</span> ShaderType_VERTEX;</div>
@@ -286,7 +286,7 @@ $(document).ready(function(){initNavTree('ShaderProgram_8cpp_source.html',''); i
 <div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>    addShaderFromSource( type, <a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/utility/move.html">std::move</a>( ptrSource ), name, fromFile );</div>
 <div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>}</div>
 <div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span> </div>
-<div class="line"><a id="l00168" name="l00168"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1ShaderProgram.html#a441bbb8fa43a2463b420adfc58b5abfa">  168</a></span><span class="keywordtype">void</span> ShaderProgram::addShaderFromSource( ShaderType type,</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1ShaderProgram.html#a441bbb8fa43a2463b420adfc58b5abfa">  168</a></span><span class="keywordtype">void</span> ShaderProgram::addShaderFromSource( <a class="code hl_enumeration" href="namespaceRa_1_1Engine_1_1Data.html#a7c546bc5ccbcfd57b78b5f4b689b1e5a">ShaderType</a> type,</div>
 <div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>                                         <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/memory/unique_ptr.html">std::unique_ptr&lt;globjects::StaticStringSource&gt;</a>&amp;&amp; ptrSource,</div>
 <div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>                                         <span class="keyword">const</span> <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/string/basic_string.html">std::string</a>&amp; name,</div>
 <div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>                                         <span class="keywordtype">bool</span> fromFile ) {</div>
@@ -316,7 +316,7 @@ $(document).ready(function(){initNavTree('ShaderProgram_8cpp_source.html',''); i
 <div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span> </div>
 <div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>    <span class="keywordflow">for</span> ( <span class="keywordtype">size_t</span> i = 0; i &lt; ShaderType_COUNT; ++i ) {</div>
 <div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>        <span class="keywordflow">if</span> ( !m_configuration.m_shaders[i].first.empty() ) {</div>
-<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>            loadShader( ShaderType( i ),</div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>            loadShader( <a class="code hl_enumeration" href="namespaceRa_1_1Engine_1_1Data.html#a7c546bc5ccbcfd57b78b5f4b689b1e5a">ShaderType</a>( i ),</div>
 <div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>                        m_configuration.m_shaders[i].first,</div>
 <div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>                        m_configuration.getProperties(),</div>
 <div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>                        m_configuration.getIncludes(),</div>
@@ -586,7 +586,8 @@ $(document).ready(function(){initNavTree('ShaderProgram_8cpp_source.html',''); i
 <div class="ttc" id="aincludes_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/algorithm/includes.html">std::includes</a></div><div class="ttdeci">T includes(T... args)</div></div>
 <div class="ttc" id="amatch_results_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/regex/match_results.html">std::smatch</a></div></div>
 <div class="ttc" id="amove_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/utility/move.html">std::move</a></div><div class="ttdeci">T move(T... args)</div></div>
-<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdef"><b>Definition</b> <a href="Cage_8cpp_source.html#l00003">Cage.cpp:3</a></div></div>
+<div class="ttc" id="anamespaceRa_1_1Engine_1_1Data_html_a7c546bc5ccbcfd57b78b5f4b689b1e5a"><div class="ttname"><a href="namespaceRa_1_1Engine_1_1Data.html#a7c546bc5ccbcfd57b78b5f4b689b1e5a">Ra::Engine::Data::ShaderType</a></div><div class="ttdeci">ShaderType</div><div class="ttdef"><b>Definition</b> <a href="ShaderConfiguration_8hpp_source.html#l00018">ShaderConfiguration.hpp:18</a></div></div>
+<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">Radium Namespaces prefix.</div><div class="ttdef"><b>Definition</b> <a href="Cage_8cpp_source.html#l00003">Cage.cpp:3</a></div></div>
 <div class="ttc" id="apair_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/utility/pair.html">std::pair</a></div></div>
 <div class="ttc" id="apush_back_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/container/vector/push_back.html">std::vector::push_back</a></div><div class="ttdeci">T push_back(T... args)</div></div>
 <div class="ttc" id="aregex_search_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/regex/regex_search.html">std::regex_search</a></div><div class="ttdeci">T regex_search(T... args)</div></div>

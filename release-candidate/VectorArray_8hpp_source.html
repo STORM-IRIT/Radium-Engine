@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.5.4</span>
+   &#160;<span id="projectnumber">1.5.5</span>
    </div>
   </td>
  </tr>
@@ -152,7 +152,7 @@ $(document).ready(function(){initNavTree('VectorArray_8hpp_source.html',''); ini
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <span class="keyword">using </span>MatrixMap = Eigen::Map&lt;Matrix&gt;;</div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <span class="keyword">using </span>ConstMatrixMap = Eigen::Map&lt;const Matrix&gt;;</div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <span class="keyword">using </span><a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector.html">AlignedStdVector</a>&lt;V&gt;::AlignedStdVector;</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <span class="keyword">using </span><a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector.html">AlignedStdVector</a>&lt;V&gt;<a class="code hl_typedef" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">::AlignedStdVector</a>;</div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
 <div class="line"><a id="l00056" name="l00056"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1VectorArray.html#ac1f367997c2f870377d20f0a738a7328">   56</a></span>    <span class="keywordtype">size_t</span> <a class="code hl_function" href="classRa_1_1Core_1_1VectorArray.html#ac1f367997c2f870377d20f0a738a7328">getSize</a>()<span class="keyword"> const override </span>{ <span class="keywordflow">return</span> this-&gt;<a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector/size.html">size</a>(); }</div>
 <div class="line"><a id="l00057" name="l00057"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1VectorArray.html#ab46a96f4ece1085dd4c2cd72629d4e89">   57</a></span>    <span class="keywordtype">size_t</span> <a class="code hl_function" href="classRa_1_1Core_1_1VectorArray.html#ab46a96f4ece1085dd4c2cd72629d4e89">getNumberOfComponents</a>()<span class="keyword"> const override </span>{ <span class="keywordflow">return</span> <a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/algorithm/max.html">std::max</a>( 0, NumberOfComponents ); }</div>
@@ -255,7 +255,8 @@ $(document).ready(function(){initNavTree('VectorArray_8hpp_source.html',''); ini
 <div class="ttc" id="adata_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/container/vector/data.html">std::vector::data</a></div><div class="ttdeci">T data(T... args)</div></div>
 <div class="ttc" id="aempty_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/container/vector/empty.html">std::vector::empty</a></div><div class="ttdeci">T empty(T... args)</div></div>
 <div class="ttc" id="amax_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/algorithm/max.html">std::max</a></div><div class="ttdeci">T max(T... args)</div></div>
-<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdef"><b>Definition</b> <a href="Cage_8cpp_source.html#l00003">Cage.cpp:3</a></div></div>
+<div class="ttc" id="anamespaceRa_1_1Core_html_a3b5d52baa689ad80e5e1d84a25838769"><div class="ttname"><a href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">Ra::Core::AlignedStdVector</a></div><div class="ttdeci">std::vector&lt; T, Eigen::aligned_allocator&lt; T &gt; &gt; AlignedStdVector</div><div class="ttdef"><b>Definition</b> <a href="AlignedStdVector_8hpp_source.html#l00014">AlignedStdVector.hpp:14</a></div></div>
+<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">Radium Namespaces prefix.</div><div class="ttdef"><b>Definition</b> <a href="Cage_8cpp_source.html#l00003">Cage.cpp:3</a></div></div>
 <div class="ttc" id="asize_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/container/vector/size.html">std::vector::size</a></div><div class="ttdeci">T size(T... args)</div></div>
 <div class="ttc" id="astructRa_1_1Core_1_1VectorArrayTypeHelperInternal_html"><div class="ttname"><a href="structRa_1_1Core_1_1VectorArrayTypeHelperInternal.html">Ra::Core::VectorArrayTypeHelperInternal</a></div><div class="ttdef"><b>Definition</b> <a href="VectorArray_8hpp_source.html#l00016">VectorArray.hpp:16</a></div></div>
 <div class="ttc" id="astructRa_1_1Core_1_1VectorArrayTypeHelper_html"><div class="ttname"><a href="structRa_1_1Core_1_1VectorArrayTypeHelper.html">Ra::Core::VectorArrayTypeHelper</a></div><div class="ttdef"><b>Definition</b> <a href="VectorArray_8hpp_source.html#l00023">VectorArray.hpp:26</a></div></div>

@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.5.4</span>
+   &#160;<span id="projectnumber">1.5.5</span>
    </div>
   </td>
  </tr>
@@ -120,7 +120,7 @@ $(document).ready(function(){initNavTree('eventSystem.html',''); initResizable()
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000004">Todo:</a></b></dt><dd>check and update </dd></dl>
-<h1><a class="anchor" id="autotoc_md30"></a>
+<h1><a class="anchor" id="autotoc_md36"></a>
 Notes for event handling the radium engine</h1>
 <ul>
 <li>Basic events<ul>
@@ -131,14 +131,14 @@ Notes for event handling the radium engine</h1>
 </li>
 <li>Every plugin should be able to register his own events</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md31"></a>
+<h2><a class="anchor" id="autotoc_md37"></a>
 Events identification</h2>
 <p>Events could be identified by a name (string) and a unique ID</p>
-<h2><a class="anchor" id="autotoc_md32"></a>
+<h2><a class="anchor" id="autotoc_md38"></a>
 Events registering</h2>
 <p>When registering a new plugin, a function could be called by the engine to register new events, associating event names and ID and giving back IDs to the plugin.</p>
 <p>Any plugin could also ask the engine the ID of other plugins events, to subscribe to.</p>
-<h2><a class="anchor" id="autotoc_md33"></a>
+<h2><a class="anchor" id="autotoc_md39"></a>
 Events queue</h2>
 <p>When an event occurs, the sender adds it to engine's event queue, with associated data (<em>any</em> ftw !). Then at each frame, events could be handled this way :</p>
 <ul>

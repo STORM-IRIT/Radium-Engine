@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.5.4</span>
+   &#160;<span id="projectnumber">1.5.5</span>
    </div>
   </td>
  </tr>
@@ -160,13 +160,11 @@ Public Types</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a5c1b5a229a69f59188a2e4173d0d6717"><td class="memItemLeft" align="right" valign="top"><a id="a5c1b5a229a69f59188a2e4173d0d6717" name="a5c1b5a229a69f59188a2e4173d0d6717"></a>
-EIGEN_MAKE_ALIGNED_OPERATOR_NEW&#160;</td><td class="memItemRight" valign="bottom"><b>Grid</b> (const <a class="el" href="classRa_1_1Core_1_1Grid.html#ab9b3866037a9fd59d946a88c5458f223">IdxVector</a> &amp;<a class="el" href="classRa_1_1Core_1_1Grid.html#ad511d22e2e199071be30d1741aaf61ab">size</a>=IdxVector::Zero(), const T &amp;val=T())</td></tr>
-<tr class="memdesc:a5c1b5a229a69f59188a2e4173d0d6717"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a grid of a given size and fill it with the given value. <br /></td></tr>
+<tr class="memitem:a5c1b5a229a69f59188a2e4173d0d6717"><td class="memItemLeft" align="right" valign="top">EIGEN_MAKE_ALIGNED_OPERATOR_NEW&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Grid.html#a5c1b5a229a69f59188a2e4173d0d6717">Grid</a> (const <a class="el" href="classRa_1_1Core_1_1Grid.html#ab9b3866037a9fd59d946a88c5458f223">IdxVector</a> &amp;<a class="el" href="classRa_1_1Core_1_1Grid.html#ad511d22e2e199071be30d1741aaf61ab">size</a>=IdxVector::Zero(), const T &amp;val=T())</td></tr>
+<tr class="memdesc:a5c1b5a229a69f59188a2e4173d0d6717"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a grid of a given size and fill it with the given value.  <br /></td></tr>
 <tr class="separator:a5c1b5a229a69f59188a2e4173d0d6717"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a45ed0e29c52d152177c621b50562744e"><td class="memItemLeft" align="right" valign="top"><a id="a45ed0e29c52d152177c621b50562744e" name="a45ed0e29c52d152177c621b50562744e"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>Grid</b> (const <a class="el" href="classRa_1_1Core_1_1Grid.html#ab9b3866037a9fd59d946a88c5458f223">IdxVector</a> &amp;<a class="el" href="classRa_1_1Core_1_1Grid.html#ad511d22e2e199071be30d1741aaf61ab">size</a>, const T *values)</td></tr>
-<tr class="memdesc:a45ed0e29c52d152177c621b50562744e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a grid of a given size with values in ()-major format. <br /></td></tr>
+<tr class="memitem:a45ed0e29c52d152177c621b50562744e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Grid.html#a45ed0e29c52d152177c621b50562744e">Grid</a> (const <a class="el" href="classRa_1_1Core_1_1Grid.html#ab9b3866037a9fd59d946a88c5458f223">IdxVector</a> &amp;<a class="el" href="classRa_1_1Core_1_1Grid.html#ad511d22e2e199071be30d1741aaf61ab">size</a>, const T *values)</td></tr>
+<tr class="memdesc:a45ed0e29c52d152177c621b50562744e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a grid of a given size with values in ()-major format.  <br /></td></tr>
 <tr class="separator:a45ed0e29c52d152177c621b50562744e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2ab7a387c2d40371b25f5dd7562ae5e6"><td class="memItemLeft" align="right" valign="top"><a id="a2ab7a387c2d40371b25f5dd7562ae5e6" name="a2ab7a387c2d40371b25f5dd7562ae5e6"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>Grid</b> (const <a class="el" href="classRa_1_1Core_1_1Grid.html">Grid</a>&lt; T, D &gt; &amp;other)=default</td></tr>
@@ -283,6 +281,91 @@ template&lt;typename T , uint D&gt; </div>
 
 </div>
 </div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a5c1b5a229a69f59188a2e4173d0d6717" name="a5c1b5a229a69f59188a2e4173d0d6717"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5c1b5a229a69f59188a2e4173d0d6717">&#9670;&#160;</a></span>Grid() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , uint D&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">EIGEN_MAKE_ALIGNED_OPERATOR_NEW <a class="el" href="classRa_1_1Core_1_1Grid.html">Ra::Core::Grid</a>&lt; T, D &gt;::Grid </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classRa_1_1Core_1_1Grid.html#ab9b3866037a9fd59d946a88c5458f223">IdxVector</a> &amp;&#160;</td>
+          <td class="paramname"><em>size</em> = <code>IdxVector::Zero()</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const T &amp;&#160;</td>
+          <td class="paramname"><em>val</em> = <code>T()</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Construct a grid of a given size and fill it with the given value. </p>
+
+<p class="definition">Definition at line <a class="el" href="Grid_8hpp_source.html#l00174">174</a> of file <a class="el" href="Grid_8hpp_source.html">Grid.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a45ed0e29c52d152177c621b50562744e" name="a45ed0e29c52d152177c621b50562744e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a45ed0e29c52d152177c621b50562744e">&#9670;&#160;</a></span>Grid() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , uint D&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classRa_1_1Core_1_1Grid.html">Ra::Core::Grid</a>&lt; T, D &gt;::Grid </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classRa_1_1Core_1_1Grid.html#ab9b3866037a9fd59d946a88c5458f223">IdxVector</a> &amp;&#160;</td>
+          <td class="paramname"><em>size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const T *&#160;</td>
+          <td class="paramname"><em>values</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Construct a grid of a given size with values in ()-major format. </p>
+
+<p class="definition">Definition at line <a class="el" href="Grid_8hpp_source.html#l00178">178</a> of file <a class="el" href="Grid_8hpp_source.html">Grid.hpp</a>.</p>
+
+</div>
+</div>
 <h2 class="groupheader">Member Function Documentation</h2>
 <a id="a1958a0b33b3f7be82aa6473ac7585c5d" name="a1958a0b33b3f7be82aa6473ac7585c5d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1958a0b33b3f7be82aa6473ac7585c5d">&#9670;&#160;</a></span>at() <span class="overload">[1/2]</span></h2>
@@ -310,7 +393,7 @@ template&lt;typename T , uint D&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Grid_8hpp_source.html#l00343">343</a> of file <a class="el" href="Grid_8hpp_source.html">Grid.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Grid_8hpp_source.html#l00334">334</a> of file <a class="el" href="Grid_8hpp_source.html">Grid.hpp</a>.</p>
 
 </div>
 </div>
@@ -342,7 +425,7 @@ template&lt;typename T , uint D&gt; </div>
 
 <p>Access an element with a linear index. </p>
 
-<p class="definition">Definition at line <a class="el" href="Grid_8hpp_source.html#l00337">337</a> of file <a class="el" href="Grid_8hpp_source.html">Grid.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Grid_8hpp_source.html#l00328">328</a> of file <a class="el" href="Grid_8hpp_source.html">Grid.hpp</a>.</p>
 
 </div>
 </div>
@@ -370,7 +453,7 @@ template&lt;typename T , uint D&gt; </div>
 
 <p>Get an iterator on this grid at the first element. </p>
 
-<p class="definition">Definition at line <a class="el" href="Grid_8hpp_source.html#l00365">365</a> of file <a class="el" href="Grid_8hpp_source.html">Grid.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Grid_8hpp_source.html#l00356">356</a> of file <a class="el" href="Grid_8hpp_source.html">Grid.hpp</a>.</p>
 
 </div>
 </div>
@@ -396,7 +479,7 @@ template&lt;typename T , uint D&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Grid_8hpp_source.html#l00370">370</a> of file <a class="el" href="Grid_8hpp_source.html">Grid.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Grid_8hpp_source.html#l00361">361</a> of file <a class="el" href="Grid_8hpp_source.html">Grid.hpp</a>.</p>
 
 </div>
 </div>
@@ -424,7 +507,7 @@ template&lt;typename T , uint D&gt; </div>
 
 <p>Erases all data and makes the grid empty. </p>
 
-<p class="definition">Definition at line <a class="el" href="Grid_8hpp_source.html#l00302">302</a> of file <a class="el" href="Grid_8hpp_source.html">Grid.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Grid_8hpp_source.html#l00293">293</a> of file <a class="el" href="Grid_8hpp_source.html">Grid.hpp</a>.</p>
 
 </div>
 </div>
@@ -452,7 +535,7 @@ template&lt;typename T , uint D&gt; </div>
 
 <p>Read-write access to the underlying data. </p>
 
-<p class="definition">Definition at line <a class="el" href="Grid_8hpp_source.html#l00314">314</a> of file <a class="el" href="Grid_8hpp_source.html">Grid.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Grid_8hpp_source.html#l00305">305</a> of file <a class="el" href="Grid_8hpp_source.html">Grid.hpp</a>.</p>
 
 </div>
 </div>
@@ -480,7 +563,7 @@ template&lt;typename T , uint D&gt; </div>
 
 <p>Read only access to the underlying data. </p>
 
-<p class="definition">Definition at line <a class="el" href="Grid_8hpp_source.html#l00309">309</a> of file <a class="el" href="Grid_8hpp_source.html">Grid.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Grid_8hpp_source.html#l00300">300</a> of file <a class="el" href="Grid_8hpp_source.html">Grid.hpp</a>.</p>
 
 </div>
 </div>
@@ -508,7 +591,7 @@ template&lt;typename T , uint D&gt; </div>
 
 <p>Returns true if the grid is empty (i.e. if <a class="el" href="classRa_1_1Core_1_1Grid.html#ad511d22e2e199071be30d1741aaf61ab" title="Returns the number of elements stored.">size()</a> ==0). </p>
 
-<p class="definition">Definition at line <a class="el" href="Grid_8hpp_source.html#l00296">296</a> of file <a class="el" href="Grid_8hpp_source.html">Grid.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Grid_8hpp_source.html#l00287">287</a> of file <a class="el" href="Grid_8hpp_source.html">Grid.hpp</a>.</p>
 
 </div>
 </div>
@@ -536,7 +619,7 @@ template&lt;typename T , uint D&gt; </div>
 
 <p>Get an iterator on this grid past the last element. </p>
 
-<p class="definition">Definition at line <a class="el" href="Grid_8hpp_source.html#l00375">375</a> of file <a class="el" href="Grid_8hpp_source.html">Grid.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Grid_8hpp_source.html#l00366">366</a> of file <a class="el" href="Grid_8hpp_source.html">Grid.hpp</a>.</p>
 
 </div>
 </div>
@@ -562,7 +645,7 @@ template&lt;typename T , uint D&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Grid_8hpp_source.html#l00380">380</a> of file <a class="el" href="Grid_8hpp_source.html">Grid.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Grid_8hpp_source.html#l00371">371</a> of file <a class="el" href="Grid_8hpp_source.html">Grid.hpp</a>.</p>
 
 </div>
 </div>
@@ -590,7 +673,7 @@ template&lt;typename T , uint D&gt; </div>
 
 <p>Returns the number of elements stored. </p>
 
-<p class="definition">Definition at line <a class="el" href="Grid_8hpp_source.html#l00284">284</a> of file <a class="el" href="Grid_8hpp_source.html">Grid.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Grid_8hpp_source.html#l00275">275</a> of file <a class="el" href="Grid_8hpp_source.html">Grid.hpp</a>.</p>
 
 </div>
 </div>
@@ -618,7 +701,7 @@ template&lt;typename T , uint D&gt; </div>
 
 <p>Returns the size vector (a D-dimensional vector with the size along each dimension). </p>
 
-<p class="definition">Definition at line <a class="el" href="Grid_8hpp_source.html#l00290">290</a> of file <a class="el" href="Grid_8hpp_source.html">Grid.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Grid_8hpp_source.html#l00281">281</a> of file <a class="el" href="Grid_8hpp_source.html">Grid.hpp</a>.</p>
 
 </div>
 </div>
@@ -673,7 +756,7 @@ template&lt;typename T , uint D&gt; </div>
 
 <p>Storage for the grid data. </p>
 
-<p class="definition">Definition at line <a class="el" href="Grid_8hpp_source.html#l00235">235</a> of file <a class="el" href="Grid_8hpp_source.html">Grid.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Grid_8hpp_source.html#l00238">238</a> of file <a class="el" href="Grid_8hpp_source.html">Grid.hpp</a>.</p>
 
 </div>
 </div>
@@ -701,7 +784,7 @@ template&lt;typename T , uint D&gt; </div>
 
 <p>Indicate the extends of the grid along each dimension. </p>
 
-<p class="definition">Definition at line <a class="el" href="Grid_8hpp_source.html#l00233">233</a> of file <a class="el" href="Grid_8hpp_source.html">Grid.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Grid_8hpp_source.html#l00236">236</a> of file <a class="el" href="Grid_8hpp_source.html">Grid.hpp</a>.</p>
 
 </div>
 </div>
@@ -713,7 +796,7 @@ template&lt;typename T , uint D&gt; </div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><b>Core</b></li><li class="navelem"><a class="el" href="classRa_1_1Core_1_1Grid.html">Grid</a></li>
+    <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><a class="el" href="namespaceRa_1_1Core.html">Core</a></li><li class="navelem"><a class="el" href="classRa_1_1Core_1_1Grid.html">Grid</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.7 </li>
   </ul>
 </div>

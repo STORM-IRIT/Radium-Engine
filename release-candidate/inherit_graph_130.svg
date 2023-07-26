@@ -11,7 +11,7 @@
 <!-- Node0 -->
 <g id="Node000000" class="node">
 <title>Node0</title>
-<g id="a_Node000000"><a xlink:href="classRa_1_1Gui_1_1TreeItem.html" target="_top" xlink:title=" ">
+<g id="a_Node000000"><a xlink:href="classRa_1_1Gui_1_1TreeItem.html" target="_top" xlink:title="Base class for element of the tree representation.">
 <polygon fill="white" stroke="#666666" points="101,-19 0,-19 0,0 101,0 101,-19"/>
 <text text-anchor="middle" x="50.5" y="-7" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Gui::TreeItem</text>
 </a>

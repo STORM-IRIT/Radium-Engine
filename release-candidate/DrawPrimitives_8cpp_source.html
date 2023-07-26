@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.5.4</span>
+   &#160;<span id="projectnumber">1.5.5</span>
    </div>
   </td>
  </tr>
@@ -164,7 +164,7 @@ $(document).ready(function(){initNavTree('DrawPrimitives_8cpp_source.html',''); 
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    rt.<a class="code hl_function" href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a13f5f243daad1b13a6bec5efe3831c25">setParametersProvider</a>( roMaterial );</div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="keyword">auto</span> ro = <a class="code hl_function" href="classRa_1_1Engine_1_1Rendering_1_1RenderObject.html#afe02bfade7fd3fe985d553fcf0a88410">Rendering::RenderObject::createRenderObject</a>(</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        mesh-&gt;getName(), component, Rendering::RenderObjectType::Debug, mesh, rt );</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        mesh-&gt;getName(), component, <a class="code hl_enumvalue" href="namespaceRa_1_1Engine_1_1Rendering.html#a49447e503c13eb01d7b4d279e127f8e1aa603905470e2a5b8c13e96b579ef0dba">Rendering::RenderObjectType::Debug</a>, mesh, rt );</div>
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    ro-&gt;setMaterial( roMaterial );</div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <span class="keywordflow">return</span> ro;</div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>}</div>
@@ -729,7 +729,8 @@ $(document).ready(function(){initNavTree('DrawPrimitives_8cpp_source.html',''); 
 <div class="ttc" id="anamespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives_html_aeb2f6005289276eda6e9ba9037b8eabf"><div class="ttname"><a href="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#aeb2f6005289276eda6e9ba9037b8eabf">Ra::Engine::Data::DrawPrimitives::Primitive</a></div><div class="ttdeci">Rendering::RenderObject * Primitive(Scene::Component *component, const MeshPtr &amp;mesh)</div><div class="ttdef"><b>Definition</b> <a href="DrawPrimitives_8cpp_source.html#l00027">DrawPrimitives.cpp:27</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives_html_aeb8bac927cad32e53b6ccaa05800a1d7"><div class="ttname"><a href="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#aeb8bac927cad32e53b6ccaa05800a1d7">Ra::Engine::Data::DrawPrimitives::OBB</a></div><div class="ttdeci">MeshPtr OBB(const Obb &amp;obb, const Core::Utils::Color &amp;color)</div><div class="ttdoc">Display a wireframe OBB.</div><div class="ttdef"><b>Definition</b> <a href="DrawPrimitives_8cpp_source.html#l00500">DrawPrimitives.cpp:500</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives_html_af81e60e77d19429515e20639f43c2432"><div class="ttname"><a href="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#af81e60e77d19429515e20639f43c2432">Ra::Engine::Data::DrawPrimitives::QuadStrip</a></div><div class="ttdeci">MeshPtr QuadStrip(const Core::Vector3 &amp;a, const Core::Vector3 &amp;x, const Core::Vector3 &amp;y, uint quads, const Core::Utils::Color &amp;color)</div><div class="ttdoc">Displays a strip of n quads, starting at A and with directions X and Y.</div><div class="ttdef"><b>Definition</b> <a href="DrawPrimitives_8cpp_source.html#l00140">DrawPrimitives.cpp:140</a></div></div>
-<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdef"><b>Definition</b> <a href="Cage_8cpp_source.html#l00003">Cage.cpp:3</a></div></div>
+<div class="ttc" id="anamespaceRa_1_1Engine_1_1Rendering_html_a49447e503c13eb01d7b4d279e127f8e1aa603905470e2a5b8c13e96b579ef0dba"><div class="ttname"><a href="namespaceRa_1_1Engine_1_1Rendering.html#a49447e503c13eb01d7b4d279e127f8e1aa603905470e2a5b8c13e96b579ef0dba">Ra::Engine::Rendering::RenderObjectType::Debug</a></div><div class="ttdeci">@ Debug</div><div class="ttdoc">&quot;Debug&quot; render objects are drawn like any other object (not lit though)</div></div>
+<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">Radium Namespaces prefix.</div><div class="ttdef"><b>Definition</b> <a href="Cage_8cpp_source.html#l00003">Cage.cpp:3</a></div></div>
 <div class="ttc" id="apush_back_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/container/vector/push_back.html">std::vector::push_back</a></div><div class="ttdeci">T push_back(T... args)</div></div>
 <div class="ttc" id="areserve_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/container/vector/reserve.html">std::vector::reserve</a></div><div class="ttdeci">T reserve(T... args)</div></div>
 <div class="ttc" id="ashared_ptr_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/memory/shared_ptr.html">std::shared_ptr</a></div></div>

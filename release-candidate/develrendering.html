@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.5.4</span>
+   &#160;<span id="projectnumber">1.5.5</span>
    </div>
   </td>
  </tr>
@@ -119,10 +119,10 @@ $(document).ready(function(){initNavTree('develrendering.html',''); initResizabl
   <div class="headertitle"><div class="title">Rendering pipeline</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><h1><a class="anchor" id="autotoc_md113"></a>
+<div class="textblock"><h1><a class="anchor" id="autotoc_md119"></a>
 Rendering in Radium</h1>
 <p>Rendering in Radium is managed by the abstract <a class="el" href="classRa_1_1Engine_1_1Rendering_1_1Renderer.html">Ra::Engine::Rendering::Renderer</a> class that provides the following main rendering method.</p>
-<h2><a class="anchor" id="autotoc_md114"></a>
+<h2><a class="anchor" id="autotoc_md120"></a>
 Main abstract render method</h2>
 <p>This method is general and cannot be modified, it always does the following</p>
 <div class="fragment"><div class="line"><span class="keywordtype">void</span> <a class="code hl_function" href="classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a027cf22a1f9f48ea9f7dd7fae7108856">Ra::Engine::Rendering::Renderer::render</a>( <span class="keyword">const</span> Ra::Engine::ViewingParameters&amp; data )</div>
@@ -171,24 +171,24 @@ Main abstract render method</h2>
 <p>This method does most of the whole rendering work and outputs one final <em>render pass</em> texture, ready to be post-processed.</p>
 <h3>5. Post-process the rendering result</h3>
 <p>This method will apply post-processing filters on the computed image.</p>
-<h2><a class="anchor" id="autotoc_md115"></a>
+<h2><a class="anchor" id="autotoc_md121"></a>
 Defining a concrete renderer</h2>
 <p>To define a concrete renderer, the <a class="el" href="classRa_1_1Engine_1_1Rendering_1_1Renderer.html">Ra::Engine::Rendering::Renderer</a> class can be inherited to define, at least, the <code>renderInternal</code> method. Note that only two methods can be overridden for the renderer, renderInternal (step 4) and postProcessInternal (step 5).</p>
 <p>A concrete renderer will build its rendering loop, the <code>renderInternal</code> method, by decomposing it into passes configured, for each Ra::engine::RenderObject, using the Ra::Engine::Rendering::RenderTechique class.</p>
 <p>A <a class="el" href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html">Ra::Engine::Rendering::RenderTechnique</a> consists in a set of named <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderConfiguration.html">Ra::Engine::Data::ShaderConfiguration</a> that provide the GLSL code used by each pass to compute the appearance of a <a class="el" href="classRa_1_1Engine_1_1Rendering_1_1RenderObject.html">Ra::Engine::Rendering::RenderObject</a> and a set of <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html">Ra::Engine::Data::ShaderParameterProvider</a> that provide shader data to be used for each pass.</p>
 <p>When rendering, the renderer will loop over all the configured <a class="el" href="classRa_1_1Engine_1_1Rendering_1_1RenderObject.html">Ra::Engine::Rendering::RenderObject</a> and, for each rendering pass, will get the OpenGL pipeline configuration and parameters from the <a class="el" href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html">Ra::Engine::Rendering::RenderTechnique</a> associated with the <a class="el" href="classRa_1_1Engine_1_1Rendering_1_1RenderObject.html">Ra::Engine::Rendering::RenderObject</a>.</p>
 <p>The Radium Engine exports a ready to use renderer, <a class="el" href="classRa_1_1Engine_1_1Rendering_1_1ForwardRenderer.html">Ra::Engine::Rendering::ForwardRenderer</a>, that decomposes the rendering into three passes as described in the <a class="el" href="forwardRenderer.html">Forward Render</a> document.</p>
-<h2><a class="anchor" id="autotoc_md116"></a>
+<h2><a class="anchor" id="autotoc_md122"></a>
 Minimal renderer howto</h2>
 <p>This section explain, through the developement of a simple Rendering, how to configure RenderObjects and RenderTechnique to be used by a renderer.</p>
 <h3>Developping the Rendering</h3>
 <p>Help wanted for this section.</p>
 <h3>Configuring the RenderObjects and their RenderTechnique</h3>
 <p>Help wanted for this section.</p>
-<h1><a class="anchor" id="autotoc_md117"></a>
+<h1><a class="anchor" id="autotoc_md123"></a>
 Radium Engine default rendering information</h1>
 <p>See <a class="el" href="develmaterials.html">Material management</a> documentation for a complete description of the interactions geometry, material and shader._</p>
-<h1><a class="anchor" id="autotoc_md118"></a>
+<h1><a class="anchor" id="autotoc_md124"></a>
 Potential extensions for the renderer</h1>
 <ul>
 <li>Ambient occlusion</li>

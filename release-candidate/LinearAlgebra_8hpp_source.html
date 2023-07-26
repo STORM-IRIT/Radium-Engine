@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.5.4</span>
+   &#160;<span id="projectnumber">1.5.5</span>
    </div>
   </td>
  </tr>
@@ -465,11 +465,11 @@ $(document).ready(function(){initNavTree('LinearAlgebra_8hpp_source.html',''); i
 <div class="line"><a id="l00385" name="l00385"></a><span class="lineno">  385</span><span class="comment">// See</span></div>
 <div class="line"><a id="l00386" name="l00386"></a><span class="lineno">  386</span> </div>
 <div class="line"><a id="l00387" name="l00387"></a><span class="lineno">  387</span><span class="keyword">namespace </span>Eigen {</div>
-<div class="line"><a id="l00388" name="l00388"></a><span class="lineno">  388</span><span class="keyword">inline</span> Quaternion&lt;Scalar&gt; operator*( Scalar k, <span class="keyword">const</span> Quaternion&lt;Scalar&gt;&amp; q ) {</div>
+<div class="line"><a id="l00388" name="l00388"></a><span class="lineno">  388</span><span class="keyword">inline</span> Quaternion&lt;Scalar&gt; <a class="code hl_function" href="namespaceRa_1_1Core.html#a759edbc3c97aec27676fcd8916334ed5">operator*</a>( Scalar k, <span class="keyword">const</span> Quaternion&lt;Scalar&gt;&amp; q ) {</div>
 <div class="line"><a id="l00389" name="l00389"></a><span class="lineno">  389</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="namespaceRa_1_1Core_1_1Math.html#a941baf20065c77d494ca251e6e104f31">Ra::Core::Math::scale</a>( q, k );</div>
 <div class="line"><a id="l00390" name="l00390"></a><span class="lineno">  390</span>}</div>
 <div class="line"><a id="l00391" name="l00391"></a><span class="lineno">  391</span> </div>
-<div class="line"><a id="l00392" name="l00392"></a><span class="lineno">  392</span><span class="keyword">inline</span> Quaternion&lt;Scalar&gt; operator*( <span class="keyword">const</span> Quaternion&lt;Scalar&gt;&amp; q, Scalar k ) {</div>
+<div class="line"><a id="l00392" name="l00392"></a><span class="lineno">  392</span><span class="keyword">inline</span> Quaternion&lt;Scalar&gt; <a class="code hl_function" href="namespaceRa_1_1Core.html#a759edbc3c97aec27676fcd8916334ed5">operator*</a>( <span class="keyword">const</span> Quaternion&lt;Scalar&gt;&amp; q, Scalar k ) {</div>
 <div class="line"><a id="l00393" name="l00393"></a><span class="lineno">  393</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="namespaceRa_1_1Core_1_1Math.html#a941baf20065c77d494ca251e6e104f31">Ra::Core::Math::scale</a>( q, k );</div>
 <div class="line"><a id="l00394" name="l00394"></a><span class="lineno">  394</span>}</div>
 <div class="line"><a id="l00395" name="l00395"></a><span class="lineno">  395</span> </div>
@@ -511,7 +511,8 @@ $(document).ready(function(){initNavTree('LinearAlgebra_8hpp_source.html',''); i
 <div class="ttc" id="anamespaceRa_1_1Core_1_1Math_html_acc9f6f3b880b60bf0ee7723afabaf180"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Math.html#acc9f6f3b880b60bf0ee7723afabaf180">Ra::Core::Math::clamp</a></div><div class="ttdeci">Derived::PlainMatrix clamp(const Eigen::MatrixBase&lt; Derived &gt; &amp;v, const Eigen::MatrixBase&lt; DerivedA &gt; &amp;min, const Eigen::MatrixBase&lt; DerivedB &gt; &amp;max)</div><div class="ttdoc">Component-wise clamp() function on a floating-point vector.</div><div class="ttdef"><b>Definition</b> <a href="LinearAlgebra_8hpp_source.html#l00193">LinearAlgebra.hpp:193</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Core_1_1Math_html_ace580f6f34d6a778e2a6a0c7c81646b5"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Math.html#ace580f6f34d6a778e2a6a0c7c81646b5">Ra::Core::Math::ceil</a></div><div class="ttdeci">Vector ceil(const Vector &amp;v)</div><div class="ttdoc">Component-wise ceil() function on a floating-point vector.</div></div>
 <div class="ttc" id="anamespaceRa_1_1Core_1_1Math_html_add677f0ab64a79b894bd36d7aa6987f1"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Math.html#add677f0ab64a79b894bd36d7aa6987f1">Ra::Core::Math::getNormAndNormalizeSafe</a></div><div class="ttdeci">Scalar getNormAndNormalizeSafe(Vector_ &amp;v)</div><div class="ttdef"><b>Definition</b> <a href="LinearAlgebra_8hpp_source.html#l00228">LinearAlgebra.hpp:228</a></div></div>
-<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdef"><b>Definition</b> <a href="Cage_8cpp_source.html#l00003">Cage.cpp:3</a></div></div>
+<div class="ttc" id="anamespaceRa_1_1Core_html_a759edbc3c97aec27676fcd8916334ed5"><div class="ttname"><a href="namespaceRa_1_1Core.html#a759edbc3c97aec27676fcd8916334ed5">Ra::Core::operator*</a></div><div class="ttdeci">DualQuaternion operator*(Scalar scalar, const DualQuaternion &amp;dq)</div><div class="ttdoc">Pre-multiplication of dual quaternion.</div><div class="ttdef"><b>Definition</b> <a href="DualQuaternion_8hpp_source.html#l00167">DualQuaternion.hpp:167</a></div></div>
+<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">Radium Namespaces prefix.</div><div class="ttdef"><b>Definition</b> <a href="Cage_8cpp_source.html#l00003">Cage.cpp:3</a></div></div>
 <div class="ttc" id="asin_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/numeric/math/sin.html">std::sin</a></div><div class="ttdeci">T sin(T... args)</div></div>
 <div class="ttc" id="asqrt_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/numeric/math/sqrt.html">std::sqrt</a></div><div class="ttdeci">T sqrt(T... args)</div></div>
 <div class="ttc" id="atan_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/numeric/math/tan.html">std::tan</a></div><div class="ttdeci">T tan(T... args)</div></div>

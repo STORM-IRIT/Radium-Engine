@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.5.4</span>
+   &#160;<span id="projectnumber">1.5.5</span>
    </div>
   </td>
  </tr>
@@ -231,7 +231,7 @@ $(document).ready(function(){initNavTree('VolumetricMaterial_8cpp_source.html','
 <div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span><span class="comment">            */</span></div>
 <div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>            <span class="keyword">auto</span> passconfig = <a class="code hl_function" href="namespaceRa_1_1Engine_1_1Data_1_1ShaderConfigurationFactory.html#a0ecc004c00bff945aae8b673a738909f">Data::ShaderConfigurationFactory::getConfiguration</a>( <span class="stringliteral">&quot;Volumetric&quot;</span> );</div>
 <div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>            rt.<a class="code hl_function" href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a2b058b0fe2f9c2496b7805e0d5b15452">setConfiguration</a>( *passconfig,</div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>                                 Rendering::DefaultRenderingPasses::LIGHTING_VOLUMETRIC );</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>                                 <a class="code hl_enumvalue" href="namespaceRa_1_1Engine_1_1Rendering.html#a6adc37d571180327fbdcf8dd786e9942a2e6a8af4064ce6c2c25719b014d4867b">Rendering::DefaultRenderingPasses::LIGHTING_VOLUMETRIC</a> );</div>
 <div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>        } );</div>
 <div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span> </div>
 <div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    <span class="comment">// Registering parameters metadata</span></div>
@@ -272,7 +272,8 @@ $(document).ready(function(){initNavTree('VolumetricMaterial_8cpp_source.html','
 <div class="ttc" id="aclassRa_1_1Engine_1_1Rendering_1_1RenderTechnique_html_a2b058b0fe2f9c2496b7805e0d5b15452"><div class="ttname"><a href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a2b058b0fe2f9c2496b7805e0d5b15452">Ra::Engine::Rendering::RenderTechnique::setConfiguration</a></div><div class="ttdeci">void setConfiguration(const Data::ShaderConfiguration &amp;newConfig, Core::Utils::Index pass=DefaultRenderingPasses::LIGHTING_OPAQUE)</div><div class="ttdef"><b>Definition</b> <a href="RenderTechnique_8cpp_source.html#l00038">RenderTechnique.cpp:38</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Engine_1_1Data_1_1ShaderConfigurationFactory_html_a00918835250fbd8bbe4deae59ecd6dde"><div class="ttname"><a href="namespaceRa_1_1Engine_1_1Data_1_1ShaderConfigurationFactory.html#a00918835250fbd8bbe4deae59ecd6dde">Ra::Engine::Data::ShaderConfigurationFactory::addConfiguration</a></div><div class="ttdeci">void addConfiguration(const ShaderConfiguration &amp;config)</div><div class="ttdef"><b>Definition</b> <a href="ShaderConfigFactory_8cpp_source.html#l00016">ShaderConfigFactory.cpp:16</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Engine_1_1Data_1_1ShaderConfigurationFactory_html_a0ecc004c00bff945aae8b673a738909f"><div class="ttname"><a href="namespaceRa_1_1Engine_1_1Data_1_1ShaderConfigurationFactory.html#a0ecc004c00bff945aae8b673a738909f">Ra::Engine::Data::ShaderConfigurationFactory::getConfiguration</a></div><div class="ttdeci">Core::Utils::optional&lt; ShaderConfiguration &gt; getConfiguration(const std::string &amp;name)</div><div class="ttdef"><b>Definition</b> <a href="ShaderConfigFactory_8cpp_source.html#l00041">ShaderConfigFactory.cpp:41</a></div></div>
-<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdef"><b>Definition</b> <a href="Cage_8cpp_source.html#l00003">Cage.cpp:3</a></div></div>
+<div class="ttc" id="anamespaceRa_1_1Engine_1_1Rendering_html_a6adc37d571180327fbdcf8dd786e9942a2e6a8af4064ce6c2c25719b014d4867b"><div class="ttname"><a href="namespaceRa_1_1Engine_1_1Rendering.html#a6adc37d571180327fbdcf8dd786e9942a2e6a8af4064ce6c2c25719b014d4867b">Ra::Engine::Rendering::LIGHTING_VOLUMETRIC</a></div><div class="ttdeci">@ LIGHTING_VOLUMETRIC</div><div class="ttdef"><b>Definition</b> <a href="RenderTechnique_8hpp_source.html#l00056">RenderTechnique.hpp:54</a></div></div>
+<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">Radium Namespaces prefix.</div><div class="ttdef"><b>Definition</b> <a href="Cage_8cpp_source.html#l00003">Cage.cpp:3</a></div></div>
 <div class="ttc" id="asqrt_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/numeric/math/sqrt.html">std::sqrt</a></div><div class="ttdeci">T sqrt(T... args)</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->

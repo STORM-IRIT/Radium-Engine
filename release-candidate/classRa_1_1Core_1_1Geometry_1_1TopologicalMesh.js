@@ -7,7 +7,7 @@ var classRa_1_1Core_1_1Geometry_1_1TopologicalMesh =
     [ "TopologicalMesh", "classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#ac25138853664f3c1c8938b05bf586256", null ],
     [ "TopologicalMesh", "classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a8bea9416aacbef66d2a42a83a81f5857", null ],
     [ "checkIntegrity", "classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a2f74f47243bb49bcc0ceafe0c43b00fa", null ],
-    [ "collapse", "classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a46eee3e8fe80ff3a80f935964b5feaa2", null ],
+    [ "collapse", "classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a32a22ced112f0cfd3c8219a3db66375f", null ],
     [ "copyPointsPositionToWedges", "classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#af31dd394d2d04d3fa1f81395ec531510", null ],
     [ "garbage_collection", "classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#ad0eb9c1c7711f3aa24ad612b339942bc", null ],
     [ "getInputTriangleMeshIndexPropHandle", "classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#aa3ea268f1828a54153b4fc653c1d3a38", null ],

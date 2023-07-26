@@ -31,13 +31,13 @@ var NAVTREE =
     [ "Radium Concepts", "conceptsmanual.html", "conceptsmanual" ],
     [ "Developer manual", "develmanual.html", "develmanual" ],
     [ "Licenses", "licenses.html", [
-      [ "Radium contributors", "licenses.html#autotoc_md4", null ],
-      [ "Third-party libraries", "licenses.html#autotoc_md5", [
-        [ "Qt", "licenses.html#autotoc_md6", null ],
-        [ "Eigen", "licenses.html#autotoc_md7", null ],
-        [ "Assimp", "licenses.html#autotoc_md8", null ],
-        [ "STB Image", "licenses.html#autotoc_md9", null ],
-        [ "Additional material", "licenses.html#autotoc_md10", null ]
+      [ "Radium contributors", "licenses.html#autotoc_md8", null ],
+      [ "Third-party libraries", "licenses.html#autotoc_md9", [
+        [ "Qt", "licenses.html#autotoc_md10", null ],
+        [ "Eigen", "licenses.html#autotoc_md11", null ],
+        [ "Assimp", "licenses.html#autotoc_md12", null ],
+        [ "STB Image", "licenses.html#autotoc_md13", null ],
+        [ "Additional material", "licenses.html#autotoc_md14", null ]
       ] ]
     ] ],
     [ "Todo List", "todo.html", null ],
@@ -49,7 +49,9 @@ var NAVTREE =
         [ "All", "namespacemembers.html", null ],
         [ "Functions", "namespacemembers_func.html", null ],
         [ "Variables", "namespacemembers_vars.html", null ],
-        [ "Typedefs", "namespacemembers_type.html", null ]
+        [ "Typedefs", "namespacemembers_type.html", null ],
+        [ "Enumerations", "namespacemembers_enum.html", null ],
+        [ "Enumerator", "namespacemembers_eval.html", null ]
       ] ]
     ] ],
     [ "Classes", "annotated.html", [
@@ -67,7 +69,11 @@ var NAVTREE =
       ] ]
     ] ],
     [ "Files", "files.html", [
-      [ "File List", "files.html", "files_dup" ]
+      [ "File List", "files.html", "files_dup" ],
+      [ "File Members", "globals.html", [
+        [ "All", "globals.html", null ],
+        [ "Macros", "globals_defs.html", null ]
+      ] ]
     ] ]
   ] ]
 ];
@@ -76,18 +82,22 @@ var NAVTREEINDEX =
 [
 "AboutDialog_8cpp_source.html",
 "Sequence_8hpp_source.html",
-"classRa_1_1Core_1_1Asset_1_1AnimationTime.html#aa2c20c5f6a4c562d40ab06f2b5637cc3",
-"classRa_1_1Core_1_1Geometry_1_1CatmullClarkSubdivider.html",
-"classRa_1_1Core_1_1Utils_1_1Attrib.html#a4179dd4435a6d89f2ab3cadace7fca51",
-"classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html#a71ab62e2623c184497ef04b59c7ce5f8",
-"classRa_1_1Engine_1_1RadiumEngine.html#a64e514bd01c52fe4b8a67c570615ff06",
-"classRa_1_1Engine_1_1Scene_1_1LightStorage.html#ab2e57aeb36a1accf65acf73d2bea3c5b",
-"classRa_1_1Gui_1_1KeyMappingManager.html#a0ae79acdcb0227414e9da094430671f0",
-"classRa_1_1Gui_1_1Widgets_1_1ControlPanel.html#a02f9cba7abcbded3883fd6b85344baab",
-"cpp/atomic/atomic_compare_exchange.html",
-"cpp/numeric/math/nearbyint.html",
-"develmeshes.html#autotoc_md92",
-"structRa_1_1Core_1_1Geometry_1_1AbstractGeometry.html#a11061b6def49014daf70728b389398f5"
+"classRa_1_1Core_1_1Animation_1_1Skeleton.html#a7aec08b57bfa9dbce1c5b47e96de81d9",
+"classRa_1_1Core_1_1Geometry_1_1AbstractVolume.html#a67707edd168871cced034f88cfd4d568",
+"classRa_1_1Core_1_1Grid.html#a8e692ae5c663d4ac79ad652b0c79caa2",
+"classRa_1_1Core_1_1Utils_1_1IndexMap.html#ae9adb97d8a6fa9fa1d2528fc25ede371",
+"classRa_1_1Engine_1_1Data_1_1EnvironmentTexture.html",
+"classRa_1_1Engine_1_1Data_1_1ShaderProgram.html#a441bbb8fa43a2463b420adfc58b5abfa",
+"classRa_1_1Engine_1_1RadiumEngine.html#ac7c4502212c24fbbad9b41d44a654548",
+"classRa_1_1Engine_1_1Scene_1_1CameraManager.html#a08154d99985f0a579b24473cd414ba72",
+"classRa_1_1Engine_1_1Scene_1_1PointLight.html",
+"classRa_1_1Gui_1_1BaseApplication.html#aa3b381c4587b319e2a0d46823a509990",
+"classRa_1_1Gui_1_1TrackballCameraManipulator.html#a21bfdf8a04a9846e34ae3abdfb71a5ab",
+"cmakeutilities.html#install_target_resources",
+"cpp/io/manip/unitbuf.html",
+"cpp/string/wide/wmemcpy.html",
+"group__window.html#ga0378244a9776a80b1c0952a4ef645049",
+"structRa_1_1Core_1_1Utils_1_1map__keys.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

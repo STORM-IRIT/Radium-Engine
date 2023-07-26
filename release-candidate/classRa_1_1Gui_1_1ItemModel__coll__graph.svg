@@ -294,7 +294,7 @@ var sectionId = 'dynsection-1';
 <!-- Node4 -->
 <g id="Node000004" class="node">
 <title>Node4</title>
-<g id="a_Node000004"><a xlink:href="classRa_1_1Gui_1_1TreeItem.html" target="_top" xlink:title=" ">
+<g id="a_Node000004"><a xlink:href="classRa_1_1Gui_1_1TreeItem.html" target="_top" xlink:title="Base class for element of the tree representation.">
 <polygon fill="white" stroke="transparent" points="405,-274 293,-274 293,0 405,0 405,-274"/>
 <text text-anchor="start" x="306.5" y="-262" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Gui::TreeItem</text>
 <text text-anchor="start" x="347" y="-247" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>

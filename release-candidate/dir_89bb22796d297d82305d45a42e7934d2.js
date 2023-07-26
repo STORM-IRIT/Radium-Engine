@@ -46,5 +46,5 @@ var dir_89bb22796d297d82305d45a42e7934d2 =
     [ "System.cpp", "System_8cpp_source.html", null ],
     [ "System.hpp", "System_8hpp_source.html", null ],
     [ "SystemDisplay.cpp", "SystemDisplay_8cpp_source.html", null ],
-    [ "SystemDisplay.hpp", "SystemDisplay_8hpp_source.html", null ]
+    [ "SystemDisplay.hpp", "SystemDisplay_8hpp.html", "SystemDisplay_8hpp" ]
 ];

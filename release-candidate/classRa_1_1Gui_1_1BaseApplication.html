@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.5.4</span>
+   &#160;<span id="projectnumber">1.5.5</span>
    </div>
   </td>
  </tr>
@@ -694,7 +694,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <p>This method configure the base, non opengl dependant, scene services.</p>
-<p>It is expected that this method add the Engine's systems required by the application. and configure the engine time management properties. The default implementation add the following systems :</p><ul>
+<p>It is expected that this method add the <a class="el" href="namespaceRa_1_1Engine.html" title="This namespace contains engine and ECS related stuff.">Engine</a>'s systems required by the application. and configure the engine time management properties. The default implementation add the following systems :</p><ul>
 <li>Ra::Engine::GeometrySystem</li>
 </ul>
 <p>The default implementation also configure the time system according to the user requested frame rate (app command line argument -framerate) or to the default 60fps. </p>
@@ -920,7 +920,7 @@ Protected Attributes</h2></td></tr>
 </ul>
 </li>
 <li>Create Plugin context, load plugins, configure base Radium::IO services<ul>
-<li>The plugins located int the registered plugin paths (into the Radium Engine or bundled with the installed application, into paths found in the app configuration file) are loaded automatically.</li>
+<li>The plugins located int the registered plugin paths (into the Radium <a class="el" href="namespaceRa_1_1Engine.html" title="This namespace contains engine and ECS related stuff.">Engine</a> or bundled with the installed application, into paths found in the app configuration file) are loaded automatically.</li>
 <li>The Radium::IO services compiled into the Radium bundle are configured (file loaders)</li>
 <li>After plugins and default services are configured, call the <a class="el" href="classRa_1_1Gui_1_1BaseApplication.html" title="This class contains the main application logic. It owns the engine and the GUI.">BaseApplication</a>'s virtual method addApplicationExtension.</li>
 </ul>
@@ -938,7 +938,7 @@ Protected Attributes</h2></td></tr>
   </dd>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>The initialize method call virtual methods on the object being initialized to configure the engine and application services. When redefining those methods, it is recommended to call the inherited one to have consistent initialization wrt the <a class="el" href="classRa_1_1Gui_1_1BaseApplication.html" title="This class contains the main application logic. It owns the engine and the GUI.">BaseApplication</a> ancestor. The initialize method could be also overloaded by derived classes. In this case, it is recommended that the overload explicetely call the ancestor method.. </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000081">Todo:</a></b></dt><dd>allow the user to ask for some "standard" systems to be added to the initialized Engine. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000081">Todo:</a></b></dt><dd>allow the user to ask for some "standard" systems to be added to the initialized <a class="el" href="namespaceRa_1_1Engine.html" title="This namespace contains engine and ECS related stuff.">Engine</a>. </dd></dl>
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000079">Todo:</a></b></dt><dd>Code updated wrt camera manager, TEST IT ! </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="BaseApplication_8cpp_source.html#l00248">248</a> of file <a class="el" href="BaseApplication_8cpp_source.html">BaseApplication.cpp</a>.</p>

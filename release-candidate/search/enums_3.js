@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['handletype_0',['HandleType',['../classRa_1_1Core_1_1Asset_1_1HandleData.html#a2cc9bdddd2a8a9966c0e5afb38090a7e',1,'Ra::Core::Asset::HandleData']]]
+  ['geometrytype_0',['GeometryType',['../classRa_1_1Core_1_1Asset_1_1GeometryData.html#ab19ec3bb4698304d3d83487b125f9e05',1,'Ra::Core::Asset::GeometryData']]]
 ];

@@ -1,5 +1,5 @@
 <map id="Ra::Gui::TreeItem" name="Ra::Gui::TreeItem">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,155,371"/>
+<area shape="rect" id="Node000001" title="Base class for element of the tree representation." alt="" coords="5,5,155,371"/>
 <area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="156,148,174,162,181,188,178,206,171,219,166,216,173,204,176,188,170,165,153,152"/>
 <area shape="rect" id="Node000003" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/memory/unique_ptr.html" title=" " alt="" coords="193,636,335,936"/>
 <area shape="poly" id="edge4_Node000003_Node000001" title=" " alt="" coords="155,370,176,433,228,619,223,621,171,434,150,372"/>

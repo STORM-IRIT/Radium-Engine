@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.5.4</span>
+   &#160;<span id="projectnumber">1.5.5</span>
    </div>
   </td>
  </tr>
@@ -175,7 +175,7 @@ $(document).ready(function(){initNavTree('DualQuaternion_8hpp_source.html',''); 
 <div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    Quaternion m_qe;</div>
 <div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>};</div>
 <div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span><span class="keyword">inline</span> <a class="code hl_class" href="classRa_1_1Core_1_1DualQuaternion.html">DualQuaternion</a> operator*( Scalar scalar, <span class="keyword">const</span> <a class="code hl_class" href="classRa_1_1Core_1_1DualQuaternion.html">DualQuaternion</a>&amp; dq );</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span><span class="keyword">inline</span> <a class="code hl_class" href="classRa_1_1Core_1_1DualQuaternion.html">DualQuaternion</a> <a class="code hl_function" href="namespaceRa_1_1Core.html#a759edbc3c97aec27676fcd8916334ed5">operator*</a>( Scalar scalar, <span class="keyword">const</span> <a class="code hl_class" href="classRa_1_1Core_1_1DualQuaternion.html">DualQuaternion</a>&amp; dq );</div>
 <div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
 <div class="line"><a id="l00086" name="l00086"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1DualQuaternion.html#ab983ecae50eaae679eeafc8631d64d79">   86</a></span><span class="keyword">inline</span> <span class="keyword">const</span> Quaternion&amp; <a class="code hl_function" href="classRa_1_1Core_1_1DualQuaternion.html#ab983ecae50eaae679eeafc8631d64d79">DualQuaternion::getQ0</a>()<span class="keyword"> const </span>{</div>
 <div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    <span class="keywordflow">return</span> m_q0;</div>
@@ -258,7 +258,7 @@ $(document).ready(function(){initNavTree('DualQuaternion_8hpp_source.html',''); 
 <div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>    m_qe                = 0.5f * Quaternion( trans ) * m_q0;</div>
 <div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>}</div>
 <div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span> </div>
-<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span><span class="keyword">inline</span> <a class="code hl_class" href="classRa_1_1Core_1_1DualQuaternion.html">DualQuaternion</a> operator*( Scalar scalar, <span class="keyword">const</span> <a class="code hl_class" href="classRa_1_1Core_1_1DualQuaternion.html">DualQuaternion</a>&amp; dq ) {</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Core.html#a759edbc3c97aec27676fcd8916334ed5">  167</a></span><span class="keyword">inline</span> <a class="code hl_class" href="classRa_1_1Core_1_1DualQuaternion.html">DualQuaternion</a> <a class="code hl_function" href="namespaceRa_1_1Core.html#a759edbc3c97aec27676fcd8916334ed5">operator*</a>( Scalar scalar, <span class="keyword">const</span> <a class="code hl_class" href="classRa_1_1Core_1_1DualQuaternion.html">DualQuaternion</a>&amp; dq ) {</div>
 <div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>    <span class="keywordflow">return</span> dq * scalar;</div>
 <div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>}</div>
 <div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span> </div>
@@ -278,7 +278,8 @@ $(document).ready(function(){initNavTree('DualQuaternion_8hpp_source.html',''); 
 <div class="ttc" id="aclassRa_1_1Core_1_1DualQuaternion_html_aba5d1a3846359656848eb27a5a6f2126"><div class="ttname"><a href="classRa_1_1Core_1_1DualQuaternion.html#aba5d1a3846359656848eb27a5a6f2126">Ra::Core::DualQuaternion::rotate</a></div><div class="ttdeci">Vector3 rotate(const Vector3 &amp;p) const</div><div class="ttdoc">Apply only the rotational part of the dual quaternion to the given vector.</div><div class="ttdef"><b>Definition</b> <a href="DualQuaternion_8hpp_source.html#l00133">DualQuaternion.hpp:133</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1DualQuaternion_html_ac5d767c7ed2acdace145f2079284e07a"><div class="ttname"><a href="classRa_1_1Core_1_1DualQuaternion.html#ac5d767c7ed2acdace145f2079284e07a">Ra::Core::DualQuaternion::DualQuaternion</a></div><div class="ttdeci">DualQuaternion(const Quaternion &amp;q0, const Quaternion &amp;qe)</div><div class="ttdoc">Construct a dual-quaternion from two quaternions.</div><div class="ttdef"><b>Definition</b> <a href="DualQuaternion_8hpp_source.html#l00028">DualQuaternion.hpp:28</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Core_1_1Math_html_a46540d56930b4c1ff3b115872cde4893"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Math.html#a46540d56930b4c1ff3b115872cde4893">Ra::Core::Math::areApproxEqual</a></div><div class="ttdeci">std::enable_if&lt;!std::numeric_limits&lt; T &gt;::is_integer, bool &gt;::type areApproxEqual(T x, T y, T espilonBoostFactor=T(10))</div><div class="ttdoc">Compare two numbers such that |x-y| &lt; espilon*epsilonBoostFactor.</div><div class="ttdef"><b>Definition</b> <a href="Math_8hpp_source.html#l00042">Math.hpp:42</a></div></div>
-<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdef"><b>Definition</b> <a href="Cage_8cpp_source.html#l00003">Cage.cpp:3</a></div></div>
+<div class="ttc" id="anamespaceRa_1_1Core_html_a759edbc3c97aec27676fcd8916334ed5"><div class="ttname"><a href="namespaceRa_1_1Core.html#a759edbc3c97aec27676fcd8916334ed5">Ra::Core::operator*</a></div><div class="ttdeci">DualQuaternion operator*(Scalar scalar, const DualQuaternion &amp;dq)</div><div class="ttdoc">Pre-multiplication of dual quaternion.</div><div class="ttdef"><b>Definition</b> <a href="DualQuaternion_8hpp_source.html#l00167">DualQuaternion.hpp:167</a></div></div>
+<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">Radium Namespaces prefix.</div><div class="ttdef"><b>Definition</b> <a href="Cage_8cpp_source.html#l00003">Cage.cpp:3</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

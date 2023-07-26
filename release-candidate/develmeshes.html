@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.5.4</span>
+   &#160;<span id="projectnumber">1.5.5</span>
    </div>
   </td>
  </tr>
@@ -119,7 +119,7 @@ $(document).ready(function(){initNavTree('develmeshes.html',''); initResizable()
   <div class="headertitle"><div class="title">3D objects (a.k.a. Meshes)</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><h1><a class="anchor" id="autotoc_md91"></a>
+<div class="textblock"><h1><a class="anchor" id="autotoc_md97"></a>
 Geometry types</h1>
 <p>There is three kind of geometry representation included in radium source :</p>
 <ol type="1">
@@ -135,7 +135,7 @@ Geometry types</h1>
 </ul>
 </li>
 <li><a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html">Ra::Core::Geometry::TopologicalMesh</a>, which is an half-edge data structure. A converter allows to go back and forth to <code>TriangleMesh</code> without loss of data, but during the conversion, vertices with the same position represents the same topological point (and are hence merged). <b>Soon deprecated:</b> The other vertex attributes are stored on half-edges (to manage multiple normals per 3D positions for instance). <b>New:</b> The other vertex attributes are stored on wedges. Each half-edge has one wedge index. If multiple half-edge have the same set of attributes (including vertex position) they have the same wedge index at construction. See section <a class="el" href="develmeshes.html#wedges">wedges</a> below.</li>
-<li>Ra::Engine::Data::*, which stores a Core Geometry to handle 3D data, and manages the rendering aspect of it (VAO, VBO, draw call). See inheritance diagram of <a class="el" href="classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html">Ra::Engine::Data::AttribArrayDisplayable</a><ul>
+<li><a class="el" href="namespaceRa_1_1Engine_1_1Data.html" title="(GPU) Data representation, along with manager">Ra::Engine::Data</a>::*, which stores a Core Geometry to handle 3D data, and manages the rendering aspect of it (VAO, VBO, draw call). See inheritance diagram of <a class="el" href="classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html">Ra::Engine::Data::AttribArrayDisplayable</a><ul>
 <li><a class="el" href="classRa_1_1Engine_1_1Data_1_1Displayable.html">Ra::Engine::Data::Displayable</a></li>
 <li><a class="el" href="classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html">Ra::Engine::Data::AttribArrayDisplayable</a></li>
 <li><a class="el" href="classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html" title="Template class to manage the Displayable aspect of a Core Geomertry, such as TriangleMesh.">Ra::Engine::Data::CoreGeometryDisplayable</a></li>
@@ -149,14 +149,14 @@ Geometry types</h1>
 </li>
 </ol>
 <p><code>*</code> : the starred classes are the one you want to instanciate, the other are more for code factoring or abstraction.</p>
-<h1><a class="anchor" id="autotoc_md92"></a>
+<h1><a class="anchor" id="autotoc_md98"></a>
 Colaboration between Core and Engine</h1>
 <p>A Core Geometry can be used on its own.</p>
 <p>Engine Geometry must own a Core Geometry, either set at construction, or later with loadGeometry. The Core Geometry ownership is then transfered to the Engine Geometry, and can be accessed by reference with <a class="el" href="classRa_1_1Engine_1_1Data_1_1Displayable.html#aab6e5c5ae31f270d10115062176a82ae">Ra::Engine::Data::Displayable::getAbstractGeometry</a> or Ra::Engine::Data::CoreGeometryDisplayable::getCoreGeometry</p>
-<h1><a class="anchor" id="autotoc_md93"></a>
+<h1><a class="anchor" id="autotoc_md99"></a>
 Data consistency</h1>
 <p>As soon as a Core Geometry is owned by a Engine Geometry, each data update on the Core Geometry attribute trigger a observator method to mark the corresponding GPU data as dirty. On the next <a class="el" href="classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html#a185171226018c59fb689efcb2154619b" title="Update (i.e. send to GPU) the buffers marked as dirty.">Ra::Engine::Data::CoreGeometryDisplayable::updateGL</a>, the dirty data will be updated on the GPU.</p>
-<h1><a class="anchor" id="autotoc_md94"></a>
+<h1><a class="anchor" id="autotoc_md100"></a>
 Mesh creation</h1>
 <p><code>GeometryComponent</code> is in charge of loading a <code>GeometryData</code> and create the corresponding <code>Mesh</code>.</p>
 <p>The user can add on the fly new vertex attributes to a <a class="el" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html" title="This class represents vertex + attributes per vertex. Toplogy is handled in MultiIndexedGeometry subc...">Ra::Core::Geometry::AttribArrayGeometry</a> An attribute is defined by a unique name (<a class="elRef" target="_blank" href="http://en.cppreference.com/w/cpp/string/basic_string.html">std::string</a>) and then represented as a <a class="el" href="classRa_1_1Core_1_1Utils_1_1AttribHandle.html" title="An attrib handle basically store an Index and a name.">Ra::Core::Utils::AttribHandle</a>. The type of the attribute is defined by the caller using the template parameter of the method <a class="el" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#ae1956b0396dadd84f55a12f2160e5671">Ra::Core::Geometry::AttribArrayGeometry::addAttrib</a>. To ensure consistency, it is strongly recommended to store the handle returned by the <a class="el" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#ae1956b0396dadd84f55a12f2160e5671">Ra::Core::Geometry::AttribArrayGeometry::addAttrib</a> method:</p>

@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.5.4</span>
+   &#160;<span id="projectnumber">1.5.5</span>
    </div>
   </td>
  </tr>
@@ -200,7 +200,7 @@ $(document).ready(function(){initNavTree('RenderObjectManager_8cpp_source.html',
 <div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
 <div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span><span class="keywordtype">void</span> RenderObjectManager::getRenderObjectsByType(</div>
 <div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector.html">std::vector</a>&lt;<a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/memory/shared_ptr.html">std::shared_ptr&lt;Rendering::RenderObject&gt;</a>&gt;&amp; objectsOut,</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    <span class="keyword">const</span> Rendering::RenderObjectType&amp; type )<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    <span class="keyword">const</span> <a class="code hl_enumeration" href="namespaceRa_1_1Engine_1_1Rendering.html#a49447e503c13eb01d7b4d279e127f8e1">Rendering::RenderObjectType</a>&amp; type )<span class="keyword"> const </span>{</div>
 <div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    <span class="comment">// Take the mutex</span></div>
 <div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/thread/lock_guard.html">std::lock_guard&lt;std::mutex&gt;</a> <a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/thread/lock.html">lock</a>( m_doubleBufferMutex );</div>
 <div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
@@ -265,7 +265,8 @@ $(document).ready(function(){initNavTree('RenderObjectManager_8cpp_source.html',
 <div class="ttc" id="aend_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/iterator/end.html">std::end</a></div><div class="ttdeci">T end(T... args)</div></div>
 <div class="ttc" id="alock_guard_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/thread/lock_guard.html">std::lock_guard</a></div></div>
 <div class="ttc" id="alock_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/thread/lock.html">std::lock</a></div><div class="ttdeci">T lock(T... args)</div></div>
-<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdef"><b>Definition</b> <a href="Cage_8cpp_source.html#l00003">Cage.cpp:3</a></div></div>
+<div class="ttc" id="anamespaceRa_1_1Engine_1_1Rendering_html_a49447e503c13eb01d7b4d279e127f8e1"><div class="ttname"><a href="namespaceRa_1_1Engine_1_1Rendering.html#a49447e503c13eb01d7b4d279e127f8e1">Ra::Engine::Rendering::RenderObjectType</a></div><div class="ttdeci">RenderObjectType</div><div class="ttdef"><b>Definition</b> <a href="RenderObjectTypes_8hpp_source.html#l00009">RenderObjectTypes.hpp:9</a></div></div>
+<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">Radium Namespaces prefix.</div><div class="ttdef"><b>Definition</b> <a href="Cage_8cpp_source.html#l00003">Cage.cpp:3</a></div></div>
 <div class="ttc" id="areset_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/memory/shared_ptr/reset.html">std::shared_ptr::reset</a></div><div class="ttdeci">T reset(T... args)</div></div>
 <div class="ttc" id="ashared_ptr_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/memory/shared_ptr.html">std::shared_ptr</a></div></div>
 <div class="ttc" id="atransform_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/algorithm/transform.html">std::transform</a></div><div class="ttdeci">T transform(T... args)</div></div>

@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.5.4</span>
+   &#160;<span id="projectnumber">1.5.5</span>
    </div>
   </td>
  </tr>
@@ -144,7 +144,7 @@ $(document).ready(function(){initNavTree('classRa_1_1Headless_1_1CLIViewer.html'
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a9179ab602e32270eb2ae5f5c6d71203e"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classRa_1_1Engine_1_1RadiumEngine.html">Engine::RadiumEngine</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Headless_1_1CLIViewer.html#a9179ab602e32270eb2ae5f5c6d71203e">getEngine</a> () const</td></tr>
-<tr class="memdesc:a9179ab602e32270eb2ae5f5c6d71203e"><td class="mdescLeft">&#160;</td><td class="mdescRight">To have the same API to access Engine than in Qt based application.  <br /></td></tr>
+<tr class="memdesc:a9179ab602e32270eb2ae5f5c6d71203e"><td class="mdescLeft">&#160;</td><td class="mdescRight">To have the same API to access <a class="el" href="namespaceRa_1_1Engine.html" title="This namespace contains engine and ECS related stuff.">Engine</a> than in Qt based application.  <br /></td></tr>
 <tr class="separator:a9179ab602e32270eb2ae5f5c6d71203e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a709a3dd1360114c0d33881d2e4e57db0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Headless_1_1CLIViewer.html#a709a3dd1360114c0d33881d2e4e57db0">CLIViewer</a> (<a class="elRef" target="_blank" href="http://en.cppreference.com/w/cpp/memory/unique_ptr.html">std::unique_ptr</a>&lt; <a class="el" href="classRa_1_1Headless_1_1OpenGLContext.html">OpenGLContext</a> &gt; context)</td></tr>
 <tr class="memdesc:a709a3dd1360114c0d33881d2e4e57db0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct the viewer using an OpenGL context of the given version.  <br /></td></tr>
@@ -457,7 +457,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>To have the same API to access Engine than in Qt based application. </p>
+<p>To have the same API to access <a class="el" href="namespaceRa_1_1Engine.html" title="This namespace contains engine and ECS related stuff.">Engine</a> than in Qt based application. </p>
 
 <p class="definition">Definition at line <a class="el" href="CLIViewer_8hpp_source.html#l00053">53</a> of file <a class="el" href="CLIViewer_8hpp_source.html">CLIViewer.hpp</a>.</p>
 
@@ -490,7 +490,7 @@ Additional Inherited Members</h2></td></tr>
 <p>example : </p><div class="fragment"><div class="line">idListener = <a class="code hl_function" href="classRa_1_1Headless_1_1CLIViewer.html#a99036a74b3732afb0b03a7a9d07dcd5c">getWindow</a>().<a class="code hl_function" href="group__window.html#ga6e0f7e909e5c4ed58efae74384b0d5f8">mouseListener</a>.<a class="code hl_function" href="classRa_1_1Core_1_1Utils_1_1Observable.html#a4851931d5bedb5e17121a0ff806a9f6d">attach</a>( mouseEventProcessingFunction );</div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1Observable_html_a4851931d5bedb5e17121a0ff806a9f6d"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1Observable.html#a4851931d5bedb5e17121a0ff806a9f6d">Ra::Core::Utils::Observable::attach</a></div><div class="ttdeci">int attach(Observer observer)</div><div class="ttdef"><b>Definition</b> <a href="Observable_8hpp_source.html#l00054">Observable.hpp:54</a></div></div>
 <div class="ttc" id="aclassRa_1_1Headless_1_1CLIViewer_html_a99036a74b3732afb0b03a7a9d07dcd5c"><div class="ttname"><a href="classRa_1_1Headless_1_1CLIViewer.html#a99036a74b3732afb0b03a7a9d07dcd5c">Ra::Headless::CLIViewer::getWindow</a></div><div class="ttdeci">OpenGLContext &amp; getWindow()</div><div class="ttdoc">Gives access to the window to add event processing callbacks.</div><div class="ttdef"><b>Definition</b> <a href="CLIViewer_8hpp_source.html#l00193">CLIViewer.hpp:193</a></div></div>
-<div class="ttc" id="agroup__window_html_ga6e0f7e909e5c4ed58efae74384b0d5f8"><div class="ttname"><a href="group__window.html#ga6e0f7e909e5c4ed58efae74384b0d5f8">Ra::Headless::OpenGLContext::mouseListener</a></div><div class="ttdeci">Ra::Core::Utils::Observable&lt; int, int, int, int, int &gt; &amp; mouseListener()</div><div class="ttdef"><b>Definition</b> <a href="OpenGLContext_8hpp_source.html#l00106">OpenGLContext.hpp:106</a></div></div>
+<div class="ttc" id="agroup__window_html_ga6e0f7e909e5c4ed58efae74384b0d5f8"><div class="ttname"><a href="group__window.html#ga6e0f7e909e5c4ed58efae74384b0d5f8">Ra::Headless::OpenGLContext::mouseListener</a></div><div class="ttdeci">Ra::Core::Utils::Observable&lt; int, int, int, int, int &gt; &amp; mouseListener()</div><div class="ttdef"><b>Definition</b> <a href="OpenGLContext_8hpp_source.html#l00109">OpenGLContext.hpp:109</a></div></div>
 </div><!-- fragment --> 
 <p class="definition">Definition at line <a class="el" href="CLIViewer_8hpp_source.html#l00193">193</a> of file <a class="el" href="CLIViewer_8hpp_source.html">CLIViewer.hpp</a>.</p>
 
