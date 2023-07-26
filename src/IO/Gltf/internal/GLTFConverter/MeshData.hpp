@@ -70,6 +70,9 @@ class MeshData
                 auto idTexCoord               = std::stoi( attrib.first.substr( 9 ) );
                 m_texCoordBuffers[idTexCoord] = GetData( doc, doc.accessors[attrib.second] );
             }
+            else if ( attrib.first == "COLOR_0" ) {
+                m_ColorBuffer = GetData( doc, doc.accessors[attrib.second] );
+            }
         }
 
         if ( primitive.indices >= 0 ) {
@@ -112,6 +115,12 @@ class MeshData
     [[nodiscard]] const BufferInfo& TexCoordBuffer( int i ) const noexcept {
         return m_texCoordBuffers[i];
     }
+
+    /**
+     *
+     * @return the color buffer of the mesh
+     */
+    [[nodiscard]] const BufferInfo& ColorBuffer() const noexcept { return m_ColorBuffer; }
 
     /**
      *
@@ -230,9 +239,12 @@ class MeshData
     BufferInfo m_vertexBuffer {};
     BufferInfo m_normalBuffer {};
     BufferInfo m_tangentBuffer {};
-    // TODO : spec require to manage at least two texture coordinate sets
+    // spec require to manage at least two texture coordinate sets.
+    // only one will be given to Radium as Radium does not support multiple texcoord
+    // TODO, update RAdium to support at least 2 texcoord set
     std::array<BufferInfo, 2> m_texCoordBuffers;
-    // BufferInfo m_texCoord0Buffer {};
+    // spec require to support at least one color attribute
+    BufferInfo m_ColorBuffer {};
 
     MaterialData m_materialData {};
 
