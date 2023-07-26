@@ -65,16 +65,21 @@ void Texture::initialize() {
 
 void Texture::initializeNow() {
     if ( !isSupportedTarget() ) return;
-    createTexture();
     computeIsMipMappedFlag();
+
+    createTexture();
     sendSamplerParametersToGpu();
     sendImageDataToGpu();
 }
 
 void Texture::destroy() {
     if ( m_texture ) {
-        auto task = std::make_unique<DeleteTextureTask>( std::move( m_texture ) );
-        RadiumEngine::getInstance()->addGpuTask( std::move( task ) );
+        // if engine is still available
+        if ( auto engine = RadiumEngine::getInstance() ) {
+            auto task = std::make_unique<DeleteTextureTask>( std::move( m_texture ) );
+            engine->addGpuTask( std::move( task ) );
+        }
+        // else gpu representation will not be cleaned by the application.
         m_texture.reset();
     }
 }
@@ -294,12 +299,25 @@ void Texture::sendImageDataToGpu() {
     GL_CHECK_ERROR;
 }
 
+void Texture::readFromGpu( int level ) {
+    CORE_ASSERT( m_texture != nullptr, "Cannot get non initialized texture" );
+    CORE_ASSERT( m_textureParameters.image.isTexelOfType<ImageParameters::ImageType>(),
+                 "Can only get image typf" );
+    CORE_ASSERT( m_textureParameters.image.getTexels() != nullptr, "Can only get image type" );
+    CORE_ASSERT( GL_TEXTURE_CUBE_MAP != m_texture->target(), "Cannot get cube map" );
+
+    m_texture->getImage( level,
+                         m_textureParameters.image.format,
+                         m_textureParameters.image.type,
+                         m_textureParameters.image.getImage().get() );
+}
+
 // let the compiler warn about case fallthrough
 void Texture::sendSamplerParametersToGpu() {
     switch ( m_texture->target() ) {
     case GL_TEXTURE_CUBE_MAP:
     case GL_TEXTURE_3D:
-        m_texture->setParameter( GL_TEXTURE_WRAP_R, m_textureParameters.sampler.wrapP );
+        m_texture->setParameter( GL_TEXTURE_WRAP_R, m_textureParameters.sampler.wrapR );
         GL_CHECK_ERROR;
         [[fallthrough]];
     case GL_TEXTURE_2D:

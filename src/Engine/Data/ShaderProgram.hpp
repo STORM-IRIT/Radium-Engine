@@ -52,6 +52,11 @@ class RA_ENGINE_API ShaderProgram final
     void setUniform( const char* name, const T& value ) const;
     void setUniform( const char* name, Texture* tex, int texUnit ) const;
 
+    template <typename T>
+    void setUniform( gl::GLint location, const T& value ) const {
+        m_program->setUniform( location, value );
+    }
+
     //! use automatic texture unit computation
     //! if you want to send a particular texture unit, use setUniform.
     //! It binds tex on an "arbitrary" tex unit.

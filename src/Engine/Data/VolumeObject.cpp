@@ -11,7 +11,7 @@ namespace Ra {
 namespace Engine {
 namespace Data {
 VolumeObject::VolumeObject( const std::string& name ) :
-    Displayable( name ), m_tex( {} ), m_mesh( name + "_internal" ) {}
+    Displayable( name ), m_mesh( name + "_internal" ) {}
 
 VolumeObject::~VolumeObject() {}
 

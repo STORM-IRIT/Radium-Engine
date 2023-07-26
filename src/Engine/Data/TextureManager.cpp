@@ -22,18 +22,17 @@ TextureManager::TextureHandle TextureManager::addTexture( const TextureParameter
     // find first free slot in m_newTextures
     auto texture = std::make_unique<Texture>( parameters );
     TextureHandle handle;
-    auto it = std::find_if( m_newTextures.begin(), m_newTextures.end(), []( const auto& texture ) {
-        return !texture;
-    } );
-    if ( it != m_newTextures.end() ) {
+    auto it = std::find_if(
+        m_textures.begin(), m_textures.end(), []( const auto& texture ) { return !texture; } );
+    if ( it != m_textures.end() ) {
         it->swap( texture );
-        handle.setValue( std::distance( m_newTextures.begin(), it ) );
+        handle.setValue( std::distance( m_textures.begin(), it ) );
     }
     else {
-        m_newTextures.push_back( std::move( texture ) );
-        handle.setValue( m_newTextures.size() - 1 );
+        m_textures.push_back( std::move( texture ) );
+        handle.setValue( m_textures.size() - 1 );
     }
-    m_newTextures[handle.getValue()]->initialize();
+    m_textures[handle.getValue()]->initialize();
     return handle;
 }
 
@@ -78,27 +77,28 @@ ImageParameters TextureManager::loadTextureImage( const std::string& filename, b
     }
 
     CORE_ASSERT( data, "Data is null" );
-    image.texels = std::shared_ptr<void>( data );
+    // make a shared ptr, with deleter from stb
+    image.texels = std::shared_ptr<void>( data, stbi_image_free );
     image.type   = GL_UNSIGNED_BYTE;
     if ( linearize ) Texture::linearize( image );
     return image;
 }
 
 Texture* TextureManager::getTexture( const TextureHandle& handle ) {
-    return handle.isValid() ? m_newTextures[handle.getValue()].get() : nullptr;
+    return handle.isValid() ? m_textures[handle.getValue()].get() : nullptr;
 }
 
 TextureManager::TextureHandle TextureManager::getTextureHandle( const std::string& name ) {
-    auto it = std::find_if( m_newTextures.begin(),
-                            m_newTextures.end(),
-                            [name]( const auto& texture ) { return texture->getName() == name; } );
+    auto it = std::find_if( m_textures.begin(), m_textures.end(), [name]( const auto& texture ) {
+        return texture->getName() == name;
+    } );
 
-    return it != m_newTextures.end() ? TextureHandle { std::distance( m_newTextures.begin(), it ) }
-                                     : TextureHandle::Invalid();
+    return it != m_textures.end() ? TextureHandle { std::distance( m_textures.begin(), it ) }
+                                  : TextureHandle::Invalid();
 }
 
 void TextureManager::deleteTexture( const TextureHandle& handle ) {
-    if ( handle.isValid() ) m_newTextures[handle.getValue()].reset( nullptr );
+    if ( handle.isValid() ) m_textures[handle.getValue()].reset( nullptr );
 }
 
 } // namespace Data

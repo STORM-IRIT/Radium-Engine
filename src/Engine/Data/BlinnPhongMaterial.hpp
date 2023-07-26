@@ -51,27 +51,6 @@ class RA_ENGINE_API BlinnPhongMaterial final
 
     using MaterialTextureSet<TextureSemantic>::addTexture;
 
-    /// \todo Fix this specialisation. Maybe assume that named texture have to be added to manager
-    /// before hand, and that texture on the fly addition is a fix, hence no special care for normal
-    /// maps.
-    void addTexture( const TextureSemantic& semantic, const std::string& texture ) {
-        CORE_ASSERT( !texture.empty(), "Invalid texture name" );
-        auto texManager = RadiumEngine::getInstance()->getTextureManager();
-        auto texHandle  = texManager->getTextureHandle( texture );
-        if ( texHandle.isValid() ) {
-            MaterialTextureSet<TextureSemantic>::addTexture( semantic, texHandle );
-        }
-        else {
-            TextureParameters data;
-            data.name          = texture;
-            data.sampler.wrapS = GL_REPEAT;
-            data.sampler.wrapT = GL_REPEAT;
-            if ( semantic != TextureSemantic::TEX_NORMAL )
-                data.sampler.minFilter = GL_LINEAR_MIPMAP_LINEAR;
-            MaterialTextureSet<TextureSemantic>::addTexture( semantic, data );
-        }
-    }
-
     void updateGL() override;
     void updateFromParameters() override;
     bool isTransparent() const override;

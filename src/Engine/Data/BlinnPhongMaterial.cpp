@@ -140,20 +140,37 @@ BlinnPhongMaterialConverter::operator()( const Ra::Core::Asset::MaterialData* to
     if ( source->hasSpecular() ) result->m_ks = source->m_specular;
     if ( source->hasShininess() ) result->m_ns = source->m_shininess;
     if ( source->hasOpacity() ) result->m_alpha = source->m_opacity;
-    if ( source->hasDiffuseTexture() )
-        result->addTexture( BlinnPhongMaterial::TextureSemantic::TEX_DIFFUSE,
-                            source->m_texDiffuse );
-    if ( source->hasSpecularTexture() )
-        result->addTexture( BlinnPhongMaterial::TextureSemantic::TEX_SPECULAR,
-                            source->m_texSpecular );
-    if ( source->hasShininessTexture() )
-        result->addTexture( BlinnPhongMaterial::TextureSemantic::TEX_SHININESS,
-                            source->m_texShininess );
-    if ( source->hasOpacityTexture() )
-        result->addTexture( BlinnPhongMaterial::TextureSemantic::TEX_ALPHA, source->m_texOpacity );
-    if ( source->hasNormalTexture() )
-        result->addTexture( BlinnPhongMaterial::TextureSemantic::TEX_NORMAL, source->m_texNormal );
+    TextureParameters data;
+    data.sampler.wrapS     = GL_REPEAT;
+    data.sampler.wrapT     = GL_REPEAT;
+    data.sampler.minFilter = GL_LINEAR_MIPMAP_LINEAR;
+    auto texManager        = RadiumEngine::getInstance()->getTextureManager();
+    if ( source->hasDiffuseTexture() ) {
+        data.name  = "diffuse";
+        data.image = texManager->loadTextureImage( source->m_texDiffuse, true );
+        result->addTexture( BlinnPhongMaterial::TextureSemantic::TEX_DIFFUSE, data );
+    }
+    if ( source->hasSpecularTexture() ) {
+        data.name  = "specular";
+        data.image = texManager->loadTextureImage( source->m_texSpecular, true );
+        result->addTexture( BlinnPhongMaterial::TextureSemantic::TEX_SPECULAR, data );
+    }
+    if ( source->hasShininessTexture() ) {
+        data.name  = "shininess";
+        data.image = texManager->loadTextureImage( source->m_texShininess, false );
+        result->addTexture( BlinnPhongMaterial::TextureSemantic::TEX_SHININESS, data );
+    }
 
+    if ( source->hasOpacityTexture() ) {
+        data.name  = "opacity";
+        data.image = texManager->loadTextureImage( source->m_texOpacity, false );
+        result->addTexture( BlinnPhongMaterial::TextureSemantic::TEX_ALPHA, data );
+    }
+    if ( source->hasNormalTexture() ) {
+        data.name  = "normal";
+        data.image = texManager->loadTextureImage( source->m_texNormal, false );
+        result->addTexture( BlinnPhongMaterial::TextureSemantic::TEX_NORMAL, data );
+    }
     return result;
 }
 

@@ -23,8 +23,8 @@ struct SamplerParameters {
     GLenum wrapS { GL_CLAMP_TO_EDGE };
     /// OpenGL wrap mode in the t direction
     GLenum wrapT { GL_CLAMP_TO_EDGE };
-    /// OpenGL wrap mode in the p direction
-    GLenum wrapP { GL_CLAMP_TO_EDGE };
+    /// OpenGL wrap mode in the r direction
+    GLenum wrapR { GL_CLAMP_TO_EDGE };
     /// OpenGL minification filter ( GL_LINEAR or GL_NEAREST or GL_XXX_MIPMAP_YYY )
     GLenum minFilter { GL_LINEAR };
     /// OpenGL magnification filter ( GL_LINEAR or GL_NEAREST )
@@ -42,13 +42,16 @@ struct ImageParameters {
         return std::holds_alternative<TexelType>( texels );
     }
 
+    ImageType getImage() const {
+        CORE_ASSERT( isTexelOfType<ImageType>(), "texture variant is not ImageType" );
+        return std::get<ImageType>( texels );
+    }
+    void setImage( ImageType image ) { texels = image; }
+
     /// get texels raw pointer
     /// throws std::bad_variant_access if !isTexelOfType<ImageType>()
     /// see std::get
-    const void* getTexels() const {
-        CORE_ASSERT( isTexelOfType<ImageType>(), "texture variant is not ImageType" );
-        return std::get<ImageType>( texels ).get();
-    }
+    const void* getTexels() const { return getImage().get(); }
 
     /// get cube map array of shared ptr
     /// throws std::bad_variant_access if !isTexelOfType<CubeMapType>()
@@ -57,18 +60,19 @@ struct ImageParameters {
         CORE_ASSERT( isTexelOfType<CubeMapType>(), "texture variant is not CubeMapType" );
         return std::get<CubeMapType>( texels );
     }
+    void setCubeMap( CubeMapType cubeMap ) { texels = cubeMap; }
 
     GLenum target { GL_TEXTURE_2D }; //< OpenGL target
     size_t width { 1 };              //< width of the texture (s dimension)
     size_t height { 1 };             //< height of the texture (t dimension)
-    size_t depth { 1 };              //< width of the texture (p dimension)
+    size_t depth { 1 };              //< depth of the texture (r dimension)
     GLenum format { GL_RGB };        //< Format of the external data
     /// OpenGL internal format (WARNING, for Integer textures, must be GL_XXX_INTEGER)
     GLenum internalFormat { GL_RGB };
     GLenum type { GL_UNSIGNED_BYTE }; //< Type of the components in external data
     /// set to true when linearize texture rgb component. If true, linearize has no effect.
     bool isLinear { false };
-    std::variant<ImageType, CubeMapType> texels; //< texels OR cubeMap, shared ownership
+    std::variant<ImageType, CubeMapType> texels { nullptr }; //< texels OR cubeMap, shared ownership
 };
 
 /** \brief Describes the content and parameters of a texture.
@@ -147,6 +151,7 @@ class RA_ENGINE_API Texture final
 
     /// \return Name of the texture.
     inline std::string getName() const { return m_textureParameters.name; }
+    inline void setName( const std::string& name ) { m_textureParameters.name = name; }
 
     /// \return the pixel format of the texture
     GLenum getFormat() const { return m_textureParameters.image.format; }
@@ -174,6 +179,7 @@ class RA_ENGINE_API Texture final
 
     /// get read access to texture parameters
     const TextureParameters& getParameters() const { return m_textureParameters; }
+    TextureParameters& getParameters() { return m_textureParameters; }
 
     /** \brief Update the cpu representation of data contained by the texture.
      *
@@ -236,6 +242,21 @@ class RA_ENGINE_API Texture final
      */
     static void linearize( ImageParameters& image );
 
+    /// \brief Regiter gpu task to RadiumEngine. Will call sendImageDataToGpu during next
+    /// RadiumEngine::runGpuTasks() call.
+    void registerUpdateImageDataTask();
+
+    /// \brief Regiter gpu task to RadiumEngine. Will call sendSamplerParametersToGpu during
+    /// next RadiumEngine::runGpuTasks() call.
+    void registerUpdateSamplerParametersTask();
+
+    /// \brief Send image data to the GPU and generate mipmap if needed
+    void sendImageDataToGpu();
+    void readFromGpu( int level = 0 );
+
+    /// \brief Send sampler parameters to the GPU
+    void sendSamplerParametersToGpu();
+
   private:
     /**
      * Current implementation supports GL_TEXTURE_1D, GL_TEXTURE_2D, GL_TEXTURE_RECTANGLE,
@@ -253,20 +274,6 @@ class RA_ENGINE_API Texture final
      * \return true if allocation is performed.
      */
     bool createTexture();
-
-    /// \brief Regiter gpu task to RadiumEngine. Will call sendImageDataToGpu during next
-    /// RadiumEngine::runGpuTasks() call.
-    void registerUpdateImageDataTask();
-
-    /// \brief Regiter gpu task to RadiumEngine. Will call sendSamplerParametersToGpu during
-    /// next RadiumEngine::runGpuTasks() call.
-    void registerUpdateSamplerParametersTask();
-
-    /// \brief Send image data to the GPU and generate mipmap if needed
-    void sendImageDataToGpu();
-
-    /// \brief Send sampler parameters to the GPU
-    void sendSamplerParametersToGpu();
 
     /** \brief Convert a color texture from sRGB to Linear RGB spaces.
      *

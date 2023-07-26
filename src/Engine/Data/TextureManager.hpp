@@ -80,7 +80,7 @@ class RA_ENGINE_API TextureManager final
     TextureManager& operator=( TextureManager&& )      = delete;
 
   private:
-    std::vector<std::unique_ptr<Texture>> m_newTextures;
+    std::vector<std::unique_ptr<Texture>> m_textures;
 };
 
 } // namespace Data
