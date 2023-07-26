@@ -234,8 +234,9 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
      * Wedge indices are updated to reflect the change in topology.
      * For detailed topological modifications see \ref develmeshes.
      * \param he halfedge's hangle to collapse.
+     * \param keepFromVertex whether the remaining vertex is from or to vertex of \a he
      */
-    void collapse( HalfedgeHandle, bool = false );
+    void collapse( HalfedgeHandle he, bool keepFromVertex = false );
     [[deprecated( "use collapse() instead." )]] void
     collapseWedge( TopologicalMesh::HalfedgeHandle he, bool keepFromVertex = false );
     ///@}

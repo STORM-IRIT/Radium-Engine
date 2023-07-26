@@ -23,7 +23,10 @@ class FileData;
 } // namespace Asset
 } // namespace Core
 
+/// This namespace contains engine and ECS related stuff
 namespace Engine {
+
+/// Scene and how to communicate
 namespace Scene {
 class System;
 class Entity;
@@ -32,12 +35,14 @@ class EntityManager;
 class SignalManager;
 } // namespace Scene
 
+/// (GPU) Data representation, along with manager
 namespace Data {
 class ShaderProgramManager;
 class Displayable;
 class TextureManager;
 } // namespace Data
 
+/// Rendering engines.
 namespace Rendering {
 class RenderObjectManager;
 }
