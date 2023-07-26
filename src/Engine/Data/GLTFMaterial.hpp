@@ -251,6 +251,20 @@ class RA_ENGINE_API GLTFMaterial : public Material, public ParameterSetEditingIn
     nlohmann::json getParametersMetadata() const override;
 
     /**
+     * \brief Makes the Material take its base color from the VERTEX_COLOR attribute of the rendered
+     * geometry \param state activate (true) or deactivate (false) VERTEX_COLOR attribute usage
+     *
+     * Any material that support per-vertex color parameterization should implement this method
+     * accordingly
+     */
+    void setColoredByVertexAttrib( bool state ) override { m_isColoredByVertex = state; };
+
+    /**
+     * \brief Indicates if the material takes the VERTEX_COLOR attribute into account.
+     */
+    bool isColoredByVertexAttrib() const override { return m_isColoredByVertex; }
+
+    /**
      * Register the material to the Radium Material subsystem
      */
     static void registerMaterial();
@@ -341,6 +355,8 @@ class RA_ENGINE_API GLTFMaterial : public Material, public ParameterSetEditingIn
     using GltfAlphaModeEnumConverter = typename Ra::Core::Utils::EnumConverter<
         typename std::underlying_type<Core::Material::AlphaMode>::type>;
     static std::shared_ptr<GltfAlphaModeEnumConverter> s_AlphaModeEnum;
+
+    bool m_isColoredByVertex { false };
 
   protected:
     // todo : make this private with set/reset methods

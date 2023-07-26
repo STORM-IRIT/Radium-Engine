@@ -269,9 +269,11 @@ void GLTFMaterial::fillBaseFrom( const Core::Material::BaseGLTFMaterial* source 
 
 std::list<std::string> GLTFMaterial::getPropertyList() const {
     std::list<std::string> props = Ra::Engine::Data::Material::getPropertyList();
-    // Expose the new GLTF__INTERFACE that will eveolve until it is submitted to Radium
+    // Expose the new GLTF__INTERFACE that will evolve until it is submitted to Radium
     // GLSL/Material interface
     props.emplace_back( "GLTF_MATERIAL_INTERFACE" );
+    // per vertex color
+    if ( isColoredByVertexAttrib() ) { props.emplace_back( "HAS_PERVERTEX_COLOR" ); }
     // unlit
     if ( getUnlitStatus() ) { props.emplace_back( "MATERIAL_UNLIT" ); }
     // textures
