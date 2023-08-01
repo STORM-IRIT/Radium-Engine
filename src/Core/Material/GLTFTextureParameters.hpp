@@ -38,7 +38,7 @@ struct RA_CORE_API GLTFTextureTransform {
 
 /**
  * \brief Sampler Data as defined by GlTF specification
- * Enums correspond to OpenGL specification
+ * Enums correspond to OpenGL specification as requested by gltf
  */
 struct RA_CORE_API GLTFSampler {
     enum class MagFilter : uint16_t { Nearest = 9728, Linear = 9729 };

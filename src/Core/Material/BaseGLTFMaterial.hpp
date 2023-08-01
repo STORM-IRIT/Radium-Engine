@@ -10,7 +10,7 @@ namespace Ra {
 namespace Core {
 namespace Material {
 
-/// GLTF Alpha mode definition
+/// \brief GLTF Alpha mode definition
 enum AlphaMode : unsigned int { Opaque = 0, Mask, Blend };
 
 /**
@@ -32,40 +32,52 @@ struct RA_CORE_API GLTFMaterialExtensionData : public Ra::Core::Asset::MaterialD
 class RA_CORE_API BaseGLTFMaterial : public Ra::Core::Asset::MaterialData
 {
   public:
-    /// Attributes of a gltf material
     /// Normal texture
+    ///\{
     std::string m_normalTexture {};
     float m_normalTextureScale { 1 };
     GLTFSampler m_normalSampler {};
     bool m_hasNormalTexture { false };
     mutable std::unique_ptr<GLTFTextureTransform> m_normalTextureTransform { nullptr };
+    ///\}
 
     /// Occlusion texture
+    ///\{
     std::string m_occlusionTexture {};
     float m_occlusionStrength { 1 };
     GLTFSampler m_occlusionSampler {};
     bool m_hasOcclusionTexture { false };
     mutable std::unique_ptr<GLTFTextureTransform> m_occlusionTextureTransform { nullptr };
+    ///}
+
     /// Emissive texture
+    ///\{
     std::string m_emissiveTexture {};
     Ra::Core::Utils::Color m_emissiveFactor { 0.0, 0.0, 0.0, 1.0 };
     GLTFSampler m_emissiveSampler {};
     bool m_hasEmissiveTexture { false };
     mutable std::unique_ptr<GLTFTextureTransform> m_emissiveTextureTransform { nullptr };
+    ///\}
 
     /// Transparency parameters
+    ///\{
     AlphaMode m_alphaMode { AlphaMode::Opaque };
     float m_alphaCutoff { 0.5 };
+    ///\}
 
     /// Face culling parameter
     bool m_doubleSided { false };
 
-    // Extension data pass through the system
+    /// Material extensions data
     std::map<std::string, std::unique_ptr<GLTFMaterialExtensionData>> m_extensions {};
 
     explicit BaseGLTFMaterial( const std::string& gltfType, const std::string& instanceName );
     ~BaseGLTFMaterial() override = default;
 
+    /**
+     *  \defgroup ExtensionManagement Material extension management
+     *  \{
+     */
     virtual bool supportExtension( const std::string& extensionName ) {
         auto it = m_allowedExtensions.find( extensionName );
         return ( it != m_allowedExtensions.end() ) && ( it->second );
@@ -79,7 +91,16 @@ class RA_CORE_API BaseGLTFMaterial : public Ra::Core::Asset::MaterialData
 
     void allowExtension( const std::string& extension ) { m_allowedExtensions[extension] = true; }
 
+    void allowExtensionList( std::initializer_list<std::string> extensions ) {
+        std::for_each( extensions.begin(), extensions.end(), [this]( const std::string& e ) {
+            this->allowExtension( e );
+        } );
+    }
+    /// \}
   private:
+    /***
+     * \ingroup  ExtensionManagement
+     */
     std::map<std::string, bool> m_allowedExtensions {};
 };
 
