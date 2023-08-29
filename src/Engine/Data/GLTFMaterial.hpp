@@ -302,7 +302,7 @@ class RA_ENGINE_API GLTFMaterial : public Material, public ParameterSetEditingIn
     float getAlphaCutoff() const { return m_alphaCutoff; }
     void setAlphaCutoff( float alphaCutoff ) { m_alphaCutoff = alphaCutoff; }
 
-    bool isDoubleSided() const { return m_doubleSided; }
+    bool isDoubleSided() const override { return m_doubleSided; }
     void setDoubleSided( bool doubleSided ) { m_doubleSided = doubleSided; }
 
     float getIndexOfRefraction() const { return m_indexOfRefraction; }

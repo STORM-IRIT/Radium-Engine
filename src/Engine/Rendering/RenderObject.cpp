@@ -285,7 +285,11 @@ void RenderObject::render( const Data::RenderParameters& lightParams,
     // Note that this hack implies the inclusion of OpenGL.h in this file
     if ( viewParams.viewMatrix.determinant() < 0 ) { glFrontFace( GL_CW ); }
     else { glFrontFace( GL_CCW ); }
+    // To enable correct culling when required (e.g. by gltf material)
+    GLboolean cullEnable = glIsEnabled( GL_CULL_FACE );
+    if ( !m_material->isDoubleSided() ) { glEnable( GL_CULL_FACE ); }
     m_mesh->render( shader );
+    if ( !cullEnable ) glDisable( GL_CULL_FACE );
 }
 
 void RenderObject::render( const Data::RenderParameters& lightParams,
