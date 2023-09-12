@@ -1,4 +1,5 @@
 // Include Radium base application and its simple Gui
+#include "Engine/Data/BlinnPhongMaterial.hpp"
 #include <Gui/BaseApplication.hpp>
 #include <Gui/RadiumWindow/SimpleWindowFactory.hpp>
 
@@ -42,24 +43,20 @@ int main( int argc, char* argv[] ) {
     textureParameters.image.height         = height;
     textureParameters.image.texels         = data;
 
-    auto texHandle = app.m_engine->getTextureManager()->addTexture( textureParameters );
+    auto textureHandle = app.m_engine->getTextureManager()->addTexture( textureParameters );
     // these values will be used when engine initialize texture GL representation.
     //! [Creating a texture]
 
     //! [Create an entity and component to draw or data]
     auto e = app.m_engine->getEntityManager()->createEntity( "Textured quad" );
 
-    Ra::Core::Asset::BlinnPhongMaterialData matData( "myMaterialData" );
+    auto material = std::make_shared<Ra::Engine::Data::BlinnPhongMaterial>( "myMaterialData" );
     // remove glossy highlight
-    matData.m_specular    = Ra::Core::Utils::Color::Black();
-    matData.m_hasSpecular = true;
-
-    matData.m_hasTexDiffuse = true;
-    // this name has to be the same as texManager added texture name
-    matData.m_texDiffuse = "myTexture";
-
+    material->m_ks = Ra::Core::Utils::Color::Black();
+    material->addTexture( Ra::Engine::Data::TextureSemantics::BlinnPhongMaterial::TEX_DIFFUSE,
+                          textureHandle );
     // the entity get's this new component ownership. a bit wired since hidden in ctor.
-    new Ra::Engine::Scene::TriangleMeshComponent( "Quad Mesh", e, std::move( quad ), &matData );
+    new Ra::Engine::Scene::TriangleMeshComponent( "Quad Mesh", e, std::move( quad ), material );
     //! [Create an entity and component to draw or data]
 
     //! [Tell the window that something is to be displayed]
