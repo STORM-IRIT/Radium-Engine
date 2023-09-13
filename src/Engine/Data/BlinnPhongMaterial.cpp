@@ -173,7 +173,6 @@ BlinnPhongMaterialConverter::operator()( const Ra::Core::Asset::MaterialData* to
     }
     return result;
 }
-
 } // namespace Data
 } // namespace Engine
 } // namespace Ra

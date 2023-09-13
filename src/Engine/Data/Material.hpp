@@ -112,8 +112,13 @@ class RA_ENGINE_API Material : public Data::ShaderParameterProvider
      */
     inline void setMaterialName( std::string newName ) { m_materialName = std::move( newName ); }
 
+    /// Return dirty state
     bool isDirty() { return m_isDirty; }
+
+    /// Set dirty state to true
     void setDirty() { m_isDirty = true; }
+
+    /// Set dirty state to false
     void setClean() { m_isDirty = false; }
 
   private:

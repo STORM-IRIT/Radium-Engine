@@ -78,15 +78,23 @@ class RA_ENGINE_API BlinnPhongMaterial final
 
     inline bool isColoredByVertexAttrib() const override;
 
-  public:
+    inline void setDiffuseColor( Core::Utils::Color c );
+    inline void setSpecularColor( Core::Utils::Color c );
+    inline void setSpecularExponent( Scalar n );
+    inline void setRenderAsSplat( bool state );
+
+    inline const Core::Utils::Color& getDiffuseColor() { return m_kd; }
+    inline const Core::Utils::Color& getSpecularColor() { return m_ks; }
+    inline Scalar getSpecularExponent() { return m_ns; }
+    inline bool isRenderAsSplat() { return m_renderAsSplat; }
+
+  private:
     Core::Utils::Color m_kd { 0.7, 0.7, 0.7, 1.0 };
     Core::Utils::Color m_ks { 0.3, 0.3, 0.3, 1.0 };
     Scalar m_ns { 64.0 };
     Scalar m_alpha { 1.0 };
     bool m_perVertexColor { false };
     bool m_renderAsSplat { false };
-
-  private:
     static nlohmann::json s_parametersMetadata;
 
     /**
@@ -112,13 +120,36 @@ inline nlohmann::json BlinnPhongMaterial::getParametersMetadata() const {
 }
 
 inline void BlinnPhongMaterial::setColoredByVertexAttrib( bool state ) {
-    bool oldState    = m_perVertexColor;
-    m_perVertexColor = state;
-    if ( oldState != m_perVertexColor ) { needUpdate(); }
+    if ( state != m_perVertexColor ) {
+        m_perVertexColor = state;
+        needUpdate();
+    }
 }
 
 inline bool BlinnPhongMaterial::isColoredByVertexAttrib() const {
     return m_perVertexColor;
+}
+
+inline void BlinnPhongMaterial::setSpecularExponent( Scalar n ) {
+    m_ns = n;
+    needUpdate();
+}
+
+inline void BlinnPhongMaterial::setSpecularColor( Core::Utils::Color c ) {
+    m_ks = std::move( c );
+    needUpdate();
+}
+
+inline void BlinnPhongMaterial::setDiffuseColor( Core::Utils::Color c ) {
+    m_kd = std::move( c );
+    needUpdate();
+}
+
+inline void BlinnPhongMaterial::setRenderAsSplat( bool state ) {
+    if ( state != m_renderAsSplat ) {
+        m_renderAsSplat = state;
+        needUpdate();
+    }
 }
 
 } // namespace Data

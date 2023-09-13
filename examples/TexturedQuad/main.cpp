@@ -52,7 +52,7 @@ int main( int argc, char* argv[] ) {
 
     auto material = std::make_shared<Ra::Engine::Data::BlinnPhongMaterial>( "myMaterialData" );
     // remove glossy highlight
-    material->m_ks = Ra::Core::Utils::Color::Black();
+    material->setSpecularColor( Ra::Core::Utils::Color::Black() );
     material->addTexture( Ra::Engine::Data::TextureSemantics::BlinnPhongMaterial::TEX_DIFFUSE,
                           textureHandle );
     // the entity get's this new component ownership. a bit wired since hidden in ctor.
