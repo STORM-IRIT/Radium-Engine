@@ -17,10 +17,11 @@ namespace Data {
 
 /** \brief Namespace to define materials' texture semantics.
  *
+ * The semantic of the texture defines which BSDF parameter is controled by the texture
  * Convention: add you're material's MyMaterial Enum inside TextureSemantics namespace.
  */
 namespace TextureSemantics {
-/// Semantic of the texture : define which BSDF parameter is controled by the texture
+///@ SimpleMaterial's textures
 enum class SimpleMaterial { TEX_COLOR, TEX_MASK };
 } // namespace TextureSemantics
 

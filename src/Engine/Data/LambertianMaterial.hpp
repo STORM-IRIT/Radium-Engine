@@ -5,6 +5,7 @@
 namespace Ra {
 namespace Engine {
 namespace Data {
+
 /**
  * Implementation of the Lambertian Material BSDF.
  * This material implements a lambertian diffuse BSDF.

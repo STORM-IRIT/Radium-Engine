@@ -18,6 +18,7 @@ namespace Ra {
 namespace Engine {
 namespace Data {
 
+/// GPU Sampler configuration
 struct SamplerParameters {
     /// OpenGL wrap mode in the s direction
     GLenum wrapS { GL_CLAMP_TO_EDGE };
@@ -31,6 +32,11 @@ struct SamplerParameters {
     GLenum magFilter { GL_LINEAR };
 };
 
+/// ImageParameters stores the infomation needed to upload a image to the GPU as a texture.
+/// The actual data is stored as a std::variant, so this image parameter can storke either a single
+/// image or a cube map as an array of 6 images. The stored shared_ptr is void, and must correspond
+/// to the format described by the other ImageParameters data member.
+/// Its perfectly fine to have nullptr texels to represent GPU only texture.
 struct ImageParameters {
     /// Types for texels variant
     using ImageType   = std::shared_ptr<void>;
@@ -75,15 +81,15 @@ struct ImageParameters {
     std::variant<ImageType, CubeMapType> texels { nullptr }; //< texels OR cubeMap, shared ownership
 };
 
-/** \brief Describes the content and parameters of a texture.
- * This structures encapsulates all the states used for creating an OpenGL texture.
- *  These parameters describe the image data of the texture :
+/** \brief Describes the sampler and image of a texture.
+ *
+ * These parameters describe the image data of the texture :
  *    - ImageParameters: target, width, height, depth, format, internalFormat, type and texels for
  * describing image data
  *    - SampleParameters: wrapS, wrapT, wrapP, minFilter and magFilter for describing the sampler of
  * the texture.
  *
- *  MipMap representation of the texture is automatically generated as soon as the minFilter
+ * MipMap representation of the texture is automatically generated as soon as the minFilter
  * parameter is something else than GL_LINEAR or GL_NEAREST
  *
  * \note No coherence checking will be done on the content of this structure. User must ensure
@@ -146,39 +152,52 @@ class RA_ENGINE_API Texture final
      */
     void initializeNow();
 
+    /** \brief destroy the GPU texture representation.
+     *
+     * It creates gpu tasks the engine will run during next draw call, so it can be called
+     * without active opengl context.
+     */
     void destroy();
+
+    /** \brief Generate the GPU representation of the texture <b>right now</b>. Need an active
+     * OpenGL context.
+     *
+     * see destroy() which is the same method, but delay gpu stuff to engine gpu tasks.
+     */
     void destroyNow();
 
-    /// \return Name of the texture.
+    /** \return Name of the texture. */
     inline std::string getName() const { return m_textureParameters.name; }
+    /** Sets the name of the texture. */
     inline void setName( const std::string& name ) { m_textureParameters.name = name; }
 
-    /// \return the pixel format of the texture
+    /** \return the pixel format of the texture */
     GLenum getFormat() const { return m_textureParameters.image.format; }
 
-    /// \return the width of the texture
+    /** \return the width of the texture */
     size_t getWidth() const { return m_textureParameters.image.width; }
 
-    /// \return the height of the texture
+    /** \return the height of the texture */
     size_t getHeight() const { return m_textureParameters.image.height; }
 
-    /// \return the depth of the texture
+    /** \return the depth of the texture */
     size_t getDepth() const { return m_textureParameters.image.depth; }
 
-    /// \return raw pointer to texels (or nullptr if cubeMap or no cpu side representation).
+    /** \return raw pointer to texels (or nullptr if cubeMap or no cpu side representation). */
     const void* getTexels() { return m_textureParameters.image.getTexels(); }
 
-    /** \brief Get the underlying globjects::Texture.
+    /** \brief Get ptr to the managed globjects::Texture.
      *
-     * Use with care since you can brake the equivalence
-     * of image and sampler parameters between cpu Data::Texture and gpu side
-     * globlects::Texture.
-     * \return the globjects::Texture associated with the texture.
+     * Please unsure do keep data consistent between Texture's TextureParameters and the
+     * globjects::Texture and prefer using Textue methods to change texture representation if
+     * avaiable.
+     * \return ptr to globjects::Texture associated with the Texture.
      */
     globjects::Texture* getGpuTexture() const { return m_texture.get(); }
 
-    /// get read access to texture parameters
+    /** \brief get read access to texture parameters */
     const TextureParameters& getParameters() const { return m_textureParameters; }
+    /** \brief read/write access to texture parameters */
     TextureParameters& getParameters() { return m_textureParameters; }
 
     /** \brief Update the cpu representation of data contained by the texture.
@@ -195,7 +214,7 @@ class RA_ENGINE_API Texture final
      *
      * This allocate GPU memory to store the new resized texture and, if texels are not nullptr,
      * upload the new content.
-     * \note : If texels are not nullptr, user must ensure the texels array is correctly
+     * \note If texels are not nullptr, user must ensure the texels array is correctly
      * dimensioned.
      * \param w width of the texture
      * \param h height of the texture
@@ -211,9 +230,9 @@ class RA_ENGINE_API Texture final
      * gpu update is triggered inconditionnally.
      */
     void setParameters( const TextureParameters& textureParameters );
-    /// \brief set TextureParameters.image
+    /** \brief set TextureParameters.image */
     void setImageParameters( const ImageParameters& imageParameters );
-    /// \brief set TerctureParameters.samples
+    /** \brief set TerctureParameters.samples */
     void setSamplerParameters( const SamplerParameters& samplerParameters );
 
     /** \brief Bind the texture to GPU texture \a unit to enable its use in a shader. Need
@@ -242,30 +261,33 @@ class RA_ENGINE_API Texture final
      */
     static void linearize( ImageParameters& image );
 
-    /// \brief Regiter gpu task to RadiumEngine. Will call sendImageDataToGpu during next
-    /// RadiumEngine::runGpuTasks() call.
+    /** \brief Regiter gpu task to RadiumEngine. Will call sendImageDataToGpu during next
+     * RadiumEngine::runGpuTasks() call.
+     */
     void registerUpdateImageDataTask();
 
-    /// \brief Regiter gpu task to RadiumEngine. Will call sendSamplerParametersToGpu during
-    /// next RadiumEngine::runGpuTasks() call.
+    /** \brief Regiter gpu task to RadiumEngine. Will call sendSamplerParametersToGpu during
+     * next RadiumEngine::runGpuTasks() call.
+     */
     void registerUpdateSamplerParametersTask();
 
-    /// \brief Send image data to the GPU and generate mipmap if needed
+    /** \brief Send image data to the GPU and generate mipmap if needed */
     void sendImageDataToGpu();
     void readFromGpu( int level = 0 );
 
-    /// \brief Send sampler parameters to the GPU
+    /** \brief Send sampler parameters to the GPU */
     void sendSamplerParametersToGpu();
 
   private:
-    /**
+    /** \brief Check if the texture target is supported.
+     *
      * Current implementation supports GL_TEXTURE_1D, GL_TEXTURE_2D, GL_TEXTURE_RECTANGLE,
      * GL_TEXTURE_3D and GL_TEXTURE_CUBE_MAP.
      * \return true if the target is supported by Texture implementation.
      */
     bool isSupportedTarget();
 
-    /// \brief set m_isMipMapped according to sampler.minFilter
+    /** \brief set m_isMipMapped according to sampler.minFilter */
     void computeIsMipMappedFlag();
 
     /** \brief Allocate gup texture representation (m_texture) if not already allocated
@@ -293,24 +315,24 @@ class RA_ENGINE_API Texture final
                                  uint numComponent,
                                  bool hasAlphaChannel );
 
-    /// \brief linearize a cube map by calling sRGBToLinearRGB fore each face
+    /** \brief Linearize a cube map by calling sRGBToLinearRGB fore each face */
     static void linearizeCubeMap( ImageParameters& image, uint numComponent, bool hasAlphaChannel );
 
-    /// Texture parameters
-    TextureParameters m_textureParameters;
+    TextureParameters m_textureParameters;         /**< Texture parameters */
+    std::unique_ptr<globjects::Texture> m_texture; /**< Link to glObject texture */
+    bool m_isMipMapped { false };                  /**< Is the texture mip-mapped ? */
 
-    /// Link to glObject texture
-    std::unique_ptr<globjects::Texture> m_texture;
-    /// Is the texture mip-mapped ?
-    bool m_isMipMapped { false };
-    /// \brief This task is valid when a gpu image update task is registered (e.g. after a call
-    /// to initialize, setParameters, setImageParameters or setData).
+    /** \brief This task is valid when a gpu image update task is registered (e.g. after a call
+     * to initialize, setParameters, setImageParameters or setData).
+     */
     Core::TaskQueue::TaskId m_updateImageTaskId;
-    /// \brief This task is valid when a gpu sampler task is registered.
-    /// e.g. after a call to initialize, setParamaters or setSamplerParamters).
+
+    /** \brief This task is valid when a gpu sampler task is registered.
+     * e.g. after a call to initialize, setParamaters or setSamplerParamters).
+     */
     Core::TaskQueue::TaskId m_updateSamplerTaskId;
 
-    /// mutex to protect non gpu setters, in a thread safe way.
+    /** mutex to protect non gpu setters, in a thread safe way. */
     std::mutex m_updateMutex;
 };
 } // namespace Data
