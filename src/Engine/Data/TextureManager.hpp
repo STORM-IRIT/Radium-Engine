@@ -22,44 +22,34 @@ class RA_ENGINE_API TextureManager final
   public:
     using TextureHandle = Ra::Core::Utils::Index;
 
-    /** Add a texture giving its name, dimension and content.
-     * Useful for defining procedural textures
+    /** Add a texture given its TextureParameters
+     * \return a TextureHandle that uniquely identify the texture in the manager.
+     */
+    TextureHandle addTexture( const TextureParameters& p );
+
+    /** Get texture ptr from handle.
      *
-     * \param name name of the texture
-     * \param width width of the texture
-     * \param height height of the texture
-     * \param data pointer to the texture content
-     *
-     * \return a texture descriptor that could be further specialized (filtering parameters ..)
-     * before the texture is inserted into Radium OpenGL system by getOrLoadTexture
+     * Please do not delete the return ptr.
      */
 
-    TextureHandle addTexture( const TextureParameters& );
-
-    /** \brief Get or load a named texture.
-     *
-     * If image texParameters.texels is nullptr, this method
-     * will assume that the texParameters.name field contains the fully qualified filename to be
-     * loaded to initialize texParameters.texels
-     *
-     * If texParameters.texels isn't nullptr, the name could be of any form as no loading will
-     * occur.
-     *
-     * This method creates, initialize OpenGL part of the texture and add the created texture to the
-     * Texture cache of the engine.
-     * \note For the moment, the texture cache is indexed by the name of the texture only.
-     *
-     * \param texParameters : The description of the texture to create
-     * \param linearize : true if the texture data (texParameters.texels) must be converted from
-     * sRGB to LinearRGB
-     * \return The texture as inserted into the Radium available openGL system
-     */
     Texture* getTexture( const TextureHandle& handle );
+
+    /** Get a texture handle from textue name.
+     *
+     * It search for the first texture in the set of managed texture that have this name.
+     * \return An handle to the texture or InvalidIndex if no texture with this name is found
+     */
     TextureHandle getTextureHandle( const std::string& name );
+
+    /** Convinience function to obtain Texture ptr from name */
     Texture* getTexture( const std::string& name ) {
         return getTexture( getTextureHandle( name ) );
     }
 
+    /** Remove a managed texture identified by handle.
+     *
+     * Texture dtor will register the delete texture gpu task.
+     */
     void deleteTexture( const TextureHandle& handle );
 
     /** Load \a filename and fill ImageParameters according to \a filename content.

@@ -19,9 +19,10 @@ TextureManager::TextureManager() = default;
 TextureManager::~TextureManager() = default;
 
 TextureManager::TextureHandle TextureManager::addTexture( const TextureParameters& parameters ) {
-    // find first free slot in m_newTextures
+
     auto texture = std::make_unique<Texture>( parameters );
     TextureHandle handle;
+    // find first free slot in m_textures, e.g. where the stored unique_ptr is nullptr
     auto it = std::find_if(
         m_textures.begin(), m_textures.end(), []( const auto& texture ) { return !texture; } );
     if ( it != m_textures.end() ) {
@@ -29,6 +30,7 @@ TextureManager::TextureHandle TextureManager::addTexture( const TextureParameter
         handle.setValue( std::distance( m_textures.begin(), it ) );
     }
     else {
+        // if no free slot, push back a new texture
         m_textures.push_back( std::move( texture ) );
         handle.setValue( m_textures.size() - 1 );
     }
