@@ -89,11 +89,11 @@ void AllPrimitivesComponent::initialize() {
     blinnPhongTexturedMaterial->addTexture( BlinnPhongMaterial::TextureSemantic::TEX_DIFFUSE,
                                             textureParameters );
 
-    auto plainMaterial              = make_shared<PlainMaterial>( "Plain Material" );
-    plainMaterial->m_perVertexColor = true;
+    auto plainMaterial = make_shared<PlainMaterial>( "Plain Material" );
+    plainMaterial->setColoredByVertexAttrib( true );
 
-    auto lambertianMaterial              = make_shared<LambertianMaterial>( "Lambertian Material" );
-    lambertianMaterial->m_perVertexColor = true;
+    auto lambertianMaterial = make_shared<LambertianMaterial>( "Lambertian Material" );
+    lambertianMaterial->setColoredByVertexAttrib( true );
 
     //// setup ////
     Scalar colorBoost = 1_ra; /// since simple primitive are ambient only, boost their color

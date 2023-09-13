@@ -52,28 +52,31 @@ class RA_ENGINE_API SimpleMaterial : public Material,
 
     inline bool isColoredByVertexAttrib() const override;
 
-  public:
-    /// The base color of the material
-    Core::Utils::Color m_color { 0.9, 0.9, 0.9, 1.0 };
-    /// Indicates if the material will takes its base color from vertices' attributes.
-    /// \todo make this private ?
-    bool m_perVertexColor { false };
+    inline void setColor( Core::Utils::Color c ) {
+        m_color = std::move( c );
+        needUpdate();
+    }
+
+  protected:
+    /// Load the material parameter description
+    static void loadMetaData( nlohmann::json& destination );
 
   private:
     /**
      * Update the rendering parameters for the Material
      */
     void updateRenderingParameters();
-
-  protected:
-    /// Load the material parameter description
-    static void loadMetaData( nlohmann::json& destination );
+    /// The base color of the material
+    Core::Utils::Color m_color { 0.9, 0.9, 0.9, 1.0 };
+    /// Indicates if the material will takes its base color from vertices' attributes.
+    bool m_perVertexColor { false };
 };
 
 inline void SimpleMaterial::setColoredByVertexAttrib( bool state ) {
-    bool oldState    = m_perVertexColor;
-    m_perVertexColor = state;
-    if ( oldState != m_perVertexColor ) { needUpdate(); }
+    if ( state != m_perVertexColor ) {
+        m_perVertexColor = state;
+        needUpdate();
+    }
 }
 
 inline bool SimpleMaterial::isColoredByVertexAttrib() const {

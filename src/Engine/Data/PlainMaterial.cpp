@@ -63,8 +63,8 @@ void PlainMaterial::unregisterMaterial() {
 
 void PlainMaterial::updateFromParameters() {
     auto& renderParameters = getParameters();
-    m_color                = renderParameters.getParameter<Core::Utils::Color>( "material.color" );
-    m_perVertexColor       = renderParameters.getParameter<bool>( "material.perVertexColor" );
+    setColor( renderParameters.getParameter<Core::Utils::Color>( "material.color" ) );
+    setColoredByVertexAttrib( renderParameters.getParameter<bool>( "material.perVertexColor" ) );
 }
 
 nlohmann::json PlainMaterial::getParametersMetadata() const {

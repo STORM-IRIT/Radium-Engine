@@ -713,8 +713,8 @@ bool ForwardRenderer::buildRenderTechnique( RenderObject* ro ) const {
     if ( !material ) {
         LOG( logWARNING ) << "ForwardRenderer : no material found when building RenderTechnique"
                           << " - adding red Lambertian material";
-        auto defMat     = new Data::LambertianMaterial( "ForwardRenderer::Default material" );
-        defMat->m_color = Ra::Core::Utils::Color::Red();
+        auto defMat = new Data::LambertianMaterial( "ForwardRenderer::Default material" );
+        defMat->setColor( Ra::Core::Utils::Color::Red() );
         material.reset( defMat );
     }
     auto builder = EngineRenderTechniques::getDefaultTechnique( material->getMaterialName() );
