@@ -1,5 +1,6 @@
 #include <catch2/catch.hpp>
 
+#include <memory>
 #include <string>
 #include <vector>
 
@@ -21,24 +22,24 @@ createGraph(
     using TestNode = Functionals::BinaryOpNode<DataType_a, DataType_b, DataType_r>;
     auto g         = new DataflowGraph { name };
 
-    auto source_a = new Sources::SingleDataSourceNode<DataType_a>( "a" );
-    g->addNode( std::unique_ptr<Node>( source_a ) );
+    auto source_a = std::make_shared<Sources::SingleDataSourceNode<DataType_a>>( "a" );
+    g->addNode( source_a );
     auto a = g->getDataSetter( "a_to" );
     REQUIRE( a->getNode() == g );
 
-    auto source_b = new Sources::SingleDataSourceNode<DataType_b>( "b" );
-    g->addNode( std::unique_ptr<Node>( source_b ) );
+    auto source_b = std::make_shared<Sources::SingleDataSourceNode<DataType_b>>( "b" );
+    g->addNode( source_b );
     auto b = g->getDataSetter( "b_to" );
     REQUIRE( b->getNode() == g );
 
-    auto sink = new Sinks::SinkNode<DataType_r>( "r" );
-    g->addNode( std::unique_ptr<Node>( sink ) );
+    auto sink = std::make_shared<Sinks::SinkNode<DataType_r>>( "r" );
+    g->addNode( sink );
     auto r = g->getDataGetter( "r_from" );
     REQUIRE( r->getNode() == g );
 
-    auto op = new TestNode( "operator", f );
+    auto op = std::make_shared<TestNode>( "operator", f );
     // op->setOperator( f );
-    g->addNode( std::unique_ptr<Node>( op ) );
+    g->addNode( op );
 
     REQUIRE( g->addLink( source_a, "to", op, "a" ) );
     REQUIRE( g->addLink( op, "r", sink, "from" ) );
@@ -193,7 +194,7 @@ TEST_CASE( "Dataflow/Core/Nodes", "[Dataflow][Core][Nodes]" ) {
         std::cout << "}\n";
 
         // change operator
-        auto opNode = dynamic_cast<TestNode*>( g->getNode( "operator" ) );
+        auto opNode = std::dynamic_pointer_cast<TestNode>( g->getNode( "operator" ) );
         REQUIRE( opNode != nullptr );
         if ( opNode ) {
             typename TestNode::BinaryOperator f = []( typename TestNode::Arg1_type arg1,
@@ -266,16 +267,16 @@ TEST_CASE( "Dataflow/Core/Nodes", "[Dataflow][Core][Nodes]" ) {
         using VectorType = Ra::Core::VectorArray<Scalar>;
 
         // Source of a vector of Scalar : random vector
-        auto nodeS = new Sources::ScalarArraySource( "s" );
+        auto nodeS = std::make_shared<Sources::ScalarArraySource>( "s" );
 
         // Source of an operator on scalars : f(x) = 2*x
         using DoubleFunction    = Sources::FunctionSourceNode<Scalar, const Scalar&>::function_type;
         DoubleFunction doubleMe = []( const Scalar& x ) -> Scalar { return 2_ra * x; };
-        auto nodeD              = new Sources::FunctionSourceNode<Scalar, const Scalar&>( "d" );
+        auto nodeD = std::make_shared<Sources::FunctionSourceNode<Scalar, const Scalar&>>( "d" );
         nodeD->setData( &doubleMe );
 
         // Source of a Scalar : mean neutral element 0_ra
-        auto nodeN = new Sources::ScalarSource( "n" );
+        auto nodeN = std::make_shared<Sources::ScalarSource>( "n" );
         Scalar zero { 0_ra };
         nodeN->setData( &zero );
 
@@ -287,46 +288,47 @@ TEST_CASE( "Dataflow/Core/Nodes", "[Dataflow][Core][Nodes]" ) {
                 return m + ( ( x - m ) / ( ++n ) );
             }
         };
-        auto nodeM                      = new ReduceOperator( "m" );
+        auto nodeM                      = std::make_shared<ReduceOperator>( "m" );
         ReduceOperator::function_type m = MeanOperator();
 
         // Reduce node : will compute the mean
         using MeanCalculator = Functionals::ReduceNode<VectorType>;
-        auto meanCalculator  = new MeanCalculator( "mean" );
+        auto meanCalculator  = std::make_shared<MeanCalculator>( "mean" );
 
         // Sink for the mean
-        auto nodeR = new Sinks::ScalarSink( "r" );
+        auto nodeR = std::make_shared<Sinks::ScalarSink>( "r" );
 
         // Transform operator, will double the vectors' values
-        auto nodeT = new Functionals::ArrayTransformerScalar( "twice" );
+        auto nodeT = std::make_shared<Functionals::ArrayTransformerScalar>( "twice" );
 
         // Will compute the mean on the doubled vector
-        auto doubleMeanCalculator = new MeanCalculator( "double mean" );
+        auto doubleMeanCalculator = std::make_shared<MeanCalculator>( "double mean" );
 
         // Sink for the double mean
-        auto nodeRD = new Sinks::ScalarSink( "rd" );
+        auto nodeRD = std::make_shared<Sinks::ScalarSink>( "rd" );
 
         // Source for a comparison functor , eg f(x, y) -> 2*x == y
-        auto nodePred = new Sources::ScalarBinaryPredicateSource( "predicate" );
+        auto nodePred = std::make_shared<Sources::ScalarBinaryPredicateSource>( "predicate" );
         Sources::ScalarBinaryPredicateSource::function_type predicate =
             []( const Scalar& a, const Scalar& b ) -> bool { return 2_ra * a == b; };
         nodePred->setData( &predicate );
 
         // Boolean sink for the validation result
-        auto sinkB = new Sinks::BooleanSink( "test" );
+        auto sinkB = std::make_shared<Sinks::BooleanSink>( "test" );
 
         // Node for coparing the results of the computation graph
-        auto validator = new Functionals::BinaryOpNode<Scalar, Scalar, bool>( "validator" );
+        auto validator =
+            std::make_shared<Functionals::BinaryOpNode<Scalar, Scalar, bool>>( "validator" );
 
-        g->addNode( std::unique_ptr<Node>( nodeS ) );
-        g->addNode( std::unique_ptr<Node>( nodeD ) );
-        g->addNode( std::unique_ptr<Node>( nodeN ) );
-        g->addNode( std::unique_ptr<Node>( nodeM ) );
-        g->addNode( std::unique_ptr<Node>( nodeR ) );
-        g->addNode( std::unique_ptr<Node>( meanCalculator ) );
-        g->addNode( std::unique_ptr<Node>( doubleMeanCalculator ) );
-        g->addNode( std::unique_ptr<Node>( nodeT ) );
-        g->addNode( std::unique_ptr<Node>( nodeRD ) );
+        g->addNode( nodeS );
+        g->addNode( nodeD );
+        g->addNode( nodeN );
+        g->addNode( nodeM );
+        g->addNode( nodeR );
+        g->addNode( meanCalculator );
+        g->addNode( doubleMeanCalculator );
+        g->addNode( nodeT );
+        g->addNode( nodeRD );
 
         bool linkAdded;
         linkAdded = g->addLink( nodeS, "to", meanCalculator, "in" );
@@ -348,9 +350,9 @@ TEST_CASE( "Dataflow/Core/Nodes", "[Dataflow][Core][Nodes]" ) {
         linkAdded = g->addLink( nodeM, "f", doubleMeanCalculator, "f" );
         REQUIRE( linkAdded == true );
 
-        g->addNode( std::unique_ptr<Node>( nodePred ) );
-        g->addNode( std::unique_ptr<Node>( sinkB ) );
-        g->addNode( std::unique_ptr<Node>( validator ) );
+        g->addNode( nodePred );
+        g->addNode( sinkB );
+        g->addNode( validator );
         linkAdded = g->addLink( meanCalculator, "out", validator, "a" );
         REQUIRE( linkAdded == true );
         linkAdded = g->addLink( doubleMeanCalculator, "out", validator, "b" );

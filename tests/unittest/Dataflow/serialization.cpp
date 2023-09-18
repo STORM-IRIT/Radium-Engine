@@ -19,27 +19,27 @@ TEST_CASE( "Dataflow/Core/DataflowGraph", "[Dataflow][Core][DataflowGraph]" ) {
         DataflowGraph g { "original graph" };
         g.addJsonMetaData(
             { { "extra", { { "info", "missing operators on functional node" } } } } );
-        auto source_a = new Sources::SingleDataSourceNode<DataType>( "a" );
-        g.addNode( std::unique_ptr<Node>( source_a ) );
+        auto source_a = std::make_shared<Sources::SingleDataSourceNode<DataType>>( "a" );
+        g.addNode( source_a );
         auto a        = g.getDataSetter( "a_to" );
-        auto source_b = new Sources::SingleDataSourceNode<DataType>( "b" );
-        g.addNode( std::unique_ptr<Node>( source_b ) );
+        auto source_b = std::make_shared<Sources::SingleDataSourceNode<DataType>>( "b" );
+        g.addNode( source_b );
         auto b    = g.getDataSetter( "b_to" );
-        auto sink = new Sinks::SinkNode<DataType>( "r" );
-        g.addNode( std::unique_ptr<Node>( sink ) );
+        auto sink = std::make_shared<Sinks::SinkNode<DataType>>( "r" );
+        g.addNode( sink );
         auto r                       = g.getDataGetter( "r_from" );
         using TestNode               = Functionals::BinaryOpNode<DataType, DataType, DataType>;
         TestNode::BinaryOperator add = []( TestNode::Arg1_type a,
                                            TestNode::Arg2_type b ) -> TestNode::Res_type {
             return a + b;
         };
-        auto op_unique = std::make_unique<TestNode>( "addition" );
+        auto op_unique = std::make_shared<TestNode>( "addition" );
         op_unique->setOperator( add );
-        auto [added, op] = g.addNode( std::move( op_unique ) );
+        auto added = g.addNode( op_unique );
         REQUIRE( added );
-        g.addLink( source_a, "to", op, "a" );
-        g.addLink( op, "r", sink, "from" );
-        g.addLink( source_b, "to", op, "b" );
+        g.addLink( source_a, "to", op_unique, "a" );
+        g.addLink( op_unique, "r", sink, "from" );
+        g.addLink( source_b, "to", op_unique, "b" );
 
         // execution of the original graph
         DataType x { 1_ra };
@@ -67,7 +67,7 @@ TEST_CASE( "Dataflow/Core/DataflowGraph", "[Dataflow][Core][DataflowGraph]" ) {
         auto addition = g1.getNode( "addition" );
         REQUIRE( addition != nullptr );
         REQUIRE( addition->getTypeName() == Functionals::BinaryOpScalar::getTypename() );
-        auto typedAddition = dynamic_cast<Functionals::BinaryOpScalar*>( addition );
+        auto typedAddition = std::dynamic_pointer_cast<Functionals::BinaryOpScalar>( addition );
         REQUIRE( typedAddition != nullptr );
         if ( typedAddition != nullptr ) { typedAddition->setOperator( add ); }
 
@@ -96,7 +96,7 @@ TEST_CASE( "Dataflow/Core/DataflowGraph", "[Dataflow][Core][DataflowGraph]" ) {
         // reactivate the dataSetter and change the data delivered by a (copy data into a)
         g1.activateDataSetter( "b_to" );
         auto loadedSource_a =
-            dynamic_cast<Sources::SingleDataSourceNode<DataType>*>( g1.getNode( "a" ) );
+            std::dynamic_pointer_cast<Sources::SingleDataSourceNode<DataType>>( g1.getNode( "a" ) );
         Scalar newX = 3_ra;
         loadedSource_a->setData( &newX );
         g1.execute();

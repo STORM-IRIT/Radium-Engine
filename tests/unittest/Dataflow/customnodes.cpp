@@ -127,36 +127,27 @@ template <typename DataType>
 DataflowGraph* buildgraph( const std::string& name ) {
     auto g = new DataflowGraph( name );
 
-    auto addedNode = g->addNode(
-        std::make_unique<Sources::SingleDataSourceNode<Ra::Core::VectorArray<DataType>>>( "ds" ) );
-    REQUIRE( addedNode.first );
-    auto ds = addedNode.second;
+    auto ds =
+        std::make_shared<Sources::SingleDataSourceNode<Ra::Core::VectorArray<DataType>>>( "ds" );
+    REQUIRE( g->addNode( ds ) );
 
-    addedNode =
-        g->addNode( std::make_unique<Sinks::SinkNode<Ra::Core::VectorArray<DataType>>>( "rs" ) );
-    REQUIRE( addedNode.first );
-    auto rs = addedNode.second;
+    auto rs = std::make_shared<Sinks::SinkNode<Ra::Core::VectorArray<DataType>>>( "rs" );
+    REQUIRE( g->addNode( rs ) );
 
-    addedNode = g->addNode( std::make_unique<Sources::SingleDataSourceNode<DataType>>( "ts" ) );
-    REQUIRE( addedNode.first );
-    auto ts = addedNode.second;
+    auto ts = std::make_shared<Sources::SingleDataSourceNode<DataType>>( "ts" );
+    REQUIRE( g->addNode( ts ) );
 
-    addedNode = g->addNode( std::make_unique<Customs::CustomStringSource>( "ss" ) );
-    REQUIRE( addedNode.first );
-    auto ss = addedNode.second;
+    auto ss = std::make_shared<Customs::CustomStringSource>( "ss" );
+    REQUIRE( g->addNode( ss ) );
 
-    addedNode = g->addNode( std::make_unique<Customs::CustomStringSink>( "nm" ) );
-    REQUIRE( addedNode.first );
-    auto nm = addedNode.second;
+    auto nm = std::make_shared<Customs::CustomStringSink>( "nm" );
+    REQUIRE( g->addNode( nm ) );
 
-    addedNode = g->addNode( std::make_unique<Customs::FilterSelector<DataType>>( "fs" ) );
-    REQUIRE( addedNode.first );
-    auto fs = addedNode.second;
+    auto fs = std::make_shared<Customs::FilterSelector<DataType>>( "fs" );
+    REQUIRE( g->addNode( fs ) );
 
-    addedNode = g->addNode(
-        std::make_unique<Functionals::FilterNode<Ra::Core::VectorArray<DataType>>>( "fl" ) );
-    REQUIRE( addedNode.first );
-    auto fl = addedNode.second;
+    auto fl = std::make_shared<Functionals::FilterNode<Ra::Core::VectorArray<DataType>>>( "fl" );
+    REQUIRE( g->addNode( fl ) );
 
     bool ok;
     ok = g->addLink( ds, "to", fl, "in" );
