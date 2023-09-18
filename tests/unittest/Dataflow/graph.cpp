@@ -278,11 +278,10 @@ TEST_CASE( "Dataflow/Core/Graph", "[Dataflow][Core][Graph]" ) {
         REQUIRE( result );
 
         // trying to add a duplicated node
-        auto duplicatedNodeName = new Sources::SingleDataSourceNode<float>( "SourceFloat" );
-        auto [r, rejectedNode]  = g.addNode( std::unique_ptr<Node>( duplicatedNodeName ) );
+        auto duplicatedNodeName =
+            std::make_shared<Sources::SingleDataSourceNode<float>>( "SourceFloat" );
+        auto r = g.addNode( duplicatedNodeName );
         REQUIRE( !r );
-        REQUIRE( rejectedNode == duplicatedNodeName );
-        delete duplicatedNodeName;
 
         auto sinkFloatNode = g.getNode( "Sink" );
         REQUIRE( sinkFloatNode == nullptr );
@@ -291,27 +290,22 @@ TEST_CASE( "Dataflow/Core/Graph", "[Dataflow][Core][Graph]" ) {
         auto sourceFloatNode = g.getNode( "SourceFloat" );
         REQUIRE( sourceFloatNode != nullptr );
 
-        auto sourceIntNode = new Sources::IntSource( "SourceInt" );
-        auto sinkIntNode   = new Sinks::IntSink( "SinkInt" );
+        auto sourceIntNode = std::make_shared<Sources::IntSource>( "SourceInt" );
+        auto sinkIntNode   = std::make_shared<Sinks::IntSink>( "SinkInt" );
         // node not found
-        result = g.removeLink( sinkIntNode, "from" );
-        REQUIRE( !result );
+        REQUIRE( !g.removeLink( sinkIntNode, "from" ) );
 
         // "from" node not found
-        result = g.addLink( sourceIntNode, "out", sinkIntNode, "in" );
-        REQUIRE( !result );
+        REQUIRE( !g.addLink( sourceIntNode, "out", sinkIntNode, "in" ) );
 
-        auto resPair = g.addNode( std::unique_ptr<Node>( sourceIntNode ) );
-        REQUIRE( resPair.first );
+        REQUIRE( g.addNode( sourceIntNode ) );
         // "to" node not found
-        result = g.addLink( sourceIntNode, "out", sinkIntNode, "in" );
-        REQUIRE( !result );
+        REQUIRE( !g.addLink( sourceIntNode, "out", sinkIntNode, "in" ) );
 
-        resPair = g.addNode( std::unique_ptr<Node>( sinkIntNode ) );
-        REQUIRE( resPair.first );
+        REQUIRE( g.addNode( sinkIntNode ) );
         // output port of "from" node not found
-        result = g.addLink( sourceIntNode, "out", sinkIntNode, "in" );
-        REQUIRE( !result );
+        // output port of "from" node not found
+        REQUIRE( !g.addLink( sourceIntNode, "out", sinkIntNode, "in" ) );
 
         // input port of "to" node not found
         result = g.addLink( sourceIntNode, "to", sinkIntNode, "in" );
@@ -386,11 +380,13 @@ TEST_CASE( "Dataflow/Core/Graph", "[Dataflow][Core][Graph]" ) {
         REQUIRE( !g->isCompiled() );
 
         // removing the boolean sink from the graph
-        auto n = g->getNode( "validation value" );
+        auto n        = g->getNode( "validation value" );
+        auto useCount = n.use_count();
         REQUIRE( n->getInstanceName() == "validation value" );
         c = g->removeNode( n );
         REQUIRE( c == true );
-        REQUIRE( n == nullptr );
+        REQUIRE( n );
+        REQUIRE( n.use_count() == useCount - 1 );
         c = g->compile();
         REQUIRE( c == true );
 
@@ -413,11 +409,8 @@ TEST_CASE( "Dataflow/Core/Graph", "[Dataflow][Core][Graph]" ) {
         g->setNodesAndLinksProtection( false );
         c = g->removeNode( n );
         REQUIRE( c );
-        REQUIRE( n == nullptr );
 
         std::cout << "####### Graph after sink and source removal\n";
         inspectGraph( *g );
-
-        delete g;
     }
 }

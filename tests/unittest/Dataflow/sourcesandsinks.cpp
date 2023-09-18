@@ -14,11 +14,11 @@ using namespace Ra::Dataflow::Core;
 //! [Create a source to sink graph for type T]
 template <typename T>
 void testGraph( const std::string& name, T in, T& out ) {
-    auto g      = new DataflowGraph { name };
-    auto source = new Sources::SingleDataSourceNode<T>( "in" );
-    auto sink   = new Sinks::SinkNode<T>( "out" );
-    g->addNode( std::unique_ptr<Node>( source ) );
-    g->addNode( std::unique_ptr<Node>( sink ) );
+    auto g      = std::make_unique<DataflowGraph>( name );
+    auto source = std::make_shared<Sources::SingleDataSourceNode<T>>( "in" );
+    auto sink   = std::make_shared<Sinks::SinkNode<T>>( "out" );
+    g->addNode( source );
+    g->addNode( sink );
     auto linked = g->addLink( source, "to", sink, "from" );
     if ( !linked ) { std::cerr << "Error linking source and sink nodes.\n"; }
     REQUIRE( linked );
@@ -47,13 +47,11 @@ void testGraph( const std::string& name, T in, T& out ) {
     nlohmann::json graphData;
     g->toJson( graphData );
     g->destroy();
-    delete g;
 
-    g = new DataflowGraph { name };
+    g = std::make_unique<DataflowGraph>( name );
     g->fromJson( graphData );
     auto ok = g->execute();
     REQUIRE( ok );
-    delete g;
 }
 //! [Create a source to sink graph for type T]
 TEST_CASE( "Dataflow/Core/Sources and Sinks", "[Dataflow][Core][Sources and Sinks]" ) {
