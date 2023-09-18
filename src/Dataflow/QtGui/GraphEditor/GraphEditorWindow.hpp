@@ -28,13 +28,13 @@ class RA_DATAFLOW_API GraphEditorWindow : public QMainWindow
 {
     Q_OBJECT
   public:
-    explicit GraphEditorWindow( DataflowGraph* graph = nullptr );
+    explicit GraphEditorWindow( std::shared_ptr<DataflowGraph> graph = nullptr );
     ~GraphEditorWindow();
 
     void loadFile( const QString& fileName );
 #if 0
     // not sure to neeed this
-    void resetGraph( DataflowGraph* graph = nullptr );
+    void resetGraph( std::shared_ptr<DataflowGraph> graph = nullptr );
 #endif
 
   signals:
@@ -64,8 +64,7 @@ class RA_DATAFLOW_API GraphEditorWindow : public QMainWindow
     GraphEditorView* m_graphEdit { nullptr };
     QString m_curFile;
 
-    DataflowGraph* m_graph { nullptr };
-    bool m_ownGraph { false };
+    std::shared_ptr<DataflowGraph> m_graph { nullptr };
 };
 
 } // namespace GraphEditor

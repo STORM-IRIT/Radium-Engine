@@ -9,6 +9,7 @@
 #include <Dataflow/Core/DataflowGraph.hpp>
 #include <Dataflow/QtGui/GraphEditor/NodeAdapterModel.hpp>
 #include <Dataflow/QtGui/GraphEditor/WidgetFactory.hpp>
+#include <utility>
 
 namespace Ra {
 namespace Dataflow {
@@ -88,7 +89,7 @@ void GraphEditorView::buildAdapterRegistry( const NodeFactorySet& factories ) {
                 [f, this, creatorFactory]() -> std::unique_ptr<QtNodes::NodeDataModel> {
                     nlohmann::json jsondata;
                     auto node = f( jsondata );
-                    this->m_dataflowGraph->addNode( std::unique_ptr<Node>( node ) );
+                    this->m_dataflowGraph->addNode( node );
                     this->m_dataflowGraph->addFactory( creatorFactory );
                     return std::make_unique<NodeAdapterModel>( this->m_dataflowGraph, node );
                 },
@@ -100,10 +101,10 @@ void GraphEditorView::buildAdapterRegistry( const NodeFactorySet& factories ) {
 }
 
 DataflowGraph* GraphEditorView::editedGraph() {
-    return m_dataflowGraph;
+    return m_dataflowGraph.get();
 }
 
-void GraphEditorView::editGraph( DataflowGraph* g ) {
+void GraphEditorView::editGraph( std::shared_ptr<DataflowGraph> g ) {
     // Disconnect all event and clear the previous graph
     disconnectAll();
     scene->clearScene();
@@ -117,7 +118,7 @@ void GraphEditorView::editGraph( DataflowGraph* g ) {
         std::map<Node*, QString> nodeToUuid;
         // inserting nodes
         for ( const auto& n : nodes ) {
-            auto nodeAdapter = std::make_unique<NodeAdapterModel>( m_dataflowGraph, n.get() );
+            auto nodeAdapter = std::make_unique<NodeAdapterModel>( m_dataflowGraph, n );
             nodeToUuid.insert( { n.get(), nodeAdapter->uuid() } );
             scene->importNode( std::move( nodeAdapter ) );
         }

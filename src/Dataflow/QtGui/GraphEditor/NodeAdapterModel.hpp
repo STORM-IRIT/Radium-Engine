@@ -19,7 +19,7 @@ using namespace Ra::Dataflow::Core;
 class RA_DATAFLOW_API NodeAdapterModel : public QtNodes::NodeDataModel
 {
   public:
-    NodeAdapterModel( DataflowGraph* graph, Node* n );
+    NodeAdapterModel( std::shared_ptr<DataflowGraph> graph, std::shared_ptr<Node> n );
     NodeAdapterModel()                                     = delete;
     NodeAdapterModel( const NodeAdapterModel& )            = delete;
     NodeAdapterModel( NodeAdapterModel&& )                 = delete;
@@ -65,8 +65,8 @@ class RA_DATAFLOW_API NodeAdapterModel : public QtNodes::NodeDataModel
     QWidget* embeddedWidget() override { return m_widget; }
 
   private:
-    Node* m_node;
-    DataflowGraph* m_dataflowGraph { nullptr };
+    std::shared_ptr<Node> m_node;
+    std::shared_ptr<DataflowGraph> m_dataflowGraph { nullptr };
 
     QWidget* m_widget { nullptr };
 

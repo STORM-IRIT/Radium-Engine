@@ -1,4 +1,6 @@
+#include "Dataflow/Core/NodeFactory.hpp"
 #include <Dataflow/QtGui/GraphEditor/GraphEditorWindow.hpp>
+#include <memory>
 
 namespace Ra {
 namespace Dataflow {
@@ -8,21 +10,11 @@ namespace GraphEditor {
 using namespace Ra::Dataflow::Core;
 
 GraphEditorWindow::~GraphEditorWindow() {
-    if ( m_graph ) {
-        // Prevent graph destruction if the editor is used to work with active graphs.
-        auto graphProtection = m_graph->getNodesAndLinksProtection();
-        if ( !m_ownGraph ) { m_graph->setNodesAndLinksProtection( true ); }
-        delete m_graphEdit;
-        if ( !m_ownGraph ) { m_graph->setNodesAndLinksProtection( graphProtection ); }
-        else { delete m_graph; }
-    }
-    else { delete m_graphEdit; }
+    delete m_graphEdit;
 }
 
-GraphEditorWindow::GraphEditorWindow( DataflowGraph* graph ) :
-    m_graphEdit { new GraphEditorView( nullptr ) },
-    m_graph { graph },
-    m_ownGraph { graph == nullptr } {
+GraphEditorWindow::GraphEditorWindow( std::shared_ptr<DataflowGraph> graph ) :
+    m_graphEdit { new GraphEditorView( nullptr ) }, m_graph { graph } {
 
     setCentralWidget( m_graphEdit );
     m_graphEdit->setFocusPolicy( Qt::StrongFocus );
@@ -37,18 +29,18 @@ GraphEditorWindow::GraphEditorWindow( DataflowGraph* graph ) :
 
     setCurrentFile( QString() );
     setUnifiedTitleAndToolBarOnMac( true );
-    if ( m_ownGraph ) { newFile(); }
-    else { m_graphEdit->editGraph( m_graph ); }
+    if ( !m_graph ) {
+        m_graph = std::make_shared<DataflowGraph>( "unititled.flow" );
+        newFile();
+    }
 
+    m_graphEdit->editGraph( m_graph );
     m_graphEdit->show();
 }
 
 #if 0
-void GraphEditorWindow::resetGraph( DataflowGraph* graph ) {
-    m_graphEdit->editGraph( nullptr );
-    if ( m_ownGraph ) { delete m_graph; }
+void GraphEditorWindow::resetGraph( std::shared_ptr<DataflowGraph> graph ) {
     m_graph = graph;
-    m_ownGraph = false;
     m_graphEdit->editGraph( m_graph );
     setCurrentFile( "" );
 }
@@ -58,7 +50,6 @@ void GraphEditorWindow::closeEvent( QCloseEvent* event ) {
     if ( maybeSave() ) {
         writeSettings();
         event->accept();
-        if ( !m_ownGraph ) { deleteLater(); }
     }
     else { event->ignore(); }
 }
@@ -66,15 +57,8 @@ void GraphEditorWindow::closeEvent( QCloseEvent* event ) {
 void GraphEditorWindow::newFile() {
     if ( maybeSave() ) {
         // Currently edited graph must be deleted only after it is no more used by the editor
-        m_graphEdit->editGraph( nullptr );
-        if ( m_ownGraph ) {
-            delete m_graph;
-            m_graph = new DataflowGraph( "untitled.flow" );
-        }
-        else { m_graph->destroy(); }
-
+        m_graph->destroy();
         setCurrentFile( "" );
-        m_graphEdit->editGraph( m_graph );
     }
 }
 
@@ -163,7 +147,7 @@ void GraphEditorWindow::createActions() {
 
     auto aboutQtAct = helpMenu->addAction( tr( "About &Qt" ), qApp, &QApplication::aboutQt );
     aboutQtAct->setStatusTip( tr( "Show the Qt library's About box" ) );
-    if ( !m_ownGraph ) { menuBar()->hide(); }
+    //    if ( !m_ownGraph ) { menuBar()->hide(); }
 }
 
 void GraphEditorWindow::createStatusBar() {
@@ -197,7 +181,7 @@ void GraphEditorWindow::writeSettings() {
 
 bool GraphEditorWindow::maybeSave() {
     if ( m_graph == nullptr ) { return true; }
-    if ( !( m_ownGraph && m_graph->m_shouldBeSaved ) ) { return true; }
+    if ( !m_graph->m_shouldBeSaved ) { return true; }
     const QMessageBox::StandardButton ret =
         QMessageBox::warning( this,
                               tr( "Application" ),
@@ -231,16 +215,9 @@ void GraphEditorWindow::loadFile( const QString& fileName ) {
     }
 
     bool loaded( true );
-    if ( m_ownGraph ) {
-        m_graphEdit->editGraph( nullptr );
-        delete m_graph;
-        m_graph = DataflowGraph::loadGraphFromJsonFile( fileName.toStdString() );
-        loaded  = ( m_graph != nullptr );
-    }
-    else {
-        m_graph->destroy();
-        loaded = m_graph->loadFromJson( fileName.toStdString() );
-    }
+    m_graph->destroy();
+    loaded = m_graph->loadFromJson( fileName.toStdString() );
+
     if ( !loaded ) {
         QMessageBox::warning(
             this,
