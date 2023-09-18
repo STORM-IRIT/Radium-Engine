@@ -1,6 +1,7 @@
 // include required headers
 #include "DefaultLight.glsl"
 #include "TransformStructs.glsl"
+#include "LinearBlendSkinning.glsl"
 
 // declare expected attributes
 layout( location = 0 ) in vec3 in_position;
@@ -34,14 +35,16 @@ void main() {
         mvp = transform.proj * transform.view * transform.model;
     }
 
-    gl_Position     = mvp * vec4( in_position, 1.0 );
+    mat4 skinningMatrix = skinMatrix();
+
+    gl_Position     = mvp * skinningMatrix * vec4( in_position, 1.0 );
     out_vertexcolor = in_color.rgb;
     out_texcoord    = in_texcoord;
 
-    vec4 pos = transform.model * vec4( in_position, 1.0 );
+    vec4 pos = transform.model * skinningMatrix * vec4( in_position, 1.0 );
     pos /= pos.w;
     out_position = vec3( pos );
 
-    vec3 normal = mat3( transform.worldNormal ) * in_normal;
+    vec3 normal = vec3( inverse( transpose( skinningMatrix ) ) * vec4( mat3( transform.worldNormal ) * in_normal, 0.0 ) );
     out_normal  = normal;
 }

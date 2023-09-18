@@ -176,6 +176,12 @@ void SkinningComponent::skin() {
             /// m_frameData );
             break;
         }
+
+        case LBS_GPU: {
+            linearBlendSkinningGPU( m_refData, m_frameData );
+            break;
+        }
+
         case LBS:
         default: {
             linearBlendSkinning( m_refData, tangents, bitangents, m_frameData );

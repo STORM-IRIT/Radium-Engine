@@ -44,6 +44,24 @@ void linearBlendSkinning( const SkinningRefData& refData,
     }
 }
 
+void linearBlendSkinningGPU( const SkinningRefData& refData,
+                          SkinningFrameData& frameData ) {
+    const auto& W          = refData.m_weights;
+    const auto& bindMatrix = refData.m_bindMatrices;
+    const auto& pose       = frameData.m_skeleton.getPose( HandleArray::SpaceType::MODEL );
+    for ( int k = 0; k < W.outerSize(); ++k ) {
+        const int nonZero = W.col( k ).nonZeros();
+        WeightMatrix::InnerIterator it0( W, k );
+        for ( int nz = 0; nz < nonZero; ++nz ) {
+            WeightMatrix::InnerIterator it = it0 + Eigen::Index( nz );
+            const uint j                   = it.col();
+            const Scalar w                 = it.value();
+            // prepare the pose w.r.t. the bind matrix and the mesh transform
+            const Transform M = refData.m_meshTransformInverse * pose[j] * bindMatrix[j];
+        }
+    }
+}
+
 } // namespace Animation
 } // namespace Core
 } // namespace Ra

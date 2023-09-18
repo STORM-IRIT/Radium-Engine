@@ -39,6 +39,7 @@ class RA_ENGINE_API SkinningComponent : public Component
         LBS = 0, ///< Linear Blend Skinning
         DQS,     ///< Dual Quaternion Skinning
         COR,     ///< Center of Rotation skinning
+        LBS_GPU, ///< Linear Blend Skinning on GPU
     };
 
     /// How to skin the normal, tangent and binormal vectors.

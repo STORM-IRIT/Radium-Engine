@@ -98,6 +98,8 @@ void RadiumEngine::registerDefaultPrograms() {
         "/TransformStructs.glsl", m_resourcesRootDir + "Shaders/Transform/TransformStructs.glsl" );
     m_shaderProgramManager->addNamedString(
         "/DefaultLight.glsl", m_resourcesRootDir + "Shaders/Lights/DefaultLight.glsl" );
+    m_shaderProgramManager->addNamedString(
+        "/LinearBlendSkinning.glsl", m_resourcesRootDir + "Shaders/Skinning/LinearBlendSkinning.glsl" );
 
     // VertexAttribInterface :add this name string so that each material could include the same code
     m_shaderProgramManager->addNamedString(

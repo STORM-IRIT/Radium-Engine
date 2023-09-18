@@ -93,6 +93,8 @@ void setupScene( Ra::Engine::RadiumEngine* engine ) {
     auto meshComponent =
         new TriangleMeshComponent( "Cylinder", entity, std::move( cylinder ), nullptr );
 
+    // TODO: find a way to access the shader and add the LINEAR_BLIND_SKINNING property (RenderObject->RenderTechnique->Shaders)
+
     // create a squeleton with three bones.
     std::map<std::string, Core::Transform> boneMatrices;
     std::map<std::string, std::vector<std::pair<uint, Scalar>>> boneWeights;
@@ -142,7 +144,7 @@ void setupScene( Ra::Engine::RadiumEngine* engine ) {
 
     // skinning component to perform skinning
     auto skinningComponent =
-        new SkinningComponent( "SK_Cylinder", SkinningComponent::SkinningType::LBS, entity );
+        new SkinningComponent( "SK_Cylinder", SkinningComponent::SkinningType::LBS_GPU, entity );
     skinningComponent->setMeshName( meshComponent->getName() );
     skinningComponent->setPerBoneMatrix( std::move( boneMatrices ) );
     skinningComponent->setPerBoneWeight( std::move( boneWeights ) );
