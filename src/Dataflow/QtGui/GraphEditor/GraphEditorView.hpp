@@ -31,7 +31,7 @@ class RA_DATAFLOW_API GraphEditorView : public QWidget
     void connectAll();
 
     /// Fill the editor with the existing nodes in the graph
-    void editGraph( DataflowGraph* g );
+    void editGraph( std::shared_ptr<DataflowGraph> g );
 
     DataflowGraph* editedGraph();
 
@@ -50,7 +50,7 @@ class RA_DATAFLOW_API GraphEditorView : public QWidget
     /// Build the registries from the graph's NodeFactory
     void buildAdapterRegistry( const NodeFactorySet& factory );
 
-    DataflowGraph* m_dataflowGraph { nullptr };
+    std::shared_ptr<DataflowGraph> m_dataflowGraph { nullptr };
 
     /// Node creator registry to be used when creating a node in the editor
     std::shared_ptr<QtNodes::DataModelRegistry> m_editorRegistry;

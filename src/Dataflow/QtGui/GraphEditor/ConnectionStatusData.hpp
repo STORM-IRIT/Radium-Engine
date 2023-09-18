@@ -19,18 +19,18 @@ using namespace Ra::Dataflow::Core;
 class RA_DATAFLOW_API ConnectionStatusData : public QtNodes::NodeData
 {
   public:
-    ConnectionStatusData( Node* node, const std::string& outputName ) :
+    ConnectionStatusData( std::shared_ptr<Node> node, const std::string& outputName ) :
         m_node { node }, m_outputName { outputName } {}
 
     QtNodes::NodeDataType type() const override {
         return QtNodes::NodeDataType { "connection", "connectionStatus" };
     }
 
-    Node* getNode() { return m_node; }
+    std::shared_ptr<Node> getNode() { return m_node; }
     std::string getOutputName() { return m_outputName; }
 
   private:
-    Node* m_node { nullptr };
+    std::shared_ptr<Node> m_node { nullptr };
     std::string m_outputName;
 };
 

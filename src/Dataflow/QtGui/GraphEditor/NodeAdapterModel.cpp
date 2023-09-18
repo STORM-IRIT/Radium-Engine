@@ -44,12 +44,13 @@ void NlohmannObjectToQJsonObject( const nlohmann::json& data, QJsonObject& p );
 using namespace Ra::Dataflow::Core;
 using namespace Ra::Gui::Widgets;
 
-NodeAdapterModel::NodeAdapterModel( DataflowGraph* graph, Node* n ) :
+NodeAdapterModel::NodeAdapterModel( std::shared_ptr<DataflowGraph> graph,
+                                    std::shared_ptr<Node> n ) :
     m_node { n }, m_dataflowGraph { graph } {
     m_uuid = QUuid::createUuid();
     m_inputsConnected.resize( m_node->getInputs().size() );
-    m_widget = NodeDataModelTools::getWidget( m_node );
-    NodeDataModelTools::updateWidget( m_node, m_widget );
+    m_widget = NodeDataModelTools::getWidget( m_node.get() );
+    NodeDataModelTools::updateWidget( m_node.get(), m_widget );
     checkConnections();
 }
 
@@ -183,7 +184,7 @@ void NodeAdapterModel::restore( QJsonObject const& p ) {
     // 2 - call fromjson on the node using this json object
     m_node->fromJson( nodeData );
     // 3 - update the widget according to the editable parameters
-    NodeDataModelTools::updateWidget( m_node, m_widget );
+    NodeDataModelTools::updateWidget( m_node.get(), m_widget );
 }
 
 namespace NodeDataModelTools {
