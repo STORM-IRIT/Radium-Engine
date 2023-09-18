@@ -72,13 +72,13 @@ class RA_DATAFLOW_API DataflowGraph : public Node
     /// \return a pair with a bool and a raw pointer to the Node. If the bool is true, the raw
     /// pointer is owned by the graph. If the bool is false, the raw pointer ownership is left to
     /// the caller.
-    virtual std::pair<bool, Node*> addNode( std::unique_ptr<Node> newNode );
+    virtual bool addNode( std::shared_ptr<Node> newNode );
 
     /// \brief Removes a node from the render graph.
     /// Removes input and output ports, corresponding to interface ports of the node, from the
     /// graph. \param node The node to remove from the graph. \return true if the node was removed
     /// and the given pointer is set to nullptr, false else
-    virtual bool removeNode( Node*& node );
+    virtual bool removeNode( std::shared_ptr<Node> node );
 
     /// Connects two nodes of the render graph.
     /// The two nodes must already be in the render graph (with the addNode(Node* newNode)
@@ -88,9 +88,9 @@ class RA_DATAFLOW_API DataflowGraph : public Node
     /// \param nodeFromOutputName The name of the out port in nodeFrom.
     /// \param nodeTo The node that contains the in port.
     /// \param nodeToInputName The name of the in port in nodeTo.
-    bool addLink( Node* nodeFrom,
+    bool addLink( const std::shared_ptr<Node>& nodeFrom,
                   const std::string& nodeFromOutputName,
-                  Node* nodeTo,
+                  const std::shared_ptr<Node>& nodeTo,
                   const std::string& nodeToInputName );
 
     ///
@@ -98,15 +98,15 @@ class RA_DATAFLOW_API DataflowGraph : public Node
     /// \param node the node to unlink
     /// \param nodeInputName the name of the port to unlink
     /// \return true if link is removed, false if not.
-    bool removeLink( Node* node, const std::string& nodeInputName );
+    bool removeLink( std::shared_ptr<Node>, const std::string& nodeInputName );
 
     /// \brief Get the vector of all the nodes on the graph
     /// \return
-    const std::vector<std::unique_ptr<Node>>& getNodes() const;
+    const std::vector<std::shared_ptr<Node>>& getNodes() const;
 
     /// Gets a specific node according to its instance name.
     /// \param instanceNameNode The instance name of the node.
-    Node* getNode( const std::string& instanceNameNode ) const;
+    std::shared_ptr<Node> getNode( const std::string& instanceNameNode ) const;
 
     /// Gets the nodes ordered by level (after compilation)
     const std::vector<std::vector<Node*>>& getNodesByLevel() const;
@@ -199,7 +199,7 @@ class RA_DATAFLOW_API DataflowGraph : public Node
     /// The node factory to use for loading
     std::shared_ptr<NodeFactorySet> m_factories;
     /// The unordered list of nodes.
-    std::vector<std::unique_ptr<Node>> m_nodes;
+    std::vector<std::shared_ptr<Node>> m_nodes;
     // Internal node levels representation
     /// The list of nodes ordered by levels.
     /// Two nodes at the same level have no dependency between them.
@@ -264,7 +264,7 @@ class RA_DATAFLOW_API DataflowGraph : public Node
      * the appropriate constructor is registered in the node factory.
      * \return The loaded graph, as a DataFlowGraph pointer to be downcast to the correct type
      */
-    static DataflowGraph* loadGraphFromJsonFile( const std::string& filename );
+    static std::shared_ptr<DataflowGraph> loadGraphFromJsonFile( const std::string& filename );
 
     /**
      * \brief protect nodes and links from deletion.
@@ -309,7 +309,7 @@ inline bool DataflowGraph::removeFactory( const std::string& name ) {
     return m_factories->removeFactory( name );
 }
 
-inline const std::vector<std::unique_ptr<Node>>& DataflowGraph::getNodes() const {
+inline const std::vector<std::shared_ptr<Node>>& DataflowGraph::getNodes() const {
     return m_nodes;
 }
 inline const std::vector<std::vector<Node*>>& DataflowGraph::getNodesByLevel() const {

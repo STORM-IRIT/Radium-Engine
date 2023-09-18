@@ -1,6 +1,7 @@
 #include <Dataflow/Core/NodeFactory.hpp>
 
 #include <Dataflow/Core/DataflowGraph.hpp>
+#include <memory>
 
 namespace Ra {
 namespace Dataflow {
@@ -18,13 +19,10 @@ auto NodeFactory::getName() const -> std::string {
 
 auto NodeFactory::createNode( const std::string& nodeType,
                               const nlohmann::json& data,
-                              DataflowGraph* owningGraph ) -> Node* {
+                              DataflowGraph* owningGraph ) -> std::shared_ptr<Node> {
     if ( auto itr = m_nodesCreators.find( nodeType ); itr != m_nodesCreators.end() ) {
-        auto* node = itr->second.first( data );
-        if ( owningGraph != nullptr ) {
-            auto [added, n] = owningGraph->addNode( std::unique_ptr<Node>( node ) );
-            return n;
-        }
+        auto node = std::shared_ptr<Node> { itr->second.first( data ) };
+        if ( owningGraph != nullptr ) { owningGraph->addNode( node ); }
         return node;
     }
     return nullptr;
@@ -50,9 +48,9 @@ auto NodeFactory::nextNodeId() -> size_t {
 
 auto NodeFactorySet::createNode( const std::string& nodeType,
                                  const nlohmann::json& data,
-                                 DataflowGraph* owningGraph ) -> Node* {
+                                 DataflowGraph* owningGraph ) -> std::shared_ptr<Node> {
     for ( const auto& itr : m_factories ) {
-        if ( auto* node = itr.second->createNode( nodeType, data, owningGraph ); node ) {
+        if ( auto node = itr.second->createNode( nodeType, data, owningGraph ); node ) {
             return node;
         }
     }
