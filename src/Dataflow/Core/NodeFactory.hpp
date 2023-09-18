@@ -39,7 +39,7 @@ class RA_DATAFLOW_API NodeFactory
      *     return node;
      *   }
      */
-    using NodeCreatorFunctor = std::function<Node*( const nlohmann::json& data )>;
+    using NodeCreatorFunctor = std::function<std::shared_ptr<Node>( const nlohmann::json& data )>;
 
     /**
      * Associate, for a given concrete node type, a custom NodeCreatorFunctor
@@ -93,7 +93,7 @@ class RA_DATAFLOW_API NodeFactory
      */
     [[nodiscard]] auto createNode( const std::string& nodeType,
                                    const nlohmann::json& data,
-                                   DataflowGraph* owningGraph = nullptr ) -> Node*;
+                                   DataflowGraph* owningGraph = nullptr ) -> std::shared_ptr<Node>;
 
     /**
      * The type of the associative container used to store the factory
@@ -168,7 +168,7 @@ class RA_DATAFLOW_API NodeFactorySet
      */
     [[nodiscard]] auto createNode( const std::string& nodeType,
                                    const nlohmann::json& data,
-                                   DataflowGraph* owningGraph = nullptr ) -> Node*;
+                                   DataflowGraph* owningGraph = nullptr ) -> std::shared_ptr<Node>;
 
     /* Wrappers to the interface of the underlying container
      * see https://en.cppreference.com/w/cpp/container/map
@@ -267,7 +267,7 @@ auto NodeFactory::registerNodeCreator( const std::string& instanceNamePrefix,
             std::string instanceName;
             if ( data.contains( "instance" ) ) { instanceName = data["instance"]; }
             else { instanceName = instanceNamePrefix + std::to_string( this->nextNodeId() ); }
-            auto node = new T( instanceName );
+            auto node = std::make_shared<T>( instanceName );
             node->fromJson( data );
             return node;
         },

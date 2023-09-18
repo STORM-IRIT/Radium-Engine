@@ -5,6 +5,7 @@
 #include <map>
 
 #include <Core/Utils/Log.hpp>
+#include <memory>
 
 namespace Ra {
 namespace Dataflow {
@@ -124,11 +125,12 @@ bool DataflowGraph::loadFromJson( const std::string& jsonFilePath ) {
     return fromJson( j );
 }
 
-std::pair<Node*, std::string> getLinkInfo( const std::string& which,
-                                           const nlohmann::json& linkData,
-                                           const std::map<std::string, Node*>& nodeByName ) {
+std::pair<std::shared_ptr<Node>, std::string>
+getLinkInfo( const std::string& which,
+             const nlohmann::json& linkData,
+             const std::map<std::string, std::shared_ptr<Node>>& nodeByName ) {
     std::string field = which + "_node";
-    Node* node { nullptr };
+    std::shared_ptr<Node> node { nullptr };
 
     auto itNode = nodeByName.find( linkData[field] );
     if ( itNode != nodeByName.end() ) { node = itNode->second; }
@@ -182,7 +184,7 @@ bool DataflowGraph::fromJsonInternal( const nlohmann::json& data ) {
                 }
             }
         }
-        std::map<std::string, Node*> nodeByName;
+        std::map<std::string, std::shared_ptr<Node>> nodeByName;
         auto nodes = data["graph"]["nodes"];
         for ( auto& n : nodes ) {
             if ( !n["model"].contains( "name" ) ) {
@@ -247,7 +249,7 @@ bool DataflowGraph::canAdd( const Node* newNode ) const {
     return findNode( newNode ) == -1;
 }
 
-std::pair<bool, Node*> DataflowGraph::addNode( std::unique_ptr<Node> newNode ) {
+bool DataflowGraph::addNode( std::shared_ptr<Node> newNode ) {
     // Check if the new node already exists (= same name and type)
     if ( canAdd( newNode.get() ) ) {
         if ( newNode->getInputs().empty() || newNode->getOutputs().empty() ) {
@@ -259,22 +261,21 @@ std::pair<bool, Node*> DataflowGraph::addNode( std::unique_ptr<Node> newNode ) {
                 ( this->*addGraphIOPort )( p );
             }
         }
-        auto addedNode = newNode.get();
         m_nodes.emplace_back( std::move( newNode ) );
         m_ready         = false;
         m_shouldBeSaved = true;
-        return { true, addedNode };
+        return true;
     }
-    else { return { false, newNode.release() }; }
+    else { return false; }
 }
 
-bool DataflowGraph::removeNode( Node*& node ) {
+bool DataflowGraph::removeNode( std::shared_ptr<Node> node ) {
     // This is to prevent graph destruction from the graph editor, depending on how it is used
     if ( m_nodesAndLinksProtected ) { return false; }
 
-    // Check if the new node already exists (= same name)
+    // Check if the node is in the list already exists (= same name)
     int index = -1;
-    if ( ( index = findNode( node ) ) == -1 ) { return false; }
+    if ( ( index = findNode( node.get() ) ) == -1 ) { return false; }
     else {
         if ( node->getInputs().empty() || node->getOutputs().empty() ) {
             bool ( DataflowGraph::*removeGraphIOPort )( const std::string& ) =
@@ -285,26 +286,25 @@ bool DataflowGraph::removeNode( Node*& node ) {
             }
         }
         m_nodes.erase( m_nodes.begin() + index );
-        node            = nullptr;
         m_ready         = false;
         m_shouldBeSaved = true;
         return true;
     }
 }
 
-bool DataflowGraph::addLink( Node* nodeFrom,
+bool DataflowGraph::addLink( const std::shared_ptr<Node>& nodeFrom,
                              const std::string& nodeFromOutputName,
-                             Node* nodeTo,
+                             const std::shared_ptr<Node>& nodeTo,
                              const std::string& nodeToInputName ) {
     // Check node "from" existence in the graph
-    if ( findNode( nodeFrom ) == -1 ) {
+    if ( findNode( nodeFrom.get() ) == -1 ) {
         LOG( logERROR ) << "DataflowGraph::addLink Unable to find initial node "
                         << nodeFrom->getInstanceName();
         return false;
     }
 
     // Check node "to" existence in the graph
-    if ( findNode( nodeTo ) == -1 ) {
+    if ( findNode( nodeTo.get() ) == -1 ) {
         LOG( logERROR ) << "DataflowGraph::addLink Unable to find destination node "
                         << nodeTo->getInstanceName();
         return false;
@@ -374,12 +374,12 @@ bool DataflowGraph::addLink( Node* nodeFrom,
     return true;
 }
 
-bool DataflowGraph::removeLink( Node* node, const std::string& nodeInputName ) {
+bool DataflowGraph::removeLink( std::shared_ptr<Node> node, const std::string& nodeInputName ) {
     // This is to prevent graph destruction from the graph editor, depending on how it is used
     if ( m_nodesAndLinksProtected ) { return false; }
 
     // Check node's existence in the graph
-    if ( findNode( node ) == -1 ) { return false; }
+    if ( findNode( node.get() ) == -1 ) { return false; }
 
     // Check if node's input exists
     int found = -1;
@@ -560,8 +560,8 @@ bool DataflowGraph::removeSetter( const std::string& setterName ) {
 bool DataflowGraph::addGetter( PortBase* out ) {
     if ( out->is_input() ) { return false; }
     // This is very similar to addOutput, except the data can't be set.
-    // Data pointer must be set by any sink at compile time, in the init function to refer to the
-    // data fetched from the associated input link
+    // Data pointer must be set by any sink at compile time, in the init function to refer to
+    // the data fetched from the associated input link
     bool found = false;
     // TODO check if this verification is needed ?
     for ( auto& output : m_outputs ) {
@@ -641,18 +641,18 @@ std::vector<DataflowGraph::DataGetterDesc> DataflowGraph::getAllDataGetters() co
     return r;
 }
 
-Node* DataflowGraph::getNode( const std::string& instanceNameNode ) const {
+std::shared_ptr<Node> DataflowGraph::getNode( const std::string& instanceNameNode ) const {
     auto nodeIt =
         std::find_if( m_nodes.begin(), m_nodes.end(), [instanceNameNode]( const auto& n ) {
             return n->getInstanceName() == instanceNameNode;
         } );
-    if ( nodeIt != m_nodes.end() ) { return nodeIt->get(); }
+    if ( nodeIt != m_nodes.end() ) { return *nodeIt; }
     LOG( logERROR ) << "DataflowGraph::getNode : The node with the instance name \""
                     << instanceNameNode << "\" has not been found";
-    return nullptr;
+    return { nullptr };
 }
 
-DataflowGraph* DataflowGraph::loadGraphFromJsonFile( const std::string& filename ) {
+std::shared_ptr<DataflowGraph> DataflowGraph::loadGraphFromJsonFile( const std::string& filename ) {
     if ( !nlohmann::json::accept( std::ifstream( filename ) ) ) {
         LOG( logERROR ) << filename << " is not a valid json file !!";
         return nullptr;
@@ -682,14 +682,14 @@ DataflowGraph* DataflowGraph::loadGraphFromJsonFile( const std::string& filename
         return nullptr;
     }
 
-    auto graph = dynamic_cast<DataflowGraph*>( ndldd );
+    auto graph = std::dynamic_pointer_cast<DataflowGraph>( ndldd );
     if ( graph != nullptr ) {
         graph->m_shouldBeSaved = false;
         return graph;
     }
 
     LOG( logERROR ) << "Loaded graph not inheriting from DataflowGraph " << graphType << "\n";
-    delete ndldd;
+
     return nullptr;
 }
 
