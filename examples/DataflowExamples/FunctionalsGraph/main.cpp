@@ -20,31 +20,33 @@ int main( int argc, char* argv[] ) {
 
     //! [Creating Nodes]
     using TransformOperatorSource = Sources::FunctionSourceNode<Scalar, const Scalar&>;
-    auto sourceNode    = new Sources::SingleDataSourceNode<std::vector<Scalar>>( "Source" );
-    auto mapSource     = new TransformOperatorSource( "MapOperator" );
-    auto transformNode = new Functionals::TransformNode<std::vector<Scalar>>( "Transformer" );
+    auto sourceNode =
+        std::make_shared<Sources::SingleDataSourceNode<std::vector<Scalar>>>( "Source" );
+    auto mapSource = std::make_shared<TransformOperatorSource>( "MapOperator" );
+    auto transformNode =
+        std::make_shared<Functionals::TransformNode<std::vector<Scalar>>>( "Transformer" );
     // can't use auto here, must explicitely define the type
     Functionals::TransformNode<std::vector<Scalar>>::TransformOperator oneMinusMe =
         []( const Scalar& i ) -> Scalar { return 1_ra - i; };
     transformNode->setOperator( oneMinusMe );
 
-    auto reduceNode = new Functionals::ReduceNode<std::vector<Scalar>>( "Minimum" );
+    auto reduceNode = std::make_shared<Functionals::ReduceNode<std::vector<Scalar>>>( "Minimum" );
     Functionals::ReduceNode<std::vector<Scalar>>::ReduceOperator getMin =
         []( const Scalar& a, const Scalar& b ) -> Scalar { return std::min( a, b ); };
     reduceNode->setOperator( getMin, std::numeric_limits<Scalar>::max() );
 
-    auto scalarSinkNode = new Sinks::SinkNode<Scalar>( "ScalarSink" );
+    auto scalarSinkNode = std::make_shared<Sinks::SinkNode<Scalar>>( "ScalarSink" );
 
-    auto sinkNode = new Sinks::SinkNode<std::vector<Scalar>>( "Sink" );
+    auto sinkNode = std::make_shared<Sinks::SinkNode<std::vector<Scalar>>>( "Sink" );
     //! [Creating Nodes]
 
     //! [Adding Nodes to the graph]
-    g.addNode( std::unique_ptr<Node>( sourceNode ) );
-    g.addNode( std::unique_ptr<Node>( mapSource ) );
-    g.addNode( std::unique_ptr<Node>( transformNode ) );
-    g.addNode( std::unique_ptr<Node>( reduceNode ) );
-    g.addNode( std::unique_ptr<Node>( sinkNode ) );
-    g.addNode( std::unique_ptr<Node>( scalarSinkNode ) );
+    g.addNode( sourceNode );
+    g.addNode( mapSource );
+    g.addNode( transformNode );
+    g.addNode( reduceNode );
+    g.addNode( sinkNode );
+    g.addNode( scalarSinkNode );
     //! [Adding Nodes to the graph]
 
     //! [Creating links between Nodes]

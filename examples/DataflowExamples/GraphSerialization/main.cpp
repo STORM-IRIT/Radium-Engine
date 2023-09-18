@@ -40,17 +40,17 @@ int main( int argc, char* argv[] ) {
         //! [Creating an empty graph using the custom nodes factory]
 
         //! [Creating Nodes]
-        auto sourceNode = new Sources::SingleDataSourceNode<VectorType>( "Source" );
+        auto sourceNode = std::make_shared<Sources::SingleDataSourceNode<VectorType>>( "Source" );
         // non serializable node using a custom filter
-        auto filterNode = new Functionals::FilterNode<VectorType>(
+        auto filterNode = std::make_shared<Functionals::FilterNode<VectorType>>(
             "Filter", []( const Scalar& x ) { return x > 0.5_ra; } );
-        auto sinkNode = new Sinks::SinkNode<VectorType>( "Sink" );
+        auto sinkNode = std::make_shared<Sinks::SinkNode<VectorType>>( "Sink" );
         //! [Creating Nodes]
 
         //! [Adding Nodes to the graph]
-        g.addNode( std::unique_ptr<Node>( sourceNode ) );
-        g.addNode( std::unique_ptr<Node>( filterNode ) );
-        g.addNode( std::unique_ptr<Node>( sinkNode ) );
+        g.addNode( sourceNode );
+        g.addNode( filterNode );
+        g.addNode( sinkNode );
         //! [Adding Nodes to the graph]
 
         //! [Creating links between Nodes]
@@ -151,7 +151,8 @@ int main( int argc, char* argv[] ) {
     //! [Print the output result]
 
     //! [Set the correct filter on the filter node]
-    auto filter = dynamic_cast<Functionals::FilterNode<VectorType>*>( g1.getNode( "Filter" ) );
+    auto filter =
+        std::dynamic_pointer_cast<Functionals::FilterNode<VectorType>>( g1.getNode( "Filter" ) );
     if ( !filter ) {
         std::cerr << "Unable to cast the filter to the right type\n";
         return 3;
