@@ -16,22 +16,18 @@ int main( int argc, char* argv[] ) {
     //! [Creating an empty graph]
 
     //! [Creating Nodes]
-    auto addedSourceNode    = std::make_unique<Sources::SingleDataSourceNode<RaVector>>( "Source" );
-    auto addedPredicateNode = std::make_unique<Sources::ScalarUnaryPredicateSource>( "Selector" );
-    auto addedFilterNode    = std::make_unique<Functionals::FilterNode<RaVector>>( "Filter" );
-    auto addedSinkNode      = std::make_unique<Sinks::SinkNode<RaVector>>( "Sink" );
-    // get non-owning aliases to ease future node management
-    auto sourceNode    = addedSourceNode.get();
-    auto predicateNode = addedPredicateNode.get();
-    auto filterNode    = addedFilterNode.get();
-    auto sinkNode      = addedSinkNode.get();
+    auto sourceNode    = std::make_shared<Sources::SingleDataSourceNode<RaVector>>( "Source" );
+    auto predicateNode = std::make_shared<Sources::ScalarUnaryPredicateSource>( "Selector" );
+    auto filterNode    = std::make_shared<Functionals::FilterNode<RaVector>>( "Filter" );
+    auto sinkNode      = std::make_shared<Sinks::SinkNode<RaVector>>( "Sink" );
+
     //! [Creating Nodes]
 
     //! [Adding Nodes to the graph]
-    g.addNode( std::move( addedSourceNode ) );
-    g.addNode( std::move( addedPredicateNode ) );
-    g.addNode( std::move( addedFilterNode ) );
-    g.addNode( std::move( addedSinkNode ) );
+    g.addNode( sourceNode );
+    g.addNode( predicateNode );
+    g.addNode( filterNode );
+    g.addNode( sinkNode );
     //! [Adding Nodes to the graph]
 
     //! [Creating links between Nodes]
