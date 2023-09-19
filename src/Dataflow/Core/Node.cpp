@@ -73,10 +73,9 @@ PortBase* Node::getPortByName( const std::string& type, const std::string& name 
     return fprt;
 }
 
-PortBase* Node::getPortByIndex( const std::string& type, int idx ) const {
+PortBase* Node::getPortByIndex( const std::string& type, PortIndex idx ) const {
     const auto& ports = ( type == "in" ) ? m_inputs : m_outputs;
-    if ( 0 <= idx && size_t( idx ) < ports.size() ) { return ports[idx].get(); }
-    return nullptr;
+    return getPortBase( ports, idx );
 }
 
 } // namespace Core

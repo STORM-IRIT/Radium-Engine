@@ -161,6 +161,10 @@ class BinaryOpNode : public Node
     using Res_type       = typename internal::ArgTypeHelper<t_out>::value_type;
     using BinaryOperator = std::function<Res_type( Arg1_type, Arg2_type )>;
 
+    using PortA = PortIn<t_a>;
+    using PortB = PortIn<t_b>;
+    using PortF = PortIn<BinaryOperator>;
+    using PortR = PortOut<t_out>;
     /**
      * \brief Construct an null operator
      * \param instanceName
@@ -184,12 +188,15 @@ class BinaryOpNode : public Node
     }
 
     bool execute() override {
-        auto f = m_operator;
-        if ( m_portF->isLinked() ) { f = m_portF->getData(); }
+        auto f     = m_operator;
+        auto portA = getInputPort<PortA>( m_portA );
+        auto portB = getInputPort<PortB>( m_portB );
+        auto portF = getInputPort<PortF>( m_portF );
+        if ( portF->isLinked() ) { f = portF->getData(); }
         // The following test will always be true if the node was integrated in a compiled graph
-        if ( m_portA->isLinked() && m_portB->isLinked() ) {
+        if ( portA->isLinked() && portB->isLinked() ) {
             m_result = internal::ExecutorHelper<t_a, t_b, t_out, BinaryOperator>::executeInternal(
-                m_portA->getData(), m_portB->getData(), f );
+                portA->getData(), portB->getData(), f );
         }
         return true;
     }
@@ -202,12 +209,15 @@ class BinaryOpNode : public Node
                   const std::string& typeName,
                   BinaryOperator op ) :
         Node( instanceName, typeName ), m_operator( op ) {
-        addInput( m_portA );
-        m_portA->mustBeLinked();
-        addInput( m_portB );
-        m_portB->mustBeLinked();
-        addInput( m_portF );
-        addOutput( m_portR, &m_result );
+
+        m_portA = addInput( std::make_unique<PortA>( "a", this ) );
+        getInputPort<PortA>( m_portA )->mustBeLinked();
+
+        m_portB = addInput( std::make_unique<PortB>( "b", this ) );
+        getInputPort<PortB>( m_portB )->mustBeLinked();
+        m_portF = addInput( std::make_unique<PortF>( "f", this ) );
+        m_portR = addOutput( std::make_unique<PortR>( "r", this ) );
+        getOutputPort<PortR>( m_portR )->setData( &m_result );
     }
 
     void toJsonInternal( nlohmann::json& data ) const override {
@@ -230,10 +240,10 @@ class BinaryOpNode : public Node
 
     /// @{
     /// \brief Alias for the ports (allow simpler access)
-    PortIn<t_a>* m_portA { new PortIn<t_a>( "a", this ) };
-    PortIn<t_b>* m_portB { new PortIn<t_b>( "b", this ) };
-    PortIn<BinaryOperator>* m_portF { new PortIn<BinaryOperator>( "f", this ) };
-    PortOut<t_out>* m_portR { new PortOut<t_out>( "r", this ) };
+    PortIndex m_portA;
+    PortIndex m_portB;
+    PortIndex m_portF;
+    PortIndex m_portR;
     /// @}
 
   public:
