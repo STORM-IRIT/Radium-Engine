@@ -71,7 +71,7 @@ class SingleDataSourceNode : public Node
     /// @}
 
     /// Alias to the output port
-    PortOut<T>* m_portOut { new PortOut<T>( "to", this ) };
+    const PortIndex m_portOut { 0 };
 
     /// used only at deserialization
     void setData( T& data );
@@ -87,7 +87,8 @@ template <typename T>
 SingleDataSourceNode<T>::SingleDataSourceNode( const std::string& instanceName,
                                                const std::string& typeName ) :
     Node( instanceName, typeName ) {
-    addOutput( m_portOut, m_data );
+    addOutput( std::make_unique<PortOut<T>>( "to", this ) );
+    getOutputPort<PortOut<T>>( m_portOut )->setData( m_data );
 }
 
 template <typename T>
@@ -102,7 +103,7 @@ bool SingleDataSourceNode<T>::execute() {
         // use local storage to deliver data
         m_data = &m_localData;
     }
-    m_portOut->setData( m_data );
+    getOutputPort<PortOut<T>>( m_portOut )->setData( m_data );
     return true;
 }
 

@@ -31,7 +31,7 @@ class RA_DATAFLOW_API PortBase
     /// The port's data's type's index.
     std::type_index m_type;
     /// A pointer to the node this port belongs to.
-    Node* m_node { nullptr };
+    Node* m_node { nullptr }; /// \todo switch to shared_ptr ?
 
   protected:
     /// Flag that tells if the port is linked.
