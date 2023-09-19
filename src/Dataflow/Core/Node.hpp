@@ -1,4 +1,5 @@
 #pragma once
+#include "Core/Utils/Index.hpp"
 #include <Dataflow/RaDataflow.hpp>
 
 #include <Dataflow/Core/EditableParameter.hpp>
@@ -31,6 +32,8 @@ namespace Core {
 class RA_DATAFLOW_API Node
 {
   public:
+    using PortIndex      = Ra::Core::Utils::Index;
+    using PortCollection = std::vector<std::unique_ptr<PortBase>>;
     /// \name Constructors
     /// @{
     /// \brief delete default constructors.
@@ -86,7 +89,27 @@ class RA_DATAFLOW_API Node
     /// \param type either "in" or "out", the directional type of the port
     /// \param idx
     /// \return an alias pointer on the requested port if it exists, nullptr else
-    PortBase* getPortByIndex( const std::string& type, int idx ) const;
+    PortBase* getPortByIndex( const std::string& type, PortIndex idx ) const;
+
+    PortBase* getPortBase( const PortCollection& ports, PortIndex idx ) const {
+        if ( 0 <= idx && size_t( idx ) < ports.size() ) { return ports[idx].get(); }
+        return nullptr;
+    }
+
+    template <typename T>
+    T* getPort( const PortCollection& ports, PortIndex idx ) const {
+        return dynamic_cast<T*>( getPortBase( ports, idx ) );
+    }
+
+    template <typename T>
+    T* getInputPort( PortIndex idx ) const {
+        return getPort<T>( m_inputs, idx );
+    }
+
+    template <typename T>
+    T* getOutputPort( PortIndex idx ) const {
+        return getPort<T>( m_outputs, idx );
+    }
 
     /// \brief Gets the in ports of the node.
     /// Input ports are own to the node.
@@ -172,6 +195,9 @@ class RA_DATAFLOW_API Node
     /// name already associated with this node.
     /// \param in The in port to add.
     bool addInput( PortBase* in );
+    PortIndex addInput( std::unique_ptr<PortBase> in );
+    PortIndex addOutput( std::unique_ptr<PortBase> in );
+    PortIndex addPort( PortCollection&, std::unique_ptr<PortBase> in );
 
     /// \brief remove the given input port from the managed input ports
     /// \param in the port to remove
@@ -305,6 +331,31 @@ inline bool Node::addInput( PortBase* in ) {
     }
     if ( !found ) { m_inputs.emplace_back( in ); }
     return !found;
+}
+
+inline Node::PortIndex Node::addPort( PortCollection& ports, std::unique_ptr<PortBase> port ) {
+    PortIndex idx;
+    // look for a free slot
+    auto it = std::find_if( ports.begin(), ports.end(), []( const auto& port ) { return !port; } );
+    if ( it != ports.end() ) {
+        it->swap( port );
+        idx = std::distance( ports.begin(), it );
+    }
+    else {
+        ports.push_back( std::move( port ) );
+        idx = ports.size() - 1;
+    }
+    return idx;
+}
+
+inline Node::PortIndex Node::addInput( std::unique_ptr<PortBase> in ) {
+    CORE_ASSERT( in->is_input(), "in port must be is_input" );
+    return addPort( m_inputs, std::move( in ) );
+}
+
+inline Node::PortIndex Node::addOutput( std::unique_ptr<PortBase> out ) {
+    CORE_ASSERT( !out->is_input(), "out port must be not is_input" );
+    return addPort( m_outputs, std::move( out ) );
 }
 
 inline bool Node::removeInput( PortBase*& in ) {

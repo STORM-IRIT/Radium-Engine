@@ -150,7 +150,7 @@ getLinkInfo( const std::string& which,
     else {
         field = which + "_index";
         if ( linkData.contains( field ) ) {
-            auto p = node->getPortByIndex( which, linkData[field] );
+            auto p = node->getPortByIndex( which, Node::PortIndex { int { linkData[field] } } );
             if ( p != nullptr ) { port = p->getName(); }
         }
     }
