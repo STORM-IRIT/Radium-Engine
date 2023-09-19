@@ -96,18 +96,22 @@ class RA_DATAFLOW_API Node
         return nullptr;
     }
 
-    template <typename T>
-    T* getPort( const PortCollection& ports, PortIndex idx ) const {
-        return dynamic_cast<T*>( getPortBase( ports, idx ) );
+    constexpr PortBase* getPortBaseNoCheck( const PortCollection& ports, PortIndex idx ) const {
+        return ports[idx].get();
     }
 
     template <typename T>
-    T* getInputPort( PortIndex idx ) const {
+    constexpr T* getPort( const PortCollection& ports, PortIndex idx ) const {
+        return static_cast<T*>( getPortBaseNoCheck( ports, idx ) );
+    }
+
+    template <typename T>
+    constexpr T* getInputPort( PortIndex idx ) const {
         return getPort<T>( m_inputs, idx );
     }
 
     template <typename T>
-    T* getOutputPort( PortIndex idx ) const {
+    constexpr T* getOutputPort( PortIndex idx ) const {
         return getPort<T>( m_outputs, idx );
     }
 
@@ -148,7 +152,7 @@ class RA_DATAFLOW_API Node
 
     /// \name Serialization of a node
     /// @{
-    /// TODO : specify the json format for nodes and what is expected from the following ethods
+    /// \todo : specify the json format for nodes and what is expected from the following methods
 
     /// \brief serialize the content of the node.
     /// Fill the given json object with the json representation of the concrete node.
@@ -182,13 +186,22 @@ class RA_DATAFLOW_API Node
     /// Must be implemented by inheriting classes.
     /// Be careful with template specialization and function member overriding when implementing
     /// this method.
-    virtual bool fromJsonInternal( const nlohmann::json& ) = 0;
+    virtual bool fromJsonInternal( const nlohmann::json& ) {
+        LOG( Ra::Core::Utils::logDEBUG )
+            << "Unable to read data when un-serializing a " << getTypeName() << ".";
+        return true;
+    }
 
     /// internal json representation of the Node.
     /// Must be implemented by inheriting classes.
     /// Be careful with template specialization and function member overriding when implementing
     /// this method.
-    virtual void toJsonInternal( nlohmann::json& ) const = 0;
+    virtual void toJsonInternal( nlohmann::json& data ) const {
+        data["comment"] =
+            std::string { "Binary operator could not be serialized for " } + getTypeName();
+        LOG( Ra::Core::Utils::logDEBUG )
+            << "Unable to save data when serializing a " << getTypeName() << ".";
+    }
 
     /// Adds an in port to the node.
     /// This function checks if the port is an input port, then if there is no in port with the same
@@ -246,6 +259,8 @@ class RA_DATAFLOW_API Node
     /// This stores only aliases as interface ports will belong to the parent
     /// node (i.e. the graph this node belongs to)
     std::vector<PortBase*> m_interface;
+    /// \todo well if it's also in intreface, switch to shared_ptr, and then forget about index
+    /// constexpr access.
 
     /// The editable parameters of the node
     /// \todo replace this by a Ra::Core::VariableSet

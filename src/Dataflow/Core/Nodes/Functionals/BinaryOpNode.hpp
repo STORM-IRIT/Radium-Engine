@@ -1,4 +1,5 @@
 #pragma once
+#include "Core/CoreMacros.hpp"
 #include <Dataflow/Core/Node.hpp>
 
 #include <functional>
@@ -210,13 +211,21 @@ class BinaryOpNode : public Node
                   BinaryOperator op ) :
         Node( instanceName, typeName ), m_operator( op ) {
 
-        m_portA = addInput( std::make_unique<PortA>( "a", this ) );
-        getInputPort<PortA>( m_portA )->mustBeLinked();
+        PortIndex idx;
+        idx = addInput( std::make_unique<PortA>( "a", this ) );
+        CORE_ASSERT( idx == m_portA, "port index mismatch" );
 
-        m_portB = addInput( std::make_unique<PortB>( "b", this ) );
+        getInputPort<PortA>( m_portA )->mustBeLinked();
+        idx = addInput( std::make_unique<PortB>( "b", this ) );
+        CORE_ASSERT( idx == m_portB, "port index mismatch" );
+
         getInputPort<PortB>( m_portB )->mustBeLinked();
-        m_portF = addInput( std::make_unique<PortF>( "f", this ) );
-        m_portR = addOutput( std::make_unique<PortR>( "r", this ) );
+
+        idx = addInput( std::make_unique<PortF>( "f", this ) );
+        CORE_ASSERT( idx == m_portF, "port index mismatch" );
+
+        idx = addOutput( std::make_unique<PortR>( "r", this ) );
+        CORE_ASSERT( idx == m_portR, "port index mismatch" );
         getOutputPort<PortR>( m_portR )->setData( &m_result );
     }
 
@@ -239,11 +248,11 @@ class BinaryOpNode : public Node
     t_out m_result;
 
     /// @{
-    /// \brief Alias for the ports (allow simpler access)
-    PortIndex m_portA;
-    PortIndex m_portB;
-    PortIndex m_portF;
-    PortIndex m_portR;
+    /// Store pore index for direct access.
+    const PortIndex m_portA { 0 };
+    const PortIndex m_portB { 1 };
+    const PortIndex m_portF { 2 };
+    const PortIndex m_portR { 0 };
     /// @}
 
   public:
