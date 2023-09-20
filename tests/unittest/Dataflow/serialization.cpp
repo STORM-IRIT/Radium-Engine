@@ -98,7 +98,7 @@ TEST_CASE( "Dataflow/Core/DataflowGraph", "[Dataflow][Core][DataflowGraph]" ) {
         auto loadedSource_a =
             std::dynamic_pointer_cast<Sources::SingleDataSourceNode<DataType>>( g1.getNode( "a" ) );
         Scalar newX = 3_ra;
-        loadedSource_a->setData( &newX );
+        loadedSource_a->setData( newX );
         g1.execute();
         REQUIRE( z_loaded == 6 );
         std::filesystem::remove_all( tmpdir );
