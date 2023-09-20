@@ -117,7 +117,7 @@ int main( int argc, char* argv[] ) {
     //! [Disconnect data setter and rerun the graph - result is now empty]
 
     //! [As interface is disconnected, we can set data direclty on the source node]
-    sourceNode->setData( &test );
+    sourceNode->setData( std::move( test ) );
     g.execute();
     std::cout << "Output values after fourth execution: " << result.size() << "\n\t";
     for ( auto ord : result ) {

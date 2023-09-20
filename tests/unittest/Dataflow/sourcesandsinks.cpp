@@ -42,7 +42,7 @@ void testGraph( const std::string& name, T in, T& out ) {
     out = r;
 
     g->releaseDataSetter( "in_to" );
-    source->setData( &in );
+    source->setData( in );
 
     nlohmann::json graphData;
     g->toJson( graphData );

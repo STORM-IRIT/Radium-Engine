@@ -277,8 +277,7 @@ TEST_CASE( "Dataflow/Core/Nodes", "[Dataflow][Core][Nodes]" ) {
 
         // Source of a Scalar : mean neutral element 0_ra
         auto nodeN = std::make_shared<Sources::ScalarSource>( "n" );
-        Scalar zero { 0_ra };
-        nodeN->setData( &zero );
+        nodeN->setData( 0_ra );
 
         // Source of a reduction operator : compute the mean using Welford online algo
         using ReduceOperator = Sources::FunctionSourceNode<Scalar, const Scalar&, const Scalar&>;
