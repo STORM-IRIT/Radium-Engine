@@ -98,6 +98,15 @@ class RA_DATAFLOW_API DataflowGraph : public Node
                   const std::string& nodeFromOutputName,
                   const std::shared_ptr<Node>& nodeTo,
                   const std::string& nodeToInputName );
+    bool addLink( const std::shared_ptr<Node>& nodeFrom,
+                  Node::PortIndex portOutIdx,
+                  const std::shared_ptr<Node>& nodeTo,
+                  Node::PortIndex portInIdx );
+    // template <typename T, typename U>
+    // bool DataflowGraph::addLink( const std::shared_ptr<Node>& nodeFrom,
+    //                        const std::shared_ptr<PortOut<T>>& portOut,
+    //                        const std::shared_ptr<Node>& nodeTo,
+    //                        const std::shared_ptr<PortIn<U>>& portIn ) {}
 
     ///
     /// \brief Removes the link connected to a node's input port
@@ -133,7 +142,8 @@ class RA_DATAFLOW_API DataflowGraph : public Node
     /// Test if the graph is compiled
     bool isCompiled() const;
 
-    /// Mark the graph as needing recompilation (useful to force recompilation and resources update)
+    /// Mark the graph as needing recompilation (useful to force recompilation and resources
+    /// update)
     void needsRecompile();
 
     /// Flag that indicates if the graph should be saved to a file
@@ -142,10 +152,9 @@ class RA_DATAFLOW_API DataflowGraph : public Node
 
     /// \brief Gets an output port connected to the named input port of the graph.
     /// Return the connected output port if success, sharing the ownership with the caller.
-    /// This output port could then be used through setter->setData( ptr ) to set the graph input
-    /// from the data pointer owned by the caller.
-    /// \note As ownership is shared with the caller, the graph must survive the returned
-    /// pointer to be able to use the dataSetter..
+    /// This output port could then be used through setter->setData( ptr ) to set the graph
+    /// input from the data pointer owned by the caller. \note As ownership is shared with the
+    /// caller, the graph must survive the returned pointer to be able to use the dataSetter..
     /// \params portName The name of the input port of the graph
     std::shared_ptr<PortBase> getDataSetter( const std::string& portName );
 
@@ -162,27 +171,28 @@ class RA_DATAFLOW_API DataflowGraph : public Node
     PortBase* getDataGetter( const std::string& portName );
 
     /// \brief Data setter descriptor.
-    /// A Data setter descriptor is composed of an output port (linked by construction to an input
-    /// port of the graph), its name and its type.
-    /// Use setData on the output port to pass data to the graph
+    /// A Data setter descriptor is composed of an output port (linked by construction to an
+    /// input port of the graph), its name and its type. Use setData on the output port to pass
+    /// data to the graph
     using DataSetterDesc = std::tuple<std::shared_ptr<PortBase>, std::string, std::string>;
 
     /// \brief Data getter descriptor.
-    /// A Data getter descriptor is composed of an output port (belonging to any node of the graph),
-    /// its name and its type.
-    /// Use getData on the output port to extract data from the graph.
-    /// \note, a dataGetter is valid only after successful compilation of the graph.
+    /// A Data getter descriptor is composed of an output port (belonging to any node of the
+    /// graph), its name and its type. Use getData on the output port to extract data from the
+    /// graph. \note, a dataGetter is valid only after successful compilation of the graph.
     /// \todo find a way to test the validity of the getter (invalid if no path exists from any
     /// source port to the associated sink port)
     using DataGetterDesc = std::tuple<PortBase*, std::string, std::string>;
 
-    /// Creates a vector that stores all the existing DataSetters (\see getDataSetter) of the graph.
+    /// Creates a vector that stores all the existing DataSetters (\see getDataSetter) of the
+    /// graph.
     /// TODO : Verify why, when listing the data setters, they are connected ...
     std::vector<DataSetterDesc> getAllDataSetters() const;
 
-    /// Creates a vector that stores all the existing DataGetters (\see getDataGetter) of the graph.
-    /// A tuple is composed of an output port belonging to the graph, its name its type.
+    /// Creates a vector that stores all the existing DataGetters (\see getDataGetter) of the
+    /// graph. A tuple is composed of an output port belonging to the graph, its name its type.
     std::vector<DataGetterDesc> getAllDataGetters() const;
+    int findNode2( const Node* node ) const;
 
   protected:
     /** Allow derived class to construct the graph with their own static type
@@ -196,6 +206,11 @@ class RA_DATAFLOW_API DataflowGraph : public Node
     /// \param newNode const naked pointer to the candidate node
     /// \return true if ownership could be transferred to the graph.
     virtual bool canAdd( const Node* newNode ) const;
+
+    /// Returns the index of the given node in the graph.
+    /// if there is none, returns -1.
+    /// \param name The name of the node to find.
+    int findNode( const Node* node ) const;
 
   private:
     /// Flag set after successful compilation indicating graph is ready to be executed
@@ -212,10 +227,9 @@ class RA_DATAFLOW_API DataflowGraph : public Node
     std::vector<std::vector<Node*>> m_nodesByLevel;
 
     // Internal helper functions
-    /// Internal compilation function that allows to go back in the render graph while filling an
-    /// information map.
-    /// \param current The current node.
-    /// \param infoNodes The map that contains information about nodes.
+    /// Internal compilation function that allows to go back in the render graph while filling
+    /// an information map. \param current The current node. \param infoNodes The map that
+    /// contains information about nodes.
     void backtrackGraph( Node* current,
                          std::unordered_map<Node*, std::pair<int, std::vector<Node*>>>& infoNodes );
     /// Internal compilation function that allows to go through the render graph, using an
@@ -224,16 +238,11 @@ class RA_DATAFLOW_API DataflowGraph : public Node
     /// \param infoNodes The map that contains information about nodes.
     int goThroughGraph( Node* current,
                         std::unordered_map<Node*, std::pair<int, std::vector<Node*>>>& infoNodes );
-    /// Returns the index of the given node in the graph.
-    /// if there is none, returns -1.
-    /// \param name The name of the node to find.
-    int findNode( const Node* node ) const;
 
-    /// Data setters management : used to pass parameter to the graph when the graph is not embedded
-    /// into another graph (inputs are here for this case).
-    /// A dataSetter is an outputPort, associated to an input port of the graph.
-    /// The connection between these ports can be activated/deactivated using
-    /// activateDataSetter/releaseDataSetter
+    /// Data setters management : used to pass parameter to the graph when the graph is not
+    /// embedded into another graph (inputs are here for this case). A dataSetter is an
+    /// outputPort, associated to an input port of the graph. The connection between these ports
+    /// can be activated/deactivated using activateDataSetter/releaseDataSetter
     using DataSetter = std::pair<DataSetterDesc, PortBase*>;
     std::map<std::string, DataSetter> m_dataSetters;
 
@@ -266,9 +275,9 @@ class RA_DATAFLOW_API DataflowGraph : public Node
     /**
      * \brief Load a graph from the given file.
      * \param filename
-     * Any type of graph that inherits from DataflowGraph can be loaded by this function as soon as
-     * the appropriate constructor is registered in the node factory.
-     * \return The loaded graph, as a DataFlowGraph pointer to be downcast to the correct type
+     * Any type of graph that inherits from DataflowGraph can be loaded by this function as soon
+     * as the appropriate constructor is registered in the node factory. \return The loaded
+     * graph, as a DataFlowGraph pointer to be downcast to the correct type
      */
     static std::shared_ptr<DataflowGraph> loadGraphFromJsonFile( const std::string& filename );
 
