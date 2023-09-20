@@ -31,10 +31,8 @@ class SingleDataSourceNode : public Node
 
     /** \brief Set the data to be delivered by the node.
      * @param data
-     * \warning This will copy the given data into the node.
-     * To prevent copy prefer using the corresponding dataSetter on the owning graph.
      */
-    void setData( T* data );
+    void setData( T data );
 
     /**
      * \brief Get the delivered data
@@ -62,6 +60,7 @@ class SingleDataSourceNode : public Node
     bool fromJsonInternal( const nlohmann::json& ) override;
     void toJsonInternal( nlohmann::json& data ) const override;
 
+  private:
     /// @{
     /// The data provided by the node
     /// Used to deliver (and edit) data when the interface is not connected.
@@ -71,10 +70,7 @@ class SingleDataSourceNode : public Node
     /// @}
 
     /// Alias to the output port
-    const PortIndex m_portOut { 0 };
-
-    /// used only at deserialization
-    void setData( T& data );
+    std::shared_ptr<PortOut<T>> m_portOut;
 
   public:
     static const std::string& getTypename();
@@ -87,8 +83,8 @@ template <typename T>
 SingleDataSourceNode<T>::SingleDataSourceNode( const std::string& instanceName,
                                                const std::string& typeName ) :
     Node( instanceName, typeName ) {
-    addOutput( std::make_unique<PortOut<T>>( "to", this ) );
-    getOutputPort<PortOut<T>>( m_portOut )->setData( m_data );
+    m_portOut = addOutputPort<T>( "to", this );
+    m_portOut->setData( m_data );
 }
 
 template <typename T>
@@ -103,21 +99,16 @@ bool SingleDataSourceNode<T>::execute() {
         // use local storage to deliver data
         m_data = &m_localData;
     }
-    getOutputPort<PortOut<T>>( m_portOut )->setData( m_data );
+    m_portOut->setData( m_data );
     return true;
 }
 
 template <typename T>
-void SingleDataSourceNode<T>::setData( T* data ) {
-    /// \warning this will copy data into local storage
-    m_localData = *data;
+void SingleDataSourceNode<T>::setData( T data ) {
+    m_localData = std::move( data );
 }
 
-template <typename T>
-void SingleDataSourceNode<T>::setData( T& data ) {
-    m_localData = data;
-}
-
+/// \todo weird to have getData do not return what is set...
 template <typename T>
 T* SingleDataSourceNode<T>::getData() const {
     return m_data;
