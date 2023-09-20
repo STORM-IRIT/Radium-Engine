@@ -28,7 +28,7 @@ void DataflowGraph::init() {
         Node::init();
         std::for_each( m_nodesByLevel.begin(), m_nodesByLevel.end(), []( const auto& level ) {
             std::for_each( level.begin(), level.end(), []( auto node ) {
-                if ( !node->m_initialized ) { node->init(); }
+                if ( !node->isInitialized() ) { node->init(); }
             } );
         } );
     }
