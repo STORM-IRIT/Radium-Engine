@@ -292,6 +292,52 @@ bool DataflowGraph::removeNode( std::shared_ptr<Node> node ) {
     }
 }
 
+inline bool checkPortCompatibility( const Node* nodeFrom,
+                                    Node::PortIndex portOutIdx,
+                                    const PortBase* portOut,
+                                    const Node* nodeTo,
+                                    Node::PortIndex portInIdx,
+                                    const PortBase* portIn ) {
+    // Compare types
+    if ( !( portIn->getType() == portOut->getType() ) ) {
+        LOG( logERROR ) << "DataflowGraph::addLink type mismatch from "
+                        << nodeFrom->getInstanceName() << " (" << nodeFrom->getTypeName() << ") / "
+                        << portOut->getName() << " (" << portOutIdx << " with type "
+                        << portOut->getTypeName() << ")"
+                        << " to " << nodeTo->getInstanceName() << " (" << nodeTo->getTypeName()
+                        << ") / " << portIn->getName() << " (" << portInIdx << " with type "
+                        << portIn->getTypeName() << ") ";
+        return false;
+    }
+
+    // Check if input is connected
+    if ( portIn->isLinked() ) {
+        LOG( logERROR )
+            << "DataflowGraph::addLink destination port not available (already linked) for "
+            << nodeTo->getInstanceName() << " (" << nodeFrom->getTypeName() << "), port "
+            << portIn->getName();
+        return false;
+    }
+    return true;
+}
+
+inline bool checkNodeValidity( const DataflowGraph* g, const Node* nodeFrom, const Node* nodeTo ) {
+    // Check node "from" existence in the graph
+    if ( g->findNode2( nodeFrom ) == -1 ) {
+        LOG( logERROR ) << "DataflowGraph::addLink Unable to find initial node "
+                        << nodeFrom->getInstanceName();
+        return false;
+    }
+
+    // Check node "to" existence in the graph
+    if ( g->findNode2( nodeTo ) == -1 ) {
+        LOG( logERROR ) << "DataflowGraph::addLink Unable to find destination node "
+                        << nodeTo->getInstanceName();
+        return false;
+    }
+    return true;
+}
+
 bool DataflowGraph::addLink( const std::shared_ptr<Node>& nodeFrom,
                              const std::string& nodeFromOutputName,
                              const std::shared_ptr<Node>& nodeTo,
@@ -345,29 +391,39 @@ bool DataflowGraph::addLink( const std::shared_ptr<Node>& nodeFrom,
     }
 
     // Compare types
-    if ( !( nodeTo->getInputs()[foundTo]->getType() ==
-            nodeFrom->getOutputs()[foundFrom]->getType() ) ) {
-        LOG( logERROR ) << "DataflowGraph::addLink type mismatch from "
-                        << nodeFrom->getInstanceName() << " (" << nodeFrom->getTypeName() << ") / "
-                        << nodeFrom->getOutputs()[foundFrom]->getName() << " (" << foundFrom
-                        << " with type " << nodeFrom->getOutputs()[foundFrom]->getTypeName() << ")"
-                        << " to " << nodeTo->getInstanceName() << " (" << nodeTo->getTypeName()
-                        << ") / " << nodeTo->getInputs()[foundTo]->getName() << " (" << foundTo
-                        << " with type " << nodeTo->getInputs()[foundTo]->getTypeName() << ") ";
-        return false;
-    }
-
-    // Check if input is connected
-    if ( nodeTo->getInputs()[foundTo]->isLinked() ) {
-        LOG( logERROR )
-            << "DataflowGraph::addLink destination port not available (already linked) for "
-            << nodeTo->getInstanceName() << " (" << nodeFrom->getTypeName() << "), port "
-            << nodeTo->getInputs()[foundTo]->getName();
+    if ( !checkPortCompatibility( nodeFrom.get(),
+                                  foundFrom,
+                                  nodeFrom->getOutputs()[foundFrom].get(),
+                                  nodeTo.get(),
+                                  foundTo,
+                                  nodeTo->getInputs()[foundTo].get() ) ) {
         return false;
     }
 
     // port can be connected
     nodeTo->getInputs()[foundTo]->connect( nodeFrom->getOutputs()[foundFrom].get() );
+    // The state of the graph changes, set it to not ready
+    m_ready         = false;
+    m_shouldBeSaved = true;
+    return true;
+}
+
+bool DataflowGraph::addLink( const std::shared_ptr<Node>& nodeFrom,
+                             Node::PortIndex portOutIdx,
+                             const std::shared_ptr<Node>& nodeTo,
+                             Node::PortIndex portInIdx ) {
+    if ( !checkNodeValidity( this, nodeFrom.get(), nodeTo.get() ) ) { return false; }
+
+    auto& portIn  = nodeTo->getInputs()[portInIdx];
+    auto& portOut = nodeFrom->getOutputs()[portOutIdx];
+
+    // Compare types
+    if ( !checkPortCompatibility(
+             nodeFrom.get(), portOutIdx, portOut.get(), nodeTo.get(), portInIdx, portIn.get() ) )
+        return false;
+
+    // port can be connected
+    portIn->connect( portOut.get() );
     // The state of the graph changes, set it to not ready
     m_ready         = false;
     m_shouldBeSaved = true;
@@ -402,6 +458,13 @@ bool DataflowGraph::removeLink( std::shared_ptr<Node> node, const std::string& n
 int DataflowGraph::findNode( const Node* node ) const {
     auto foundIt = std::find_if(
         m_nodes.begin(), m_nodes.end(), [node]( const auto& p ) { return *p == *node; } );
+    if ( foundIt != m_nodes.end() ) { return std::distance( m_nodes.begin(), foundIt ); }
+    else { return -1; }
+}
+
+int DataflowGraph::findNode2( const Node* node ) const {
+    auto foundIt = std::find_if(
+        m_nodes.begin(), m_nodes.end(), [node]( const auto& n ) { return n.get() == node; } );
     if ( foundIt != m_nodes.end() ) { return std::distance( m_nodes.begin(), foundIt ); }
     else { return -1; }
 }
