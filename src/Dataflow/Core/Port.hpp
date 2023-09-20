@@ -126,7 +126,9 @@ class PortOut : public PortBase
     /// Constructor.
     /// @param name The name of the port.
     /// @param node The pointer to the node associated with the port.
+    /// \todo remove this one
     PortOut( const std::string& name, Node* node );
+    PortOut( Node* node, const std::string& name );
     /// @}
 
     /// Gets a reference to the data this ports points to.
@@ -176,7 +178,9 @@ class PortIn : public PortBase,
     /// Constructor.
     /// @param name The name of the port.
     /// @param node The pointer to the node associated with the port.
+    ///\todo remove this one
     PortIn( const std::string& name, Node* node );
+    PortIn( Node* node, const std::string& name );
     /// @}
 
     /// Gets the out port this port is connected to.
@@ -246,6 +250,9 @@ inline bool PortBase::accept( PortBase* other ) {
 
 template <typename T>
 PortOut<T>::PortOut( const std::string& name, Node* node ) : PortBase( name, typeid( T ), node ) {}
+
+template <typename T>
+PortOut<T>::PortOut( Node* node, const std::string& name ) : PortBase( name, typeid( T ), node ) {}
 
 template <typename T>
 T& PortOut<T>::getData() {
@@ -345,6 +352,9 @@ PortBase* PortOut<T>::reflect( Node* node, std::string name ) {
  */
 template <typename T>
 PortIn<T>::PortIn( const std::string& name, Node* node ) : PortBase( name, typeid( T ), node ) {}
+
+template <typename T>
+PortIn<T>::PortIn( Node* node, const std::string& name ) : PortBase( name, typeid( T ), node ) {}
 
 template <typename T>
 PortBase* PortIn<T>::getLink() {

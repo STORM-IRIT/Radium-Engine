@@ -210,12 +210,12 @@ class BinaryOpNode : public Node
                   BinaryOperator op ) :
         Node( instanceName, typeName ), m_operator( op ) {
 
-        m_portA = addInputPort<t_a>( "a", this );
+        m_portA = addInputPort<t_a>( "a" );
         m_portA->mustBeLinked();
-        m_portB = addInputPort<t_b>( "b", this );
+        m_portB = addInputPort<t_b>( "b" );
         m_portB->mustBeLinked();
-        m_portF = addInputPort<BinaryOperator>( "f", this );
-        m_portR = addOutputPort<t_out>( "r", this );
+        m_portF = addInputPort<BinaryOperator>( "f" );
+        m_portR = addOutputPort<t_out>( "r" );
         m_portR->setData( &m_result );
     }
 
