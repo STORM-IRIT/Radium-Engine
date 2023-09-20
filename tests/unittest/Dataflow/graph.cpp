@@ -315,7 +315,7 @@ TEST_CASE( "Dataflow/Core/Graph", "[Dataflow][Core][Graph]" ) {
         result = g.addLink( sourceIntNode, "to", sinkIntNode, "from" );
         REQUIRE( result );
 
-        // from por of "to" node already linked
+        // from port of "to" node already linked
         result = g.addLink( sourceIntNode, "to", sinkIntNode, "from" );
         REQUIRE( !result );
 
