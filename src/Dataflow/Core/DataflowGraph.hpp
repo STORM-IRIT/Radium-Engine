@@ -73,6 +73,12 @@ class RA_DATAFLOW_API DataflowGraph : public Node
     /// pointer is owned by the graph. If the bool is false, the raw pointer ownership is left to
     /// the caller.
     virtual bool addNode( std::shared_ptr<Node> newNode );
+    template <typename T, typename... U>
+    std::shared_ptr<T> addNode( U&&... u ) {
+        auto ret = std::make_shared<T>( std::forward<U>( u )... );
+        if ( addNode( ret ) ) return ret;
+        return nullptr;
+    }
 
     /// \brief Removes a node from the render graph.
     /// Removes input and output ports, corresponding to interface ports of the node, from the

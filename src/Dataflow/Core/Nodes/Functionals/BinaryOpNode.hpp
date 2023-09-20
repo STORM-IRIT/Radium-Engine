@@ -1,5 +1,6 @@
 #pragma once
 #include "Core/CoreMacros.hpp"
+#include "Dataflow/Core/Port.hpp"
 #include <Dataflow/Core/Node.hpp>
 
 #include <functional>
@@ -189,15 +190,13 @@ class BinaryOpNode : public Node
     }
 
     bool execute() override {
-        auto f     = m_operator;
-        auto portA = getInputPort<PortA>( m_portA );
-        auto portB = getInputPort<PortB>( m_portB );
-        auto portF = getInputPort<PortF>( m_portF );
-        if ( portF->isLinked() ) { f = portF->getData(); }
+        auto f = m_operator;
+
+        if ( m_portF->isLinked() ) { f = m_portF->getData(); }
         // The following test will always be true if the node was integrated in a compiled graph
-        if ( portA->isLinked() && portB->isLinked() ) {
+        if ( m_portA->isLinked() && m_portB->isLinked() ) {
             m_result = internal::ExecutorHelper<t_a, t_b, t_out, BinaryOperator>::executeInternal(
-                portA->getData(), portB->getData(), f );
+                m_portA->getData(), m_portB->getData(), f );
         }
         return true;
     }
@@ -211,22 +210,13 @@ class BinaryOpNode : public Node
                   BinaryOperator op ) :
         Node( instanceName, typeName ), m_operator( op ) {
 
-        PortIndex idx;
-        idx = addInput( std::make_unique<PortA>( "a", this ) );
-        CORE_ASSERT( idx == m_portA, "port index mismatch" );
-
-        getInputPort<PortA>( m_portA )->mustBeLinked();
-        idx = addInput( std::make_unique<PortB>( "b", this ) );
-        CORE_ASSERT( idx == m_portB, "port index mismatch" );
-
-        getInputPort<PortB>( m_portB )->mustBeLinked();
-
-        idx = addInput( std::make_unique<PortF>( "f", this ) );
-        CORE_ASSERT( idx == m_portF, "port index mismatch" );
-
-        idx = addOutput( std::make_unique<PortR>( "r", this ) );
-        CORE_ASSERT( idx == m_portR, "port index mismatch" );
-        getOutputPort<PortR>( m_portR )->setData( &m_result );
+        m_portA = addInputPort<t_a>( "a", this );
+        m_portA->mustBeLinked();
+        m_portB = addInputPort<t_b>( "b", this );
+        m_portB->mustBeLinked();
+        m_portF = addInputPort<BinaryOperator>( "f", this );
+        m_portR = addOutputPort<t_out>( "r", this );
+        m_portR->setData( &m_result );
     }
 
     void toJsonInternal( nlohmann::json& data ) const override {
@@ -249,10 +239,11 @@ class BinaryOpNode : public Node
 
     /// @{
     /// Store pore index for direct access.
-    const PortIndex m_portA { 0 };
-    const PortIndex m_portB { 1 };
-    const PortIndex m_portF { 2 };
-    const PortIndex m_portR { 0 };
+    std::shared_ptr<PortIn<t_a>> m_portA {};
+    std::shared_ptr<PortIn<t_b>> m_portB {};
+    std::shared_ptr<PortIn<BinaryOperator>> m_portF {};
+    std::shared_ptr<PortOut<t_out>> m_portR {};
+
     /// @}
 
   public:
