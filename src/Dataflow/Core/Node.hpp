@@ -33,7 +33,7 @@ class RA_DATAFLOW_API Node
 {
   public:
     using PortIndex      = Ra::Core::Utils::Index;
-    using PortCollection = std::vector<std::unique_ptr<PortBase>>;
+    using PortCollection = std::vector<std::shared_ptr<PortBase>>;
     /// \name Constructors
     /// @{
     /// \brief delete default constructors.
@@ -117,11 +117,11 @@ class RA_DATAFLOW_API Node
 
     /// \brief Gets the in ports of the node.
     /// Input ports are own to the node.
-    const std::vector<std::unique_ptr<PortBase>>& getInputs() const;
+    const std::vector<std::shared_ptr<PortBase>>& getInputs() const;
 
     /// \brief Gets the out ports of the node.
     /// Output ports are own to the node.
-    const std::vector<std::unique_ptr<PortBase>>& getOutputs() const;
+    const std::vector<std::shared_ptr<PortBase>>& getOutputs() const;
 
     /// \brief Build the interface ports of the node
     /// Derived node can override the default implementation that build an interface port for each
@@ -208,9 +208,22 @@ class RA_DATAFLOW_API Node
     /// This function checks if the port is an input port.
     /// \param in The in port to add.
     bool addInput( PortBase* in );
-    PortIndex addInput( std::unique_ptr<PortBase> in );
-    PortIndex addOutput( std::unique_ptr<PortBase> in );
-    PortIndex addPort( PortCollection&, std::unique_ptr<PortBase> in );
+    PortIndex addInput( std::shared_ptr<PortBase> in );
+    PortIndex addOutput( std::shared_ptr<PortBase> in );
+    PortIndex addPort( PortCollection&, std::shared_ptr<PortBase> in );
+
+    template <typename T, typename... U>
+    std::shared_ptr<PortIn<T>> addInputPort( U&&... u ) {
+        auto ret = std::make_shared<PortIn<T>>( std::forward<U>( u )... );
+        addInput( ret );
+        return ret;
+    }
+    template <typename T, typename... U>
+    std::shared_ptr<PortOut<T>> addOutputPort( U&&... u ) {
+        auto ret = std::make_shared<PortOut<T>>( std::forward<U>( u )... );
+        addOutput( ret );
+        return ret;
+    }
 
     /// \brief remove the given input port from the managed input ports
     /// \param in the port to remove
@@ -256,9 +269,9 @@ class RA_DATAFLOW_API Node
     /// The instance name of the node
     std::string m_instanceName;
     /// The in ports of the node (own by the node)
-    std::vector<std::unique_ptr<PortBase>> m_inputs;
+    std::vector<std::shared_ptr<PortBase>> m_inputs;
     /// The out ports of the node  (own by the node)
-    std::vector<std::unique_ptr<PortBase>> m_outputs;
+    std::vector<std::shared_ptr<PortBase>> m_outputs;
     /// The reflected ports of the node if it is only a source or sink node.
     /// This stores only aliases as interface ports will belong to the parent
     /// node (i.e. the graph this node belongs to)
@@ -304,18 +317,18 @@ inline void Node::setInstanceName( const std::string& newName ) {
     m_instanceName = newName;
 }
 
-inline const std::vector<std::unique_ptr<PortBase>>& Node::getInputs() const {
+inline const std::vector<std::shared_ptr<PortBase>>& Node::getInputs() const {
     return m_inputs;
 }
 
-inline const std::vector<std::unique_ptr<PortBase>>& Node::getOutputs() const {
+inline const std::vector<std::shared_ptr<PortBase>>& Node::getOutputs() const {
     return m_outputs;
 }
 
 inline const std::vector<PortBase*>& Node::buildInterfaces( Node* parent ) {
     m_interface.clear();
     m_interface.shrink_to_fit();
-    const std::vector<std::unique_ptr<PortBase>>* readFrom =
+    const std::vector<std::shared_ptr<PortBase>>* readFrom =
         m_inputs.empty() ? &m_outputs : &m_inputs;
     m_interface.reserve( readFrom->size() );
     for ( const auto& p : *readFrom ) {
@@ -346,7 +359,7 @@ inline bool Node::addInput( PortBase* in ) {
     return !found;
 }
 
-inline Node::PortIndex Node::addPort( PortCollection& ports, std::unique_ptr<PortBase> port ) {
+inline Node::PortIndex Node::addPort( PortCollection& ports, std::shared_ptr<PortBase> port ) {
     PortIndex idx;
     // look for a free slot
     auto it = std::find_if( ports.begin(), ports.end(), []( const auto& port ) { return !port; } );
@@ -361,12 +374,12 @@ inline Node::PortIndex Node::addPort( PortCollection& ports, std::unique_ptr<Por
     return idx;
 }
 
-inline Node::PortIndex Node::addInput( std::unique_ptr<PortBase> in ) {
+inline Node::PortIndex Node::addInput( std::shared_ptr<PortBase> in ) {
     CORE_ASSERT( in->is_input(), "in port must be is_input" );
     return addPort( m_inputs, std::move( in ) );
 }
 
-inline Node::PortIndex Node::addOutput( std::unique_ptr<PortBase> out ) {
+inline Node::PortIndex Node::addOutput( std::shared_ptr<PortBase> out ) {
     CORE_ASSERT( !out->is_input(), "out port must be not is_input" );
     return addPort( m_outputs, std::move( out ) );
 }

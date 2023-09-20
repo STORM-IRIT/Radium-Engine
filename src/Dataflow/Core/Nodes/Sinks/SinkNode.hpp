@@ -47,7 +47,7 @@ class SinkNode : public Node
 
     /// @{
     /// \brief Alias for the ports (allow simpler access)
-    PortIn<T>* m_portIn { new PortIn<T>( "from", this ) };
+    std::shared_ptr<PortIn<T>> m_portIn;
     /// @}
   public:
     static const std::string& getTypename();
@@ -59,9 +59,8 @@ class SinkNode : public Node
 template <typename T>
 SinkNode<T>::SinkNode( const std::string& instanceName, const std::string& typeName ) :
     Node( instanceName, typeName ) {
-
+    m_portIn = addInputPort<T>( "from", this );
     m_portIn->mustBeLinked();
-    addInput( m_portIn );
 }
 
 template <typename T>
