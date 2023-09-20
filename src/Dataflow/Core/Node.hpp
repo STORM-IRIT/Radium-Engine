@@ -214,13 +214,13 @@ class RA_DATAFLOW_API Node
 
     template <typename T, typename... U>
     std::shared_ptr<PortIn<T>> addInputPort( U&&... u ) {
-        auto ret = std::make_shared<PortIn<T>>( std::forward<U>( u )... );
+        auto ret = std::make_shared<PortIn<T>>( this, std::forward<U>( u )... );
         addInput( ret );
         return ret;
     }
     template <typename T, typename... U>
     std::shared_ptr<PortOut<T>> addOutputPort( U&&... u ) {
-        auto ret = std::make_shared<PortOut<T>>( std::forward<U>( u )... );
+        auto ret = std::make_shared<PortOut<T>>( this, std::forward<U>( u )... );
         addOutput( ret );
         return ret;
     }
