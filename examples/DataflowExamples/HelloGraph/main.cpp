@@ -16,17 +16,11 @@ int main( int argc, char* argv[] ) {
     //! [Creating an empty graph]
 
     //! [Creating Nodes]
-    auto predicateNode = std::make_shared<Sources::ScalarUnaryPredicateSource>( "Selector" );
-    auto filterNode    = std::make_shared<Functionals::FilterNode<RaVector>>( "Filter" );
-    auto sinkNode      = std::make_shared<Sinks::SinkNode<RaVector>>( "Sink" );
+    auto sourceNode    = g.addNode<Sources::SingleDataSourceNode<RaVector>>( "Source" );
+    auto predicateNode = g.addNode<Sources::ScalarUnaryPredicateSource>( "Selector" );
+    auto filterNode    = g.addNode<Functionals::FilterNode<RaVector>>( "Filter" );
+    auto sinkNode      = g.addNode<Sinks::SinkNode<RaVector>>( "Sink" );
     //! [Creating Nodes]
-
-    //! [Adding Nodes to the graph]
-    auto sourceNode = g.addNode<Sources::SingleDataSourceNode<RaVector>>( "Source" );
-    g.addNode( predicateNode );
-    g.addNode( filterNode );
-    g.addNode( sinkNode );
-    //! [Adding Nodes to the graph]
 
     //! [Creating links between Nodes]
     g.addLink( sourceNode, "to", filterNode, "in" );
