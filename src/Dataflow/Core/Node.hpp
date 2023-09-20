@@ -170,11 +170,12 @@ class RA_DATAFLOW_API Node
     const nlohmann::json& getJsonMetaData();
     /// @}
 
-    /// \brief Flag that checks if the node is already initialized
-    bool m_initialized { false };
+    /// \brief Returns the demangled type name of the node or any human readable representation of
+    /// the type name.
+    /// This is a public static member each node must define to be serializable
+    static const std::string& getTypename();
 
-    /// \brief Sets the filesystem (real or virtual) location for the node resources
-    inline void setResourcesDir( std::string resourcesRootDir );
+    inline bool isInitialized() const { return m_initialized; }
 
   protected:
     /// Construct the base node given its name and type
@@ -204,8 +205,7 @@ class RA_DATAFLOW_API Node
     }
 
     /// Adds an in port to the node.
-    /// This function checks if the port is an input port, then if there is no in port with the same
-    /// name already associated with this node.
+    /// This function checks if the port is an input port.
     /// \param in The in port to add.
     bool addInput( PortBase* in );
     PortIndex addInput( std::unique_ptr<PortBase> in );
@@ -216,6 +216,7 @@ class RA_DATAFLOW_API Node
     /// \param in the port to remove
     /// \return true if the port was removed (the in pointer is the set to nullptr), false else
     bool removeInput( PortBase*& in );
+    void removeInput( PortIndex idx ) { m_inputs[idx].reset(); }
 
     /// Adds an out port to the node and the data associated with it.
     /// This function checks if there is no out port with the same name already associated with this
@@ -229,6 +230,7 @@ class RA_DATAFLOW_API Node
     /// \param out the port to remove
     /// \return true if the port was removed (the out pointer is the set to nullptr), false else
     bool removeOutput( PortBase*& out );
+    void removeOutput( PortIndex idx ) { m_outputs[idx].reset(); }
 
     /// \brief Adds an editable parameter to the node if it does not already exist.
     /// \note the node will take ownership of the editable object.
@@ -247,6 +249,8 @@ class RA_DATAFLOW_API Node
     template <typename E>
     EditableParameter<E>* getEditableParameter( const std::string& name );
 
+    /// \brief Flag that checks if the node is already initialized
+    bool m_initialized { false };
     /// The type name of the node. Initialized once at construction
     std::string m_typeName;
     /// The instance name of the node
@@ -268,12 +272,6 @@ class RA_DATAFLOW_API Node
 
     /// Additional data on the node, added by application or gui or ...
     nlohmann::json m_extraJsonData;
-
-  public:
-    /// \brief Returns the demangled type name of the node or any human readable representation of
-    /// the type name.
-    /// This is a public static member each node must define to be serializable
-    static const std::string& getTypename();
 };
 
 // -----------------------------------------------------------------
