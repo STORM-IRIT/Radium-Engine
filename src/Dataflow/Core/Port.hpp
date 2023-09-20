@@ -59,17 +59,17 @@ class RA_DATAFLOW_API PortBase
     virtual ~PortBase() = default;
 
     /// Gets the port's name.
-    const std::string& getName();
+    const std::string& getName() const;
     /// Gets the type of the data (efficient for comparisons).
-    std::type_index getType();
+    std::type_index getType() const;
     /// Gets a pointer to the node this port belongs to.
-    Node* getNode();
+    Node* getNode() const;
     virtual bool hasData();
     // TODO : getData() to avoid dynamic_cast to get the data of the PortOut.
     /// Returns true if the port is linked
-    bool isLinked();
+    bool isLinked() const;
     /// Returns true if the port is flagged as being mandatory linked
-    bool isLinkMandatory();
+    bool isLinkMandatory() const;
     /// Flags the port as being mandatory linked
     void mustBeLinked();
     virtual PortBase* getLink() = 0;
@@ -100,7 +100,7 @@ class RA_DATAFLOW_API PortBase
     template <typename T>
     void setData( T* data );
 
-    std::string getTypeName();
+    std::string getTypeName() const;
 };
 
 /**
@@ -212,19 +212,19 @@ class PortIn : public PortBase,
 inline PortBase::PortBase( const std::string& name, std::type_index type, Node* node ) :
     m_name( name ), m_type( type ), m_node( node ) {}
 
-inline const std::string& PortBase::getName() {
+inline const std::string& PortBase::getName() const {
     return m_name;
 }
 
-inline std::type_index PortBase::getType() {
+inline std::type_index PortBase::getType() const {
     return m_type;
 }
 
-inline std::string PortBase::getTypeName() {
+inline std::string PortBase::getTypeName() const {
     return simplifiedDemangledType( m_type );
 }
 
-inline Node* PortBase::getNode() {
+inline Node* PortBase::getNode() const {
     return m_node;
 }
 
@@ -232,11 +232,11 @@ inline bool PortBase::hasData() {
     return false;
 }
 
-inline bool PortBase::isLinked() {
+inline bool PortBase::isLinked() const {
     return m_isLinked;
 }
 
-inline bool PortBase::isLinkMandatory() {
+inline bool PortBase::isLinkMandatory() const {
     return m_isLinkMandatory;
 }
 
