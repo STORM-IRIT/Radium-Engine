@@ -104,7 +104,7 @@ SingleDataSourceNode<Ra::Core::Utils::Color>::fromJsonInternal( const nlohmann::
         std::array<Scalar, 3> c = data["color"];
         auto v =
             Ra::Core::Utils::Color::sRGBToLinearRGB( Ra::Core::Utils::Color( c[0], c[1], c[2] ) );
-        setData( v );
+        setData( std::move( v ) );
     }
     return true;
 }
