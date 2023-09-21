@@ -102,11 +102,28 @@ class RA_DATAFLOW_API DataflowGraph : public Node
                   Node::PortIndex portOutIdx,
                   const std::shared_ptr<Node>& nodeTo,
                   Node::PortIndex portInIdx );
-    // template <typename T, typename U>
-    // bool DataflowGraph::addLink( const std::shared_ptr<Node>& nodeFrom,
-    //                        const std::shared_ptr<PortOut<T>>& portOut,
-    //                        const std::shared_ptr<Node>& nodeTo,
-    //                        const std::shared_ptr<PortIn<U>>& portIn ) {}
+
+    template <typename T, typename U>
+    bool addLink( const std::shared_ptr<Node>& nodeFrom,
+                  const std::shared_ptr<PortOut<T>>& portOut,
+                  const std::shared_ptr<Node>& nodeTo,
+                  const std::shared_ptr<PortIn<U>>& portIn ) {
+        using namespace Ra::Core::Utils;
+
+        static_assert( std::is_same_v<T, U>, "in and out port type mismatch" );
+
+        if ( !checkNodeValidity( nodeFrom.get(), nodeTo.get() ) ) { return false; }
+
+        if ( portIn->isLinked() ) {
+            alreadyLinkedMessage( nodeTo.get(), portIn.get() );
+            return false;
+        }
+        portIn->connect( portOut.get() );
+
+        // The state of the graph changes, set it to not ready
+        needsRecompile();
+        return true;
+    }
 
     ///
     /// \brief Removes the link connected to a node's input port
@@ -292,6 +309,8 @@ class RA_DATAFLOW_API DataflowGraph : public Node
      * \return the protection status
      */
     bool getNodesAndLinksProtection() const { return m_nodesAndLinksProtected; }
+    bool checkNodeValidity( const Node* nodeFrom, const Node* nodeTo );
+    static void alreadyLinkedMessage( const Node* node, const PortBase* port );
 
   private:
     bool m_nodesAndLinksProtected { false };
