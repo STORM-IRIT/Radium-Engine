@@ -113,6 +113,8 @@ class PortOut : public PortBase
 {
   private:
     /// The data the port points to.
+
+    /// Use raw ptr, data belongs to node and can be plain stack variable
     T* m_data { nullptr };
 
   public:
@@ -129,6 +131,7 @@ class PortOut : public PortBase
     /// \todo remove this one
     PortOut( const std::string& name, Node* node );
     PortOut( Node* node, const std::string& name );
+    PortOut( Node* node, T* data, const std::string& name );
     /// @}
 
     /// Gets a reference to the data this ports points to.
@@ -253,6 +256,10 @@ PortOut<T>::PortOut( const std::string& name, Node* node ) : PortBase( name, typ
 
 template <typename T>
 PortOut<T>::PortOut( Node* node, const std::string& name ) : PortBase( name, typeid( T ), node ) {}
+
+template <typename T>
+PortOut<T>::PortOut( Node* node, T* data, const std::string& name ) :
+    PortBase( name, typeid( T ), node ), m_data { data } {}
 
 template <typename T>
 T& PortOut<T>::getData() {
