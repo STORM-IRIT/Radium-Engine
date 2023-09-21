@@ -304,7 +304,8 @@ inline bool DataflowGraph::isCompiled() const {
 }
 
 inline void DataflowGraph::needsRecompile() {
-    m_ready = false;
+    m_shouldBeSaved = true;
+    m_ready         = false;
 }
 
 inline void DataflowGraph::setNodeFactories( std::shared_ptr<NodeFactorySet> factories ) {

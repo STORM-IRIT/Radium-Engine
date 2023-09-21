@@ -55,8 +55,7 @@ void DataflowGraph::destroy() {
     m_factories.reset();
     m_dataSetters.erase( m_dataSetters.begin(), m_dataSetters.end() );
     Node::destroy();
-    m_ready         = false;
-    m_shouldBeSaved = true;
+    needsRecompile();
 }
 
 void DataflowGraph::saveToJson( const std::string& jsonFilePath ) {
@@ -165,7 +164,7 @@ getLinkInfo( const std::string& which,
 bool DataflowGraph::fromJsonInternal( const nlohmann::json& data ) {
     if ( data.contains( "graph" ) ) {
         // indicate that the graph must be recompiled after loading
-        m_ready = false;
+        needsRecompile();
         // load the graph
         m_factories.reset( new NodeFactorySet );
         addFactory( NodeFactoriesManager::getDataFlowBuiltInsFactory() );
@@ -262,8 +261,7 @@ bool DataflowGraph::addNode( std::shared_ptr<Node> newNode ) {
             }
         }
         m_nodes.emplace_back( std::move( newNode ) );
-        m_ready         = false;
-        m_shouldBeSaved = true;
+        needsRecompile();
         return true;
     }
     else { return false; }
@@ -286,8 +284,7 @@ bool DataflowGraph::removeNode( std::shared_ptr<Node> node ) {
             }
         }
         m_nodes.erase( m_nodes.begin() + index );
-        m_ready         = false;
-        m_shouldBeSaved = true;
+        needsRecompile();
         return true;
     }
 }
@@ -403,8 +400,7 @@ bool DataflowGraph::addLink( const std::shared_ptr<Node>& nodeFrom,
     // port can be connected
     nodeTo->getInputs()[foundTo]->connect( nodeFrom->getOutputs()[foundFrom].get() );
     // The state of the graph changes, set it to not ready
-    m_ready         = false;
-    m_shouldBeSaved = true;
+    needsRecompile();
     return true;
 }
 
@@ -425,8 +421,7 @@ bool DataflowGraph::addLink( const std::shared_ptr<Node>& nodeFrom,
     // port can be connected
     portIn->connect( portOut.get() );
     // The state of the graph changes, set it to not ready
-    m_ready         = false;
-    m_shouldBeSaved = true;
+    needsRecompile();
     return true;
 }
 
@@ -450,8 +445,7 @@ bool DataflowGraph::removeLink( std::shared_ptr<Node> node, const std::string& n
     if ( found == -1 ) { return false; }
 
     node->getInputs()[found]->disconnect();
-    m_ready         = false;
-    m_shouldBeSaved = true;
+    needsRecompile();
     return true;
 }
 
