@@ -74,7 +74,7 @@ class SkinningSystem : public Scene::System
     SkinningComponent* m_skin { nullptr };
 };
 
-void setupScene( Ra::Engine::RadiumEngine* engine ) {
+void setupScene( Ra::Engine::RadiumEngine* engine, Ra::Engine::Rendering::Renderer* renderer ) {
 
     DefaultLightManager* lightManager =
         static_cast<DefaultLightManager*>( engine->getSystem( "DefaultLightManager" ) );
@@ -98,9 +98,10 @@ void setupScene( Ra::Engine::RadiumEngine* engine ) {
     std::vector<Scalar> joints = { 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f,
                                    0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f,
                                    0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f };
-    auto renderTechnique =
-        renderObjectManager->getRenderObject( meshComponent->getRenderObjects()[0] )
-            ->getRenderTechnique();
+    auto renderObject =
+        renderObjectManager->getRenderObject( meshComponent->getRenderObjects()[0] );
+    renderer->buildRenderTechnique( renderObject.get() );
+    auto renderTechnique = renderObject->getRenderTechnique();
     renderTechnique->getShader()->setUniform( "joints", joints );
     renderTechnique->addPassProperties( { "LINEAR_BLEND_SKINNING" } );
 
@@ -171,7 +172,7 @@ int main( int argc, char* argv[] ) {
     app.m_engine->setRealTime( true );
     app.m_engine->play( true );
 
-    setupScene( app.m_engine );
+    setupScene( app.m_engine, app.m_mainWindow->getViewer()->getRenderer() );
 
     app.m_mainWindow->prepareDisplay();
 
