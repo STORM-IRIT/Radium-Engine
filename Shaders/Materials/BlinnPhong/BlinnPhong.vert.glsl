@@ -4,6 +4,9 @@
 // Shader
 #include "DefaultLight.glsl"
 
+#define LINEAR_BLEND_SKINNING
+#include "LinearBlendSkinning.glsl"
+
 layout( location = 0 ) in vec3 in_position;
 layout( location = 1 ) in vec3 in_normal;
 layout( location = 2 ) in vec3 in_tangent;
@@ -24,14 +27,16 @@ layout( location = 5 ) out vec3 out_viewVector;
 layout( location = 6 ) out vec3 out_lightVector;
 
 void main() {
+    mat4 skinningMatrix = skinMatrix();
+
     mat4 mvp    = transform.proj * transform.view * transform.model;
-    gl_Position = mvp * vec4( in_position, 1.0 );
+    gl_Position = mvp * skinningMatrix * vec4( in_position, 1.0 );
 
     vec4 pos = transform.model * vec4( in_position, 1.0 );
     pos /= pos.w;
 
-    vec3 normal  = mat3( transform.worldNormal ) * in_normal;
-    vec3 tangent = mat3( transform.model ) * in_tangent;
+    vec3 normal  = vec3(inverse(transpose(skinningMatrix)) * transform.worldNormal * vec4(in_normal, 0.0));
+    vec3 tangent = vec3(skinningMatrix * transform.model * vec4(in_tangent, 0.0));
 
     vec3 eye = -transform.view[3].xyz * mat3( transform.view );
 

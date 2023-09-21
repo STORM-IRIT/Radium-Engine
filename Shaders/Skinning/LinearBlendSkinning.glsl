@@ -4,7 +4,7 @@
 #ifdef LINEAR_BLEND_SKINNING
 
 layout( location = 6 ) in vec4 in_weight;
-layout( location = 7 ) in vec4 in_weight_idx;
+layout( location = 7 ) in uvec4 in_weight_idx;
 
 uniform mat4 joints[];
 

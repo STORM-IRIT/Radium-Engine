@@ -14,6 +14,7 @@
 #include <Engine/Scene/SkinningComponent.hpp>
 #include <Engine/Scene/System.hpp>
 #include <Engine/Scene/SystemDisplay.hpp>
+#include <Engine/Rendering/RenderObjectManager.hpp>
 #include <Gui/BaseApplication.hpp>
 #include <Gui/RadiumWindow/SimpleWindowFactory.hpp>
 #include <Gui/Viewer/Viewer.hpp>
@@ -93,7 +94,15 @@ void setupScene( Ra::Engine::RadiumEngine* engine ) {
     auto meshComponent =
         new TriangleMeshComponent( "Cylinder", entity, std::move( cylinder ), nullptr );
 
-    // TODO: find a way to access the shader and add the LINEAR_BLIND_SKINNING property (RenderObject->RenderTechnique->Shaders)
+    auto renderObjectManager = engine->getRenderObjectManager();
+    std::vector<Scalar> joints = { 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f,
+                                   0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f,
+                                   0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f };
+    auto renderTechnique =
+        renderObjectManager->getRenderObject( meshComponent->getRenderObjects()[0] )
+            ->getRenderTechnique();
+    renderTechnique->getShader()->setUniform( "joints", joints );
+    renderTechnique->addPassProperties( { "LINEAR_BLEND_SKINNING" } );
 
     // create a squeleton with three bones.
     std::map<std::string, Core::Transform> boneMatrices;
