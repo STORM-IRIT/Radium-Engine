@@ -56,6 +56,8 @@ class SingleDataSourceNode : public Node
      */
     void removeEditable( const std::string& name = "Data" );
 
+    std::shared_ptr<PortOut<T>> getOuputPort() { return m_portOut; }
+
   protected:
     bool fromJsonInternal( const nlohmann::json& ) override;
     void toJsonInternal( nlohmann::json& data ) const override;
