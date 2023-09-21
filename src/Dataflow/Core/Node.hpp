@@ -83,7 +83,14 @@ class RA_DATAFLOW_API Node
     /// \param type either "in" or "out", the directional type of the port
     /// \param name
     /// \return an alias pointer on the requested port if it exists, nullptr else
+
+    using PortPtr       = PortBase*;
+    using GetPortReturn = std::pair<PortIndex, PortPtr>;
+
     PortBase* getPortByName( const std::string& type, const std::string& name ) const;
+    GetPortReturn getInputPortByName( const std::string& name ) const;
+    GetPortReturn getOutputPortByName( const std::string& name ) const;
+    GetPortReturn getPortByName( const PortCollection& ports, const std::string& name ) const;
 
     /// \brief Get an input port by its index
     /// \param type either "in" or "out", the directional type of the port
@@ -117,11 +124,11 @@ class RA_DATAFLOW_API Node
 
     /// \brief Gets the in ports of the node.
     /// Input ports are own to the node.
-    const std::vector<std::shared_ptr<PortBase>>& getInputs() const;
+    const PortCollection& getInputs() const;
 
     /// \brief Gets the out ports of the node.
     /// Output ports are own to the node.
-    const std::vector<std::shared_ptr<PortBase>>& getOutputs() const;
+    const PortCollection& getOutputs() const;
 
     /// \brief Build the interface ports of the node
     /// Derived node can override the default implementation that build an interface port for each
@@ -225,6 +232,9 @@ class RA_DATAFLOW_API Node
         return ret;
     }
 
+    std::shared_ptr<PortBase> getInputPort( PortIndex idx ) { return m_inputs[idx]; }
+    std::shared_ptr<PortBase> getOutputPort( PortIndex idx ) { return m_outputs[idx]; }
+
     /// \brief remove the given input port from the managed input ports
     /// \param in the port to remove
     /// \return true if the port was removed (the in pointer is the set to nullptr), false else
@@ -317,11 +327,11 @@ inline void Node::setInstanceName( const std::string& newName ) {
     m_instanceName = newName;
 }
 
-inline const std::vector<std::shared_ptr<PortBase>>& Node::getInputs() const {
+inline const Node::PortCollection& Node::getInputs() const {
     return m_inputs;
 }
 
-inline const std::vector<std::shared_ptr<PortBase>>& Node::getOutputs() const {
+inline const Node::PortCollection& Node::getOutputs() const {
     return m_outputs;
 }
 
