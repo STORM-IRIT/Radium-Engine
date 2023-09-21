@@ -215,8 +215,7 @@ class BinaryOpNode : public Node
         m_portB = addInputPort<t_b>( "b" );
         m_portB->mustBeLinked();
         m_portF = addInputPort<BinaryOperator>( "f" );
-        m_portR = addOutputPort<t_out>( "r" );
-        m_portR->setData( &m_result );
+        m_portR = addOutputPort<t_out>( &m_result, "r" );
     }
 
     void toJsonInternal( nlohmann::json& data ) const override {

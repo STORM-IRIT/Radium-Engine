@@ -52,6 +52,7 @@ class FilterNode : public Node
 
     /// Sets the filtering predicate on the node
     void setFilterFunction( UnaryPredicate predicate );
+    std::shared_ptr<PortIn<coll_t>> getInPort() { return m_portIn; }
 
   protected:
     FilterNode( const std::string& instanceName,
@@ -67,9 +68,9 @@ class FilterNode : public Node
 
     /// @{
     /// \brief Alias for the ports (allow simpler access)
-    PortIn<coll_t>* m_portIn { new PortIn<coll_t>( "in", this ) };
-    PortIn<UnaryPredicate>* m_portPredicate { new PortIn<UnaryPredicate>( "f", this ) };
-    PortOut<coll_t>* m_portOut { new PortOut<coll_t>( "out", this ) };
+    std::shared_ptr<PortIn<coll_t>> m_portIn;
+    std::shared_ptr<PortIn<UnaryPredicate>> m_portPredicate;
+    std::shared_ptr<PortOut<coll_t>> m_portOut;
     /// @}
   public:
     static const std::string& getTypename();
@@ -124,10 +125,10 @@ FilterNode<coll_t, v_t>::FilterNode( const std::string& instanceName,
                                      UnaryPredicate filterFunction ) :
     Node( instanceName, typeName ), m_predicate( filterFunction ) {
 
-    addInput( m_portIn );
+    m_portIn = addInputPort<coll_t>( "in" );
     m_portIn->mustBeLinked();
-    addInput( m_portPredicate );
-    addOutput( m_portOut, &m_elements );
+    m_portPredicate = addInputPort<UnaryPredicate>( "f" );
+    m_portOut       = addOutputPort<coll_t>( &m_elements, "out" );
 }
 
 template <typename coll_t, typename v_t>
