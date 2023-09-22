@@ -70,11 +70,11 @@ PortBase* Node::getPortByName( const std::string& type, const std::string& name 
     return getPortByName( ports, name ).second;
 }
 
-Node::GetPortReturn Node::getInputPortByName( const std::string& name ) const {
+Node::GetPortReturn Node::getInputByName( const std::string& name ) const {
     return getPortByName( m_inputs, name );
 }
 
-Node::GetPortReturn Node::getOutputPortByName( const std::string& name ) const {
+Node::GetPortReturn Node::getOutputByName( const std::string& name ) const {
     return getPortByName( m_outputs, name );
 }
 

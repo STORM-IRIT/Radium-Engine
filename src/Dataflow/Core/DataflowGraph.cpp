@@ -327,12 +327,12 @@ bool DataflowGraph::addLink( const std::shared_ptr<Node>& nodeFrom,
                              const std::string& nodeToInputName ) {
     if ( !checkNodeValidity( nodeFrom.get(), nodeTo.get() ) ) { return false; }
 
-    auto [inputIdx, inputPort] = nodeTo->getInputPortByName( nodeToInputName );
+    auto [inputIdx, inputPort] = nodeTo->getInputByName( nodeToInputName );
     if ( !inputPort ) {
         nodeNotFoundMessage( "input", nodeToInputName, nodeTo.get() );
         return false;
     }
-    auto [outputIdx, outputPort] = nodeFrom->getOutputPortByName( nodeFromOutputName );
+    auto [outputIdx, outputPort] = nodeFrom->getOutputByName( nodeFromOutputName );
     if ( !outputPort ) {
         nodeNotFoundMessage( "output", nodeFromOutputName, nodeFrom.get() );
         return false;
