@@ -140,12 +140,16 @@ ReduceNode<coll_t, v_t>::ReduceNode( const std::string& instanceName,
                                      const std::string& typeName,
                                      ReduceOperator op,
                                      v_t initialValue ) :
-    Node( instanceName, typeName ), m_operator( op ), m_init( initialValue ) {
-    m_portIn = addInputPort<coll_t>( "in" );
+    Node( instanceName, typeName ),
+    m_operator( op ),
+    m_init( initialValue ),
+    m_portIn { addInputPort<coll_t>( "in" ) },
+    m_portF { addInputPort<ReduceOperator>( "f" ) },
+    m_portInit { addInputPort<v_t>( "init" ) },
+    m_portOut { addOutputPort<v_t>( &m_result, "out" ) }
+
+{
     m_portIn->mustBeLinked();
-    m_portF    = addInputPort<ReduceOperator>( "f" );
-    m_portInit = addInputPort<v_t>( "init" );
-    m_portOut  = addOutputPort<v_t>( &m_result, "out" );
 }
 
 } // namespace Functionals

@@ -121,12 +121,12 @@ template <typename coll_t, typename v_t>
 TransformNode<coll_t, v_t>::TransformNode( const std::string& instanceName,
                                            const std::string& typeName,
                                            TransformOperator op ) :
-    Node( instanceName, typeName ), m_operator( op ) {
-
-    m_portIn = addInputPort<coll_t>( "in" );
+    Node( instanceName, typeName ),
+    m_operator( op ),
+    m_portIn { addInputPort<coll_t>( "in" ) },
+    m_portOperator { addInputPort<TransformOperator>( "f" ) },
+    m_portOut { addOutputPort<coll_t>( &m_elements, "out" ) } {
     m_portIn->mustBeLinked();
-    m_portOperator = addInputPort<TransformOperator>( "f" );
-    m_portOut      = addOutputPort<coll_t>( &m_elements, "out" );
 }
 
 } // namespace Functionals

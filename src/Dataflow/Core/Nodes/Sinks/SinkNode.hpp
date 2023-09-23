@@ -59,8 +59,7 @@ class SinkNode : public Node
 
 template <typename T>
 SinkNode<T>::SinkNode( const std::string& instanceName, const std::string& typeName ) :
-    Node( instanceName, typeName ) {
-    m_portIn = addInputPort<T>( "from" );
+    Node( instanceName, typeName ), m_portIn { addInputPort<T>( "from" ) } {
     m_portIn->mustBeLinked();
 }
 
