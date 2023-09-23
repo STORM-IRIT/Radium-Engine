@@ -51,7 +51,7 @@ class FunctionSourceNode : public Node
     /// @}
 
     /// Alias to the output port
-    PortOut<function_type>* m_portOut { new PortOut<function_type>( "f", this ) };
+    Node::PortOutPtr<function_type> m_portOut;
 
   public:
     static const std::string& getTypename();
@@ -64,7 +64,7 @@ template <class R, class... Args>
 FunctionSourceNode<R, Args...>::FunctionSourceNode( const std::string& instanceName,
                                                     const std::string& typeName ) :
     Node( instanceName, typeName ) {
-    addOutput( m_portOut, m_data );
+    m_portOut = addOutputPort<function_type>( m_data, "f" );
 }
 
 template <class R, class... Args>
