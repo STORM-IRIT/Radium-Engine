@@ -112,7 +112,9 @@ class RA_DATAFLOW_API Node
     /// \param type either "in" or "out", the directional type of the port
     /// \param idx
     /// \return an alias pointer on the requested port if it exists, nullptr else
-    PortBaseRawPtr getPortByIndex( const std::string& type, PortIndex idx ) template <typename T>
+    PortBaseRawPtr getPortByIndex( const std::string& type, PortIndex idx ) const;
+
+    template <typename T>
     PortInRawPtr<T> getInputByIndex( PortIndex idx ) const {
         return getPort<PortInRawPtr<T>>( m_inputs, idx );
     }
