@@ -59,8 +59,10 @@ class FilterNode : public Node
                 const std::string& typeName,
                 UnaryPredicate predicate );
 
-    void toJsonInternal( nlohmann::json& data ) const override;
-    bool fromJsonInternal( const nlohmann::json& ) override;
+    void toJsonInternal( nlohmann::json& data ) const override { Node::toJsonInternal( data ); }
+    bool fromJsonInternal( const nlohmann::json& data ) override {
+        return Node::fromJsonInternal( data );
+    }
 
   private:
     UnaryPredicate m_predicate;
@@ -68,9 +70,9 @@ class FilterNode : public Node
 
     /// @{
     /// \brief Alias for the ports (allow simpler access)
-    std::shared_ptr<PortIn<coll_t>> m_portIn;
-    std::shared_ptr<PortIn<UnaryPredicate>> m_portPredicate;
-    std::shared_ptr<PortOut<coll_t>> m_portOut;
+    Node::PortInPtr<coll_t> m_portIn;
+    Node::PortInPtr<UnaryPredicate> m_portPredicate;
+    Node::PortOutPtr<coll_t> m_portOut;
     /// @}
   public:
     static const std::string& getTypename();
@@ -129,21 +131,6 @@ FilterNode<coll_t, v_t>::FilterNode( const std::string& instanceName,
     m_portIn->mustBeLinked();
     m_portPredicate = addInputPort<UnaryPredicate>( "f" );
     m_portOut       = addOutputPort<coll_t>( &m_elements, "out" );
-}
-
-template <typename coll_t, typename v_t>
-void FilterNode<coll_t, v_t>::toJsonInternal( nlohmann::json& data ) const {
-    data["comment"] =
-        std::string { "Filtering function could not be serialized for " } + getTypeName();
-    LOG( Ra::Core::Utils::logWARNING ) // TODO make this logDEBUG
-        << "Unable to save data when serializing a " << getTypeName() << ".";
-}
-
-template <typename coll_t, typename v_t>
-bool FilterNode<coll_t, v_t>::fromJsonInternal( const nlohmann::json& ) {
-    LOG( Ra::Core::Utils::logWARNING ) // TODO make this logDEBUG
-        << "Unable to read data when un-serializing a " << getTypeName() << ".";
-    return true;
 }
 
 } // namespace Functionals

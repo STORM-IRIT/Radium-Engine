@@ -218,17 +218,10 @@ class BinaryOpNode : public Node
         m_portR = addOutputPort<t_out>( &m_result, "r" );
     }
 
-    void toJsonInternal( nlohmann::json& data ) const override {
-        data["comment"] =
-            std::string { "Binary operator could not be serialized for " } + getTypeName();
-        LOG( Ra::Core::Utils::logDEBUG )
-            << "Unable to save data when serializing a " << getTypeName() << ".";
-    }
+    void toJsonInternal( nlohmann::json& data ) const override { Node::toJsonInternal( data ); }
 
-    bool fromJsonInternal( const nlohmann::json& ) override {
-        LOG( Ra::Core::Utils::logDEBUG )
-            << "Unable to read data when un-serializing a " << getTypeName() << ".";
-        return true;
+    bool fromJsonInternal( const nlohmann::json& data ) override {
+        return Node::fromJsonInternal( data );
     }
 
   private:
@@ -238,10 +231,10 @@ class BinaryOpNode : public Node
 
     /// @{
     /// Store pore index for direct access.
-    std::shared_ptr<PortIn<t_a>> m_portA {};
-    std::shared_ptr<PortIn<t_b>> m_portB {};
-    std::shared_ptr<PortIn<BinaryOperator>> m_portF {};
-    std::shared_ptr<PortOut<t_out>> m_portR {};
+    Node::PortInPtr<t_a> m_portA {};
+    Node::PortInPtr<t_b> m_portB {};
+    Node::PortInPtr<BinaryOperator> m_portF {};
+    Node::PortOutPtr<t_out> m_portR {};
 
     /// @}
 

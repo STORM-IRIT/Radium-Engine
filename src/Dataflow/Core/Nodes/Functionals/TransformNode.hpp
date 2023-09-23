@@ -55,8 +55,10 @@ class TransformNode : public Node
                    const std::string& typeName,
                    TransformOperator op );
 
-    void toJsonInternal( nlohmann::json& data ) const override;
-    bool fromJsonInternal( const nlohmann::json& ) override;
+    void toJsonInternal( nlohmann::json& data ) const override { Node::toJsonInternal( data ); }
+    bool fromJsonInternal( const nlohmann::json& data ) override {
+        return Node::fromJsonInternal( data );
+    }
 
   private:
     TransformOperator m_operator;
@@ -64,9 +66,9 @@ class TransformNode : public Node
 
     /// @{
     /// \brief Alias for the ports (allow simpler access)
-    PortIn<coll_t>* m_portIn { new PortIn<coll_t>( "in", this ) };
-    PortIn<TransformOperator>* m_portOperator { new PortIn<TransformOperator>( "f", this ) };
-    PortOut<coll_t>* m_portOut { new PortOut<coll_t>( "out", this ) };
+    PortInPtr<coll_t> m_portIn;
+    PortInPtr<TransformOperator> m_portOperator;
+    PortOutPtr<coll_t> m_portOut;
     /// @}
   public:
     static const std::string& getTypename();
@@ -120,25 +122,11 @@ TransformNode<coll_t, v_t>::TransformNode( const std::string& instanceName,
                                            const std::string& typeName,
                                            TransformOperator op ) :
     Node( instanceName, typeName ), m_operator( op ) {
-    addInput( m_portIn );
+
+    m_portIn = addInputPort<coll_t>( "in" );
     m_portIn->mustBeLinked();
-    addInput( m_portOperator );
-    addOutput( m_portOut, &m_elements );
-}
-
-template <typename coll_t, typename v_t>
-void TransformNode<coll_t, v_t>::toJsonInternal( nlohmann::json& data ) const {
-    data["comment"] =
-        std::string { "Transform operator could not be serialized for " } + getTypeName();
-    LOG( Ra::Core::Utils::logWARNING ) // TODO make this logDEBUG
-        << "Unable to save data when serializing a " << getTypeName() << ".";
-}
-
-template <typename coll_t, typename v_t>
-bool TransformNode<coll_t, v_t>::fromJsonInternal( const nlohmann::json& ) {
-    LOG( Ra::Core::Utils::logWARNING ) // TODO make this logDEBUG
-        << "Unable to read data when un-serializing a " << getTypeName() << ".";
-    return true;
+    m_portOperator = addInputPort<TransformOperator>( "f" );
+    m_portOut      = addOutputPort<coll_t>( &m_elements, "out" );
 }
 
 } // namespace Functionals

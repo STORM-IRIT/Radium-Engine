@@ -1,4 +1,5 @@
 #pragma once
+#include "Dataflow/Core/NodeFactory.hpp"
 #pragma once
 #include <Dataflow/Core/Node.hpp>
 
@@ -41,8 +42,10 @@ class FunctionSourceNode : public Node
   protected:
     FunctionSourceNode( const std::string& instanceName, const std::string& typeName );
 
-    bool fromJsonInternal( const nlohmann::json& ) override;
-    void toJsonInternal( nlohmann::json& data ) const override;
+    bool fromJsonInternal( const nlohmann::json& data ) override {
+        return Node::fromJsonInternal( data );
+    }
+    void toJsonInternal( nlohmann::json& data ) const override { Node::toJsonInternal( data ); }
 
     /// @{
     /// The data provided by the node
@@ -95,21 +98,6 @@ const std::string& FunctionSourceNode<R, Args...>::getTypename() {
         std::string { "Source<" } + Ra::Dataflow::Core::simplifiedDemangledType<function_type>() +
         ">";
     return demangledTypeName;
-}
-
-template <class R, class... Args>
-void FunctionSourceNode<R, Args...>::toJsonInternal( nlohmann::json& data ) const {
-    data["comment"] = std::string( "Unable to save data when serializing a FunctionSourceNode<" ) +
-                      Ra::Dataflow::Core::simplifiedDemangledType<function_type>() + ">.";
-    LOG( Ra::Core::Utils::logDEBUG )
-        << "Unable to save data when serializing a " << getTypeName() << ".";
-}
-
-template <class R, class... Args>
-bool FunctionSourceNode<R, Args...>::fromJsonInternal( const nlohmann::json& ) {
-    LOG( Ra::Core::Utils::logDEBUG )
-        << "Unable to read data when un-serializing a " << getTypeName() << ".";
-    return true;
 }
 
 } // namespace Sources
