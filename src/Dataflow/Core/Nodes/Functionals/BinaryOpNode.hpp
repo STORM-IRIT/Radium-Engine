@@ -208,14 +208,16 @@ class BinaryOpNode : public Node
     BinaryOpNode( const std::string& instanceName,
                   const std::string& typeName,
                   BinaryOperator op ) :
-        Node( instanceName, typeName ), m_operator( op ) {
+        Node( instanceName, typeName ),
+        m_operator( op ),
+        m_portA { addInputPort<t_a>( "a" ) },
+        m_portB { addInputPort<t_b>( "b" ) },
+        m_portF { addInputPort<BinaryOperator>( "f" ) },
+        m_portR { addOutputPort<t_out>( &m_result, "r" ) }
 
-        m_portA = addInputPort<t_a>( "a" );
+    {
         m_portA->mustBeLinked();
-        m_portB = addInputPort<t_b>( "b" );
         m_portB->mustBeLinked();
-        m_portF = addInputPort<BinaryOperator>( "f" );
-        m_portR = addOutputPort<t_out>( &m_result, "r" );
     }
 
     void toJsonInternal( nlohmann::json& data ) const override { Node::toJsonInternal( data ); }

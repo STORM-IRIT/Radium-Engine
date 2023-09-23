@@ -125,12 +125,12 @@ template <typename coll_t, typename v_t>
 FilterNode<coll_t, v_t>::FilterNode( const std::string& instanceName,
                                      const std::string& typeName,
                                      UnaryPredicate filterFunction ) :
-    Node( instanceName, typeName ), m_predicate( filterFunction ) {
-
-    m_portIn = addInputPort<coll_t>( "in" );
+    Node( instanceName, typeName ),
+    m_predicate( filterFunction ),
+    m_portIn { addInputPort<coll_t>( "in" ) },
+    m_portPredicate { addInputPort<UnaryPredicate>( "f" ) },
+    m_portOut { addOutputPort<coll_t>( &m_elements, "out" ) } {
     m_portIn->mustBeLinked();
-    m_portPredicate = addInputPort<UnaryPredicate>( "f" );
-    m_portOut       = addOutputPort<coll_t>( &m_elements, "out" );
 }
 
 } // namespace Functionals

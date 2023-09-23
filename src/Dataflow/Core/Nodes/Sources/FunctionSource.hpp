@@ -66,9 +66,7 @@ class FunctionSourceNode : public Node
 template <class R, class... Args>
 FunctionSourceNode<R, Args...>::FunctionSourceNode( const std::string& instanceName,
                                                     const std::string& typeName ) :
-    Node( instanceName, typeName ) {
-    m_portOut = addOutputPort<function_type>( m_data, "f" );
-}
+    Node( instanceName, typeName ), m_portOut { addOutputPort<function_type>( m_data, "f" ) } {}
 
 template <class R, class... Args>
 bool FunctionSourceNode<R, Args...>::execute() {
