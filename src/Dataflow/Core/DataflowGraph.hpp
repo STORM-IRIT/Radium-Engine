@@ -98,27 +98,49 @@ class RA_DATAFLOW_API DataflowGraph : public Node
                   const std::string& nodeFromOutputName,
                   const std::shared_ptr<Node>& nodeTo,
                   const std::string& nodeToInputName );
+
     bool addLink( const std::shared_ptr<Node>& nodeFrom,
                   Node::PortIndex portOutIdx,
                   const std::shared_ptr<Node>& nodeTo,
                   Node::PortIndex portInIdx );
 
+    bool addLink( Node::PortBaseRawPtr outputPort, Node::PortBaseRawPtr inputPort ) {
+        if ( !inputPort->is_input() || outputPort->is_input() ) { return false; }
+        auto nodeFrom = outputPort->getNode();
+        auto nodeTo   = inputPort->getNode();
+        if ( !checkNodeValidity( nodeFrom, nodeTo ) ) { return false; }
+        // Compare types
+        if ( !checkPortCompatibility( nodeFrom,
+                                      Node::PortIndex {},
+                                      outputPort,
+                                      nodeTo,
+                                      Node::PortIndex {},
+                                      inputPort ) ) {
+            return false;
+        }
+        // port can be connected
+        inputPort->connect( outputPort );
+        // The state of the graph changes, set it to not ready
+        needsRecompile();
+        return true;
+    }
+
     template <typename T, typename U>
-    bool addLink( const std::shared_ptr<Node>& nodeFrom,
-                  const std::shared_ptr<PortOut<T>>& portOut,
-                  const std::shared_ptr<Node>& nodeTo,
-                  const std::shared_ptr<PortIn<U>>& portIn ) {
+    bool addLink( const std::shared_ptr<PortOut<T>>& outputPort,
+                  const std::shared_ptr<PortIn<U>>& inputPort ) {
         using namespace Ra::Core::Utils;
 
         static_assert( std::is_same_v<T, U>, "in and out port type mismatch" );
+        auto nodeFrom = outputPort->getNode();
+        auto nodeTo   = inputPort->getNode();
 
-        if ( !checkNodeValidity( nodeFrom.get(), nodeTo.get() ) ) { return false; }
+        if ( !checkNodeValidity( nodeFrom, nodeTo ) ) { return false; }
 
-        if ( portIn->isLinked() ) {
-            alreadyLinkedMessage( nodeTo.get(), portIn.get() );
+        if ( inputPort->isLinked() ) {
+            Log::alreadyLinked( nodeTo, inputPort.get() );
             return false;
         }
-        portIn->connect( portOut.get() );
+        inputPort->connect( outputPort.get() );
 
         // The state of the graph changes, set it to not ready
         needsRecompile();
@@ -309,8 +331,27 @@ class RA_DATAFLOW_API DataflowGraph : public Node
      * \return the protection status
      */
     bool getNodesAndLinksProtection() const { return m_nodesAndLinksProtected; }
+
+  private:
     bool checkNodeValidity( const Node* nodeFrom, const Node* nodeTo );
-    static void alreadyLinkedMessage( const Node* node, const PortBase* port );
+    static bool checkPortCompatibility( const Node* nodeFrom,
+                                        Node::PortIndex portOutIdx,
+                                        const PortBase* portOut,
+                                        const Node* nodeTo,
+                                        Node::PortIndex portInIdx,
+                                        const PortBase* portIn );
+    class Log
+    {
+      public:
+        static void alreadyLinked( const Node* node, const PortBase* port );
+        static void addLinkTypeMismatch( const Node* nodeFrom,
+                                         Node::PortIndex portOutIdx,
+                                         const PortBase* portOut,
+                                         const Node* nodeTo,
+                                         Node::PortIndex portInIdx,
+                                         const PortBase* portIn );
+        static void unableToFind( const std::string& type, const std::string& instanceName );
+    };
 
   private:
     bool m_nodesAndLinksProtected { false };

@@ -65,21 +65,24 @@ void Node::addJsonMetaData( const nlohmann::json& data ) {
     }
 }
 
-PortBase* Node::getPortByName( const std::string& type, const std::string& name ) const {
+Node::IndexAndPortRawPtr<Node::PortBaseRawPtr>
+Node::getPortByName( const std::string& type, const std::string& name ) const {
     const auto& ports = ( type == "in" ) ? m_inputs : m_outputs;
-    return getPortByName( ports, name ).second;
+    return getPortByName( ports, name );
 }
 
-Node::GetPortReturn Node::getInputByName( const std::string& name ) const {
+Node::IndexAndPortRawPtr<Node::PortBaseRawPtr>
+Node::getInputByName( const std::string& name ) const {
     return getPortByName( m_inputs, name );
 }
 
-Node::GetPortReturn Node::getOutputByName( const std::string& name ) const {
+Node::IndexAndPortRawPtr<Node::PortBaseRawPtr>
+Node::getOutputByName( const std::string& name ) const {
     return getPortByName( m_outputs, name );
 }
 
-Node::GetPortReturn Node::getPortByName( const PortCollection& ports,
-                                         const std::string& name ) const {
+Node::IndexAndPortRawPtr<Node::PortBaseRawPtr>
+Node::getPortByName( const PortCollection& ports, const std::string& name ) const {
     auto itp = std::find_if(
         ports.begin(), ports.end(), [n = name]( const auto& p ) { return p->getName() == n; } );
     PortBase* fprt { nullptr };
