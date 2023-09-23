@@ -289,20 +289,6 @@ bool DataflowGraph::removeNode( std::shared_ptr<Node> node ) {
     }
 }
 
-void DataflowGraph::Log::addLinkTypeMismatch( const Node* nodeFrom,
-                                              Node::PortIndex portOutIdx,
-                                              const PortBase* portOut,
-                                              const Node* nodeTo,
-                                              Node::PortIndex portInIdx,
-                                              const PortBase* portIn ) {
-    LOG( logERROR ) << "DataflowGraph::addLink type mismatch from " << nodeFrom->getInstanceName()
-                    << " (" << nodeFrom->getTypeName() << ") / " << portOut->getName() << " ("
-                    << portOutIdx << " with type " << portOut->getTypeName() << ")"
-                    << " to " << nodeTo->getInstanceName() << " (" << nodeTo->getTypeName()
-                    << ") / " << portIn->getName() << " (" << portInIdx << " with type "
-                    << portIn->getTypeName() << ") ";
-}
-
 bool DataflowGraph::checkPortCompatibility( const Node* nodeFrom,
                                             Node::PortIndex portOutIdx,
                                             const PortBase* portOut,
@@ -375,6 +361,23 @@ bool DataflowGraph::addLink( const std::shared_ptr<Node>& nodeFrom,
 
     // port can be connected
     portIn->connect( portOut.get() );
+    // The state of the graph changes, set it to not ready
+    needsRecompile();
+    return true;
+}
+
+bool DataflowGraph::addLink( Node::PortBaseRawPtr outputPort, Node::PortBaseRawPtr inputPort ) {
+    if ( !inputPort->is_input() || outputPort->is_input() ) { return false; }
+    auto nodeFrom = outputPort->getNode();
+    auto nodeTo   = inputPort->getNode();
+    if ( !checkNodeValidity( nodeFrom, nodeTo ) ) { return false; }
+    // Compare types
+    if ( !checkPortCompatibility(
+             nodeFrom, Node::PortIndex {}, outputPort, nodeTo, Node::PortIndex {}, inputPort ) ) {
+        return false;
+    }
+    // port can be connected
+    inputPort->connect( outputPort );
     // The state of the graph changes, set it to not ready
     needsRecompile();
     return true;
@@ -705,10 +708,6 @@ std::shared_ptr<DataflowGraph> DataflowGraph::loadGraphFromJsonFile( const std::
     return nullptr;
 }
 
-void DataflowGraph::Log::unableToFind( const std::string& type, const std::string& instanceName ) {
-    LOG( logERROR ) << "DataflowGraph::addLink Unable to find " << type << instanceName;
-}
-
 bool DataflowGraph::checkNodeValidity( const Node* nodeFrom, const Node* nodeTo ) {
     using namespace Ra::Core::Utils; // Check node "from" existence in the graph
     if ( findNode2( nodeFrom ) == -1 ) {
@@ -728,6 +727,24 @@ void DataflowGraph::Log::alreadyLinked( const Node* node, const PortBase* port )
     LOG( logERROR ) << "DataflowGraph::addLink destination port not available (already linked) for "
                     << node->getInstanceName() << " (" << node->getTypeName() << "), port "
                     << port->getName();
+}
+
+void DataflowGraph::Log::addLinkTypeMismatch( const Node* nodeFrom,
+                                              Node::PortIndex portOutIdx,
+                                              const PortBase* portOut,
+                                              const Node* nodeTo,
+                                              Node::PortIndex portInIdx,
+                                              const PortBase* portIn ) {
+    LOG( logERROR ) << "DataflowGraph::addLink type mismatch from " << nodeFrom->getInstanceName()
+                    << " (" << nodeFrom->getTypeName() << ") / " << portOut->getName() << " ("
+                    << portOutIdx << " with type " << portOut->getTypeName() << ")"
+                    << " to " << nodeTo->getInstanceName() << " (" << nodeTo->getTypeName()
+                    << ") / " << portIn->getName() << " (" << portInIdx << " with type "
+                    << portIn->getTypeName() << ") ";
+}
+
+void DataflowGraph::Log::unableToFind( const std::string& type, const std::string& instanceName ) {
+    LOG( logERROR ) << "DataflowGraph::addLink Unable to find " << type << instanceName;
 }
 
 } // namespace Core
