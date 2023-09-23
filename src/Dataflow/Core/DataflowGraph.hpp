@@ -275,7 +275,7 @@ class RA_DATAFLOW_API DataflowGraph : public Node
                                         const Node* nodeTo,
                                         Node::PortIndex portInIdx,
                                         const PortBase* portIn );
-    class Log
+    class RA_DATAFLOW_API Log
     {
       public:
         static void alreadyLinked( const Node* node, const PortBase* port );
