@@ -23,7 +23,7 @@ int main( int argc, char* argv[] ) {
     //! [Creating Nodes]
 
     //! [Creating links between Nodes]
-    g.addLink( sourceNode, sourceNode->getOuputPort(), filterNode, filterNode->getInPort() );
+    g.addLink( sourceNode->getOuputPort(), filterNode->getInPort() );
     if ( !g.addLink( predicateNode, "f", filterNode, "f" ) ) {
         std::cerr << "Error, can't link functional ports !\n";
         std::abort();
