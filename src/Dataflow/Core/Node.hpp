@@ -112,15 +112,13 @@ class RA_DATAFLOW_API Node
     /// \param type either "in" or "out", the directional type of the port
     /// \param idx
     /// \return an alias pointer on the requested port if it exists, nullptr else
-    PortBaseRawPtr getPortByIndex( const std::string& type, PortIndex idx ) const;
-
-    template <typename T>
-    constexpr PortInRawPtr<T> getInputByIndex( PortIndex idx ) const {
+    PortBaseRawPtr getPortByIndex( const std::string& type, PortIndex idx ) template <typename T>
+    PortInRawPtr<T> getInputByIndex( PortIndex idx ) const {
         return getPort<PortInRawPtr<T>>( m_inputs, idx );
     }
 
     template <typename T>
-    constexpr PortOutRawPtr<T> getOutputByIndex( PortIndex idx ) const {
+    PortOutRawPtr<T> getOutputByIndex( PortIndex idx ) const {
         return getPort<PortOutRawPtr<T>>( m_outputs, idx );
     }
 
@@ -200,13 +198,12 @@ class RA_DATAFLOW_API Node
         return nullptr;
     }
 
-    constexpr PortBaseRawPtr getPortBaseNoCheck( const PortCollection& ports,
-                                                 PortIndex idx ) const {
+    PortBaseRawPtr getPortBaseNoCheck( const PortCollection& ports, PortIndex idx ) const {
         return ports[idx].get();
     }
 
     template <typename T>
-    constexpr T getPort( const PortCollection& ports, PortIndex idx ) const {
+    T getPort( const PortCollection& ports, PortIndex idx ) const {
         return static_cast<T>( getPortBaseNoCheck( ports, idx ) );
     }
 
@@ -312,8 +309,6 @@ class RA_DATAFLOW_API Node
     /// This stores only aliases as interface ports will belong to the parent
     /// node (i.e. the graph this node belongs to)
     std::vector<PortBase*> m_interface;
-    /// \todo well if it's also in intreface, switch to shared_ptr, and then forget about index
-    /// constexpr access.
 
     /// The editable parameters of the node
     /// \todo replace this by a Ra::Core::VariableSet
