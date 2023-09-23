@@ -144,10 +144,6 @@ class RA_DATAFLOW_API DataflowGraph : public Node
     /// update)
     inline void needsRecompile();
 
-    /// Flag that indicates if the graph should be saved to a file
-    /// This flag is useless outside an load/edit/save scenario
-    bool m_shouldBeSaved { false };
-
     /// \brief Gets an output port connected to the named input port of the graph.
     /// Return the connected output port if success, sharing the ownership with the caller.
     /// This output port could then be used through setter->setData( ptr ) to set the graph
@@ -192,6 +188,31 @@ class RA_DATAFLOW_API DataflowGraph : public Node
     std::vector<DataGetterDesc> getAllDataGetters() const;
     int findNode2( const Node* node ) const;
 
+    bool shouldBeSaved() { return m_shouldBeSaved; }
+
+    static const std::string& getTypename();
+
+    /**
+     * \brief Load a graph from the given file.
+     * \param filename
+     * Any type of graph that inherits from DataflowGraph can be loaded by this function as soon
+     * as the appropriate constructor is registered in the node factory. \return The loaded
+     * graph, as a DataFlowGraph pointer to be downcast to the correct type
+     */
+    static std::shared_ptr<DataflowGraph> loadGraphFromJsonFile( const std::string& filename );
+
+    /**
+     * \brief protect nodes and links from deletion.
+     * \param on true to protect, false to unprotect.
+     */
+    void setNodesAndLinksProtection( bool on ) { m_nodesAndLinksProtected = on; }
+
+    /**
+     * \brief get the protection status protect nodes and links from deletion
+     * \return the protection status
+     */
+    bool getNodesAndLinksProtection() const { return m_nodesAndLinksProtected; }
+
   protected:
     /** Allow derived class to construct the graph with their own static type
      */
@@ -211,19 +232,6 @@ class RA_DATAFLOW_API DataflowGraph : public Node
     int findNode( const Node* node ) const;
 
   private:
-    /// Flag set after successful compilation indicating graph is ready to be executed
-    /// This flag is reset as soon as the graph is modified.
-    bool m_ready { false };
-
-    /// The node factory to use for loading
-    std::shared_ptr<NodeFactorySet> m_factories;
-    /// The unordered list of nodes.
-    std::vector<std::shared_ptr<Node>> m_nodes;
-    // Internal node levels representation
-    /// The list of nodes ordered by levels.
-    /// Two nodes at the same level have no dependency between them.
-    std::vector<std::vector<Node*>> m_nodesByLevel;
-
     // Internal helper functions
     /// Internal compilation function that allows to go back in the render graph while filling
     /// an information map. \param current The current node. \param infoNodes The map that
@@ -236,13 +244,6 @@ class RA_DATAFLOW_API DataflowGraph : public Node
     /// \param infoNodes The map that contains information about nodes.
     int goThroughGraph( Node* current,
                         std::unordered_map<Node*, std::pair<int, std::vector<Node*>>>& infoNodes );
-
-    /// Data setters management : used to pass parameter to the graph when the graph is not
-    /// embedded into another graph (inputs are here for this case). A dataSetter is an
-    /// outputPort, associated to an input port of the graph. The connection between these ports
-    /// can be activated/deactivated using activateDataSetter/releaseDataSetter
-    using DataSetter = std::pair<DataSetterDesc, PortBase*>;
-    std::map<std::string, DataSetter> m_dataSetters;
 
     /// \brief Adds an input port to the graph and associate it with a dataSetter.
     /// This port is aliased as an interface port in a source node of the graph.
@@ -267,31 +268,6 @@ class RA_DATAFLOW_API DataflowGraph : public Node
     /// \return true if the getter was removed, false else.
     bool removeGetter( const std::string& getterName );
 
-  public:
-    static const std::string& getTypename();
-
-    /**
-     * \brief Load a graph from the given file.
-     * \param filename
-     * Any type of graph that inherits from DataflowGraph can be loaded by this function as soon
-     * as the appropriate constructor is registered in the node factory. \return The loaded
-     * graph, as a DataFlowGraph pointer to be downcast to the correct type
-     */
-    static std::shared_ptr<DataflowGraph> loadGraphFromJsonFile( const std::string& filename );
-
-    /**
-     * \brief protect nodes and links from deletion.
-     * \param on true to protect, false to unprotect.
-     */
-    void setNodesAndLinksProtection( bool on ) { m_nodesAndLinksProtected = on; }
-
-    /**
-     * \brief get the protection status protect nodes and links from deletion
-     * \return the protection status
-     */
-    bool getNodesAndLinksProtection() const { return m_nodesAndLinksProtected; }
-
-  private:
     bool checkNodeValidity( const Node* nodeFrom, const Node* nodeTo );
     static bool checkPortCompatibility( const Node* nodeFrom,
                                         Node::PortIndex portOutIdx,
@@ -312,7 +288,30 @@ class RA_DATAFLOW_API DataflowGraph : public Node
         static void unableToFind( const std::string& type, const std::string& instanceName );
     };
 
-  private:
+    /// Flag that indicates if the graph should be saved to a file
+    /// This flag is useless outside an load/edit/save scenario
+    bool m_shouldBeSaved { false };
+
+    /// Flag set after successful compilation indicating graph is ready to be executed
+    /// This flag is reset as soon as the graph is modified.
+    bool m_ready { false };
+
+    /// The node factory to use for loading
+    std::shared_ptr<NodeFactorySet> m_factories;
+    /// The unordered list of nodes.
+    std::vector<std::shared_ptr<Node>> m_nodes;
+    // Internal node levels representation
+    /// The list of nodes ordered by levels.
+    /// Two nodes at the same level have no dependency between them.
+    std::vector<std::vector<Node*>> m_nodesByLevel;
+
+    /// Data setters management : used to pass parameter to the graph when the graph is not
+    /// embedded into another graph (inputs are here for this case). A dataSetter is an
+    /// outputPort, associated to an input port of the graph. The connection between these ports
+    /// can be activated/deactivated using activateDataSetter/releaseDataSetter
+    using DataSetter = std::pair<DataSetterDesc, PortBase*>;
+    std::map<std::string, DataSetter> m_dataSetters;
+
     bool m_nodesAndLinksProtected { false };
 };
 
