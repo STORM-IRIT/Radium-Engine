@@ -40,11 +40,11 @@ class RA_DATAFLOW_API DataflowGraph : public Node
 
     /// \brief Set the factories to use when loading a graph.
     /// \param factories new factory set that will replace the existing factory set if any.
-    void setNodeFactories( std::shared_ptr<NodeFactorySet> factories );
+    void setNodeFactories( std::shared_ptr<NodeFactorySet> factories ) { m_factories = factories; }
 
     /// \brief Get the node factories associated with the graph.
     /// \return returns nullptr if no factory set is associated with the graph.
-    std::shared_ptr<NodeFactorySet> getNodeFactories() const;
+    std::shared_ptr<NodeFactorySet> getNodeFactories() const { return m_factories; }
 
     /// \brief Add a factory to the factory set of the graph.
     /// Creates the factory set if it does not exists
@@ -54,7 +54,7 @@ class RA_DATAFLOW_API DataflowGraph : public Node
     /// \brief Remove a factory from the factory set of the graph.
     /// \param name the name of the factory to remove
     /// \return true if the factory was found and removed
-    bool removeFactory( const std::string& name );
+    bool removeFactory( const std::string& name ) { return m_factories->removeFactory( name ); }
 
     /// \brief Loads nodes and links from a JSON file.
     /// \param jsonFilePath The path to the JSON file.
@@ -74,11 +74,7 @@ class RA_DATAFLOW_API DataflowGraph : public Node
     /// the caller.
     virtual bool addNode( std::shared_ptr<Node> newNode );
     template <typename T, typename... U>
-    std::shared_ptr<T> addNode( U&&... u ) {
-        auto ret = std::make_shared<T>( std::forward<U>( u )... );
-        if ( addNode( ret ) ) return ret;
-        return nullptr;
-    }
+    std::shared_ptr<T> addNode( U&&... u );
 
     /// \brief Removes a node from the render graph.
     /// Removes input and output ports, corresponding to interface ports of the node, from the
@@ -104,48 +100,11 @@ class RA_DATAFLOW_API DataflowGraph : public Node
                   const std::shared_ptr<Node>& nodeTo,
                   Node::PortIndex portInIdx );
 
-    bool addLink( Node::PortBaseRawPtr outputPort, Node::PortBaseRawPtr inputPort ) {
-        if ( !inputPort->is_input() || outputPort->is_input() ) { return false; }
-        auto nodeFrom = outputPort->getNode();
-        auto nodeTo   = inputPort->getNode();
-        if ( !checkNodeValidity( nodeFrom, nodeTo ) ) { return false; }
-        // Compare types
-        if ( !checkPortCompatibility( nodeFrom,
-                                      Node::PortIndex {},
-                                      outputPort,
-                                      nodeTo,
-                                      Node::PortIndex {},
-                                      inputPort ) ) {
-            return false;
-        }
-        // port can be connected
-        inputPort->connect( outputPort );
-        // The state of the graph changes, set it to not ready
-        needsRecompile();
-        return true;
-    }
+    bool addLink( Node::PortBaseRawPtr outputPort, Node::PortBaseRawPtr inputPort );
 
     template <typename T, typename U>
     bool addLink( const std::shared_ptr<PortOut<T>>& outputPort,
-                  const std::shared_ptr<PortIn<U>>& inputPort ) {
-        using namespace Ra::Core::Utils;
-
-        static_assert( std::is_same_v<T, U>, "in and out port type mismatch" );
-        auto nodeFrom = outputPort->getNode();
-        auto nodeTo   = inputPort->getNode();
-
-        if ( !checkNodeValidity( nodeFrom, nodeTo ) ) { return false; }
-
-        if ( inputPort->isLinked() ) {
-            Log::alreadyLinked( nodeTo, inputPort.get() );
-            return false;
-        }
-        inputPort->connect( outputPort.get() );
-
-        // The state of the graph changes, set it to not ready
-        needsRecompile();
-        return true;
-    }
+                  const std::shared_ptr<PortIn<U>>& inputPort );
 
     ///
     /// \brief Removes the link connected to a node's input port
@@ -156,14 +115,14 @@ class RA_DATAFLOW_API DataflowGraph : public Node
 
     /// \brief Get the vector of all the nodes on the graph
     /// \return
-    const std::vector<std::shared_ptr<Node>>& getNodes() const;
+    const std::vector<std::shared_ptr<Node>>& getNodes() const { return m_nodes; }
 
     /// Gets a specific node according to its instance name.
     /// \param instanceNameNode The instance name of the node.
     std::shared_ptr<Node> getNode( const std::string& instanceNameNode ) const;
 
     /// Gets the nodes ordered by level (after compilation)
-    const std::vector<std::vector<Node*>>& getNodesByLevel() const;
+    const std::vector<std::vector<Node*>>& getNodesByLevel() const { return m_nodesByLevel; }
 
     /// Compile the render graph to check its validity and simplify it.
     /// The compilation has multiple goals:
@@ -173,17 +132,17 @@ class RA_DATAFLOW_API DataflowGraph : public Node
     bool compile() override;
 
     /// Gets the number of nodes
-    size_t getNodesCount() const;
+    size_t getNodesCount() const { return m_nodes.size(); }
 
     /// Deletes all nodes from the render graph.
     virtual void clearNodes();
 
     /// Test if the graph is compiled
-    bool isCompiled() const;
+    bool isCompiled() const { return m_ready; }
 
     /// Mark the graph as needing recompilation (useful to force recompilation and resources
     /// update)
-    void needsRecompile();
+    inline void needsRecompile();
 
     /// Flag that indicates if the graph should be saved to a file
     /// This flag is useless outside an load/edit/save scenario
@@ -359,8 +318,38 @@ class RA_DATAFLOW_API DataflowGraph : public Node
 
 // -----------------------------------------------------------------
 // ---------------------- inline methods ---------------------------
-inline bool DataflowGraph::isCompiled() const {
-    return m_ready;
+
+inline void DataflowGraph::addFactory( std::shared_ptr<NodeFactory> f ) {
+    if ( !m_factories ) { m_factories.reset( new NodeFactorySet ); }
+    m_factories->addFactory( f );
+}
+template <typename T, typename... U>
+std::shared_ptr<T> DataflowGraph::addNode( U&&... u ) {
+    auto ret = std::make_shared<T>( std::forward<U>( u )... );
+    if ( addNode( ret ) ) return ret;
+    return nullptr;
+}
+
+template <typename T, typename U>
+bool DataflowGraph::addLink( const std::shared_ptr<PortOut<T>>& outputPort,
+                             const std::shared_ptr<PortIn<U>>& inputPort ) {
+    using namespace Ra::Core::Utils;
+
+    static_assert( std::is_same_v<T, U>, "in and out port type mismatch" );
+    auto nodeFrom = outputPort->getNode();
+    auto nodeTo   = inputPort->getNode();
+
+    if ( !checkNodeValidity( nodeFrom, nodeTo ) ) { return false; }
+
+    if ( inputPort->isLinked() ) {
+        Log::alreadyLinked( nodeTo, inputPort.get() );
+        return false;
+    }
+    inputPort->connect( outputPort.get() );
+
+    // The state of the graph changes, set it to not ready
+    needsRecompile();
+    return true;
 }
 
 inline void DataflowGraph::needsRecompile() {
@@ -368,32 +357,6 @@ inline void DataflowGraph::needsRecompile() {
     m_ready         = false;
 }
 
-inline void DataflowGraph::setNodeFactories( std::shared_ptr<NodeFactorySet> factories ) {
-    m_factories = factories;
-}
-
-inline std::shared_ptr<NodeFactorySet> DataflowGraph::getNodeFactories() const {
-    return m_factories;
-}
-
-inline void DataflowGraph::addFactory( std::shared_ptr<NodeFactory> f ) {
-    if ( !m_factories ) { m_factories.reset( new NodeFactorySet ); }
-    m_factories->addFactory( f );
-}
-
-inline bool DataflowGraph::removeFactory( const std::string& name ) {
-    return m_factories->removeFactory( name );
-}
-
-inline const std::vector<std::shared_ptr<Node>>& DataflowGraph::getNodes() const {
-    return m_nodes;
-}
-inline const std::vector<std::vector<Node*>>& DataflowGraph::getNodesByLevel() const {
-    return m_nodesByLevel;
-}
-inline size_t DataflowGraph::getNodesCount() const {
-    return m_nodes.size();
-}
 inline const std::string& DataflowGraph::getTypename() {
     static std::string demangledTypeName { "Core DataflowGraph" };
     return demangledTypeName;
