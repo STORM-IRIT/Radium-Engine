@@ -90,7 +90,7 @@ void GraphEditorWindow::about() {
 }
 
 void GraphEditorWindow::documentWasModified() {
-    setWindowModified( m_graph->m_shouldBeSaved );
+    setWindowModified( m_graph->shouldBeSaved() );
     emit needUpdate();
 }
 
@@ -181,7 +181,7 @@ void GraphEditorWindow::writeSettings() {
 
 bool GraphEditorWindow::maybeSave() {
     if ( m_graph == nullptr ) { return true; }
-    if ( !m_graph->m_shouldBeSaved ) { return true; }
+    if ( !m_graph->shouldBeSaved() ) { return true; }
     const QMessageBox::StandardButton ret =
         QMessageBox::warning( this,
                               tr( "Application" ),
