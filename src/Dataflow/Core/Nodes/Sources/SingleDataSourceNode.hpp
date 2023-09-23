@@ -72,7 +72,7 @@ class SingleDataSourceNode : public Node
     /// @}
 
     /// Alias to the output port
-    std::shared_ptr<PortOut<T>> m_portOut;
+    Node::PortOutPtr<T> m_portOut;
 
   public:
     static const std::string& getTypename();
