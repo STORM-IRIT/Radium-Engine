@@ -25,7 +25,7 @@ namespace Core {
  * (\see Ra::Dataflow::Core::DataflowGraph) and linked together through their input/output port.
  *
  * Nodes computes their function using the input data collecting from the input ports,
- * in an evaluation context (possibly empty) defined byt their internal data to generate results
+ * in an evaluation context (possibly empty) defined by their internal data to generate results
  * sent to their output ports.
  *
  */
@@ -36,10 +36,23 @@ class RA_DATAFLOW_API Node
     template <typename Port>
     using PortPtr = std::shared_ptr<Port>;
     template <typename Port>
-    using PortRawPtr     = Port*;
+    using PortRawPtr = typename PortPtr<Port>::element_type*;
+    template <typename Type>
+    using PortInPtr = PortPtr<PortIn<Type>>;
+    template <typename Type>
+    using PortInRawPtr = typename PortInPtr<Type>::element_type*;
+    template <typename Type>
+    using PortOutPtr = PortPtr<PortOut<Type>>;
+    template <typename Type>
+    using PortOutRawPtr = typename PortOutPtr<Type>::element_type*;
+
+    using PortBasePtr    = PortPtr<PortBase>;
+    using PortBaseRawPtr = typename PortPtr<PortBase>::element_type*;
+
     using PortCollection = std::vector<std::shared_ptr<PortBase>>;
-    using PortBaseRawPtr = PortBase*;
-    using GetPortReturn  = std::pair<PortIndex, PortBaseRawPtr>;
+
+    template <typename Port>
+    using IndexAndPortRawPtr = std::pair<PortIndex, Port>;
 
     /// \name Constructors
     /// @{
@@ -90,24 +103,25 @@ class RA_DATAFLOW_API Node
     /// \param type either "in" or "out", the directional type of the port
     /// \param name
     /// \return an alias pointer on the requested port if it exists, nullptr else
-    PortBase* getPortByName( const std::string& type, const std::string& name ) const;
-    GetPortReturn getInputByName( const std::string& name ) const;
-    GetPortReturn getOutputByName( const std::string& name ) const;
+    IndexAndPortRawPtr<PortBaseRawPtr> getPortByName( const std::string& type,
+                                                      const std::string& name ) const;
+    IndexAndPortRawPtr<PortBaseRawPtr> getInputByName( const std::string& name ) const;
+    IndexAndPortRawPtr<PortBaseRawPtr> getOutputByName( const std::string& name ) const;
 
     /// \brief Get an input port by its index
     /// \param type either "in" or "out", the directional type of the port
     /// \param idx
     /// \return an alias pointer on the requested port if it exists, nullptr else
-    PortBase* getPortByIndex( const std::string& type, PortIndex idx ) const;
+    PortBaseRawPtr getPortByIndex( const std::string& type, PortIndex idx ) const;
 
     template <typename T>
-    constexpr T* getInputPort( PortIndex idx ) const {
-        return getPort<T>( m_inputs, idx );
+    constexpr PortInRawPtr<T> getInputByIndex( PortIndex idx ) const {
+        return getPort<PortInRawPtr<T>>( m_inputs, idx );
     }
 
     template <typename T>
-    constexpr T* getOutputPort( PortIndex idx ) const {
-        return getPort<T>( m_outputs, idx );
+    constexpr PortOutRawPtr<T> getOutputByIndex( PortIndex idx ) const {
+        return getPort<PortOutRawPtr<T>>( m_outputs, idx );
     }
 
     /// \brief Gets the in ports of the node.
@@ -178,20 +192,22 @@ class RA_DATAFLOW_API Node
     /// \param typeName The type name of the node
     Node( const std::string& instanceName, const std::string& typeName );
 
-    GetPortReturn getPortByName( const PortCollection& ports, const std::string& name ) const;
+    IndexAndPortRawPtr<PortBaseRawPtr> getPortByName( const PortCollection& ports,
+                                                      const std::string& name ) const;
 
-    PortBase* getPortBase( const PortCollection& ports, PortIndex idx ) const {
+    PortBaseRawPtr getPortBase( const PortCollection& ports, PortIndex idx ) const {
         if ( 0 <= idx && size_t( idx ) < ports.size() ) { return ports[idx].get(); }
         return nullptr;
     }
 
-    constexpr PortBase* getPortBaseNoCheck( const PortCollection& ports, PortIndex idx ) const {
+    constexpr PortBaseRawPtr getPortBaseNoCheck( const PortCollection& ports,
+                                                 PortIndex idx ) const {
         return ports[idx].get();
     }
 
     template <typename T>
-    constexpr T* getPort( const PortCollection& ports, PortIndex idx ) const {
-        return static_cast<T*>( getPortBaseNoCheck( ports, idx ) );
+    constexpr T getPort( const PortCollection& ports, PortIndex idx ) const {
+        return static_cast<T>( getPortBaseNoCheck( ports, idx ) );
     }
 
     /// internal json representation of the Node.
@@ -225,15 +241,23 @@ class RA_DATAFLOW_API Node
 
     template <typename T, typename... U>
     std::shared_ptr<PortIn<T>> addInputPort( U&&... u ) {
-        auto ret = std::make_shared<PortIn<T>>( this, std::forward<U>( u )... );
-        addInput( ret );
-        return ret;
+        auto idx = addInput( std::make_shared<PortIn<T>>( this, std::forward<U>( u )... ) );
+        return getInputPort<T>( idx );
     }
     template <typename T, typename... U>
     std::shared_ptr<PortOut<T>> addOutputPort( U&&... u ) {
-        auto ret = std::make_shared<PortOut<T>>( this, std::forward<U>( u )... );
-        addOutput( ret );
-        return ret;
+        auto idx = addOutput( std::make_shared<PortOut<T>>( this, std::forward<U>( u )... ) );
+        return getOutputPort<T>( idx );
+    }
+
+    template <typename T>
+    PortInPtr<T> getInputPort( PortIndex idx ) {
+        return std::static_pointer_cast<PortIn<T>>( m_inputs[idx] );
+    }
+
+    template <typename T>
+    PortOutPtr<T> getOutputPort( PortIndex idx ) {
+        return std::static_pointer_cast<PortOut<T>>( m_outputs[idx] );
     }
 
     std::shared_ptr<PortBase> getInputPort( PortIndex idx ) { return m_inputs[idx]; }
