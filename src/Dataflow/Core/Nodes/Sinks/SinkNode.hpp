@@ -37,8 +37,9 @@ class SinkNode : public Node
     const T& getDataByRef() const;
 
   protected:
-    void toJsonInternal( nlohmann::json& data ) const override;
-    bool fromJsonInternal( const nlohmann::json& data ) override;
+    /// \todo why are these empty ?
+    void toJsonInternal( nlohmann::json& data ) const override {}
+    bool fromJsonInternal( const nlohmann::json& data ) override { return true; }
 
   private:
     /// \todo : allow user to specify where to store the data ? (i.e. make this a shared_ptr ?).
@@ -47,7 +48,7 @@ class SinkNode : public Node
 
     /// @{
     /// \brief Alias for the ports (allow simpler access)
-    std::shared_ptr<PortIn<T>> m_portIn;
+    Node::PortInPtr<T> m_portIn;
     /// @}
   public:
     static const std::string& getTypename();
@@ -97,14 +98,6 @@ const std::string& SinkNode<T>::getTypename() {
     static std::string demangledName =
         std::string { "Sink<" } + Ra::Dataflow::Core::simplifiedDemangledType<T>() + ">";
     return demangledName;
-}
-
-template <typename T>
-void SinkNode<T>::toJsonInternal( nlohmann::json& ) const {}
-
-template <typename T>
-bool SinkNode<T>::fromJsonInternal( const nlohmann::json& ) {
-    return true;
 }
 
 } // namespace Sinks

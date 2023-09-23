@@ -64,8 +64,10 @@ class ReduceNode : public Node
                 ReduceOperator op,
                 v_t initialValue );
 
-    void toJsonInternal( nlohmann::json& data ) const override;
-    bool fromJsonInternal( const nlohmann::json& ) override;
+    void toJsonInternal( nlohmann::json& data ) const override { Node::toJsonInternal( data ); }
+    bool fromJsonInternal( const nlohmann::json& data ) override {
+        return Node::fromJsonInternal( data );
+    }
 
   private:
     ReduceOperator m_operator;
@@ -74,10 +76,10 @@ class ReduceNode : public Node
 
     /// @{
     /// \brief Alias for the ports (allow simpler access)
-    PortIn<coll_t>* m_portIn { new PortIn<coll_t>( "in", this ) };
-    PortIn<ReduceOperator>* m_portF { new PortIn<ReduceOperator>( "f", this ) };
-    PortIn<v_t>* m_portInit { new PortIn<v_t>( "init", this ) };
-    PortOut<v_t>* m_portOut { new PortOut<v_t>( "out", this ) };
+    Node::PortInPtr<coll_t> m_portIn { new PortIn<coll_t>( "in", this ) };
+    Node::PortInPtr<ReduceOperator> m_portF { new PortIn<ReduceOperator>( "f", this ) };
+    Node::PortInPtr<v_t> m_portInit { new PortIn<v_t>( "init", this ) };
+    Node::PortOutPtr<v_t> m_portOut { new PortOut<v_t>( "out", this ) };
     /// @}
 
   public:
@@ -139,27 +141,11 @@ ReduceNode<coll_t, v_t>::ReduceNode( const std::string& instanceName,
                                      ReduceOperator op,
                                      v_t initialValue ) :
     Node( instanceName, typeName ), m_operator( op ), m_init( initialValue ) {
-
-    addInput( m_portIn );
+    m_portIn = addInputPort<coll_t>( "in" );
     m_portIn->mustBeLinked();
-    addInput( m_portF );
-    addInput( m_portInit );
-    addOutput( m_portOut, &m_result );
-}
-
-template <typename coll_t, typename v_t>
-void ReduceNode<coll_t, v_t>::toJsonInternal( nlohmann::json& data ) const {
-    data["comment"] =
-        std::string { "Reduce operator could not be serialized for " } + getTypeName();
-    LOG( Ra::Core::Utils::logWARNING ) // TODO make this logDEBUG
-        << "Unable to save data when serializing a " << getTypeName() << ".";
-}
-
-template <typename coll_t, typename v_t>
-bool ReduceNode<coll_t, v_t>::fromJsonInternal( const nlohmann::json& ) {
-    LOG( Ra::Core::Utils::logWARNING ) // TODO make this logDEBUG
-        << "Unable to read data when un-serializing a " << getTypeName() << ".";
-    return true;
+    m_portF    = addInputPort<ReduceOperator>( "f" );
+    m_portInit = addInputPort<v_t>( "init" );
+    m_portOut  = addOutputPort<v_t>( &m_result, "out" );
 }
 
 } // namespace Functionals

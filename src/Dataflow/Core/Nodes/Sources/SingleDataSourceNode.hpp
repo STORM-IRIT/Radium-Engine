@@ -2,6 +2,7 @@
 #include <Dataflow/Core/Node.hpp>
 
 #include <iostream>
+#include <nlohmann/json.hpp>
 #include <utility>
 
 namespace Ra {
@@ -24,6 +25,7 @@ class SingleDataSourceNode : public Node
     SingleDataSourceNode( const std::string& instanceName, const std::string& typeName );
 
   public:
+    // warning, hacky specialization for set editable
     explicit SingleDataSourceNode( const std::string& name ) :
         SingleDataSourceNode( name, SingleDataSourceNode<T>::getTypename() ) {}
 
@@ -59,8 +61,10 @@ class SingleDataSourceNode : public Node
     std::shared_ptr<PortOut<T>> getOuputPort() { return m_portOut; }
 
   protected:
-    bool fromJsonInternal( const nlohmann::json& ) override;
-    void toJsonInternal( nlohmann::json& data ) const override;
+    bool fromJsonInternal( const nlohmann::json& data ) override {
+        return Node::fromJsonInternal( data );
+    }
+    void toJsonInternal( nlohmann::json& data ) const override { Node::toJsonInternal( data ); }
 
   private:
     /// @{
@@ -131,22 +135,6 @@ const std::string& SingleDataSourceNode<T>::getTypename() {
     static std::string demangledTypeName =
         std::string { "Source<" } + Ra::Dataflow::Core::simplifiedDemangledType<T>() + ">";
     return demangledTypeName;
-}
-
-template <typename T>
-void SingleDataSourceNode<T>::toJsonInternal( nlohmann::json& data ) const {
-    data["comment"] =
-        std::string( "Unable to save data when serializing a SingleDataSourceNode<" ) +
-        Ra::Dataflow::Core::simplifiedDemangledType<T>() + ">.";
-    LOG( Ra::Core::Utils::logDEBUG )
-        << "Unable to save data when serializing a " << getTypeName() << ".";
-}
-
-template <typename T>
-bool SingleDataSourceNode<T>::fromJsonInternal( const nlohmann::json& ) {
-    LOG( Ra::Core::Utils::logDEBUG )
-        << "Unable to read data when un-serializing a " << getTypeName() << ".";
-    return true;
 }
 
 } // namespace Sources
