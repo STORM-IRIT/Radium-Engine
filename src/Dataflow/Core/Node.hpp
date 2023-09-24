@@ -113,6 +113,8 @@ class RA_DATAFLOW_API Node
     /// \param idx
     /// \return an alias pointer on the requested port if it exists, nullptr else
     PortBaseRawPtr getPortByIndex( const std::string& type, PortIndex idx ) const;
+    PortBaseRawPtr getInputByIndex( PortIndex idx ) const { return getPortBase( m_inputs, idx ); }
+    PortBaseRawPtr getOutputByIndex( PortIndex idx ) const { return getPortBase( m_outputs, idx ); }
 
     template <typename T>
     PortInRawPtr<T> getInputByIndex( PortIndex idx ) const {
@@ -257,9 +259,10 @@ class RA_DATAFLOW_API Node
         return std::static_pointer_cast<PortOut<T>>( m_outputs[idx] );
     }
 
-    std::shared_ptr<PortBase> getInputPort( PortIndex idx ) { return m_inputs[idx]; }
-    std::shared_ptr<PortBase> getOutputPort( PortIndex idx ) { return m_outputs[idx]; }
+    PortBasePtr getInputPort( PortIndex idx ) { return m_inputs[idx]; }
+    PortBasePtr getOutputPort( PortIndex idx ) { return m_outputs[idx]; }
 
+    ///\todo remove these it not needed by dataflow graph
     /// \brief remove the given input port from the managed input ports
     /// \param in the port to remove
     /// \return true if the port was removed (the in pointer is the set to nullptr), false else

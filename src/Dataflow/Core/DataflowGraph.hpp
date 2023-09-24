@@ -286,6 +286,8 @@ class RA_DATAFLOW_API DataflowGraph : public Node
                                          Node::PortIndex portInIdx,
                                          const PortBase* portIn );
         static void unableToFind( const std::string& type, const std::string& instanceName );
+        static void
+        badPortIdx( const std::string& type, const std::string& instanceName, Node::PortIndex idx );
     };
 
     /// Flag that indicates if the graph should be saved to a file

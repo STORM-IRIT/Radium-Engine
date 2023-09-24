@@ -38,8 +38,8 @@ class SinkNode : public Node
 
   protected:
     /// \todo why are these empty ?
-    void toJsonInternal( nlohmann::json& data ) const override {}
-    bool fromJsonInternal( const nlohmann::json& data ) override { return true; }
+    void toJsonInternal( nlohmann::json& ) const override {}
+    bool fromJsonInternal( const nlohmann::json& ) override { return true; }
 
   private:
     /// \todo : allow user to specify where to store the data ? (i.e. make this a shared_ptr ?).
