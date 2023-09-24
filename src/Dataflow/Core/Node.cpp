@@ -1,7 +1,6 @@
 #include <Dataflow/Core/Node.hpp>
 
 #include <Core/Utils/Log.hpp>
-#include <iterator>
 
 namespace Ra {
 namespace Dataflow {

@@ -351,16 +351,25 @@ bool DataflowGraph::addLink( const std::shared_ptr<Node>& nodeFrom,
                              Node::PortIndex portInIdx ) {
     if ( !checkNodeValidity( nodeFrom.get(), nodeTo.get() ) ) { return false; }
 
-    auto& portIn  = nodeTo->getInputs()[portInIdx];
-    auto& portOut = nodeFrom->getOutputs()[portOutIdx];
+    auto portOut = nodeFrom->getOutputByIndex( portOutIdx );
+    auto portIn  = nodeTo->getInputByIndex( portInIdx );
+
+    if ( !portOut ) {
+        Log::badPortIdx( "output", nodeFrom->getTypeName(), portOutIdx );
+        return false;
+    }
+    if ( !portIn ) {
+        Log::badPortIdx( "input", nodeTo->getTypeName(), portInIdx );
+        return false;
+    }
 
     // Compare types
     if ( !checkPortCompatibility(
-             nodeFrom.get(), portOutIdx, portOut.get(), nodeTo.get(), portInIdx, portIn.get() ) )
+             nodeFrom.get(), portOutIdx, portOut, nodeTo.get(), portInIdx, portIn ) )
         return false;
 
     // port can be connected
-    portIn->connect( portOut.get() );
+    portIn->connect( portOut );
     // The state of the graph changes, set it to not ready
     needsRecompile();
     return true;
@@ -745,6 +754,13 @@ void DataflowGraph::Log::addLinkTypeMismatch( const Node* nodeFrom,
 
 void DataflowGraph::Log::unableToFind( const std::string& type, const std::string& instanceName ) {
     LOG( logERROR ) << "DataflowGraph::addLink Unable to find " << type << instanceName;
+}
+
+void DataflowGraph::Log::badPortIdx( const std::string& type,
+                                     const std::string& instanceName,
+                                     Node::PortIndex idx ) {
+    LOG( logERROR ) << "DataflowGraph::addLink node " << instanceName << "as no " << type
+                    << " port with index " << idx;
 }
 
 } // namespace Core
