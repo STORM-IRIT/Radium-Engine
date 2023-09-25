@@ -52,7 +52,9 @@ class FilterNode : public Node
 
     /// Sets the filtering predicate on the node
     void setFilterFunction( UnaryPredicate predicate );
-    std::shared_ptr<PortIn<coll_t>> getInPort() { return m_portIn; }
+    Node::PortInPtr<coll_t> getInPort() { return m_portIn; }
+    Node::PortInPtr<UnaryPredicate> getPredicatePort() { return m_portPredicate; }
+    Node::PortOutPtr<coll_t> getOutPort() { return m_portOut; }
 
   protected:
     FilterNode( const std::string& instanceName,

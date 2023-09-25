@@ -423,11 +423,17 @@ int DataflowGraph::findNode( const Node* node ) const {
     else { return -1; }
 }
 
-int DataflowGraph::findNode2( const Node* node ) const {
-    auto foundIt = std::find_if(
-        m_nodes.begin(), m_nodes.end(), [node]( const auto& n ) { return n.get() == node; } );
-    if ( foundIt != m_nodes.end() ) { return std::distance( m_nodes.begin(), foundIt ); }
-    else { return -1; }
+bool DataflowGraph::findNode2( const Node* node ) const {
+    if ( !node ) return false;
+
+    for ( const auto& n : m_nodes ) {
+        if ( n.get() == node ) return true;
+        auto g = dynamic_cast<DataflowGraph*>( n.get() );
+        if ( g ) {
+            if ( g->findNode2( node ) ) return true;
+        }
+    }
+    return false;
 }
 
 bool DataflowGraph::compile() {
@@ -719,13 +725,13 @@ std::shared_ptr<DataflowGraph> DataflowGraph::loadGraphFromJsonFile( const std::
 
 bool DataflowGraph::checkNodeValidity( const Node* nodeFrom, const Node* nodeTo ) {
     using namespace Ra::Core::Utils; // Check node "from" existence in the graph
-    if ( findNode2( nodeFrom ) == -1 ) {
+    if ( !findNode2( nodeFrom ) ) {
         Log::unableToFind( "initial node", nodeFrom->getInstanceName() );
         return false;
     }
 
     // Check node "to" existence in the graph
-    if ( findNode2( nodeTo ) == -1 ) {
+    if ( !findNode2( nodeTo ) ) {
         Log::unableToFind( "destination node", nodeTo->getInstanceName() );
         return false;
     }
@@ -753,7 +759,7 @@ void DataflowGraph::Log::addLinkTypeMismatch( const Node* nodeFrom,
 }
 
 void DataflowGraph::Log::unableToFind( const std::string& type, const std::string& instanceName ) {
-    LOG( logERROR ) << "DataflowGraph::addLink Unable to find " << type << instanceName;
+    LOG( logERROR ) << "DataflowGraph::addLink Unable to find " << type << " " << instanceName;
 }
 
 void DataflowGraph::Log::badPortIdx( const std::string& type,
