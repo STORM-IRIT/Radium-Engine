@@ -208,7 +208,7 @@ class RA_DATAFLOW_API Node
 
     template <typename T>
     T getPort( const PortCollection& ports, PortIndex idx ) const {
-        return static_cast<T>( getPortBaseNoCheck( ports, idx ) );
+        return static_cast<T>( getPortBase( ports, idx ) );
     }
 
     /// internal json representation of the Node.
@@ -234,17 +234,17 @@ class RA_DATAFLOW_API Node
     /// This function checks if the port is an input port.
     /// \param in The in port to add.
     bool addInput( PortBase* in );
-    PortIndex addInput( std::shared_ptr<PortBase> in );
-    PortIndex addOutput( std::shared_ptr<PortBase> in );
+    PortIndex addInput( PortBasePtr in );
+    PortIndex addOutput( PortBasePtr out );
     PortIndex addPort( PortCollection&, std::shared_ptr<PortBase> in );
 
     template <typename T, typename... U>
-    std::shared_ptr<PortIn<T>> addInputPort( U&&... u ) {
+    PortInPtr<T> addInputPort( U&&... u ) {
         auto idx = addInput( std::make_shared<PortIn<T>>( this, std::forward<U>( u )... ) );
         return getInputPort<T>( idx );
     }
     template <typename T, typename... U>
-    std::shared_ptr<PortOut<T>> addOutputPort( U&&... u ) {
+    PortOutPtr<T> addOutputPort( U&&... u ) {
         auto idx = addOutput( std::make_shared<PortOut<T>>( this, std::forward<U>( u )... ) );
         return getOutputPort<T>( idx );
     }
@@ -307,7 +307,7 @@ class RA_DATAFLOW_API Node
     /// The instance name of the node
     std::string m_instanceName;
     /// The in ports of the node (own by the node)
-    std::vector<std::shared_ptr<PortBase>> m_inputs;
+    std::vector<PortBasePtr> m_inputs;
     /// The out ports of the node  (own by the node)
     std::vector<std::shared_ptr<PortBase>> m_outputs;
     /// The reflected ports of the node if it is only a source or sink node.

@@ -36,6 +36,8 @@ class SinkNode : public Node
      */
     const T& getDataByRef() const;
 
+    Node::PortInPtr<T> getInPort() { return m_portIn; }
+
   protected:
     /// \todo why are these empty ?
     void toJsonInternal( nlohmann::json& ) const override {}

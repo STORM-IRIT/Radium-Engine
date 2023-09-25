@@ -88,9 +88,7 @@ class SingleDataSourceNode : public Node
 template <typename T>
 SingleDataSourceNode<T>::SingleDataSourceNode( const std::string& instanceName,
                                                const std::string& typeName ) :
-    Node( instanceName, typeName ), m_portOut { addOutputPort<T>( "to" ) } {
-    m_portOut->setData( m_data );
-}
+    Node( instanceName, typeName ), m_portOut { addOutputPort<T>( m_data, "to" ) } {}
 
 template <typename T>
 bool SingleDataSourceNode<T>::execute() {

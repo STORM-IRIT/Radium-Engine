@@ -39,6 +39,8 @@ class FunctionSourceNode : public Node
      */
     function_type* getData() const;
 
+    Node::PortOutPtr<function_type> getFunctionPort() { return m_portOut; }
+
   protected:
     FunctionSourceNode( const std::string& instanceName, const std::string& typeName );
 

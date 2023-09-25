@@ -186,7 +186,7 @@ class RA_DATAFLOW_API DataflowGraph : public Node
     /// Creates a vector that stores all the existing DataGetters (\see getDataGetter) of the
     /// graph. A tuple is composed of an output port belonging to the graph, its name its type.
     std::vector<DataGetterDesc> getAllDataGetters() const;
-    int findNode2( const Node* node ) const;
+    bool findNode2( const Node* node ) const;
 
     bool shouldBeSaved() { return m_shouldBeSaved; }
 
@@ -212,6 +212,9 @@ class RA_DATAFLOW_API DataflowGraph : public Node
      * \return the protection status
      */
     bool getNodesAndLinksProtection() const { return m_nodesAndLinksProtected; }
+
+    using Node::addInput;
+    using Node::addOutput;
 
   protected:
     /** Allow derived class to construct the graph with their own static type
