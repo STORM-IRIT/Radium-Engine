@@ -178,6 +178,7 @@ void SkinningComponent::skin() {
         }
 
         case LBS_GPU: {
+            // pass rendertechnique via getRoMgr()
             linearBlendSkinningGPU( m_refData, m_frameData );
             break;
         }
@@ -192,23 +193,25 @@ void SkinningComponent::skin() {
 }
 
 void SkinningComponent::endSkinning() {
-    if ( m_frameData.m_doSkinning ) {
-        AttribArrayGeometry* geom;
-        geom = m_geomWriter();
+    if ( m_skinningType != LBS_GPU ) {
+        if ( m_frameData.m_doSkinning ) {
+            AttribArrayGeometry* geom;
+            geom = m_geomWriter();
 
-        geom->setVertices( m_frameData.m_currentPosition );
-        geom->setNormals( m_frameData.m_currentNormal );
-        auto handle = geom->getAttribHandle<Vector3>( tangentName );
-        if ( handle.idx().isValid() ) {
-            geom->getAttrib( handle ).setData( m_frameData.m_currentTangent );
-        }
-        handle = geom->getAttribHandle<Vector3>( bitangentName );
-        if ( handle.idx().isValid() ) {
-            geom->getAttrib( handle ).setData( m_frameData.m_currentBitangent );
-        }
+            geom->setVertices( m_frameData.m_currentPosition );
+            geom->setNormals( m_frameData.m_currentNormal );
+            auto handle = geom->getAttribHandle<Vector3>( tangentName );
+            if ( handle.idx().isValid() ) {
+                geom->getAttrib( handle ).setData( m_frameData.m_currentTangent );
+            }
+            handle = geom->getAttribHandle<Vector3>( bitangentName );
+            if ( handle.idx().isValid() ) {
+                geom->getAttrib( handle ).setData( m_frameData.m_currentBitangent );
+            }
 
-        m_frameData.m_doReset    = false;
-        m_frameData.m_doSkinning = false;
+            m_frameData.m_doReset    = false;
+            m_frameData.m_doSkinning = false;
+        }
     }
 }
 

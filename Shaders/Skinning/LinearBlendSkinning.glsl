@@ -6,7 +6,7 @@
 layout( location = 6 ) in vec4 in_weight;
 layout( location = 7 ) in uvec4 in_weight_idx;
 
-uniform mat4 joints[];
+uniform mat4 joints[25];
 
 mat4 skinMatrix() {
 	return in_weight.x * joints[in_weight_idx.x] +

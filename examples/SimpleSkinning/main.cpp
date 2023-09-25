@@ -102,7 +102,6 @@ void setupScene( Ra::Engine::RadiumEngine* engine, Ra::Engine::Rendering::Render
         renderObjectManager->getRenderObject( meshComponent->getRenderObjects()[0] );
     renderer->buildRenderTechnique( renderObject.get() );
     auto renderTechnique = renderObject->getRenderTechnique();
-    renderTechnique->getShader()->setUniform( "joints", joints );
     renderTechnique->addPassProperties( { "LINEAR_BLEND_SKINNING" } );
 
     // create a squeleton with three bones.

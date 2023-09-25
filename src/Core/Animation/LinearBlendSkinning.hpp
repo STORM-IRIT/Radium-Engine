@@ -2,6 +2,7 @@
 
 #include <Core/Containers/VectorArray.hpp>
 #include <Core/RaCore.hpp>
+#include <Engine/Rendering/RenderTechnique.hpp>
 
 namespace Ra {
 namespace Core {
