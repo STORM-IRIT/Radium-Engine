@@ -61,7 +61,7 @@ namespace Core {
 ///   - For dynamic visitors, as they rely on type erasure pattern, the user parameter should be of
 ///     any type U but this type is erased when calling the visiting function. So, visiting
 ///     functions must be callable with the profile void(const std::string&, [const]T[&],
-///     [const]std::anyU&&) knowing that the std::any contains a parameter of type U.
+///     [const]std::any&&) knowing that the std::any contains a parameter of type U.
 ///
 /// \note relies on C++ standard libraries extensions, version 2 or recommended implementation on
 /// compilers that do not provide this extension
