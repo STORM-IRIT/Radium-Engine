@@ -62,7 +62,7 @@ int main( int argc, char* argv[] ) {
     std::cout << '\n';
 
     //! [Execute the graph]
-    g.execute();
+    if ( !g.execute() ) { std::cerr << "execution failed!\n"; }
     //! [Execute the graph]
 
     //! [Print the output result]
