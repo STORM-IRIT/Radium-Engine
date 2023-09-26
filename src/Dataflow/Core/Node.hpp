@@ -1,4 +1,5 @@
 #pragma once
+#include "Core/Containers/VariableSet.hpp"
 #include "Core/Utils/Index.hpp"
 #include <Dataflow/RaDataflow.hpp>
 
@@ -187,6 +188,7 @@ class RA_DATAFLOW_API Node
     static const std::string& getTypename();
 
     inline bool isInitialized() const { return m_initialized; }
+    Ra::Core::VariableSet& getParameters() { return m_parameters; }
 
   protected:
     /// Construct the base node given its name and type
@@ -318,6 +320,8 @@ class RA_DATAFLOW_API Node
     /// The editable parameters of the node
     /// \todo replace this by a Ra::Core::VariableSet
     std::vector<std::unique_ptr<EditableParameterBase>> m_editableParameters;
+    // start transition
+    Ra::Core::VariableSet m_parameters;
 
     /// Additional data on the node, added by application or gui or ...
     nlohmann::json m_extraJsonData;

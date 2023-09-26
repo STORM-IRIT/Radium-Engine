@@ -1,4 +1,5 @@
 #pragma once
+#include "Core/Containers/VariableSet.hpp"
 #include <Dataflow/Core/Node.hpp>
 
 #include <iostream>
@@ -70,10 +71,11 @@ class SingleDataSourceNode : public Node
     /// @{
     /// The data provided by the node
     /// Used to deliver (and edit) data when the interface is not connected.
-    T m_localData;
+
     /// Ownership of this pointer is left to the caller
-    T* m_data { &m_localData };
     /// @}
+
+    Ra::Core::VariableSet::VariableHandle<T> m_dataHandle;
 
     /// Alias to the output port
     Node::PortOutPtr<T> m_portOut;
@@ -88,38 +90,30 @@ class SingleDataSourceNode : public Node
 template <typename T>
 SingleDataSourceNode<T>::SingleDataSourceNode( const std::string& instanceName,
                                                const std::string& typeName ) :
-    Node( instanceName, typeName ), m_portOut { addOutputPort<T>( m_data, "to" ) } {}
+    Node( instanceName, typeName ),
+    m_dataHandle { m_parameters.insertVariable<T>( "data", T {} ).first },
+    m_portOut { addOutputPort<T>( &m_dataHandle->second, "to" ) } {}
 
 template <typename T>
 bool SingleDataSourceNode<T>::execute() {
-    // interfaces ports are at the same index as output ports
-    auto interfacePort = static_cast<PortIn<T>*>( m_interface[0] );
-    if ( interfacePort->isLinked() ) {
-        // use external storage to deliver data
-        m_data = &( interfacePort->getData() );
-    }
-    else {
-        // use local storage to deliver data
-        m_data = &m_localData;
-    }
-    m_portOut->setData( m_data );
+    // everything is done in ctor
     return true;
 }
 
 template <typename T>
 void SingleDataSourceNode<T>::setData( T data ) {
-    m_localData = std::move( data );
+    m_dataHandle->second = std::move( data );
 }
 
-/// \todo weird to have getData do not return what is set...
 template <typename T>
 T* SingleDataSourceNode<T>::getData() const {
-    return m_data;
+    return &m_dataHandle->second;
 }
 
 template <typename T>
 void SingleDataSourceNode<T>::setEditable( const std::string& name ) {
-    Node::addEditableParameter( new EditableParameter( name, m_localData ) );
+    ///\todo Who delete this EditableParameter in case on failed insertion ?
+    Node::addEditableParameter( new EditableParameter( name, m_dataHandle->second ) );
 }
 
 template <typename T>
