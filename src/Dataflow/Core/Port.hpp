@@ -1,8 +1,10 @@
 #pragma once
+#include "Core/Utils/Log.hpp"
 #include <Dataflow/RaDataflow.hpp>
 
 #include <Dataflow/Core/TypeDemangler.hpp>
 
+#include <optional>
 #include <string>
 #include <typeinfo>
 
@@ -34,11 +36,6 @@ class RA_DATAFLOW_API PortBase
     Node* m_node { nullptr }; /// \todo switch to shared_ptr ?
 
   protected:
-    /// Flag that tells if the port is linked.
-    bool m_isLinked { false };
-    /// Flag that tells if the port must have a connection
-    bool m_isLinkMandatory { false };
-
   public:
     /// \name Constructors
     /// @{
@@ -65,13 +62,12 @@ class RA_DATAFLOW_API PortBase
     /// Gets a pointer to the node this port belongs to.
     Node* getNode() const;
     virtual bool hasData();
-    // TODO : getData() to avoid dynamic_cast to get the data of the PortOut.
+
     /// Returns true if the port is linked
-    bool isLinked() const;
+    virtual bool isLinked() const { return false; }
     /// Returns true if the port is flagged as being mandatory linked
-    bool isLinkMandatory() const;
-    /// Flags the port as being mandatory linked
-    void mustBeLinked();
+    virtual bool isLinkMandatory() const { return false; }
+
     virtual PortBase* getLink() = 0;
     virtual bool accept( PortBase* other );
     virtual bool connect( PortBase* other ) = 0;
@@ -147,7 +143,6 @@ class PortOut : public PortBase
     /// @param o The other port to test the connection.
     bool accept( PortBase* ) override;
     /// Calls the connect(PortBase* o) function of the o node because out ports can not connect.
-    /// Also sets m_isLinked.
     /// @param o The other port to connect.
     bool connect( PortBase* o ) override;
     /// Returns false because out ports can not disconnect.
@@ -166,10 +161,6 @@ template <typename T>
 class PortIn : public PortBase,
                public Ra::Core::Utils::Observable<const std::string&, const PortIn<T>&, bool>
 {
-  private:
-    /// A pointer to the out port this port is connected to.
-    PortOut<T>* m_from = nullptr;
-
   public:
     using DataType = T;
     /// \name Constructors
@@ -197,16 +188,25 @@ class PortIn : public PortBase,
     /// @param o The other port to test the connection
     bool accept( PortBase* other ) override;
     /// Connects this in port and the other out port if there is no out port already connected and
-    /// if the data types are the same. Also sets m_isLinked.
+    /// if the data types are the same.
     /// @param o The other port to connect.
     bool connect( PortBase* other ) override;
     /// Disconnects this port if it is connected.
-    /// Also sets m_isLinked to false.
     bool disconnect() override;
     /// Returns a portOut of the same type
     PortBase* reflect( Node* node, std::string name ) override;
     /// Returns true if the port is an input port
     bool is_input() override;
+
+    bool isLinkMandatory() const override { return !m_defaultValue.has_value(); }
+    void setDefaultValue( const T& value ) { m_defaultValue = value; }
+    bool hasDefaultValue() { return m_defaultValue.has_value(); }
+    bool isLinked() const override { return m_from != nullptr; }
+
+  private:
+    /// A pointer to the out port this port is connected to.
+    PortOut<T>* m_from = nullptr;
+    std::optional<T> m_defaultValue {};
 };
 
 // -----------------------------------------------------------------
@@ -233,18 +233,6 @@ inline Node* PortBase::getNode() const {
 
 inline bool PortBase::hasData() {
     return false;
-}
-
-inline bool PortBase::isLinked() const {
-    return m_isLinked;
-}
-
-inline bool PortBase::isLinkMandatory() const {
-    return m_isLinkMandatory;
-}
-
-inline void PortBase::mustBeLinked() {
-    m_isLinkMandatory = true;
 }
 
 inline bool PortBase::accept( PortBase* other ) {
@@ -288,8 +276,7 @@ bool PortOut<T>::accept( PortBase* ) {
 
 template <typename T>
 bool PortOut<T>::connect( PortBase* o ) {
-    m_isLinked = o->connect( this );
-    return m_isLinked;
+    return o->connect( this );
 }
 
 template <typename T>
@@ -370,13 +357,18 @@ PortBase* PortIn<T>::getLink() {
 
 template <typename T>
 T& PortIn<T>::getData() {
-    return m_from->getData();
+    if ( isLinked() ) return m_from->getData();
+    if ( m_defaultValue ) return *m_defaultValue;
+    CORE_ASSERT( false, "should not get here" );
+    using namespace Ra::Core::Utils;
+    LOG( logERROR ) << "graph is not valid";
+    return *m_defaultValue;
 }
 
 template <typename T>
 inline bool PortIn<T>::hasData() {
     if ( isLinked() ) { return m_from->hasData(); }
-    return false;
+    return m_defaultValue.has_value();
 }
 
 template <typename T>
@@ -388,21 +380,19 @@ bool PortIn<T>::accept( PortBase* other ) {
 template <typename T>
 bool PortIn<T>::connect( PortBase* other ) {
     if ( accept( other ) ) {
-        m_from     = static_cast<PortOut<T>*>( other );
-        m_isLinked = true;
+        m_from = static_cast<PortOut<T>*>( other );
         // notify after connect
         this->notify( getName(), *this, true );
     }
-    return m_isLinked;
+    return m_from != nullptr;
 }
 
 template <typename T>
 bool PortIn<T>::disconnect() {
-    if ( m_isLinked ) {
+    if ( m_from ) {
         // notify before disconnect
         this->notify( getName(), *this, false );
-        m_from     = nullptr;
-        m_isLinked = false;
+        m_from = nullptr;
         return true;
     }
     return false;

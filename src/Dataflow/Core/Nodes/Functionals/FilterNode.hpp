@@ -67,7 +67,6 @@ class FilterNode : public Node
     }
 
   private:
-    UnaryPredicate m_predicate;
     coll_t m_elements;
 
     /// @{
@@ -93,7 +92,7 @@ FilterNode<coll_t, v_t>::FilterNode( const std::string& instanceName, UnaryPredi
 
 template <typename coll_t, typename v_t>
 void FilterNode<coll_t, v_t>::setFilterFunction( UnaryPredicate predicate ) {
-    m_predicate = predicate;
+    m_portPredicate->setDefaultValue( predicate );
 }
 
 template <typename coll_t, typename v_t>
@@ -104,15 +103,13 @@ void FilterNode<coll_t, v_t>::init() {
 
 template <typename coll_t, typename v_t>
 bool FilterNode<coll_t, v_t>::execute() {
-    auto f = m_portPredicate->isLinked() ? m_portPredicate->getData() : m_predicate;
-    // The following test will always be true if the node was integrated in a compiled graph
-    if ( m_portIn->isLinked() ) {
-        const auto& inData = m_portIn->getData();
-        m_elements.clear();
-        // m_elements.reserve( inData.size() ); // --> this is not a requirement of
-        // SequenceContainer
-        std::copy_if( inData.begin(), inData.end(), std::back_inserter( m_elements ), f );
-    }
+    const auto& f      = m_portPredicate->getData();
+    const auto& inData = m_portIn->getData();
+    m_elements.clear();
+    // m_elements.reserve( inData.size() ); // --> this is not a requirement of
+    // SequenceContainer
+    std::copy_if( inData.begin(), inData.end(), std::back_inserter( m_elements ), f );
+
     return true;
 }
 
@@ -128,11 +125,10 @@ FilterNode<coll_t, v_t>::FilterNode( const std::string& instanceName,
                                      const std::string& typeName,
                                      UnaryPredicate filterFunction ) :
     Node( instanceName, typeName ),
-    m_predicate( filterFunction ),
     m_portIn { addInputPort<coll_t>( "in" ) },
     m_portPredicate { addInputPort<UnaryPredicate>( "f" ) },
     m_portOut { addOutputPort<coll_t>( &m_elements, "out" ) } {
-    m_portIn->mustBeLinked();
+    m_portPredicate->setDefaultValue( filterFunction );
 }
 
 } // namespace Functionals

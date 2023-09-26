@@ -70,9 +70,7 @@ class ReduceNode : public Node
     }
 
   private:
-    ReduceOperator m_operator;
     v_t m_result;
-    v_t m_init;
 
     /// @{
     /// \brief Alias for the ports (allow simpler access)
@@ -105,26 +103,24 @@ ReduceNode<coll_t, v_t>::ReduceNode( const std::string& instanceName,
 
 template <typename coll_t, typename v_t>
 void ReduceNode<coll_t, v_t>::setOperator( ReduceOperator op, v_t initialValue ) {
-    m_operator = op;
-    m_init     = initialValue;
+    m_portF->setDefaultValue( op );
+    m_portInit->setDefaultValue( initialValue );
 }
 
 template <typename coll_t, typename v_t>
 void ReduceNode<coll_t, v_t>::init() {
     Node::init();
-    m_result = m_init;
+    m_result = m_portInit->getData();
 }
 
 template <typename coll_t, typename v_t>
 bool ReduceNode<coll_t, v_t>::execute() {
-    auto f   = m_portF->isLinked() ? m_portF->getData() : m_operator;
-    auto iv  = m_portInit->isLinked() ? m_portInit->getData() : m_init;
-    m_result = iv;
-    // The following test will always be true if the node was integrated in a compiled graph
-    if ( m_portIn->isLinked() ) {
-        const auto& inData = m_portIn->getData();
-        m_result           = std::accumulate( inData.begin(), inData.end(), iv, f );
-    }
+    const auto& f      = m_portF->getData();
+    const auto& iv     = m_portInit->getData();
+    m_result           = iv;
+    const auto& inData = m_portIn->getData();
+    m_result           = std::accumulate( inData.begin(), inData.end(), iv, f );
+
     return true;
 }
 
@@ -141,15 +137,14 @@ ReduceNode<coll_t, v_t>::ReduceNode( const std::string& instanceName,
                                      ReduceOperator op,
                                      v_t initialValue ) :
     Node( instanceName, typeName ),
-    m_operator( op ),
-    m_init( initialValue ),
     m_portIn { addInputPort<coll_t>( "in" ) },
     m_portF { addInputPort<ReduceOperator>( "f" ) },
     m_portInit { addInputPort<v_t>( "init" ) },
     m_portOut { addOutputPort<v_t>( &m_result, "out" ) }
 
 {
-    m_portIn->mustBeLinked();
+    m_portF->setDefaultValue( op );
+    m_portInit->setDefaultValue( initialValue );
 }
 
 } // namespace Functionals

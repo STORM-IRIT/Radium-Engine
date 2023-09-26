@@ -190,34 +190,28 @@ class BinaryOpNode : public Node
     }
 
     bool execute() override {
-        auto f = m_operator;
 
-        if ( m_portF->isLinked() ) { f = m_portF->getData(); }
-        // The following test will always be true if the node was integrated in a compiled graph
-        if ( m_portA->isLinked() && m_portB->isLinked() ) {
-            m_result = internal::ExecutorHelper<t_a, t_b, t_out, BinaryOperator>::executeInternal(
-                m_portA->getData(), m_portB->getData(), f );
-        }
+        const auto& f = m_portF->getData();
+        m_result      = internal::ExecutorHelper<t_a, t_b, t_out, BinaryOperator>::executeInternal(
+            m_portA->getData(), m_portB->getData(), f );
         return true;
     }
 
     /// \brief Sets the operator to be evaluated by the node.
-    void setOperator( BinaryOperator op ) { m_operator = op; }
+    void setOperator( BinaryOperator op ) { m_portF->setDefaultValue( op ); }
 
   protected:
     BinaryOpNode( const std::string& instanceName,
                   const std::string& typeName,
-                  BinaryOperator op ) :
+                  std::optional<BinaryOperator> op ) :
         Node( instanceName, typeName ),
-        m_operator( op ),
         m_portA { addInputPort<t_a>( "a" ) },
         m_portB { addInputPort<t_b>( "b" ) },
         m_portF { addInputPort<BinaryOperator>( "f" ) },
         m_portR { addOutputPort<t_out>( &m_result, "r" ) }
 
     {
-        m_portA->mustBeLinked();
-        m_portB->mustBeLinked();
+        if ( op ) m_portF->setDefaultValue( *op );
     }
 
     void toJsonInternal( nlohmann::json& data ) const override { Node::toJsonInternal( data ); }
@@ -228,7 +222,6 @@ class BinaryOpNode : public Node
 
   private:
     /// \brief the used operator
-    BinaryOperator m_operator = []( Arg1_type, Arg2_type ) -> Res_type { return Res_type {}; };
     t_out m_result;
 
     /// @{

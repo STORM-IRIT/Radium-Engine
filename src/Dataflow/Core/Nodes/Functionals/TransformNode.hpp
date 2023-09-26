@@ -61,7 +61,6 @@ class TransformNode : public Node
     }
 
   private:
-    TransformOperator m_operator;
     coll_t m_elements;
 
     /// @{
@@ -87,7 +86,7 @@ TransformNode<coll_t, v_t>::TransformNode( const std::string& instanceName, Tran
 
 template <typename coll_t, typename v_t>
 void TransformNode<coll_t, v_t>::setOperator( TransformOperator op ) {
-    m_operator = op;
+    m_portOperator->setDefaultValue( op );
 }
 
 template <typename coll_t, typename v_t>
@@ -98,15 +97,13 @@ void TransformNode<coll_t, v_t>::init() {
 
 template <typename coll_t, typename v_t>
 bool TransformNode<coll_t, v_t>::execute() {
-    auto f = m_portOperator->isLinked() ? m_portOperator->getData() : m_operator;
-    // The following test will always be true if the node was integrated in a compiled graph
-    if ( m_portIn->isLinked() ) {
-        const auto& inData = m_portIn->getData();
-        m_elements.clear();
-        // m_elements.reserve( inData.size() ); // --> this is not a requirement of
-        // SequenceContainer
-        std::transform( inData.begin(), inData.end(), std::back_inserter( m_elements ), f );
-    }
+    const auto& f      = m_portOperator->getData();
+    const auto& inData = m_portIn->getData();
+    m_elements.clear();
+    // m_elements.reserve( inData.size() ); // --> this is not a requirement of
+    // SequenceContainer
+    std::transform( inData.begin(), inData.end(), std::back_inserter( m_elements ), f );
+
     return true;
 }
 
@@ -122,11 +119,10 @@ TransformNode<coll_t, v_t>::TransformNode( const std::string& instanceName,
                                            const std::string& typeName,
                                            TransformOperator op ) :
     Node( instanceName, typeName ),
-    m_operator( op ),
     m_portIn { addInputPort<coll_t>( "in" ) },
     m_portOperator { addInputPort<TransformOperator>( "f" ) },
     m_portOut { addOutputPort<coll_t>( &m_elements, "out" ) } {
-    m_portIn->mustBeLinked();
+    m_portOperator->setDefaultValue( op );
 }
 
 } // namespace Functionals
