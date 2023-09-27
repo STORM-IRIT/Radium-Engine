@@ -19,7 +19,7 @@ int main( int argc, char* argv[] ) {
     auto filterNode    = gAsNode->addNode<Functionals::FilterNode<RaVector>>( "Filter" );
 
     Sources::ScalarUnaryPredicateSource::function_type pred = []( Scalar x ) { return x < 0.5; };
-    predicateNode->setData( &pred );
+    predicateNode->setData( pred );
 
     gAsNode->addLink( predicateNode->getFunctionPort(), filterNode->getPredicatePort() );
 

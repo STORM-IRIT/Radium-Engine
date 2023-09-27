@@ -273,7 +273,7 @@ TEST_CASE( "Dataflow/Core/Nodes", "[Dataflow][Core][Nodes]" ) {
         using DoubleFunction    = Sources::FunctionSourceNode<Scalar, const Scalar&>::function_type;
         DoubleFunction doubleMe = []( const Scalar& x ) -> Scalar { return 2_ra * x; };
         auto nodeD = std::make_shared<Sources::FunctionSourceNode<Scalar, const Scalar&>>( "d" );
-        nodeD->setData( &doubleMe );
+        nodeD->setData( doubleMe );
 
         // Source of a Scalar : mean neutral element 0_ra
         auto nodeN = std::make_shared<Sources::ScalarSource>( "n" );
@@ -310,7 +310,7 @@ TEST_CASE( "Dataflow/Core/Nodes", "[Dataflow][Core][Nodes]" ) {
         auto nodePred = std::make_shared<Sources::ScalarBinaryPredicateSource>( "predicate" );
         Sources::ScalarBinaryPredicateSource::function_type predicate =
             []( const Scalar& a, const Scalar& b ) -> bool { return 2_ra * a == b; };
-        nodePred->setData( &predicate );
+        nodePred->setData( predicate );
 
         // Boolean sink for the validation result
         auto sinkB = std::make_shared<Sinks::BooleanSink>( "test" );

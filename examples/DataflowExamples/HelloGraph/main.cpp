@@ -54,7 +54,7 @@ int main( int argc, char* argv[] ) {
     sourceNode->setData( test );
 
     Sources::ScalarUnaryPredicateSource::function_type pred = []( Scalar x ) { return x < 0.5; };
-    predicateNode->setData( &pred );
+    predicateNode->setData( pred );
     //! [Configure nodes]
 
     std::cout << "Input values : \n\t";
@@ -74,7 +74,7 @@ int main( int argc, char* argv[] ) {
 
     //! [Modify input and rerun the graph]
     Sources::ScalarUnaryPredicateSource::function_type predbig = []( Scalar x ) { return x > 0.5; };
-    predicateNode->setData( &predbig );
+    predicateNode->setData( predbig );
 
     g.execute();
     // since result is a ref to node's output, no need to get it again
