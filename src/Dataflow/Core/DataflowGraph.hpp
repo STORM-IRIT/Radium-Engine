@@ -215,6 +215,16 @@ class RA_DATAFLOW_API DataflowGraph : public Node
 
     using Node::addInput;
     using Node::addOutput;
+    template <typename T, typename... U>
+    PortInPtr<T> addInputPort( U&&... u ) {
+        auto idx = addInput( std::make_shared<PortIn<T>>( this, std::forward<U>( u )... ) );
+        return getInputPort<T>( idx );
+    }
+    template <typename T, typename... U>
+    PortOutPtr<T> addOutputPort( U&&... u ) {
+        auto idx = addOutput( std::make_shared<PortOut<T>>( this, std::forward<U>( u )... ) );
+        return getOutputPort<T>( idx );
+    }
 
   protected:
     /** Allow derived class to construct the graph with their own static type
