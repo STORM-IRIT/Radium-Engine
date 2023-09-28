@@ -18,6 +18,7 @@ set(dataflow_core_headers
     Nodes/Functionals/BinaryOpNode.hpp
     Nodes/Functionals/CoreDataFunctionals.hpp
     Nodes/Functionals/FilterNode.hpp
+    Nodes/Functionals/FunctionNode.hpp
     Nodes/Functionals/ReduceNode.hpp
     Nodes/Functionals/TransformNode.hpp
     Nodes/Sinks/CoreDataSinks.hpp
