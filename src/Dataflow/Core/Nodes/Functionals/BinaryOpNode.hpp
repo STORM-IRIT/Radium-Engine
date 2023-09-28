@@ -167,21 +167,13 @@ class BinaryOpNode : public Node
     using PortB = PortIn<t_b>;
     using PortF = PortIn<BinaryOperator>;
     using PortR = PortOut<t_out>;
-    /**
-     * \brief Construct an null operator
-     * \param instanceName
-     */
-    explicit BinaryOpNode( const std::string& instanceName ) :
-        BinaryOpNode( instanceName, getTypename(), []( Arg1_type, Arg2_type ) -> Res_type {
-            return Res_type {};
-        } ) {}
 
     /**
      * \brief Construct a BinaryOpNode with the given operator
      * \param instanceName
      * \param op
      */
-    BinaryOpNode( const std::string& instanceName, BinaryOperator op ) :
+    BinaryOpNode( const std::string& instanceName, std::optional<BinaryOperator> op = {} ) :
         BinaryOpNode( instanceName, getTypename(), op ) {}
 
     void init() override {
@@ -199,6 +191,19 @@ class BinaryOpNode : public Node
 
     /// \brief Sets the operator to be evaluated by the node.
     void setOperator( BinaryOperator op ) { m_portF->setDefaultValue( op ); }
+
+    Node::PortInPtr<t_a> getPortA() { return m_portA; };
+    Node::PortInPtr<t_b> getPortB() { return m_portB; };
+
+    Node::PortOutPtr<t_out> getOutputPort() { return m_portR; }
+
+    static const std::string& getTypename() {
+        static std::string demangledName =
+            std::string { "BinaryOp<" } + Ra::Dataflow::Core::simplifiedDemangledType<t_a>() +
+            " x " + Ra::Dataflow::Core::simplifiedDemangledType<t_b>() + " -> " +
+            Ra::Dataflow::Core::simplifiedDemangledType<t_out>() + ">";
+        return demangledName;
+    }
 
   protected:
     BinaryOpNode( const std::string& instanceName,
@@ -223,28 +228,11 @@ class BinaryOpNode : public Node
   private:
     /// \brief the used operator
     t_out m_result;
-
-    /// @{
-    /// Store pore index for direct access.
-    Node::PortInPtr<t_a> m_portA {};
-    Node::PortInPtr<t_b> m_portB {};
-    Node::PortInPtr<BinaryOperator> m_portF {};
-    Node::PortOutPtr<t_out> m_portR {};
-
-    /// @}
-
-  public:
-    static const std::string& getTypename() {
-        static std::string demangledName =
-            std::string { "BinaryOp<" } + Ra::Dataflow::Core::simplifiedDemangledType<t_a>() +
-            " x " + Ra::Dataflow::Core::simplifiedDemangledType<t_b>() + " -> " +
-            Ra::Dataflow::Core::simplifiedDemangledType<t_out>() + ">";
-        return demangledName;
-    }
+    Node::PortInPtr<t_a> m_portA;
+    Node::PortInPtr<t_b> m_portB;
+    Node::PortInPtr<BinaryOperator> m_portF;
+    Node::PortOutPtr<t_out> m_portR;
 };
-
-// implementation of the methods are inlined
-// see issue .inl coding style #1011
 
 } // namespace Functionals
 } // namespace Core
