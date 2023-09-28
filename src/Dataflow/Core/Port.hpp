@@ -57,6 +57,7 @@ class RA_DATAFLOW_API PortBase
 
     /// Gets the port's name.
     const std::string& getName() const;
+    void setName( const std::string& name ) { m_name = name; }
     /// Gets the type of the data (efficient for comparisons).
     std::type_index getType() const;
     /// Gets a pointer to the node this port belongs to.
