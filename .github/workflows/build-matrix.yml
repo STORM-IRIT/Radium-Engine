@@ -189,7 +189,7 @@ jobs:
         run: git -C src/Radium-Engine pull origin ${{ github.event.ref }}
       - name: Cache externals
         id: cache-external
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: external
           key: ${{ matrix.config.name }}-${{ matrix.build-type }}-${{ matrix.qtversion.name }}-external-v1-${{ hashFiles('src/Radium-Engine/external/**/CMakeLists.txt') }}
