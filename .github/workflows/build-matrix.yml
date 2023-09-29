@@ -124,7 +124,9 @@ jobs:
       fail-fast: false
       matrix: ${{ fromJSON(needs.create-matrix.outputs.matrix) }}
     steps:
-      - uses: seanmiddleditch/gha-setup-ninja@master
+      - name: Install Ninja
+        shell: bash
+        run: ${{ runner.os == 'macOS' && 'brew install ninja' || runner.os == 'Windows' && 'choco install ninja' || 'sudo apt-get install ninja-build' }}
       - name: Add msbuild to PATH
         uses: seanmiddleditch/gha-setup-vsdevenv@master
         if: runner.os == 'Windows'
