@@ -74,7 +74,7 @@ class HEADLESS_API CLIViewer : public CLIBaseApplication
   public:
     /**
      * \brief Construct the viewer using an OpenGL context of the given version
-     * \param glVersion
+     * \param context the opengl context, e.g. EglOpenGLContext or GlfwOpenGLContext.
      */
     explicit CLIViewer( std::unique_ptr<OpenGLContext> context );
     /// Base destructor
@@ -89,11 +89,11 @@ class HEADLESS_API CLIViewer : public CLIBaseApplication
      * @return 0 if the application is correctly initialized or an application dependant error code
      * if something went wrong.
      *
-     * Supported command line parameters are --help and --file <filename> from CLIRadiumApplication
-     * and the following parameters :
-     *   - --size <width x height> : the size of the rendered picture
+     * Supported command line parameters are --help and --file \<filename\> from
+     * CLIRadiumApplication and the following parameters :
+     *   - --size \<width x height\> : the size of the rendered picture
      *   - --animation : load the Radium animation system
-     *   - --env <env_map> : load and use the given environment map.
+     *   - --env \<env_map\> : load and use the given environment map.
      */
     int init( int argc, const char* argv[] ) override;
 
@@ -168,12 +168,12 @@ class HEADLESS_API CLIViewer : public CLIBaseApplication
     void renderLoop( std::function<void( float )> render );
 
     /**
-     * Get the filename given using the option --file <filename> or -f <filename>
+     * Get the filename given using the option --file \<filename\> or -f \<filename\>
      */
     inline std::string getDataFileName() const;
 
     /**
-     * Set the filename given using the option --file <filename> or -f <filename>
+     * Set the filename given using the option --file \<filename\> or -f \<filename\>
      */
     inline void setDataFileName( std::string filename );
 

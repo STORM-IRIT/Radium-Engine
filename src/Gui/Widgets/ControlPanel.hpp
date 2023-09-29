@@ -158,7 +158,6 @@ class RA_GUI_API ControlPanel : public QFrame
      * \param initial The initial value of the scalar
      * \param min The min bound of the value
      * \param max The max bound of the value
-     * \param dec The display precision (decimals) of the value
      * \param tooltip The tooltip text
      */
     void addSliderInput( const std::string& name,
@@ -175,7 +174,6 @@ class RA_GUI_API ControlPanel : public QFrame
      * \param initial The initial value of the color
      * \param min The min bound of the value
      * \param max The max bound of the value
-     * \param dec The display precision (decimals) of the value
      * \param tooltip The tooltip text
      */
     void addPowerSliderInput( const std::string& name,
@@ -190,7 +188,6 @@ class RA_GUI_API ControlPanel : public QFrame
      * \param name The name of the vector
      * \param callback The function to call when the state changed
      * \param initial The initial value of the vector
-     * \param dec The display precision (decimals) of the value
      * \param tooltip The tooltip text
      */
     template <typename T = Scalar>
