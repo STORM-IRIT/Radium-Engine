@@ -42,9 +42,11 @@ ImageParameters TextureManager::loadTextureImage( const std::string& filename, b
     stbi_set_flip_vertically_on_load( true );
     int n;
     ImageParameters image;
-    unsigned char* data = stbi_load(
-        filename.c_str(), (int*)( &( image.width ) ), (int*)( &( image.height ) ), &n, 0 );
-
+    int width;
+    int height;
+    unsigned char* data = stbi_load( filename.c_str(), &width, &height, &n, 0 );
+    image.width         = width;
+    image.height        = height;
     if ( !data ) {
         LOG( logERROR ) << "Something went wrong when loading image \"" << filename << "\".";
         image.width = image.height = 0;

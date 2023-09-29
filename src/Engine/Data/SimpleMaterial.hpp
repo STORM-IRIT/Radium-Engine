@@ -5,10 +5,7 @@
 #include <Core/Utils/Color.hpp>
 #include <Engine/Data/Material.hpp>
 #include <Engine/Data/Texture.hpp>
-#include <Engine/Data/TextureManager.hpp>
-#include <Engine/RadiumEngine.hpp>
 
-#include <map>
 #include <string>
 
 namespace Ra {

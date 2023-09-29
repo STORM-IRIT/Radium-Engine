@@ -33,7 +33,7 @@ struct SamplerParameters {
 };
 
 /// ImageParameters stores the infomation needed to upload a image to the GPU as a texture.
-/// The actual data is stored as a std::variant, so this image parameter can storke either a single
+/// The actual data is stored as a std::variant, so this image parameter can store either a single
 /// image or a cube map as an array of 6 images. The stored shared_ptr is void, and must correspond
 /// to the format described by the other ImageParameters data member.
 /// Its perfectly fine to have nullptr texels to represent GPU only texture.
@@ -90,7 +90,8 @@ struct ImageParameters {
  * the texture.
  *
  * MipMap representation of the texture is automatically generated as soon as the minFilter
- * parameter is something else than GL_LINEAR or GL_NEAREST
+ * parameter is something else than GL_LINEAR or GL_NEAREST.
+ * @todo allow to use another mipmap building function than glGenerateMipmap
  *
  * \note No coherence checking will be done on the content of this structure. User must ensure
  * coherent data and parameters.
