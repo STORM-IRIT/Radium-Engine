@@ -39,10 +39,10 @@ jobs:
       - name: Install packages
         run : |
           sudo apt-get install graphviz
-      - name: Fetch recent doxygen (1.9.7)
+      - name: Fetch recent doxygen (1.9.8)
         run: |
           sudo apt-get install clang-9 libclang-9-dev
-          wget https://sourceforge.net/projects/doxygen/files/rel-1.9.7/doxygen-1.9.7.linux.bin.tar.gz
+          wget https://sourceforge.net/projects/doxygen/files/rel-1.9.8/doxygen-1.9.8.linux.bin.tar.gz
           tar -xvzf doxygen-1.9.7.linux.bin.tar.gz
       - name: Extract ref for badges prefix
         if: always()
@@ -54,7 +54,7 @@ jobs:
       - name: Configure Doc
         run: |
           cd build/Radium-Engine
-          cmake ../../src/Radium-Engine/doc -DCMAKE_EXECUTE_PROCESS_COMMAND_ECHO=STDOUT -DDOXYGEN_EXECUTABLE=../../doxygen-1.9.7/bin/doxygen
+          cmake ../../src/Radium-Engine/doc -DCMAKE_EXECUTE_PROCESS_COMMAND_ECHO=STDOUT -DDOXYGEN_EXECUTABLE=../../doxygen-1.9.8/bin/doxygen
       - name: Build Doc
         run: |
           export GITHUB_REF="${{ steps.extract-branch.outputs.branch }}"
