@@ -106,4 +106,4 @@ report is  `./coverage_fastcov/index.html`
 For comparison on a Intel(R) Xeon(R) Silver 4210 CPU @ 2.20GHz (with radium build `cmake --build .` already done).
 
 - `time cmake --build . --target coverage` -> 2:08.60 total
-- `time cmake --build . --targer coverage_fastcov` ->  48.178 total
+- `time cmake --build . --target coverage_fastcov` ->  48.178 total
