@@ -256,8 +256,8 @@ function(setup_target_for_coverage_lcov)
         ${Coverage_LCOV_ARGS}
         --gcov-tool
         ${GCOV_PATH}
-        -directory
-        .
+        --directory
+        ${CMAKE_BINARY_DIR}
         -b
         ${BASEDIR}
         --zerocounters
@@ -271,7 +271,7 @@ function(setup_target_for_coverage_lcov)
         -c
         -i
         -d
-        .
+        ${CMAKE_BINARY_DIR}
         -b
         ${BASEDIR}
         -o
@@ -286,7 +286,7 @@ function(setup_target_for_coverage_lcov)
         --gcov-tool
         ${GCOV_PATH}
         --directory
-        .
+        ${CMAKE_BINARY_DIR}
         -b
         ${BASEDIR}
         --capture
