@@ -100,7 +100,8 @@ int CLIViewer::oneFrame( float timeStep ) {
         m_engine->step();
     }
 
-    Ra::Core::TaskQueue tasks( std::thread::hardware_concurrency() - 1 );
+    Core::TaskQueue tasks { std::max( std::thread::hardware_concurrency(), 2u ) - 1u };
+
     m_engine->getTasks( &tasks, Scalar( timeStep ) );
     tasks.startTasks();
     tasks.waitForTasks();
@@ -163,7 +164,9 @@ void CLIViewer::setCamera( Ra::Core::Utils::Index camIdx ) {
         Ra::Engine::RadiumEngine::getInstance()->getSystem( "DefaultCameraManager" ) );
 
     if ( camIdx.isInvalid() || cameraManager->count() <= size_t( camIdx ) ) {
-        m_camera = new Ra::Core::Asset::Camera( m_parameters.m_size[0], m_parameters.m_size[1] );
+        m_ownCamera = std::make_unique<Ra::Core::Asset::Camera>( m_parameters.m_size[0],
+                                                                 m_parameters.m_size[1] );
+        m_camera    = m_ownCamera.get();
         m_camera->setFOV( 60.0_ra * Ra::Core::Math::toRad );
         m_camera->setZNear( 0.1_ra );
         m_camera->setZFar( 100_ra );

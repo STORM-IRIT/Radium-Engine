@@ -61,6 +61,7 @@ class HEADLESS_API CLIViewer : public CLIBaseApplication
 
     /// The camera for rendering
     Ra::Core::Asset::Camera* m_camera { nullptr };
+    std::unique_ptr<Ra::Core::Asset::Camera> m_ownCamera { nullptr };
 
     /// The application parameters
     ViewerParameters m_parameters;
