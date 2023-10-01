@@ -1,4 +1,6 @@
 #pragma once
+
+#include <Core/Tasks/TaskQueue.hpp>
 #include <Headless/CLIBaseApplication.hpp>
 #include <Headless/OpenGLContext/OpenGLContext.hpp>
 
