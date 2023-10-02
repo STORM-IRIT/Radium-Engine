@@ -371,7 +371,7 @@ class RA_DATAFLOW_API Node
     /// The reflected ports of the node if it is only a source or sink node.
     /// This stores only aliases as interface ports will belong to the parent
     /// node (i.e. the graph this node belongs to)
-    PortCollection<PortPtr<PortBase>> m_interface;
+    PortCollection<PortBaseRawPtr> m_interface;
 
     /// The editable parameters of the node
     /// \todo replace this by a Ra::Core::VariableSet
@@ -421,7 +421,7 @@ inline const Node::PortBaseOutCollection& Node::getOutputs() const {
     return m_outputs;
 }
 
-inline const std::vector<PortBase*>& Node::buildInterfaces( Node* parent ) {
+inline const Node::PortCollection<Node::PortBaseRawPtr>& Node::buildInterfaces( Node* parent ) {
     m_interface.clear();
     m_interface.shrink_to_fit();
     if ( !m_inputs.empty() ) {
@@ -441,7 +441,7 @@ inline const std::vector<PortBase*>& Node::buildInterfaces( Node* parent ) {
     return m_interface;
 }
 
-inline const std::vector<PortBase*>& Node::getInterfaces() const {
+inline const Node::PortCollection<Node::PortBaseRawPtr>& Node::getInterfaces() const {
     return m_interface;
 }
 
