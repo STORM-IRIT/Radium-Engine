@@ -110,30 +110,31 @@ class RA_DATAFLOW_API Node
     /// \name Control the interfaces of the nodes (inputs, outputs, internal data, ...)
     /// @{
 
-    /// \brief Get an input port by its name
+    /// \brief Get a port by its name
     /// \param type either "in" or "out", the directional type of the port
     /// \param name
-    /// \return an alias pointer on the requested port if it exists, nullptr else
+    /// \return the index to access the port and a raw ptr to the port.
     IndexAndPort<PortBaseRawPtr> getPortByName( const std::string& type,
                                                 const std::string& name ) const;
     IndexAndPort<PortBaseInRawPtr> getInputByName( const std::string& name ) const;
     IndexAndPort<PortBaseOutRawPtr> getOutputByName( const std::string& name ) const;
 
-    /// \brief Get an input port by its index
+    /// \brief Get a port by its index
     /// \param type either "in" or "out", the directional type of the port
     /// \param idx
     /// \return an alias pointer on the requested port if it exists, nullptr else
     PortBaseRawPtr getPortByIndex( const std::string& type, PortIndex idx ) const;
-    PortBaseInRawPtr getInputByIndex( PortIndex idx ) const { return getPortBase( m_inputs, idx ); }
-    PortBaseOutRawPtr getOutputByIndex( PortIndex idx ) const {
-        return getPortBase( m_outputs, idx );
-    }
+    auto getInputByIndex( PortIndex idx ) const { return getPortBase( m_inputs, idx ); }
+    auto getOutputByIndex( PortIndex idx ) const { return getPortBase( m_outputs, idx ); }
 
     template <typename T>
     auto getInputByIndex( PortIndex idx ) const {
         return getPort<T>( m_inputs, idx );
     }
 
+    /// \brief Gets a output typed port by its index
+    /// \param idx
+    /// \return
     template <typename T>
     auto getOutputByIndex( PortIndex idx ) const {
         return getPort<T>( m_outputs, idx );
@@ -208,12 +209,19 @@ class RA_DATAFLOW_API Node
     /// \param typeName The type name of the node
     Node( const std::string& instanceName, const std::string& typeName );
 
+    ///\brief Gets the Port By Name
+    ///
+    ///\tparam PortType PortBaseIn or PortBaseOut
+    ///\param ports
+    ///\param name The named used to add the port.
+    ///\return IndexAndPort<PortRawPtr<PortType>> the index to access the port and a raw ptr to
+    /// the port.
     template <typename PortType>
     IndexAndPort<PortRawPtr<PortType>>
     getPortByName( const PortCollection<PortPtr<PortType>>& ports, const std::string& name ) const {
         auto itp = std::find_if(
             ports.begin(), ports.end(), [n = name]( const auto& p ) { return p->getName() == n; } );
-        PortType* fprt { nullptr };
+        PortRawPtr<PortType> fprt { nullptr };
         PortIndex portIndex;
         if ( itp != ports.cend() ) {
             fprt      = itp->get();
@@ -222,6 +230,12 @@ class RA_DATAFLOW_API Node
         return { portIndex, fprt };
     }
 
+    ///\brief Gets the PortBase In or Out by its index
+    ///
+    ///\tparam PortType PortBaseIn or PortBaseOut
+    ///\param ports
+    ///\param idx
+    ///\return PortRawPtr<PortType>
     template <typename PortType>
     PortRawPtr<PortType> getPortBase( const PortCollection<PortPtr<PortType>>& ports,
                                       PortIndex idx ) const {
@@ -229,18 +243,31 @@ class RA_DATAFLOW_API Node
         return nullptr;
     }
 
+    ///\brief Gets the PortBase In or Out by its index
+    ///
+    ///\tparam PortType PortBaseIn or PortBaseOut
+    ///\param ports
+    ///\param idx
+    ///\return PortRawPtr<PortType>
     template <typename PortType>
     PortRawPtr<PortType> getPortBaseNoCheck( const PortCollection<PortPtr<PortType>>& ports,
                                              PortIndex idx ) const {
         return ports[idx].get();
     }
 
+    ///\brief Gets a port in a collection by its index.
+    ///
+    ///\tparam T The contained type.
+    ///\tparam PortType PortBaseIn or PortBaseOut
+    ///\param ports The port collection
+    ///\param idx
+    ///\return auto A raw ptr to the port typed in or out.
     template <typename T, typename PortType>
-    auto getPort( const PortCollection<PortType>& ports, PortIndex idx ) const {
+    auto getPort( const PortCollection<PortPtr<PortType>>& ports, PortIndex idx ) const {
         return static_cast<std::conditional<
             /*if*/ std::is_same<PortBaseIn, PortType>::value,
-            /*then*/ PortIn<T>,
-            /*else*/ PortOut<T>>>( getPortBase( ports, idx ) );
+            /*then*/ PortInRawPtr<T>,
+            /*else*/ PortOutRawPtr<T>>>( getPortBase( ports, idx ) );
     }
 
     /// internal json representation of the Node.
@@ -269,7 +296,7 @@ class RA_DATAFLOW_API Node
     PortIndex addInput( PortBaseInPtr in );
     PortIndex addOutput( PortBaseOutPtr out );
     template <typename PortType>
-    PortIndex addPort( std::vector<PortType>&, PortType port );
+    PortIndex addPort( PortCollection<PortPtr<PortType>>&, PortPtr<PortType> port );
 
     template <typename T, typename... U>
     PortInPtr<T> addInputPort( U&&... u ) {
@@ -338,13 +365,13 @@ class RA_DATAFLOW_API Node
     /// The instance name of the node
     std::string m_instanceName;
     /// The in ports of the node (own by the node)
-    std::vector<PortBaseInPtr> m_inputs;
+    PortCollection<PortPtr<PortBaseIn>> m_inputs;
     /// The out ports of the node  (own by the node)
-    std::vector<PortBaseOutPtr> m_outputs;
+    PortCollection<PortPtr<PortBaseOut>> m_outputs;
     /// The reflected ports of the node if it is only a source or sink node.
     /// This stores only aliases as interface ports will belong to the parent
     /// node (i.e. the graph this node belongs to)
-    std::vector<PortBase*> m_interface;
+    PortCollection<PortPtr<PortBase>> m_interface;
 
     /// The editable parameters of the node
     /// \todo replace this by a Ra::Core::VariableSet
@@ -437,7 +464,8 @@ inline bool Node::addInput( PortBaseIn* in ) {
 }
 
 template <typename PortType>
-inline Node::PortIndex Node::addPort( PortCollection<PortType>& ports, PortType port ) {
+inline Node::PortIndex Node::addPort( PortCollection<PortPtr<PortType>>& ports,
+                                      PortPtr<PortType> port ) {
     PortIndex idx;
     // look for a free slot
     auto it = std::find_if( ports.begin(), ports.end(), []( const auto& port ) { return !port; } );
