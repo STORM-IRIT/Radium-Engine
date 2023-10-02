@@ -454,7 +454,6 @@ inline bool Node::operator==( const Node& o_node ) {
 }
 
 inline bool Node::addInput( PortBaseInRawPtr in ) {
-    if ( !in->is_input() ) { return false; }
     bool found = false;
     for ( auto& input : m_inputs ) {
         if ( input->getName() == in->getName() ) { found = true; }
