@@ -252,12 +252,16 @@ bool DataflowGraph::addNode( std::shared_ptr<Node> newNode ) {
     // Check if the new node already exists (= same name and type)
     if ( canAdd( newNode.get() ) ) {
         if ( newNode->getInputs().empty() || newNode->getOutputs().empty() ) {
-            bool ( DataflowGraph::*addGraphIOPort )( PortBase* ) = newNode->getInputs().empty()
-                                                                       ? &DataflowGraph::addSetter
-                                                                       : &DataflowGraph::addGetter;
-            auto& interfaces                                     = newNode->buildInterfaces( this );
-            for ( auto p : interfaces ) {
-                ( this->*addGraphIOPort )( p );
+            auto& interfaces = newNode->buildInterfaces( this );
+            if ( newNode->getInputs().empty() ) {
+                for ( auto p : interfaces ) {
+                    addSetter( static_cast<PortBaseIn*>( p ) );
+                }
+            }
+            else if ( newNode->getOutputs().empty() ) {
+                for ( auto p : interfaces ) {
+                    addGetter( static_cast<PortBaseOut*>( p ) );
+                }
             }
         }
         m_nodes.emplace_back( std::move( newNode ) );
@@ -291,10 +295,10 @@ bool DataflowGraph::removeNode( std::shared_ptr<Node> node ) {
 
 bool DataflowGraph::checkPortCompatibility( const Node* nodeFrom,
                                             Node::PortIndex portOutIdx,
-                                            const PortBase* portOut,
+                                            const PortBaseOut* portOut,
                                             const Node* nodeTo,
                                             Node::PortIndex portInIdx,
-                                            const PortBase* portIn ) {
+                                            const PortBaseIn* portIn ) {
     // Compare types
     if ( !( portIn->getType() == portOut->getType() ) ) {
         Log::addLinkTypeMismatch( nodeFrom, portOutIdx, portOut, nodeTo, portInIdx, portIn );
@@ -375,7 +379,8 @@ bool DataflowGraph::addLink( const std::shared_ptr<Node>& nodeFrom,
     return true;
 }
 
-bool DataflowGraph::addLink( Node::PortBaseRawPtr outputPort, Node::PortBaseRawPtr inputPort ) {
+bool DataflowGraph::addLink( Node::PortBaseOutRawPtr outputPort,
+                             Node::PortBaseInRawPtr inputPort ) {
     if ( !inputPort->is_input() || outputPort->is_input() ) { return false; }
     auto nodeFrom = outputPort->getNode();
     auto nodeTo   = inputPort->getNode();
@@ -561,11 +566,11 @@ int DataflowGraph::goThroughGraph(
     return maxLevel;
 }
 
-bool DataflowGraph::addSetter( PortBase* in ) {
+bool DataflowGraph::addSetter( PortBaseIn* in ) {
     bool found = false;
     if ( m_dataSetters.find( in->getName() ) == m_dataSetters.end() ) {
         addInput( in );
-        auto portOut = std::shared_ptr<PortBase>( in->reflect( this, in->getName() ) );
+        auto portOut = std::shared_ptr<PortBaseOut>( in->reflect( this, in->getName() ) );
         m_dataSetters.emplace( std::make_pair(
             in->getName(),
             DataSetter { DataSetterDesc { portOut, portOut->getName(), portOut->getTypeName() },
@@ -587,7 +592,7 @@ bool DataflowGraph::removeSetter( const std::string& setterName ) {
     return removed;
 }
 
-bool DataflowGraph::addGetter( PortBase* out ) {
+bool DataflowGraph::addGetter( PortBaseOut* out ) {
     if ( out->is_input() ) { return false; }
     // This is very similar to addOutput, except the data can't be set.
     // Data pointer must be set by any sink at compile time, in the init function to refer to
@@ -634,12 +639,12 @@ bool DataflowGraph::activateDataSetter( const std::string& portName ) {
 
 std::shared_ptr<PortBase> DataflowGraph::getDataSetter( const std::string& portName ) {
     auto setter = m_dataSetters.find( portName );
-    std::shared_ptr<PortBase> p { nullptr };
+    std::shared_ptr<PortBaseOut> p { nullptr };
     if ( setter != m_dataSetters.end() ) {
         auto [desc, in] = setter->second;
         p               = std::get<0>( desc );
-        in->disconnect();
-        p->connect( in );
+        static_cast<PortBaseInRawPtr>( in )->disconnect();
+        static_cast<PortBaseInRawPtr>( in )->connect( p.get() );
     }
     return p;
 }

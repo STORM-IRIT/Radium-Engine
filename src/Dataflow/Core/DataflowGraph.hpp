@@ -100,7 +100,7 @@ class RA_DATAFLOW_API DataflowGraph : public Node
                   const std::shared_ptr<Node>& nodeTo,
                   Node::PortIndex portInIdx );
 
-    bool addLink( Node::PortBaseRawPtr outputPort, Node::PortBaseRawPtr inputPort );
+    bool addLink( Node::PortBaseOutRawPtr outputPort, Node::PortBaseInRawPtr inputPort );
 
     template <typename T, typename U>
     bool addLink( const std::shared_ptr<PortOut<T>>& outputPort,
@@ -168,7 +168,7 @@ class RA_DATAFLOW_API DataflowGraph : public Node
     /// A Data setter descriptor is composed of an output port (linked by construction to an
     /// input port of the graph), its name and its type. Use setData on the output port to pass
     /// data to the graph
-    using DataSetterDesc = std::tuple<std::shared_ptr<PortBase>, std::string, std::string>;
+    using DataSetterDesc = std::tuple<std::shared_ptr<PortBaseOut>, std::string, std::string>;
 
     /// \brief Data getter descriptor.
     /// A Data getter descriptor is composed of an output port (belonging to any node of the
@@ -262,7 +262,7 @@ class RA_DATAFLOW_API DataflowGraph : public Node
     /// This port is aliased as an interface port in a source node of the graph.
     /// This function checks if there is no input port with the same name already
     /// associated with the graph.
-    bool addSetter( PortBase* in );
+    bool addSetter( PortBaseIn* in );
 
     /// \brief Remove the given setter from the graph
     /// \param setterName
@@ -274,7 +274,7 @@ class RA_DATAFLOW_API DataflowGraph : public Node
     /// This function checks if there is no out port with the same name already
     /// associated with the graph.
     /// \param out The port to add.
-    bool addGetter( PortBase* out );
+    bool addGetter( PortBaseOut* out );
 
     /// \brief Remove the given getter from the graph
     /// \param getterName
@@ -284,10 +284,10 @@ class RA_DATAFLOW_API DataflowGraph : public Node
     bool checkNodeValidity( const Node* nodeFrom, const Node* nodeTo );
     static bool checkPortCompatibility( const Node* nodeFrom,
                                         Node::PortIndex portOutIdx,
-                                        const PortBase* portOut,
+                                        const PortBaseOut* portOut,
                                         const Node* nodeTo,
                                         Node::PortIndex portInIdx,
-                                        const PortBase* portIn );
+                                        const PortBaseIn* portIn );
     class RA_DATAFLOW_API Log
     {
       public:
@@ -324,7 +324,7 @@ class RA_DATAFLOW_API DataflowGraph : public Node
     /// embedded into another graph (inputs are here for this case). A dataSetter is an
     /// outputPort, associated to an input port of the graph. The connection between these ports
     /// can be activated/deactivated using activateDataSetter/releaseDataSetter
-    using DataSetter = std::pair<DataSetterDesc, PortBase*>;
+    using DataSetter = std::pair<DataSetterDesc, PortBaseIn*>;
     std::map<std::string, DataSetter> m_dataSetters;
 
     bool m_nodesAndLinksProtected { false };
