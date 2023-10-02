@@ -481,12 +481,10 @@ inline Node::PortIndex Node::addPort( PortCollection<PortPtr<PortType>>& ports,
 }
 
 inline Node::PortIndex Node::addInput( PortBaseInPtr in ) {
-    CORE_ASSERT( in->is_input(), "in port must be is_input" );
     return addPort( m_inputs, std::move( in ) );
 }
 
 inline Node::PortIndex Node::addOutput( PortBaseOutPtr out ) {
-    CORE_ASSERT( !out->is_input(), "out port must be not is_input" );
     return addPort( m_outputs, std::move( out ) );
 }
 
