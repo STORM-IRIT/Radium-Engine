@@ -152,10 +152,10 @@ class RA_DATAFLOW_API Node
     /// Derived node can override the default implementation that build an interface port for each
     /// input or output port (e.g. if several inputs have the same type T, make an interface that is
     /// a vector of T*)
-    virtual const std::vector<PortBase*>& buildInterfaces( Node* parent );
+    virtual const PortCollection<PortBaseRawPtr>& buildInterfaces( Node* parent );
 
     /// \brief Get the interface ports of the node
-    const std::vector<PortBase*>& getInterfaces() const;
+    const PortCollection<PortBaseRawPtr>& getInterfaces() const;
 
     /// \brief Gets the editable parameters of the node.
     /// used only by the node editor gui to build the editon widget
@@ -292,7 +292,7 @@ class RA_DATAFLOW_API Node
     /// Adds an in port to the node.
     /// This function checks if the port is an input port.
     /// \param in The in port to add.
-    bool addInput( PortBaseIn* in );
+    bool addInput( PortBaseInRawPtr in );
     PortIndex addInput( PortBaseInPtr in );
     PortIndex addOutput( PortBaseOutPtr out );
     template <typename PortType>
@@ -326,19 +326,19 @@ class RA_DATAFLOW_API Node
     /// \brief remove the given input port from the managed input ports
     /// \param in the port to remove
     /// \return true if the port was removed (the in pointer is the set to nullptr), false else
-    bool removeInput( PortBaseIn*& in );
+    bool removeInput( PortBaseInRawPtr& in );
     void removeInput( PortIndex idx ) { m_inputs[idx].reset(); }
 
     /// Adds an out port to the node and the data associated with it.
     /// This function checks if there is no out port with the same name already associated with
     /// this node. \param out The in port to add. \param data The data associated with the port.
     template <typename T>
-    void addOutput( PortOut<T>* out, T* data );
+    void addOutput( PortOutRawPtr<T> out, T* data );
 
     /// \brief remove the given output port from the managed input ports
     /// \param out the port to remove
     /// \return true if the port was removed (the out pointer is the set to nullptr), false else
-    bool removeOutput( PortBaseOut*& out );
+    bool removeOutput( PortBaseOutRawPtr& out );
     void removeOutput( PortIndex idx ) { m_outputs[idx].reset(); }
 
     /// \brief Adds an editable parameter to the node if it does not already exist.
@@ -453,7 +453,7 @@ inline bool Node::operator==( const Node& o_node ) {
     return ( m_typeName == o_node.getTypeName() ) && ( m_instanceName == o_node.getInstanceName() );
 }
 
-inline bool Node::addInput( PortBaseIn* in ) {
+inline bool Node::addInput( PortBaseInRawPtr in ) {
     if ( !in->is_input() ) { return false; }
     bool found = false;
     for ( auto& input : m_inputs ) {
@@ -488,7 +488,7 @@ inline Node::PortIndex Node::addOutput( PortBaseOutPtr out ) {
     return addPort( m_outputs, std::move( out ) );
 }
 
-inline bool Node::removeInput( PortBaseIn*& in ) {
+inline bool Node::removeInput( PortBaseInRawPtr& in ) {
     auto itP = std::find_if(
         m_inputs.begin(), m_inputs.end(), [in]( const auto& p ) { return p.get() == in; } );
     if ( itP != m_inputs.end() ) {
@@ -500,7 +500,7 @@ inline bool Node::removeInput( PortBaseIn*& in ) {
 }
 
 template <typename T>
-void Node::addOutput( PortOut<T>* out, T* data ) {
+void Node::addOutput( PortOutRawPtr<T> out, T* data ) {
     bool found = false;
     for ( auto& output : m_outputs ) {
         if ( output->getName() == out->getName() ) { found = true; }
@@ -511,7 +511,7 @@ void Node::addOutput( PortOut<T>* out, T* data ) {
     }
 }
 
-inline bool Node::removeOutput( PortBaseOut*& out ) {
+inline bool Node::removeOutput( PortBaseOutRawPtr& out ) {
     auto outP = std::find_if(
         m_outputs.begin(), m_outputs.end(), [out]( const auto& p ) { return p.get() == out; } );
     if ( outP != m_outputs.end() ) {
