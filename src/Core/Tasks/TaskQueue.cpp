@@ -258,16 +258,9 @@ void TaskQueue::runTasksInThisThread() {
 }
 
 void TaskQueue::waitForTasks() {
-    bool isFinished = false;
-    while ( !isFinished ) {
-
-        // TODO : use a notifier for task queue empty.
-        {
-            rlock lock( m_mutex );
-            isFinished = ( m_taskQueue.empty() && m_processingTasks == 0 );
-        }
-        if ( !isFinished ) { std::this_thread::yield(); }
-    }
+    rlock lock( m_mutex );
+    m_waitForTasksNotifier.wait(
+        lock, [this]() { return ( m_taskQueue.empty() && m_processingTasks == 0 ); } );
 }
 
 const std::vector<TaskQueue::TimerData>& TaskQueue::getTimerData() {
@@ -337,6 +330,7 @@ void TaskQueue::runThread( uint id ) {
                 // TODO :Easy optimization : grab one of the new task and process it immediately.
             }
             --m_processingTasks;
+            if ( m_processingTasks == 0 ) { m_waitForTasksNotifier.notify_one(); }
         }
         // If we added new tasks, we wake up one thread to execute it.
         if ( newTasks > 0 ) { m_threadNotifier.notify_all(); }

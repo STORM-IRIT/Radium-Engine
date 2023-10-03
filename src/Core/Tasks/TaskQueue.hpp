@@ -159,6 +159,7 @@ class RA_CORE_API TaskQueue
     std::atomic_bool m_shuttingDown;
     /// Variable on which threads wait for new tasks.
     std::condition_variable_any m_threadNotifier;
+    std::condition_variable_any m_waitForTasksNotifier;
 
     /// mutex for protected variable
     mutable std::shared_mutex m_mutex;
