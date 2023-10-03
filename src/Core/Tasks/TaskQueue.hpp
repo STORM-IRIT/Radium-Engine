@@ -4,10 +4,12 @@
 #include <Core/Utils/Index.hpp>
 #include <Core/Utils/Timer.hpp> // Ra::Core::TimePoint
 
+#include <atomic>
 #include <condition_variable>
 #include <deque>
 #include <memory>
 #include <mutex>
+#include <shared_mutex>
 #include <string>
 #include <thread>
 #include <vector>
@@ -122,8 +124,18 @@ class RA_CORE_API TaskQueue
     void resolveDependencies();
 
   private:
+    /// write lock, only one at a time
+    using wlock = std::unique_lock<std::shared_mutex>;
+    /// read lock, multiple lock allowed
+    using rlock = std::shared_lock<std::shared_mutex>;
+
     /// Threads working on tasks.
     std::vector<std::thread> m_workerThreads;
+
+    //
+    // mutex protected variables.
+    //
+
     /// Storage for the tasks (task will be deleted after flushQueue()).
     std::vector<std::unique_ptr<Task>> m_tasks;
     /// For each task, stores which tasks depend on it.
@@ -136,10 +148,6 @@ class RA_CORE_API TaskQueue
     /// Stores the timings of each frame after execution.
     std::vector<TimerData> m_timerData;
 
-    //
-    // mutex protected variables.
-    //
-
     /// Number of tasks each task is waiting on.
     std::vector<uint> m_remainingDependencies;
     /// Queue holding the pending tasks.
@@ -148,14 +156,12 @@ class RA_CORE_API TaskQueue
     uint m_processingTasks;
 
     /// Flag to signal threads to quit.
-    bool m_shuttingDown;
+    std::atomic_bool m_shuttingDown;
     /// Variable on which threads wait for new tasks.
-    std::condition_variable m_threadNotifier;
-    /// Global mutex over thread-sensitive variables.
-    std::mutex m_taskQueueMutex;
-    /// Mutex for task registration (m_tasks, m_dependencies, m_timerData ...), if tasks are
-    /// registered from multiple threads
-    std::mutex m_taskMutex;
+    std::condition_variable_any m_threadNotifier;
+
+    /// mutex for protected variable
+    mutable std::shared_mutex m_mutex;
 };
 
 } // namespace Core
