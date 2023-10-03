@@ -1,14 +1,19 @@
 #pragma once
 
-#include <Dataflow/Core/Port.hpp>
+#include <Dataflow/RaDataflow.hpp>
 
+#include <optional>
+
+#include "Core/Utils/Log.hpp"
 #include <Core/Utils/Observable.hpp>
+
+#include <Dataflow/Core/Port.hpp>
 
 namespace Ra {
 namespace Dataflow {
 namespace Core {
 
-class PortBaseOut;
+class PortBaseOut; /// Forward PortOut classes used by getLink and reflect
 template <typename T>
 class PortOut;
 
@@ -33,10 +38,6 @@ class RA_DATAFLOW_API PortBaseIn : public PortBase
 
     virtual PortBaseOut* getLink() = 0;
 
-    /// Returns a reflected (In <-> Out) port of the same type
-    /// TODO : remove interface ? so remove reflect ?
-    virtual PortBaseOut* reflect( Node* node, std::string name ) const = 0;
-
     template <typename T>
     PortOut<T>* getLinkAs();
 
@@ -46,19 +47,26 @@ class RA_DATAFLOW_API PortBaseIn : public PortBase
     template <typename T>
     T& getData();
 
+    /// Returns a reflected (In <-> Out) port of the same type
+    /// \todo : remove interface ? so remove reflect ?
+    virtual PortBaseOut* reflect( Node* node, std::string name ) const = 0;
+
   protected:
     /// Constructor.
     /// @param name The name of the port.
     /// @param type The data's type's hash.
     /// @param node The pointer to the node associated with the port.
     PortBaseIn( Node* node, const std::string& name, std::type_index type );
+
 }; // class PortBaseIn
 
 /**
  * \brief Input port accepting data of type T.
  * An input port does not staore the data but is an accessor to the data stored on the connected
  * output port. An Input port is observable and notify its observers at each  connect/disconnect
- * event. \tparam T The accepted data type
+ * event.
+ *
+ * \tparam T The accepted data type
  */
 template <typename T>
 class PortIn : public PortBaseIn,
@@ -66,65 +74,65 @@ class PortIn : public PortBaseIn,
 {
   public:
     using DataType = T;
+
     /// \name Constructors
     /// @{
     /// \brief delete default constructors.
     PortIn()                           = delete;
     PortIn( const PortIn& )            = delete;
     PortIn& operator=( const PortIn& ) = delete;
+
     /// Constructor.
     /// @param name The name of the port.
     /// @param node The pointer to the node associated with the port.
     ///\todo remove this one
-    PortIn( const std::string& name, Node* node );
-    PortIn( Node* node, const std::string& name );
+    PortIn( const std::string& name, Node* node ) : PortBaseIn( node, name, typeid( T ) ) {}
+    PortIn( Node* node, const std::string& name ) : PortBaseIn( node, name, typeid( T ) ) {}
     /// @}
 
-    /// Gets the out port this port is connected to.
-    PortBaseOut* getLink() override;
     /// Returns true if the port is linked to an output port that has data.
     bool hasData() override;
-    /// Gets a reference to the data pointed by the connected out port.
-    /// \note no verification is made about the availability of the data.
+
+    ///\brief Gets the data pointed by the connected out port.
+    ///
+    /// It checks if the data is available. If it is not, it returns the default value.
+    ///
+    ///\return T& The reference to the data.
     T& getData();
-    /// Checks if there is not out port already connected and if the data types are the same.
-    /// @param o The other port to test the connection
-    // bool accept( PortBase* other ) override;
+
+    /// \name Manage the connection with a PortOut.
+    /// @{
     bool accept( PortBaseOut* portOut ) const override;
     bool accept( PortOut<T>* portOut ) const;
-    /// Connects this in port and the other out port if there is no out port already connected and
-    /// if the data types are the same.
-    /// @param o The other port to connect.
-    // bool connect( PortBase* other ) override;
+
     bool connect( PortBaseOut* portOut ) override;
     bool connect( PortOut<T>* portOut );
-    /// Disconnects this port if it is connected.
+
     bool disconnect() override;
-    /// Returns a portOut of the same type
-    PortBaseOut* reflect( Node* node, std::string name ) const override;
-    /// Returns true if the port is an input port
-    bool is_input() override;
+
+    PortBaseOut* getLink() override { return m_from; }
+    /// @}
 
     bool isLinkMandatory() const override { return !m_defaultValue.has_value(); }
     void setDefaultValue( const T& value ) { m_defaultValue = value; }
     bool hasDefaultValue() const override { return m_defaultValue.has_value(); }
     bool isLinked() const override { return m_from != nullptr; }
 
+    /// Returns a portOut of the same type
+    /// \todo remove
+    PortBaseOut* reflect( Node* node, std::string name ) const override {
+        return new PortOut<DataType>( name, node );
+    }
+
+    /// Returns true if the port is an input port
+    /// \todo remove
+    bool is_input() override { return true; }
+
   private:
-    /// A pointer to the out port this port is connected to.
-    PortOut<T>* m_from = nullptr;
-    std::optional<T> m_defaultValue {};
+    PortOut<T>* m_from = nullptr;       ///< A pointer to the out port this port is connected to.
+    std::optional<T> m_defaultValue {}; ///< The value used when not connected.
+
 }; // class PortIn<T>
-
-} // namespace Core
-} // namespace Dataflow
-} // namespace Ra
-
-namespace Ra {
-namespace Dataflow {
-namespace Core {
-
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ PortBaseIn ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 template <typename T>
 PortOut<T>* PortBaseIn::getLinkAs() {
@@ -139,23 +147,6 @@ void PortBaseIn::setDefaultValue( const T& value ) {
 template <typename T>
 T& PortBaseIn::getData() {
     static_cast<PortIn<T>*>( this )->getData();
-}
-
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ PortIn ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-/**
- * PortIn is an Observable<PortIn<T>&> that notifies its observers at connect/disconnect event
- * @tparam T
- */
-template <typename T>
-PortIn<T>::PortIn( const std::string& name, Node* node ) : PortBaseIn( node, name, typeid( T ) ) {}
-
-template <typename T>
-PortIn<T>::PortIn( Node* node, const std::string& name ) : PortBaseIn( node, name, typeid( T ) ) {}
-
-template <typename T>
-PortBaseOut* PortIn<T>::getLink() {
-    return m_from;
 }
 
 template <typename T>
@@ -213,15 +204,6 @@ bool PortIn<T>::disconnect() {
         return true;
     }
     return false;
-}
-template <typename T>
-PortBaseOut* PortIn<T>::reflect( Node* node, std::string name ) const {
-    return new PortOut<DataType>( name, node );
-}
-
-template <typename T>
-bool PortIn<T>::is_input() {
-    return true;
 }
 
 } // namespace Core

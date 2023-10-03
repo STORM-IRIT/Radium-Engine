@@ -1,13 +1,11 @@
 #pragma once
 
-#include "Core/Utils/Log.hpp"
 #include <Dataflow/RaDataflow.hpp>
 
-#include <Dataflow/Core/TypeDemangler.hpp>
-
-#include <optional>
 #include <string>
 #include <typeinfo>
+
+#include <Dataflow/Core/TypeDemangler.hpp>
 
 namespace Ra {
 namespace Dataflow {
@@ -26,15 +24,6 @@ class Node;
  */
 class RA_DATAFLOW_API PortBase
 {
-  private:
-    /// The name of the port.
-    std::string m_name { "" };
-    /// The port's data's type's index.
-    std::type_index m_type;
-    /// A pointer to the node this port belongs to.
-    Node* m_node { nullptr }; /// \todo switch to shared_ptr ?
-
-  protected:
   public:
     /// \name Constructors
     /// @{
@@ -48,41 +37,41 @@ class RA_DATAFLOW_API PortBase
     /// @param name The name of the port.
     /// @param type The data's type's hash.
     /// @param node The pointer to the node associated with the port.
-    PortBase( const std::string& name, std::type_index type, Node* node );
+    PortBase( const std::string& name, std::type_index type, Node* node ) :
+        m_name( name ), m_type( type ), m_node( node ) {}
     /// @}
 
-    /// \brief make PortBase a base abstract class
+    /// \brief Make PortBase a base abstract class
     virtual ~PortBase() = default;
 
     /// Gets the port's name.
-    const std::string& getName() const;
+    const std::string& getName() const { return m_name; }
     void setName( const std::string& name ) { m_name = name; }
     /// Gets the type of the data (efficient for comparisons).
-    std::type_index getType() const;
+    std::type_index getType() const { return m_type; }
     /// Gets a pointer to the node this port belongs to.
-    Node* getNode() const;
-    virtual bool hasData();
+    Node* getNode() const { return m_node; }
 
-    /// Returns true if the port is linked
-    // virtual bool isLinked() const { return false; }
-    /// Returns true if the port is flagged as being mandatory linked
-    // virtual bool isLinkMandatory() const { return false; }
+    ///\brief Gets the human readable type of the port object.
+    ///
+    ///\return std::string The simplified demangled type.
+    std::string getTypeName() const { return simplifiedDemangledType( m_type ); }
 
-    // virtual PortBase* getLink() = 0;
-    // virtual bool accept( PortBase* other );
-    // virtual bool connect( PortBase* other ) = 0;
-    // virtual bool disconnect() = 0;
-    /// Returns a reflected (In <-> Out) port of the same type
-    // virtual PortBase* reflect( Node* node, std::string name ) = 0;
+    /// \todo Remove this since we only manipulate PortBaseIn or PortBaseOut
+    virtual bool hasData() { return false; }
+
+    /// \todo Remove this since we only manipulate PortBaseIn or PortBaseOut
     /// Returns true if the port is an input port
     virtual bool is_input() { return false; }
 
+    /// \todo Remove this since we only manipulate PortBaseIn or PortBaseOut
     /// Allows to get data stored at this port if it is an output port.
     /// This method copy the data onto the given object
     /// @params t The reference to store the data of this port
     template <typename T>
     void getData( T& t );
 
+    /// \todo Remove this since we only manipulate PortBaseIn or PortBaseOut
     /// Allows to get data stored at this port if it is an output port.
     /// This method do not copy the data but gives a reference to the transmitted object.
     /// TODO Verify the robustness of this
@@ -90,40 +79,19 @@ class RA_DATAFLOW_API PortBase
     template <typename T>
     T& getData();
 
+    /// \todo Remove this since we only manipulate PortBaseIn or PortBaseOut
     /// Check if this port is an output port, then takes a pointer to the data this port will point
     /// to.
     /// @param data The pointer to the data.
     template <typename T>
     void setData( T* data );
 
-    std::string getTypeName() const;
+  private:
+    std::string m_name { "" }; ///< The name of the port.
+    std::type_index m_type;    ///< The port's data's type's index.
+    Node* m_node { nullptr };  ///< A pointer to the node this port belongs to.
+    /// \todo switch to shared_ptr ?
 };
-
-// -----------------------------------------------------------------
-// ---------------------- inline methods ---------------------------
-
-inline PortBase::PortBase( const std::string& name, std::type_index type, Node* node ) :
-    m_name( name ), m_type( type ), m_node( node ) {}
-
-inline const std::string& PortBase::getName() const {
-    return m_name;
-}
-
-inline std::type_index PortBase::getType() const {
-    return m_type;
-}
-
-inline std::string PortBase::getTypeName() const {
-    return simplifiedDemangledType( m_type );
-}
-
-inline Node* PortBase::getNode() const {
-    return m_node;
-}
-
-inline bool PortBase::hasData() {
-    return false;
-}
 
 } // namespace Core
 } // namespace Dataflow

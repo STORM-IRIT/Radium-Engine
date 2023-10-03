@@ -1,12 +1,16 @@
 #pragma once
 
+#include <Dataflow/RaDataflow.hpp>
+
+#include "Core/Utils/Log.hpp"
+
 #include <Dataflow/Core/Port.hpp>
 
 namespace Ra {
 namespace Dataflow {
 namespace Core {
 
-class PortBaseIn;
+class PortBaseIn; /// Forward PortIn classes used by getLink and reflect
 template <typename T>
 class PortIn;
 
@@ -21,15 +25,15 @@ class RA_DATAFLOW_API PortBaseOut : public PortBase
     PortBaseOut& operator=( const PortBaseOut& ) = delete;
     /// @}
 
-    /// Returns a reflected (In <-> Out) port of the same type
-    /// TODO : remove interface ? so remove reflect ?
-    virtual PortBaseIn* reflect( Node* node, std::string name ) const = 0;
-
     template <typename T>
     T& getData();
 
     template <typename T>
     void setData( T* data );
+
+    /// Returns a reflected (In <-> Out) port of the same type
+    /// \todo : remove interface ? so remove reflect ?
+    virtual PortBaseIn* reflect( Node* node, std::string name ) const = 0;
 
   protected:
     /// Constructor.
@@ -37,68 +41,57 @@ class RA_DATAFLOW_API PortBaseOut : public PortBase
     /// @param type The data's type's hash.
     /// @param node The pointer to the node associated with the port.
     PortBaseOut( Node* node, const std::string& name, std::type_index type );
+
 }; // class PortBaseOut
 
 /**
  * \brief Output port delivering data of Type T.
  * Output port stores a non-owning pointer to the data that will be made available on a connection.
+ *
  * \tparam T The type of the delivered data.
  */
 template <typename T>
 class PortOut : public PortBaseOut
 {
-  private:
-    /// The data the port points to.
-
-    /// Use raw ptr, data belongs to node and can be plain stack variable
-    T* m_data { nullptr };
-
   public:
     using DataType = T;
+
     /// \name Constructors
     /// @{
     /// \brief delete default constructors.
     PortOut()                            = delete;
     PortOut( const PortOut& )            = delete;
     PortOut& operator=( const PortOut& ) = delete;
+
     /// Constructor.
     /// @param name The name of the port.
     /// @param node The pointer to the node associated with the port.
     /// \todo remove this one
-    PortOut( const std::string& name, Node* node );
-    PortOut( Node* node, const std::string& name );
-    PortOut( Node* node, T* data, const std::string& name );
+    PortOut( const std::string& name, Node* node ) : PortBaseOut( node, name, typeid( T ) ) {}
+    PortOut( Node* node, const std::string& name ) : PortBaseOut( node, name, typeid( T ) ) {}
+    PortOut( Node* node, T* data, const std::string& name ) :
+        PortBaseOut( node, name, typeid( T ) ), m_data { data } {}
     /// @}
 
     /// Gets a reference to the data this ports points to.
-    T& getData();
+    T& getData() { return *m_data; }
     /// Takes a pointer to the data this port will point to.
     /// @param data The pointer to the data.
-    void setData( T* data );
+    void setData( T* data ) { m_data = data; }
     /// Returns true if the pointer to the data is not null.
-    bool hasData() override;
-    /// Returns nullptr because this port is an out port.
-    // PortBase* getLink() override;
-    /// Returns false because out ports can not accept connection.
-    /// @param o The other port to test the connection.
-    // bool accept( PortBase* ) override;
-    /// Calls the connect(PortBase* o) function of the o node because out ports can not connect.
-    /// @param o The other port to connect.
-    // bool connect( PortBase* o ) override;
-    /// Returns false because out ports can not disconnect.
-    // bool disconnect() override;
+    bool hasData() override { return ( m_data ); }
+
     /// Returns a portIn of the same type
-    PortBaseIn* reflect( Node* node, std::string name ) const override;
+    /// \todo Remove
+    PortBaseIn* reflect( Node* node, std::string name ) const override {
+        return new PortIn<DataType>( name, node );
+    }
+
+  private:
+    T* m_data { nullptr }; ///< The data the port points to. Use raw ptr, data belongs to node and
+                           ///< can be plain stack variable
+
 }; // class PortOut<T>
-
-} // namespace Core
-} // namespace Dataflow
-} // namespace Ra
-
-namespace Ra {
-namespace Dataflow {
-namespace Core {
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ PortBaseOut ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 template <typename T>
 T& PortBaseOut::getData() {
@@ -108,35 +101,6 @@ T& PortBaseOut::getData() {
 template <typename T>
 void PortBaseOut::setData( T* data ) {
     static_cast<PortOut<T>*>( this )->setData( data );
-}
-
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ PortOut ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-template <typename T>
-PortOut<T>::PortOut( const std::string& name, Node* node ) :
-    PortBaseOut( node, name, typeid( T ) ) {}
-
-template <typename T>
-PortOut<T>::PortOut( Node* node, const std::string& name ) :
-    PortBaseOut( node, name, typeid( T ) ) {}
-
-template <typename T>
-PortOut<T>::PortOut( Node* node, T* data, const std::string& name ) :
-    PortBaseOut( node, name, typeid( T ) ), m_data { data } {}
-
-template <typename T>
-T& PortOut<T>::getData() {
-    return *m_data;
-}
-
-template <typename T>
-void PortOut<T>::setData( T* data ) {
-    m_data = data;
-}
-
-template <typename T>
-bool PortOut<T>::hasData() {
-    return m_data != nullptr;
 }
 
 template <typename T>
@@ -188,11 +152,6 @@ void PortBase::setData( T* data ) {
     LOG( Ra::Core::Utils::logERROR )
         << "Could not call  PortBase::setData(T* data) on the input port " << getName() << ".\n";
     std::abort();
-}
-
-template <typename T>
-PortBaseIn* PortOut<T>::reflect( Node* node, std::string name ) const {
-    return new PortIn<DataType>( name, node );
 }
 
 } // namespace Core
