@@ -22,13 +22,27 @@ class Task;
 
 namespace Ra {
 namespace Core {
-/** This class allows tasks to be registered and then executed in parallel on separate threads.
- * it maintains an internal pool of threads. When instructed, it dispatches the tasks to the
+/** @brief This class allows tasks to be registered and then executed in parallel on separate
+ * threads.
+ *
+ * It maintains an internal pool of threads. When instructed, it dispatches the tasks to the
  * pooled threads.
  * Task are allowed to have dependencies. A task will be executed only when all its dependencies
  * are satisfied, i.e. all dependant tasks are finished.
  * Note that most functions are not thread safe and must not be called when the task queue is
  * running.
+ * Typical usage:
+\code
+    TaskQueue taskQueue( 4 );
+    auto task = std::make_unique<FunctionTask>( ... );
+    auto tid = taskQueue.registerTask( std::move( task ) );
+    // [...]
+    taskQueue.addDependency( tid, ... );
+    // [...]
+    taskQueue.startTasks();
+    taskQueue.waitForTasks();
+    taskQueue.flushTaskQueue();
+\endcode
  */
 class RA_CORE_API TaskQueue
 {
@@ -86,7 +100,7 @@ class RA_CORE_API TaskQueue
     // Task queue operations
     //
 
-    /// Launches the execution of all the threads in the task queue.
+    /// Launches the execution of all the tasks in the task queue.
     /// No more tasks should be added at this point.
     void startTasks();
 
@@ -94,6 +108,8 @@ class RA_CORE_API TaskQueue
     /// Return when all tasks are done. Usefull for instance for opengl related tasks that must run
     /// in the context thread.
     /// Once tasks are all processed, this method call flushTasksQueue.
+    /// @warning use either this method, either a startTasks/waitForTasks. calling
+    /// runTasksInThisThead between startTasks/waitForTasks calls may produce unexpected results.
     void runTasksInThisThread();
 
     /// Blocks until all tasks and dependencies are finished.

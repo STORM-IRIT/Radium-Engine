@@ -212,6 +212,9 @@ void TaskQueue::startTasks() {
 }
 
 void TaskQueue::runTasksInThisThread() {
+    // this method should not be called between startTasks/waitForTasks, we do not lock anything
+    // here.
+
     // use local task queue, preventing workers to pickup jobs.
     std::deque<TaskId> taskQueue;
 
@@ -221,8 +224,6 @@ void TaskQueue::runTasksInThisThread() {
     // Do a debug check
     detectCycles();
     {
-        rlock lock( m_mutex );
-
         // Enqueue all tasks with no dependencies.
         for ( uint t = 0; t < m_tasks.size(); ++t ) {
             // only queue non null m_tasks
@@ -235,7 +236,6 @@ void TaskQueue::runTasksInThisThread() {
         while ( !taskQueue.empty() ) {
             TaskId task;
             {
-                wlock lock( m_mutex );
                 task = taskQueue.back();
                 taskQueue.pop_back();
             }
@@ -246,7 +246,6 @@ void TaskQueue::runTasksInThisThread() {
             m_timerData[task].end = Utils::Clock::now();
 
             for ( auto t : m_dependencies[task] ) {
-                wlock lock( m_mutex );
                 uint& nDepends = m_remainingDependencies[t];
                 CORE_ASSERT( nDepends > 0, "Inconsistency in dependencies" );
                 --nDepends;
@@ -327,12 +326,11 @@ void TaskQueue::runThread( uint id ) {
                     queueTask( t );
                     ++newTasks;
                 }
-                // TODO :Easy optimization : grab one of the new task and process it immediately.
             }
             --m_processingTasks;
             if ( m_processingTasks == 0 ) { m_waitForTasksNotifier.notify_one(); }
         }
-        // If we added new tasks, we wake up one thread to execute it.
+        // If we added new tasks, we wake up threads to execute thems.
         if ( newTasks > 0 ) { m_threadNotifier.notify_all(); }
     } // End of while(true)
 }
