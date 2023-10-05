@@ -6,6 +6,12 @@ namespace Ra {
 namespace Engine {
 namespace Data {
 
+namespace TextureSemantics {
+///@ LambertianMaterial's textures are the same than SimpleMaterial ones. Just alias the semantic
+/// enumeration.
+using LambertianMaterial = SimpleMaterial;
+} // namespace TextureSemantics
+
 /**
  * Implementation of the Lambertian Material BSDF.
  * This material implements a lambertian diffuse BSDF.

@@ -49,7 +49,7 @@ int main( int argc, char* argv[] ) {
     auto e = app.m_engine->getEntityManager()->createEntity( "Textured quad" );
 
     auto material = std::make_shared<Ra::Engine::Data::LambertianMaterial>( "myMaterialData" );
-    material->addTexture( Ra::Engine::Data::TextureSemantics::SimpleMaterial::TEX_COLOR,
+    material->addTexture( Ra::Engine::Data::TextureSemantics::LambertianMaterial::TEX_COLOR,
                           textureHandle );
 
     // the entity get's this new component ownership. A bit wired since hidden in ctor.
