@@ -36,16 +36,17 @@ class RA_DATAFLOW_API Node
 {
   public:
     using PortIndex = Ra::Core::Utils::Index;
+
     template <typename Port>
     using PortPtr = std::shared_ptr<Port>;
     template <typename Port>
-    using PortCollection = std::vector<Port>;
-    template <typename Port>
     using PortRawPtr = typename PortPtr<Port>::element_type*;
+
     template <typename Type>
     using PortInPtr = PortPtr<PortIn<Type>>;
     template <typename Type>
     using PortInRawPtr = typename PortInPtr<Type>::element_type*;
+
     template <typename Type>
     using PortOutPtr = PortPtr<PortOut<Type>>;
     template <typename Type>
@@ -58,9 +59,11 @@ class RA_DATAFLOW_API Node
     using PortBaseInRawPtr  = PortRawPtr<PortBaseIn>;
     using PortBaseOutRawPtr = PortRawPtr<PortBaseOut>;
 
-    using PortBaseCollection    = std::vector<PortBasePtr>;
-    using PortBaseInCollection  = std::vector<PortBaseInPtr>;
-    using PortBaseOutCollection = std::vector<PortBaseOutPtr>;
+    template <typename Port>
+    using PortCollection        = std::vector<Port>;
+    using PortBaseCollection    = PortCollection<PortBasePtr>;
+    using PortBaseInCollection  = PortCollection<PortBaseInPtr>;
+    using PortBaseOutCollection = PortCollection<PortBaseOutPtr>;
 
     template <typename Port>
     using IndexAndPort = std::pair<PortIndex, Port>;
