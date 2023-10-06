@@ -264,10 +264,10 @@ class RA_DATAFLOW_API Node
     ///\return auto A raw ptr to the port typed in or out.
     template <typename T, typename PortType>
     auto getPort( const PortCollection<PortPtr<PortType>>& ports, PortIndex idx ) const {
-        return static_cast<std::conditional<
+        return static_cast<typename std::conditional<
             /*if*/ std::is_same<PortBaseIn, PortType>::value,
             /*then*/ PortInRawPtr<T>,
-            /*else*/ PortOutRawPtr<T>>>( getPortBase( ports, idx ) );
+            /*else*/ PortOutRawPtr<T>>::type>( getPortBase( ports, idx ) );
     }
 
     /// internal json representation of the Node.
