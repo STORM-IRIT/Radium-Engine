@@ -171,7 +171,7 @@ bool PortIn<T>::accept( PortBaseOut* portOut ) const {
 }
 
 template <typename T>
-bool PortIn<T>::accept( PortOut<T>* portOut ) const {
+bool PortIn<T>::accept( PortOut<T>* ) const {
     return !m_from;
 }
 
