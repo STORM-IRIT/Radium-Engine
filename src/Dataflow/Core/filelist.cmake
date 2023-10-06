@@ -1,11 +1,9 @@
 # ----------------------------------------------------
-# This file can be generated from a script:
-# To do so, run "./generateFilelistForModule.sh Dataflow/Core"
-# from ./scripts directory
+# This file is maintened by hand, no script support yet
 # ----------------------------------------------------
 
 set(dataflow_core_sources DataflowGraph.cpp Node.cpp NodeFactory.cpp Nodes/CoreBuiltInsNodes.cpp
-                          TypeDemangler.cpp
+                          Port.cpp TypeDemangler.cpp
 )
 
 set(dataflow_core_headers
