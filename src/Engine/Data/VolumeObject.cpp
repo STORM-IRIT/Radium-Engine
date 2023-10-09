@@ -66,7 +66,7 @@ void VolumeObject::loadGeometry( Core::Geometry::AbstractVolume* volume, const C
                                      GL_LINEAR,
                                      GL_LINEAR,
                                      grid->data().data() };
-        m_tex.setParameters( texparam );
+        m_tex.setVariables( texparam );
 
         m_isDirty = true;
     }

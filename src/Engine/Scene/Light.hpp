@@ -123,7 +123,7 @@ class RA_ENGINE_API Light : public Component
 
 inline void Light::setColor( const Core::Utils::Color& color ) {
     m_color = color;
-    m_params.addParameter( "light.color", m_color );
+    m_params.setVariable( "light.color", m_color );
 }
 
 } // namespace Scene

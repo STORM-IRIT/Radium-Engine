@@ -32,7 +32,7 @@ class Texture;
  * Enum>::type>`
  *
  */
-class RA_ENGINE_API RenderParameters final
+class RA_ENGINE_API RenderParameters final : public Core::VariableSet
 {
   public:
     /**
@@ -129,24 +129,7 @@ class RA_ENGINE_API RenderParameters final
      * \{
      */
 
-    /**
-     * \brief Add a parameter by value
-     * \tparam T The type of parameter to add. Must be a non class type for this overload to be
-     * chosen. \param name Name of the parameter. \param value Value of the parameter.
-     */
-    template <typename T>
-    void addParameter( const std::string& name,
-                       T value,
-                       typename std::enable_if<!std::is_class<T> {}, bool>::type = true );
-
-    /**
-     * \brief Add a parameter by const ref
-     * \tparam T The type of parameter to add. Must be a class type for this overload to be chosen.
-     * \param name Name of the parameter.
-     * \param value Value of the parameter.
-     */
-    template <typename T, typename std::enable_if<std::is_class<T> {}, bool>::type = true>
-    void addParameter( const std::string& name, const T& value );
+    using VariableSet::setVariable;
 
     /**
      * \brief Adding a texture parameter.
@@ -160,7 +143,9 @@ class RA_ENGINE_API RenderParameters final
      */
     template <typename T,
               typename std::enable_if<std::is_base_of<Data::Texture, T>::value, bool>::type = true>
-    void addParameter( const std::string& name, T* tex, int texUnit = -1 );
+    void setTexture( const std::string& name, T* tex, int texUnit = -1 ) {
+        setVariable( name, TextureInfo { tex, texUnit } );
+    }
 
     /**
      * \brief set the value of the given parameter, according to a string representation of an enum.
@@ -169,44 +154,15 @@ class RA_ENGINE_API RenderParameters final
      * \param name Name of the parameter
      * \param value value of the parameter
      */
-    void addParameter( const std::string& name, const std::string& value );
-    void addParameter( const std::string& name, const char* value );
-
-    /**
-     * \brief add a render parameter variable
-     * \param name
-     * \param value
-     */
-    void addParameter( const std::string& name, RenderParameters& value );
-
-    void addParameter( const std::string& name, const RenderParameters& value );
+    void setEnumVariable( const std::string& name, const std::string& value );
+    void setEnumVariable( const std::string& name, const char* value );
+    template <typename T>
+    void setEnumVariable( const std::string& name, T value ) {
+        auto v = static_cast<typename std::underlying_type<T>::type>( value );
+        setVariable( name, v );
+    }
 
     /**\}*/
-
-    /**
-     * \brief Remove the given parameter from the parameterSet
-     * \tparam T Type of the parameter to remove
-     * \param name Name of the parameter to remove
-     * \return true if the parameter was found and removed. false else.
-     */
-    template <typename T>
-    bool removeParameter( const std::string& name );
-
-    /**
-     * Merges a RenderParameters \a params with this
-     * \param params the render parameter to merge with the current.
-     * Existing parameter value are kept from this
-     * \see mergeReplaceParameters
-     */
-    void mergeKeepParameters( const RenderParameters& params );
-
-    /**
-     * Merges a RenderParameters \a params with this
-     * \param params the render parameter to merge with the current.
-     * Existing parameter values are replaced by params's one.
-     * \see mergeKeepParameters
-     */
-    void mergeReplaceParameters( const RenderParameters& params );
 
     /** Bind the parameter uniform on the shader program
      * \note, this will only bind the supported parameter types.
@@ -259,23 +215,6 @@ class RA_ENGINE_API RenderParameters final
     T& getParameter( const std::string& name );
     /// \}
 
-    /** Visit the parameter using any kind of visitor
-     */
-    template <typename V>
-    void visit( V&& visitor ) const;
-
-    template <typename V, typename T>
-    void visit( V&& visitor, T& userParams ) const;
-
-    template <typename V, typename T>
-    void visit( V&& visitor, T&& userParams ) const;
-
-    /// \brief Get access to the parameter storage
-    /// \return the Core::VariableSet storing the parameters
-    /// \{
-    const Core::VariableSet& getStorage() const { return m_parameterSets; }
-    Core::VariableSet& getStorage() { return m_parameterSets; }
-    /// \}
   private:
     /**
      * \brief Static visitor to bind the stored parameters.
@@ -332,11 +271,6 @@ class RA_ENGINE_API RenderParameters final
      * There will be only one StaticParameterBinder used by all RenderParameters
      */
     static StaticParameterBinder s_binder;
-
-    /**
-     * Storage of the parameters
-     */
-    Core::VariableSet m_parameterSets;
 };
 
 /**
@@ -408,22 +342,21 @@ template <typename EnumBaseType>
 void RenderParameters::addEnumConverter(
     const std::string& name,
     std::shared_ptr<Core::Utils::EnumConverter<EnumBaseType>> converter ) {
-    auto converterHandle = m_parameterSets.insertOrAssignVariable( name, converter );
+    auto converterHandle = setVariable( name, converter );
     std::function<void( Core::VariableSet&, const std::string&, const std::string& )>
         convertingFunction = [converter = converterHandle.first]( Core::VariableSet& vs,
                                                                   const std::string& nm,
                                                                   const std::string& vl ) {
-            vs.insertOrAssignVariable( nm, converter->second->getEnumerator( vl ) );
+            vs.setVariable( nm, converter->second->getEnumerator( vl ) );
         };
-    m_parameterSets.insertOrAssignVariable( name, convertingFunction );
+    setVariable( name, convertingFunction );
 }
 
 template <typename EnumBaseType>
 Core::Utils::optional<std::shared_ptr<Core::Utils::EnumConverter<EnumBaseType>>>
 RenderParameters::getEnumConverter( const std::string& name ) {
     auto storedConverter =
-        m_parameterSets.existsVariable<std::shared_ptr<Core::Utils::EnumConverter<EnumBaseType>>>(
-            name );
+        existsVariable<std::shared_ptr<Core::Utils::EnumConverter<EnumBaseType>>>( name );
     if ( storedConverter ) { return ( *storedConverter )->second; }
     return {};
 }
@@ -434,8 +367,7 @@ std::string RenderParameters::getEnumString(
     EnumBaseType value,
     typename std::enable_if<!std::is_enum<EnumBaseType> {}, bool>::type ) {
     auto storedConverter =
-        m_parameterSets.existsVariable<std::shared_ptr<Core::Utils::EnumConverter<EnumBaseType>>>(
-            name );
+        existsVariable<std::shared_ptr<Core::Utils::EnumConverter<EnumBaseType>>>( name );
     if ( storedConverter ) { return ( *storedConverter )->second->getEnumerator( value ); }
     LOG( Ra::Core::Utils::logWARNING ) << name + " is not a registered Enum with underlying type " +
                                               Ra::Core::Utils::demangleType<EnumBaseType>() + ".";
@@ -451,49 +383,13 @@ std::string RenderParameters::getEnumString( const std::string& name, Enum value
 /* --------------- enum parameter management --------------- */
 
 template <typename T>
-inline void
-RenderParameters::addParameter( const std::string& name,
-                                T value,
-                                typename std::enable_if<!std::is_class<T> {}, bool>::type ) {
-    if constexpr ( std::is_enum<T>::value ) {
-        auto v = static_cast<typename std::underlying_type<T>::type>( value );
-        m_parameterSets.insertOrAssignVariable( name, v );
-    }
-    else { m_parameterSets.insertOrAssignVariable( name, value ); }
-}
-
-template <typename T, typename std::enable_if<std::is_class<T> {}, bool>::type>
-inline void RenderParameters::addParameter( const std::string& name, const T& value ) {
-    m_parameterSets.insertOrAssignVariable( name, value );
-}
-
-template <typename T, typename std::enable_if<std::is_base_of<Data::Texture, T>::value, bool>::type>
-inline void RenderParameters::addParameter( const std::string& name, T* tex, int texUnit ) {
-    addParameter( name, TextureInfo { tex, texUnit } );
-}
-
-inline void RenderParameters::addParameter( const std::string& name, RenderParameters& value ) {
-    m_parameterSets.insertOrAssignVariable( name, std::ref( value ) );
-}
-
-inline void RenderParameters::addParameter( const std::string& name,
-                                            const RenderParameters& value ) {
-    m_parameterSets.insertOrAssignVariable( name, std::cref( value ) );
-}
-
-template <typename T>
-bool RenderParameters::removeParameter( const std::string& name ) {
-    return m_parameterSets.deleteVariable<T>( name );
-}
-
-template <typename T>
 inline const RenderParameters::UniformBindableSet<T>& RenderParameters::getParameterSet() const {
-    return m_parameterSets.getAllVariables<T>();
+    return getAllVariables<T>();
 }
 
 template <typename T>
 inline RenderParameters::UniformBindableSet<T>& RenderParameters::getParameterSet() {
-    return m_parameterSets.getAllVariables<T>();
+    return getAllVariables<T>();
 }
 
 template <typename T>
@@ -501,20 +397,20 @@ inline Core::Utils::optional<RenderParameters::UniformBindableSet<T>*>
 RenderParameters::hasParameterSet() const {
     if constexpr ( std::is_enum<T>::value ) {
         // Do not return
-        // m_parameterSets.existsVariableType< typename std::underlying_type< T >::type >();
+        // existsVariableType< typename std::underlying_type< T >::type >();
         // to prevent misuse of this function. The user should infer this with another logic.
         return {};
     }
-    else { return m_parameterSets.existsVariableType<T>(); }
+    else { return existsVariableType<T>(); }
 }
 
 template <typename T>
 inline Core::Utils::optional<RenderParameters::UniformVariable<T>>
 RenderParameters::containsParameter( const std::string& name ) const {
     if constexpr ( std::is_enum<T>::value ) {
-        return m_parameterSets.existsVariable<typename std::underlying_type<T>::type>( name );
+        return existsVariable<typename std::underlying_type<T>::type>( name );
     }
-    else { return m_parameterSets.existsVariable<T>( name ); }
+    else { return existsVariable<T>( name ); }
 }
 
 template <typename T>
@@ -522,29 +418,14 @@ inline const T& RenderParameters::getParameter( const std::string& name ) const 
     if constexpr ( std::is_enum<T>::value ) {
         // need to cast to take into account the way enums are managed in the RenderParameters
         return reinterpret_cast<const T&>(
-            m_parameterSets.getVariable<typename std::underlying_type<T>::type>( name ) );
+            getVariable<typename std::underlying_type<T>::type>( name ) );
     }
-    else { return m_parameterSets.getVariable<T>( name ); }
+    else { return getVariable<T>( name ); }
 }
 
 template <typename T>
 inline T& RenderParameters::getParameter( const std::string& name ) {
     return const_cast<T&>( const_cast<const RenderParameters*>( this )->getParameter<T>( name ) );
-}
-
-template <typename V>
-inline void RenderParameters::visit( V&& visitor ) const {
-    m_parameterSets.visit( visitor );
-}
-
-template <typename V, typename T>
-inline void RenderParameters::visit( V&& visitor, T& userParams ) const {
-    m_parameterSets.visit( visitor, std::forward<T&>( userParams ) );
-}
-
-template <typename V, typename T>
-inline void RenderParameters::visit( V&& visitor, T&& userParams ) const {
-    m_parameterSets.visit( visitor, std::forward<T&&>( userParams ) );
 }
 
 } // namespace Data

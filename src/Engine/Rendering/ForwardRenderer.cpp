@@ -400,15 +400,15 @@ void ForwardRenderer::renderInternal( const Data::ViewingParameters& renderData 
             GL_ASSERT( glDisable( GL_BLEND ) );
 
             Data::RenderParameters composeParams;
-            composeParams.addParameter( "imageColor", m_textures[RendererTextures_HDR].get() );
-            composeParams.addParameter( "imageDepth", m_textures[RendererTextures_Depth].get() );
+            composeParams.setTexture( "imageColor", m_textures[RendererTextures_HDR].get() );
+            composeParams.setTexture( "imageDepth", m_textures[RendererTextures_Depth].get() );
             Data::RenderParameters passParams;
-            passParams.addParameter( "compose_data", composeParams );
+            passParams.setVariable( "compose_data", composeParams );
 
             for ( size_t i = 0; i < m_lightmanagers[0]->count(); ++i ) {
                 const auto l = m_lightmanagers[0]->getLight( i );
 
-                passParams.addParameter( "light_source", l->getRenderParameters() );
+                passParams.setVariable( "light_source", l->getRenderParameters() );
 
                 for ( const auto& ro : m_volumetricRenderObjects ) {
                     ro->render(
@@ -529,9 +529,9 @@ void ForwardRenderer::debugInternal( const Data::ViewingParameters& renderData )
         GL_ASSERT( glDepthMask( GL_TRUE ) );
         GL_ASSERT( glClear( GL_DEPTH_BUFFER_BIT ) );
         Data::RenderParameters xrayLightParams;
-        xrayLightParams.addParameter( "light.color", Ra::Core::Utils::Color::Grey( 5.0 ) );
-        xrayLightParams.addParameter( "light.type", Scene::Light::LightType::DIRECTIONAL );
-        xrayLightParams.addParameter( "light.directional.direction", Core::Vector3( 0, -1, 0 ) );
+        xrayLightParams.setVariable( "light.color", Ra::Core::Utils::Color::Grey( 5.0 ) );
+        xrayLightParams.setEnumVariable( "light.type", Scene::Light::LightType::DIRECTIONAL );
+        xrayLightParams.setVariable( "light.directional.direction", Core::Vector3( 0, -1, 0 ) );
         for ( const auto& ro : m_xrayRenderObjects ) {
             if ( ro->isVisible() ) { ro->render( xrayLightParams, renderData ); }
         }
@@ -690,8 +690,8 @@ class PointCloudParameterProvider : public Data::ShaderParameterProvider
     void updateGL() override {
         m_displayMaterial->updateGL();
         auto& renderParameters = getParameters();
-        renderParameters.mergeReplaceParameters( m_displayMaterial->getParameters() );
-        renderParameters.addParameter( "pointCloudSplatRadius", m_component->getSplatSize() );
+        renderParameters.mergeReplaceVariables( m_displayMaterial->getParameters() );
+        renderParameters.setVariable( "pointCloudSplatRadius", m_component->getSplatSize() );
     }
 
   private:

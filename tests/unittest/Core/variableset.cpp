@@ -113,13 +113,13 @@ TEST_CASE( "Core/Container/VariableSet", "[Core][Container][VariableSet]" ) {
         REQUIRE( params.getVariable<float>( "x" ) == 5 );
 
         // variable i store a value, copy of local variable i. Changing its value ...
-        auto inserted = params.insertOrAssignVariable( "i", 2 );
+        auto inserted = params.setVariable( "i", 2 );
         REQUIRE( inserted.second == false );
         REQUIRE( params.getVariable<int>( "i" ) == 2 );
         // does not change the local variable i
         REQUIRE( i == 0 );
 
-        inserted = params.insertOrAssignVariable( "k", 3 );
+        inserted = params.setVariable( "k", 3 );
         REQUIRE( inserted.second == true );
 
         // variable "j" is a reference to local variable i, and has the same value

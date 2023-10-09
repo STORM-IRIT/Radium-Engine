@@ -48,9 +48,8 @@ TEST_CASE( "Engine/Data/Materials", "[Engine][Engine/Data][Materials]" ) {
         /* Setting GL Parameters */
         bp.updateGL();
         auto& bpParameters = bp.getParameters();
-        auto& bpstorage    = bpParameters.getStorage();
 
-        bpstorage.visit( PrintThemAll {} );
+        bpParameters.visit( PrintThemAll {} );
 
         REQUIRE( bpParameters.containsParameter<bool>( "material.hasPerVertexKd" ) );
         REQUIRE( bpParameters.containsParameter<Scalar>( "material.alpha" ) );
@@ -62,8 +61,8 @@ TEST_CASE( "Engine/Data/Materials", "[Engine][Engine/Data][Materials]" ) {
         REQUIRE( alp == bp.m_alpha );
 
         /* changing parameter values */
-        bpParameters.addParameter( "material.hasPerVertexKd", !pvc );
-        bpParameters.addParameter( "material.alpha", 0.5_ra );
+        bpParameters.setVariable( "material.hasPerVertexKd", !pvc );
+        bpParameters.setVariable( "material.alpha", 0.5_ra );
         REQUIRE( pvc != bp.isColoredByVertexAttrib() );
         REQUIRE( alp != bp.m_alpha );
 
@@ -92,7 +91,7 @@ TEST_CASE( "Engine/Data/Materials", "[Engine][Engine/Data][Materials]" ) {
         REQUIRE( pvc == mat.isColoredByVertexAttrib() );
 
         /* changing parameter values */
-        matParameters.addParameter( "material.perVertexColor", !pvc );
+        matParameters.setVariable( "material.perVertexColor", !pvc );
         REQUIRE( pvc != mat.isColoredByVertexAttrib() );
 
         /* Updating material parameters from GL parameters */
@@ -119,7 +118,7 @@ TEST_CASE( "Engine/Data/Materials", "[Engine][Engine/Data][Materials]" ) {
         REQUIRE( pvc == mat.isColoredByVertexAttrib() );
 
         /* changing parameter values */
-        matParameters.addParameter( "material.perVertexColor", !pvc );
+        matParameters.setVariable( "material.perVertexColor", !pvc );
         REQUIRE( pvc != mat.isColoredByVertexAttrib() );
 
         /* Updating material parameters from GL parameters */
@@ -159,7 +158,7 @@ TEST_CASE( "Engine/Data/Materials", "[Engine][Engine/Data][Materials]" ) {
         REQUIRE( g == 0_ra );
 
         /* changing parameter values */
-        matParameters.addParameter( "material.g", 0.5_ra );
+        matParameters.setVariable( "material.g", 0.5_ra );
         REQUIRE( g != mat.m_g );
 
         /* Updating material parameters from GL parameters */

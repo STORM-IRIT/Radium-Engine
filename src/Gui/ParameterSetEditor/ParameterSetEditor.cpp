@@ -69,7 +69,7 @@ class RenderParameterUiBuilder
                      Data::RenderParameters&& params ) {
         auto onColorParameterChanged =
             [pse = this->m_pse, &params, nm = name]( const Ra::Core::Utils::Color& val ) {
-                params.addParameter( nm, val );
+                params.setVariable( nm, val );
                 emit pse->parameterModified( nm );
             };
         if ( m_constraints.contains( name ) ) {
@@ -122,7 +122,7 @@ void ParameterSetEditor::addEnumParameterWidget( const std::string& key,
     if ( auto ec = params.getEnumConverter<T>( key ) ) {
         auto items                        = ( *ec )->getEnumerators();
         auto onEnumParameterStringChanged = [this, &params, &key]( const QString& value ) {
-            params.addParameter( key, value.toStdString() );
+            params.setVariable( key, value.toStdString() );
             emit parameterModified( key );
         };
         addComboBox( nm,
@@ -142,7 +142,7 @@ void ParameterSetEditor::addEnumParameterWidget( const std::string& key,
         }
 
         auto onEnumParameterIntChanged = [this, &params, &key]( T value ) {
-            params.addParameter( key, value );
+            params.setVariable( key, value );
             emit parameterModified( key );
         };
         addComboBox( nm, onEnumParameterIntChanged, initial, items, description );
