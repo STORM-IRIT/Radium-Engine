@@ -722,6 +722,10 @@ bool VariableSet::deleteVariable( H& handle ) {
 template <typename T>
 auto VariableSet::existsVariable( const std::string& name ) const
     -> Utils::optional<VariableHandle<T>> {
+
+    if constexpr ( std::is_enum<T>::value ) {
+        return existsVariable<typename std::underlying_type<T>::type>( name );
+    }
     if ( auto typeAccess = existsVariableType<T>(); typeAccess ) {
         auto itr = ( *typeAccess )->find( name );
         if ( itr != ( *typeAccess )->cend() ) { return itr; }
@@ -799,6 +803,12 @@ auto VariableSet::addVariableType() -> Utils::optional<VariableContainer<T>*> {
 
 template <typename T>
 auto VariableSet::existsVariableType() const -> Utils::optional<VariableContainer<T>*> {
+    if constexpr ( std::is_enum<T>::value ) {
+        // Do not return
+        // existsVariableType< typename std::underlying_type< T >::type >();
+        // to prevent misuse of this function. The user should infer this with another logic.
+        return {};
+    }
     auto iter = m_variables.find( std::type_index { typeid( T ) } );
     if ( iter == m_variables.cend() ) { return {}; }
     else { return std::any_cast<VariableSet::VariableContainer<T>>( &( iter->second ) ); }
