@@ -23,14 +23,13 @@ namespace Data {
 class Texture;
 
 /**
- * Management of shader parameters with automatic binding of a named parameter to the corresponding
- * glsl uniform.
+ * \brief Management of shader parameters with automatic binding of a named parameter to the
+ * corresponding glsl uniform.
+ *
  * \note Automatic binding is only available for supported type described in BindableTypes.
  * \note Enums are stored according to their underlying_type. Enum management is automatic except
  * when requesting for the associated uniformBindableSet. To access bindable set containing a given
- * enum with type Enum, use `getAllVariable<typename std::underlying_type<typename
- * Enum>::type>`
- *
+ * enum with type Enum, use `getAllVariable<typename std::underlying_type<typename Enum>::type>`
  */
 class RA_ENGINE_API RenderParameters final : public Core::VariableSet
 {
@@ -59,8 +58,8 @@ class RA_ENGINE_API RenderParameters final : public Core::VariableSet
                                                 std::reference_wrapper<RenderParameters>,
                                                 std::reference_wrapper<const RenderParameters>>;
 
-    /**
-     * \brief Adding a texture parameter.
+    /** \brief Adding a texture parameter.
+     *
      * \tparam T The type of parameter to add. Must be derived from Texture for this overload.
      * \param name Name of the parameter
      * \param tex Texture to add in the parameterSet
@@ -75,7 +74,8 @@ class RA_ENGINE_API RenderParameters final : public Core::VariableSet
         setVariable( name, TextureInfo { tex, texUnit } );
     }
 
-    /** Bind the parameter uniform on the shader program
+    /** \brief Bind the parameter uniform on the shader program.
+     *
      * \note, this will only bind the supported parameter types.
      * \param shader The shader to bind to.
      */
@@ -84,8 +84,7 @@ class RA_ENGINE_API RenderParameters final : public Core::VariableSet
     }
 
   private:
-    /**
-     * \brief Static visitor to bind the stored parameters.
+    /** \brief Static visitor to bind the stored parameters.
      * \note Binds only statically supported types. To bind unsupported types, use a custom
      * dynamic visitor and the RenderParameter::visit method.
      */
@@ -95,8 +94,7 @@ class RA_ENGINE_API RenderParameters final : public Core::VariableSet
         /// Type supported by the binder, as expected by VariableSet
         using types = BindableTypes;
 
-        /**
-         * \brief Binds a color parameter as this requires special access to the parameter value.
+        /** \brief Binds a color parameter as this requires special access to the parameter value.
          */
         void operator()( const std::string& name,
                          const Ra::Core::Utils::Color& p,
@@ -104,8 +102,7 @@ class RA_ENGINE_API RenderParameters final : public Core::VariableSet
             shader->setUniform( name.c_str(), Ra::Core::Utils::Color::VectorType( p ) );
         }
 
-        /**
-         * \brief Binds a Texture parameter as this requires special access to the parameter value.
+        /** \brief Binds a Texture parameter as this requires special access to the parameter value.
          */
         void operator()( const std::string& name,
                          const RenderParameters::TextureInfo& p,
@@ -115,8 +112,8 @@ class RA_ENGINE_API RenderParameters final : public Core::VariableSet
             else { shader->setUniform( name.c_str(), tex, texUnit ); }
         }
 
-        /**
-         * \brief Binds a embedded const RenderParameter.
+        /** \brief Binds a embedded const RenderParameter.
+         *
          * This allows to build hierarchies of RenderParameters.
          */
         template <typename T>
@@ -126,8 +123,7 @@ class RA_ENGINE_API RenderParameters final : public Core::VariableSet
             p.get().bind( shader );
         }
 
-        /**
-         * \brief Bind any type of parameter that do not requires special access
+        /** \brief Bind any type of parameter that do not requires special access
          */
         template <typename T>
         void operator()( const std::string& name, const T& p, const Data::ShaderProgram* shader ) {
@@ -136,16 +132,15 @@ class RA_ENGINE_API RenderParameters final : public Core::VariableSet
     };
 };
 
-/**
- * Interface to define metadata (constraints, description, ...) for the edition of parameter set
+/** \brief Interface to define metadata (constraints, description, ...) for the edition of parameter
+ * set
  */
 class RA_ENGINE_API ParameterSetEditingInterface
 {
   public:
     virtual ~ParameterSetEditingInterface() = default;
 
-    /**
-     * \brief Get a json containing metadata about the parameters.
+    /** \brief Get a json containing metadata about the parameters.
      *
      * \return the metadata in json format
      */
@@ -155,9 +150,9 @@ class RA_ENGINE_API ParameterSetEditingInterface
     static void loadMetaData( const std::string& basename, nlohmann::json& destination );
 };
 
-/**
- * Shader program parameter provider.
- * a ShaderParameterProvider is an object that is associated to a render technique to provide the
+/** \brief Shader program parameter provider.
+ *
+ * A ShaderParameterProvider is an object that is associated to a render technique to provide the
  * uniform parameter set for the program. When an RenderObject is drawn using a given
  * rendertechnique, the ShaderParameterProvider associated to the renderTechnique is responsible to
  * set all the uniforms needed by the rendertechnique.
@@ -168,22 +163,22 @@ class RA_ENGINE_API ShaderParameterProvider
     virtual ~ShaderParameterProvider() = default;
     virtual RenderParameters& getParameters() { return m_renderParameters; }
     virtual const RenderParameters& getParameters() const { return m_renderParameters; }
-    /**
-     * \brief Update the OpenGL states used by the ShaderParameterProvider.
+
+    /** \brief Update the OpenGL states used by the ShaderParameterProvider.
+     *
      * These state could be the ones from an associated material (textures, precomputed tables or
      * whatever data associated to the material)  or some parameters that are
      * specific to the provider semantic.
      */
     virtual void updateGL() = 0;
 
-    /**
-     * \brief Update the attributes of the ShaderParameterProvider to their actual values stored in
+    /** \brief Update the attributes of the ShaderParameterProvider to their actual values stored in
      * the renderParameters.
      */
     virtual void updateFromParameters() {};
 
-    /**
-     * \brief Get the list of properties the provider might use in a shader.
+    /** \brief Get the list of properties the provider might use in a shader.
+     *
      * Each property will be added to the shader used for rendering under the form
      * "#define theProperty" when the provider is associated with the render technique.
      *
@@ -195,7 +190,6 @@ class RA_ENGINE_API ShaderParameterProvider
 
   private:
     /// The parameters to set for a shader
-    /// replace this by coreVariables
     RenderParameters m_renderParameters;
 };
 
