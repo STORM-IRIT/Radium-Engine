@@ -86,20 +86,6 @@ class RA_ENGINE_API RenderParameters final : public Core::VariableSet
      */
     void bind( const Data::ShaderProgram* shader ) const;
 
-    /**
-     * \brief Get a typed parameter
-     * \tparam T the type of the parameter to get
-     * \param name The name of the parameter to get
-     * \return The corresponding parameter
-     * \throw std::out_of_range if the container does not have an parameter with the specified name
-     */
-    /// \{
-    template <typename T>
-    const T& getParameter( const std::string& name ) const;
-    template <typename T>
-    T& getParameter( const std::string& name );
-    /// \}
-
   private:
     /**
      * \brief Static visitor to bind the stored parameters.
@@ -219,21 +205,6 @@ class RA_ENGINE_API ShaderParameterProvider
     /// replace this by coreVariables
     RenderParameters m_renderParameters;
 };
-
-template <typename T>
-inline const T& RenderParameters::getParameter( const std::string& name ) const {
-    if constexpr ( std::is_enum<T>::value ) {
-        // need to cast to take into account the way enums are managed in the RenderParameters
-        return reinterpret_cast<const T&>(
-            getVariable<typename std::underlying_type<T>::type>( name ) );
-    }
-    else { return getVariable<T>( name ); }
-}
-
-template <typename T>
-inline T& RenderParameters::getParameter( const std::string& name ) {
-    return const_cast<T&>( const_cast<const RenderParameters*>( this )->getParameter<T>( name ) );
-}
 
 } // namespace Data
 } // namespace Engine

@@ -54,12 +54,12 @@ void BlinnPhongMaterial::updateGL() {
 
 void BlinnPhongMaterial::updateFromParameters() {
     auto& renderParameters = getParameters();
-    m_kd                   = renderParameters.getParameter<Core::Utils::Color>( "material.kd" );
-    m_perVertexColor       = renderParameters.getParameter<bool>( "material.hasPerVertexKd" );
-    m_renderAsSplat        = renderParameters.getParameter<bool>( "material.renderAsSplat" );
-    m_ks                   = renderParameters.getParameter<Core::Utils::Color>( "material.ks" );
-    m_ns                   = renderParameters.getParameter<Scalar>( "material.ns" );
-    m_alpha                = renderParameters.getParameter<Scalar>( "material.alpha" );
+    m_kd                   = renderParameters.getVariable<Core::Utils::Color>( "material.kd" );
+    m_perVertexColor       = renderParameters.getVariable<bool>( "material.hasPerVertexKd" );
+    m_renderAsSplat        = renderParameters.getVariable<bool>( "material.renderAsSplat" );
+    m_ks                   = renderParameters.getVariable<Core::Utils::Color>( "material.ks" );
+    m_ns                   = renderParameters.getVariable<Scalar>( "material.ns" );
+    m_alpha                = renderParameters.getVariable<Scalar>( "material.alpha" );
 }
 
 bool BlinnPhongMaterial::isTransparent() const {
