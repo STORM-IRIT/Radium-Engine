@@ -112,25 +112,6 @@ class RA_ENGINE_API RenderParameters final : public Core::VariableSet
     void bind( const Data::ShaderProgram* shader ) const;
 
     /**
-     * \brief Test if parameters of type T are stored
-     * \tparam T
-     * \return an optional, empty if the ParameterSet does not exists or whose value is
-     * a **non owning** pointer to the ParameterSet collection if it exists. This **non owning**
-     * pointer remains valid as long as the RenderParameter exists and contains the given type.
-     */
-    template <typename T>
-    Core::Utils::optional<UniformBindableSet<T>*> existsVariableType() const;
-
-    /**
-     * Check if a typed parameter exists
-     * \tparam T the type of the parameter to get
-     * \param name The name of the parameter to get
-     * \return true if the parameter exists
-     */
-    template <typename T>
-    Core::Utils::optional<UniformVariable<T>> existsVariable( const std::string& name ) const;
-
-    /**
      * \brief Get a typed parameter
      * \tparam T the type of the parameter to get
      * \param name The name of the parameter to get
@@ -264,27 +245,6 @@ class RA_ENGINE_API ShaderParameterProvider
     /// replace this by coreVariables
     RenderParameters m_renderParameters;
 };
-
-template <typename T>
-inline Core::Utils::optional<RenderParameters::UniformBindableSet<T>*>
-RenderParameters::existsVariableType() const {
-    if constexpr ( std::is_enum<T>::value ) {
-        // Do not return
-        // existsVariableType< typename std::underlying_type< T >::type >();
-        // to prevent misuse of this function. The user should infer this with another logic.
-        return {};
-    }
-    else { return Core::VariableSet::existsVariableType<T>(); }
-}
-
-template <typename T>
-inline Core::Utils::optional<RenderParameters::UniformVariable<T>>
-RenderParameters::existsVariable( const std::string& name ) const {
-    if constexpr ( std::is_enum<T>::value ) {
-        return Core::VariableSet::existsVariable<typename std::underlying_type<T>::type>( name );
-    }
-    else { return Core::VariableSet::existsVariable<T>( name ); }
-}
 
 template <typename T>
 inline const T& RenderParameters::getParameter( const std::string& name ) const {
