@@ -15,25 +15,6 @@ void RenderParameters::bind( const Data::ShaderProgram* shader ) const {
     visit( s_binder, shader );
 }
 
-void RenderParameters::setEnumVariable( const std::string& name, const std::string& value ) {
-    auto converterFunc = existsVariable<
-        std::function<void( Core::VariableSet&, const std::string&, const std::string& )>>( name );
-    if ( converterFunc ) {
-        ( *converterFunc )->second( dynamic_cast<Core::VariableSet&>( *this ), name, value );
-    }
-    else {
-        LOG( Core::Utils::logWARNING )
-            << "RenderParameters, try to set enum value from string without converter. Adding "
-               "non-bindable TParameter<string> "
-            << name << " " << value;
-        setVariable( name, value );
-    }
-}
-
-void RenderParameters::setEnumVariable( const std::string& name, const char* value ) {
-    setEnumVariable( name, std::string( value ) );
-}
-
 void ParameterSetEditingInterface::loadMetaData( const std::string& basename,
                                                  nlohmann::json& destination ) {
     auto resourcesRootDir { RadiumEngine::getInstance()->getResourcesDir() };
