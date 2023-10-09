@@ -62,31 +62,6 @@ class RA_ENGINE_API RenderParameters final : public Core::VariableSet
                                                 std::reference_wrapper<RenderParameters>,
                                                 std::reference_wrapper<const RenderParameters>>;
 
-    /** Set of typed parameters
-     * For a given shader Program, all the parameters are stored by type, using Core::VariableSet as
-     * container.
-     *
-     * \tparam T The type of parameters in the set.
-     */
-    template <typename T>
-    using UniformBindableSet = Core::VariableSet::VariableContainer<T>;
-
-    /** Handle to a bindable parameters.
-     *  A handle is an iterator on a pair <name, value> such that the value is of type T
-     *
-     * \tparam T The type of parameter in the set.
-     */
-    template <typename T>
-    using UniformVariable = Core::VariableSet::VariableHandle<T>;
-    /// \}
-
-    /**
-     * Overloaded operators to set shader parameters
-     * \{
-     */
-
-    using VariableSet::setVariable;
-
     /**
      * \brief Adding a texture parameter.
      * \tparam T The type of parameter to add. Must be derived from Texture for this overload.
