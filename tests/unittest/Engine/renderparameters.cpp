@@ -110,21 +110,21 @@ TEST_CASE( "Engine/Data/RenderParameters", "[Engine][Engine/Data][RenderParamete
         Color color  = Color::White();
         Texture tex1 { { "texture1" } };
 
-        p1.addParameter( "TextureParameter", &tex1, 1 );
-        p1.addParameter( "IntParameter", i );
-        p1.addParameter( "BoolParameter", b );
-        p1.addParameter( "UIntParameter", ui );
-        p1.addParameter( "ScalarParameter", s );
-        p1.addParameter( "IntsParameter", is );
-        p1.addParameter( "UIntsParameter", uis );
-        p1.addParameter( "ScalarsParameter", ss );
-        p1.addParameter( "Vec2Parameter", vec2 );
-        p1.addParameter( "Vec3Parameter", vec3 );
-        p1.addParameter( "Vec4Parameter", vec4 );
-        p1.addParameter( "ColorParameter", color );
-        p1.addParameter( "Mat2Parameter", mat2 );
-        p1.addParameter( "Mat3Parameter", mat3 );
-        p1.addParameter( "Mat4Parameter", mat4 );
+        p1.setTexture( "TextureParameter", &tex1, 1 );
+        p1.setVariable( "IntParameter", i );
+        p1.setVariable( "BoolParameter", b );
+        p1.setVariable( "UIntParameter", ui );
+        p1.setVariable( "ScalarParameter", s );
+        p1.setVariable( "IntsParameter", is );
+        p1.setVariable( "UIntsParameter", uis );
+        p1.setVariable( "ScalarsParameter", ss );
+        p1.setVariable( "Vec2Parameter", vec2 );
+        p1.setVariable( "Vec3Parameter", vec3 );
+        p1.setVariable( "Vec4Parameter", vec4 );
+        p1.setVariable( "ColorParameter", color );
+        p1.setVariable( "Mat2Parameter", mat2 );
+        p1.setVariable( "Mat3Parameter", mat3 );
+        p1.setVariable( "Mat4Parameter", mat4 );
 
         REQUIRE( p1.getParameterSet<int>().size() == 1 );
         REQUIRE( p1.getParameterSet<bool>().size() == 1 );
@@ -163,29 +163,29 @@ TEST_CASE( "Engine/Data/RenderParameters", "[Engine][Engine/Data][RenderParamete
         p1.visit( vstr, "p1 parameter set" );
 
         RP p2;
-        p2.addParameter( "IntParameter", i + 1 );
-        p2.addParameter( "BoolParameter", !b );
-        p2.addParameter( "UIntParameter", ui + 1 );
-        p2.addParameter( "ScalarParameter", s + 1_ra );
+        p2.setVariable( "IntParameter", i + 1 );
+        p2.setVariable( "BoolParameter", !b );
+        p2.setVariable( "UIntParameter", ui + 1 );
+        p2.setVariable( "ScalarParameter", s + 1_ra );
         is.push_back( 0 );
-        p2.addParameter( "IntsParameter", is );
+        p2.setVariable( "IntsParameter", is );
         uis.push_back( 0u );
-        p2.addParameter( "UIntsParameter", uis );
+        p2.setVariable( "UIntsParameter", uis );
         ss.push_back( 0_ra );
-        p2.addParameter( "ScalarsParameter", ss );
-        p2.addParameter( "Vec2Parameter", Vector2 { vec2 + Vector2 { 1_ra, 1_ra } } );
-        p2.addParameter( "Vec3Parameter", Vector3 { vec3 + Vector3 { 1_ra, 1_ra, 1_ra } } );
-        p2.addParameter( "Vec4Parameter", Vector4 { vec4 + Vector4 { 1_ra, 1_ra, 1_ra, 1_ra } } );
-        p2.addParameter( "ColorParameter", Color::Red() );
+        p2.setVariable( "ScalarsParameter", ss );
+        p2.setVariable( "Vec2Parameter", Vector2 { vec2 + Vector2 { 1_ra, 1_ra } } );
+        p2.setVariable( "Vec3Parameter", Vector3 { vec3 + Vector3 { 1_ra, 1_ra, 1_ra } } );
+        p2.setVariable( "Vec4Parameter", Vector4 { vec4 + Vector4 { 1_ra, 1_ra, 1_ra, 1_ra } } );
+        p2.setVariable( "ColorParameter", Color::Red() );
         Texture tex2 { { "texture2" } };
-        p2.addParameter( "TextureParameter", &tex2, 2 );
-        p2.addParameter( "Foo", 42 );
+        p2.setTexture( "TextureParameter", &tex2, 2 );
+        p2.setVariable( "Foo", 42 );
 
         // add a int parameter to p1
-        p1.addParameter( "Bar", 43 );
+        p1.setVariable( "Bar", 43 );
 
         RP kept = p1;
-        kept.mergeKeepParameters( p2 );
+        kept.mergeKeepVariables( p2 );
 
         // existings parameters are note changes (p1's values)
         REQUIRE( kept.getParameterSet<int>().at( "IntParameter" ) ==
@@ -219,7 +219,7 @@ TEST_CASE( "Engine/Data/RenderParameters", "[Engine][Engine/Data][RenderParamete
         REQUIRE( kept.getParameterSet<int>().at( "Bar" ) == p1.getParameterSet<int>().at( "Bar" ) );
 
         RP replaced = p1;
-        replaced.mergeReplaceParameters( p2 );
+        replaced.mergeReplaceVariables( p2 );
         // Existings in p1 and p2, as well as new parameters are set to p2's values
         REQUIRE( replaced.getParameterSet<int>().at( "IntParameter" ) ==
                  p2.getParameterSet<int>().at( "IntParameter" ) );
@@ -251,7 +251,7 @@ TEST_CASE( "Engine/Data/RenderParameters", "[Engine][Engine/Data][RenderParamete
         REQUIRE( replaced.getParameterSet<int>().at( "Bar" ) ==
                  p1.getParameterSet<int>().at( "Bar" ) );
 
-        auto removed = replaced.removeParameter<int>( "Bar" );
+        auto removed = replaced.deleteVariable<int>( "Bar" );
         REQUIRE( removed == true );
         auto found = replaced.containsParameter<int>( "Bar" );
         REQUIRE( found.has_value() == false );
@@ -285,7 +285,7 @@ TEST_CASE( "Engine/Data/RenderParameters", "[Engine][Engine/Data][RenderParamete
         REQUIRE( params.getEnumString( "enum.unknown", Unregistered::LOW ) == "" );
 
         // Adding the enum in the parameter set using its value
-        params.addParameter( "enum.semantic", Values::VALUE_0 );
+        params.setEnumVariable( "enum.semantic", Values::VALUE_0 );
         // checking its seen with its type (enum)
         auto& v = params.getParameter<Values>( "enum.semantic" );
         REQUIRE( v == Values::VALUE_0 );
@@ -293,18 +293,18 @@ TEST_CASE( "Engine/Data/RenderParameters", "[Engine][Engine/Data][RenderParamete
         // fetched from the parameters
         REQUIRE( params.getEnumString( "enum.semantic", v ) == "VALUE_0" );
 
-        // changing the value trough addParameter and string representation
-        params.addParameter( "enum.semantic", "VALUE_2" );
+        // changing the value trough setParameter and string representation
+        params.setEnumVariable( "enum.semantic", "VALUE_2" );
         REQUIRE( v == Values::VALUE_2 );
 
         // unregistered enum could be added only using their value
-        params.addParameter( "enum.unknown", Unregistered::LOW );
+        params.setEnumVariable( "enum.unknown", Unregistered::LOW );
         auto u = params.getParameter<Unregistered>( "enum.unknown" );
         REQUIRE( u == Unregistered::LOW );
         REQUIRE( params.getEnumString( "enum.unknown", u ) == "" );
 
         // Trying to add unregistered enums values trough string does not change the stored value
-        params.addParameter( "enum.unknown", "Unregistered::HIGH" );
+        params.setEnumVariable( "enum.unknown", "Unregistered::HIGH" );
         u = params.getParameter<Unregistered>( "enum.unknown" );
         REQUIRE( u == Unregistered::LOW );
     }
@@ -321,8 +321,8 @@ TEST_CASE( "Engine/Data/RenderParameters", "[Engine][Engine/Data][RenderParamete
         auto valuesEnumConverter =
             std::shared_ptr<Ra::Core::Utils::EnumConverter<ValuesType>>( vnc );
         paramsToVisit.addEnumConverter( "enum.semantic", valuesEnumConverter );
-        paramsToVisit.addParameter( "enum.semantic", "VALUE_0" );
-        paramsToVisit.addParameter( "int.simple", int( 1 ) );
+        paramsToVisit.setEnumVariable( "enum.semantic", "VALUE_0" );
+        paramsToVisit.setVariable( "int.simple", int( 1 ) );
 
         PrintThemAllVisitor ptm;
         ptm.allowVisit<ValuesType>();
@@ -336,10 +336,10 @@ TEST_CASE( "Engine/Data/RenderParameters", "[Engine][Engine/Data][RenderParamete
 
         std::cout << "Visiting with custom static visitor and hierarchical parameters:\n";
         RP subParams;
-        subParams.addParameter( "sub.int", 3 );
-        subParams.addParameter( "sub.string", "SubString" );
-        subParams.addParameter( "enum.semantic", "VALUE_1" );
-        paramsToVisit.addParameter( "SubParameter", subParams );
+        subParams.setVariable( "sub.int", 3 );
+        subParams.setEnumVariable( "sub.string", "SubString" );
+        subParams.setEnumVariable( "enum.semantic", "VALUE_1" );
+        paramsToVisit.setVariable( "SubParameter", subParams );
         paramsToVisit.visit( vstr, "Visiting with subparameters" );
     }
 }

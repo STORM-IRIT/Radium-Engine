@@ -604,8 +604,8 @@ public:
   void updateGL() override {
     // Method called before drawing each frame in Rendering::updateRenderObjectsInternal.
     // The name of the parameter corresponds to the shader's uniform name.
-    m_renderParameters.addParameter( "aColorUniform", m_colorParameter );
-    m_renderParameters.addParameter( "aScalarUniform", m_scalarParameter );
+    m_renderParameters.setVariable( "aColorUniform", m_colorParameter );
+    m_renderParameters.setVariable( "aScalarUniform", m_scalarParameter );
   }
 
   void setOrComputeTheParameterValues() {
@@ -652,7 +652,7 @@ renderTechnique.setConfiguration( myConfig, DefaultRenderingPasses::LIGHTING_OPA
 // 5. Create and associate the parameter provider with the RenderTechnique
 auto parameterProvider = std::make_shared<MyParameterProvider>();
 parameterProvider->setOrComputeTheParameterValues();
-renderTechnique.setParametersProvider(parameterProvider);
+renderTechnique.setVariablesProvider(parameterProvider);
 
 // 6. Associate the render technique with a geometry in a Ra::Engine::Rendering::RenderObject
 std::shared_ptr<Ra::Engine::Data::Mesh> mesh( new Ra::Engine::Data::Mesh( "my mesh" ) );

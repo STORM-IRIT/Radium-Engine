@@ -64,15 +64,15 @@ void VolumeObject::loadGeometry( Core::Geometry::AbstractVolume* volume, const C
             getName(),
             { GL_CLAMP_TO_BORDER, GL_CLAMP_TO_BORDER, GL_CLAMP_TO_BORDER, GL_LINEAR, GL_LINEAR },
             { GL_TEXTURE_3D,
-              size_t( dim( 0 ) ),
-              size_t( dim( 1 ) ),
-              size_t( dim( 2 ) ),
-              GL_RED,
-              GL_R32F,
-              GL_SCALAR,
+                                     size_t( dim( 0 ) ),
+                                     size_t( dim( 1 ) ),
+                                     size_t( dim( 2 ) ),
+                                     GL_RED,
+                                     GL_R32F,
+                                     GL_SCALAR,
               false,
               data } };
-        m_tex.setParameters( texparam );
+        m_tex.setVariables( texparam );
 
         m_isDirty = true;
     }

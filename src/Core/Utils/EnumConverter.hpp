@@ -1,9 +1,11 @@
 #pragma once
+
 #include <Core/CoreMacros.hpp>
 
-#include <initializer_list>
-
 #include <Core/Utils/BijectiveAssociation.hpp>
+
+#include <initializer_list>
+#include <vector>
 
 namespace Ra {
 namespace Core {

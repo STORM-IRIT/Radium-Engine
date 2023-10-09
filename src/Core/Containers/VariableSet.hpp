@@ -186,7 +186,7 @@ class RA_CORE_API VariableSet
     /// \return a pair with the variable handle and a bool : true if the variable value was reset,
     /// false if the variable value was set.
     template <typename T>
-    auto insertOrAssignVariable( const std::string& name, const T& value )
+    auto setVariable( const std::string& name, const T& value )
         -> std::pair<VariableHandle<T>, bool>;
 
     /// \brief Remove a variable, i.e. a name->value association
@@ -631,7 +631,7 @@ bool VariableSet::isHandleValid( const H& handle ) const {
 }
 
 template <typename T>
-auto VariableSet::insertOrAssignVariable( const std::string& name, const T& value )
+auto VariableSet::setVariable( const std::string& name, const T& value )
     -> std::pair<VariableHandle<T>, bool> {
     auto typeAccess = existsVariableType<T>();
     // If it is the first parameter of the given type, first register the type
