@@ -675,12 +675,25 @@ auto VariableSet::insertVariable( const std::string& name, const T& value )
 template <typename T>
 auto VariableSet::getVariable( const std::string& name ) const -> T& {
     assert( existsVariable<T>( name ) );
+
+    if constexpr ( std::is_enum<T>::value ) {
+        // need to cast to take into account the way enums are managed
+        return reinterpret_cast<const T&>(
+            getVariable<typename std::underlying_type<T>::type>( name ) );
+    }
+
     return getVariableHandle<T>( name )->second;
 }
 
 template <typename T>
 auto VariableSet::getVariableHandle( const std::string& name ) const -> VariableHandle<T> {
     assert( existsVariableType<T>() );
+    if constexpr ( std::is_enum<T>::value ) {
+        // need to cast to take into account the way enums are managed
+        return reinterpret_cast<const T&>(
+            getVariableStorage<typename std::underlying_type<T>::type>().find( name ) );
+    }
+
     return getVariableStorage<T>().find( name );
 }
 
