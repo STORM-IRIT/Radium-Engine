@@ -9,12 +9,6 @@ namespace Ra {
 namespace Engine {
 namespace Data {
 
-RenderParameters::StaticParameterBinder RenderParameters::s_binder;
-
-void RenderParameters::bind( const Data::ShaderProgram* shader ) const {
-    visit( s_binder, shader );
-}
-
 void ParameterSetEditingInterface::loadMetaData( const std::string& basename,
                                                  nlohmann::json& destination ) {
     auto resourcesRootDir { RadiumEngine::getInstance()->getResourcesDir() };

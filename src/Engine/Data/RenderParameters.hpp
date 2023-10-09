@@ -40,9 +40,6 @@ class RA_ENGINE_API RenderParameters final : public Core::VariableSet
      */
     using TextureInfo = std::pair<Data::Texture*, int>;
 
-    /// \brief Aliases for bindable parameter types
-    /// \{
-
     /// List of bindable types, to be used with static visitors
     using BindableTypes = Core::Utils::TypeList<bool,
                                                 Core::Utils::Color,
@@ -78,13 +75,13 @@ class RA_ENGINE_API RenderParameters final : public Core::VariableSet
         setVariable( name, TextureInfo { tex, texUnit } );
     }
 
-    /**\}*/
-
     /** Bind the parameter uniform on the shader program
      * \note, this will only bind the supported parameter types.
      * \param shader The shader to bind to.
      */
-    void bind( const Data::ShaderProgram* shader ) const;
+    void bind( const Data::ShaderProgram* shader ) const {
+        visit( StaticParameterBinder {}, shader );
+    }
 
   private:
     /**
@@ -95,7 +92,7 @@ class RA_ENGINE_API RenderParameters final : public Core::VariableSet
     class StaticParameterBinder
     {
       public:
-        /// Type supported by the binder
+        /// Type supported by the binder, as expected by VariableSet
         using types = BindableTypes;
 
         /**
@@ -137,11 +134,6 @@ class RA_ENGINE_API RenderParameters final : public Core::VariableSet
             shader->setUniform( name.c_str(), p );
         }
     };
-
-    /** \brief Functor to bind parameters
-     * There will be only one StaticParameterBinder used by all RenderParameters
-     */
-    static StaticParameterBinder s_binder;
 };
 
 /**
