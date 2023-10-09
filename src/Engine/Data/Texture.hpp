@@ -221,7 +221,7 @@ class RA_ENGINE_API Texture final
     const TextureParameters& getParameters() const { return m_textureParameters; }
 
     /** get read/write access to texture parameters, need to update
-     * representation afterward, \see setVariables()
+     * representation afterward, \see setParameters()
      */
     TextureParameters& getParameters() { return m_textureParameters; }
 
@@ -230,7 +230,7 @@ class RA_ENGINE_API Texture final
      * if only wrap or filter parameters are change, updateParameters() is
      * sufficient to update the GPU representation.
      */
-    void setVariables( const TextureParameters& textureParameters ) {
+    void setParameters( const TextureParameters& textureParameters ) {
         std::lock_guard<std::mutex> lock( m_updateMutex );
         m_textureParameters = textureParameters;
     }

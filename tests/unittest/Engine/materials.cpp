@@ -54,10 +54,10 @@ TEST_CASE( "Engine/Data/Materials", "[Engine][Engine/Data][Materials]" ) {
         REQUIRE( bpParameters.existsVariable<bool>( "material.hasPerVertexKd" ) );
         REQUIRE( bpParameters.existsVariable<Scalar>( "material.alpha" ) );
 
-        auto& pvc = bpParameters.getParameter<bool>( "material.hasPerVertexKd" );
+        auto& pvc = bpParameters.getVariable<bool>( "material.hasPerVertexKd" );
         REQUIRE( pvc == bp.isColoredByVertexAttrib() );
 
-        auto& alp = bpParameters.getParameter<Scalar>( "material.alpha" );
+        auto& alp = bpParameters.getVariable<Scalar>( "material.alpha" );
         REQUIRE( alp == bp.m_alpha );
 
         /* changing parameter values */
@@ -87,7 +87,7 @@ TEST_CASE( "Engine/Data/Materials", "[Engine][Engine/Data][Materials]" ) {
         auto& matParameters = mat.getParameters();
 
         REQUIRE( matParameters.existsVariable<bool>( "material.perVertexColor" ) );
-        auto& pvc = matParameters.getParameter<bool>( "material.perVertexColor" );
+        auto& pvc = matParameters.getVariable<bool>( "material.perVertexColor" );
         REQUIRE( pvc == mat.isColoredByVertexAttrib() );
 
         /* changing parameter values */
@@ -114,7 +114,7 @@ TEST_CASE( "Engine/Data/Materials", "[Engine][Engine/Data][Materials]" ) {
         auto& matParameters = mat.getParameters();
 
         REQUIRE( matParameters.existsVariable<bool>( "material.perVertexColor" ) );
-        auto& pvc = matParameters.getParameter<bool>( "material.perVertexColor" );
+        auto& pvc = matParameters.getVariable<bool>( "material.perVertexColor" );
         REQUIRE( pvc == mat.isColoredByVertexAttrib() );
 
         /* changing parameter values */
@@ -154,7 +154,7 @@ TEST_CASE( "Engine/Data/Materials", "[Engine][Engine/Data][Materials]" ) {
         auto& matParameters = mat.getParameters();
         REQUIRE( matParameters.existsVariable<Scalar>( "material.g" ) );
 
-        auto& g = matParameters.getParameter<Scalar>( "material.g" );
+        auto& g = matParameters.getVariable<Scalar>( "material.g" );
         REQUIRE( g == 0_ra );
 
         /* changing parameter values */

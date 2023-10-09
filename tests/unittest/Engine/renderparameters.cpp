@@ -287,7 +287,7 @@ TEST_CASE( "Engine/Data/RenderParameters", "[Engine][Engine/Data][RenderParamete
         // Adding the enum in the parameter set using its value
         params.setEnumVariable( "enum.semantic", Values::VALUE_0 );
         // checking its seen with its type (enum)
-        auto& v = params.getParameter<Values>( "enum.semantic" );
+        auto& v = params.getVariable<Values>( "enum.semantic" );
         REQUIRE( v == Values::VALUE_0 );
         // The string value of an enum value (with the enumeration's underlying type) can also be
         // fetched from the parameters
@@ -299,13 +299,13 @@ TEST_CASE( "Engine/Data/RenderParameters", "[Engine][Engine/Data][RenderParamete
 
         // unregistered enum could be added only using their value
         params.setEnumVariable( "enum.unknown", Unregistered::LOW );
-        auto u = params.getParameter<Unregistered>( "enum.unknown" );
+        auto u = params.getVariable<Unregistered>( "enum.unknown" );
         REQUIRE( u == Unregistered::LOW );
         REQUIRE( params.getEnumString( "enum.unknown", u ) == "" );
 
         // Trying to add unregistered enums values trough string does not change the stored value
         params.setEnumVariable( "enum.unknown", "Unregistered::HIGH" );
-        u = params.getParameter<Unregistered>( "enum.unknown" );
+        u = params.getVariable<Unregistered>( "enum.unknown" );
         REQUIRE( u == Unregistered::LOW );
     }
 
