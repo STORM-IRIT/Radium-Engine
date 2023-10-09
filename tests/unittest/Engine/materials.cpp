@@ -51,8 +51,8 @@ TEST_CASE( "Engine/Data/Materials", "[Engine][Engine/Data][Materials]" ) {
 
         bpParameters.visit( PrintThemAll {} );
 
-        REQUIRE( bpParameters.containsParameter<bool>( "material.hasPerVertexKd" ) );
-        REQUIRE( bpParameters.containsParameter<Scalar>( "material.alpha" ) );
+        REQUIRE( bpParameters.existsVariable<bool>( "material.hasPerVertexKd" ) );
+        REQUIRE( bpParameters.existsVariable<Scalar>( "material.alpha" ) );
 
         auto& pvc = bpParameters.getParameter<bool>( "material.hasPerVertexKd" );
         REQUIRE( pvc == bp.isColoredByVertexAttrib() );
@@ -86,7 +86,7 @@ TEST_CASE( "Engine/Data/Materials", "[Engine][Engine/Data][Materials]" ) {
         mat.updateGL();
         auto& matParameters = mat.getParameters();
 
-        REQUIRE( matParameters.containsParameter<bool>( "material.perVertexColor" ) );
+        REQUIRE( matParameters.existsVariable<bool>( "material.perVertexColor" ) );
         auto& pvc = matParameters.getParameter<bool>( "material.perVertexColor" );
         REQUIRE( pvc == mat.isColoredByVertexAttrib() );
 
@@ -113,7 +113,7 @@ TEST_CASE( "Engine/Data/Materials", "[Engine][Engine/Data][Materials]" ) {
         mat.updateGL();
         auto& matParameters = mat.getParameters();
 
-        REQUIRE( matParameters.containsParameter<bool>( "material.perVertexColor" ) );
+        REQUIRE( matParameters.existsVariable<bool>( "material.perVertexColor" ) );
         auto& pvc = matParameters.getParameter<bool>( "material.perVertexColor" );
         REQUIRE( pvc == mat.isColoredByVertexAttrib() );
 
@@ -152,7 +152,7 @@ TEST_CASE( "Engine/Data/Materials", "[Engine][Engine/Data][Materials]" ) {
 
         mat.updateGL();
         auto& matParameters = mat.getParameters();
-        REQUIRE( matParameters.containsParameter<Scalar>( "material.g" ) );
+        REQUIRE( matParameters.existsVariable<Scalar>( "material.g" ) );
 
         auto& g = matParameters.getParameter<Scalar>( "material.g" );
         REQUIRE( g == 0_ra );

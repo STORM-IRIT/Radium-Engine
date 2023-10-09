@@ -28,7 +28,7 @@ class Texture;
  * \note Automatic binding is only available for supported type described in BindableTypes.
  * \note Enums are stored according to their underlying_type. Enum management is automatic except
  * when requesting for the associated uniformBindableSet. To access bindable set containing a given
- * enum with type Enum, use `getParameterSet<typename std::underlying_type<typename
+ * enum with type Enum, use `getAllVariable<typename std::underlying_type<typename
  * Enum>::type>`
  *
  */
@@ -171,18 +171,6 @@ class RA_ENGINE_API RenderParameters final : public Core::VariableSet
     void bind( const Data::ShaderProgram* shader ) const;
 
     /**
-     * \brief Get a typed parameter set
-     * \tparam T the type of the parameter set to get
-     * \return The corresponding set parameter
-     */
-    /// \{
-    template <typename T>
-    const UniformBindableSet<T>& getParameterSet() const;
-    template <typename T>
-    UniformBindableSet<T>& getParameterSet();
-    /// \}
-
-    /**
      * \brief Test if parameters of type T are stored
      * \tparam T
      * \return an optional, empty if the ParameterSet does not exists or whose value is
@@ -190,7 +178,7 @@ class RA_ENGINE_API RenderParameters final : public Core::VariableSet
      * pointer remains valid as long as the RenderParameter exists and contains the given type.
      */
     template <typename T>
-    Core::Utils::optional<UniformBindableSet<T>*> hasParameterSet() const;
+    Core::Utils::optional<UniformBindableSet<T>*> existsVariableType() const;
 
     /**
      * Check if a typed parameter exists
@@ -199,7 +187,7 @@ class RA_ENGINE_API RenderParameters final : public Core::VariableSet
      * \return true if the parameter exists
      */
     template <typename T>
-    Core::Utils::optional<UniformVariable<T>> containsParameter( const std::string& name ) const;
+    Core::Utils::optional<UniformVariable<T>> existsVariable( const std::string& name ) const;
 
     /**
      * \brief Get a typed parameter
@@ -355,8 +343,8 @@ void RenderParameters::addEnumConverter(
 template <typename EnumBaseType>
 Core::Utils::optional<std::shared_ptr<Core::Utils::EnumConverter<EnumBaseType>>>
 RenderParameters::getEnumConverter( const std::string& name ) {
-    auto storedConverter =
-        existsVariable<std::shared_ptr<Core::Utils::EnumConverter<EnumBaseType>>>( name );
+    auto storedConverter = Core::VariableSet::existsVariable<
+        std::shared_ptr<Core::Utils::EnumConverter<EnumBaseType>>>( name );
     if ( storedConverter ) { return ( *storedConverter )->second; }
     return {};
 }
@@ -366,8 +354,8 @@ std::string RenderParameters::getEnumString(
     const std::string& name,
     EnumBaseType value,
     typename std::enable_if<!std::is_enum<EnumBaseType> {}, bool>::type ) {
-    auto storedConverter =
-        existsVariable<std::shared_ptr<Core::Utils::EnumConverter<EnumBaseType>>>( name );
+    auto storedConverter = Core::VariableSet::existsVariable<
+        std::shared_ptr<Core::Utils::EnumConverter<EnumBaseType>>>( name );
     if ( storedConverter ) { return ( *storedConverter )->second->getEnumerator( value ); }
     LOG( Ra::Core::Utils::logWARNING ) << name + " is not a registered Enum with underlying type " +
                                               Ra::Core::Utils::demangleType<EnumBaseType>() + ".";
@@ -383,34 +371,24 @@ std::string RenderParameters::getEnumString( const std::string& name, Enum value
 /* --------------- enum parameter management --------------- */
 
 template <typename T>
-inline const RenderParameters::UniformBindableSet<T>& RenderParameters::getParameterSet() const {
-    return getAllVariables<T>();
-}
-
-template <typename T>
-inline RenderParameters::UniformBindableSet<T>& RenderParameters::getParameterSet() {
-    return getAllVariables<T>();
-}
-
-template <typename T>
 inline Core::Utils::optional<RenderParameters::UniformBindableSet<T>*>
-RenderParameters::hasParameterSet() const {
+RenderParameters::existsVariableType() const {
     if constexpr ( std::is_enum<T>::value ) {
         // Do not return
         // existsVariableType< typename std::underlying_type< T >::type >();
         // to prevent misuse of this function. The user should infer this with another logic.
         return {};
     }
-    else { return existsVariableType<T>(); }
+    else { return Core::VariableSet::existsVariableType<T>(); }
 }
 
 template <typename T>
 inline Core::Utils::optional<RenderParameters::UniformVariable<T>>
-RenderParameters::containsParameter( const std::string& name ) const {
+RenderParameters::existsVariable( const std::string& name ) const {
     if constexpr ( std::is_enum<T>::value ) {
-        return existsVariable<typename std::underlying_type<T>::type>( name );
+        return Core::VariableSet::existsVariable<typename std::underlying_type<T>::type>( name );
     }
-    else { return existsVariable<T>( name ); }
+    else { return Core::VariableSet::existsVariable<T>( name ); }
 }
 
 template <typename T>
