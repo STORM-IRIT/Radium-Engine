@@ -79,21 +79,21 @@ TEST_CASE( "Engine/Data/RenderParameters", "[Engine][Engine/Data][RenderParamete
     using RP = RenderParameters;
     SECTION( "Parameter storage" ) {
         RP p1;
-        REQUIRE( !( p1.hasParameterSet<int>().has_value() ) );
-        REQUIRE( !( p1.hasParameterSet<bool>().has_value() ) );
-        REQUIRE( !( p1.hasParameterSet<uint>().has_value() ) );
-        REQUIRE( !( p1.hasParameterSet<Scalar>().has_value() ) );
-        REQUIRE( !( p1.hasParameterSet<std::vector<int>>().has_value() ) );
-        REQUIRE( !( p1.hasParameterSet<std::vector<uint>>().has_value() ) );
-        REQUIRE( !( p1.hasParameterSet<std::vector<Scalar>>().has_value() ) );
-        REQUIRE( !( p1.hasParameterSet<Ra::Core::Vector2>().has_value() ) );
-        REQUIRE( !( p1.hasParameterSet<Ra::Core::Vector3>().has_value() ) );
-        REQUIRE( !( p1.hasParameterSet<Ra::Core::Vector4>().has_value() ) );
-        REQUIRE( !( p1.hasParameterSet<Ra::Core::Utils::Color>().has_value() ) );
-        REQUIRE( !( p1.hasParameterSet<Ra::Core::Matrix2>().has_value() ) );
-        REQUIRE( !( p1.hasParameterSet<Ra::Core::Matrix3>().has_value() ) );
-        REQUIRE( !( p1.hasParameterSet<Ra::Core::Matrix4>().has_value() ) );
-        REQUIRE( !( p1.hasParameterSet<RP::TextureInfo>().has_value() ) );
+        REQUIRE( !( p1.existsVariableType<int>().has_value() ) );
+        REQUIRE( !( p1.existsVariableType<bool>().has_value() ) );
+        REQUIRE( !( p1.existsVariableType<uint>().has_value() ) );
+        REQUIRE( !( p1.existsVariableType<Scalar>().has_value() ) );
+        REQUIRE( !( p1.existsVariableType<std::vector<int>>().has_value() ) );
+        REQUIRE( !( p1.existsVariableType<std::vector<uint>>().has_value() ) );
+        REQUIRE( !( p1.existsVariableType<std::vector<Scalar>>().has_value() ) );
+        REQUIRE( !( p1.existsVariableType<Ra::Core::Vector2>().has_value() ) );
+        REQUIRE( !( p1.existsVariableType<Ra::Core::Vector3>().has_value() ) );
+        REQUIRE( !( p1.existsVariableType<Ra::Core::Vector4>().has_value() ) );
+        REQUIRE( !( p1.existsVariableType<Ra::Core::Utils::Color>().has_value() ) );
+        REQUIRE( !( p1.existsVariableType<Ra::Core::Matrix2>().has_value() ) );
+        REQUIRE( !( p1.existsVariableType<Ra::Core::Matrix3>().has_value() ) );
+        REQUIRE( !( p1.existsVariableType<Ra::Core::Matrix4>().has_value() ) );
+        REQUIRE( !( p1.existsVariableType<RP::TextureInfo>().has_value() ) );
         int i    = 1;
         uint ui  = 1u;
         Scalar s = 1_ra;
@@ -126,38 +126,38 @@ TEST_CASE( "Engine/Data/RenderParameters", "[Engine][Engine/Data][RenderParamete
         p1.setVariable( "Mat3Parameter", mat3 );
         p1.setVariable( "Mat4Parameter", mat4 );
 
-        REQUIRE( p1.getParameterSet<int>().size() == 1 );
-        REQUIRE( p1.getParameterSet<bool>().size() == 1 );
-        REQUIRE( p1.getParameterSet<uint>().size() == 1 );
-        REQUIRE( p1.getParameterSet<Scalar>().size() == 1 );
-        REQUIRE( p1.getParameterSet<std::vector<int>>().size() == 1 );
-        REQUIRE( p1.getParameterSet<std::vector<uint>>().size() == 1 );
-        REQUIRE( p1.getParameterSet<std::vector<Scalar>>().size() == 1 );
-        REQUIRE( p1.getParameterSet<Ra::Core::Vector2>().size() == 1 );
-        REQUIRE( p1.getParameterSet<Ra::Core::Vector3>().size() == 1 );
-        REQUIRE( p1.getParameterSet<Ra::Core::Vector4>().size() == 1 );
-        REQUIRE( p1.getParameterSet<Ra::Core::Utils::Color>().size() == 1 );
-        REQUIRE( p1.getParameterSet<Ra::Core::Matrix2>().size() == 1 );
-        REQUIRE( p1.getParameterSet<Ra::Core::Matrix3>().size() == 1 );
-        REQUIRE( p1.getParameterSet<Ra::Core::Matrix4>().size() == 1 );
-        REQUIRE( p1.getParameterSet<RP::TextureInfo>().size() == 1 );
+        REQUIRE( p1.getAllVariables<int>().size() == 1 );
+        REQUIRE( p1.getAllVariables<bool>().size() == 1 );
+        REQUIRE( p1.getAllVariables<uint>().size() == 1 );
+        REQUIRE( p1.getAllVariables<Scalar>().size() == 1 );
+        REQUIRE( p1.getAllVariables<std::vector<int>>().size() == 1 );
+        REQUIRE( p1.getAllVariables<std::vector<uint>>().size() == 1 );
+        REQUIRE( p1.getAllVariables<std::vector<Scalar>>().size() == 1 );
+        REQUIRE( p1.getAllVariables<Ra::Core::Vector2>().size() == 1 );
+        REQUIRE( p1.getAllVariables<Ra::Core::Vector3>().size() == 1 );
+        REQUIRE( p1.getAllVariables<Ra::Core::Vector4>().size() == 1 );
+        REQUIRE( p1.getAllVariables<Ra::Core::Utils::Color>().size() == 1 );
+        REQUIRE( p1.getAllVariables<Ra::Core::Matrix2>().size() == 1 );
+        REQUIRE( p1.getAllVariables<Ra::Core::Matrix3>().size() == 1 );
+        REQUIRE( p1.getAllVariables<Ra::Core::Matrix4>().size() == 1 );
+        REQUIRE( p1.getAllVariables<RP::TextureInfo>().size() == 1 );
 
-        REQUIRE( p1.getParameterSet<int>().at( "IntParameter" ) == i );
-        REQUIRE( p1.getParameterSet<bool>().at( "BoolParameter" ) == b );
-        REQUIRE( p1.getParameterSet<uint>().at( "UIntParameter" ) == ui );
-        REQUIRE( p1.getParameterSet<Scalar>().at( "ScalarParameter" ) == s );
-        REQUIRE( p1.getParameterSet<std::vector<int>>().at( "IntsParameter" ) == is );
-        REQUIRE( p1.getParameterSet<std::vector<uint>>().at( "UIntsParameter" ) == uis );
-        REQUIRE( p1.getParameterSet<std::vector<Scalar>>().at( "ScalarsParameter" ) == ss );
-        REQUIRE( p1.getParameterSet<Ra::Core::Vector2>().at( "Vec2Parameter" ) == vec2 );
-        REQUIRE( p1.getParameterSet<Ra::Core::Vector3>().at( "Vec3Parameter" ) == vec3 );
-        REQUIRE( p1.getParameterSet<Ra::Core::Vector4>().at( "Vec4Parameter" ) == vec4 );
-        REQUIRE( p1.getParameterSet<Ra::Core::Utils::Color>().at( "ColorParameter" ) == color );
-        REQUIRE( p1.getParameterSet<Ra::Core::Matrix2>().at( "Mat2Parameter" ) == mat2 );
-        REQUIRE( p1.getParameterSet<Ra::Core::Matrix3>().at( "Mat3Parameter" ) == mat3 );
-        REQUIRE( p1.getParameterSet<Ra::Core::Matrix4>().at( "Mat4Parameter" ) == mat4 );
-        REQUIRE( p1.getParameterSet<RP::TextureInfo>().at( "TextureParameter" ).first == &tex1 );
-        REQUIRE( p1.getParameterSet<RP::TextureInfo>().at( "TextureParameter" ).second == 1 );
+        REQUIRE( p1.getAllVariables<int>().at( "IntParameter" ) == i );
+        REQUIRE( p1.getAllVariables<bool>().at( "BoolParameter" ) == b );
+        REQUIRE( p1.getAllVariables<uint>().at( "UIntParameter" ) == ui );
+        REQUIRE( p1.getAllVariables<Scalar>().at( "ScalarParameter" ) == s );
+        REQUIRE( p1.getAllVariables<std::vector<int>>().at( "IntsParameter" ) == is );
+        REQUIRE( p1.getAllVariables<std::vector<uint>>().at( "UIntsParameter" ) == uis );
+        REQUIRE( p1.getAllVariables<std::vector<Scalar>>().at( "ScalarsParameter" ) == ss );
+        REQUIRE( p1.getAllVariables<Ra::Core::Vector2>().at( "Vec2Parameter" ) == vec2 );
+        REQUIRE( p1.getAllVariables<Ra::Core::Vector3>().at( "Vec3Parameter" ) == vec3 );
+        REQUIRE( p1.getAllVariables<Ra::Core::Vector4>().at( "Vec4Parameter" ) == vec4 );
+        REQUIRE( p1.getAllVariables<Ra::Core::Utils::Color>().at( "ColorParameter" ) == color );
+        REQUIRE( p1.getAllVariables<Ra::Core::Matrix2>().at( "Mat2Parameter" ) == mat2 );
+        REQUIRE( p1.getAllVariables<Ra::Core::Matrix3>().at( "Mat3Parameter" ) == mat3 );
+        REQUIRE( p1.getAllVariables<Ra::Core::Matrix4>().at( "Mat4Parameter" ) == mat4 );
+        REQUIRE( p1.getAllVariables<RP::TextureInfo>().at( "TextureParameter" ).first == &tex1 );
+        REQUIRE( p1.getAllVariables<RP::TextureInfo>().at( "TextureParameter" ).second == 1 );
 
         StaticPrintVisitor vstr;
         p1.visit( vstr, "p1 parameter set" );
@@ -188,72 +188,72 @@ TEST_CASE( "Engine/Data/RenderParameters", "[Engine][Engine/Data][RenderParamete
         kept.mergeKeepVariables( p2 );
 
         // existings parameters are note changes (p1's values)
-        REQUIRE( kept.getParameterSet<int>().at( "IntParameter" ) ==
-                 p1.getParameterSet<int>().at( "IntParameter" ) );
-        REQUIRE( kept.getParameterSet<bool>().at( "BoolParameter" ) ==
-                 p1.getParameterSet<bool>().at( "BoolParameter" ) );
-        REQUIRE( kept.getParameterSet<uint>().at( "UIntParameter" ) ==
-                 p1.getParameterSet<uint>().at( "UIntParameter" ) );
-        REQUIRE( kept.getParameterSet<Scalar>().at( "ScalarParameter" ) ==
-                 p1.getParameterSet<Scalar>().at( "ScalarParameter" ) );
-        REQUIRE( kept.getParameterSet<std::vector<int>>().at( "IntsParameter" ) ==
-                 p1.getParameterSet<std::vector<int>>().at( "IntsParameter" ) );
-        REQUIRE( kept.getParameterSet<std::vector<uint>>().at( "UIntsParameter" ) ==
-                 p1.getParameterSet<std::vector<uint>>().at( "UIntsParameter" ) );
-        REQUIRE( kept.getParameterSet<std::vector<Scalar>>().at( "ScalarsParameter" ) ==
-                 p1.getParameterSet<std::vector<Scalar>>().at( "ScalarsParameter" ) );
-        REQUIRE( kept.getParameterSet<Ra::Core::Vector2>().at( "Vec2Parameter" ) ==
-                 p1.getParameterSet<Ra::Core::Vector2>().at( "Vec2Parameter" ) );
-        REQUIRE( kept.getParameterSet<Ra::Core::Vector3>().at( "Vec3Parameter" ) ==
-                 p1.getParameterSet<Ra::Core::Vector3>().at( "Vec3Parameter" ) );
-        REQUIRE( kept.getParameterSet<Ra::Core::Vector4>().at( "Vec4Parameter" ) ==
-                 p1.getParameterSet<Ra::Core::Vector4>().at( "Vec4Parameter" ) );
-        REQUIRE( kept.getParameterSet<Ra::Core::Utils::Color>().at( "ColorParameter" ) ==
-                 p1.getParameterSet<Ra::Core::Utils::Color>().at( "ColorParameter" ) );
-        REQUIRE( kept.getParameterSet<RP::TextureInfo>().at( "TextureParameter" ) ==
-                 p1.getParameterSet<RP::TextureInfo>().at( "TextureParameter" ) );
+        REQUIRE( kept.getAllVariables<int>().at( "IntParameter" ) ==
+                 p1.getAllVariables<int>().at( "IntParameter" ) );
+        REQUIRE( kept.getAllVariables<bool>().at( "BoolParameter" ) ==
+                 p1.getAllVariables<bool>().at( "BoolParameter" ) );
+        REQUIRE( kept.getAllVariables<uint>().at( "UIntParameter" ) ==
+                 p1.getAllVariables<uint>().at( "UIntParameter" ) );
+        REQUIRE( kept.getAllVariables<Scalar>().at( "ScalarParameter" ) ==
+                 p1.getAllVariables<Scalar>().at( "ScalarParameter" ) );
+        REQUIRE( kept.getAllVariables<std::vector<int>>().at( "IntsParameter" ) ==
+                 p1.getAllVariables<std::vector<int>>().at( "IntsParameter" ) );
+        REQUIRE( kept.getAllVariables<std::vector<uint>>().at( "UIntsParameter" ) ==
+                 p1.getAllVariables<std::vector<uint>>().at( "UIntsParameter" ) );
+        REQUIRE( kept.getAllVariables<std::vector<Scalar>>().at( "ScalarsParameter" ) ==
+                 p1.getAllVariables<std::vector<Scalar>>().at( "ScalarsParameter" ) );
+        REQUIRE( kept.getAllVariables<Ra::Core::Vector2>().at( "Vec2Parameter" ) ==
+                 p1.getAllVariables<Ra::Core::Vector2>().at( "Vec2Parameter" ) );
+        REQUIRE( kept.getAllVariables<Ra::Core::Vector3>().at( "Vec3Parameter" ) ==
+                 p1.getAllVariables<Ra::Core::Vector3>().at( "Vec3Parameter" ) );
+        REQUIRE( kept.getAllVariables<Ra::Core::Vector4>().at( "Vec4Parameter" ) ==
+                 p1.getAllVariables<Ra::Core::Vector4>().at( "Vec4Parameter" ) );
+        REQUIRE( kept.getAllVariables<Ra::Core::Utils::Color>().at( "ColorParameter" ) ==
+                 p1.getAllVariables<Ra::Core::Utils::Color>().at( "ColorParameter" ) );
+        REQUIRE( kept.getAllVariables<RP::TextureInfo>().at( "TextureParameter" ) ==
+                 p1.getAllVariables<RP::TextureInfo>().at( "TextureParameter" ) );
         // Foo is p2's value
-        REQUIRE( kept.getParameterSet<int>().at( "Foo" ) == p2.getParameterSet<int>().at( "Foo" ) );
+        REQUIRE( kept.getAllVariables<int>().at( "Foo" ) == p2.getAllVariables<int>().at( "Foo" ) );
 
         // Bar is on p1 side only, still here
-        REQUIRE( kept.getParameterSet<int>().at( "Bar" ) == p1.getParameterSet<int>().at( "Bar" ) );
+        REQUIRE( kept.getAllVariables<int>().at( "Bar" ) == p1.getAllVariables<int>().at( "Bar" ) );
 
         RP replaced = p1;
         replaced.mergeReplaceVariables( p2 );
         // Existings in p1 and p2, as well as new parameters are set to p2's values
-        REQUIRE( replaced.getParameterSet<int>().at( "IntParameter" ) ==
-                 p2.getParameterSet<int>().at( "IntParameter" ) );
-        REQUIRE( replaced.getParameterSet<bool>().at( "BoolParameter" ) ==
-                 p2.getParameterSet<bool>().at( "BoolParameter" ) );
-        REQUIRE( replaced.getParameterSet<uint>().at( "UIntParameter" ) ==
-                 p2.getParameterSet<uint>().at( "UIntParameter" ) );
-        REQUIRE( replaced.getParameterSet<Scalar>().at( "ScalarParameter" ) ==
-                 p2.getParameterSet<Scalar>().at( "ScalarParameter" ) );
-        REQUIRE( replaced.getParameterSet<std::vector<int>>().at( "IntsParameter" ) ==
-                 p2.getParameterSet<std::vector<int>>().at( "IntsParameter" ) );
-        REQUIRE( replaced.getParameterSet<std::vector<uint>>().at( "UIntsParameter" ) ==
-                 p2.getParameterSet<std::vector<uint>>().at( "UIntsParameter" ) );
-        REQUIRE( replaced.getParameterSet<std::vector<Scalar>>().at( "ScalarsParameter" ) ==
-                 p2.getParameterSet<std::vector<Scalar>>().at( "ScalarsParameter" ) );
-        REQUIRE( replaced.getParameterSet<Ra::Core::Vector2>().at( "Vec2Parameter" ) ==
-                 p2.getParameterSet<Ra::Core::Vector2>().at( "Vec2Parameter" ) );
-        REQUIRE( replaced.getParameterSet<Ra::Core::Vector3>().at( "Vec3Parameter" ) ==
-                 p2.getParameterSet<Ra::Core::Vector3>().at( "Vec3Parameter" ) );
-        REQUIRE( replaced.getParameterSet<Ra::Core::Vector4>().at( "Vec4Parameter" ) ==
-                 p2.getParameterSet<Ra::Core::Vector4>().at( "Vec4Parameter" ) );
-        REQUIRE( replaced.getParameterSet<Ra::Core::Utils::Color>().at( "ColorParameter" ) ==
-                 p2.getParameterSet<Ra::Core::Utils::Color>().at( "ColorParameter" ) );
-        REQUIRE( replaced.getParameterSet<int>().at( "Foo" ) ==
-                 p2.getParameterSet<int>().at( "Foo" ) );
-        REQUIRE( replaced.getParameterSet<RP::TextureInfo>().at( "TextureParameter" ) ==
-                 p2.getParameterSet<RP::TextureInfo>().at( "TextureParameter" ) );
+        REQUIRE( replaced.getAllVariables<int>().at( "IntParameter" ) ==
+                 p2.getAllVariables<int>().at( "IntParameter" ) );
+        REQUIRE( replaced.getAllVariables<bool>().at( "BoolParameter" ) ==
+                 p2.getAllVariables<bool>().at( "BoolParameter" ) );
+        REQUIRE( replaced.getAllVariables<uint>().at( "UIntParameter" ) ==
+                 p2.getAllVariables<uint>().at( "UIntParameter" ) );
+        REQUIRE( replaced.getAllVariables<Scalar>().at( "ScalarParameter" ) ==
+                 p2.getAllVariables<Scalar>().at( "ScalarParameter" ) );
+        REQUIRE( replaced.getAllVariables<std::vector<int>>().at( "IntsParameter" ) ==
+                 p2.getAllVariables<std::vector<int>>().at( "IntsParameter" ) );
+        REQUIRE( replaced.getAllVariables<std::vector<uint>>().at( "UIntsParameter" ) ==
+                 p2.getAllVariables<std::vector<uint>>().at( "UIntsParameter" ) );
+        REQUIRE( replaced.getAllVariables<std::vector<Scalar>>().at( "ScalarsParameter" ) ==
+                 p2.getAllVariables<std::vector<Scalar>>().at( "ScalarsParameter" ) );
+        REQUIRE( replaced.getAllVariables<Ra::Core::Vector2>().at( "Vec2Parameter" ) ==
+                 p2.getAllVariables<Ra::Core::Vector2>().at( "Vec2Parameter" ) );
+        REQUIRE( replaced.getAllVariables<Ra::Core::Vector3>().at( "Vec3Parameter" ) ==
+                 p2.getAllVariables<Ra::Core::Vector3>().at( "Vec3Parameter" ) );
+        REQUIRE( replaced.getAllVariables<Ra::Core::Vector4>().at( "Vec4Parameter" ) ==
+                 p2.getAllVariables<Ra::Core::Vector4>().at( "Vec4Parameter" ) );
+        REQUIRE( replaced.getAllVariables<Ra::Core::Utils::Color>().at( "ColorParameter" ) ==
+                 p2.getAllVariables<Ra::Core::Utils::Color>().at( "ColorParameter" ) );
+        REQUIRE( replaced.getAllVariables<int>().at( "Foo" ) ==
+                 p2.getAllVariables<int>().at( "Foo" ) );
+        REQUIRE( replaced.getAllVariables<RP::TextureInfo>().at( "TextureParameter" ) ==
+                 p2.getAllVariables<RP::TextureInfo>().at( "TextureParameter" ) );
         // Bar is on p1 side only and not changed
-        REQUIRE( replaced.getParameterSet<int>().at( "Bar" ) ==
-                 p1.getParameterSet<int>().at( "Bar" ) );
+        REQUIRE( replaced.getAllVariables<int>().at( "Bar" ) ==
+                 p1.getAllVariables<int>().at( "Bar" ) );
 
         auto removed = replaced.deleteVariable<int>( "Bar" );
         REQUIRE( removed == true );
-        auto found = replaced.containsParameter<int>( "Bar" );
+        auto found = replaced.existsVariable<int>( "Bar" );
         REQUIRE( found.has_value() == false );
     }
 
