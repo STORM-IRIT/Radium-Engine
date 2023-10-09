@@ -81,50 +81,6 @@ class RA_ENGINE_API RenderParameters final : public Core::VariableSet
     /// \}
 
     /**
-     * \brief Associate a converter for enumerated type to the given parameter name
-     * \tparam EnumBaseType The enum base type to manage (\see Ra::Core::Utils::EnumConverter)
-     * \param name
-     * \param converter
-     */
-    template <typename EnumBaseType>
-    void addEnumConverter( const std::string& name,
-                           std::shared_ptr<Core::Utils::EnumConverter<EnumBaseType>> converter );
-
-    /**
-     * \brief Search for a converter associated with an enumeration parameter
-     * \tparam EnumBaseType The enum base type to manage (\see Ra::Core::Utils::EnumConverter)
-     * \param name the name of the parameter
-     * \return an optional containing the converter or false if no converter is found.
-     */
-    template <typename EnumBaseType>
-    Core::Utils::optional<std::shared_ptr<Core::Utils::EnumConverter<EnumBaseType>>>
-    getEnumConverter( const std::string& name );
-
-    /**
-     * \brief Return the string associated to the actual value of a parameter
-     * \tparam Enum The enum type (\see Ra::Core::Utils::EnumConverter)
-     * \param name The name of the enum variable
-     * \param value The value to convert
-     * \return
-     */
-    template <typename Enum, typename std::enable_if<std::is_enum<Enum> {}, bool>::type = true>
-    std::string getEnumString( const std::string& name, Enum value );
-
-    /**
-     * \brief (overload) Return the string associated to the actual value of a parameter, from a
-     * value with underlying_type<Enum>.
-     * \tparam EnumBaseType The underlying enum type (\see Ra::Core::Utils::EnumConverter)
-     * \param name The name of the enum variable
-     * \param value The value to convert
-     * \return
-     */
-    template <typename EnumBaseType>
-    std::string
-    getEnumString( const std::string& name,
-                   EnumBaseType value,
-                   typename std::enable_if<!std::is_enum<EnumBaseType> {}, bool>::type = true );
-
-    /**
      * Overloaded operators to set shader parameters
      * \{
      */
@@ -145,21 +101,6 @@ class RA_ENGINE_API RenderParameters final : public Core::VariableSet
               typename std::enable_if<std::is_base_of<Data::Texture, T>::value, bool>::type = true>
     void setTexture( const std::string& name, T* tex, int texUnit = -1 ) {
         setVariable( name, TextureInfo { tex, texUnit } );
-    }
-
-    /**
-     * \brief set the value of the given parameter, according to a string representation of an enum.
-     * \note If there is no EnumConverter associated with the parameter name, the string is
-     * registered in the RenderParameter set.
-     * \param name Name of the parameter
-     * \param value value of the parameter
-     */
-    void setEnumVariable( const std::string& name, const std::string& value );
-    void setEnumVariable( const std::string& name, const char* value );
-    template <typename T>
-    void setEnumVariable( const std::string& name, T value ) {
-        auto v = static_cast<typename std::underlying_type<T>::type>( value );
-        setVariable( name, v );
     }
 
     /**\}*/
@@ -323,52 +264,6 @@ class RA_ENGINE_API ShaderParameterProvider
     /// replace this by coreVariables
     RenderParameters m_renderParameters;
 };
-
-/* --------------- enum parameter management --------------- */
-
-template <typename EnumBaseType>
-void RenderParameters::addEnumConverter(
-    const std::string& name,
-    std::shared_ptr<Core::Utils::EnumConverter<EnumBaseType>> converter ) {
-    auto converterHandle = setVariable( name, converter );
-    std::function<void( Core::VariableSet&, const std::string&, const std::string& )>
-        convertingFunction = [converter = converterHandle.first]( Core::VariableSet& vs,
-                                                                  const std::string& nm,
-                                                                  const std::string& vl ) {
-            vs.setVariable( nm, converter->second->getEnumerator( vl ) );
-        };
-    setVariable( name, convertingFunction );
-}
-
-template <typename EnumBaseType>
-Core::Utils::optional<std::shared_ptr<Core::Utils::EnumConverter<EnumBaseType>>>
-RenderParameters::getEnumConverter( const std::string& name ) {
-    auto storedConverter = Core::VariableSet::existsVariable<
-        std::shared_ptr<Core::Utils::EnumConverter<EnumBaseType>>>( name );
-    if ( storedConverter ) { return ( *storedConverter )->second; }
-    return {};
-}
-
-template <typename EnumBaseType>
-std::string RenderParameters::getEnumString(
-    const std::string& name,
-    EnumBaseType value,
-    typename std::enable_if<!std::is_enum<EnumBaseType> {}, bool>::type ) {
-    auto storedConverter = Core::VariableSet::existsVariable<
-        std::shared_ptr<Core::Utils::EnumConverter<EnumBaseType>>>( name );
-    if ( storedConverter ) { return ( *storedConverter )->second->getEnumerator( value ); }
-    LOG( Ra::Core::Utils::logWARNING ) << name + " is not a registered Enum with underlying type " +
-                                              Ra::Core::Utils::demangleType<EnumBaseType>() + ".";
-    return "";
-}
-
-template <typename Enum, typename std::enable_if<std::is_enum<Enum> {}, bool>::type>
-std::string RenderParameters::getEnumString( const std::string& name, Enum value ) {
-    using EnumBaseType = typename std::underlying_type_t<Enum>;
-    return getEnumString( name, EnumBaseType( value ) );
-}
-
-/* --------------- enum parameter management --------------- */
 
 template <typename T>
 inline Core::Utils::optional<RenderParameters::UniformBindableSet<T>*>
