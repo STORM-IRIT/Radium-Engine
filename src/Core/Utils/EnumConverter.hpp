@@ -19,9 +19,14 @@ namespace Utils {
  * of the enumeration to manage.
  *
  */
+
 template <typename EnumBaseType>
 class EnumConverter
 {
+    /// \todo think of manage both EnumType and EnumUnderlyingType
+    /// Eg using EnumUnderlyingType = std::underling_type_t<Enum>;
+    /// getEnumeratorUnderlying -> UnumUnderlyingType
+    /// getEunemrator -> Enum
   public:
     explicit EnumConverter( std::initializer_list<std::pair<EnumBaseType, std::string>> pairs );
 

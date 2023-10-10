@@ -59,15 +59,11 @@ size_t VariableSet::size() const {
 void VariableSet::setEnumVariable( const std::string& name, const std::string& value ) {
     auto converterFunc = existsVariable<
         std::function<void( Core::VariableSet&, const std::string&, const std::string& )>>( name );
-    if ( converterFunc ) {
-        ( *converterFunc )->second( dynamic_cast<Core::VariableSet&>( *this ), name, value );
-    }
+    if ( converterFunc ) { ( *converterFunc )->second( *this, name, value ); }
     else {
-        LOG( Core::Utils::logWARNING )
-            << "VariableSet, try to set enum value from string without converter. Adding "
-               "non-bindable TParameter<string> "
-            << name << " " << value;
-        setVariable( name, value );
+        LOG( Core::Utils::logWARNING ) << "VariableSet: try to set enum value from string without "
+                                          "converter, ignored. Variable name: ["
+                                       << name << "], value: [" << value << "]";
     }
 }
 

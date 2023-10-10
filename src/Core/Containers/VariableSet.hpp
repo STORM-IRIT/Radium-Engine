@@ -170,6 +170,12 @@ class RA_CORE_API VariableSet
     template <typename T>
     auto getVariable( const std::string& name ) -> T&;
 
+    /// \todo add enable_if
+    template <typename T>
+    auto getEnumVariable( const std::string& name ) const -> const T&;
+    template <typename T>
+    auto getEnumVariable( const std::string& name ) -> T&;
+
     /// \brief get the handle on the variable with the given name
     /// \tparam T the type of the variable
     /// \param name the name of a variable
@@ -678,15 +684,19 @@ auto VariableSet::getVariable( const std::string& name ) -> T& {
 
 template <typename T>
 auto VariableSet::getVariable( const std::string& name ) const -> const T& {
-
-    if constexpr ( std::is_enum<T>::value ) {
-        // need to cast to take into account the way enums are managed
-        return reinterpret_cast<const T&>(
-            getVariable<typename std::underlying_type<T>::type>( name ) );
-    }
-    //    assert( existsVariable<T>( name ) );
-
     return getVariableHandle<T>( name )->second;
+}
+
+template <typename T>
+auto VariableSet::getEnumVariable( const std::string& name ) -> T& {
+    return const_cast<T&>( const_cast<const VariableSet*>( this )->getEnumVariable<T>( name ) );
+}
+
+template <typename T>
+auto VariableSet::getEnumVariable( const std::string& name ) const -> const T& {
+    static_assert( std::is_enum<T>::value );
+    return reinterpret_cast<const T&>(
+        getVariable<typename std::underlying_type<T>::type>( name ) );
 }
 
 template <typename T>
@@ -734,9 +744,6 @@ template <typename T>
 auto VariableSet::existsVariable( const std::string& name ) const
     -> Utils::optional<VariableHandle<T>> {
 
-    if constexpr ( std::is_enum<T>::value ) {
-        return existsVariable<typename std::underlying_type<T>::type>( name );
-    }
     if ( auto typeAccess = existsVariableType<T>(); typeAccess ) {
         auto itr = ( *typeAccess )->find( name );
         if ( itr != ( *typeAccess )->cend() ) { return itr; }
@@ -814,12 +821,6 @@ auto VariableSet::addVariableType() -> Utils::optional<VariableContainer<T>*> {
 
 template <typename T>
 auto VariableSet::existsVariableType() const -> Utils::optional<VariableContainer<T>*> {
-    if constexpr ( std::is_enum<T>::value ) {
-        // Do not return
-        // existsVariableType< typename std::underlying_type< T >::type >();
-        // to prevent misuse of this function. The user should infer this with another logic.
-        return {};
-    }
     auto iter = m_variables.find( std::type_index { typeid( T ) } );
     if ( iter == m_variables.cend() ) { return {}; }
     else { return std::any_cast<VariableSet::VariableContainer<T>>( &( iter->second ) ); }
@@ -862,7 +863,11 @@ template <typename EnumBaseType>
 void VariableSet::addEnumConverter(
     const std::string& name,
     std::shared_ptr<Core::Utils::EnumConverter<EnumBaseType>> converter ) {
+
+    // typed converter
     auto converterHandle = setVariable( name, converter );
+
+    // string string converter/setter for setEnumVariable
     std::function<void( Core::VariableSet&, const std::string&, const std::string& )>
         convertingFunction = [converter = converterHandle.first]( Core::VariableSet& vs,
                                                                   const std::string& nm,

@@ -286,9 +286,12 @@ TEST_CASE( "Engine/Data/RenderParameters", "[Engine][Engine/Data][RenderParamete
 
         // Adding the enum in the parameter set using its value
         params.setEnumVariable( "enum.semantic", Values::VALUE_0 );
+
         // checking its seen with its type (enum)
-        auto& v = params.getVariable<Values>( "enum.semantic" );
+        auto& v = params.getEnumVariable<Values>( "enum.semantic" );
+
         REQUIRE( v == Values::VALUE_0 );
+
         // The string value of an enum value (with the enumeration's underlying type) can also be
         // fetched from the parameters
         REQUIRE( params.getEnumString( "enum.semantic", v ) == "VALUE_0" );
@@ -297,16 +300,27 @@ TEST_CASE( "Engine/Data/RenderParameters", "[Engine][Engine/Data][RenderParamete
         params.setEnumVariable( "enum.semantic", "VALUE_2" );
         REQUIRE( v == Values::VALUE_2 );
 
+        // variable managed with enum method could also be access directly thru underlying type
+        auto& vv = params.getVariable<ValuesType>( "enum.semantic" );
+        REQUIRE( vv == v );
+        REQUIRE( vv == Values::VALUE_2 );
+        params.setVariable( "enum.semantic", ValuesType { Values::VALUE_0 } );
+        REQUIRE( vv == v );
+        REQUIRE( vv == Values::VALUE_0 );
+
         // unregistered enum could be added only using their value
         params.setEnumVariable( "enum.unknown", Unregistered::LOW );
-        auto u = params.getVariable<Unregistered>( "enum.unknown" );
+        auto u = params.getEnumVariable<Unregistered>( "enum.unknown" );
         REQUIRE( u == Unregistered::LOW );
         REQUIRE( params.getEnumString( "enum.unknown", u ) == "" );
 
         // Trying to add unregistered enums values trough string does not change the stored value
         params.setEnumVariable( "enum.unknown", "Unregistered::HIGH" );
-        u = params.getVariable<Unregistered>( "enum.unknown" );
-        REQUIRE( u == Unregistered::LOW );
+        u = params.getEnumVariable<Unregistered>( "enum.unknown" );
+
+        // same with management thru underlying type
+        auto uu = params.getVariable<UnregisteredType>( "enum.unknown" );
+        REQUIRE( uu == Unregistered::LOW );
     }
 
     SECTION( "Parameter visit" ) {
