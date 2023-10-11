@@ -162,13 +162,8 @@ else()
     set(GIT_CHANGESET "")
 endif()
 
-set(ENABLE_COVERAGE "")
-mark_as_advanced(ENABLE_COVERAGE)
 if(RADIUM_ENABLE_COVERAGE)
-    include(CoverageFunc)
-    # sets ENABLE_COVERAGE to ON if ok
-    setup_coverage()
-
+    set(RADIUM_ENABLE_TESTING "ON")
     include(CodeCoverage)
     append_coverage_compiler_flags()
 endif(RADIUM_ENABLE_COVERAGE)
@@ -222,11 +217,28 @@ if(RADIUM_ENABLE_TESTING)
     add_subdirectory(tests)
 endif()
 
-if(ENABLE_COVERAGE)
-    set(LCOV_REMOVES
-        "'/usr/*';'*examples*';'*external*';'*install*';'*/Catch2/*';'*_autogen/*';'*build*'"
+if(RADIUM_ENABLE_COVERAGE)
+    setup_target_for_coverage_lcov(
+        NAME
+        coverage
+        EXECUTABLE
+        ctest
+        -j
+        $ENV{CMAKE_BUILD_PARALLEL_LEVEL}
+        DEPENDENCIES
+        RadiumLibs
+        unittests
+        integration
+        EXCLUDE
+        "/usr/*"
+        "*examples*"
+        "*external*"
+        "*install*"
+        "*/Catch2/*"
+        "*_autogen/*"
+        "*build*"
+        "*mocs*"
     )
-    setup_coverage_targets(${ENABLE_COVERAGE} "${LCOV_REMOVES}")
 
     # Fastcov is not supported with gcov llvm: disabling for MacOS Source:
     # https://github.com/RPGillespie6/fastcov/issues/36

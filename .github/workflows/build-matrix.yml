@@ -124,7 +124,9 @@ jobs:
       fail-fast: false
       matrix: ${{ fromJSON(needs.create-matrix.outputs.matrix) }}
     steps:
-      - uses: seanmiddleditch/gha-setup-ninja@master
+      - name: Install Ninja
+        shell: bash
+        run: ${{ runner.os == 'macOS' && 'brew install ninja' || runner.os == 'Windows' && 'choco install ninja' || 'sudo apt-get install ninja-build' }}
       - name: Add msbuild to PATH
         uses: seanmiddleditch/gha-setup-vsdevenv@master
         if: runner.os == 'Windows'
@@ -189,7 +191,7 @@ jobs:
         run: git -C src/Radium-Engine pull origin ${{ github.event.ref }}
       - name: Cache externals
         id: cache-external
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: external
           key: ${{ matrix.config.name }}-${{ matrix.build-type }}-${{ matrix.qtversion.name }}-external-v1-${{ hashFiles('src/Radium-Engine/external/**/CMakeLists.txt') }}
@@ -260,11 +262,6 @@ jobs:
         if: ${{ inputs.coverage == 'true' }}
         run: |
           cd build/Radium-Engine
-          cmake --build . --config Debug --target lcov_init
-          cmake --build . --config Debug --target lcov_zerocounter
-          cmake --build . --config Debug --target check
-          cmake --build . --config Debug --target lcov_capture
-          # show report for debug
-          cmake --build . --config Debug --target lcov_list
+          cmake --build . --config Debug --target coverage
           # Uploading report to CodeCov
-          bash <(curl -s https://codecov.io/bash) -f total.info -R ../../src/Radium-Engine || echo "Codecov did not collect coverage reports"
+          bash <(curl -s https://codecov.io/bash) -f coverage.info -R ../../src/Radium-Engine || echo "Codecov did not collect coverage reports"
