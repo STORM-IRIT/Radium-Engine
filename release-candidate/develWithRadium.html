@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.5.5</span>
+   &#160;<span id="projectnumber">1.5.6</span>
    </div>
   </td>
  </tr>
@@ -181,7 +181,7 @@ Code coverage</h1>
 <li>for Debian: <code>sudo apt install lcov libxml2-utils</code></li>
 <li>on MacOS: <code>brew install lcov libxml2</code></li>
 </ul>
-<p>You can generate <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_blank"><code>lcov</code></a> output files to check tests coverage. To this end, both <code>RADIUM_ENABLE_TESTING=ON</code> and <code>RADIUM_ENABLE_COVERAGE=ON</code> have to be passed to cmake, works on Linux in Debug. Then the target <code>coverage_lcov</code> builds and run all the necessary steps and produce a file <code>total.info</code> in your build dir. Please check CMakeLists.txt for the detailed steps, and <code>lcov documentation</code> for further processing of <code>total.info</code> to generate an html report.</p>
+<p>You can generate <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_blank"><code>lcov</code></a> output files to check tests coverage. To this end <code>RADIUM_ENABLE_COVERAGE=ON</code> have to be passed to cmake, works on Linux in Debug. Then the target <code>coverage</code> builds and run all the necessary steps and produce a file <code>total.info</code> in your build dir. Please check CMakeLists.txt for the detailed steps, and <code>lcov documentation</code> for further processing of <code>total.info</code> to generate an html report.</p>
 <p>Here are the example commands to run test and generate report.</p>
 <div class="fragment"><div class="line">#some vars</div>
 <div class="line">RADIUM_CONFIG=path/to/file/with/radium-options.cmake #like where external are built ... it&#39;s optionnal</div>
@@ -189,20 +189,19 @@ Code coverage</h1>
 <div class="line"> </div>
 <div class="line"># in you build path</div>
 <div class="line">cmake -DCMAKE_BUILD_TYPE=Debug -DRADIUM_ENABLE_COVERAGE=ON -C ${RADIUM_CONFIG} ${RADIUM_SOURCE}</div>
-<div class="line">make coverage_lcov #build everything, with coverage enable, run test, perform analysis</div>
-<div class="line">make coverage_report # generate html report</div>
-</div><!-- fragment --><p>output report is <code>./lcov/index.html</code>.</p>
+<div class="line">cmake --build . --target coverage #build everything, with coverage enable, run test, perform analysis</div>
+</div><!-- fragment --><p>output report is <code>./coverage/index.html</code>.</p>
 <p><code>lcov</code> is quite slow to process files, <a href="https://github.com/RPGillespie6/fastcov/blob/master/fastcov.py" target="_blank"><code>fastcov</code></a> is a parallel alternative. To install fastcov: <code>pip3 install fastcov</code>.</p>
 <p>Note: fastcov is currently supported by GNU gcov only, so we enable it only on UNIX systems, excluding MacOS. See more details at: <a href="https://github.com/RPGillespie6/fastcov/issues/36">https://github.com/RPGillespie6/fastcov/issues/36</a>.</p>
 <p>and to run the analysis:</p>
 <div class="fragment"><div class="line"># in you build path</div>
 <div class="line">cmake -DCMAKE_BUILD_TYPE=Debug -DRADIUM_ENABLE_COVERAGE=ON -C RADIUM_CONFIG RADIUM_SOURCE</div>
-<div class="line">make coverage_fastcov  #build everything, with coverage enable, run test, perform analysis</div>
+<div class="line">cmake --build . --target coverag_fastcov #build everything, with coverage enable, run test, perform analysis</div>
 </div><!-- fragment --><p>report is <code>./coverage_fastcov/index.html</code></p>
-<p>For comparison on a Intel(R) Xeon(R) Silver 4210 CPU @ 2.20GHz (with radium built already done).</p>
+<p>For comparison on a Intel(R) Xeon(R) Silver 4210 CPU @ 2.20GHz (with radium build <code>cmake --build .</code> already done).</p>
 <ul>
-<li><code>time make lcov</code> -&gt; real 1m13.289s</li>
-<li><code>time make coverage_fastcov</code> -&gt; real 0m11.717s </li>
+<li><code>time cmake --build . --target coverage</code> -&gt; 2:08.60 total</li>
+<li><code>time cmake --build . --target coverage_fastcov</code> -&gt; 48.178 total </li>
 </ul>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
