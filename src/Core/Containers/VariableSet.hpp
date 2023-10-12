@@ -719,7 +719,7 @@ auto VariableSet::addVariableType() -> Utils::optional<VariableContainer<T>*> {
         // used to visit the variableSet with a dynamic visitor
         m_vtable->m_visitFunctions.emplace_back(
             []( const VariableSet& c, const DynamicVisitorBase& v )
-                -> std::pair<bool, std::function<void( DynamicVisitorBase&, std::any && )>> {
+                -> std::pair<bool, std::function<void( DynamicVisitorBase&, std::any&& )>> {
                 auto id = getVariableVisitTypeIndex<T>();
                 if ( v.accept( id ) ) {
                     auto& visitedStorage = c.getVariableStorage<T>();
