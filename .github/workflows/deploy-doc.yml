@@ -29,6 +29,7 @@ jobs:
         run: |
           mkdir -p src/Radium-Engine
           mkdir -p build/Radium-Engine
+          mkdir doxygen
       - name: Checkout remote head
         uses: actions/checkout@master
         with:
@@ -38,10 +39,9 @@ jobs:
         run: git -C src/Radium-Engine pull origin ${{ github.event.ref }}
       - name: Install packages
         run : |
-          sudo apt-get install graphviz
+          sudo apt-get install graphviz plantuml clang-9 libclang-9-dev
       - name: Fetch recent doxygen (1.9.8)
         run: |
-          sudo apt-get install clang-9 libclang-9-dev
           wget https://sourceforge.net/projects/doxygen/files/rel-1.9.8/doxygen-1.9.8.linux.bin.tar.gz -O doxygen.tar.gz
           tar -zxvf doxygen.tar.gz -C doxygen --wildcards "*/bin"
           mv doxygen/*/bin doxygen/
