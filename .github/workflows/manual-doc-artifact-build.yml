@@ -1,27 +1,13 @@
-name: Deploy documentation to gh-pages
-# TRIGGERED BY
-# - push-master-ci.yml
-# - push-rc-ci.yml
+name: Build doc artifact (trigger manually)
 
 on:
-  workflow_call:
-    secrets:
-       REPO_ACCESS_TOKEN:
-         required: true
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'The branch to build'
+        required: true
 
 jobs:
-  deploy-doc-index:
-    runs-on: ubuntu-20.04
-    steps:
-      - name: Checkout remote head
-        uses: actions/checkout@master
-      - name: Deploy Doc
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.REPO_ACCESS_TOKEN }}
-          publish_dir: 'doc/index'
-          keep_files: true
-
   deploy-doc:
     runs-on: ubuntu-20.04
     steps:
@@ -35,8 +21,6 @@ jobs:
         with:
           path: src/Radium-Engine
           submodules: recursive
-      - name: pull updated repo (e.g. with new VERSION)
-        run: git -C src/Radium-Engine pull origin ${{ github.event.ref }}
       - name: Install packages
         run : |
           sudo apt-get install graphviz plantuml clang-9 libclang-9-dev
@@ -58,20 +42,11 @@ jobs:
           cmake ../../src/Radium-Engine/doc -DCMAKE_EXECUTE_PROCESS_COMMAND_ECHO=STDOUT -DDOXYGEN_EXECUTABLE=../../doxygen/bin/doxygen
       - name: Build Doc
         run: |
-          export GITHUB_REF="${{ steps.extract-branch.outputs.branch }}"
           cd build/Radium-Engine
           cmake --build . --target RadiumDoc
-      - name: Fix badges github ref
-        run: |
-          export GITHUB_REF="${{ steps.extract-branch.outputs.branch }}"
-          cd build/Radium-Engine
-          sed -i "s/\$(GITHUB_REF)/${GITHUB_REF}/g" html/index.html
-      - name: Git branch name
-        id: git-branch-name
-        uses: EthanSK/git-branch-name-action@v1
-      - name: Deploy Doc
-        uses: peaceiris/actions-gh-pages@v3
+      - name: 'Upload Artifact'
+        uses: actions/upload-artifact@v3
         with:
-          github_token: ${{ secrets.REPO_ACCESS_TOKEN }}
-          publish_dir: 'build/Radium-Engine/html'
-          destination_dir: ${{ env.GIT_BRANCH_NAME }}
+          name: doc
+          path: build/Radium-Engine/html
+          retention-days: 5
