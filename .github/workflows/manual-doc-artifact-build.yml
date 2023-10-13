@@ -1,9 +1,12 @@
-name: TEST DOC ARTIFACT
+name: Build doc artifact (trigger manually)
 
 on:
-  pull_request:
-    branches:
-      - release-candidate
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'The branch to build'
+        required: true
+
 jobs:
   deploy-doc:
     runs-on: ubuntu-20.04
