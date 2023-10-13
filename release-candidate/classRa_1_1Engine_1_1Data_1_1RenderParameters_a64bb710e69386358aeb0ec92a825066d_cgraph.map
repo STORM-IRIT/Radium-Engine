@@ -2,4 +2,6 @@
 <area shape="rect" id="Node000001" title="Remove the given parameter from the parameterSet." alt="" coords="5,5,227,45"/>
 <area shape="rect" id="Node000002" href="$classRa_1_1Core_1_1VariableSet.html#a4f3fe97fce185a5bce5f2a5e2cf799a6" title="Remove a variable, i.e. a name&#45;&gt;value association." alt="" coords="275,5,433,45"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="227,23,261,23,261,28,227,28"/>
+<area shape="rect" id="Node000003" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector/erase.html#" title=" " alt="" coords="481,13,616,38"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="433,23,467,23,467,28,433,28"/>
 </map>

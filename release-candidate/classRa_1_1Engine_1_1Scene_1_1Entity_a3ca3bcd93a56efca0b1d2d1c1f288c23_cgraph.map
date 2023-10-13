@@ -1,5 +1,7 @@
 <map id="Ra::Engine::Scene::Entity::getComponent" name="Ra::Engine::Scene::Entity::getComponent">
-<area shape="rect" id="Node000001" title="Get component with a given name." alt="" coords="5,5,168,45"/>
-<area shape="rect" id="Node000002" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/algorithm/find.html#" title=" " alt="" coords="216,13,307,38"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="168,23,202,23,202,28,168,28"/>
+<area shape="rect" id="Node000001" title="Get component with a given name." alt="" coords="5,23,168,63"/>
+<area shape="rect" id="Node000002" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector/end.html#" title=" " alt="" coords="216,5,339,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="168,30,202,25,203,31,169,35"/>
+<area shape="rect" id="Node000003" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/algorithm/find.html#" title=" " alt="" coords="232,55,323,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="169,51,219,57,218,63,168,56"/>
 </map>

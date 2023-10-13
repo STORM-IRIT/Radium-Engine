@@ -1,21 +1,15 @@
 <map id="Ra::Gui::Viewer::prepareDisplay" name="Ra::Gui::Viewer::prepareDisplay">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,225,185,265"/>
-<area shape="rect" id="Node000002" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a7042ea2839f794059ca7a97f75118afe" title=" " alt="" coords="233,33,497,73"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="106,224,154,154,190,116,232,83,244,77,246,81,235,88,194,120,159,158,110,227"/>
-<area shape="rect" id="Node000005" href="$classRa_1_1Gui_1_1WindowQt.html#acd31b9e580f049491d13c16ef954d964" title=" " alt="" coords="289,97,441,137"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="118,223,168,184,232,147,275,132,277,137,234,152,171,189,121,227"/>
-<area shape="rect" id="Node000006" href="$classRa_1_1Gui_1_1Viewer.html#abe554bf67788b02cc920d395f1329212" title="Moves the camera so that the whole scene is visible." alt="" coords="268,161,463,201"/>
-<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="180,223,267,202,268,207,181,228"/>
-<area shape="rect" id="Node000007" href="$classRa_1_1Gui_1_1Viewer.html#ac8bfa139c95713d812dd52f7e509fa66" title="Access to camera interface." alt="" coords="264,225,467,265"/>
-<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="186,243,250,243,250,248,186,248"/>
-<area shape="rect" id="Node000008" href="$classRa_1_1Gui_1_1Viewer.html#aa801426e3906c686bdbbc20bf553c041" title="Read&#45;only access to renderer." alt="" coords="260,290,471,315"/>
-<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="181,263,234,275,283,285,282,290,233,280,179,268"/>
-<area shape="rect" id="Node000009" href="$classRa_1_1Gui_1_1WindowQt.html#a78476baacd2df24a260f604d02c8ddc4" title=" " alt="" coords="289,340,441,380"/>
-<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="126,263,175,295,234,326,277,340,275,345,232,330,172,300,123,268"/>
-<area shape="rect" id="Node000010" href="$classRa_1_1Gui_1_1CameraManipulator.html#a1ad7036f72522d6222431df31e5ceeb5" title="Reset the Camera settings to default values." alt="" coords="262,404,469,444"/>
-<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="112,264,161,327,195,361,235,390,251,398,248,403,232,394,192,365,157,330,107,267"/>
-<area shape="rect" id="Node000003" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a6e1b35d72acf4f5a7a1ab6fa9a146a1e" title=" " alt="" coords="545,5,785,45"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="497,38,532,35,532,40,498,44"/>
-<area shape="rect" id="Node000004" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector/size.html#" title=" " alt="" coords="603,70,728,95"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="498,64,589,73,588,78,497,69"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,163,185,203"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Gui_1_1WindowQt.html#acd31b9e580f049491d13c16ef954d964" title=" " alt="" coords="263,5,415,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="112,160,162,108,196,80,232,55,249,47,251,51,235,60,199,84,166,112,115,164"/>
+<area shape="rect" id="Node000003" href="$classRa_1_1Gui_1_1Viewer.html#abe554bf67788b02cc920d395f1329212" title="Moves the camera so that the whole scene is visible." alt="" coords="241,69,436,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="137,160,232,119,254,111,255,116,234,124,139,165"/>
+<area shape="rect" id="Node000004" href="$classRa_1_1Gui_1_1Viewer.html#ac8bfa139c95713d812dd52f7e509fa66" title="Access to camera interface." alt="" coords="237,133,440,173"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="185,169,223,165,224,170,186,174"/>
+<area shape="rect" id="Node000005" href="$classRa_1_1Gui_1_1Viewer.html#aa801426e3906c686bdbbc20bf553c041" title="Read&#45;only access to renderer." alt="" coords="233,198,444,223"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="186,190,220,194,220,200,185,196"/>
+<area shape="rect" id="Node000006" href="$classRa_1_1Gui_1_1WindowQt.html#a78476baacd2df24a260f604d02c8ddc4" title=" " alt="" coords="263,248,415,288"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="149,200,234,232,261,241,259,246,232,237,147,205"/>
+<area shape="rect" id="Node000007" href="$classRa_1_1Gui_1_1CameraManipulator.html#a1ad7036f72522d6222431df31e5ceeb5" title="Reset the Camera settings to default values." alt="" coords="235,312,442,352"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="117,201,167,249,200,275,235,298,248,304,246,309,232,302,197,280,164,253,113,205"/>
 </map>

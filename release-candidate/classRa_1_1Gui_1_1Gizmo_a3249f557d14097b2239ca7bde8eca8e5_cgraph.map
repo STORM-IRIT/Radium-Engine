@@ -1,9 +1,0 @@
-<map id="Ra::Gui::Gizmo::findPointOnAxis" name="Ra::Gui::Gizmo::findPointOnAxis">
-<area shape="rect" id="Node000001" title="Find a mouse&#45;designed point on a 3D axis." alt="" coords="5,69,189,109"/>
-<area shape="rect" id="Node000002" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#aec6212574317a5395be2b49c19a90466" title="Return the direction the camera is looking at." alt="" coords="237,5,417,45"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="169,67,241,46,243,52,171,72"/>
-<area shape="rect" id="Node000003" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a79e1631d8cc94ca6430572a0bc38d076" title=" " alt="" coords="237,69,417,109"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="190,87,223,87,223,92,190,92"/>
-<area shape="rect" id="Node000004" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a857b2f451204f40344a4f0eb8a44c496" title="Return the up vector." alt="" coords="237,133,417,173"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="171,107,243,127,241,132,169,112"/>
-</map>

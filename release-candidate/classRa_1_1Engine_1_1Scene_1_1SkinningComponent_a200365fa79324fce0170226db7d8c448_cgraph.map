@@ -1,7 +1,7 @@
 <map id="Ra::Engine::Scene::SkinningComponent::handleSkinDataLoading" name="Ra::Engine::Scene::SkinningComponent::handleSkinDataLoading">
 <area shape="rect" id="Node000001" title=" " alt="" coords="5,48,239,103"/>
-<area shape="rect" id="Node000002" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/map/find.html#" title=" " alt="" coords="335,5,445,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="238,48,321,30,322,35,240,53"/>
+<area shape="rect" id="Node000002" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector/end.html#" title=" " alt="" coords="329,5,451,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="238,48,316,31,317,36,240,53"/>
 <area shape="rect" id="Node000003" href="$classRa_1_1Core_1_1Asset_1_1HandleData.html#a23c594326c793c74bf08614d6a810949" title=" " alt="" coords="287,55,493,95"/>
 <area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="239,73,273,73,273,78,239,78"/>
 <area shape="rect" id="Node000004" href="$classRa_1_1Core_1_1Asset_1_1AssetData.html#a07b196379bf8e8bade0a29186bb9c25b" title="Acces to the name of the asset." alt="" coords="292,119,488,159"/>

@@ -2,6 +2,8 @@
 <area shape="rect" id="Node000001" title="set the value of the given parameter, according to a string representation of an enum." alt="" coords="5,37,200,77"/>
 <area shape="rect" id="Node000002" href="$classRa_1_1Core_1_1VariableSet.html#a3ff99db838e08eeb1731bbdd992671a1" title="test the existence of the given variable" alt="" coords="258,5,417,45"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="200,41,244,35,245,41,200,47"/>
-<area shape="rect" id="Node000003" href="$classRa_1_1Core_1_1VariableSet.html#a2ae4889235c18238c677b007701f8db6" title="reset (or set if the variable does not exist yet) the value of the variable." alt="" coords="248,69,427,109"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="200,68,235,73,234,78,200,73"/>
+<area shape="rect" id="Node000004" href="$classRa_1_1Core_1_1VariableSet.html#a2ae4889235c18238c677b007701f8db6" title="reset (or set if the variable does not exist yet) the value of the variable." alt="" coords="248,69,427,109"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="200,68,235,73,234,78,200,73"/>
+<area shape="rect" id="Node000003" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector/end.html#" title=" " alt="" coords="475,13,605,38"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="417,23,461,23,461,28,417,28"/>
 </map>

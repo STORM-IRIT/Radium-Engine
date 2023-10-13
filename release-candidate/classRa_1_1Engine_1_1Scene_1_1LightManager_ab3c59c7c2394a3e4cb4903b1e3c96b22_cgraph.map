@@ -1,7 +1,9 @@
 <map id="Ra::Engine::Scene::LightManager::unregisterAllComponents" name="Ra::Engine::Scene::LightManager::unregisterAllComponents">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,208,60"/>
-<area shape="rect" id="Node000002" href="$classRa_1_1Engine_1_1Scene_1_1System.html#a1fb77b98dec90dc6044fa2eeae0d155d" title=" " alt="" coords="256,13,500,53"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="208,30,242,30,242,35,208,35"/>
-<area shape="rect" id="Node000003" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/algorithm/find.html#" title=" " alt="" coords="548,20,639,45"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="501,30,534,30,534,35,501,35"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,16,208,71"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Engine_1_1Scene_1_1System.html#a1fb77b98dec90dc6044fa2eeae0d155d" title=" " alt="" coords="256,23,500,63"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="208,41,242,41,242,46,208,46"/>
+<area shape="rect" id="Node000003" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector/erase.html#" title=" " alt="" coords="548,5,683,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="500,28,534,24,535,29,500,33"/>
+<area shape="rect" id="Node000004" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/algorithm/find.html#" title=" " alt="" coords="570,55,661,80"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="500,53,556,59,556,64,500,58"/>
 </map>

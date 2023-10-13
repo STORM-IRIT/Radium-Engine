@@ -1,25 +1,19 @@
 <map id="Ra::Gui::SimpleWindow::prepareDisplay" name="Ra::Gui::SimpleWindow::prepareDisplay">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,193,180,233"/>
-<area shape="rect" id="Node000002" href="$classRa_1_1Gui_1_1SimpleWindow.html#a588a1198153ac30b59fa71d4c52e8f49" title="Emitted when frame must be updated." alt="" coords="231,161,405,201"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="180,198,217,193,218,198,180,204"/>
-<area shape="rect" id="Node000003" href="$classRa_1_1Gui_1_1Viewer.html#a02c5ab9153a9701e8f14589a4589f284" title=" " alt="" coords="228,225,408,265"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="180,223,215,228,214,233,180,228"/>
-<area shape="rect" id="Node000004" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a7042ea2839f794059ca7a97f75118afe" title=" " alt="" coords="456,33,720,73"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="391,223,406,211,418,196,425,180,429,148,433,116,440,99,454,83,460,79,463,83,458,87,445,102,438,117,434,149,430,182,423,199,410,215,394,227"/>
-<area shape="rect" id="Node000007" href="$classRa_1_1Gui_1_1WindowQt.html#acd31b9e580f049491d13c16ef954d964" title=" " alt="" coords="512,97,664,137"/>
-<area shape="poly" id="edge6_Node000003_Node000007" title=" " alt="" coords="386,223,406,211,421,196,429,180,438,163,455,147,498,128,500,132,457,152,442,166,434,182,426,199,410,215,389,228"/>
-<area shape="rect" id="Node000008" href="$classRa_1_1Gui_1_1Viewer.html#abe554bf67788b02cc920d395f1329212" title="Moves the camera so that the whole scene is visible." alt="" coords="491,161,685,201"/>
-<area shape="poly" id="edge7_Node000003_Node000008" title=" " alt="" coords="403,223,489,202,490,207,404,228"/>
-<area shape="rect" id="Node000009" href="$classRa_1_1Gui_1_1Viewer.html#ac8bfa139c95713d812dd52f7e509fa66" title="Access to camera interface." alt="" coords="487,225,689,265"/>
-<area shape="poly" id="edge8_Node000003_Node000009" title=" " alt="" coords="408,243,473,243,473,248,408,248"/>
-<area shape="rect" id="Node000010" href="$classRa_1_1Gui_1_1Viewer.html#aa801426e3906c686bdbbc20bf553c041" title="Read&#45;only access to renderer." alt="" coords="483,290,693,315"/>
-<area shape="poly" id="edge9_Node000003_Node000010" title=" " alt="" coords="403,263,457,275,505,285,504,290,455,280,402,268"/>
-<area shape="rect" id="Node000011" href="$classRa_1_1Gui_1_1WindowQt.html#a78476baacd2df24a260f604d02c8ddc4" title=" " alt="" coords="512,340,664,380"/>
-<area shape="poly" id="edge10_Node000003_Node000011" title=" " alt="" coords="348,263,398,295,457,326,499,340,498,345,455,330,395,300,345,268"/>
-<area shape="rect" id="Node000012" href="$classRa_1_1Gui_1_1CameraManipulator.html#a1ad7036f72522d6222431df31e5ceeb5" title="Reset the Camera settings to default values." alt="" coords="485,404,691,444"/>
-<area shape="poly" id="edge11_Node000003_Node000012" title=" " alt="" coords="334,264,383,327,418,361,457,390,473,398,471,403,455,394,415,365,379,330,330,267"/>
-<area shape="rect" id="Node000005" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a6e1b35d72acf4f5a7a1ab6fa9a146a1e" title=" " alt="" coords="768,5,1008,45"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="720,38,754,35,755,40,720,44"/>
-<area shape="rect" id="Node000006" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector/size.html#" title=" " alt="" coords="825,70,951,95"/>
-<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="720,64,812,73,811,78,720,69"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,131,180,171"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Gui_1_1SimpleWindow.html#a588a1198153ac30b59fa71d4c52e8f49" title="Emitted when frame must be updated." alt="" coords="231,99,405,139"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="180,136,217,130,218,136,180,141"/>
+<area shape="rect" id="Node000003" href="$classRa_1_1Gui_1_1Viewer.html#a02c5ab9153a9701e8f14589a4589f284" title=" " alt="" coords="228,163,408,203"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="180,160,215,165,214,171,180,166"/>
+<area shape="rect" id="Node000004" href="$classRa_1_1Gui_1_1WindowQt.html#acd31b9e580f049491d13c16ef954d964" title=" " alt="" coords="485,5,637,45"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="389,160,406,149,423,126,429,103,436,79,454,55,472,44,475,48,458,59,441,81,434,104,428,128,410,153,392,165"/>
+<area shape="rect" id="Node000005" href="$classRa_1_1Gui_1_1Viewer.html#abe554bf67788b02cc920d395f1329212" title="Moves the camera so that the whole scene is visible." alt="" coords="464,69,659,109"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="379,160,407,148,431,134,455,119,473,112,475,116,457,124,433,138,409,153,381,165"/>
+<area shape="rect" id="Node000006" href="$classRa_1_1Gui_1_1Viewer.html#ac8bfa139c95713d812dd52f7e509fa66" title="Access to camera interface." alt="" coords="460,133,663,173"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="408,169,446,165,447,170,409,174"/>
+<area shape="rect" id="Node000007" href="$classRa_1_1Gui_1_1Viewer.html#aa801426e3906c686bdbbc20bf553c041" title="Read&#45;only access to renderer." alt="" coords="456,198,667,223"/>
+<area shape="poly" id="edge6_Node000003_Node000007" title=" " alt="" coords="409,190,443,194,442,200,408,196"/>
+<area shape="rect" id="Node000008" href="$classRa_1_1Gui_1_1WindowQt.html#a78476baacd2df24a260f604d02c8ddc4" title=" " alt="" coords="485,248,637,288"/>
+<area shape="poly" id="edge7_Node000003_Node000008" title=" " alt="" coords="371,200,457,232,483,241,482,246,455,237,369,205"/>
+<area shape="rect" id="Node000009" href="$classRa_1_1Gui_1_1CameraManipulator.html#a1ad7036f72522d6222431df31e5ceeb5" title="Reset the Camera settings to default values." alt="" coords="458,312,665,352"/>
+<area shape="poly" id="edge8_Node000003_Node000009" title=" " alt="" coords="340,201,390,249,422,275,457,298,471,304,468,309,455,302,419,280,386,253,336,205"/>
 </map>

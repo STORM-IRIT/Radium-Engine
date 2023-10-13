@@ -1,10 +1,12 @@
 <map id="Ra::Gui::TreeModel::index" name="Ra::Gui::TreeModel::index">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,73,149,113"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,107,149,147"/>
 <area shape="rect" id="Node000002" href="$classRa_1_1Gui_1_1TreeModel.html#a40eebac048f0264815de6a0b5f3b6f53" title="Get the tree item corresponding to the given index." alt="" coords="389,73,533,113"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="150,97,375,98,375,103,149,103"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="149,125,375,105,376,111,150,131"/>
 <area shape="rect" id="Node000008" href="$classRa_1_1Gui_1_1TreeModel.html#a87eb3b8df0d2bb22be5eafafa5c1a55c" title=" " alt="" coords="197,142,341,182"/>
-<area shape="poly" id="edge8_Node000001_Node000008" title=" " alt="" coords="134,110,202,135,200,140,133,115"/>
-<area shape="poly" id="edge7_Node000002_Node000001" title=" " alt="" coords="389,88,163,88,163,82,389,83"/>
+<area shape="poly" id="edge8_Node000001_Node000008" title=" " alt="" coords="150,138,184,144,183,149,149,143"/>
+<area shape="rect" id="Node000009" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector/size.html#" title=" " alt="" coords="207,207,332,232"/>
+<area shape="poly" id="edge10_Node000001_Node000009" title=" " alt="" coords="112,145,198,192,217,199,215,204,196,196,110,150"/>
+<area shape="poly" id="edge7_Node000002_Node000001" title=" " alt="" coords="389,95,163,115,163,109,389,89"/>
 <area shape="rect" id="Node000003" href="$classRa_1_1Gui_1_1TreeModel.html#afac34989a7cc5c7107c2642629559ab8" title="Internal functions to check if an item is in the tree." alt="" coords="581,73,725,113"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="534,90,568,90,568,95,534,95"/>
 <area shape="rect" id="Node000004" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/stack/empty.html#" title=" " alt="" coords="773,5,908,31"/>
@@ -14,8 +16,6 @@
 <area shape="rect" id="Node000006" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/stack/push.html#" title=" " alt="" coords="779,104,903,129"/>
 <area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="726,99,766,104,765,110,725,105"/>
 <area shape="rect" id="Node000007" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/stack/top.html#" title=" " alt="" coords="783,153,898,179"/>
-<area shape="poly" id="edge6_Node000003_Node000007" title=" " alt="" coords="703,110,774,140,792,146,790,151,772,144,701,115"/>
-<area shape="poly" id="edge10_Node000008_Node000002" title=" " alt="" coords="325,139,392,115,394,120,326,144"/>
-<area shape="rect" id="Node000009" href="$classRa_1_1Gui_1_1TreeItem.html#a1bb89b916eed440cb23de1bff8327e00" title=" " alt="" coords="390,142,533,182"/>
-<area shape="poly" id="edge9_Node000008_Node000009" title=" " alt="" coords="342,159,376,159,376,165,342,165"/>
+<area shape="poly" id="edge6_Node000003_Node000007" title=" " alt="" coords="705,110,774,138,794,146,792,151,772,143,703,115"/>
+<area shape="poly" id="edge9_Node000008_Node000002" title=" " alt="" coords="325,139,392,115,394,120,326,144"/>
 </map>

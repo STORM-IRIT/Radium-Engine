@@ -46,7 +46,7 @@
   </g>
 </defs>
 <script type="application/ecmascript">
-var viewWidth = 758;
+var viewWidth = 895;
 var viewHeight = 220;
 var sectionId = 'dynsection-3';
 </script>
@@ -83,19 +83,19 @@ var sectionId = 'dynsection-3';
 </a>
 </g>
 </g>
-<!-- Node9 -->
-<g id="Node000009" class="node">
-<title>Node9</title>
-<g id="a_Node000009"><a target="_blank" xlink:href="http://en.cppreference.com/w/cpp/memory/shared_ptr/reset.html#" xlink:title=" ">
+<!-- Node10 -->
+<g id="Node000010" class="node">
+<title>Node10</title>
+<g id="a_Node000010"><a target="_blank" xlink:href="http://en.cppreference.com/w/cpp/memory/shared_ptr/reset.html#" xlink:title=" ">
 <polygon fill="white" stroke="#666666" points="303.5,-77.5 183.5,-77.5 183.5,-58.5 303.5,-58.5 303.5,-77.5"/>
 <text text-anchor="middle" x="243.5" y="-65.5" font-family="Helvetica,sans-Serif" font-size="10.00">std::shared_ptr::reset</text>
 </a>
 </g>
 </g>
-<!-- Node1&#45;&gt;Node9 -->
-<g id="edge8_Node000001_Node000009" class="edge">
-<title>Node1&#45;&gt;Node9</title>
-<g id="a_edge8_Node000001_Node000009"><a xlink:title=" ">
+<!-- Node1&#45;&gt;Node10 -->
+<g id="edge9_Node000001_Node000010" class="edge">
+<title>Node1&#45;&gt;Node10</title>
+<g id="a_edge9_Node000001_Node000010"><a xlink:title=" ">
 <path fill="none" stroke="#63b8ff" d="M135.28,-80.94C147.75,-79.43 160.82,-77.86 173.37,-76.34"/>
 <polygon fill="#63b8ff" stroke="#63b8ff" points="173.79,-79.82 183.3,-75.15 172.95,-72.87 173.79,-79.82"/>
 </a>
@@ -138,32 +138,13 @@ var sectionId = 'dynsection-3';
 </a>
 </g>
 </g>
-<!-- Node6 -->
-<g id="Node000006" class="node">
-<title>Node6</title>
-<g id="a_Node000006"><a xlink:href="classRa_1_1Engine_1_1Data_1_1LambertianMaterial.html#aaf4d341e54a5c0dfde83e38e5af55a86" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="515.5,-126 356.5,-126 356.5,-96 515.5,-96 515.5,-126"/>
-<text text-anchor="start" x="364.5" y="-114" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Data::Lambertian</text>
-<text text-anchor="middle" x="436" y="-103" font-family="Helvetica,sans-Serif" font-size="10.00">Material::unregisterMaterial</text>
-</a>
-</g>
-</g>
-<!-- Node2&#45;&gt;Node6 -->
-<g id="edge5_Node000002_Node000006" class="edge">
-<title>Node2&#45;&gt;Node6</title>
-<g id="a_edge5_Node000002_Node000006"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M316.25,-111C326.06,-111 336.22,-111 346.29,-111"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="346.3,-114.5 356.3,-111 346.3,-107.5 346.3,-114.5"/>
-</a>
-</g>
-</g>
 <!-- Node7 -->
 <g id="Node000007" class="node">
 <title>Node7</title>
-<g id="a_Node000007"><a xlink:href="classRa_1_1Engine_1_1Data_1_1PlainMaterial.html#a69e669c6df549aa0185cb2eaa14f5de9" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="520,-78 352,-78 352,-48 520,-48 520,-78"/>
-<text text-anchor="start" x="360" y="-66" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Data::PlainMaterial</text>
-<text text-anchor="middle" x="436" y="-55" font-family="Helvetica,sans-Serif" font-size="10.00">::unregisterMaterial</text>
+<g id="a_Node000007"><a xlink:href="classRa_1_1Engine_1_1Data_1_1LambertianMaterial.html#aaf4d341e54a5c0dfde83e38e5af55a86" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="#666666" points="515.5,-126 356.5,-126 356.5,-96 515.5,-96 515.5,-126"/>
+<text text-anchor="start" x="364.5" y="-114" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Data::Lambertian</text>
+<text text-anchor="middle" x="436" y="-103" font-family="Helvetica,sans-Serif" font-size="10.00">Material::unregisterMaterial</text>
 </a>
 </g>
 </g>
@@ -171,18 +152,18 @@ var sectionId = 'dynsection-3';
 <g id="edge6_Node000002_Node000007" class="edge">
 <title>Node2&#45;&gt;Node7</title>
 <g id="a_edge6_Node000002_Node000007"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M304.25,-95.94C323.76,-91.03 345.58,-85.53 365.72,-80.46"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="366.62,-83.84 375.46,-78 364.91,-77.05 366.62,-83.84"/>
+<path fill="none" stroke="#63b8ff" d="M316.25,-111C326.06,-111 336.22,-111 346.29,-111"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="346.3,-114.5 356.3,-111 346.3,-107.5 346.3,-114.5"/>
 </a>
 </g>
 </g>
 <!-- Node8 -->
 <g id="Node000008" class="node">
 <title>Node8</title>
-<g id="a_Node000008"><a xlink:href="classRa_1_1Engine_1_1Data_1_1VolumetricMaterial.html#a23f911ca6e81eadd78e4c67cad032efb" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="514,-30 358,-30 358,0 514,0 514,-30"/>
-<text text-anchor="start" x="366" y="-18" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Data::Volumetric</text>
-<text text-anchor="middle" x="436" y="-7" font-family="Helvetica,sans-Serif" font-size="10.00">Material::unregisterMaterial</text>
+<g id="a_Node000008"><a xlink:href="classRa_1_1Engine_1_1Data_1_1PlainMaterial.html#a69e669c6df549aa0185cb2eaa14f5de9" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="#666666" points="520,-78 352,-78 352,-48 520,-48 520,-78"/>
+<text text-anchor="start" x="360" y="-66" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Data::PlainMaterial</text>
+<text text-anchor="middle" x="436" y="-55" font-family="Helvetica,sans-Serif" font-size="10.00">::unregisterMaterial</text>
 </a>
 </g>
 </g>
@@ -190,6 +171,25 @@ var sectionId = 'dynsection-3';
 <g id="edge7_Node000002_Node000008" class="edge">
 <title>Node2&#45;&gt;Node8</title>
 <g id="a_edge7_Node000002_Node000008"><a xlink:title=" ">
+<path fill="none" stroke="#63b8ff" d="M304.25,-95.94C323.76,-91.03 345.58,-85.53 365.72,-80.46"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="366.62,-83.84 375.46,-78 364.91,-77.05 366.62,-83.84"/>
+</a>
+</g>
+</g>
+<!-- Node9 -->
+<g id="Node000009" class="node">
+<title>Node9</title>
+<g id="a_Node000009"><a xlink:href="classRa_1_1Engine_1_1Data_1_1VolumetricMaterial.html#a23f911ca6e81eadd78e4c67cad032efb" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="#666666" points="514,-30 358,-30 358,0 514,0 514,-30"/>
+<text text-anchor="start" x="366" y="-18" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Data::Volumetric</text>
+<text text-anchor="middle" x="436" y="-7" font-family="Helvetica,sans-Serif" font-size="10.00">Material::unregisterMaterial</text>
+</a>
+</g>
+</g>
+<!-- Node2&#45;&gt;Node9 -->
+<g id="edge8_Node000002_Node000009" class="edge">
+<title>Node2&#45;&gt;Node9</title>
+<g id="a_edge8_Node000002_Node000009"><a xlink:title=" ">
 <path fill="none" stroke="#63b8ff" d="M300.41,-96C305.92,-93.43 311.22,-90.45 316,-87 337.62,-71.39 330.06,-54.15 352,-39 354.16,-37.51 356.41,-36.11 358.73,-34.79"/>
 <polygon fill="#63b8ff" stroke="#63b8ff" points="360.63,-37.76 367.99,-30.14 357.48,-31.51 360.63,-37.76"/>
 </a>
@@ -212,6 +212,24 @@ var sectionId = 'dynsection-3';
 <g id="a_edge4_Node000004_Node000005"><a xlink:title=" ">
 <path fill="none" stroke="#63b8ff" d="M515.23,-159C525.13,-159 535.4,-159 545.65,-159"/>
 <polygon fill="#63b8ff" stroke="#63b8ff" points="545.88,-162.5 555.88,-159 545.88,-155.5 545.88,-162.5"/>
+</a>
+</g>
+</g>
+<!-- Node6 -->
+<g id="Node000006" class="node">
+<title>Node6</title>
+<g id="a_Node000006"><a target="_blank" xlink:href="http://en.cppreference.com/w/cpp/container/vector/erase.html#" xlink:title=" ">
+<polygon fill="white" stroke="#666666" points="887,-168.5 786,-168.5 786,-149.5 887,-149.5 887,-168.5"/>
+<text text-anchor="middle" x="836.5" y="-156.5" font-family="Helvetica,sans-Serif" font-size="10.00">std::vector::erase</text>
+</a>
+</g>
+</g>
+<!-- Node5&#45;&gt;Node6 -->
+<g id="edge5_Node000005_Node000006" class="edge">
+<title>Node5&#45;&gt;Node6</title>
+<g id="a_edge5_Node000005_Node000006"><a xlink:title=" ">
+<path fill="none" stroke="#63b8ff" d="M750.06,-159C758.79,-159 767.46,-159 775.73,-159"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="775.98,-162.5 785.98,-159 775.98,-155.5 775.98,-162.5"/>
 </a>
 </g>
 </g>

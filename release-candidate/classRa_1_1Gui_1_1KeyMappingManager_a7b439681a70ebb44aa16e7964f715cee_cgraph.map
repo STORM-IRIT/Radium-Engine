@@ -1,15 +1,11 @@
 <map id="Ra::Gui::KeyMappingManager::getHelpText" name="Ra::Gui::KeyMappingManager::getHelpText">
-<area shape="rect" id="Node000001" title="Return a string corresponding to the current dom document." alt="" coords="5,122,220,162"/>
-<area shape="rect" id="Node000002" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/string/basic_string/end.html#" title=" " alt="" coords="292,5,411,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="138,120,196,80,267,40,284,33,286,38,269,44,198,84,141,124"/>
-<area shape="rect" id="Node000003" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/string/basic_string/find.html#" title=" " alt="" coords="292,55,411,80"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="173,119,267,89,292,81,294,86,269,94,174,124"/>
-<area shape="rect" id="Node000004" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/algorithm/find.html#" title=" " alt="" coords="306,104,397,129"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="220,128,292,120,292,126,221,133"/>
-<area shape="rect" id="Node000005" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/string/basic_string/size.html#" title=" " alt="" coords="283,153,419,179"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="221,150,270,155,269,160,220,155"/>
-<area shape="rect" id="Node000006" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/io/basic_ostringstream/str.html#" title=" " alt="" coords="268,203,435,228"/>
-<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="179,159,269,187,296,196,295,201,267,193,177,165"/>
-<area shape="rect" id="Node000007" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/string/basic_string/substr.html#" title=" " alt="" coords="284,252,419,277"/>
-<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="143,160,199,198,269,237,289,245,287,250,267,242,197,203,140,164"/>
+<area shape="rect" id="Node000001" title="Return a string corresponding to the current dom document." alt="" coords="5,73,220,113"/>
+<area shape="rect" id="Node000002" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector/begin.html#" title=" " alt="" coords="268,5,403,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="172,70,283,33,284,38,174,75"/>
+<area shape="rect" id="Node000003" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector/end.html#" title=" " alt="" coords="274,55,397,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="220,78,260,73,261,78,220,83"/>
+<area shape="rect" id="Node000004" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector/erase.html#" title=" " alt="" coords="268,104,403,129"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="220,102,255,105,254,111,220,107"/>
+<area shape="rect" id="Node000005" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/algorithm/find.html#" title=" " alt="" coords="290,153,381,179"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="175,110,283,146,282,151,173,115"/>
 </map>

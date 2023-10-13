@@ -1,13 +1,15 @@
 <map id="Ra::Gui::Viewer::resizeGL" name="Ra::Gui::Viewer::resizeGL">
-<area shape="rect" id="Node000001" title="Resize the view port and the camera. Called by the resize event." alt="" coords="5,109,192,134"/>
+<area shape="rect" id="Node000001" title="Resize the view port and the camera. Called by the resize event." alt="" coords="5,141,192,166"/>
 <area shape="rect" id="Node000002" href="$classRa_1_1Gui_1_1WindowQt.html#a306cc7425eb608c8de3a58f3f560f587" title=" " alt="" coords="247,5,421,45"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="125,106,239,55,258,48,260,53,241,60,127,111"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="114,138,167,98,239,55,254,48,256,53,241,60,170,103,117,143"/>
 <area shape="rect" id="Node000003" href="$classRa_1_1Gui_1_1WindowQt.html#ad3274b69a7a5d5c36ce74f44a1a5d1de" title=" " alt="" coords="258,69,410,109"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="192,106,244,99,245,104,193,111"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="146,138,246,110,247,116,147,143"/>
 <area shape="rect" id="Node000004" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a314e31247fa616d1cbb02143cd42019f" title="Resize the viewport and all the screen textures, fbos. This function must be overrided as soon as som..." alt="" coords="251,133,417,173"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="193,131,238,138,237,143,192,137"/>
-<area shape="rect" id="Node000006" href="$classRa_1_1Gui_1_1Viewer.html#a6f709f315a47d4fc0dee01e8c80016dd" title=" " alt="" coords="240,198,428,223"/>
-<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="126,132,178,157,241,183,268,192,266,197,239,188,176,162,124,137"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="192,151,237,151,237,156,192,156"/>
+<area shape="rect" id="Node000006" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector/size.html#" title=" " alt="" coords="271,198,397,223"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="152,163,269,192,267,197,151,169"/>
+<area shape="rect" id="Node000007" href="$classRa_1_1Gui_1_1Viewer.html#a6f709f315a47d4fc0dee01e8c80016dd" title=" " alt="" coords="240,247,428,273"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="120,164,173,197,241,232,265,241,263,246,239,237,170,202,117,168"/>
 <area shape="rect" id="Node000005" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#ac804ffc9a0b4f71c02610ce930fd5c65" title=" " alt="" coords="476,133,663,173"/>
 <area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="417,151,463,151,463,156,417,156"/>
 </map>

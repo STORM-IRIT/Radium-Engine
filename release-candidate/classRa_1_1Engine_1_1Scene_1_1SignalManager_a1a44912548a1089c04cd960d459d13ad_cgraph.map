@@ -1,7 +1,0 @@
-<map id="Ra::Engine::Scene::SignalManager::fireEntityDestroyed" name="Ra::Engine::Scene::SignalManager::fireEntityDestroyed">
-<area shape="rect" id="Node000001" title="Notifies all observers of an entity removal." alt="" coords="5,5,259,45"/>
-<area shape="rect" id="Node000002" href="$structRa_1_1Engine_1_1Scene_1_1ItemEntry.html#abb75bfc7efa4859df709265ab8982712" title="Returns true if the item represents an entity." alt="" coords="307,5,483,45"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="259,23,293,23,293,28,259,28"/>
-<area shape="rect" id="Node000003" href="$structRa_1_1Engine_1_1Scene_1_1ItemEntry.html#a9673507f752d5efee0439afd0e52892b" title="Debug checks." alt="" coords="531,5,741,45"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="483,23,517,23,517,28,483,28"/>
-</map>

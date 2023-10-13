@@ -1,11 +1,5 @@
 <map id="Ra::Core::Geometry::PointCloudIndexLayer::linearIndices" name="Ra::Core::Geometry::PointCloudIndexLayer::linearIndices">
-<area shape="rect" id="Node000001" title="Generate linearly spaced indices with same size as attr vertex buffer." alt="" coords="5,16,177,71"/>
-<area shape="rect" id="Node000002" href="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#acabe05880d71a8dc4406964c258fff5a" title="Access the vertices positions." alt="" coords="225,16,392,71"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="178,41,212,41,212,46,178,46"/>
-<area shape="rect" id="Node000003" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#ae0cb7281ec72606a5392602b4ea50d2c" title=" " alt="" coords="440,23,656,63"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="392,41,426,41,426,46,392,46"/>
-<area shape="rect" id="Node000004" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector/at.html#" title=" " alt="" coords="722,5,834,31"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="656,29,708,23,708,28,657,34"/>
-<area shape="rect" id="Node000005" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/memory/unique_ptr/get.html#" title=" " alt="" coords="704,55,852,80"/>
-<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="657,52,691,56,690,61,656,57"/>
+<area shape="rect" id="Node000001" title="Generate linearly spaced indices with same size as attr vertex buffer." alt="" coords="5,5,177,60"/>
+<area shape="rect" id="Node000002" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector/size.html#" title=" " alt="" coords="225,20,351,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="178,30,211,30,211,35,178,35"/>
 </map>

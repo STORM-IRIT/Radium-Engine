@@ -1,5 +1,7 @@
 <map id="Ra::Core::Geometry::LoopSubdivider::init_weights" name="Ra::Core::Geometry::LoopSubdivider::init_weights">
-<area shape="rect" id="Node000001" title="Pre&#45;compute weights." alt="" coords="5,5,164,60"/>
-<area shape="rect" id="Node000002" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/algorithm/generate.html#" title=" " alt="" coords="212,20,320,45"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="164,30,198,30,198,35,164,35"/>
+<area shape="rect" id="Node000001" title="Pre&#45;compute weights." alt="" coords="5,16,164,71"/>
+<area shape="rect" id="Node000002" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/algorithm/generate.html#" title=" " alt="" coords="227,5,335,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="164,30,213,24,214,29,165,36"/>
+<area shape="rect" id="Node000003" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector/resize.html#" title=" " alt="" coords="212,55,351,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="165,50,199,55,198,60,164,56"/>
 </map>

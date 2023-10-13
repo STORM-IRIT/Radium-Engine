@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['_5fdeprecated_5f_20component_20messenger_0',['_deprecated_ Component Messenger',['../componentMessenger.html',1,'conceptsmanual']]],
-  ['_5fdeprecated_5f_20event_20system_1',['_deprecated_ Event System',['../eventSystem.html',1,'conceptsmanual']]],
-  ['_5fdeprecated_5f_20radium_20engine_20programmer_20manual_2',['_deprecated_ Radium Engine programmer manual',['../develoldmanual.html',1,'develmanual']]],
-  ['_5fexit_3',['_Exit',['http://en.cppreference.com/w/cpp/utility/program/_Exit.html',0,'std']]]
+  ['3_20ordered_20independent_20transparency_0',['3. Ordered independent transparency',['../forwardRenderer.html#autotoc_md42',1,'']]],
+  ['3d_20objects_20a_20k_20a_20meshes_1',['3D objects (a.k.a. Meshes)',['../develmeshes.html',1,'core']]]
 ];

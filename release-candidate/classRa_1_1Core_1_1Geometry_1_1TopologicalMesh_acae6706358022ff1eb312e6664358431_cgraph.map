@@ -1,11 +1,13 @@
 <map id="Ra::Core::Geometry::TopologicalMesh::toLineMesh" name="Ra::Core::Geometry::TopologicalMesh::toLineMesh">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,102,227,142"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,141,227,181"/>
 <area shape="rect" id="Node000002" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector/emplace_back.html#" title=" " alt="" coords="279,5,473,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="150,99,207,69,274,40,297,32,299,37,276,44,209,74,153,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="137,138,195,89,233,62,274,40,291,33,293,37,276,44,236,67,199,93,140,142"/>
 <area shape="rect" id="Node000003" href="$classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#ad0eb9c1c7711f3aa24ad612b339942bc" title="Remove deleted element from the mesh, including wedges." alt="" coords="277,55,475,109"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="226,102,263,97,264,102,227,108"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="182,138,271,111,273,116,184,143"/>
 <area shape="rect" id="Node000004" href="$classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#afaacfdb6d79a9ccac45b78eba989d41d" title=" " alt="" coords="275,133,477,188"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="227,136,262,141,261,146,226,141"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="227,158,261,158,261,163,227,163"/>
 <area shape="rect" id="Node000005" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/utility/move.html#" title=" " alt="" coords="333,212,419,237"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="154,140,210,169,276,197,320,210,318,215,274,202,208,174,151,144"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="199,178,320,208,319,214,197,183"/>
+<area shape="rect" id="Node000006" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector/push_back.html#" title=" " alt="" coords="292,261,460,287"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="149,178,206,213,276,246,301,255,300,260,274,251,204,217,146,183"/>
 </map>

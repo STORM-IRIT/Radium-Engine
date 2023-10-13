@@ -4,12 +4,14 @@
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="126,117,179,78,246,41,270,32,272,37,248,46,182,83,129,121"/>
 <area shape="rect" id="Node000003" href="$classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#af10c9fac9f32f1966eb2331e2790a6d1" title=" " alt="" coords="253,55,464,95"/>
 <area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="182,117,264,96,266,101,184,122"/>
-<area shape="rect" id="Node000005" href="$classRa_1_1Engine_1_1Data_1_1LambertianMaterial.html#aaf4d341e54a5c0dfde83e38e5af55a86" title=" " alt="" coords="253,119,465,159"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="199,137,239,137,239,142,199,142"/>
-<area shape="rect" id="Node000006" href="$classRa_1_1Engine_1_1Data_1_1PlainMaterial.html#a69e669c6df549aa0185cb2eaa14f5de9" title=" " alt="" coords="247,183,471,223"/>
-<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="184,157,266,177,264,183,182,162"/>
-<area shape="rect" id="Node000007" href="$classRa_1_1Engine_1_1Data_1_1VolumetricMaterial.html#a23f911ca6e81eadd78e4c67cad032efb" title=" " alt="" coords="255,247,463,287"/>
-<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="130,157,183,195,248,233,265,240,263,245,245,238,180,200,127,162"/>
+<area shape="rect" id="Node000006" href="$classRa_1_1Engine_1_1Data_1_1LambertianMaterial.html#aaf4d341e54a5c0dfde83e38e5af55a86" title=" " alt="" coords="253,119,465,159"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="199,137,239,137,239,142,199,142"/>
+<area shape="rect" id="Node000007" href="$classRa_1_1Engine_1_1Data_1_1PlainMaterial.html#a69e669c6df549aa0185cb2eaa14f5de9" title=" " alt="" coords="247,183,471,223"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="184,157,266,177,264,183,182,162"/>
+<area shape="rect" id="Node000008" href="$classRa_1_1Engine_1_1Data_1_1VolumetricMaterial.html#a23f911ca6e81eadd78e4c67cad032efb" title=" " alt="" coords="255,247,463,287"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="130,157,183,195,248,233,265,240,263,245,245,238,180,200,127,162"/>
 <area shape="rect" id="Node000004" href="$namespaceRa_1_1Engine_1_1Data_1_1EngineMaterialConverters.html#a07edf6afa24bd87c14434820c6ac9037" title=" " alt="" coords="519,48,777,103"/>
 <area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="464,73,505,73,505,78,464,78"/>
+<area shape="rect" id="Node000005" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector/erase.html#" title=" " alt="" coords="825,63,960,88"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="777,73,812,73,812,78,777,78"/>
 </map>

@@ -1,5 +1,7 @@
 <map id="Ra::Engine::Scene::Entity::removeComponent" name="Ra::Engine::Scene::Entity::removeComponent">
-<area shape="rect" id="Node000001" title="Deletes a component with a given name." alt="" coords="5,5,197,45"/>
-<area shape="rect" id="Node000002" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/algorithm/find.html#" title=" " alt="" coords="245,13,336,38"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="198,23,231,23,231,28,198,28"/>
+<area shape="rect" id="Node000001" title="Deletes a component with a given name." alt="" coords="5,23,197,63"/>
+<area shape="rect" id="Node000002" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector/end.html#" title=" " alt="" coords="245,5,368,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="197,29,232,25,232,30,198,34"/>
+<area shape="rect" id="Node000003" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/algorithm/find.html#" title=" " alt="" coords="261,55,352,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="198,52,248,58,248,63,197,57"/>
 </map>

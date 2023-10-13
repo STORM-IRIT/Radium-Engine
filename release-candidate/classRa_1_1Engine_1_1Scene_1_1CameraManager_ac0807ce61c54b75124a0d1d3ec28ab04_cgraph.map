@@ -1,33 +1,27 @@
 <map id="Ra::Engine::Scene::CameraManager::registerComponent" name="Ra::Engine::Scene::CameraManager::registerComponent">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,133,268,173"/>
-<area shape="rect" id="Node000002" href="$classRa_1_1Engine_1_1Scene_1_1CameraManager.html#a89543fc980c3f8109ee62a6bea412a3d" title=" " alt="" coords="316,37,563,77"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="189,131,315,87,343,79,345,84,317,92,191,136"/>
-<area shape="rect" id="Node000003" href="$classRa_1_1Engine_1_1Scene_1_1System.html#a8d1f1cfd2c615e58b4155154206afece" title=" " alt="" coords="337,101,541,141"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="268,137,323,131,324,136,269,142"/>
-<area shape="rect" id="Node000007" href="$classRa_1_1Engine_1_1Scene_1_1Entity.html#a534acbd29f5dc60bcea54c7a826bc92f" title="get a ref to transformation observers to add/remove an observer" alt="" coords="324,165,555,205"/>
-<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="269,165,311,169,310,174,268,170"/>
-<area shape="rect" id="Node000008" href="$classRa_1_1Engine_1_1Scene_1_1CameraManager.html#ad4516473cebc8b540d2da18319985125" title="update the active camera data" alt="" coords="327,382,551,437"/>
-<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="163,171,397,371,394,375,160,175"/>
-<area shape="rect" id="Node000004" href="$classRa_1_1Engine_1_1Scene_1_1Component.html#a28dba9115491fdfd4803f7f32ee53af3" title="Return the entity the component belongs to." alt="" coords="634,5,798,45"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="530,99,561,87,585,71,609,55,626,48,628,53,612,60,588,76,564,92,532,104"/>
-<area shape="rect" id="Node000005" href="$classRa_1_1Engine_1_1Scene_1_1Component.html#a1d4c8227d4c1c7dacb860e6b44f1f698" title="Return the component&#39;s name." alt="" coords="633,69,799,109"/>
-<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="541,107,620,98,620,103,542,112"/>
-<area shape="rect" id="Node000006" href="$classRa_1_1Engine_1_1Scene_1_1Component.html#af211eaa6fd1c608ef143920678da3d52" title="Set the system to which the component belongs." alt="" coords="629,133,803,173"/>
-<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="542,130,615,139,615,144,541,136"/>
-<area shape="rect" id="Node000009" href="$classRa_1_1Engine_1_1Scene_1_1CameraManager.html#a785ff375d82f19cd4b48e6486f77cbf0" title="Get a pointer to the i&#45;th Camera." alt="" coords="611,197,821,237"/>
-<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="461,380,523,313,564,278,609,247,622,240,625,245,612,252,568,282,527,317,465,383"/>
-<area shape="rect" id="Node000010" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#ae879404ea174280161cec397fb1710b7" title=" " alt="" coords="626,261,806,301"/>
-<area shape="poly" id="edge9_Node000008_Node000010" title=" " alt="" coords="482,379,541,345,610,311,629,303,631,308,612,316,544,349,485,384"/>
-<area shape="rect" id="Node000011" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a627f8c3e741a1d0f305886f1d8375de3" title="Return the height of the viewport." alt="" coords="626,325,806,365"/>
-<area shape="poly" id="edge10_Node000008_Node000011" title=" " alt="" coords="551,381,615,366,616,371,552,386"/>
-<area shape="rect" id="Node000012" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a2b2f8b09a65409166a96b9bb30e3ee20" title="Return the width of the viewport." alt="" coords="626,389,806,429"/>
-<area shape="poly" id="edge11_Node000008_Node000012" title=" " alt="" coords="552,407,612,407,612,412,552,412"/>
-<area shape="rect" id="Node000013" href="$classRa_1_1Core_1_1Utils_1_1Observable.html#a7e5fe761726d56a51f95192eb6555f8f" title="Notify (i.e. call) each attached observer with argument p." alt="" coords="617,453,815,493"/>
-<area shape="poly" id="edge12_Node000008_Node000013" title=" " alt="" coords="552,433,616,448,615,453,551,438"/>
-<area shape="rect" id="Node000014" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#ac5e49d14a044ec5c39666cab662f3ba3" title="Set the frame of the camera to frame." alt="" coords="626,517,806,557"/>
-<area shape="poly" id="edge13_Node000008_Node000014" title=" " alt="" coords="485,435,544,469,612,503,631,510,629,515,610,508,541,474,482,439"/>
-<area shape="rect" id="Node000015" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a05d8b61c4135de535eb61a6608fd33d6" title="Change the viewport size. Also compute aspectRatio." alt="" coords="626,581,806,621"/>
-<area shape="poly" id="edge14_Node000008_Node000015" title=" " alt="" coords="465,435,527,501,568,537,612,567,625,574,622,578,609,572,564,541,523,505,461,439"/>
-<area shape="rect" id="Node000016" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a1e1809a93475162a71da46c2816f90e7" title="Update the projection matrix according to the current parameters." alt="" coords="626,645,806,685"/>
-<area shape="poly" id="edge15_Node000008_Node000016" title=" " alt="" coords="456,436,481,479,515,531,560,585,612,631,621,637,618,641,609,635,556,589,511,535,476,481,452,438"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,119,268,159"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Engine_1_1Scene_1_1CameraManager.html#a89543fc980c3f8109ee62a6bea412a3d" title=" " alt="" coords="316,27,563,67"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="203,117,359,69,360,74,204,122"/>
+<area shape="rect" id="Node000004" href="$classRa_1_1Engine_1_1Scene_1_1System.html#a8d1f1cfd2c615e58b4155154206afece" title=" " alt="" coords="337,119,541,159"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="268,137,324,137,324,142,268,142"/>
+<area shape="rect" id="Node000005" href="$classRa_1_1Engine_1_1Scene_1_1CameraManager.html#ad4516473cebc8b540d2da18319985125" title="update the active camera data" alt="" coords="327,240,551,295"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="186,157,362,232,360,237,184,162"/>
+<area shape="rect" id="Node000003" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector/size.html#" title=" " alt="" coords="653,5,779,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="563,32,639,23,640,29,563,37"/>
+<area shape="rect" id="Node000006" href="$classRa_1_1Engine_1_1Scene_1_1CameraManager.html#a785ff375d82f19cd4b48e6486f77cbf0" title="Get a pointer to the i&#45;th Camera." alt="" coords="611,55,821,95"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="479,238,520,206,561,170,574,152,583,136,592,121,609,105,618,99,621,104,612,109,596,124,587,139,579,155,565,173,523,211,482,242"/>
+<area shape="rect" id="Node000007" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#ae879404ea174280161cec397fb1710b7" title=" " alt="" coords="626,119,806,159"/>
+<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="482,237,541,203,610,169,629,161,631,166,612,174,544,207,485,242"/>
+<area shape="rect" id="Node000008" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a627f8c3e741a1d0f305886f1d8375de3" title="Return the height of the viewport." alt="" coords="626,183,806,223"/>
+<area shape="poly" id="edge7_Node000005_Node000008" title=" " alt="" coords="551,239,615,224,616,229,552,244"/>
+<area shape="rect" id="Node000009" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a2b2f8b09a65409166a96b9bb30e3ee20" title="Return the width of the viewport." alt="" coords="626,247,806,287"/>
+<area shape="poly" id="edge8_Node000005_Node000009" title=" " alt="" coords="552,265,612,265,612,270,552,270"/>
+<area shape="rect" id="Node000010" href="$classRa_1_1Core_1_1Utils_1_1Observable.html#a7e5fe761726d56a51f95192eb6555f8f" title="Notify (i.e. call) each attached observer with argument p." alt="" coords="617,311,815,351"/>
+<area shape="poly" id="edge9_Node000005_Node000010" title=" " alt="" coords="552,291,616,306,615,311,551,296"/>
+<area shape="rect" id="Node000011" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#ac5e49d14a044ec5c39666cab662f3ba3" title="Set the frame of the camera to frame." alt="" coords="626,375,806,415"/>
+<area shape="poly" id="edge10_Node000005_Node000011" title=" " alt="" coords="485,293,544,327,612,361,631,368,629,373,610,366,541,332,482,297"/>
+<area shape="rect" id="Node000012" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a05d8b61c4135de535eb61a6608fd33d6" title="Change the viewport size. Also compute aspectRatio." alt="" coords="626,439,806,479"/>
+<area shape="poly" id="edge11_Node000005_Node000012" title=" " alt="" coords="465,293,527,359,568,395,612,425,625,432,622,436,609,430,564,399,523,363,461,297"/>
+<area shape="rect" id="Node000013" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a1e1809a93475162a71da46c2816f90e7" title="Update the projection matrix according to the current parameters." alt="" coords="626,503,806,543"/>
+<area shape="poly" id="edge12_Node000005_Node000013" title=" " alt="" coords="456,294,481,337,515,389,560,443,612,489,621,495,618,499,609,493,556,447,511,393,476,339,452,296"/>
 </map>

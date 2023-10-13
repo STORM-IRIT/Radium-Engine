@@ -1,7 +1,9 @@
 <map id="/home/runner/work/Radium&#45;Engine/Radium&#45;Engine/src/Radium&#45;Engine/src/IO" name="/home/runner/work/Radium&#45;Engine/Radium&#45;Engine/src/Radium&#45;Engine/src/IO">
 <area shape="rect" id="node1" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html" title="Core" alt="" coords="666,136,718,161"/>
+<area shape="poly" id="edge1" href="dir_000018_000008.html" alt="" coords="736,90,710,126,706,123,732,87"/>
 <area shape="rect" id="edge1-headlabel" href="dir_000018_000008.html" title="6" alt="" coords="713,119,722,133"/>
 <area shape="rect" id="node3" href="dir_7788c5f37a81918c772c9185f759a19f.html" title="AssimpLoader" alt="" coords="584,63,699,88"/>
+<area shape="poly" id="edge2" href="dir_000003_000008.html" alt="" coords="652,87,678,123,674,126,648,90"/>
 <area shape="rect" id="edge2-headlabel" href="dir_000003_000008.html" title="5" alt="" coords="675,109,685,124"/>
 <area shape="rect" id="node4" href="dir_67e32a227b28c0433b702e220b1d94de.html" title="CameraLoader" alt="" coords="443,63,560,88"/>
 <area shape="rect" id="node5" href="dir_01a8c2f0fadc2dca82cf84211ec91544.html" title="deprecated" alt="" coords="323,63,418,88"/>

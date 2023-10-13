@@ -48,7 +48,7 @@
 <script type="application/ecmascript">
 var viewWidth = 572;
 var viewHeight = 108;
-var sectionId = 'dynsection-6';
+var sectionId = 'dynsection-9';
 </script>
 <script type="application/ecmascript" xlink:href="svg.min.js"/>
 <svg id="graph" class="graph">
@@ -109,10 +109,10 @@ var sectionId = 'dynsection-6';
 <g id="Node000003" class="node">
 <title>Node3</title>
 <g id="a_Node000003"><a xlink:href="classRa_1_1Core_1_1Geometry_1_1deprecated_1_1TopologicalMesh.html#aaba0897eaabd141a25000b5f8efeb14c" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="564,-70 400,-70 400,-29 564,-29 564,-70"/>
-<text text-anchor="start" x="408" y="-58" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Geometry</text>
-<text text-anchor="start" x="408" y="-47" font-family="Helvetica,sans-Serif" font-size="10.00">::deprecated::TopologicalMesh</text>
-<text text-anchor="middle" x="482" y="-36" font-family="Helvetica,sans-Serif" font-size="10.00">::halfedge_handle</text>
+<polygon fill="white" stroke="#666666" points="564,-94 400,-94 400,-53 564,-53 564,-94"/>
+<text text-anchor="start" x="408" y="-82" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Geometry</text>
+<text text-anchor="start" x="408" y="-71" font-family="Helvetica,sans-Serif" font-size="10.00">::deprecated::TopologicalMesh</text>
+<text text-anchor="middle" x="482" y="-60" font-family="Helvetica,sans-Serif" font-size="10.00">::halfedge_handle</text>
 </a>
 </g>
 </g>
@@ -120,8 +120,8 @@ var sectionId = 'dynsection-6';
 <g id="edge2_Node000002_Node000003" class="edge">
 <title>Node2&#45;&gt;Node3</title>
 <g id="a_edge2_Node000002_Node000003"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M364.11,-67.21C372.55,-65.93 381.17,-64.63 389.72,-63.33"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="390.34,-66.78 399.7,-61.82 389.29,-59.86 390.34,-66.78"/>
+<path fill="none" stroke="#63b8ff" d="M364.11,-77.04C372.46,-76.79 380.99,-76.53 389.44,-76.27"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="389.81,-79.77 399.7,-75.96 389.6,-72.77 389.81,-79.77"/>
 </a>
 </g>
 </g>
@@ -129,8 +129,26 @@ var sectionId = 'dynsection-6';
 <g id="edge4_Node000004_Node000003" class="edge">
 <title>Node4&#45;&gt;Node3</title>
 <g id="a_edge4_Node000004_Node000003"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M364.11,-32.38C372.55,-33.62 381.17,-34.88 389.72,-36.13"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="389.3,-39.61 399.7,-37.59 390.31,-32.68 389.3,-39.61"/>
+<path fill="none" stroke="#63b8ff" d="M359.84,-41.07C371.1,-44.08 382.77,-47.21 394.22,-50.27"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="393.64,-53.74 404.21,-52.94 395.45,-46.98 393.64,-53.74"/>
+</a>
+</g>
+</g>
+<!-- Node5 -->
+<g id="Node000005" class="node">
+<title>Node5</title>
+<g id="a_Node000005"><a target="_blank" xlink:href="http://en.cppreference.com/w/cpp/container/vector/size.html#" xlink:title=" ">
+<polygon fill="white" stroke="#666666" points="529,-30 435,-30 435,-11 529,-11 529,-30"/>
+<text text-anchor="middle" x="482" y="-18" font-family="Helvetica,sans-Serif" font-size="10.00">std::vector::size</text>
+</a>
+</g>
+</g>
+<!-- Node4&#45;&gt;Node5 -->
+<g id="edge5_Node000004_Node000005" class="edge">
+<title>Node4&#45;&gt;Node5</title>
+<g id="a_edge5_Node000004_Node000005"><a xlink:title=" ">
+<path fill="none" stroke="#63b8ff" d="M364.11,-20.5C384.47,-20.5 405.88,-20.5 424.73,-20.5"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="424.92,-24 434.92,-20.5 424.92,-17 424.92,-24"/>
 </a>
 </g>
 </g>

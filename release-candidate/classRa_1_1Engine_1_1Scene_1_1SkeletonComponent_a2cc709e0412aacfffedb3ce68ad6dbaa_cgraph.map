@@ -1,7 +1,13 @@
 <map id="Ra::Engine::Scene::SkeletonComponent::handleAnimationLoading" name="Ra::Engine::Scene::SkeletonComponent::handleAnimationLoading">
-<area shape="rect" id="Node000001" title="Create the animations from the given data." alt="" coords="5,16,277,71"/>
-<area shape="rect" id="Node000002" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/algorithm/find.html#" title=" " alt="" coords="343,5,433,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="277,27,328,21,329,27,278,32"/>
-<area shape="rect" id="Node000003" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector/size.html#" title=" " alt="" coords="325,55,451,80"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="278,54,312,57,311,63,277,59"/>
+<area shape="rect" id="Node000001" title="Create the animations from the given data." alt="" coords="5,89,277,144"/>
+<area shape="rect" id="Node000002" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector/begin.html#" title=" " alt="" coords="351,5,493,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="203,87,324,39,350,32,352,37,326,45,205,92"/>
+<area shape="rect" id="Node000003" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector/end.html#" title=" " alt="" coords="357,55,487,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="277,90,342,79,343,84,278,95"/>
+<area shape="rect" id="Node000004" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector/emplace_back.html#" title=" " alt="" coords="325,104,519,129"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="278,114,312,114,312,119,278,119"/>
+<area shape="rect" id="Node000005" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/algorithm/find.html#" title=" " alt="" coords="377,153,467,179"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="278,138,364,153,363,158,277,143"/>
+<area shape="rect" id="Node000006" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector/size.html#" title=" " alt="" coords="359,203,485,228"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="206,142,326,187,356,196,354,202,324,193,204,147"/>
 </map>

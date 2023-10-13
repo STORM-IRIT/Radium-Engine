@@ -1,12 +1,7 @@
 <map id="Ra::Engine::Scene::CameraManager::generateTasks" name="Ra::Engine::Scene::CameraManager::generateTasks">
 <area shape="rect" id="Node000001" title="Pure virtual method to be overridden by any system. Must register in taskQueue the operations that mu..." alt="" coords="5,23,237,63"/>
-<area shape="rect" id="Node000002" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/utility/move.html#" title=" " alt="" coords="530,5,617,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="238,34,516,18,516,24,238,40"/>
-<area shape="rect" id="Node000003" href="$classRa_1_1Core_1_1TaskQueue.html#ad0082015fff6570c90c7c06da147d20c" title=" " alt="" coords="285,51,441,91"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="238,54,272,58,271,63,237,59"/>
-<area shape="poly" id="edge3_Node000003_Node000002" title=" " alt="" coords="441,49,516,30,517,35,443,54"/>
-<area shape="rect" id="Node000004" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector/push_back.html#" title=" " alt="" coords="489,56,657,81"/>
-<area shape="poly" id="edge4_Node000003_Node000004" title=" " alt="" coords="442,68,475,67,476,73,442,73"/>
-<area shape="rect" id="Node000005" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector/size.html#" title=" " alt="" coords="511,105,636,131"/>
-<area shape="poly" id="edge5_Node000003_Node000005" title=" " alt="" coords="442,86,503,100,502,105,441,91"/>
+<area shape="rect" id="Node000002" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/utility/move.html#" title=" " alt="" coords="305,5,391,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="238,28,291,22,291,27,238,33"/>
+<area shape="rect" id="Node000003" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector/size.html#" title=" " alt="" coords="285,55,411,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="238,53,272,57,271,62,238,58"/>
 </map>

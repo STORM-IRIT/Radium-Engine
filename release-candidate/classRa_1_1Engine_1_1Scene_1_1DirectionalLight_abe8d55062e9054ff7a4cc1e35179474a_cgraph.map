@@ -1,7 +1,5 @@
 <map id="Ra::Engine::Scene::DirectionalLight::setDirection" name="Ra::Engine::Scene::DirectionalLight::setDirection">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,37,217,77"/>
-<area shape="rect" id="Node000002" href="$classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a30608d23a6e4b4cbcfa0a0211056e04b" title="Add a parameter by value." alt="" coords="269,5,464,45"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="217,41,255,37,256,42,218,47"/>
-<area shape="rect" id="Node000003" href="$classRa_1_1Engine_1_1Scene_1_1Light.html#a51f3827111d49e5c8b0a4efed2495a69" title="Gives read&#45;only access to the renderParameters of the light." alt="" coords="265,69,468,109"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="218,68,252,72,252,78,217,73"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,217,45"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Engine_1_1Scene_1_1Light.html#a51f3827111d49e5c8b0a4efed2495a69" title="Gives read&#45;only access to the renderParameters of the light." alt="" coords="265,5,468,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="218,23,251,23,251,28,218,28"/>
 </map>

@@ -1,7 +1,0 @@
-<map id="Ra::Engine::Scene::SignalManager::fireEntityCreated" name="Ra::Engine::Scene::SignalManager::fireEntityCreated">
-<area shape="rect" id="Node000001" title="Notifies all observers of an entity creation." alt="" coords="5,5,243,45"/>
-<area shape="rect" id="Node000002" href="$structRa_1_1Engine_1_1Scene_1_1ItemEntry.html#abb75bfc7efa4859df709265ab8982712" title="Returns true if the item represents an entity." alt="" coords="291,5,467,45"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="243,23,277,23,277,28,243,28"/>
-<area shape="rect" id="Node000003" href="$structRa_1_1Engine_1_1Scene_1_1ItemEntry.html#a9673507f752d5efee0439afd0e52892b" title="Debug checks." alt="" coords="515,5,725,45"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="467,23,501,23,501,28,467,28"/>
-</map>

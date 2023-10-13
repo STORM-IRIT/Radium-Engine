@@ -53,8 +53,6 @@ var namespaceRa_1_1Engine_1_1Data =
     [ "ParameterSetEditingInterface", "classRa_1_1Engine_1_1Data_1_1ParameterSetEditingInterface.html", "classRa_1_1Engine_1_1Data_1_1ParameterSetEditingInterface" ],
     [ "PlainMaterial", "classRa_1_1Engine_1_1Data_1_1PlainMaterial.html", "classRa_1_1Engine_1_1Data_1_1PlainMaterial" ],
     [ "PointCloud", "classRa_1_1Engine_1_1Data_1_1PointCloud.html", "classRa_1_1Engine_1_1Data_1_1PointCloud" ],
-    [ "RawShaderMaterial", "classRa_1_1Engine_1_1Data_1_1RawShaderMaterial.html", "classRa_1_1Engine_1_1Data_1_1RawShaderMaterial" ],
-    [ "RawShaderMaterialConverter", "classRa_1_1Engine_1_1Data_1_1RawShaderMaterialConverter.html", null ],
     [ "RenderParameters", "classRa_1_1Engine_1_1Data_1_1RenderParameters.html", "classRa_1_1Engine_1_1Data_1_1RenderParameters" ],
     [ "ShaderConfiguration", "classRa_1_1Engine_1_1Data_1_1ShaderConfiguration.html", "classRa_1_1Engine_1_1Data_1_1ShaderConfiguration" ],
     [ "ShaderParameterProvider", "classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html", "classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider" ],

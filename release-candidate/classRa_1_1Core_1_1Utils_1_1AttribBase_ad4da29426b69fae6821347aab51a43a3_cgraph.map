@@ -1,5 +1,0 @@
-<map id="Ra::Core::Utils::AttribBase::operator==" name="Ra::Core::Utils::AttribBase::operator==">
-<area shape="rect" id="Node000001" title="Return true if *this and rhs have the same name." alt="" coords="5,5,196,45"/>
-<area shape="rect" id="Node000002" href="$classRa_1_1Core_1_1Utils_1_1AttribBase.html#ae2dd0a9753d036b781460b05348c13ca" title="Return the attribute&#39;s name." alt="" coords="244,5,435,45"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="196,23,230,23,230,28,196,28"/>
-</map>

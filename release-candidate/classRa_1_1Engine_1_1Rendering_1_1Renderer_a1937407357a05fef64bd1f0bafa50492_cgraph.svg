@@ -48,7 +48,7 @@
 <script type="application/ecmascript">
 var viewWidth = 717;
 var viewHeight = 323;
-var sectionId = 'dynsection-6';
+var sectionId = 'dynsection-5';
 </script>
 <script type="application/ecmascript" xlink:href="svg.min.js"/>
 <svg id="graph" class="graph">
@@ -58,9 +58,9 @@ var sectionId = 'dynsection-6';
 <g id="Node000001" class="node">
 <title>Node1</title>
 <g id="a_Node000001"><a xlink:title="Initialize renderer.">
-<polygon fill="#999999" stroke="#666666" points="124,-161 0,-161 0,-131 124,-131 124,-161"/>
-<text text-anchor="start" x="8" y="-149" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Rendering</text>
-<text text-anchor="middle" x="62" y="-138" font-family="Helvetica,sans-Serif" font-size="10.00">::Renderer::initialize</text>
+<polygon fill="#999999" stroke="#666666" points="124,-121 0,-121 0,-91 124,-91 124,-121"/>
+<text text-anchor="start" x="8" y="-109" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Rendering</text>
+<text text-anchor="middle" x="62" y="-98" font-family="Helvetica,sans-Serif" font-size="10.00">::Renderer::initialize</text>
 </a>
 </g>
 </g>
@@ -68,10 +68,10 @@ var sectionId = 'dynsection-6';
 <g id="Node000002" class="node">
 <title>Node2</title>
 <g id="a_Node000002"><a xlink:href="namespaceRa_1_1Engine_1_1Data_1_1ShaderConfigurationFactory.html#a00918835250fbd8bbe4deae59ecd6dde" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="328.5,-298.5 191.5,-298.5 191.5,-257.5 328.5,-257.5 328.5,-298.5"/>
-<text text-anchor="start" x="199.5" y="-286.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Data::Shader</text>
-<text text-anchor="start" x="199.5" y="-275.5" font-family="Helvetica,sans-Serif" font-size="10.00">ConfigurationFactory::</text>
-<text text-anchor="middle" x="260" y="-264.5" font-family="Helvetica,sans-Serif" font-size="10.00">addConfiguration</text>
+<polygon fill="white" stroke="#666666" points="328.5,-288.5 191.5,-288.5 191.5,-247.5 328.5,-247.5 328.5,-288.5"/>
+<text text-anchor="start" x="199.5" y="-276.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Data::Shader</text>
+<text text-anchor="start" x="199.5" y="-265.5" font-family="Helvetica,sans-Serif" font-size="10.00">ConfigurationFactory::</text>
+<text text-anchor="middle" x="260" y="-254.5" font-family="Helvetica,sans-Serif" font-size="10.00">addConfiguration</text>
 </a>
 </g>
 </g>
@@ -79,27 +79,8 @@ var sectionId = 'dynsection-6';
 <g id="edge1_Node000001_Node000002" class="edge">
 <title>Node1&#45;&gt;Node2</title>
 <g id="a_edge1_Node000001_Node000002"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M75.31,-161.3C92.41,-181.69 125.21,-217.79 160,-240 167.69,-244.91 176.12,-249.34 184.7,-253.3"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="183.49,-256.59 194.06,-257.41 186.31,-250.18 183.49,-256.59"/>
-</a>
-</g>
-</g>
-<!-- Node4 -->
-<g id="Node000004" class="node">
-<title>Node4</title>
-<g id="a_Node000004"><a xlink:href="classRa_1_1Engine_1_1Data_1_1ShaderConfiguration.html#a42ec93f4772c0455149a81e9d8502d43" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="330,-231 190,-231 190,-201 330,-201 330,-231"/>
-<text text-anchor="start" x="198" y="-219" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Data::Shader</text>
-<text text-anchor="middle" x="260" y="-208" font-family="Helvetica,sans-Serif" font-size="10.00">Configuration::addShader</text>
-</a>
-</g>
-</g>
-<!-- Node1&#45;&gt;Node4 -->
-<g id="edge3_Node000001_Node000004" class="edge">
-<title>Node1&#45;&gt;Node4</title>
-<g id="a_edge3_Node000001_Node000004"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M90.79,-161.05C109.84,-170.9 135.93,-183.48 160,-192 166.38,-194.26 173.07,-196.38 179.84,-198.36"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="179.19,-201.81 189.76,-201.14 181.08,-195.07 179.19,-201.81"/>
+<path fill="none" stroke="#63b8ff" d="M79.51,-121.28C98.57,-138.77 131.01,-168.07 160,-192 180.38,-208.82 203.81,-226.86 222.76,-241.15"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="220.75,-244.02 230.85,-247.22 224.96,-238.42 220.75,-244.02"/>
 </a>
 </g>
 </g>
@@ -117,8 +98,8 @@ var sectionId = 'dynsection-6';
 <g id="edge4_Node000001_Node000005" class="edge">
 <title>Node1&#45;&gt;Node5</title>
 <g id="a_edge4_Node000001_Node000005"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M124.21,-152.87C132.36,-153.79 140.91,-154.75 149.59,-155.72"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="149.48,-159.23 159.81,-156.87 150.26,-152.27 149.48,-159.23"/>
+<path fill="none" stroke="#63b8ff" d="M110.45,-121.01C137.93,-129.7 172.72,-140.71 201.72,-149.88"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="200.72,-153.24 211.31,-152.91 202.83,-146.56 200.72,-153.24"/>
 </a>
 </g>
 </g>
@@ -132,58 +113,58 @@ var sectionId = 'dynsection-6';
 </g>
 </g>
 <!-- Node1&#45;&gt;Node10 -->
-<g id="edge14_Node000001_Node000010" class="edge">
+<g id="edge13_Node000001_Node000010" class="edge">
 <title>Node1&#45;&gt;Node10</title>
-<g id="a_edge14_Node000001_Node000010"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M124.16,-142.33C246.26,-135.01 517.4,-118.76 621.59,-112.51"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="621.95,-116 631.72,-111.91 621.53,-109.01 621.95,-116"/>
+<g id="a_edge13_Node000001_Node000010"><a xlink:title=" ">
+<path fill="none" stroke="#63b8ff" d="M124.16,-106.41C246.26,-107.22 517.4,-109.03 621.59,-109.72"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="621.7,-113.22 631.72,-109.79 621.75,-106.22 621.7,-113.22"/>
 </a>
 </g>
 </g>
-<!-- Node12 -->
-<g id="Node000012" class="node">
-<title>Node12</title>
-<g id="a_Node000012"><a xlink:href="classRa_1_1Engine_1_1Rendering_1_1Renderer.html#ab14ff49e794cd718b77db013c9fae556" target="_top" xlink:title="initializeInternal Initialize the renderer dependant resources.">
+<!-- Node11 -->
+<g id="Node000011" class="node">
+<title>Node11</title>
+<g id="a_Node000011"><a xlink:href="classRa_1_1Engine_1_1Rendering_1_1Renderer.html#ab14ff49e794cd718b77db013c9fae556" target="_top" xlink:title="initializeInternal Initialize the renderer dependant resources.">
 <polygon fill="white" stroke="#666666" points="336,-78 184,-78 184,-48 336,-48 336,-78"/>
 <text text-anchor="start" x="192" y="-66" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Rendering</text>
 <text text-anchor="middle" x="260" y="-55" font-family="Helvetica,sans-Serif" font-size="10.00">::Renderer::initializeInternal</text>
 </a>
 </g>
 </g>
-<!-- Node1&#45;&gt;Node12 -->
-<g id="edge13_Node000001_Node000012" class="edge">
-<title>Node1&#45;&gt;Node12</title>
-<g id="a_edge13_Node000001_Node000012"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M86.57,-130.92C105.76,-119.12 133.86,-102.94 160,-92 169.51,-88.02 179.76,-84.36 189.92,-81.08"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="191.11,-84.37 199.62,-78.05 189.03,-77.69 191.11,-84.37"/>
+<!-- Node1&#45;&gt;Node11 -->
+<g id="edge12_Node000001_Node000011" class="edge">
+<title>Node1&#45;&gt;Node11</title>
+<g id="a_edge12_Node000001_Node000011"><a xlink:title=" ">
+<path fill="none" stroke="#63b8ff" d="M124.21,-92.57C142.01,-88.67 161.71,-84.34 180.43,-80.24"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="181.39,-83.61 190.41,-78.05 179.89,-76.77 181.39,-83.61"/>
 </a>
 </g>
 </g>
-<!-- Node13 -->
-<g id="Node000013" class="node">
-<title>Node13</title>
-<g id="a_Node000013"><a xlink:href="classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a314e31247fa616d1cbb02143cd42019f" target="_top" xlink:title="Resize the viewport and all the screen textures, fbos. This function must be overrided as soon as som...">
+<!-- Node12 -->
+<g id="Node000012" class="node">
+<title>Node12</title>
+<g id="a_Node000012"><a xlink:href="classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a314e31247fa616d1cbb02143cd42019f" target="_top" xlink:title="Resize the viewport and all the screen textures, fbos. This function must be overrided as soon as som...">
 <polygon fill="white" stroke="#666666" points="322,-30 198,-30 198,0 322,0 322,-30"/>
 <text text-anchor="start" x="206" y="-18" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Rendering</text>
 <text text-anchor="middle" x="260" y="-7" font-family="Helvetica,sans-Serif" font-size="10.00">::Renderer::resize</text>
 </a>
 </g>
 </g>
-<!-- Node1&#45;&gt;Node13 -->
-<g id="edge15_Node000001_Node000013" class="edge">
-<title>Node1&#45;&gt;Node13</title>
-<g id="a_edge15_Node000001_Node000013"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M72.29,-130.96C87.58,-107.53 120.34,-62.57 160,-39 168.61,-33.88 178.25,-29.86 188.05,-26.69"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="189.27,-29.98 197.87,-23.8 187.29,-23.26 189.27,-29.98"/>
+<!-- Node1&#45;&gt;Node12 -->
+<g id="edge14_Node000001_Node000012" class="edge">
+<title>Node1&#45;&gt;Node12</title>
+<g id="a_edge14_Node000001_Node000012"><a xlink:title=" ">
+<path fill="none" stroke="#63b8ff" d="M80.74,-90.73C99.31,-75.5 129.93,-52.47 160,-39 168.9,-35.01 178.55,-31.63 188.23,-28.78"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="189.18,-32.15 197.88,-26.1 187.31,-25.4 189.18,-32.15"/>
 </a>
 </g>
 </g>
 <!-- Node3 -->
 <g id="Node000003" class="node">
 <title>Node3</title>
-<g id="a_Node000003"><a target="_blank" xlink:href="http://en.cppreference.com/w/cpp/string/basic_string/empty.html#" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="541.5,-314.5 438.5,-314.5 438.5,-295.5 541.5,-295.5 541.5,-314.5"/>
-<text text-anchor="middle" x="490" y="-302.5" font-family="Helvetica,sans-Serif" font-size="10.00">std::string::empty</text>
+<g id="a_Node000003"><a target="_blank" xlink:href="http://en.cppreference.com/w/cpp/container/vector/empty.html#" xlink:title=" ">
+<polygon fill="white" stroke="#666666" points="543,-277.5 437,-277.5 437,-258.5 543,-258.5 543,-277.5"/>
+<text text-anchor="middle" x="490" y="-265.5" font-family="Helvetica,sans-Serif" font-size="10.00">std::vector::empty</text>
 </a>
 </g>
 </g>
@@ -191,8 +172,26 @@ var sectionId = 'dynsection-6';
 <g id="edge2_Node000002_Node000003" class="edge">
 <title>Node2&#45;&gt;Node3</title>
 <g id="a_edge2_Node000002_Node000003"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M328.79,-286.03C360.4,-289.77 397.71,-294.19 428.37,-297.82"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="428.15,-301.32 438.49,-299.02 428.97,-294.37 428.15,-301.32"/>
+<path fill="none" stroke="#63b8ff" d="M328.79,-268C359.81,-268 396.32,-268 426.64,-268"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="426.68,-271.5 436.68,-268 426.68,-264.5 426.68,-271.5"/>
+</a>
+</g>
+</g>
+<!-- Node4 -->
+<g id="Node000004" class="node">
+<title>Node4</title>
+<g id="a_Node000004"><a target="_blank" xlink:href="http://en.cppreference.com/w/cpp/container/vector/insert.html#" xlink:title=" ">
+<polygon fill="white" stroke="#666666" points="541,-314.5 439,-314.5 439,-295.5 541,-295.5 541,-314.5"/>
+<text text-anchor="middle" x="490" y="-302.5" font-family="Helvetica,sans-Serif" font-size="10.00">std::vector::insert</text>
+</a>
+</g>
+</g>
+<!-- Node2&#45;&gt;Node4 -->
+<g id="edge3_Node000002_Node000004" class="edge">
+<title>Node2&#45;&gt;Node4</title>
+<g id="a_edge3_Node000002_Node000004"><a xlink:title=" ">
+<path fill="none" stroke="#63b8ff" d="M328.79,-279C360.51,-284.15 397.99,-290.23 428.71,-295.22"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="428.42,-298.72 438.85,-296.86 429.54,-291.81 428.42,-298.72"/>
 </a>
 </g>
 </g>
@@ -225,9 +224,9 @@ var sectionId = 'dynsection-6';
 </g>
 </g>
 <!-- Node5&#45;&gt;Node7 -->
-<g id="edge11_Node000005_Node000007" class="edge">
+<g id="edge10_Node000005_Node000007" class="edge">
 <title>Node5&#45;&gt;Node7</title>
-<g id="a_edge11_Node000005_Node000007"><a xlink:title=" ">
+<g id="a_edge10_Node000005_Node000007"><a xlink:title=" ">
 <path fill="none" stroke="#63b8ff" d="M360.24,-162.82C440.28,-158.65 549.59,-152.94 612.76,-149.65"/>
 <polygon fill="#63b8ff" stroke="#63b8ff" points="613.06,-153.14 622.87,-149.12 612.7,-146.15 613.06,-153.14"/>
 </a>
@@ -243,29 +242,11 @@ var sectionId = 'dynsection-6';
 </g>
 </g>
 <!-- Node5&#45;&gt;Node8 -->
-<g id="edge12_Node000005_Node000008" class="edge">
+<g id="edge11_Node000005_Node000008" class="edge">
 <title>Node5&#45;&gt;Node8</title>
-<g id="a_edge12_Node000005_Node000008"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M332.22,-183.01C341.68,-185.65 351.15,-188.65 360,-192 376.92,-198.4 378.58,-206.13 396,-211 469.24,-231.48 558.01,-232.33 612.62,-230.27"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="612.9,-233.76 622.74,-229.84 612.6,-226.77 612.9,-233.76"/>
-</a>
-</g>
-</g>
-<!-- Node11 -->
-<g id="Node000011" class="node">
-<title>Node11</title>
-<g id="a_Node000011"><a target="_blank" xlink:href="http://en.cppreference.com/w/cpp/string/basic_string/c_str.html#" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="537.5,-277.5 442.5,-277.5 442.5,-258.5 537.5,-258.5 537.5,-277.5"/>
-<text text-anchor="middle" x="490" y="-265.5" font-family="Helvetica,sans-Serif" font-size="10.00">std::string::c_str</text>
-</a>
-</g>
-</g>
-<!-- Node5&#45;&gt;Node11 -->
-<g id="edge10_Node000005_Node000011" class="edge">
-<title>Node5&#45;&gt;Node11</title>
-<g id="a_edge10_Node000005_Node000011"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M344.04,-183.17C349.66,-185.67 355.04,-188.6 360,-192 383.17,-207.91 372.94,-227.92 396,-244 406.68,-251.45 419.51,-256.59 432.17,-260.13"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="431.7,-263.62 442.25,-262.65 433.39,-256.83 431.7,-263.62"/>
+<g id="a_edge11_Node000005_Node000008"><a xlink:title=" ">
+<path fill="none" stroke="#63b8ff" d="M299.34,-183.03C326.01,-192.78 362.63,-204.79 396,-211 470.55,-224.88 558.61,-227.57 612.75,-227.69"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="612.79,-231.19 622.79,-227.69 612.78,-224.19 612.79,-231.19"/>
 </a>
 </g>
 </g>
@@ -314,20 +295,20 @@ var sectionId = 'dynsection-6';
 </a>
 </g>
 </g>
-<!-- Node14 -->
-<g id="Node000014" class="node">
-<title>Node14</title>
-<g id="a_Node000014"><a xlink:href="classRa_1_1Engine_1_1Rendering_1_1Renderer.html#ac804ffc9a0b4f71c02610ce930fd5c65" target="_top" xlink:title=" ">
+<!-- Node13 -->
+<g id="Node000013" class="node">
+<title>Node13</title>
+<g id="a_Node000013"><a xlink:href="classRa_1_1Engine_1_1Rendering_1_1Renderer.html#ac804ffc9a0b4f71c02610ce930fd5c65" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="#666666" points="560,-30 420,-30 420,0 560,0 560,-30"/>
 <text text-anchor="start" x="428" y="-18" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Rendering</text>
 <text text-anchor="middle" x="490" y="-7" font-family="Helvetica,sans-Serif" font-size="10.00">::Renderer::resizeInternal</text>
 </a>
 </g>
 </g>
-<!-- Node13&#45;&gt;Node14 -->
-<g id="edge16_Node000013_Node000014" class="edge">
-<title>Node13&#45;&gt;Node14</title>
-<g id="a_edge16_Node000013_Node000014"><a xlink:title=" ">
+<!-- Node12&#45;&gt;Node13 -->
+<g id="edge15_Node000012_Node000013" class="edge">
+<title>Node12&#45;&gt;Node13</title>
+<g id="a_edge15_Node000012_Node000013"><a xlink:title=" ">
 <path fill="none" stroke="#63b8ff" d="M322.1,-15C349,-15 380.96,-15 409.67,-15"/>
 <polygon fill="#63b8ff" stroke="#63b8ff" points="409.67,-18.5 419.67,-15 409.67,-11.5 409.67,-18.5"/>
 </a>
