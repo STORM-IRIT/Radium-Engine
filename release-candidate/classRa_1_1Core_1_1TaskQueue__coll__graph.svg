@@ -21,7 +21,7 @@
 <!-- Node1 -->
 <g id="Node000001" class="node">
 <title>Node1</title>
-<g id="a_Node000001"><a xlink:title=" ">
+<g id="a_Node000001"><a xlink:title="This class allows tasks to be registered and then executed in parallel on separate threads.">
 <polygon fill="#999999" stroke="transparent" points="147,-274 0,-274 0,0 147,0 147,-274"/>
 <text text-anchor="start" x="23.5" y="-262" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::TaskQueue</text>
 <text text-anchor="start" x="72" y="-247" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>

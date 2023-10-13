@@ -1,16 +1,19 @@
 <map id="Ra::Core::TaskQueue::runTasksInThisThread" name="Ra::Core::TaskQueue::runTasksInThisThread">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,106,176,146"/>
-<area shape="rect" id="Node000002" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/deque/back.html#" title=" " alt="" coords="261,5,390,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="121,104,168,75,223,48,263,32,265,37,225,52,171,80,124,108"/>
-<area shape="rect" id="Node000003" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/deque/empty.html#" title=" " alt="" coords="475,60,615,85"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="164,103,224,91,348,78,461,72,461,77,348,83,224,97,165,109"/>
-<area shape="rect" id="Node000004" href="$classRa_1_1Core_1_1TaskQueue.html#a133a9b42dbb00afd3873b83a044c447f" title="Erases all tasks. Will assert if tasks are unprocessed." alt="" coords="247,106,403,146"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="176,123,233,123,233,129,176,129"/>
-<area shape="rect" id="Node000006" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/chrono/high_resolution_clock/now.html#" title=" " alt="" coords="224,170,427,210"/>
-<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="165,144,239,164,238,169,164,149"/>
-<area shape="rect" id="Node000007" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/deque/pop_back.html#" title=" " alt="" coords="245,235,405,260"/>
-<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="116,144,164,183,225,220,247,228,245,233,223,224,161,187,112,148"/>
-<area shape="poly" id="edge5_Node000004_Node000003" title=" " alt="" coords="403,104,478,86,479,91,404,110"/>
-<area shape="rect" id="Node000005" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector/clear.html#" title=" " alt="" coords="479,113,610,139"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="404,123,465,123,465,129,404,129"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,105,176,145"/>
+<area shape="rect" id="Node000002" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector/back.html#" title=" " alt="" coords="260,5,391,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="117,102,165,70,223,40,246,31,247,36,225,44,168,75,120,107"/>
+<area shape="rect" id="Node000003" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector/empty.html#" title=" " alt="" coords="255,55,396,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="173,102,259,81,260,86,174,107"/>
+<area shape="rect" id="Node000004" href="$classRa_1_1Core_1_1TaskQueue.html#a133a9b42dbb00afd3873b83a044c447f" title="Erases all tasks. Will assert if tasks are unprocessed." alt="" coords="247,105,403,145"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="176,122,233,122,233,127,176,127"/>
+<area shape="rect" id="Node000008" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/chrono/high_resolution_clock/now.html#" title=" " alt="" coords="224,169,427,209"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="165,142,239,163,238,168,164,147"/>
+<area shape="rect" id="Node000009" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector/pop_back.html#" title=" " alt="" coords="245,233,406,259"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="116,143,164,181,225,218,247,227,245,232,223,223,161,186,112,147"/>
+<area shape="rect" id="Node000005" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector/clear.html#" title=" " alt="" coords="495,63,625,88"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="403,106,485,88,486,93,404,111"/>
+<area shape="rect" id="Node000006" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/deque/empty.html#" title=" " alt="" coords="490,112,630,137"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="404,122,476,122,476,127,404,127"/>
+<area shape="rect" id="Node000007" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/thread/condition_variable_any/notify_all.html#" title=" " alt="" coords="475,162,645,202"/>
+<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="405,141,465,156,464,161,403,146"/>
 </map>
