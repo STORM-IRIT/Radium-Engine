@@ -14,8 +14,6 @@ class Entity;
 class RA_ENGINE_API PointLight final : public Ra::Engine::Scene::Light
 {
   public:
-    EIGEN_MAKE_ALIGNED_OPERATOR_NEW
-
     explicit PointLight( Entity* entity, const std::string& name = "pointlight" );
     ~PointLight() override = default;
 

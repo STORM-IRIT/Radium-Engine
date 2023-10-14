@@ -39,8 +39,6 @@ class RA_ENGINE_API Light : public Component
     };
 
   public:
-    EIGEN_MAKE_ALIGNED_OPERATOR_NEW
-
     /**
      * Create a new light. The new light is a component attached to the given entity
      * \param entity

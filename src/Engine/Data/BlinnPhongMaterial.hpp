@@ -35,7 +35,6 @@ class RA_ENGINE_API BlinnPhongMaterial final : public Material, public Parameter
     enum class TextureSemantic { TEX_DIFFUSE, TEX_SPECULAR, TEX_NORMAL, TEX_SHININESS, TEX_ALPHA };
 
   public:
-    EIGEN_MAKE_ALIGNED_OPERATOR_NEW
     /**
      * Construct a named Blinn-Phongmaterial
      * \param instanceName The name of this instance of the material

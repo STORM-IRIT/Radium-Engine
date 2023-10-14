@@ -26,8 +26,6 @@ class RA_CORE_API LightData : public AssetData
 {
 
   public:
-    EIGEN_MAKE_ALIGNED_OPERATOR_NEW
-
     /** Supported light type
      *
      */

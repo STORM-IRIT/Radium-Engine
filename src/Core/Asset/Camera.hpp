@@ -15,8 +15,6 @@ namespace Asset {
 class RA_CORE_API Camera
 {
   public:
-    EIGEN_MAKE_ALIGNED_OPERATOR_NEW
-
     /// Define the projection type.
     enum class ProjType { ORTHOGRAPHIC, PERSPECTIVE };
 

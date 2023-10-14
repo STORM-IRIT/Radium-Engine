@@ -25,8 +25,6 @@ namespace Geometry {
 class RA_CORE_API AttribArrayGeometry : public AbstractGeometry
 {
   public:
-    EIGEN_MAKE_ALIGNED_OPERATOR_NEW
-
     using Point  = Vector3;
     using Normal = Vector3;
 

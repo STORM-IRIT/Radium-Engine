@@ -16,8 +16,6 @@ class RA_ENGINE_API SpotLight final : public Ra::Engine::Scene::Light
 {
 
   public:
-    EIGEN_MAKE_ALIGNED_OPERATOR_NEW
-
     explicit SpotLight( Entity* entity, const std::string& name = "spotlight" );
     ~SpotLight() override = default;
 
