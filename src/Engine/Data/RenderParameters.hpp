@@ -74,6 +74,16 @@ class RA_ENGINE_API RenderParameters final : public Core::VariableSet
         setVariable( name, TextureInfo { tex, texUnit } );
     }
 
+    using VariableSet::setVariable;
+
+    /// overload create ref wrapper for RenderParameters variable
+    void setVariable( const std::string& name, RenderParameters& rp ) {
+        VariableSet::setVariable( name, std::ref( rp ) );
+    }
+    void setVariable( const std::string& name, const RenderParameters& rp ) {
+        VariableSet::setVariable( name, std::cref( rp ) );
+    }
+
     /** \brief Bind the parameter uniform on the shader program.
      *
      * \note, this will only bind the supported parameter types.

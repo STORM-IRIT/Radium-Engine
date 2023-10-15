@@ -369,8 +369,7 @@ TEST_CASE( "Engine/Data/RenderParameters", "[Engine][Engine/Data][RenderParamete
         subParams.setVariable( "sub.string", std::string { "SubString" } );
         addEnumConverter( subParams, "enum.semantic", valuesEnumConverter );
         setEnumVariable( subParams, "enum.semantic", "VALUE_1" );
-        paramsToVisit.setVariable( "SubParameter",
-                                   std::reference_wrapper<RenderParameters> { subParams } );
+        paramsToVisit.setVariable( "SubParameter", subParams );
         paramsToVisit.visit( vstr, "Visiting with subparameters" );
         REQUIRE( vstr.output.str() ==
                  "	Visiting with subparameters: ( int ) int.simple --> 1\n"
