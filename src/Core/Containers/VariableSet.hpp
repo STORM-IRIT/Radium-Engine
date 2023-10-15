@@ -1,7 +1,6 @@
 #pragma once
 #include <Core/RaCore.hpp>
 
-#include <Core/Utils/EnumConverter.hpp>
 #include <Core/Utils/Log.hpp>
 #include <Core/Utils/StdExperimentalTypeTraits.hpp>
 #include <Core/Utils/StdOptional.hpp>
@@ -170,12 +169,6 @@ class RA_CORE_API VariableSet
     template <typename T>
     auto getVariable( const std::string& name ) -> T&;
 
-    /// \todo add enable_if
-    template <typename T>
-    auto getEnumVariable( const std::string& name ) const -> const T&;
-    template <typename T>
-    auto getEnumVariable( const std::string& name ) -> T&;
-
     /// \brief get the handle on the variable with the given name
     /// \tparam T the type of the variable
     /// \param name the name of a variable
@@ -268,62 +261,6 @@ class RA_CORE_API VariableSet
     template <typename T>
     size_t numberOf() const;
     /// \}
-
-    /**
-     * \brief Associate a converter for enumerated type to the given variable name
-     * \tparam EnumBaseType The enum base type to manage (\see Ra::Core::Utils::EnumConverter)
-     * \param name
-     * \param converter
-     */
-    template <typename EnumBaseType>
-    void addEnumConverter( const std::string& name,
-                           std::shared_ptr<Core::Utils::EnumConverter<EnumBaseType>> converter );
-
-    /**
-     * \brief Search for a converter associated with an enumeration variable
-     * \tparam EnumBaseType The enum base type to manage (\see Ra::Core::Utils::EnumConverter)
-     * \param name the name of the parameter
-     * \return an optional containing the converter or false if no converter is found.
-     */
-    template <typename EnumBaseType>
-    Core::Utils::optional<std::shared_ptr<Core::Utils::EnumConverter<EnumBaseType>>>
-    getEnumConverter( const std::string& name );
-
-    /**
-     * \brief Return the string associated to the actual value of an enumeration variable
-     * \tparam Enum The enum type (\see Ra::Core::Utils::EnumConverter)
-     * \param name The name of the enum variable
-     * \param value The value to convert
-     * \return
-     */
-    template <typename Enum, typename std::enable_if<std::is_enum<Enum> {}, bool>::type = true>
-    std::string getEnumString( const std::string& name, Enum value );
-
-    /**
-     * \brief (overload) Return the string associated to the actual value of a n enumeration
-     * variable, from a value with underlying_type<Enum>. \tparam EnumBaseType The underlying enum
-     * type (\see Ra::Core::Utils::EnumConverter) \param name The name of the enum variable \param
-     * value The value to convert \return
-     */
-    template <typename EnumBaseType>
-    std::string
-    getEnumString( const std::string& name,
-                   EnumBaseType value,
-                   typename std::enable_if<!std::is_enum<EnumBaseType> {}, bool>::type = true );
-
-    /**
-     * \brief set the value of the given enumeration variable, according to a string representation
-     * of an enum. \note If there is no EnumConverter associated with the variable name, the string
-     * is registered in the RenderParameter set. \param name Name of the variable \param value value
-     * of the variable
-     */
-    void setEnumVariable( const std::string& name, const std::string& value );
-    void setEnumVariable( const std::string& name, const char* value );
-    template <typename T>
-    void setEnumVariable( const std::string& name, T value ) {
-        auto v = static_cast<typename std::underlying_type<T>::type>( value );
-        setVariable( name, v );
-    }
 
     /// Visiting operators
     /// \{
@@ -688,18 +625,6 @@ auto VariableSet::getVariable( const std::string& name ) const -> const T& {
 }
 
 template <typename T>
-auto VariableSet::getEnumVariable( const std::string& name ) -> T& {
-    return const_cast<T&>( const_cast<const VariableSet*>( this )->getEnumVariable<T>( name ) );
-}
-
-template <typename T>
-auto VariableSet::getEnumVariable( const std::string& name ) const -> const T& {
-    static_assert( std::is_enum<T>::value );
-    return reinterpret_cast<const T&>(
-        getVariable<typename std::underlying_type<T>::type>( name ) );
-}
-
-template <typename T>
 auto VariableSet::getVariableHandle( const std::string& name ) const -> const VariableHandle<T> {
     assert( existsVariableType<T>() );
     return getVariableStorage<T>().find( name );
@@ -718,6 +643,7 @@ auto VariableSet::setVariable( const std::string& name, const T& value )
     // If it is the first parameter of the given type, first register the type
     if ( !typeAccess ) { typeAccess = addVariableType<T>(); }
     // insert the parameter.
+
     return ( *typeAccess )->insert_or_assign( name, value );
 }
 
@@ -857,54 +783,6 @@ size_t VariableSet::numberOf() const {
     return 0;
 }
 
-/* --------------- enum parameter management --------------- */
-
-template <typename EnumBaseType>
-void VariableSet::addEnumConverter(
-    const std::string& name,
-    std::shared_ptr<Core::Utils::EnumConverter<EnumBaseType>> converter ) {
-
-    // typed converter
-    auto converterHandle = setVariable( name, converter );
-
-    // string string converter/setter for setEnumVariable
-    std::function<void( Core::VariableSet&, const std::string&, const std::string& )>
-        convertingFunction = [converter = converterHandle.first]( Core::VariableSet& vs,
-                                                                  const std::string& nm,
-                                                                  const std::string& vl ) {
-            vs.setVariable( nm, converter->second->getEnumerator( vl ) );
-        };
-    setVariable( name, convertingFunction );
-}
-
-template <typename EnumBaseType>
-Core::Utils::optional<std::shared_ptr<Core::Utils::EnumConverter<EnumBaseType>>>
-VariableSet::getEnumConverter( const std::string& name ) {
-    auto storedConverter = Core::VariableSet::existsVariable<
-        std::shared_ptr<Core::Utils::EnumConverter<EnumBaseType>>>( name );
-    if ( storedConverter ) { return ( *storedConverter )->second; }
-    return {};
-}
-
-template <typename EnumBaseType>
-std::string
-VariableSet::getEnumString( const std::string& name,
-                            EnumBaseType value,
-                            typename std::enable_if<!std::is_enum<EnumBaseType> {}, bool>::type ) {
-    auto storedConverter = Core::VariableSet::existsVariable<
-        std::shared_ptr<Core::Utils::EnumConverter<EnumBaseType>>>( name );
-    if ( storedConverter ) { return ( *storedConverter )->second->getEnumerator( value ); }
-    LOG( Ra::Core::Utils::logWARNING ) << name + " is not a registered Enum with underlying type " +
-                                              Ra::Core::Utils::demangleType<EnumBaseType>() + ".";
-    return "";
-}
-
-template <typename Enum, typename std::enable_if<std::is_enum<Enum> {}, bool>::type>
-std::string VariableSet::getEnumString( const std::string& name, Enum value ) {
-    using EnumBaseType = typename std::underlying_type_t<Enum>;
-    return getEnumString( name, EnumBaseType( value ) );
-}
-
 /* --------------- Visitors */
 
 template <typename P>
@@ -931,7 +809,7 @@ void VariableSet::visitImplHelper( F& visitor ) const {
                    "Static visitors must provide a function with profile "
                    "void( const std::string& name, [const ]T[&] value) for each "
                    "declared visitable type T" );
-    if ( auto variables = existsVariableType<T>(); variables ) {
+    if ( auto variables = existsVariableType<T>() ) {
         for ( auto& element : *( variables.value() ) ) {
             visitor( element.first, element.second );
         }
