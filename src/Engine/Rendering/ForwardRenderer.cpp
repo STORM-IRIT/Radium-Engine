@@ -3,6 +3,7 @@
 #include <Engine/Rendering/ForwardRenderer.hpp>
 
 #include <Core/Containers/MakeShared.hpp>
+#include <Core/Containers/VariableSetEnumManagement.hpp>
 #include <Core/Geometry/TopologicalMesh.hpp>
 #include <Core/Utils/Color.hpp>
 #include <Core/Utils/Log.hpp>
@@ -529,8 +530,9 @@ void ForwardRenderer::debugInternal( const Data::ViewingParameters& renderData )
         GL_ASSERT( glDepthMask( GL_TRUE ) );
         GL_ASSERT( glClear( GL_DEPTH_BUFFER_BIT ) );
         Data::RenderParameters xrayLightParams;
+        using namespace Core::VariableSetEnumManagement;
         xrayLightParams.setVariable( "light.color", Ra::Core::Utils::Color::Grey( 5.0 ) );
-        xrayLightParams.setEnumVariable( "light.type", Scene::Light::LightType::DIRECTIONAL );
+        setEnumVariable( xrayLightParams, "light.type", Scene::Light::LightType::DIRECTIONAL );
         xrayLightParams.setVariable( "light.directional.direction", Core::Vector3( 0, -1, 0 ) );
         for ( const auto& ro : m_xrayRenderObjects ) {
             if ( ro->isVisible() ) { ro->render( xrayLightParams, renderData ); }

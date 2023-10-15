@@ -1,5 +1,6 @@
 #include <catch2/catch.hpp>
 
+#include <Core/Containers/VariableSetEnumManagement.hpp>
 #include <Core/Types.hpp>
 #include <Core/Utils/Color.hpp>
 #include <Engine/Data/RenderParameters.hpp>
@@ -81,6 +82,8 @@ class StaticPrintVisitor
 
 TEST_CASE( "Engine/Data/RenderParameters", "[Engine][Engine/Data][RenderParameters]" ) {
     using RP = RenderParameters;
+    using namespace Ra::Core::VariableSetEnumManagement;
+
     SECTION( "Parameter storage" ) {
         RP p1;
         REQUIRE( !( p1.existsVariableType<int>().has_value() ) );
@@ -279,31 +282,31 @@ TEST_CASE( "Engine/Data/RenderParameters", "[Engine][Engine/Data][RenderParamete
                 { Values::VALUE_2, "VALUE_2" } } );
 
         // Enum converter must be added and fetched using the enum underlying type
-        REQUIRE( !params.getEnumConverter<ValuesType>( "enum.semantic" ) );
-        params.addEnumConverter( "enum.semantic", valuesEnumConverter );
-        REQUIRE( params.getEnumConverter<ValuesType>( "enum.semantic" ) );
-        REQUIRE( !params.getEnumConverter<ValuesType>( "enum.unknown" ) );
-        REQUIRE( !params.getEnumConverter<UnregisteredType>( "enum.unknown" ) );
+        REQUIRE( !getEnumConverter<ValuesType>( params, "enum.semantic" ) );
+        addEnumConverter( params, "enum.semantic", valuesEnumConverter );
+        REQUIRE( getEnumConverter<ValuesType>( params, "enum.semantic" ) );
+        REQUIRE( !getEnumConverter<ValuesType>( params, "enum.unknown" ) );
+        REQUIRE( !getEnumConverter<UnregisteredType>( params, "enum.unknown" ) );
 
         // The string value of an enum value (with the enumeration type) can be fetched from
         // the parameters and is empty if the enum is not registered
-        REQUIRE( params.getEnumString( "enum.semantic", Values::VALUE_0 ) == "VALUE_0" );
-        REQUIRE( params.getEnumString( "enum.unknown", Unregistered::LOW ) == "" );
+        REQUIRE( getEnumString( params, "enum.semantic", Values::VALUE_0 ) == "VALUE_0" );
+        REQUIRE( getEnumString( params, "enum.unknown", Unregistered::LOW ) == "" );
 
         // Adding the enum in the parameter set using its value
-        params.setEnumVariable( "enum.semantic", Values::VALUE_0 );
+        setEnumVariable( params, "enum.semantic", Values::VALUE_0 );
 
         // checking its seen with its type (enum)
-        auto& v = params.getEnumVariable<Values>( "enum.semantic" );
+        auto& v = getEnumVariable<Values>( params, "enum.semantic" );
 
         REQUIRE( v == Values::VALUE_0 );
 
         // The string value of an enum value (with the enumeration's underlying type) can also be
         // fetched from the parameters
-        REQUIRE( params.getEnumString( "enum.semantic", v ) == "VALUE_0" );
+        REQUIRE( getEnumString( params, "enum.semantic", v ) == "VALUE_0" );
 
         // changing the value trough setParameter and string representation
-        params.setEnumVariable( "enum.semantic", "VALUE_2" );
+        setEnumVariable( params, "enum.semantic", "VALUE_2" );
         REQUIRE( v == Values::VALUE_2 );
 
         // variable managed with enum method could also be access directly thru underlying type
@@ -315,14 +318,14 @@ TEST_CASE( "Engine/Data/RenderParameters", "[Engine][Engine/Data][RenderParamete
         REQUIRE( vv == Values::VALUE_0 );
 
         // unregistered enum could be added only using their value
-        params.setEnumVariable( "enum.unknown", Unregistered::LOW );
-        auto u = params.getEnumVariable<Unregistered>( "enum.unknown" );
+        setEnumVariable( params, "enum.unknown", Unregistered::LOW );
+        auto u = getEnumVariable<Unregistered>( params, "enum.unknown" );
         REQUIRE( u == Unregistered::LOW );
-        REQUIRE( params.getEnumString( "enum.unknown", u ) == "" );
+        REQUIRE( getEnumString( params, "enum.unknown", u ) == "" );
 
         // Trying to add unregistered enums values trough string does not change the stored value
-        params.setEnumVariable( "enum.unknown", "Unregistered::HIGH" );
-        u = params.getEnumVariable<Unregistered>( "enum.unknown" );
+        setEnumVariable( params, "enum.unknown", "Unregistered::HIGH" );
+        u = getEnumVariable<Unregistered>( params, "enum.unknown" );
 
         // same with management thru underlying type
         auto uu = params.getVariable<UnregisteredType>( "enum.unknown" );
@@ -340,8 +343,8 @@ TEST_CASE( "Engine/Data/RenderParameters", "[Engine][Engine/Data][RenderParamete
                                                               { Values::VALUE_2, "VALUE_2" } } );
         auto valuesEnumConverter =
             std::shared_ptr<Ra::Core::Utils::EnumConverter<ValuesType>>( vnc );
-        paramsToVisit.addEnumConverter( "enum.semantic", valuesEnumConverter );
-        paramsToVisit.setEnumVariable( "enum.semantic", "VALUE_0" );
+        addEnumConverter( paramsToVisit, "enum.semantic", valuesEnumConverter );
+        setEnumVariable( paramsToVisit, "enum.semantic", "VALUE_0" );
         paramsToVisit.setVariable( "int.simple", int( 1 ) );
 
         PrintThemAllVisitor ptm;
@@ -363,9 +366,9 @@ TEST_CASE( "Engine/Data/RenderParameters", "[Engine][Engine/Data][RenderParamete
         std::cout << "Visiting with custom static visitor and hierarchical parameters:\n";
         RP subParams;
         subParams.setVariable( "sub.int", 3 );
-        subParams.setEnumVariable( "sub.string", "SubString" );
-        subParams.setEnumVariable( "enum.semantic", "VALUE_1" );
-        paramsToVisit.setVariable( "SubParameter", subParams );
+        subParams.setVariable( "sub.string", std::string { "SubString" } );
+        addEnumConverter( subParams, "enum.semantic", valuesEnumConverter );
+        setEnumVariable( subParams, "enum.semantic", "VALUE_1" );
         paramsToVisit.setVariable( "SubParameter",
                                    std::reference_wrapper<RenderParameters> { subParams } );
         paramsToVisit.visit( vstr, "Visiting with subparameters" );

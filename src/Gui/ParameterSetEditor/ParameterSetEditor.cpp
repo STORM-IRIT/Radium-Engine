@@ -1,9 +1,8 @@
 #include <Gui/ParameterSetEditor/ParameterSetEditor.hpp>
 
-#include <Gui/Widgets/ControlPanel.hpp>
-
-// include the Material Definition
+#include <Core/Containers/VariableSetEnumManagement.hpp>
 #include <Engine/Data/Material.hpp>
+#include <Gui/Widgets/ControlPanel.hpp>
 
 #include <QString>
 #include <QWidget>
@@ -46,7 +45,8 @@ class RenderParameterUiBuilder
 
     template <typename TParam, std::enable_if_t<std::is_arithmetic<TParam>::value, bool> = true>
     void operator()( const std::string& name, TParam& p, Data::RenderParameters&& params ) {
-        if ( params.getEnumConverter<TParam>( name ) ) {
+        using namespace Ra::Core::VariableSetEnumManagement;
+        if ( getEnumConverter<TParam>( params, name ) ) {
             m_pse->addEnumParameterWidget( name, p, params, m_constraints );
         }
         else {
@@ -115,11 +115,12 @@ void ParameterSetEditor::addEnumParameterWidget( const std::string& key,
                                                  T& initial,
                                                  Ra::Engine::Data::RenderParameters& params,
                                                  const json& metadata ) {
+    using namespace Ra::Core::VariableSetEnumManagement;
     auto m = metadata[key];
 
     std::string description = m.contains( "description" ) ? m["description"] : "";
     std::string nm          = m.contains( "name" ) ? std::string { m["name"] } : key;
-    if ( auto ec = params.getEnumConverter<T>( key ) ) {
+    if ( auto ec = getEnumConverter<T>( params, key ) ) {
         auto items                        = ( *ec )->getEnumerators();
         auto onEnumParameterStringChanged = [this, &params, &key]( const QString& value ) {
             params.setVariable( key, value.toStdString() );
@@ -127,7 +128,7 @@ void ParameterSetEditor::addEnumParameterWidget( const std::string& key,
         };
         addComboBox( nm,
                      onEnumParameterStringChanged,
-                     params.getEnumString( key, initial ),
+                     getEnumString( params, key, initial ),
                      items,
                      description );
     }
