@@ -5,6 +5,7 @@
 #include <Engine/Data/RenderParameters.hpp>
 #include <Engine/Data/Texture.hpp>
 #include <Engine/RadiumEngine.hpp>
+#include <sstream>
 
 using namespace Ra::Engine::Data;
 using namespace Ra::Core;
@@ -16,14 +17,16 @@ class PrintThemAllVisitor : public VariableSet::DynamicVisitor
   public:
     template <typename T>
     void operator()( const std::string& name, const T& _in, std::any&& ) {
-        std::cout << "\tPrintThemAllVisitor : ( " << Utils::demangleType<T>() << " ) " << name
-                  << " --> " << _in << "\n";
+        output << "\tPrintThemAllVisitor: ( " << Utils::demangleType<T>() << " ) " << name
+               << " --> " << _in << "\n";
     }
 
     template <typename T>
     void allowVisit( /* T = T {}*/ ) {
         addOperator<T>( *this );
     }
+
+    std::stringstream output;
 };
 
 class StaticPrintVisitor
@@ -40,39 +43,40 @@ class StaticPrintVisitor
 
     template <typename T, typename std::enable_if<!std::is_class<T>::value, bool>::type = true>
     void operator()( const std::string& name, const T& _in, const std::string& prefix = "" ) {
-        if ( !prefix.empty() ) { std::cout << "\t" << prefix << " : ( "; }
-        else { std::cout << "\tStaticPrintVisitor : "; }
-        std::cout << " (" << Utils::demangleType<T>() << " ) " << name << " --> " << _in << "\n";
+        if ( !prefix.empty() ) { output << "\t" << prefix << ": "; }
+        else { output << "\tStaticPrintVisitor: "; }
+        output << "( " << Utils::demangleType<T>() << " ) " << name << " --> " << _in << "\n";
     }
 
     template <typename T, typename std::enable_if<std::is_class<T>::value, bool>::type = true>
     void operator()( const std::string& name,
                      [[maybe_unused]] const T& _in,
                      const std::string& prefix = "" ) {
-        if ( !prefix.empty() ) { std::cout << "\t" << prefix << " : ( "; }
-        else { std::cout << "\tStaticPrintVisitor : "; }
+        if ( !prefix.empty() ) { output << "\t" << prefix << ": "; }
+        else { output << "\tStaticPrintVisitor: "; }
         if constexpr ( std::is_same<T, std::string>::value ) {
-            std::cout << " (" << Utils::demangleType<T>() << " ) " << name << " --> " << _in
-                      << "\n";
+            output << "( " << Utils::demangleType<T>() << " ) " << name << " --> " << _in << "\n";
         }
-        else { std::cout << " (" << Utils::demangleType<T>() << " ) " << name << "\n"; }
+        else { output << "( " << Utils::demangleType<T>() << " ) " << name << "\n"; }
     }
 
     void operator()( const std::string& name,
                      const std::reference_wrapper<RenderParameters>& p,
                      const std::string& prefix = "" ) {
         std::string localPrefix;
-        if ( prefix.empty() ) { localPrefix = "StaticPrintVisitor : "; }
+        if ( prefix.empty() ) { localPrefix = "StaticPrintVisitor: "; }
         else { localPrefix = prefix; }
 
-        std::cout << "\t" << localPrefix << " (" << Utils::demangleType( p.get() ) << " ) " << name
-                  << " --> visiting recursively\n";
+        output << "\t" << localPrefix << "( " << Utils::demangleType( p.get() ) << " ) " << name
+               << " --> visiting recursively\n";
         // visit the sub-parameters
         p.get().visit( *this, std::string { "\t" } + localPrefix );
 
-        std::cout << "\t" << localPrefix << " (" << Utils::demangleType( p.get() ) << " ) " << name
-                  << " --> end recursive visit\n";
+        output << "\t" << localPrefix << "( " << Utils::demangleType( p.get() ) << " ) " << name
+               << " --> end recursive visit\n";
     }
+
+    std::stringstream output;
 };
 
 TEST_CASE( "Engine/Data/RenderParameters", "[Engine][Engine/Data][RenderParameters]" ) {
@@ -161,6 +165,8 @@ TEST_CASE( "Engine/Data/RenderParameters", "[Engine][Engine/Data][RenderParamete
 
         StaticPrintVisitor vstr;
         p1.visit( vstr, "p1 parameter set" );
+
+        std::cout << vstr.output.str();
 
         RP p2;
         p2.setVariable( "IntParameter", i + 1 );
@@ -341,12 +347,18 @@ TEST_CASE( "Engine/Data/RenderParameters", "[Engine][Engine/Data][RenderParamete
         PrintThemAllVisitor ptm;
         ptm.allowVisit<ValuesType>();
         ptm.allowVisit<int>();
-        std::cout << "Visiting with custom dynamic visitor :\n";
+        std::cout << "Visiting with custom dynamic visitor:\n";
         paramsToVisit.visit( ptm );
 
+        REQUIRE( ptm.output.str() ==
+                 "	PrintThemAllVisitor: ( int ) int.simple --> 1\n"
+                 "	PrintThemAllVisitor: ( unsigned int ) enum.semantic --> 10\n" );
+
         StaticPrintVisitor vstr;
-        std::cout << "Visiting with custom static visitor :\n";
+        std::cout << "Visiting with custom static visitor:\n";
         paramsToVisit.visit( vstr );
+
+        std::stringstream().swap( vstr.output ); // clear output
 
         std::cout << "Visiting with custom static visitor and hierarchical parameters:\n";
         RP subParams;
@@ -354,6 +366,19 @@ TEST_CASE( "Engine/Data/RenderParameters", "[Engine][Engine/Data][RenderParamete
         subParams.setEnumVariable( "sub.string", "SubString" );
         subParams.setEnumVariable( "enum.semantic", "VALUE_1" );
         paramsToVisit.setVariable( "SubParameter", subParams );
+        paramsToVisit.setVariable( "SubParameter",
+                                   std::reference_wrapper<RenderParameters> { subParams } );
         paramsToVisit.visit( vstr, "Visiting with subparameters" );
+        REQUIRE( vstr.output.str() ==
+                 "	Visiting with subparameters: ( int ) int.simple --> 1\n"
+                 "	Visiting with subparameters: ( unsigned int ) enum.semantic --> 10\n"
+                 "	Visiting with subparameters( Ra::Engine::Data::RenderParameters ) SubParameter "
+                 "--> visiting recursively\n"
+                 "		Visiting with subparameters: ( int ) sub.int --> 3\n"
+                 "		Visiting with subparameters: ( unsigned int ) enum.semantic --> 20\n"
+                 "		Visiting with subparameters: ( std::__cxx11::basic_string<char, "
+                 "std::char_traits<char>, std::allocator<char>> ) sub.string --> SubString\n"
+                 "	Visiting with subparameters( Ra::Engine::Data::RenderParameters ) SubParameter "
+                 "--> end recursive visit\n" );
     }
 }
