@@ -7,7 +7,7 @@ Direct contributions to master are closed.
 We defer merge to master after our radium based projects (public or private) CI tests.
 To this end, please select release_candidate as a base branch of your pull requests.
 
-# Pre commit hook
+# Pre commit hook {#pre_commit}
 
 We provide a configuration file for [pre-commit](https://pre-commit.com/). Please install and use it, e.g.
 
