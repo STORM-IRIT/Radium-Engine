@@ -52,7 +52,7 @@ must be associated with a Ra::Engine::Rendering::RenderTechnique that links to t
 To do that, the following steps must be done :
 \todo update snippets that are not available anymore.
 
-1. Create the Ra::Engine::Data::Mesh (see the [documentation about Meshes](@ref develmeshes))
+1. Create the Ra::Engine::Data::Mesh (see the [documentation about Meshes](\ref develmeshes))
 
 2. Create the Ra::Engine::Data::Material
 
@@ -62,7 +62,7 @@ to the material
 4. Create the Ra::Engine::Rendering::RenderObject and add it to the Ra::Engine::Scene::Component
 
 Note that this way of using the _Radium Material Library_ is very related to the default Radium rendering capabilities
-exposed by the [Radium forward renderer](@ref forwardRenderer).
+exposed by the [Radium forward renderer](\ref forwardRenderer).
 See the [Render technique management](#render-technique) documentation to learn how to create your own
 Ra::Engine::Rendering::RenderTechnique, potentially without associated material.
 

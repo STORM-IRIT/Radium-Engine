@@ -854,4 +854,4 @@ where `<resourcesPrefix>` corresponds to the parameter `PREFIX` used when instal
 
 ## Configuring an application plugin
 
-See [How to write your own plugin](@ref develplugin).
+See [How to write your own plugin](\ref develplugin).
