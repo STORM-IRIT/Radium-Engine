@@ -29,18 +29,18 @@ class RA_GUI_API ControlPanel : public QFrame
     /** Constructors and destructor.
      *  https://en.cppreference.com/w/cpp/language/rule_of_three
      */
-    /** @{ */
+    /** \{ */
     explicit ControlPanel( const std::string& name, bool hline = true, QWidget* parent = nullptr );
     ControlPanel( const ControlPanel& )            = delete;
     ControlPanel& operator=( const ControlPanel& ) = delete;
     ControlPanel( ControlPanel&& )                 = delete;
     ControlPanel& operator=( ControlPanel&& )      = delete;
     ~ControlPanel() override                       = default;
-    /**@}*/
+    /**\}*/
 
     /**Methods to populate the panel with dedicated ui elements.
      */
-    /** @{ */
+    /** \{ */
 
     /**
      * Open a box layout to organise the widgets
@@ -262,7 +262,7 @@ class RA_GUI_API ControlPanel : public QFrame
      */
     void addWidget( QWidget* newWidget );
 
-    /**@}*/
+    /**\}*/
 
   private:
     /// The layout to organise the ui elements

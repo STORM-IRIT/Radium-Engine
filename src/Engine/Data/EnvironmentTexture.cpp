@@ -458,7 +458,7 @@ void EnvironmentTexture::computeSHMatrices() {
             m_shcoefs[i][j] = 0.f;
         }
     }
-    /// @todo replace this integration to use a sphere sampler ...
+    /// \todo replace this integration to use a sphere sampler ...
     /// Must evaluate the elementary solid angle for each sample
     constexpr Scalar dtheta = 0.005_ra;
     constexpr Scalar dphi   = 0.005_ra;

@@ -24,7 +24,7 @@ class RA_ENGINE_API SimpleMaterial : public Material, public ParameterSetEditing
 
     /**
      * Construct a named  material
-     * @param name The name of the material
+     * \param name The name of the material
      */
     explicit SimpleMaterial( const std::string& instanceName,
                              const std::string& materialName,
@@ -32,7 +32,7 @@ class RA_ENGINE_API SimpleMaterial : public Material, public ParameterSetEditing
 
     /**
      * Destructor.
-     * @note The material does not have ownership on its texture.
+     * \note The material does not have ownership on its texture.
      * This destructor do not delete the associated textures.
      */
     ~SimpleMaterial() override;
@@ -47,24 +47,24 @@ class RA_ENGINE_API SimpleMaterial : public Material, public ParameterSetEditing
      * Add an new texture, from a TextureParameters, to control the specified BSDF parameter.
      * The textures will be finalized (i.e loaded from a file if needed and transformed to OpenGL
      * texture) only when needed by the updateGL method.
-     * @param semantic The texture semantic
-     * @param texture  The texture to use (Descriptor of the texture by its parameters)
-     * @return the corresponding TextureData struct
+     * \param semantic The texture semantic
+     * \param texture  The texture to use (Descriptor of the texture by its parameters)
+     * \return the corresponding TextureData struct
      */
     inline TextureParameters& addTexture( const TextureSemantic& semantic,
                                           const TextureParameters& texture );
 
     /**
      * Add an already existing texture to control the specified BSDF parameter.
-     * @param semantic The texture semantic
-     * @param texture  The texture to use
+     * \param semantic The texture semantic
+     * \param texture  The texture to use
      */
     inline void addTexture( const TextureSemantic& semantic, Texture* texture );
 
     /**
      * Get the texture associated to the given semantic.
-     * @param semantic
-     * @return
+     * \param semantic
+     * \return
      */
     inline Texture* getTexture( const TextureSemantic& semantic ) const;
 

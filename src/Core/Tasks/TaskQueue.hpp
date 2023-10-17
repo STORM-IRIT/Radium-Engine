@@ -22,7 +22,7 @@ class Task;
 
 namespace Ra {
 namespace Core {
-/** @brief This class allows tasks to be registered and then executed in parallel on separate
+/** \brief This class allows tasks to be registered and then executed in parallel on separate
  * threads.
  *
  * It maintains an internal pool of threads. When instructed, it dispatches the tasks to the
@@ -108,7 +108,7 @@ class RA_CORE_API TaskQueue
     /// Return when all tasks are done. Usefull for instance for opengl related tasks that must run
     /// in the context thread.
     /// Once tasks are all processed, this method call flushTasksQueue.
-    /// @warning use either this method, either a startTasks/waitForTasks. calling
+    /// \warning use either this method, either a startTasks/waitForTasks. calling
     /// runTasksInThisThead between startTasks/waitForTasks calls may produce unexpected results.
     void runTasksInThisThread();
 

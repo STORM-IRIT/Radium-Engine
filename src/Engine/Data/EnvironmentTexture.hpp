@@ -33,7 +33,7 @@ class RA_ENGINE_API EnvironmentTexture
      * Constructors and destructor follow the 'rule of five'
      *  https://en.cppreference.com/w/cpp/language/rule_of_three
      */
-    /** @{ */
+    /** \{ */
 
     /**
      * \brief Construct an envmap from a file.
@@ -69,7 +69,7 @@ class RA_ENGINE_API EnvironmentTexture
     EnvironmentTexture& operator=( EnvironmentTexture&& )      = default;
     /// destructor
     ~EnvironmentTexture() = default;
-    /**@}*/
+    /**\}*/
 
     /**
      * \brief Get the name used to construct the environment texture

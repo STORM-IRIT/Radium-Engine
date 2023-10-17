@@ -87,8 +87,8 @@ class MyParameterProvider : public Ra::Engine::Data::ShaderParameterProvider
 
 /**
  * Generate a quad with a ShaderMaterial attached
- * @param app
- * @return The renderObject associated to the created component.
+ * \param app
+ * \return The renderObject associated to the created component.
  */
 std::shared_ptr<Ra::Engine::Rendering::RenderObject> initQuad( Ra::Gui::BaseApplication& app ) {
     //! [Creating the quad]

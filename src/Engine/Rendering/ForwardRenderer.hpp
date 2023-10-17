@@ -18,7 +18,7 @@ namespace Rendering {
  * for opaque and transperent objects. Once renderer, the final is composited with Ui, debug and
  * X-ray objects renderings on demand.
  *
- * @see rendering.md for description of the renderer
+ * \see rendering.md for description of the renderer
  */
 class RA_ENGINE_API ForwardRenderer : public Renderer
 {

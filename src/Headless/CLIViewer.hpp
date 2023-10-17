@@ -84,9 +84,9 @@ class HEADLESS_API CLIViewer : public CLIBaseApplication
      * \brief Application initialization method.
      *
      * This method is called by the main function to initialize the app giving its parameters.
-     * @param argc number of parameter
-     * @param argv array of string representing the parameters
-     * @return 0 if the application is correctly initialized or an application dependant error code
+     * \param argc number of parameter
+     * \param argv array of string representing the parameters
+     * \return 0 if the application is correctly initialized or an application dependant error code
      * if something went wrong.
      *
      * Supported command line parameters are --help and --file \<filename\> from
@@ -101,7 +101,7 @@ class HEADLESS_API CLIViewer : public CLIBaseApplication
      * Render one frame of the scene attached to the engine for the given time
      * stamp.
      *
-     * @return 0 if the image was correctly computed or an application dependant error code if
+     * \return 0 if the image was correctly computed or an application dependant error code if
      * something went wrong.
      */
     int oneFrame( float timeStep = 1.f / 60.f );
