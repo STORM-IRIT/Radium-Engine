@@ -40,16 +40,16 @@ class RA_ENGINE_API Material : public Data::ShaderParameterProvider
   protected:
     /**
      * Creates a named material with the given aspect
-     * @param instanceName
-     * @param materialName
-     * @param aspect
+     * \param instanceName
+     * \param materialName
+     * \param aspect
      */
     explicit Material( const std::string& instanceName,
                        const std::string& materialName,
                        MaterialAspect aspect = MaterialAspect::MAT_OPAQUE );
 
     /** Change the Material Name
-     * @note This method should be used carefully as the name is a key for render technique factory
+     * \note This method should be used carefully as the name is a key for render technique factory
      */
     inline void setMaterialName( std::string newName ) { m_materialName = std::move( newName ); }
 
@@ -57,29 +57,29 @@ class RA_ENGINE_API Material : public Data::ShaderParameterProvider
     virtual ~Material() = default;
 
     /**
-     * @return the name of the material instance
+     * \return the name of the material instance
      */
     inline const std::string& getInstanceName() const { return m_instanceName; }
 
     /**
-     * @return the name of the material, can be used a UUID
-     * @note the material name is expected to be used to define the ShaderConfiguration name
+     * \return the name of the material, can be used a UUID
+     * \note the material name is expected to be used to define the ShaderConfiguration name
      */
     inline const std::string& getMaterialName() const { return m_materialName; }
 
     /** set the aspect (MAT_OPAQUE or MAT_TRANSPARENT) of the material.
-     * @param aspect
+     * \param aspect
      */
     inline void setMaterialAspect( const MaterialAspect& aspect ) { m_aspect = aspect; }
 
     /** Get the aspect (MAT_OPAQUE or MAT_TRANSPARENT) of the material.
      *
-     * @return the current aspect of the Material
+     * \return the current aspect of the Material
      */
     inline const MaterialAspect& getMaterialAspect() const { return m_aspect; }
 
     /** Test if material is transperent.
-     * @return true if the material is transparent
+     * \return true if the material is transparent
      */
     virtual bool isTransparent() const;
 

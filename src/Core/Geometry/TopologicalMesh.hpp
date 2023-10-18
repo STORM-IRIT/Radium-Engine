@@ -85,7 +85,7 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
     /**
      * \brief Convenience constructor
      * \see TopologicalMesh( const Ra::Core::Geometry::TriangleMesh&, NonManifoldFaceCommand)
-     * @todo, when MultiIndexedGeometry will be operational, will this replace the above ?
+     * \todo, when MultiIndexedGeometry will be operational, will this replace the above ?
      */
     explicit TopologicalMesh(
         const Ra::Core::Geometry::MultiIndexedGeometry& mesh,
@@ -118,7 +118,7 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
      * \tparam NonManifoldFaceCommand Command executed when non-manifold faces are
      * found. API and default implementation:
      * \snippet Core/Geometry/TopologicalMesh.hpp Default command implementation
-     * @todo, when MultiIndexedGeometry will be operational, will this replace the above ?
+     * \todo, when MultiIndexedGeometry will be operational, will this replace the above ?
      *
      */
     template <typename NonManifoldFaceCommand>
@@ -172,10 +172,10 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
     inline HalfedgeHandle halfedge_handle( VertexHandle vh, FaceHandle fh ) const;
 
     /// Import Base definition of normal and set normal.
-    ///@{
+    ///\{
     using base::normal;
     using base::set_normal;
-    ///@}
+    ///\}
 
     /**
      * Set the normal n to all the wedges that share to vh.
@@ -201,10 +201,10 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
      * \name Dealing with normals
      * Utils to deal with normals when modifying the mesh topology.
      */
-    ///@{
+    ///\{
 
     void updateWedgeNormals();
-    ///@}
+    ///\}
 
     /// update wedge's position to correspond to current point position, which might not be the case
     /// if point(handle) = something; has been used.
@@ -212,7 +212,7 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
     /**
      * \name Topological operations
      */
-    ///@{
+    ///\{
     /**
      * Apply a 2-4 edge split.
      * \param eh The handle to the edge to split.
@@ -239,7 +239,7 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
     void collapse( HalfedgeHandle he, bool keepFromVertex = false );
     [[deprecated( "use collapse() instead." )]] void
     collapseWedge( TopologicalMesh::HalfedgeHandle he, bool keepFromVertex = false );
-    ///@}
+    ///\}
 
     /**
      * Return the set of WedgeIndex incident to a given Vertex \a vh.
@@ -603,14 +603,14 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
 
     WedgeData interpolateWedgeAttributes( const WedgeData&, const WedgeData&, Scalar alpha );
 
-    /// @todo when MultiIndexView will be operational, remove the IndexedGeometry<U> version above
+    /// \todo when MultiIndexView will be operational, remove the IndexedGeometry<U> version above
     template <typename T>
     inline void copyAttribToWedgeData( const Ra::Core::Geometry::MultiIndexedGeometry& mesh,
                                        unsigned int vindex,
                                        const std::vector<AttribHandle<T>>& attrHandleVec,
                                        VectorArray<T>* to );
 
-    /// @todo when MultiIndexView will be operational, remove the IndexedGeometry<T> version above
+    /// \todo when MultiIndexView will be operational, remove the IndexedGeometry<T> version above
     inline void copyMeshToWedgeData( const Ra::Core::Geometry::MultiIndexedGeometry& mesh,
                                      unsigned int vindex,
                                      const std::vector<AttribHandle<Scalar>>& wprop_float,

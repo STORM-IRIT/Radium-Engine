@@ -36,7 +36,7 @@ namespace Data {
  *  MipMap representation of the texture is automatically generated as soon as the minFilter
  * parameter is something else than GL_LINEAR or GL_NEAREST
  *
- * @note No coherence checking will be done on the content of this structure. User must ensure
+ * \note No coherence checking will be done on the content of this structure. User must ensure
  * coherent data and parameters before creating the OpenGL texture with Texture::initializeGL
  */
 struct TextureParameters {
@@ -75,7 +75,7 @@ struct TextureParameters {
     /// texels[3] <-- GL_TEXTURE_CUBE_MAP_NEGATIVE_Y <br/>
     /// texels[4] <-- GL_TEXTURE_CUBE_MAP_POSITIVE_Z <br/>
     /// texels[5] <-- GL_TEXTURE_CUBE_MAP_NEGATIVE_Z <br/>
-    /// @todo memory allocated for this pointer might be lost at texture deletion as ownership is
+    /// \todo memory allocated for this pointer might be lost at texture deletion as ownership is
     /// unclear.
     void* texels { nullptr };
 };
@@ -97,7 +97,7 @@ class RA_ENGINE_API Texture final
     /**
      * Texture constructor. No OpenGL initialization is done there.
      *
-     * @param texParameters Name of the texture
+     * \param texParameters Name of the texture
      */
     explicit Texture( const TextureParameters& texParameters );
 
@@ -106,7 +106,7 @@ class RA_ENGINE_API Texture final
      */
     ~Texture();
 
-    /** @brief Generate the OpenGL representation of the texture according to the stored
+    /** \brief Generate the OpenGL representation of the texture according to the stored
      * TextureData.
      *
      * Need active OpenGL context.
@@ -116,9 +116,9 @@ class RA_ENGINE_API Texture final
      *
      * Before uploading texels to the GPU, this method will apply RGB space conversion if needed.
      *
-     * @param linearize (default false) : convert the texture from sRGB to Linear RGB color space
+     * \param linearize (default false) : convert the texture from sRGB to Linear RGB color space
      * before OpenGL initialisation
-     * @note This will become soon the only way to generate an Radium Engine OpenGL texture.
+     * \note This will become soon the only way to generate an Radium Engine OpenGL texture.
      */
     void initializeGL( bool linearize = false );
 
@@ -126,8 +126,8 @@ class RA_ENGINE_API Texture final
      *
      * Need active OpenGL context.
      *
-     * @brief Bind the texture to enable its use in a shader.
-     * @param unit Index of the texture to be bound. If -1 only calls glBindTexture.
+     * \brief Bind the texture to enable its use in a shader.
+     * \param unit Index of the texture to be bound. If -1 only calls glBindTexture.
      */
     void bind( int unit = -1 );
 
@@ -137,7 +137,7 @@ class RA_ENGINE_API Texture final
      *
      * Need active OpenGL context.
      *
-     * @note, only available since openGL 4.2, not available on MacOs
+     * \note, only available since openGL 4.2, not available on MacOs
      * uses m_parameters.internalFormat as format.
      * see
      * https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/glBindImageTexture.xhtml
@@ -146,13 +146,13 @@ class RA_ENGINE_API Texture final
     void bindImageTexture( int unit, GLint level, GLboolean layered, GLint layer, GLenum access );
 
     /**
-     * @return Name of the texture.
+     * \return Name of the texture.
      */
     inline std::string getName() const { return m_textureParameters.name; }
 
     /**
      * Update the cpu representation of data contained by the texture
-     * @param newData user image pointer to wrap,
+     * \param newData user image pointer to wrap,
      * must contain the same number of elements than old data (no test perform).
      * Texture use here existing pixel memory owned by the calling application.
      * The texture does not own the pixel storage and will not free/delete that memory,
@@ -180,25 +180,25 @@ class RA_ENGINE_API Texture final
     void linearize();
 
     /**
-     * @return the pixel format of the texture
+     * \return the pixel format of the texture
      */
     GLenum format() const { return m_textureParameters.format; }
     /**
-     * @return the width of the texture
+     * \return the width of the texture
      */
     size_t width() const { return m_textureParameters.width; }
     /**
-     * @return the height of the texture
+     * \return the height of the texture
      */
     size_t height() const { return m_textureParameters.height; }
     /**
-     * @return the depth of the texture
+     * \return the depth of the texture
      */
     size_t depth() const { return m_textureParameters.depth; }
 
     void* texels() { return m_textureParameters.texels; }
     /**
-     * @return the globjects::Texture associated with the texture
+     * \return the globjects::Texture associated with the texture
      */
     globjects::Texture* texture() const { return m_texture.get(); }
 
@@ -208,12 +208,12 @@ class RA_ENGINE_API Texture final
      *
      * This allocate GPU memory to store the new resized texture and, if texels are not nullptr,
      * upload the new content.
-     * @note : If texels are not nullptr, user must ensure the texels array is correctly
+     * \note : If texels are not nullptr, user must ensure the texels array is correctly
      * dimensioned.
-     * @param w width of the texture
-     * @param h height of the texture
-     * @param d depth of the texture
-     * @param pix the new texels array corresponding the the new texture dimension
+     * \param w width of the texture
+     * \param h height of the texture
+     * \param d depth of the texture
+     * \param pix the new texels array corresponding the the new texture dimension
      */
     void resize( size_t w = 1, size_t h = 1, size_t d = 1, void* pix = nullptr );
 
@@ -221,7 +221,7 @@ class RA_ENGINE_API Texture final
     const TextureParameters& getParameters() const { return m_textureParameters; }
 
     /** get read/write access to texture parameters, need to update
-     * representation afterward, @see setParameters()
+     * representation afterward, \see setParameters()
      */
     TextureParameters& getParameters() { return m_textureParameters; }
 
@@ -243,11 +243,11 @@ class RA_ENGINE_API Texture final
      * The content of the array of texels.
      * designated by the texel pointer is modified by side effect.
      * Full transformation as described at https://en.wikipedia.org/wiki/SRGB
-     * @param texels the array of texels to linearize
-     * @param numComponent number of color channels.
-     * @param bool hasAlphaChannel indicate if the last channel is an alpha channel.
-     * @param gamma the gama value to use (sRGB is 2.4)
-     * @note only 8 bit (GL_UNSIGNED_BYTE data format) textures are managed by this operator.
+     * \param texels the array of texels to linearize
+     * \param numComponent number of color channels.
+     * \param bool hasAlphaChannel indicate if the last channel is an alpha channel.
+     * \param gamma the gama value to use (sRGB is 2.4)
+     * \note only 8 bit (GL_UNSIGNED_BYTE data format) textures are managed by this operator.
      */
     void sRGBToLinearRGB( uint8_t* texels, uint numComponent, bool hasAlphaChannel );
 

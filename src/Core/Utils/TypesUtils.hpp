@@ -35,26 +35,26 @@ struct TypeList;
 
 namespace TypeListInternal {
 
-/// \brief   Append any number of types to a @c TypeList
-/// \details Defines a new @c TypeList with the provided types appended
-/// \tparam ListT  The @c TypeList to append to
+/// \brief   Append any number of types to a \c TypeList
+/// \details Defines a new \c TypeList with the provided types appended
+/// \tparam ListT  The \c TypeList to append to
 /// \tparam Ts     Types to append
 template <typename ListT, typename... Ts>
 struct TSAppendImpl;
 
-/// \brief  Partial specialization for a @c TypeList with a list of zero or more
+/// \brief  Partial specialization for a \c TypeList with a list of zero or more
 ///         types to append
-/// \tparam Ts Current types within the @c TypeList
+/// \tparam Ts Current types within the \c TypeList
 /// \tparam OtherTs Other types to append
 template <typename... Ts, typename... OtherTs>
 struct TSAppendImpl<TypeList<Ts...>, OtherTs...> {
     using type = TypeList<Ts..., OtherTs...>;
 };
 
-/// \brief  Partial specialization for a @c TypeList with another @c TypeList.
+/// \brief  Partial specialization for a \c TypeList with another \c TypeList.
 ///         Appends the other TypeList's members.
-/// \tparam Ts Types within the first @c TypeList
-/// \tparam OtherTs Types within the second @c TypeList
+/// \tparam Ts Types within the first \c TypeList
+/// \tparam OtherTs Types within the second \c TypeList
 template <typename... Ts, typename... OtherTs>
 struct TSAppendImpl<TypeList<Ts...>, TypeList<OtherTs...>> {
     using type = TypeList<Ts..., OtherTs...>;

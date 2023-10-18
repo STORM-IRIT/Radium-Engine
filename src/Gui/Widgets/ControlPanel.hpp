@@ -29,18 +29,18 @@ class RA_GUI_API ControlPanel : public QFrame
     /** Constructors and destructor.
      *  https://en.cppreference.com/w/cpp/language/rule_of_three
      */
-    /** @{ */
+    /** \{ */
     explicit ControlPanel( const std::string& name, bool hline = true, QWidget* parent = nullptr );
     ControlPanel( const ControlPanel& )            = delete;
     ControlPanel& operator=( const ControlPanel& ) = delete;
     ControlPanel( ControlPanel&& )                 = delete;
     ControlPanel& operator=( ControlPanel&& )      = delete;
     ~ControlPanel() override                       = default;
-    /**@}*/
+    /**\}*/
 
     /**Methods to populate the panel with dedicated ui elements.
      */
-    /** @{ */
+    /** \{ */
 
     /**
      * Open a box layout to organise the widgets
@@ -158,7 +158,6 @@ class RA_GUI_API ControlPanel : public QFrame
      * \param initial The initial value of the scalar
      * \param min The min bound of the value
      * \param max The max bound of the value
-     * \param dec The display precision (decimals) of the value
      * \param tooltip The tooltip text
      */
     void addSliderInput( const std::string& name,
@@ -175,7 +174,6 @@ class RA_GUI_API ControlPanel : public QFrame
      * \param initial The initial value of the color
      * \param min The min bound of the value
      * \param max The max bound of the value
-     * \param dec The display precision (decimals) of the value
      * \param tooltip The tooltip text
      */
     void addPowerSliderInput( const std::string& name,
@@ -190,7 +188,6 @@ class RA_GUI_API ControlPanel : public QFrame
      * \param name The name of the vector
      * \param callback The function to call when the state changed
      * \param initial The initial value of the vector
-     * \param dec The display precision (decimals) of the value
      * \param tooltip The tooltip text
      */
     template <typename T = Scalar>
@@ -265,7 +262,7 @@ class RA_GUI_API ControlPanel : public QFrame
      */
     void addWidget( QWidget* newWidget );
 
-    /**@}*/
+    /**\}*/
 
   private:
     /// The layout to organise the ui elements

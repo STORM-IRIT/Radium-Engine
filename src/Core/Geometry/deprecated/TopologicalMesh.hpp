@@ -126,10 +126,10 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
     [[deprecated]] void set_normal( VertexHandle vh, FaceHandle fh, const Normal& n );
 
     /// Import Base definition of normal and set normal.
-    ///@{
+    ///\{
     using base::normal;
     using base::set_normal;
-    ///@}
+    ///\}
 
     /**
      * Set the normal n to all the halfedges that points to vh (i.e. incomming
@@ -156,7 +156,7 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
      * \name Const access to handles of the HalfEdge properties coming from
      * the TriangleMesh attributes.
      */
-    ///@{
+    ///\{
     [[deprecated]] inline const std::vector<OpenMesh::HPropHandleT<Scalar>>&
     getFloatPropsHandles() const;
     [[deprecated]] inline const std::vector<OpenMesh::HPropHandleT<Vector2>>&
@@ -165,13 +165,13 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
     getVector3PropsHandles() const;
     [[deprecated]] inline const std::vector<OpenMesh::HPropHandleT<Vector4>>&
     getVector4PropsHandles() const;
-    ///@}
+    ///\}
 
     /**
      * \name Dealing with normals
      * Utils to deal with normals when modifying the mesh topology.
      */
-    ///@{
+    ///\{
 
     /**
      * Create a new property for normals on faces of \a mesh.
@@ -207,13 +207,13 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
      * \note \a fProp must have been previously created through createNormalPropOnFaces().
      */
     inline void interpolateNormalOnFaces( FaceHandle fh, OpenMesh::FPropHandleT<Normal> fProp );
-    ///@}
+    ///\}
 
     /**
      * \name Dealing with custom properties
      * Utils to deal with custom properties of any type when modifying the mesh topology.
      */
-    ///@{
+    ///\{
 
     /**
      * Create a new property for each \a input properties of \a mesh on faces.
@@ -267,12 +267,12 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
     void interpolatePropsOnFaces( FaceHandle fh,
                                   const std::vector<OpenMesh::HPropHandleT<T>>& hProps,
                                   const std::vector<OpenMesh::FPropHandleT<T>>& fProps );
-    ///@}
+    ///\}
     /**
         * \name Deal with all attributes* Utils to deal with the normal and
         custom properties when modifying the mesh topology.*/
 
-    ///@{
+    ///\{
 
     /**
      * Create a new property for each property of \a mesh on faces.
@@ -334,12 +334,12 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
                                 std::vector<OpenMesh::FPropHandleT<Vector2>>& vec2Props,
                                 std::vector<OpenMesh::FPropHandleT<Vector3>>& vec3Props,
                                 std::vector<OpenMesh::FPropHandleT<Vector4>>& vec4Props );
-    ///@}
+    ///\}
 
     /**
      * \name Topological operations
      */
-    ///@{
+    ///\{
     /**
      * Apply a 2-4 edge split.
      * \param eh The handle to the edge to split.
@@ -355,7 +355,7 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
     bool splitEdge( TopologicalMesh::EdgeHandle eh, Scalar f );
     bool splitEdgeWedge( TopologicalMesh::EdgeHandle eh, Scalar f );
 
-    ///@}
+    ///\}
 
   private:
     template <typename T>

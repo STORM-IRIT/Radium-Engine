@@ -23,7 +23,7 @@ class ShaderProgram;
 
 /**
  * Implementation of the Blinn-Phong Material BSDF.
- * @todo due to "Material.glsl" interface modification, must test this version with all plugins,
+ * \todo due to "Material.glsl" interface modification, must test this version with all plugins,
  * apps, ... that uses Radium Renderer
  */
 class RA_ENGINE_API BlinnPhongMaterial final : public Material, public ParameterSetEditingInterface
@@ -38,12 +38,12 @@ class RA_ENGINE_API BlinnPhongMaterial final : public Material, public Parameter
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW
     /**
      * Construct a named Blinn-Phongmaterial
-     * @param instanceName The name of this instance of the material
+     * \param instanceName The name of this instance of the material
      */
     explicit BlinnPhongMaterial( const std::string& instanceName );
     /**
      * Destructor.
-     * @note The material does not have ownership on its texture. This destructor do not delete the
+     * \note The material does not have ownership on its texture. This destructor do not delete the
      * associated textures.
      */
     ~BlinnPhongMaterial() override;
@@ -54,15 +54,15 @@ class RA_ENGINE_API BlinnPhongMaterial final : public Material, public Parameter
 
     /**
      * Add an already existing texture to control the specified BSDF parameter.
-     * @param semantic The texture semantic
-     * @param texture  The texture to use
+     * \param semantic The texture semantic
+     * \param texture  The texture to use
      */
     inline void addTexture( const TextureSemantic& semantic, Texture* texture );
 
     /**
      * Get the texture associated to the given semantic.
-     * @param semantic
-     * @return
+     * \param semantic
+     * \return
      */
     inline Texture* getTexture( const TextureSemantic& semantic ) const;
 
@@ -81,7 +81,7 @@ class RA_ENGINE_API BlinnPhongMaterial final : public Material, public Parameter
 
     /**
      * Get a json containing metadata about the parameters of the material.
-     * @return the metadata in json format
+     * \return the metadata in json format
      */
     inline nlohmann::json getParametersMetadata() const override;
 
@@ -99,9 +99,9 @@ class RA_ENGINE_API BlinnPhongMaterial final : public Material, public Parameter
 
     /**
      * Add an new texture, from a TextureData, to control the specified BSDF parameter.
-     * @param semantic The texture semantic
-     * @param texture  The texture to use (file)
-     * @return the corresponding TextureData struct
+     * \param semantic The texture semantic
+     * \param texture  The texture to use (file)
+     * \return the corresponding TextureData struct
      */
     inline TextureParameters& addTexture( const TextureSemantic& semantic,
                                           const TextureParameters& texture );
@@ -113,9 +113,9 @@ class RA_ENGINE_API BlinnPhongMaterial final : public Material, public Parameter
 
     /**
      * Add an new texture, from a given file, to control the specified BSDF parameter.
-     * @param semantic The texture semantic
-     * @param texture  The texture to use (file)
-     * @return the corresponding TextureData struct
+     * \param semantic The texture semantic
+     * \param texture  The texture to use (file)
+     * \return the corresponding TextureData struct
      */
     inline TextureParameters& addTexture( const TextureSemantic& semantic,
                                           const std::string& texture );

@@ -32,14 +32,14 @@ class RA_GUI_API MaterialParameterEditor : public QWidget
   public:
     /** Constructors and destructor
      */
-    /** @{ */
+    /** \{ */
     explicit MaterialParameterEditor( QWidget* parent = nullptr );
     MaterialParameterEditor( const MaterialParameterEditor& )            = delete;
     MaterialParameterEditor& operator=( const MaterialParameterEditor& ) = delete;
     MaterialParameterEditor( MaterialParameterEditor&& )                 = delete;
     MaterialParameterEditor&& operator=( MaterialParameterEditor&& )     = delete;
     ~MaterialParameterEditor() override                                  = default;
-    /** @} */
+    /** \} */
 
     /**
      * \brief Update the different UI element with the given renderParameter, using the given

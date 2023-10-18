@@ -32,7 +32,7 @@
  *   animated Blinn-Phong material to the geometry and update both the transformation and the
  *   diffuse color at each time step.
  *
- *   @note This is only for demo purpose. A more simpler approach could be :
+ *   \note This is only for demo purpose. A more simpler approach could be :
  *      - Create and add a geometry component to the Engine geometry system (like in HelloRadium)
  *      - Get the renderobject associated with this component and create an animation component
  *              that associates the RenderObject with an animation controller

@@ -224,15 +224,15 @@ class RA_CORE_API Camera
     Scalar m_zFar { 1000_ra };                     ///< Z Far plane distance
 
     /// \name Perspective projection parameters
-    ///@{
+    ///\{
     Scalar m_fov { Core::Math::PiDiv4 }; ///< Horizontal Field Of View
-    ///@}
+    ///\}
 
     /// \name Orthographic projection parameters
-    ///@{
+    ///\{
     Scalar m_xmag { 1_ra };
     Scalar m_ymag { 1_ra };
-    ///@}
+    ///\}
 };
 
 inline Core::Transform Camera::getFrame() const {

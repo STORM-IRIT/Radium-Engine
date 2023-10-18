@@ -16,7 +16,7 @@ namespace Data {
 /**
  * A class representing an openGL volume
  *
- * @todo Right now, a volumeObject define both the geometry (a parallelepiped) and the material (a
+ * \todo Right now, a volumeObject define both the geometry (a parallelepiped) and the material (a
  * density grid) This should be modified to handle density grids deleimited by a general geometry.
  */
 class RA_ENGINE_API VolumeObject : public Displayable

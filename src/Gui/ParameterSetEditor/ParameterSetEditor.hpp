@@ -37,14 +37,14 @@ class RA_GUI_API ParameterSetEditor : public Widgets::ControlPanel
   public:
     /** Constructors and destructor
      */
-    /** @{ */
+    /** \{ */
     explicit ParameterSetEditor( const std::string& name, QWidget* parent = nullptr );
     ParameterSetEditor( const ParameterSetEditor& )            = delete;
     ParameterSetEditor& operator=( const ParameterSetEditor& ) = delete;
     ParameterSetEditor( ParameterSetEditor&& )                 = delete;
     ParameterSetEditor&& operator=( ParameterSetEditor&& )     = delete;
     ~ParameterSetEditor() override                             = default;
-    /** @} */
+    /** \} */
 
     /**
      * \brief Update the different UI element with the given renderParameter, using the given

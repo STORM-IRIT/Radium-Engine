@@ -82,7 +82,7 @@ inline Scalar angle( const Vector_& v1, const Vector_& v2 );
 template <typename Vector_>
 inline Vector_ slerp( const Vector_& v1, const Vector_& v2, Scalar t );
 
-/// @return the projection of point on the plane define by plane and planeNormal
+/// \return the projection of point on the plane define by plane and planeNormal
 inline Vector3
 projectOnPlane( const Vector3& planePos, const Vector3& planeNormal, const Vector3& point );
 

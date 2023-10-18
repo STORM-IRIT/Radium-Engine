@@ -18,7 +18,7 @@ class ShaderProgram;
  * Implementation of a simple Volumetric Material.
  * Based on a 3D texture defining the density distribution in the volume, perform ray-marching
  * and absorption based rendering of the volume..
- * @todo This material does not implement the MaterialGLSL interface. Shader compositing is not
+ * \todo This material does not implement the MaterialGLSL interface. Shader compositing is not
  * allowed.
  */
 class RA_ENGINE_API VolumetricMaterial final : public Material, public ParameterSetEditingInterface
@@ -28,12 +28,12 @@ class RA_ENGINE_API VolumetricMaterial final : public Material, public Parameter
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW
     /**
      * Construct a named VolumetricMaterial
-     * @param name The name of the material
+     * \param name The name of the material
      */
     explicit VolumetricMaterial( const std::string& name );
     /**
      * Destructor.
-     * @note The material does not have ownership on its texture. This destructor do not delete the
+     * \note The material does not have ownership on its texture. This destructor do not delete the
      * associated textures.
      */
     ~VolumetricMaterial() override;
@@ -44,15 +44,15 @@ class RA_ENGINE_API VolumetricMaterial final : public Material, public Parameter
 
     /**
      * Add an already existing texture to control the specified BSDF parameter.
-     * @param semantic The texture semantic
-     * @param texture  The texture to use
+     * \param semantic The texture semantic
+     * \param texture  The texture to use
      */
     inline void setTexture( Texture* texture );
 
     /**
      * Get the texture associated to the given semantic.
-     * @param semantic
-     * @return the corresponding texture
+     * \param semantic
+     * \return the corresponding texture
      */
     inline Texture* getTexture() const;
 
@@ -72,7 +72,7 @@ class RA_ENGINE_API VolumetricMaterial final : public Material, public Parameter
     /**
      * Get a json containing metadata about the parameters of the material.
      *
-     * @return the metadata in json format
+     * \return the metadata in json format
      */
     inline nlohmann::json getParametersMetadata() const override;
 

@@ -49,25 +49,25 @@ class RA_ENGINE_API ShaderProgramManager final
      * The shader sources corresponding to the configuration will be compiled, linked and verified.
      *
      *
-     * @param config the configuration of the programm to add to the collection
-     * @return the created shader program. In case of compile/link/verify error, return false
-     * @note ownership on the returned pointer is keep by the manager.
-     * @warning this method is *not* reentrant
+     * \param config the configuration of the programm to add to the collection
+     * \return the created shader program. In case of compile/link/verify error, return false
+     * \note ownership on the returned pointer is keep by the manager.
+     * \warning this method is *not* reentrant
      */
     Core::Utils::optional<const Data::ShaderProgram*>
     addShaderProgram( const Data::ShaderConfiguration& config );
 
     /**
      * Get the shader programm corresponding to the given id
-     * @param id Name of the programm to retrieve
-     * @return the shader programm retrieved, nullptr if the program was not in the collection
+     * \param id Name of the programm to retrieve
+     * \return the shader programm retrieved, nullptr if the program was not in the collection
      */
     const Data::ShaderProgram* getShaderProgram( const std::string& id );
 
     /**
      * Get the shader programm corresponding to the given configuration
-     * @param config Name of the programm to retrieve
-     * @return the shader programm retrieved, or nullptr when no shader programm corresponding to
+     * \param config Name of the programm to retrieve
+     * \return the shader programm retrieved, or nullptr when no shader programm corresponding to
      * the configuration is found.
      */
     const Data::ShaderProgram* getShaderProgram( const Data::ShaderConfiguration& config );
@@ -88,9 +88,9 @@ class RA_ENGINE_API ShaderProgramManager final
      * Allows to define named string so that the inclusion mechanism of OpenGL could be efficient.
      * A name string associates the name that will be used by a \#define directive in a glsl source
      * file with a file that contains the included glsl source code.
-     * @param includepath
-     * @param realfile
-     * @return false if the string already exists. Print an error message
+     * \param includepath
+     * \param realfile
+     * \return false if the string already exists. Print an error message
      */
     bool addNamedString( const std::string& includepath, const std::string& realfile );
 
