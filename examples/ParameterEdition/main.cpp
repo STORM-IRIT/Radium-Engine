@@ -181,7 +181,7 @@ int main( int argc, char* argv[] ) {
     auto layout = new QVBoxLayout( dialog.window() );
     ParameterSetEditor editor( "Demonstration parameter set", dialog.window() );
 
-    editor.showUnspecified( true );
+    editor.setShowUnspecified( true );
     layout->addWidget( &editor );
     //! [Creating the edition dialog]
 

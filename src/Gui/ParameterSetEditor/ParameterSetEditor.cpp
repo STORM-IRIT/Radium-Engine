@@ -9,6 +9,7 @@
 
 #include <limits>
 #include <memory>
+#include <type_traits>
 
 using json = nlohmann::json;
 
@@ -25,7 +26,7 @@ class RenderParameterUiBuilder
     RenderParameterUiBuilder( ParameterSetEditor* pse, const json& constraints ) :
         m_pse { pse }, m_constraints { constraints } {}
 
-    void operator()( const std::string& name, bool& p, Data::RenderParameters&& /* params */ ) {
+    void operator()( const std::string& name, bool& p, Core::VariableSet&& /* params */ ) {
         auto onBoolParameterChanged = [pse = this->m_pse, &p, nm = name]( bool val ) {
             p = val;
             emit pse->parameterModified( nm );
@@ -38,13 +39,13 @@ class RenderParameterUiBuilder
                 m_pse->addOption( nm, onBoolParameterChanged, p, description );
             }
         }
-        else if ( m_pse->m_showUnspecified ) {
+        else if ( m_pse->showUnspecified() ) {
             m_pse->addOption( name, onBoolParameterChanged, p );
         }
     }
 
     template <typename TParam, std::enable_if_t<std::is_arithmetic<TParam>::value, bool> = true>
-    void operator()( const std::string& name, TParam& p, Data::RenderParameters&& params ) {
+    void operator()( const std::string& name, TParam& p, Core::VariableSet&& params ) {
         using namespace Ra::Core::VariableSetEnumManagement;
         if ( getEnumConverter<TParam>( params, name ) ) {
             m_pse->addEnumParameterWidget( name, p, params, m_constraints );
@@ -60,13 +61,12 @@ class RenderParameterUiBuilder
               std::enable_if_t<std::is_arithmetic<TParam>::value, bool> = true>
     void operator()( const std::string& name,
                      std::vector<TParam, TAllocator>& p,
-                     Data::RenderParameters&& params ) {
+                     Core::VariableSet&& params ) {
         m_pse->addVectorParameterWidget( name, p, params, m_constraints );
     }
 
-    void operator()( const std::string& name,
-                     Ra::Core::Utils::Color& p,
-                     Data::RenderParameters&& params ) {
+    void
+    operator()( const std::string& name, Ra::Core::Utils::Color& p, Core::VariableSet&& params ) {
         auto onColorParameterChanged =
             [pse = this->m_pse, &params, nm = name]( const Ra::Core::Utils::Color& val ) {
                 params.setVariable( nm, val );
@@ -78,27 +78,36 @@ class RenderParameterUiBuilder
             std::string nm          = m.contains( "name" ) ? std::string { m["name"] } : name;
             m_pse->addColorInput( nm, onColorParameterChanged, p, m["maxItems"] == 4, description );
         }
-        else if ( m_pse->m_showUnspecified ) {
+        else if ( m_pse->showUnspecified() ) {
             m_pse->addColorInput( name, onColorParameterChanged, p );
         }
     }
 
     template <template <typename, int...> typename M, typename T, int... dim>
-    void operator()( const std::string& name, M<T, dim...>& p, Data::RenderParameters&& params ) {
+    void operator()( const std::string& name, M<T, dim...>& p, Core::VariableSet&& params ) {
         m_pse->addMatrixParameterWidget( name, p, params, m_constraints );
     }
 
     void operator()( const std::string& /*name*/,
                      Data::RenderParameters::TextureInfo& /*p*/,
-                     Data::RenderParameters&& /*params*/ ) {
+                     Core::VariableSet&& /*params*/ ) {
         // textures are not yet editable
     }
 
     template <typename T>
-    void operator()( const std::string& /*name*/,
-                     std::reference_wrapper<T>& /*p*/,
-                     Data::RenderParameters&& /*params*/ ) {
-        // wrapped reference (e.g. embedded render parameter) edition not yet available
+    void operator()( const std::string& name,
+                     std::reference_wrapper<T>& p,
+                     Core::VariableSet&& /*params*/ ) {
+
+        m_pse->addLabel( name );
+        if constexpr ( std::is_assignable_v<typename std::decay<T>::type, Core::VariableSet> ) {
+            if constexpr ( std::is_const_v<T> ) {
+                p.get().visit( *this,
+                               const_cast<Core::VariableSet&>(
+                                   static_cast<const Core::VariableSet&>( p.get() ) ) );
+            }
+            else { p.get().visit( *this, static_cast<Core::VariableSet&>( p.get() ) ); }
+        }
     }
 
   private:
@@ -113,7 +122,7 @@ ParameterSetEditor::ParameterSetEditor( const std::string& name, QWidget* parent
 template <typename T>
 void ParameterSetEditor::addEnumParameterWidget( const std::string& key,
                                                  T& initial,
-                                                 Ra::Engine::Data::RenderParameters& params,
+                                                 Core::VariableSet& params,
                                                  const json& metadata ) {
     using namespace Ra::Core::VariableSetEnumManagement;
     auto m = metadata[key];
@@ -153,7 +162,7 @@ void ParameterSetEditor::addEnumParameterWidget( const std::string& key,
 template <typename T>
 void ParameterSetEditor::addNumberParameterWidget( const std::string& key,
                                                    T& initial,
-                                                   Ra::Engine::Data::RenderParameters& /*params*/,
+                                                   Core::VariableSet& /*params*/,
                                                    const json& metadata ) {
 
     auto onNumberParameterChanged = [this, &initial, &key]( T value ) {
@@ -210,7 +219,7 @@ void ParameterSetEditor::addNumberParameterWidget( const std::string& key,
 template <typename T>
 void ParameterSetEditor::addVectorParameterWidget( const std::string& key,
                                                    std::vector<T>& initial,
-                                                   Ra::Engine::Data::RenderParameters& /*params*/,
+                                                   Core::VariableSet& /*params*/,
                                                    const json& metadata ) {
     auto onVectorParameterChanged = [this, &initial, &key]( const std::vector<T>& value ) {
         initial = value;
@@ -228,7 +237,7 @@ void ParameterSetEditor::addVectorParameterWidget( const std::string& key,
 template <typename T>
 void ParameterSetEditor::addMatrixParameterWidget( const std::string& key,
                                                    T& initial,
-                                                   Ra::Engine::Data::RenderParameters& /*params*/,
+                                                   Core::VariableSet& /*params*/,
                                                    const json& metadata ) {
     auto onMatrixParameterChanged = [this, &initial, &key]( const Ra::Core::MatrixN& value ) {
         initial = T( value );
@@ -243,7 +252,7 @@ void ParameterSetEditor::addMatrixParameterWidget( const std::string& key,
     else if ( m_showUnspecified ) { addMatrixInput( key, onMatrixParameterChanged, initial ); }
 }
 
-void ParameterSetEditor::setupFromParameters( Engine::Data::RenderParameters& params,
+void ParameterSetEditor::setupFromParameters( Core::VariableSet& params,
                                               const nlohmann::json& constraints ) {
 
     internal::RenderParameterUiBuilder uiBuilder { this, constraints };
@@ -252,8 +261,5 @@ void ParameterSetEditor::setupFromParameters( Engine::Data::RenderParameters& pa
     setVisible( true );
 }
 
-void ParameterSetEditor::showUnspecified( bool enable ) {
-    m_showUnspecified = enable;
-}
 } // namespace Gui
 } // namespace Ra

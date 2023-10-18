@@ -77,7 +77,7 @@ void MaterialParameterEditor::setupFromMaterial(
     m_matParamsLayout->removeWidget( m_parametersControlPanel );
     delete m_parametersControlPanel;
     m_parametersControlPanel = new ParameterSetEditor( "Material Parameters", this );
-    m_parametersControlPanel->showUnspecified( m_showUnspecified );
+    m_parametersControlPanel->setShowUnspecified( m_showUnspecified );
     m_matParamsLayout->addWidget( m_parametersControlPanel );
 
     m_parametersControlPanel->setupFromParameters( params, metadata );
@@ -90,6 +90,6 @@ void MaterialParameterEditor::setupFromMaterial(
 
 void MaterialParameterEditor::showUnspecified( bool enable ) {
     m_showUnspecified = enable;
-    m_parametersControlPanel->showUnspecified( m_showUnspecified );
+    m_parametersControlPanel->setShowUnspecified( m_showUnspecified );
 }
 } // namespace Ra::Gui
