@@ -1,5 +1,7 @@
 // Include Radium base application and its simple Gui
 
+#include <Core/Containers/VariableSet.hpp>
+#include <Core/Containers/VariableSetEnumManagement.hpp>
 #include <Core/Utils/TypesUtils.hpp>
 #include <Engine/Data/RenderParameters.hpp>
 #include <Gui/ParameterSetEditor/ParameterSetEditor.hpp>
@@ -192,7 +194,8 @@ int main( int argc, char* argv[] ) {
 
     //! [filling the parameter set to edit ]
     RenderParameters parameters;
-    parameters.addEnumConverter( "enum", valuesEnumConverter );
+    using namespace Ra::Core::VariableSetEnumManagement;
+    addEnumConverter( parameters, "enum", valuesEnumConverter );
     parameters.setVariable( "bool", false );
     parameters.setVariable( "enum", Values::VALUE_1 );
     parameters.setVariable( "int", int( 0 ) );
