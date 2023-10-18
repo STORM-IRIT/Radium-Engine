@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.5.9</span>
+   &#160;<span id="projectnumber">1.5.10</span>
    </div>
   </td>
  </tr>
@@ -120,16 +120,16 @@ $(document).ready(function(){initNavTree('develmaterials.html',''); initResizabl
 </div><!--header-->
 <div class="contents">
 <div class="toc"><h3>Table of Contents</h3>
-<ul><li class="level1"><a href="#autotoc_md93">Content of the Radium Material Library</a></li>
+<ul><li class="level1"><a href="#autotoc_md92">Content of the Radium Material Library</a></li>
 <li class="level1"><a href="#simple-mtl-usage">Simple usage of materials</a></li>
 <li class="level1"><a href="#extend-mtl-lib">Extending the Radium Material Library</a><ul><li class="level2"><a href="#cpp-mtl-lib">C++ interface</a></li>
 <li class="level2"><a href="#glsl-mtl-lib">GLSL interface</a></li>
-<li class="level2"><a href="#autotoc_md94">Appearance computation needs</a></li>
+<li class="level2"><a href="#autotoc_md93">Appearance computation needs</a></li>
 <li class="level2"><a href="#registration-mtl-lib">Material registration into the Engine</a></li>
 <li class="level2"><a href="#non-bsdf-rendering">Rendering without using Materials</a></li>
 </ul>
 </li>
-<li class="level1"><a href="#autotoc_md95">TO UPDATE</a><ul><li class="level2"><a href="#autotoc_md96">Manipulating ShaderConfigurations</a></li>
+<li class="level1"><a href="#autotoc_md94">TO UPDATE</a><ul><li class="level2"><a href="#autotoc_md95">Manipulating ShaderConfigurations</a></li>
 </ul>
 </li>
 </ul>
@@ -139,7 +139,7 @@ $(document).ready(function(){initNavTree('develmaterials.html',''); initResizabl
 <p>A <a class="el" href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html">Ra::Engine::Rendering::RenderTechnique</a> describes how to use a <a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html">Ra::Engine::Data::Material</a> to render an object in OpenGL and consists in a set of named <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderConfiguration.html">Ra::Engine::Data::ShaderConfiguration</a> that encompass the OpenGL representation of a Material (glsl code and associated data) with, at least, vertex and fragment shaders. The name of each <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderConfiguration.html">Ra::Engine::Data::ShaderConfiguration</a> corresponds to the way a <a class="el" href="classRa_1_1Engine_1_1Rendering_1_1Renderer.html">Ra::Engine::Rendering::Renderer</a> manages its rendering loop.</p>
 <p>A <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderConfiguration.html">Ra::Engine::Data::ShaderConfiguration</a> is associated with a <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderProgram.html">Ra::Engine::Data::ShaderProgram</a> bound by the <a class="el" href="classRa_1_1Engine_1_1Rendering_1_1Renderer.html">Ra::Engine::Rendering::Renderer</a> when rendering an object.</p>
 <p>The Radium Engine exposes some predefined materials, the <em>Radium Material Library</em>, with render techniques corresponding to the <a class="el" href="classRa_1_1Engine_1_1Rendering_1_1ForwardRenderer.html">Ra::Engine::Rendering::ForwardRenderer</a> default renderer.</p>
-<h1><a class="anchor" id="autotoc_md93"></a>
+<h1><a class="anchor" id="autotoc_md92"></a>
 Content of the Radium Material Library</h1>
 <p>The Radium Material Library defines two default material :</p>
 <ul>
@@ -265,7 +265,7 @@ Making a material editable</h3>
 </div><!-- fragment --><h2><a class="anchor" id="glsl-mtl-lib"></a>
 GLSL interface</h2>
 <p>Being able to compose shaders in a specific renderer while taking profit of Radium Material Library (either included in the base engine or defined in plugins) require a clean definition of appearance computation process and the definition of a glsl interface.</p>
-<h2><a class="anchor" id="autotoc_md94"></a>
+<h2><a class="anchor" id="autotoc_md93"></a>
 Appearance computation needs</h2>
 <p>In order to compute the appearance of an object, and according to the OpenGL/GLSL approach of rendering, several aspects might be taken into account and might be integrated into the interface definition to make a material renderer-agnostic.</p>
 <p>The user or the implementer could rely on default implementation, provided by the <em>Radium Material Library</em> of most of these functionalities and concentrate its effort in developing the required functionalities for its material/renderer.</p>
@@ -563,12 +563,12 @@ Rendering without using Materials</h2>
 <div class="ttc" id="anamespaceRa_1_1Engine_1_1Rendering_html_a49447e503c13eb01d7b4d279e127f8e1ad9c6333623e6357515fcbf17be806273"><div class="ttname"><a href="namespaceRa_1_1Engine_1_1Rendering.html#a49447e503c13eb01d7b4d279e127f8e1ad9c6333623e6357515fcbf17be806273">Ra::Engine::Rendering::RenderObjectType::Geometry</a></div><div class="ttdeci">@ Geometry</div><div class="ttdoc">&quot;Geometry&quot; render objects are those loaded using Radium::IO and generated by GeometrySystem</div></div>
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">Radium Namespaces prefix.</div><div class="ttdef"><b>Definition</b> <a href="Cage_8cpp_source.html#l00003">Cage.cpp:3</a></div></div>
 </div><!-- fragment --><p>Then the draw call of <code>renderObject</code> uses the <code>myConfig</code> as shader configuration. Before rendering, the method <code>updateGL</code> on the <code>parameterProvider</code> instance is called so that the shader's uniforms values are updated according the one stored in <code>parameterProvider</code>.</p>
-<h1><a class="anchor" id="autotoc_md95"></a>
+<h1><a class="anchor" id="autotoc_md94"></a>
 TO UPDATE</h1>
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000007">Todo:</a></b></dt><dd>TO UPDATE</dd></dl>
 <p>Shader programs are managed through their <code>ShaderConfiguration</code>, which contains the <em>shader objects</em> (vertex, fragment, ... shader) and the <em>shader properties</em> (not used for now though).</p>
 <p>Unless you are sure you have access to an OpenGL context (which means you are in <code><a class="el" href="classRa_1_1Gui_1_1Viewer.html#a0bc8019968c23fd6ca0d1c27c0d6ec0d" title="Start rendering (potentially asynchronously in a separate thread)">Ra::Gui::Viewer::startRendering()</a></code> or its callees), you must only manipulate the materials' render technique's shader configuration.</p>
-<h2><a class="anchor" id="autotoc_md96"></a>
+<h2><a class="anchor" id="autotoc_md95"></a>
 Manipulating ShaderConfigurations</h2>
 <p>Basically, a shader configuration is a simple container with a name, and shader objects names.</p>
 <p>There are two valid ways to build a shader configuration :</p>

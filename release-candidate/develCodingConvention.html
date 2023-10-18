@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.5.9</span>
+   &#160;<span id="projectnumber">1.5.10</span>
    </div>
   </td>
  </tr>
@@ -133,7 +133,7 @@ $(document).ready(function(){initNavTree('develCodingConvention.html',''); initR
 <div class="textblock"><p>Mainly inspired by <a href="https://google-styleguide.googlecode.com/svn/trunk/cppguide.html">https://google-styleguide.googlecode.com/svn/trunk/cppguide.html</a></p>
 <h1><a class="anchor" id="autotoc_md67"></a>
 Code style</h1>
-<p>Please follow the scripts/clang-format coding style (tested <code>with clang-format 9.0</code>). We also provide a pre commit hook that checks the committed files are correctly formatted. To install both hooks and clang-format, simply run <code>./scripts/install-scripts-linux.sh</code> on linux, or adapt to your OS.</p>
+<p>Please follow the scripts/clang-format coding style. We also provide a pre-commit hook that checks the committed files are correctly formatted (see <a class="el" href="develWithRadium.html#pre_commit">Pre commit hook</a>).</p>
 <ul>
 <li>Indentation style : 4-spaces</li>
 <li>Brace style : keep it consistent across files.</li>
@@ -146,7 +146,8 @@ Code style</h1>
 <li>use prefix increments (<code>++i</code> and not <code>i++</code>)</li>
 <li>use <code>const</code> everywhere possible. use <code>constexpr</code> for const values.</li>
 <li>line length should be kept at 80 (soft limit) and not exceed 120 (hard limit)</li>
-<li>no need for () for a return statement.</li>
+<li>no need for () for a return statement</li>
+<li>document using doxygen convention, special commands with backslash \ (e.g. <code>\brief</code> rather than <code>@brief</code>).</li>
 </ul>
 <h1><a class="anchor" id="autotoc_md68"></a>
 Headers</h1>

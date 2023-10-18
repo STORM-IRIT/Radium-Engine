@@ -119,22 +119,22 @@ var NAVTREE =
         ] ]
       ] ],
       [ "How to write your own plugin", "develplugin.html", [
-        [ "Radium Plugin", "develplugin.html#autotoc_md115", null ],
-        [ "Setting a CMakeLists.txt for a Radium plugin", "develplugin.html#autotoc_md116", null ],
-        [ "Configuring the plugin", "develplugin.html#autotoc_md117", null ],
-        [ "Using the Plugin", "develplugin.html#autotoc_md118", null ]
+        [ "Radium Plugin", "develplugin.html#autotoc_md114", null ],
+        [ "Setting a CMakeLists.txt for a Radium plugin", "develplugin.html#autotoc_md115", null ],
+        [ "Configuring the plugin", "develplugin.html#autotoc_md116", null ],
+        [ "Using the Plugin", "develplugin.html#autotoc_md117", null ]
       ] ],
       [ "How to write your own application", "apps.html", [
         [ "Radium Application", "apps.html#autotoc_md7", null ]
       ] ],
       [ "How to contribute to Radium Libraries", "develWithRadium.html", [
         [ "Radium libraries", "develWithRadium.html#autotoc_md75", null ],
-        [ "Pre commit hook", "develWithRadium.html#autotoc_md76", null ],
-        [ "Radium test suite", "develWithRadium.html#autotoc_md77", [
-          [ "Preliminaries", "develWithRadium.html#autotoc_md78", null ],
-          [ "How to write tests", "develWithRadium.html#autotoc_md79", null ]
+        [ "Pre commit hook", "develWithRadium.html#pre_commit", null ],
+        [ "Radium test suite", "develWithRadium.html#autotoc_md76", [
+          [ "Preliminaries", "develWithRadium.html#autotoc_md77", null ],
+          [ "How to write tests", "develWithRadium.html#autotoc_md78", null ]
         ] ],
-        [ "Code coverage", "develWithRadium.html#autotoc_md80", null ]
+        [ "Code coverage", "develWithRadium.html#autotoc_md79", null ]
       ] ],
       [ "Coding conventions for Radium", "develCodingConvention.html", [
         [ "Code style", "develCodingConvention.html#autotoc_md67", null ],
@@ -149,10 +149,10 @@ var NAVTREE =
       [ "API", "api.html", [
         [ "Core", "core.html", [
           [ "3D objects (a.k.a. Meshes)", "develmeshes.html", [
-            [ "Geometry types", "develmeshes.html#autotoc_md97", null ],
-            [ "Colaboration between Core and Engine", "develmeshes.html#autotoc_md98", null ],
-            [ "Data consistency", "develmeshes.html#autotoc_md99", null ],
-            [ "Mesh creation", "develmeshes.html#autotoc_md100", [
+            [ "Geometry types", "develmeshes.html#autotoc_md96", null ],
+            [ "Colaboration between Core and Engine", "develmeshes.html#autotoc_md97", null ],
+            [ "Data consistency", "develmeshes.html#autotoc_md98", null ],
+            [ "Mesh creation", "develmeshes.html#autotoc_md99", [
               [ "Wedges", "develmeshes.html#wedges", null ]
             ] ]
           ] ],
@@ -165,23 +165,23 @@ var NAVTREE =
         ] ],
         [ "Engine", "engine.html", [
           [ "Rendering pipeline", "develrendering.html", [
-            [ "Rendering in Radium", "develrendering.html#autotoc_md119", [
-              [ "Main abstract render method", "develrendering.html#autotoc_md120", null ],
-              [ "Defining a concrete renderer", "develrendering.html#autotoc_md121", null ],
-              [ "Minimal renderer howto", "develrendering.html#autotoc_md122", null ]
+            [ "Rendering in Radium", "develrendering.html#autotoc_md118", [
+              [ "Main abstract render method", "develrendering.html#autotoc_md119", null ],
+              [ "Defining a concrete renderer", "develrendering.html#autotoc_md120", null ],
+              [ "Minimal renderer howto", "develrendering.html#autotoc_md121", null ]
             ] ],
-            [ "Radium Engine default rendering information", "develrendering.html#autotoc_md123", null ],
-            [ "Potential extensions for the renderer", "develrendering.html#autotoc_md124", null ]
+            [ "Radium Engine default rendering information", "develrendering.html#autotoc_md122", null ],
+            [ "Potential extensions for the renderer", "develrendering.html#autotoc_md123", null ]
           ] ],
           [ "Material management", "develmaterials.html", [
-            [ "Content of the Radium Material Library", "develmaterials.html#autotoc_md93", null ],
+            [ "Content of the Radium Material Library", "develmaterials.html#autotoc_md92", null ],
             [ "Simple usage of materials", "develmaterials.html#simple-mtl-usage", null ],
             [ "Extending the Radium Material Library", "develmaterials.html#extend-mtl-lib", [
               [ "C++ interface", "develmaterials.html#cpp-mtl-lib", [
                 [ "Making a material editable", "develmaterials.html#editable-interface", null ]
               ] ],
               [ "GLSL interface", "develmaterials.html#glsl-mtl-lib", null ],
-              [ "Appearance computation needs", "develmaterials.html#autotoc_md94", [
+              [ "Appearance computation needs", "develmaterials.html#autotoc_md93", [
                 [ "Vertex attrib interface", "develmaterials.html#vrtx-attr-interface", null ],
                 [ "Microgeometry interface", "develmaterials.html#microgeometry-interface", null ],
                 [ "BSDF interface", "develmaterials.html#bsdf-interface", null ],
@@ -192,24 +192,24 @@ var NAVTREE =
               ] ],
               [ "Rendering without using Materials", "develmaterials.html#non-bsdf-rendering", null ]
             ] ],
-            [ "TO UPDATE", "develmaterials.html#autotoc_md95", [
-              [ "Manipulating ShaderConfigurations", "develmaterials.html#autotoc_md96", null ]
+            [ "TO UPDATE", "develmaterials.html#autotoc_md94", [
+              [ "Manipulating ShaderConfigurations", "develmaterials.html#autotoc_md95", null ]
             ] ]
           ] ],
           [ "Lights", "develLights.html", [
-            [ "Light Manager", "develLights.html#autotoc_md90", null ],
-            [ "Loading lights", "develLights.html#autotoc_md91", null ],
-            [ "Using light", "develLights.html#autotoc_md92", null ]
+            [ "Light Manager", "develLights.html#autotoc_md89", null ],
+            [ "Loading lights", "develLights.html#autotoc_md90", null ],
+            [ "Using light", "develLights.html#autotoc_md91", null ]
           ] ],
           [ "Feature Picking", "develpicking.html", [
-            [ "Usage", "develpicking.html#autotoc_md81", null ],
-            [ "MeshFeatureTracking Plugin", "develpicking.html#autotoc_md82", null ],
-            [ "MeshPaint Plugin", "develpicking.html#autotoc_md83", null ]
+            [ "Usage", "develpicking.html#autotoc_md80", null ],
+            [ "MeshFeatureTracking Plugin", "develpicking.html#autotoc_md81", null ],
+            [ "MeshPaint Plugin", "develpicking.html#autotoc_md82", null ]
           ] ],
           [ "Timeline and Keyframes", "develtimeline.html", [
-            [ "Timeline And Keyframes", "develtimeline.html#autotoc_md125", [
-              [ "The Timeline UI", "develtimeline.html#autotoc_md126", null ],
-              [ "Display animated data using the Timeline", "develtimeline.html#autotoc_md127", null ]
+            [ "Timeline And Keyframes", "develtimeline.html#autotoc_md124", [
+              [ "The Timeline UI", "develtimeline.html#autotoc_md125", null ],
+              [ "Display animated data using the Timeline", "develtimeline.html#autotoc_md126", null ]
             ] ]
           ] ]
         ] ],
@@ -224,22 +224,22 @@ var NAVTREE =
         [ "[TODO] IO", "io.html", null ]
       ] ],
       [ "_deprecated_ Radium Engine programmer manual", "develoldmanual.html", [
-        [ "Source code organization", "develoldmanual.html#autotoc_md101", [
-          [ "Import and export", "develoldmanual.html#autotoc_md102", null ]
+        [ "Source code organization", "develoldmanual.html#autotoc_md100", [
+          [ "Import and export", "develoldmanual.html#autotoc_md101", null ]
         ] ],
-        [ "Core Libs", "develoldmanual.html#autotoc_md103", null ],
-        [ "Engine Object Model", "develoldmanual.html#autotoc_md104", [
-          [ "Entities", "develoldmanual.html#autotoc_md105", null ],
-          [ "Systems and Components", "develoldmanual.html#autotoc_md106", null ],
-          [ "Frame and Tasks", "develoldmanual.html#autotoc_md107", null ],
-          [ "Rendering", "develoldmanual.html#autotoc_md108", null ],
-          [ "ItemEntry : Handles to engine objects", "develoldmanual.html#autotoc_md109", null ],
-          [ "Object manipulation and editable transforms", "develoldmanual.html#autotoc_md110", null ],
-          [ "The system Entity and Debug Display", "develoldmanual.html#autotoc_md111", null ]
+        [ "Core Libs", "develoldmanual.html#autotoc_md102", null ],
+        [ "Engine Object Model", "develoldmanual.html#autotoc_md103", [
+          [ "Entities", "develoldmanual.html#autotoc_md104", null ],
+          [ "Systems and Components", "develoldmanual.html#autotoc_md105", null ],
+          [ "Frame and Tasks", "develoldmanual.html#autotoc_md106", null ],
+          [ "Rendering", "develoldmanual.html#autotoc_md107", null ],
+          [ "ItemEntry : Handles to engine objects", "develoldmanual.html#autotoc_md108", null ],
+          [ "Object manipulation and editable transforms", "develoldmanual.html#autotoc_md109", null ],
+          [ "The system Entity and Debug Display", "develoldmanual.html#autotoc_md110", null ]
         ] ],
-        [ "The plugin framework", "develoldmanual.html#autotoc_md112", [
-          [ "Requirements", "develoldmanual.html#autotoc_md113", null ],
-          [ "Default plugins", "develoldmanual.html#autotoc_md114", null ]
+        [ "The plugin framework", "develoldmanual.html#autotoc_md111", [
+          [ "Requirements", "develoldmanual.html#autotoc_md112", null ],
+          [ "Default plugins", "develoldmanual.html#autotoc_md113", null ]
         ] ]
       ] ]
     ] ],

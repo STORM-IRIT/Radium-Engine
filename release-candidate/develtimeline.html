@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.5.9</span>
+   &#160;<span id="projectnumber">1.5.10</span>
    </div>
   </td>
  </tr>
@@ -120,16 +120,16 @@ $(document).ready(function(){initNavTree('develtimeline.html',''); initResizable
 </div><!--header-->
 <div class="contents">
 <div class="toc"><h3>Table of Contents</h3>
-<ul><li class="level1"><a href="#autotoc_md125">Timeline And Keyframes</a><ul><li class="level2"><a href="#autotoc_md126">The Timeline UI</a></li>
-<li class="level2"><a href="#autotoc_md127">Display animated data using the Timeline</a></li>
+<ul><li class="level1"><a href="#autotoc_md124">Timeline And Keyframes</a><ul><li class="level2"><a href="#autotoc_md125">The Timeline UI</a></li>
+<li class="level2"><a href="#autotoc_md126">Display animated data using the Timeline</a></li>
 </ul>
 </li>
 </ul>
 </div>
-<div class="textblock"><h1><a class="anchor" id="autotoc_md125"></a>
+<div class="textblock"><h1><a class="anchor" id="autotoc_md124"></a>
 Timeline And Keyframes</h1>
 <p>The <code><a class="el" href="classRa_1_1Gui_1_1Timeline.html" title="The Timeline class provides display and management of time, as well as keyframes.">Ra::Gui::Timeline</a></code> class provides display and management of <code><a class="el" href="classRa_1_1Core_1_1Animation_1_1KeyFramedValue.html">Ra::Core::Animation::KeyFramedValue</a></code>s through the <code><a class="el" href="classRa_1_1Core_1_1Animation_1_1KeyFramedValueController.html">Ra::Core::Animation::KeyFramedValueController</a></code> class.</p>
-<h2><a class="anchor" id="autotoc_md126"></a>
+<h2><a class="anchor" id="autotoc_md125"></a>
 The Timeline UI</h2>
 <p>The Timeline UI is a widget allowing to manipulate time and display animation keyframes: <img src="../images/timeline_ui.png" alt="Timeline UI" class="inline"/> The central part of the UI shows the time space, in which we have:</p>
 <ul>
@@ -161,7 +161,7 @@ The Timeline UI</h2>
 </ul>
 <p>On the upper-far-right corner, one can open the help window, displaying shortcuts and hints on how to manipulate the time space and the selected KeyFramedValue:</p>
 <p><img src="../images/timeline_help.png" alt="Timeline Help" class="inline"/></p>
-<h2><a class="anchor" id="autotoc_md127"></a>
+<h2><a class="anchor" id="autotoc_md126"></a>
 Display animated data using the Timeline</h2>
 <p><code><a class="el" href="classRa_1_1Core_1_1Animation_1_1KeyFramedValueController.html">Ra::Core::Animation::KeyFramedValueController</a></code>s must be registered into the <code><a class="el" href="classRa_1_1Gui_1_1Timeline.html" title="The Timeline class provides display and management of time, as well as keyframes.">Ra::Gui::Timeline</a></code>, which can be done using the <code><a class="el" href="classRa_1_1Gui_1_1Timeline.html#ac6ec7a3145e199e3de1de67ea7bd15a0">Ra::Gui::Timeline::registerKeyFramedValue</a></code> methods, binding them to the <code><a class="el" href="classRa_1_1Engine_1_1Scene_1_1Entity.html" title="An entity is an scene element. It ties together components with a transform.">Ra::Engine::Scene::Entity</a></code>, <code><a class="el" href="classRa_1_1Engine_1_1Scene_1_1Component.html" title="A component is an element that can be updated by a system. It is also linked to some other components...">Ra::Engine::Scene::Component</a></code> or <code><a class="el" href="classRa_1_1Engine_1_1Rendering_1_1RenderObject.html">Ra::Engine::Rendering::RenderObject</a></code> they belong to.</p>
 <h3>Binding "Static" KeyFramedValue</h3>

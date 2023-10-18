@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.5.9</span>
+   &#160;<span id="projectnumber">1.5.10</span>
    </div>
   </td>
  </tr>
@@ -400,7 +400,7 @@ Protected Member Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><a class="el" href="structRa_1_1Core_1_1Geometry_1_1AbstractGeometry.html">AbstractGeometry</a> with per-vertex attributes and layers of indices. Each layer represents a different topology or indexing logic, e.g. triangle/line/quad meshes, point-clouds. </p>
 <p>Multiple layers are useful to share and maintain consistency of per-vertex attributes between different meshes representing the same geometry, e.g., a quad and triangle mesh layers connecting the same set of vertices.</p>
-<h2><a class="anchor" id="autotoc_md128"></a>
+<h2><a class="anchor" id="autotoc_md127"></a>
 Data-structure</h2>
 <p>It is designed as follow:</p><ul>
 <li>Per-vertex attributes are stored as <a class="el" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html" title="This class represents vertex + attributes per vertex. Toplogy is handled in MultiIndexedGeometry subc...">AttribArrayGeometry</a>,</li>
@@ -410,7 +410,7 @@ Data-structure</h2>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classRa_1_1Core_1_1Geometry_1_1GeometryIndexLayerBase.html" title="Base class for index collections stored in MultiIndexedGeometry.">GeometryIndexLayerBase</a> <a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">for</a> <a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">more</a> <a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">details</a> <a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">about</a> <a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">layers</a>, semantics, <a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">and</a> <a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">custom</a> <a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">layers</a> <a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">definition</a>. </dd>
 <dd>
 <a class="el" href="structRa_1_1Core_1_1Geometry_1_1PointCloudIndexLayer.html" title="Index layer for a point cloud.">PointCloudIndexLayer</a>, <a class="el" href="structRa_1_1Core_1_1Geometry_1_1TriangleIndexLayer.html" title="Index layer for triangle mesh.">TriangleIndexLayer</a> <a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">for</a> <a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">examples</a> <a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">of</a> <a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">layers</a></dd></dl>
-<h2><a class="anchor" id="autotoc_md129"></a>
+<h2><a class="anchor" id="autotoc_md128"></a>
 Adding new layers</h2>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">setLayer</a> <a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">to</a> add <a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">or</a> update <a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">an</a> <a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">existing</a> <a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">layer</a>.</dd></dl>
 <p>Example of adding a <a class="el" href="structRa_1_1Core_1_1Geometry_1_1PointCloudIndexLayer.html" title="Index layer for a point cloud.">PointCloudIndexLayer</a> to an existing <a class="el" href="classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html" title="AbstractGeometry with per-vertex attributes and layers of indices. Each layer represents a different ...">MultiIndexedGeometry</a> <code>geo</code>: </p><div class="fragment"><div class="line">        <span class="keyword">auto</span> <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector.html">pil</a> = std::make_unique&lt;PointCloudIndexLayer&gt;();</div>
@@ -422,7 +422,7 @@ Adding new layers</h2>
 <div class="line">        <span class="keywordtype">bool</span> <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector.html">layerAdded</a> = <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector.html">geo</a>.addLayer( <a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/utility/move.html">std::move</a>( <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector.html">pil</a> ) ).first;</div>
 <div class="ttc" id="amove_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/utility/move.html">std::move</a></div><div class="ttdeci">T move(T... args)</div></div>
 <div class="ttc" id="avector_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/container/vector.html">std::vector</a></div></div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md130"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md129"></a>
 Accessing layers</h2>
 <p>Each layer is also associated with a <code>lock</code> state, used to give read-only or to lock write access.</p>
 <p>Layers can be accessed in different ways (see <a class="el" href="classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html#a6192bea8770876bd8d0f22e56ac7799e" title="Check if at least one layer with such properties exists.">containsLayer</a>, <a class="el" href="classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html#a39d57fddddd7dc9003f7ffcc5abe0f36" title="Count the number of layer matching the input parameters.">countLayers</a>, <a class="el" href="classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html#a6be22f11eba7a83457e81cc50b2cae25" title="Read-only access to a layer.">getFirstLayerOccurrence</a>, and <a class="el" href="classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html#a09ce4cede90c87b596f0a942d175697e" title="Read-only access to a layer.">getLayer</a>):</p><ul>
