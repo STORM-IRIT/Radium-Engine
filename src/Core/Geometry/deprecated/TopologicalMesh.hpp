@@ -62,8 +62,6 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
     using Vector3 = Ra::Core::Vector3;
 
   public:
-    EIGEN_MAKE_ALIGNED_OPERATOR_NEW
-
     /**
      * Construct a topological mesh from a triangle mesh.
      * This operation merges vertex with same position, but keeps vertex

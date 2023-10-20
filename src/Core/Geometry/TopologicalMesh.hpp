@@ -63,7 +63,6 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
     class WedgeCollection;
 
   public:
-    EIGEN_MAKE_ALIGNED_OPERATOR_NEW
     class WedgeData;
     using WedgeIndex       = Ra::Core::Utils::Index;
     using WedgeAttribIndex = Ra::Core::Utils::Index;
@@ -372,8 +371,6 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
     class WedgeData
     {
       public:
-        EIGEN_MAKE_ALIGNED_OPERATOR_NEW
-
         explicit WedgeData() = default;
         inline bool operator==( const WedgeData& lhs ) const;
         inline bool operator!=( const WedgeData& lhs ) const;
@@ -413,8 +410,6 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
     class RA_CORE_API Wedge
     {
       public:
-        EIGEN_MAKE_ALIGNED_OPERATOR_NEW
-
         explicit Wedge() {}
         explicit Wedge( const WedgeData& wd ) : m_wedgeData { wd }, m_refCount { 1 } {};
         const WedgeData& getWedgeData() const { return m_wedgeData; }
@@ -450,8 +445,6 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
     class RA_CORE_API WedgeCollection
     {
       public:
-        EIGEN_MAKE_ALIGNED_OPERATOR_NEW
-
         /**
          * Add wd to the wedge collection, and return the index.
          * If a wedge with same data is already present, it's index is returned,

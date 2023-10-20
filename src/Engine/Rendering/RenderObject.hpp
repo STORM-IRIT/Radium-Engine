@@ -36,8 +36,6 @@ namespace Rendering {
 class RA_ENGINE_API RenderObject final : public Core::Utils::IndexedObject
 {
   public:
-    EIGEN_MAKE_ALIGNED_OPERATOR_NEW
-
     /**
      * Construct a renderObject
      *
