@@ -1,5 +1,7 @@
 // Include Radium base application and its simple Gui
 
+#include <Core/Containers/VariableSet.hpp>
+#include <Core/Containers/VariableSetEnumManagement.hpp>
 #include <Core/Utils/TypesUtils.hpp>
 #include <Engine/Data/RenderParameters.hpp>
 #include <Gui/ParameterSetEditor/ParameterSetEditor.hpp>
@@ -179,7 +181,7 @@ int main( int argc, char* argv[] ) {
     auto layout = new QVBoxLayout( dialog.window() );
     ParameterSetEditor editor( "Demonstration parameter set", dialog.window() );
 
-    editor.showUnspecified( true );
+    editor.setShowUnspecified( true );
     layout->addWidget( &editor );
     //! [Creating the edition dialog]
 
@@ -192,29 +194,30 @@ int main( int argc, char* argv[] ) {
 
     //! [filling the parameter set to edit ]
     RenderParameters parameters;
-    parameters.addEnumConverter( "enum", valuesEnumConverter );
-    parameters.addParameter( "bool", false );
-    parameters.addParameter( "enum", Values::VALUE_1 );
-    parameters.addParameter( "int", int( 0 ) );
-    parameters.addParameter( "int_constrained", int( 0 ) );
-    parameters.addParameter( "uint", (unsigned int)( 10 ) );
-    parameters.addParameter( "uint_constrained", (unsigned int)( 5 ) );
-    parameters.addParameter( "Scalar", 0_ra );
-    parameters.addParameter( "Scalar_constrained", 0.5_ra );
-    parameters.addParameter( "Scalar_half_constrained", 0_ra );
-    parameters.addParameter( "Scalar_multiconstrained", 0.5_ra );
-    parameters.addParameter( "Color", Ra::Core::Utils::Color::Magenta() );
-    parameters.addParameter( "Vec2", Ra::Core::Vector2 { 1_ra, 0_ra } );
-    parameters.addParameter( "Vec3", Ra::Core::Vector3 { 1_ra, 1_ra, 1_ra } );
-    parameters.addParameter(
+    using namespace Ra::Core::VariableSetEnumManagement;
+    addEnumConverter( parameters, "enum", valuesEnumConverter );
+    parameters.setVariable( "bool", false );
+    parameters.setVariable( "enum", Values::VALUE_1 );
+    parameters.setVariable( "int", int( 0 ) );
+    parameters.setVariable( "int_constrained", int( 0 ) );
+    parameters.setVariable( "uint", (unsigned int)( 10 ) );
+    parameters.setVariable( "uint_constrained", (unsigned int)( 5 ) );
+    parameters.setVariable( "Scalar", 0_ra );
+    parameters.setVariable( "Scalar_constrained", 0.5_ra );
+    parameters.setVariable( "Scalar_half_constrained", 0_ra );
+    parameters.setVariable( "Scalar_multiconstrained", 0.5_ra );
+    parameters.setVariable( "Color", Ra::Core::Utils::Color::Magenta() );
+    parameters.setVariable( "Vec2", Ra::Core::Vector2 { 1_ra, 0_ra } );
+    parameters.setVariable( "Vec3", Ra::Core::Vector3 { 1_ra, 1_ra, 1_ra } );
+    parameters.setVariable(
         "Matrix3",
         Ra::Core::Matrix3 { { 0_ra, 0_ra, 0_ra }, { 1_ra, 1_ra, 1_ra }, { 2_ra, 2_ra, 2_ra } } );
-    parameters.addParameter( "std::vector<int>", std::vector<int> { 0, 1, 2 } );
+    parameters.setVariable( "std::vector<int>", std::vector<int> { 0, 1, 2 } );
 
     RenderParameters embedded;
-    embedded.addParameter( "embedded.int value", 1 );
-    embedded.addParameter( "embedded.scalar value", 1_ra );
-    parameters.addParameter( "embedded", embedded );
+    embedded.setVariable( "embedded.int value", 1 );
+    embedded.setVariable( "embedded.scalar value", 1_ra );
+    parameters.setVariable( "embedded", embedded );
     //! [filling the parameter set to edit ]
 
     //! [Printing several parameters before edition ]
