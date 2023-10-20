@@ -136,10 +136,13 @@ class HEADLESS_API CLIViewer : public CLIBaseApplication
     /** Activate/deactivate the OpenGL context */
     void bindOpenGLContext( bool on = true );
 
-    /** Define the cq;erq to be used for rendering.
-     * This method set the camera either using default camera or using the first one (at index 0)
-     * from the engine's camera manager and  */
-    void setCamera( Ra::Core::Utils::Index camIdx = 0 );
+    /** \brief Define the camera to be used for rendering.
+     * If the index is invalid according to the engine's camera manager, set the camera from index 0
+     * after, if needed, creating and adding to the manager a default camera.
+     * \param camIdx the requested camera from the engine's camera manager
+     * \return the used index from the manager (will differ if the requested camera does not exist)
+     */
+    Ra::Core::Utils::Index setCamera( Ra::Core::Utils::Index camIdx = 0 );
 
     /** Set the image prefix ("frame" by default) */
     void setImageNamePrefix( std::string s );
