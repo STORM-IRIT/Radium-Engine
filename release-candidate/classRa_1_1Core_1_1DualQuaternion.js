@@ -1,6 +1,6 @@
 var classRa_1_1Core_1_1DualQuaternion =
 [
-    [ "DualQuaternion", "classRa_1_1Core_1_1DualQuaternion.html#a0ec075a8261a5bcfa1edab1f9e6cafe9", null ],
+    [ "DualQuaternion", "classRa_1_1Core_1_1DualQuaternion.html#a88e3e9a51cfd05b3050dfb38afcb3caf", null ],
     [ "DualQuaternion", "classRa_1_1Core_1_1DualQuaternion.html#ac5d767c7ed2acdace145f2079284e07a", null ],
     [ "DualQuaternion", "classRa_1_1Core_1_1DualQuaternion.html#a8093cac96392285e4c604e2a9ad36961", null ],
     [ "DualQuaternion", "classRa_1_1Core_1_1DualQuaternion.html#a408e852288c01b48a5049688874ac6b7", null ],
