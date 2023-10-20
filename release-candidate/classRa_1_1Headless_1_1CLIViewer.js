@@ -16,7 +16,7 @@ var classRa_1_1Headless_1_1CLIViewer =
     [ "openGlAddOns", "classRa_1_1Headless_1_1CLIViewer.html#ae56022d33a18ce9d3eac85483a6663bb", null ],
     [ "renderLoop", "classRa_1_1Headless_1_1CLIViewer.html#ab09af2dd2cd0e6565b6a6fc32865f891", null ],
     [ "resize", "classRa_1_1Headless_1_1CLIViewer.html#aab5af7cd39e98fe6f423903abf7c42db", null ],
-    [ "setCamera", "classRa_1_1Headless_1_1CLIViewer.html#a6d37d5a463d1ab8c05b4fa341ff561b9", null ],
+    [ "setCamera", "classRa_1_1Headless_1_1CLIViewer.html#a658449bcccc8390cf69a3aa91a8b58ac", null ],
     [ "setDataFileName", "classRa_1_1Headless_1_1CLIViewer.html#a7b3b276e97c53f65b9df707da6fa1e0c", null ],
     [ "setImageNamePrefix", "classRa_1_1Headless_1_1CLIViewer.html#a5157a8c82134ed48de46ed1a384f3315", null ],
     [ "setRenderer", "classRa_1_1Headless_1_1CLIViewer.html#a776e954e74aa6631b5cfbdd2d27382fc", null ],
