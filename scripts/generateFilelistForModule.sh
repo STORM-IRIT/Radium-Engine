@@ -45,7 +45,7 @@ function genListIo(){
     if [ ! -z "$L" ]
     then
         echo  "set(${LOWBASE}_${suffix}" >> "${OUTPUT}"
-        echo "${L}" | grep -v pch.hpp | grep -v deprecated | grep -v AssimpLoader | grep -v TinyPlyLoader | grep -v VolumesLoader | cut -f 4- -d/ | sort | xargs -n1 echo "   "  >> "${OUTPUT}"
+        echo "${L}" | grep -v pch.hpp | grep -v deprecated | grep -v AssimpLoader | grep -v Gltf | grep -v TinyPlyLoader | grep -v VolumesLoader | cut -f 4- -d/ | sort | xargs -n1 echo "   "  >> "${OUTPUT}"
         echo ")" >> "${OUTPUT}"
         echo ""  >> "${OUTPUT}"
     fi
@@ -121,5 +121,19 @@ if [ "$BASE" = "IO" ]; then
     genListIoAppendSubdir "cpp" "sources" "VolumesLoader"
     genListIoAppendSubdir "hpp" "headers" "VolumesLoader"
     echo "endif( RADIUM_IO_VOLUMES )"  >> "${OUTPUT}"
+    echo "if( RADIUM_IO_GLTF )"  >> "${OUTPUT}"
+    genListIoAppendSubdir "cpp" "sources" "Gltf/Loader"
+    genListIoAppendSubdir "cpp" "sources" "Gltf/internal/GLTFConverter"
+    genListIoAppendSubdir "c" "sources" "Gltf/internal/GLTFConverter"
+    genListIoAppendSubdir "hpp" "headers" "Gltf/Loader"
+    genListIoAppendSubdir "hpp" "private_headers" "Gltf/internal/GLTFConverter"
+    genListIoAppendSubdir "h" "private_headers" "Gltf/internal/GLTFConverter"
+    genListIoAppendSubdir "hpp" "private_headers" "Gltf/internal/Extensions"
+    genListIoAppendSubdir "h" "private_headers" "Gltf/internal/fx"
+    echo "if( RADIUM_IO_GLTF_WRITER )"  >> "${OUTPUT}"
+    genListIoAppendSubdir "cpp" "sources" "Gltf/Writer"
+    genListIoAppendSubdir "hpp" "headers" "Gltf/Writer"
+    echo "endif( RADIUM_IO_GLTF_WRITER )"  >> "${OUTPUT}"
+    echo "endif( RADIUM_IO_GLTF )"  >> "${OUTPUT}"
 fi
 cmake-format -i "${OUTPUT}"

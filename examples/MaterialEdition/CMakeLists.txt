@@ -46,19 +46,10 @@ add_executable(${PROJECT_NAME} ${app_sources} ${app_headers} ${app_uis} ${app_re
 target_link_libraries(${PROJECT_NAME} PUBLIC Radium::Gui ${Qt_LIBRARIES})
 
 # ------------------------------------------------------------------------------
-# RadiumGlTF is available here https://gitlab.irit.fr/storm/repos/radium/libgltf.git (branch
-# Material_Edition_#950). Compile and install RadiumGlTF first, e.g. into
-# "path/to/RadiumGlTFinstall/", then configure using cmake  [your configure args]
-# -DRadiumGlTF_DIR="path/to/RadiumGlTFinstall/lib/cmake" -DUSE_RADIUMGLTF=ON to use it for this
-# example.
-option(USE_RADIUMGLTF "Enable loading/saving files with RadiumGltf extension" OFF)
-if(USE_RADIUMGLTF)
-    message(STATUS "${PROJECT_NAME} uses RadiumGltf extension")
-    # TODO : find why this find_package is needed (at least on MacOs whe ).
-    find_package(OpenMP QUIET)
-    find_package(RadiumGlTF REQUIRED)
-    target_compile_definitions(${PROJECT_NAME} PUBLIC USE_RADIUMGLTF)
-    target_link_libraries(${PROJECT_NAME} PUBLIC RadiumGlTF::RadiumGlTF)
+get_target_property(HAS_GLTF_WRITER Radium::IO IO_HAS_GLTF_WRITER)
+if(HAS_GLTF_WRITER)
+    message(STATUS "${PROJECT_NAME} uses RadiumGltf writer extension")
+    target_compile_definitions(${PROJECT_NAME} PRIVATE HAS_GLTF_WRITER)
 endif()
 
 configure_radium_app(NAME ${PROJECT_NAME})

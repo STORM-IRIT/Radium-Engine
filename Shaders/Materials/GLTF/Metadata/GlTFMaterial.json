@@ -1,0 +1,220 @@
+{
+    "material.baseMaterial.emissiveTexture": {
+        "name": "emissiveTexture",
+        "description": "The emissive texture. It controls the color and intensity of the light being emitted by the material. This texture contains RGB components encoded with the sRGB transfer function. If a fourth component (A) is present, it **MUST** be ignored. When undefined, the texture **MUST** be sampled as having `1.0` in RGB components.",
+        "type": "texture"
+    },
+    "material.baseMaterial.emissiveFactor": {
+        "name": "emissiveFactor",
+        "description": "The factors for the emissive color of the material. This value defines linear multipliers for the sampled texels of the emissive texture.",
+        "type": "array",
+        "items": {
+            "type": "number",
+            "minimum": 0.0,
+            "maximum": 1.0
+        },
+        "minItems": 3,
+        "maxItems": 3
+    },
+    "material.baseMaterial.alphaMode": {
+        "name": "alphaMode",
+        "description": "The material's alpha rendering mode enumeration specifying the interpretation of the alpha value of the base color.",
+        "type": "enum"
+    },
+    "material.baseMaterial.alphaCutoff": {
+        "name": "alphaCutoff",
+        "description": "Specifies the cutoff threshold when in `MASK` alpha mode. If the alpha value is greater than or equal to this value then it is rendered as fully opaque, otherwise, it is rendered as fully transparent. A value greater than `1.0` will render the entire material as fully transparent. This value **MUST** be ignored for other alpha modes. When `alphaMode` is not defined, this value **MUST NOT** be defined.",
+        "type": "number",
+        "minimum": 0.0
+    },
+    "material.baseMaterial.doubleSided": {
+        "name": "doubleSided",
+        "description": "Specifies whether the material is double sided. When this value is false, back-face culling is enabled. When this value is true, back-face culling is disabled and double-sided lighting is enabled. The back-face **MUST** have its normals reversed before the lighting equation is evaluated.",
+        "type": "boolean",
+        "editable": true
+    },
+    "material.baseMaterial.ior": {
+        "name": "ior",
+        "description": "The index of refraction (IOR) is a measured physical number usually in the range between 1 and 2 that determines how much the path of light is bent, or refracted, when entering a material. It also influences the ratio between reflected and transmitted light, calculated from the Fresnel equations.",
+        "type": "number",
+        "oneOf": [
+            {
+                "minimum": 0.0,
+                "maximum": 0.0
+            },
+            {
+                "minimum": 1.0
+            }
+        ]
+    },
+    "material.baseColorFactor": {
+        "name": "baseColorFactor",
+        "description": "The factors for the base color of the material. This value defines linear multipliers for the sampled texels of the base color texture.",
+        "type": "array",
+        "items": {
+            "type": "number",
+            "minimum": 0.0,
+            "maximum": 1.0
+        },
+        "minItems": 4,
+        "maxItems": 4
+    },
+    "material.baseColorTexture": {
+        "name": "baseColorTexture",
+        "description": "The base color texture. The first three components (RGB) **MUST** be encoded with the sRGB transfer function. They specify the base color of the material. If the fourth component (A) is present, it represents the linear alpha coverage of the material. Otherwise, the alpha coverage is equal to `1.0`. The `material.alphaMode` property specifies how alpha is interpreted. The stored texels **MUST NOT** be premultiplied. When undefined, the texture **MUST** be sampled as having `1.0` in all components.",
+        "type": "texture"
+    },
+    "material.metallicFactor": {
+        "name": "metallicFactor",
+        "description": "The factor for the metalness of the material. This value defines a linear multiplier for the sampled metalness values of the metallic-roughness texture.",
+        "type": "number",
+        "minimum": 0.0,
+        "maximum": 1.0
+    },
+    "material.roughnessFactor": {
+        "name": "roughnessFactor",
+        "description": "The factor for the roughness of the material. This value defines a linear multiplier for the sampled roughness values of the metallic-roughness texture.",
+        "type": "number",
+        "minimum": 0.0,
+        "maximum": 1.0
+    },
+    "material.metallicRoughnessTexture": {
+        "name": "metallicRoughnessTexture",
+        "description": "The metallic-roughness texture. The metalness values are sampled from the B channel. The roughness values are sampled from the G channel. These values **MUST** be encoded with a linear transfer function. If other channels are present (R or A), they **MUST** be ignored for metallic-roughness calculations. When undefined, the texture **MUST** be sampled as having `1.0` in G and B components.",
+        "type": "texture"
+    },
+    "material.diffuseFactor": {
+        "name": "diffuseFactor",
+        "description": "The RGBA components of the reflected diffuse color of the material. Metals have a diffuse value of `[0.0, 0.0, 0.0]`. The fourth component (A) is the alpha coverage of the material. The `alphaMode` property specifies how alpha is interpreted. The values are linear.",
+        "type": "array",
+        "items": {
+            "type": "number",
+            "minimum": 0.0,
+            "maximum": 1.0
+        },
+        "minItems": 4,
+        "maxItems": 4
+    },
+    "material.diffuseTexture": {
+        "name": "diffuseTexture",
+        "description": "The diffuse texture. This texture contains RGB components of the reflected diffuse color of the material encoded with the sRGB transfer function. If the fourth component (A) is present, it represents the linear alpha coverage of the material. Otherwise, an alpha of 1.0 is assumed. The `alphaMode` property specifies how alpha is interpreted. The stored texels must not be premultiplied.",
+        "type": "texture"
+    },
+    "material.specularFactor": {
+        "name": "specularFactor",
+        "description": "The specular RGB color of the material. This value is linear.",
+        "type": "array",
+        "items": {
+            "type": "number",
+            "minimum": 0.0,
+            "maximum": 1.0
+        },
+        "minItems": 3,
+        "maxItems": 3
+    },
+    "material.glossinessFactor": {
+        "name": "glossinessFactor",
+        "description": "The glossiness or smoothness of the material. A value of 1.0 means the material has full glossiness or is perfectly smooth. A value of 0.0 means the material has no glossiness or is completely rough. This value is linear.",
+        "type": "number",
+        "minimum": 0.0,
+        "maximum": 1.0
+    },
+    "material.specularGlossinessTexture": {
+        "name": "specularGlossinessTexture",
+        "description": "The specular-glossiness texture is an RGBA texture, containing the specular color (RGB) encoded with the sRGB transfer function and the linear glossiness value (A).",
+        "type": "texture"
+    },
+    "material.baseMaterial.clearcoat.clearcoatFactor": {
+        "name": "clearcoatFactor",
+        "description": "The clearcoat layer intensity (aka opacity) of the material. A value of 0.0 means the material has no clearcoat layer enabled.",
+        "type": "number",
+        "minimum": 0.0,
+        "maximum": 1.0
+    },
+    "material.baseMaterial.clearcoat.clearcoatTexture": {
+        "name": "clearcoatTexture",
+        "description": "The clearcoat layer intensity texture. These values are sampled from the R channel.  The values are linear.  Use value 1.0 if no texture is supplied.",
+        "type": "texture"
+    },
+    "material.baseMaterial.clearcoat.clearcoatRoughnessFactor": {
+        "name": "clearcoatRoughnessFactor",
+        "description": "The clearcoat layer roughness of the material.",
+        "type": "number",
+        "minimum": 0.0,
+        "maximum": 1.0
+    },
+    "material.baseMaterial.clearcoat.clearcoatRoughnessTexture": {
+        "name": "clearcoatRoughnessTexture",
+        "description": "The clearcoat layer roughness texture. These values are sampled from the G channel.  The values are linear.  Use value 1.0 if no texture is supplied.",
+        "type": "texture"
+    },
+    "material.baseMaterial.sheen.sheenColorFactor": {
+        "name": "sheenColorFactor",
+        "description": "Color of the sheen layer (in linear space).",
+        "type": "array",
+        "items": {
+            "type": "number",
+            "minimum": 0.0,
+            "maximum": 1.0
+        },
+        "minItems": 3,
+        "maxItems": 3
+    },
+    "material.baseMaterial.sheen.sheenColorTexture": {
+        "name": "sheenColorTexture",
+        "description": "The sheen color (RGB) texture. Stored in channel RGB, the sheen color is in sRGB transfer function.",
+        "type": "texture"
+    },
+    "material.baseMaterial.sheen.sheenRoughnessFactor": {
+        "name": "sheenRoughnessFactor",
+        "description": "The sheen layer roughness of the material.",
+        "type": "number",
+        "minimum": 0.0,
+        "maximum": 1.0
+    },
+    "material.baseMaterial.sheen.sheenRoughnessTexture": {
+        "name": "sheenRoughnessTexture",
+        "description": "The sheen roughness (Alpha) texture. Stored in alpha channel, the roughness value is in linear space.",
+        "type": "texture"
+    },
+    "material.baseMaterial.specular.specularFactor": {
+        "name": "specularFactor",
+        "description": "This parameter scales the amount of specular reflection on non-metallic surfaces. It has no effect on metals.",
+        "type": "number",
+        "minimum": 0.0,
+        "maximum": 1.0
+    },
+    "material.baseMaterial.specular.specularTexture": {
+        "name": "specularTexture",
+        "description": "A texture that defines the specular factor in the alpha channel. This will be multiplied by specularFactor.",
+        "type": "texture"
+    },
+    "material.baseMaterial.specular.specularColorFactor": {
+        "name": "specularColorFactor",
+        "description": "This is an additional RGB color parameter that tints the specular reflection of non-metallic surfaces. At grazing angles, the reflection still blends to white, and the parameter has not effect on metals. The value is linear.",
+        "type": "array",
+        "items": {
+            "type": "number",
+            "minimum": 0.0
+        },
+        "minItems": 3,
+        "maxItems": 3
+    },
+    "material.baseMaterial.specular.specularColorTexture": {
+        "name": "specularColorTexture",
+        "description": "A texture that defines the specular color in the RGB channels (encoded in sRGB). This will be multiplied by specularColorFactor.",
+        "type": "texture"
+    },
+    "material.baseMaterial.transmission.transmissionFactor": {
+        "name": "transmissionFactor",
+        "description": "The base percentage of non-specularly reflected light that is transmitted through the surface. i.e. of the light that penetrates a surface (isn't specularly reflected), this is the percentage that is transmitted and not diffusely re-emitted.",
+        "type": "number",
+        "minimum": 0.0,
+        "maximum": 1.0
+    },
+    "material.baseMaterial.transmission.transmissionTexture": {
+        "name": "transmissionTexture",
+        "description": "A texture that defines the transmission percentage of the surface, sampled from the R channel. These values are linear, and will be multiplied by transmissionFactor. This indicates the percentage of non-specularly reflected light that is transmitted through the surface. i.e. of the light that penetrates a surface (isn't specularly reflected), this is the percentage is transmitted and not diffusely re-emitted.",
+        "type": "texture"
+    }
+}

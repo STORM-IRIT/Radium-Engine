@@ -35,11 +35,9 @@
 #include <QMenuBar>
 #include <QSettings>
 
-#ifdef USE_RADIUMGLTF
+#ifdef HAS_GLTF_WRITER
 #    include <Engine/Scene/SystemDisplay.hpp>
-#    include <IO/Gltf/Loader/glTFFileLoader.hpp>
 #    include <IO/Gltf/Writer/glTFFileWriter.hpp>
-#    include <glTFLibrary.hpp>
 #endif
 
 using namespace Ra::Gui::Widgets;
@@ -74,7 +72,7 @@ class DemoWindow : public Ra::Gui::SimpleWindow
                 allexts.append( exts + " " );
                 filter.append( QString::fromStdString( loader->name() ) + " (" + exts + ");;" );
             }
-            // add a filter concetenatting all the supported extensions
+            // add a filter concatenatting all the supported extensions
             filter.prepend( "Supported files (" + allexts + ");;" );
 
             // remove the last ";;" of the string
@@ -95,11 +93,7 @@ class DemoWindow : public Ra::Gui::SimpleWindow
         };
         connect( fileOpenAction, &QAction::triggered, openFile );
 
-#ifdef USE_RADIUMGLTF
-        // register the gltf loader
-        std::shared_ptr<Ra::Core::Asset::FileLoaderInterface> loader =
-            std::make_shared<GLTF::glTFFileLoader>();
-        Ra::Engine::RadiumEngine::getInstance()->registerFileLoader( loader );
+#ifdef HAS_GLTF_WRITER
 
         // allow to save in gltf format
         auto fileSaveAction = new QAction( "&Save..." );
@@ -117,7 +111,7 @@ class DemoWindow : public Ra::Gui::SimpleWindow
                 entities.begin(), entities.end(), std::back_inserter( toExport ), []( auto e ) {
                     return e != Ra::Engine::Scene::SystemEntity::getInstance();
                 } );
-            GLTF::glTFFileWriter writer { fileName.toStdString(), "textures/", false };
+            Ra::IO::GLTF::glTFFileWriter writer { fileName.toStdString(), "textures/", false };
             writer.write( toExport );
         };
         connect( fileSaveAction, &QAction::triggered, saveFile );
@@ -196,12 +190,6 @@ int main( int argc, char* argv[] ) {
 
     //! [Initializing the application]
     app.initialize( DemoWindowFactory() );
-#ifdef USE_RADIUMGLTF
-    app.m_mainWindow->getViewer()->makeCurrent();
-    // initialize the use of GLTF library
-    GLTF::initializeGltf();
-    app.m_mainWindow->getViewer()->doneCurrent();
-#endif
     app.setContinuousUpdate( false );
     //! [Initializing the application]
 

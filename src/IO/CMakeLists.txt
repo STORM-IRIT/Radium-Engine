@@ -7,10 +7,13 @@ option(RADIUM_IO_DEPRECATED "Provide deprecated loaders (to be removed without n
 option(RADIUM_IO_ASSIMP "Provide loaders based on Assimp library" ON)
 option(RADIUM_IO_TINYPLY "Provide loaders based on TinyPly library" ON)
 option(RADIUM_IO_VOLUMES "Provide loader for volume pvm file format" ON)
-
+option(RADIUM_IO_GLTF "Provide loader for gltf2.0 file format" ON)
+cmake_dependent_option(
+    RADIUM_IO_GLTF_WRITER "Provide writer for gltf2.0 file format" ON RADIUM_IO_GLTF OFF
+)
 include(filelist.cmake)
 
-add_library(${ra_io_target} SHARED ${io_sources} ${io_headers})
+add_library(${ra_io_target} SHARED ${io_sources} ${io_headers} ${io_private_headers})
 
 if(RADIUM_IO_ASSIMP)
     find_package(assimp 5.0 REQUIRED NO_DEFAULT_PATH)
@@ -38,6 +41,17 @@ if(RADIUM_IO_ASSIMP)
                                   MAP_IMPORTED_CONFIG_RELWITHDEBINFO Release
     )
 endif(RADIUM_IO_ASSIMP)
+
+if(RADIUM_IO_GLTF)
+    set_target_properties(${ra_io_target} PROPERTIES IO_HAS_GLTF ${RADIUM_IO_GLTF})
+    if(RADIUM_IO_GLTF_WRITER)
+        target_link_libraries(${ra_io_target} PUBLIC Engine)
+        set_target_properties(
+            ${ra_io_target} PROPERTIES IO_HAS_GLTF_WRITER ${RADIUM_IO_GLTF_WRITER}
+        )
+    endif(RADIUM_IO_GLTF_WRITER)
+endif(RADIUM_IO_GLTF)
+
 if(RADIUM_IO_TINYPLY)
     target_link_libraries(${ra_io_target} PUBLIC tinyply)
 endif(RADIUM_IO_TINYPLY)
@@ -62,5 +76,7 @@ configure_radium_library(
 set(RADIUM_COMPONENTS ${RADIUM_COMPONENTS} ${ra_io_target} PARENT_SCOPE)
 
 if(RADIUM_ENABLE_PCH)
-    target_precompile_headers(${ra_io_target} PRIVATE pch.hpp)
+    target_precompile_headers(
+        ${ra_io_target} PRIVATE "$<$<COMPILE_LANGUAGE:CXX>:${CMAKE_CURRENT_SOURCE_DIR}/pch.hpp>"
+    )
 endif()

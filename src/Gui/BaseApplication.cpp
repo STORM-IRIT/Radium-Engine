@@ -7,7 +7,6 @@
 #include <Core/Resources/Resources.hpp>
 #include <Core/Tasks/Task.hpp>
 #include <Core/Tasks/TaskQueue.hpp>
-#include <Core/Types.hpp>
 #include <Core/Utils/Color.hpp>
 #include <Core/Utils/Log.hpp>
 #include <Core/Utils/StringUtils.hpp>
@@ -17,7 +16,6 @@
 #include <Engine/Data/TextureManager.hpp>
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Rendering/RenderObject.hpp>
-#include <Engine/Scene/CameraComponent.hpp>
 #include <Engine/Scene/EntityManager.hpp>
 #include <Engine/Scene/GeometrySystem.hpp>
 #include <Engine/Scene/SkeletonBasedAnimationSystem.hpp>
@@ -34,6 +32,9 @@
 #endif
 #ifdef IO_HAS_VOLUMES
 #    include <IO/VolumesLoader/VolumeLoader.hpp>
+#endif
+#ifdef IO_HAS_GLTF
+#    include <IO/Gltf/Loader/glTFFileLoader.hpp>
 #endif
 #include <QCommandLineParser>
 #include <QDir>
@@ -320,9 +321,13 @@ void BaseApplication::initialize( const WindowFactory& factory,
     }
     // == Configure bundled Radium::IO services == //
     // Make builtin loaders the fallback if no plugins can load some file format
-#ifdef IO_HAS_TINYPLY
     // Register before AssimpFileLoader, in order to ease override of such
     // custom loader (first loader able to load is taking the file)
+#ifdef IO_HAS_GLTF
+    m_engine->registerFileLoader(
+        std::shared_ptr<FileLoaderInterface>( new IO::GLTF::glTFFileLoader() ) );
+#endif
+#ifdef IO_HAS_TINYPLY
     m_engine->registerFileLoader(
         std::shared_ptr<FileLoaderInterface>( new IO::TinyPlyFileLoader() ) );
 #endif

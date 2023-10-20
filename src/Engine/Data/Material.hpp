@@ -77,6 +77,11 @@ class RA_ENGINE_API Material : public Data::ShaderParameterProvider
      */
     virtual bool isTransparent() const;
 
+    /** Test if material is transperent.
+     * @return true if the material is transparent
+     */
+    virtual bool isDoubleSided() const { return true; }
+
     /**
      * Get the list of properties the material migh use in a shader.
      * each property will be added to the shader used for rendering this material under the form

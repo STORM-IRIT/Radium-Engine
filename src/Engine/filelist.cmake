@@ -8,10 +8,12 @@ set(engine_sources
     Data/BlinnPhongMaterial.cpp
     Data/DrawPrimitives.cpp
     Data/EnvironmentTexture.cpp
+    Data/GLTFMaterial.cpp
     Data/LambertianMaterial.cpp
     Data/Material.cpp
     Data/MaterialConverters.cpp
     Data/Mesh.cpp
+    Data/MetallicRoughnessMaterial.cpp
     Data/PlainMaterial.cpp
     Data/RawShaderMaterial.cpp
     Data/RenderParameters.cpp
@@ -20,6 +22,7 @@ set(engine_sources
     Data/ShaderProgram.cpp
     Data/ShaderProgramManager.cpp
     Data/SimpleMaterial.cpp
+    Data/SpecularGlossinessMaterial.cpp
     Data/Texture.cpp
     Data/TextureManager.cpp
     Data/VolumeObject.cpp
@@ -61,10 +64,12 @@ set(engine_headers
     Data/DisplayableObject.hpp
     Data/DrawPrimitives.hpp
     Data/EnvironmentTexture.hpp
+    Data/GLTFMaterial.hpp
     Data/LambertianMaterial.hpp
     Data/Material.hpp
     Data/MaterialConverters.hpp
     Data/Mesh.hpp
+    Data/MetallicRoughnessMaterial.hpp
     Data/PlainMaterial.hpp
     Data/RawShaderMaterial.hpp
     Data/RenderParameters.hpp
@@ -73,6 +78,7 @@ set(engine_headers
     Data/ShaderProgram.hpp
     Data/ShaderProgramManager.hpp
     Data/SimpleMaterial.hpp
+    Data/SpecularGlossinessMaterial.hpp
     Data/Texture.hpp
     Data/TextureManager.hpp
     Data/ViewingParameters.hpp
@@ -141,6 +147,13 @@ set(engine_shaders
     Materials/BlinnPhong/BlinnPhong.vert.glsl
     Materials/BlinnPhong/BlinnPhongZPrepass.frag.glsl
     Materials/BlinnPhong/LitOITBlinnPhong.frag.glsl
+    Materials/GLTF/Materials/MetallicRoughness.glsl
+    Materials/GLTF/Materials/SpecularGlossiness.glsl
+    Materials/GLTF/Materials/baseGLTFMaterial.glsl
+    Materials/GLTF/Materials/baseGLTFMaterial.vert.glsl
+    Materials/GLTF/Materials/baseGLTFMaterial_LitOIT.frag.glsl
+    Materials/GLTF/Materials/baseGLTFMaterial_LitOpaque.frag.glsl
+    Materials/GLTF/Materials/baseGLTFMaterial_Zprepass.frag.glsl
     Materials/Lambertian/Lambertian.frag.glsl
     Materials/Lambertian/Lambertian.glsl
     Materials/Lambertian/Lambertian.vert.glsl

@@ -15,7 +15,19 @@ if (IO_FOUND AND NOT TARGET IO)
             set(Configure_IO OFF)
         endif()
     endif()
-
+    if(@IO_HAS_GLTF_WRITER@)
+        # verify dependencies
+        if(NOT Engine_FOUND)
+            if(EXISTS "${CMAKE_CURRENT_LIST_DIR}/../Engine/RadiumEngineConfig.cmake")
+                include(${CMAKE_CURRENT_LIST_DIR}/../Engine/RadiumEngineConfig.cmake)
+                set(Engine_FOUND TRUE)
+            else()
+                set(Radium_FOUND False)
+                set(Radium_NOT_FOUND_MESSAGE "Radium::IO: dependency Engine needed by GLTF_WRITER not found")
+                set(Configure_IO OFF)
+            endif()
+        endif()
+    endif()
 endif()
 
 if(Configure_IO)
@@ -32,7 +44,23 @@ if(Configure_IO)
         BRIEF_DOCS "Radium::IO has volume loader support."
         FULL_DOCS "Identify if Radium::IO was compiled with volume loader support."
     )
+    define_property(
+            TARGET PROPERTY IO_HAS_GLTF BRIEF_DOCS "Radium::IO has gltf loading support."
+            FULL_DOCS "Identify if Radium::IO was compiled with gltf loading support."
+        )
+    define_property(
+            TARGET PROPERTY IO_HAS_GLTF_WRITER BRIEF_DOCS "Radium::IO has gltf writer support."
+            FULL_DOCS "Identify if Radium::IO was compiled with gltf writer support  (add dependency of IO on Engine)."
+        )
     include("${CMAKE_CURRENT_LIST_DIR}/IOTargets.cmake" )
+
+    #Detect if library has been compiled with volumeIO support
+    if(@RADIUM_IO_GLTF@)
+        set_target_properties(Radium::IO PROPERTIES IO_HAS_GLTF TRUE)
+        if(@IO_HAS_GLTF_WRITER@)
+            set_target_properties(Radium::IO PROPERTIES IO_HAS_GLTF_WRITER TRUE)
+        endif()
+    endif()
 
     #Detect if library has been compiled with volumeIO support
     if(@RADIUM_IO_VOLUMES@)
