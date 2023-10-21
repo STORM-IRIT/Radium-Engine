@@ -91,7 +91,7 @@ struct ImageParameters {
  *
  * MipMap representation of the texture is automatically generated as soon as the minFilter
  * parameter is something else than GL_LINEAR or GL_NEAREST.
- * @todo allow to use another mipmap building function than glGenerateMipmap
+ * \todo allow to use another mipmap building function than glGenerateMipmap
  *
  * \note No coherence checking will be done on the content of this structure. User must ensure
  * coherent data and parameters.

@@ -7,7 +7,7 @@ namespace Ra {
 namespace Engine {
 namespace Data {
 
-/** @brief Base class to manage a set of textures indexed by semantic (enum).
+/** \brief Base class to manage a set of textures indexed by semantic (enum).
  */
 template <typename TextureSemantic>
 class MaterialTextureSet
@@ -20,11 +20,17 @@ class MaterialTextureSet
         m_textures[semantic] = texture;
     }
 
+    /** \brief Add texture to TextureManager fisrt, then to the texture set.
+     */
     void addTexture( const TextureSemantic& semantic, const TextureParameters& texture ) {
         auto texManager = RadiumEngine::getInstance()->getTextureManager();
         addTexture( semantic, texManager->addTexture( texture ) );
     }
 
+    /** \brief Texture getter from semantic.
+     *
+     * \return raw (non owning) ptr to the texture, `nullptr` if the texture is not found.
+     */
     Texture* getTexture( const TextureSemantic& semantic ) const {
         Texture* tex    = nullptr;
         auto texManager = RadiumEngine::getInstance()->getTextureManager();

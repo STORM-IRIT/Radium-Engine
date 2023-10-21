@@ -85,9 +85,6 @@ class RA_ENGINE_API RawShaderMaterial : public Material
         const std::vector<std::pair<Data::ShaderType, std::string>>& shaders,
         std::shared_ptr<Data::ShaderParameterProvider> paramProvider );
 
-    /**
-     * Destructor.
-     */
     ~RawShaderMaterial() override;
 
     /**
@@ -145,8 +142,7 @@ class RA_ENGINE_API RawShaderMaterial : public Material
 
   private:
     /**
-     * Compute the unique key that identify this material in shaders and technique factories
-     * \return
+     * \return the unique key that identify this material in shaders and technique factories
      */
     std::string computeKey();
 

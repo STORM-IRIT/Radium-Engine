@@ -22,13 +22,13 @@ class ShaderProgram;
 
 //! [TextureSemantics]
 namespace TextureSemantics {
-///@ BlinnPhongMaterial's textures
+/// \brief BlinnPhongMaterial's textures.
 enum class BlinnPhongMaterial { TEX_DIFFUSE, TEX_SPECULAR, TEX_NORMAL, TEX_SHININESS, TEX_ALPHA };
 } // namespace TextureSemantics
 //! [TextureSemantics]
 
-/**
- * Implementation of the Blinn-Phong Material BSDF.
+/** \brief Implementation of the Blinn-Phong Material BSDF.
+ *
  * \todo due to "Material.glsl" interface modification, must test this version with all plugins,
  * apps, ... that uses Radium Renderer
  */
@@ -43,13 +43,11 @@ class RA_ENGINE_API BlinnPhongMaterial final
   public:
     using TextureSemantic = TextureSemantics::BlinnPhongMaterial;
 
-    /**
-     * Construct a named Blinn-Phongmaterial
+    /** \brief Construct a named BlinnPhongMaterial.
+     *
      * \param instanceName The name of this instance of the material
      */
     explicit BlinnPhongMaterial( const std::string& instanceName );
-
-    using MaterialTextureSet<TextureSemantic>::addTexture;
 
     void updateGL() override;
     void updateFromParameters() override;
@@ -68,15 +66,11 @@ class RA_ENGINE_API BlinnPhongMaterial final
      */
     static void unregisterMaterial();
 
-    /**
-     * Get a json containing metadata about the parameters of the material.
-     * \return the metadata in json format
-     */
-    inline nlohmann::json getParametersMetadata() const override;
+    inline nlohmann::json getParametersMetadata() const override { return s_parametersMetadata; }
 
     inline void setColoredByVertexAttrib( bool state ) override;
 
-    inline bool isColoredByVertexAttrib() const override;
+    inline bool isColoredByVertexAttrib() const override { return m_perVertexColor; }
 
     inline void setDiffuseColor( Core::Utils::Color c );
     inline void setSpecularColor( Core::Utils::Color c );
@@ -99,8 +93,7 @@ class RA_ENGINE_API BlinnPhongMaterial final
     bool m_renderAsSplat { false };
     static nlohmann::json s_parametersMetadata;
 
-    /**
-     * Update the rendering parameters for the Material
+    /** \brief Update the rendering parameters for the Material
      */
     void updateRenderingParameters();
 };
@@ -117,19 +110,11 @@ class RA_ENGINE_API BlinnPhongMaterialConverter final
     Material* operator()( const Ra::Core::Asset::MaterialData* toconvert );
 };
 
-inline nlohmann::json BlinnPhongMaterial::getParametersMetadata() const {
-    return s_parametersMetadata;
-}
-
 inline void BlinnPhongMaterial::setColoredByVertexAttrib( bool state ) {
     if ( state != m_perVertexColor ) {
         m_perVertexColor = state;
         needUpdate();
     }
-}
-
-inline bool BlinnPhongMaterial::isColoredByVertexAttrib() const {
-    return m_perVertexColor;
 }
 
 inline void BlinnPhongMaterial::setSpecularExponent( Scalar n ) {

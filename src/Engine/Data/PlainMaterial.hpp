@@ -30,7 +30,7 @@ class RA_ENGINE_API PlainMaterial final : public SimpleMaterial
      * \note The material does not have ownership on its texture nor its shaders.
      * This destructor do not delete the associated textures and the corresponding shaders.
      */
-    ~PlainMaterial() override;
+    ~PlainMaterial() override = default;
 
     /**
      * Register the material in the material library.
@@ -47,11 +47,6 @@ class RA_ENGINE_API PlainMaterial final : public SimpleMaterial
 
     void updateFromParameters() override;
 
-    /**
-     * Get a json containing metadata about the parameters of the material.
-     *
-     * \return the metadata in json format
-     */
     nlohmann::json getParametersMetadata() const override;
 
   private:

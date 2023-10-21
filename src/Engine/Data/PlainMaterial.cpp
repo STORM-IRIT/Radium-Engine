@@ -19,8 +19,6 @@ nlohmann::json PlainMaterial::s_parametersMetadata = {};
 PlainMaterial::PlainMaterial( const std::string& instanceName ) :
     SimpleMaterial( instanceName, materialName, Material::MaterialAspect::MAT_OPAQUE ) {}
 
-PlainMaterial::~PlainMaterial() = default;
-
 void PlainMaterial::registerMaterial() {
     // Get the Radium Resource location on the filesystem
     auto resourcesRootDir { RadiumEngine::getInstance()->getResourcesDir() };

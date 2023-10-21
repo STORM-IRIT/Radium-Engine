@@ -18,8 +18,6 @@ nlohmann::json LambertianMaterial::s_parametersMetadata = {};
 LambertianMaterial::LambertianMaterial( const std::string& instanceName ) :
     SimpleMaterial( instanceName, materialName, Material::MaterialAspect::MAT_OPAQUE ) {}
 
-LambertianMaterial::~LambertianMaterial() {}
-
 void LambertianMaterial::registerMaterial() {
     // Get the Radium Resource location on the filesystem
     auto resourcesRootDir { RadiumEngine::getInstance()->getResourcesDir() };
