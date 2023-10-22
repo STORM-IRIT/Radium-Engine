@@ -77,8 +77,7 @@ class KeyFramedGeometryComponent : public Ra::Engine::Scene::TriangleMeshCompone
         m_colorController.m_updater = [colors, material]( const Scalar& t ) {
             auto C =
                 colors->at( t, Ra::Core::Animation::linearInterpolate<Ra::Core::Utils::Color> );
-            material->m_kd = C;
-            material->needUpdate();
+            material->setDiffuseColor( C );
         };
         //! [Attach the color KeyFrames to a controller]
         //! [Creating the color KeyFrames]

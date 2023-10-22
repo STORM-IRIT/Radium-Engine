@@ -347,8 +347,7 @@ class RA_ENGINE_API ParameterSetEditingInterface
   public:
     virtual ~ParameterSetEditingInterface() = default;
 
-    /**
-     * \brief Get a json containing metadata about the parameters.
+    /** \brief Get a json containing metadata about the parameters.
      *
      * \return the metadata in json format
      */

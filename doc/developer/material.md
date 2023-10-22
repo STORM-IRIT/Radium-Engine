@@ -125,6 +125,27 @@ public:
 
 See the [Render technique management](#render-technique) for documentation on how to build such an helper function.
 
+## Textures {#material-textures}
+
+The MaterialTextureSet template ease a material's texture management.
+First define an enum with the managed texture semantic you want to have, by convention declare this enum in Ra::Engine::Data::TextureSemantics, named as your Material class. e.g. for BlinnPhongMaterial:
+
+\snippet Engine/Data/BlinnPhongMaterial.hpp TextureSemantics
+
+Then to set a texture according to the semantic:
+
+\snippet TexturedQuadDynamic/main.cpp Add texture to material
+
+\see
+
+- @ref develTextures
+- Ra::Engine::Data::MaterialTextureSet
+- Ra::Engine::Data::TextureManager
+- Ra::Engine::Data::Texture
+- Ra::Engine::Data::TextureParameters
+- Ra::Engine::Data::SamplerParameters
+- Ra::Engine::Data::ImageParameters
+
 ### Making a material editable {#editable-interface}
 
 Material which implement the Ra::Engine::Data::ParameterSetEditionInterface might be modified at runtime.

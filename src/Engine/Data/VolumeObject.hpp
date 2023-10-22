@@ -69,7 +69,7 @@ class RA_ENGINE_API VolumeObject : public Displayable
 
   private:
     std::unique_ptr<Core::Geometry::AbstractVolume> m_volume;
-    Texture m_tex;
+    Texture m_tex { {} };
     /// Mesh used to display the bounding box of the grid for the ray marching
     Mesh m_mesh;
 

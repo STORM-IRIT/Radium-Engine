@@ -172,20 +172,27 @@ void EnvironmentTexture::initializeTexture() {
     }
     computeSHMatrices();
     // make the envmap cube texture
+
+    // proper convert shared ptr float[] to void
+    std::array<std::shared_ptr<void>, 6> cubeMap = {
+        m_skyData[0], m_skyData[1], m_skyData[2], m_skyData[3], m_skyData[4], m_skyData[5] };
     Ra::Engine::Data::TextureParameters params { m_name,
-                                                 GL_TEXTURE_CUBE_MAP,
-                                                 m_width,
-                                                 m_height,
-                                                 1,
-                                                 GL_RGBA,
-                                                 GL_RGBA,
-                                                 GL_FLOAT,
-                                                 GL_CLAMP_TO_EDGE,
-                                                 GL_CLAMP_TO_EDGE,
-                                                 GL_CLAMP_TO_EDGE,
-                                                 GL_LINEAR_MIPMAP_LINEAR,
-                                                 GL_LINEAR,
-                                                 (void**)( m_skyData ) };
+                                                 {
+                                                     GL_CLAMP_TO_EDGE,
+                                                     GL_CLAMP_TO_EDGE,
+                                                     GL_CLAMP_TO_EDGE,
+                                                     GL_LINEAR_MIPMAP_LINEAR,
+                                                     GL_LINEAR,
+                                                 },
+                                                 { GL_TEXTURE_CUBE_MAP,
+                                                   m_width,
+                                                   m_height,
+                                                   1,
+                                                   GL_RGBA,
+                                                   GL_RGBA,
+                                                   GL_FLOAT,
+                                                   false,
+                                                   std::move( cubeMap ) } };
     m_skyTexture = std::make_unique<Ra::Engine::Data::Texture>( params );
 
     if ( m_isSkyBox ) {
@@ -203,7 +210,7 @@ void EnvironmentTexture::setupTexturesFromPfm() {
     m_height                 = img->height / 4;
 
     for ( int imgIdx = 0; imgIdx < 6; ++imgIdx ) {
-        m_skyData[imgIdx] = new float[m_width * m_height * 4];
+        m_skyData[imgIdx] = std::shared_ptr<float[]>( new float[m_width * m_height * 4] );
     }
 
 #pragma omp parallel for
@@ -293,7 +300,7 @@ void EnvironmentTexture::setupTexturesFromPfm() {
     }
 
     for ( int imgIdx = 0; imgIdx < 6; ++imgIdx ) {
-        flip_horizontally( m_skyData[imgIdx], m_width, m_height, 4 );
+        flip_horizontally( m_skyData[imgIdx].get(), m_width, m_height, 4 );
     }
 
     delete[] img->pixels;
@@ -351,7 +358,7 @@ void EnvironmentTexture::setupTexturesFromCube() {
         }
         m_width           = w;
         m_height          = h;
-        m_skyData[imgIdx] = new float[m_width * m_height * 4];
+        m_skyData[imgIdx] = std::shared_ptr<float[]>( new float[m_width * m_height * 4] );
 
         for ( int l = 0; l < int( m_height ); ++l ) {
             for ( int c = 0; c < int( m_width ); ++c ) {
@@ -395,8 +402,8 @@ void EnvironmentTexture::setupTexturesFromSphericalEquiRectangular() {
     }
     textureSize >>= 1;
     // Bases to use to convert sphericalequirectangular images to cube faces
-    // These bases allow to convert (u, v) cordinates of each faces to (x, y, z) in the frame of the
-    // equirectangular map. : (x, y, z) = u*A[0] + v*A[1] + A[2]
+    // These bases allow to convert (u, v) cordinates of each faces to (x, y, z) in the frame of
+    // the equirectangular map. : (x, y, z) = u*A[0] + v*A[1] + A[2]
     Vector3 bases[6][3] = { { { -1, 0, 0 }, { 0, 1, 0 }, { 0, 0, -1 } },
                             { { 1, 0, 0 }, { 0, -1, 0 }, { 0, 0, -1 } },
                             { { 0, 0, 1 }, { 1, 0, 0 }, { 0, 1, 0 } },
@@ -411,7 +418,7 @@ void EnvironmentTexture::setupTexturesFromSphericalEquiRectangular() {
 
     for ( int imgIdx = 0; imgIdx < 6; ++imgIdx ) {
         // Alllocate the images
-        m_skyData[imgIdx] = new float[textureSize * textureSize * 4];
+        m_skyData[imgIdx] = std::shared_ptr<float[]>( new float[textureSize * textureSize * 4] );
     }
 
     Scalar duv = 2_ra / textureSize;
@@ -445,7 +452,7 @@ void EnvironmentTexture::setupTexturesFromSphericalEquiRectangular() {
     }
 
     for ( int imgIdx = 0; imgIdx < 6; ++imgIdx ) {
-        flip_horizontally( m_skyData[imgIdx], textureSize, textureSize, 4 );
+        flip_horizontally( m_skyData[imgIdx].get(), textureSize, textureSize, 4 );
     }
 
     free( latlonPix );
@@ -568,7 +575,8 @@ Ra::Engine::Data::Texture* EnvironmentTexture::getSHImage() {
     if ( m_shtexture != nullptr ) { return m_shtexture.get(); }
 
     size_t ambientWidth = 1024;
-    auto thepixels      = new unsigned char[4 * ambientWidth * ambientWidth];
+    std::shared_ptr<unsigned char[]> thepixels(
+        new unsigned char[4 * ambientWidth * ambientWidth] );
 #pragma omp parallel for
     for ( int i = 0; i < int( ambientWidth ); i++ ) {
         for ( int j = 0; j < int( ambientWidth ); j++ ) {
@@ -617,20 +625,18 @@ Ra::Engine::Data::Texture* EnvironmentTexture::getSHImage() {
             thepixels[4 * ( j * ambientWidth + i ) + 3] = 255;
         }
     }
-    Ra::Engine::Data::TextureParameters params { "shImage",
-                                                 GL_TEXTURE_2D,
-                                                 ambientWidth,
-                                                 ambientWidth,
-                                                 1,
-                                                 GL_RGBA,
-                                                 GL_RGBA,
-                                                 GL_UNSIGNED_BYTE,
-                                                 GL_CLAMP_TO_EDGE,
-                                                 GL_CLAMP_TO_EDGE,
-                                                 GL_CLAMP_TO_EDGE,
-                                                 GL_LINEAR,
-                                                 GL_LINEAR,
-                                                 thepixels };
+    Ra::Engine::Data::TextureParameters params {
+        "shImage",
+        { GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_LINEAR, GL_LINEAR },
+        { GL_TEXTURE_2D,
+          ambientWidth,
+          ambientWidth,
+          1,
+          GL_RGBA,
+          GL_RGBA,
+          GL_UNSIGNED_BYTE,
+          false,
+          thepixels } };
     m_shtexture = std::make_unique<Ra::Engine::Data::Texture>( params );
     return m_shtexture.get();
 }
@@ -638,7 +644,7 @@ Ra::Engine::Data::Texture* EnvironmentTexture::getSHImage() {
 void EnvironmentTexture::saveShProjection( const std::string& filename ) {
     auto tex  = getSHImage();
     auto flnm = std::string( "../" ) + filename;
-    stbi_write_png( flnm.c_str(), tex->width(), tex->height(), 4, tex->texels(), 0 );
+    stbi_write_png( flnm.c_str(), tex->getWidth(), tex->getHeight(), 4, tex->getTexels(), 0 );
 }
 
 const Ra::Core::Matrix4& EnvironmentTexture::getShMatrix( int channel ) {
@@ -681,10 +687,9 @@ void EnvironmentTexture::updateGL() {
             m_isSkyBox = false;
         }
         m_displayMesh->updateGL();
-        m_skyTexture->initializeGL();
+        m_skyTexture->initializeNow();
         glEnable( GL_TEXTURE_CUBE_MAP_SEAMLESS );
         m_glReady = true;
-        // saveShProjection( "SHImage.png" );
     }
 }
 

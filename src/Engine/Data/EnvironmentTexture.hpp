@@ -174,7 +174,7 @@ class RA_ENGINE_API EnvironmentTexture
     EnvMapType m_type;
 
     // The raw pixel values of the envmap
-    float* m_skyData[6];
+    std::array<std::shared_ptr<float[]>, 6> m_skyData;
     size_t m_width { 0 };
     size_t m_height { 0 };
     float m_shcoefs[9][3];

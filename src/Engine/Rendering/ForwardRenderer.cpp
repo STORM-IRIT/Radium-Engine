@@ -96,25 +96,25 @@ void ForwardRenderer::initBuffers() {
     // Forward renderer internal textures texture
 
     Data::TextureParameters texparams;
-    texparams.width  = m_width;
-    texparams.height = m_height;
-    texparams.target = GL_TEXTURE_2D;
+    texparams.image.width  = m_width;
+    texparams.image.height = m_height;
+    texparams.image.target = GL_TEXTURE_2D;
 
     // Depth texture
-    texparams.minFilter                = GL_NEAREST;
-    texparams.magFilter                = GL_NEAREST;
-    texparams.internalFormat           = GL_DEPTH_COMPONENT24;
-    texparams.format                   = GL_DEPTH_COMPONENT;
-    texparams.type                     = GL_UNSIGNED_INT;
+    texparams.sampler.minFilter        = GL_NEAREST;
+    texparams.sampler.magFilter        = GL_NEAREST;
+    texparams.image.internalFormat     = GL_DEPTH_COMPONENT24;
+    texparams.image.format             = GL_DEPTH_COMPONENT;
+    texparams.image.type               = GL_UNSIGNED_INT;
     texparams.name                     = "Depth (fw renderer)";
     m_textures[RendererTextures_Depth] = std::make_unique<Data::Texture>( texparams );
 
     // Color texture
-    texparams.internalFormat = GL_RGBA32F;
-    texparams.format         = GL_RGBA;
-    texparams.type           = GL_SCALAR;
-    texparams.minFilter      = GL_LINEAR;
-    texparams.magFilter      = GL_LINEAR;
+    texparams.image.internalFormat = GL_RGBA32F;
+    texparams.image.format         = GL_RGBA;
+    texparams.image.type           = GL_SCALAR;
+    texparams.sampler.minFilter    = GL_LINEAR;
+    texparams.sampler.magFilter    = GL_LINEAR;
 
     texparams.name                   = "HDR";
     m_textures[RendererTextures_HDR] = std::make_unique<Data::Texture>( texparams );
@@ -620,39 +620,44 @@ void ForwardRenderer::resizeInternal() {
     m_textures[RendererTextures_Volume]->resize( m_width, m_height );
 
     m_fbo->bind();
-    m_fbo->attachTexture( GL_DEPTH_ATTACHMENT, m_textures[RendererTextures_Depth]->texture() );
-    m_fbo->attachTexture( GL_COLOR_ATTACHMENT0, m_textures[RendererTextures_HDR]->texture() );
-    m_fbo->attachTexture( GL_COLOR_ATTACHMENT1, m_textures[RendererTextures_Normal]->texture() );
-    m_fbo->attachTexture( GL_COLOR_ATTACHMENT2, m_textures[RendererTextures_Diffuse]->texture() );
-    m_fbo->attachTexture( GL_COLOR_ATTACHMENT3, m_textures[RendererTextures_Specular]->texture() );
+    m_fbo->attachTexture( GL_DEPTH_ATTACHMENT,
+                          m_textures[RendererTextures_Depth]->getGpuTexture() );
+    m_fbo->attachTexture( GL_COLOR_ATTACHMENT0, m_textures[RendererTextures_HDR]->getGpuTexture() );
+    m_fbo->attachTexture( GL_COLOR_ATTACHMENT1,
+                          m_textures[RendererTextures_Normal]->getGpuTexture() );
+    m_fbo->attachTexture( GL_COLOR_ATTACHMENT2,
+                          m_textures[RendererTextures_Diffuse]->getGpuTexture() );
+    m_fbo->attachTexture( GL_COLOR_ATTACHMENT3,
+                          m_textures[RendererTextures_Specular]->getGpuTexture() );
     if ( m_fbo->checkStatus() != GL_FRAMEBUFFER_COMPLETE ) {
         LOG( logERROR ) << "FBO Error (ForwardRenderer::m_fbo): " << m_fbo->checkStatus();
     }
 
     m_volumeFbo->bind();
     m_volumeFbo->attachTexture( GL_DEPTH_ATTACHMENT,
-                                m_textures[RendererTextures_Depth]->texture() );
+                                m_textures[RendererTextures_Depth]->getGpuTexture() );
     m_volumeFbo->attachTexture( GL_COLOR_ATTACHMENT0,
-                                m_textures[RendererTextures_Volume]->texture() );
+                                m_textures[RendererTextures_Volume]->getGpuTexture() );
     if ( m_volumeFbo->checkStatus() != GL_FRAMEBUFFER_COMPLETE ) {
         LOG( logERROR ) << "FBO Error (ForwardRenderer::m_volumeFbo) : "
                         << m_volumeFbo->checkStatus();
     }
 
     m_oitFbo->bind();
-    m_oitFbo->attachTexture( GL_DEPTH_ATTACHMENT, m_textures[RendererTextures_Depth]->texture() );
+    m_oitFbo->attachTexture( GL_DEPTH_ATTACHMENT,
+                             m_textures[RendererTextures_Depth]->getGpuTexture() );
     m_oitFbo->attachTexture( GL_COLOR_ATTACHMENT0,
-                             m_textures[RendererTextures_OITAccum]->texture() );
+                             m_textures[RendererTextures_OITAccum]->getGpuTexture() );
     m_oitFbo->attachTexture( GL_COLOR_ATTACHMENT1,
-                             m_textures[RendererTextures_OITRevealage]->texture() );
+                             m_textures[RendererTextures_OITRevealage]->getGpuTexture() );
     if ( m_oitFbo->checkStatus() != GL_FRAMEBUFFER_COMPLETE ) {
         LOG( logERROR ) << "FBO Error (ForwardRenderer::m_oitFbo) : " << m_oitFbo->checkStatus();
     }
 
     m_postprocessFbo->bind();
     m_postprocessFbo->attachTexture( GL_DEPTH_ATTACHMENT,
-                                     m_textures[RendererTextures_Depth]->texture() );
-    m_postprocessFbo->attachTexture( GL_COLOR_ATTACHMENT0, m_fancyTexture->texture() );
+                                     m_textures[RendererTextures_Depth]->getGpuTexture() );
+    m_postprocessFbo->attachTexture( GL_COLOR_ATTACHMENT0, m_fancyTexture->getGpuTexture() );
     if ( m_postprocessFbo->checkStatus() != GL_FRAMEBUFFER_COMPLETE ) {
         LOG( logERROR ) << "FBO Error (ForwardRenderer::m_postprocessFbo) : "
                         << m_postprocessFbo->checkStatus();
@@ -663,8 +668,8 @@ void ForwardRenderer::resizeInternal() {
     // render eveything else than the scene. Create several FBO with ther own configuration
     // (uncomment Renderer::m_depthTexture->texture() to see the difference.)
     m_uiXrayFbo->bind();
-    m_uiXrayFbo->attachTexture( GL_DEPTH_ATTACHMENT, Renderer::m_depthTexture->texture() );
-    m_uiXrayFbo->attachTexture( GL_COLOR_ATTACHMENT0, m_fancyTexture->texture() );
+    m_uiXrayFbo->attachTexture( GL_DEPTH_ATTACHMENT, Renderer::m_depthTexture->getGpuTexture() );
+    m_uiXrayFbo->attachTexture( GL_COLOR_ATTACHMENT0, m_fancyTexture->getGpuTexture() );
     if ( m_uiXrayFbo->checkStatus() != GL_FRAMEBUFFER_COMPLETE ) {
         LOG( logERROR ) << "FBO Error (ForwardRenderer::m_uiXrayFbo) : "
                         << m_uiXrayFbo->checkStatus();
@@ -708,8 +713,8 @@ bool ForwardRenderer::buildRenderTechnique( RenderObject* ro ) const {
     if ( !material ) {
         LOG( logWARNING ) << "ForwardRenderer : no material found when building RenderTechnique"
                           << " - adding red Lambertian material";
-        auto defMat     = new Data::LambertianMaterial( "ForwardRenderer::Default material" );
-        defMat->m_color = Ra::Core::Utils::Color::Red();
+        auto defMat = new Data::LambertianMaterial( "ForwardRenderer::Default material" );
+        defMat->setColor( Ra::Core::Utils::Color::Red() );
         material.reset( defMat );
     }
     auto builder = EngineRenderTechniques::getDefaultTechnique( material->getMaterialName() );

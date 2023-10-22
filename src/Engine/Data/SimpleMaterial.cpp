@@ -12,10 +12,6 @@ SimpleMaterial::SimpleMaterial( const std::string& instanceName,
                                 MaterialAspect aspect ) :
     Material( instanceName, materialName, aspect ) {}
 
-SimpleMaterial::~SimpleMaterial() {
-    m_textures.clear();
-}
-
 void SimpleMaterial::updateRenderingParameters() {
     auto& renderParameters = getParameters();
     // update the rendering paramaters
@@ -30,19 +26,10 @@ void SimpleMaterial::updateRenderingParameters() {
 }
 
 void SimpleMaterial::updateGL() {
-    if ( !m_isDirty ) { return; }
-    // Load textures
-    Data::TextureManager* texManager = RadiumEngine::getInstance()->getTextureManager();
-    for ( const auto& tex : m_pendingTextures ) {
-        // ask to convert color textures from sRGB to Linear RGB
-        bool tolinear         = ( tex.first == TextureSemantic::TEX_COLOR );
-        auto texture          = texManager->getOrLoadTexture( tex.second, tolinear );
-        m_textures[tex.first] = texture;
-    }
-    // as all the pending textures where initialized, clear the pending textures list
-    m_pendingTextures.clear();
-    m_isDirty = false;
+    if ( !isDirty() ) { return; }
+
     updateRenderingParameters();
+    setClean();
 }
 
 void SimpleMaterial::loadMetaData( nlohmann::json& destination ) {
