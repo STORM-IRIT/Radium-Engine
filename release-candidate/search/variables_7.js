@@ -1,7 +1,6 @@
 var searchData=
 [
-  ['s_5fmaterial_0',['s_material',['../classRa_1_1Gui_1_1Gizmo.html#a10af7510f144cfd950233a1a173fabf7',1,'Ra::Gui::Gizmo']]],
-  ['sigma_5fa_1',['sigma_a',['../structRa_1_1Core_1_1Asset_1_1VolumeData.html#ad0e506c742268c44743afdfadbd52224',1,'Ra::Core::Asset::VolumeData']]],
-  ['sigma_5fs_2',['sigma_s',['../structRa_1_1Core_1_1Asset_1_1VolumeData.html#ae627f54bb0f521bfd7cbc70279e995c8',1,'Ra::Core::Asset::VolumeData']]],
-  ['sqrt2_3',['Sqrt2',['../namespaceRa_1_1Core_1_1Math.html#a535d83010be29727a6c7fa528906a064',1,'Ra::Core::Math']]]
+  ['wrapr_0',['wrapR',['../structRa_1_1Engine_1_1Data_1_1SamplerParameters.html#aa3642393279bb091491c5a40d60ffc34',1,'Ra::Engine::Data::SamplerParameters']]],
+  ['wraps_1',['wrapS',['../structRa_1_1Engine_1_1Data_1_1SamplerParameters.html#a980f8c7cd5ba17108b0c47101e78eaf8',1,'Ra::Engine::Data::SamplerParameters']]],
+  ['wrapt_2',['wrapT',['../structRa_1_1Engine_1_1Data_1_1SamplerParameters.html#a0b87d4f2b5ad20e008899ce2a84bcbcb',1,'Ra::Engine::Data::SamplerParameters']]]
 ];

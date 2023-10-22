@@ -1,0 +1,17 @@
+<map id="Ra::Engine::Data::Texture::initializeNow" name="Ra::Engine::Data::Texture::initializeNow">
+<area shape="rect" id="Node000001" title="Generate the GPU representation of the texture right now. Need an active OpenGL context." alt="" coords="5,137,192,177"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Engine_1_1Data_1_1Texture.html#a8e1101d1adbac593576519b80ca4c64e" title="Send image data to the GPU and generate mipmap if needed." alt="" coords="261,105,448,145"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="192,142,248,135,248,141,193,148"/>
+<area shape="rect" id="Node000008" href="$classRa_1_1Engine_1_1Data_1_1Texture.html#af0eebb45ead404aaffa24020ad30bdfb" title="Send sampler parameters to the GPU." alt="" coords="240,169,469,209"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="193,166,227,170,226,175,192,171"/>
+<area shape="rect" id="Node000003" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/iterator/begin.html#" title=" " alt="" coords="601,5,687,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="387,102,446,70,516,39,586,23,588,28,518,45,449,75,390,107"/>
+<area shape="rect" id="Node000004" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/iterator/end.html#" title=" " alt="" coords="607,55,681,80"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="448,104,593,75,594,80,449,109"/>
+<area shape="rect" id="Node000005" href="$structRa_1_1Engine_1_1Data_1_1ImageParameters.html#a59c5dfbd96f58c7be904ac3ba028d934" title=" " alt="" coords="517,105,771,145"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="448,122,504,122,504,127,448,127"/>
+<area shape="rect" id="Node000006" href="$classRa_1_1Engine_1_1Data_1_1Texture.html#ab38f11fb0bb726ce67ca44be7d8321ea" title=" " alt="" coords="551,169,737,209"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="446,142,540,163,539,168,445,147"/>
+<area shape="rect" id="Node000007" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/algorithm/transform.html#" title=" " alt="" coords="587,233,701,259"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="449,142,471,155,487,171,495,188,503,204,519,218,545,231,573,238,572,244,543,236,516,223,499,207,491,190,483,174,468,159,446,147"/>
+</map>

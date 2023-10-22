@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['observer_0',['Observer',['../classRa_1_1Core_1_1Utils_1_1Observable.html#a5b2d48be6db6b982ac70610c526d3870',1,'Ra::Core::Utils::Observable']]],
-  ['offsetvector_1',['OffsetVector',['../classRa_1_1Core_1_1Grid.html#a8e692ae5c663d4ac79ad652b0c79caa2',1,'Ra::Core::Grid']]]
+  ['lambertianmaterial_0',['LambertianMaterial',['../namespaceRa_1_1Engine_1_1Data_1_1TextureSemantics.html#aa4f57eda005567e1742261b3ab3708a5',1,'Ra::Engine::Data::TextureSemantics']]]
 ];

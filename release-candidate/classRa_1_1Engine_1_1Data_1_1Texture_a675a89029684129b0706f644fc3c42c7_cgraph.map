@@ -1,0 +1,5 @@
+<map id="Ra::Engine::Data::Texture::destroyNow" name="Ra::Engine::Data::Texture::destroyNow">
+<area shape="rect" id="Node000001" title="Generate the GPU representation of the texture right now. Need an active OpenGL context." alt="" coords="5,5,192,45"/>
+<area shape="rect" id="Node000002" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/memory/unique_ptr/reset.html#" title=" " alt="" coords="240,13,400,38"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="192,23,226,23,226,28,192,28"/>
+</map>

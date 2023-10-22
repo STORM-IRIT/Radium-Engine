@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.5.12</span>
+   &#160;<span id="projectnumber">1.5.13</span>
    </div>
   </td>
  </tr>
@@ -117,11 +117,16 @@ $(document).ready(function(){initNavTree('classRa_1_1Engine_1_1Data_1_1TextureMa
 
 <div class="header">
   <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="classRa_1_1Engine_1_1Data_1_1TextureManager-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">Ra::Engine::Data::TextureManager Class Reference<span class="mlabels"><span class="mlabel">final</span></span></div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Manage <a class="el" href="classRa_1_1Engine_1_1Data_1_1Texture.html" title="Represent a Texture of the engine.">Texture</a> loading and registration.  
+ <a href="classRa_1_1Engine_1_1Data_1_1TextureManager.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="TextureManager_8hpp_source.html">Engine/Data/TextureManager.hpp</a>&gt;</code></p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
@@ -129,224 +134,223 @@ $(document).ready(function(){initNavTree('classRa_1_1Engine_1_1Data_1_1TextureMa
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Engine_1_1Data_1_1TextureManager__coll__graph.svg" width="202" height="271"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Engine_1_1Data_1_1TextureManager__coll__graph.svg" width="190" height="311"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a94a571fc4c03787fa33446272c33071a" id="r_a94a571fc4c03787fa33446272c33071a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">using</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1TextureManager.html#a94a571fc4c03787fa33446272c33071a">TextureHandle</a> = Ra::Core::Utils::Index</td></tr>
+<tr class="separator:a94a571fc4c03787fa33446272c33071a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a433fa55bb130e4423ee5ba40f3bd6937" id="r_a433fa55bb130e4423ee5ba40f3bd6937"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structRa_1_1Engine_1_1Data_1_1TextureParameters.html">TextureParameters</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1TextureManager.html#a433fa55bb130e4423ee5ba40f3bd6937">addTexture</a> (<a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">const</a> <a class="elRef" target="_blank" href="http://en.cppreference.com/w/cpp/string/basic_string.html">std::string</a> &amp;name, uint width, uint height, <a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">void</a> *data)</td></tr>
-<tr class="separator:a433fa55bb130e4423ee5ba40f3bd6937"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a59b5fb2a6870ae9423829a3401e4b4b6" id="r_a59b5fb2a6870ae9423829a3401e4b4b6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classRa_1_1Engine_1_1Data_1_1Texture.html">Texture</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1TextureManager.html#a59b5fb2a6870ae9423829a3401e4b4b6">getOrLoadTexture</a> (<a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">const</a> <a class="el" href="structRa_1_1Engine_1_1Data_1_1TextureParameters.html">TextureParameters</a> &amp;<a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">texParameters</a>, bool linearize=<a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">false</a>)</td></tr>
-<tr class="separator:a59b5fb2a6870ae9423829a3401e4b4b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5680332e080cccaac9d0fe9632a8da0f" id="r_a5680332e080cccaac9d0fe9632a8da0f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classRa_1_1Engine_1_1Data_1_1Texture.html">Texture</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1TextureManager.html#a5680332e080cccaac9d0fe9632a8da0f">loadTexture</a> (<a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">const</a> <a class="el" href="structRa_1_1Engine_1_1Data_1_1TextureParameters.html">TextureParameters</a> &amp;<a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">texParameters</a>, bool linearize=<a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">false</a>)</td></tr>
-<tr class="separator:a5680332e080cccaac9d0fe9632a8da0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa449683c1667d04ee68900a47fbce7c8" id="r_aa449683c1667d04ee68900a47fbce7c8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1TextureManager.html#aa449683c1667d04ee68900a47fbce7c8">deleteTexture</a> (<a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">const</a> <a class="elRef" target="_blank" href="http://en.cppreference.com/w/cpp/string/basic_string.html">std::string</a> &amp;<a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">filename</a>)</td></tr>
-<tr class="separator:aa449683c1667d04ee68900a47fbce7c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a33a3d28a47db97b7e35f997eaa084fac" id="r_a33a3d28a47db97b7e35f997eaa084fac"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1TextureManager.html#a33a3d28a47db97b7e35f997eaa084fac">deleteTexture</a> (<a class="el" href="classRa_1_1Engine_1_1Data_1_1Texture.html">Texture</a> *texture)</td></tr>
-<tr class="separator:a33a3d28a47db97b7e35f997eaa084fac"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aecfe45e96992f0e069978c564e8b0d9e" id="r_aecfe45e96992f0e069978c564e8b0d9e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1TextureManager.html#aecfe45e96992f0e069978c564e8b0d9e">updateTextureContent</a> (<a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">const</a> <a class="elRef" target="_blank" href="http://en.cppreference.com/w/cpp/string/basic_string.html">std::string</a> &amp;texture, <a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">void</a> *<a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">content</a>)</td></tr>
-<tr class="separator:aecfe45e96992f0e069978c564e8b0d9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad923cc8938311f581488d517c913f719" id="r_ad923cc8938311f581488d517c913f719"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1TextureManager.html#ad923cc8938311f581488d517c913f719">updatePendingTextures</a> ()</td></tr>
-<tr class="separator:ad923cc8938311f581488d517c913f719"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab744921bc126b356965047f2d2945ee1" id="r_ab744921bc126b356965047f2d2945ee1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1TextureManager.html#ab744921bc126b356965047f2d2945ee1">loadTextureImage</a> (<a class="el" href="structRa_1_1Engine_1_1Data_1_1TextureParameters.html">TextureParameters</a> &amp;<a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">texParameters</a>)</td></tr>
-<tr class="separator:ab744921bc126b356965047f2d2945ee1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae75f5c3b31a73fde89948f82f1cbd884" id="r_ae75f5c3b31a73fde89948f82f1cbd884"><td class="memItemLeft" align="right" valign="top">TextureHandle&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1TextureManager.html#ae75f5c3b31a73fde89948f82f1cbd884">addTexture</a> (<a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">const</a> <a class="el" href="structRa_1_1Engine_1_1Data_1_1TextureParameters.html">TextureParameters</a> &amp;p)</td></tr>
+<tr class="memdesc:ae75f5c3b31a73fde89948f82f1cbd884"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a texture given its <a class="el" href="structRa_1_1Engine_1_1Data_1_1TextureParameters.html" title="Describes the sampler and image of a texture.">TextureParameters</a>.  <br /></td></tr>
+<tr class="separator:ae75f5c3b31a73fde89948f82f1cbd884"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad4a4a5e505be06d00c26048a0ff5b6bc" id="r_ad4a4a5e505be06d00c26048a0ff5b6bc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classRa_1_1Engine_1_1Data_1_1Texture.html">Texture</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1TextureManager.html#ad4a4a5e505be06d00c26048a0ff5b6bc">getTexture</a> (<a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">const</a> TextureHandle &amp;<a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">handle</a>)</td></tr>
+<tr class="memdesc:ad4a4a5e505be06d00c26048a0ff5b6bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get raw texture ptr from handle.  <br /></td></tr>
+<tr class="separator:ad4a4a5e505be06d00c26048a0ff5b6bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4b7113b8b905c4154926e1550eaf64fd" id="r_a4b7113b8b905c4154926e1550eaf64fd"><td class="memItemLeft" align="right" valign="top">TextureHandle&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1TextureManager.html#a4b7113b8b905c4154926e1550eaf64fd">getTextureHandle</a> (<a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">const</a> <a class="elRef" target="_blank" href="http://en.cppreference.com/w/cpp/string/basic_string.html">std::string</a> &amp;name)</td></tr>
+<tr class="memdesc:a4b7113b8b905c4154926e1550eaf64fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a texture handle from textue name.  <br /></td></tr>
+<tr class="separator:a4b7113b8b905c4154926e1550eaf64fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a66008780cb2d2bb0d8194c914d1f617c" id="r_a66008780cb2d2bb0d8194c914d1f617c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classRa_1_1Engine_1_1Data_1_1Texture.html">Texture</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1TextureManager.html#a66008780cb2d2bb0d8194c914d1f617c">getTexture</a> (<a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">const</a> <a class="elRef" target="_blank" href="http://en.cppreference.com/w/cpp/string/basic_string.html">std::string</a> &amp;name)</td></tr>
+<tr class="memdesc:a66008780cb2d2bb0d8194c914d1f617c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convinience function to obtain <a class="el" href="classRa_1_1Engine_1_1Data_1_1Texture.html" title="Represent a Texture of the engine.">Texture</a> ptr from name.  <br /></td></tr>
+<tr class="separator:a66008780cb2d2bb0d8194c914d1f617c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a80daa0a3a9a14ce80f84f5d5dce9f5d2" id="r_a80daa0a3a9a14ce80f84f5d5dce9f5d2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1TextureManager.html#a80daa0a3a9a14ce80f84f5d5dce9f5d2">deleteTexture</a> (<a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">const</a> TextureHandle &amp;<a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">handle</a>)</td></tr>
+<tr class="memdesc:a80daa0a3a9a14ce80f84f5d5dce9f5d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove a managed texture identified by handle.  <br /></td></tr>
+<tr class="separator:a80daa0a3a9a14ce80f84f5d5dce9f5d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad193eca02775e502ecc5e36e818ad065" id="r_ad193eca02775e502ecc5e36e818ad065"><td class="memItemLeft" align="right" valign="top"><a id="ad193eca02775e502ecc5e36e818ad065" name="ad193eca02775e502ecc5e36e818ad065"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>TextureManager</b> (<a class="el" href="classRa_1_1Engine_1_1Data_1_1TextureManager.html">TextureManager</a> <a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">const</a> &amp;)=<a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">delete</a></td></tr>
+<tr class="separator:ad193eca02775e502ecc5e36e818ad065"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1281e70eb6eace1a3db4d277829b76d3" id="r_a1281e70eb6eace1a3db4d277829b76d3"><td class="memItemLeft" align="right" valign="top"><a id="a1281e70eb6eace1a3db4d277829b76d3" name="a1281e70eb6eace1a3db4d277829b76d3"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>TextureManager</b> (<a class="el" href="classRa_1_1Engine_1_1Data_1_1TextureManager.html">TextureManager</a> &amp;&amp;)=<a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">delete</a></td></tr>
+<tr class="separator:a1281e70eb6eace1a3db4d277829b76d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a45d2227371af1721908577c3172ff6c8" id="r_a45d2227371af1721908577c3172ff6c8"><td class="memItemLeft" align="right" valign="top"><a id="a45d2227371af1721908577c3172ff6c8" name="a45d2227371af1721908577c3172ff6c8"></a>
+<a class="el" href="classRa_1_1Engine_1_1Data_1_1TextureManager.html">TextureManager</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (<a class="el" href="classRa_1_1Engine_1_1Data_1_1TextureManager.html">TextureManager</a> <a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">const</a> &amp;)=<a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">delete</a></td></tr>
+<tr class="separator:a45d2227371af1721908577c3172ff6c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8a2b50361fa2e967e0de2e31065c9e52" id="r_a8a2b50361fa2e967e0de2e31065c9e52"><td class="memItemLeft" align="right" valign="top"><a id="a8a2b50361fa2e967e0de2e31065c9e52" name="a8a2b50361fa2e967e0de2e31065c9e52"></a>
+<a class="el" href="classRa_1_1Engine_1_1Data_1_1TextureManager.html">TextureManager</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (<a class="el" href="classRa_1_1Engine_1_1Data_1_1TextureManager.html">TextureManager</a> &amp;&amp;)=<a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">delete</a></td></tr>
+<tr class="separator:a8a2b50361fa2e967e0de2e31065c9e52"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:aca36863d46ad0b5940ca112a8996e5ff" id="r_aca36863d46ad0b5940ca112a8996e5ff"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">static</a> <a class="el" href="structRa_1_1Engine_1_1Data_1_1ImageParameters.html">ImageParameters</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1TextureManager.html#aca36863d46ad0b5940ca112a8996e5ff">loadTextureImage</a> (<a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">const</a> <a class="elRef" target="_blank" href="http://en.cppreference.com/w/cpp/string/basic_string.html">std::string</a> &amp;<a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">filename</a>, bool linearize=<a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">false</a>)</td></tr>
+<tr class="memdesc:aca36863d46ad0b5940ca112a8996e5ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Load <em>filename</em> and fill <a class="el" href="structRa_1_1Engine_1_1Data_1_1ImageParameters.html">ImageParameters</a> according to <em>filename</em> content.  <br /></td></tr>
+<tr class="separator:aca36863d46ad0b5940ca112a8996e5ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Manage <a class="el" href="classRa_1_1Engine_1_1Data_1_1Texture.html">Texture</a> loading and registration. </p><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000056">Todo:</a></b></dt><dd>(for Radium-V2) Allow to share the same image data between different instances of a texture. Instances could be differentiated by the sampler parameter and the mip-map availability. </dd></dl>
+<div class="textblock"><p>Manage <a class="el" href="classRa_1_1Engine_1_1Data_1_1Texture.html" title="Represent a Texture of the engine.">Texture</a> loading and registration. </p>
+<p><a class="el" href="classRa_1_1Engine_1_1Data_1_1TextureManager.html" title="Manage Texture loading and registration.">TextureManager</a> allows to store texture globally such that different object can share textures based on their handle or name. Name uniqueness is not guaranteed by the manager, take care in case of search texture by name. </p>
 
-<p class="definition">Definition at line <a class="el" href="TextureManager_8hpp_source.html#l00018">18</a> of file <a class="el" href="TextureManager_8hpp_source.html">TextureManager.hpp</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="aaeb5566047fbea227ae5f9df8083df0b" name="aaeb5566047fbea227ae5f9df8083df0b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaeb5566047fbea227ae5f9df8083df0b">&#9670;&#160;</a></span>~TextureManager()</h2>
+<p class="definition">Definition at line <a class="el" href="TextureManager_8hpp_source.html#l00019">19</a> of file <a class="el" href="TextureManager_8hpp_source.html">TextureManager.hpp</a>.</p>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="a94a571fc4c03787fa33446272c33071a" name="a94a571fc4c03787fa33446272c33071a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a94a571fc4c03787fa33446272c33071a">&#9670;&#160;</a></span>TextureHandle</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">Ra::Engine::Data::TextureManager::~TextureManager </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
+          <td class="memname"><a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">using</a> Ra::Engine::Data::TextureManager::TextureHandle =  Ra::Core::Utils::Index</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="TextureManager_8cpp_source.html#l00016">16</a> of file <a class="el" href="TextureManager_8cpp_source.html">TextureManager.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TextureManager_8hpp_source.html#l00024">24</a> of file <a class="el" href="TextureManager_8hpp_source.html">TextureManager.hpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a433fa55bb130e4423ee5ba40f3bd6937" name="a433fa55bb130e4423ee5ba40f3bd6937"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a433fa55bb130e4423ee5ba40f3bd6937">&#9670;&#160;</a></span>addTexture()</h2>
+<a id="ae75f5c3b31a73fde89948f82f1cbd884" name="ae75f5c3b31a73fde89948f82f1cbd884"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae75f5c3b31a73fde89948f82f1cbd884">&#9670;&#160;</a></span>addTexture()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structRa_1_1Engine_1_1Data_1_1TextureParameters.html">TextureParameters</a> &amp; Ra::Engine::Data::TextureManager::addTexture </td>
+          <td class="memname">TextureManager::TextureHandle Ra::Engine::Data::TextureManager::addTexture </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">const</a> <a class="elRef" target="_blank" href="http://en.cppreference.com/w/cpp/string/basic_string.html">std::string</a> &amp;&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint&#160;</td>
-          <td class="paramname"><em>width</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint&#160;</td>
-          <td class="paramname"><em>height</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">void</a> *&#160;</td>
-          <td class="paramname"><em>data</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Add a texture giving its name, dimension and content. Useful for defining procedural textures</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">name</td><td>name of the texture </td></tr>
-    <tr><td class="paramname">width</td><td>width of the texture </td></tr>
-    <tr><td class="paramname">height</td><td>height of the texture </td></tr>
-    <tr><td class="paramname">data</td><td>pointer to the texture content</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>a texture descriptor that could be further specialized (filtering parameters ..) before the texture is inserted into Radium OpenGL system by getOrLoadTexture </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="TextureManager_8cpp_source.html#l00026">26</a> of file <a class="el" href="TextureManager_8cpp_source.html">TextureManager.cpp</a>.</p>
-
-</div>
-</div>
-<a id="aa449683c1667d04ee68900a47fbce7c8" name="aa449683c1667d04ee68900a47fbce7c8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa449683c1667d04ee68900a47fbce7c8">&#9670;&#160;</a></span>deleteTexture() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">void</a> Ra::Engine::Data::TextureManager::deleteTexture </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">const</a> <a class="elRef" target="_blank" href="http://en.cppreference.com/w/cpp/string/basic_string.html">std::string</a> &amp;&#160;</td>
-          <td class="paramname"><em>filename</em></td><td>)</td>
+          <td class="paramtype"><a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">const</a> <a class="el" href="structRa_1_1Engine_1_1Data_1_1TextureParameters.html">TextureParameters</a> &amp;&#160;</td>
+          <td class="paramname"><em>p</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Delete a named texture from the manager </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">filename</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
 
-<p class="definition">Definition at line <a class="el" href="TextureManager_8cpp_source.html#l00129">129</a> of file <a class="el" href="TextureManager_8cpp_source.html">TextureManager.cpp</a>.</p>
+<p>Add a texture given its <a class="el" href="structRa_1_1Engine_1_1Data_1_1TextureParameters.html" title="Describes the sampler and image of a texture.">TextureParameters</a>. </p>
+<dl class="section return"><dt>Returns</dt><dd>a TextureHandle that uniquely identify the texture in the manager. </dd></dl>
 
-</div>
-</div>
-<a id="a33a3d28a47db97b7e35f997eaa084fac" name="a33a3d28a47db97b7e35f997eaa084fac"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a33a3d28a47db97b7e35f997eaa084fac">&#9670;&#160;</a></span>deleteTexture() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">void</a> Ra::Engine::Data::TextureManager::deleteTexture </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="classRa_1_1Engine_1_1Data_1_1Texture.html">Texture</a> *&#160;</td>
-          <td class="paramname"><em>texture</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Delete a texture from the manager </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">texture</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="TextureManager_8cpp_source.html#l00138">138</a> of file <a class="el" href="TextureManager_8cpp_source.html">TextureManager.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TextureManager_8cpp_source.html#l00021">21</a> of file <a class="el" href="TextureManager_8cpp_source.html">TextureManager.cpp</a>.</p>
 <div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-1-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-1-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-1-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Engine_1_1Data_1_1TextureManager_a33a3d28a47db97b7e35f997eaa084fac_cgraph.svg" width="432" height="115"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Engine_1_1Data_1_1TextureManager_ae75f5c3b31a73fde89948f82f1cbd884_cgraph.svg" width="379" height="184"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
 </div>
-<a id="a59b5fb2a6870ae9423829a3401e4b4b6" name="a59b5fb2a6870ae9423829a3401e4b4b6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a59b5fb2a6870ae9423829a3401e4b4b6">&#9670;&#160;</a></span>getOrLoadTexture()</h2>
+<a id="a80daa0a3a9a14ce80f84f5d5dce9f5d2" name="a80daa0a3a9a14ce80f84f5d5dce9f5d2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a80daa0a3a9a14ce80f84f5d5dce9f5d2">&#9670;&#160;</a></span>deleteTexture()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classRa_1_1Engine_1_1Data_1_1Texture.html">Texture</a> * Ra::Engine::Data::TextureManager::getOrLoadTexture </td>
+          <td class="memname"><a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">void</a> Ra::Engine::Data::TextureManager::deleteTexture </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">const</a> <a class="el" href="structRa_1_1Engine_1_1Data_1_1TextureParameters.html">TextureParameters</a> &amp;&#160;</td>
-          <td class="paramname"><em>texParameters</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype"><a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">const</a> TextureHandle &amp;&#160;</td>
+          <td class="paramname"><em>handle</em></td><td>)</td>
           <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>linearize</em> = <code><a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">false</a></code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Get or load a named texture. If image data are not presents in texParameters.texels (this field is nullptr), this method will assume that the texParameters.name field contains the fully qualified filename to be loaded to initialize texParameters.texels</p>
-<p>If image data are presents in texParameters.texels (this field is not nullptr), the name could be of any form as no loading will occur.</p>
-<p>This method creates, initialize OpenGL part of the texture and add the created texture to the <a class="el" href="classRa_1_1Engine_1_1Data_1_1Texture.html">Texture</a> cache of the engine. </p><dl class="section note"><dt>Note</dt><dd>For the moment, the texture cache is indexed by the name of the texture only.</dd></dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">texParameters</td><td>: The description of the texture to create </td></tr>
-    <tr><td class="paramname">linearize</td><td>: true if the texture data (texParameters.texels) must be converted from sRGB to LinearRGB </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The texture as inserted into the Radium available openGL system </dd></dl>
+
+<p>Remove a managed texture identified by handle. </p>
+<p><a class="el" href="classRa_1_1Engine_1_1Data_1_1Texture.html" title="Represent a Texture of the engine.">Texture</a> dtor will register the delete texture gpu task. </p>
 
 <p class="definition">Definition at line <a class="el" href="TextureManager_8cpp_source.html#l00104">104</a> of file <a class="el" href="TextureManager_8cpp_source.html">TextureManager.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a66008780cb2d2bb0d8194c914d1f617c" name="a66008780cb2d2bb0d8194c914d1f617c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a66008780cb2d2bb0d8194c914d1f617c">&#9670;&#160;</a></span>getTexture() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classRa_1_1Engine_1_1Data_1_1Texture.html">Texture</a> * Ra::Engine::Data::TextureManager::getTexture </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">const</a> <a class="elRef" target="_blank" href="http://en.cppreference.com/w/cpp/string/basic_string.html">std::string</a> &amp;&#160;</td>
+          <td class="paramname"><em>name</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Convinience function to obtain <a class="el" href="classRa_1_1Engine_1_1Data_1_1Texture.html" title="Represent a Texture of the engine.">Texture</a> ptr from name. </p>
+
+<p class="definition">Definition at line <a class="el" href="TextureManager_8hpp_source.html#l00046">46</a> of file <a class="el" href="TextureManager_8hpp_source.html">TextureManager.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ad4a4a5e505be06d00c26048a0ff5b6bc" name="ad4a4a5e505be06d00c26048a0ff5b6bc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad4a4a5e505be06d00c26048a0ff5b6bc">&#9670;&#160;</a></span>getTexture() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classRa_1_1Engine_1_1Data_1_1Texture.html">Texture</a> * Ra::Engine::Data::TextureManager::getTexture </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">const</a> TextureHandle &amp;&#160;</td>
+          <td class="paramname"><em>handle</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get raw texture ptr from handle. </p>
+<p>The texture is still managed by the manager. Do not delete the return ptr. </p>
+
+<p class="definition">Definition at line <a class="el" href="TextureManager_8cpp_source.html#l00091">91</a> of file <a class="el" href="TextureManager_8cpp_source.html">TextureManager.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a4b7113b8b905c4154926e1550eaf64fd" name="a4b7113b8b905c4154926e1550eaf64fd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4b7113b8b905c4154926e1550eaf64fd">&#9670;&#160;</a></span>getTextureHandle()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TextureManager::TextureHandle Ra::Engine::Data::TextureManager::getTextureHandle </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">const</a> <a class="elRef" target="_blank" href="http://en.cppreference.com/w/cpp/string/basic_string.html">std::string</a> &amp;&#160;</td>
+          <td class="paramname"><em>name</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get a texture handle from textue name. </p>
+<p>It search for the first texture in the set of managed texture that have this name. </p><dl class="section return"><dt>Returns</dt><dd>An handle to the texture or InvalidIndex if no texture with this name is found </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="TextureManager_8cpp_source.html#l00095">95</a> of file <a class="el" href="TextureManager_8cpp_source.html">TextureManager.cpp</a>.</p>
 <div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-2-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-2-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-2-content" class="dyncontent" style="display:none;">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classRa_1_1Engine_1_1Data_1_1TextureManager_a59b5fb2a6870ae9423829a3401e4b4b6_cgraph.svg" width="100%" height="300"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Engine_1_1Data_1_1TextureManager_a4b7113b8b905c4154926e1550eaf64fd_cgraph.svg" width="367" height="86"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
 </div>
-<a id="a5680332e080cccaac9d0fe9632a8da0f" name="a5680332e080cccaac9d0fe9632a8da0f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5680332e080cccaac9d0fe9632a8da0f">&#9670;&#160;</a></span>loadTexture()</h2>
+<a id="aca36863d46ad0b5940ca112a8996e5ff" name="aca36863d46ad0b5940ca112a8996e5ff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aca36863d46ad0b5940ca112a8996e5ff">&#9670;&#160;</a></span>loadTextureImage()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classRa_1_1Engine_1_1Data_1_1Texture.html">Texture</a> * Ra::Engine::Data::TextureManager::loadTexture </td>
+          <td class="memname"><a class="el" href="structRa_1_1Engine_1_1Data_1_1ImageParameters.html">ImageParameters</a> Ra::Engine::Data::TextureManager::loadTextureImage </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">const</a> <a class="el" href="structRa_1_1Engine_1_1Data_1_1TextureParameters.html">TextureParameters</a> &amp;&#160;</td>
-          <td class="paramname"><em>texParameters</em>, </td>
+          <td class="paramtype"><a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">const</a> <a class="elRef" target="_blank" href="http://en.cppreference.com/w/cpp/string/basic_string.html">std::string</a> &amp;&#160;</td>
+          <td class="paramname"><em>filename</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -360,111 +364,31 @@ Public Member Functions</h2></td></tr>
           <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
-<p>Helper function, load the texture without adding it to the manager. </p><dl class="section see"><dt>See also</dt><dd><a class="el" href="classRa_1_1Engine_1_1Data_1_1TextureManager.html#a59b5fb2a6870ae9423829a3401e4b4b6">getOrLoadTexture()</a> <a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">for</a> <a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">parameters</a> <a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">description</a>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="TextureManager_8cpp_source.html#l00086">86</a> of file <a class="el" href="TextureManager_8cpp_source.html">TextureManager.cpp</a>.</p>
+<p>Load <em>filename</em> and fill <a class="el" href="structRa_1_1Engine_1_1Data_1_1ImageParameters.html">ImageParameters</a> according to <em>filename</em> content. </p>
+<dl class="section note"><dt>Note</dt><dd>only loads 2D image file for now. </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">filename</td><td>fully qualified image filename. See stbi_load_image for supported file format. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="structRa_1_1Engine_1_1Data_1_1ImageParameters.html">ImageParameters</a> corresponding to filename content, image.parameters.texels contains actual image data. In case of loading error, texels is nullptr, width = height = 0. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="TextureManager_8cpp_source.html#l00041">41</a> of file <a class="el" href="TextureManager_8cpp_source.html">TextureManager.cpp</a>.</p>
 <div id="dynsection-3" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-3-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-3-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-3-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Engine_1_1Data_1_1TextureManager_a5680332e080cccaac9d0fe9632a8da0f_cgraph.svg" width="450" height="51"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Engine_1_1Data_1_1TextureManager_aca36863d46ad0b5940ca112a8996e5ff_cgraph.svg" width="450" height="51"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
-
-</div>
-</div>
-<a id="ab744921bc126b356965047f2d2945ee1" name="ab744921bc126b356965047f2d2945ee1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab744921bc126b356965047f2d2945ee1">&#9670;&#160;</a></span>loadTextureImage()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">void</a> Ra::Engine::Data::TextureManager::loadTextureImage </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="structRa_1_1Engine_1_1Data_1_1TextureParameters.html">TextureParameters</a> &amp;&#160;</td>
-          <td class="paramname"><em>texParameters</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Load a texture as described by texParameters. </p><dl class="section note"><dt>Note</dt><dd>: only loads 2D image file for now. </dd></dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">texParameters</td><td>parameters describing the texture to load. This parameter will be updated (width, height, ...) according to the loaded file properties. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="TextureManager_8cpp_source.html#l00038">38</a> of file <a class="el" href="TextureManager_8cpp_source.html">TextureManager.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ad923cc8938311f581488d517c913f719" name="ad923cc8938311f581488d517c913f719"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad923cc8938311f581488d517c913f719">&#9670;&#160;</a></span>updatePendingTextures()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">void</a> Ra::Engine::Data::TextureManager::updatePendingTextures </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Update all textures that are pending after a call to updateTextureContent.</p>
-<p>The cooperation of updateTextureContent and updatePendingTextures allow applications to manage efficiently the on line texture generation by separating the content definition (updateTextureContent) from the OpenGL state modification (updatePendingTextures).</p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000057">Todo:</a></b></dt><dd>find a better name and description for this method that do not act on <em>pending textures</em>, i.e. textures that do not have a valid OpenGl state. </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="TextureManager_8cpp_source.html#l00148">148</a> of file <a class="el" href="TextureManager_8cpp_source.html">TextureManager.cpp</a>.</p>
-<div id="dynsection-4" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-4-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-4-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-4-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Engine_1_1Data_1_1TextureManager_ad923cc8938311f581488d517c913f719_cgraph.svg" width="427" height="86"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
-</div>
-
-</div>
-</div>
-<a id="aecfe45e96992f0e069978c564e8b0d9e" name="aecfe45e96992f0e069978c564e8b0d9e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aecfe45e96992f0e069978c564e8b0d9e">&#9670;&#160;</a></span>updateTextureContent()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">void</a> Ra::Engine::Data::TextureManager::updateTextureContent </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">const</a> <a class="elRef" target="_blank" href="http://en.cppreference.com/w/cpp/string/basic_string.html">std::string</a> &amp;&#160;</td>
-          <td class="paramname"><em>texture</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">void</a> *&#160;</td>
-          <td class="paramname"><em>content</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Lazy update the texture content from the raw pointer content. The real update will be done when calling updatePendingTextures </p><dl class="section note"><dt>Note</dt><dd>User must ensure that the data pointed by content are of the good type wrt the texture. </dd></dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">texture</td><td></td></tr>
-    <tr><td class="paramname">content</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="TextureManager_8cpp_source.html#l00142">142</a> of file <a class="el" href="TextureManager_8cpp_source.html">TextureManager.cpp</a>.</p>
 
 </div>
 </div>

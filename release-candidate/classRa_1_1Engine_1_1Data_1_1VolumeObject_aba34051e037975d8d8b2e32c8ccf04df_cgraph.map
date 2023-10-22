@@ -1,11 +1,13 @@
 <map id="Ra::Engine::Data::VolumeObject::loadGeometry" name="Ra::Engine::Data::VolumeObject::loadGeometry">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,85,192,125"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,105,192,145"/>
 <area shape="rect" id="Node000002" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector/data.html#" title=" " alt="" coords="273,5,401,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="141,82,239,41,268,32,269,37,241,46,143,87"/>
-<area shape="rect" id="Node000003" href="$classRa_1_1Core_1_1Geometry_1_1AbstractVolume.html#a3896192c57de6b205245e97f15be2736" title="Return true if the volume is dense (implies isDiscrete to be true)" alt="" coords="240,55,433,95"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="192,91,226,86,227,92,193,96"/>
-<area shape="rect" id="Node000004" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector/resize.html#" title=" " alt="" coords="267,120,406,145"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="193,113,254,120,254,126,192,118"/>
-<area shape="rect" id="Node000005" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector/size.html#" title=" " alt="" coords="274,169,399,195"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="152,122,241,154,271,163,270,168,239,159,150,127"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="127,102,178,70,239,40,260,32,262,37,241,44,181,75,130,107"/>
+<area shape="rect" id="Node000003" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/memory/shared_ptr/get.html#" title=" " alt="" coords="263,55,411,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="182,102,269,81,271,86,183,107"/>
+<area shape="rect" id="Node000004" href="$classRa_1_1Core_1_1Geometry_1_1AbstractVolume.html#a3896192c57de6b205245e97f15be2736" title="Return true if the volume is dense (implies isDiscrete to be true)" alt="" coords="240,105,433,145"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="192,122,226,122,226,127,192,127"/>
+<area shape="rect" id="Node000005" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector/resize.html#" title=" " alt="" coords="267,169,406,195"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="183,142,271,163,269,169,182,147"/>
+<area shape="rect" id="Node000006" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector/size.html#" title=" " alt="" coords="274,219,399,244"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="131,143,181,174,241,204,265,212,264,217,239,208,179,178,128,147"/>
 </map>

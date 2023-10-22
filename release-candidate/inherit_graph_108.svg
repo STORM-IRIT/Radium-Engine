@@ -11,10 +11,10 @@
 <!-- Node0 -->
 <g id="Node000000" class="node">
 <title>Node0</title>
-<g id="a_Node000000"><a xlink:href="classRa_1_1Engine_1_1Scene_1_1SignalManager.html" target="_top" xlink:title=" ">
+<g id="a_Node000000"><a xlink:href="structRa_1_1Engine_1_1Scene_1_1ItemEntry.html" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="#666666" points="110,-30 0,-30 0,0 110,0 110,-30"/>
 <text text-anchor="start" x="8" y="-18" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Scene::</text>
-<text text-anchor="middle" x="55" y="-7" font-family="Helvetica,sans-Serif" font-size="10.00">SignalManager</text>
+<text text-anchor="middle" x="55" y="-7" font-family="Helvetica,sans-Serif" font-size="10.00">ItemEntry</text>
 </a>
 </g>
 </g>

@@ -173,11 +173,13 @@ var NAVTREE =
             [ "Radium Engine default rendering information", "develrendering.html#autotoc_md122", null ],
             [ "Potential extensions for the renderer", "develrendering.html#autotoc_md123", null ]
           ] ],
+          [ "Textures management", "develTextures.html", null ],
           [ "Material management", "develmaterials.html", [
             [ "Content of the Radium Material Library", "develmaterials.html#autotoc_md92", null ],
             [ "Simple usage of materials", "develmaterials.html#simple-mtl-usage", null ],
             [ "Extending the Radium Material Library", "develmaterials.html#extend-mtl-lib", [
-              [ "C++ interface", "develmaterials.html#cpp-mtl-lib", [
+              [ "C++ interface", "develmaterials.html#cpp-mtl-lib", null ],
+              [ "Textures", "develmaterials.html#material-textures", [
                 [ "Making a material editable", "develmaterials.html#editable-interface", null ]
               ] ],
               [ "GLSL interface", "develmaterials.html#glsl-mtl-lib", null ],
@@ -294,23 +296,23 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "AboutDialog_8cpp_source.html",
-"Sequence_8hpp_source.html",
-"classRa_1_1Core_1_1Animation_1_1Skeleton.html#a7aec08b57bfa9dbce1c5b47e96de81d9",
-"classRa_1_1Core_1_1Geometry_1_1AbstractVolume.html#a67707edd168871cced034f88cfd4d568",
+"Sequence_8cpp_source.html",
+"classRa_1_1Core_1_1Animation_1_1Skeleton.html#a5b8b7122faf6e4c0313bf3946ce0a801",
+"classRa_1_1Core_1_1Geometry_1_1AbstractVolume.html#a464097665750f5d25a9f5aa40f1ff2e2",
 "classRa_1_1Core_1_1Grid.html#a8e692ae5c663d4ac79ad652b0c79caa2",
-"classRa_1_1Core_1_1Utils_1_1IndexMap.html#ae9adb97d8a6fa9fa1d2528fc25ede371",
-"classRa_1_1Engine_1_1Data_1_1EnvironmentTexture.html",
-"classRa_1_1Engine_1_1Data_1_1SimpleMaterial.html",
-"classRa_1_1Engine_1_1Rendering_1_1ForwardRenderer.html#a2f9c6987afaf3e8c7d250efffe4d1109",
-"classRa_1_1Engine_1_1Scene_1_1CameraManager.html#a6b1f770d6077bf783ea64f0f6b4640fa",
-"classRa_1_1Engine_1_1Scene_1_1SignalManager.html#aded6d707df276a3cfc7cd15a57d5c012",
-"classRa_1_1Gui_1_1CameraManipulator.html#a6cfb74a2c1353205d2bc0008c4f8cdac",
-"classRa_1_1Gui_1_1TreeItem.html#af9e9c992e9489d3d94391f071f9c8327",
-"cpp/algorithm/equal_range.html",
-"cpp/memory/gc/undeclare_no_pointers.html",
-"cpp/utility/program/quick_exit.html",
-"licenses.html#autotoc_md8",
-"structRa_1_1Engine_1_1FrameInfo.html"
+"classRa_1_1Core_1_1Utils_1_1IndexMap.html#ae623a78346f941adcc39554efe3b5988",
+"classRa_1_1Engine_1_1Data_1_1EnvironmentTexture.html#a75c156ec8a5ff5ecd64bcee38cf1aaea",
+"classRa_1_1Engine_1_1Data_1_1Texture.html#a04f41cf6b664f77b4077b78b2f566422",
+"classRa_1_1Engine_1_1Rendering_1_1ForwardRenderer.html#aee5b499807dcaf78eee01db6dc5b5467",
+"classRa_1_1Engine_1_1Scene_1_1CameraManager.html#ad4516473cebc8b540d2da18319985125",
+"classRa_1_1Engine_1_1Scene_1_1SkeletonBasedAnimationSystem.html#ae5b707dccf07a57b033d2a47640e57b3",
+"classRa_1_1Gui_1_1CameraManipulator.html#ac74d63a529a9dd1b6706ddefaa5070ea",
+"classRa_1_1Gui_1_1TreeModel.html#abf4475fa48a1bfc17682cf91d5354c5e",
+"cpp/algorithm/is_heap.html",
+"cpp/numeric/fenv/feclearexcept.html",
+"develCodingConvention.html",
+"namespaceRa_1_1Core_1_1Math.html#a19a397c8570c4f1df64d6c055d215659",
+"structRa_1_1Engine_1_1FrameInfo.html#a78a1aa4a1a238ebacbaa6668a800af48"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

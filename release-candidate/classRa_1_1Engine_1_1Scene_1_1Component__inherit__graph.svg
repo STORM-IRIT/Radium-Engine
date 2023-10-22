@@ -665,30 +665,32 @@ var sectionId = 'dynsection-0';
 <g id="Node000006" class="node">
 <title>Node6</title>
 <g id="a_Node000006"><a xlink:href="classRa_1_1Engine_1_1Scene_1_1SurfaceMeshComponent.html" target="_top" xlink:title="Main class to convert Ra::Core::Asset::GeometryData to Ra::Engine::Mesh.">
-<polygon fill="white" stroke="transparent" points="435.5,-230.5 278.5,-230.5 278.5,-54.5 435.5,-54.5 435.5,-230.5"/>
-<text text-anchor="start" x="297.5" y="-218.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Scene::</text>
-<text text-anchor="start" x="297.5" y="-207.5" font-family="Helvetica,sans-Serif" font-size="10.00">SurfaceMeshComponent</text>
-<text text-anchor="start" x="310.5" y="-196.5" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; CoreMeshType &gt;</text>
-<text text-anchor="start" x="355.5" y="-181.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<text text-anchor="start" x="283" y="-166.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="296" y="-166.5" font-family="Helvetica,sans-Serif" font-size="10.00">SurfaceMeshComponent()</text>
-<text text-anchor="start" x="283" y="-151.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="296" y="-151.5" font-family="Helvetica,sans-Serif" font-size="10.00">SurfaceMeshComponent()</text>
-<text text-anchor="start" x="283" y="-136.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="296" y="-136.5" font-family="Helvetica,sans-Serif" font-size="10.00">SurfaceMeshComponent()</text>
-<text text-anchor="start" x="283" y="-121.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="296" y="-121.5" font-family="Helvetica,sans-Serif" font-size="10.00">~SurfaceMeshComponent()</text>
-<text text-anchor="start" x="283" y="-106.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="296" y="-106.5" font-family="Helvetica,sans-Serif" font-size="10.00">getCoreGeometry()</text>
-<text text-anchor="start" x="283" y="-91.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="296" y="-91.5" font-family="Helvetica,sans-Serif" font-size="10.00">getDisplayable()</text>
-<text text-anchor="start" x="283" y="-76.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="296" y="-76.5" font-family="Helvetica,sans-Serif" font-size="10.00">setupIO()</text>
-<text text-anchor="start" x="283" y="-61.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="296" y="-61.5" font-family="Helvetica,sans-Serif" font-size="10.00">setDeformable()</text>
-<polygon fill="#666666" stroke="#666666" points="279,-191.5 279,-191.5 436,-191.5 436,-191.5 279,-191.5"/>
-<polygon fill="#666666" stroke="#666666" points="279,-176.5 279,-176.5 436,-176.5 436,-176.5 279,-176.5"/>
-<polygon fill="none" stroke="#666666" points="278.5,-54.5 278.5,-230.5 435.5,-230.5 435.5,-54.5 278.5,-54.5"/>
+<polygon fill="white" stroke="transparent" points="435.5,-238 278.5,-238 278.5,-47 435.5,-47 435.5,-238"/>
+<text text-anchor="start" x="297.5" y="-225.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Scene::</text>
+<text text-anchor="start" x="297.5" y="-214.5" font-family="Helvetica,sans-Serif" font-size="10.00">SurfaceMeshComponent</text>
+<text text-anchor="start" x="310.5" y="-203.5" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; CoreMeshType &gt;</text>
+<text text-anchor="start" x="355.5" y="-188.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<text text-anchor="start" x="283" y="-173.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="296" y="-173.5" font-family="Helvetica,sans-Serif" font-size="10.00">SurfaceMeshComponent()</text>
+<text text-anchor="start" x="283" y="-158.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="296" y="-158.5" font-family="Helvetica,sans-Serif" font-size="10.00">SurfaceMeshComponent()</text>
+<text text-anchor="start" x="283" y="-143.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="296" y="-143.5" font-family="Helvetica,sans-Serif" font-size="10.00">SurfaceMeshComponent()</text>
+<text text-anchor="start" x="283" y="-128.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="296" y="-128.5" font-family="Helvetica,sans-Serif" font-size="10.00">SurfaceMeshComponent()</text>
+<text text-anchor="start" x="283" y="-113.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="296" y="-113.5" font-family="Helvetica,sans-Serif" font-size="10.00">~SurfaceMeshComponent()</text>
+<text text-anchor="start" x="283" y="-98.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="296" y="-98.5" font-family="Helvetica,sans-Serif" font-size="10.00">getCoreGeometry()</text>
+<text text-anchor="start" x="283" y="-83.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="296" y="-83.5" font-family="Helvetica,sans-Serif" font-size="10.00">getDisplayable()</text>
+<text text-anchor="start" x="283" y="-68.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="296" y="-68.5" font-family="Helvetica,sans-Serif" font-size="10.00">setupIO()</text>
+<text text-anchor="start" x="283" y="-53.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="296" y="-53.5" font-family="Helvetica,sans-Serif" font-size="10.00">setDeformable()</text>
+<polygon fill="#666666" stroke="#666666" points="279,-198.5 279,-198.5 436,-198.5 436,-198.5 279,-198.5"/>
+<polygon fill="#666666" stroke="#666666" points="279,-183.5 279,-183.5 436,-183.5 436,-183.5 279,-183.5"/>
+<polygon fill="none" stroke="#666666" points="278.5,-47 278.5,-238 435.5,-238 435.5,-47 278.5,-47"/>
 </a>
 </g>
 </g>
@@ -696,7 +698,7 @@ var sectionId = 'dynsection-0';
 <g id="edge5_Node000004_Node000006" class="edge">
 <title>Node4&#45;&gt;Node6</title>
 <g id="a_edge5_Node000004_Node000006"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M357,-857.84C357,-709.65 357,-386.14 357,-230.52"/>
+<path fill="none" stroke="#63b8ff" d="M357,-858C357,-712.26 357,-396.52 357,-238.13"/>
 <polygon fill="none" stroke="#63b8ff" points="353.5,-858.2 357,-868.2 360.5,-858.2 353.5,-858.2"/>
 </a>
 </g>

@@ -18,8 +18,8 @@
 <area shape="poly" id="edge13_Node000001_Node000014" title=" " alt="" coords="921,265,1040,298,1107,321,1174,350,1240,385,1303,427,1360,475,1409,532,1436,574,1460,619,1497,713,1522,812,1536,912,1542,1009,1541,1101,1529,1253,1524,1253,1536,1101,1536,1010,1531,912,1517,813,1492,715,1455,621,1432,577,1405,535,1356,479,1300,431,1238,390,1172,355,1105,326,1039,303,920,270"/>
 <area shape="rect" id="Node000005" href="$classRa_1_1Engine_1_1Scene_1_1PointCloudComponent.html" title=" " alt="" coords="157,2281,352,2541"/>
 <area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="481,1457,473,1600,455,1781,424,1978,402,2078,376,2174,356,2229,331,2282,327,2280,351,2227,371,2173,397,2077,419,1977,450,1780,468,1600,476,1457"/>
-<area shape="rect" id="Node000006" href="$classRa_1_1Engine_1_1Scene_1_1SurfaceMeshComponent.html" title="Main class to convert Ra::Core::Asset::GeometryData to Ra::Engine::Mesh." alt="" coords="377,2294,586,2529"/>
-<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="484,1458,484,2294,479,2294,479,1458"/>
+<area shape="rect" id="Node000006" href="$classRa_1_1Engine_1_1Scene_1_1SurfaceMeshComponent.html" title="Main class to convert Ra::Core::Asset::GeometryData to Ra::Engine::Mesh." alt="" coords="377,2284,586,2539"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="484,1457,484,2284,479,2284,479,1457"/>
 <area shape="rect" id="Node000008" href="$classRa_1_1Engine_1_1Scene_1_1DirectionalLight.html" title=" " alt="" coords="610,2331,763,2491"/>
 <area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="693,1517,690,2331,684,2331,687,1517"/>
 <area shape="rect" id="Node000009" href="$classRa_1_1Engine_1_1Scene_1_1PointLight.html" title=" " alt="" coords="788,2301,940,2521"/>

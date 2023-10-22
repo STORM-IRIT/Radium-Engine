@@ -13,6 +13,7 @@ var dir_a46b089ae2655285b8dddf2703c36868 =
     [ "Material.hpp", "Material_8hpp_source.html", null ],
     [ "MaterialConverters.cpp", "MaterialConverters_8cpp_source.html", null ],
     [ "MaterialConverters.hpp", "MaterialConverters_8hpp_source.html", null ],
+    [ "MaterialTextureSet.hpp", "MaterialTextureSet_8hpp_source.html", null ],
     [ "Mesh.cpp", "Mesh_8cpp_source.html", null ],
     [ "Mesh.hpp", "Mesh_8hpp_source.html", null ],
     [ "PlainMaterial.cpp", "PlainMaterial_8cpp_source.html", null ],

@@ -1,9 +1,5 @@
 var searchData=
 [
-  ['valuetype_0',['ValueType',['../classRa_1_1Core_1_1Geometry_1_1AbstractVolume.html#a464097665750f5d25a9f5aa40f1ff2e2',1,'Ra::Core::Geometry::AbstractVolume']]],
-  ['variable_1',['Variable',['../classRa_1_1Core_1_1VariableSet.html#a709926d7e6a4184aa22606bf182296b8',1,'Ra::Core::VariableSet']]],
-  ['variablecontainer_2',['VariableContainer',['../classRa_1_1Core_1_1VariableSet.html#a61f36df1dda66cf204afdec4c1e17d72',1,'Ra::Core::VariableSet']]],
-  ['variablehandle_3',['VariableHandle',['../classRa_1_1Core_1_1VariableSet.html#a2819447e55fdbe30c43726dd10ba9791',1,'Ra::Core::VariableSet']]],
-  ['variabletype_4',['VariableType',['../classRa_1_1Core_1_1VariableSet.html#a521bf033d8d909ff180fc904988805cd',1,'Ra::Core::VariableSet']]],
-  ['variabletypefromhandle_5',['VariableTypeFromHandle',['../classRa_1_1Core_1_1VariableSet.html#aff3c960c4ae226d8cc6ec4a4fa093fee',1,'Ra::Core::VariableSet']]]
+  ['uniformbindableset_0',['UniformBindableSet',['../classRa_1_1Engine_1_1Data_1_1RenderParameters.html#ab20149b57edd3cd5f22bb398e86b2017',1,'Ra::Engine::Data::RenderParameters']]],
+  ['uniformvariable_1',['UniformVariable',['../classRa_1_1Engine_1_1Data_1_1RenderParameters.html#ae7ce251280a424825fa633185d02bc14',1,'Ra::Engine::Data::RenderParameters']]]
 ];

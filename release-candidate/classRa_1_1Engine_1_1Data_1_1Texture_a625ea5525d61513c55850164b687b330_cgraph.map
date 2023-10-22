@@ -1,0 +1,27 @@
+<map id="Ra::Engine::Data::Texture::initialize" name="Ra::Engine::Data::Texture::initialize">
+<area shape="rect" id="Node000001" title="Generate the OpenGL representation of the texture according to the stored TextureData (delayed)." alt="" coords="5,99,192,139"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Engine_1_1Data_1_1Texture.html#a3807a53d0aba102c05bce4afcfe9e584" title="Regiter gpu task to RadiumEngine. Will call sendImageDataToGpu during next RadiumEngine::runGpuTasks(..." alt="" coords="268,131,496,171"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="193,127,254,134,254,139,192,132"/>
+<area shape="rect" id="Node000011" href="$classRa_1_1Engine_1_1Data_1_1Texture.html#ac87dd0012df1520c8e915e2e96975a07" title="Regiter gpu task to RadiumEngine. Will call sendSamplerParametersToGpu during next RadiumEngine::runG..." alt="" coords="240,67,524,107"/>
+<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="192,105,226,102,226,107,193,111"/>
+<area shape="rect" id="Node000003" href="$classRa_1_1Engine_1_1Data_1_1Texture.html#a9e410de83fcf2cbb34735cb21a0e57e8" title=" " alt="" coords="593,69,780,109"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="482,128,579,108,580,113,483,133"/>
+<area shape="rect" id="Node000004" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/utility/move.html#" title=" " alt="" coords="643,134,730,159"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="496,147,629,145,629,150,496,152"/>
+<area shape="rect" id="Node000005" href="$classRa_1_1Engine_1_1Data_1_1Texture.html#a8e1101d1adbac593576519b80ca4c64e" title="Send image data to the GPU and generate mipmap if needed." alt="" coords="593,184,780,224"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="497,168,580,183,579,188,496,173"/>
+<area shape="rect" id="Node000006" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/iterator/begin.html#" title=" " alt="" coords="933,85,1019,110"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="773,181,800,168,814,157,823,144,832,131,848,119,883,105,918,98,919,103,884,110,851,124,836,135,827,147,818,160,803,173,775,186"/>
+<area shape="rect" id="Node000007" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/iterator/end.html#" title=" " alt="" coords="939,134,1013,159"/>
+<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="780,183,925,154,926,159,781,188"/>
+<area shape="rect" id="Node000008" href="$structRa_1_1Engine_1_1Data_1_1ImageParameters.html#a59c5dfbd96f58c7be904ac3ba028d934" title=" " alt="" coords="849,184,1103,224"/>
+<area shape="poly" id="edge7_Node000005_Node000008" title=" " alt="" coords="780,201,836,201,836,207,780,207"/>
+<area shape="rect" id="Node000009" href="$classRa_1_1Engine_1_1Data_1_1Texture.html#ab38f11fb0bb726ce67ca44be7d8321ea" title=" " alt="" coords="883,248,1069,288"/>
+<area shape="poly" id="edge8_Node000005_Node000009" title=" " alt="" coords="778,221,872,242,871,248,777,227"/>
+<area shape="rect" id="Node000010" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/algorithm/transform.html#" title=" " alt="" coords="919,313,1033,338"/>
+<area shape="poly" id="edge9_Node000005_Node000010" title=" " alt="" coords="717,222,776,261,850,298,906,313,905,318,848,302,774,265,714,226"/>
+<area shape="poly" id="edge11_Node000011_Node000003" title=" " alt="" coords="524,85,580,86,580,91,524,91"/>
+<area shape="poly" id="edge12_Node000011_Node000004" title=" " alt="" coords="485,104,630,133,629,138,484,109"/>
+<area shape="rect" id="Node000012" href="$classRa_1_1Engine_1_1Data_1_1Texture.html#af0eebb45ead404aaffa24020ad30bdfb" title="Send sampler parameters to the GPU." alt="" coords="572,5,801,45"/>
+<area shape="poly" id="edge13_Node000011_Node000012" title=" " alt="" coords="482,64,573,45,574,51,483,69"/>
+</map>

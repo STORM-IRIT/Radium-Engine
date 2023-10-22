@@ -1,5 +1,5 @@
 <map id="Ra::Engine::Data::LambertianMaterial::registerMaterial" name="Ra::Engine::Data::LambertianMaterial::registerMaterial">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,127,217,167"/>
+<area shape="rect" id="Node000001" title="Register the material in the material library." alt="" coords="5,127,217,167"/>
 <area shape="rect" id="Node000002" href="$namespaceRa_1_1Engine_1_1Data_1_1ShaderConfigurationFactory.html#a00918835250fbd8bbe4deae59ecd6dde" title=" " alt="" coords="265,40,448,95"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="173,125,258,97,260,102,175,130"/>
 <area shape="rect" id="Node000005" href="$namespaceRa_1_1Engine_1_1Data_1_1ShaderConfigurationFactory.html#a0ecc004c00bff945aae8b673a738909f" title=" " alt="" coords="265,120,448,175"/>

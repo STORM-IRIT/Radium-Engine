@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.5.12</span>
+   &#160;<span id="projectnumber">1.5.13</span>
    </div>
   </td>
  </tr>
@@ -150,14 +150,14 @@ $(document).ready(function(){initNavTree('Gizmo_8cpp_source.html',''); initResiz
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    m_worldTo( <a class="code hl_typedef" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">worldTo</a> ), m_transform( t ), m_comp( c ), m_mode( <a class="code hl_typedef" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">mode</a> ) {</div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <span class="keyword">using namespace </span>Core::Utils;</div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <span class="keywordflow">if</span> ( !s_material[0] ) {</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        <span class="keyword">auto</span> mat      = Core::make_shared&lt;Engine::Data::PlainMaterial&gt;( <span class="stringliteral">&quot;GizmoRedMaterial&quot;</span> );</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        mat-&gt;m_color  = Color::Red();</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        <span class="keyword">auto</span> mat = Core::make_shared&lt;Engine::Data::PlainMaterial&gt;( <span class="stringliteral">&quot;GizmoRedMaterial&quot;</span> );</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        mat-&gt;setColor( Color::Red() );</div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        s_material[0] = mat;</div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        mat           = Core::make_shared&lt;Engine::Data::PlainMaterial&gt;( <span class="stringliteral">&quot;GizmoGreenMaterial&quot;</span> );</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        mat-&gt;m_color  = Color::Green();</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        mat-&gt;setColor( Color::Green() );</div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        s_material[1] = mat;</div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        mat           = Core::make_shared&lt;Engine::Data::PlainMaterial&gt;( <span class="stringliteral">&quot;GizmoBlueMaterial&quot;</span> );</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        mat-&gt;m_color  = Color::Blue();</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        mat-&gt;setColor( Color::Blue() );</div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        s_material[2] = mat;</div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    }</div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>}</div>

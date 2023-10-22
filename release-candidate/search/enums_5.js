@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['keyeventtype_0',['KeyEventType',['../classRa_1_1Gui_1_1Viewer.html#a29251f309d1429c09062056f4bfa8cb2',1,'Ra::Gui::Viewer']]]
+  ['handletype_0',['HandleType',['../classRa_1_1Core_1_1Asset_1_1HandleData.html#a2cc9bdddd2a8a9966c0e5afb38090a7e',1,'Ra::Core::Asset::HandleData']]]
 ];

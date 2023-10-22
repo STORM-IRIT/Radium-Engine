@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.5.12</span>
+   &#160;<span id="projectnumber">1.5.13</span>
    </div>
   </td>
  </tr>
@@ -123,6 +123,9 @@ $(document).ready(function(){initNavTree('structRa_1_1Engine_1_1Data_1_1TextureP
 </div><!--header-->
 <div class="contents">
 
+<p>Describes the sampler and image of a texture.  
+ <a href="structRa_1_1Engine_1_1Data_1_1TextureParameters.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="Texture_8hpp_source.html">Engine/Data/Texture.hpp</a>&gt;</code></p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Collaboration diagram for Ra::Engine::Data::TextureParameters:</div>
@@ -135,165 +138,36 @@ $(document).ready(function(){initNavTree('structRa_1_1Engine_1_1Data_1_1TextureP
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:af2b44c812ac7ea2acce2ecdaa74c546f" id="r_af2b44c812ac7ea2acce2ecdaa74c546f"><td class="memItemLeft" align="right" valign="top"><a class="elRef" target="_blank" href="http://en.cppreference.com/w/cpp/string/basic_string.html">std::string</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structRa_1_1Engine_1_1Data_1_1TextureParameters.html#af2b44c812ac7ea2acce2ecdaa74c546f">name</a> {}</td></tr>
-<tr class="memdesc:af2b44c812ac7ea2acce2ecdaa74c546f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Name of the texture.  <br /></td></tr>
 <tr class="separator:af2b44c812ac7ea2acce2ecdaa74c546f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7f7113dd1fd9bd359b19340d9b54d670" id="r_a7f7113dd1fd9bd359b19340d9b54d670"><td class="memItemLeft" align="right" valign="top">GLenum&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structRa_1_1Engine_1_1Data_1_1TextureParameters.html#a7f7113dd1fd9bd359b19340d9b54d670">target</a> { <a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">GL_TEXTURE_2D</a> }</td></tr>
-<tr class="memdesc:a7f7113dd1fd9bd359b19340d9b54d670"><td class="mdescLeft">&#160;</td><td class="mdescRight">OpenGL target.  <br /></td></tr>
-<tr class="separator:a7f7113dd1fd9bd359b19340d9b54d670"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7045a593878dd5857bc278dc31aa2979" id="r_a7045a593878dd5857bc278dc31aa2979"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structRa_1_1Engine_1_1Data_1_1TextureParameters.html#a7045a593878dd5857bc278dc31aa2979">width</a> { 1 }</td></tr>
-<tr class="memdesc:a7045a593878dd5857bc278dc31aa2979"><td class="mdescLeft">&#160;</td><td class="mdescRight">width of the texture (s dimension)  <br /></td></tr>
-<tr class="separator:a7045a593878dd5857bc278dc31aa2979"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a591ee5f4afa0dd22f9ba4885039725f8" id="r_a591ee5f4afa0dd22f9ba4885039725f8"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structRa_1_1Engine_1_1Data_1_1TextureParameters.html#a591ee5f4afa0dd22f9ba4885039725f8">height</a> { 1 }</td></tr>
-<tr class="memdesc:a591ee5f4afa0dd22f9ba4885039725f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">height of the texture (t dimension)  <br /></td></tr>
-<tr class="separator:a591ee5f4afa0dd22f9ba4885039725f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4b6453e288eeb88af883d40d671c2177" id="r_a4b6453e288eeb88af883d40d671c2177"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structRa_1_1Engine_1_1Data_1_1TextureParameters.html#a4b6453e288eeb88af883d40d671c2177">depth</a> { 1 }</td></tr>
-<tr class="memdesc:a4b6453e288eeb88af883d40d671c2177"><td class="mdescLeft">&#160;</td><td class="mdescRight">width of the texture (p dimension)  <br /></td></tr>
-<tr class="separator:a4b6453e288eeb88af883d40d671c2177"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a69a66b5483c1116c2cfd9c9a99f20c7b" id="r_a69a66b5483c1116c2cfd9c9a99f20c7b"><td class="memItemLeft" align="right" valign="top">GLenum&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structRa_1_1Engine_1_1Data_1_1TextureParameters.html#a69a66b5483c1116c2cfd9c9a99f20c7b">format</a> { <a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">GL_RGB</a> }</td></tr>
-<tr class="memdesc:a69a66b5483c1116c2cfd9c9a99f20c7b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Format of the external data.  <br /></td></tr>
-<tr class="separator:a69a66b5483c1116c2cfd9c9a99f20c7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:add2e7ac05c10c06e374a445a187dd682" id="r_add2e7ac05c10c06e374a445a187dd682"><td class="memItemLeft" align="right" valign="top">GLenum&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structRa_1_1Engine_1_1Data_1_1TextureParameters.html#add2e7ac05c10c06e374a445a187dd682">internalFormat</a> { <a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">GL_RGB</a> }</td></tr>
-<tr class="memdesc:add2e7ac05c10c06e374a445a187dd682"><td class="mdescLeft">&#160;</td><td class="mdescRight">OpenGL internal format (WARNING, for Integer textures, must be GL_XXX_INTEGER)  <br /></td></tr>
-<tr class="separator:add2e7ac05c10c06e374a445a187dd682"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab3b620528efda5597355e1e494f825fd" id="r_ab3b620528efda5597355e1e494f825fd"><td class="memItemLeft" align="right" valign="top">GLenum&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structRa_1_1Engine_1_1Data_1_1TextureParameters.html#ab3b620528efda5597355e1e494f825fd">type</a> { <a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">GL_UNSIGNED_BYTE</a> }</td></tr>
-<tr class="memdesc:ab3b620528efda5597355e1e494f825fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type of the components in external data.  <br /></td></tr>
-<tr class="separator:ab3b620528efda5597355e1e494f825fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a38384f3b654dcb60435f8d15e165f536" id="r_a38384f3b654dcb60435f8d15e165f536"><td class="memItemLeft" align="right" valign="top">GLenum&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structRa_1_1Engine_1_1Data_1_1TextureParameters.html#a38384f3b654dcb60435f8d15e165f536">wrapS</a> { <a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">GL_CLAMP_TO_EDGE</a> }</td></tr>
-<tr class="memdesc:a38384f3b654dcb60435f8d15e165f536"><td class="mdescLeft">&#160;</td><td class="mdescRight">OpenGL wrap mode in the s direction.  <br /></td></tr>
-<tr class="separator:a38384f3b654dcb60435f8d15e165f536"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a124f9b243369203db3b8e2be37065949" id="r_a124f9b243369203db3b8e2be37065949"><td class="memItemLeft" align="right" valign="top">GLenum&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structRa_1_1Engine_1_1Data_1_1TextureParameters.html#a124f9b243369203db3b8e2be37065949">wrapT</a> { <a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">GL_CLAMP_TO_EDGE</a> }</td></tr>
-<tr class="memdesc:a124f9b243369203db3b8e2be37065949"><td class="mdescLeft">&#160;</td><td class="mdescRight">OpenGL wrap mode in the t direction.  <br /></td></tr>
-<tr class="separator:a124f9b243369203db3b8e2be37065949"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5692f41701045078c95c41c94bc6c001" id="r_a5692f41701045078c95c41c94bc6c001"><td class="memItemLeft" align="right" valign="top">GLenum&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structRa_1_1Engine_1_1Data_1_1TextureParameters.html#a5692f41701045078c95c41c94bc6c001">wrapP</a> { <a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">GL_CLAMP_TO_EDGE</a> }</td></tr>
-<tr class="memdesc:a5692f41701045078c95c41c94bc6c001"><td class="mdescLeft">&#160;</td><td class="mdescRight">OpenGL wrap mode in the p direction.  <br /></td></tr>
-<tr class="separator:a5692f41701045078c95c41c94bc6c001"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a64588b76ed0db08b240c57bee0d7f9ef" id="r_a64588b76ed0db08b240c57bee0d7f9ef"><td class="memItemLeft" align="right" valign="top">GLenum&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structRa_1_1Engine_1_1Data_1_1TextureParameters.html#a64588b76ed0db08b240c57bee0d7f9ef">minFilter</a> { <a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">GL_LINEAR</a> }</td></tr>
-<tr class="memdesc:a64588b76ed0db08b240c57bee0d7f9ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">OpenGL minification filter ( GL_LINEAR or GL_NEAREST or GL_XXX_MIPMAP_YYY )  <br /></td></tr>
-<tr class="separator:a64588b76ed0db08b240c57bee0d7f9ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a16fcf07bf3801515ca2cb9717ea26ba4" id="r_a16fcf07bf3801515ca2cb9717ea26ba4"><td class="memItemLeft" align="right" valign="top">GLenum&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structRa_1_1Engine_1_1Data_1_1TextureParameters.html#a16fcf07bf3801515ca2cb9717ea26ba4">magFilter</a> { <a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">GL_LINEAR</a> }</td></tr>
-<tr class="memdesc:a16fcf07bf3801515ca2cb9717ea26ba4"><td class="mdescLeft">&#160;</td><td class="mdescRight">OpenGL magnification filter ( GL_LINEAR or GL_NEAREST )  <br /></td></tr>
-<tr class="separator:a16fcf07bf3801515ca2cb9717ea26ba4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afb54a5b8e666a06b4d8ffbdf1b850c42" id="r_afb54a5b8e666a06b4d8ffbdf1b850c42"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">void</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structRa_1_1Engine_1_1Data_1_1TextureParameters.html#afb54a5b8e666a06b4d8ffbdf1b850c42">texels</a> { <a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">nullptr</a> }</td></tr>
-<tr class="separator:afb54a5b8e666a06b4d8ffbdf1b850c42"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af63f2c29d9ccaa7b1cb9c598673630b1" id="r_af63f2c29d9ccaa7b1cb9c598673630b1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structRa_1_1Engine_1_1Data_1_1SamplerParameters.html">SamplerParameters</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structRa_1_1Engine_1_1Data_1_1TextureParameters.html#af63f2c29d9ccaa7b1cb9c598673630b1">sampler</a> {}</td></tr>
+<tr class="separator:af63f2c29d9ccaa7b1cb9c598673630b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3925c75cf2510f54449f6499c03dae02" id="r_a3925c75cf2510f54449f6499c03dae02"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structRa_1_1Engine_1_1Data_1_1ImageParameters.html">ImageParameters</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structRa_1_1Engine_1_1Data_1_1TextureParameters.html#a3925c75cf2510f54449f6499c03dae02">image</a> {}</td></tr>
+<tr class="separator:a3925c75cf2510f54449f6499c03dae02"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Describes the content and parameters of a texture. This structures encapsulates all the states used for creating an OpenGL texture. These parameters describe the image data of the texture :</p><ul>
-<li>target, width, height, depth, format, internalFormat, type and texels for describing image data</li>
-<li>wrapS, wrapT, wrapP, minFilter and magFilter for describing the sampler of the texture.</li>
+<div class="textblock"><p>Describes the sampler and image of a texture. </p>
+<p>These parameters describe the image data of the texture :</p><ul>
+<li><a class="el" href="structRa_1_1Engine_1_1Data_1_1ImageParameters.html">ImageParameters</a>: target, width, height, depth, format, internalFormat, type and texels for describing image data</li>
+<li>SampleParameters: wrapS, wrapT, wrapP, minFilter and magFilter for describing the sampler of the texture.</li>
 </ul>
-<p>When one wants to create a texture, the first thing to do is to create and fill a <a class="el" href="classRa_1_1Engine_1_1Data_1_1Texture.html">Texture</a> parameter structure that will describe the <a class="el" href="classRa_1_1Engine_1_1Data_1_1Texture.html">Texture</a>.</p>
-<p>The <a class="el" href="classRa_1_1Engine_1_1Data_1_1Texture.html">Texture</a> creation could be done either using the <a class="el" href="classRa_1_1Engine_1_1Data_1_1TextureManager.html">TextureManager</a> or directly on the client class/function.</p>
-<p>When a texture is created, no OpenGL initialisation is realized. The user must first call initializeGL before being able to use this texture in an OpenGL operation.</p>
-<p>MipMap representation of the texture is automatically generated as soon as the minFilter parameter is something else than GL_LINEAR or GL_NEAREST</p>
-<dl class="section note"><dt>Note</dt><dd>No coherence checking will be done on the content of this structure. User must ensure coherent data and parameters before creating the OpenGL texture with <a class="el" href="classRa_1_1Engine_1_1Data_1_1Texture.html#a55e3131773e12d21280b10dcd0bc7f7a" title="Generate the OpenGL representation of the texture according to the stored TextureData.">Texture::initializeGL</a> </dd></dl>
+<p>MipMap representation of the texture is automatically generated as soon as the minFilter parameter is something else than GL_LINEAR or GL_NEAREST. </p><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000055">Todo:</a></b></dt><dd>allow to use another mipmap building function than glGenerateMipmap</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>No coherence checking will be done on the content of this structure. User must ensure coherent data and parameters. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="Texture_8hpp_source.html#l00042">42</a> of file <a class="el" href="Texture_8hpp_source.html">Texture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Texture_8hpp_source.html#l00099">99</a> of file <a class="el" href="Texture_8hpp_source.html">Texture.hpp</a>.</p>
 </div><h2 class="groupheader">Member Data Documentation</h2>
-<a id="a4b6453e288eeb88af883d40d671c2177" name="a4b6453e288eeb88af883d40d671c2177"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4b6453e288eeb88af883d40d671c2177">&#9670;&#160;</a></span>depth</h2>
+<a id="a3925c75cf2510f54449f6499c03dae02" name="a3925c75cf2510f54449f6499c03dae02"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3925c75cf2510f54449f6499c03dae02">&#9670;&#160;</a></span>image</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">size_t Ra::Engine::Data::TextureParameters::depth { 1 }</td>
+          <td class="memname"><a class="el" href="structRa_1_1Engine_1_1Data_1_1ImageParameters.html">ImageParameters</a> Ra::Engine::Data::TextureParameters::image {}</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>width of the texture (p dimension) </p>
-
-<p class="definition">Definition at line <a class="el" href="Texture_8hpp_source.html#l00052">52</a> of file <a class="el" href="Texture_8hpp_source.html">Texture.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a69a66b5483c1116c2cfd9c9a99f20c7b" name="a69a66b5483c1116c2cfd9c9a99f20c7b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a69a66b5483c1116c2cfd9c9a99f20c7b">&#9670;&#160;</a></span>format</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">GLenum Ra::Engine::Data::TextureParameters::format { <a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">GL_RGB</a> }</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Format of the external data. </p>
-
-<p class="definition">Definition at line <a class="el" href="Texture_8hpp_source.html#l00054">54</a> of file <a class="el" href="Texture_8hpp_source.html">Texture.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a591ee5f4afa0dd22f9ba4885039725f8" name="a591ee5f4afa0dd22f9ba4885039725f8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a591ee5f4afa0dd22f9ba4885039725f8">&#9670;&#160;</a></span>height</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">size_t Ra::Engine::Data::TextureParameters::height { 1 }</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>height of the texture (t dimension) </p>
-
-<p class="definition">Definition at line <a class="el" href="Texture_8hpp_source.html#l00050">50</a> of file <a class="el" href="Texture_8hpp_source.html">Texture.hpp</a>.</p>
-
-</div>
-</div>
-<a id="add2e7ac05c10c06e374a445a187dd682" name="add2e7ac05c10c06e374a445a187dd682"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#add2e7ac05c10c06e374a445a187dd682">&#9670;&#160;</a></span>internalFormat</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">GLenum Ra::Engine::Data::TextureParameters::internalFormat { <a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">GL_RGB</a> }</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>OpenGL internal format (WARNING, for Integer textures, must be GL_XXX_INTEGER) </p>
-
-<p class="definition">Definition at line <a class="el" href="Texture_8hpp_source.html#l00056">56</a> of file <a class="el" href="Texture_8hpp_source.html">Texture.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a16fcf07bf3801515ca2cb9717ea26ba4" name="a16fcf07bf3801515ca2cb9717ea26ba4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a16fcf07bf3801515ca2cb9717ea26ba4">&#9670;&#160;</a></span>magFilter</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">GLenum Ra::Engine::Data::TextureParameters::magFilter { <a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">GL_LINEAR</a> }</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>OpenGL magnification filter ( GL_LINEAR or GL_NEAREST ) </p>
-
-<p class="definition">Definition at line <a class="el" href="Texture_8hpp_source.html#l00068">68</a> of file <a class="el" href="Texture_8hpp_source.html">Texture.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a64588b76ed0db08b240c57bee0d7f9ef" name="a64588b76ed0db08b240c57bee0d7f9ef"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a64588b76ed0db08b240c57bee0d7f9ef">&#9670;&#160;</a></span>minFilter</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">GLenum Ra::Engine::Data::TextureParameters::minFilter { <a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">GL_LINEAR</a> }</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>OpenGL minification filter ( GL_LINEAR or GL_NEAREST or GL_XXX_MIPMAP_YYY ) </p>
-
-<p class="definition">Definition at line <a class="el" href="Texture_8hpp_source.html#l00066">66</a> of file <a class="el" href="Texture_8hpp_source.html">Texture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Texture_8hpp_source.html#l00102">102</a> of file <a class="el" href="Texture_8hpp_source.html">Texture.hpp</a>.</p>
 
 </div>
 </div>
@@ -309,141 +183,23 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Name of the texture. </p>
-
-<p class="definition">Definition at line <a class="el" href="Texture_8hpp_source.html#l00044">44</a> of file <a class="el" href="Texture_8hpp_source.html">Texture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Texture_8hpp_source.html#l00100">100</a> of file <a class="el" href="Texture_8hpp_source.html">Texture.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a7f7113dd1fd9bd359b19340d9b54d670" name="a7f7113dd1fd9bd359b19340d9b54d670"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7f7113dd1fd9bd359b19340d9b54d670">&#9670;&#160;</a></span>target</h2>
+<a id="af63f2c29d9ccaa7b1cb9c598673630b1" name="af63f2c29d9ccaa7b1cb9c598673630b1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af63f2c29d9ccaa7b1cb9c598673630b1">&#9670;&#160;</a></span>sampler</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">GLenum Ra::Engine::Data::TextureParameters::target { <a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">GL_TEXTURE_2D</a> }</td>
+          <td class="memname"><a class="el" href="structRa_1_1Engine_1_1Data_1_1SamplerParameters.html">SamplerParameters</a> Ra::Engine::Data::TextureParameters::sampler {}</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>OpenGL target. </p>
-
-<p class="definition">Definition at line <a class="el" href="Texture_8hpp_source.html#l00046">46</a> of file <a class="el" href="Texture_8hpp_source.html">Texture.hpp</a>.</p>
-
-</div>
-</div>
-<a id="afb54a5b8e666a06b4d8ffbdf1b850c42" name="afb54a5b8e666a06b4d8ffbdf1b850c42"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afb54a5b8e666a06b4d8ffbdf1b850c42">&#9670;&#160;</a></span>texels</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">void</a>* Ra::Engine::Data::TextureParameters::texels { <a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">nullptr</a> }</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>External data (ownership is left to caller, not stored after OpenGL texture creation). Note that, for cube-map texture, this is considered as a "void*[6]" array containing the 6 faces of the cube corresponding to the targets. <br  />
- texels[0] &lt;&ndash; GL_TEXTURE_CUBE_MAP_POSITIVE_X <br  />
- texels[1] &lt;&ndash; GL_TEXTURE_CUBE_MAP_NEGATIVE_X <br  />
- texels[2] &lt;&ndash; GL_TEXTURE_CUBE_MAP_POSITIVE_Y <br  />
- texels[3] &lt;&ndash; GL_TEXTURE_CUBE_MAP_NEGATIVE_Y <br  />
- texels[4] &lt;&ndash; GL_TEXTURE_CUBE_MAP_POSITIVE_Z <br  />
- texels[5] &lt;&ndash; GL_TEXTURE_CUBE_MAP_NEGATIVE_Z <br  />
- </p><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000055">Todo:</a></b></dt><dd>memory allocated for this pointer might be lost at texture deletion as ownership is unclear. </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="Texture_8hpp_source.html#l00080">80</a> of file <a class="el" href="Texture_8hpp_source.html">Texture.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ab3b620528efda5597355e1e494f825fd" name="ab3b620528efda5597355e1e494f825fd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab3b620528efda5597355e1e494f825fd">&#9670;&#160;</a></span>type</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">GLenum Ra::Engine::Data::TextureParameters::type { <a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">GL_UNSIGNED_BYTE</a> }</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Type of the components in external data. </p>
-
-<p class="definition">Definition at line <a class="el" href="Texture_8hpp_source.html#l00058">58</a> of file <a class="el" href="Texture_8hpp_source.html">Texture.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a7045a593878dd5857bc278dc31aa2979" name="a7045a593878dd5857bc278dc31aa2979"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7045a593878dd5857bc278dc31aa2979">&#9670;&#160;</a></span>width</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">size_t Ra::Engine::Data::TextureParameters::width { 1 }</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>width of the texture (s dimension) </p>
-
-<p class="definition">Definition at line <a class="el" href="Texture_8hpp_source.html#l00048">48</a> of file <a class="el" href="Texture_8hpp_source.html">Texture.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a5692f41701045078c95c41c94bc6c001" name="a5692f41701045078c95c41c94bc6c001"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5692f41701045078c95c41c94bc6c001">&#9670;&#160;</a></span>wrapP</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">GLenum Ra::Engine::Data::TextureParameters::wrapP { <a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">GL_CLAMP_TO_EDGE</a> }</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>OpenGL wrap mode in the p direction. </p>
-
-<p class="definition">Definition at line <a class="el" href="Texture_8hpp_source.html#l00064">64</a> of file <a class="el" href="Texture_8hpp_source.html">Texture.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a38384f3b654dcb60435f8d15e165f536" name="a38384f3b654dcb60435f8d15e165f536"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a38384f3b654dcb60435f8d15e165f536">&#9670;&#160;</a></span>wrapS</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">GLenum Ra::Engine::Data::TextureParameters::wrapS { <a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">GL_CLAMP_TO_EDGE</a> }</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>OpenGL wrap mode in the s direction. </p>
-
-<p class="definition">Definition at line <a class="el" href="Texture_8hpp_source.html#l00060">60</a> of file <a class="el" href="Texture_8hpp_source.html">Texture.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a124f9b243369203db3b8e2be37065949" name="a124f9b243369203db3b8e2be37065949"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a124f9b243369203db3b8e2be37065949">&#9670;&#160;</a></span>wrapT</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">GLenum Ra::Engine::Data::TextureParameters::wrapT { <a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">GL_CLAMP_TO_EDGE</a> }</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>OpenGL wrap mode in the t direction. </p>
-
-<p class="definition">Definition at line <a class="el" href="Texture_8hpp_source.html#l00062">62</a> of file <a class="el" href="Texture_8hpp_source.html">Texture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Texture_8hpp_source.html#l00101">101</a> of file <a class="el" href="Texture_8hpp_source.html">Texture.hpp</a>.</p>
 
 </div>
 </div>

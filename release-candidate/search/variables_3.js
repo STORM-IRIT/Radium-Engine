@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['height_0',['height',['../structRa_1_1Engine_1_1Data_1_1TextureParameters.html#a591ee5f4afa0dd22f9ba4885039725f8',1,'Ra::Engine::Data::TextureParameters']]]
+  ['internalformat_0',['internalFormat',['../structRa_1_1Engine_1_1Data_1_1ImageParameters.html#a72ec4441531ab972d1a43aedeb707371',1,'Ra::Engine::Data::ImageParameters']]],
+  ['islinear_1',['isLinear',['../structRa_1_1Engine_1_1Data_1_1ImageParameters.html#a5717ffb0ea47dd9722359dca1b8edc9d',1,'Ra::Engine::Data::ImageParameters']]]
 ];

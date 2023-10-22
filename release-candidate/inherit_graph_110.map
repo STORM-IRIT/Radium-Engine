@@ -1,3 +1,5 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="Node000000" href="$structRa_1_1FrameTimerData.html" title="This struct holds all timings for one frame of the engine." alt="" coords="5,5,163,31"/>
+<area shape="rect" id="Node000000" href="$classRa_1_1Engine_1_1Scene_1_1LightStorage.html" title=" " alt="" coords="5,5,152,45"/>
+<area shape="rect" id="Node000001" href="$classRa_1_1Engine_1_1Scene_1_1DefaultLightStorage.html" title=" " alt="" coords="200,5,352,45"/>
+<area shape="poly" id="edge111_Node000000_Node000001" title=" " alt="" coords="166,23,200,23,200,28,166,28"/>
 </map>

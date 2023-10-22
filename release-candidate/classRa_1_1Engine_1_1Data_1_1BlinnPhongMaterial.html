@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.5.12</span>
+   &#160;<span id="projectnumber">1.5.13</span>
    </div>
   </td>
  </tr>
@@ -120,12 +120,14 @@ $(document).ready(function(){initNavTree('classRa_1_1Engine_1_1Data_1_1BlinnPhon
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
-<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="#friends">Friends</a> &#124;
 <a href="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">Ra::Engine::Data::BlinnPhongMaterial Class Reference<span class="mlabels"><span class="mlabel">final</span></span></div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>[<a class="el" href="namespaceRa_1_1Engine_1_1Data_1_1TextureSemantics.html" title="[TextureSemantics]">TextureSemantics</a>]  
+ <a href="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="BlinnPhongMaterial_8hpp_source.html">Engine/Data/BlinnPhongMaterial.hpp</a>&gt;</code></p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
@@ -145,30 +147,21 @@ $(document).ready(function(){initNavTree('classRa_1_1Engine_1_1Data_1_1BlinnPhon
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a8ecae0470428f1d95e21b1304d56b051" id="r_a8ecae0470428f1d95e21b1304d56b051"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#a8ecae0470428f1d95e21b1304d56b051">TextureSemantic</a> { <br />
-&#160;&#160;<b>TEX_DIFFUSE</b>
-, <b>TEX_SPECULAR</b>
-, <b>TEX_NORMAL</b>
-, <b>TEX_SHININESS</b>
-, <br />
-&#160;&#160;<b>TEX_ALPHA</b>
-<br />
- }</td></tr>
-<tr class="memdesc:a8ecae0470428f1d95e21b1304d56b051"><td class="mdescLeft">&#160;</td><td class="mdescRight">Semantic of the texture : define which BSDF parameter is controled by the texture.  <a href="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#a8ecae0470428f1d95e21b1304d56b051">More...</a><br /></td></tr>
-<tr class="separator:a8ecae0470428f1d95e21b1304d56b051"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a71678a29a50184cec73518806f8f5ea2" id="r_a71678a29a50184cec73518806f8f5ea2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">using</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#a71678a29a50184cec73518806f8f5ea2">TextureSemantic</a> = <a class="el" href="namespaceRa_1_1Engine_1_1Data_1_1TextureSemantics.html#a5dbe4333b280226094415b85b4150fa8">TextureSemantics::BlinnPhongMaterial</a></td></tr>
+<tr class="separator:a71678a29a50184cec73518806f8f5ea2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_types_classRa_1_1Engine_1_1Data_1_1Material"><td colspan="2" onclick="javascript:toggleInherit('pub_types_classRa_1_1Engine_1_1Data_1_1Material')"><img src="closed.png" alt="-"/>&#160;Public Types inherited from <a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html">Ra::Engine::Data::Material</a></td></tr>
 <tr class="memitem:accea1b072e372d94e28bc461e63daab2 inherit pub_types_classRa_1_1Engine_1_1Data_1_1Material" id="r_accea1b072e372d94e28bc461e63daab2"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html#accea1b072e372d94e28bc461e63daab2">MaterialAspect</a> { <b>MAT_OPAQUE</b>
 , <a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html#accea1b072e372d94e28bc461e63daab2a7a01315517b6ee273b20ee8127bfc093">MAT_TRANSPARENT</a>
 , <a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html#accea1b072e372d94e28bc461e63daab2a6f1de8b47e04941d10e4d333ad70af41">MAT_DENSITY</a>
  }</td></tr>
+<tr class="memdesc:accea1b072e372d94e28bc461e63daab2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Identifies the type of the material.  <a href="classRa_1_1Engine_1_1Data_1_1Material.html#accea1b072e372d94e28bc461e63daab2">More...</a><br /></td></tr>
 <tr class="separator:accea1b072e372d94e28bc461e63daab2 inherit pub_types_classRa_1_1Engine_1_1Data_1_1Material"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a2cceb6feb429256547ad9f41ff4faef5" id="r_a2cceb6feb429256547ad9f41ff4faef5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#a2cceb6feb429256547ad9f41ff4faef5">BlinnPhongMaterial</a> (<a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">const</a> <a class="elRef" target="_blank" href="http://en.cppreference.com/w/cpp/string/basic_string.html">std::string</a> &amp;<a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">instanceName</a>)</td></tr>
+<tr class="memdesc:a2cceb6feb429256547ad9f41ff4faef5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a named <a class="el" href="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html" title="[TextureSemantics]">BlinnPhongMaterial</a>.  <br /></td></tr>
 <tr class="separator:a2cceb6feb429256547ad9f41ff4faef5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a186d3a44a8c2e68651167c8e25603e1f" id="r_a186d3a44a8c2e68651167c8e25603e1f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#a186d3a44a8c2e68651167c8e25603e1f">~BlinnPhongMaterial</a> () <a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">override</a></td></tr>
-<tr class="separator:a186d3a44a8c2e68651167c8e25603e1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af66d6609fafb6c0544e8470a680d833b" id="r_af66d6609fafb6c0544e8470a680d833b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#af66d6609fafb6c0544e8470a680d833b">updateGL</a> () <a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">override</a></td></tr>
 <tr class="memdesc:af66d6609fafb6c0544e8470a680d833b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update the OpenGL states used by the <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html">ShaderParameterProvider</a>. These state could be the ones from an associated material (textures, precomputed tables or whatever data associated to the material) or some parameters that are specific to the provider semantic.  <br /></td></tr>
 <tr class="separator:af66d6609fafb6c0544e8470a680d833b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -177,21 +170,38 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ac270bc7fab86554604222c1eefc83bc1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a96117e0c746c30ea97cda45c0e82c3a2" id="r_a96117e0c746c30ea97cda45c0e82c3a2"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#a96117e0c746c30ea97cda45c0e82c3a2">isTransparent</a> () <a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">const</a> <a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">override</a></td></tr>
 <tr class="separator:a96117e0c746c30ea97cda45c0e82c3a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5eec16e112028d0e921755dd77019e2e" id="r_a5eec16e112028d0e921755dd77019e2e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#a5eec16e112028d0e921755dd77019e2e">addTexture</a> (<a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">const</a> <a class="el" href="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#a8ecae0470428f1d95e21b1304d56b051">TextureSemantic</a> &amp;<a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">semantic</a>, <a class="el" href="classRa_1_1Engine_1_1Data_1_1Texture.html">Texture</a> *texture)</td></tr>
-<tr class="separator:a5eec16e112028d0e921755dd77019e2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa8e89544b5da028dda7e38896dc27213" id="r_aa8e89544b5da028dda7e38896dc27213"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classRa_1_1Engine_1_1Data_1_1Texture.html">Texture</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#aa8e89544b5da028dda7e38896dc27213">getTexture</a> (<a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">const</a> <a class="el" href="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#a8ecae0470428f1d95e21b1304d56b051">TextureSemantic</a> &amp;<a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">semantic</a>) <a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">const</a></td></tr>
-<tr class="separator:aa8e89544b5da028dda7e38896dc27213"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad586184a60398c7b522f00e6905eba5d" id="r_ad586184a60398c7b522f00e6905eba5d"><td class="memItemLeft" align="right" valign="top">nlohmann::json&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#ad586184a60398c7b522f00e6905eba5d">getParametersMetadata</a> () <a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">const</a> <a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">override</a></td></tr>
+<tr class="memdesc:ad586184a60398c7b522f00e6905eba5d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a json containing metadata about the parameters.  <br /></td></tr>
 <tr class="separator:ad586184a60398c7b522f00e6905eba5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acfc60e7282b200f28fac471a024737ea" id="r_acfc60e7282b200f28fac471a024737ea"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#acfc60e7282b200f28fac471a024737ea">setColoredByVertexAttrib</a> (bool state) <a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">override</a></td></tr>
-<tr class="memdesc:acfc60e7282b200f28fac471a024737ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Makes the <a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html">Material</a> take its base color from the VERTEX_COLOR attribute of the rendered geometry.  <br /></td></tr>
+<tr class="memdesc:acfc60e7282b200f28fac471a024737ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Makes the <a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html" title="Base class for materials.">Material</a> take its base color from the VERTEX_COLOR attribute of the rendered geometry.  <br /></td></tr>
 <tr class="separator:acfc60e7282b200f28fac471a024737ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a30540d1c981585466637a7ebdeadb72e" id="r_a30540d1c981585466637a7ebdeadb72e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#a30540d1c981585466637a7ebdeadb72e">isColoredByVertexAttrib</a> () <a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">const</a> <a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">override</a></td></tr>
 <tr class="memdesc:a30540d1c981585466637a7ebdeadb72e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates if the material takes the VERTEX_COLOR attribute into account.  <br /></td></tr>
 <tr class="separator:a30540d1c981585466637a7ebdeadb72e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9d61cc79d8a25f5d1b4b728c8797e5cf" id="r_a9d61cc79d8a25f5d1b4b728c8797e5cf"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structRa_1_1Engine_1_1Data_1_1TextureParameters.html">TextureParameters</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#a9d61cc79d8a25f5d1b4b728c8797e5cf">addTexture</a> (<a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">const</a> <a class="el" href="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#a8ecae0470428f1d95e21b1304d56b051">TextureSemantic</a> &amp;<a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">semantic</a>, <a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">const</a> <a class="el" href="structRa_1_1Engine_1_1Data_1_1TextureParameters.html">TextureParameters</a> &amp;texture)</td></tr>
-<tr class="separator:a9d61cc79d8a25f5d1b4b728c8797e5cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a24d8ef213a1c6eb89d4a1f22e682c99b" id="r_a24d8ef213a1c6eb89d4a1f22e682c99b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#a24d8ef213a1c6eb89d4a1f22e682c99b">setDiffuseColor</a> (<a class="el" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html">Core::Utils::Color</a> c)</td></tr>
+<tr class="separator:a24d8ef213a1c6eb89d4a1f22e682c99b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3d3a0098735d651eecfc70d620486dbc" id="r_a3d3a0098735d651eecfc70d620486dbc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#a3d3a0098735d651eecfc70d620486dbc">setSpecularColor</a> (<a class="el" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html">Core::Utils::Color</a> c)</td></tr>
+<tr class="separator:a3d3a0098735d651eecfc70d620486dbc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abb8b12ea4a7ec9cd298f54ad3cd3c676" id="r_abb8b12ea4a7ec9cd298f54ad3cd3c676"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#abb8b12ea4a7ec9cd298f54ad3cd3c676">setSpecularExponent</a> (Scalar n)</td></tr>
+<tr class="separator:abb8b12ea4a7ec9cd298f54ad3cd3c676"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad5aae58f077a977fcf9c44e6e56de0d6" id="r_ad5aae58f077a977fcf9c44e6e56de0d6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#ad5aae58f077a977fcf9c44e6e56de0d6">setRenderAsSplat</a> (bool state)</td></tr>
+<tr class="separator:ad5aae58f077a977fcf9c44e6e56de0d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a50b9bf059d1805ec2354694ff1ce5f71" id="r_a50b9bf059d1805ec2354694ff1ce5f71"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">const</a> <a class="el" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html">Core::Utils::Color</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#a50b9bf059d1805ec2354694ff1ce5f71">getDiffuseColor</a> ()</td></tr>
+<tr class="separator:a50b9bf059d1805ec2354694ff1ce5f71"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af4109a0331760b16c90b492396c6ca35" id="r_af4109a0331760b16c90b492396c6ca35"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">const</a> <a class="el" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html">Core::Utils::Color</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#af4109a0331760b16c90b492396c6ca35">getSpecularColor</a> ()</td></tr>
+<tr class="separator:af4109a0331760b16c90b492396c6ca35"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:addab1af6e31145336ff5dba43dd0690f" id="r_addab1af6e31145336ff5dba43dd0690f"><td class="memItemLeft" align="right" valign="top">Scalar&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#addab1af6e31145336ff5dba43dd0690f">getSpecularExponent</a> ()</td></tr>
+<tr class="separator:addab1af6e31145336ff5dba43dd0690f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5defc455426250aef395944177f59af2" id="r_a5defc455426250aef395944177f59af2"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#a5defc455426250aef395944177f59af2">isRenderAsSplat</a> ()</td></tr>
+<tr class="separator:a5defc455426250aef395944177f59af2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a01ee95769728e3c9510f3302b7b768ce" id="r_a01ee95769728e3c9510f3302b7b768ce"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#a01ee95769728e3c9510f3302b7b768ce">setAlpha</a> (Scalar a)</td></tr>
+<tr class="separator:a01ee95769728e3c9510f3302b7b768ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a971d6c2edbe8dbe076b4a2331b5e298d" id="r_a971d6c2edbe8dbe076b4a2331b5e298d"><td class="memItemLeft" align="right" valign="top">Scalar&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#a971d6c2edbe8dbe076b4a2331b5e298d">getAlpha</a> ()</td></tr>
+<tr class="separator:a971d6c2edbe8dbe076b4a2331b5e298d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classRa_1_1Engine_1_1Data_1_1Material"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classRa_1_1Engine_1_1Data_1_1Material')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html">Ra::Engine::Data::Material</a></td></tr>
+<tr class="memitem:a3e23b2b016a99ce802a438d6381fffa2 inherit pub_methods_classRa_1_1Engine_1_1Data_1_1Material" id="r_a3e23b2b016a99ce802a438d6381fffa2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">virtual</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html#a3e23b2b016a99ce802a438d6381fffa2">~Material</a> ()=<a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">default</a></td></tr>
+<tr class="separator:a3e23b2b016a99ce802a438d6381fffa2 inherit pub_methods_classRa_1_1Engine_1_1Data_1_1Material"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a04361b455663fd68ec7235f4219262f0 inherit pub_methods_classRa_1_1Engine_1_1Data_1_1Material" id="r_a04361b455663fd68ec7235f4219262f0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">const</a> <a class="elRef" target="_blank" href="http://en.cppreference.com/w/cpp/string/basic_string.html">std::string</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html#a04361b455663fd68ec7235f4219262f0">getInstanceName</a> () <a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">const</a></td></tr>
 <tr class="separator:a04361b455663fd68ec7235f4219262f0 inherit pub_methods_classRa_1_1Engine_1_1Data_1_1Material"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a12b6f71b149e59868927a7a5f76d9f08 inherit pub_methods_classRa_1_1Engine_1_1Data_1_1Material" id="r_a12b6f71b149e59868927a7a5f76d9f08"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">const</a> <a class="elRef" target="_blank" href="http://en.cppreference.com/w/cpp/string/basic_string.html">std::string</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html#a12b6f71b149e59868927a7a5f76d9f08">getMaterialName</a> () <a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">const</a></td></tr>
@@ -199,16 +209,28 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ab308d6014ce5cb9f9defa30bb27322b8 inherit pub_methods_classRa_1_1Engine_1_1Data_1_1Material" id="r_ab308d6014ce5cb9f9defa30bb27322b8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html#ab308d6014ce5cb9f9defa30bb27322b8">setMaterialAspect</a> (<a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">const</a> <a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html#accea1b072e372d94e28bc461e63daab2">MaterialAspect</a> &amp;<a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">aspect</a>)</td></tr>
 <tr class="separator:ab308d6014ce5cb9f9defa30bb27322b8 inherit pub_methods_classRa_1_1Engine_1_1Data_1_1Material"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afdf3c0dbd08617847e429c2f2fece282 inherit pub_methods_classRa_1_1Engine_1_1Data_1_1Material" id="r_afdf3c0dbd08617847e429c2f2fece282"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">const</a> <a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html#accea1b072e372d94e28bc461e63daab2">MaterialAspect</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html#afdf3c0dbd08617847e429c2f2fece282">getMaterialAspect</a> () <a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">const</a></td></tr>
+<tr class="memdesc:afdf3c0dbd08617847e429c2f2fece282 inherit pub_methods_classRa_1_1Engine_1_1Data_1_1Material"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the aspect (MAT_OPAQUE or MAT_TRANSPARENT) of the material.  <br /></td></tr>
 <tr class="separator:afdf3c0dbd08617847e429c2f2fece282 inherit pub_methods_classRa_1_1Engine_1_1Data_1_1Material"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7fab8c75a56db577b77d8168bf600420 inherit pub_methods_classRa_1_1Engine_1_1Data_1_1Material" id="r_a7fab8c75a56db577b77d8168bf600420"><td class="memItemLeft" align="right" valign="top"><a class="elRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/list.html">std::list</a>&lt; <a class="elRef" target="_blank" href="http://en.cppreference.com/w/cpp/string/basic_string.html">std::string</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html#a7fab8c75a56db577b77d8168bf600420">getPropertyList</a> () <a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">const</a> <a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">override</a></td></tr>
+<tr class="memdesc:a7fab8c75a56db577b77d8168bf600420 inherit pub_methods_classRa_1_1Engine_1_1Data_1_1Material"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the list of properties the material migh use in a shader.  <br /></td></tr>
 <tr class="separator:a7fab8c75a56db577b77d8168bf600420 inherit pub_methods_classRa_1_1Engine_1_1Data_1_1Material"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac6eabe9ce20163cab8bec7a51f6e75a5 inherit pub_methods_classRa_1_1Engine_1_1Data_1_1Material" id="r_ac6eabe9ce20163cab8bec7a51f6e75a5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html#ac6eabe9ce20163cab8bec7a51f6e75a5">needUpdate</a> ()</td></tr>
+<tr class="memdesc:ac6eabe9ce20163cab8bec7a51f6e75a5 inherit pub_methods_classRa_1_1Engine_1_1Data_1_1Material"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mark the <a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html" title="Base class for materials.">Material</a> as needing update before the next OpenGL call.  <br /></td></tr>
 <tr class="separator:ac6eabe9ce20163cab8bec7a51f6e75a5 inherit pub_methods_classRa_1_1Engine_1_1Data_1_1Material"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html">Ra::Engine::Data::ShaderParameterProvider</a></td></tr>
 <tr class="memitem:af7a9c7a911e4388bc28c7418a1828805 inherit pub_methods_classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider" id="r_af7a9c7a911e4388bc28c7418a1828805"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">virtual</a> <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html">RenderParameters</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html#af7a9c7a911e4388bc28c7418a1828805">getParameters</a> ()</td></tr>
 <tr class="separator:af7a9c7a911e4388bc28c7418a1828805 inherit pub_methods_classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ade4f40da503903689b8c9dea59e03c5e inherit pub_methods_classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider" id="r_ade4f40da503903689b8c9dea59e03c5e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">virtual</a> <a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">const</a> <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html">RenderParameters</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html#ade4f40da503903689b8c9dea59e03c5e">getParameters</a> () <a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">const</a></td></tr>
 <tr class="separator:ade4f40da503903689b8c9dea59e03c5e inherit pub_methods_classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_classRa_1_1Engine_1_1Data_1_1MaterialTextureSet"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classRa_1_1Engine_1_1Data_1_1MaterialTextureSet')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classRa_1_1Engine_1_1Data_1_1MaterialTextureSet.html">Ra::Engine::Data::MaterialTextureSet&lt; TextureSemantics::BlinnPhongMaterial &gt;</a></td></tr>
+<tr class="memitem:aa82178d6b568cd803165922075f1cb9c inherit pub_methods_classRa_1_1Engine_1_1Data_1_1MaterialTextureSet" id="r_aa82178d6b568cd803165922075f1cb9c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1MaterialTextureSet.html#aa82178d6b568cd803165922075f1cb9c">addTexture</a> (<a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">const</a> <a class="el" href="namespaceRa_1_1Engine_1_1Data_1_1TextureSemantics.html#a5dbe4333b280226094415b85b4150fa8">TextureSemantics::BlinnPhongMaterial</a> &amp;<a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">semantic</a>, <a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">const</a> TextureManager::TextureHandle &amp;<a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">texture</a>)</td></tr>
+<tr class="separator:aa82178d6b568cd803165922075f1cb9c inherit pub_methods_classRa_1_1Engine_1_1Data_1_1MaterialTextureSet"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad0372a8bd931965cffe9d10365d59b77 inherit pub_methods_classRa_1_1Engine_1_1Data_1_1MaterialTextureSet" id="r_ad0372a8bd931965cffe9d10365d59b77"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1MaterialTextureSet.html#ad0372a8bd931965cffe9d10365d59b77">addTexture</a> (<a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">const</a> <a class="el" href="namespaceRa_1_1Engine_1_1Data_1_1TextureSemantics.html#a5dbe4333b280226094415b85b4150fa8">TextureSemantics::BlinnPhongMaterial</a> &amp;<a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">semantic</a>, <a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">const</a> <a class="el" href="structRa_1_1Engine_1_1Data_1_1TextureParameters.html">TextureParameters</a> &amp;<a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">texture</a>)</td></tr>
+<tr class="memdesc:ad0372a8bd931965cffe9d10365d59b77 inherit pub_methods_classRa_1_1Engine_1_1Data_1_1MaterialTextureSet"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add texture to <a class="el" href="classRa_1_1Engine_1_1Data_1_1TextureManager.html" title="Manage Texture loading and registration.">TextureManager</a> fisrt, then to the texture set.  <br /></td></tr>
+<tr class="separator:ad0372a8bd931965cffe9d10365d59b77 inherit pub_methods_classRa_1_1Engine_1_1Data_1_1MaterialTextureSet"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aca9b2ce2e705a4383851e8050415fdf3 inherit pub_methods_classRa_1_1Engine_1_1Data_1_1MaterialTextureSet" id="r_aca9b2ce2e705a4383851e8050415fdf3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classRa_1_1Engine_1_1Data_1_1Texture.html">Texture</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1MaterialTextureSet.html#aca9b2ce2e705a4383851e8050415fdf3">getTexture</a> (<a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">const</a> <a class="el" href="namespaceRa_1_1Engine_1_1Data_1_1TextureSemantics.html#a5dbe4333b280226094415b85b4150fa8">TextureSemantics::BlinnPhongMaterial</a> &amp;<a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">semantic</a>) <a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">const</a></td></tr>
+<tr class="memdesc:aca9b2ce2e705a4383851e8050415fdf3 inherit pub_methods_classRa_1_1Engine_1_1Data_1_1MaterialTextureSet"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classRa_1_1Engine_1_1Data_1_1Texture.html" title="Represent a Texture of the engine.">Texture</a> getter from semantic.  <br /></td></tr>
+<tr class="separator:aca9b2ce2e705a4383851e8050415fdf3 inherit pub_methods_classRa_1_1Engine_1_1Data_1_1MaterialTextureSet"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -221,21 +243,6 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memdesc:a9715515de6a9ca229a6c28981d8b6724 inherit pub_static_methods_classRa_1_1Engine_1_1Data_1_1ParameterSetEditingInterface"><td class="mdescLeft">&#160;</td><td class="mdescRight">Load the ParameterSet description.  <br /></td></tr>
 <tr class="separator:a9715515de6a9ca229a6c28981d8b6724 inherit pub_static_methods_classRa_1_1Engine_1_1Data_1_1ParameterSetEditingInterface"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:abed6ddbc3f83f32600b31948c3863024" id="r_abed6ddbc3f83f32600b31948c3863024"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html">Core::Utils::Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#abed6ddbc3f83f32600b31948c3863024">m_kd</a> { 0.7, 0.7, 0.7, 1.0 }</td></tr>
-<tr class="separator:abed6ddbc3f83f32600b31948c3863024"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac5d7e21624a7ebedf8d185556be5a8fa" id="r_ac5d7e21624a7ebedf8d185556be5a8fa"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html">Core::Utils::Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#ac5d7e21624a7ebedf8d185556be5a8fa">m_ks</a> { 0.3, 0.3, 0.3, 1.0 }</td></tr>
-<tr class="separator:ac5d7e21624a7ebedf8d185556be5a8fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a442f602a183882229b719cd51d2c6b49" id="r_a442f602a183882229b719cd51d2c6b49"><td class="memItemLeft" align="right" valign="top">Scalar&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#a442f602a183882229b719cd51d2c6b49">m_ns</a> { 64.0 }</td></tr>
-<tr class="separator:a442f602a183882229b719cd51d2c6b49"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3b529b435a9c08fd6c9653edc65d8e81" id="r_a3b529b435a9c08fd6c9653edc65d8e81"><td class="memItemLeft" align="right" valign="top">Scalar&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#a3b529b435a9c08fd6c9653edc65d8e81">m_alpha</a> { 1.0 }</td></tr>
-<tr class="separator:a3b529b435a9c08fd6c9653edc65d8e81"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad77260d355f7a6bfa7a8627fda5be6c3" id="r_ad77260d355f7a6bfa7a8627fda5be6c3"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#ad77260d355f7a6bfa7a8627fda5be6c3">m_perVertexColor</a> { <a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">false</a> }</td></tr>
-<tr class="separator:ad77260d355f7a6bfa7a8627fda5be6c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0fed73d9efd1eea8fde5d8d1b2583d55" id="r_a0fed73d9efd1eea8fde5d8d1b2583d55"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#a0fed73d9efd1eea8fde5d8d1b2583d55">m_renderAsSplat</a> { <a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">false</a> }</td></tr>
-<tr class="separator:a0fed73d9efd1eea8fde5d8d1b2583d55"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
 Friends</h2></td></tr>
 <tr class="memitem:ac56b0d531d935508b1b5669010fe7ec1" id="r_ac56b0d531d935508b1b5669010fe7ec1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">class</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#ac56b0d531d935508b1b5669010fe7ec1">BlinnPhongMaterialConverter</a></td></tr>
@@ -245,47 +252,41 @@ Friends</h2></td></tr>
 Additional Inherited Members</h2></td></tr>
 <tr class="inherit_header pro_methods_classRa_1_1Engine_1_1Data_1_1Material"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classRa_1_1Engine_1_1Data_1_1Material')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html">Ra::Engine::Data::Material</a></td></tr>
 <tr class="memitem:a2f31d488e39cc4841fe89cfda20a24fc inherit pro_methods_classRa_1_1Engine_1_1Data_1_1Material" id="r_a2f31d488e39cc4841fe89cfda20a24fc"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html#a2f31d488e39cc4841fe89cfda20a24fc">Material</a> (<a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">const</a> <a class="elRef" target="_blank" href="http://en.cppreference.com/w/cpp/string/basic_string.html">std::string</a> &amp;<a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">instanceName</a>, <a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">const</a> <a class="elRef" target="_blank" href="http://en.cppreference.com/w/cpp/string/basic_string.html">std::string</a> &amp;materialName, <a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html#accea1b072e372d94e28bc461e63daab2">MaterialAspect</a> <a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">aspect</a>=MaterialAspect::MAT_OPAQUE)</td></tr>
+<tr class="memdesc:a2f31d488e39cc4841fe89cfda20a24fc inherit pro_methods_classRa_1_1Engine_1_1Data_1_1Material"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a named material with the given aspect.  <br /></td></tr>
 <tr class="separator:a2f31d488e39cc4841fe89cfda20a24fc inherit pro_methods_classRa_1_1Engine_1_1Data_1_1Material"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8fb4a3a438c6d84285770ab97ac2eb68 inherit pro_methods_classRa_1_1Engine_1_1Data_1_1Material" id="r_a8fb4a3a438c6d84285770ab97ac2eb68"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html#a8fb4a3a438c6d84285770ab97ac2eb68">setMaterialName</a> (<a class="elRef" target="_blank" href="http://en.cppreference.com/w/cpp/string/basic_string.html">std::string</a> <a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">newName</a>)</td></tr>
+<tr class="memdesc:a8fb4a3a438c6d84285770ab97ac2eb68 inherit pro_methods_classRa_1_1Engine_1_1Data_1_1Material"><td class="mdescLeft">&#160;</td><td class="mdescRight">Change the material name.  <br /></td></tr>
 <tr class="separator:a8fb4a3a438c6d84285770ab97ac2eb68 inherit pro_methods_classRa_1_1Engine_1_1Data_1_1Material"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pro_attribs_classRa_1_1Engine_1_1Data_1_1Material"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classRa_1_1Engine_1_1Data_1_1Material')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html">Ra::Engine::Data::Material</a></td></tr>
-<tr class="memitem:aef637b1f55bcdc5bfcf70b60a8c3a411 inherit pro_attribs_classRa_1_1Engine_1_1Data_1_1Material" id="r_aef637b1f55bcdc5bfcf70b60a8c3a411"><td class="memItemLeft" align="right" valign="top"><a class="elRef" target="_blank" href="http://en.cppreference.com/w/cpp/string/basic_string.html">std::string</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html#aef637b1f55bcdc5bfcf70b60a8c3a411">m_instanceName</a> {}</td></tr>
-<tr class="memdesc:aef637b1f55bcdc5bfcf70b60a8c3a411 inherit pro_attribs_classRa_1_1Engine_1_1Data_1_1Material"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html">Material</a> instance name.  <br /></td></tr>
-<tr class="separator:aef637b1f55bcdc5bfcf70b60a8c3a411 inherit pro_attribs_classRa_1_1Engine_1_1Data_1_1Material"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a313a653c8bfa24cf996aff1fb5dbdb13 inherit pro_attribs_classRa_1_1Engine_1_1Data_1_1Material" id="r_a313a653c8bfa24cf996aff1fb5dbdb13"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html#accea1b072e372d94e28bc461e63daab2">MaterialAspect</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html#a313a653c8bfa24cf996aff1fb5dbdb13">m_aspect</a> { MaterialAspect::MAT_OPAQUE }</td></tr>
-<tr class="memdesc:a313a653c8bfa24cf996aff1fb5dbdb13 inherit pro_attribs_classRa_1_1Engine_1_1Data_1_1Material"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html">Material</a> aspect.  <br /></td></tr>
-<tr class="separator:a313a653c8bfa24cf996aff1fb5dbdb13 inherit pro_attribs_classRa_1_1Engine_1_1Data_1_1Material"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae2d00a304c8dfd9b2b10b809c5c27499 inherit pro_attribs_classRa_1_1Engine_1_1Data_1_1Material" id="r_ae2d00a304c8dfd9b2b10b809c5c27499"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html#ae2d00a304c8dfd9b2b10b809c5c27499">m_isDirty</a> { <a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">true</a> }</td></tr>
-<tr class="separator:ae2d00a304c8dfd9b2b10b809c5c27499 inherit pro_attribs_classRa_1_1Engine_1_1Data_1_1Material"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a521ece271ec225704327f3378d79b11c inherit pro_methods_classRa_1_1Engine_1_1Data_1_1Material" id="r_a521ece271ec225704327f3378d79b11c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html#a521ece271ec225704327f3378d79b11c">isDirty</a> ()</td></tr>
+<tr class="memdesc:a521ece271ec225704327f3378d79b11c inherit pro_methods_classRa_1_1Engine_1_1Data_1_1Material"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return dirty state.  <br /></td></tr>
+<tr class="separator:a521ece271ec225704327f3378d79b11c inherit pro_methods_classRa_1_1Engine_1_1Data_1_1Material"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaa4783fc04fbf80db2314704a7cd4544 inherit pro_methods_classRa_1_1Engine_1_1Data_1_1Material" id="r_aaa4783fc04fbf80db2314704a7cd4544"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html#aaa4783fc04fbf80db2314704a7cd4544">setDirty</a> ()</td></tr>
+<tr class="memdesc:aaa4783fc04fbf80db2314704a7cd4544 inherit pro_methods_classRa_1_1Engine_1_1Data_1_1Material"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set dirty state to true.  <br /></td></tr>
+<tr class="separator:aaa4783fc04fbf80db2314704a7cd4544 inherit pro_methods_classRa_1_1Engine_1_1Data_1_1Material"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab76b987f244bbcc7f230f760357e5a9d inherit pro_methods_classRa_1_1Engine_1_1Data_1_1Material" id="r_ab76b987f244bbcc7f230f760357e5a9d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html#ab76b987f244bbcc7f230f760357e5a9d">setClean</a> ()</td></tr>
+<tr class="memdesc:ab76b987f244bbcc7f230f760357e5a9d inherit pro_methods_classRa_1_1Engine_1_1Data_1_1Material"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set dirty state to false.  <br /></td></tr>
+<tr class="separator:ab76b987f244bbcc7f230f760357e5a9d inherit pro_methods_classRa_1_1Engine_1_1Data_1_1Material"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Implementation of the Blinn-Phong <a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html">Material</a> BSDF. </p><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000030">Todo:</a></b></dt><dd>due to "Material.glsl" interface modification, must test this version with all plugins, apps, ... that uses Radium Renderer </dd></dl>
+<div class="textblock"><p>[<a class="el" href="namespaceRa_1_1Engine_1_1Data_1_1TextureSemantics.html" title="[TextureSemantics]">TextureSemantics</a>] </p>
+<p>Implementation of the Blinn-Phong <a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html" title="Base class for materials.">Material</a> BSDF.</p>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000030">Todo:</a></b></dt><dd>due to "Material.glsl" interface modification, must test this version with all plugins, apps, ... that uses Radium Renderer </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="BlinnPhongMaterial_8hpp_source.html#l00029">29</a> of file <a class="el" href="BlinnPhongMaterial_8hpp_source.html">BlinnPhongMaterial.hpp</a>.</p>
-</div><h2 class="groupheader">Member Enumeration Documentation</h2>
-<a id="a8ecae0470428f1d95e21b1304d56b051" name="a8ecae0470428f1d95e21b1304d56b051"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8ecae0470428f1d95e21b1304d56b051">&#9670;&#160;</a></span>TextureSemantic</h2>
+<p class="definition">Definition at line <a class="el" href="BlinnPhongMaterial_8hpp_source.html#l00036">36</a> of file <a class="el" href="BlinnPhongMaterial_8hpp_source.html">BlinnPhongMaterial.hpp</a>.</p>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="a71678a29a50184cec73518806f8f5ea2" name="a71678a29a50184cec73518806f8f5ea2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a71678a29a50184cec73518806f8f5ea2">&#9670;&#160;</a></span>TextureSemantic</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">enum</a> <a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">class</a> <a class="el" href="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#a8ecae0470428f1d95e21b1304d56b051">Ra::Engine::Data::BlinnPhongMaterial::TextureSemantic</a></td>
+          <td class="memname"><a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">using</a> <a class="el" href="namespaceRa_1_1Engine_1_1Data_1_1TextureSemantics.html#a5dbe4333b280226094415b85b4150fa8">Ra::Engine::Data::BlinnPhongMaterial::TextureSemantic</a> =  <a class="el" href="namespaceRa_1_1Engine_1_1Data_1_1TextureSemantics.html#a5dbe4333b280226094415b85b4150fa8">TextureSemantics::BlinnPhongMaterial</a></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Semantic of the texture : define which BSDF parameter is controled by the texture. </p>
-
-<p class="definition">Definition at line <a class="el" href="BlinnPhongMaterial_8hpp_source.html#l00035">35</a> of file <a class="el" href="BlinnPhongMaterial_8hpp_source.html">BlinnPhongMaterial.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="BlinnPhongMaterial_8hpp_source.html#l00044">44</a> of file <a class="el" href="BlinnPhongMaterial_8hpp_source.html">BlinnPhongMaterial.hpp</a>.</p>
 
 </div>
 </div>
@@ -313,7 +314,9 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Construct a named Blinn-Phongmaterial </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Construct a named <a class="el" href="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html" title="[TextureSemantics]">BlinnPhongMaterial</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">instanceName</td><td>The name of this instance of the material </td></tr>
   </table>
@@ -324,8 +327,9 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a186d3a44a8c2e68651167c8e25603e1f" name="a186d3a44a8c2e68651167c8e25603e1f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a186d3a44a8c2e68651167c8e25603e1f">&#9670;&#160;</a></span>~BlinnPhongMaterial()</h2>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a971d6c2edbe8dbe076b4a2331b5e298d" name="a971d6c2edbe8dbe076b4a2331b5e298d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a971d6c2edbe8dbe076b4a2331b5e298d">&#9670;&#160;</a></span>getAlpha()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -334,7 +338,7 @@ Additional Inherited Members</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">Ra::Engine::Data::BlinnPhongMaterial::~BlinnPhongMaterial </td>
+          <td class="memname">Scalar Ra::Engine::Data::BlinnPhongMaterial::getAlpha </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -342,19 +346,17 @@ Additional Inherited Members</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Destructor. </p><dl class="section note"><dt>Note</dt><dd>The material does not have ownership on its texture. This destructor do not delete the associated textures. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="BlinnPhongMaterial_8cpp_source.html#l00022">22</a> of file <a class="el" href="BlinnPhongMaterial_8cpp_source.html">BlinnPhongMaterial.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="BlinnPhongMaterial_8hpp_source.html#l00085">85</a> of file <a class="el" href="BlinnPhongMaterial_8hpp_source.html">BlinnPhongMaterial.hpp</a>.</p>
 
 </div>
 </div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a9d61cc79d8a25f5d1b4b728c8797e5cf" name="a9d61cc79d8a25f5d1b4b728c8797e5cf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9d61cc79d8a25f5d1b4b728c8797e5cf">&#9670;&#160;</a></span>addTexture() <span class="overload">[1/2]</span></h2>
+<a id="a50b9bf059d1805ec2354694ff1ce5f71" name="a50b9bf059d1805ec2354694ff1ce5f71"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a50b9bf059d1805ec2354694ff1ce5f71">&#9670;&#160;</a></span>getDiffuseColor()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -363,21 +365,10 @@ Additional Inherited Members</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structRa_1_1Engine_1_1Data_1_1TextureParameters.html">TextureParameters</a> &amp; Ra::Engine::Data::BlinnPhongMaterial::addTexture </td>
+          <td class="memname"><a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">const</a> <a class="el" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html">Core::Utils::Color</a> &amp; Ra::Engine::Data::BlinnPhongMaterial::getDiffuseColor </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">const</a> <a class="el" href="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#a8ecae0470428f1d95e21b1304d56b051">TextureSemantic</a> &amp;&#160;</td>
-          <td class="paramname"><em>semantic</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
-          <td class="paramtype"><a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">const</a> <a class="el" href="structRa_1_1Engine_1_1Data_1_1TextureParameters.html">TextureParameters</a> &amp;&#160;</td>
-          <td class="paramname"><em>texture</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -386,61 +377,8 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Add an new texture, from a TextureData, to control the specified BSDF parameter. </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">semantic</td><td>The texture semantic </td></tr>
-    <tr><td class="paramname">texture</td><td>The texture to use (file) </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>the corresponding TextureData struct </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="BlinnPhongMaterial_8hpp_source.html#l00164">164</a> of file <a class="el" href="BlinnPhongMaterial_8hpp_source.html">BlinnPhongMaterial.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a5eec16e112028d0e921755dd77019e2e" name="a5eec16e112028d0e921755dd77019e2e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5eec16e112028d0e921755dd77019e2e">&#9670;&#160;</a></span>addTexture() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">void</a> Ra::Engine::Data::BlinnPhongMaterial::addTexture </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">const</a> <a class="el" href="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#a8ecae0470428f1d95e21b1304d56b051">TextureSemantic</a> &amp;&#160;</td>
-          <td class="paramname"><em>semantic</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="classRa_1_1Engine_1_1Data_1_1Texture.html">Texture</a> *&#160;</td>
-          <td class="paramname"><em>texture</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>Add an already existing texture to control the specified BSDF parameter. </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">semantic</td><td>The texture semantic </td></tr>
-    <tr><td class="paramname">texture</td><td>The texture to use </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="BlinnPhongMaterial_8hpp_source.html#l00141">141</a> of file <a class="el" href="BlinnPhongMaterial_8hpp_source.html">BlinnPhongMaterial.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="BlinnPhongMaterial_8hpp_source.html#l00080">80</a> of file <a class="el" href="BlinnPhongMaterial_8hpp_source.html">BlinnPhongMaterial.hpp</a>.</p>
 
 </div>
 </div>
@@ -466,16 +404,18 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Get a json containing metadata about the parameters of the material. </p><dl class="section return"><dt>Returns</dt><dd>the metadata in json format </dd></dl>
+
+<p>Get a json containing metadata about the parameters. </p>
+<dl class="section return"><dt>Returns</dt><dd>the metadata in json format </dd></dl>
 
 <p>Implements <a class="el" href="classRa_1_1Engine_1_1Data_1_1ParameterSetEditingInterface.html#a29c608d6266fd4cdd061ee1b666d44a6">Ra::Engine::Data::ParameterSetEditingInterface</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="BlinnPhongMaterial_8hpp_source.html#l00181">181</a> of file <a class="el" href="BlinnPhongMaterial_8hpp_source.html">BlinnPhongMaterial.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="BlinnPhongMaterial_8hpp_source.html#l00069">69</a> of file <a class="el" href="BlinnPhongMaterial_8hpp_source.html">BlinnPhongMaterial.hpp</a>.</p>
 
 </div>
 </div>
-<a id="aa8e89544b5da028dda7e38896dc27213" name="aa8e89544b5da028dda7e38896dc27213"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa8e89544b5da028dda7e38896dc27213">&#9670;&#160;</a></span>getTexture()</h2>
+<a id="af4109a0331760b16c90b492396c6ca35" name="af4109a0331760b16c90b492396c6ca35"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af4109a0331760b16c90b492396c6ca35">&#9670;&#160;</a></span>getSpecularColor()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -484,11 +424,10 @@ Additional Inherited Members</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classRa_1_1Engine_1_1Data_1_1Texture.html">Texture</a> * Ra::Engine::Data::BlinnPhongMaterial::getTexture </td>
+          <td class="memname"><a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">const</a> <a class="el" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html">Core::Utils::Color</a> &amp; Ra::Engine::Data::BlinnPhongMaterial::getSpecularColor </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">const</a> <a class="el" href="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#a8ecae0470428f1d95e21b1304d56b051">TextureSemantic</a> &amp;&#160;</td>
-          <td class="paramname"><em>semantic</em></td><td>)</td>
-          <td> const</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
         </tr>
       </table>
   </td>
@@ -497,15 +436,35 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Get the texture associated to the given semantic. </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">semantic</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd></dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="BlinnPhongMaterial_8hpp_source.html#l00172">172</a> of file <a class="el" href="BlinnPhongMaterial_8hpp_source.html">BlinnPhongMaterial.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="BlinnPhongMaterial_8hpp_source.html#l00081">81</a> of file <a class="el" href="BlinnPhongMaterial_8hpp_source.html">BlinnPhongMaterial.hpp</a>.</p>
+
+</div>
+</div>
+<a id="addab1af6e31145336ff5dba43dd0690f" name="addab1af6e31145336ff5dba43dd0690f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#addab1af6e31145336ff5dba43dd0690f">&#9670;&#160;</a></span>getSpecularExponent()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Scalar Ra::Engine::Data::BlinnPhongMaterial::getSpecularExponent </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="BlinnPhongMaterial_8hpp_source.html#l00082">82</a> of file <a class="el" href="BlinnPhongMaterial_8hpp_source.html">BlinnPhongMaterial.hpp</a>.</p>
 
 </div>
 </div>
@@ -536,7 +495,34 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Reimplemented from <a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html#ac2c70fc1f57836e1e34dc55ccd814550">Ra::Engine::Data::Material</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="BlinnPhongMaterial_8hpp_source.html#l00191">191</a> of file <a class="el" href="BlinnPhongMaterial_8hpp_source.html">BlinnPhongMaterial.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="BlinnPhongMaterial_8hpp_source.html#l00073">73</a> of file <a class="el" href="BlinnPhongMaterial_8hpp_source.html">BlinnPhongMaterial.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a5defc455426250aef395944177f59af2" name="a5defc455426250aef395944177f59af2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5defc455426250aef395944177f59af2">&#9670;&#160;</a></span>isRenderAsSplat()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Ra::Engine::Data::BlinnPhongMaterial::isRenderAsSplat </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="BlinnPhongMaterial_8hpp_source.html#l00083">83</a> of file <a class="el" href="BlinnPhongMaterial_8hpp_source.html">BlinnPhongMaterial.hpp</a>.</p>
 
 </div>
 </div>
@@ -562,11 +548,11 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Test if material is transperent. </p><dl class="section return"><dt>Returns</dt><dd>true if the material is transparent </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>true if the material is transparent. </dd></dl>
 
-<p>Reimplemented from <a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html#a99184fa8c3c787b18737bea7dd1e1a1f">Ra::Engine::Data::Material</a>.</p>
+<p>Reimplemented from <a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html#ad63ca518fc329294c46f2c580eae6555">Ra::Engine::Data::Material</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="BlinnPhongMaterial_8cpp_source.html#l00083">83</a> of file <a class="el" href="BlinnPhongMaterial_8cpp_source.html">BlinnPhongMaterial.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="BlinnPhongMaterial_8cpp_source.html#l00065">65</a> of file <a class="el" href="BlinnPhongMaterial_8cpp_source.html">BlinnPhongMaterial.cpp</a>.</p>
 <div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-2-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-2-summary" class="dynsummary" style="display:block;">
@@ -601,7 +587,7 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 <p>Register the material in the material library. After registration, the material could be instantiated by any Radium system, renderer, plugin, ... </p>
 
-<p class="definition">Definition at line <a class="el" href="BlinnPhongMaterial_8cpp_source.html#l00087">87</a> of file <a class="el" href="BlinnPhongMaterial_8cpp_source.html">BlinnPhongMaterial.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="BlinnPhongMaterial_8cpp_source.html#l00069">69</a> of file <a class="el" href="BlinnPhongMaterial_8cpp_source.html">BlinnPhongMaterial.cpp</a>.</p>
 <div id="dynsection-3" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-3-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-3-summary" class="dynsummary" style="display:block;">
@@ -609,6 +595,34 @@ Additional Inherited Members</h2></td></tr>
 <div id="dynsection-3-content" class="dyncontent" style="display:none;">
 <div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial_a2a9a96bf13c331bc4b2addec509a0148_cgraph.svg" width="100%" height="585"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
+
+</div>
+</div>
+<a id="a01ee95769728e3c9510f3302b7b768ce" name="a01ee95769728e3c9510f3302b7b768ce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a01ee95769728e3c9510f3302b7b768ce">&#9670;&#160;</a></span>setAlpha()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">void</a> Ra::Engine::Data::BlinnPhongMaterial::setAlpha </td>
+          <td>(</td>
+          <td class="paramtype">Scalar&#160;</td>
+          <td class="paramname"><em>a</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="BlinnPhongMaterial_8hpp_source.html#l00142">142</a> of file <a class="el" href="BlinnPhongMaterial_8hpp_source.html">BlinnPhongMaterial.hpp</a>.</p>
 
 </div>
 </div>
@@ -625,7 +639,7 @@ Additional Inherited Members</h2></td></tr>
           <td class="memname"><a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">void</a> Ra::Engine::Data::BlinnPhongMaterial::setColoredByVertexAttrib </td>
           <td>(</td>
           <td class="paramtype">bool&#160;</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><em>state</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -636,7 +650,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Makes the <a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html">Material</a> take its base color from the VERTEX_COLOR attribute of the rendered geometry. </p>
+<p>Makes the <a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html" title="Base class for materials.">Material</a> take its base color from the VERTEX_COLOR attribute of the rendered geometry. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">state</td><td>activate (true) or deactivate (false) VERTEX_COLOR attribute usage</td></tr>
@@ -645,9 +659,9 @@ Additional Inherited Members</h2></td></tr>
 </dl>
 <p>Any material that support per-vertex color parameterization should implement this method accordingly </p>
 
-<p>Reimplemented from <a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html#a9fe87b88b7d2ce2020373aaf7d5cc85e">Ra::Engine::Data::Material</a>.</p>
+<p>Reimplemented from <a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html#a7daf625738ce715a059f44e29be68f31">Ra::Engine::Data::Material</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="BlinnPhongMaterial_8hpp_source.html#l00185">185</a> of file <a class="el" href="BlinnPhongMaterial_8hpp_source.html">BlinnPhongMaterial.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="BlinnPhongMaterial_8hpp_source.html#l00113">113</a> of file <a class="el" href="BlinnPhongMaterial_8hpp_source.html">BlinnPhongMaterial.hpp</a>.</p>
 <div id="dynsection-4" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-4-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-4-summary" class="dynsummary" style="display:block;">
@@ -655,6 +669,118 @@ Additional Inherited Members</h2></td></tr>
 <div id="dynsection-4-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial_acfc60e7282b200f28fac471a024737ea_cgraph.svg" width="500" height="51"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
+
+</div>
+</div>
+<a id="a24d8ef213a1c6eb89d4a1f22e682c99b" name="a24d8ef213a1c6eb89d4a1f22e682c99b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a24d8ef213a1c6eb89d4a1f22e682c99b">&#9670;&#160;</a></span>setDiffuseColor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">void</a> Ra::Engine::Data::BlinnPhongMaterial::setDiffuseColor </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html">Core::Utils::Color</a>&#160;</td>
+          <td class="paramname"><em>c</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="BlinnPhongMaterial_8hpp_source.html#l00130">130</a> of file <a class="el" href="BlinnPhongMaterial_8hpp_source.html">BlinnPhongMaterial.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ad5aae58f077a977fcf9c44e6e56de0d6" name="ad5aae58f077a977fcf9c44e6e56de0d6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad5aae58f077a977fcf9c44e6e56de0d6">&#9670;&#160;</a></span>setRenderAsSplat()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">void</a> Ra::Engine::Data::BlinnPhongMaterial::setRenderAsSplat </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>state</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="BlinnPhongMaterial_8hpp_source.html#l00135">135</a> of file <a class="el" href="BlinnPhongMaterial_8hpp_source.html">BlinnPhongMaterial.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a3d3a0098735d651eecfc70d620486dbc" name="a3d3a0098735d651eecfc70d620486dbc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3d3a0098735d651eecfc70d620486dbc">&#9670;&#160;</a></span>setSpecularColor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">void</a> Ra::Engine::Data::BlinnPhongMaterial::setSpecularColor </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html">Core::Utils::Color</a>&#160;</td>
+          <td class="paramname"><em>c</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="BlinnPhongMaterial_8hpp_source.html#l00125">125</a> of file <a class="el" href="BlinnPhongMaterial_8hpp_source.html">BlinnPhongMaterial.hpp</a>.</p>
+
+</div>
+</div>
+<a id="abb8b12ea4a7ec9cd298f54ad3cd3c676" name="abb8b12ea4a7ec9cd298f54ad3cd3c676"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abb8b12ea4a7ec9cd298f54ad3cd3c676">&#9670;&#160;</a></span>setSpecularExponent()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">void</a> Ra::Engine::Data::BlinnPhongMaterial::setSpecularExponent </td>
+          <td>(</td>
+          <td class="paramtype">Scalar&#160;</td>
+          <td class="paramname"><em>n</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="BlinnPhongMaterial_8hpp_source.html#l00120">120</a> of file <a class="el" href="BlinnPhongMaterial_8hpp_source.html">BlinnPhongMaterial.hpp</a>.</p>
 
 </div>
 </div>
@@ -682,7 +808,7 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 <p>Remove the material from the material library. After removal, the material is no more available, ... </p>
 
-<p class="definition">Definition at line <a class="el" href="BlinnPhongMaterial_8cpp_source.html#l00145">145</a> of file <a class="el" href="BlinnPhongMaterial_8cpp_source.html">BlinnPhongMaterial.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="BlinnPhongMaterial_8cpp_source.html#l00127">127</a> of file <a class="el" href="BlinnPhongMaterial_8cpp_source.html">BlinnPhongMaterial.cpp</a>.</p>
 <div id="dynsection-5" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-5-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-5-summary" class="dynsummary" style="display:block;">
@@ -720,7 +846,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Reimplemented from <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html#a43c416afc9bb641d677c5df3737e5029">Ra::Engine::Data::ShaderParameterProvider</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="BlinnPhongMaterial_8cpp_source.html#l00073">73</a> of file <a class="el" href="BlinnPhongMaterial_8cpp_source.html">BlinnPhongMaterial.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="BlinnPhongMaterial_8cpp_source.html#l00055">55</a> of file <a class="el" href="BlinnPhongMaterial_8cpp_source.html">BlinnPhongMaterial.cpp</a>.</p>
 
 </div>
 </div>
@@ -751,7 +877,14 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html#a845c8bdbf880511e008d940e260b0820">Ra::Engine::Data::ShaderParameterProvider</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="BlinnPhongMaterial_8cpp_source.html#l00052">52</a> of file <a class="el" href="BlinnPhongMaterial_8cpp_source.html">BlinnPhongMaterial.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="BlinnPhongMaterial_8cpp_source.html#l00048">48</a> of file <a class="el" href="BlinnPhongMaterial_8cpp_source.html">BlinnPhongMaterial.cpp</a>.</p>
+<div id="dynsection-6" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-6-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-6-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-6-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial_af66d6609fafb6c0544e8470a680d833b_cgraph.svg" width="462" height="115"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 
 </div>
 </div>
@@ -776,104 +909,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="BlinnPhongMaterial_8hpp_source.html#l00031">31</a> of file <a class="el" href="BlinnPhongMaterial_8hpp_source.html">BlinnPhongMaterial.hpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="a3b529b435a9c08fd6c9653edc65d8e81" name="a3b529b435a9c08fd6c9653edc65d8e81"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3b529b435a9c08fd6c9653edc65d8e81">&#9670;&#160;</a></span>m_alpha</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">Scalar Ra::Engine::Data::BlinnPhongMaterial::m_alpha { 1.0 }</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="BlinnPhongMaterial_8hpp_source.html#l00095">95</a> of file <a class="el" href="BlinnPhongMaterial_8hpp_source.html">BlinnPhongMaterial.hpp</a>.</p>
-
-</div>
-</div>
-<a id="abed6ddbc3f83f32600b31948c3863024" name="abed6ddbc3f83f32600b31948c3863024"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abed6ddbc3f83f32600b31948c3863024">&#9670;&#160;</a></span>m_kd</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html">Core::Utils::Color</a> Ra::Engine::Data::BlinnPhongMaterial::m_kd { 0.7, 0.7, 0.7, 1.0 }</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="BlinnPhongMaterial_8hpp_source.html#l00092">92</a> of file <a class="el" href="BlinnPhongMaterial_8hpp_source.html">BlinnPhongMaterial.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ac5d7e21624a7ebedf8d185556be5a8fa" name="ac5d7e21624a7ebedf8d185556be5a8fa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac5d7e21624a7ebedf8d185556be5a8fa">&#9670;&#160;</a></span>m_ks</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html">Core::Utils::Color</a> Ra::Engine::Data::BlinnPhongMaterial::m_ks { 0.3, 0.3, 0.3, 1.0 }</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="BlinnPhongMaterial_8hpp_source.html#l00093">93</a> of file <a class="el" href="BlinnPhongMaterial_8hpp_source.html">BlinnPhongMaterial.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a442f602a183882229b719cd51d2c6b49" name="a442f602a183882229b719cd51d2c6b49"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a442f602a183882229b719cd51d2c6b49">&#9670;&#160;</a></span>m_ns</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">Scalar Ra::Engine::Data::BlinnPhongMaterial::m_ns { 64.0 }</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="BlinnPhongMaterial_8hpp_source.html#l00094">94</a> of file <a class="el" href="BlinnPhongMaterial_8hpp_source.html">BlinnPhongMaterial.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ad77260d355f7a6bfa7a8627fda5be6c3" name="ad77260d355f7a6bfa7a8627fda5be6c3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad77260d355f7a6bfa7a8627fda5be6c3">&#9670;&#160;</a></span>m_perVertexColor</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool Ra::Engine::Data::BlinnPhongMaterial::m_perVertexColor { <a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">false</a> }</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="BlinnPhongMaterial_8hpp_source.html#l00096">96</a> of file <a class="el" href="BlinnPhongMaterial_8hpp_source.html">BlinnPhongMaterial.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a0fed73d9efd1eea8fde5d8d1b2583d55" name="a0fed73d9efd1eea8fde5d8d1b2583d55"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0fed73d9efd1eea8fde5d8d1b2583d55">&#9670;&#160;</a></span>m_renderAsSplat</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool Ra::Engine::Data::BlinnPhongMaterial::m_renderAsSplat { <a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">false</a> }</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="BlinnPhongMaterial_8hpp_source.html#l00097">97</a> of file <a class="el" href="BlinnPhongMaterial_8hpp_source.html">BlinnPhongMaterial.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="BlinnPhongMaterial_8hpp_source.html#l00041">41</a> of file <a class="el" href="BlinnPhongMaterial_8hpp_source.html">BlinnPhongMaterial.hpp</a>.</p>
 
 </div>
 </div>

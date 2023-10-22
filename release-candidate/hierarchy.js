@@ -175,6 +175,7 @@ var hierarchy =
     ] ],
     [ "Ra::Core::Asset::HandleComponentData", "structRa_1_1Core_1_1Asset_1_1HandleComponentData.html", null ],
     [ "Ra::Gui::HelpDialog", "classRa_1_1Gui_1_1HelpDialog.html", null ],
+    [ "Ra::Engine::Data::ImageParameters", "structRa_1_1Engine_1_1Data_1_1ImageParameters.html", null ],
     [ "Ra::Core::Utils::IndexedObject", "classRa_1_1Core_1_1Utils_1_1IndexedObject.html", [
       [ "Ra::Engine::Rendering::RenderObject", "classRa_1_1Engine_1_1Rendering_1_1RenderObject.html", null ],
       [ "Ra::Engine::Scene::Entity", "classRa_1_1Engine_1_1Scene_1_1Entity.html", [
@@ -220,6 +221,16 @@ var hierarchy =
     [ "Ra::Core::Utils::map_keys< Mapclass >", "structRa_1_1Core_1_1Utils_1_1map__keys.html", null ],
     [ "Ra::Core::Utils::map_values< Mapclass >", "structRa_1_1Core_1_1Utils_1_1map__values.html", null ],
     [ "Ra::Gui::MaterialParameterEditor", "classRa_1_1Gui_1_1MaterialParameterEditor.html", null ],
+    [ "Ra::Engine::Data::MaterialTextureSet< TextureSemantic >", "classRa_1_1Engine_1_1Data_1_1MaterialTextureSet.html", null ],
+    [ "Ra::Engine::Data::MaterialTextureSet< TextureSemantics::BlinnPhongMaterial >", "classRa_1_1Engine_1_1Data_1_1MaterialTextureSet.html", [
+      [ "Ra::Engine::Data::BlinnPhongMaterial", "classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html", null ]
+    ] ],
+    [ "Ra::Engine::Data::MaterialTextureSet< TextureSemantics::SimpleMaterial >", "classRa_1_1Engine_1_1Data_1_1MaterialTextureSet.html", [
+      [ "Ra::Engine::Data::SimpleMaterial", "classRa_1_1Engine_1_1Data_1_1SimpleMaterial.html", [
+        [ "Ra::Engine::Data::LambertianMaterial", "classRa_1_1Engine_1_1Data_1_1LambertianMaterial.html", null ],
+        [ "Ra::Engine::Data::PlainMaterial", "classRa_1_1Engine_1_1Data_1_1PlainMaterial.html", null ]
+      ] ]
+    ] ],
     [ "Ra::Gui::Widgets::MatrixEditor", "classRa_1_1Gui_1_1Widgets_1_1MatrixEditor.html", null ],
     [ "Ra::Core::Geometry::Obb", "classRa_1_1Core_1_1Geometry_1_1Obb.html", null ],
     [ "Ra::Core::Utils::ObjectWithSemantic", "classRa_1_1Core_1_1Utils_1_1ObjectWithSemantic.html", [
@@ -239,10 +250,7 @@ var hierarchy =
     [ "Ra::Headless::OpenGLContext", "classRa_1_1Headless_1_1OpenGLContext.html", null ],
     [ "Ra::Engine::Data::ParameterSetEditingInterface", "classRa_1_1Engine_1_1Data_1_1ParameterSetEditingInterface.html", [
       [ "Ra::Engine::Data::BlinnPhongMaterial", "classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html", null ],
-      [ "Ra::Engine::Data::SimpleMaterial", "classRa_1_1Engine_1_1Data_1_1SimpleMaterial.html", [
-        [ "Ra::Engine::Data::LambertianMaterial", "classRa_1_1Engine_1_1Data_1_1LambertianMaterial.html", null ],
-        [ "Ra::Engine::Data::PlainMaterial", "classRa_1_1Engine_1_1Data_1_1PlainMaterial.html", null ]
-      ] ],
+      [ "Ra::Engine::Data::SimpleMaterial", "classRa_1_1Engine_1_1Data_1_1SimpleMaterial.html", null ],
       [ "Ra::Engine::Data::VolumetricMaterial", "classRa_1_1Engine_1_1Data_1_1VolumetricMaterial.html", null ]
     ] ],
     [ "Ra::Engine::Rendering::Renderer::PickingQuery", "structRa_1_1Engine_1_1Rendering_1_1Renderer_1_1PickingQuery.html", null ],
@@ -257,6 +265,7 @@ var hierarchy =
     ] ],
     [ "Ra::Engine::Data::RenderParameters", "classRa_1_1Engine_1_1Data_1_1RenderParameters.html", null ],
     [ "Ra::Engine::Rendering::RenderTechnique", "classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html", null ],
+    [ "Ra::Engine::Data::SamplerParameters", "structRa_1_1Engine_1_1Data_1_1SamplerParameters.html", null ],
     [ "Ra::Core::Utils::AttribManager::ScopedLockState", "classRa_1_1Core_1_1Utils_1_1AttribManager_1_1ScopedLockState.html", null ],
     [ "Ra::Core::Geometry::SegmentToTriangleOutput", "structRa_1_1Core_1_1Geometry_1_1SegmentToTriangleOutput.html", null ],
     [ "Ra::Core::Animation::Sequence", "classRa_1_1Core_1_1Animation_1_1Sequence.html", null ],

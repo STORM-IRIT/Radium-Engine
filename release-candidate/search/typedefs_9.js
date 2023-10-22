@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['semanticnamecollection_0',['SemanticNameCollection',['../classRa_1_1Core_1_1Utils_1_1ObjectWithSemantic.html#a2154019cc96a06c7b82cb9f08b2e56fc',1,'Ra::Core::Utils::ObjectWithSemantic']]],
-  ['setter_1',['Setter',['../structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes.html#a06292bfe7ce6eb822834273ae0a60fce',1,'Ra::Engine::Scene::ComponentMessenger::CallbackTypes']]]
+  ['radiummaterialptr_0',['RadiumMaterialPtr',['../namespaceRa_1_1Engine_1_1Data_1_1EngineMaterialConverters.html#a006896056d0249dcd2aabd1ca6203ecf',1,'Ra::Engine::Data::EngineMaterialConverters']]],
+  ['readwrite_1',['ReadWrite',['../structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes.html#a69156f044994d1cbcf666dbe97360acf',1,'Ra::Engine::Scene::ComponentMessenger::CallbackTypes']]]
 ];

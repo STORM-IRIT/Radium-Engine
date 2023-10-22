@@ -1,0 +1,15 @@
+<map id="Ra::Engine::Data::MaterialTextureSet&lt; TextureSemantic &gt;" name="Ra::Engine::Data::MaterialTextureSet&lt; TextureSemantic &gt;">
+<area shape="rect" id="Node000001" title="Base class to manage a set of textures indexed by semantic (enum)." alt="" coords="120,5,343,145"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Engine_1_1Data_1_1MaterialTextureSet.html" title=" " alt="" coords="5,223,220,377"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="166,158,159,171,136,224,131,222,154,168,162,156"/>
+<area shape="rect" id="Node000004" href="$classRa_1_1Engine_1_1Data_1_1MaterialTextureSet.html" title=" " alt="" coords="244,223,459,377"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="302,156,310,168,333,221,328,224,305,171,298,158"/>
+<area shape="rect" id="Node000003" href="$classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html" title="[TextureSemantics]" alt="" coords="11,427,215,867"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="115,391,115,426,110,426,110,391"/>
+<area shape="rect" id="Node000005" href="$classRa_1_1Engine_1_1Data_1_1SimpleMaterial.html" title="Base implementation for simple, monocolored, materials." alt="" coords="249,557,453,737"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="354,391,354,556,349,556,349,391"/>
+<area shape="rect" id="Node000006" href="$classRa_1_1Engine_1_1Data_1_1LambertianMaterial.html" title="Implementation of the Lambertian Material BSDF." alt="" coords="132,916,336,1096"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="320,751,266,916,261,915,315,749"/>
+<area shape="rect" id="Node000007" href="$classRa_1_1Engine_1_1Data_1_1PlainMaterial.html" title=" " alt="" coords="361,923,577,1089"/>
+<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="387,749,444,922,439,924,382,751"/>
+</map>

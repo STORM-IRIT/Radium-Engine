@@ -36,6 +36,20 @@ var namespaceRa_1_1Engine_1_1Data =
       [ "getConfiguration", "namespaceRa_1_1Engine_1_1Data_1_1ShaderConfigurationFactory.html#a0ecc004c00bff945aae8b673a738909f", null ],
       [ "removeConfiguration", "namespaceRa_1_1Engine_1_1Data_1_1ShaderConfigurationFactory.html#a4131d754283ed259edf3def7a8891064", null ]
     ] ],
+    [ "TextureSemantics", "namespaceRa_1_1Engine_1_1Data_1_1TextureSemantics.html", [
+      [ "LambertianMaterial", "namespaceRa_1_1Engine_1_1Data_1_1TextureSemantics.html#aa4f57eda005567e1742261b3ab3708a5", null ],
+      [ "BlinnPhongMaterial", "namespaceRa_1_1Engine_1_1Data_1_1TextureSemantics.html#a5dbe4333b280226094415b85b4150fa8", [
+        [ "TEX_DIFFUSE", "namespaceRa_1_1Engine_1_1Data_1_1TextureSemantics.html#a5dbe4333b280226094415b85b4150fa8a89973fd8ef06d7eb5f87f2621f2216d3", null ],
+        [ "TEX_SPECULAR", "namespaceRa_1_1Engine_1_1Data_1_1TextureSemantics.html#a5dbe4333b280226094415b85b4150fa8a3714156b5121103dfd94466850e27129", null ],
+        [ "TEX_NORMAL", "namespaceRa_1_1Engine_1_1Data_1_1TextureSemantics.html#a5dbe4333b280226094415b85b4150fa8a3b2c1e0cee884307abd16f5314730785", null ],
+        [ "TEX_SHININESS", "namespaceRa_1_1Engine_1_1Data_1_1TextureSemantics.html#a5dbe4333b280226094415b85b4150fa8a31e1bff70809aa40854257cc5fde004a", null ],
+        [ "TEX_ALPHA", "namespaceRa_1_1Engine_1_1Data_1_1TextureSemantics.html#a5dbe4333b280226094415b85b4150fa8af70fd3001230c6e4e91cfaaf2511ec80", null ]
+      ] ],
+      [ "SimpleMaterial", "namespaceRa_1_1Engine_1_1Data_1_1TextureSemantics.html#a29ecd1f152621a1a2f08dce818fdde05", [
+        [ "TEX_COLOR", "namespaceRa_1_1Engine_1_1Data_1_1TextureSemantics.html#a29ecd1f152621a1a2f08dce818fdde05af2e72971d1a56bed90820211c1de68cd", null ],
+        [ "TEX_MASK", "namespaceRa_1_1Engine_1_1Data_1_1TextureSemantics.html#a29ecd1f152621a1a2f08dce818fdde05a4bbc89a0522d99089f467286bb0892c5", null ]
+      ] ]
+    ] ],
     [ "AttribArrayDisplayable", "classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html", "classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable" ],
     [ "BlinnPhongMaterial", "classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html", "classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial" ],
     [ "BlinnPhongMaterialConverter", "classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterialConverter.html", null ],
@@ -43,17 +57,20 @@ var namespaceRa_1_1Engine_1_1Data =
     [ "Displayable", "classRa_1_1Engine_1_1Data_1_1Displayable.html", "classRa_1_1Engine_1_1Data_1_1Displayable" ],
     [ "EnvironmentTexture", "classRa_1_1Engine_1_1Data_1_1EnvironmentTexture.html", "classRa_1_1Engine_1_1Data_1_1EnvironmentTexture" ],
     [ "GeneralMesh", "classRa_1_1Engine_1_1Data_1_1GeneralMesh.html", "classRa_1_1Engine_1_1Data_1_1GeneralMesh" ],
+    [ "ImageParameters", "structRa_1_1Engine_1_1Data_1_1ImageParameters.html", "structRa_1_1Engine_1_1Data_1_1ImageParameters" ],
     [ "IndexedAttribArrayDisplayable", "classRa_1_1Engine_1_1Data_1_1IndexedAttribArrayDisplayable.html", "classRa_1_1Engine_1_1Data_1_1IndexedAttribArrayDisplayable" ],
     [ "IndexedGeometry", "classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html", "classRa_1_1Engine_1_1Data_1_1IndexedGeometry" ],
     [ "LambertianMaterial", "classRa_1_1Engine_1_1Data_1_1LambertianMaterial.html", "classRa_1_1Engine_1_1Data_1_1LambertianMaterial" ],
     [ "LineMesh", "classRa_1_1Engine_1_1Data_1_1LineMesh.html", null ],
     [ "Material", "classRa_1_1Engine_1_1Data_1_1Material.html", "classRa_1_1Engine_1_1Data_1_1Material" ],
+    [ "MaterialTextureSet", "classRa_1_1Engine_1_1Data_1_1MaterialTextureSet.html", "classRa_1_1Engine_1_1Data_1_1MaterialTextureSet" ],
     [ "Mesh", "classRa_1_1Engine_1_1Data_1_1Mesh.html", "classRa_1_1Engine_1_1Data_1_1Mesh" ],
     [ "MultiIndexedGeometry", "classRa_1_1Engine_1_1Data_1_1MultiIndexedGeometry.html", "classRa_1_1Engine_1_1Data_1_1MultiIndexedGeometry" ],
     [ "ParameterSetEditingInterface", "classRa_1_1Engine_1_1Data_1_1ParameterSetEditingInterface.html", "classRa_1_1Engine_1_1Data_1_1ParameterSetEditingInterface" ],
     [ "PlainMaterial", "classRa_1_1Engine_1_1Data_1_1PlainMaterial.html", "classRa_1_1Engine_1_1Data_1_1PlainMaterial" ],
     [ "PointCloud", "classRa_1_1Engine_1_1Data_1_1PointCloud.html", "classRa_1_1Engine_1_1Data_1_1PointCloud" ],
     [ "RenderParameters", "classRa_1_1Engine_1_1Data_1_1RenderParameters.html", "classRa_1_1Engine_1_1Data_1_1RenderParameters" ],
+    [ "SamplerParameters", "structRa_1_1Engine_1_1Data_1_1SamplerParameters.html", "structRa_1_1Engine_1_1Data_1_1SamplerParameters" ],
     [ "ShaderConfiguration", "classRa_1_1Engine_1_1Data_1_1ShaderConfiguration.html", "classRa_1_1Engine_1_1Data_1_1ShaderConfiguration" ],
     [ "ShaderParameterProvider", "classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html", "classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider" ],
     [ "ShaderProgram", "classRa_1_1Engine_1_1Data_1_1ShaderProgram.html", "classRa_1_1Engine_1_1Data_1_1ShaderProgram" ],
@@ -61,7 +78,7 @@ var namespaceRa_1_1Engine_1_1Data =
     [ "SimpleMaterial", "classRa_1_1Engine_1_1Data_1_1SimpleMaterial.html", "classRa_1_1Engine_1_1Data_1_1SimpleMaterial" ],
     [ "Texture", "classRa_1_1Engine_1_1Data_1_1Texture.html", "classRa_1_1Engine_1_1Data_1_1Texture" ],
     [ "TextureManager", "classRa_1_1Engine_1_1Data_1_1TextureManager.html", "classRa_1_1Engine_1_1Data_1_1TextureManager" ],
-    [ "TextureParameters", "structRa_1_1Engine_1_1Data_1_1TextureParameters.html", "structRa_1_1Engine_1_1Data_1_1TextureParameters" ],
+    [ "TextureParameters", "structRa_1_1Engine_1_1Data_1_1TextureParameters.html", null ],
     [ "Vao", "classRa_1_1Engine_1_1Data_1_1Vao.html", null ],
     [ "VaoIndices", "classRa_1_1Engine_1_1Data_1_1VaoIndices.html", "classRa_1_1Engine_1_1Data_1_1VaoIndices" ],
     [ "ViewingParameters", "structRa_1_1Engine_1_1Data_1_1ViewingParameters.html", null ],

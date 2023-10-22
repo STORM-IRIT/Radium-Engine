@@ -1,0 +1,5 @@
+<map id="Ra::Engine::Data::TextureManager::loadTextureImage" name="Ra::Engine::Data::TextureManager::loadTextureImage">
+<area shape="rect" id="Node000001" title="Load filename and fill ImageParameters according to filename content." alt="" coords="5,5,209,45"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Engine_1_1Data_1_1Texture.html#ab063ba8e5b755318e7ae5e2037500fc5" title="Convert a color texture from sRGB to Linear RGB spaces." alt="" coords="257,5,444,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="209,23,243,23,243,28,209,28"/>
+</map>

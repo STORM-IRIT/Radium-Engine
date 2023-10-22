@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['volumestoragetype_0',['VolumeStorageType',['../classRa_1_1Core_1_1Geometry_1_1AbstractVolume.html#afd194fa2f9735f2b14668a0ac70b6259',1,'Ra::Core::Geometry::AbstractVolume']]]
+  ['type_0',['Type',['../classRa_1_1Core_1_1Geometry_1_1Spline.html#a164e49e88843cb33e6ba4f9e2918a9fb',1,'Ra::Core::Geometry::Spline']]]
 ];

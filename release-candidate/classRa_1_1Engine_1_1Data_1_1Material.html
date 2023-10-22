@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.5.12</span>
+   &#160;<span id="projectnumber">1.5.13</span>
    </div>
   </td>
  </tr>
@@ -120,11 +120,13 @@ $(document).ready(function(){initNavTree('classRa_1_1Engine_1_1Data_1_1Material.
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
-<a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="classRa_1_1Engine_1_1Data_1_1Material-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">Ra::Engine::Data::Material Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Base class for materials.  
+ <a href="classRa_1_1Engine_1_1Data_1_1Material.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="Material_8hpp_source.html">Engine/Data/Material.hpp</a>&gt;</code></p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
@@ -139,7 +141,7 @@ $(document).ready(function(){initNavTree('classRa_1_1Engine_1_1Data_1_1Material.
 <div id="dynsection-1-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-1-content" class="dyncontent" style="display:none;">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classRa_1_1Engine_1_1Data_1_1Material__coll__graph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Engine_1_1Data_1_1Material__coll__graph.svg" width="227" height="584"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
@@ -148,10 +150,13 @@ Public Types</h2></td></tr>
 , <a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html#accea1b072e372d94e28bc461e63daab2a7a01315517b6ee273b20ee8127bfc093">MAT_TRANSPARENT</a>
 , <a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html#accea1b072e372d94e28bc461e63daab2a6f1de8b47e04941d10e4d333ad70af41">MAT_DENSITY</a>
  }</td></tr>
+<tr class="memdesc:accea1b072e372d94e28bc461e63daab2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Identifies the type of the material.  <a href="classRa_1_1Engine_1_1Data_1_1Material.html#accea1b072e372d94e28bc461e63daab2">More...</a><br /></td></tr>
 <tr class="separator:accea1b072e372d94e28bc461e63daab2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:a3e23b2b016a99ce802a438d6381fffa2" id="r_a3e23b2b016a99ce802a438d6381fffa2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">virtual</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html#a3e23b2b016a99ce802a438d6381fffa2">~Material</a> ()=<a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">default</a></td></tr>
+<tr class="separator:a3e23b2b016a99ce802a438d6381fffa2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a04361b455663fd68ec7235f4219262f0" id="r_a04361b455663fd68ec7235f4219262f0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">const</a> <a class="elRef" target="_blank" href="http://en.cppreference.com/w/cpp/string/basic_string.html">std::string</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html#a04361b455663fd68ec7235f4219262f0">getInstanceName</a> () <a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">const</a></td></tr>
 <tr class="separator:a04361b455663fd68ec7235f4219262f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a12b6f71b149e59868927a7a5f76d9f08" id="r_a12b6f71b149e59868927a7a5f76d9f08"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">const</a> <a class="elRef" target="_blank" href="http://en.cppreference.com/w/cpp/string/basic_string.html">std::string</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html#a12b6f71b149e59868927a7a5f76d9f08">getMaterialName</a> () <a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">const</a></td></tr>
@@ -159,18 +164,21 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ab308d6014ce5cb9f9defa30bb27322b8" id="r_ab308d6014ce5cb9f9defa30bb27322b8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html#ab308d6014ce5cb9f9defa30bb27322b8">setMaterialAspect</a> (<a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">const</a> <a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html#accea1b072e372d94e28bc461e63daab2">MaterialAspect</a> &amp;<a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">aspect</a>)</td></tr>
 <tr class="separator:ab308d6014ce5cb9f9defa30bb27322b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afdf3c0dbd08617847e429c2f2fece282" id="r_afdf3c0dbd08617847e429c2f2fece282"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">const</a> <a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html#accea1b072e372d94e28bc461e63daab2">MaterialAspect</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html#afdf3c0dbd08617847e429c2f2fece282">getMaterialAspect</a> () <a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">const</a></td></tr>
+<tr class="memdesc:afdf3c0dbd08617847e429c2f2fece282"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the aspect (MAT_OPAQUE or MAT_TRANSPARENT) of the material.  <br /></td></tr>
 <tr class="separator:afdf3c0dbd08617847e429c2f2fece282"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a99184fa8c3c787b18737bea7dd1e1a1f" id="r_a99184fa8c3c787b18737bea7dd1e1a1f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">virtual</a> bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html#a99184fa8c3c787b18737bea7dd1e1a1f">isTransparent</a> () <a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">const</a></td></tr>
-<tr class="separator:a99184fa8c3c787b18737bea7dd1e1a1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad63ca518fc329294c46f2c580eae6555" id="r_ad63ca518fc329294c46f2c580eae6555"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">virtual</a> bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html#ad63ca518fc329294c46f2c580eae6555">isTransparent</a> () <a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">const</a></td></tr>
+<tr class="separator:ad63ca518fc329294c46f2c580eae6555"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7fab8c75a56db577b77d8168bf600420" id="r_a7fab8c75a56db577b77d8168bf600420"><td class="memItemLeft" align="right" valign="top"><a class="elRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/list.html">std::list</a>&lt; <a class="elRef" target="_blank" href="http://en.cppreference.com/w/cpp/string/basic_string.html">std::string</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html#a7fab8c75a56db577b77d8168bf600420">getPropertyList</a> () <a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">const</a> <a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">override</a></td></tr>
+<tr class="memdesc:a7fab8c75a56db577b77d8168bf600420"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the list of properties the material migh use in a shader.  <br /></td></tr>
 <tr class="separator:a7fab8c75a56db577b77d8168bf600420"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9fe87b88b7d2ce2020373aaf7d5cc85e" id="r_a9fe87b88b7d2ce2020373aaf7d5cc85e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">virtual</a> <a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html#a9fe87b88b7d2ce2020373aaf7d5cc85e">setColoredByVertexAttrib</a> (bool)</td></tr>
-<tr class="memdesc:a9fe87b88b7d2ce2020373aaf7d5cc85e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Makes the <a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html">Material</a> take its base color from the VERTEX_COLOR attribute of the rendered geometry.  <br /></td></tr>
-<tr class="separator:a9fe87b88b7d2ce2020373aaf7d5cc85e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7daf625738ce715a059f44e29be68f31" id="r_a7daf625738ce715a059f44e29be68f31"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">virtual</a> <a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html#a7daf625738ce715a059f44e29be68f31">setColoredByVertexAttrib</a> (bool state)</td></tr>
+<tr class="memdesc:a7daf625738ce715a059f44e29be68f31"><td class="mdescLeft">&#160;</td><td class="mdescRight">Makes the <a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html" title="Base class for materials.">Material</a> take its base color from the VERTEX_COLOR attribute of the rendered geometry.  <br /></td></tr>
+<tr class="separator:a7daf625738ce715a059f44e29be68f31"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac2c70fc1f57836e1e34dc55ccd814550" id="r_ac2c70fc1f57836e1e34dc55ccd814550"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">virtual</a> bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html#ac2c70fc1f57836e1e34dc55ccd814550">isColoredByVertexAttrib</a> () <a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">const</a></td></tr>
 <tr class="memdesc:ac2c70fc1f57836e1e34dc55ccd814550"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates if the material takes the VERTEX_COLOR attribute into account.  <br /></td></tr>
 <tr class="separator:ac2c70fc1f57836e1e34dc55ccd814550"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac6eabe9ce20163cab8bec7a51f6e75a5" id="r_ac6eabe9ce20163cab8bec7a51f6e75a5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html#ac6eabe9ce20163cab8bec7a51f6e75a5">needUpdate</a> ()</td></tr>
+<tr class="memdesc:ac6eabe9ce20163cab8bec7a51f6e75a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mark the <a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html" title="Base class for materials.">Material</a> as needing update before the next OpenGL call.  <br /></td></tr>
 <tr class="separator:ac6eabe9ce20163cab8bec7a51f6e75a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html">Ra::Engine::Data::ShaderParameterProvider</a></td></tr>
 <tr class="memitem:af7a9c7a911e4388bc28c7418a1828805 inherit pub_methods_classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider" id="r_af7a9c7a911e4388bc28c7418a1828805"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">virtual</a> <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html">RenderParameters</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html#af7a9c7a911e4388bc28c7418a1828805">getParameters</a> ()</td></tr>
@@ -187,25 +195,26 @@ Public Member Functions</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
 <tr class="memitem:a2f31d488e39cc4841fe89cfda20a24fc" id="r_a2f31d488e39cc4841fe89cfda20a24fc"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html#a2f31d488e39cc4841fe89cfda20a24fc">Material</a> (<a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">const</a> <a class="elRef" target="_blank" href="http://en.cppreference.com/w/cpp/string/basic_string.html">std::string</a> &amp;<a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">instanceName</a>, <a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">const</a> <a class="elRef" target="_blank" href="http://en.cppreference.com/w/cpp/string/basic_string.html">std::string</a> &amp;materialName, <a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html#accea1b072e372d94e28bc461e63daab2">MaterialAspect</a> <a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">aspect</a>=MaterialAspect::MAT_OPAQUE)</td></tr>
+<tr class="memdesc:a2f31d488e39cc4841fe89cfda20a24fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a named material with the given aspect.  <br /></td></tr>
 <tr class="separator:a2f31d488e39cc4841fe89cfda20a24fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8fb4a3a438c6d84285770ab97ac2eb68" id="r_a8fb4a3a438c6d84285770ab97ac2eb68"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html#a8fb4a3a438c6d84285770ab97ac2eb68">setMaterialName</a> (<a class="elRef" target="_blank" href="http://en.cppreference.com/w/cpp/string/basic_string.html">std::string</a> <a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">newName</a>)</td></tr>
+<tr class="memdesc:a8fb4a3a438c6d84285770ab97ac2eb68"><td class="mdescLeft">&#160;</td><td class="mdescRight">Change the material name.  <br /></td></tr>
 <tr class="separator:a8fb4a3a438c6d84285770ab97ac2eb68"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
-Protected Attributes</h2></td></tr>
-<tr class="memitem:aef637b1f55bcdc5bfcf70b60a8c3a411" id="r_aef637b1f55bcdc5bfcf70b60a8c3a411"><td class="memItemLeft" align="right" valign="top"><a class="elRef" target="_blank" href="http://en.cppreference.com/w/cpp/string/basic_string.html">std::string</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html#aef637b1f55bcdc5bfcf70b60a8c3a411">m_instanceName</a> {}</td></tr>
-<tr class="memdesc:aef637b1f55bcdc5bfcf70b60a8c3a411"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html">Material</a> instance name.  <br /></td></tr>
-<tr class="separator:aef637b1f55bcdc5bfcf70b60a8c3a411"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a313a653c8bfa24cf996aff1fb5dbdb13" id="r_a313a653c8bfa24cf996aff1fb5dbdb13"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html#accea1b072e372d94e28bc461e63daab2">MaterialAspect</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html#a313a653c8bfa24cf996aff1fb5dbdb13">m_aspect</a> { MaterialAspect::MAT_OPAQUE }</td></tr>
-<tr class="memdesc:a313a653c8bfa24cf996aff1fb5dbdb13"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html">Material</a> aspect.  <br /></td></tr>
-<tr class="separator:a313a653c8bfa24cf996aff1fb5dbdb13"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae2d00a304c8dfd9b2b10b809c5c27499" id="r_ae2d00a304c8dfd9b2b10b809c5c27499"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html#ae2d00a304c8dfd9b2b10b809c5c27499">m_isDirty</a> { <a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">true</a> }</td></tr>
-<tr class="separator:ae2d00a304c8dfd9b2b10b809c5c27499"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a521ece271ec225704327f3378d79b11c" id="r_a521ece271ec225704327f3378d79b11c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html#a521ece271ec225704327f3378d79b11c">isDirty</a> ()</td></tr>
+<tr class="memdesc:a521ece271ec225704327f3378d79b11c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return dirty state.  <br /></td></tr>
+<tr class="separator:a521ece271ec225704327f3378d79b11c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaa4783fc04fbf80db2314704a7cd4544" id="r_aaa4783fc04fbf80db2314704a7cd4544"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html#aaa4783fc04fbf80db2314704a7cd4544">setDirty</a> ()</td></tr>
+<tr class="memdesc:aaa4783fc04fbf80db2314704a7cd4544"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set dirty state to true.  <br /></td></tr>
+<tr class="separator:aaa4783fc04fbf80db2314704a7cd4544"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab76b987f244bbcc7f230f760357e5a9d" id="r_ab76b987f244bbcc7f230f760357e5a9d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html#ab76b987f244bbcc7f230f760357e5a9d">setClean</a> ()</td></tr>
+<tr class="memdesc:ab76b987f244bbcc7f230f760357e5a9d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set dirty state to false.  <br /></td></tr>
+<tr class="separator:ab76b987f244bbcc7f230f760357e5a9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Base class for materials/ Do not assume a given <a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html">Material</a> representation but only make the difference between opaque and transparent materials. </p>
+<div class="textblock"><p>Base class for materials. </p>
+<p>Do not assume a given <a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html" title="Base class for materials.">Material</a> representation but only make the difference between opaque and transparent materials. </p>
 
-<p class="definition">Definition at line <a class="el" href="Material_8hpp_source.html#l00019">19</a> of file <a class="el" href="Material_8hpp_source.html">Material.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Material_8hpp_source.html#l00023">23</a> of file <a class="el" href="Material_8hpp_source.html">Material.hpp</a>.</p>
 </div><h2 class="groupheader">Member Enumeration Documentation</h2>
 <a id="accea1b072e372d94e28bc461e63daab2" name="accea1b072e372d94e28bc461e63daab2"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#accea1b072e372d94e28bc461e63daab2">&#9670;&#160;</a></span>MaterialAspect</h2>
@@ -226,7 +235,9 @@ Protected Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Identifies the type of the material. MAT_OPAQUE and MAT_TRANSPARENT implements the GLSL "surfacic" BSDF interface MAT_DENSITY implements the GLSL "volumetric" interface </p>
+
+<p>Identifies the type of the material. </p>
+<p>MAT_OPAQUE and MAT_TRANSPARENT implements the GLSL "surfacic" BSDF interface MAT_DENSITY implements the GLSL "volumetric" interface </p>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="accea1b072e372d94e28bc461e63daab2a7a01315517b6ee273b20ee8127bfc093" name="accea1b072e372d94e28bc461e63daab2a7a01315517b6ee273b20ee8127bfc093"></a>MAT_TRANSPARENT&#160;</td><td class="fielddoc"><p>&lt;- The material is either OPAQUE or TRANSPARENT </p>
 </td></tr>
@@ -235,11 +246,37 @@ Protected Attributes</h2></td></tr>
 </td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="Material_8hpp_source.html#l00027">27</a> of file <a class="el" href="Material_8hpp_source.html">Material.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Material_8hpp_source.html#l00031">31</a> of file <a class="el" href="Material_8hpp_source.html">Material.hpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a3e23b2b016a99ce802a438d6381fffa2" name="a3e23b2b016a99ce802a438d6381fffa2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3e23b2b016a99ce802a438d6381fffa2">&#9670;&#160;</a></span>~Material()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">virtual</a> Ra::Engine::Data::Material::~Material </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section note"><dt>Note</dt><dd>The material does not have ownership on its texture nor its shaders. This destructor do not delete the associated textures and the corresponding shaders. </dd></dl>
+
+</div>
+</div>
 <a id="a2f31d488e39cc4841fe89cfda20a24fc" name="a2f31d488e39cc4841fe89cfda20a24fc"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2f31d488e39cc4841fe89cfda20a24fc">&#9670;&#160;</a></span>Material()</h2>
 
@@ -279,7 +316,9 @@ Protected Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Creates a named material with the given aspect </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Creates a named material with the given aspect. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">instanceName</td><td></td></tr>
     <tr><td class="paramname">materialName</td><td></td></tr>
@@ -317,7 +356,7 @@ Protected Attributes</h2></td></tr>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>the name of the material instance </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="Material_8hpp_source.html#l00056">56</a> of file <a class="el" href="Material_8hpp_source.html">Material.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Material_8hpp_source.html#l00045">45</a> of file <a class="el" href="Material_8hpp_source.html">Material.hpp</a>.</p>
 
 </div>
 </div>
@@ -343,10 +382,11 @@ Protected Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Get the aspect (MAT_OPAQUE or MAT_TRANSPARENT) of the material.</p>
-<dl class="section return"><dt>Returns</dt><dd>the current aspect of the <a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html">Material</a> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="Material_8hpp_source.html#l00073">73</a> of file <a class="el" href="Material_8hpp_source.html">Material.hpp</a>.</p>
+<p>Get the aspect (MAT_OPAQUE or MAT_TRANSPARENT) of the material. </p>
+<dl class="section return"><dt>Returns</dt><dd>the current aspect of the <a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html" title="Base class for materials.">Material</a> </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="Material_8hpp_source.html#l00061">61</a> of file <a class="el" href="Material_8hpp_source.html">Material.hpp</a>.</p>
 
 </div>
 </div>
@@ -375,7 +415,7 @@ Protected Attributes</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>the name of the material, can be used a UUID </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>the material name is expected to be used to define the <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderConfiguration.html">ShaderConfiguration</a> name </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="Material_8hpp_source.html#l00062">62</a> of file <a class="el" href="Material_8hpp_source.html">Material.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Material_8hpp_source.html#l00050">50</a> of file <a class="el" href="Material_8hpp_source.html">Material.hpp</a>.</p>
 
 </div>
 </div>
@@ -397,11 +437,14 @@ Protected Attributes</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Get the list of properties the material migh use in a shader. each property will be added to the shader used for rendering this material under the form "#define theProperty". Shaders that support the given property could then fully render the material. Others migh render the meterial eroneously.</p>
+
+<p>Get the list of properties the material migh use in a shader. </p>
+<p>*</p>
+<p>Each property will be added to the shader used for rendering this material under the form "#define theProperty". Shaders that support the given property could then fully render the material. Others migh render the meterial eroneously.</p>
 <p>The default implementation returns an empty list.</p>
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000037">Todo:</a></b></dt><dd><p class="startdd">: Validate this proposal </p>
 <p class="enddd">: make the property list modifiable as well </p>
@@ -409,14 +452,7 @@ Protected Attributes</h2></td></tr>
 
 <p>Reimplemented from <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html#ae3cf5544be7650456e51625936311cd5">Ra::Engine::Data::ShaderParameterProvider</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="Material_8cpp_source.html#l00018">18</a> of file <a class="el" href="Material_8cpp_source.html">Material.cpp</a>.</p>
-<div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-2-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-2-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-2-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Engine_1_1Data_1_1Material_a7fab8c75a56db577b77d8168bf600420_cgraph.svg" width="502" height="51"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
-</div>
+<p class="definition">Definition at line <a class="el" href="Material_8hpp_source.html#l00078">78</a> of file <a class="el" href="Material_8hpp_source.html">Material.hpp</a>.</p>
 
 </div>
 </div>
@@ -447,12 +483,12 @@ Protected Attributes</h2></td></tr>
 
 <p>Reimplemented in <a class="el" href="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#a30540d1c981585466637a7ebdeadb72e">Ra::Engine::Data::BlinnPhongMaterial</a>, and <a class="el" href="classRa_1_1Engine_1_1Data_1_1SimpleMaterial.html#a188bef043565e521f7ba56026cc4764d">Ra::Engine::Data::SimpleMaterial</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="Material_8hpp_source.html#l00105">105</a> of file <a class="el" href="Material_8hpp_source.html">Material.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Material_8hpp_source.html#l00094">94</a> of file <a class="el" href="Material_8hpp_source.html">Material.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a99184fa8c3c787b18737bea7dd1e1a1f" name="a99184fa8c3c787b18737bea7dd1e1a1f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a99184fa8c3c787b18737bea7dd1e1a1f">&#9670;&#160;</a></span>isTransparent()</h2>
+<a id="a521ece271ec225704327f3378d79b11c" name="a521ece271ec225704327f3378d79b11c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a521ece271ec225704327f3378d79b11c">&#9670;&#160;</a></span>isDirty()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -461,7 +497,36 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool Ra::Engine::Data::Material::isTransparent </td>
+          <td class="memname">bool Ra::Engine::Data::Material::isDirty </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Return dirty state. </p>
+
+<p class="definition">Definition at line <a class="el" href="Material_8hpp_source.html#l00118">118</a> of file <a class="el" href="Material_8hpp_source.html">Material.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ad63ca518fc329294c46f2c580eae6555" name="ad63ca518fc329294c46f2c580eae6555"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad63ca518fc329294c46f2c580eae6555">&#9670;&#160;</a></span>isTransparent()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">virtual</a> bool Ra::Engine::Data::Material::isTransparent </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -469,15 +534,15 @@ Protected Attributes</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Test if material is transperent. </p><dl class="section return"><dt>Returns</dt><dd>true if the material is transparent </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>true if the material is transparent. </dd></dl>
 
 <p>Reimplemented in <a class="el" href="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#a96117e0c746c30ea97cda45c0e82c3a2">Ra::Engine::Data::BlinnPhongMaterial</a>, and <a class="el" href="classRa_1_1Engine_1_1Data_1_1VolumetricMaterial.html#a00fd3ec81be3fb81d97d7b17eaa9be42">Ra::Engine::Data::VolumetricMaterial</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="Material_8cpp_source.html#l00014">14</a> of file <a class="el" href="Material_8cpp_source.html">Material.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Material_8hpp_source.html#l00065">65</a> of file <a class="el" href="Material_8hpp_source.html">Material.hpp</a>.</p>
 
 </div>
 </div>
@@ -503,14 +568,44 @@ Protected Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Mark the <a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html">Material</a> as needing update before the next OpenGL call </p>
 
-<p class="definition">Definition at line <a class="el" href="Material_8hpp_source.html#l00110">110</a> of file <a class="el" href="Material_8hpp_source.html">Material.hpp</a>.</p>
+<p>Mark the <a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html" title="Base class for materials.">Material</a> as needing update before the next OpenGL call. </p>
+
+<p class="definition">Definition at line <a class="el" href="Material_8hpp_source.html#l00098">98</a> of file <a class="el" href="Material_8hpp_source.html">Material.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a9fe87b88b7d2ce2020373aaf7d5cc85e" name="a9fe87b88b7d2ce2020373aaf7d5cc85e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9fe87b88b7d2ce2020373aaf7d5cc85e">&#9670;&#160;</a></span>setColoredByVertexAttrib()</h2>
+<a id="ab76b987f244bbcc7f230f760357e5a9d" name="ab76b987f244bbcc7f230f760357e5a9d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab76b987f244bbcc7f230f760357e5a9d">&#9670;&#160;</a></span>setClean()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">void</a> Ra::Engine::Data::Material::setClean </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Set dirty state to false. </p>
+
+<p class="definition">Definition at line <a class="el" href="Material_8hpp_source.html#l00124">124</a> of file <a class="el" href="Material_8hpp_source.html">Material.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a7daf625738ce715a059f44e29be68f31" name="a7daf625738ce715a059f44e29be68f31"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7daf625738ce715a059f44e29be68f31">&#9670;&#160;</a></span>setColoredByVertexAttrib()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -522,7 +617,7 @@ Protected Attributes</h2></td></tr>
           <td class="memname"><a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">virtual</a> <a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">void</a> Ra::Engine::Data::Material::setColoredByVertexAttrib </td>
           <td>(</td>
           <td class="paramtype">bool&#160;</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><em>state</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -533,7 +628,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Makes the <a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html">Material</a> take its base color from the VERTEX_COLOR attribute of the rendered geometry. </p>
+<p>Makes the <a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html" title="Base class for materials.">Material</a> take its base color from the VERTEX_COLOR attribute of the rendered geometry. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">state</td><td>activate (true) or deactivate (false) VERTEX_COLOR attribute usage</td></tr>
@@ -544,7 +639,36 @@ Protected Attributes</h2></td></tr>
 
 <p>Reimplemented in <a class="el" href="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#acfc60e7282b200f28fac471a024737ea">Ra::Engine::Data::BlinnPhongMaterial</a>, and <a class="el" href="classRa_1_1Engine_1_1Data_1_1SimpleMaterial.html#a77238ce2e04c31a52e68c64b64a6e11c">Ra::Engine::Data::SimpleMaterial</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="Material_8hpp_source.html#l00100">100</a> of file <a class="el" href="Material_8hpp_source.html">Material.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Material_8hpp_source.html#l00090">90</a> of file <a class="el" href="Material_8hpp_source.html">Material.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aaa4783fc04fbf80db2314704a7cd4544" name="aaa4783fc04fbf80db2314704a7cd4544"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaa4783fc04fbf80db2314704a7cd4544">&#9670;&#160;</a></span>setDirty()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">void</a> Ra::Engine::Data::Material::setDirty </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Set dirty state to true. </p>
+
+<p class="definition">Definition at line <a class="el" href="Material_8hpp_source.html#l00121">121</a> of file <a class="el" href="Material_8hpp_source.html">Material.hpp</a>.</p>
 
 </div>
 </div>
@@ -578,7 +702,7 @@ Protected Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="Material_8hpp_source.html#l00067">67</a> of file <a class="el" href="Material_8hpp_source.html">Material.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Material_8hpp_source.html#l00055">55</a> of file <a class="el" href="Material_8hpp_source.html">Material.hpp</a>.</p>
 
 </div>
 </div>
@@ -605,94 +729,18 @@ Protected Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Change the <a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html">Material</a> Name </p><dl class="section note"><dt>Note</dt><dd>This method should be used carefully as the name is a key for render technique factory </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="Material_8hpp_source.html#l00048">48</a> of file <a class="el" href="Material_8hpp_source.html">Material.hpp</a>.</p>
-<div id="dynsection-3" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-3-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-3-summary" class="dynsummary" style="display:block;">
+<p>Change the material name. </p>
+<dl class="section note"><dt>Note</dt><dd>This method should be used carefully as the name is a key for render technique factory </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="Material_8hpp_source.html#l00115">115</a> of file <a class="el" href="Material_8hpp_source.html">Material.hpp</a>.</p>
+<div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-2-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-2-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-3-content" class="dyncontent" style="display:none;">
+<div id="dynsection-2-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Engine_1_1Data_1_1Material_a8fb4a3a438c6d84285770ab97ac2eb68_cgraph.svg" width="338" height="51"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="a313a653c8bfa24cf996aff1fb5dbdb13" name="a313a653c8bfa24cf996aff1fb5dbdb13"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a313a653c8bfa24cf996aff1fb5dbdb13">&#9670;&#160;</a></span>m_aspect</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html#accea1b072e372d94e28bc461e63daab2">MaterialAspect</a> Ra::Engine::Data::Material::m_aspect { MaterialAspect::MAT_OPAQUE }</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p><a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html">Material</a> aspect. </p>
-
-<p class="definition">Definition at line <a class="el" href="Material_8hpp_source.html#l00116">116</a> of file <a class="el" href="Material_8hpp_source.html">Material.hpp</a>.</p>
-
-</div>
-</div>
-<a id="aef637b1f55bcdc5bfcf70b60a8c3a411" name="aef637b1f55bcdc5bfcf70b60a8c3a411"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aef637b1f55bcdc5bfcf70b60a8c3a411">&#9670;&#160;</a></span>m_instanceName</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="elRef" target="_blank" href="http://en.cppreference.com/w/cpp/string/basic_string.html">std::string</a> Ra::Engine::Data::Material::m_instanceName {}</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p><a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html">Material</a> instance name. </p>
-
-<p class="definition">Definition at line <a class="el" href="Material_8hpp_source.html#l00114">114</a> of file <a class="el" href="Material_8hpp_source.html">Material.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ae2d00a304c8dfd9b2b10b809c5c27499" name="ae2d00a304c8dfd9b2b10b809c5c27499"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae2d00a304c8dfd9b2b10b809c5c27499">&#9670;&#160;</a></span>m_isDirty</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool Ra::Engine::Data::Material::m_isDirty { <a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">true</a> }</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>Dirty mark : true if the openGL state of the material need to be updated before next draw call </p>
-
-<p class="definition">Definition at line <a class="el" href="Material_8hpp_source.html#l00119">119</a> of file <a class="el" href="Material_8hpp_source.html">Material.hpp</a>.</p>
 
 </div>
 </div>

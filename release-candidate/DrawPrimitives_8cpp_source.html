@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.5.12</span>
+   &#160;<span id="projectnumber">1.5.13</span>
    </div>
   </td>
  </tr>
@@ -166,9 +166,9 @@ $(document).ready(function(){initNavTree('DrawPrimitives_8cpp_source.html',''); 
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <a class="code hl_class" href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html">Rendering::RenderTechnique</a> <a class="code hl_typedef" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">rt</a>;</div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <span class="keyword">auto</span> <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector.html">builder</a> = Rendering::EngineRenderTechniques::getDefaultTechnique( <span class="stringliteral">&quot;Plain&quot;</span> );</div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector.html">builder</a>.second( <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector.html">rt</a>, <span class="keyword">false</span> );</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="keyword">auto</span> <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector.html">roMaterial</a>              = <a class="code hl_typedef" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">Core::make_shared&lt;PlainMaterial&gt;</a>( <span class="stringliteral">&quot;Default material&quot;</span> );</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector.html">roMaterial</a>-&gt;m_perVertexColor = mesh-&gt;getAttribArrayGeometry().hasAttrib(</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::MeshAttrib::VERTEX_COLOR ) );</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="keyword">auto</span> <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector.html">roMaterial</a> = <a class="code hl_typedef" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">Core::make_shared&lt;PlainMaterial&gt;</a>( <span class="stringliteral">&quot;Default material&quot;</span> );</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector.html">roMaterial</a>-&gt;setColoredByVertexAttrib( mesh-&gt;getAttribArrayGeometry().hasAttrib(</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::MeshAttrib::VERTEX_COLOR ) ) );</div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector.html">rt</a>.setParametersProvider( <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector.html">roMaterial</a> );</div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="keyword">auto</span> <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector.html">ro</a> = <a class="code hl_function" href="classRa_1_1Engine_1_1Rendering_1_1RenderObject.html#afe02bfade7fd3fe985d553fcf0a88410">Rendering::RenderObject::createRenderObject</a>(</div>

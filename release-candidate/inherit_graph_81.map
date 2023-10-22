@@ -1,21 +1,3 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="Node000000" href="$classRa_1_1Engine_1_1Data_1_1ParameterSetEditingInterface.html" title=" " alt="" coords="236,41,441,81"/>
-<area shape="rect" id="Node000001" href="$classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html" title=" " alt="" coords="489,5,700,45"/>
-<area shape="poly" id="edge84_Node000000_Node000001" title=" " alt="" coords="455,42,489,37,490,43,455,48"/>
-<area shape="rect" id="Node000003" href="$classRa_1_1Engine_1_1Data_1_1SimpleMaterial.html" title=" " alt="" coords="503,69,686,109"/>
-<area shape="poly" id="edge85_Node000000_Node000003" title=" " alt="" coords="455,71,503,77,503,82,455,77"/>
-<area shape="rect" id="Node000006" href="$classRa_1_1Engine_1_1Data_1_1VolumetricMaterial.html" title=" " alt="" coords="491,133,699,173"/>
-<area shape="poly" id="edge88_Node000000_Node000006" title=" " alt="" coords="424,84,443,91,467,105,490,119,521,131,519,136,488,124,464,110,440,96,422,88"/>
-<area shape="rect" id="Node000004" href="$classRa_1_1Engine_1_1Data_1_1LambertianMaterial.html" title=" " alt="" coords="754,41,966,81"/>
-<area shape="poly" id="edge86_Node000003_Node000004" title=" " alt="" coords="699,76,754,70,754,75,700,81"/>
-<area shape="rect" id="Node000005" href="$classRa_1_1Engine_1_1Data_1_1PlainMaterial.html" title=" " alt="" coords="748,106,972,131"/>
-<area shape="poly" id="edge87_Node000003_Node000005" title=" " alt="" coords="700,98,748,104,748,109,699,104"/>
-<area shape="rect" id="Node000007" href="$classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html" title=" " alt="" coords="5,128,188,168"/>
-<area shape="rect" id="Node000002" href="$classRa_1_1Engine_1_1Data_1_1Material.html" title=" " alt="" coords="243,106,435,131"/>
-<area shape="poly" id="edge89_Node000007_Node000002" title=" " alt="" coords="201,133,242,128,243,133,202,138"/>
-<area shape="rect" id="Node000008" href="$classRa_1_1Gui_1_1Gizmo_1_1UiSelectionControler.html" title=" " alt="" coords="238,156,439,196"/>
-<area shape="poly" id="edge93_Node000007_Node000008" title=" " alt="" coords="202,157,238,162,237,167,201,163"/>
-<area shape="poly" id="edge90_Node000002_Node000001" title=" " alt="" coords="419,99,440,91,464,73,488,55,516,43,518,48,491,60,467,78,443,96,421,104"/>
-<area shape="poly" id="edge91_Node000002_Node000003" title=" " alt="" coords="448,103,503,97,503,102,449,109"/>
-<area shape="poly" id="edge92_Node000002_Node000006" title=" " alt="" coords="447,131,491,137,490,142,446,136"/>
+<area shape="rect" id="Node000000" href="$structRa_1_1Engine_1_1Data_1_1ImageParameters.html" title=" " alt="" coords="5,5,259,31"/>
 </map>

@@ -2,8 +2,8 @@
 <area shape="rect" id="Node000001" title="Abstract interface of a geometric compoennet in the Engine." alt="" coords="121,533,311,713"/>
 <area shape="rect" id="Node000003" href="$classRa_1_1Engine_1_1Scene_1_1PointCloudComponent.html" title=" " alt="" coords="5,761,200,1021"/>
 <area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="175,727,160,762,155,760,170,725"/>
-<area shape="rect" id="Node000004" href="$classRa_1_1Engine_1_1Scene_1_1SurfaceMeshComponent.html" title="Main class to convert Ra::Core::Asset::GeometryData to Ra::Engine::Mesh." alt="" coords="225,774,434,1009"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="262,725,282,773,277,775,257,727"/>
+<area shape="rect" id="Node000004" href="$classRa_1_1Engine_1_1Scene_1_1SurfaceMeshComponent.html" title="Main class to convert Ra::Core::Asset::GeometryData to Ra::Engine::Mesh." alt="" coords="225,764,434,1019"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="262,725,278,763,273,765,257,727"/>
 <area shape="rect" id="Node000002" href="$classRa_1_1Engine_1_1Scene_1_1Component.html" title="A component is an element that can be updated by a system. It is also linked to some other components..." alt="" coords="109,5,323,485"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="219,499,219,533,213,533,213,499"/>
 </map>

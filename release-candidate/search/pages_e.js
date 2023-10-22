@@ -1,7 +1,7 @@
 var searchData=
 [
   ['macos_0',['Commandline Compilation Instructions (Linux, macos...)',['../basicsCompileCommand.html',1,'basicsmanual']]],
-  ['management_1',['Material management',['../develmaterials.html',1,'engine']]],
+  ['management_1',['management',['../develmaterials.html',1,'Material management'],['../develTextures.html',1,'Textures management']]],
   ['manipulation_20in_20radium_2',['Camera manipulation in Radium',['../develCameraManipulator.html',1,'gui']]],
   ['manual_3',['manual',['../develoldmanual.html',1,'_deprecated_ Radium Engine programmer manual'],['../develmanual.html',1,'Developer manual']]],
   ['material_20management_4',['Material management',['../develmaterials.html',1,'engine']]],

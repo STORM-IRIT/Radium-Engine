@@ -21,7 +21,7 @@
 <!-- Node2 -->
 <g id="Node000002" class="node">
 <title>Node2</title>
-<g id="a_Node000002"><a xlink:href="classRa_1_1Engine_1_1Data_1_1Material.html#ac6eabe9ce20163cab8bec7a51f6e75a5" target="_top" xlink:title=" ">
+<g id="a_Node000002"><a xlink:href="classRa_1_1Engine_1_1Data_1_1Material.html#ac6eabe9ce20163cab8bec7a51f6e75a5" target="_top" xlink:title="Mark the Material as needing update before the next OpenGL call.">
 <polygon fill="white" stroke="#666666" points="367,-30 223,-30 223,0 367,0 367,-30"/>
 <text text-anchor="start" x="231" y="-18" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Data::Material</text>
 <text text-anchor="middle" x="295" y="-7" font-family="Helvetica,sans-Serif" font-size="10.00">::needUpdate</text>
