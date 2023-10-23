@@ -20,6 +20,5 @@ void setEnumVariable( VariableSet& vs, const std::string& name, const char* valu
 }
 
 } // namespace VariableSetEnumManagement
-
 } // namespace Core
 } // namespace Ra
