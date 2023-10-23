@@ -179,7 +179,7 @@ int main( int argc, char* argv[] ) {
     QDialog dialog( nullptr );
     dialog.setWindowTitle( "ParameterSet editing example" );
     auto layout = new QVBoxLayout( dialog.window() );
-    ParameterSetEditor editor( "Demonstration parameter set", dialog.window() );
+    VariableSetEditor editor( "Demonstration parameter set", dialog.window() );
 
     editor.setShowUnspecified( true );
     layout->addWidget( &editor );
@@ -226,14 +226,14 @@ int main( int argc, char* argv[] ) {
     //! [Printing several parameters before editing ]
 
     //! [Filling the editor with the parameter set ]
-    editor.setupFromParameters( parameters, parameterSet_metadata );
+    editor.setupUi( parameters, parameterSet_metadata );
     auto printParameter = [&parameters]( const std::string& p ) {
         std::cout << "Parameter " << p << " was modified. New value is ";
         parameters.visit( ParameterPrinter {},
                           [p]( const std::string& name ) { return p == name; } );
         std::cout << "\n";
     };
-    QObject::connect( &editor, &ParameterSetEditor::parameterModified, printParameter );
+    QObject::connect( &editor, &VariableSetEditor::parameterModified, printParameter );
     dialog.show();
     //! [Filling the editor with the parameter set ]
 

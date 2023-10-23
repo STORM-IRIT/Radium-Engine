@@ -23,7 +23,7 @@ class RenderParameterUiBuilder
   public:
     using types = Engine::Data::RenderParameters::BindableTypes;
 
-    RenderParameterUiBuilder( ParameterSetEditor* pse, const json& constraints ) :
+    RenderParameterUiBuilder( VariableSetEditor* pse, const json& constraints ) :
         m_pse { pse }, m_constraints { constraints } {}
 
     void operator()( const std::string& name, bool& p, Core::VariableSet&& /* params */ ) {
@@ -48,11 +48,11 @@ class RenderParameterUiBuilder
     void operator()( const std::string& name, TParam& p, Core::VariableSet&& params ) {
         using namespace Ra::Core::VariableSetEnumManagement;
         if ( getEnumConverter<TParam>( params, name ) ) {
-            m_pse->addEnumParameterWidget( name, p, params, m_constraints );
+            m_pse->addEnumWidget( name, p, params, m_constraints );
         }
         else {
             // case number
-            m_pse->addNumberParameterWidget( name, p, params, m_constraints );
+            m_pse->addNumberWidget( name, p, params, m_constraints );
         }
     }
 
@@ -62,7 +62,7 @@ class RenderParameterUiBuilder
     void operator()( const std::string& name,
                      std::vector<TParam, TAllocator>& p,
                      Core::VariableSet&& params ) {
-        m_pse->addVectorParameterWidget( name, p, params, m_constraints );
+        m_pse->addVectorWidget( name, p, params, m_constraints );
     }
 
     void
@@ -85,7 +85,7 @@ class RenderParameterUiBuilder
 
     template <template <typename, int...> typename M, typename T, int... dim>
     void operator()( const std::string& name, M<T, dim...>& p, Core::VariableSet&& params ) {
-        m_pse->addMatrixParameterWidget( name, p, params, m_constraints );
+        m_pse->addMatrixWidget( name, p, params, m_constraints );
     }
 
     void operator()( const std::string& /*name*/,
@@ -111,19 +111,19 @@ class RenderParameterUiBuilder
     }
 
   private:
-    ParameterSetEditor* m_pse { nullptr };
+    VariableSetEditor* m_pse { nullptr };
     const json& m_constraints;
 };
 } // namespace internal
 
-ParameterSetEditor::ParameterSetEditor( const std::string& name, QWidget* parent ) :
+VariableSetEditor::VariableSetEditor( const std::string& name, QWidget* parent ) :
     ControlPanel( name, !name.empty(), parent ) {}
 
 template <typename T>
-void ParameterSetEditor::addEnumParameterWidget( const std::string& key,
-                                                 T& initial,
-                                                 Core::VariableSet& params,
-                                                 const json& metadata ) {
+void VariableSetEditor::addEnumWidget( const std::string& key,
+                                       T& initial,
+                                       Core::VariableSet& params,
+                                       const json& metadata ) {
     using namespace Ra::Core::VariableSetEnumManagement;
     auto m = metadata[key];
 
@@ -160,10 +160,10 @@ void ParameterSetEditor::addEnumParameterWidget( const std::string& key,
 }
 
 template <typename T>
-void ParameterSetEditor::addNumberParameterWidget( const std::string& key,
-                                                   T& initial,
-                                                   Core::VariableSet& /*params*/,
-                                                   const json& metadata ) {
+void VariableSetEditor::addNumberWidget( const std::string& key,
+                                         T& initial,
+                                         Core::VariableSet& /*params*/,
+                                         const json& metadata ) {
 
     auto onNumberParameterChanged = [this, &initial, &key]( T value ) {
         initial = value;
@@ -217,10 +217,10 @@ void ParameterSetEditor::addNumberParameterWidget( const std::string& key,
 }
 
 template <typename T>
-void ParameterSetEditor::addVectorParameterWidget( const std::string& key,
-                                                   std::vector<T>& initial,
-                                                   Core::VariableSet& /*params*/,
-                                                   const json& metadata ) {
+void VariableSetEditor::addVectorWidget( const std::string& key,
+                                         std::vector<T>& initial,
+                                         Core::VariableSet& /*params*/,
+                                         const json& metadata ) {
     auto onVectorParameterChanged = [this, &initial, &key]( const std::vector<T>& value ) {
         initial = value;
         emit parameterModified( key );
@@ -235,10 +235,10 @@ void ParameterSetEditor::addVectorParameterWidget( const std::string& key,
 }
 
 template <typename T>
-void ParameterSetEditor::addMatrixParameterWidget( const std::string& key,
-                                                   T& initial,
-                                                   Core::VariableSet& /*params*/,
-                                                   const json& metadata ) {
+void VariableSetEditor::addMatrixWidget( const std::string& key,
+                                         T& initial,
+                                         Core::VariableSet& /*params*/,
+                                         const json& metadata ) {
     auto onMatrixParameterChanged = [this, &initial, &key]( const Ra::Core::MatrixN& value ) {
         initial = T( value );
         emit parameterModified( key );
@@ -252,8 +252,7 @@ void ParameterSetEditor::addMatrixParameterWidget( const std::string& key,
     else if ( m_showUnspecified ) { addMatrixInput( key, onMatrixParameterChanged, initial ); }
 }
 
-void ParameterSetEditor::setupFromParameters( Core::VariableSet& params,
-                                              const nlohmann::json& constraints ) {
+void VariableSetEditor::setupUi( Core::VariableSet& params, const nlohmann::json& constraints ) {
 
     internal::RenderParameterUiBuilder uiBuilder { this, constraints };
     params.visit( uiBuilder, params );
