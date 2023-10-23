@@ -98,9 +98,8 @@ class RenderParameterUiBuilder
     void operator()( const std::string& name,
                      std::reference_wrapper<T>& p,
                      Core::VariableSet&& /*params*/ ) {
-
         m_pse->addLabel( name );
-        if constexpr ( std::is_assignable_v<typename std::decay<T>::type, Core::VariableSet> ) {
+        if constexpr ( std::is_assignable_v<Core::VariableSet, typename std::decay<T>::type> ) {
             if constexpr ( std::is_const_v<T> ) {
                 p.get().visit( *this,
                                const_cast<Core::VariableSet&>(
