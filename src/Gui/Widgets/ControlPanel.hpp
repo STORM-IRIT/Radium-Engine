@@ -5,6 +5,7 @@
 #include <Gui/Widgets/ConstrainedNumericSpinBox.hpp>
 #include <Gui/Widgets/VectorEditor.hpp>
 
+#include <QBoxLayout>
 #include <QFrame>
 #include <QVBoxLayout>
 
@@ -235,7 +236,8 @@ class RA_GUI_API ControlPanel : public QFrame
     void addStretch( int stretch );
 
     void newLayout() {
-        m_contentLayout = new QGridLayout( this );
+        m_contentLayout = new QGridLayout();
+        m_contentLayout->setObjectName( "new layout" );
         m_mainLayout->addLayout( m_contentLayout );
     }
 
@@ -252,9 +254,9 @@ void ControlPanel::addConstrainedNumberInput( const std::string& name,
                                               std::function<bool( T )> predicate,
                                               const std::string& tooltip,
                                               int dec ) {
-    auto inputLabel = new QLabel( tr( name.c_str() ), this );
+    auto inputLabel = new QLabel( tr( name.c_str() ) );
 
-    auto inputField = new ConstrainedNumericSpinBox<T>( this );
+    auto inputField = new ConstrainedNumericSpinBox<T>();
     inputField->setValue( initial );
     inputField->setMinimum( std::numeric_limits<T>::lowest() );
     inputField->setMaximum( std::numeric_limits<T>::max() );
@@ -267,8 +269,10 @@ void ControlPanel::addConstrainedNumberInput( const std::string& name,
     if constexpr ( std::is_floating_point_v<T> ) { inputField->setDecimals( dec ); }
 
     if ( !tooltip.empty() ) {
-        inputLabel->setToolTip(
-            QString( "<qt>%1</qt>" ).arg( QString( tooltip.c_str() ).toHtmlEscaped() ) );
+        auto tooltipString =
+            QString( "<qt>%1</qt>" ).arg( QString( tooltip.c_str() ).toHtmlEscaped() );
+        inputLabel->setToolTip( tooltipString );
+        inputField->setToolTip( tooltipString );
     }
     auto index = m_contentLayout->rowCount();
     m_contentLayout->addWidget( inputLabel, index, 0 );
@@ -284,10 +288,13 @@ void ControlPanel::addNumberInput( const std::string& name,
                                    const std::string& tooltip,
                                    int dec ) {
 
-    auto inputLabel = new QLabel( tr( name.c_str() ), this );
+    auto inputLabel = new QLabel( tr( name.c_str() ) );
 
     using WidgetType = typename QtSpinBox::getType<T>::Type;
-    auto inputField  = new WidgetType( this );
+    auto inputField  = new WidgetType();
+    auto inputLayout = new QHBoxLayout();
+    inputLayout->addStretch();
+    inputLayout->addWidget( inputField );
     // to prevent overflow
     inputField->setRange(
         min,
@@ -300,12 +307,14 @@ void ControlPanel::addNumberInput( const std::string& name,
     if constexpr ( std::is_floating_point_v<T> ) { inputField->setDecimals( dec ); }
 
     if ( !tooltip.empty() ) {
-        inputLabel->setToolTip(
-            QString( "<qt>%1</qt>" ).arg( QString( tooltip.c_str() ).toHtmlEscaped() ) );
+        auto tooltipString =
+            QString( "<qt>%1</qt>" ).arg( QString( tooltip.c_str() ).toHtmlEscaped() );
+        inputLabel->setToolTip( tooltipString );
+        inputField->setToolTip( tooltipString );
     }
     auto index = m_contentLayout->rowCount();
     m_contentLayout->addWidget( inputLabel, index, 0 );
-    m_contentLayout->addWidget( inputField, index, 1 );
+    m_contentLayout->addLayout( inputLayout, index, 1 );
 }
 
 template <typename T>
@@ -314,12 +323,14 @@ void ControlPanel::addVectorInput( const std::string& name,
                                    const std::vector<T>& initial,
                                    const std::string& tooltip ) {
 
-    auto inputLabel = new QLabel( tr( name.c_str() ), this );
-    auto inputField = new VectorEditor<T>( initial, this );
+    auto inputLabel = new QLabel( tr( name.c_str() ) );
+    auto inputField = new VectorEditor<T>( initial );
 
     if ( !tooltip.empty() ) {
-        inputLabel->setToolTip(
-            QString( "<qt>%1</qt>" ).arg( QString( tooltip.c_str() ).toHtmlEscaped() ) );
+        auto tooltipString =
+            QString( "<qt>%1</qt>" ).arg( QString( tooltip.c_str() ).toHtmlEscaped() );
+        inputLabel->setToolTip( tooltipString );
+        inputField->setToolTip( tooltipString );
     }
     connect( inputField,
              QOverload<const std::vector<T>&>::of( &VectorEditorSignals::valueChanged ),

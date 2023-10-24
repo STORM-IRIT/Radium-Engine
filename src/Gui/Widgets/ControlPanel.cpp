@@ -20,17 +20,19 @@ namespace Ra::Gui::Widgets {
 ControlPanel::ControlPanel( const std::string& name, bool hline, QWidget* parent ) :
     QFrame( parent ) {
     setObjectName( name.c_str() );
-    m_mainLayout    = new QVBoxLayout( this );
-    m_contentLayout = new QGridLayout( this );
+    m_mainLayout = new QVBoxLayout();
+    m_mainLayout->setObjectName( "main layout" );
+    m_contentLayout = new QGridLayout();
+    m_contentLayout->setObjectName( "first content layout" );
 
     if ( !name.empty() ) {
-        auto panelName = new QLabel( this );
+        auto panelName = new QLabel();
         panelName->setText( name.c_str() );
         m_mainLayout->addWidget( panelName );
     }
     if ( hline ) {
         QFrame* line;
-        line = new QFrame( this );
+        line = new QFrame();
         line->setFrameShape( QFrame::HLine );
         line->setFrameShadow( QFrame::Sunken );
         m_mainLayout->addWidget( line );
@@ -46,13 +48,15 @@ void ControlPanel::addOption( const std::string& name,
                               std::function<void( bool )> callback,
                               bool set,
                               const std::string& tooltip ) {
-    auto label  = new QLabel( name.c_str(), this );
-    auto button = new QCheckBox( this );
+    auto label  = new QLabel( name.c_str() );
+    auto button = new QCheckBox();
     button->setAutoExclusive( false );
     button->setChecked( set );
     if ( !tooltip.empty() ) {
-        button->setToolTip(
-            QString( "<qt>%1</qt>" ).arg( QString( tooltip.c_str() ).toHtmlEscaped() ) );
+        auto tooltipString =
+            QString( "<qt>%1</qt>" ).arg( QString( tooltip.c_str() ).toHtmlEscaped() );
+        label->setToolTip( tooltipString );
+        button->setToolTip( tooltipString );
     }
     connect( button, &QCheckBox::stateChanged, std::move( callback ) );
 
@@ -62,7 +66,7 @@ void ControlPanel::addOption( const std::string& name,
 }
 
 void ControlPanel::addLabel( const std::string& text ) {
-    auto label = new QLabel( text.c_str(), this );
+    auto label = new QLabel( text.c_str() );
     auto index = m_contentLayout->rowCount();
     m_contentLayout->addWidget( label, index, 0, 1, -1 );
 }
@@ -88,14 +92,16 @@ void ControlPanel::addSliderInput( const std::string& name,
                                    int min,
                                    int max,
                                    const std::string& tooltip ) {
-    auto inputLabel   = new QLabel( tr( name.c_str() ), this );
+    auto inputLabel   = new QLabel( tr( name.c_str() ) );
     auto sliderLayout = new QHBoxLayout();
-    auto inputField   = new QSlider( Qt::Horizontal, this );
+    auto inputField   = new QSlider( Qt::Horizontal );
     if ( !tooltip.empty() ) {
-        inputLabel->setToolTip(
-            QString( "<qt>%1</qt>" ).arg( QString( tooltip.c_str() ).toHtmlEscaped() ) );
+        auto tooltipString =
+            QString( "<qt>%1</qt>" ).arg( QString( tooltip.c_str() ).toHtmlEscaped() );
+        inputLabel->setToolTip( tooltipString );
+        inputField->setToolTip( tooltipString );
     }
-    auto spinbox = new QSpinBox( this );
+    auto spinbox = new QSpinBox();
     inputField->setRange( min, max );
     inputField->setValue( initial );
     inputField->setTickPosition( QSlider::TicksAbove );
@@ -120,11 +126,13 @@ void ControlPanel::addPowerSliderInput( const std::string& name,
                                         double min,
                                         double max,
                                         const std::string& tooltip ) {
-    auto inputLabel = new QLabel( tr( name.c_str() ), this );
+    auto inputLabel = new QLabel( tr( name.c_str() ) );
     auto inputField = new PowerSlider();
     if ( !tooltip.empty() ) {
-        inputLabel->setToolTip(
-            QString( "<qt>%1</qt>" ).arg( QString( tooltip.c_str() ).toHtmlEscaped() ) );
+        auto tooltipString =
+            QString( "<qt>%1</qt>" ).arg( QString( tooltip.c_str() ).toHtmlEscaped() );
+        inputLabel->setToolTip( tooltipString );
+        inputField->setToolTip( tooltipString );
     }
     inputField->setObjectName( name.c_str() );
     inputField->setRange( min, max );
@@ -143,12 +151,14 @@ void ControlPanel::addMatrixInput( const std::string& name,
                                    int dec,
                                    const std::string& tooltip ) {
 
-    auto inputLabel = new QLabel( tr( name.c_str() ), this );
-    auto inputField = new MatrixEditor( initial, dec, this );
+    auto inputLabel = new QLabel( tr( name.c_str() ) );
+    auto inputField = new MatrixEditor( initial, dec );
 
     if ( !tooltip.empty() ) {
-        inputLabel->setToolTip(
-            QString( "<qt>%1</qt>" ).arg( QString( tooltip.c_str() ).toHtmlEscaped() ) );
+        auto tooltipString =
+            QString( "<qt>%1</qt>" ).arg( QString( tooltip.c_str() ).toHtmlEscaped() );
+        inputLabel->setToolTip( tooltipString );
+        inputField->setToolTip( tooltipString );
     }
     connect( inputField, &MatrixEditor::valueChanged, std::move( callback ) );
 
@@ -164,7 +174,7 @@ void ControlPanel::addColorInput(
     bool withAlpha,
     const std::string& tooltip ) {
 
-    auto button    = new QPushButton( name.c_str(), this );
+    auto button    = new QPushButton( name.c_str() );
     auto srgbColor = Ra::Core::Utils::Color::linearRGBTosRGB( color );
     auto clrBttn   = QColor::fromRgbF( srgbColor[0], srgbColor[1], srgbColor[2], srgbColor[3] );
     auto clrDlg    = [callback, clrBttn, withAlpha, button, name]() mutable {
@@ -266,8 +276,8 @@ void ControlPanel::addComboBox( const std::string& name,
                                 int initial,
                                 const std::vector<std::string>& items,
                                 const std::string& tooltip ) {
-    auto inputLabel = new QLabel( tr( name.c_str() ), this );
-    auto inputField = new QComboBox( this );
+    auto inputLabel = new QLabel( tr( name.c_str() ) );
+    auto inputField = new QComboBox();
     for ( auto v : items ) {
         inputField->addItem( QString::fromStdString( v ) );
     }
@@ -289,8 +299,8 @@ void ControlPanel::addComboBox( const std::string& name,
                                 const std::string& initial,
                                 const std::vector<std::string>& items,
                                 const std::string& tooltip ) {
-    auto inputLabel = new QLabel( tr( name.c_str() ), this );
-    auto inputField = new QComboBox( this );
+    auto inputLabel = new QLabel( tr( name.c_str() ) );
+    auto inputField = new QComboBox();
     for ( auto v : items ) {
         inputField->addItem( QString::fromStdString( v ) );
     }
@@ -310,13 +320,15 @@ void ControlPanel::addComboBox( const std::string& name,
 
 void ControlPanel::addStretch( int stretch ) {
     m_mainLayout->addStretch( stretch );
-    m_contentLayout = new QGridLayout( this );
+    m_contentLayout = new QGridLayout();
+    m_contentLayout->setObjectName( "stretch layout" );
     m_mainLayout->addLayout( m_contentLayout );
 }
 
 void ControlPanel::addWidget( QWidget* newWidget ) {
     m_mainLayout->addWidget( newWidget );
-    m_contentLayout = new QGridLayout( this );
+    m_contentLayout = new QGridLayout();
+    m_contentLayout->setObjectName( "Widget content layout" );
     m_mainLayout->addLayout( m_contentLayout );
 }
 

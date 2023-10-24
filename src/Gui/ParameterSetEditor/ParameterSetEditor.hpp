@@ -44,7 +44,7 @@ class RA_GUI_API VariableSetEditor : public Widgets::ControlPanel
     VariableSetEditor& operator=( const VariableSetEditor& ) = delete;
     VariableSetEditor( VariableSetEditor&& )                 = delete;
     VariableSetEditor&& operator=( VariableSetEditor&& )     = delete;
-    ~VariableSetEditor() override                            = default;
+    ~VariableSetEditor()                                     = default;
 
     /** \brief Update the different UI element with the given renderParameter, using the given
      * constraints.
