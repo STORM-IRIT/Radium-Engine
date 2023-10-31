@@ -65,6 +65,9 @@ class RA_DATAFLOW_API Node
     template <typename Port>
     using IndexAndPort = std::pair<PortIndex, Port>;
 
+    template <typename T>
+    using ParamHandle = Ra::Core::VariableSet::VariableHandle<T>;
+
     /// \name Constructors
     /// @{
     /// \brief delete default constructors.
@@ -350,6 +353,21 @@ class RA_DATAFLOW_API Node
     /// \param name The name of the editable parameter to remove.
     /// \return true if the editable parameter is found and removed.
     bool removeEditableParameter( const std::string& name );
+
+    template <typename T>
+    ParamHandle<T> addParameter( const std::string& name, const T& value ) {
+        return m_parameters.insertVariable<T>( name, value );
+    }
+
+    template <typename T>
+    bool removeParameter( const std::string& name ) {
+        return m_parameters.deleteVariable( name );
+    }
+
+    template <typename T>
+    bool removeParameter( ParamHandle<T>& handle ) {
+        return m_parameters.deleteVariable( handle );
+    }
 
     /// \brief get a typed reference to the editable parameter.
     /// \tparam E The type of the expected editable parameter.
