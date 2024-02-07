@@ -356,7 +356,7 @@ class RA_DATAFLOW_API Node
 
     template <typename T>
     ParamHandle<T> addParameter( const std::string& name, const T& value ) {
-        return m_parameters.insertVariable<T>( name, value );
+        return m_parameters.insertVariable<T>( name, value ).first;
     }
 
     template <typename T>
