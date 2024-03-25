@@ -325,8 +325,7 @@ void TaskQueue::printTaskGraph( std::ostream& output ) const {
         const auto& task1 = m_tasks[i];
         for ( const auto& dep : m_dependencies[i] ) {
             const auto& task2 = m_tasks[dep];
-            output << "\"" << task1->getName() << "\""
-                   << " -> ";
+            output << "\"" << task1->getName() << "\"" << " -> ";
             output << "\"" << task2->getName() << "\"" << std::endl;
         }
     }
@@ -340,8 +339,7 @@ void TaskQueue::printTaskGraph( std::ostream& output ) const {
              } ) == m_tasks.end() ) {
             t2name += "?";
         }
-        output << "\"" << task1->getName() << "\""
-               << " -> ";
+        output << "\"" << task1->getName() << "\"" << " -> ";
         output << "\"" << t2name << "\"" << std::endl;
     }
 
@@ -354,8 +352,7 @@ void TaskQueue::printTaskGraph( std::ostream& output ) const {
              } ) == m_tasks.end() ) {
             t1name += "?";
         }
-        output << "\"" << t1name << "\""
-               << " -> ";
+        output << "\"" << t1name << "\"" << " -> ";
         output << "\"" << t2->getName() << "\"" << std::endl;
     }
 

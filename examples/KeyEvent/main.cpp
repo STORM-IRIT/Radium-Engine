@@ -58,14 +58,14 @@ class DemoWindow : public Ra::Gui::SimpleWindow
                 if ( event->type() == QEvent::KeyRelease ) this->colorreset();
             } );
         if ( DEMO_COLORUP.isInvalid() || DEMO_COLORDOWN.isInvalid() ) {
-            LOG( Ra::Core::Utils::logERROR ) << "Error : invalid context or actions for custom"
-                                             << "Color Up [" << DEMO_COLORUP
-                                             << "], "
-                                                "Color Down ["
-                                             << DEMO_COLORDOWN
-                                             << "], "
-                                                "Color Reset ["
-                                             << DEMO_COLORRESET << "]";
+            LOG( Ra::Core::Utils::logERROR )
+                << "Error : invalid context or actions for custom" << "Color Up [" << DEMO_COLORUP
+                << "], "
+                   "Color Down ["
+                << DEMO_COLORDOWN
+                << "], "
+                   "Color Reset ["
+                << DEMO_COLORRESET << "]";
         }
     }
     /// Set the object to colorize

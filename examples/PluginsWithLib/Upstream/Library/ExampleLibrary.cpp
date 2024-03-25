@@ -32,8 +32,8 @@ void ExampleMessage( const std::string& message ) {
         }
     }
     else {
-        LOG( Ra::Core::Utils::logINFO ) << ExamplePrefix << " -- " << message << " -- "
-                                        << "Unable to find resource path";
+        LOG( Ra::Core::Utils::logINFO )
+            << ExamplePrefix << " -- " << message << " -- " << "Unable to find resource path";
     }
 }
 } // namespace ExampleLibrary

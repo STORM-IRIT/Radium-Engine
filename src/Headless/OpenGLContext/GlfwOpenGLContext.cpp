@@ -15,8 +15,8 @@ using namespace gl;
 using namespace glbinding;
 
 static void error( int errnum, const char* errmsg ) {
-    std::cerr << "GlfwOpenGLContext::GLFW error -- "
-              << "0x" << std::hex << errnum << std::dec << ": " << errmsg << std::endl;
+    std::cerr << "GlfwOpenGLContext::GLFW error -- " << "0x" << std::hex << errnum << std::dec
+              << ": " << errmsg << std::endl;
 }
 
 GlfwOpenGLContext::GlfwOpenGLContext( const glbinding::Version& glVersion,
