@@ -122,8 +122,8 @@ KeyMappingManager::KeyMappingAction KeyMappingManager::getAction( const Context&
     if ( itr != m_actionNameToIndex[context].end() ) return itr->second;
     LOG( logWARNING ) << "try to get action index from an invalid action name " << actionName
                       << " (context " << getContextName( context ) << " [" << context << "])";
-    LOG( logWARNING ) << "consider add to conf: "
-                      << "<keymap context=\"" << getContextName( context )
+    LOG( logWARNING ) << "consider add to conf: " << "<keymap context=\""
+                      << getContextName( context )
                       << "\" key=\"\" modifiers=\"\" buttons=\"\" action=\"" << actionName
                       << "\"/>";
 
@@ -206,24 +206,20 @@ void KeyMappingManager::setActionBinding( const Context& contextIndex,
             return;
         }
 
-        LOG( logWARNING ) << "Binding action " << findResult->first << " to "
-                          << "buttons [" << enumNamesFromMouseButtons( binding.m_buttons ) << "] "
-                          << "modifiers [" << enumNamesFromKeyboardModifiers( binding.m_modifiers )
-                          << "]"
-                          << " keycode [" << binding.m_key << "]"
-                          << " wheel [" << binding.m_wheel << "]"
-                          << ", which is already used for action " << findResult2->first << ".";
+        LOG( logWARNING ) << "Binding action " << findResult->first << " to " << "buttons ["
+                          << enumNamesFromMouseButtons( binding.m_buttons ) << "] " << "modifiers ["
+                          << enumNamesFromKeyboardModifiers( binding.m_modifiers ) << "]"
+                          << " keycode [" << binding.m_key << "]" << " wheel [" << binding.m_wheel
+                          << "]" << ", which is already used for action " << findResult2->first
+                          << ".";
     }
 
     LOG( logDEBUG2 ) << "In context " << getContextName( contextIndex ) << " [" << contextIndex
-                     << "]"
-                     << " binding action " << getActionName( contextIndex, actionIndex ) << " ["
-                     << actionIndex << "]"
-                     << " buttons [" << enumNamesFromMouseButtons( binding.m_buttons ) << "]"
-                     << " modifiers [" << enumNamesFromKeyboardModifiers( binding.m_modifiers )
-                     << "]"
-                     << " keycode [" << binding.m_key << "]"
-                     << " wheel [" << binding.m_wheel << "]";
+                     << "]" << " binding action " << getActionName( contextIndex, actionIndex )
+                     << " [" << actionIndex << "]" << " buttons ["
+                     << enumNamesFromMouseButtons( binding.m_buttons ) << "]" << " modifiers ["
+                     << enumNamesFromKeyboardModifiers( binding.m_modifiers ) << "]" << " keycode ["
+                     << binding.m_key << "]" << " wheel [" << binding.m_wheel << "]";
 
     m_bindingToAction[contextIndex][binding] = actionIndex;
 }

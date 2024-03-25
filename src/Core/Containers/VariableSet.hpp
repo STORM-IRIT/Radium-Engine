@@ -157,8 +157,8 @@ class RA_CORE_API VariableSet
     /// another value (of the same type). In this case, keep the old value.
     ///
     template <typename T>
-    auto insertVariable( const std::string& name, const T& value )
-        -> std::pair<VariableHandle<T>, bool>;
+    auto insertVariable( const std::string& name,
+                         const T& value ) -> std::pair<VariableHandle<T>, bool>;
 
     /// \brief get the value of the given variable
     /// \return a reference to the value.
@@ -186,8 +186,8 @@ class RA_CORE_API VariableSet
     /// \return a pair with the variable handle and a bool : true if the variable value was reset,
     /// false if the variable value was set.
     template <typename T>
-    auto insertOrAssignVariable( const std::string& name, const T& value )
-        -> std::pair<VariableHandle<T>, bool>;
+    auto insertOrAssignVariable( const std::string& name,
+                                 const T& value ) -> std::pair<VariableHandle<T>, bool>;
 
     /// \brief Remove a variable, i.e. a name->value association
     /// \return true if the variable was removed, false if
@@ -250,8 +250,8 @@ class RA_CORE_API VariableSet
     /// \pre existsVariableType<HandledType<H>>(). If not verified (assert in debug mode)
     /// std::bad_any_cast exception will be thrown by the underlying management of type erasure
     template <typename H>
-    auto getAllVariablesFromHandle( const H& handle )
-        -> VariableContainer<VariableTypeFromHandle<H>>&;
+    auto
+    getAllVariablesFromHandle( const H& handle ) -> VariableContainer<VariableTypeFromHandle<H>>&;
 
     /// \brief Get the number of variables of the given type
     /// \tparam T The type to test
@@ -603,8 +603,8 @@ void VariableSet::removeVariableStorage() {
 // Templated methods definition
 // ------------------------------------------------------------------------------------------
 template <typename T>
-auto VariableSet::insertVariable( const std::string& name, const T& value )
-    -> std::pair<VariableHandle<T>, bool> {
+auto VariableSet::insertVariable( const std::string& name,
+                                  const T& value ) -> std::pair<VariableHandle<T>, bool> {
     auto typeAccess = existsVariableType<T>();
     // If it is the first parameter of the given type, first register the type
     if ( !typeAccess ) { typeAccess = addVariableType<T>(); }
@@ -631,8 +631,8 @@ bool VariableSet::isHandleValid( const H& handle ) const {
 }
 
 template <typename T>
-auto VariableSet::insertOrAssignVariable( const std::string& name, const T& value )
-    -> std::pair<VariableHandle<T>, bool> {
+auto VariableSet::insertOrAssignVariable( const std::string& name,
+                                          const T& value ) -> std::pair<VariableHandle<T>, bool> {
     auto typeAccess = existsVariableType<T>();
     // If it is the first parameter of the given type, first register the type
     if ( !typeAccess ) { typeAccess = addVariableType<T>(); }
@@ -719,7 +719,7 @@ auto VariableSet::addVariableType() -> Utils::optional<VariableContainer<T>*> {
         // used to visit the variableSet with a dynamic visitor
         m_vtable->m_visitFunctions.emplace_back(
             []( const VariableSet& c, const DynamicVisitorBase& v )
-                -> std::pair<bool, std::function<void( DynamicVisitorBase&, std::any && )>> {
+                -> std::pair<bool, std::function<void( DynamicVisitorBase&, std::any&& )>> {
                 auto id = getVariableVisitTypeIndex<T>();
                 if ( v.accept( id ) ) {
                     auto& storage = c.getVariableStorage<T>();
@@ -885,8 +885,8 @@ struct VariableSet::DynamicVisitor::MakeVisitOperatorHelper<T, F, false> {
 };
 
 template <class T, class F>
-inline auto VariableSet::DynamicVisitor::makeVisitorOperator( F& f )
-    -> OperatorsStorageType::value_type {
+inline auto
+VariableSet::DynamicVisitor::makeVisitorOperator( F& f ) -> OperatorsStorageType::value_type {
     auto opBuilder = MakeVisitOperatorHelper < T, F,
          std::is_invocable<F, const std::string&, T, std::any&&>::value ||
              std::is_invocable<F, const std::string&, T&, std::any&&>::value > {};
