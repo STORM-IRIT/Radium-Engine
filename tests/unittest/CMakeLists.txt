@@ -77,6 +77,7 @@ endif()
 
 include(../external/Catch2/src/Catch2_download/contrib/Catch.cmake)
 
+# adds catch tests to ctest
 catch_discover_tests(unittests WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
 
 # convenience target for running only the unit tests
