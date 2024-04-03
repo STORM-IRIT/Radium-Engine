@@ -53,7 +53,7 @@ class RA_ENGINE_API ForwardRenderer : public Renderer
     virtual void renderBackground( const Data::ViewingParameters& ) {}
 
     enum RendererTextures {
-        RendererTextures_Depth = 0,
+        RendererTextures_Depth = 0, // need to be the first, since used for other textures init
         RendererTextures_HDR,
         RendererTextures_Normal,
         RendererTextures_Diffuse,
@@ -63,6 +63,14 @@ class RA_ENGINE_API ForwardRenderer : public Renderer
         RendererTextures_Volume,
         RendererTexture_Count
     };
+    std::array<std::string, RendererTexture_Count> m_textureNames { { "Depth (fw)",
+                                                                      "HDR",
+                                                                      "Normal",
+                                                                      "Diffuse",
+                                                                      "Specular",
+                                                                      "OIT Accum",
+                                                                      "OIT Revealage",
+                                                                      "Volume" } };
 
     // Default renderer logic here, no need to be accessed by overriding renderers.
     std::unique_ptr<globjects::Framebuffer> m_fbo;

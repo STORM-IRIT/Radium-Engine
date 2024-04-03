@@ -106,8 +106,11 @@ void ForwardRenderer::initBuffers() {
     texparams.image.internalFormat     = GL_DEPTH_COMPONENT24;
     texparams.image.format             = GL_DEPTH_COMPONENT;
     texparams.image.type               = GL_UNSIGNED_INT;
-    texparams.name                     = "Depth (fw renderer)";
+    texparams.name                     = m_textureNames[0];
     m_textures[RendererTextures_Depth] = std::make_unique<Data::Texture>( texparams );
+
+    m_secondaryTextures[m_textureNames[RendererTextures_Depth]] =
+        m_textures[RendererTextures_Depth].get();
 
     // Color texture
     texparams.image.internalFormat = GL_RGBA32F;
@@ -116,37 +119,12 @@ void ForwardRenderer::initBuffers() {
     texparams.sampler.minFilter    = GL_LINEAR;
     texparams.sampler.magFilter    = GL_LINEAR;
 
-    texparams.name                   = "HDR";
-    m_textures[RendererTextures_HDR] = std::make_unique<Data::Texture>( texparams );
-
-    texparams.name                      = "Normal";
-    m_textures[RendererTextures_Normal] = std::make_unique<Data::Texture>( texparams );
-
-    texparams.name                       = "Diffuse";
-    m_textures[RendererTextures_Diffuse] = std::make_unique<Data::Texture>( texparams );
-
-    texparams.name                        = "Specular";
-    m_textures[RendererTextures_Specular] = std::make_unique<Data::Texture>( texparams );
-
-    texparams.name                        = "OIT Accum";
-    m_textures[RendererTextures_OITAccum] = std::make_unique<Data::Texture>( texparams );
-
-    texparams.name                            = "OIT Revealage";
-    m_textures[RendererTextures_OITRevealage] = std::make_unique<Data::Texture>( texparams );
-
-    texparams.name                      = "Volume";
-    m_textures[RendererTextures_Volume] = std::make_unique<Data::Texture>( texparams );
-
-    m_secondaryTextures["Depth (fw)"]       = m_textures[RendererTextures_Depth].get();
-    m_secondaryTextures["HDR Texture"]      = m_textures[RendererTextures_HDR].get();
-    m_secondaryTextures["Normal Texture"]   = m_textures[RendererTextures_Normal].get();
-    m_secondaryTextures["Diffuse Texture"]  = m_textures[RendererTextures_Diffuse].get();
-    m_secondaryTextures["Specular Texture"] = m_textures[RendererTextures_Specular].get();
-    m_secondaryTextures["OIT Accum"]        = m_textures[RendererTextures_OITAccum].get();
-    m_secondaryTextures["OIT Revealage"]    = m_textures[RendererTextures_OITRevealage].get();
-
-    // Volume texture is not exposed ...
-    m_secondaryTextures["Volume"] = m_textures[RendererTextures_Volume].get();
+    // init textures other than depth (which is the first in the array, index 0)
+    for ( int i = RendererTextures_Depth + 1; i < RendererTexture_Count; ++i ) {
+        texparams.name                         = m_textureNames[i];
+        m_textures[i]                          = std::make_unique<Data::Texture>( texparams );
+        m_secondaryTextures[m_textureNames[i]] = m_textures[i].get();
+    }
 }
 
 void ForwardRenderer::updateStepInternal( const Data::ViewingParameters& renderData ) {
@@ -610,14 +588,9 @@ void ForwardRenderer::postProcessInternal( const Data::ViewingParameters& render
 void ForwardRenderer::resizeInternal() {
     m_pingPongSize = std::pow( uint( 2 ), uint( std::log2( std::min( m_width, m_height ) ) ) );
 
-    m_textures[RendererTextures_Depth]->resize( m_width, m_height );
-    m_textures[RendererTextures_HDR]->resize( m_width, m_height );
-    m_textures[RendererTextures_Normal]->resize( m_width, m_height );
-    m_textures[RendererTextures_Diffuse]->resize( m_width, m_height );
-    m_textures[RendererTextures_Specular]->resize( m_width, m_height );
-    m_textures[RendererTextures_OITAccum]->resize( m_width, m_height );
-    m_textures[RendererTextures_OITRevealage]->resize( m_width, m_height );
-    m_textures[RendererTextures_Volume]->resize( m_width, m_height );
+    for ( auto& tex : m_textures ) {
+        tex->resize( m_width, m_height );
+    }
 
     m_fbo->bind();
     m_fbo->attachTexture( GL_DEPTH_ATTACHMENT,
