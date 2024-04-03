@@ -340,36 +340,36 @@ function(setup_target_for_coverage_lcov)
         message(STATUS "Executed command report")
         message(STATUS "Command to clean up lcov: ")
         string(REPLACE ";" " " LCOV_CLEAN_CMD_SPACED "${LCOV_CLEAN_CMD}")
-        message(STATUS "${LCOV_CLEAN_CMD_SPACED}")
+        message("${LCOV_CLEAN_CMD_SPACED}")
 
         message(STATUS "Command to create baseline: ")
         string(REPLACE ";" " " LCOV_BASELINE_CMD_SPACED "${LCOV_BASELINE_CMD}")
-        message(STATUS "${LCOV_BASELINE_CMD_SPACED}")
+        message("${LCOV_BASELINE_CMD_SPACED}")
 
         message(STATUS "Command to run the tests: ")
         string(REPLACE ";" " " LCOV_EXEC_TESTS_CMD_SPACED "${LCOV_EXEC_TESTS_CMD}")
-        message(STATUS "${LCOV_EXEC_TESTS_CMD_SPACED}")
+        message("${LCOV_EXEC_TESTS_CMD_SPACED}")
 
         message(STATUS "Command to capture counters and generate report: ")
         string(REPLACE ";" " " LCOV_CAPTURE_CMD_SPACED "${LCOV_CAPTURE_CMD}")
-        message(STATUS "${LCOV_CAPTURE_CMD_SPACED}")
+        message("${LCOV_CAPTURE_CMD_SPACED}")
 
         message(STATUS "Command to add baseline counters: ")
         string(REPLACE ";" " " LCOV_BASELINE_COUNT_CMD_SPACED "${LCOV_BASELINE_COUNT_CMD}")
-        message(STATUS "${LCOV_BASELINE_COUNT_CMD_SPACED}")
+        message("${LCOV_BASELINE_COUNT_CMD_SPACED}")
 
         message(STATUS "Command to filter collected data: ")
         string(REPLACE ";" " " LCOV_FILTER_CMD_SPACED "${LCOV_FILTER_CMD}")
-        message(STATUS "${LCOV_FILTER_CMD_SPACED}")
+        message("${LCOV_FILTER_CMD_SPACED}")
 
         message(STATUS "Command to generate lcov HTML output: ")
         string(REPLACE ";" " " LCOV_GEN_HTML_CMD_SPACED "${LCOV_GEN_HTML_CMD}")
-        message(STATUS "${LCOV_GEN_HTML_CMD_SPACED}")
+        message("${LCOV_GEN_HTML_CMD_SPACED}")
 
         if(${Coverage_SONARQUBE})
             message(STATUS "Command to generate SonarQube XML output: ")
             string(REPLACE ";" " " GCOVR_XML_CMD_SPACED "${GCOVR_XML_CMD}")
-            message(STATUS "${GCOVR_XML_CMD_SPACED}")
+            message("${GCOVR_XML_CMD_SPACED}")
         endif()
     endif()
 
@@ -466,11 +466,11 @@ function(setup_target_for_coverage_gcovr_xml)
 
         message(STATUS "Command to run tests: ")
         string(REPLACE ";" " " GCOVR_XML_EXEC_TESTS_CMD_SPACED "${GCOVR_XML_EXEC_TESTS_CMD}")
-        message(STATUS "${GCOVR_XML_EXEC_TESTS_CMD_SPACED}")
+        message("${GCOVR_XML_EXEC_TESTS_CMD_SPACED}")
 
         message(STATUS "Command to generate gcovr XML coverage data: ")
         string(REPLACE ";" " " GCOVR_XML_CMD_SPACED "${GCOVR_XML_CMD}")
-        message(STATUS "${GCOVR_XML_CMD_SPACED}")
+        message("${GCOVR_XML_CMD_SPACED}")
     endif()
 
     add_custom_target(
@@ -560,15 +560,15 @@ function(setup_target_for_coverage_gcovr_html)
 
         message(STATUS "Command to run tests: ")
         string(REPLACE ";" " " GCOVR_HTML_EXEC_TESTS_CMD_SPACED "${GCOVR_HTML_EXEC_TESTS_CMD}")
-        message(STATUS "${GCOVR_HTML_EXEC_TESTS_CMD_SPACED}")
+        message("${GCOVR_HTML_EXEC_TESTS_CMD_SPACED}")
 
         message(STATUS "Command to create a folder: ")
         string(REPLACE ";" " " GCOVR_HTML_FOLDER_CMD_SPACED "${GCOVR_HTML_FOLDER_CMD}")
-        message(STATUS "${GCOVR_HTML_FOLDER_CMD_SPACED}")
+        message("${GCOVR_HTML_FOLDER_CMD_SPACED}")
 
         message(STATUS "Command to generate gcovr HTML coverage data: ")
         string(REPLACE ";" " " GCOVR_HTML_CMD_SPACED "${GCOVR_HTML_CMD}")
-        message(STATUS "${GCOVR_HTML_CMD_SPACED}")
+        message("${GCOVR_HTML_CMD_SPACED}")
     endif()
 
     add_custom_target(
