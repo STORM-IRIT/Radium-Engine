@@ -24,7 +24,7 @@ TextureManager::TextureHandle TextureManager::addTexture( const TextureParameter
     TextureHandle handle;
     // find first free slot in m_textures, e.g. where the stored unique_ptr is nullptr
     auto it = std::find_if(
-        m_textures.begin(), m_textures.end(), []( const auto& texture ) { return !texture; } );
+        m_textures.begin(), m_textures.end(), []( const auto& texture_ ) { return !texture_; } );
     if ( it != m_textures.end() ) {
         it->swap( texture );
         handle.setValue( std::distance( m_textures.begin(), it ) );

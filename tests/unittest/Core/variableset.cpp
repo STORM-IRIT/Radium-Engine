@@ -158,7 +158,7 @@ TEST_CASE( "Core/Container/VariableSet", "[Core][Container][VariableSet]" ) {
 
         print_container( "Initial set", params );
 
-        auto modifyFunction = []( int x ) { return 2 * x + 1; };
+        auto modifyFunction = []( int x_ ) { return 2 * x_ + 1; };
 
         REQUIRE( params.getVariable<int>( "i" ) == 0 );
         REQUIRE( params.getVariable<int>( "x" ) == 1 );

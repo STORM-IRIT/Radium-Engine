@@ -145,7 +145,7 @@ using namespace Ra::Core;
 // -------------------------------------------------------------------
 EnvironmentTexture::EnvironmentTexture( const std::string& mapName, bool isSkybox ) :
     m_name( mapName ),
-    m_skyData { nullptr, nullptr, nullptr, nullptr, nullptr, nullptr },
+    m_skyData { { nullptr, nullptr, nullptr, nullptr, nullptr, nullptr } },
     m_isSkyBox( isSkybox ) {
     m_type = ( mapName.find( ';' ) != mapName.npos ) ? EnvironmentTexture::EnvMapType::ENVMAP_CUBE
                                                      : EnvironmentTexture::EnvMapType::ENVMAP_PFM;
@@ -175,7 +175,7 @@ void EnvironmentTexture::initializeTexture() {
 
     // proper convert shared ptr float[] to void
     std::array<std::shared_ptr<void>, 6> cubeMap = {
-        m_skyData[0], m_skyData[1], m_skyData[2], m_skyData[3], m_skyData[4], m_skyData[5] };
+        { m_skyData[0], m_skyData[1], m_skyData[2], m_skyData[3], m_skyData[4], m_skyData[5] } };
     Ra::Engine::Data::TextureParameters params { m_name,
                                                  {
                                                      GL_CLAMP_TO_EDGE,
