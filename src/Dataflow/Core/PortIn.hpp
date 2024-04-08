@@ -146,7 +146,7 @@ void PortBaseIn::setDefaultValue( const T& value ) {
 
 template <typename T>
 T& PortBaseIn::getData() {
-    static_cast<PortIn<T>*>( this )->getData();
+    return static_cast<PortIn<T>*>( this )->getData();
 }
 
 template <typename T>
