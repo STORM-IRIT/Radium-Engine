@@ -340,7 +340,7 @@ class RA_ENGINE_API RenderParameters final
 };
 
 /**
- * Interface to define metadata (constraints, description, ...) for the edition of parameter set
+ * Interface to define metadata (constraints, description, ...) for the editing of parameter set
  */
 class RA_ENGINE_API ParameterSetEditingInterface
 {

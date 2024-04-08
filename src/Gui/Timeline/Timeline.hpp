@@ -26,7 +26,7 @@ namespace Ra::Gui {
  * such as play, pause and reset animations or simulations, but also going to
  * a given point in time.
  *
- * Regarding KeyFramedValues, the Timeline provides their edition / manipulation.
+ * Regarding KeyFramedValues, the Timeline provides their editing / manipulation.
  * To do so, KeyFramedValues must be registered into the Timeline, which can be
  * done using the registerKeyFramedValue methods (see the related Documentation page ).
  *

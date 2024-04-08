@@ -22,7 +22,7 @@ class RenderParameters;
 namespace Gui {
 
 /**
- * \brief Simple Widget for Material/RenderParameter edition
+ * \brief Simple Widget for Material/RenderParameter editing
  * A material editor will show information about the selected material and expose a control panel
  * containing all of its editable parameters to allow the user to edit them.
  */

@@ -148,9 +148,9 @@ Then to set a texture according to the semantic:
 
 ### Making a material editable {#editable-interface}
 
-Material which implement the Ra::Engine::Data::ParameterSetEditionInterface might be modified at runtime.
+Material which implement the Ra::Engine::Data::ParameterSetEditingInterface might be modified at runtime.
 
-This interface exposes the method Ra::Engine::Data::ParameterSetEditionInterface::getParametersMetadata
+This interface exposes the method Ra::Engine::Data::ParameterSetEditingInterface::getParametersMetadata
 which return a json-formatted parameter set informations containing type, constraints and documentation on each
 editable parameter.
 
@@ -173,7 +173,7 @@ The "editable" property specifies whether the boolean is editable, for instance 
 
 #### Enums
 
-When a parameter is referenced as an enum, the edition gui will present a combobox with the string representation of
+When a parameter is referenced as an enum, the editing gui will present a combobox with the string representation of
 the enumaration values.
 Enumeration strings, could be defined in two ways.
 Either by associating a RenderParameter::EnumConverter with the material's parameter set or by defining the strings

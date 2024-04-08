@@ -27,7 +27,7 @@ namespace internal {
 class RenderParameterUiBuilder;
 } // namespace internal
 /**
- * \brief Simple Widget for RenderParameter edition
+ * \brief Simple Widget for RenderParameter editing
  * The editor will expose a control panel
  * containing all of the editable parameters from a RenderParameter set.
  */
