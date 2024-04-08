@@ -122,16 +122,24 @@ class FilterSelector final : public Node
 //! [Develop a custom node]
 } // namespace Customs
 
+template <typename DataType>
+using CollectionType = Ra::Core::VectorArray<DataType>;
+template <typename DataType>
+using CollectionInputType = Sources::SingleDataSourceNode<CollectionType<DataType>>;
+template <typename DataType>
+using CollectionOutputType = Sinks::SinkNode<CollectionType<DataType>>;
+template <typename DataType>
+using FilterCollectionType = Functionals::FilterNode<Ra::Core::VectorArray<DataType>>;
+
 // Reusable function to create a graph
 template <typename DataType>
 DataflowGraph* buildgraph( const std::string& name ) {
     auto g = new DataflowGraph( name );
 
-    auto ds =
-        std::make_shared<Sources::SingleDataSourceNode<Ra::Core::VectorArray<DataType>>>( "ds" );
+    auto ds = std::make_shared<CollectionInputType<DataType>>( "ds" );
     REQUIRE( g->addNode( ds ) );
 
-    auto rs = std::make_shared<Sinks::SinkNode<Ra::Core::VectorArray<DataType>>>( "rs" );
+    auto rs = std::make_shared<CollectionOutputType<DataType>>( "rs" );
     REQUIRE( g->addNode( rs ) );
 
     auto ts = std::make_shared<Sources::SingleDataSourceNode<DataType>>( "ts" );
@@ -146,7 +154,7 @@ DataflowGraph* buildgraph( const std::string& name ) {
     auto fs = std::make_shared<Customs::FilterSelector<DataType>>( "fs" );
     REQUIRE( g->addNode( fs ) );
 
-    auto fl = std::make_shared<Functionals::FilterNode<Ra::Core::VectorArray<DataType>>>( "fl" );
+    auto fl = std::make_shared<FilterCollectionType<DataType>>( "fl" );
     REQUIRE( g->addNode( fl ) );
 
     bool ok;
@@ -172,16 +180,18 @@ TEST_CASE( "Dataflow/Core/Custom nodes", "[Dataflow][Core][Custom nodes]" ) {
         auto g = buildgraph<Scalar>( "testCustomNodes" );
 
         // get input and ouput of the graph
-        auto inputCollection = g->getDataSetter( "ds_to" );
+        auto inputCollection =
+            dynamic_cast<CollectionInputType<Scalar>*>( g->getNode( "ds" ).get() );
         REQUIRE( inputCollection != nullptr );
-        auto inputOpName = g->getDataSetter( "ss_to" );
+        auto inputOpName = dynamic_cast<Customs::CustomStringSource*>( g->getNode( "ss" ).get() );
         REQUIRE( inputOpName != nullptr );
-        auto inputThreshold = g->getDataSetter( "ts_to" );
+        auto inputThreshold =
+            dynamic_cast<Sources::SingleDataSourceNode<Scalar>*>( g->getNode( "ts" ).get() );
         REQUIRE( inputThreshold != nullptr );
 
-        auto filteredCollection = g->getDataGetter( "rs_from" );
+        auto filteredCollection = g->getNode( "rs" );
         REQUIRE( filteredCollection != nullptr );
-        auto generatedOperator = g->getDataGetter( "nm_from" );
+        auto generatedOperator = g->getNode( "nm" );
         REQUIRE( generatedOperator != nullptr );
 
         // parameterize the graph
@@ -194,13 +204,14 @@ TEST_CASE( "Dataflow/Core/Custom nodes", "[Dataflow][Core][Custom nodes]" ) {
         for ( size_t n = 0; n < testVector.capacity(); ++n ) {
             testVector.push_back( dis( gen ) );
         }
-        inputCollection->setData( &testVector );
+
+        inputCollection->setData( testVector );
 
         Scalar threshold { 0.5_ra };
-        inputThreshold->setData( &threshold );
+        inputThreshold->getOutputByName( "to" ).second->setData( &threshold );
 
         std::string op { "true" };
-        inputOpName->setData( &op );
+        inputOpName->getOutputByName( "to" ).second->setData( &op );
 
         std::cout << "Data sent to graph : \n\toperator " << op << " : \n\t";
         for ( auto ord : testVector ) {
@@ -215,8 +226,8 @@ TEST_CASE( "Dataflow/Core/Custom nodes", "[Dataflow][Core][Custom nodes]" ) {
 
         // Getters are usable only after successful compilation/execution of the graph
         // Get results as references (no need to get them again later if the graph does not change)
-        auto& vres = filteredCollection->getData<CollectionType>();
-        auto& vop  = generatedOperator->getData<std::string>();
+        auto& vres = filteredCollection->getInputByName( "from" ).second->getData<CollectionType>();
+        auto& vop  = generatedOperator->getInputByName( "from" ).second->getData<std::string>();
 
         REQUIRE( vop == "true" );
         REQUIRE( vres.size() == testVector.size() );
