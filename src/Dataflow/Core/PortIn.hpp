@@ -136,7 +136,7 @@ class PortIn : public PortBaseIn,
 
 template <typename T>
 PortOut<T>* PortBaseIn::getLinkAs() {
-    return static_cast<PortIn<T>*>( this )->getPortOut();
+    return static_cast<PortIn<T>*>( this )->getLink();
 }
 
 template <typename T>
