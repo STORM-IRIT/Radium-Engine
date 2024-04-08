@@ -20,8 +20,8 @@ foreach(
     EnvMap
     HelloRadium
     KeyEvent
-    MaterialEdition
-    ParameterEdition
+    MaterialEditing
+    ParameterEditing
     Picking
     RawShaderMaterial
     SimpleAnimation

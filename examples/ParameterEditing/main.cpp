@@ -17,7 +17,7 @@ using namespace Ra::Gui;
 using namespace Ra::Core;
 
 // Visitor to print all or some of the parameters stored in a RenderParameter object.
-// This visitor is very similar to the one used to build the edition ui (RenderParameterUiBuilder
+// This visitor is very similar to the one used to build the editing ui (RenderParameterUiBuilder
 // in ParameterSetEditor.cpp) and could be used with a predicate function accepting variable wrt
 // their name
 struct ParameterPrinter {
@@ -173,15 +173,15 @@ int main( int argc, char* argv[] ) {
     QApplication a( argc, argv );
     //! [Creating the application]
 
-    //! [Creating the edition dialog]
+    //! [Creating the editing dialog]
     QDialog dialog( nullptr );
-    dialog.setWindowTitle( "ParameterSet edition example" );
+    dialog.setWindowTitle( "ParameterSet editing example" );
     auto layout = new QVBoxLayout( dialog.window() );
     ParameterSetEditor editor( "Demonstration parameter set", dialog.window() );
 
     editor.showUnspecified( true );
     layout->addWidget( &editor );
-    //! [Creating the edition dialog]
+    //! [Creating the editing dialog]
 
     //! [Management of string<->value conversion for enumeration parameters]
     auto vnc = new Ra::Core::Utils::EnumConverter<ValuesType>( { { Values::VALUE_0, "VALUE_0" },
@@ -217,10 +217,10 @@ int main( int argc, char* argv[] ) {
     parameters.addParameter( "embedded", embedded );
     //! [filling the parameter set to edit ]
 
-    //! [Printing several parameters before edition ]
-    std::cout << "\nPrinting all parameters before edition :\n";
+    //! [Printing several parameters before editing ]
+    std::cout << "\nPrinting all parameters before editing :\n";
     parameters.visit( ParameterPrinter {} );
-    //! [Printing several parameters before edition ]
+    //! [Printing several parameters before editing ]
 
     //! [Filling the editor with the parameter set ]
     editor.setupFromParameters( parameters, parameterSet_metadata );
@@ -236,9 +236,9 @@ int main( int argc, char* argv[] ) {
 
     a.exec();
 
-    //! [Printing several parameters after edition ]
+    //! [Printing several parameters after editing ]
     std::cout << "\nPrinting all parameters before quit : ";
     parameters.visit( ParameterPrinter {} );
 
-    //! [Printing several parameters after edition ]
+    //! [Printing several parameters after editing ]
 }
