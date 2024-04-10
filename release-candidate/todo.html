@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.5.13</span>
+   &#160;<span id="projectnumber">1.5.14</span>
    </div>
   </td>
  </tr>
@@ -137,8 +137,8 @@ $(document).ready(function(){initNavTree('todo.html',''); initResizable(); });
 <dt>Page <a class="el" href="apps.html">How to write your own application</a>  </dt>
 <dd><a class="anchor" id="_todo000002"></a>write application dev doc, merging ExampleApp and Apps docs. </dd>
 <dt>Page <a class="el" href="develmaterials.html">Material management</a>  </dt>
-<dd><p class="startdd"><a class="anchor" id="_todo000006"></a>update snippets that are not available anymore.</p>
-<p class="enddd"><a class="anchor" id="_todo000007"></a>TO UPDATE </p>
+<dd><p class="startdd"><a class="anchor" id="_todo000007"></a>TO UPDATE</p>
+<p class="enddd"><a class="anchor" id="_todo000006"></a>update snippets that are not available anymore. </p>
 </dd>
 <dt>Page <a class="el" href="pluginSystem.html">Plugin System</a>  </dt>
 <dd><a class="anchor" id="_todo000005"></a>check and update  </dd>
@@ -273,35 +273,39 @@ $(document).ready(function(){initNavTree('todo.html',''); initResizable(); });
 <dt>Member <a class="el" href="classRa_1_1Gui_1_1TrackballCameraManipulator.html#a8a75d252e06bcec380a3ac7354a1febd">Ra::Gui::TrackballCameraManipulator::resetCamera</a>  () override</dt>
 <dd><a class="anchor" id="_todo000091"></a>get rid of these light stuff  </dd>
 <dt>Member <a class="el" href="classRa_1_1Gui_1_1Viewer.html#af99c80d12a451e71c935f28987d93c77">Ra::Gui::Viewer::handleMousePressEvent</a>  (QMouseEvent *event, <a class="el" href="classRa_1_1Engine_1_1Rendering_1_1Renderer_1_1PickingResult.html" title="Result of a PickingQuery.">Ra::Engine::Rendering::Renderer::PickingResult</a> &amp;result)</dt>
-<dd><a class="anchor" id="_todo000094"></a>something like explained here if under mouse objects grabs the action, just send it to the object so we need to have something like grabber = <a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">renderobject(ro id)</a>-&gt;getMouseManipulator if(grabber &amp;&amp; grabber-&gt;<a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">handleEvent(event, buttons, modifiers, key)</a>{ context = grabber-&gt;getContext currentGrabber = grabber (we need to store it for mouse move)  </dd>
+<dd><a class="anchor" id="_todo000095"></a>something like explained here if under mouse objects grabs the action, just send it to the object so we need to have something like grabber = <a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">renderobject(ro id)</a>-&gt;getMouseManipulator if(grabber &amp;&amp; grabber-&gt;<a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">handleEvent(event, buttons, modifiers, key)</a>{ context = grabber-&gt;getContext currentGrabber = grabber (we need to store it for mouse move)  </dd>
+<dt>Member <a class="el" href="classRa_1_1Gui_1_1Viewer.html#a1383e1d903dd8397c36287f545a7ce87">Ra::Gui::Viewer::initializeGL</a>  () override</dt>
+<dd><a class="anchor" id="_todo000094"></a>who deletes this light ?  </dd>
 <dt>Member <a class="el" href="classRa_1_1Gui_1_1Viewer.html#a61128f2f8e5b13fbcaa5d4e30db3b7e8">Ra::Gui::Viewer::m_renderers</a>  </dt>
-<dd><a class="anchor" id="_todo000098"></a>make the following private: Owning pointer to the renderers.  </dd>
+<dd><a class="anchor" id="_todo000099"></a>make the following private: Owning pointer to the renderers.  </dd>
 <dt>Member <a class="el" href="classRa_1_1Gui_1_1Viewer.html#a78e290eb25f91ffbc7dbd0c58d8b9ca6">Ra::Gui::Viewer::mouseMoveEvent</a>  (QMouseEvent *event) override</dt>
-<dd><a class="anchor" id="_todo000096"></a>propagateToParent  </dd>
+<dd><a class="anchor" id="_todo000097"></a>propagateToParent  </dd>
 <dt>Member <a class="el" href="classRa_1_1Gui_1_1Viewer.html#a3f65773027030ac179e755dfc3454121">Ra::Gui::Viewer::mouseReleaseEvent</a>  (QMouseEvent *event) override</dt>
-<dd><a class="anchor" id="_todo000095"></a>propagateToParent  </dd>
+<dd><a class="anchor" id="_todo000096"></a>propagateToParent  </dd>
 <dt>Member <a class="el" href="classRa_1_1Gui_1_1Viewer.html#a0bc8019968c23fd6ca0d1c27c0d6ec0d">Ra::Gui::Viewer::startRendering</a>  (const Scalar dt)</dt>
 <dd><a class="anchor" id="_todo000093"></a>FIXME : move this outside of the rendering loop. must be done once per renderer ... if there is no light on the renderer, add the head light attached to the camera ...  </dd>
 <dt>Member <a class="el" href="classRa_1_1Gui_1_1Viewer.html#ac15a6f178cfdcbfbfccaba8959973463">Ra::Gui::Viewer::wheelEvent</a>  (QWheelEvent *event) override</dt>
-<dd><a class="anchor" id="_todo000097"></a>propagateToParent  </dd>
+<dd><a class="anchor" id="_todo000098"></a>propagateToParent  </dd>
+<dt>Member <a class="el" href="classRa_1_1Headless_1_1CLIRadiumEngineApp.html#a63ce4824640057af60c5459c4df7e516">Ra::Headless::CLIRadiumEngineApp::m_glContext</a>  </dt>
+<dd><a class="anchor" id="_todo000100"></a>make privaet and check access  </dd>
 <dt>Member <a class="el" href="classRa_1_1IO_1_1AssimpCameraDataLoader.html#a7ac8f1afef3e782557dac3f6a080c4cf">Ra::IO::AssimpCameraDataLoader::loadData</a>  (const aiScene *scene, <a class="elRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector.html">std::vector</a>&lt; std::unique_ptr&lt; Core::Asset::Camera &gt; &gt; &amp;data) override</dt>
-<dd><a class="anchor" id="_todo000099"></a>process camera name to feed component name  </dd>
+<dd><a class="anchor" id="_todo000101"></a>process camera name to feed component name  </dd>
 <dt>Class <a class="el" href="classRa_1_1IO_1_1FileManager.html">Ra::IO::FileManager&lt; DATA, Binary &gt;</a>  </dt>
-<dd><p class="startdd"><a class="anchor" id="_todo000100"></a>reimplement in IO </p>
-<p class="enddd"></p>
-</dd>
-<dt>Class <a class="el" href="classRa_1_1IO_1_1OBJFileManager.html">Ra::IO::OBJFileManager</a>  </dt>
-<dd><p class="startdd"><a class="anchor" id="_todo000101"></a>reimplement in IO </p>
-<p class="enddd"></p>
-</dd>
-<dt>Class <a class="el" href="classRa_1_1IO_1_1OFFFileManager.html">Ra::IO::OFFFileManager</a>  </dt>
 <dd><p class="startdd"><a class="anchor" id="_todo000102"></a>reimplement in IO </p>
 <p class="enddd"></p>
 </dd>
+<dt>Class <a class="el" href="classRa_1_1IO_1_1OBJFileManager.html">Ra::IO::OBJFileManager</a>  </dt>
+<dd><p class="startdd"><a class="anchor" id="_todo000103"></a>reimplement in IO </p>
+<p class="enddd"></p>
+</dd>
+<dt>Class <a class="el" href="classRa_1_1IO_1_1OFFFileManager.html">Ra::IO::OFFFileManager</a>  </dt>
+<dd><p class="startdd"><a class="anchor" id="_todo000104"></a>reimplement in IO </p>
+<p class="enddd"></p>
+</dd>
 <dt>Member <a class="el" href="classRa_1_1Plugins_1_1RadiumPluginInterface.html#a38b4a97e6cabbfa395d49f4afcedde65">Ra::Plugins::RadiumPluginInterface::getMenu</a>  ()=0</dt>
-<dd><a class="anchor" id="_todo000105"></a>Find a better name ?  </dd>
+<dd><a class="anchor" id="_todo000107"></a>Find a better name ?  </dd>
 <dt>Member <a class="el" href="classRa_1_1Plugins_1_1RadiumPluginInterface.html#a5ecb4138da57b4082cb18f0665340448">Ra::Plugins::RadiumPluginInterface::getWidget</a>  ()=0</dt>
-<dd><a class="anchor" id="_todo000104"></a>Find a better name for this ? </dd>
+<dd><a class="anchor" id="_todo000106"></a>Find a better name for this ? </dd>
 </dl>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->

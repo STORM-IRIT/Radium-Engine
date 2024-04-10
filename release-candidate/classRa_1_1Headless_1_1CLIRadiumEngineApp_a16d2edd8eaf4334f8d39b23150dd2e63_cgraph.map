@@ -1,0 +1,19 @@
+<map id="Ra::Headless::CLIRadiumEngineApp::~CLIRadiumEngineApp" name="Ra::Headless::CLIRadiumEngineApp::~CLIRadiumEngineApp">
+<area shape="rect" id="Node000001" title="Base destructor." alt="" coords="5,119,235,159"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Engine_1_1RadiumEngine.html#a2980ef582a2e985abf53e51d147ac489" title=" " alt="" coords="283,119,476,159"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="235,137,269,137,269,142,235,142"/>
+<area shape="rect" id="Node000003" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/memory/unique_ptr/reset.html#" title=" " alt="" coords="556,5,716,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="403,117,456,78,523,41,547,32,549,37,525,46,459,83,407,121"/>
+<area shape="rect" id="Node000004" href="$classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#af10c9fac9f32f1966eb2331e2790a6d1" title=" " alt="" coords="531,55,741,95"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="460,117,542,96,543,101,461,122"/>
+<area shape="rect" id="Node000007" href="$classRa_1_1Engine_1_1Data_1_1LambertianMaterial.html#aaf4d341e54a5c0dfde83e38e5af55a86" title="Remove the material from the material library." alt="" coords="530,119,742,159"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="476,137,516,137,516,142,476,142"/>
+<area shape="rect" id="Node000008" href="$classRa_1_1Engine_1_1Data_1_1PlainMaterial.html#a69e669c6df549aa0185cb2eaa14f5de9" title=" " alt="" coords="524,183,748,223"/>
+<area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="461,157,543,177,542,183,460,162"/>
+<area shape="rect" id="Node000009" href="$classRa_1_1Engine_1_1Data_1_1VolumetricMaterial.html#a23f911ca6e81eadd78e4c67cad032efb" title=" " alt="" coords="532,247,740,287"/>
+<area shape="poly" id="edge8_Node000002_Node000009" title=" " alt="" coords="407,157,460,195,525,233,543,240,541,245,523,238,457,200,404,162"/>
+<area shape="rect" id="Node000005" href="$namespaceRa_1_1Engine_1_1Data_1_1EngineMaterialConverters.html#a07edf6afa24bd87c14434820c6ac9037" title=" " alt="" coords="796,48,1055,103"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="742,73,782,73,782,78,742,78"/>
+<area shape="rect" id="Node000006" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector/erase.html#" title=" " alt="" coords="1103,63,1237,88"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="1055,73,1089,73,1089,78,1055,78"/>
+</map>

@@ -1,43 +1,7 @@
 <map id="Ra::Engine::Data::EnvironmentTexture::render" name="Ra::Engine::Data::EnvironmentTexture::render">
-<area shape="rect" id="Node000001" title="Render the envmap as a textured cube. This method does nothing if the envmap is not a skybox." alt="" coords="5,109,227,149"/>
-<area shape="rect" id="Node000002" href="$classRa_1_1Engine_1_1Data_1_1Texture.html#a04f41cf6b664f77b4077b78b2f566422" title="Bind the texture to GPU texture unit to enable its use in a shader. Need active OpenGL context." alt="" coords="292,13,479,53"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="162,106,274,62,298,54,299,59,276,67,164,111"/>
-<area shape="rect" id="Node000003" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a3dc967879911ed9414b04c8cacea7263" title=" " alt="" coords="295,77,475,117"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="227,113,281,106,282,112,227,118"/>
-<area shape="rect" id="Node000005" href="$classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html#abe984c29681cf462235dd42e14aa6749" title=" " alt="" coords="291,141,480,181"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="227,139,277,145,277,150,227,144"/>
-<area shape="rect" id="Node000006" href="$classRa_1_1Engine_1_1Data_1_1EnvironmentTexture.html#a5e83b9459c30cfd045cf55482c0eb941" title="Update the OpenGL state of the envmap : texture, skybox and shaders if needed." alt="" coords="275,205,496,245"/>
-<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="164,146,276,190,299,198,298,203,274,195,162,151"/>
-<area shape="rect" id="Node000004" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/numeric/math/tan.html#" title=" " alt="" coords="625,84,696,109"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="476,94,612,94,612,99,476,99"/>
-<area shape="rect" id="Node000007" href="$classRa_1_1Engine_1_1Data_1_1Texture.html#aa326be7933e988b53f25e91838655fe3" title="Generate the GPU representation of the texture right now. Need an active OpenGL context." alt="" coords="567,169,754,209"/>
-<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="496,208,553,200,554,205,497,213"/>
-<area shape="rect" id="Node000015" href="$classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html#a185171226018c59fb689efcb2154619b" title="Update (i.e. send to GPU) the buffers marked as dirty." alt="" coords="544,391,777,431"/>
-<area shape="poly" id="edge14_Node000006_Node000015" title=" " alt="" coords="418,243,620,381,617,386,415,247"/>
-<area shape="rect" id="Node000008" href="$classRa_1_1Engine_1_1Data_1_1Texture.html#a8e1101d1adbac593576519b80ca4c64e" title="Send image data to the GPU and generate mipmap if needed." alt="" coords="847,105,1033,145"/>
-<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="748,166,838,145,839,150,749,171"/>
-<area shape="rect" id="Node000014" href="$classRa_1_1Engine_1_1Data_1_1Texture.html#af0eebb45ead404aaffa24020ad30bdfb" title="Send sampler parameters to the GPU." alt="" coords="825,169,1055,209"/>
-<area shape="poly" id="edge13_Node000007_Node000014" title=" " alt="" coords="754,186,812,186,812,191,754,191"/>
-<area shape="rect" id="Node000009" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/iterator/begin.html#" title=" " alt="" coords="1186,5,1273,31"/>
-<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="973,102,1032,70,1102,39,1172,23,1173,28,1104,45,1034,75,975,107"/>
-<area shape="rect" id="Node000010" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/iterator/end.html#" title=" " alt="" coords="1192,55,1267,80"/>
-<area shape="poly" id="edge9_Node000008_Node000010" title=" " alt="" coords="1033,104,1178,75,1179,80,1034,109"/>
-<area shape="rect" id="Node000011" href="$structRa_1_1Engine_1_1Data_1_1ImageParameters.html#a59c5dfbd96f58c7be904ac3ba028d934" title=" " alt="" coords="1103,105,1356,145"/>
-<area shape="poly" id="edge10_Node000008_Node000011" title=" " alt="" coords="1034,122,1089,122,1089,127,1034,127"/>
-<area shape="rect" id="Node000012" href="$classRa_1_1Engine_1_1Data_1_1Texture.html#ab38f11fb0bb726ce67ca44be7d8321ea" title=" " alt="" coords="1136,169,1323,209"/>
-<area shape="poly" id="edge11_Node000008_Node000012" title=" " alt="" coords="1032,142,1126,163,1124,168,1031,147"/>
-<area shape="rect" id="Node000013" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/algorithm/transform.html#" title=" " alt="" coords="1172,233,1287,259"/>
-<area shape="poly" id="edge12_Node000008_Node000013" title=" " alt="" coords="1034,142,1056,155,1072,171,1081,188,1089,204,1104,218,1130,231,1159,238,1157,244,1128,236,1101,223,1084,207,1076,190,1068,174,1053,159,1032,147"/>
-<area shape="rect" id="Node000016" href="$classRa_1_1Core_1_1Utils_1_1ContainerIntrospectionInterface.html#a3b7b90613b57a821078ac3e26dc17caa" title=" " alt="" coords="847,233,1033,288"/>
-<area shape="poly" id="edge15_Node000015_Node000016" title=" " alt="" coords="685,389,746,344,824,297,837,291,839,296,827,302,749,348,688,393"/>
-<area shape="rect" id="Node000017" href="$classRa_1_1Core_1_1Utils_1_1ContainerIntrospectionInterface.html#ada4b796b352795c049579cadb3d946ba" title=" " alt="" coords="847,312,1033,367"/>
-<area shape="poly" id="edge16_Node000015_Node000017" title=" " alt="" coords="738,389,832,364,834,369,740,394"/>
-<area shape="rect" id="Node000018" href="$classRa_1_1Core_1_1Utils_1_1AttribBase.html#ae2dd0a9753d036b781460b05348c13ca" title="Return the attribute&#39;s name." alt="" coords="845,391,1035,431"/>
-<area shape="poly" id="edge17_Node000015_Node000018" title=" " alt="" coords="778,409,831,409,831,414,778,414"/>
-<area shape="rect" id="Node000019" href="$classRa_1_1Core_1_1Utils_1_1ContainerIntrospectionInterface.html#aaa913325b3c078ea95ddce44ba6cc6eb" title=" " alt="" coords="840,456,1040,511"/>
-<area shape="poly" id="edge18_Node000015_Node000019" title=" " alt="" coords="740,429,827,452,826,457,738,434"/>
-<area shape="rect" id="Node000020" href="$classRa_1_1Core_1_1Utils_1_1ContainerIntrospectionInterface.html#a709e66ce8c7c2f28a6330df869fc57ce" title=" " alt="" coords="847,535,1033,589"/>
-<area shape="poly" id="edge19_Node000015_Node000020" title=" " alt="" coords="688,429,749,474,827,521,839,527,837,532,824,526,746,479,685,434"/>
-<area shape="rect" id="Node000021" href="$classRa_1_1Core_1_1Utils_1_1ContainerIntrospectionInterface.html#a61a035c5d5357d01e2df74bc441b770e" title=" " alt="" coords="847,613,1033,668"/>
-<area shape="poly" id="edge20_Node000015_Node000021" title=" " alt="" coords="676,430,700,466,735,512,778,559,827,600,836,605,833,610,824,604,774,563,731,515,696,470,672,433"/>
+<area shape="rect" id="Node000001" title="Render the envmap as a textured cube. This method does nothing if the envmap is not a skybox." alt="" coords="5,5,227,45"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a3dc967879911ed9414b04c8cacea7263" title=" " alt="" coords="275,5,455,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="227,23,261,23,261,28,227,28"/>
+<area shape="rect" id="Node000003" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/numeric/math/tan.html#" title=" " alt="" coords="503,13,573,38"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="455,23,489,23,489,28,455,28"/>
 </map>

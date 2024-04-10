@@ -1,7 +1,0 @@
-<map id="Ra::Headless::CLIViewer" name="Ra::Headless::CLIViewer">
-<area shape="rect" id="Node000001" title=" " alt="" coords="131,1233,359,1699"/>
-<area shape="rect" id="Node000002" href="$classRa_1_1Headless_1_1CLIBaseApplication.html" title=" " alt="" coords="5,515,237,661"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="136,674,215,1233,210,1234,131,675"/>
-<area shape="rect" id="Node000003" href="$classRa_1_1Engine_1_1RadiumEngine.html" title=" " alt="" coords="262,5,479,1171"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="290,1171,283,1217,278,1216,285,1170"/>
-</map>

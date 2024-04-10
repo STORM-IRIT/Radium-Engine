@@ -1,7 +1,0 @@
-<map id="Ra::Headless::CLIViewer::CLIViewer" name="Ra::Headless::CLIViewer::CLIViewer">
-<area shape="rect" id="Node000001" title="Construct the viewer using an OpenGL context of the given version." alt="" coords="5,37,185,77"/>
-<area shape="rect" id="Node000002" href="$classRa_1_1Headless_1_1CLIBaseApplication.html#a9def52ff23100d36ab0a4a44c2f66f7b" title=" " alt="" coords="233,5,473,45"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="185,44,219,39,220,45,186,49"/>
-<area shape="rect" id="Node000003" href="$classRa_1_1Headless_1_1CLIBaseApplication.html#ab405e591220307ee29de6d6efd9598d0" title=" " alt="" coords="233,69,473,109"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="186,66,220,70,219,75,185,71"/>
-</map>

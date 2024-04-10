@@ -1,5 +1,5 @@
 <map id="Ra::Headless::CLIBaseApplication" name="Ra::Headless::CLIBaseApplication">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,237,151"/>
-<area shape="rect" id="Node000002" href="$classRa_1_1Headless_1_1CLIViewer.html" title=" " alt="" coords="7,199,235,664"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="124,164,124,198,119,198,119,164"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="13,5,245,151"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Headless_1_1CLIRadiumEngineApp.html" title=" " alt="" coords="5,199,252,404"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="131,164,131,199,126,199,126,164"/>
 </map>

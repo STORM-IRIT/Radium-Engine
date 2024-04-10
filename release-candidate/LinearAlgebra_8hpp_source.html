@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.5.13</span>
+   &#160;<span id="projectnumber">1.5.14</span>
    </div>
   </td>
  </tr>
@@ -493,33 +493,49 @@ $(document).ready(function(){initNavTree('LinearAlgebra_8hpp_source.html',''); i
 <div class="line"><a id="l00375" name="l00375"></a><span class="lineno">  375</span>}</div>
 </div>
 <div class="line"><a id="l00376" name="l00376"></a><span class="lineno">  376</span> </div>
-<div class="line"><a id="l00377" name="l00377"></a><span class="lineno">  377</span>} <span class="comment">// namespace Math</span></div>
-<div class="line"><a id="l00378" name="l00378"></a><span class="lineno">  378</span>} <span class="comment">// namespace Core</span></div>
-<div class="line"><a id="l00379" name="l00379"></a><span class="lineno">  379</span>} <span class="comment">// namespace Ra</span></div>
-<div class="line"><a id="l00380" name="l00380"></a><span class="lineno">  380</span> </div>
-<div class="line"><a id="l00381" name="l00381"></a><span class="lineno">  381</span><span class="comment">// Insert quaternions operator in Eigen namespace to allow functions outside of</span></div>
-<div class="line"><a id="l00382" name="l00382"></a><span class="lineno">  382</span><span class="comment">// Ra::Core to use them without explicit calls. This is syntactic sugar,</span></div>
-<div class="line"><a id="l00383" name="l00383"></a><span class="lineno">  383</span><span class="comment">// but allows to write expressions such as q = ( a*q1 + b*q2 ).normalized();</span></div>
-<div class="line"><a id="l00384" name="l00384"></a><span class="lineno">  384</span><span class="comment">// anywhere in the code.</span></div>
-<div class="line"><a id="l00385" name="l00385"></a><span class="lineno">  385</span><span class="comment">// See</span></div>
-<div class="line"><a id="l00386" name="l00386"></a><span class="lineno">  386</span> </div>
-<div class="line"><a id="l00387" name="l00387"></a><span class="lineno">  387</span><span class="keyword">namespace </span>Eigen {</div>
-<div class="line"><a id="l00388" name="l00388"></a><span class="lineno">  388</span><span class="keyword">inline</span> Quaternion&lt;Scalar&gt; <a class="code hl_function" href="namespaceRa_1_1Core.html#a759edbc3c97aec27676fcd8916334ed5">operator*</a>( Scalar k, <span class="keyword">const</span> Quaternion&lt;Scalar&gt;&amp; q ) {</div>
-<div class="line"><a id="l00389" name="l00389"></a><span class="lineno">  389</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="namespaceRa_1_1Core_1_1Math.html#a941baf20065c77d494ca251e6e104f31">Ra::Core::Math::scale</a>( q, k );</div>
-<div class="line"><a id="l00390" name="l00390"></a><span class="lineno">  390</span>}</div>
-<div class="line"><a id="l00391" name="l00391"></a><span class="lineno">  391</span> </div>
-<div class="line"><a id="l00392" name="l00392"></a><span class="lineno">  392</span><span class="keyword">inline</span> Quaternion&lt;Scalar&gt; <a class="code hl_function" href="namespaceRa_1_1Core.html#a759edbc3c97aec27676fcd8916334ed5">operator*</a>( <span class="keyword">const</span> Quaternion&lt;Scalar&gt;&amp; q, Scalar k ) {</div>
-<div class="line"><a id="l00393" name="l00393"></a><span class="lineno">  393</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="namespaceRa_1_1Core_1_1Math.html#a941baf20065c77d494ca251e6e104f31">Ra::Core::Math::scale</a>( q, k );</div>
-<div class="line"><a id="l00394" name="l00394"></a><span class="lineno">  394</span>}</div>
-<div class="line"><a id="l00395" name="l00395"></a><span class="lineno">  395</span> </div>
-<div class="line"><a id="l00396" name="l00396"></a><span class="lineno">  396</span><span class="keyword">inline</span> Quaternion&lt;Scalar&gt; operator+( <span class="keyword">const</span> Quaternion&lt;Scalar&gt;&amp; q1, <span class="keyword">const</span> Quaternion&lt;Scalar&gt;&amp; q2 ) {</div>
-<div class="line"><a id="l00397" name="l00397"></a><span class="lineno">  397</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="namespaceRa_1_1Core_1_1Math.html#a0523a53d2d94a623e194830837863c4c">Ra::Core::Math::add</a>( q1, q2 );</div>
-<div class="line"><a id="l00398" name="l00398"></a><span class="lineno">  398</span>}</div>
-<div class="line"><a id="l00399" name="l00399"></a><span class="lineno">  399</span> </div>
-<div class="line"><a id="l00400" name="l00400"></a><span class="lineno">  400</span><span class="keyword">inline</span> Quaternion&lt;Scalar&gt; operator/( <span class="keyword">const</span> Quaternion&lt;Scalar&gt;&amp; q, Scalar k ) {</div>
-<div class="line"><a id="l00401" name="l00401"></a><span class="lineno">  401</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="namespaceRa_1_1Core_1_1Math.html#a941baf20065c77d494ca251e6e104f31">Ra::Core::Math::scale</a>( q, Scalar( 1 ) / k );</div>
+<div class="line"><a id="l00378" name="l00378"></a><span class="lineno">  378</span> </div>
+<div class="line"><a id="l00391" name="l00391"></a><span class="lineno">  391</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> DerivedA, <span class="keyword">typename</span> DerivedB&gt;</div>
+<div class="foldopen" id="foldopen00392" data-start="{" data-end="}">
+<div class="line"><a id="l00392" name="l00392"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Core_1_1Math.html#a696ab654ab2d206ede9469838c0ed3d5">  392</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="namespaceRa_1_1Core_1_1Math.html#a696ab654ab2d206ede9469838c0ed3d5">allClose</a>( <span class="keyword">const</span> Eigen::DenseBase&lt;DerivedA&gt;&amp; a,</div>
+<div class="line"><a id="l00393" name="l00393"></a><span class="lineno">  393</span>               <span class="keyword">const</span> Eigen::DenseBase&lt;DerivedB&gt;&amp; b,</div>
+<div class="line"><a id="l00394" name="l00394"></a><span class="lineno">  394</span>               <span class="keyword">const</span> <span class="keyword">typename</span> DerivedA::RealScalar&amp; <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector.html">rtol</a> =</div>
+<div class="line"><a id="l00395" name="l00395"></a><span class="lineno">  395</span>                   Eigen::NumTraits&lt;typename DerivedA::RealScalar&gt;::dummy_precision(),</div>
+<div class="line"><a id="l00396" name="l00396"></a><span class="lineno">  396</span>               <span class="keyword">const</span> <span class="keyword">typename</span> DerivedA::RealScalar&amp; atol =</div>
+<div class="line"><a id="l00397" name="l00397"></a><span class="lineno">  397</span>                   Eigen::NumTraits&lt;typename DerivedA::RealScalar&gt;::epsilon() ) {</div>
+<div class="line"><a id="l00398" name="l00398"></a><span class="lineno">  398</span> </div>
+<div class="line"><a id="l00399" name="l00399"></a><span class="lineno">  399</span>    <span class="keywordflow">return</span> ( ( a.derived() - b.derived() ).array().abs() &lt;=</div>
+<div class="line"><a id="l00400" name="l00400"></a><span class="lineno">  400</span>             ( atol + <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector.html">rtol</a> * a.derived().array().abs().max( b.derived().array().abs() ) ) )</div>
+<div class="line"><a id="l00401" name="l00401"></a><span class="lineno">  401</span>        .all();</div>
 <div class="line"><a id="l00402" name="l00402"></a><span class="lineno">  402</span>}</div>
-<div class="line"><a id="l00403" name="l00403"></a><span class="lineno">  403</span>} <span class="comment">// namespace Eigen</span></div>
+</div>
+<div class="line"><a id="l00403" name="l00403"></a><span class="lineno">  403</span> </div>
+<div class="line"><a id="l00404" name="l00404"></a><span class="lineno">  404</span>} <span class="comment">// namespace Math</span></div>
+<div class="line"><a id="l00405" name="l00405"></a><span class="lineno">  405</span>} <span class="comment">// namespace Core</span></div>
+<div class="line"><a id="l00406" name="l00406"></a><span class="lineno">  406</span>} <span class="comment">// namespace Ra</span></div>
+<div class="line"><a id="l00407" name="l00407"></a><span class="lineno">  407</span> </div>
+<div class="line"><a id="l00408" name="l00408"></a><span class="lineno">  408</span><span class="comment">// Insert quaternions operator in Eigen namespace to allow functions outside of</span></div>
+<div class="line"><a id="l00409" name="l00409"></a><span class="lineno">  409</span><span class="comment">// Ra::Core to use them without explicit calls. This is syntactic sugar,</span></div>
+<div class="line"><a id="l00410" name="l00410"></a><span class="lineno">  410</span><span class="comment">// but allows to write expressions such as q = ( a*q1 + b*q2 ).normalized();</span></div>
+<div class="line"><a id="l00411" name="l00411"></a><span class="lineno">  411</span><span class="comment">// anywhere in the code.</span></div>
+<div class="line"><a id="l00412" name="l00412"></a><span class="lineno">  412</span><span class="comment">// See</span></div>
+<div class="line"><a id="l00413" name="l00413"></a><span class="lineno">  413</span> </div>
+<div class="line"><a id="l00414" name="l00414"></a><span class="lineno">  414</span><span class="keyword">namespace </span>Eigen {</div>
+<div class="line"><a id="l00415" name="l00415"></a><span class="lineno">  415</span><span class="keyword">inline</span> Quaternion&lt;Scalar&gt; <a class="code hl_function" href="namespaceRa_1_1Core.html#a759edbc3c97aec27676fcd8916334ed5">operator*</a>( Scalar k, <span class="keyword">const</span> Quaternion&lt;Scalar&gt;&amp; q ) {</div>
+<div class="line"><a id="l00416" name="l00416"></a><span class="lineno">  416</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="namespaceRa_1_1Core_1_1Math.html#a941baf20065c77d494ca251e6e104f31">Ra::Core::Math::scale</a>( q, k );</div>
+<div class="line"><a id="l00417" name="l00417"></a><span class="lineno">  417</span>}</div>
+<div class="line"><a id="l00418" name="l00418"></a><span class="lineno">  418</span> </div>
+<div class="line"><a id="l00419" name="l00419"></a><span class="lineno">  419</span><span class="keyword">inline</span> Quaternion&lt;Scalar&gt; <a class="code hl_function" href="namespaceRa_1_1Core.html#a759edbc3c97aec27676fcd8916334ed5">operator*</a>( <span class="keyword">const</span> Quaternion&lt;Scalar&gt;&amp; q, Scalar k ) {</div>
+<div class="line"><a id="l00420" name="l00420"></a><span class="lineno">  420</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="namespaceRa_1_1Core_1_1Math.html#a941baf20065c77d494ca251e6e104f31">Ra::Core::Math::scale</a>( q, k );</div>
+<div class="line"><a id="l00421" name="l00421"></a><span class="lineno">  421</span>}</div>
+<div class="line"><a id="l00422" name="l00422"></a><span class="lineno">  422</span> </div>
+<div class="line"><a id="l00423" name="l00423"></a><span class="lineno">  423</span><span class="keyword">inline</span> Quaternion&lt;Scalar&gt; operator+( <span class="keyword">const</span> Quaternion&lt;Scalar&gt;&amp; q1, <span class="keyword">const</span> Quaternion&lt;Scalar&gt;&amp; q2 ) {</div>
+<div class="line"><a id="l00424" name="l00424"></a><span class="lineno">  424</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="namespaceRa_1_1Core_1_1Math.html#a0523a53d2d94a623e194830837863c4c">Ra::Core::Math::add</a>( q1, q2 );</div>
+<div class="line"><a id="l00425" name="l00425"></a><span class="lineno">  425</span>}</div>
+<div class="line"><a id="l00426" name="l00426"></a><span class="lineno">  426</span> </div>
+<div class="line"><a id="l00427" name="l00427"></a><span class="lineno">  427</span><span class="keyword">inline</span> Quaternion&lt;Scalar&gt; operator/( <span class="keyword">const</span> Quaternion&lt;Scalar&gt;&amp; q, Scalar k ) {</div>
+<div class="line"><a id="l00428" name="l00428"></a><span class="lineno">  428</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="namespaceRa_1_1Core_1_1Math.html#a941baf20065c77d494ca251e6e104f31">Ra::Core::Math::scale</a>( q, Scalar( 1 ) / k );</div>
+<div class="line"><a id="l00429" name="l00429"></a><span class="lineno">  429</span>}</div>
+<div class="line"><a id="l00430" name="l00430"></a><span class="lineno">  430</span>} <span class="comment">// namespace Eigen</span></div>
 <div class="ttc" id="aTypes_8hpp_html"><div class="ttname"><a href="Types_8hpp.html">Types.hpp</a></div></div>
 <div class="ttc" id="aatan2_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/numeric/math/atan2.html">std::atan2</a></div><div class="ttdeci">T atan2(T... args)</div></div>
 <div class="ttc" id="abasic_ostream_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/io/basic_ostream.html">std::cout</a></div></div>
@@ -539,6 +555,7 @@ $(document).ready(function(){initNavTree('LinearAlgebra_8hpp_source.html',''); i
 <div class="ttc" id="anamespaceRa_1_1Core_1_1Math_html_a5130d4a8434d4ccc82fa04bcba73d2f0"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Math.html#a5130d4a8434d4ccc82fa04bcba73d2f0">Ra::Core::Math::slerp</a></div><div class="ttdeci">Vector_ slerp(const Vector_ &amp;v1, const Vector_ &amp;v2, Scalar t)</div><div class="ttdef"><b>Definition</b> <a href="LinearAlgebra_8hpp_source.html#l00275">LinearAlgebra.hpp:275</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Core_1_1Math_html_a5306cf8ea65c31d4bbe0560ec7bb6bb4"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Math.html#a5306cf8ea65c31d4bbe0560ec7bb6bb4">Ra::Core::Math::angle</a></div><div class="ttdeci">Scalar angle(const Vector_ &amp;v1, const Vector_ &amp;v2)</div><div class="ttdef"><b>Definition</b> <a href="LinearAlgebra_8hpp_source.html#l00206">LinearAlgebra.hpp:206</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Core_1_1Math_html_a5f25a31a29b0688e349dc35a353b9766"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Math.html#a5f25a31a29b0688e349dc35a353b9766">Ra::Core::Math::getOrthogonalVectors</a></div><div class="ttdeci">void getOrthogonalVectors(const Vector3 &amp;fx, Eigen::Ref&lt; Vector3 &gt; fy, Eigen::Ref&lt; Vector3 &gt; fz)</div><div class="ttdef"><b>Definition</b> <a href="LinearAlgebra_8hpp_source.html#l00259">LinearAlgebra.hpp:259</a></div></div>
+<div class="ttc" id="anamespaceRa_1_1Core_1_1Math_html_a696ab654ab2d206ede9469838c0ed3d5"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Math.html#a696ab654ab2d206ede9469838c0ed3d5">Ra::Core::Math::allClose</a></div><div class="ttdeci">bool allClose(const Eigen::DenseBase&lt; DerivedA &gt; &amp;a, const Eigen::DenseBase&lt; DerivedB &gt; &amp;b, const typename DerivedA::RealScalar &amp;rtol=Eigen::NumTraits&lt; typename DerivedA::RealScalar &gt;::dummy_precision(), const typename DerivedA::RealScalar &amp;atol=Eigen::NumTraits&lt; typename DerivedA::RealScalar &gt;::epsilon())</div><div class="ttdoc">Returns True if two arrays are element-wise equal within a tolerance.</div><div class="ttdef"><b>Definition</b> <a href="LinearAlgebra_8hpp_source.html#l00392">LinearAlgebra.hpp:392</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Core_1_1Math_html_a810d6d50b61cc01cda1d54527de864d0"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Math.html#a810d6d50b61cc01cda1d54527de864d0">Ra::Core::Math::signNZ</a></div><div class="ttdeci">constexpr T signNZ(const T &amp;val)</div><div class="ttdef"><b>Definition</b> <a href="Math_8hpp_source.html#l00114">Math.hpp:114</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Core_1_1Math_html_a8667e211f2182821346ba4bcfe07b053"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Math.html#a8667e211f2182821346ba4bcfe07b053">Ra::Core::Math::cotan</a></div><div class="ttdeci">Scalar cotan(const Vector_ &amp;v1, const Vector_ &amp;v2)</div><div class="ttdef"><b>Definition</b> <a href="LinearAlgebra_8hpp_source.html#l00211">LinearAlgebra.hpp:211</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Core_1_1Math_html_a90f0fe9079f5bb86c721ea4b61738470"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Math.html#a90f0fe9079f5bb86c721ea4b61738470">Ra::Core::Math::sign</a></div><div class="ttdeci">constexpr int sign(const T &amp;val)</div><div class="ttdoc">Returns the sign of any numeric type as { -1, 0, 1}.</div><div class="ttdef"><b>Definition</b> <a href="Math_8hpp_source.html#l00106">Math.hpp:106</a></div></div>

@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.5.13</span>
+   &#160;<span id="projectnumber">1.5.14</span>
    </div>
   </td>
  </tr>
@@ -137,7 +137,7 @@ $(document).ready(function(){initNavTree('ComponentMessenger_8cpp_source.html','
 <div class="foldopen" id="foldopen00011" data-start="{" data-end="}">
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1ComponentMessenger.html#abaebd35c0c84995568869d8fe07f915c">   11</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classRa_1_1Engine_1_1Scene_1_1ComponentMessenger.html#abaebd35c0c84995568869d8fe07f915c">ComponentMessenger::unregisterAll</a>( <span class="keyword">const</span> <a class="code hl_class" href="classRa_1_1Engine_1_1Scene_1_1Entity.html">Entity</a>* <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector.html">entity</a>, <a class="code hl_class" href="classRa_1_1Engine_1_1Scene_1_1Component.html">Component</a>* <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector.html">comp</a> ) {</div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    <span class="keywordflow">for</span> ( <span class="keyword">auto</span>&amp; <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector.html">entityList</a> : <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/array.html">std::array&lt;std::reference_wrapper&lt;EntityMap&gt;</a>, 3&gt; {</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>              m_entitySetLists, m_entityGetLists, m_entityRwLists } ) {</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>              { m_entitySetLists, m_entityGetLists, m_entityRwLists } } ) {</div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>        <span class="keyword">auto</span> <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector.html">listItr</a> = <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector.html">entityList</a>.get().find( <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector.html">entity</a> );</div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>        <span class="keywordflow">if</span> ( <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector.html">listItr</a> != <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector.html">entityList</a>.get().<a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector/end.html">end</a>() ) {</div>

@@ -3,6 +3,7 @@ var namespaceRa_1_1Core =
     [ "Math", "namespaceRa_1_1Core_1_1Math.html", [
       [ "add", "namespaceRa_1_1Core_1_1Math.html#a0523a53d2d94a623e194830837863c4c", null ],
       [ "addQlerp", "namespaceRa_1_1Core_1_1Math.html#aa5c9bddd5fdbbdbcdb661348982ff204", null ],
+      [ "allClose", "namespaceRa_1_1Core_1_1Math.html#a696ab654ab2d206ede9469838c0ed3d5", null ],
       [ "angle", "namespaceRa_1_1Core_1_1Math.html#a5306cf8ea65c31d4bbe0560ec7bb6bb4", null ],
       [ "areApproxEqual", "namespaceRa_1_1Core_1_1Math.html#a46540d56930b4c1ff3b115872cde4893", null ],
       [ "ceil", "namespaceRa_1_1Core_1_1Math.html#ace580f6f34d6a778e2a6a0c7c81646b5", null ],

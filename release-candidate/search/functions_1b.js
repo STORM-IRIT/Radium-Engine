@@ -18,7 +18,7 @@ var searchData=
   ['_7ecamerastorage_15',['~CameraStorage',['../classRa_1_1Engine_1_1Scene_1_1CameraStorage.html#a69350033eebd237d3d322829ed237574',1,'Ra::Engine::Scene::CameraStorage']]],
   ['_7echrono_16',['~Chrono',['../classRa_1_1Core_1_1Utils_1_1Chrono.html#a9814065d514aee34dfaca3d0406d0e6c',1,'Ra::Core::Utils::Chrono']]],
   ['_7eclibaseapplication_17',['~CLIBaseApplication',['../classRa_1_1Headless_1_1CLIBaseApplication.html#a45d48728f60dfadf3522c4b6a55567be',1,'Ra::Headless::CLIBaseApplication']]],
-  ['_7ecliviewer_18',['~CLIViewer',['../classRa_1_1Headless_1_1CLIViewer.html#a2e0eb12c974c7a1eed6a7dfb938a898c',1,'Ra::Headless::CLIViewer']]],
+  ['_7ecliradiumengineapp_18',['~CLIRadiumEngineApp',['../classRa_1_1Headless_1_1CLIRadiumEngineApp.html#a16d2edd8eaf4334f8d39b23150dd2e63',1,'Ra::Headless::CLIRadiumEngineApp']]],
   ['_7ecmatch_19',['~cmatch',['http://en.cppreference.com/w/cpp/regex/match_results/~match_results.html',0,'std::cmatch']]],
   ['_7ecodecvt_20',['~codecvt',['http://en.cppreference.com/w/cpp/locale/codecvt/~codecvt.html',0,'std::codecvt']]],
   ['_7ecodecvt_5fbyname_21',['~codecvt_byname',['http://en.cppreference.com/w/cpp/locale/codecvt_byname.html',0,'std::codecvt_byname']]],

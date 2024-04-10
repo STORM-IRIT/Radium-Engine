@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.5.13</span>
+   &#160;<span id="projectnumber">1.5.14</span>
    </div>
   </td>
  </tr>
@@ -151,7 +151,7 @@ $(document).ready(function(){initNavTree('TextureManager_8cpp_source.html',''); 
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    TextureHandle <a class="code hl_typedef" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">handle</a>;</div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <span class="comment">// find first free slot in m_textures, e.g. where the stored unique_ptr is nullptr</span></div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <span class="keyword">auto</span> <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector.html">it</a> = <a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/algorithm/find.html">std::find_if</a>(</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        m_textures.begin(), m_textures.end(), []( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector.html">texture</a> ) { return !texture; } );</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        m_textures.begin(), m_textures.end(), []( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector.html">texture_</a> ) { return !texture_; } );</div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <span class="keywordflow">if</span> ( <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector.html">it</a> != m_textures.end() ) {</div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector.html">it</a>-&gt;<a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector/swap.html">swap</a>( <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector.html">texture</a> );</div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector.html">handle</a>.setValue( <a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/iterator/distance.html">std::distance</a>( m_textures.begin(), <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector.html">it</a> ) );</div>

@@ -61,7 +61,7 @@ var hierarchy =
     [ "Ra::Core::Geometry::CatmullClarkSubdivider", "classRa_1_1Core_1_1Geometry_1_1CatmullClarkSubdivider.html", null ],
     [ "Ra::Core::Utils::Chrono", "classRa_1_1Core_1_1Utils_1_1Chrono.html", null ],
     [ "Ra::Headless::CLIBaseApplication", "classRa_1_1Headless_1_1CLIBaseApplication.html", [
-      [ "Ra::Headless::CLIViewer", "classRa_1_1Headless_1_1CLIViewer.html", null ]
+      [ "Ra::Headless::CLIRadiumEngineApp", "classRa_1_1Headless_1_1CLIRadiumEngineApp.html", null ]
     ] ],
     [ "Ra::Core::Utils::ColorBase< _Scalar >", "classRa_1_1Core_1_1Utils_1_1ColorBase.html", null ],
     [ "Ra::Core::Utils::ColorBase< Scalar >", "classRa_1_1Core_1_1Utils_1_1ColorBase.html", null ],
