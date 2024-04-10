@@ -13,6 +13,7 @@ find_qt_package(COMPONENTS Core REQUIRED)
 
 # Qt
 set(Qt_LIBRARIES Qt::Core)
+set(CMAKE_AUTOMOC_PATH_PREFIX ON)
 set(CMAKE_AUTOMOC ON)
 
 add_library(

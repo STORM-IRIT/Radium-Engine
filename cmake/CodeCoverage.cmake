@@ -166,11 +166,19 @@ foreach(LANG ${LANGUAGES})
 endforeach()
 
 set(COVERAGE_COMPILER_FLAGS "-g --coverage" CACHE INTERNAL "")
+
 if(CMAKE_CXX_COMPILER_ID MATCHES "(GNU|Clang)")
     include(CheckCXXCompilerFlag)
-    check_cxx_compiler_flag(-fprofile-abs-path HAVE_fprofile_abs_path)
-    if(HAVE_fprofile_abs_path)
-        set(COVERAGE_COMPILER_FLAGS "${COVERAGE_COMPILER_FLAGS} -fprofile-abs-path")
+    check_cxx_compiler_flag(-fprofile-abs-path HAVE_cxx_fprofile_abs_path)
+    if(HAVE_cxx_fprofile_abs_path)
+        set(COVERAGE_CXX_COMPILER_FLAGS "${COVERAGE_COMPILER_FLAGS} -fprofile-abs-path")
+    endif()
+endif()
+if(CMAKE_C_COMPILER_ID MATCHES "(GNU|Clang)")
+    include(CheckCCompilerFlag)
+    check_c_compiler_flag(-fprofile-abs-path HAVE_c_fprofile_abs_path)
+    if(HAVE_c_fprofile_abs_path)
+        set(COVERAGE_C_COMPILER_FLAGS "${COVERAGE_COMPILER_FLAGS} -fprofile-abs-path")
     endif()
 endif()
 
@@ -239,8 +247,7 @@ function(setup_target_for_coverage_lcov)
     set(LCOV_EXCLUDES "")
     foreach(EXCLUDE ${Coverage_EXCLUDE} ${COVERAGE_EXCLUDES} ${COVERAGE_LCOV_EXCLUDES})
         if(CMAKE_VERSION VERSION_GREATER 3.4)
-            # this don't support regexp get_filename_component(EXCLUDE ${EXCLUDE} ABSOLUTE BASE_DIR
-            # ${BASEDIR})
+            get_filename_component(EXCLUDE ${EXCLUDE} ABSOLUTE BASE_DIR ${BASEDIR})
         endif()
         list(APPEND LCOV_EXCLUDES "${EXCLUDE}")
     endforeach()
@@ -340,36 +347,36 @@ function(setup_target_for_coverage_lcov)
         message(STATUS "Executed command report")
         message(STATUS "Command to clean up lcov: ")
         string(REPLACE ";" " " LCOV_CLEAN_CMD_SPACED "${LCOV_CLEAN_CMD}")
-        message(STATUS "${LCOV_CLEAN_CMD_SPACED}")
+        message("${LCOV_CLEAN_CMD_SPACED}")
 
         message(STATUS "Command to create baseline: ")
         string(REPLACE ";" " " LCOV_BASELINE_CMD_SPACED "${LCOV_BASELINE_CMD}")
-        message(STATUS "${LCOV_BASELINE_CMD_SPACED}")
+        message("${LCOV_BASELINE_CMD_SPACED}")
 
         message(STATUS "Command to run the tests: ")
         string(REPLACE ";" " " LCOV_EXEC_TESTS_CMD_SPACED "${LCOV_EXEC_TESTS_CMD}")
-        message(STATUS "${LCOV_EXEC_TESTS_CMD_SPACED}")
+        message("${LCOV_EXEC_TESTS_CMD_SPACED}")
 
         message(STATUS "Command to capture counters and generate report: ")
         string(REPLACE ";" " " LCOV_CAPTURE_CMD_SPACED "${LCOV_CAPTURE_CMD}")
-        message(STATUS "${LCOV_CAPTURE_CMD_SPACED}")
+        message("${LCOV_CAPTURE_CMD_SPACED}")
 
         message(STATUS "Command to add baseline counters: ")
         string(REPLACE ";" " " LCOV_BASELINE_COUNT_CMD_SPACED "${LCOV_BASELINE_COUNT_CMD}")
-        message(STATUS "${LCOV_BASELINE_COUNT_CMD_SPACED}")
+        message("${LCOV_BASELINE_COUNT_CMD_SPACED}")
 
         message(STATUS "Command to filter collected data: ")
         string(REPLACE ";" " " LCOV_FILTER_CMD_SPACED "${LCOV_FILTER_CMD}")
-        message(STATUS "${LCOV_FILTER_CMD_SPACED}")
+        message("${LCOV_FILTER_CMD_SPACED}")
 
         message(STATUS "Command to generate lcov HTML output: ")
         string(REPLACE ";" " " LCOV_GEN_HTML_CMD_SPACED "${LCOV_GEN_HTML_CMD}")
-        message(STATUS "${LCOV_GEN_HTML_CMD_SPACED}")
+        message("${LCOV_GEN_HTML_CMD_SPACED}")
 
         if(${Coverage_SONARQUBE})
             message(STATUS "Command to generate SonarQube XML output: ")
             string(REPLACE ";" " " GCOVR_XML_CMD_SPACED "${GCOVR_XML_CMD}")
-            message(STATUS "${GCOVR_XML_CMD_SPACED}")
+            message("${GCOVR_XML_CMD_SPACED}")
         endif()
     endif()
 
@@ -440,7 +447,7 @@ function(setup_target_for_coverage_gcovr_xml)
     set(GCOVR_EXCLUDES "")
     foreach(EXCLUDE ${Coverage_EXCLUDE} ${COVERAGE_EXCLUDES} ${COVERAGE_GCOVR_EXCLUDES})
         if(CMAKE_VERSION VERSION_GREATER 3.4)
-            # get_filename_component(EXCLUDE ${EXCLUDE} ABSOLUTE BASE_DIR ${BASEDIR})
+            get_filename_component(EXCLUDE ${EXCLUDE} ABSOLUTE BASE_DIR ${BASEDIR})
         endif()
         list(APPEND GCOVR_EXCLUDES "${EXCLUDE}")
     endforeach()
@@ -466,11 +473,11 @@ function(setup_target_for_coverage_gcovr_xml)
 
         message(STATUS "Command to run tests: ")
         string(REPLACE ";" " " GCOVR_XML_EXEC_TESTS_CMD_SPACED "${GCOVR_XML_EXEC_TESTS_CMD}")
-        message(STATUS "${GCOVR_XML_EXEC_TESTS_CMD_SPACED}")
+        message("${GCOVR_XML_EXEC_TESTS_CMD_SPACED}")
 
         message(STATUS "Command to generate gcovr XML coverage data: ")
         string(REPLACE ";" " " GCOVR_XML_CMD_SPACED "${GCOVR_XML_CMD}")
-        message(STATUS "${GCOVR_XML_CMD_SPACED}")
+        message("${GCOVR_XML_CMD_SPACED}")
     endif()
 
     add_custom_target(
@@ -523,7 +530,7 @@ function(setup_target_for_coverage_gcovr_html)
     set(GCOVR_EXCLUDES "")
     foreach(EXCLUDE ${Coverage_EXCLUDE} ${COVERAGE_EXCLUDES} ${COVERAGE_GCOVR_EXCLUDES})
         if(CMAKE_VERSION VERSION_GREATER 3.4)
-            # get_filename_component(EXCLUDE ${EXCLUDE} ABSOLUTE BASE_DIR ${BASEDIR})
+            get_filename_component(EXCLUDE ${EXCLUDE} ABSOLUTE BASE_DIR ${BASEDIR})
         endif()
         list(APPEND GCOVR_EXCLUDES "${EXCLUDE}")
     endforeach()
@@ -560,15 +567,15 @@ function(setup_target_for_coverage_gcovr_html)
 
         message(STATUS "Command to run tests: ")
         string(REPLACE ";" " " GCOVR_HTML_EXEC_TESTS_CMD_SPACED "${GCOVR_HTML_EXEC_TESTS_CMD}")
-        message(STATUS "${GCOVR_HTML_EXEC_TESTS_CMD_SPACED}")
+        message("${GCOVR_HTML_EXEC_TESTS_CMD_SPACED}")
 
         message(STATUS "Command to create a folder: ")
         string(REPLACE ";" " " GCOVR_HTML_FOLDER_CMD_SPACED "${GCOVR_HTML_FOLDER_CMD}")
-        message(STATUS "${GCOVR_HTML_FOLDER_CMD_SPACED}")
+        message("${GCOVR_HTML_FOLDER_CMD_SPACED}")
 
         message(STATUS "Command to generate gcovr HTML coverage data: ")
         string(REPLACE ";" " " GCOVR_HTML_CMD_SPACED "${GCOVR_HTML_CMD}")
-        message(STATUS "${GCOVR_HTML_CMD_SPACED}")
+        message("${GCOVR_HTML_CMD_SPACED}")
     endif()
 
     add_custom_target(
@@ -648,7 +655,7 @@ function(setup_target_for_coverage_fastcov)
         --gcov
         ${GCOV_PATH}
         --search-directory
-        ${BASEDIR}
+        ${CMAKE_BINARY_DIR}
         --process-gcno
         --output
         ${Coverage_NAME}.json
@@ -705,7 +712,7 @@ function(setup_target_for_coverage_fastcov)
         ${Coverage_NAME}
         # Cleanup fastcov
         COMMAND ${FASTCOV_PATH} ${Coverage_FASTCOV_ARGS} --gcov ${GCOV_PATH} --search-directory
-                ${BASEDIR} --zerocounters
+                ${CMAKE_BINARY_DIR} --zerocounters
         COMMAND ${FASTCOV_EXEC_TESTS_CMD}
         COMMAND ${FASTCOV_CAPTURE_CMD}
         COMMAND ${FASTCOV_CONVERT_CMD}
@@ -749,7 +756,9 @@ endfunction() # append_coverage_compiler_flags
 function(append_coverage_compiler_flags_to_target name)
     separate_arguments(_flag_list NATIVE_COMMAND "${COVERAGE_COMPILER_FLAGS}")
     target_compile_options(${name} PRIVATE ${_flag_list})
-    if(CMAKE_C_COMPILER_ID STREQUAL "GNU" OR CMAKE_Fortran_COMPILER_ID STREQUAL "GNU")
+    if(CMAKE_C_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID STREQUAL "GNU"
+       OR CMAKE_Fortran_COMPILER_ID STREQUAL "GNU"
+    )
         target_link_libraries(${name} PRIVATE gcov)
     endif()
 endfunction()

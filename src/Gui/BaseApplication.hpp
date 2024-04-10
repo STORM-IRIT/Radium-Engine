@@ -128,6 +128,7 @@ class RA_GUI_API BaseApplication : public QApplication
     bool isRunning() const { return !m_isAboutToQuit; }
 
     const Engine::RadiumEngine* getEngine() const { return m_engine; }
+    Viewer* getViewer() { return m_viewer; }
 
     uint getFrameCount() const { return m_frameCounter; }
 

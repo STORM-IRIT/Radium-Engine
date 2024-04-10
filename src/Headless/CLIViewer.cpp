@@ -21,8 +21,60 @@ using namespace Ra::Core::Utils;
 
 constexpr int defaultSystemPriority = 1000;
 
+CLIRadiumEngineApp::CLIRadiumEngineApp( std::unique_ptr<OpenGLContext> context ) :
+    CLIBaseApplication(), m_glContext { std::move( context ) } {}
+
+CLIRadiumEngineApp::~CLIRadiumEngineApp() {
+    if ( m_engineInitialized ) {
+        m_glContext->makeCurrent();
+        m_engine->cleanup();
+        Ra::Engine::RadiumEngine::destroyInstance();
+        m_glContext->doneCurrent();
+    }
+}
+
+int CLIRadiumEngineApp::init( int argc, const char* argv[] ) {
+    int parseResult = CLIBaseApplication::init( argc, argv );
+    if ( parseResult != 0 ) {
+        if ( parseResult != 1 ) {
+            LOG( logERROR ) << "Invalid command line argument, the application can't run";
+            return parseResult;
+        }
+        return 1;
+    };
+    // Do the Viewer init
+    if ( !m_glContext->isValid() ) {
+        LOG( logERROR ) << "Invalid openglContext, the application can't run";
+        return 1;
+    }
+
+    // Create engine
+    m_engine = Ra::Engine::RadiumEngine::createInstance();
+    m_engine->initialize();
+    m_engineInitialized = true;
+
+    // initialize OpenGL part of the Engine
+    m_glContext->makeCurrent();
+    m_engine->initializeGL();
+    m_glContext->doneCurrent();
+
+    // Init is OK
+    return 0;
+}
+
+void CLIRadiumEngineApp::openGlAddOns( std::function<void()> f ) {
+    m_glContext->makeCurrent();
+    f();
+    m_glContext->doneCurrent();
+}
+
+void CLIRadiumEngineApp::bindOpenGLContext( bool on ) {
+    if ( on ) { m_glContext->makeCurrent(); }
+    else { m_glContext->doneCurrent(); }
+}
+
 CLIViewer::CLIViewer( std::unique_ptr<OpenGLContext> context ) :
-    CLIBaseApplication(), m_glContext { std::move( context ) } {
+    CLIRadiumEngineApp( std::move( context ) ) {
     // add ->required() to force user to give a filename;
     addOption( "-f,--file", m_parameters.m_dataFile, "Data file to process." )
         ->check( CLI::ExistingFile );
@@ -34,8 +86,6 @@ CLIViewer::~CLIViewer() {
     if ( m_engineInitialized ) {
         m_glContext->makeCurrent();
         m_renderer.reset();
-        m_engine->cleanup();
-        Ra::Engine::RadiumEngine::destroyInstance();
         m_glContext->doneCurrent();
     }
 }
@@ -45,28 +95,14 @@ const CLIViewer::ViewerParameters& CLIViewer::getCommandLineParameters() const {
 }
 
 int CLIViewer::init( int argc, const char* argv[] ) {
-    int parseResult = CLIBaseApplication::init( argc, argv );
-    if ( parseResult != 0 ) {
-        if ( parseResult != 1 ) {
-            LOG( logERROR ) << "Invalid command line argument, the application can't run";
-        }
-        return 1;
-    };
-    // Do the Viewer init
-    if ( !m_glContext->isValid() ) {
-        LOG( logERROR ) << "Invalid openglContext, the application can't run";
-        return 1;
-    }
+
+    int parseResult = CLIRadiumEngineApp::init( argc, argv );
+    if ( parseResult != 0 ) { return parseResult; };
 
     m_glContext->resize( m_parameters.m_size );
     LOG( logINFO ) << "CLIViewer :\n" << m_glContext->getInfo();
 
     // Initialize the Radium engine environment
-
-    // Create engine
-    m_engine = Ra::Engine::RadiumEngine::createInstance();
-    m_engine->initialize();
-    m_engineInitialized = true;
 
     // Register the GeometrySystem converting loaded assets to meshes
     m_engine->registerSystem(
@@ -79,11 +115,6 @@ int CLIViewer::init( int argc, const char* argv[] ) {
                                   new Ra::Engine::Scene::SkeletonBasedAnimationSystem,
                                   defaultSystemPriority );
     }
-
-    // initialize OpenGL part of the Engine
-    m_glContext->makeCurrent();
-    m_engine->initializeGL();
-    m_glContext->doneCurrent();
 
     // register listeners on the OpenGL Context
     m_glContext->resizeListener().attach(
@@ -149,18 +180,6 @@ void CLIViewer::compileScene() {
         }
     }
 }
-
-void CLIViewer::openGlAddOns( std::function<void()> f ) {
-    m_glContext->makeCurrent();
-    f();
-    m_glContext->doneCurrent();
-}
-
-void CLIViewer::bindOpenGLContext( bool on ) {
-    if ( on ) { m_glContext->makeCurrent(); }
-    else { m_glContext->doneCurrent(); }
-}
-
 Ra::Core::Utils::Index CLIViewer::setCamera( Ra::Core::Utils::Index camIdx ) {
     auto cameraManager = static_cast<Ra::Engine::Scene::CameraManager*>(
         Ra::Engine::RadiumEngine::getInstance()->getSystem( "DefaultCameraManager" ) );

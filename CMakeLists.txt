@@ -218,26 +218,37 @@ if(RADIUM_ENABLE_TESTING)
 endif()
 
 if(RADIUM_ENABLE_COVERAGE)
+    append_coverage_compiler_flags()
     setup_target_for_coverage_lcov(
         NAME
         coverage
         EXECUTABLE
-        ctest
+        ${CMAKE_CTEST_COMMAND}
+        --output-on-failure
+        -C
+        ${CMAKE_BUILD_TYPE}
         -j
         $ENV{CMAKE_BUILD_PARALLEL_LEVEL}
+        BASE_DIRECTORY
+        "/"
         DEPENDENCIES
         RadiumLibs
         unittests
         integration
         EXCLUDE
+        "/*external*/"
+        "/*/glbinding/*"
+        "/*/globjects/*"
+        "/*/OpenMesh/*"
+        "/*/assimp/*"
+        "/*/eigen3/*"
+        "/*/nlohmann/*"
+        "/*/stb/*"
         "/usr/*"
-        "*examples*"
-        "*external*"
-        "*install*"
-        "*/Catch2/*"
-        "*_autogen/*"
-        "*build*"
-        "*mocs*"
+        "${CMAKE_SOURCE_DIR}/examples*"
+        "${CMAKE_SOURCE_DIR}/*/Catch2/*"
+        "${CMAKE_BINARY_DIR}/*_autogen/*"
+        "${CMAKE_BINARY_DIR}/*mocs*"
     )
 
     # Fastcov is not supported with gcov llvm: disabling for MacOS Source:
@@ -247,16 +258,28 @@ if(RADIUM_ENABLE_COVERAGE)
             NAME
             coverage_fastcov
             EXECUTABLE
-            ctest
+            ${CMAKE_CTEST_COMMAND}
+            --output-on-failure
+            -C
+            ${CMAKE_BUILD_TYPE}
             -j
             $ENV{CMAKE_BUILD_PARALLEL_LEVEL}
             DEPENDENCIES
             RadiumLibs
             unittests
             integration
+            BASE_DIRECTORY
+            "/"
             EXCLUDE
             "/usr/"
             "examples"
+            "glbinding"
+            "globjects"
+            "OpenMesh"
+            "assimp"
+            "eigen3"
+            "nlohmann"
+            "stb"
             "external"
             "install"
             "/Catch2/"

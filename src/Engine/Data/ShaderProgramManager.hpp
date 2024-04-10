@@ -29,7 +29,7 @@ class ShaderConfiguration;
  * configuration, there is only one ShaderProgram instance in the system.
  *
  * This manager is a singleton. At the creation of the singleton, one can give parameters that will
- * define the default shader programm example :  Engine::ShaderProgramManager::createInstance(
+ * define the default shader program example :  Engine::ShaderProgramManager::createInstance(
  * "Shaders/Default.vert.glsl", "Shaders/Default.frag.glsl" );
  *
  */
@@ -49,7 +49,7 @@ class RA_ENGINE_API ShaderProgramManager final
      * The shader sources corresponding to the configuration will be compiled, linked and verified.
      *
      *
-     * \param config the configuration of the programm to add to the collection
+     * \param config the configuration of the program to add to the collection
      * \return the created shader program. In case of compile/link/verify error, return false
      * \note ownership on the returned pointer is keep by the manager.
      * \warning this method is *not* reentrant
@@ -58,16 +58,16 @@ class RA_ENGINE_API ShaderProgramManager final
     addShaderProgram( const Data::ShaderConfiguration& config );
 
     /**
-     * Get the shader programm corresponding to the given id
-     * \param id Name of the programm to retrieve
-     * \return the shader programm retrieved, nullptr if the program was not in the collection
+     * Get the shader program corresponding to the given id
+     * \param id Name of the program to retrieve
+     * \return the shader program retrieved, nullptr if the program was not in the collection
      */
     const Data::ShaderProgram* getShaderProgram( const std::string& id );
 
     /**
-     * Get the shader programm corresponding to the given configuration
-     * \param config Name of the programm to retrieve
-     * \return the shader programm retrieved, or nullptr when no shader programm corresponding to
+     * Get the shader program corresponding to the given configuration
+     * \param config Name of the program to retrieve
+     * \return the shader program retrieved, or nullptr when no shader program corresponding to
      * the configuration is found.
      */
     const Data::ShaderProgram* getShaderProgram( const Data::ShaderConfiguration& config );
@@ -79,8 +79,8 @@ class RA_ENGINE_API ShaderProgramManager final
     void reloadAllShaderPrograms();
     /**
      * Programs that did not compiled are temporarilly stored and could be reloaded and compiled
-     * when one call this method. If the reloaded programm is ok, it is removed from the set of not
-     * compiled program and added to the programm collection.
+     * when one call this method. If the reloaded program is ok, it is removed from the set of not
+     * compiled program and added to the program collection.
      */
     void reloadNotCompiledShaderPrograms();
 

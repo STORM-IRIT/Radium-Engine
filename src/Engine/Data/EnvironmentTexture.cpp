@@ -145,7 +145,7 @@ using namespace Ra::Core;
 // -------------------------------------------------------------------
 EnvironmentTexture::EnvironmentTexture( const std::string& mapName, bool isSkybox ) :
     m_name( mapName ),
-    m_skyData { nullptr, nullptr, nullptr, nullptr, nullptr, nullptr },
+    m_skyData { { nullptr, nullptr, nullptr, nullptr, nullptr, nullptr } },
     m_isSkyBox( isSkybox ) {
     m_type = ( mapName.find( ';' ) != mapName.npos ) ? EnvironmentTexture::EnvMapType::ENVMAP_CUBE
                                                      : EnvironmentTexture::EnvMapType::ENVMAP_PFM;
@@ -175,7 +175,7 @@ void EnvironmentTexture::initializeTexture() {
 
     // proper convert shared ptr float[] to void
     std::array<std::shared_ptr<void>, 6> cubeMap = {
-        m_skyData[0], m_skyData[1], m_skyData[2], m_skyData[3], m_skyData[4], m_skyData[5] };
+        { m_skyData[0], m_skyData[1], m_skyData[2], m_skyData[3], m_skyData[4], m_skyData[5] } };
     Ra::Engine::Data::TextureParameters params { m_name,
                                                  {
                                                      GL_CLAMP_TO_EDGE,
@@ -435,18 +435,17 @@ void EnvironmentTexture::setupTexturesFromSphericalEquiRectangular() {
                 Vector2 st { w * sphericalPhi( d ) / ( 2 * M_PI ), h * sphericalTheta( d ) / M_PI };
                 // TODO : use st to access and filter the original envmap
                 // for now, no filtering is done. (eq to GL_NEAREST)
-                int s  = int( st.x() );
-                int t  = int( st.y() );
-                int cu = int( ( u / 2 + 0.5 ) * textureSize );
-                int cv = int( ( v / 2 + 0.5 ) * textureSize );
+                int s  = std::clamp( int( st.x() ), 0, w - 1 );
+                int t  = std::clamp( int( st.y() ), 0, h - 1 );
+                int cu = std::clamp( int( ( u / 2 + 0.5 ) * textureSize ), 0, textureSize - 1 );
+                int cv = std::clamp( int( ( v / 2 + 0.5 ) * textureSize ), 0, textureSize - 1 );
+                int skyIndex    = 4 * ( cv * textureSize + cu );
+                int latlonIndex = 4 * ( t * w + s );
 
-                m_skyData[imgIdx][4 * ( cv * textureSize + cu ) + 0] =
-                    latlonPix[4 * ( t * w + s ) + 0];
-                m_skyData[imgIdx][4 * ( cv * textureSize + cu ) + 1] =
-                    latlonPix[4 * ( t * w + s ) + 1];
-                m_skyData[imgIdx][4 * ( cv * textureSize + cu ) + 2] =
-                    latlonPix[4 * ( t * w + s ) + 2];
-                m_skyData[imgIdx][4 * ( cv * textureSize + cu ) + 3] = 1;
+                m_skyData[imgIdx][skyIndex + 0] = latlonPix[latlonIndex + 0];
+                m_skyData[imgIdx][skyIndex + 1] = latlonPix[latlonIndex + 1];
+                m_skyData[imgIdx][skyIndex + 2] = latlonPix[latlonIndex + 2];
+                m_skyData[imgIdx][skyIndex + 3] = 1;
             }
         }
     }
