@@ -83,10 +83,8 @@ class PortIn : public PortBaseIn,
     PortIn& operator=( const PortIn& ) = delete;
 
     /// Constructor.
-    /// @param name The name of the port.
     /// @param node The pointer to the node associated with the port.
-    ///\todo remove this one
-    PortIn( const std::string& name, Node* node ) : PortBaseIn( node, name, typeid( T ) ) {}
+    /// @param name The name of the port.
     PortIn( Node* node, const std::string& name ) : PortBaseIn( node, name, typeid( T ) ) {}
     /// @}
 
@@ -121,7 +119,7 @@ class PortIn : public PortBaseIn,
     /// Returns a portOut of the same type
     /// \todo remove
     PortBaseOut* reflect( Node* node, std::string name ) const override {
-        return new PortOut<DataType>( name, node );
+        return new PortOut<DataType>( node, name );
     }
 
     /// Returns true if the port is an input port

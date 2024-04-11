@@ -66,9 +66,8 @@ class PortOut : public PortBaseOut
     /// Constructor.
     /// @param name The name of the port.
     /// @param node The pointer to the node associated with the port.
-    /// \todo remove this one
-    PortOut( const std::string& name, Node* node ) : PortBaseOut( node, name, typeid( T ) ) {}
     PortOut( Node* node, const std::string& name ) : PortBaseOut( node, name, typeid( T ) ) {}
+
     PortOut( Node* node, T* data, const std::string& name ) :
         PortBaseOut( node, name, typeid( T ) ), m_data { data } {}
     /// @}
@@ -84,7 +83,7 @@ class PortOut : public PortBaseOut
     /// Returns a portIn of the same type
     /// \todo Remove
     PortBaseIn* reflect( Node* node, std::string name ) const override {
-        return new PortIn<DataType>( name, node );
+        return new PortIn<DataType>( node, name );
     }
 
   private:

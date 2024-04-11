@@ -102,11 +102,11 @@ class FilterSelector final : public Node
     }
 
     /// Alias to the output port
-    PortOut<function_type>* m_operatourOut { new PortOut<function_type>( "f", this ) };
-    PortOut<std::string>* m_nameOut { new PortOut<std::string>( "name", this ) };
+    PortOut<function_type>* m_operatourOut { new PortOut<function_type>( this, "f" ) };
+    PortOut<std::string>* m_nameOut { new PortOut<std::string>( this, "name" ) };
     /// Alias for the input ports
-    PortIn<std::string>* m_portName { new PortIn<std::string>( "name", this ) };
-    PortIn<T>* m_portThreshold { new PortIn<T>( "threshold", this ) };
+    PortIn<std::string>* m_portName { new PortIn<std::string>( this, "name" ) };
+    PortIn<T>* m_portThreshold { new PortIn<T>( this, "threshold" ) };
 
     /// The data provided by the node
     std::map<std::string, function_type> m_functions {
