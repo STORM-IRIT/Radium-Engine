@@ -51,7 +51,6 @@ void DataflowGraph::destroy() {
     m_nodesByLevel.clear();
     m_nodes.clear();
     m_factories.reset();
-    m_dataSetters.erase( m_dataSetters.begin(), m_dataSetters.end() );
     Node::destroy();
     needsRecompile();
 }
@@ -490,7 +489,6 @@ void DataflowGraph::clearNodes() {
     m_inputs.shrink_to_fit();
     m_outputs.erase( m_outputs.begin(), m_outputs.end() );
     m_outputs.shrink_to_fit();
-    m_dataSetters.erase( m_dataSetters.begin(), m_dataSetters.end() );
     m_shouldBeSaved = true;
 }
 
@@ -541,61 +539,6 @@ int DataflowGraph::goThroughGraph(
         }
     }
     return maxLevel;
-}
-
-bool DataflowGraph::addSetter( PortBaseIn* in ) {
-    bool found = false;
-    if ( m_dataSetters.find( in->getName() ) == m_dataSetters.end() ) {
-        addInput( in );
-        auto portOut = std::shared_ptr<PortBaseOut>( in->reflect( this, in->getName() ) );
-        m_dataSetters.emplace( std::make_pair(
-            in->getName(),
-            DataSetter { DataSetterDesc { portOut, portOut->getName(), portOut->getTypeName() },
-                         in } ) );
-        found = true;
-    }
-    return found;
-}
-
-bool DataflowGraph::removeSetter( const std::string& setterName ) {
-    bool removed = false;
-    auto itS     = m_dataSetters.find( setterName );
-    if ( itS != m_dataSetters.end() ) {
-        auto& [desPort, in] = itS->second;
-        removeInput( in );
-        m_dataSetters.erase( itS );
-        removed = true;
-    }
-    return removed;
-}
-
-bool DataflowGraph::addGetter( PortBaseOut* out ) {
-    if ( out->is_input() ) { return false; }
-    // This is very similar to addOutput, except the data can't be set.
-    // Data pointer must be set by any sink at compile time, in the init function to refer to
-    // the data fetched from the associated input link
-    bool found = false;
-    // TODO check if this verification is needed ?
-    for ( auto& output : m_outputs ) {
-        if ( output->getName() == out->getName() ) {
-            found = true;
-            break;
-        }
-    }
-    if ( !found ) { m_outputs.emplace_back( out ); }
-    return !found;
-}
-
-bool DataflowGraph::removeGetter( const std::string& getterName ) {
-    auto getterP = std::find_if( m_outputs.begin(), m_outputs.end(), [getterName]( const auto& p ) {
-        return p->getName() == getterName;
-    } );
-    bool found   = false;
-    if ( getterP != m_outputs.end() ) {
-        m_outputs.erase( getterP );
-        found = true;
-    }
-    return found;
 }
 
 std::shared_ptr<Node> DataflowGraph::getNode( const std::string& instanceNameNode ) const {

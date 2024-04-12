@@ -66,8 +66,6 @@ class RA_DATAFLOW_API DataflowGraph : public Node
     void saveToJson( const std::string& jsonFilePath );
 
     /// \brief Adds a node to the render graph.
-    /// Adds interface ports to the node newNode and the corresponding input and output ports to
-    /// the graph.
     /// \param newNode The node to add to the graph.
     /// \return a pair with a bool and a raw pointer to the Node. If the bool is true, the raw
     /// pointer is owned by the graph. If the bool is false, the raw pointer ownership is left to
@@ -77,9 +75,8 @@ class RA_DATAFLOW_API DataflowGraph : public Node
     std::shared_ptr<T> addNode( U&&... u );
 
     /// \brief Removes a node from the render graph.
-    /// Removes input and output ports, corresponding to interface ports of the node, from the
-    /// graph. \param node The node to remove from the graph. \return true if the node was removed
-    /// and the given pointer is set to nullptr, false else
+    /// \param node The node to remove from the graph.
+    /// \return true if the node was removed and the given pointer is set to nullptr, false else
     virtual bool removeNode( std::shared_ptr<Node> node );
 
     /// Connects two nodes of the render graph.
@@ -174,11 +171,6 @@ class RA_DATAFLOW_API DataflowGraph : public Node
 
         return port.second;
     }
-    /// \brief Data setter descriptor.
-    /// A Data setter descriptor is composed of an output port (linked by construction to an
-    /// input port of the graph), its name and its type. Use setData on the output port to pass
-    /// data to the graph
-    using DataSetterDesc = std::tuple<std::shared_ptr<PortBaseOut>, std::string, std::string>;
 
     /// \brief Data getter descriptor.
     /// A Data getter descriptor is composed of an output port (belonging to any node of the
@@ -252,29 +244,6 @@ class RA_DATAFLOW_API DataflowGraph : public Node
     int goThroughGraph( Node* current,
                         std::unordered_map<Node*, std::pair<int, std::vector<Node*>>>& infoNodes );
 
-    /// \brief Adds an input port to the graph and associate it with a dataSetter.
-    /// This port is aliased as an interface port in a source node of the graph.
-    /// This function checks if there is no input port with the same name already
-    /// associated with the graph.
-    bool addSetter( PortBaseIn* in );
-
-    /// \brief Remove the given setter from the graph
-    /// \param setterName
-    /// \return true if the setter was removed, false else.
-    bool removeSetter( const std::string& setterName );
-
-    /// \brief Adds an out port for a Graph and register it as a dataGetter.
-    /// This port is aliased as an interface port in a sink node of the graph.
-    /// This function checks if there is no out port with the same name already
-    /// associated with the graph.
-    /// \param out The port to add.
-    bool addGetter( PortBaseOut* out );
-
-    /// \brief Remove the given getter from the graph
-    /// \param getterName
-    /// \return true if the getter was removed, false else.
-    bool removeGetter( const std::string& getterName );
-
     bool checkNodeValidity( const Node* nodeFrom, const Node* nodeTo );
     static bool checkPortCompatibility( const Node* nodeFrom,
                                         Node::PortIndex portOutIdx,
@@ -313,13 +282,6 @@ class RA_DATAFLOW_API DataflowGraph : public Node
     /// The list of nodes ordered by levels.
     /// Two nodes at the same level have no dependency between them.
     std::vector<std::vector<Node*>> m_nodesByLevel;
-
-    /// Data setters management : used to pass parameter to the graph when the graph is not
-    /// embedded into another graph (inputs are here for this case). A dataSetter is an
-    /// outputPort, associated to an input port of the graph. The connection between these ports
-    /// can be activated/deactivated using activateDataSetter/releaseDataSetter
-    using DataSetter = std::pair<DataSetterDesc, PortBaseIn*>;
-    std::map<std::string, DataSetter> m_dataSetters;
 
     bool m_nodesAndLinksProtected { false };
 };
