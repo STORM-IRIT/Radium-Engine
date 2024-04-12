@@ -35,12 +35,27 @@ class RA_DATAFLOW_API PortBaseOut : public PortBase
     /// \todo : remove interface ? so remove reflect ?
     virtual PortBaseIn* reflect( Node* node, std::string name ) const = 0;
 
+    // called by PortIn when connect
+    void increaseLinkCount() {
+        ++m_linkCount;
+        CORE_ASSERT( m_linkCount >= 0, "link count error" );
+    }
+
+    // called by PortIn when disconnect
+    void decreaseLinkCount() {
+        --m_linkCount;
+        CORE_ASSERT( m_linkCount >= 0, "link count error" );
+    }
+    int getLinkCount() { return m_linkCount; }
+
   protected:
     /// Constructor.
     /// @param name The name of the port.
     /// @param type The data's type's hash.
     /// @param node The pointer to the node associated with the port.
     PortBaseOut( Node* node, const std::string& name, std::type_index type );
+    /// Count how many times the port is linked
+    int m_linkCount { 0 };
 
 }; // class PortBaseOut
 
@@ -87,8 +102,8 @@ class PortOut : public PortBaseOut
     }
 
   private:
-    T* m_data { nullptr }; ///< The data the port points to. Use raw ptr, data belongs to node and
-                           ///< can be plain stack variable
+    T* m_data { nullptr }; ///< The data the port points to. Use raw ptr, data belongs to node
+                           ///< and can be plain stack variable
 
 }; // class PortOut<T>
 

@@ -150,20 +150,30 @@ class RA_DATAFLOW_API DataflowGraph : public Node
     /// input from the data pointer owned by the caller. \note As ownership is shared with the
     /// caller, the graph must survive the returned pointer to be able to use the dataSetter..
     /// \params portName The name of the input port of the graph
-    std::shared_ptr<PortBase> getDataSetter( const std::string& portName );
 
-    /// \brief disconnect the data setting port from its inputs.
-    bool releaseDataSetter( const std::string& portName );
-    /// \brief connect the data setting port from its inputs.
-    bool activateDataSetter( const std::string& portName );
+    Node::PortBaseInRawPtr getDataSetter( const std::string& nodeName,
+                                          const std::string& portName ) {
+        auto node = getNode( nodeName );
+        auto port = node->getInputByName( portName );
+        CORE_ASSERT( port.first.isValid(),
+                     "invalid port, node: " + nodeName + " port: " + portName );
+        return port.second;
+    }
 
     /// \brief Returns an alias to the named output port of the graph.
     /// Allows to get the data stored at this port after the execution of the graph.
     /// \note ownership is left to the graph, not shared. The graph must survive the returned
     /// pointer to be able to use the dataGetter.
     /// \params portName the name of the output port
-    PortBase* getDataGetter( const std::string& portName );
+    Node::PortBaseOutRawPtr getDataGetter( const std::string& nodeName,
+                                           const std::string& portName ) {
+        auto node = getNode( nodeName );
+        auto port = node->getOutputByName( portName );
+        CORE_ASSERT( port.first.isValid(),
+                     "invalid port, node: " + nodeName + " port: " + portName );
 
+        return port.second;
+    }
     /// \brief Data setter descriptor.
     /// A Data setter descriptor is composed of an output port (linked by construction to an
     /// input port of the graph), its name and its type. Use setData on the output port to pass
@@ -178,14 +188,6 @@ class RA_DATAFLOW_API DataflowGraph : public Node
     /// source port to the associated sink port)
     using DataGetterDesc = std::tuple<PortBase*, std::string, std::string>;
 
-    /// Creates a vector that stores all the existing DataSetters (\see getDataSetter) of the
-    /// graph.
-    /// TODO : Verify why, when listing the data setters, they are connected ...
-    std::vector<DataSetterDesc> getAllDataSetters() const;
-
-    /// Creates a vector that stores all the existing DataGetters (\see getDataGetter) of the
-    /// graph. A tuple is composed of an output port belonging to the graph, its name its type.
-    std::vector<DataGetterDesc> getAllDataGetters() const;
     bool findNode2( const Node* node ) const;
 
     bool shouldBeSaved() { return m_shouldBeSaved; }

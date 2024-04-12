@@ -21,13 +21,13 @@ TEST_CASE( "Dataflow/Core/DataflowGraph", "[Dataflow][Core][DataflowGraph]" ) {
             { { "extra", { { "info", "missing operators on functional node" } } } } );
         auto source_a = std::make_shared<Sources::SingleDataSourceNode<DataType>>( "a" );
         g.addNode( source_a );
-        auto a        = g.getDataSetter( "a_to" );
+        auto a        = g.getDataSetter( "a", "from" );
         auto source_b = std::make_shared<Sources::SingleDataSourceNode<DataType>>( "b" );
         g.addNode( source_b );
-        auto b    = g.getDataSetter( "b_to" );
+        auto b    = g.getDataSetter( "b", "from" );
         auto sink = std::make_shared<Sinks::SinkNode<DataType>>( "r" );
         g.addNode( sink );
-        auto r                       = g.getDataGetter( "r_from" );
+        auto r                       = g.getDataGetter( "r", "data" );
         using TestNode               = Functionals::BinaryOpNode<DataType, DataType, DataType>;
         TestNode::BinaryOperator add = []( TestNode::Arg1_type a,
                                            TestNode::Arg2_type b ) -> TestNode::Res_type {
@@ -43,9 +43,9 @@ TEST_CASE( "Dataflow/Core/DataflowGraph", "[Dataflow][Core][DataflowGraph]" ) {
 
         // execution of the original graph
         DataType x { 1_ra };
-        a->setData( &x );
+        a->setDefaultValue( x );
         DataType y { 2_ra };
-        b->setData( &y );
+        b->setDefaultValue( y );
         // Execute initial graph";
         g.execute();
         auto z = r->getData<DataType>();
@@ -74,27 +74,20 @@ TEST_CASE( "Dataflow/Core/DataflowGraph", "[Dataflow][Core][DataflowGraph]" ) {
         // Execute loaded graph
         // Data delivered by the source nodes are the one saved by the original graph
         g1.execute();
-        auto r_loaded  = g1.getDataGetter( "r_from" );
+        auto r_loaded  = g1.getDataGetter( "r", "data" );
         auto& z_loaded = r_loaded->getData<DataType>();
         REQUIRE( z_loaded == z );
 
-        auto a_loaded = g1.getDataSetter( "a_to" );
-        auto b_loaded = g1.getDataSetter( "b_to" );
+        auto a_loaded = g1.getDataSetter( "a", "from" );
+        auto b_loaded = g1.getDataSetter( "b", "from" );
         DataType xp { 2_ra };
-        a_loaded->setData( &xp );
+        a_loaded->setDefaultValue( xp );
         DataType yp { 3_ra };
-        b_loaded->setData( &yp );
+        b_loaded->setDefaultValue( yp );
         g1.execute();
         REQUIRE( z_loaded == 5 );
 
-        // Reset sources to use the loaded data loaded
-        g1.releaseDataSetter( "a_to" );
-        g1.releaseDataSetter( "b_to" );
-        g1.execute();
-        REQUIRE( z_loaded == z );
-
-        // reactivate the dataSetter and change the data delivered by a (copy data into a)
-        g1.activateDataSetter( "b_to" );
+        // change the data delivered by a
         auto loadedSource_a =
             std::dynamic_pointer_cast<Sources::SingleDataSourceNode<DataType>>( g1.getNode( "a" ) );
         Scalar newX = 3_ra;

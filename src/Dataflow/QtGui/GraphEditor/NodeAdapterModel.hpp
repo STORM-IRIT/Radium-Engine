@@ -38,8 +38,6 @@ class RA_DATAFLOW_API NodeAdapterModel : public QtNodes::NodeDataModel
 
     bool isDeletable() override { return true; } // Assume all nodes belong to the graph
 
-    void updateState() override;
-
     void addMetaData( QJsonObject& json ) override;
 
   private:

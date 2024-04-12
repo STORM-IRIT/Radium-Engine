@@ -44,13 +44,11 @@ class SinkNode : public Node
     bool fromJsonInternal( const nlohmann::json& ) override { return true; }
 
   private:
-    /// \todo : allow user to specify where to store the data ? (i.e. make this a shared_ptr ?).
-    // If yes, add a method setDataStorage(std::shared_ptr<T> v)
-    T m_data;
-
     /// @{
     /// \brief Alias for the ports (allow simpler access)
     Node::PortInPtr<T> m_portIn;
+    Ra::Core::VariableSet::VariableHandle<T> m_dataHandle;
+    Node::PortOutPtr<T> m_portOut;
     /// @}
   public:
     static const std::string& getTypename();
@@ -61,22 +59,20 @@ class SinkNode : public Node
 
 template <typename T>
 SinkNode<T>::SinkNode( const std::string& instanceName, const std::string& typeName ) :
-    Node( instanceName, typeName ), m_portIn { addInputPort<T>( "from" ) } {}
+    Node( instanceName, typeName ),
+    m_portIn { addInputPort<T>( "from" ) },
+    m_dataHandle { m_parameters.insertVariable<T>( "data", T {} ).first },
+    m_portOut { addOutputPort<T>( &m_dataHandle->second, "data" ) } {}
 
 template <typename T>
 void SinkNode<T>::init() {
-    // this should be done only once (or when the address of local data changes)
-    if ( m_interface[0] != nullptr ) {
-        auto interfacePort = static_cast<PortOut<T>*>( m_interface[0] );
-        interfacePort->setData( &m_data );
-    }
     Node::init();
 }
 
 template <typename T>
 bool SinkNode<T>::execute() {
     if ( m_portIn->hasData() ) {
-        m_data = m_portIn->getData();
+        m_dataHandle->second = m_portIn->getData();
         return true;
     }
     return false;
@@ -84,12 +80,12 @@ bool SinkNode<T>::execute() {
 
 template <typename T>
 T SinkNode<T>::getData() const {
-    return m_data;
+    return m_dataHandle->second;
 }
 
 template <typename T>
 const T& SinkNode<T>::getDataByRef() const {
-    return m_data;
+    return m_dataHandle->second;
 }
 
 template <typename T>

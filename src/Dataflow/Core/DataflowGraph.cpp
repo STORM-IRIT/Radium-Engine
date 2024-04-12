@@ -17,9 +17,7 @@ DataflowGraph::DataflowGraph( const std::string& name ) : DataflowGraph( name, g
 
 DataflowGraph::DataflowGraph( const std::string& instanceName, const std::string& typeName ) :
     Node( instanceName, typeName ) {
-    // This will allow to edit subgraph in an independent editor
-    addEditableParameter( new EditableParameter( instanceName, *this ) );
-    // A graph always use the builtin nodes factory
+    // A graph always use the builtin nodes factory ???
     // addFactory( NodeFactoriesManager::getDataFlowBuiltInsFactory() );
 }
 
@@ -251,19 +249,6 @@ bool DataflowGraph::canAdd( const Node* newNode ) const {
 bool DataflowGraph::addNode( std::shared_ptr<Node> newNode ) {
     // Check if the new node already exists (= same name and type)
     if ( canAdd( newNode.get() ) ) {
-        if ( newNode->getInputs().empty() || newNode->getOutputs().empty() ) {
-            auto& interfaces = newNode->buildInterfaces( this );
-            if ( newNode->getInputs().empty() ) {
-                for ( auto p : interfaces ) {
-                    addSetter( static_cast<PortBaseIn*>( p ) );
-                }
-            }
-            else if ( newNode->getOutputs().empty() ) {
-                for ( auto p : interfaces ) {
-                    addGetter( static_cast<PortBaseOut*>( p ) );
-                }
-            }
-        }
         m_nodes.emplace_back( std::move( newNode ) );
         needsRecompile();
         return true;
@@ -279,14 +264,6 @@ bool DataflowGraph::removeNode( std::shared_ptr<Node> node ) {
     int index = -1;
     if ( ( index = findNode( node.get() ) ) == -1 ) { return false; }
     else {
-        if ( node->getInputs().empty() || node->getOutputs().empty() ) {
-            bool ( DataflowGraph::*removeGraphIOPort )( const std::string& ) =
-                node->getInputs().empty() ? &DataflowGraph::removeSetter
-                                          : &DataflowGraph::removeGetter;
-            for ( auto& p : node->getInterfaces() ) {
-                ( this->*removeGraphIOPort )( p->getName() );
-            }
-        }
         m_nodes.erase( m_nodes.begin() + index );
         needsRecompile();
         return true;
@@ -446,7 +423,7 @@ bool DataflowGraph::compile() {
     std::unordered_map<Node*, std::pair<int, std::vector<Node*>>> infoNodes;
     for ( auto const& n : m_nodes ) {
         // Find all sinks
-        if ( n->getOutputs().size() == 0 ) {
+        if ( n->isOutputNode() ) {
             // Add the sink in the useful nodes set if any of his port is linked
             bool activeSink { false };
             for ( const auto& p : n->getInputs() ) {
@@ -464,7 +441,7 @@ bool DataflowGraph::compile() {
     for ( auto& infNode : infoNodes ) {
         auto n = infNode.first;
         // Compute the nodes' level starting from sources
-        if ( n->getInputs().empty() ) {
+        if ( n->isInputNode() ) {
             // Tag successors
             for ( auto const successor : infNode.second.second ) {
                 infoNodes[successor].first =
@@ -619,61 +596,6 @@ bool DataflowGraph::removeGetter( const std::string& getterName ) {
         found = true;
     }
     return found;
-}
-
-bool DataflowGraph::releaseDataSetter( const std::string& portName ) {
-    auto setter = m_dataSetters.find( portName );
-    bool found  = false;
-    if ( setter != m_dataSetters.end() ) {
-        auto [desc, in] = setter->second;
-        in->disconnect();
-        found = true;
-    }
-    return found;
-}
-
-// Why is this method useful if it is the same than getDataSetter ?
-bool DataflowGraph::activateDataSetter( const std::string& portName ) {
-    return getDataSetter( portName ) != nullptr;
-}
-
-std::shared_ptr<PortBase> DataflowGraph::getDataSetter( const std::string& portName ) {
-    auto setter = m_dataSetters.find( portName );
-    std::shared_ptr<PortBaseOut> p { nullptr };
-    if ( setter != m_dataSetters.end() ) {
-        auto [desc, in] = setter->second;
-        p               = std::get<0>( desc );
-        static_cast<PortBaseInRawPtr>( in )->disconnect();
-        static_cast<PortBaseInRawPtr>( in )->connect( p.get() );
-    }
-    return p;
-}
-
-std::vector<DataflowGraph::DataSetterDesc> DataflowGraph::getAllDataSetters() const {
-    std::vector<DataflowGraph::DataSetterDesc> r;
-    r.reserve( m_dataSetters.size() );
-    for ( auto& s : m_dataSetters ) {
-        r.push_back( s.second.first );
-    }
-    return r;
-}
-
-PortBase* DataflowGraph::getDataGetter( const std::string& portName ) {
-    auto portIt = std::find_if( m_outputs.begin(), m_outputs.end(), [portName]( const auto& p ) {
-        return p->getName() == portName;
-    } );
-    PortBase* g { nullptr };
-    if ( portIt != m_outputs.end() ) { g = portIt->get(); }
-    return g;
-}
-
-std::vector<DataflowGraph::DataGetterDesc> DataflowGraph::getAllDataGetters() const {
-    std::vector<DataflowGraph::DataGetterDesc> r;
-    r.reserve( m_outputs.size() );
-    for ( auto& portOut : m_outputs ) {
-        r.emplace_back( portOut.get(), portOut->getName(), portOut->getTypeName() );
-    }
-    return r;
 }
 
 std::shared_ptr<Node> DataflowGraph::getNode( const std::string& instanceNameNode ) const {

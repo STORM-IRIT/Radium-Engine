@@ -177,6 +177,7 @@ template <typename T>
 bool PortIn<T>::connect( PortBaseOut* portOut ) {
     if ( accept( portOut ) ) {
         m_from = static_cast<PortOut<T>*>( portOut );
+        m_from->increaseLinkCount();
         // notify after connect
         this->notify( getName(), *this, true );
     }
@@ -187,6 +188,7 @@ template <typename T>
 bool PortIn<T>::connect( PortOut<T>* portOut ) {
     if ( accept( portOut ) ) {
         m_from = portOut;
+        m_from->increaseLinkCount();
         // notify after connect
         this->notify( getName(), *this, true );
     }
@@ -197,6 +199,7 @@ template <typename T>
 bool PortIn<T>::disconnect() {
     if ( m_from ) {
         // notify before disconnect
+        m_from->decreaseLinkCount();
         this->notify( getName(), *this, false );
         m_from = nullptr;
         return true;

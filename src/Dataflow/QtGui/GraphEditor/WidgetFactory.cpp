@@ -56,18 +56,6 @@ QWidget* createWidget( EditableParameterBase* editableParameter ) {
     return nullptr;
 }
 
-bool updateWidget( QWidget* widget, EditableParameterBase* editableParameter ) {
-    if ( widgetsfunctions.find( editableParameter->getType() ) != widgetsfunctions.end() ) {
-        return widgetsfunctions[editableParameter->getType()].second( widget, editableParameter );
-    }
-    else {
-        LOG( Ra::Core::Utils::logWARNING )
-            << "WidgetFactory: no defined widget updater for type "
-            << simplifiedDemangledType( editableParameter->getType() ) << ".";
-    }
-    return false;
-}
-
 void initializeWidgetFactory() {
     /*
      * Environment map "edition" widget

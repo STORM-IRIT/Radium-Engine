@@ -57,9 +57,7 @@ DECLARE_COREDATA_SOURCES( Vector4ui, Vector4ui )
 #define SPECIALIZE_EDITABLE_SOURCE( TYPE, NAME )                                             \
     template <>                                                                              \
     inline SingleDataSourceNode<TYPE>::SingleDataSourceNode( const std::string& name ) :     \
-        SingleDataSourceNode( name, SingleDataSourceNode<TYPE>::getTypename() ) {            \
-        setEditable( #NAME );                                                                \
-    }                                                                                        \
+        SingleDataSourceNode( name, SingleDataSourceNode<TYPE>::getTypename() ) {}           \
                                                                                              \
     template <>                                                                              \
     inline void SingleDataSourceNode<TYPE>::toJsonInternal( nlohmann::json& data ) const {   \
@@ -87,9 +85,7 @@ SPECIALIZE_EDITABLE_SOURCE( unsigned int, value )
 template <>
 inline SingleDataSourceNode<Ra::Core::Utils::Color>::SingleDataSourceNode(
     const std::string& name ) :
-    SingleDataSourceNode( name, SingleDataSourceNode<Ra::Core::Utils::Color>::getTypename() ) {
-    setEditable( "color" );
-}
+    SingleDataSourceNode( name, SingleDataSourceNode<Ra::Core::Utils::Color>::getTypename() ) {}
 
 template <>
 inline void
@@ -112,9 +108,7 @@ SingleDataSourceNode<Ra::Core::Utils::Color>::fromJsonInternal( const nlohmann::
 // Ra::Core::Vector4 specialization
 template <>
 inline SingleDataSourceNode<Ra::Core::Vector4>::SingleDataSourceNode( const std::string& name ) :
-    SingleDataSourceNode( name, SingleDataSourceNode<Ra::Core::Vector4>::getTypename() ) {
-    setEditable( "vector" );
-}
+    SingleDataSourceNode( name, SingleDataSourceNode<Ra::Core::Vector4>::getTypename() ) {}
 
 template <>
 inline void SingleDataSourceNode<Ra::Core::Vector4>::toJsonInternal( nlohmann::json& data ) const {
@@ -135,9 +129,7 @@ SingleDataSourceNode<Ra::Core::Vector4>::fromJsonInternal( const nlohmann::json&
 // Ra::Core::Vector3 specialization
 template <>
 inline SingleDataSourceNode<Ra::Core::Vector3>::SingleDataSourceNode( const std::string& name ) :
-    SingleDataSourceNode( name, SingleDataSourceNode<Ra::Core::Vector3>::getTypename() ) {
-    setEditable( "vector" );
-}
+    SingleDataSourceNode( name, SingleDataSourceNode<Ra::Core::Vector3>::getTypename() ) {}
 
 template <>
 inline void SingleDataSourceNode<Ra::Core::Vector3>::toJsonInternal( nlohmann::json& data ) const {
@@ -158,9 +150,7 @@ SingleDataSourceNode<Ra::Core::Vector3>::fromJsonInternal( const nlohmann::json&
 // Ra::Core::Vector2 specialization
 template <>
 inline SingleDataSourceNode<Ra::Core::Vector2>::SingleDataSourceNode( const std::string& name ) :
-    SingleDataSourceNode( name, SingleDataSourceNode<Ra::Core::Vector2>::getTypename() ) {
-    setEditable( "vector" );
-}
+    SingleDataSourceNode( name, SingleDataSourceNode<Ra::Core::Vector2>::getTypename() ) {}
 
 template <>
 inline void SingleDataSourceNode<Ra::Core::Vector2>::toJsonInternal( nlohmann::json& data ) const {

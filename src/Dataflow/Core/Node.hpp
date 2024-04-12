@@ -154,20 +154,6 @@ class RA_DATAFLOW_API Node
     /// Output ports are own to the node.
     const PortBaseOutCollection& getOutputs() const;
 
-    /// \brief Build the interface ports of the node
-    /// Derived node can override the default implementation that build an interface port for each
-    /// input or output port (e.g. if several inputs have the same type T, make an interface that is
-    /// a vector of T*)
-    virtual const PortCollection<PortBaseRawPtr>& buildInterfaces( Node* parent );
-
-    /// \brief Get the interface ports of the node
-    const PortCollection<PortBaseRawPtr>& getInterfaces() const;
-
-    /// \brief Gets the editable parameters of the node.
-    /// used only by the node editor gui to build the editon widget
-    const std::vector<std::unique_ptr<EditableParameterBase>>& getEditableParameters();
-    /// @}
-
     /// \name Identification methods
     /// @{
     /// \brief Gets the type name of the node.
@@ -208,6 +194,24 @@ class RA_DATAFLOW_API Node
 
     inline bool isInitialized() const { return m_initialized; }
     Ra::Core::VariableSet& getParameters() { return m_parameters; }
+
+    inline bool isOutputNode() {
+        bool ret = true;
+        // isOutput if none of the outputs port are connected
+        for ( const auto& p : m_outputs ) {
+            ret = ret && ( p->getLinkCount() == 0 );
+        }
+        return ret;
+    }
+
+    inline bool isInputNode() {
+        bool ret = true;
+        // isOutput if none of the outputs port are connected
+        for ( const auto& p : m_inputs ) {
+            ret = ret && p->hasDefaultValue() && !p->isLinked();
+        }
+        return ret;
+    }
 
   protected:
     /// Construct the base node given its name and type
@@ -347,16 +351,6 @@ class RA_DATAFLOW_API Node
     bool removeOutput( PortBaseOutRawPtr& out );
     void removeOutput( PortIndex idx ) { m_outputs[idx].reset(); }
 
-    /// \brief Adds an editable parameter to the node if it does not already exist.
-    /// \note the node will take ownership of the editable object.
-    /// \param editableParameter The editable parameter to add.
-    bool addEditableParameter( EditableParameterBase* editableParameter );
-
-    /// Remove an editable parameter to the node if it does exist.
-    /// \param name The name of the editable parameter to remove.
-    /// \return true if the editable parameter is found and removed.
-    bool removeEditableParameter( const std::string& name );
-
     template <typename T>
     ParamHandle<T> addParameter( const std::string& name, const T& value ) {
         return m_parameters.insertVariable<T>( name, value ).first;
@@ -389,15 +383,8 @@ class RA_DATAFLOW_API Node
     PortCollection<PortPtr<PortBaseIn>> m_inputs;
     /// The out ports of the node  (own by the node)
     PortCollection<PortPtr<PortBaseOut>> m_outputs;
-    /// The reflected ports of the node if it is only a source or sink node.
-    /// This stores only aliases as interface ports will belong to the parent
-    /// node (i.e. the graph this node belongs to)
-    PortCollection<PortBaseRawPtr> m_interface;
 
     /// The editable parameters of the node
-    /// \todo replace this by a Ra::Core::VariableSet
-    std::vector<std::unique_ptr<EditableParameterBase>> m_editableParameters;
-    // start transition
     Ra::Core::VariableSet m_parameters;
 
     /// Additional data on the node, added by application or gui or ...
@@ -412,10 +399,9 @@ inline void Node::init() {
 }
 
 inline void Node::destroy() {
-    m_interface.clear();
     m_inputs.clear();
     m_outputs.clear();
-    m_editableParameters.clear();
+    m_parameters.clear();
 }
 
 inline const nlohmann::json& Node::getJsonMetaData() {
@@ -440,34 +426,6 @@ inline const Node::PortBaseInCollection& Node::getInputs() const {
 
 inline const Node::PortBaseOutCollection& Node::getOutputs() const {
     return m_outputs;
-}
-
-inline const Node::PortCollection<Node::PortBaseRawPtr>& Node::buildInterfaces( Node* parent ) {
-    m_interface.clear();
-    m_interface.shrink_to_fit();
-    if ( !m_inputs.empty() ) {
-        m_interface.reserve( m_inputs.size() );
-        for ( const auto& p : m_inputs ) {
-            m_interface.emplace_back(
-                p->reflect( parent, getInstanceName() + '_' + p->getName() ) );
-        }
-    }
-    else {
-        m_interface.reserve( m_outputs.size() );
-        for ( const auto& p : m_outputs ) {
-            m_interface.emplace_back(
-                p->reflect( parent, getInstanceName() + '_' + p->getName() ) );
-        }
-    }
-    return m_interface;
-}
-
-inline const Node::PortCollection<Node::PortBaseRawPtr>& Node::getInterfaces() const {
-    return m_interface;
-}
-
-inline const std::vector<std::unique_ptr<EditableParameterBase>>& Node::getEditableParameters() {
-    return m_editableParameters;
 }
 
 inline bool Node::operator==( const Node& o_node ) {
@@ -540,44 +498,6 @@ inline bool Node::removeOutput( PortBaseOutRawPtr& out ) {
         return true;
     }
     return false;
-}
-
-inline bool Node::addEditableParameter( EditableParameterBase* editableParameter ) {
-    auto edIt = std::find_if(
-        m_editableParameters.begin(),
-        m_editableParameters.end(),
-        [name = editableParameter->getName()]( const auto& p ) { return p->getName() == name; } );
-    if ( edIt == m_editableParameters.end() ) {
-        m_editableParameters.emplace_back( editableParameter );
-    }
-    return edIt == m_editableParameters.end();
-}
-
-inline bool Node::removeEditableParameter( const std::string& name ) {
-    bool found = false;
-    auto it    = m_editableParameters.begin();
-    while ( it != m_editableParameters.end() ) {
-        if ( ( *it ).get()->getName() == name ) {
-            m_editableParameters.erase( it );
-            found = true;
-            break;
-        }
-        ++it;
-    }
-    return found;
-}
-
-template <typename E>
-inline EditableParameter<E>* Node::getEditableParameter( const std::string& name ) {
-    auto it = m_editableParameters.begin();
-    while ( it != m_editableParameters.end() ) {
-        if ( ( *it ).get()->getName() == name ) {
-            auto p = dynamic_cast<EditableParameter<E>*>( ( *it ).get() );
-            if ( p != nullptr ) { return *p; }
-        }
-        ++it;
-    }
-    return nullptr;
 }
 
 inline const std::string& Node::getTypename() {

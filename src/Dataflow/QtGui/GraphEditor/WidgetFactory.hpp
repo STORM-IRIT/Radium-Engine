@@ -59,16 +59,6 @@ void registerWidget( WidgetCreatorFunc widgetCreator, WidgetUpdaterFunc widgetUp
 RA_DATAFLOW_API QWidget* createWidget( EditableParameterBase* editableParameter );
 
 /**
- * Update a widget from an editable parameter using the widget factory
- *
- * @param widget the widget to update
- * @param editableParameter the data whose content will be transfered to the widget
- * @return true if the update is done, false if thereis no updater associated with the
- * editableParrameter type.
- */
-RA_DATAFLOW_API bool updateWidget( QWidget* widget, EditableParameterBase* editableParameter );
-
-/**
  * Initialize the factory with pre-defined widgets according to the Radium NodeGraph predefined
  * nodes.
  */

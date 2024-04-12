@@ -23,9 +23,9 @@ void testGraph( const std::string& name, T in, T& out ) {
     if ( !linked ) { std::cerr << "Error linking source and sink nodes.\n"; }
     REQUIRE( linked );
 
-    auto input = g->getDataSetter( "in_to" );
+    auto input = g->getDataSetter( "in", "from" );
     REQUIRE( input != nullptr );
-    auto output = g->getDataGetter( "out_from" );
+    auto output = g->getDataGetter( "out", "data" );
     REQUIRE( output != nullptr );
 
     auto compiled = g->compile();
@@ -33,7 +33,7 @@ void testGraph( const std::string& name, T in, T& out ) {
     REQUIRE( compiled );
 
     std::cout << "Setting " << simplifiedDemangledType<T>() << " data on interface port ... ";
-    input->setData( &in );
+    input->setDefaultValue( in );
 
     g->execute();
 
@@ -41,7 +41,6 @@ void testGraph( const std::string& name, T in, T& out ) {
     std::cout << "Getting a " << simplifiedDemangledType( r ) << " from interface port ... ";
     out = r;
 
-    g->releaseDataSetter( "in_to" );
     source->setData( in );
 
     nlohmann::json graphData;

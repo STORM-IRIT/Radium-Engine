@@ -32,10 +32,6 @@ void inspectGraph( const DataflowGraph& g ) {
         for ( const auto& p : n->getOutputs() ) {
             std::cout << "\t\t\t\"" << p->getName() << "\" with type " << p->getTypeName() << "\n";
         }
-        std::cout << "\t\tInterface ports :\n";
-        for ( const auto& p : n->getInterfaces() ) {
-            std::cout << "\t\t\t\"" << p->getName() << "\" with type " << p->getTypeName() << "\n";
-        }
     }
 
     // Nodes by level after the compilation
@@ -67,16 +63,6 @@ void inspectGraph( const DataflowGraph& g ) {
     }
 
     std::cout << "DataSetters and DataGetters port of the graph " << g.getInstanceName() << " :\n";
-    auto setters = g.getAllDataSetters();
-    std::cout << "\tSetters ports (" << setters.size() << ") are :\n";
-    for ( auto& [ptrPort, portName, portType] : setters ) {
-        std::cout << "\t\t\"" << portName << "\" accepting type \"" << portType << "\"\n";
-    }
-    auto getters = g.getAllDataGetters();
-    std::cout << "\tGetters ports (" << getters.size() << ") are :\n";
-    for ( auto& [ptrPort, portName, portType] : getters ) {
-        std::cout << "\t\t\"" << portName << "\" generating type \"" << portType << "\"\n";
-    }
 }
 
 TEST_CASE( "Dataflow/Core/Graph", "[Dataflow][Core][Graph]" ) {
@@ -365,7 +351,7 @@ TEST_CASE( "Dataflow/Core/Graph", "[Dataflow][Core][Graph]" ) {
     SECTION( "Inspection of a graph" ) {
         std::cout << "Loading graph data/Dataflow/ExampleGraph.json\n";
         auto g = DataflowGraph::loadGraphFromJsonFile( "data/Dataflow/ExampleGraph.json" );
-
+        REQUIRE( g );
         // Factories used by the graph
         auto factories = g->getNodeFactories();
         REQUIRE( factories != nullptr );

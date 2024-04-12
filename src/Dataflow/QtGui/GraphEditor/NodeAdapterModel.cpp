@@ -2,6 +2,7 @@
 
 #include <Dataflow/QtGui/GraphEditor/WidgetFactory.hpp>
 
+#include <Gui/ParameterSetEditor/ParameterSetEditor.hpp>
 #include <Gui/Widgets/ControlPanel.hpp>
 
 #include <QColorDialog>
@@ -24,13 +25,6 @@ namespace NodeDataModelTools {
 QWidget* getWidget( Node* node );
 
 /**
- * Update the state of the widget to reflect the ones of the node.
- * @param node
- * @param widget
- */
-void updateWidget( Node* node, QWidget* widget );
-
-/**
  * Convert a QJsonObject to a nlohmann::json
  */
 void QJsonObjectToNlohmannObject( const QJsonObject& p, nlohmann::json& data );
@@ -50,7 +44,6 @@ NodeAdapterModel::NodeAdapterModel( std::shared_ptr<DataflowGraph> graph,
     m_uuid = QUuid::createUuid();
     m_inputsConnected.resize( m_node->getInputs().size() );
     m_widget = NodeDataModelTools::getWidget( m_node.get() );
-    NodeDataModelTools::updateWidget( m_node.get(), m_widget );
     checkConnections();
 }
 
@@ -149,15 +142,6 @@ QtNodes::NodeDataType NodeAdapterModel::IOToDataType( const std::string& typeNam
     return QtNodes::NodeDataType { typeName.c_str(), ioName.c_str() };
 }
 
-void NodeAdapterModel::updateState() {
-    int i = 0;
-    for ( const auto& in : m_node->getInputs() ) {
-        if ( in->isLinked() ) { m_inputsConnected[i] = true; }
-        i++;
-    }
-    checkConnections();
-}
-
 void NodeAdapterModel::addMetaData( QJsonObject& json ) {
     nlohmann::json data;
     NodeDataModelTools::QJsonObjectToNlohmannObject( json, data );
@@ -184,44 +168,15 @@ void NodeAdapterModel::restore( QJsonObject const& p ) {
     // 2 - call fromjson on the node using this json object
     m_node->fromJson( nodeData );
     // 3 - update the widget according to the editable parameters
-    NodeDataModelTools::updateWidget( m_node.get(), m_widget );
 }
 
 namespace NodeDataModelTools {
 
 QWidget* getWidget( Node* node ) {
-    if ( node->getEditableParameters().size() == 0 ) { return nullptr; }
-
-    auto controlPanel = new ControlPanel( "Editable parameters", false, nullptr );
-    controlPanel->beginLayout( QBoxLayout::TopToBottom );
-    for ( size_t i = 0; i < node->getEditableParameters().size(); i++ ) {
-        auto edtParam      = node->getEditableParameters()[i].get();
-        QWidget* newWidget = WidgetFactory::createWidget( edtParam );
-        if ( newWidget ) {
-            newWidget->setParent( controlPanel );
-            newWidget->setObjectName( edtParam->getName().c_str() );
-            controlPanel->addLabel( edtParam->getName() );
-            controlPanel->addWidget( newWidget );
-
-            if ( i != node->getEditableParameters().size() - 1 ) { controlPanel->addSeparator(); }
-        }
-    }
-    controlPanel->endLayout();
-    controlPanel->setVisible( true );
+    auto controlPanel = new Ra::Gui::ParameterSetEditor( "Editable parameters", nullptr );
+    //  controlPanel->setupFromParameters( node->getParameters(), {} );
 
     return controlPanel;
-}
-
-void updateWidget( Node* node, QWidget* widget ) {
-    if ( node->getEditableParameters().size() == 0 ) { return; }
-    for ( size_t i = 0; i < node->getEditableParameters().size(); i++ ) {
-        auto edtParam = node->getEditableParameters()[i].get();
-        if ( !WidgetFactory::updateWidget( widget, edtParam ) ) {
-            LOG( Ra::Core::Utils::logWARNING )
-                << "NodeAdapterModel : unable to update parameter " << edtParam->getName()
-                << " on node " << node->getInstanceName() << " (" << node->getTypeName() << ")";
-        }
-    }
 }
 
 /** Convert from Qt::Json to nlohmann::json */

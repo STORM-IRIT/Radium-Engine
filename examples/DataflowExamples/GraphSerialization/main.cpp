@@ -59,16 +59,6 @@ int main( int argc, char* argv[] ) {
         //! [Creating links between Nodes]
 
         //! [Inspect the graph interface : inputs and outputs port]
-        auto inputs = g.getAllDataSetters();
-        std::cout << "Input ports (" << inputs.size() << ") are :\n";
-        for ( auto& [ptrPort, portName, portType] : inputs ) {
-            std::cout << "\t\"" << portName << "\" accepting type " << portType << "\n";
-        }
-        auto outputs = g.getAllDataGetters();
-        std::cout << "Output ports (" << outputs.size() << ") are :\n";
-        for ( auto& [ptrPort, portName, portType] : outputs ) {
-            std::cout << "\t\"" << portName << "\" generating type " << portType << "\n";
-        }
         //! [Inspect the graph interface : inputs and outputs port]
 
         //! [Verifing the graph can be compiled]
@@ -93,16 +83,6 @@ int main( int argc, char* argv[] ) {
     //! [Creating an empty graph and load it from a file]
 
     //! [Inspect the graph interface : inputs and outputs port]
-    auto inputs_g1 = g1.getAllDataSetters();
-    std::cout << "Input ports (" << inputs_g1.size() << ") are :\n";
-    for ( auto& [ptrPort, portName, portType] : inputs_g1 ) {
-        std::cout << "\t\"" << portName << "\" accepting type " << portType << "\n";
-    }
-    auto outputs_g1 = g1.getAllDataGetters();
-    std::cout << "Output ports (" << outputs_g1.size() << ") are :\n";
-    for ( auto& [ptrPort, portName, portType] : outputs_g1 ) {
-        std::cout << "\t\"" << portName << "\" generating type " << portType << "\n";
-    }
     //! [Inspect the graph interface : inputs and outputs port]
 
     //! [Verifing the graph can be compiled]
@@ -130,7 +110,7 @@ int main( int argc, char* argv[] ) {
     //! [Creating input variable to test the graph]
 
     //! [setting the values processed by the graph]
-    auto input = g1.getDataSetter( "Source_to" );
+    auto input = g1.getDataSetter( "Source", "to" );
     input->setData( &test );
     //! [setting the values processed by the graph]
 
@@ -140,9 +120,10 @@ int main( int argc, char* argv[] ) {
     //! [Execute the graph]
 
     //! [Print the output result]
-    auto output = g1.getDataGetter( "Sink_from" );
-    VectorType result;
-    output->getData( result );
+    auto output = g1.getDataGetter( "Sink", "from" );
+
+    VectorType result = output->getData<VectorType>();
+
     std::cout << "Output values : \n\t";
     for ( auto ord : result ) {
         std::cout << ord << ' ';
@@ -163,7 +144,7 @@ int main( int argc, char* argv[] ) {
     //! [Execute the graph]
     std::cout << "Executing the re-parameterized graph ...\n";
     g1.execute();
-    output->getData( result );
+    result = output->getData<VectorType>();
     std::cout << "Output values : \n\t";
     for ( auto ord : result ) {
         std::cout << ord << ' ';

@@ -15,7 +15,7 @@
 //! [Create a source to sink graph for type T]
 using namespace Ra::Dataflow::Core;
 template <typename DataType_a, typename DataType_b = DataType_a, typename DataType_r = DataType_a>
-std::tuple<DataflowGraph*, std::shared_ptr<PortBase>, std::shared_ptr<PortBase>, PortBase*>
+std::tuple<DataflowGraph*, Node::PortBaseInRawPtr, Node::PortBaseInRawPtr, Node::PortBaseOutRawPtr>
 createGraph(
     const std::string& name,
     typename Functionals::BinaryOpNode<DataType_a, DataType_b, DataType_r>::BinaryOperator f ) {
@@ -24,18 +24,18 @@ createGraph(
 
     auto source_a = std::make_shared<Sources::SingleDataSourceNode<DataType_a>>( "a" );
     g->addNode( source_a );
-    auto a = g->getDataSetter( "a_to" );
-    REQUIRE( a->getNode() == g );
+    auto a = g->getDataSetter( "a", "from" );
+    REQUIRE( a->getNode() == source_a.get() );
 
     auto source_b = std::make_shared<Sources::SingleDataSourceNode<DataType_b>>( "b" );
     g->addNode( source_b );
-    auto b = g->getDataSetter( "b_to" );
-    REQUIRE( b->getNode() == g );
+    auto b = g->getDataSetter( "b", "from" );
+    REQUIRE( b->getNode() == source_b.get() );
 
     auto sink = std::make_shared<Sinks::SinkNode<DataType_r>>( "r" );
     g->addNode( sink );
-    auto r = g->getDataGetter( "r_from" );
-    REQUIRE( r->getNode() == g );
+    auto r = g->getDataGetter( "r", "data" );
+    REQUIRE( r->getNode() == sink.get() );
 
     auto op = std::make_shared<TestNode>( "operator", f );
     // op->setOperator( f );
@@ -64,11 +64,11 @@ TEST_CASE( "Dataflow/Core/Nodes", "[Dataflow][Core][Nodes]" ) {
         auto [g, a, b, r] = createGraph<DataType>( "test scalar binary op", add );
 
         DataType x { 1_ra };
-        a->setData( &x );
+        a->setDefaultValue( x );
         REQUIRE( a->getData<DataType>() == x );
 
         DataType y { 2_ra };
-        b->setData( &y );
+        b->setDefaultValue( y );
         REQUIRE( b->getData<DataType>() == y );
 
         // As graph was modified since last compilation, this will recompile the graph
@@ -93,11 +93,11 @@ TEST_CASE( "Dataflow/Core/Nodes", "[Dataflow][Core][Nodes]" ) {
         auto [g, a, b, r] = createGraph<DataType>( "test Vector3 binary op", add );
 
         DataType x { 1_ra, 2_ra, 3_ra };
-        a->setData( &x );
+        a->setDefaultValue( x );
         REQUIRE( a->getData<DataType>() == x );
 
         DataType y { 3_ra, 2_ra, 1_ra };
-        b->setData( &y );
+        b->setDefaultValue( y );
         REQUIRE( b->getData<DataType>() == y );
 
         g->execute();
@@ -122,11 +122,11 @@ TEST_CASE( "Dataflow/Core/Nodes", "[Dataflow][Core][Nodes]" ) {
         auto [g, a, b, r] = createGraph<DataType>( "test Vector3 binary op", add );
 
         DataType x { { 1_ra, 2_ra }, { 3_ra, 4_ra } };
-        a->setData( &x );
+        a->setDefaultValue( x );
         REQUIRE( a->getData<DataType>() == x );
 
         DataType y { { 5_ra, 6_ra }, { 7_ra, 8_ra } };
-        b->setData( &y );
+        b->setDefaultValue( y );
         REQUIRE( b->getData<DataType>() == y );
 
         g->execute();
@@ -169,11 +169,11 @@ TEST_CASE( "Dataflow/Core/Nodes", "[Dataflow][Core][Nodes]" ) {
             "test Vector2 x Scalar binary op", op );
 
         DataType_a x { { 1_ra, 2_ra }, { 3_ra, 4_ra } };
-        a->setData( &x );
+        a->setDefaultValue( x );
         REQUIRE( a->getData<DataType_a>() == x );
 
         DataType_b y { 5_ra };
-        b->setData( &y );
+        b->setDefaultValue( y );
         REQUIRE( b->getData<DataType_b>() == y );
 
         g->execute();
@@ -234,11 +234,11 @@ TEST_CASE( "Dataflow/Core/Nodes", "[Dataflow][Core][Nodes]" ) {
             "test Vector2 x Scalar binary op", op );
 
         DataType_a x { 4_ra };
-        a->setData( &x );
+        a->setDefaultValue( x );
         REQUIRE( a->getData<DataType_a>() == x );
 
         DataType_b y { { 1_ra, 2_ra }, { 3_ra, 4_ra } };
-        b->setData( &y );
+        b->setDefaultValue( y );
         REQUIRE( b->getData<DataType_b>() == y );
 
         g->execute();
@@ -361,30 +361,19 @@ TEST_CASE( "Dataflow/Core/Nodes", "[Dataflow][Core][Nodes]" ) {
         linkAdded = g->addLink( validator, "r", sinkB, "from" );
         REQUIRE( linkAdded == true );
 
-        auto input   = g->getDataSetter( "s_to" );
-        auto output  = g->getDataGetter( "r_from" );
-        auto outputD = g->getDataGetter( "rd_from" );
-        auto outputB = g->getDataGetter( "test_from" );
-        auto inputR  = g->getDataSetter( "m_f" );
+        auto input   = g->getDataSetter( "s", "from" );
+        auto output  = g->getDataGetter( "r", "data" );
+        auto outputD = g->getDataGetter( "rd", "data" );
+        auto outputB = g->getDataGetter( "test", "data" );
+        auto inputR  = g->getDataSetter( "m", "f" );
         if ( inputR == nullptr ) { std::cout << "Failed to get the graph function input !!\n"; }
 
         // Inspect the graph interface : inputs and outputs port
-        auto inputs = g->getAllDataSetters();
-        std::cout << "Input ports (" << inputs.size() << ") are :\n";
-        for ( auto& [ptrPort, portName, portType] : inputs ) {
-            std::cout << "\t\"" << portName << "\" accepting type " << portType << "\n";
-        }
-        auto outputs = g->getAllDataGetters();
-        std::cout << "Output ports (" << outputs.size() << ") are :\n";
-        for ( auto& [ptrPort, portName, portType] : outputs ) {
-            std::cout << "\t\"" << portName << "\" generating type " << portType << "\n";
-        }
 
         if ( !g->compile() ) { std::cout << "Compilation error !!"; }
 
         // Set input/ouput data
         VectorType test;
-        input->setData( &test );
 
         test.reserve( 10 );
         std::mt19937 gen( 0 );
@@ -393,10 +382,11 @@ TEST_CASE( "Dataflow/Core/Nodes", "[Dataflow][Core][Nodes]" ) {
         for ( size_t n = 0; n < test.capacity(); ++n ) {
             test.push_back( dis( gen ) );
         }
+        input->setDefaultValue( test );
 
         // No need to do this as mean operator source has a copy of a functor
         ReduceOperator::function_type m1 = MeanOperator();
-        inputR->setData( &m1 );
+        inputR->setDefaultValue( m1 );
 
         g->execute();
 

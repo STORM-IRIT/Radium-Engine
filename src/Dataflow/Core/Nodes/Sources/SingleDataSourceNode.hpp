@@ -75,9 +75,8 @@ class SingleDataSourceNode : public Node
     /// Ownership of this pointer is left to the caller
     /// @}
 
-    Ra::Core::VariableSet::VariableHandle<T> m_dataHandle;
-
     /// Alias to the output port
+    Node::PortInPtr<T> m_portIn;
     Node::PortOutPtr<T> m_portOut;
 
   public:
@@ -91,8 +90,11 @@ template <typename T>
 SingleDataSourceNode<T>::SingleDataSourceNode( const std::string& instanceName,
                                                const std::string& typeName ) :
     Node( instanceName, typeName ),
-    m_dataHandle { m_parameters.insertVariable<T>( "data", T {} ).first },
-    m_portOut { addOutputPort<T>( &m_dataHandle->second, "to" ) } {}
+    m_portIn { addInputPort<T>( "from" ) },
+    m_portOut { addOutputPort<T>( "to" ) } {
+    m_portIn->setDefaultValue( T {} );
+    m_portOut->setData( &m_portIn->getData() );
+}
 
 template <typename T>
 bool SingleDataSourceNode<T>::execute() {
@@ -102,23 +104,13 @@ bool SingleDataSourceNode<T>::execute() {
 
 template <typename T>
 void SingleDataSourceNode<T>::setData( T data ) {
-    m_dataHandle->second = std::move( data );
+    m_portIn->setDefaultValue( std::move( data ) );
+    m_portOut->setData( &m_portIn->getData() );
 }
 
 template <typename T>
 T* SingleDataSourceNode<T>::getData() const {
-    return &m_dataHandle->second;
-}
-
-template <typename T>
-void SingleDataSourceNode<T>::setEditable( const std::string& name ) {
-    ///\todo Who delete this EditableParameter in case on failed insertion ?
-    Node::addEditableParameter( new EditableParameter( name, m_dataHandle->second ) );
-}
-
-template <typename T>
-void SingleDataSourceNode<T>::removeEditable( const std::string& name ) {
-    Node::removeEditableParameter( name );
+    return &( m_portIn->getData() );
 }
 
 template <typename T>
