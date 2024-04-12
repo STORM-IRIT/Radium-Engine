@@ -47,10 +47,6 @@ class RA_DATAFLOW_API PortBaseIn : public PortBase
     template <typename T>
     T& getData();
 
-    /// Returns a reflected (In <-> Out) port of the same type
-    /// \todo : remove interface ? so remove reflect ?
-    virtual PortBaseOut* reflect( Node* node, std::string name ) const = 0;
-
   protected:
     /// Constructor.
     /// @param name The name of the port.
@@ -115,16 +111,6 @@ class PortIn : public PortBaseIn,
     void setDefaultValue( const T& value ) { m_defaultValue = value; }
     bool hasDefaultValue() const override { return m_defaultValue.has_value(); }
     bool isLinked() const override { return m_from != nullptr; }
-
-    /// Returns a portOut of the same type
-    /// \todo remove
-    PortBaseOut* reflect( Node* node, std::string name ) const override {
-        return new PortOut<DataType>( node, name );
-    }
-
-    /// Returns true if the port is an input port
-    /// \todo remove
-    bool is_input() override { return true; }
 
   private:
     PortOut<T>* m_from = nullptr;       ///< A pointer to the out port this port is connected to.

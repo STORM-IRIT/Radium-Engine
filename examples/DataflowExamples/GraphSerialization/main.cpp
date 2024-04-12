@@ -111,7 +111,7 @@ int main( int argc, char* argv[] ) {
 
     //! [setting the values processed by the graph]
     auto input = g1.getDataSetter( "Source", "to" );
-    input->setData( &test );
+    input->setDefaultValue( test );
     //! [setting the values processed by the graph]
 
     //! [Execute the graph]

@@ -57,34 +57,8 @@ class RA_DATAFLOW_API PortBase
     ///\return std::string The simplified demangled type.
     std::string getTypeName() const { return simplifiedDemangledType( m_type ); }
 
-    /// \todo Remove this since we only manipulate PortBaseIn or PortBaseOut
+    // can we get data from the port ?
     virtual bool hasData() { return false; }
-
-    /// \todo Remove this since we only manipulate PortBaseIn or PortBaseOut
-    /// Returns true if the port is an input port
-    virtual bool is_input() { return false; }
-
-    /// \todo Remove this since we only manipulate PortBaseIn or PortBaseOut
-    /// Allows to get data stored at this port if it is an output port.
-    /// This method copy the data onto the given object
-    /// @params t The reference to store the data of this port
-    template <typename T>
-    void getData( T& t );
-
-    /// \todo Remove this since we only manipulate PortBaseIn or PortBaseOut
-    /// Allows to get data stored at this port if it is an output port.
-    /// This method do not copy the data but gives a reference to the transmitted object.
-    /// TODO Verify the robustness of this
-    /// @params t The reference to store the data of this port
-    template <typename T>
-    T& getData();
-
-    /// \todo Remove this since we only manipulate PortBaseIn or PortBaseOut
-    /// Check if this port is an output port, then takes a pointer to the data this port will point
-    /// to.
-    /// @param data The pointer to the data.
-    template <typename T>
-    void setData( T* data );
 
   private:
     std::string m_name { "" }; ///< The name of the port.

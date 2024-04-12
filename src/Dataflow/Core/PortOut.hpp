@@ -25,15 +25,18 @@ class RA_DATAFLOW_API PortBaseOut : public PortBase
     PortBaseOut& operator=( const PortBaseOut& ) = delete;
     /// @}
 
+    /// Allows to get data stored at this port if it is an output port.
+    /// This method copy the data onto the given object
+    /// @params t The reference to store the data of this port
     template <typename T>
     T& getData();
 
+    /// Check if this port is an output port, then takes a pointer to the data this port will
+    /// point
+    /// to.
+    /// @param data The pointer to the data.
     template <typename T>
     void setData( T* data );
-
-    /// Returns a reflected (In <-> Out) port of the same type
-    /// \todo : remove interface ? so remove reflect ?
-    virtual PortBaseIn* reflect( Node* node, std::string name ) const = 0;
 
     // called by PortIn when connect
     void increaseLinkCount() {
@@ -95,12 +98,6 @@ class PortOut : public PortBaseOut
     /// Returns true if the pointer to the data is not null.
     bool hasData() override { return ( m_data ); }
 
-    /// Returns a portIn of the same type
-    /// \todo Remove
-    PortBaseIn* reflect( Node* node, std::string name ) const override {
-        return new PortIn<DataType>( node, name );
-    }
-
   private:
     T* m_data { nullptr }; ///< The data the port points to. Use raw ptr, data belongs to node
                            ///< and can be plain stack variable
@@ -109,62 +106,24 @@ class PortOut : public PortBaseOut
 
 template <typename T>
 T& PortBaseOut::getData() {
-    return static_cast<PortOut<T>*>( this )->getData();
+    auto thisOut = dynamic_cast<PortOut<T>*>( this );
+    if ( thisOut ) { return thisOut->getData(); }
+    LOG( Ra::Core::Utils::logERROR )
+        << "Unable to get data with type " << simplifiedDemangledType<T>() << " on port "
+        << getName() << " which expect " << getTypeName() << ".\n";
+    std::abort();
 }
 
 template <typename T>
 void PortBaseOut::setData( T* data ) {
-    static_cast<PortOut<T>*>( this )->setData( data );
-}
-
-template <typename T>
-void PortBase::getData( T& t ) {
-    if ( !is_input() ) {
-        auto thisOut = dynamic_cast<PortOut<T>*>( this );
-        if ( thisOut ) {
-            t = thisOut->getData();
-            return;
-        }
-        LOG( Ra::Core::Utils::logERROR )
-            << "Unable to get data with type " << simplifiedDemangledType<T>() << " on port "
-            << getName() << " which expect " << getTypeName() << ".\n";
-        std::abort();
+    auto thisOut = dynamic_cast<PortOut<T>*>( this );
+    if ( thisOut ) {
+        thisOut->setData( data );
+        return;
     }
     LOG( Ra::Core::Utils::logERROR )
-        << "Could not call PortBase::getData( T& t ) on the input port " << getName() << ".\n";
-    std::abort();
-}
-
-template <typename T>
-T& PortBase::getData() {
-    if ( !is_input() ) {
-        auto thisOut = dynamic_cast<PortOut<T>*>( this );
-        if ( thisOut ) { return thisOut->getData(); }
-        LOG( Ra::Core::Utils::logERROR )
-            << "Unable to get data with type " << simplifiedDemangledType<T>() << " on port "
-            << getName() << " which expect " << getTypeName() << ".\n";
-        std::abort();
-    }
-    LOG( Ra::Core::Utils::logERROR )
-        << "Could not call T& PortBase::getData<T>() on the input port " << getName() << ".\n";
-    std::abort();
-}
-
-template <typename T>
-void PortBase::setData( T* data ) {
-    if ( !is_input() ) {
-        auto thisOut = dynamic_cast<PortOut<T>*>( this );
-        if ( thisOut ) {
-            thisOut->setData( data );
-            return;
-        }
-        LOG( Ra::Core::Utils::logERROR )
-            << "Unable to set data with type " << simplifiedDemangledType( *data ) << " on port "
-            << getName() << " which expect " << getTypeName() << ".\n";
-        std::abort();
-    }
-    LOG( Ra::Core::Utils::logERROR )
-        << "Could not call  PortBase::setData(T* data) on the input port " << getName() << ".\n";
+        << "Unable to set data with type " << simplifiedDemangledType( *data ) << " on port "
+        << getName() << " which expect " << getTypeName() << ".\n";
     std::abort();
 }
 

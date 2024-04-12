@@ -357,7 +357,6 @@ bool DataflowGraph::addLink( const std::shared_ptr<Node>& nodeFrom,
 
 bool DataflowGraph::addLink( Node::PortBaseOutRawPtr outputPort,
                              Node::PortBaseInRawPtr inputPort ) {
-    if ( !inputPort->is_input() || outputPort->is_input() ) { return false; }
     auto nodeFrom = outputPort->getNode();
     auto nodeTo   = inputPort->getNode();
     if ( !checkNodeValidity( nodeFrom, nodeTo ) ) { return false; }
