@@ -25,11 +25,6 @@ class RenderParameters;
 
 namespace Gui {
 
-/// Gui internal helpers
-namespace internal {
-/// Visitor for the RenderParameter variable set
-class RenderParameterUiBuilder;
-} // namespace internal
 /**
  * \brief Simple Widget for RenderParameter editing
  * The editor will expose a control panel
