@@ -94,10 +94,10 @@ void addEnumConverter( VariableSet& vs,
 
     // string string converter/setter for setEnumVariable
     std::function<void( Core::VariableSet&, const std::string&, const std::string& )>
-        convertingFunction = [converter = converterHandle.first]( Core::VariableSet& vs,
-                                                                  const std::string& nm,
-                                                                  const std::string& vl ) {
-            vs.setVariable( nm, converter->second->getEnumerator( vl ) );
+        convertingFunction = [converter_ = converterHandle.first]( Core::VariableSet& vs_,
+                                                                   const std::string& name_,
+                                                                   const std::string& value_ ) {
+            vs_.setVariable( name_, converter_->second->getEnumerator( value_ ) );
         };
     vs.setVariable( name, convertingFunction );
 }
