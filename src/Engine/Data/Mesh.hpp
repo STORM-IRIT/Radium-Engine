@@ -283,6 +283,8 @@ class CoreGeometryDisplayable : public AttribArrayDisplayable
     void setAttribNameCorrespondance( const std::string& meshAttribName,
                                       const std::string& shaderAttribName );
 
+    void autoVertexAttribCheck( const ShaderProgram* prog );
+
   protected:
     virtual void updateGL_specific_impl() {}
 
@@ -784,6 +786,37 @@ void CoreGeometryDisplayable<CoreGeometry>::autoVertexAttribPointer( const Shade
             else { m_vao->disable( loc ); }
         }
         else { m_vao->disable( loc ); }
+    }
+}
+
+template <typename CoreGeometry>
+void CoreGeometryDisplayable<CoreGeometry>::autoVertexAttribCheck( const ShaderProgram* prog ) {
+
+    auto glprog           = prog->getProgramObject();
+    gl::GLint attribCount = glprog->get( GL_ACTIVE_ATTRIBUTES );
+
+    for ( GLint idx = 0; idx < attribCount; ++idx ) {
+        const gl::GLsizei bufSize = 256;
+        gl::GLchar name[bufSize];
+        gl::GLsizei length;
+        gl::GLint size;
+        gl::GLenum type;
+        glprog->getActiveAttrib( idx, bufSize, &length, &size, &type, name );
+        auto loc = glprog->getAttributeLocation( name );
+
+        auto attribNameOpt = m_translationTable.keyIfExists( name );
+        if ( attribNameOpt ) {
+            auto attribName = *attribNameOpt;
+            auto attrib     = m_mesh.getAttribBase( attribName );
+            if ( attrib && attrib->getSize() > 0 ) {
+                LOG( logINFO ) << "enable " << attribName << " to " << name << " " << loc;
+            }
+            else {
+                LOG( logINFO ) << "attribName not vaild " << attribName << " disable " << name
+                               << " " << loc;
+            }
+        }
+        else { LOG( logINFO ) << "attrib not found in table, disable " << name << " " << loc; }
     }
 }
 
