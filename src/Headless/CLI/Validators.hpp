@@ -597,8 +597,8 @@ std::string generate_map( const T& map, bool key_only = false ) {
 template <typename C, typename V>
 struct has_find {
     template <typename CC, typename VV>
-    static auto test( int )
-        -> decltype( std::declval<CC>().find( std::declval<VV>() ), std::true_type() );
+    static auto test( int ) -> decltype( std::declval<CC>().find( std::declval<VV>() ),
+                                         std::true_type() );
     template <typename, typename>
     static auto test( ... ) -> decltype( std::false_type() );
 
