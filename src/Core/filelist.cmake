@@ -43,6 +43,7 @@ set(core_sources
     Utils/Color.cpp
     Utils/StackTrace.cpp
     Utils/StringUtils.cpp
+    Utils/TypesUtils.cpp
 )
 
 set(core_headers

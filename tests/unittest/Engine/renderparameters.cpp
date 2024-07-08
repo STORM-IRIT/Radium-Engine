@@ -46,7 +46,8 @@ class StaticPrintVisitor
     void operator()( const std::string& name, const T& _in, const std::string& prefix = "" ) {
         if ( !prefix.empty() ) { output << "\t" << prefix << ": "; }
         else { output << "\tStaticPrintVisitor: "; }
-        output << "( " << Utils::demangleType<T>() << " ) " << name << " --> " << _in << "\n";
+        output << "( " << Utils::simplifiedDemangledType<T>() << " ) " << name << " --> " << _in
+               << "\n";
     }
 
     template <typename T, typename std::enable_if<std::is_class<T>::value, bool>::type = true>
@@ -56,9 +57,10 @@ class StaticPrintVisitor
         if ( !prefix.empty() ) { output << "\t" << prefix << ": "; }
         else { output << "\tStaticPrintVisitor: "; }
         if constexpr ( std::is_same<T, std::string>::value ) {
-            output << "( " << Utils::demangleType<T>() << " ) " << name << " --> " << _in << "\n";
+            output << "( " << Utils::simplifiedDemangledType<T>() << " ) " << name << " --> " << _in
+                   << "\n";
         }
-        else { output << "( " << Utils::demangleType<T>() << " ) " << name << "\n"; }
+        else { output << "( " << Utils::simplifiedDemangledType<T>() << " ) " << name << "\n"; }
     }
 
     void operator()( const std::string& name,
@@ -68,13 +70,13 @@ class StaticPrintVisitor
         if ( prefix.empty() ) { localPrefix = "StaticPrintVisitor: "; }
         else { localPrefix = prefix; }
 
-        output << "\t" << localPrefix << "( " << Utils::demangleType( p.get() ) << " ) " << name
-               << " --> visiting recursively\n";
+        output << "\t" << localPrefix << "( " << Utils::simplifiedDemangledType( p.get() ) << " ) "
+               << name << " --> visiting recursively\n";
         // visit the sub-parameters
         p.get().visit( *this, std::string { "\t" } + localPrefix );
 
-        output << "\t" << localPrefix << "( " << Utils::demangleType( p.get() ) << " ) " << name
-               << " --> end recursive visit\n";
+        output << "\t" << localPrefix << "( " << Utils::simplifiedDemangledType( p.get() ) << " ) "
+               << name << " --> end recursive visit\n";
     }
 
     std::stringstream output;
@@ -383,21 +385,27 @@ TEST_CASE( "Engine/Data/RenderParameters", "[Engine][Engine/Data][RenderParamete
                 outputSet.insert( line );
             std::multiset<std::string> expected;
 
-            expected.insert( "\tVisiting with subparameters: ( int ) int.simple --> 1" );
             expected.insert(
-                "\tVisiting with subparameters: ( unsigned int ) enum.semantic --> 10" );
-            expected.insert(
-                "\tVisiting with subparameters( Ra::Engine::Data::RenderParameters ) SubParameter "
-                "--> visiting recursively" );
+                "\t\tVisiting with subparameters: ( basic_string<char, char_traits<char>, "
+                "allocator<char>> ) sub.string --> SubString" );
             expected.insert( "\t\tVisiting with subparameters: ( int ) sub.int --> 3" );
             expected.insert(
                 "\t\tVisiting with subparameters: ( unsigned int ) enum.semantic --> 20" );
+            expected.insert( "\tVisiting with subparameters( Ra::Engine::Data::RenderParameters ) "
+                             "SubParameter --> end recursive visit" );
+            expected.insert( "\tVisiting with subparameters( Ra::Engine::Data::RenderParameters ) "
+                             "SubParameter --> visiting recursively" );
+            expected.insert( "\tVisiting with subparameters: ( int ) int.simple --> 1" );
             expected.insert(
-                "\t\tVisiting with subparameters: ( std::__cxx11::basic_string<char, "
-                "std::char_traits<char>, std::allocator<char>> ) sub.string --> SubString" );
-            expected.insert(
-                "\tVisiting with subparameters( Ra::Engine::Data::RenderParameters ) SubParameter "
-                "--> end recursive visit" );
+                "\tVisiting with subparameters: ( unsigned int ) enum.semantic --> 10" );
+
+            std::cerr << "------------------\n";
+            for ( const auto& s : outputSet )
+                std::cerr << s << "\n";
+            std::cerr << "------------------\n";
+            for ( const auto& s : expected )
+                std::cerr << s << "\n";
+            std::cerr << "------------------\n";
 
             REQUIRE( outputSet == expected );
         }
