@@ -371,16 +371,27 @@ TEST_CASE( "Engine/Data/RenderParameters", "[Engine][Engine/Data][RenderParamete
         setEnumVariable( subParams, "enum.semantic", "VALUE_1" );
         paramsToVisit.setVariable( "SubParameter", subParams );
         paramsToVisit.visit( vstr, "Visiting with subparameters" );
-        REQUIRE( vstr.output.str() ==
-                 "	Visiting with subparameters: ( int ) int.simple --> 1\n"
-                 "	Visiting with subparameters: ( unsigned int ) enum.semantic --> 10\n"
-                 "	Visiting with subparameters( Ra::Engine::Data::RenderParameters ) SubParameter "
-                 "--> visiting recursively\n"
-                 "		Visiting with subparameters: ( int ) sub.int --> 3\n"
-                 "		Visiting with subparameters: ( unsigned int ) enum.semantic --> 20\n"
-                 "		Visiting with subparameters: ( std::__cxx11::basic_string<char, "
-                 "std::char_traits<char>, std::allocator<char>> ) sub.string --> SubString\n"
-                 "	Visiting with subparameters( Ra::Engine::Data::RenderParameters ) SubParameter "
-                 "--> end recursive visit\n" );
+
+        // visiting order is system dependent
+        std::multiset<std::string> outputSet;
+        for ( std::string line; std::getline( vstr.output, line, '\n' ); )
+            outputSet.insert( line );
+        std::multiset<std::string> expected;
+
+        expected.insert( "\tVisiting with subparameters: ( int ) int.simple --> 1" );
+        expected.insert( "\tVisiting with subparameters: ( unsigned int ) enum.semantic --> 10" );
+        expected.insert(
+            "\tVisiting with subparameters( Ra::Engine::Data::RenderParameters ) SubParameter "
+            "--> visiting recursively" );
+        expected.insert( "\t\tVisiting with subparameters: ( int ) sub.int --> 3" );
+        expected.insert( "\t\tVisiting with subparameters: ( unsigned int ) enum.semantic --> 20" );
+        expected.insert(
+            "\t\tVisiting with subparameters: ( std::__cxx11::basic_string<char, "
+            "std::char_traits<char>, std::allocator<char>> ) sub.string --> SubString" );
+        expected.insert(
+            "\tVisiting with subparameters( Ra::Engine::Data::RenderParameters ) SubParameter "
+            "--> end recursive visit" );
+
+        REQUIRE( outputSet == expected );
     }
 }
