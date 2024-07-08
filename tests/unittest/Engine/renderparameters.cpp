@@ -352,11 +352,16 @@ TEST_CASE( "Engine/Data/RenderParameters", "[Engine][Engine/Data][RenderParamete
         ptm.allowVisit<int>();
         std::cout << "Visiting with custom dynamic visitor:\n";
         paramsToVisit.visit( ptm );
-
-        REQUIRE( ptm.output.str() ==
-                 "	PrintThemAllVisitor: ( int ) int.simple --> 1\n"
-                 "	PrintThemAllVisitor: ( unsigned int ) enum.semantic --> 10\n" );
-
+        // visiting order is system dependent, compares output ignoring output order.
+        {
+            std::multiset<std::string> outputSet;
+            for ( std::string line; std::getline( ptm.output, line, '\n' ); )
+                outputSet.insert( line );
+            std::multiset<std::string> expected;
+            expected.insert( "\tPrintThemAllVisitor: ( int ) int.simple --> 1" );
+            expected.insert( "\tPrintThemAllVisitor: ( unsigned int ) enum.semantic --> 10" );
+            REQUIRE( outputSet == expected );
+        }
         StaticPrintVisitor vstr;
         std::cout << "Visiting with custom static visitor:\n";
         paramsToVisit.visit( vstr );
@@ -372,26 +377,29 @@ TEST_CASE( "Engine/Data/RenderParameters", "[Engine][Engine/Data][RenderParamete
         paramsToVisit.setVariable( "SubParameter", subParams );
         paramsToVisit.visit( vstr, "Visiting with subparameters" );
 
-        // visiting order is system dependent
-        std::multiset<std::string> outputSet;
-        for ( std::string line; std::getline( vstr.output, line, '\n' ); )
-            outputSet.insert( line );
-        std::multiset<std::string> expected;
+        {
+            std::multiset<std::string> outputSet;
+            for ( std::string line; std::getline( vstr.output, line, '\n' ); )
+                outputSet.insert( line );
+            std::multiset<std::string> expected;
 
-        expected.insert( "\tVisiting with subparameters: ( int ) int.simple --> 1" );
-        expected.insert( "\tVisiting with subparameters: ( unsigned int ) enum.semantic --> 10" );
-        expected.insert(
-            "\tVisiting with subparameters( Ra::Engine::Data::RenderParameters ) SubParameter "
-            "--> visiting recursively" );
-        expected.insert( "\t\tVisiting with subparameters: ( int ) sub.int --> 3" );
-        expected.insert( "\t\tVisiting with subparameters: ( unsigned int ) enum.semantic --> 20" );
-        expected.insert(
-            "\t\tVisiting with subparameters: ( std::__cxx11::basic_string<char, "
-            "std::char_traits<char>, std::allocator<char>> ) sub.string --> SubString" );
-        expected.insert(
-            "\tVisiting with subparameters( Ra::Engine::Data::RenderParameters ) SubParameter "
-            "--> end recursive visit" );
+            expected.insert( "\tVisiting with subparameters: ( int ) int.simple --> 1" );
+            expected.insert(
+                "\tVisiting with subparameters: ( unsigned int ) enum.semantic --> 10" );
+            expected.insert(
+                "\tVisiting with subparameters( Ra::Engine::Data::RenderParameters ) SubParameter "
+                "--> visiting recursively" );
+            expected.insert( "\t\tVisiting with subparameters: ( int ) sub.int --> 3" );
+            expected.insert(
+                "\t\tVisiting with subparameters: ( unsigned int ) enum.semantic --> 20" );
+            expected.insert(
+                "\t\tVisiting with subparameters: ( std::__cxx11::basic_string<char, "
+                "std::char_traits<char>, std::allocator<char>> ) sub.string --> SubString" );
+            expected.insert(
+                "\tVisiting with subparameters( Ra::Engine::Data::RenderParameters ) SubParameter "
+                "--> end recursive visit" );
 
-        REQUIRE( outputSet == expected );
+            REQUIRE( outputSet == expected );
+        }
     }
 }
