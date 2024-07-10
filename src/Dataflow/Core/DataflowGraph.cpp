@@ -39,7 +39,12 @@ bool DataflowGraph::execute() {
     bool result = true;
     std::for_each( m_nodesByLevel.begin(), m_nodesByLevel.end(), [&result]( const auto& level ) {
         std::for_each( level.begin(), level.end(), [&result]( auto node ) {
-            result = result && node->execute();
+            bool excuted = node->execute();
+            if ( !excuted ) {
+                LOG( logERROR ) << "Execution failed with node " << node->getInstanceName() << " ("
+                                << node->getTypename() << ").";
+            }
+            result = result && excuted;
         } );
     } );
     return result;
@@ -432,6 +437,10 @@ bool DataflowGraph::compile() {
                 // recursively add the predecessors of the sink
                 backtrackGraph( n.get(), infoNodes );
             }
+            else {
+                LOG( logWARNING ) << "Sink Node " << n->getInstanceName()
+                                  << " is inactive (belog to the graph but not connected)";
+            }
         }
     }
     // Compute the level (rank of execution) of useful nodes
@@ -440,10 +449,13 @@ bool DataflowGraph::compile() {
         auto n = infNode.first;
         // Compute the nodes' level starting from sources
         if ( n->isInputNode() ) {
+            // set level to 0 because node is source
+            infNode.second.first = 0;
             // Tag successors
             for ( auto const successor : infNode.second.second ) {
+                // Successors is a least +1 level
                 infoNodes[successor].first =
-                    std::max( infoNodes[successor].first, infoNodes[n].first + 1 );
+                    std::max( infoNodes[successor].first, infNode.second.first + 1 );
                 maxLevel = std::max( maxLevel,
                                      std::max( infoNodes[successor].first,
                                                goThroughGraph( successor, infoNodes ) ) );
@@ -453,6 +465,11 @@ bool DataflowGraph::compile() {
     m_nodesByLevel.clear();
     m_nodesByLevel.resize( infoNodes.size() != 0 ? maxLevel + 1 : 0 );
     for ( auto& infNode : infoNodes ) {
+        if ( size_t( infNode.second.first ) >= m_nodesByLevel.size() ) {
+            LOG( logERROR ) << "Node " << infNode.first->getInstanceName() << " is at level "
+                            << infNode.second.first << " but level max is " << maxLevel;
+            std::abort();
+        }
         m_nodesByLevel[infNode.second.first].push_back( infNode.first );
     }
 
@@ -465,6 +482,8 @@ bool DataflowGraph::compile() {
             for ( size_t k = 0; k < lvl[j]->getInputs().size(); k++ ) {
                 if ( lvl[j]->getInputs()[k]->isLinkMandatory() &&
                      !lvl[j]->getInputs()[k]->isLinked() ) {
+                    LOG( logERROR )
+                        << "Node <" << lvl[j]->getInstanceName() << "> is not ready" << std::endl;
                     return m_ready = false;
                 }
             }
@@ -533,8 +552,9 @@ int DataflowGraph::goThroughGraph(
         for ( auto const& successor : infoNodes[current].second ) {
             infoNodes[successor].first =
                 std::max( infoNodes[successor].first, infoNodes[current].first + 1 );
-            maxLevel =
-                std::max( infoNodes[successor].first, goThroughGraph( successor, infoNodes ) );
+            maxLevel = std::max(
+                maxLevel,
+                std::max( infoNodes[successor].first, goThroughGraph( successor, infoNodes ) ) );
         }
     }
     return maxLevel;
