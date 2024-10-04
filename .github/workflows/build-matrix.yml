@@ -50,14 +50,6 @@ on:
         required: false
         type: string
         default: "false"
-      qt5:
-        required: false
-        type: string
-        default: "true"
-      qt6:
-        required: false
-        type: string
-        default: "true"
 
 env:
   ext-dir: $GITHUB_WORKSPACE/external/install/
@@ -89,11 +81,7 @@ jobs:
           echo '{ "name": "float", "value": "OFF"}'
           [[ "true" == "${{ inputs.use-double }}" ]] && echo ', { "name": "double", "value": "ON" }'
           echo '],'
-          echo '"qtversion" : ['
-          [[ "true" == "${{ inputs.qt5 }}" ]] && echo '{ "name" : "qt5", "value" : "5.15.1"}'
-          [[ "true" == "${{ inputs.qt5 }}" && "true" == "${{ inputs.qt6 }}" ]] && echo ','
-          [[ "true" == "${{ inputs.qt6 }}" ]] && echo '{ "name" : "qt6", "value" : "6.2.0"}'
-          echo '],'
+          echo '"qtversion" : [ { "name" : "qt6", "value" : "6.2.0"}],'
           echo '"coverage" : ['
           [[ "true" == "${{ inputs.coverage }}" ]] && echo '{ "value" : "ON", "extra-flags" : "-DRADIUM_ENABLE_GL_TESTING=ON" }' || echo '{ "value" : "OFF", "extra-flags" : "" }'
           echo "]"
