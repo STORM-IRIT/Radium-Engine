@@ -28,20 +28,14 @@ add_custom_target(GuiExternals ALL)
 
 # ------------------------------------------------------------------------------
 
-# propagate the Qt version used to compile externals if none of Qt6_DIR or Qt5_DIR is defined,
-# assume the CMAKE_PREFIX_PATH allow to find the desired Qt package
+# Force the use of Qt6, assume dependencies uses either Qt6_DIR or QT_DEFAULT_MAJOR_VERSION
 set(Qt_CONFIGURATION "")
 if(DEFINED Qt6_DIR)
     set(Qt_CONFIGURATION "-DQt6_DIR=${Qt6_DIR}")
-elseif(DEFINED Qt5_DIR)
-    set(Qt_CONFIGURATION "-DQt5_DIR=${Qt5_DIR}")
 endif()
 
-if(DEFINED QT_DEFAULT_MAJOR_VERSION)
-    set(Qt_CONFIGURATION
-        "${Qt_CONFIGURATION};-DQT_DEFAULT_MAJOR_VERSION=${QT_DEFAULT_MAJOR_VERSION}"
-    )
-endif()
+set(QT_DEFAULT_MAJOUR_VERSION 6)
+set(Qt_CONFIGURATION "${Qt_CONFIGURATION};-DQT_DEFAULT_MAJOR_VERSION=${QT_DEFAULT_MAJOR_VERSION}")
 
 # configure RPATH as expected to be used under Radium
 list(FIND CMAKE_PLATFORM_IMPLICIT_LINK_DIRECTORIES "${CMAKE_INSTALL_PREFIX}/lib" isSystemDir)
