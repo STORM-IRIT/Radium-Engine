@@ -98,9 +98,7 @@ void ControlPanel::addSliderInput( const std::string& name,
     spinbox->setRange( min, max );
     spinbox->setValue( initial );
     connect( inputField, &QSlider::valueChanged, spinbox, &QSpinBox::setValue );
-    // Qt6 do not need QOverload<int> but Qt5 do. Keep Qt5 syntax
-    connect(
-        spinbox, QOverload<int>::of( &QSpinBox::valueChanged ), inputField, &QSlider::setValue );
+    connect( spinbox, &QSpinBox::valueChanged, inputField, &QSlider::setValue );
     connect( inputField, &QSlider::valueChanged, std::move( callback ) );
     sliderLayout->addWidget( inputField );
     sliderLayout->addWidget( spinbox );
