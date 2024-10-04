@@ -802,15 +802,15 @@ endif()
 
 # component <secondLib>
 if (<secondLib>_FOUND)
-    # manage component dependencies (e.g. <firstLib> must be requested and <secondLib> depends also on Qt5)
+    # manage component dependencies (e.g. <firstLib> must be requested and <secondLib> depends also on Qt)
     if (NOT <firstLib>_FOUND)
         set(<secondLib>_FOUND False)
         set(<packageName>_FOUND False)
         set(<packageName>_NOT_FOUND_MESSAGE "Component <secondLib> requires the component <firstLib>")
         # Note that you can also explicitely configure first lib instead of raising an error
     else()
-        if (NOT Qt5_FOUND)
-            find_dependency(Qt5 COMPONENTS Core Widgets REQUIRED)
+        if (NOT Qt6_FOUND)
+            find_qt_dependency(COMPONENTS Core Widgets REQUIRED)
         endif()
         include("${CMAKE_CURRENT_LIST_DIR}/<secondLib>Targets.cmake" )
     endif()

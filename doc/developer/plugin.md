@@ -32,9 +32,7 @@ Example CMakeLists.txt setup to compile a Radium plugin:
  # Use installed Radium environment
  find_package(Radium REQUIRED Core Engine PluginBase)
 
- # Find and configure Qt environment using versionless targets (Radium requires Qt >= 5.15)
- # https://doc.qt.io/qt-6/cmake-qt5-and-qt6-compatibility.html
- # find_qt_package is provided by Radium
+# Find and configure Qt environment using find_qt_package is provided by Radium
  find_qt_package(COMPONENTS Core REQUIRED)
  set(Qt_LIBRARIES Qt::Core)
  set(CMAKE_AUTOMOC ON)
