@@ -70,7 +70,7 @@ jobs:
           [[ "true" == "${{ inputs.windows }}" && "true" == "${{inputs.linux}}" ]] && echo ','
           [[ "true" == "${{ inputs.linux }}" ]] && echo '{ "name": "Ubuntu gcc", "os": "ubuntu-latest", "cc": "gcc-10", "cxx": "g++-10", "icon": "Linux", "extra-flags": "-DCMAKE_CXX_FLAGS=-Wno-deprecated-declarations -DRADIUM_ENABLE_GL_TESTING=ON" }'
           [[ "true" == "${{ inputs.windows }}" || "true" == "${{inputs.linux}}" ]] && [[ "true" == "${{inputs.macos}}" ]] && echo ','
-          [[ "true" == "${{ inputs.macos }}" ]] && echo '{ "name": "MacOS clang", "os": "macos-latest", "cc": "clang", "cxx": "clang++", "icon": "Apple", "extra-flags": "-DCMAKE_CXX_FLAGS=-Wno-deprecated-declarations" }'
+          [[ "true" == "${{ inputs.macos }}" ]] && echo '{ "name": "MacOS clang", "os": "macos-13", "cc": "clang", "cxx": "clang++", "icon": "Apple", "extra-flags": "-DCMAKE_CXX_FLAGS=-Wno-deprecated-declarations" }'
           echo '],'
           echo '"build-type" : ['
           [[ "true" == "${{ inputs.build-debug }}" ]] && echo '"Debug"'
