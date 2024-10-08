@@ -69,6 +69,7 @@ The Radium components are :
   - IO_HAS_TINYPLY : Identify if Radium::IO was compiled with tinyply support,
   - IO_HAS_VOLUMES : Identify if Radium::IO was compiled with pvm volume loader support.
   You might use these properties to define compilation macro in your code
+  -
 
   ~~~{.cmake}
   get_target_property(USE_ASSIMP Radium::IO IO_HAS_ASSIMP)
@@ -117,10 +118,8 @@ This function takes the following parameters:
 *Parameter name*                            | *Parameter description*
 --------------------------------------------|--------------------
 `<NAME> applicationName`                    | The name of the *executable* target to configure and install
-`<USE_PLUGINS>`                             | If this option is given, the plugins installed into the Radium bundle at
-the installation time will be copied into the application bundle.
-`<RESOURCES> ResourceDir1 ResourceDir2 ...` | Optional list of directories to be considered as application resources
-and installed into the application bundle.
+`<USE_PLUGINS>`                             | If this option is given, the plugins installed into the Radium bundle at the installation time will be copied into the application bundle.
+`<RESOURCES> ResourceDir1 ResourceDir2 ...` | Optional list of directories to be considered as application resources and installed into the application bundle.
 
 When installed into a directory `<prefix>`, the application bundle has the following structure on linux, windows or on
 MacOsX (if the executable is not configured as a `MACOSX_BUNDLE`):
