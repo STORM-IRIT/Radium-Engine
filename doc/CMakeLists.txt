@@ -10,8 +10,10 @@ project(radium-doc)
 if(POLICY CMP0077)
     cmake_policy(SET CMP0077 NEW)
 endif()
+
+include(${CMAKE_CURRENT_SOURCE_DIR}/../cmake/cmake-message-helpers/MessageHelpers.cmake)
+message_prefix_push("Doc")
 # Helper functions
-list(APPEND CMAKE_MESSAGE_INDENT "[Doc] ")
 
 macro(path_linux_to_win MsysPath ResultingPath)
     string(REGEX REPLACE "^/([a-zA-Z])/" "\\1:/" ${ResultingPath} "${MsysPath}")
@@ -186,4 +188,4 @@ if(DOXYGEN_FOUND)
     endif()
 endif()
 
-list(REMOVE_AT CMAKE_MESSAGE_INDENT -1)
+message_prefix_pop()
