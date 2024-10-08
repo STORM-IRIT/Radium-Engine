@@ -7,7 +7,8 @@ cmake_policy(SET CMP0092 NEW) # do not set /W3 for msvc
 
 set(CMAKE_DISABLE_SOURCE_CHANGES ON)
 set(CMAKE_DISABLE_IN_SOURCE_BUILD ON)
-
+include(${CMAKE_SOURCE_DIR}/cmake/cmake-message-helpers/MessageHelpers.cmake)
+message_prefix_push("Main")
 # Project setup, versioning stuff here, change when changing the version
 # ~~~
 # Note: keep the project name lower case only for easy linux packaging support
@@ -172,6 +173,7 @@ endif(RADIUM_ENABLE_COVERAGE)
 # Installation utilities
 include(RadiumSetupFunctions)
 
+message_prefix_pop()
 # Documentation build
 add_subdirectory(doc)
 
@@ -296,7 +298,7 @@ install(FILES LICENSE README.md TYPE DATA)
 
 # -------------------------------------------------------------------------------
 # Wrap up of settings printed on build
-include(MessageFunc)
+
 message(NOTICE "")
 message_title(" Final overview for ${PROJECT_NAME} ")
 message_info(" ")
