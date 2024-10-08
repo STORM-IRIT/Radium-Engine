@@ -22,12 +22,12 @@ namespace Headless {
 class HEADLESS_API OpenGLContext
 {
   public:
-    /** \defgroup context OpenGL context management
+    /** \name OpenGL context management
      *  These methods allow to create and manipulate an openGLContext.
      *  Using this function, the openGL context created is an offscreen context with no exposed
      *  window.
-     *  \{
      */
+    /**\{ */
     /**
      * Create an offscreen openGl context.
      * The created context has the following properties
@@ -59,14 +59,12 @@ class HEADLESS_API OpenGLContext
     [[nodiscard]] virtual std::string getInfo() const;
     /** \} */
 
-    /** \defgroup window Window management from an openGL context
+    /** \name Window management from an openGL context
      *  These methods allow to display and interact with a simple window associated with the created
      *  OpenGL Context, if any.
-     *  \{
      */
-    /** Identify the event processing method when the window is exposed.
-     *
-     */
+    /** \{ */
+    /// Identify the event processing method when the window is exposed.
     enum class EventMode : int { POLL = 0, WAIT, TIMEOUT, NUM_MODES };
     /// Show the window
     virtual void show( EventMode /*mode*/, float /*delay*/ ) {};
@@ -129,9 +127,6 @@ class HEADLESS_API OpenGLContext
 
     /** \} */
   protected:
-    /** \addtogroup window
-     *  \{
-     */
     /// Process the pending events according to the window show mode
     virtual bool processEvents() { return true; };
 
@@ -164,7 +159,6 @@ class HEADLESS_API OpenGLContext
     EventMode m_mode { EventMode::POLL };
     /// Timeout delay for event processing
     float m_delay { 1.f / 60.f };
-    /** \} */
 };
 
 inline std::string OpenGLContext::getInfo() const {
