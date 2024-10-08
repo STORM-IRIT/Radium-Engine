@@ -1,5 +1,5 @@
 \mainpage
-![banner](images/radium-banner.png)
+![banner](images/radium-banner.webp)
 
 Radium is a research 3D Engine for rendering, animation and processing.
 Developed and maintained by the [STORM research group](https://www.irit.fr/STORM/site/).
