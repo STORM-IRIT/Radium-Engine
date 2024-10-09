@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.5.14</span>
+   &#160;<span id="projectnumber">1.5.15</span>
    </div>
   </td>
  </tr>
@@ -316,16 +316,13 @@ $(document).ready(function(){initNavTree('WindowQt_8cpp_source.html',''); initRe
 <div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span> </div>
 <div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>    <span class="keyword">const</span> <span class="keyword">auto</span> <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector.html">symbol</a> = <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/string/basic_string.html">std::string</a>( name );</div>
 <div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span> </div>
-<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span><span class="preprocessor">#if ( QT_VERSION &gt;= QT_VERSION_CHECK( 5, 4, 0 ) )</span></div>
-<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>    <span class="keyword">const</span> <span class="keyword">auto</span> <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector.html">qtSymbol</a> = QByteArray::fromStdString( <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector.html">symbol</a> );</div>
-<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span><span class="preprocessor">#else</span></div>
-<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>    <span class="keyword">const</span> <span class="keyword">auto</span> <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector.html">qtSymbol</a> = QByteArray::fromRawData( <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector.html">symbol</a>.c_str(), <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector.html">symbol</a>.<a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector/size.html">size</a>() );</div>
-<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>    <span class="keywordflow">return</span> s_getProcAddressHelper-&gt;m_context-&gt;getProcAddress( <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector.html">qtSymbol</a> );</div>
-<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>}</div>
-<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span> </div>
-<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>} <span class="comment">// namespace Gui</span></div>
-<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>} <span class="comment">// namespace Ra</span></div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>    <span class="keyword">const</span> <span class="keyword">auto</span> <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector.html">qtSymbol</a> = QByteArray::fromStdString( <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector.html">symbol</a> );</div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span> </div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>    <span class="keywordflow">return</span> s_getProcAddressHelper-&gt;m_context-&gt;getProcAddress( <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector.html">qtSymbol</a> );</div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>}</div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span> </div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>} <span class="comment">// namespace Gui</span></div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>} <span class="comment">// namespace Ra</span></div>
 <div class="ttc" id="abasic_string_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/string/basic_string.html">std::string</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1WindowQt_html"><div class="ttname"><a href="classRa_1_1Gui_1_1WindowQt.html">Ra::Gui::WindowQt</a></div><div class="ttdoc">Base class for OpenGL widgets, compatble with Qt and globjects/glbindings.</div><div class="ttdef"><b>Definition</b> <a href="WindowQt_8hpp_source.html#l00027">WindowQt.hpp:28</a></div></div>
 <div class="ttc" id="amax_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/algorithm/max.html">std::max</a></div><div class="ttdeci">T max(T... args)</div></div>

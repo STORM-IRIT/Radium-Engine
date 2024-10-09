@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.5.14</span>
+   &#160;<span id="projectnumber">1.5.15</span>
    </div>
   </td>
  </tr>
@@ -120,17 +120,17 @@ $(document).ready(function(){initNavTree('forwardRenderer.html',''); initResizab
 </div><!--header-->
 <div class="contents">
 <div class="toc"><h3>Table of Contents</h3>
-<ul><li class="level1"><a href="#autotoc_md40">1. Depth, ambient color and &quot;deferred info&quot; pass</a></li>
-<li class="level1"><a href="#autotoc_md41">2. Lighting pass</a></li>
-<li class="level1"><a href="#autotoc_md42">3. Ordered independent transparency</a></li>
-<li class="level1"><a href="#autotoc_md43">4. Post-process the whole &lt;em&gt;render pass&lt;/em&gt;</a></li>
-<li class="level1"><a href="#autotoc_md44">5. Debug and UI render objects</a></li>
-<li class="level1"><a href="#autotoc_md45">6. Write final texture to framebuffer / backbuffer</a></li>
+<ul><li class="level1"><a href="#autotoc_md39">1. Depth, ambient color and &quot;deferred info&quot; pass</a></li>
+<li class="level1"><a href="#autotoc_md40">2. Lighting pass</a></li>
+<li class="level1"><a href="#autotoc_md41">3. Ordered independent transparency</a></li>
+<li class="level1"><a href="#autotoc_md42">4. Post-process the whole &lt;em&gt;render pass&lt;/em&gt;</a></li>
+<li class="level1"><a href="#autotoc_md43">5. Debug and UI render objects</a></li>
+<li class="level1"><a href="#autotoc_md44">6. Write final texture to framebuffer / backbuffer</a></li>
 </ul>
 </div>
 <div class="textblock"><p>The main renderer of Radium, implemented in the class <a class="el" href="classRa_1_1Engine_1_1Rendering_1_1ForwardRenderer.html">Ra::Engine::Rendering::ForwardRenderer</a> implements a Z-pre-pass forward rendering loop. Even if the material association to a drawable object, realized by the so called <a class="el" href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html">Ra::Engine::Rendering::RenderTechnique</a> is tightly coupled with the main rendering loop, Plugins might define new renderers and interact differently with shader and materials properties (see chapter on <a class="el" href="develmaterials.html">Materials</a> ).</p>
 <p>Here is a summary of the different passes of the <a class="el" href="classRa_1_1Engine_1_1Rendering_1_1ForwardRenderer.html">Ra::Engine::Rendering::ForwardRenderer</a></p>
-<h1><a class="anchor" id="autotoc_md40"></a>
+<h1><a class="anchor" id="autotoc_md39"></a>
 1. Depth, ambient color and "deferred info" pass</h1>
 <p>This pass</p>
 <ul>
@@ -145,7 +145,7 @@ $(document).ready(function(){initNavTree('forwardRenderer.html',''); initResizab
 </ul>
 <p>In this pass, each <a class="el" href="classRa_1_1Engine_1_1Rendering_1_1RenderObject.html">Ra::Engine::Rendering::RenderObject</a> is drawn with the <a class="el" href="namespaceRa_1_1Engine_1_1Rendering.html#a6adc37d571180327fbdcf8dd786e9942a51aa3f3937001c6d503e5fa61fa2a79c">Ra::Engine::Rendering::Z_PREPASS</a> argument so that the corresponding shader (if it exists) will be activated before draw call. (<code>ro-&gt;render( renderParameters, viewingParameters, DefaultRenderingPasses::Z_PREPASS );</code>)</p>
 <p>Note that the shader associated to the <a class="el" href="namespaceRa_1_1Engine_1_1Rendering.html#a6adc37d571180327fbdcf8dd786e9942a51aa3f3937001c6d503e5fa61fa2a79c">Ra::Engine::Rendering::Z_PREPASS</a> pass must draw only fully opaque fragments. Fully transparent ones (rejected by a masking information such as mask texture) and blend-able ones (those with an opacity factor alpha les than one) must be discarded.</p>
-<h1><a class="anchor" id="autotoc_md41"></a>
+<h1><a class="anchor" id="autotoc_md40"></a>
 2. Lighting pass</h1>
 <p>This pass is a classic forward lighting pass that accumulates the color of each light source. Before this pass, blending (one, one) is enabled and it does</p>
 <div class="fragment"><div class="line">for each light do</div>
@@ -158,7 +158,7 @@ $(document).ready(function(){initNavTree('forwardRenderer.html',''); initResizab
 <div class="line">done</div>
 </div><!-- fragment --><p>In this pass, each RenderObject drawn with the <a class="el" href="namespaceRa_1_1Engine_1_1Rendering.html#a6adc37d571180327fbdcf8dd786e9942a3ff981fd9f47ecc46723d5f857391b57">Ra::Engine::Rendering::LIGHTING_OPAQUE</a> argument so that the corresponding shader will be activated before draw call. (<code>ro-&gt;render( renderParameters, viewingParameters, DefaultRenderingPasses::LIGHTING_OPAQUE );</code>)</p>
 <p>Note that the shader associated to the <a class="el" href="namespaceRa_1_1Engine_1_1Rendering.html#a6adc37d571180327fbdcf8dd786e9942a3ff981fd9f47ecc46723d5f857391b57">Ra::Engine::Rendering::LIGHTING_OPAQUE</a> pass must lit and draw only fully opaque fragments. Fully transparent ones (rejected by a masking information such as mask texture) and blend-able ones (those with an opacity factor alpha les than one) must be discarded.</p>
-<h1><a class="anchor" id="autotoc_md42"></a>
+<h1><a class="anchor" id="autotoc_md41"></a>
 3. Ordered independent transparency</h1>
 <p>Rendering transparent objects in Radium is done according to the algorithm described in</p>
 <ul>
@@ -169,17 +169,17 @@ $(document).ready(function(){initNavTree('forwardRenderer.html',''); initResizab
 <li>The scene rendering pass must compute both the accumulation buffer and the coverage buffer as described in the paper (see the Material documentation for example of shader.). It is realized the same way than the lighting pass but only fragments that are transparent must be lit and drawn.</li>
 <li>The composition pass then adds to the color buffer the resulting blended color.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md43"></a>
+<h1><a class="anchor" id="autotoc_md42"></a>
 4. Post-process the whole &lt;em&gt;render pass&lt;/em&gt;</h1>
 <p>This pass takes the color buffer, representing colors in linear RGB space) and apply gamma correction to the image</p>
-<h1><a class="anchor" id="autotoc_md44"></a>
+<h1><a class="anchor" id="autotoc_md43"></a>
 5. Debug and UI render objects</h1>
 <p>Those objects are drawn with their own shader, and without lighting. They do not write in the depth map but they have different depth testing behaviour :</p>
 <ul>
 <li>func is <code>LESS</code> for debug objects (drawn only if visible)</li>
 <li>func is <code>ALWAYS</code> for UI objects (drawn in front of everything else)</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md45"></a>
+<h1><a class="anchor" id="autotoc_md44"></a>
 6. Write final texture to framebuffer / backbuffer</h1>
 <p>This method is just responsible for displaying the final stuff on screen or on the saved FBO. </p>
 </div></div><!-- contents -->

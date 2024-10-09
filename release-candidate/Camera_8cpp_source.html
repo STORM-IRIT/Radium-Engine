@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.5.14</span>
+   &#160;<span id="projectnumber">1.5.15</span>
    </div>
   </td>
  </tr>
@@ -167,7 +167,7 @@ $(document).ready(function(){initNavTree('Camera_8cpp_source.html',''); initResi
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="comment">// Special case if two directions are exactly opposites we constrain.</span></div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="comment">// to rotate around the up vector.</span></div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="keywordflow">if</span> ( c.isApprox( Core::Vector3::Zero() ) &amp;&amp; <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector.html">d</a> &lt; 0.0 ) {</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="keywordflow">if</span> ( Math::areApproxEqual( c.squaredNorm(), 0<a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector.html">_ra</a> ) &amp;&amp; <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector.html">d</a> &lt; 0<a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector.html">_ra</a> ) {</div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        T.rotate( Core::AngleAxis( Core::Math::Pi, getUpVector() ) );</div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    }</div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="keywordflow">else</span> { T.rotate( Core::Quaternion::FromTwoVectors( <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector.html">d0</a>, <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector.html">d1</a> ) ); }</div>

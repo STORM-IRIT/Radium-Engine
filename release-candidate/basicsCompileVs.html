@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.5.14</span>
+   &#160;<span id="projectnumber">1.5.15</span>
    </div>
   </td>
  </tr>
@@ -119,7 +119,7 @@ $(document).ready(function(){initNavTree('basicsCompileVs.html',''); initResizab
   <div class="headertitle"><div class="title">Microsoft Visual Studio Compilation Instructions</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><h1><a class="anchor" id="autotoc_md27"></a>
+<div class="textblock"><h1><a class="anchor" id="autotoc_md26"></a>
 Build external dependencies</h1>
 <p>Open the external folder in VS using "Open a local folder" and edit cmake settings or <code>CMakeSettings.json</code>. External build and install have to be outside Radium-Engine source directory. For instance</p>
 <div class="fragment"><div class="line">{</div>
@@ -150,7 +150,7 @@ Build external dependencies</h1>
 <div class="line">  ]</div>
 <div class="line">}</div>
 </div><!-- fragment --><p>Build the project, this will install the external dependencies.</p>
-<h1><a class="anchor" id="autotoc_md28"></a>
+<h1><a class="anchor" id="autotoc_md27"></a>
 Build Radium</h1>
 <p>Open the Radium folder (via "File &gt; Open &gt; Folder..." or <code>devenv.exe &lt;foldername&gt;</code>). VS will run cmake, generate the target builds (Debug and Release by default). Other build types can be added by editing <code>CMakeSettings.json</code>.</p>
 <p>Configure cmake option (see official doc <a href="https://docs.microsoft.com/cpp/build/customize-cmake-settings" target="_blank">here</a>) You have to provide path to Qt installation, glfw installation (for headless support) and external dependencies configuration. In order to execute Radium demos from the buildtree (installing them takes time due to qt deployement procedure), you also need to define environment variables that point to the various dlls used by Radium components that will be used on the per-target <code>launch.vs.json</code> configuration file. Note that it is recommended to compile or install glfw as a static library, the example below assume that.</p>
@@ -207,10 +207,10 @@ Build Radium</h1>
 </div><!-- fragment --><dl class="section note"><dt>Note</dt><dd>It is strongly encouraged to use <code>/</code> separators in your path, instead of <code>\\</code>. See <a href="https://stackoverflow.com/questions/13737370/cmake-error-invalid-escape-sequence-u">https://stackoverflow.com/questions/13737370/cmake-error-invalid-escape-sequence-u</a></dd>
 <dd>
 When compiling the dependencies you may hit the max path length fixed by Microsoft OS (260 characters). To fix this, you might need to change the path of your build dir to shorten it, or to change the limit on your system, see: <a href="https://docs.microsoft.com/en-us/windows/win32/fileio/naming-a-file#enable-long-paths-in-windows-10-version-1607-and-later">https://docs.microsoft.com/en-us/windows/win32/fileio/naming-a-file#enable-long-paths-in-windows-10-version-1607-and-later</a></dd></dl>
-<h2><a class="anchor" id="autotoc_md29"></a>
+<h2><a class="anchor" id="autotoc_md28"></a>
 Compilation</h2>
 <p>Right click on <code>CMakeList.txt &gt; build &gt; all</code>.</p>
-<h2><a class="anchor" id="autotoc_md30"></a>
+<h2><a class="anchor" id="autotoc_md29"></a>
 Execution of a demo app</h2>
 <p>To execute a demo application from the buildtree, i.e. without installing Radium, select in the <code>Startup Item</code> list the target you want to execute. For instance, <code>DrawPrimitives.exe (examples/...)</code>. Then, select in the menu <code>&lt;Debug&gt;/Debug and Launch Settings for DrawPrimmitives</code> and modify the <code>launch.vs.json</code> file that is opened so that it contains the following.</p>
 <div class="fragment"><div class="line">{</div>
@@ -236,7 +236,7 @@ Execution of a demo app</h2>
 <div class="line">}</div>
 </div><!-- fragment --><p>If you plan to execute the 'unittest.exe' target, you should also add the following configuration for the working directory</p>
 <div class="fragment"><div class="line">&quot;currentDir&quot;: &quot;${projectDir}/tests/unittest&quot;</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md31"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md30"></a>
 installation</h2>
 <p>To install, you need to run any installation target, e.g. <code>Engine.dll (install)</code> or to select the menu <code>&lt;Build&gt;/&lt;Install radiumproject&gt;</code> </p>
 </div></div><!-- contents -->

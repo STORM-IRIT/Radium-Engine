@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.5.14</span>
+   &#160;<span id="projectnumber">1.5.15</span>
    </div>
   </td>
  </tr>
@@ -120,20 +120,10 @@ $(document).ready(function(){initNavTree('basicsTroubleshooting.html',''); initR
 </div><!--header-->
 <div class="contents">
 <div class="toc"><h3>Table of Contents</h3>
-<ul><li class="level1"><a href="#autotoc_md25">Qt cmake errors</a></li>
-<li class="level1"><a href="#autotoc_md26">Crash when starting main application on windows</a></li>
+<ul><li class="level1"><a href="#autotoc_md25">Crash when starting main application on windows</a></li>
 </ul>
 </div>
 <div class="textblock"><h1><a class="anchor" id="autotoc_md25"></a>
-Qt cmake errors</h1>
-<p>In case you run into an error like</p>
-<div class="fragment"><div class="line">By not providing &quot;FindQt5Widgets.cmake&quot; in CMAKE_MODULE_PATH this project</div>
-<div class="line">has asked CMake to find a package configuration file provided by</div>
-<div class="line">&quot;Qt5Widgets&quot;, but CMake did not find one.</div>
-</div><!-- fragment --><p>you need to set <code>CMAKE_PREFIX_PATH</code>, pointing to the Qt root dir of your commpiler. For example on linux with gcc :</p>
-<div class="fragment"><div class="line">cmake -DCMAKE_PREFIX_PATH=/opt/Qt/5.x/gcc_64</div>
-</div><!-- fragment --><p>On windows, using cmake-gui you can use the "add entry" button, adding <code>CMAKE_PREFIX_PATH</code> as a string to point to the Qt directory (for example in the default installation : <code>C:/Qt/5.15/msvc2019_64</code> )</p>
-<h1><a class="anchor" id="autotoc_md26"></a>
 Crash when starting main application on windows</h1>
 <p>This is usually caused by missing dlls. With Visual Studio, you may need to copy the Qt dlls to Radium bin folder <code>Bundle-MSVC\bin</code> or <code>Bundle-MSVC-Debug\bin</code>. </p>
 </div></div><!-- contents -->

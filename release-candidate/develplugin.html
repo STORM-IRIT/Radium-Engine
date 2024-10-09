@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.5.14</span>
+   &#160;<span id="projectnumber">1.5.15</span>
    </div>
   </td>
  </tr>
@@ -120,62 +120,60 @@ $(document).ready(function(){initNavTree('develplugin.html',''); initResizable()
 </div><!--header-->
 <div class="contents">
 <div class="toc"><h3>Table of Contents</h3>
-<ul><li class="level1"><a href="#autotoc_md114">Radium Plugin</a></li>
-<li class="level1"><a href="#autotoc_md115">Setting a CMakeLists.txt for a Radium plugin</a></li>
-<li class="level1"><a href="#autotoc_md116">Configuring the plugin</a></li>
-<li class="level1"><a href="#autotoc_md117">Using the Plugin</a></li>
+<ul><li class="level1"><a href="#autotoc_md113">Radium Plugin</a></li>
+<li class="level1"><a href="#autotoc_md114">Setting a CMakeLists.txt for a Radium plugin</a></li>
+<li class="level1"><a href="#autotoc_md115">Configuring the plugin</a></li>
+<li class="level1"><a href="#autotoc_md116">Using the Plugin</a></li>
 </ul>
 </div>
-<div class="textblock"><h1><a class="anchor" id="autotoc_md114"></a>
+<div class="textblock"><h1><a class="anchor" id="autotoc_md113"></a>
 Radium Plugin</h1>
 <p>Tutorial and documentation here: <a href="https://github.com/STORM-IRIT/Radium-PluginExample">https://github.com/STORM-IRIT/Radium-PluginExample</a></p>
 <p>In addition to the <a class="el" href="classRa_1_1Plugins_1_1RadiumPluginInterface.html" title="Interface class for Radiums plugins.">Ra::Plugins::RadiumPluginInterface</a> API, Radium provides a set of tools simplifying the deployment of plugins, which take care of the portability of the binaries.</p>
 <p>This manual describes how to configure, compile and use your plugin with any Radium-Plugin compatible application.</p>
-<h1><a class="anchor" id="autotoc_md115"></a>
+<h1><a class="anchor" id="autotoc_md114"></a>
 Setting a CMakeLists.txt for a Radium plugin</h1>
 <p>To compile and use a plugin, the Radium libraries must be configured, compiled and installed beforehand.</p>
 <p>Example CMakeLists.txt setup to compile a Radium plugin:</p>
-<div class="fragment"><div class="line">cmake_minimum_required(VERSION 3.18)</div>
-<div class="line">#------------------------------------------------------------------------------</div>
-<div class="line"># Policies and global parameters for CMake</div>
-<div class="line">if (POLICY CMP0077)</div>
-<div class="line">    cmake_policy(SET CMP0077 NEW)</div>
-<div class="line">endif ()</div>
-<div class="line">set(CMAKE_DISABLE_SOURCE_CHANGES ON)</div>
-<div class="line">set(CMAKE_DISABLE_IN_SOURCE_BUILD ON)</div>
-<div class="line">#------------------------------------------------------------------------------</div>
-<div class="line"># Project definition</div>
-<div class="line">project(MyPlugin VERSION 1.0.0 LANGUAGES CXX)</div>
+<div class="fragment"><div class="line"> cmake_minimum_required(VERSION 3.18)</div>
+<div class="line"> #------------------------------------------------------------------------------</div>
+<div class="line"> # Policies and global parameters for CMake</div>
+<div class="line"> if (POLICY CMP0077)</div>
+<div class="line">     cmake_policy(SET CMP0077 NEW)</div>
+<div class="line"> endif ()</div>
+<div class="line"> set(CMAKE_DISABLE_SOURCE_CHANGES ON)</div>
+<div class="line"> set(CMAKE_DISABLE_IN_SOURCE_BUILD ON)</div>
+<div class="line"> #------------------------------------------------------------------------------</div>
+<div class="line"> # Project definition</div>
+<div class="line"> project(MyPlugin VERSION 1.0.0 LANGUAGES CXX)</div>
 <div class="line"> </div>
-<div class="line"># Use installed Radium environment</div>
-<div class="line">find_package(Radium REQUIRED Core Engine PluginBase)</div>
+<div class="line"> # Use installed Radium environment</div>
+<div class="line"> find_package(Radium REQUIRED Core Engine PluginBase)</div>
 <div class="line"> </div>
-<div class="line"># Find and configure Qt environment using versionless targets (Radium requires Qt &gt;= 5.15)</div>
-<div class="line"># https://doc.qt.io/qt-6/cmake-qt5-and-qt6-compatibility.html</div>
-<div class="line"># find_qt_package is provided by Radium</div>
-<div class="line">find_qt_package(COMPONENTS Core REQUIRED)</div>
-<div class="line">set(Qt_LIBRARIES Qt::Core)</div>
-<div class="line">set(CMAKE_AUTOMOC ON)</div>
-<div class="line">set(CMAKE_AUTORCC ON)</div>
+<div class="line"># Find and configure Qt environment using find_qt_package is provided by Radium</div>
+<div class="line"> find_qt_package(COMPONENTS Core REQUIRED)</div>
+<div class="line"> set(Qt_LIBRARIES Qt::Core)</div>
+<div class="line"> set(CMAKE_AUTOMOC ON)</div>
+<div class="line"> set(CMAKE_AUTORCC ON)</div>
 <div class="line"> </div>
-<div class="line"># list all the sources and headers of the Plugin</div>
-<div class="line">set(sources /*... */)</div>
-<div class="line">set(headers /*... */)</div>
+<div class="line"> # list all the sources and headers of the Plugin</div>
+<div class="line"> set(sources /*... */)</div>
+<div class="line"> set(headers /*... */)</div>
 <div class="line"> </div>
-<div class="line">set(CMAKE_INCLUDE_CURRENT_DIR ON)</div>
+<div class="line"> set(CMAKE_INCLUDE_CURRENT_DIR ON)</div>
 <div class="line"> </div>
-<div class="line"># A Plugin is a library that uses these sources and headers.</div>
-<div class="line">add_library( ${PROJECT_NAME} SHARED ${sources} ${headers} )</div>
+<div class="line"> # A Plugin is a library that uses these sources and headers.</div>
+<div class="line"> add_library( ${PROJECT_NAME} SHARED ${sources} ${headers} )</div>
 <div class="line"> </div>
-<div class="line">target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)</div>
-<div class="line">target_compile_definitions(${PROJECT_NAME} PRIVATE &quot;-D${PROJECT_NAME}_EXPORTS&quot;)</div>
+<div class="line"> target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)</div>
+<div class="line"> target_compile_definitions(${PROJECT_NAME} PRIVATE &quot;-D${PROJECT_NAME}_EXPORTS&quot;)</div>
 <div class="line"> </div>
-<div class="line">target_link_libraries(${PROJECT_NAME} PUBLIC</div>
-<div class="line">                      Radium::Core Radium::Engine Radium::PluginBase</div>
-<div class="line">                      ${Qt_LIBRARIES} )</div>
+<div class="line"> target_link_libraries(${PROJECT_NAME} PUBLIC</div>
+<div class="line">                       Radium::Core Radium::Engine Radium::PluginBase</div>
+<div class="line">                       ${Qt_LIBRARIES} )</div>
 <div class="line"> </div>
-<div class="line"># Configure the plugin deployment using the Radium configuration tool</div>
-<div class="line">configure_radium_plugin( NAME ${PROJECT_NAME} )</div>
+<div class="line"> # Configure the plugin deployment using the Radium configuration tool</div>
+<div class="line"> configure_radium_plugin( NAME ${PROJECT_NAME} )</div>
 </div><!-- fragment --><p>Such a CMakeLists.txt is as usual as others. The only command that is specific to Radium plugins is the last line <code>configure_radium_plugin( NAME ${PROJECT_NAME} )</code> that aims at configuring the plugin installation along with its associated resources. This function is provided from <code>find_package(Radium REQUIRED Core Engine PluginBase)</code>, see <a class="el" href="cmakeutilities.html">Radium cmake utilities</a> documentation for more details.</p>
 <p>The command <code>configure_radium_plugin</code>takes several parameters. The full usage of this command is :</p>
 <div class="fragment"><div class="line">configure_radium_plugin(</div>
@@ -191,7 +189,7 @@ Setting a CMakeLists.txt for a Radium plugin</h1>
 <li><code>INSTALL_IN_RADIUM_BUNDLE</code>. This parameter, optional, will install the plugin and its associated resources directly into the Radium Bundle installation directory. This will allow to have Plugins relocatable at the same time as the Radium Bundle. If this parameter is given, it replaces the installed location configuration that uses the cmake standard option <code>-DCMAKE_INSTALL_PREFIX=whereToInstallThings</code></li>
 </ul>
 <p>Note that, as it is the case for applications, Plugins does not need to be installed to be used by any applications. Plugins could be loaded and used from their build-trees.</p>
-<h1><a class="anchor" id="autotoc_md116"></a>
+<h1><a class="anchor" id="autotoc_md115"></a>
 Configuring the plugin</h1>
 <p>Configuring the plugin for compilation and install depends on several use cases that might evolve during the plugin development.</p>
 <p>There are three main uses cases we can identify :</p>
@@ -209,7 +207,7 @@ Configuring the plugin</h1>
 </div><!-- fragment --><p>If you just want to use the plugin directly from its build-tree, the resulting dynamic library will be found in the <code>build-release/Plugins/lib</code> directory, and the associated resources will be linked (or copied on systems that do not support symbolic links) in the directory <code>build-release/Plugins/Resources</code>. In this case, note that the plugin from the build-tree could generally not be moved as it is linked to used libraries using relative paths.</p>
 <p>If you install the plugin, execute the command <code>cmake --install</code> that will install the plugin according to your configuration choice as described above (default installation destination, user defined installation directory or Radium Bundle installation). The dynamic library will then be copied into <code>pathToInstallPlugins/lib</code> and the Resources will be copied into <code>pathToInstallPlugins/Resources</code>.</p>
 <p>Remember that resources associated with the plugin using the option <code>RESOURCES ListOfResourcesDirectory</code> of the <code>configure_radium_plugin</code> command are <em>linked</em> into the build-tree (on systems supporting symbolic links) and <em>copied</em> into the installed locations.</p>
-<h1><a class="anchor" id="autotoc_md117"></a>
+<h1><a class="anchor" id="autotoc_md116"></a>
 Using the Plugin</h1>
 <p>Any application that inherits from <code><a class="el" href="classRa_1_1Gui_1_1BaseApplication.html" title="This class contains the main application logic. It owns the engine and the GUI.">Ra::Gui::BaseApplication</a></code> could use any Plugin developed using the Radium Engine. As plugins are Qt objects that implement specific interface, it is also permitted to have any Qt Application to use plugins. Meanwhile, the following documentation is related to the Radium BaseApplication derived applications.</p>
 <p>If the plugin is installed in the Radium Bundle directory, it will be automatically loaded by any plugin-aware application. Recall that, when developing a plugin, the installation in the Radium bundle directory is not always permitted nor efficient.</p>

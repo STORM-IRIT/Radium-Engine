@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.5.14</span>
+   &#160;<span id="projectnumber">1.5.15</span>
    </div>
   </td>
  </tr>
@@ -120,18 +120,18 @@ $(document).ready(function(){initNavTree('develCodingConvention.html',''); initR
 </div><!--header-->
 <div class="contents">
 <div class="toc"><h3>Table of Contents</h3>
-<ul><li class="level1"><a href="#autotoc_md67">Code style</a></li>
-<li class="level1"><a href="#autotoc_md68">Headers</a></li>
-<li class="level1"><a href="#autotoc_md69">Functions</a></li>
-<li class="level1"><a href="#autotoc_md70">Scope and names</a></li>
-<li class="level1"><a href="#autotoc_md71">Variables</a></li>
-<li class="level1"><a href="#autotoc_md72">Scalar types</a></li>
-<li class="level1"><a href="#autotoc_md73">Class design</a></li>
-<li class="level1"><a href="#autotoc_md74">Non-negociable</a></li>
+<ul><li class="level1"><a href="#autotoc_md66">Code style</a></li>
+<li class="level1"><a href="#autotoc_md67">Headers</a></li>
+<li class="level1"><a href="#autotoc_md68">Functions</a></li>
+<li class="level1"><a href="#autotoc_md69">Scope and names</a></li>
+<li class="level1"><a href="#autotoc_md70">Variables</a></li>
+<li class="level1"><a href="#autotoc_md71">Scalar types</a></li>
+<li class="level1"><a href="#autotoc_md72">Class design</a></li>
+<li class="level1"><a href="#autotoc_md73">Non-negociable</a></li>
 </ul>
 </div>
 <div class="textblock"><p>Mainly inspired by <a href="https://google-styleguide.googlecode.com/svn/trunk/cppguide.html">https://google-styleguide.googlecode.com/svn/trunk/cppguide.html</a></p>
-<h1><a class="anchor" id="autotoc_md67"></a>
+<h1><a class="anchor" id="autotoc_md66"></a>
 Code style</h1>
 <p>Please follow the scripts/clang-format coding style. We also provide a pre-commit hook that checks the committed files are correctly formatted (see <a class="el" href="develWithRadium.html#pre_commit">Pre commit hook</a>).</p>
 <ul>
@@ -149,7 +149,7 @@ Code style</h1>
 <li>no need for () for a return statement</li>
 <li>document using doxygen convention, special commands with backslash \ (e.g. <code>\brief</code> rather than <code>@brief</code>).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md68"></a>
+<h1><a class="anchor" id="autotoc_md67"></a>
 Headers</h1>
 <ul>
 <li>Every .cpp must have an associated .hpp file</li>
@@ -165,14 +165,14 @@ Headers</h1>
 <li>Keep headers in order : Class header, other headers from project, system libraries, other libraries.</li>
 <li>forward declare as much as you can</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md69"></a>
+<h1><a class="anchor" id="autotoc_md68"></a>
 Functions</h1>
 <ul>
 <li>use const reference or value to pass input parameters</li>
 <li>use references for passing output parameters</li>
 <li>output parameters appear last.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md70"></a>
+<h1><a class="anchor" id="autotoc_md69"></a>
 Scope and names</h1>
 <ul>
 <li>use anonymous namespaces for file local variables / functions. no classes with only static functions !</li>
@@ -182,7 +182,7 @@ Scope and names</h1>
 <li>declare pointers and ref attached to their type : <code>void* a</code>, <code>const Foo&amp; bar</code></li>
 <li>macros and defined constants should be in capitals.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md71"></a>
+<h1><a class="anchor" id="autotoc_md70"></a>
 Variables</h1>
 <ul>
 <li>declarations should always be made on separate lines; (no <code>int a, b, c;</code>)</li>
@@ -191,7 +191,7 @@ Variables</h1>
 <li>use C++11 <code>nullptr</code> for null pointers.</li>
 <li>use <code>auto</code> only when it helps readability.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md72"></a>
+<h1><a class="anchor" id="autotoc_md71"></a>
 Scalar types</h1>
 <ul>
 <li>Radium defines a default type <code>Scalar</code>, set either as <code>float</code> or <code>double</code> depending on the cmake option <code>RADIUM_WITH_DOUBLE_PRECISION</code></li>
@@ -199,7 +199,7 @@ Scalar types</h1>
 <li>Radium offers operators to create <code>Scalar</code> from integer and floating point numbers: always use <code>Scalar()</code> or <code>_ra</code> suffix when defining numbers from literals (e.g. <code>auto a = .5_ra;</code>, <code>Scalar b = a * Scalar( 2 );</code> or <code>Scalar c = a / 2_ra;</code>).</li>
 <li>Equality between Scalar values needs to be computed using <code><a class="el" href="namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769">Ra::almost_equals</a></code> (see <a class="el" href="CoreMacros_8hpp_source.html">CoreMacros.hpp</a>).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md73"></a>
+<h1><a class="anchor" id="autotoc_md72"></a>
 Class design</h1>
 <ul>
 <li>Constructors should be trival. All complex work goes in an <code>init()</code> function</li>
@@ -223,7 +223,7 @@ Class design</h1>
 <li>avoid <code>mutable</code></li>
 <li>getters and setter should have a consistent name with the variable.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md74"></a>
+<h1><a class="anchor" id="autotoc_md73"></a>
 Non-negociable</h1>
 <ul>
 <li>Exceptions are forbidden, except when mimicking or using <code>std</code> containers (e.g., by throwing <code><a class="elRef" target="_blank" href="http://en.cppreference.com/w/cpp/error/out_of_range.html">std::out_of_range</a></code>). In any cases, exceptions must be used in exceptional cases, and should not be used as an event system.</li>

@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.5.14</span>
+   &#160;<span id="projectnumber">1.5.15</span>
    </div>
   </td>
  </tr>
@@ -132,7 +132,7 @@ $(document).ready(function(){initNavTree('basicsCompileRadiumDetails.html',''); 
 </div>
 <div class="textblock"><h1><a class="anchor" id="autotoc_md17"></a>
 Dependencies management systems</h1>
-<p>We developed a series of tools to fetch and compile these dependencies easily, except for Qt, which needs to be installed and passed to cmake through the variables <code>CMAKE_PREFIX_PATH</code> or <code>Qt5_DIR</code> <code>Qt6_DIR</code> (see documentation at <a href="https://doc.qt.io/qt-5.15/cmake-manual.html#getting-started">https://doc.qt.io/qt-5.15/cmake-manual.html#getting-started</a>).</p>
+<p>We developed a series of tools to fetch and compile these dependencies easily, except for Qt, which needs to be installed and passed to cmake through the variables <code>CMAKE_PREFIX_PATH</code> or <code>Qt6_DIR</code> (see documentation at <a href="https://doc.qt.io/qt-6.5/cmake-manual.html#getting-started">https://doc.qt.io/qt-6.5/cmake-manual.html#getting-started</a>).</p>
 <p>We offer two different systems to handle external dependencies (see details and how-to in the following sections):</p>
 <ol type="1">
 <li><b>[recommended]</b> external build: the user compiles and installs once for all the dependencies using a dedicated cmake project. Then, Radium cmake project is configured to link with installed dependencies, as described in compilation instructions.</li>

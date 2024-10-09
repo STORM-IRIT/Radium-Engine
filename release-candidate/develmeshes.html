@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.5.14</span>
+   &#160;<span id="projectnumber">1.5.15</span>
    </div>
   </td>
  </tr>
@@ -120,15 +120,15 @@ $(document).ready(function(){initNavTree('develmeshes.html',''); initResizable()
 </div><!--header-->
 <div class="contents">
 <div class="toc"><h3>Table of Contents</h3>
-<ul><li class="level1"><a href="#autotoc_md96">Geometry types</a></li>
-<li class="level1"><a href="#autotoc_md97">Colaboration between Core and Engine</a></li>
-<li class="level1"><a href="#autotoc_md98">Data consistency</a></li>
-<li class="level1"><a href="#autotoc_md99">Mesh creation</a><ul><li class="level2"><a href="#wedges">Wedges</a></li>
+<ul><li class="level1"><a href="#autotoc_md95">Geometry types</a></li>
+<li class="level1"><a href="#autotoc_md96">Colaboration between Core and Engine</a></li>
+<li class="level1"><a href="#autotoc_md97">Data consistency</a></li>
+<li class="level1"><a href="#autotoc_md98">Mesh creation</a><ul><li class="level2"><a href="#wedges">Wedges</a></li>
 </ul>
 </li>
 </ul>
 </div>
-<div class="textblock"><h1><a class="anchor" id="autotoc_md96"></a>
+<div class="textblock"><h1><a class="anchor" id="autotoc_md95"></a>
 Geometry types</h1>
 <p>There is three kind of geometry representation included in radium source :</p>
 <ol type="1">
@@ -158,14 +158,14 @@ Geometry types</h1>
 </li>
 </ol>
 <p><code>*</code> : the starred classes are the one you want to instanciate, the other are more for code factoring or abstraction.</p>
-<h1><a class="anchor" id="autotoc_md97"></a>
+<h1><a class="anchor" id="autotoc_md96"></a>
 Colaboration between Core and Engine</h1>
 <p>A Core Geometry can be used on its own.</p>
 <p>Engine Geometry must own a Core Geometry, either set at construction, or later with loadGeometry. The Core Geometry ownership is then transfered to the Engine Geometry, and can be accessed by reference with <a class="el" href="classRa_1_1Engine_1_1Data_1_1Displayable.html#aab6e5c5ae31f270d10115062176a82ae">Ra::Engine::Data::Displayable::getAbstractGeometry</a> or Ra::Engine::Data::CoreGeometryDisplayable::getCoreGeometry</p>
-<h1><a class="anchor" id="autotoc_md98"></a>
+<h1><a class="anchor" id="autotoc_md97"></a>
 Data consistency</h1>
 <p>As soon as a Core Geometry is owned by a Engine Geometry, each data update on the Core Geometry attribute trigger a observator method to mark the corresponding GPU data as dirty. On the next <a class="el" href="classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html#a185171226018c59fb689efcb2154619b" title="Update (i.e. send to GPU) the buffers marked as dirty.">Ra::Engine::Data::CoreGeometryDisplayable::updateGL</a>, the dirty data will be updated on the GPU.</p>
-<h1><a class="anchor" id="autotoc_md99"></a>
+<h1><a class="anchor" id="autotoc_md98"></a>
 Mesh creation</h1>
 <p><code>GeometryComponent</code> is in charge of loading a <code>GeometryData</code> and create the corresponding <code>Mesh</code>.</p>
 <p>The user can add on the fly new vertex attributes to a <a class="el" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html" title="This class represents vertex + attributes per vertex. Toplogy is handled in MultiIndexedGeometry subc...">Ra::Core::Geometry::AttribArrayGeometry</a> An attribute is defined by a unique name (<a class="elRef" target="_blank" href="http://en.cppreference.com/w/cpp/string/basic_string.html">std::string</a>) and then represented as a <a class="el" href="classRa_1_1Core_1_1Utils_1_1AttribHandle.html" title="An attrib handle basically store an Index and a name.">Ra::Core::Utils::AttribHandle</a>. The type of the attribute is defined by the caller using the template parameter of the method <a class="el" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#ae1956b0396dadd84f55a12f2160e5671">Ra::Core::Geometry::AttribArrayGeometry::addAttrib</a>. To ensure consistency, it is strongly recommended to store the handle returned by the <a class="el" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#ae1956b0396dadd84f55a12f2160e5671">Ra::Core::Geometry::AttribArrayGeometry::addAttrib</a> method:</p>

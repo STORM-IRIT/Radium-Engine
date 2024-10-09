@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.5.14</span>
+   &#160;<span id="projectnumber">1.5.15</span>
    </div>
   </td>
  </tr>
@@ -120,27 +120,27 @@ $(document).ready(function(){initNavTree('cmakeutilities.html',''); initResizabl
 </div><!--header-->
 <div class="contents">
 <div class="toc"><h3>Table of Contents</h3>
-<ul><li class="level1"><a href="#autotoc_md57">Radium cmake utilities</a><ul><li class="level2"><a href="#autotoc_md58">Using Radium in your application</a></li>
-<li class="level2"><a href="#autotoc_md59">Client application configuration</a></li>
-<li class="level2"><a href="#autotoc_md60">Extending Radium through libraries</a></li>
-<li class="level2"><a href="#autotoc_md61">Extending Radium through plugins</a></li>
-<li class="level2"><a href="#autotoc_md62">Adding a new component to the Radium package</a></li>
+<ul><li class="level1"><a href="#autotoc_md56">Radium cmake utilities</a><ul><li class="level2"><a href="#autotoc_md57">Using Radium in your application</a></li>
+<li class="level2"><a href="#autotoc_md58">Client application configuration</a></li>
+<li class="level2"><a href="#autotoc_md59">Extending Radium through libraries</a></li>
+<li class="level2"><a href="#autotoc_md60">Extending Radium through plugins</a></li>
+<li class="level2"><a href="#autotoc_md61">Adding a new component to the Radium package</a></li>
 </ul>
 </li>
-<li class="level1"><a href="#autotoc_md63">How to write your CMakeLists.txt</a><ul><li class="level2"><a href="#autotoc_md64">General cmake preamble</a></li>
-<li class="level2"><a href="#autotoc_md65">Configuring client application</a></li>
+<li class="level1"><a href="#autotoc_md62">How to write your CMakeLists.txt</a><ul><li class="level2"><a href="#autotoc_md63">General cmake preamble</a></li>
+<li class="level2"><a href="#autotoc_md64">Configuring client application</a></li>
 <li class="level2"><a href="#configureLibrary">Configuring client and extension libraries</a></li>
-<li class="level2"><a href="#autotoc_md66">Configuring an application plugin</a></li>
+<li class="level2"><a href="#autotoc_md65">Configuring an application plugin</a></li>
 </ul>
 </li>
 </ul>
 </div>
 <div class="textblock"><p>As Radium relies on the <a href="https://cmake.org/documentation/" target="_blank">CMake</a> build and configuration system, this documentation focuses on how to configure your build system to use and extend Radium using Radium cmake utilities.</p>
 <p>Complete functional examples using these cmake scripts are accessible in the <code>src/tests/ExampleApps</code> and <code>src/tests/ExamplePluginWithLib</code> directories of the <a href="https://github.com/STORM-IRIT/Radium-Engine" target="_blank">Radium source distribution</a>.</p>
-<h1><a class="anchor" id="autotoc_md57"></a>
+<h1><a class="anchor" id="autotoc_md56"></a>
 Radium cmake utilities</h1>
 <p>Once installed, either from source or from pre-built binaries, Radium could be used and extended in any application, library or plugin as a cmake package.</p>
-<h2><a class="anchor" id="autotoc_md58"></a>
+<h2><a class="anchor" id="autotoc_md57"></a>
 Using Radium in your application</h2>
 <p>To integrate the Radium libraries into your build-chain configuration, you have to ask cmake to find the Radium package. As for any cmake package, this could be done by adding the following line into your <code>CMakeLists.txt</code> file:</p>
 <div class="fragment"><div class="line">find_package(Radium REQUIRED)</div>
@@ -210,7 +210,7 @@ Using Radium in your application</h2>
 </ul>
 </li>
 </ol>
-<h2><a class="anchor" id="autotoc_md59"></a>
+<h2><a class="anchor" id="autotoc_md58"></a>
 Client application configuration</h2>
 <h3><a class="anchor" id="configure_radium_app"></a>
 configure_radium_app</h3>
@@ -245,7 +245,7 @@ configure_radium_app</h3>
 <li>Applications on Linux can be relocated only on the build system (AppImages will come soon).</li>
 </ul>
 <p>To get relocatable packages, download pre-built binaries here: <a href="https://github.com/STORM-IRIT/Radium-Releases/releases" target="_blank">https://github.com/STORM-IRIT/Radium-Releases/releases</a></p>
-<h2><a class="anchor" id="autotoc_md60"></a>
+<h2><a class="anchor" id="autotoc_md59"></a>
 Extending Radium through libraries</h2>
 <h3><a class="anchor" id="configure_radium_library"></a>
 configure_radium_library</h3>
@@ -463,7 +463,7 @@ radium_exported_resources</h3>
 <div class="line">|   ├── resourcesPrefix</div>
 </div><!-- fragment --><p>where <code>target</code> is the name of the exported target, <code>targetConfig.cmake</code> the cmake package module installed when installing the target and <code>resourcesPrefix</code> the resource prefix defined when installing the resources for the target (can be empty).</p>
 <p>In the above example, the <code>&lt;ACCESS_FROM_PACKAGE&gt; path</code> parameter of the function <a class="el" href="cmakeutilities.html#radium_exported_resources">`radium_exported_resources`</a> should be set to <code>"../.."</code> This parameter must contain the relative path that start from the package module installation directory, here <code>&lt;prefix&gt;/lib/cmake</code>, to the resources' installation directory, here <code>&lt;prefix&gt;/Resources</code>.</p>
-<h2><a class="anchor" id="autotoc_md61"></a>
+<h2><a class="anchor" id="autotoc_md60"></a>
 Extending Radium through plugins</h2>
 <h3><a class="anchor" id="configure_radium_plugin"></a>
 configure_radium_plugin</h3>
@@ -504,7 +504,7 @@ configure_radium_plugin</h3>
 <li>When installed in the user specified install location, <code>&lt;prefix&gt;</code> refers to <code>${CMAKE_INSTALL_PREFIX}</code>. Optional resources directories are copied into <code>Resources</code> directory.</li>
 </ul>
 <p>When a plugin is installed and depends on a helper library that embed its own resources, the helper resources are copied into the <code>&lt;prefix&gt;/Resources</code> directory so that the helper lib could find its resources as described in the section <a class="el" href="cmakeutilities.html#install_target_resources">`install_target_resources`</a>. In this hierarchy, a plugin will access to its resources in a way very similar than any other library. Only one level of hierarchy, whose name is the plugin name, will be added.</p>
-<h2><a class="anchor" id="autotoc_md62"></a>
+<h2><a class="anchor" id="autotoc_md61"></a>
 Adding a new component to the Radium package</h2>
 <p>The Radium distribution is based on several cmake package components. A component defines a set of imported targets, as well as properties on these targets (e.g. headers, resources, ...) and manage all the dependencies of these targets (dependencies over other components or on external packages).</p>
 <h3>Configure component's targets</h3>
@@ -560,10 +560,10 @@ Adding a new component to the Radium package</h2>
 <div class="line">    include(&quot;${CMAKE_CURRENT_LIST_DIR}/NewComponentTargets.cmake&quot;)</div>
 <div class="line">endif()</div>
 </div><!-- fragment --><p>You can refer to the configuration of the <code>Core</code>, <code>Engine</code>, <code>Gui</code>, <code>PluginBase</code> and <code>IO</code>components for more practical and complete examples.</p>
-<h1><a class="anchor" id="autotoc_md63"></a>
+<h1><a class="anchor" id="autotoc_md62"></a>
 How to write your CMakeLists.txt</h1>
 <p>When writing your cmake configuration script <code>CMakeLists.txt</code>, you might rely on the following guideline to configure the project <code>ProjectName</code>. Note that these are only guidelines and that you can always write your cmake script from scratch, assuming you understand what you do.</p>
-<h2><a class="anchor" id="autotoc_md64"></a>
+<h2><a class="anchor" id="autotoc_md63"></a>
 General cmake preamble</h2>
 <div class="fragment"><div class="line"># -------------------------------------------------------</div>
 <div class="line"># Recommended preamble for cmake configuration</div>
@@ -590,7 +590,7 @@ General cmake preamble</h2>
 <div class="line"> </div>
 <div class="line">...</div>
 </div><!-- fragment --><p>Then, according to the type of the targets defined in your project (application, single library, set of libraries, plugin, mix of them), you might configure your project according to the following guidelines.</p>
-<h2><a class="anchor" id="autotoc_md65"></a>
+<h2><a class="anchor" id="autotoc_md64"></a>
 Configuring client application</h2>
 <p>Configuring an installable and relocatable application is very easy with Radium cmake scripts. First, an executable target that depends on Radium libraries (internal Radium libraries or client libraries) should be configured with a cmake script such as</p>
 <div class="fragment"><div class="line">...</div>
@@ -748,15 +748,15 @@ Configuring client and extension libraries</h2>
 <div class="line"> </div>
 <div class="line"># component &lt;secondLib&gt;</div>
 <div class="line">if (&lt;secondLib&gt;_FOUND)</div>
-<div class="line">    # manage component dependencies (e.g. &lt;firstLib&gt; must be requested and &lt;secondLib&gt; depends also on Qt5)</div>
+<div class="line">    # manage component dependencies (e.g. &lt;firstLib&gt; must be requested and &lt;secondLib&gt; depends also on Qt)</div>
 <div class="line">    if (NOT &lt;firstLib&gt;_FOUND)</div>
 <div class="line">        set(&lt;secondLib&gt;_FOUND False)</div>
 <div class="line">        set(&lt;packageName&gt;_FOUND False)</div>
 <div class="line">        set(&lt;packageName&gt;_NOT_FOUND_MESSAGE &quot;Component &lt;secondLib&gt; requires the component &lt;firstLib&gt;&quot;)</div>
 <div class="line">        # Note that you can also explicitely configure first lib instead of raising an error</div>
 <div class="line">    else()</div>
-<div class="line">        if (NOT Qt5_FOUND)</div>
-<div class="line">            find_dependency(Qt5 COMPONENTS Core Widgets REQUIRED)</div>
+<div class="line">        if (NOT Qt6_FOUND)</div>
+<div class="line">            find_qt_dependency(COMPONENTS Core Widgets REQUIRED)</div>
 <div class="line">        endif()</div>
 <div class="line">        include(&quot;${CMAKE_CURRENT_LIST_DIR}/&lt;secondLib&gt;Targets.cmake&quot; )</div>
 <div class="line">    endif()</div>
@@ -781,7 +781,7 @@ Configuring client and extension libraries</h2>
 <div class="line">    PREFIX &lt;resourcesPrefix&gt;</div>
 <div class="line">)</div>
 </div><!-- fragment --><p>where <code>&lt;resourcesPrefix&gt;</code> corresponds to the parameter <code>PREFIX</code> used when installing the resources for the target <code>&lt;namespace&gt;::&lt;libtarget&gt;</code>.</p>
-<h2><a class="anchor" id="autotoc_md66"></a>
+<h2><a class="anchor" id="autotoc_md65"></a>
 Configuring an application plugin</h2>
 <p>See <a class="el" href="develplugin.html">How to write your own plugin</a>. </p>
 </div></div><!-- contents -->
