@@ -98,7 +98,7 @@ class RenderParameterUiBuilder
     void operator()( const std::string& /*name*/,
                      std::reference_wrapper<T>& /*p*/,
                      Data::RenderParameters&& /*params*/ ) {
-        // wrapped reference (e.g. embedded render parameter) edition not yet available
+        // wrapped reference (e.g. embedded render parameter) editing not yet available
     }
 
   private:

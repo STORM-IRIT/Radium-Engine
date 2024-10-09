@@ -174,9 +174,12 @@ jobs:
         uses: actions/checkout@master
         with:
           path: src/Radium-Engine
+          submodules: 'recursive'
       - name: pull updated repo (e.g. with new VERSION)
         if: ${{ github.event_name == 'push' }}
-        run: git -C src/Radium-Engine pull origin ${{ github.event.ref }}
+        run: |
+          git -C src/Radium-Engine pull origin ${{ github.event.ref }}
+          git -C src/Radium-Engine submodule update --init --recursive
       - name: Cache externals
         id: cache-external
         uses: actions/cache@v3

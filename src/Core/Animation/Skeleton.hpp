@@ -17,18 +17,18 @@ namespace Animation {
  * the former being the parent of the latter in the hierarchy.
  * For animation purposes, a bone transform refers to the proximal joint's tranform.
  *
- * During the edition of the transformation of a skeleton bone, the transformations
+ * During the editing of the transformation of a skeleton bone, the transformations
  * of all the bones are updated accroding to the Manipulation scheme
  * (cf Ra::Core:Animation::Skeleton::Manipulation).
  */
 class RA_CORE_API Skeleton : public HandleArray
 {
   public:
-    /// Edition scheme for the manipulation of the skeleton.
+    /// Editing scheme for the manipulation of the skeleton.
     /// \todo also implement Inverse Kynematics.
     enum Manipulation {
-        FORWARD = 0, ///< Standard edition scheme: rotation and / or translation of one bone.
-        PSEUDO_IK    ///< Advanced edition scheme: translation of a bone means parent's rotation.
+        FORWARD = 0, ///< Standard editing scheme: rotation and / or translation of one bone.
+        PSEUDO_IK    ///< Advanced editing scheme: translation of a bone means parent's rotation.
     };
 
     Skeleton();
