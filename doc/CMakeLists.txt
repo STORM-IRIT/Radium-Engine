@@ -11,7 +11,7 @@ include(${CMAKE_CURRENT_SOURCE_DIR}/../cmake/cmake-message-helpers/MessageHelper
 message_prefix_push("Doc")
 
 # enable if doxygen found
-find_package(Doxygen 1.12.0 REQUIRED dot)
+find_package(Doxygen 1.8 OPTIONAL_COMPONENTS dot)
 
 message(NOTICE "")
 message_title(" documentation ${PROJECT_NAME} ")
