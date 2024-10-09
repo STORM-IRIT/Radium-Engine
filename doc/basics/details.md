@@ -4,8 +4,8 @@
 # Dependencies management systems
 
 We developed a series of tools to fetch and compile these dependencies easily, except for
-Qt, which needs to be installed and passed to cmake through the variables `CMAKE_PREFIX_PATH` or `Qt5_DIR` `Qt6_DIR`
-(see documentation at <https://doc.qt.io/qt-5.15/cmake-manual.html#getting-started>).
+Qt, which needs to be installed and passed to cmake through the variables `CMAKE_PREFIX_PATH` or `Qt6_DIR`
+(see documentation at <https://doc.qt.io/qt-6.5/cmake-manual.html#getting-started>).
 
 We offer two different systems to handle external dependencies (see details and how-to in the following sections):
 
