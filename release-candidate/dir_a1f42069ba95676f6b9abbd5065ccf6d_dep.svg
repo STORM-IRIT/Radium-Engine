@@ -7,7 +7,8 @@
 <svg width="82pt" height="78pt"
  viewBox="0.00 0.00 82.00 78.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 
-<svg id="main" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" onload="init(evt)">
+<svg id="main" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+
 <style type="text/css"><![CDATA[
 .node, .edge {opacity: 0.7;}
 .node.selected, .edge.selected {opacity: 1;}
@@ -21,7 +22,7 @@
 <g id="clust1" class="cluster">
 <title>clusterdir_a2f0e5642e47e7ed59fe0f0829eafb5f</title>
 <g id="a_clust1"><a xlink:href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html" target="_top" xlink:title="Core">
-<polygon fill="#eae7e0" stroke="#7f7f7f" stroke-dasharray="5,2" points="8,-8 8,-62 66,-62 66,-8 8,-8"/>
+<polygon fill="#edf0f7" stroke="#7f7f7f" stroke-dasharray="5,2" points="8,-8 8,-62 66,-62 66,-8 8,-8"/>
 <text text-anchor="middle" x="37" y="-50" font-family="Helvetica,sans-Serif" font-size="10.00">Core</text>
 </a>
 </g>
@@ -30,7 +31,7 @@
 <g id="node1" class="node">
 <title>dir_a1f42069ba95676f6b9abbd5065ccf6d</title>
 <g id="a_node1"><a xlink:href="dir_a1f42069ba95676f6b9abbd5065ccf6d.html" target="_top" xlink:title="Math">
-<polygon fill="#eae7e0" stroke="#404040" stroke-width="2" points="57.5,-35 16.5,-35 16.5,-16 57.5,-16 57.5,-35"/>
+<polygon fill="#edf0f7" stroke="#404040" stroke-width="2" points="57.5,-35 16.5,-35 16.5,-16 57.5,-16 57.5,-35"/>
 <text text-anchor="middle" x="37" y="-23" font-family="Helvetica,sans-Serif" font-size="10.00">Math</text>
 </a>
 </g>

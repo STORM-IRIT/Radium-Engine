@@ -69,7 +69,7 @@ var searchData=
   ['move_5fiterator_66',['move_iterator',['http://en.cppreference.com/w/cpp/iterator/move_iterator.html',0,'std']]],
   ['mt19937_67',['mt19937',['http://en.cppreference.com/w/cpp/numeric/random/mersenne_twister_engine.html',0,'std']]],
   ['mt19937_5f64_68',['mt19937_64',['http://en.cppreference.com/w/cpp/numeric/random/mersenne_twister_engine.html',0,'std']]],
-  ['multiindexedgeometry_69',['multiindexedgeometry',['../classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html',1,'Ra::Core::Geometry::MultiIndexedGeometry'],['../classRa_1_1Engine_1_1Data_1_1MultiIndexedGeometry.html',1,'Ra::Engine::Data::MultiIndexedGeometry&lt; T &gt;']]],
+  ['multiindexedgeometry_69',['MultiIndexedGeometry',['../classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html',1,'Ra::Core::Geometry::MultiIndexedGeometry'],['../classRa_1_1Engine_1_1Data_1_1MultiIndexedGeometry.html',1,'Ra::Engine::Data::MultiIndexedGeometry&lt; T &gt;']]],
   ['multimap_70',['multimap',['http://en.cppreference.com/w/cpp/container/multimap.html',0,'std']]],
   ['multimap_3c_20scene_3a_3alight_3a_3alighttype_2c_20const_20ra_3a_3aengine_3a_3ascene_3a_3alight_20_2a_20_3e_71',['multimap&lt; Scene::Light::LightType, const Ra::Engine::Scene::Light * &gt;',['http://en.cppreference.com/w/cpp/container/multimap.html',0,'std']]],
   ['multiplies_72',['multiplies',['http://en.cppreference.com/w/cpp/utility/functional/multiplies.html',0,'std']]],

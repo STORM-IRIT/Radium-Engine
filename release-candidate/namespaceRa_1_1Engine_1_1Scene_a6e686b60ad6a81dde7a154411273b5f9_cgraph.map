@@ -1,7 +1,27 @@
 <map id="Ra::Engine::Scene::getEntryName" name="Ra::Engine::Scene::getEntryName">
-<area shape="rect" id="Node000001" title="Returns the name associated to the given item." alt="" coords="5,5,152,45"/>
-<area shape="rect" id="Node000002" href="$classRa_1_1Engine_1_1RadiumEngine.html#a4b46a72f340513061b9a5219a80d9bd6" title="Manager getters." alt="" coords="200,5,396,45"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="152,23,186,23,186,28,152,28"/>
-<area shape="rect" id="Node000003" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/memory/unique_ptr/get.html#" title=" " alt="" coords="444,13,592,38"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="397,23,430,23,430,28,397,28"/>
+<area shape="rect" id="Node000001" title="Returns the name associated to the given item." alt="" coords="5,149,152,189"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Engine_1_1Scene_1_1Component.html#a1d4c8227d4c1c7dacb860e6b44f1f698" title="Return the component&#39;s name." alt="" coords="205,5,371,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="97,147,142,105,199,62,221,49,224,54,201,66,145,109,101,151"/>
+<area shape="rect" id="Node000003" href="$classRa_1_1Engine_1_1RadiumEngine.html#a4b46a72f340513061b9a5219a80d9bd6" title="Manager getters." alt="" coords="433,356,629,396"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="97,188,141,237,170,262,201,284,254,310,311,331,420,358,418,363,309,336,252,315,199,289,166,267,137,240,93,191"/>
+<area shape="rect" id="Node000005" href="$structRa_1_1Engine_1_1Scene_1_1ItemEntry.html#a85e1716f224d07767e16ebfbd38c0d00" title="Returns true if the item represents a component." alt="" coords="424,63,637,103"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="110,147,151,124,199,105,252,93,306,85,410,78,410,83,307,90,253,99,201,111,154,129,112,151"/>
+<area shape="rect" id="Node000007" href="$structRa_1_1Engine_1_1Scene_1_1ItemEntry.html#abb75bfc7efa4859df709265ab8982712" title="Returns true if the item represents an entity." alt="" coords="200,120,376,160"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="152,156,186,152,187,157,153,162"/>
+<area shape="rect" id="Node000008" href="$structRa_1_1Engine_1_1Scene_1_1ItemEntry.html#ad2fd60408dfc75b47ff7bec306d95cc4" title="Returns true if the item represents a render object." alt="" coords="453,177,608,217"/>
+<area shape="poly" id="edge8_Node000001_Node000008" title=" " alt="" coords="152,171,440,189,439,194,152,176"/>
+<area shape="rect" id="Node000009" href="$structRa_1_1Engine_1_1Scene_1_1ItemEntry.html#a4f2df708e8ee83f1bad37287d0a81916" title="Returns true if the item represents any valid object." alt="" coords="215,235,361,275"/>
+<area shape="poly" id="edge10_Node000001_Node000009" title=" " alt="" coords="129,187,227,227,225,232,127,192"/>
+<area shape="rect" id="Node000004" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/memory/unique_ptr/get.html#" title=" " alt="" coords="717,331,865,357"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="629,361,703,352,703,357,629,367"/>
+<area shape="rect" id="Node000006" href="$structRa_1_1Engine_1_1Scene_1_1ItemEntry.html#a9673507f752d5efee0439afd0e52892b" title="Debug checks." alt="" coords="685,149,896,189"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="593,100,717,142,716,147,591,105"/>
+<area shape="poly" id="edge7_Node000007_Node000006" title=" " alt="" coords="377,142,672,160,671,165,376,148"/>
+<area shape="poly" id="edge9_Node000008_Node000006" title=" " alt="" coords="608,186,672,179,672,185,608,192"/>
+<area shape="poly" id="edge14_Node000009_Node000003" title=" " alt="" coords="316,273,365,307,425,342,442,349,440,354,423,346,363,312,313,277"/>
+<area shape="poly" id="edge11_Node000009_Node000006" title=" " alt="" coords="361,253,491,248,564,240,637,227,688,211,735,192,737,197,690,216,638,232,565,245,491,253,362,258"/>
+<area shape="poly" id="edge15_Node000009_Node000008" title=" " alt="" coords="361,235,440,216,441,221,362,240"/>
+<area shape="rect" id="Node000010" href="$classRa_1_1Engine_1_1RadiumEngine.html#a2991b0dd7d8c14bfe19e775231036dee" title=" " alt="" coords="434,292,627,332"/>
+<area shape="poly" id="edge12_Node000009_Node000010" title=" " alt="" coords="362,269,433,286,432,291,361,274"/>
+<area shape="poly" id="edge13_Node000010_Node000004" title=" " alt="" coords="628,321,704,331,703,336,627,327"/>
 </map>

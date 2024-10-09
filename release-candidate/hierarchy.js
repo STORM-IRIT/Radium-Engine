@@ -124,18 +124,20 @@ var hierarchy =
     [ "Ra::Core::Geometry::deprecated::DefaultNonManifoldFaceCommand", "structRa_1_1Core_1_1Geometry_1_1deprecated_1_1DefaultNonManifoldFaceCommand.html", null ],
     [ "Ra::Engine::Data::Displayable", "classRa_1_1Engine_1_1Data_1_1Displayable.html", [
       [ "Ra::Engine::Data::AttribArrayDisplayable", "classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html", [
-        [ "Ra::Engine::Data::CoreGeometryDisplayable< Core::Geometry::LineMesh >", "classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html", null ],
-        [ "Ra::Engine::Data::CoreGeometryDisplayable< Core::Geometry::TriangleMesh >", "classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html", null ],
+        [ "Ra::Engine::Data::CoreGeometryDisplayable< Core::Geometry::LineMesh >", "classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html", [
+          [ "Ra::Engine::Data::IndexedGeometry< Core::Geometry::LineMesh >", "classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html", [
+            [ "Ra::Engine::Data::LineMesh", "classRa_1_1Engine_1_1Data_1_1LineMesh.html", null ]
+          ] ]
+        ] ],
+        [ "Ra::Engine::Data::CoreGeometryDisplayable< Core::Geometry::TriangleMesh >", "classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html", [
+          [ "Ra::Engine::Data::IndexedGeometry< Core::Geometry::TriangleMesh >", "classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html", [
+            [ "Ra::Engine::Data::Mesh", "classRa_1_1Engine_1_1Data_1_1Mesh.html", null ]
+          ] ]
+        ] ],
         [ "Ra::Engine::Data::CoreGeometryDisplayable< Core::Geometry::PointCloud >", "classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html", [
           [ "Ra::Engine::Data::PointCloud", "classRa_1_1Engine_1_1Data_1_1PointCloud.html", null ]
         ] ],
         [ "Ra::Engine::Data::CoreGeometryDisplayable< T >", "classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html", [
-          [ "Ra::Engine::Data::IndexedGeometry< Core::Geometry::LineMesh >", "classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html", [
-            [ "Ra::Engine::Data::LineMesh", "classRa_1_1Engine_1_1Data_1_1LineMesh.html", null ]
-          ] ],
-          [ "Ra::Engine::Data::IndexedGeometry< Core::Geometry::TriangleMesh >", "classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html", [
-            [ "Ra::Engine::Data::Mesh", "classRa_1_1Engine_1_1Data_1_1Mesh.html", null ]
-          ] ],
           [ "Ra::Engine::Data::IndexedGeometry< T >", "classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html", [
             [ "Ra::Engine::Data::GeneralMesh< T >", "classRa_1_1Engine_1_1Data_1_1GeneralMesh.html", null ]
           ] ],
@@ -260,6 +262,7 @@ var hierarchy =
     [ "Ra::Core::Quadric< _DIM >", "classRa_1_1Core_1_1Quadric.html", null ],
     [ "Ra::Engine::RadiumEngine", "classRa_1_1Engine_1_1RadiumEngine.html", null ],
     [ "Ra::Plugins::RadiumPluginInterface", "classRa_1_1Plugins_1_1RadiumPluginInterface.html", null ],
+    [ "Ra::Engine::Data::RawShaderMaterialConverter", "classRa_1_1Engine_1_1Data_1_1RawShaderMaterialConverter.html", null ],
     [ "Ra::Engine::Rendering::Renderer", "classRa_1_1Engine_1_1Rendering_1_1Renderer.html", [
       [ "Ra::Engine::Rendering::ForwardRenderer", "classRa_1_1Engine_1_1Rendering_1_1ForwardRenderer.html", null ]
     ] ],
@@ -273,6 +276,7 @@ var hierarchy =
     [ "Ra::Engine::Data::ShaderParameterProvider", "classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html", [
       [ "Ra::Engine::Data::Material", "classRa_1_1Engine_1_1Data_1_1Material.html", [
         [ "Ra::Engine::Data::BlinnPhongMaterial", "classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html", null ],
+        [ "Ra::Engine::Data::RawShaderMaterial", "classRa_1_1Engine_1_1Data_1_1RawShaderMaterial.html", null ],
         [ "Ra::Engine::Data::SimpleMaterial", "classRa_1_1Engine_1_1Data_1_1SimpleMaterial.html", null ],
         [ "Ra::Engine::Data::VolumetricMaterial", "classRa_1_1Engine_1_1Data_1_1VolumetricMaterial.html", null ]
       ] ],

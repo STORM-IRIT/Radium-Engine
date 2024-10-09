@@ -7,7 +7,8 @@
 <svg width="116pt" height="117pt"
  viewBox="0.00 0.00 115.50 117.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 
-<svg id="main" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" onload="init(evt)">
+<svg id="main" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+
 <style type="text/css"><![CDATA[
 .node, .edge {opacity: 0.7;}
 .node.selected, .edge.selected {opacity: 1;}
@@ -21,7 +22,7 @@
 <g id="clust1" class="cluster">
 <title>clusterdir_b04feb2291820e8d3d098807c21e4559</title>
 <g id="a_clust1"><a xlink:href="dir_b04feb2291820e8d3d098807c21e4559.html" target="_top" xlink:title="Viewer">
-<polygon fill="#eae7e0" stroke="#7f7f7f" stroke-dasharray="5,2" points="24,-47 24,-101 88,-101 88,-47 24,-47"/>
+<polygon fill="#edf0f7" stroke="#7f7f7f" stroke-dasharray="5,2" points="24,-47 24,-101 88,-101 88,-47 24,-47"/>
 <text text-anchor="middle" x="56" y="-89" font-family="Helvetica,sans-Serif" font-size="10.00">Viewer</text>
 </a>
 </g>
@@ -30,7 +31,7 @@
 <g id="node1" class="node">
 <title>dir_48f4a0e7ee74be957161ce5a9fe8f935</title>
 <g id="a_node1"><a xlink:href="dir_48f4a0e7ee74be957161ce5a9fe8f935.html" target="_top" xlink:title="Gizmo">
-<polygon fill="#eae7e0" stroke="#404040" stroke-width="2" points="80,-74 32,-74 32,-55 80,-55 80,-74"/>
+<polygon fill="#edf0f7" stroke="#404040" stroke-width="2" points="80,-74 32,-74 32,-55 80,-55 80,-74"/>
 <text text-anchor="middle" x="56" y="-62" font-family="Helvetica,sans-Serif" font-size="10.00">Gizmo</text>
 </a>
 </g>
@@ -39,7 +40,7 @@
 <g id="node2" class="node">
 <title>dir_3072bc1f55ed1280fe4fbe6b21c78379</title>
 <g id="a_node2"><a xlink:href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html" target="_top" xlink:title="Engine">
-<polygon fill="#eae7e0" stroke="red" stroke-dasharray="5,2" points="50,-19 0,-19 0,0 50,0 50,-19"/>
+<polygon fill="#edf0f7" stroke="red" stroke-dasharray="5,2" points="50,-19 0,-19 0,0 50,0 50,-19"/>
 <text text-anchor="middle" x="25" y="-7" font-family="Helvetica,sans-Serif" font-size="10.00">Engine</text>
 </a>
 </g>
@@ -61,7 +62,7 @@
 <g id="node3" class="node">
 <title>dir_a2f0e5642e47e7ed59fe0f0829eafb5f</title>
 <g id="a_node3"><a xlink:href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html" target="_top" xlink:title="Core">
-<polygon fill="#eae7e0" stroke="red" stroke-dasharray="5,2" points="107.5,-19 68.5,-19 68.5,0 107.5,0 107.5,-19"/>
+<polygon fill="#edf0f7" stroke="red" stroke-dasharray="5,2" points="107.5,-19 68.5,-19 68.5,0 107.5,0 107.5,-19"/>
 <text text-anchor="middle" x="88" y="-7" font-family="Helvetica,sans-Serif" font-size="10.00">Core</text>
 </a>
 </g>

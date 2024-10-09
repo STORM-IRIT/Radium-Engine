@@ -1,5 +1,9 @@
 <map id="Ra::Engine::Scene::Component::Component" name="Ra::Engine::Scene::Component::Component">
-<area shape="rect" id="Node000001" title="CONSTRUCTOR." alt="" coords="5,5,185,45"/>
-<area shape="rect" id="Node000002" href="$classRa_1_1Engine_1_1Scene_1_1Entity.html#a71a83f23fc7589da1e946d17af2d6e0b" title="Add a component to the given entity. Component ownership is transfered to the entity." alt="" coords="233,5,400,45"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="186,23,220,23,220,28,186,28"/>
+<area shape="rect" id="Node000001" title="CONSTRUCTOR." alt="" coords="5,37,185,77"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Engine_1_1Scene_1_1Entity.html#a71a83f23fc7589da1e946d17af2d6e0b" title="Add a component to the given entity. Component ownership is transfered to the entity." alt="" coords="233,37,400,77"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="186,55,220,55,220,60,186,60"/>
+<area shape="rect" id="Node000003" href="$classRa_1_1Engine_1_1Scene_1_1Component.html#a1d4c8227d4c1c7dacb860e6b44f1f698" title="Return the component&#39;s name." alt="" coords="448,5,613,45"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="400,42,434,37,435,42,401,48"/>
+<area shape="rect" id="Node000004" href="$classRa_1_1Engine_1_1Scene_1_1Component.html#ab15c24daff52b96ccf7582080c225228" title="Set entity the component is part of. This method is called by the entity." alt="" coords="449,69,612,109"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="401,67,436,73,436,78,400,72"/>
 </map>

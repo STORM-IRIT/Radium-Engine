@@ -1,7 +1,9 @@
 <map id="Ra::Core::Utils::AttribManager::isValid" name="Ra::Core::Utils::AttribManager::isValid">
-<area shape="rect" id="Node000001" title="Return true if h correspond to an existing attribute in *this." alt="" coords="5,23,221,63"/>
-<area shape="rect" id="Node000002" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/map/end.html#" title=" " alt="" coords="269,5,380,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="221,28,255,24,256,29,222,33"/>
-<area shape="rect" id="Node000003" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/map/find.html#" title=" " alt="" coords="269,55,380,80"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="222,53,256,57,255,62,221,58"/>
+<area shape="rect" id="Node000001" title="Return true if h correspond to an existing attribute in *this." alt="" coords="5,63,221,103"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Core_1_1Utils_1_1AttribHandle.html#a17afbd6718234d480c05258369bdfde9" title=" " alt="" coords="269,5,475,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="204,60,268,46,269,51,205,65"/>
+<area shape="rect" id="Node000003" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/map/end.html#" title=" " alt="" coords="317,70,427,95"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="221,80,303,80,303,85,221,85"/>
+<area shape="rect" id="Node000004" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/map/find.html#" title=" " alt="" coords="317,119,427,145"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="219,100,304,116,303,122,218,105"/>
 </map>

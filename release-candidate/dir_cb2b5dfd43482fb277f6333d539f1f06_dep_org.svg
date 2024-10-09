@@ -11,7 +11,7 @@
 <g id="clust1" class="cluster">
 <title>clusterdir_a2f0e5642e47e7ed59fe0f0829eafb5f</title>
 <g id="a_clust1"><a xlink:href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html" target="_top" xlink:title="Core">
-<polygon fill="#eae7e0" stroke="#7f7f7f" stroke-dasharray="5,2" points="8,-8 8,-125 195,-125 195,-8 8,-8"/>
+<polygon fill="#edf0f7" stroke="#7f7f7f" stroke-dasharray="5,2" points="8,-8 8,-125 195,-125 195,-8 8,-8"/>
 <text text-anchor="middle" x="101.5" y="-113" font-family="Helvetica,sans-Serif" font-size="10.00">Core</text>
 </a>
 </g>
@@ -19,7 +19,7 @@
 <g id="clust2" class="cluster">
 <title>clusterdir_cb2b5dfd43482fb277f6333d539f1f06</title>
 <g id="a_clust2"><a xlink:href="dir_cb2b5dfd43482fb277f6333d539f1f06.html" target="_top">
-<polygon fill="#eae7e0" stroke="#404040" stroke-width="2" points="16,-63 16,-98 187,-98 187,-63 16,-63"/>
+<polygon fill="#edf0f7" stroke="#404040" stroke-width="2" points="16,-63 16,-98 187,-98 187,-63 16,-63"/>
 </a>
 </g>
 </g>
@@ -27,7 +27,7 @@
 <g id="node1" class="node">
 <title>dir_ff87cf903db18af0fdb6c342683ece25</title>
 <g id="a_node1"><a xlink:href="dir_ff87cf903db18af0fdb6c342683ece25.html" target="_top" xlink:title="Utils">
-<polygon fill="#a29374" stroke="#404040" points="165.5,-35 126.5,-35 126.5,-16 165.5,-16 165.5,-35"/>
+<polygon fill="#a2b4d6" stroke="#404040" points="165.5,-35 126.5,-35 126.5,-16 165.5,-16 165.5,-35"/>
 <text text-anchor="middle" x="146" y="-23" font-family="Helvetica,sans-Serif" font-size="10.00">Utils</text>
 </a>
 </g>
@@ -54,7 +54,7 @@
 <g id="node3" class="node">
 <title>dir_e5ae3a9d3a26873eff00da258d44b53c</title>
 <g id="a_node3"><a xlink:href="dir_e5ae3a9d3a26873eff00da258d44b53c.html" target="_top" xlink:title="deprecated">
-<polygon fill="#a29374" stroke="#404040" points="95.5,-90 24.5,-90 24.5,-71 95.5,-71 95.5,-90"/>
+<polygon fill="#a2b4d6" stroke="#404040" points="95.5,-90 24.5,-90 24.5,-71 95.5,-71 95.5,-90"/>
 <text text-anchor="middle" x="60" y="-78" font-family="Helvetica,sans-Serif" font-size="10.00">deprecated</text>
 </a>
 </g>

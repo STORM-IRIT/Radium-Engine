@@ -1,54 +1,54 @@
 <map id="Ra::Gui::BaseApplication::radiumFrame" name="Ra::Gui::BaseApplication::radiumFrame">
-<area shape="rect" id="Node000001" title="Advance the engine for one frame." alt="" coords="5,278,188,318"/>
-<area shape="rect" id="Node000002" href="$classRa_1_1Gui_1_1WindowQt.html#acd31b9e580f049491d13c16ef954d964" title=" " alt="" coords="542,77,694,117"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="188,282,341,253,412,237,462,220,498,199,532,174,587,125,590,129,535,178,501,203,464,224,413,242,342,259,189,287"/>
-<area shape="rect" id="Node000003" href="$classRa_1_1Engine_1_1RadiumEngine.html#aeb9d4b10e0fb251d873e4387c7571de4" title=" " alt="" coords="253,55,446,95"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="105,277,123,240,152,194,189,146,234,105,243,99,246,104,238,109,193,150,156,197,128,242,109,279"/>
-<area shape="rect" id="Node000004" href="$classRa_1_1Gui_1_1Viewer.html#aa801426e3906c686bdbbc20bf553c041" title="Read&#45;only access to renderer." alt="" coords="244,120,455,145"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="110,276,160,216,195,183,235,156,252,148,254,153,237,160,198,187,164,220,114,279"/>
-<area shape="rect" id="Node000005" href="$classRa_1_1Engine_1_1RadiumEngine.html#a35e421132933b7c8d1a977ec3ea0b744" title=" " alt="" coords="253,170,446,210"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="134,275,235,226,272,212,273,217,237,231,136,280"/>
-<area shape="rect" id="Node000006" href="$classRa_1_1Gui_1_1WindowQt.html#a78476baacd2df24a260f604d02c8ddc4" title=" " alt="" coords="542,514,694,554"/>
-<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="112,317,161,383,197,419,237,449,309,482,386,505,461,520,528,527,528,533,461,525,385,510,308,487,235,454,193,423,157,386,108,320"/>
-<area shape="rect" id="Node000007" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/chrono/high_resolution_clock/now.html#" title=" " alt="" coords="785,333,987,373"/>
-<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="188,299,319,296,391,289,462,277,486,267,510,257,570,245,619,240,666,244,726,257,761,269,794,286,851,322,848,327,792,290,759,274,725,262,666,249,619,246,571,251,511,262,488,272,463,282,392,294,319,302,188,305"/>
-<area shape="rect" id="Node000008" href="$classRa_1_1Gui_1_1Viewer.html#aeee8e169e5cdca89d16cde152a7f4657" title="Emits signals corresponding to picking requests." alt="" coords="259,335,439,375"/>
-<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="186,315,248,330,247,335,185,321"/>
-<area shape="rect" id="Node000013" href="$classRa_1_1Engine_1_1RadiumEngine.html#a64e514bd01c52fe4b8a67c570615ff06" title=" " alt="" coords="253,399,446,439"/>
-<area shape="poly" id="edge12_Node000001_Node000013" title=" " alt="" coords="126,316,176,351,237,385,255,392,253,397,235,390,173,355,123,320"/>
-<area shape="rect" id="Node000014" href="$classRa_1_1Gui_1_1Viewer.html#a0bc8019968c23fd6ca0d1c27c0d6ec0d" title="Start rendering (potentially asynchronously in a separate thread)" alt="" coords="236,585,463,611"/>
-<area shape="poly" id="edge13_Node000001_Node000014" title=" " alt="" coords="109,317,157,411,194,469,238,523,274,553,311,576,308,581,270,557,234,527,190,472,152,414,104,319"/>
-<area shape="rect" id="Node000023" href="$classRa_1_1Gui_1_1Viewer.html#a1ffe7aaecf91a91d6b1e98fb9dc75e5a" title="Blocks until rendering is finished." alt="" coords="244,5,455,31"/>
-<area shape="poly" id="edge24_Node000001_Node000023" title=" " alt="" coords="100,277,115,228,141,164,180,98,206,67,234,41,245,34,248,39,238,45,209,71,185,101,146,167,120,230,105,278"/>
-<area shape="rect" id="Node000024" href="$classRa_1_1Gui_1_1Viewer.html#a48210627a598068db2492fc0aad99520" title="Update the internal viewer state to the (application) time dt." alt="" coords="262,705,437,731"/>
-<area shape="poly" id="edge26_Node000001_Node000024" title=" " alt="" coords="106,318,122,374,149,452,188,539,212,582,238,622,277,663,318,695,315,700,274,667,234,625,207,585,183,541,144,454,117,375,100,319"/>
-<area shape="rect" id="Node000009" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#ac42e4205ffd8ebb7aa736b78da26dae1" title=" " alt="" coords="511,450,725,490"/>
-<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="439,373,464,385,480,398,489,410,498,423,512,434,526,442,524,447,509,439,494,426,485,413,476,401,461,390,437,378"/>
-<area shape="rect" id="Node000010" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#ab8bd7377df698283d3f916cb53d90be5" title=" " alt="" coords="511,271,725,311"/>
-<area shape="poly" id="edge9_Node000008_Node000010" title=" " alt="" coords="433,333,520,312,521,317,435,338"/>
-<area shape="rect" id="Node000011" href="$classRa_1_1Gui_1_1Viewer.html#abf7a3519a22b398266730b2d8a459005" title="Emitted when the rendered is correctly initialized." alt="" coords="522,335,714,375"/>
-<area shape="poly" id="edge10_Node000008_Node000011" title=" " alt="" coords="440,353,509,353,509,358,440,358"/>
-<area shape="rect" id="Node000012" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector/size.html#" title=" " alt="" coords="555,400,681,425"/>
-<area shape="poly" id="edge11_Node000008_Node000012" title=" " alt="" coords="440,372,545,394,544,400,439,377"/>
-<area shape="poly" id="edge16_Node000014_Node000006" title=" " alt="" coords="403,583,528,553,529,558,404,588"/>
-<area shape="rect" id="Node000015" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a5c448956bee4797f190a4a4b9da4f05c" title=" " alt="" coords="535,706,701,746"/>
-<area shape="poly" id="edge14_Node000014_Node000015" title=" " alt="" coords="370,609,431,649,512,692,530,699,528,704,510,696,429,653,367,613"/>
-<area shape="rect" id="Node000016" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a4bce4a0e7b0c92d787bfbc4f3589c973" title="Tell if the renderer has an usable light." alt="" coords="535,578,701,618"/>
-<area shape="poly" id="edge15_Node000014_Node000016" title=" " alt="" coords="463,595,521,595,521,601,463,601"/>
-<area shape="rect" id="Node000017" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a027cf22a1f9f48ea9f7dd7fae7108856" title="Tell the renderer it needs to render. This method does the following steps :" alt="" coords="535,642,701,682"/>
-<area shape="poly" id="edge17_Node000014_Node000017" title=" " alt="" coords="404,608,523,637,521,642,403,613"/>
-<area shape="poly" id="edge19_Node000017_Node000007" title=" " alt="" coords="700,644,724,628,737,613,745,599,752,570,757,538,771,501,813,436,856,382,860,385,818,439,776,503,762,539,758,571,750,601,741,616,727,632,703,648"/>
-<area shape="rect" id="Node000018" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a30c9f288f2ac8406c804c55b2623e348" title="Add the debug layer with useful informations." alt="" coords="793,578,979,618"/>
-<area shape="poly" id="edge18_Node000017_Node000018" title=" " alt="" coords="700,640,788,619,789,624,701,645"/>
-<area shape="rect" id="Node000019" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a5fc9b2cb6c8fb0a7d1a7640a2ddc31b6" title="Do all post processing stuff. If you override this method, be careful to fill." alt="" coords="773,642,999,682"/>
-<area shape="poly" id="edge20_Node000017_Node000019" title=" " alt="" coords="701,659,759,659,759,665,701,665"/>
-<area shape="rect" id="Node000020" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#afe2f99ba86df2575f32a79d3d01d8d2f" title="All the scene rendering magics basically happens here." alt="" coords="791,706,981,746"/>
-<area shape="poly" id="edge21_Node000017_Node000020" title=" " alt="" coords="701,679,789,700,788,705,700,684"/>
-<area shape="rect" id="Node000021" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#abad46a9149c0d4578327325450b2472e" title="Draw the UI data." alt="" coords="803,770,969,810"/>
-<area shape="poly" id="edge22_Node000017_Node000021" title=" " alt="" coords="702,678,727,692,743,708,752,725,760,741,775,756,792,765,789,770,772,760,755,744,747,727,739,711,724,696,700,683"/>
-<area shape="rect" id="Node000022" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#ac3f6b287470f899b6aa9306b82249765" title=" " alt="" coords="775,514,997,554"/>
-<area shape="poly" id="edge23_Node000017_Node000022" title=" " alt="" coords="700,641,724,628,739,613,747,597,755,580,772,564,781,558,784,562,775,568,760,583,752,599,743,616,727,632,702,646"/>
-<area shape="poly" id="edge25_Node000023_Node000002" title=" " alt="" coords="413,28,463,41,551,69,550,74,462,46,412,33"/>
-<area shape="rect" id="Node000025" href="$classRa_1_1Gui_1_1GizmoManager.html#a2733d1f2a992c50e41b93790b5323fe1" title="Retrieve the transform from the editable and update the gizmos." alt="" coords="530,770,706,810"/>
-<area shape="poly" id="edge27_Node000024_Node000025" title=" " alt="" coords="398,728,530,764,529,769,397,733"/>
+<area shape="rect" id="Node000001" title="Advance the engine for one frame." alt="" coords="5,312,188,352"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Gui_1_1WindowQt.html#acd31b9e580f049491d13c16ef954d964" title=" " alt="" coords="542,137,694,177"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="98,311,108,254,131,177,149,137,172,98,200,64,235,36,265,19,293,9,320,3,346,3,400,15,464,36,501,53,536,76,591,125,588,129,533,80,499,58,462,41,398,20,345,9,320,9,295,14,267,24,237,41,204,68,176,101,154,139,136,179,113,255,103,312"/>
+<area shape="rect" id="Node000003" href="$classRa_1_1Engine_1_1RadiumEngine.html#aeb9d4b10e0fb251d873e4387c7571de4" title=" " alt="" coords="253,50,446,90"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="102,311,118,267,146,210,184,151,208,124,234,100,242,95,245,99,238,105,212,128,189,154,151,213,123,269,107,313"/>
+<area shape="rect" id="Node000004" href="$classRa_1_1Gui_1_1Viewer.html#aa801426e3906c686bdbbc20bf553c041" title="Read&#45;only access to renderer." alt="" coords="244,115,455,140"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="105,310,125,275,153,232,190,188,235,151,248,143,251,148,237,155,194,192,157,235,129,278,110,313"/>
+<area shape="rect" id="Node000005" href="$classRa_1_1Engine_1_1RadiumEngine.html#a35e421132933b7c8d1a977ec3ea0b744" title=" " alt="" coords="253,165,446,205"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="115,309,166,262,199,237,235,215,249,208,252,213,237,219,202,241,170,266,119,313"/>
+<area shape="rect" id="Node000006" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a1aa09e5b99011891aa0c5b6e0d8ed808" title=" " alt="" coords="256,229,443,269"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="149,309,235,279,261,270,263,276,237,284,151,314"/>
+<area shape="rect" id="Node000007" href="$classRa_1_1Gui_1_1WindowQt.html#a78476baacd2df24a260f604d02c8ddc4" title=" " alt="" coords="542,554,694,594"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="110,351,128,386,156,429,193,473,237,508,272,526,309,541,386,561,461,571,528,575,528,580,460,577,385,566,307,546,270,531,235,513,189,476,152,432,124,388,105,353"/>
+<area shape="rect" id="Node000008" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/chrono/high_resolution_clock/now.html#" title=" " alt="" coords="785,365,987,405"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="188,330,474,335,620,340,726,348,794,360,793,365,725,353,619,345,474,340,188,335"/>
+<area shape="rect" id="Node000009" href="$classRa_1_1Gui_1_1Viewer.html#aeee8e169e5cdca89d16cde152a7f4657" title="Emits signals corresponding to picking requests." alt="" coords="259,394,439,434"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="159,349,275,388,274,393,158,354"/>
+<area shape="rect" id="Node000013" href="$classRa_1_1Engine_1_1RadiumEngine.html#a64e514bd01c52fe4b8a67c570615ff06" title=" " alt="" coords="253,458,446,498"/>
+<area shape="poly" id="edge12_Node000001_Node000013" title=" " alt="" coords="119,350,170,397,202,422,237,444,252,451,249,456,235,449,199,427,166,401,115,354"/>
+<area shape="rect" id="Node000014" href="$classRa_1_1Gui_1_1Viewer.html#a0bc8019968c23fd6ca0d1c27c0d6ec0d" title="Start rendering (potentially asynchronously in a separate thread)" alt="" coords="236,626,463,651"/>
+<area shape="poly" id="edge13_Node000001_Node000014" title=" " alt="" coords="106,351,122,398,149,462,188,529,211,560,238,588,262,606,288,619,286,623,259,610,234,592,207,564,183,532,144,464,117,400,101,353"/>
+<area shape="rect" id="Node000023" href="$classRa_1_1Gui_1_1Viewer.html#a1ffe7aaecf91a91d6b1e98fb9dc75e5a" title="Blocks until rendering is finished." alt="" coords="244,294,455,319"/>
+<area shape="poly" id="edge24_Node000001_Node000023" title=" " alt="" coords="188,320,230,316,231,321,189,325"/>
+<area shape="rect" id="Node000024" href="$classRa_1_1Gui_1_1Viewer.html#a48210627a598068db2492fc0aad99520" title="Update the internal viewer state to the (application) time dt." alt="" coords="262,746,437,771"/>
+<area shape="poly" id="edge26_Node000001_Node000024" title=" " alt="" coords="105,351,121,408,148,488,187,578,211,621,238,662,277,704,318,736,315,740,273,708,234,665,207,624,183,580,143,490,116,410,100,353"/>
+<area shape="rect" id="Node000010" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#ac42e4205ffd8ebb7aa736b78da26dae1" title=" " alt="" coords="511,426,725,466"/>
+<area shape="poly" id="edge9_Node000009_Node000010" title=" " alt="" coords="440,422,497,429,497,435,439,428"/>
+<area shape="rect" id="Node000011" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#ab8bd7377df698283d3f916cb53d90be5" title=" " alt="" coords="511,490,725,530"/>
+<area shape="poly" id="edge10_Node000009_Node000011" title=" " alt="" coords="433,432,464,444,488,460,512,476,529,483,527,488,509,481,485,465,461,449,432,437"/>
+<area shape="rect" id="Node000012" href="$classRa_1_1Gui_1_1Viewer.html#abf7a3519a22b398266730b2d8a459005" title="Emitted when the rendered is correctly initialized." alt="" coords="522,362,714,402"/>
+<area shape="poly" id="edge11_Node000009_Node000012" title=" " alt="" coords="439,401,508,393,509,398,440,406"/>
+<area shape="poly" id="edge16_Node000014_Node000007" title=" " alt="" coords="403,623,528,593,529,598,404,628"/>
+<area shape="rect" id="Node000015" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a5c448956bee4797f190a4a4b9da4f05c" title=" " alt="" coords="535,682,701,722"/>
+<area shape="poly" id="edge14_Node000014_Node000015" title=" " alt="" coords="404,649,523,677,521,682,403,654"/>
+<area shape="rect" id="Node000016" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a4bce4a0e7b0c92d787bfbc4f3589c973" title="Tell if the renderer has an usable light." alt="" coords="535,746,701,786"/>
+<area shape="poly" id="edge15_Node000014_Node000016" title=" " alt="" coords="370,649,431,689,512,732,530,739,528,744,510,737,429,694,367,653"/>
+<area shape="rect" id="Node000017" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a027cf22a1f9f48ea9f7dd7fae7108856" title="Tell the renderer it needs to render. This method does the following steps :" alt="" coords="535,618,701,658"/>
+<area shape="poly" id="edge17_Node000014_Node000017" title=" " alt="" coords="463,636,521,636,521,641,463,641"/>
+<area shape="poly" id="edge19_Node000017_Node000008" title=" " alt="" coords="700,620,724,604,736,590,744,575,750,545,755,513,761,495,771,477,804,441,839,411,843,416,807,445,775,480,765,498,760,514,755,546,749,577,741,593,727,608,703,625"/>
+<area shape="rect" id="Node000018" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a30c9f288f2ac8406c804c55b2623e348" title="Add the debug layer with useful informations." alt="" coords="793,554,979,594"/>
+<area shape="poly" id="edge18_Node000017_Node000018" title=" " alt="" coords="700,616,788,595,789,600,701,621"/>
+<area shape="rect" id="Node000019" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a5fc9b2cb6c8fb0a7d1a7640a2ddc31b6" title="Do all post processing stuff. If you override this method, be careful to fill." alt="" coords="773,618,999,658"/>
+<area shape="poly" id="edge20_Node000017_Node000019" title=" " alt="" coords="701,636,759,636,759,641,701,641"/>
+<area shape="rect" id="Node000020" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#afe2f99ba86df2575f32a79d3d01d8d2f" title="All the scene rendering magics basically happens here." alt="" coords="791,682,981,722"/>
+<area shape="poly" id="edge21_Node000017_Node000020" title=" " alt="" coords="701,655,789,677,788,682,700,661"/>
+<area shape="rect" id="Node000021" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#abad46a9149c0d4578327325450b2472e" title="Draw the UI data." alt="" coords="803,746,969,786"/>
+<area shape="poly" id="edge22_Node000017_Node000021" title=" " alt="" coords="702,655,727,668,743,685,752,701,760,717,775,732,792,742,789,747,772,737,755,720,747,704,739,688,724,673,700,660"/>
+<area shape="rect" id="Node000022" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#ac3f6b287470f899b6aa9306b82249765" title=" " alt="" coords="775,490,997,530"/>
+<area shape="poly" id="edge23_Node000017_Node000022" title=" " alt="" coords="700,617,724,604,739,589,747,573,755,557,772,540,781,534,784,539,775,545,760,560,752,576,743,592,727,609,702,622"/>
+<area shape="poly" id="edge25_Node000023_Node000002" title=" " alt="" coords="428,291,462,279,498,258,531,234,587,185,590,189,535,238,500,263,464,284,430,296"/>
+<area shape="rect" id="Node000025" href="$classRa_1_1Gui_1_1GizmoManager.html#a2733d1f2a992c50e41b93790b5323fe1" title="Retrieve the transform from the editable and update the gizmos." alt="" coords="530,810,706,850"/>
+<area shape="poly" id="edge27_Node000024_Node000025" title=" " alt="" coords="398,769,530,804,529,809,397,774"/>
 </map>

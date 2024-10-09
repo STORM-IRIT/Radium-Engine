@@ -1,5 +1,0 @@
-<map id="Ra::Engine::Scene::SkeletonComponent::getTransform" name="Ra::Engine::Scene::SkeletonComponent::getTransform">
-<area shape="rect" id="Node000001" title="Get the transform associated with the given RO index key." alt="" coords="5,5,252,45"/>
-<area shape="rect" id="Node000002" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector/at.html#" title=" " alt="" coords="300,13,412,38"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="252,23,286,23,286,28,252,28"/>
-</map>

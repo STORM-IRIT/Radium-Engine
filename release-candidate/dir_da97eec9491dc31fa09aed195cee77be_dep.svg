@@ -7,7 +7,8 @@
 <svg width="108pt" height="78pt"
  viewBox="0.00 0.00 108.00 78.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 
-<svg id="main" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" onload="init(evt)">
+<svg id="main" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+
 <style type="text/css"><![CDATA[
 .node, .edge {opacity: 0.7;}
 .node.selected, .edge.selected {opacity: 1;}
@@ -21,7 +22,7 @@
 <g id="clust1" class="cluster">
 <title>clusterdir_b5ac5e964c12a6b13a9d28feb9f3d3ed</title>
 <g id="a_clust1"><a xlink:href="dir_b5ac5e964c12a6b13a9d28feb9f3d3ed.html" target="_top" xlink:title="Gui">
-<polygon fill="#eae7e0" stroke="#7f7f7f" stroke-dasharray="5,2" points="8,-8 8,-62 92,-62 92,-8 8,-8"/>
+<polygon fill="#edf0f7" stroke="#7f7f7f" stroke-dasharray="5,2" points="8,-8 8,-62 92,-62 92,-8 8,-8"/>
 <text text-anchor="middle" x="50" y="-50" font-family="Helvetica,sans-Serif" font-size="10.00">Gui</text>
 </a>
 </g>
@@ -30,7 +31,7 @@
 <g id="node1" class="node">
 <title>dir_da97eec9491dc31fa09aed195cee77be</title>
 <g id="a_node1"><a xlink:href="dir_da97eec9491dc31fa09aed195cee77be.html" target="_top" xlink:title="TimerData">
-<polygon fill="#eae7e0" stroke="#404040" stroke-width="2" points="84,-35 16,-35 16,-16 84,-16 84,-35"/>
+<polygon fill="#edf0f7" stroke="#404040" stroke-width="2" points="84,-35 16,-35 16,-16 84,-16 84,-35"/>
 <text text-anchor="middle" x="50" y="-23" font-family="Helvetica,sans-Serif" font-size="10.00">TimerData</text>
 </a>
 </g>

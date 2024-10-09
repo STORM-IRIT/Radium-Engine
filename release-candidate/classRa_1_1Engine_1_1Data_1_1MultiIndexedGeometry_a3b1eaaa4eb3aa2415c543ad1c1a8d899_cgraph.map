@@ -1,7 +1,5 @@
 <map id="Ra::Engine::Data::MultiIndexedGeometry::loadGeometry" name="Ra::Engine::Data::MultiIndexedGeometry::loadGeometry">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,23,228,63"/>
-<area shape="rect" id="Node000002" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector/clear.html#" title=" " alt="" coords="276,5,407,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="228,28,262,24,263,29,229,33"/>
-<area shape="rect" id="Node000003" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/utility/move.html#" title=" " alt="" coords="298,55,385,80"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="229,53,285,59,284,64,228,58"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,228,45"/>
+<area shape="rect" id="Node000002" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/utility/move.html#" title=" " alt="" coords="276,13,363,38"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="229,23,262,23,262,28,229,28"/>
 </map>

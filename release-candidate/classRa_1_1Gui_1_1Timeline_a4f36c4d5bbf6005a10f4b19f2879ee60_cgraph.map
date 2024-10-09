@@ -1,9 +1,9 @@
 <map id="Ra::Gui::Timeline::selectionChanged" name="Ra::Gui::Timeline::selectionChanged">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,62,148,102"/>
-<area shape="rect" id="Node000002" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector/clear.html#" title=" " alt="" coords="216,5,347,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="135,59,195,39,220,32,222,37,197,45,136,64"/>
-<area shape="rect" id="Node000003" href="$classRa_1_1Core_1_1Animation_1_1KeyFramedValueBase.html#a1dcd7ebad299ac63bc7af8b42dca6cae" title=" " alt="" coords="196,55,367,109"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="148,79,182,79,182,85,148,85"/>
-<area shape="rect" id="Node000004" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/string/basic_string/to_string.html#" title=" " alt="" coords="228,133,335,159"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="139,100,197,118,225,127,223,132,195,123,138,105"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,77,148,117"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Engine_1_1Scene_1_1Component.html#a1d4c8227d4c1c7dacb860e6b44f1f698" title="Return the component&#39;s name." alt="" coords="199,5,364,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="133,75,210,47,212,52,135,80"/>
+<area shape="rect" id="Node000003" href="$classRa_1_1Core_1_1Animation_1_1KeyFramedValueBase.html#a1dcd7ebad299ac63bc7af8b42dca6cae" title=" " alt="" coords="196,70,367,125"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="148,95,182,95,182,100,148,100"/>
+<area shape="rect" id="Node000004" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/string/basic_string/to_string.html#" title=" " alt="" coords="228,149,335,174"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="139,115,197,133,225,142,223,147,195,139,138,120"/>
 </map>

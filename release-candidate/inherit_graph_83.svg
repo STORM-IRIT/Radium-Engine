@@ -23,9 +23,9 @@
 <g id="Node000001" class="node">
 <title>Node1</title>
 <g id="a_Node000001"><a xlink:href="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html" target="_top" xlink:title="[TextureSemantics]">
-<polygon fill="white" stroke="#666666" points="534,-201.5 376,-201.5 376,-171.5 534,-171.5 534,-201.5"/>
-<text text-anchor="start" x="384" y="-189.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Data::BlinnPhong</text>
-<text text-anchor="middle" x="455" y="-178.5" font-family="Helvetica,sans-Serif" font-size="10.00">Material</text>
+<polygon fill="white" stroke="#666666" points="534,-223.5 376,-223.5 376,-193.5 534,-193.5 534,-223.5"/>
+<text text-anchor="start" x="384" y="-211.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Data::BlinnPhong</text>
+<text text-anchor="middle" x="455" y="-200.5" font-family="Helvetica,sans-Serif" font-size="10.00">Material</text>
 </a>
 </g>
 </g>
@@ -33,8 +33,8 @@
 <g id="edge84_Node000000_Node000001" class="edge">
 <title>Node0&#45;&gt;Node1</title>
 <g id="a_edge84_Node000000_Node000001"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M350.23,-201.29C358.76,-200.07 367.34,-198.85 375.72,-197.65"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="349.67,-197.83 340.26,-202.71 350.66,-204.76 349.67,-197.83"/>
+<path fill="none" stroke="#63b8ff" d="M350.51,-211.66C358.95,-211.4 367.43,-211.14 375.72,-210.89"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="350.15,-208.17 340.26,-211.97 350.37,-215.17 350.15,-208.17"/>
 </a>
 </g>
 </g>
@@ -53,9 +53,9 @@
 <g id="Node000003" class="node">
 <title>Node3</title>
 <g id="a_Node000003"><a xlink:href="classRa_1_1Engine_1_1Data_1_1SimpleMaterial.html" target="_top" xlink:title="Base implementation for simple, monocolored, materials.">
-<polygon fill="white" stroke="#666666" points="523.5,-105.5 386.5,-105.5 386.5,-75.5 523.5,-75.5 523.5,-105.5"/>
-<text text-anchor="start" x="394.5" y="-93.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Data::Simple</text>
-<text text-anchor="middle" x="455" y="-82.5" font-family="Helvetica,sans-Serif" font-size="10.00">Material</text>
+<polygon fill="white" stroke="#666666" points="523.5,-79.5 386.5,-79.5 386.5,-49.5 523.5,-49.5 523.5,-79.5"/>
+<text text-anchor="start" x="394.5" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Data::Simple</text>
+<text text-anchor="middle" x="455" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">Material</text>
 </a>
 </g>
 </g>
@@ -63,8 +63,8 @@
 <g id="edge85_Node000006_Node000003" class="edge">
 <title>Node6&#45;&gt;Node3</title>
 <g id="a_edge85_Node000006_Node000003"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M324.73,-44.45C353.55,-54.72 386.34,-66.4 411.68,-75.42"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="325.72,-41.09 315.13,-41.03 323.37,-47.68 325.72,-41.09"/>
+<path fill="none" stroke="#63b8ff" d="M350.14,-41.24C362.51,-44.01 375,-46.81 386.82,-49.46"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="350.79,-37.8 340.26,-39.03 349.26,-44.63 350.79,-37.8"/>
 </a>
 </g>
 </g>
@@ -72,9 +72,9 @@
 <g id="Node000004" class="node">
 <title>Node4</title>
 <g id="a_Node000004"><a xlink:href="classRa_1_1Engine_1_1Data_1_1LambertianMaterial.html" target="_top" xlink:title="Implementation of the Lambertian Material BSDF.">
-<polygon fill="white" stroke="#666666" points="733.5,-127.5 574.5,-127.5 574.5,-97.5 733.5,-97.5 733.5,-127.5"/>
-<text text-anchor="start" x="582.5" y="-115.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Data::Lambertian</text>
-<text text-anchor="middle" x="654" y="-104.5" font-family="Helvetica,sans-Serif" font-size="10.00">Material</text>
+<polygon fill="white" stroke="#666666" points="733.5,-101.5 574.5,-101.5 574.5,-71.5 733.5,-71.5 733.5,-101.5"/>
+<text text-anchor="start" x="582.5" y="-89.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Data::Lambertian</text>
+<text text-anchor="middle" x="654" y="-78.5" font-family="Helvetica,sans-Serif" font-size="10.00">Material</text>
 </a>
 </g>
 </g>
@@ -82,8 +82,8 @@
 <g id="edge86_Node000003_Node000004" class="edge">
 <title>Node3&#45;&gt;Node4</title>
 <g id="a_edge86_Node000003_Node000004"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M533.64,-99.17C547.03,-100.67 560.96,-102.22 574.37,-103.72"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="533.85,-95.67 523.52,-98.04 533.07,-102.63 533.85,-95.67"/>
+<path fill="none" stroke="#63b8ff" d="M533.64,-73.17C547.03,-74.67 560.96,-76.22 574.37,-77.72"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="533.85,-69.67 523.52,-72.04 533.07,-76.63 533.85,-69.67"/>
 </a>
 </g>
 </g>
@@ -91,8 +91,8 @@
 <g id="Node000005" class="node">
 <title>Node5</title>
 <g id="a_Node000005"><a xlink:href="classRa_1_1Engine_1_1Data_1_1PlainMaterial.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="738,-79 570,-79 570,-60 738,-60 738,-79"/>
-<text text-anchor="middle" x="654" y="-67" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Data::PlainMaterial</text>
+<polygon fill="white" stroke="#666666" points="738,-53 570,-53 570,-34 738,-34 738,-53"/>
+<text text-anchor="middle" x="654" y="-41" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Data::PlainMaterial</text>
 </a>
 </g>
 </g>
@@ -100,8 +100,8 @@
 <g id="edge87_Node000003_Node000005" class="edge">
 <title>Node3&#45;&gt;Node5</title>
 <g id="a_edge87_Node000003_Node000005"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M533.81,-82.21C545.66,-80.94 557.93,-79.63 569.89,-78.36"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="533.09,-78.76 523.52,-83.3 533.84,-85.72 533.09,-78.76"/>
+<path fill="none" stroke="#63b8ff" d="M533.81,-56.21C545.66,-54.94 557.93,-53.63 569.89,-52.36"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="533.09,-52.76 523.52,-57.3 533.84,-59.72 533.09,-52.76"/>
 </a>
 </g>
 </g>
@@ -119,8 +119,8 @@
 <g id="edge88_Node000002_Node000001" class="edge">
 <title>Node2&#45;&gt;Node1</title>
 <g id="a_edge88_Node000002_Node000001"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M343.88,-171.93C354.51,-173.34 365.34,-174.77 375.84,-176.16"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="344.13,-168.43 333.75,-170.59 343.21,-175.37 344.13,-168.43"/>
+<path fill="none" stroke="#63b8ff" d="M328.9,-177.94C349.77,-183.04 372.39,-188.57 392.58,-193.5"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="329.68,-174.53 319.13,-175.56 328.02,-181.33 329.68,-174.53"/>
 </a>
 </g>
 </g>
@@ -128,34 +128,34 @@
 <g id="edge89_Node000002_Node000003" class="edge">
 <title>Node2&#45;&gt;Node3</title>
 <g id="a_edge89_Node000002_Node000003"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M326.14,-142.07C330.88,-140.32 335.54,-138.47 340,-136.5 357.15,-128.93 358.91,-122.21 376,-114.5 383.23,-111.24 391.03,-108.26 398.81,-105.59"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="324.63,-138.89 316.33,-145.48 326.93,-145.5 324.63,-138.89"/>
-</a>
-</g>
-</g>
-<!-- Node8 -->
-<g id="Node000008" class="node">
-<title>Node8</title>
-<g id="a_Node000008"><a xlink:href="classRa_1_1Engine_1_1Data_1_1VolumetricMaterial.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="533,-153.5 377,-153.5 377,-123.5 533,-123.5 533,-153.5"/>
-<text text-anchor="start" x="385" y="-141.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Data::Volumetric</text>
-<text text-anchor="middle" x="455" y="-130.5" font-family="Helvetica,sans-Serif" font-size="10.00">Material</text>
-</a>
-</g>
-</g>
-<!-- Node2&#45;&gt;Node8 -->
-<g id="edge90_Node000002_Node000008" class="edge">
-<title>Node2&#45;&gt;Node8</title>
-<g id="a_edge90_Node000002_Node000008"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M343.78,-150.84C354.78,-149.61 365.98,-148.36 376.82,-147.14"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="343.3,-147.37 333.75,-151.96 344.08,-154.33 343.3,-147.37"/>
+<path fill="none" stroke="#63b8ff" d="M333.31,-140.69C335.61,-139.38 337.85,-137.99 340,-136.5 361.93,-121.33 354.19,-103.84 376,-88.5 380.87,-85.08 386.24,-82.13 391.81,-79.6"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="331.46,-137.7 324.11,-145.32 334.61,-143.95 331.46,-137.7"/>
 </a>
 </g>
 </g>
 <!-- Node9 -->
 <g id="Node000009" class="node">
 <title>Node9</title>
-<g id="a_Node000009"><a xlink:href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html" target="_top" xlink:title=" ">
+<g id="a_Node000009"><a xlink:href="classRa_1_1Engine_1_1Data_1_1VolumetricMaterial.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="#666666" points="533,-175.5 377,-175.5 377,-145.5 533,-145.5 533,-175.5"/>
+<text text-anchor="start" x="385" y="-163.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Data::Volumetric</text>
+<text text-anchor="middle" x="455" y="-152.5" font-family="Helvetica,sans-Serif" font-size="10.00">Material</text>
+</a>
+</g>
+</g>
+<!-- Node2&#45;&gt;Node9 -->
+<g id="edge90_Node000002_Node000009" class="edge">
+<title>Node2&#45;&gt;Node9</title>
+<g id="a_edge90_Node000002_Node000009"><a xlink:title=" ">
+<path fill="none" stroke="#63b8ff" d="M343.78,-160.5C354.78,-160.5 365.98,-160.5 376.82,-160.5"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="343.75,-157 333.75,-160.5 343.75,-164 343.75,-157"/>
+</a>
+</g>
+</g>
+<!-- Node10 -->
+<g id="Node000010" class="node">
+<title>Node10</title>
+<g id="a_Node000010"><a xlink:href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="#666666" points="137,-110.5 0,-110.5 0,-80.5 137,-80.5 137,-110.5"/>
 <text text-anchor="start" x="8" y="-98.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Data::Shader</text>
 <text text-anchor="middle" x="68.5" y="-87.5" font-family="Helvetica,sans-Serif" font-size="10.00">ParameterProvider</text>
@@ -171,29 +171,29 @@
 </a>
 </g>
 </g>
-<!-- Node9&#45;&gt;Node7 -->
-<g id="edge91_Node000009_Node000007" class="edge">
-<title>Node9&#45;&gt;Node7</title>
-<g id="a_edge91_Node000009_Node000007"><a xlink:title=" ">
+<!-- Node10&#45;&gt;Node7 -->
+<g id="edge91_Node000010_Node000007" class="edge">
+<title>Node10&#45;&gt;Node7</title>
+<g id="a_edge91_Node000010_Node000007"><a xlink:title=" ">
 <path fill="none" stroke="#63b8ff" d="M147.39,-104.71C159.67,-106.17 172.31,-107.66 184.43,-109.09"/>
 <polygon fill="#63b8ff" stroke="#63b8ff" points="147.52,-101.2 137.18,-103.5 146.7,-108.16 147.52,-101.2"/>
 </a>
 </g>
 </g>
-<!-- Node10 -->
-<g id="Node000010" class="node">
-<title>Node10</title>
-<g id="a_Node000010"><a xlink:href="classRa_1_1Gui_1_1Gizmo_1_1UiSelectionControler.html" target="_top" xlink:title=" ">
+<!-- Node11 -->
+<g id="Node000011" class="node">
+<title>Node11</title>
+<g id="a_Node000011"><a xlink:href="classRa_1_1Gui_1_1Gizmo_1_1UiSelectionControler.html" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="#666666" points="332,-89.5 181,-89.5 181,-59.5 332,-59.5 332,-89.5"/>
 <text text-anchor="start" x="189" y="-77.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Gui::Gizmo::UiSelection</text>
 <text text-anchor="middle" x="256.5" y="-66.5" font-family="Helvetica,sans-Serif" font-size="10.00">Controler</text>
 </a>
 </g>
 </g>
-<!-- Node9&#45;&gt;Node10 -->
-<g id="edge95_Node000009_Node000010" class="edge">
-<title>Node9&#45;&gt;Node10</title>
-<g id="a_edge95_Node000009_Node000010"><a xlink:title=" ">
+<!-- Node10&#45;&gt;Node11 -->
+<g id="edge96_Node000010_Node000011" class="edge">
+<title>Node10&#45;&gt;Node11</title>
+<g id="a_edge96_Node000010_Node000011"><a xlink:title=" ">
 <path fill="none" stroke="#63b8ff" d="M147.3,-86.72C158.44,-85.46 169.88,-84.17 180.96,-82.92"/>
 <polygon fill="#63b8ff" stroke="#63b8ff" points="146.72,-83.26 137.18,-87.86 147.51,-90.22 146.72,-83.26"/>
 </a>
@@ -203,26 +203,45 @@
 <g id="edge92_Node000007_Node000001" class="edge">
 <title>Node7&#45;&gt;Node1</title>
 <g id="a_edge92_Node000007_Node000001"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M323,-130.02C328.85,-131.9 334.6,-134.05 340,-136.5 357.97,-144.65 358.33,-153.7 376,-162.5 382.72,-165.85 390,-168.84 397.33,-171.47"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="323.67,-126.57 313.09,-127.09 321.69,-133.28 323.67,-126.57"/>
+<path fill="none" stroke="#63b8ff" d="M330.07,-131C333.52,-132.63 336.86,-134.46 340,-136.5 362.35,-151.04 354.19,-169.16 376,-184.5 380.87,-187.92 386.24,-190.87 391.81,-193.4"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="331.25,-127.7 320.68,-127.13 328.58,-134.18 331.25,-127.7"/>
 </a>
 </g>
 </g>
 <!-- Node7&#45;&gt;Node3 -->
-<g id="edge93_Node000007_Node000003" class="edge">
+<g id="edge94_Node000007_Node000003" class="edge">
 <title>Node7&#45;&gt;Node3</title>
-<g id="a_edge93_Node000007_Node000003"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M336.88,-106.59C353.28,-104.34 370.4,-101.99 386.34,-99.8"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="336.21,-103.15 326.78,-107.98 337.16,-110.09 336.21,-103.15"/>
+<g id="a_edge94_Node000007_Node000003"><a xlink:title=" ">
+<path fill="none" stroke="#63b8ff" d="M311.18,-105.66C320.8,-103.39 330.72,-100.95 340,-98.5 361.77,-92.75 385.66,-85.74 405.93,-79.57"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="310.25,-102.28 301.3,-107.96 311.83,-109.1 310.25,-102.28"/>
+</a>
+</g>
+</g>
+<!-- Node7&#45;&gt;Node9 -->
+<g id="edge95_Node000007_Node000009" class="edge">
+<title>Node7&#45;&gt;Node9</title>
+<g id="a_edge95_Node000007_Node000009"><a xlink:title=" ">
+<path fill="none" stroke="#63b8ff" d="M311,-129.21C333.95,-134.23 361.03,-140.16 385.42,-145.49"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="311.63,-125.76 301.11,-127.04 310.13,-132.6 311.63,-125.76"/>
+</a>
+</g>
+</g>
+<!-- Node8 -->
+<g id="Node000008" class="node">
+<title>Node8</title>
+<g id="a_Node000008"><a xlink:href="classRa_1_1Engine_1_1Data_1_1RawShaderMaterial.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="#666666" points="534,-127.5 376,-127.5 376,-97.5 534,-97.5 534,-127.5"/>
+<text text-anchor="start" x="384" y="-115.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Data::RawShader</text>
+<text text-anchor="middle" x="455" y="-104.5" font-family="Helvetica,sans-Serif" font-size="10.00">Material</text>
 </a>
 </g>
 </g>
 <!-- Node7&#45;&gt;Node8 -->
-<g id="edge94_Node000007_Node000008" class="edge">
+<g id="edge93_Node000007_Node000008" class="edge">
 <title>Node7&#45;&gt;Node8</title>
-<g id="a_edge94_Node000007_Node000008"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M338.7,-126.18C351.28,-127.52 364.23,-128.91 376.72,-130.24"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="339.03,-122.69 328.72,-125.11 338.29,-129.65 339.03,-122.69"/>
+<g id="a_edge93_Node000007_Node000008"><a xlink:title=" ">
+<path fill="none" stroke="#63b8ff" d="M338.86,-115.43C351.04,-115.12 363.59,-114.8 375.71,-114.49"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="338.63,-111.93 328.72,-115.69 338.8,-118.93 338.63,-111.93"/>
 </a>
 </g>
 </g>

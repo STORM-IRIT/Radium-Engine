@@ -7,6 +7,7 @@
 <!--zoomable 160 -->
 
 <svg id="main" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" onload="init(evt)">
+
 <style type="text/css"><![CDATA[
 .node, .edge {opacity: 0.7;}
 .node.selected, .edge.selected {opacity: 1;}
@@ -141,7 +142,7 @@ var sectionId = 'dynsection-28';
 <!-- Node6 -->
 <g id="Node000006" class="node">
 <title>Node6</title>
-<g id="a_Node000006"><a xlink:href="classRa_1_1Core_1_1Utils_1_1Observable.html#a7e5fe761726d56a51f95192eb6555f8f" target="_top" xlink:title="Notify (i.e. call) each attached observer with argument p.">
+<g id="a_Node000006"><a xlink:href="classRa_1_1Core_1_1Utils_1_1Observable.html#a7e5fe761726d56a51f95192eb6555f8f" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="#666666" points="507,-41 359,-41 359,0 507,0 507,-41"/>
 <text text-anchor="start" x="367" y="-29" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Utils::Observable</text>
 <text text-anchor="start" x="367" y="-18" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; const std::string &amp; &gt;</text>

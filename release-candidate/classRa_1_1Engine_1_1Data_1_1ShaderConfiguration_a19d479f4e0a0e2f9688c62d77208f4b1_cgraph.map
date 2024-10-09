@@ -1,7 +1,5 @@
 <map id="Ra::Engine::Data::ShaderConfiguration::isComplete" name="Ra::Engine::Data::ShaderConfiguration::isComplete">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,23,196,63"/>
-<area shape="rect" id="Node000002" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector/empty.html#" title=" " alt="" coords="244,5,385,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="196,29,230,25,231,31,197,35"/>
-<area shape="rect" id="Node000003" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/array/empty.html#" title=" " alt="" coords="248,55,381,80"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="197,51,235,56,234,61,196,57"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,196,45"/>
+<area shape="rect" id="Node000002" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/array/empty.html#" title=" " alt="" coords="244,13,377,38"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="197,23,231,23,231,28,197,28"/>
 </map>

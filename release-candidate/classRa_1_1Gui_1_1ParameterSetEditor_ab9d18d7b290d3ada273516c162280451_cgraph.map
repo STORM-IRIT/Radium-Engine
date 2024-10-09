@@ -1,5 +1,9 @@
 <map id="Ra::Gui::ParameterSetEditor::setupFromParameters" name="Ra::Gui::ParameterSetEditor::setupFromParameters">
-<area shape="rect" id="Node000001" title="Update the different UI element with the given renderParameter, using the given constraints." alt="" coords="5,5,208,45"/>
+<area shape="rect" id="Node000001" title="Update the different UI element with the given renderParameter, using the given constraints." alt="" coords="5,37,208,77"/>
 <area shape="rect" id="Node000002" href="$classRa_1_1Gui_1_1Widgets_1_1ControlPanel.html#ac0b05ce960061203216eb79d7f79d14d" title=" " alt="" coords="256,5,441,45"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="208,23,242,23,242,28,208,28"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="208,41,242,37,243,42,208,47"/>
+<area shape="rect" id="Node000003" href="$classRa_1_1Engine_1_1Data_1_1RenderParameters.html#af7a7544b9c818cd5d4e940fb68d9a08e" title=" " alt="" coords="257,69,441,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="208,68,243,73,243,78,208,73"/>
+<area shape="rect" id="Node000004" href="$classRa_1_1Core_1_1VariableSet.html#abff01d871519d7cd33380f6f8bf1899d" title="Visit the container using a user defined visitor." alt="" coords="489,69,648,109"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="441,87,476,87,476,92,441,92"/>
 </map>

@@ -7,7 +7,8 @@
 <svg width="293pt" height="169pt"
  viewBox="0.00 0.00 293.00 169.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 
-<svg id="main" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" onload="init(evt)">
+<svg id="main" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+
 <style type="text/css"><![CDATA[
 .node, .edge {opacity: 0.7;}
 .node.selected, .edge.selected {opacity: 1;}
@@ -21,7 +22,7 @@
 <g id="clust1" class="cluster">
 <title>clusterdir_68267d1309a1af8e8297ef4c3efbcdba</title>
 <g id="a_clust1"><a xlink:href="dir_68267d1309a1af8e8297ef4c3efbcdba.html" target="_top">
-<polygon fill="#eae7e0" stroke="#404040" stroke-width="2" points="8,-8 8,-153 277,-153 277,-8 8,-8"/>
+<polygon fill="#edf0f7" stroke="#404040" stroke-width="2" points="8,-8 8,-153 277,-153 277,-8 8,-8"/>
 </a>
 </g>
 </g>
@@ -34,7 +35,7 @@
 <g id="node2" class="node">
 <title>dir_a2f0e5642e47e7ed59fe0f0829eafb5f</title>
 <g id="a_node2"><a xlink:href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html" target="_top" xlink:title="Core">
-<polygon fill="#a29374" stroke="#404040" points="178.5,-35 139.5,-35 139.5,-16 178.5,-16 178.5,-35"/>
+<polygon fill="#a2b4d6" stroke="#404040" points="178.5,-35 139.5,-35 139.5,-16 178.5,-16 178.5,-35"/>
 <text text-anchor="middle" x="159" y="-23" font-family="Helvetica,sans-Serif" font-size="10.00">Core</text>
 </a>
 </g>
@@ -43,7 +44,7 @@
 <g id="node3" class="node">
 <title>dir_3072bc1f55ed1280fe4fbe6b21c78379</title>
 <g id="a_node3"><a xlink:href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html" target="_top" xlink:title="Engine">
-<polygon fill="#a29374" stroke="#404040" points="184,-90 134,-90 134,-71 184,-71 184,-90"/>
+<polygon fill="#a2b4d6" stroke="#404040" points="184,-90 134,-90 134,-71 184,-71 184,-90"/>
 <text text-anchor="middle" x="159" y="-78" font-family="Helvetica,sans-Serif" font-size="10.00">Engine</text>
 </a>
 </g>
@@ -65,7 +66,7 @@
 <g id="node4" class="node">
 <title>dir_b5ac5e964c12a6b13a9d28feb9f3d3ed</title>
 <g id="a_node4"><a xlink:href="dir_b5ac5e964c12a6b13a9d28feb9f3d3ed.html" target="_top" xlink:title="Gui">
-<polygon fill="#a29374" stroke="#404040" points="219.5,-145 186.5,-145 186.5,-126 219.5,-126 219.5,-145"/>
+<polygon fill="#a2b4d6" stroke="#404040" points="219.5,-145 186.5,-145 186.5,-126 219.5,-126 219.5,-145"/>
 <text text-anchor="middle" x="203" y="-133" font-family="Helvetica,sans-Serif" font-size="10.00">Gui</text>
 </a>
 </g>
@@ -100,7 +101,7 @@
 <g id="node5" class="node">
 <title>dir_1577ba8040ea4e3d21120572b53f4a28</title>
 <g id="a_node5"><a xlink:href="dir_1577ba8040ea4e3d21120572b53f4a28.html" target="_top" xlink:title="Headless">
-<polygon fill="#a29374" stroke="#404040" points="168,-145 106,-145 106,-126 168,-126 168,-145"/>
+<polygon fill="#a2b4d6" stroke="#404040" points="168,-145 106,-145 106,-126 168,-126 168,-145"/>
 <text text-anchor="middle" x="137" y="-133" font-family="Helvetica,sans-Serif" font-size="10.00">Headless</text>
 </a>
 </g>
@@ -122,7 +123,7 @@
 <g id="node6" class="node">
 <title>dir_fae119eb913a40fe8ed97cde8b98911e</title>
 <g id="a_node6"><a xlink:href="dir_fae119eb913a40fe8ed97cde8b98911e.html" target="_top" xlink:title="IO">
-<polygon fill="#a29374" stroke="#404040" points="115.5,-90 86.5,-90 86.5,-71 115.5,-71 115.5,-90"/>
+<polygon fill="#a2b4d6" stroke="#404040" points="115.5,-90 86.5,-90 86.5,-71 115.5,-71 115.5,-90"/>
 <text text-anchor="middle" x="101" y="-78" font-family="Helvetica,sans-Serif" font-size="10.00">IO</text>
 </a>
 </g>
@@ -144,7 +145,7 @@
 <g id="node7" class="node">
 <title>dir_1b07f77798358fd74e92420363fd4633</title>
 <g id="a_node7"><a xlink:href="dir_1b07f77798358fd74e92420363fd4633.html" target="_top" xlink:title="PluginBase">
-<polygon fill="#a29374" stroke="#404040" points="87.5,-145 16.5,-145 16.5,-126 87.5,-126 87.5,-145"/>
+<polygon fill="#a2b4d6" stroke="#404040" points="87.5,-145 16.5,-145 16.5,-126 87.5,-126 87.5,-145"/>
 <text text-anchor="middle" x="52" y="-133" font-family="Helvetica,sans-Serif" font-size="10.00">PluginBase</text>
 </a>
 </g>

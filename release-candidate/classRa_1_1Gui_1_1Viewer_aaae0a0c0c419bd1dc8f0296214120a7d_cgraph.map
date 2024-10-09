@@ -1,37 +1,43 @@
 <map id="Ra::Gui::Viewer::setupKeyMappingCallbacks" name="Ra::Gui::Viewer::setupKeyMappingCallbacks">
-<area shape="rect" id="Node000001" title="add observers to keyMappingManager for gizmo, camera and viewer." alt="" coords="5,76,196,116"/>
-<area shape="rect" id="Node000002" href="$classRa_1_1Gui_1_1KeyMappingCallbackManager.html#a918fd8a78af7d6b2d184e573779a5e1f" title=" " alt="" coords="260,12,473,52"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="184,73,269,53,271,58,185,79"/>
-<area shape="rect" id="Node000003" href="$classRa_1_1Gui_1_1KeyMappingManageable.html#a32756ab3dce798b29ccad350f7c815ec" title=" " alt="" coords="244,76,489,116"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="122,114,166,125,224,129,283,127,332,118,333,123,283,132,223,135,166,130,121,119"/>
-<area shape="poly" id="edge3_Node000001_Node000003" title=" " alt="" coords="196,111,230,111,230,117,196,116"/>
-<area shape="poly" id="edge4_Node000001_Node000003" title=" " alt="" coords="196,93,230,93,230,99,196,99"/>
-<area shape="poly" id="edge5_Node000001_Node000003" title=" " alt="" coords="196,76,230,75,230,81,196,81"/>
-<area shape="poly" id="edge6_Node000001_Node000003" title=" " alt="" coords="121,73,166,62,223,57,283,60,333,69,332,74,283,65,224,63,166,67,122,78"/>
-<area shape="rect" id="Node000004" href="$classRa_1_1Gui_1_1Viewer.html#a78eef04365913a9a5b1d956a96533471" title="Tell the renderer to reload all shaders." alt="" coords="255,141,478,166"/>
-<area shape="poly" id="edge7_Node000001_Node000004" title=" " alt="" coords="190,113,245,125,291,135,290,140,243,131,189,119"/>
-<area shape="rect" id="Node000015" href="$classRa_1_1Gui_1_1Viewer.html#a59561e6b897b75f16e7b16117b00c1fc" title="Emitted when the corresponding key is released (see keyReleaseEvent)" alt="" coords="263,191,471,231"/>
-<area shape="poly" id="edge18_Node000001_Node000015" title=" " alt="" coords="133,114,184,145,245,175,269,184,267,189,243,180,182,149,131,118"/>
-<area shape="rect" id="Node000016" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a8e993ca967216531820c6f8ab87dda20" title=" " alt="" coords="263,255,470,295"/>
-<area shape="poly" id="edge19_Node000001_Node000016" title=" " alt="" coords="118,115,169,177,205,211,245,240,258,247,255,252,243,245,202,216,166,181,114,118"/>
-<area shape="rect" id="Node000005" href="$classRa_1_1Gui_1_1WindowQt.html#acd31b9e580f049491d13c16ef954d964" title=" " alt="" coords="565,5,717,45"/>
-<area shape="poly" id="edge8_Node000004_Node000005" title=" " alt="" coords="463,138,488,126,504,110,511,92,519,74,536,55,551,46,554,50,539,59,524,76,516,94,508,113,491,130,465,143"/>
-<area shape="rect" id="Node000006" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#abbb35a6ba5e765ce56848af6d235cf8f" title=" " alt="" coords="545,69,736,109"/>
-<area shape="poly" id="edge9_Node000004_Node000006" title=" " alt="" coords="431,138,489,125,551,110,552,115,490,131,432,143"/>
-<area shape="rect" id="Node000008" href="$classRa_1_1Gui_1_1WindowQt.html#a78476baacd2df24a260f604d02c8ddc4" title=" " alt="" coords="565,133,717,173"/>
-<area shape="poly" id="edge11_Node000004_Node000008" title=" " alt="" coords="478,151,551,151,551,156,478,156"/>
-<area shape="rect" id="Node000009" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a8a6ba85153511c0d158246af630027e5" title=" " alt="" coords="545,197,736,237"/>
-<area shape="poly" id="edge12_Node000004_Node000009" title=" " alt="" coords="432,163,490,176,552,191,551,196,489,181,431,169"/>
-<area shape="rect" id="Node000013" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a176af03a142928fb672ec7063efab174" title=" " alt="" coords="537,261,744,301"/>
-<area shape="poly" id="edge16_Node000004_Node000013" title=" " alt="" coords="465,164,491,177,508,194,516,212,524,230,539,247,547,252,544,257,536,251,519,233,511,214,504,197,488,181,463,168"/>
-<area shape="rect" id="Node000007" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/thread/mutex/lock.html#" title=" " alt="" coords="851,77,978,102"/>
-<area shape="poly" id="edge10_Node000006_Node000007" title=" " alt="" coords="736,87,838,87,838,92,736,92"/>
-<area shape="rect" id="Node000010" href="$classRa_1_1Engine_1_1Data_1_1ShaderProgramManager.html#aead39c6f80671dcd10102c572da40bc1" title=" " alt="" coords="792,190,1037,245"/>
-<area shape="poly" id="edge13_Node000009_Node000010" title=" " alt="" coords="736,215,778,215,778,220,736,220"/>
-<area shape="rect" id="Node000011" href="$classRa_1_1Engine_1_1Data_1_1ShaderProgramManager.html#ad66d3c5dc3db4aefeb767e68dcd016f7" title=" " alt="" coords="1085,161,1353,201"/>
-<area shape="poly" id="edge14_Node000010_Node000011" title=" " alt="" coords="1037,200,1071,196,1072,201,1038,205"/>
-<area shape="rect" id="Node000012" href="$classRa_1_1Engine_1_1Data_1_1ShaderProgramManager.html#a0316994e83106528893d55eefc851ca0" title=" " alt="" coords="1085,226,1353,281"/>
-<area shape="poly" id="edge15_Node000010_Node000012" title=" " alt="" coords="1038,229,1072,233,1071,239,1037,234"/>
-<area shape="rect" id="Node000014" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/thread/mutex/unlock.html#" title=" " alt="" coords="843,269,986,294"/>
-<area shape="poly" id="edge17_Node000013_Node000014" title=" " alt="" coords="744,279,830,279,830,284,744,284"/>
+<area shape="rect" id="Node000001" title="add observers to keyMappingManager for gizmo, camera and viewer." alt="" coords="5,77,196,117"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Gui_1_1KeyMappingCallbackManager.html#a918fd8a78af7d6b2d184e573779a5e1f" title=" " alt="" coords="256,5,469,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="172,75,243,55,274,46,275,51,245,60,173,80"/>
+<area shape="rect" id="Node000003" href="$classRa_1_1Gui_1_1KeyMappingManageable.html#a32756ab3dce798b29ccad350f7c815ec" title=" " alt="" coords="244,70,481,125"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="122,115,159,125,207,130,258,130,306,125,306,130,258,135,206,135,158,130,121,120"/>
+<area shape="poly" id="edge3_Node000001_Node000003" title=" " alt="" coords="196,112,230,113,230,118,196,117"/>
+<area shape="poly" id="edge4_Node000001_Node000003" title=" " alt="" coords="196,95,230,95,230,100,196,100"/>
+<area shape="poly" id="edge5_Node000001_Node000003" title=" " alt="" coords="196,77,230,77,230,82,196,83"/>
+<area shape="poly" id="edge6_Node000001_Node000003" title=" " alt="" coords="121,75,158,64,206,59,258,59,306,65,306,70,258,65,207,65,159,70,122,80"/>
+<area shape="rect" id="Node000004" href="$classRa_1_1Gui_1_1Viewer.html#a78eef04365913a9a5b1d956a96533471" title="Tell the renderer to reload all shaders." alt="" coords="251,149,474,174"/>
+<area shape="poly" id="edge7_Node000001_Node000004" title=" " alt="" coords="173,115,245,133,286,143,285,148,243,139,172,120"/>
+<area shape="rect" id="Node000018" href="$classRa_1_1Gui_1_1Viewer.html#a59561e6b897b75f16e7b16117b00c1fc" title="Emitted when the corresponding key is released (see keyReleaseEvent)" alt="" coords="259,199,467,239"/>
+<area shape="poly" id="edge21_Node000001_Node000018" title=" " alt="" coords="131,115,183,150,245,183,267,192,265,197,243,188,180,154,128,120"/>
+<area shape="rect" id="Node000019" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a8e993ca967216531820c6f8ab87dda20" title=" " alt="" coords="259,263,466,303"/>
+<area shape="poly" id="edge22_Node000001_Node000019" title=" " alt="" coords="117,116,168,182,204,218,245,248,257,255,255,259,243,253,201,222,164,185,113,119"/>
+<area shape="rect" id="Node000005" href="$classRa_1_1Gui_1_1WindowQt.html#acd31b9e580f049491d13c16ef954d964" title=" " alt="" coords="557,13,709,53"/>
+<area shape="poly" id="edge8_Node000004_Node000005" title=" " alt="" coords="455,146,480,134,496,118,503,100,511,82,528,63,543,54,546,58,531,67,516,84,508,102,500,121,483,138,458,151"/>
+<area shape="rect" id="Node000006" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#abbb35a6ba5e765ce56848af6d235cf8f" title=" " alt="" coords="537,77,728,117"/>
+<area shape="poly" id="edge9_Node000004_Node000006" title=" " alt="" coords="424,146,481,133,542,118,544,123,482,139,426,151"/>
+<area shape="rect" id="Node000008" href="$classRa_1_1Gui_1_1WindowQt.html#a78476baacd2df24a260f604d02c8ddc4" title=" " alt="" coords="557,141,709,181"/>
+<area shape="poly" id="edge11_Node000004_Node000008" title=" " alt="" coords="474,159,543,159,543,164,474,164"/>
+<area shape="rect" id="Node000009" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a8a6ba85153511c0d158246af630027e5" title=" " alt="" coords="537,205,728,245"/>
+<area shape="poly" id="edge12_Node000004_Node000009" title=" " alt="" coords="426,171,482,184,544,199,542,204,481,189,424,177"/>
+<area shape="rect" id="Node000016" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a176af03a142928fb672ec7063efab174" title=" " alt="" coords="529,269,736,309"/>
+<area shape="poly" id="edge19_Node000004_Node000016" title=" " alt="" coords="458,172,483,185,500,202,508,220,516,238,531,255,539,260,536,265,528,259,511,241,503,223,496,205,480,189,455,177"/>
+<area shape="rect" id="Node000007" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/thread/mutex/lock.html#" title=" " alt="" coords="843,85,970,110"/>
+<area shape="poly" id="edge10_Node000006_Node000007" title=" " alt="" coords="728,95,830,95,830,100,728,100"/>
+<area shape="rect" id="Node000010" href="$classRa_1_1Engine_1_1Data_1_1ShaderProgramManager.html#aead39c6f80671dcd10102c572da40bc1" title=" " alt="" coords="784,198,1029,253"/>
+<area shape="poly" id="edge13_Node000009_Node000010" title=" " alt="" coords="728,223,770,223,770,228,728,228"/>
+<area shape="rect" id="Node000011" href="$classRa_1_1Engine_1_1Data_1_1ShaderProgramManager.html#ad66d3c5dc3db4aefeb767e68dcd016f7" title=" " alt="" coords="1077,169,1345,209"/>
+<area shape="poly" id="edge14_Node000010_Node000011" title=" " alt="" coords="1029,208,1063,204,1064,209,1030,213"/>
+<area shape="rect" id="Node000012" href="$classRa_1_1Engine_1_1Data_1_1ShaderProgramManager.html#a0316994e83106528893d55eefc851ca0" title=" " alt="" coords="1077,234,1345,289"/>
+<area shape="poly" id="edge15_Node000010_Node000012" title=" " alt="" coords="1030,237,1064,241,1063,247,1029,242"/>
+<area shape="rect" id="Node000013" href="$namespaceRa_1_1Core.html#a51ed2a237e20a947e07bd800839876ca" title=" " alt="" coords="1393,249,1565,274"/>
+<area shape="poly" id="edge16_Node000012_Node000013" title=" " alt="" coords="1346,259,1380,259,1380,264,1346,264"/>
+<area shape="rect" id="Node000014" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/utility/forward.html#" title=" " alt="" coords="1632,223,1732,249"/>
+<area shape="poly" id="edge17_Node000013_Node000014" title=" " alt="" coords="1565,248,1618,241,1618,247,1566,253"/>
+<area shape="rect" id="Node000015" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/memory/shared_ptr/make_shared.html#" title=" " alt="" coords="1613,273,1751,298"/>
+<area shape="poly" id="edge18_Node000013_Node000015" title=" " alt="" coords="1566,269,1600,273,1599,278,1565,274"/>
+<area shape="rect" id="Node000017" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/thread/mutex/unlock.html#" title=" " alt="" coords="835,277,978,302"/>
+<area shape="poly" id="edge20_Node000016_Node000017" title=" " alt="" coords="736,287,822,287,822,292,736,292"/>
 </map>

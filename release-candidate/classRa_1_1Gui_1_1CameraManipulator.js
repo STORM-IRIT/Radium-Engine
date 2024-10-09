@@ -16,7 +16,7 @@ var classRa_1_1Gui_1_1CameraManipulator =
     [ "handleWheelEvent", "classRa_1_1Gui_1_1CameraManipulator.html#a8165d966a089220d266d49470d668ce5", null ],
     [ "hasLightAttached", "classRa_1_1Gui_1_1CameraManipulator.html#aaca8dcd036f910bbd02d926ad94adf0a", null ],
     [ "mapCameraBehaviourToAabb", "classRa_1_1Gui_1_1CameraManipulator.html#a944499010e78ec6a7b442c31f969e01a", null ],
-    [ "mappingContext", "classRa_1_1Gui_1_1CameraManipulator.html#a7d3a18503f7453642c9b13cb4c809075", null ],
+    [ "mappingContext", "classRa_1_1Gui_1_1CameraManipulator.html#a7610a600a5c99f836dbeb46f23dcb728", null ],
     [ "resetCamera", "classRa_1_1Gui_1_1CameraManipulator.html#a1ad7036f72522d6222431df31e5ceeb5", null ],
     [ "setCameraPosition", "classRa_1_1Gui_1_1CameraManipulator.html#aa9b666189d2610e3d07f0d0c27a09e05", null ],
     [ "setCameraTarget", "classRa_1_1Gui_1_1CameraManipulator.html#a3fb7d1d8d6e6ab03f43d995488aa0d8f", null ],

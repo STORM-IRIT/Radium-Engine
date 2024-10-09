@@ -1,0 +1,13 @@
+<map id="Ra::Engine::Scene::Light::getRenderParameters" name="Ra::Engine::Scene::Light::getRenderParameters">
+<area shape="rect" id="Node000001" title="Extract the set of parameters that must be given to a shader for rendering and lighting with this lig..." alt="" coords="5,37,208,77"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a9d929872799f18541433ade3f118099f" title=" " alt="" coords="256,37,528,77"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="208,55,242,55,242,60,208,60"/>
+<area shape="rect" id="Node000003" href="$classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a2cc7b05dcb15c9316684c10d620811fa" title="Get access to the parameter storage." alt="" coords="576,5,760,45"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="528,39,562,35,563,40,529,44"/>
+<area shape="rect" id="Node000004" href="$classRa_1_1Core_1_1VariableSet.html#ab2b16edce3a38198144e923974c401e6" title="Merge the VariableSet from into this." alt="" coords="576,69,760,109"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="529,70,563,74,562,80,528,76"/>
+<area shape="rect" id="Node000005" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/unordered_map/at.html#" title=" " alt="" coords="808,47,981,73"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="760,75,794,70,795,76,761,80"/>
+<area shape="rect" id="Node000006" href="$classRa_1_1Core_1_1VariableSet.html#a01ef218f41f0b2bc08ad3bce52630fa5" title="Gets the stored data type." alt="" coords="815,97,974,137"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="761,98,802,103,801,109,760,103"/>
+</map>

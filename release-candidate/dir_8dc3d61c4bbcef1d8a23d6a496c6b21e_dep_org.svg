@@ -11,7 +11,7 @@
 <g id="clust1" class="cluster">
 <title>clusterdir_1577ba8040ea4e3d21120572b53f4a28</title>
 <g id="a_clust1"><a xlink:href="dir_1577ba8040ea4e3d21120572b53f4a28.html" target="_top" xlink:title="Headless">
-<polygon fill="#eae7e0" stroke="#7f7f7f" stroke-dasharray="5,2" points="8,-8 8,-62 116,-62 116,-8 8,-8"/>
+<polygon fill="#edf0f7" stroke="#7f7f7f" stroke-dasharray="5,2" points="8,-8 8,-62 116,-62 116,-8 8,-8"/>
 <text text-anchor="middle" x="62" y="-50" font-family="Helvetica,sans-Serif" font-size="10.00">Headless</text>
 </a>
 </g>
@@ -20,7 +20,7 @@
 <g id="node1" class="node">
 <title>dir_8dc3d61c4bbcef1d8a23d6a496c6b21e</title>
 <g id="a_node1"><a xlink:href="dir_8dc3d61c4bbcef1d8a23d6a496c6b21e.html" target="_top" xlink:title="OpenGLContext">
-<polygon fill="#eae7e0" stroke="#404040" stroke-width="2" points="108.5,-35 15.5,-35 15.5,-16 108.5,-16 108.5,-35"/>
+<polygon fill="#edf0f7" stroke="#404040" stroke-width="2" points="108.5,-35 15.5,-35 15.5,-16 108.5,-16 108.5,-35"/>
 <text text-anchor="middle" x="62" y="-23" font-family="Helvetica,sans-Serif" font-size="10.00">OpenGLContext</text>
 </a>
 </g>

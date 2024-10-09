@@ -1,3 +1,13 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="Node000000" href="$structRa_1_1FrameTimerData.html" title="This struct holds all timings for one frame of the engine." alt="" coords="5,5,163,31"/>
+<area shape="rect" id="Node000000" href="$classRa_1_1Engine_1_1Scene_1_1System.html" title=" " alt="" coords="5,69,152,109"/>
+<area shape="rect" id="Node000001" href="$classRa_1_1Engine_1_1Scene_1_1CameraManager.html" title=" " alt="" coords="244,5,391,45"/>
+<area shape="poly" id="edge113_Node000000_Node000001" title=" " alt="" coords="164,64,243,42,245,47,166,69"/>
+<area shape="rect" id="Node000003" href="$classRa_1_1Engine_1_1Scene_1_1LightManager.html" title=" " alt="" coords="244,69,391,109"/>
+<area shape="poly" id="edge115_Node000000_Node000003" title=" " alt="" coords="166,87,244,87,244,92,166,92"/>
+<area shape="rect" id="Node000005" href="$classRa_1_1Engine_1_1Scene_1_1SkeletonBasedAnimationSystem.html" title=" " alt="" coords="200,133,435,173"/>
+<area shape="poly" id="edge117_Node000000_Node000005" title=" " alt="" coords="166,110,243,131,241,136,164,115"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Engine_1_1Scene_1_1DefaultCameraManager.html" title="DefaultCameraManager. A simple Camera Manager with a list of Cameras." alt="" coords="483,5,661,45"/>
+<area shape="poly" id="edge114_Node000001_Node000002" title=" " alt="" coords="405,23,482,23,482,28,405,28"/>
+<area shape="rect" id="Node000004" href="$classRa_1_1Engine_1_1Scene_1_1DefaultLightManager.html" title="DefaultLightManager. A simple Light Manager with a list of lights." alt="" coords="493,69,651,109"/>
+<area shape="poly" id="edge116_Node000003_Node000004" title=" " alt="" coords="405,87,492,87,492,92,405,92"/>
 </map>

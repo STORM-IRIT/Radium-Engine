@@ -1,5 +1,7 @@
 <map id="Ra::Engine::Scene::SpotLight::setPosition" name="Ra::Engine::Scene::SpotLight::setPosition">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,168,45"/>
-<area shape="rect" id="Node000002" href="$classRa_1_1Engine_1_1Scene_1_1Light.html#a51f3827111d49e5c8b0a4efed2495a69" title="Gives read&#45;only access to the renderParameters of the light." alt="" coords="216,5,419,45"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="168,23,202,23,202,28,168,28"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,37,168,77"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a30608d23a6e4b4cbcfa0a0211056e04b" title="Add a parameter by value." alt="" coords="220,5,415,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="168,43,206,38,207,43,169,49"/>
+<area shape="rect" id="Node000003" href="$classRa_1_1Engine_1_1Scene_1_1Light.html#a51f3827111d49e5c8b0a4efed2495a69" title="Gives read&#45;only access to the renderParameters of the light." alt="" coords="216,69,419,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="169,66,203,71,202,76,168,71"/>
 </map>

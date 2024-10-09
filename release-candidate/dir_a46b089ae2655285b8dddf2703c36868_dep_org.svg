@@ -11,7 +11,7 @@
 <g id="clust1" class="cluster">
 <title>clusterdir_3072bc1f55ed1280fe4fbe6b21c78379</title>
 <g id="a_clust1"><a xlink:href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html" target="_top" xlink:title="Engine">
-<polygon fill="#eae7e0" stroke="#7f7f7f" stroke-dasharray="5,2" points="8,-47 8,-101 64,-101 64,-47 8,-47"/>
+<polygon fill="#edf0f7" stroke="#7f7f7f" stroke-dasharray="5,2" points="8,-47 8,-101 64,-101 64,-47 8,-47"/>
 <text text-anchor="middle" x="36" y="-89" font-family="Helvetica,sans-Serif" font-size="10.00">Engine</text>
 </a>
 </g>
@@ -20,7 +20,7 @@
 <g id="node1" class="node">
 <title>dir_a46b089ae2655285b8dddf2703c36868</title>
 <g id="a_node1"><a xlink:href="dir_a46b089ae2655285b8dddf2703c36868.html" target="_top" xlink:title="Data">
-<polygon fill="#eae7e0" stroke="#404040" stroke-width="2" points="56,-74 16,-74 16,-55 56,-55 56,-74"/>
+<polygon fill="#edf0f7" stroke="#404040" stroke-width="2" points="56,-74 16,-74 16,-55 56,-55 56,-74"/>
 <text text-anchor="middle" x="36" y="-62" font-family="Helvetica,sans-Serif" font-size="10.00">Data</text>
 </a>
 </g>
@@ -29,7 +29,7 @@
 <g id="node2" class="node">
 <title>dir_a2f0e5642e47e7ed59fe0f0829eafb5f</title>
 <g id="a_node2"><a xlink:href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html" target="_top" xlink:title="Core">
-<polygon fill="#eae7e0" stroke="red" stroke-dasharray="5,2" points="55.5,-19 16.5,-19 16.5,0 55.5,0 55.5,-19"/>
+<polygon fill="#edf0f7" stroke="red" stroke-dasharray="5,2" points="55.5,-19 16.5,-19 16.5,0 55.5,0 55.5,-19"/>
 <text text-anchor="middle" x="36" y="-7" font-family="Helvetica,sans-Serif" font-size="10.00">Core</text>
 </a>
 </g>

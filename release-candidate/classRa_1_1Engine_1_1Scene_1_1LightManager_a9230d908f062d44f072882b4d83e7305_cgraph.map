@@ -1,14 +1,17 @@
 <map id="Ra::Engine::Scene::LightManager::handleAssetLoading" name="Ra::Engine::Scene::LightManager::handleAssetLoading">
-<area shape="rect" id="Node000001" title="Transform loaded file data to usable entities and component in the engine." alt="" coords="5,92,256,132"/>
+<area shape="rect" id="Node000001" title="Transform loaded file data to usable entities and component in the engine." alt="" coords="5,69,256,109"/>
 <area shape="rect" id="Node000002" href="$classRa_1_1Engine_1_1Scene_1_1LightManager.html#a1e088de2f8e0d9c8dbaea6d75709710d" title="Number of lights. This is still a work in progress. The idea is to make it possible for a LightManage..." alt="" coords="349,5,503,45"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="199,89,343,47,344,52,201,94"/>
-<area shape="rect" id="Node000003" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector/size.html#" title=" " alt="" coords="635,42,761,67"/>
-<area shape="poly" id="edge5_Node000001_Node000003" title=" " alt="" coords="256,97,621,60,622,65,257,102"/>
-<area shape="rect" id="Node000004" href="$classRa_1_1Engine_1_1Scene_1_1LightManager.html#abf0ae2599e38b84125031b5074bac25f" title=" " alt="" coords="304,120,548,160"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="256,121,291,124,290,130,256,127"/>
-<area shape="rect" id="Node000006" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/string/basic_string/to_string.html#" title=" " alt="" coords="373,185,479,210"/>
-<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="185,129,305,169,360,183,359,188,303,175,183,135"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="504,31,622,44,621,49,503,36"/>
-<area shape="rect" id="Node000005" href="$classRa_1_1Engine_1_1Scene_1_1System.html#a8d1f1cfd2c615e58b4155154206afece" title=" " alt="" coords="596,120,800,160"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="548,137,582,137,582,143,548,143"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="223,67,335,42,336,48,224,72"/>
+<area shape="rect" id="Node000003" href="$classRa_1_1Engine_1_1Scene_1_1LightManager.html#abf0ae2599e38b84125031b5074bac25f" title=" " alt="" coords="304,69,548,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="256,87,290,87,290,92,256,92"/>
+<area shape="rect" id="Node000008" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/string/basic_string/to_string.html#" title=" " alt="" coords="373,134,479,159"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="235,107,359,131,358,136,234,112"/>
+<area shape="rect" id="Node000004" href="$classRa_1_1Engine_1_1Scene_1_1System.html#a8d1f1cfd2c615e58b4155154206afece" title=" " alt="" coords="596,69,800,109"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="548,87,582,87,582,92,548,92"/>
+<area shape="rect" id="Node000005" href="$classRa_1_1Engine_1_1Scene_1_1Component.html#a28dba9115491fdfd4803f7f32ee53af3" title="Return the entity the component belongs to." alt="" coords="853,5,1017,45"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="772,67,847,46,848,51,774,72"/>
+<area shape="rect" id="Node000006" href="$classRa_1_1Engine_1_1Scene_1_1Component.html#a1d4c8227d4c1c7dacb860e6b44f1f698" title="Return the component&#39;s name." alt="" coords="853,69,1018,109"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="800,87,839,87,839,92,800,92"/>
+<area shape="rect" id="Node000007" href="$classRa_1_1Engine_1_1Scene_1_1Component.html#af211eaa6fd1c608ef143920678da3d52" title="Set the system to which the component belongs." alt="" coords="848,133,1023,173"/>
+<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="774,107,848,127,847,132,772,112"/>
 </map>

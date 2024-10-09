@@ -7,6 +7,7 @@
 <!--zoomable 1617 -->
 
 <svg id="main" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" onload="init(evt)">
+
 <style type="text/css"><![CDATA[
 .node, .edge {opacity: 0.7;}
 .node.selected, .edge.selected {opacity: 1;}
@@ -46,7 +47,7 @@
   </g>
 </defs>
 <script type="application/ecmascript">
-var viewWidth = 1084;
+var viewWidth = 1073;
 var viewHeight = 1617;
 var sectionId = 'dynsection-0';
 </script>
@@ -58,31 +59,31 @@ var sectionId = 'dynsection-0';
 <g id="Node000001" class="node">
 <title>Node1</title>
 <g id="a_Node000001"><a xlink:title=" ">
-<polygon fill="#999999" stroke="transparent" points="666.5,-165 506.5,-165 506.5,0 666.5,0 666.5,-165"/>
-<text text-anchor="start" x="511.5" y="-152.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Geometry</text>
-<text text-anchor="start" x="511.5" y="-141.5" font-family="Helvetica,sans-Serif" font-size="10.00">::TopologicalMesh::WedgeData</text>
-<text text-anchor="start" x="524.5" y="-126.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="551.5" y="-126.5" font-family="Helvetica,sans-Serif" font-size="10.00">Wedge</text>
-<text text-anchor="start" x="524.5" y="-111.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="551.5" y="-111.5" font-family="Helvetica,sans-Serif" font-size="10.00">m_vertexHandle</text>
-<text text-anchor="start" x="524.5" y="-96.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="551.5" y="-96.5" font-family="Helvetica,sans-Serif" font-size="10.00">m_position</text>
-<text text-anchor="start" x="524.5" y="-81.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="551.5" y="-81.5" font-family="Helvetica,sans-Serif" font-size="10.00">WedgeData()</text>
-<text text-anchor="start" x="524.5" y="-66.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="551.5" y="-66.5" font-family="Helvetica,sans-Serif" font-size="10.00">operator==()</text>
-<text text-anchor="start" x="524.5" y="-51.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="551.5" y="-51.5" font-family="Helvetica,sans-Serif" font-size="10.00">operator!=()</text>
-<text text-anchor="start" x="524.5" y="-36.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="551.5" y="-36.5" font-family="Helvetica,sans-Serif" font-size="10.00">operator&lt;()</text>
-<text text-anchor="start" x="524.5" y="-21.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="551.5" y="-21.5" font-family="Helvetica,sans-Serif" font-size="10.00">getAttribArray()</text>
-<text text-anchor="start" x="524.5" y="-6.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="551.5" y="-6.5" font-family="Helvetica,sans-Serif" font-size="10.00">getAttribArray()</text>
-<polygon fill="#666666" stroke="#666666" points="506.5,-136.5 506.5,-136.5 666.5,-136.5 666.5,-136.5 506.5,-136.5"/>
-<polygon fill="#666666" stroke="#666666" points="506.5,-91.5 506.5,-91.5 549.5,-91.5 549.5,-91.5 506.5,-91.5"/>
-<polygon fill="#666666" stroke="#666666" points="549.5,-91.5 549.5,-91.5 666.5,-91.5 666.5,-91.5 549.5,-91.5"/>
-<polygon fill="none" stroke="#666666" points="506.5,0 506.5,-165 666.5,-165 666.5,0 506.5,0"/>
+<polygon fill="#999999" stroke="transparent" points="660.5,-165 500.5,-165 500.5,0 660.5,0 660.5,-165"/>
+<text text-anchor="start" x="505.5" y="-152.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Geometry</text>
+<text text-anchor="start" x="505.5" y="-141.5" font-family="Helvetica,sans-Serif" font-size="10.00">::TopologicalMesh::WedgeData</text>
+<text text-anchor="start" x="518.5" y="-126.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="545.5" y="-126.5" font-family="Helvetica,sans-Serif" font-size="10.00">Wedge</text>
+<text text-anchor="start" x="518.5" y="-111.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="545.5" y="-111.5" font-family="Helvetica,sans-Serif" font-size="10.00">m_vertexHandle</text>
+<text text-anchor="start" x="518.5" y="-96.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="545.5" y="-96.5" font-family="Helvetica,sans-Serif" font-size="10.00">m_position</text>
+<text text-anchor="start" x="518.5" y="-81.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="545.5" y="-81.5" font-family="Helvetica,sans-Serif" font-size="10.00">WedgeData()</text>
+<text text-anchor="start" x="518.5" y="-66.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="545.5" y="-66.5" font-family="Helvetica,sans-Serif" font-size="10.00">operator==()</text>
+<text text-anchor="start" x="518.5" y="-51.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="545.5" y="-51.5" font-family="Helvetica,sans-Serif" font-size="10.00">operator!=()</text>
+<text text-anchor="start" x="518.5" y="-36.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="545.5" y="-36.5" font-family="Helvetica,sans-Serif" font-size="10.00">operator&lt;()</text>
+<text text-anchor="start" x="518.5" y="-21.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="545.5" y="-21.5" font-family="Helvetica,sans-Serif" font-size="10.00">getAttribArray()</text>
+<text text-anchor="start" x="518.5" y="-6.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="545.5" y="-6.5" font-family="Helvetica,sans-Serif" font-size="10.00">getAttribArray()</text>
+<polygon fill="#666666" stroke="#666666" points="500.5,-136.5 500.5,-136.5 660.5,-136.5 660.5,-136.5 500.5,-136.5"/>
+<polygon fill="#666666" stroke="#666666" points="500.5,-91.5 500.5,-91.5 543.5,-91.5 543.5,-91.5 500.5,-91.5"/>
+<polygon fill="#666666" stroke="#666666" points="543.5,-91.5 543.5,-91.5 660.5,-91.5 660.5,-91.5 543.5,-91.5"/>
+<polygon fill="none" stroke="#666666" points="500.5,0 500.5,-165 660.5,-165 660.5,0 500.5,0"/>
 </a>
 </g>
 </g>
@@ -90,43 +91,43 @@ var sectionId = 'dynsection-0';
 <g id="Node000002" class="node">
 <title>Node2</title>
 <g id="a_Node000002"><a xlink:href="classRa_1_1Core_1_1VectorArray.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="transparent" points="330,-467 173,-467 173,-212 330,-212 330,-467"/>
-<text text-anchor="start" x="199.5" y="-454.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::VectorArray</text>
-<text text-anchor="start" x="225.5" y="-443.5" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; Scalar &gt;</text>
-<text text-anchor="start" x="177.5" y="-428.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="190.5" y="-428.5" font-family="Helvetica,sans-Serif" font-size="10.00">NumberOfComponents</text>
-<text text-anchor="start" x="177.5" y="-413.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="190.5" y="-413.5" font-family="Helvetica,sans-Serif" font-size="10.00">getSize()</text>
-<text text-anchor="start" x="177.5" y="-398.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="190.5" y="-398.5" font-family="Helvetica,sans-Serif" font-size="10.00">getNumberOfComponents()</text>
-<text text-anchor="start" x="177.5" y="-383.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="190.5" y="-383.5" font-family="Helvetica,sans-Serif" font-size="10.00">getBufferSize()</text>
-<text text-anchor="start" x="177.5" y="-368.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="190.5" y="-368.5" font-family="Helvetica,sans-Serif" font-size="10.00">getStride()</text>
-<text text-anchor="start" x="177.5" y="-353.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="190.5" y="-353.5" font-family="Helvetica,sans-Serif" font-size="10.00">dataPtr()</text>
-<text text-anchor="start" x="177.5" y="-338.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="190.5" y="-338.5" font-family="Helvetica,sans-Serif" font-size="10.00">getMap()</text>
-<text text-anchor="start" x="177.5" y="-323.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="190.5" y="-323.5" font-family="Helvetica,sans-Serif" font-size="10.00">getMap()</text>
-<text text-anchor="start" x="179" y="-308.5" font-family="Helvetica,sans-Serif" font-size="10.00">*</text>
-<text text-anchor="start" x="190.5" y="-308.5" font-family="Helvetica,sans-Serif" font-size="10.00">getSize()</text>
-<text text-anchor="start" x="179" y="-293.5" font-family="Helvetica,sans-Serif" font-size="10.00">*</text>
-<text text-anchor="start" x="190.5" y="-293.5" font-family="Helvetica,sans-Serif" font-size="10.00">getNumberOfComponents()</text>
-<text text-anchor="start" x="179" y="-278.5" font-family="Helvetica,sans-Serif" font-size="10.00">*</text>
-<text text-anchor="start" x="190.5" y="-278.5" font-family="Helvetica,sans-Serif" font-size="10.00">getBufferSize()</text>
-<text text-anchor="start" x="179" y="-263.5" font-family="Helvetica,sans-Serif" font-size="10.00">*</text>
-<text text-anchor="start" x="190.5" y="-263.5" font-family="Helvetica,sans-Serif" font-size="10.00">getStride()</text>
-<text text-anchor="start" x="179" y="-248.5" font-family="Helvetica,sans-Serif" font-size="10.00">*</text>
-<text text-anchor="start" x="190.5" y="-248.5" font-family="Helvetica,sans-Serif" font-size="10.00">dataPtr()</text>
-<text text-anchor="start" x="179" y="-233.5" font-family="Helvetica,sans-Serif" font-size="10.00">*</text>
-<text text-anchor="start" x="190.5" y="-233.5" font-family="Helvetica,sans-Serif" font-size="10.00">getMap()</text>
-<text text-anchor="start" x="179" y="-218.5" font-family="Helvetica,sans-Serif" font-size="10.00">*</text>
-<text text-anchor="start" x="190.5" y="-218.5" font-family="Helvetica,sans-Serif" font-size="10.00">getMap()</text>
-<polygon fill="#666666" stroke="#666666" points="173.5,-438.5 173.5,-438.5 330.5,-438.5 330.5,-438.5 173.5,-438.5"/>
-<polygon fill="#666666" stroke="#666666" points="173.5,-423.5 173.5,-423.5 188.5,-423.5 188.5,-423.5 173.5,-423.5"/>
-<polygon fill="#666666" stroke="#666666" points="188.5,-423.5 188.5,-423.5 330.5,-423.5 330.5,-423.5 188.5,-423.5"/>
-<polygon fill="none" stroke="#666666" points="173,-212 173,-467 330,-467 330,-212 173,-212"/>
+<polygon fill="white" stroke="transparent" points="327,-467 170,-467 170,-212 327,-212 327,-467"/>
+<text text-anchor="start" x="196.5" y="-454.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::VectorArray</text>
+<text text-anchor="start" x="222.5" y="-443.5" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; Scalar &gt;</text>
+<text text-anchor="start" x="174.5" y="-428.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="187.5" y="-428.5" font-family="Helvetica,sans-Serif" font-size="10.00">NumberOfComponents</text>
+<text text-anchor="start" x="174.5" y="-413.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="187.5" y="-413.5" font-family="Helvetica,sans-Serif" font-size="10.00">getSize()</text>
+<text text-anchor="start" x="174.5" y="-398.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="187.5" y="-398.5" font-family="Helvetica,sans-Serif" font-size="10.00">getNumberOfComponents()</text>
+<text text-anchor="start" x="174.5" y="-383.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="187.5" y="-383.5" font-family="Helvetica,sans-Serif" font-size="10.00">getBufferSize()</text>
+<text text-anchor="start" x="174.5" y="-368.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="187.5" y="-368.5" font-family="Helvetica,sans-Serif" font-size="10.00">getStride()</text>
+<text text-anchor="start" x="174.5" y="-353.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="187.5" y="-353.5" font-family="Helvetica,sans-Serif" font-size="10.00">dataPtr()</text>
+<text text-anchor="start" x="174.5" y="-338.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="187.5" y="-338.5" font-family="Helvetica,sans-Serif" font-size="10.00">getMap()</text>
+<text text-anchor="start" x="174.5" y="-323.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="187.5" y="-323.5" font-family="Helvetica,sans-Serif" font-size="10.00">getMap()</text>
+<text text-anchor="start" x="176" y="-308.5" font-family="Helvetica,sans-Serif" font-size="10.00">*</text>
+<text text-anchor="start" x="187.5" y="-308.5" font-family="Helvetica,sans-Serif" font-size="10.00">getSize()</text>
+<text text-anchor="start" x="176" y="-293.5" font-family="Helvetica,sans-Serif" font-size="10.00">*</text>
+<text text-anchor="start" x="187.5" y="-293.5" font-family="Helvetica,sans-Serif" font-size="10.00">getNumberOfComponents()</text>
+<text text-anchor="start" x="176" y="-278.5" font-family="Helvetica,sans-Serif" font-size="10.00">*</text>
+<text text-anchor="start" x="187.5" y="-278.5" font-family="Helvetica,sans-Serif" font-size="10.00">getBufferSize()</text>
+<text text-anchor="start" x="176" y="-263.5" font-family="Helvetica,sans-Serif" font-size="10.00">*</text>
+<text text-anchor="start" x="187.5" y="-263.5" font-family="Helvetica,sans-Serif" font-size="10.00">getStride()</text>
+<text text-anchor="start" x="176" y="-248.5" font-family="Helvetica,sans-Serif" font-size="10.00">*</text>
+<text text-anchor="start" x="187.5" y="-248.5" font-family="Helvetica,sans-Serif" font-size="10.00">dataPtr()</text>
+<text text-anchor="start" x="176" y="-233.5" font-family="Helvetica,sans-Serif" font-size="10.00">*</text>
+<text text-anchor="start" x="187.5" y="-233.5" font-family="Helvetica,sans-Serif" font-size="10.00">getMap()</text>
+<text text-anchor="start" x="176" y="-218.5" font-family="Helvetica,sans-Serif" font-size="10.00">*</text>
+<text text-anchor="start" x="187.5" y="-218.5" font-family="Helvetica,sans-Serif" font-size="10.00">getMap()</text>
+<polygon fill="#666666" stroke="#666666" points="170.5,-438.5 170.5,-438.5 327.5,-438.5 327.5,-438.5 170.5,-438.5"/>
+<polygon fill="#666666" stroke="#666666" points="170.5,-423.5 170.5,-423.5 185.5,-423.5 185.5,-423.5 170.5,-423.5"/>
+<polygon fill="#666666" stroke="#666666" points="185.5,-423.5 185.5,-423.5 327.5,-423.5 327.5,-423.5 185.5,-423.5"/>
+<polygon fill="none" stroke="#666666" points="170,-212 170,-467 327,-467 327,-212 170,-212"/>
 </a>
 </g>
 </g>
@@ -134,90 +135,90 @@ var sectionId = 'dynsection-0';
 <g id="edge1_Node000001_Node000002" class="edge">
 <title>Node2&#45;&gt;Node1</title>
 <g id="a_edge1_Node000001_Node000002"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M330.31,-266.03C351.07,-247.85 373.75,-228.76 395.5,-212 427.35,-187.46 463.67,-162.36 496.02,-140.93"/>
-<polygon fill="none" stroke="#63b8ff" points="496.36,-140.71 499.16,-134.07 506.38,-134.11 503.57,-140.75 496.36,-140.71"/>
+<path fill="none" stroke="#63b8ff" d="M327.37,-264.26C347.19,-246.58 368.74,-228.17 389.5,-212 421.22,-187.29 457.51,-162.16 489.88,-140.75"/>
+<polygon fill="none" stroke="#63b8ff" points="490.21,-140.53 493.03,-133.89 500.24,-133.93 497.43,-140.57 490.21,-140.53"/>
 </a>
 </g>
-<text text-anchor="middle" x="469.5" y="-186" font-family="Helvetica,sans-Serif" font-size="10.00" fill="grey"> +m_floatAttrib</text>
+<text text-anchor="middle" x="463.5" y="-186" font-family="Helvetica,sans-Serif" font-size="10.00" fill="grey"> +m_floatAttrib</text>
 </g>
 <!-- Node3 -->
 <g id="Node000003" class="node">
 <title>Node3</title>
 <g id="a_Node000003"><a target="_blank" xlink:href="http://en.cppreference.com/w/cpp/container/vector.html" xlink:title=" ">
-<polygon fill="white" stroke="transparent" points="263,-1043 114,-1043 114,-514 263,-514 263,-1043"/>
-<text text-anchor="start" x="119.5" y="-1030.5" font-family="Helvetica,sans-Serif" font-size="10.00">AlignedStdVector&lt; Scalar &#160;&gt;</text>
-<text text-anchor="start" x="130.5" y="-1015.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="155.5" y="-1015.5" font-family="Helvetica,sans-Serif" font-size="10.00">elements</text>
-<text text-anchor="start" x="130.5" y="-1000.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="155.5" y="-1000.5" font-family="Helvetica,sans-Serif" font-size="10.00">push_back()</text>
-<text text-anchor="start" x="130.5" y="-985.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="155.5" y="-985.5" font-family="Helvetica,sans-Serif" font-size="10.00">crbegin()</text>
-<text text-anchor="start" x="130.5" y="-970.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="155.5" y="-970.5" font-family="Helvetica,sans-Serif" font-size="10.00">erase()</text>
-<text text-anchor="start" x="130.5" y="-955.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="155.5" y="-955.5" font-family="Helvetica,sans-Serif" font-size="10.00">data()</text>
-<text text-anchor="start" x="130.5" y="-940.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="155.5" y="-940.5" font-family="Helvetica,sans-Serif" font-size="10.00">insert()</text>
-<text text-anchor="start" x="130.5" y="-925.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="155.5" y="-925.5" font-family="Helvetica,sans-Serif" font-size="10.00">pop_back()</text>
-<text text-anchor="start" x="130.5" y="-910.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="155.5" y="-910.5" font-family="Helvetica,sans-Serif" font-size="10.00">shrink_to_fit()</text>
-<text text-anchor="start" x="130.5" y="-895.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="155.5" y="-895.5" font-family="Helvetica,sans-Serif" font-size="10.00">back()</text>
-<text text-anchor="start" x="130.5" y="-880.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="155.5" y="-880.5" font-family="Helvetica,sans-Serif" font-size="10.00">end()</text>
-<text text-anchor="start" x="130.5" y="-865.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="155.5" y="-865.5" font-family="Helvetica,sans-Serif" font-size="10.00">resize()</text>
-<text text-anchor="start" x="130.5" y="-850.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="155.5" y="-850.5" font-family="Helvetica,sans-Serif" font-size="10.00">emplace_back()</text>
-<text text-anchor="start" x="130.5" y="-835.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="155.5" y="-835.5" font-family="Helvetica,sans-Serif" font-size="10.00">size()</text>
-<text text-anchor="start" x="130.5" y="-820.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="155.5" y="-820.5" font-family="Helvetica,sans-Serif" font-size="10.00">cbegin()</text>
-<text text-anchor="start" x="130.5" y="-805.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="155.5" y="-805.5" font-family="Helvetica,sans-Serif" font-size="10.00">front()</text>
-<text text-anchor="start" x="130.5" y="-790.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="155.5" y="-790.5" font-family="Helvetica,sans-Serif" font-size="10.00">~vector()</text>
-<text text-anchor="start" x="130.5" y="-775.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="155.5" y="-775.5" font-family="Helvetica,sans-Serif" font-size="10.00">rbegin()</text>
-<text text-anchor="start" x="130.5" y="-760.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="155.5" y="-760.5" font-family="Helvetica,sans-Serif" font-size="10.00">crend()</text>
-<text text-anchor="start" x="130.5" y="-745.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="155.5" y="-745.5" font-family="Helvetica,sans-Serif" font-size="10.00">assign()</text>
-<text text-anchor="start" x="130.5" y="-730.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="155.5" y="-730.5" font-family="Helvetica,sans-Serif" font-size="10.00">operator=()</text>
-<text text-anchor="start" x="130.5" y="-715.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="155.5" y="-715.5" font-family="Helvetica,sans-Serif" font-size="10.00">vector()</text>
-<text text-anchor="start" x="130.5" y="-700.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="155.5" y="-700.5" font-family="Helvetica,sans-Serif" font-size="10.00">reserve()</text>
-<text text-anchor="start" x="130.5" y="-685.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="155.5" y="-685.5" font-family="Helvetica,sans-Serif" font-size="10.00">capacity()</text>
-<text text-anchor="start" x="130.5" y="-670.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="155.5" y="-670.5" font-family="Helvetica,sans-Serif" font-size="10.00">empty()</text>
-<text text-anchor="start" x="130.5" y="-655.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="155.5" y="-655.5" font-family="Helvetica,sans-Serif" font-size="10.00">cend()</text>
-<text text-anchor="start" x="130.5" y="-640.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="155.5" y="-640.5" font-family="Helvetica,sans-Serif" font-size="10.00">swap()</text>
-<text text-anchor="start" x="130.5" y="-625.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="155.5" y="-625.5" font-family="Helvetica,sans-Serif" font-size="10.00">max_size()</text>
-<text text-anchor="start" x="130.5" y="-610.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="155.5" y="-610.5" font-family="Helvetica,sans-Serif" font-size="10.00">rend()</text>
-<text text-anchor="start" x="130.5" y="-595.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="155.5" y="-595.5" font-family="Helvetica,sans-Serif" font-size="10.00">get_allocator()</text>
-<text text-anchor="start" x="130.5" y="-580.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="155.5" y="-580.5" font-family="Helvetica,sans-Serif" font-size="10.00">clear()</text>
-<text text-anchor="start" x="130.5" y="-565.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="155.5" y="-565.5" font-family="Helvetica,sans-Serif" font-size="10.00">at()</text>
-<text text-anchor="start" x="130.5" y="-550.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="155.5" y="-550.5" font-family="Helvetica,sans-Serif" font-size="10.00">emplace()</text>
-<text text-anchor="start" x="130.5" y="-535.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="155.5" y="-535.5" font-family="Helvetica,sans-Serif" font-size="10.00">operator[]()</text>
-<text text-anchor="start" x="130.5" y="-520.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="155.5" y="-520.5" font-family="Helvetica,sans-Serif" font-size="10.00">begin()</text>
-<polygon fill="#666666" stroke="#666666" points="114.5,-1025.5 114.5,-1025.5 263.5,-1025.5 263.5,-1025.5 114.5,-1025.5"/>
-<polygon fill="#666666" stroke="#666666" points="114.5,-1010.5 114.5,-1010.5 153.5,-1010.5 153.5,-1010.5 114.5,-1010.5"/>
-<polygon fill="#666666" stroke="#666666" points="153.5,-1010.5 153.5,-1010.5 263.5,-1010.5 263.5,-1010.5 153.5,-1010.5"/>
-<polygon fill="none" stroke="#666666" points="114,-514 114,-1043 263,-1043 263,-514 114,-514"/>
+<polygon fill="white" stroke="transparent" points="260.5,-1043 114.5,-1043 114.5,-514 260.5,-514 260.5,-1043"/>
+<text text-anchor="start" x="119.5" y="-1030.5" font-family="Helvetica,sans-Serif" font-size="10.00">AlignedStdVector&lt; Scalar &gt;</text>
+<text text-anchor="start" x="130" y="-1015.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="154.5" y="-1015.5" font-family="Helvetica,sans-Serif" font-size="10.00">elements</text>
+<text text-anchor="start" x="130" y="-1000.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="154.5" y="-1000.5" font-family="Helvetica,sans-Serif" font-size="10.00">push_back()</text>
+<text text-anchor="start" x="130" y="-985.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="154.5" y="-985.5" font-family="Helvetica,sans-Serif" font-size="10.00">crbegin()</text>
+<text text-anchor="start" x="130" y="-970.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="154.5" y="-970.5" font-family="Helvetica,sans-Serif" font-size="10.00">erase()</text>
+<text text-anchor="start" x="130" y="-955.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="154.5" y="-955.5" font-family="Helvetica,sans-Serif" font-size="10.00">data()</text>
+<text text-anchor="start" x="130" y="-940.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="154.5" y="-940.5" font-family="Helvetica,sans-Serif" font-size="10.00">insert()</text>
+<text text-anchor="start" x="130" y="-925.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="154.5" y="-925.5" font-family="Helvetica,sans-Serif" font-size="10.00">pop_back()</text>
+<text text-anchor="start" x="130" y="-910.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="154.5" y="-910.5" font-family="Helvetica,sans-Serif" font-size="10.00">shrink_to_fit()</text>
+<text text-anchor="start" x="130" y="-895.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="154.5" y="-895.5" font-family="Helvetica,sans-Serif" font-size="10.00">back()</text>
+<text text-anchor="start" x="130" y="-880.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="154.5" y="-880.5" font-family="Helvetica,sans-Serif" font-size="10.00">end()</text>
+<text text-anchor="start" x="130" y="-865.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="154.5" y="-865.5" font-family="Helvetica,sans-Serif" font-size="10.00">resize()</text>
+<text text-anchor="start" x="130" y="-850.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="154.5" y="-850.5" font-family="Helvetica,sans-Serif" font-size="10.00">emplace_back()</text>
+<text text-anchor="start" x="130" y="-835.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="154.5" y="-835.5" font-family="Helvetica,sans-Serif" font-size="10.00">size()</text>
+<text text-anchor="start" x="130" y="-820.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="154.5" y="-820.5" font-family="Helvetica,sans-Serif" font-size="10.00">cbegin()</text>
+<text text-anchor="start" x="130" y="-805.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="154.5" y="-805.5" font-family="Helvetica,sans-Serif" font-size="10.00">front()</text>
+<text text-anchor="start" x="130" y="-790.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="154.5" y="-790.5" font-family="Helvetica,sans-Serif" font-size="10.00">~vector()</text>
+<text text-anchor="start" x="130" y="-775.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="154.5" y="-775.5" font-family="Helvetica,sans-Serif" font-size="10.00">rbegin()</text>
+<text text-anchor="start" x="130" y="-760.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="154.5" y="-760.5" font-family="Helvetica,sans-Serif" font-size="10.00">crend()</text>
+<text text-anchor="start" x="130" y="-745.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="154.5" y="-745.5" font-family="Helvetica,sans-Serif" font-size="10.00">assign()</text>
+<text text-anchor="start" x="130" y="-730.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="154.5" y="-730.5" font-family="Helvetica,sans-Serif" font-size="10.00">operator=()</text>
+<text text-anchor="start" x="130" y="-715.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="154.5" y="-715.5" font-family="Helvetica,sans-Serif" font-size="10.00">vector()</text>
+<text text-anchor="start" x="130" y="-700.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="154.5" y="-700.5" font-family="Helvetica,sans-Serif" font-size="10.00">reserve()</text>
+<text text-anchor="start" x="130" y="-685.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="154.5" y="-685.5" font-family="Helvetica,sans-Serif" font-size="10.00">capacity()</text>
+<text text-anchor="start" x="130" y="-670.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="154.5" y="-670.5" font-family="Helvetica,sans-Serif" font-size="10.00">empty()</text>
+<text text-anchor="start" x="130" y="-655.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="154.5" y="-655.5" font-family="Helvetica,sans-Serif" font-size="10.00">cend()</text>
+<text text-anchor="start" x="130" y="-640.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="154.5" y="-640.5" font-family="Helvetica,sans-Serif" font-size="10.00">swap()</text>
+<text text-anchor="start" x="130" y="-625.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="154.5" y="-625.5" font-family="Helvetica,sans-Serif" font-size="10.00">max_size()</text>
+<text text-anchor="start" x="130" y="-610.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="154.5" y="-610.5" font-family="Helvetica,sans-Serif" font-size="10.00">rend()</text>
+<text text-anchor="start" x="130" y="-595.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="154.5" y="-595.5" font-family="Helvetica,sans-Serif" font-size="10.00">get_allocator()</text>
+<text text-anchor="start" x="130" y="-580.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="154.5" y="-580.5" font-family="Helvetica,sans-Serif" font-size="10.00">clear()</text>
+<text text-anchor="start" x="130" y="-565.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="154.5" y="-565.5" font-family="Helvetica,sans-Serif" font-size="10.00">at()</text>
+<text text-anchor="start" x="130" y="-550.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="154.5" y="-550.5" font-family="Helvetica,sans-Serif" font-size="10.00">emplace()</text>
+<text text-anchor="start" x="130" y="-535.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="154.5" y="-535.5" font-family="Helvetica,sans-Serif" font-size="10.00">operator[]()</text>
+<text text-anchor="start" x="130" y="-520.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="154.5" y="-520.5" font-family="Helvetica,sans-Serif" font-size="10.00">begin()</text>
+<polygon fill="#666666" stroke="#666666" points="114.5,-1025.5 114.5,-1025.5 260.5,-1025.5 260.5,-1025.5 114.5,-1025.5"/>
+<polygon fill="#666666" stroke="#666666" points="114.5,-1010.5 114.5,-1010.5 152.5,-1010.5 152.5,-1010.5 114.5,-1010.5"/>
+<polygon fill="#666666" stroke="#666666" points="152.5,-1010.5 152.5,-1010.5 260.5,-1010.5 260.5,-1010.5 152.5,-1010.5"/>
+<polygon fill="none" stroke="#666666" points="114.5,-514 114.5,-1043 260.5,-1043 260.5,-514 114.5,-514"/>
 </a>
 </g>
 </g>
@@ -225,8 +226,8 @@ var sectionId = 'dynsection-0';
 <g id="edge2_Node000002_Node000003" class="edge">
 <title>Node3&#45;&gt;Node2</title>
 <g id="a_edge2_Node000002_Node000003"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M227.97,-503.74C229.77,-491.21 231.54,-478.93 233.25,-467.1"/>
-<polygon fill="none" stroke="#63b8ff" points="224.47,-503.44 226.51,-513.84 231.4,-504.44 224.47,-503.44"/>
+<path fill="none" stroke="#63b8ff" d="M225.71,-503.74C227.46,-491.21 229.18,-478.93 230.83,-467.1"/>
+<polygon fill="none" stroke="#63b8ff" points="222.22,-503.45 224.3,-513.84 229.15,-504.42 222.22,-503.45"/>
 </a>
 </g>
 </g>
@@ -234,25 +235,25 @@ var sectionId = 'dynsection-0';
 <g id="Node000004" class="node">
 <title>Node4</title>
 <g id="a_Node000004"><a xlink:href="classRa_1_1Core_1_1Utils_1_1ContainerIntrospectionInterface.html" target="_top" xlink:title="This class defines the introspection interface a container need to implement.">
-<polygon fill="white" stroke="transparent" points="737.5,-1412 545.5,-1412 545.5,-1277 737.5,-1277 737.5,-1412"/>
-<text text-anchor="start" x="579.5" y="-1399.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Utils::Container</text>
-<text text-anchor="start" x="587.5" y="-1388.5" font-family="Helvetica,sans-Serif" font-size="10.00">IntrospectionInterface</text>
-<text text-anchor="start" x="639.5" y="-1373.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<text text-anchor="start" x="549.5" y="-1358.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="562.5" y="-1358.5" font-family="Helvetica,sans-Serif" font-size="10.00">~ContainerIntrospectionInterface()</text>
-<text text-anchor="start" x="549.5" y="-1343.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="562.5" y="-1343.5" font-family="Helvetica,sans-Serif" font-size="10.00">getSize()</text>
-<text text-anchor="start" x="549.5" y="-1328.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="562.5" y="-1328.5" font-family="Helvetica,sans-Serif" font-size="10.00">getNumberOfComponents()</text>
-<text text-anchor="start" x="549.5" y="-1313.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="562.5" y="-1313.5" font-family="Helvetica,sans-Serif" font-size="10.00">getBufferSize()</text>
-<text text-anchor="start" x="549.5" y="-1298.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="562.5" y="-1298.5" font-family="Helvetica,sans-Serif" font-size="10.00">getStride()</text>
-<text text-anchor="start" x="549.5" y="-1283.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="562.5" y="-1283.5" font-family="Helvetica,sans-Serif" font-size="10.00">dataPtr()</text>
-<polygon fill="#666666" stroke="#666666" points="545.5,-1383.5 545.5,-1383.5 737.5,-1383.5 737.5,-1383.5 545.5,-1383.5"/>
-<polygon fill="#666666" stroke="#666666" points="545.5,-1368.5 545.5,-1368.5 737.5,-1368.5 737.5,-1368.5 545.5,-1368.5"/>
-<polygon fill="none" stroke="#666666" points="545.5,-1277 545.5,-1412 737.5,-1412 737.5,-1277 545.5,-1277"/>
+<polygon fill="white" stroke="transparent" points="731.5,-1412 539.5,-1412 539.5,-1277 731.5,-1277 731.5,-1412"/>
+<text text-anchor="start" x="573.5" y="-1399.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Utils::Container</text>
+<text text-anchor="start" x="581.5" y="-1388.5" font-family="Helvetica,sans-Serif" font-size="10.00">IntrospectionInterface</text>
+<text text-anchor="start" x="633.5" y="-1373.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<text text-anchor="start" x="543.5" y="-1358.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="556.5" y="-1358.5" font-family="Helvetica,sans-Serif" font-size="10.00">~ContainerIntrospectionInterface()</text>
+<text text-anchor="start" x="543.5" y="-1343.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="556.5" y="-1343.5" font-family="Helvetica,sans-Serif" font-size="10.00">getSize()</text>
+<text text-anchor="start" x="543.5" y="-1328.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="556.5" y="-1328.5" font-family="Helvetica,sans-Serif" font-size="10.00">getNumberOfComponents()</text>
+<text text-anchor="start" x="543.5" y="-1313.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="556.5" y="-1313.5" font-family="Helvetica,sans-Serif" font-size="10.00">getBufferSize()</text>
+<text text-anchor="start" x="543.5" y="-1298.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="556.5" y="-1298.5" font-family="Helvetica,sans-Serif" font-size="10.00">getStride()</text>
+<text text-anchor="start" x="543.5" y="-1283.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="556.5" y="-1283.5" font-family="Helvetica,sans-Serif" font-size="10.00">dataPtr()</text>
+<polygon fill="#666666" stroke="#666666" points="539.5,-1383.5 539.5,-1383.5 731.5,-1383.5 731.5,-1383.5 539.5,-1383.5"/>
+<polygon fill="#666666" stroke="#666666" points="539.5,-1368.5 539.5,-1368.5 731.5,-1368.5 731.5,-1368.5 539.5,-1368.5"/>
+<polygon fill="none" stroke="#666666" points="539.5,-1277 539.5,-1412 731.5,-1412 731.5,-1277 539.5,-1277"/>
 </a>
 </g>
 </g>
@@ -260,8 +261,8 @@ var sectionId = 'dynsection-0';
 <g id="edge3_Node000002_Node000004" class="edge">
 <title>Node4&#45;&gt;Node2</title>
 <g id="a_edge3_Node000002_Node000004"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M536.22,-1299.87C394,-1238.53 152.65,-1125.12 104.5,-1043 -14.42,-840.18 23.56,-734.74 104.5,-514 118.7,-475.27 145.8,-439.24 172.91,-410.17"/>
-<polygon fill="none" stroke="#63b8ff" points="534.88,-1303.1 545.45,-1303.84 537.64,-1296.67 534.88,-1303.1"/>
+<path fill="none" stroke="#63b8ff" d="M529.71,-1298.86C389.07,-1237.11 152.73,-1124.08 105.5,-1043 -12.85,-839.85 26.06,-735.28 105.5,-514 118.89,-476.71 144.14,-441.72 169.74,-413.06"/>
+<polygon fill="none" stroke="#63b8ff" points="528.68,-1302.23 539.24,-1303.04 531.49,-1295.82 528.68,-1302.23"/>
 </a>
 </g>
 </g>
@@ -269,42 +270,42 @@ var sectionId = 'dynsection-0';
 <g id="Node000005" class="node">
 <title>Node5</title>
 <g id="a_Node000005"><a xlink:href="classRa_1_1Core_1_1VectorArray.html" target="_top" xlink:title="This class implements ContainerIntrospectionInterface for AlignedStdVector.">
-<polygon fill="white" stroke="transparent" points="613,-900.5 456,-900.5 456,-656.5 613,-656.5 613,-900.5"/>
-<text text-anchor="start" x="468" y="-888.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::VectorArray&lt; V &gt;</text>
-<text text-anchor="start" x="460.5" y="-873.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="473.5" y="-873.5" font-family="Helvetica,sans-Serif" font-size="10.00">NumberOfComponents</text>
-<text text-anchor="start" x="460.5" y="-858.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="473.5" y="-858.5" font-family="Helvetica,sans-Serif" font-size="10.00">getSize()</text>
-<text text-anchor="start" x="460.5" y="-843.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="473.5" y="-843.5" font-family="Helvetica,sans-Serif" font-size="10.00">getNumberOfComponents()</text>
-<text text-anchor="start" x="460.5" y="-828.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="473.5" y="-828.5" font-family="Helvetica,sans-Serif" font-size="10.00">getBufferSize()</text>
-<text text-anchor="start" x="460.5" y="-813.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="473.5" y="-813.5" font-family="Helvetica,sans-Serif" font-size="10.00">getStride()</text>
-<text text-anchor="start" x="460.5" y="-798.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="473.5" y="-798.5" font-family="Helvetica,sans-Serif" font-size="10.00">dataPtr()</text>
-<text text-anchor="start" x="460.5" y="-783.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="473.5" y="-783.5" font-family="Helvetica,sans-Serif" font-size="10.00">getMap()</text>
-<text text-anchor="start" x="460.5" y="-768.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="473.5" y="-768.5" font-family="Helvetica,sans-Serif" font-size="10.00">getMap()</text>
-<text text-anchor="start" x="462" y="-753.5" font-family="Helvetica,sans-Serif" font-size="10.00">*</text>
-<text text-anchor="start" x="473.5" y="-753.5" font-family="Helvetica,sans-Serif" font-size="10.00">getSize()</text>
-<text text-anchor="start" x="462" y="-738.5" font-family="Helvetica,sans-Serif" font-size="10.00">*</text>
-<text text-anchor="start" x="473.5" y="-738.5" font-family="Helvetica,sans-Serif" font-size="10.00">getNumberOfComponents()</text>
-<text text-anchor="start" x="462" y="-723.5" font-family="Helvetica,sans-Serif" font-size="10.00">*</text>
-<text text-anchor="start" x="473.5" y="-723.5" font-family="Helvetica,sans-Serif" font-size="10.00">getBufferSize()</text>
-<text text-anchor="start" x="462" y="-708.5" font-family="Helvetica,sans-Serif" font-size="10.00">*</text>
-<text text-anchor="start" x="473.5" y="-708.5" font-family="Helvetica,sans-Serif" font-size="10.00">getStride()</text>
-<text text-anchor="start" x="462" y="-693.5" font-family="Helvetica,sans-Serif" font-size="10.00">*</text>
-<text text-anchor="start" x="473.5" y="-693.5" font-family="Helvetica,sans-Serif" font-size="10.00">dataPtr()</text>
-<text text-anchor="start" x="462" y="-678.5" font-family="Helvetica,sans-Serif" font-size="10.00">*</text>
-<text text-anchor="start" x="473.5" y="-678.5" font-family="Helvetica,sans-Serif" font-size="10.00">getMap()</text>
-<text text-anchor="start" x="462" y="-663.5" font-family="Helvetica,sans-Serif" font-size="10.00">*</text>
-<text text-anchor="start" x="473.5" y="-663.5" font-family="Helvetica,sans-Serif" font-size="10.00">getMap()</text>
-<polygon fill="#666666" stroke="#666666" points="456.5,-883.5 456.5,-883.5 613.5,-883.5 613.5,-883.5 456.5,-883.5"/>
-<polygon fill="#666666" stroke="#666666" points="456.5,-868.5 456.5,-868.5 471.5,-868.5 471.5,-868.5 456.5,-868.5"/>
-<polygon fill="#666666" stroke="#666666" points="471.5,-868.5 471.5,-868.5 613.5,-868.5 613.5,-868.5 471.5,-868.5"/>
-<polygon fill="none" stroke="#666666" points="456,-656.5 456,-900.5 613,-900.5 613,-656.5 456,-656.5"/>
+<polygon fill="white" stroke="transparent" points="607,-900.5 450,-900.5 450,-656.5 607,-656.5 607,-900.5"/>
+<text text-anchor="start" x="462" y="-888.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::VectorArray&lt; V &gt;</text>
+<text text-anchor="start" x="454.5" y="-873.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="467.5" y="-873.5" font-family="Helvetica,sans-Serif" font-size="10.00">NumberOfComponents</text>
+<text text-anchor="start" x="454.5" y="-858.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="467.5" y="-858.5" font-family="Helvetica,sans-Serif" font-size="10.00">getSize()</text>
+<text text-anchor="start" x="454.5" y="-843.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="467.5" y="-843.5" font-family="Helvetica,sans-Serif" font-size="10.00">getNumberOfComponents()</text>
+<text text-anchor="start" x="454.5" y="-828.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="467.5" y="-828.5" font-family="Helvetica,sans-Serif" font-size="10.00">getBufferSize()</text>
+<text text-anchor="start" x="454.5" y="-813.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="467.5" y="-813.5" font-family="Helvetica,sans-Serif" font-size="10.00">getStride()</text>
+<text text-anchor="start" x="454.5" y="-798.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="467.5" y="-798.5" font-family="Helvetica,sans-Serif" font-size="10.00">dataPtr()</text>
+<text text-anchor="start" x="454.5" y="-783.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="467.5" y="-783.5" font-family="Helvetica,sans-Serif" font-size="10.00">getMap()</text>
+<text text-anchor="start" x="454.5" y="-768.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="467.5" y="-768.5" font-family="Helvetica,sans-Serif" font-size="10.00">getMap()</text>
+<text text-anchor="start" x="456" y="-753.5" font-family="Helvetica,sans-Serif" font-size="10.00">*</text>
+<text text-anchor="start" x="467.5" y="-753.5" font-family="Helvetica,sans-Serif" font-size="10.00">getSize()</text>
+<text text-anchor="start" x="456" y="-738.5" font-family="Helvetica,sans-Serif" font-size="10.00">*</text>
+<text text-anchor="start" x="467.5" y="-738.5" font-family="Helvetica,sans-Serif" font-size="10.00">getNumberOfComponents()</text>
+<text text-anchor="start" x="456" y="-723.5" font-family="Helvetica,sans-Serif" font-size="10.00">*</text>
+<text text-anchor="start" x="467.5" y="-723.5" font-family="Helvetica,sans-Serif" font-size="10.00">getBufferSize()</text>
+<text text-anchor="start" x="456" y="-708.5" font-family="Helvetica,sans-Serif" font-size="10.00">*</text>
+<text text-anchor="start" x="467.5" y="-708.5" font-family="Helvetica,sans-Serif" font-size="10.00">getStride()</text>
+<text text-anchor="start" x="456" y="-693.5" font-family="Helvetica,sans-Serif" font-size="10.00">*</text>
+<text text-anchor="start" x="467.5" y="-693.5" font-family="Helvetica,sans-Serif" font-size="10.00">dataPtr()</text>
+<text text-anchor="start" x="456" y="-678.5" font-family="Helvetica,sans-Serif" font-size="10.00">*</text>
+<text text-anchor="start" x="467.5" y="-678.5" font-family="Helvetica,sans-Serif" font-size="10.00">getMap()</text>
+<text text-anchor="start" x="456" y="-663.5" font-family="Helvetica,sans-Serif" font-size="10.00">*</text>
+<text text-anchor="start" x="467.5" y="-663.5" font-family="Helvetica,sans-Serif" font-size="10.00">getMap()</text>
+<polygon fill="#666666" stroke="#666666" points="450.5,-883.5 450.5,-883.5 607.5,-883.5 607.5,-883.5 450.5,-883.5"/>
+<polygon fill="#666666" stroke="#666666" points="450.5,-868.5 450.5,-868.5 465.5,-868.5 465.5,-868.5 450.5,-868.5"/>
+<polygon fill="#666666" stroke="#666666" points="465.5,-868.5 465.5,-868.5 607.5,-868.5 607.5,-868.5 465.5,-868.5"/>
+<polygon fill="none" stroke="#666666" points="450,-656.5 450,-900.5 607,-900.5 607,-656.5 450,-656.5"/>
 </a>
 </g>
 </g>
@@ -312,8 +313,8 @@ var sectionId = 'dynsection-0';
 <g id="edge6_Node000005_Node000004" class="edge">
 <title>Node4&#45;&gt;Node5</title>
 <g id="a_edge6_Node000005_Node000004"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M626.96,-1266.84C609.09,-1172.67 578.57,-1011.78 557.51,-900.77"/>
-<polygon fill="none" stroke="#63b8ff" points="623.56,-1267.69 628.86,-1276.87 630.43,-1266.39 623.56,-1267.69"/>
+<path fill="none" stroke="#63b8ff" d="M620.96,-1266.84C603.09,-1172.67 572.57,-1011.78 551.51,-900.77"/>
+<polygon fill="none" stroke="#63b8ff" points="617.56,-1267.69 622.86,-1276.87 624.43,-1266.39 617.56,-1267.69"/>
 </a>
 </g>
 </g>
@@ -321,43 +322,43 @@ var sectionId = 'dynsection-0';
 <g id="Node000007" class="node">
 <title>Node7</title>
 <g id="a_Node000007"><a xlink:href="classRa_1_1Core_1_1VectorArray.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="transparent" points="562,-467 405,-467 405,-212 562,-212 562,-467"/>
-<text text-anchor="start" x="431.5" y="-454.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::VectorArray</text>
-<text text-anchor="start" x="454" y="-443.5" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; Vector2 &gt;</text>
-<text text-anchor="start" x="409.5" y="-428.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="422.5" y="-428.5" font-family="Helvetica,sans-Serif" font-size="10.00">NumberOfComponents</text>
-<text text-anchor="start" x="409.5" y="-413.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="422.5" y="-413.5" font-family="Helvetica,sans-Serif" font-size="10.00">getSize()</text>
-<text text-anchor="start" x="409.5" y="-398.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="422.5" y="-398.5" font-family="Helvetica,sans-Serif" font-size="10.00">getNumberOfComponents()</text>
-<text text-anchor="start" x="409.5" y="-383.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="422.5" y="-383.5" font-family="Helvetica,sans-Serif" font-size="10.00">getBufferSize()</text>
-<text text-anchor="start" x="409.5" y="-368.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="422.5" y="-368.5" font-family="Helvetica,sans-Serif" font-size="10.00">getStride()</text>
-<text text-anchor="start" x="409.5" y="-353.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="422.5" y="-353.5" font-family="Helvetica,sans-Serif" font-size="10.00">dataPtr()</text>
-<text text-anchor="start" x="409.5" y="-338.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="422.5" y="-338.5" font-family="Helvetica,sans-Serif" font-size="10.00">getMap()</text>
-<text text-anchor="start" x="409.5" y="-323.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="422.5" y="-323.5" font-family="Helvetica,sans-Serif" font-size="10.00">getMap()</text>
-<text text-anchor="start" x="411" y="-308.5" font-family="Helvetica,sans-Serif" font-size="10.00">*</text>
-<text text-anchor="start" x="422.5" y="-308.5" font-family="Helvetica,sans-Serif" font-size="10.00">getSize()</text>
-<text text-anchor="start" x="411" y="-293.5" font-family="Helvetica,sans-Serif" font-size="10.00">*</text>
-<text text-anchor="start" x="422.5" y="-293.5" font-family="Helvetica,sans-Serif" font-size="10.00">getNumberOfComponents()</text>
-<text text-anchor="start" x="411" y="-278.5" font-family="Helvetica,sans-Serif" font-size="10.00">*</text>
-<text text-anchor="start" x="422.5" y="-278.5" font-family="Helvetica,sans-Serif" font-size="10.00">getBufferSize()</text>
-<text text-anchor="start" x="411" y="-263.5" font-family="Helvetica,sans-Serif" font-size="10.00">*</text>
-<text text-anchor="start" x="422.5" y="-263.5" font-family="Helvetica,sans-Serif" font-size="10.00">getStride()</text>
-<text text-anchor="start" x="411" y="-248.5" font-family="Helvetica,sans-Serif" font-size="10.00">*</text>
-<text text-anchor="start" x="422.5" y="-248.5" font-family="Helvetica,sans-Serif" font-size="10.00">dataPtr()</text>
-<text text-anchor="start" x="411" y="-233.5" font-family="Helvetica,sans-Serif" font-size="10.00">*</text>
-<text text-anchor="start" x="422.5" y="-233.5" font-family="Helvetica,sans-Serif" font-size="10.00">getMap()</text>
-<text text-anchor="start" x="411" y="-218.5" font-family="Helvetica,sans-Serif" font-size="10.00">*</text>
-<text text-anchor="start" x="422.5" y="-218.5" font-family="Helvetica,sans-Serif" font-size="10.00">getMap()</text>
-<polygon fill="#666666" stroke="#666666" points="405.5,-438.5 405.5,-438.5 562.5,-438.5 562.5,-438.5 405.5,-438.5"/>
-<polygon fill="#666666" stroke="#666666" points="405.5,-423.5 405.5,-423.5 420.5,-423.5 420.5,-423.5 405.5,-423.5"/>
-<polygon fill="#666666" stroke="#666666" points="420.5,-423.5 420.5,-423.5 562.5,-423.5 562.5,-423.5 420.5,-423.5"/>
-<polygon fill="none" stroke="#666666" points="405,-212 405,-467 562,-467 562,-212 405,-212"/>
+<polygon fill="white" stroke="transparent" points="556,-467 399,-467 399,-212 556,-212 556,-467"/>
+<text text-anchor="start" x="425.5" y="-454.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::VectorArray</text>
+<text text-anchor="start" x="448" y="-443.5" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; Vector2 &gt;</text>
+<text text-anchor="start" x="403.5" y="-428.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="416.5" y="-428.5" font-family="Helvetica,sans-Serif" font-size="10.00">NumberOfComponents</text>
+<text text-anchor="start" x="403.5" y="-413.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="416.5" y="-413.5" font-family="Helvetica,sans-Serif" font-size="10.00">getSize()</text>
+<text text-anchor="start" x="403.5" y="-398.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="416.5" y="-398.5" font-family="Helvetica,sans-Serif" font-size="10.00">getNumberOfComponents()</text>
+<text text-anchor="start" x="403.5" y="-383.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="416.5" y="-383.5" font-family="Helvetica,sans-Serif" font-size="10.00">getBufferSize()</text>
+<text text-anchor="start" x="403.5" y="-368.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="416.5" y="-368.5" font-family="Helvetica,sans-Serif" font-size="10.00">getStride()</text>
+<text text-anchor="start" x="403.5" y="-353.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="416.5" y="-353.5" font-family="Helvetica,sans-Serif" font-size="10.00">dataPtr()</text>
+<text text-anchor="start" x="403.5" y="-338.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="416.5" y="-338.5" font-family="Helvetica,sans-Serif" font-size="10.00">getMap()</text>
+<text text-anchor="start" x="403.5" y="-323.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="416.5" y="-323.5" font-family="Helvetica,sans-Serif" font-size="10.00">getMap()</text>
+<text text-anchor="start" x="405" y="-308.5" font-family="Helvetica,sans-Serif" font-size="10.00">*</text>
+<text text-anchor="start" x="416.5" y="-308.5" font-family="Helvetica,sans-Serif" font-size="10.00">getSize()</text>
+<text text-anchor="start" x="405" y="-293.5" font-family="Helvetica,sans-Serif" font-size="10.00">*</text>
+<text text-anchor="start" x="416.5" y="-293.5" font-family="Helvetica,sans-Serif" font-size="10.00">getNumberOfComponents()</text>
+<text text-anchor="start" x="405" y="-278.5" font-family="Helvetica,sans-Serif" font-size="10.00">*</text>
+<text text-anchor="start" x="416.5" y="-278.5" font-family="Helvetica,sans-Serif" font-size="10.00">getBufferSize()</text>
+<text text-anchor="start" x="405" y="-263.5" font-family="Helvetica,sans-Serif" font-size="10.00">*</text>
+<text text-anchor="start" x="416.5" y="-263.5" font-family="Helvetica,sans-Serif" font-size="10.00">getStride()</text>
+<text text-anchor="start" x="405" y="-248.5" font-family="Helvetica,sans-Serif" font-size="10.00">*</text>
+<text text-anchor="start" x="416.5" y="-248.5" font-family="Helvetica,sans-Serif" font-size="10.00">dataPtr()</text>
+<text text-anchor="start" x="405" y="-233.5" font-family="Helvetica,sans-Serif" font-size="10.00">*</text>
+<text text-anchor="start" x="416.5" y="-233.5" font-family="Helvetica,sans-Serif" font-size="10.00">getMap()</text>
+<text text-anchor="start" x="405" y="-218.5" font-family="Helvetica,sans-Serif" font-size="10.00">*</text>
+<text text-anchor="start" x="416.5" y="-218.5" font-family="Helvetica,sans-Serif" font-size="10.00">getMap()</text>
+<polygon fill="#666666" stroke="#666666" points="399.5,-438.5 399.5,-438.5 556.5,-438.5 556.5,-438.5 399.5,-438.5"/>
+<polygon fill="#666666" stroke="#666666" points="399.5,-423.5 399.5,-423.5 414.5,-423.5 414.5,-423.5 399.5,-423.5"/>
+<polygon fill="#666666" stroke="#666666" points="414.5,-423.5 414.5,-423.5 556.5,-423.5 556.5,-423.5 414.5,-423.5"/>
+<polygon fill="none" stroke="#666666" points="399,-212 399,-467 556,-467 556,-212 399,-212"/>
 </a>
 </g>
 </g>
@@ -365,8 +366,8 @@ var sectionId = 'dynsection-0';
 <g id="edge9_Node000007_Node000004" class="edge">
 <title>Node4&#45;&gt;Node7</title>
 <g id="a_edge9_Node000007_Node000004"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M644.97,-1266.86C653.29,-1068.41 670.66,-548.73 627.5,-485 615.88,-467.85 601.03,-479.48 584.5,-467 576.76,-461.16 569.28,-454.59 562.11,-447.61"/>
-<polygon fill="none" stroke="#63b8ff" points="641.47,-1266.78 644.54,-1276.92 648.46,-1267.08 641.47,-1266.78"/>
+<path fill="none" stroke="#63b8ff" d="M638.97,-1266.86C647.29,-1068.41 664.66,-548.73 621.5,-485 609.88,-467.85 595.03,-479.48 578.5,-467 570.76,-461.16 563.28,-454.59 556.11,-447.61"/>
+<polygon fill="none" stroke="#63b8ff" points="635.47,-1266.78 638.54,-1276.92 642.46,-1267.08 635.47,-1266.78"/>
 </a>
 </g>
 </g>
@@ -374,43 +375,43 @@ var sectionId = 'dynsection-0';
 <g id="Node000009" class="node">
 <title>Node9</title>
 <g id="a_Node000009"><a xlink:href="classRa_1_1Core_1_1VectorArray.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="transparent" points="751,-467 594,-467 594,-212 751,-212 751,-467"/>
-<text text-anchor="start" x="620.5" y="-454.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::VectorArray</text>
-<text text-anchor="start" x="643" y="-443.5" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; Vector3 &gt;</text>
-<text text-anchor="start" x="598.5" y="-428.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="611.5" y="-428.5" font-family="Helvetica,sans-Serif" font-size="10.00">NumberOfComponents</text>
-<text text-anchor="start" x="598.5" y="-413.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="611.5" y="-413.5" font-family="Helvetica,sans-Serif" font-size="10.00">getSize()</text>
-<text text-anchor="start" x="598.5" y="-398.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="611.5" y="-398.5" font-family="Helvetica,sans-Serif" font-size="10.00">getNumberOfComponents()</text>
-<text text-anchor="start" x="598.5" y="-383.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="611.5" y="-383.5" font-family="Helvetica,sans-Serif" font-size="10.00">getBufferSize()</text>
-<text text-anchor="start" x="598.5" y="-368.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="611.5" y="-368.5" font-family="Helvetica,sans-Serif" font-size="10.00">getStride()</text>
-<text text-anchor="start" x="598.5" y="-353.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="611.5" y="-353.5" font-family="Helvetica,sans-Serif" font-size="10.00">dataPtr()</text>
-<text text-anchor="start" x="598.5" y="-338.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="611.5" y="-338.5" font-family="Helvetica,sans-Serif" font-size="10.00">getMap()</text>
-<text text-anchor="start" x="598.5" y="-323.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="611.5" y="-323.5" font-family="Helvetica,sans-Serif" font-size="10.00">getMap()</text>
-<text text-anchor="start" x="600" y="-308.5" font-family="Helvetica,sans-Serif" font-size="10.00">*</text>
-<text text-anchor="start" x="611.5" y="-308.5" font-family="Helvetica,sans-Serif" font-size="10.00">getSize()</text>
-<text text-anchor="start" x="600" y="-293.5" font-family="Helvetica,sans-Serif" font-size="10.00">*</text>
-<text text-anchor="start" x="611.5" y="-293.5" font-family="Helvetica,sans-Serif" font-size="10.00">getNumberOfComponents()</text>
-<text text-anchor="start" x="600" y="-278.5" font-family="Helvetica,sans-Serif" font-size="10.00">*</text>
-<text text-anchor="start" x="611.5" y="-278.5" font-family="Helvetica,sans-Serif" font-size="10.00">getBufferSize()</text>
-<text text-anchor="start" x="600" y="-263.5" font-family="Helvetica,sans-Serif" font-size="10.00">*</text>
-<text text-anchor="start" x="611.5" y="-263.5" font-family="Helvetica,sans-Serif" font-size="10.00">getStride()</text>
-<text text-anchor="start" x="600" y="-248.5" font-family="Helvetica,sans-Serif" font-size="10.00">*</text>
-<text text-anchor="start" x="611.5" y="-248.5" font-family="Helvetica,sans-Serif" font-size="10.00">dataPtr()</text>
-<text text-anchor="start" x="600" y="-233.5" font-family="Helvetica,sans-Serif" font-size="10.00">*</text>
-<text text-anchor="start" x="611.5" y="-233.5" font-family="Helvetica,sans-Serif" font-size="10.00">getMap()</text>
-<text text-anchor="start" x="600" y="-218.5" font-family="Helvetica,sans-Serif" font-size="10.00">*</text>
-<text text-anchor="start" x="611.5" y="-218.5" font-family="Helvetica,sans-Serif" font-size="10.00">getMap()</text>
-<polygon fill="#666666" stroke="#666666" points="594.5,-438.5 594.5,-438.5 751.5,-438.5 751.5,-438.5 594.5,-438.5"/>
-<polygon fill="#666666" stroke="#666666" points="594.5,-423.5 594.5,-423.5 609.5,-423.5 609.5,-423.5 594.5,-423.5"/>
-<polygon fill="#666666" stroke="#666666" points="609.5,-423.5 609.5,-423.5 751.5,-423.5 751.5,-423.5 609.5,-423.5"/>
-<polygon fill="none" stroke="#666666" points="594,-212 594,-467 751,-467 751,-212 594,-212"/>
+<polygon fill="white" stroke="transparent" points="745,-467 588,-467 588,-212 745,-212 745,-467"/>
+<text text-anchor="start" x="614.5" y="-454.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::VectorArray</text>
+<text text-anchor="start" x="637" y="-443.5" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; Vector3 &gt;</text>
+<text text-anchor="start" x="592.5" y="-428.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="605.5" y="-428.5" font-family="Helvetica,sans-Serif" font-size="10.00">NumberOfComponents</text>
+<text text-anchor="start" x="592.5" y="-413.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="605.5" y="-413.5" font-family="Helvetica,sans-Serif" font-size="10.00">getSize()</text>
+<text text-anchor="start" x="592.5" y="-398.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="605.5" y="-398.5" font-family="Helvetica,sans-Serif" font-size="10.00">getNumberOfComponents()</text>
+<text text-anchor="start" x="592.5" y="-383.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="605.5" y="-383.5" font-family="Helvetica,sans-Serif" font-size="10.00">getBufferSize()</text>
+<text text-anchor="start" x="592.5" y="-368.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="605.5" y="-368.5" font-family="Helvetica,sans-Serif" font-size="10.00">getStride()</text>
+<text text-anchor="start" x="592.5" y="-353.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="605.5" y="-353.5" font-family="Helvetica,sans-Serif" font-size="10.00">dataPtr()</text>
+<text text-anchor="start" x="592.5" y="-338.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="605.5" y="-338.5" font-family="Helvetica,sans-Serif" font-size="10.00">getMap()</text>
+<text text-anchor="start" x="592.5" y="-323.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="605.5" y="-323.5" font-family="Helvetica,sans-Serif" font-size="10.00">getMap()</text>
+<text text-anchor="start" x="594" y="-308.5" font-family="Helvetica,sans-Serif" font-size="10.00">*</text>
+<text text-anchor="start" x="605.5" y="-308.5" font-family="Helvetica,sans-Serif" font-size="10.00">getSize()</text>
+<text text-anchor="start" x="594" y="-293.5" font-family="Helvetica,sans-Serif" font-size="10.00">*</text>
+<text text-anchor="start" x="605.5" y="-293.5" font-family="Helvetica,sans-Serif" font-size="10.00">getNumberOfComponents()</text>
+<text text-anchor="start" x="594" y="-278.5" font-family="Helvetica,sans-Serif" font-size="10.00">*</text>
+<text text-anchor="start" x="605.5" y="-278.5" font-family="Helvetica,sans-Serif" font-size="10.00">getBufferSize()</text>
+<text text-anchor="start" x="594" y="-263.5" font-family="Helvetica,sans-Serif" font-size="10.00">*</text>
+<text text-anchor="start" x="605.5" y="-263.5" font-family="Helvetica,sans-Serif" font-size="10.00">getStride()</text>
+<text text-anchor="start" x="594" y="-248.5" font-family="Helvetica,sans-Serif" font-size="10.00">*</text>
+<text text-anchor="start" x="605.5" y="-248.5" font-family="Helvetica,sans-Serif" font-size="10.00">dataPtr()</text>
+<text text-anchor="start" x="594" y="-233.5" font-family="Helvetica,sans-Serif" font-size="10.00">*</text>
+<text text-anchor="start" x="605.5" y="-233.5" font-family="Helvetica,sans-Serif" font-size="10.00">getMap()</text>
+<text text-anchor="start" x="594" y="-218.5" font-family="Helvetica,sans-Serif" font-size="10.00">*</text>
+<text text-anchor="start" x="605.5" y="-218.5" font-family="Helvetica,sans-Serif" font-size="10.00">getMap()</text>
+<polygon fill="#666666" stroke="#666666" points="588.5,-438.5 588.5,-438.5 745.5,-438.5 745.5,-438.5 588.5,-438.5"/>
+<polygon fill="#666666" stroke="#666666" points="588.5,-423.5 588.5,-423.5 603.5,-423.5 603.5,-423.5 588.5,-423.5"/>
+<polygon fill="#666666" stroke="#666666" points="603.5,-423.5 603.5,-423.5 745.5,-423.5 745.5,-423.5 603.5,-423.5"/>
+<polygon fill="none" stroke="#666666" points="588,-212 588,-467 745,-467 745,-212 588,-212"/>
 </a>
 </g>
 </g>
@@ -418,8 +419,8 @@ var sectionId = 'dynsection-0';
 <g id="edge13_Node000009_Node000004" class="edge">
 <title>Node4&#45;&gt;Node9</title>
 <g id="a_edge13_Node000009_Node000004"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M706.73,-1269.01C752.41,-1211.62 809.57,-1127.95 834.5,-1043 867.6,-930.2 877.62,-623.36 834.5,-514 833.28,-510.9 791.84,-466.54 751.18,-423.45"/>
-<polygon fill="none" stroke="#63b8ff" points="703.9,-1266.94 700.36,-1276.93 709.35,-1271.33 703.9,-1266.94"/>
+<path fill="none" stroke="#63b8ff" d="M700.06,-1268.89C745.28,-1211.44 801.85,-1127.75 826.5,-1043 859.34,-930.12 869.28,-623.49 826.5,-514 825.3,-510.93 784.99,-467.23 745.14,-424.46"/>
+<polygon fill="none" stroke="#63b8ff" points="697.24,-1266.82 693.76,-1276.82 702.72,-1271.17 697.24,-1266.82"/>
 </a>
 </g>
 </g>
@@ -427,43 +428,43 @@ var sectionId = 'dynsection-0';
 <g id="Node000011" class="node">
 <title>Node11</title>
 <g id="a_Node000011"><a xlink:href="classRa_1_1Core_1_1VectorArray.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="transparent" points="958,-467 801,-467 801,-212 958,-212 958,-467"/>
-<text text-anchor="start" x="827.5" y="-454.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::VectorArray</text>
-<text text-anchor="start" x="850" y="-443.5" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; Vector4 &gt;</text>
-<text text-anchor="start" x="805.5" y="-428.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="818.5" y="-428.5" font-family="Helvetica,sans-Serif" font-size="10.00">NumberOfComponents</text>
-<text text-anchor="start" x="805.5" y="-413.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="818.5" y="-413.5" font-family="Helvetica,sans-Serif" font-size="10.00">getSize()</text>
-<text text-anchor="start" x="805.5" y="-398.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="818.5" y="-398.5" font-family="Helvetica,sans-Serif" font-size="10.00">getNumberOfComponents()</text>
-<text text-anchor="start" x="805.5" y="-383.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="818.5" y="-383.5" font-family="Helvetica,sans-Serif" font-size="10.00">getBufferSize()</text>
-<text text-anchor="start" x="805.5" y="-368.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="818.5" y="-368.5" font-family="Helvetica,sans-Serif" font-size="10.00">getStride()</text>
-<text text-anchor="start" x="805.5" y="-353.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="818.5" y="-353.5" font-family="Helvetica,sans-Serif" font-size="10.00">dataPtr()</text>
-<text text-anchor="start" x="805.5" y="-338.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="818.5" y="-338.5" font-family="Helvetica,sans-Serif" font-size="10.00">getMap()</text>
-<text text-anchor="start" x="805.5" y="-323.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="818.5" y="-323.5" font-family="Helvetica,sans-Serif" font-size="10.00">getMap()</text>
-<text text-anchor="start" x="807" y="-308.5" font-family="Helvetica,sans-Serif" font-size="10.00">*</text>
-<text text-anchor="start" x="818.5" y="-308.5" font-family="Helvetica,sans-Serif" font-size="10.00">getSize()</text>
-<text text-anchor="start" x="807" y="-293.5" font-family="Helvetica,sans-Serif" font-size="10.00">*</text>
-<text text-anchor="start" x="818.5" y="-293.5" font-family="Helvetica,sans-Serif" font-size="10.00">getNumberOfComponents()</text>
-<text text-anchor="start" x="807" y="-278.5" font-family="Helvetica,sans-Serif" font-size="10.00">*</text>
-<text text-anchor="start" x="818.5" y="-278.5" font-family="Helvetica,sans-Serif" font-size="10.00">getBufferSize()</text>
-<text text-anchor="start" x="807" y="-263.5" font-family="Helvetica,sans-Serif" font-size="10.00">*</text>
-<text text-anchor="start" x="818.5" y="-263.5" font-family="Helvetica,sans-Serif" font-size="10.00">getStride()</text>
-<text text-anchor="start" x="807" y="-248.5" font-family="Helvetica,sans-Serif" font-size="10.00">*</text>
-<text text-anchor="start" x="818.5" y="-248.5" font-family="Helvetica,sans-Serif" font-size="10.00">dataPtr()</text>
-<text text-anchor="start" x="807" y="-233.5" font-family="Helvetica,sans-Serif" font-size="10.00">*</text>
-<text text-anchor="start" x="818.5" y="-233.5" font-family="Helvetica,sans-Serif" font-size="10.00">getMap()</text>
-<text text-anchor="start" x="807" y="-218.5" font-family="Helvetica,sans-Serif" font-size="10.00">*</text>
-<text text-anchor="start" x="818.5" y="-218.5" font-family="Helvetica,sans-Serif" font-size="10.00">getMap()</text>
-<polygon fill="#666666" stroke="#666666" points="801.5,-438.5 801.5,-438.5 958.5,-438.5 958.5,-438.5 801.5,-438.5"/>
-<polygon fill="#666666" stroke="#666666" points="801.5,-423.5 801.5,-423.5 816.5,-423.5 816.5,-423.5 801.5,-423.5"/>
-<polygon fill="#666666" stroke="#666666" points="816.5,-423.5 816.5,-423.5 958.5,-423.5 958.5,-423.5 816.5,-423.5"/>
-<polygon fill="none" stroke="#666666" points="801,-212 801,-467 958,-467 958,-212 801,-212"/>
+<polygon fill="white" stroke="transparent" points="951,-467 794,-467 794,-212 951,-212 951,-467"/>
+<text text-anchor="start" x="820.5" y="-454.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::VectorArray</text>
+<text text-anchor="start" x="843" y="-443.5" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; Vector4 &gt;</text>
+<text text-anchor="start" x="798.5" y="-428.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="811.5" y="-428.5" font-family="Helvetica,sans-Serif" font-size="10.00">NumberOfComponents</text>
+<text text-anchor="start" x="798.5" y="-413.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="811.5" y="-413.5" font-family="Helvetica,sans-Serif" font-size="10.00">getSize()</text>
+<text text-anchor="start" x="798.5" y="-398.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="811.5" y="-398.5" font-family="Helvetica,sans-Serif" font-size="10.00">getNumberOfComponents()</text>
+<text text-anchor="start" x="798.5" y="-383.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="811.5" y="-383.5" font-family="Helvetica,sans-Serif" font-size="10.00">getBufferSize()</text>
+<text text-anchor="start" x="798.5" y="-368.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="811.5" y="-368.5" font-family="Helvetica,sans-Serif" font-size="10.00">getStride()</text>
+<text text-anchor="start" x="798.5" y="-353.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="811.5" y="-353.5" font-family="Helvetica,sans-Serif" font-size="10.00">dataPtr()</text>
+<text text-anchor="start" x="798.5" y="-338.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="811.5" y="-338.5" font-family="Helvetica,sans-Serif" font-size="10.00">getMap()</text>
+<text text-anchor="start" x="798.5" y="-323.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="811.5" y="-323.5" font-family="Helvetica,sans-Serif" font-size="10.00">getMap()</text>
+<text text-anchor="start" x="800" y="-308.5" font-family="Helvetica,sans-Serif" font-size="10.00">*</text>
+<text text-anchor="start" x="811.5" y="-308.5" font-family="Helvetica,sans-Serif" font-size="10.00">getSize()</text>
+<text text-anchor="start" x="800" y="-293.5" font-family="Helvetica,sans-Serif" font-size="10.00">*</text>
+<text text-anchor="start" x="811.5" y="-293.5" font-family="Helvetica,sans-Serif" font-size="10.00">getNumberOfComponents()</text>
+<text text-anchor="start" x="800" y="-278.5" font-family="Helvetica,sans-Serif" font-size="10.00">*</text>
+<text text-anchor="start" x="811.5" y="-278.5" font-family="Helvetica,sans-Serif" font-size="10.00">getBufferSize()</text>
+<text text-anchor="start" x="800" y="-263.5" font-family="Helvetica,sans-Serif" font-size="10.00">*</text>
+<text text-anchor="start" x="811.5" y="-263.5" font-family="Helvetica,sans-Serif" font-size="10.00">getStride()</text>
+<text text-anchor="start" x="800" y="-248.5" font-family="Helvetica,sans-Serif" font-size="10.00">*</text>
+<text text-anchor="start" x="811.5" y="-248.5" font-family="Helvetica,sans-Serif" font-size="10.00">dataPtr()</text>
+<text text-anchor="start" x="800" y="-233.5" font-family="Helvetica,sans-Serif" font-size="10.00">*</text>
+<text text-anchor="start" x="811.5" y="-233.5" font-family="Helvetica,sans-Serif" font-size="10.00">getMap()</text>
+<text text-anchor="start" x="800" y="-218.5" font-family="Helvetica,sans-Serif" font-size="10.00">*</text>
+<text text-anchor="start" x="811.5" y="-218.5" font-family="Helvetica,sans-Serif" font-size="10.00">getMap()</text>
+<polygon fill="#666666" stroke="#666666" points="794.5,-438.5 794.5,-438.5 951.5,-438.5 951.5,-438.5 794.5,-438.5"/>
+<polygon fill="#666666" stroke="#666666" points="794.5,-423.5 794.5,-423.5 809.5,-423.5 809.5,-423.5 794.5,-423.5"/>
+<polygon fill="#666666" stroke="#666666" points="809.5,-423.5 809.5,-423.5 951.5,-423.5 951.5,-423.5 809.5,-423.5"/>
+<polygon fill="none" stroke="#666666" points="794,-212 794,-467 951,-467 951,-212 794,-212"/>
 </a>
 </g>
 </g>
@@ -471,8 +472,8 @@ var sectionId = 'dynsection-0';
 <g id="edge17_Node000011_Node000004" class="edge">
 <title>Node4&#45;&gt;Node11</title>
 <g id="a_edge17_Node000011_Node000004"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M716.39,-1269.43C768.14,-1212.82 832.8,-1129.95 862.5,-1043 897.65,-940.11 892.09,-639.92 885.47,-467.06"/>
-<polygon fill="none" stroke="#63b8ff" points="713.71,-1267.17 709.5,-1276.89 718.86,-1271.92 713.71,-1267.17"/>
+<path fill="none" stroke="#63b8ff" d="M709.68,-1269.29C760.95,-1212.61 825.02,-1129.72 854.5,-1043 889.5,-940.05 884.49,-639.88 878.21,-467.05"/>
+<polygon fill="none" stroke="#63b8ff" points="707.02,-1267.02 702.86,-1276.76 712.19,-1271.74 707.02,-1267.02"/>
 </a>
 </g>
 </g>
@@ -480,41 +481,41 @@ var sectionId = 'dynsection-0';
 <g id="edge4_Node000002_Node000005" class="edge">
 <title>Node5&#45;&gt;Node2</title>
 <g id="a_edge4_Node000002_Node000005"><a xlink:title=" ">
-<path fill="none" stroke="orange" d="M509.52,-646.46C496.25,-601.21 476.29,-552.31 446.5,-514 437.42,-502.32 430.18,-505.08 418.5,-496 388.31,-472.54 357.15,-444.68 330.05,-419.06"/>
-<polygon fill="orange" stroke="orange" points="506.23,-647.69 512.33,-656.35 512.96,-645.78 506.23,-647.69"/>
+<path fill="none" stroke="orange" d="M503.52,-646.46C490.25,-601.21 470.29,-552.31 440.5,-514 431.42,-502.32 424.14,-505.13 412.5,-496 383.32,-473.12 353.34,-445.94 327.12,-420.76"/>
+<polygon fill="orange" stroke="orange" points="500.23,-647.69 506.33,-656.35 506.96,-645.78 500.23,-647.69"/>
 </a>
 </g>
-<text text-anchor="middle" x="446.5" y="-488" font-family="Helvetica,sans-Serif" font-size="10.00" fill="grey"> &lt; Scalar &gt;</text>
+<text text-anchor="middle" x="440.5" y="-488" font-family="Helvetica,sans-Serif" font-size="10.00" fill="grey"> &lt; Scalar &gt;</text>
 </g>
 <!-- Node5&#45;&gt;Node7 -->
 <g id="edge10_Node000007_Node000005" class="edge">
 <title>Node5&#45;&gt;Node7</title>
 <g id="a_edge10_Node000007_Node000005"><a xlink:title=" ">
-<path fill="none" stroke="orange" d="M497.53,-646.53C486.53,-596.4 477.58,-538.43 478.5,-485 478.6,-479.23 478.72,-473.33 478.86,-467.36"/>
-<polygon fill="orange" stroke="orange" points="494.15,-647.46 499.75,-656.45 500.98,-645.92 494.15,-647.46"/>
+<path fill="none" stroke="orange" d="M491.53,-646.53C480.53,-596.4 471.58,-538.43 472.5,-485 472.6,-479.23 472.72,-473.33 472.86,-467.36"/>
+<polygon fill="orange" stroke="orange" points="488.15,-647.46 493.75,-656.45 494.98,-645.92 488.15,-647.46"/>
 </a>
 </g>
-<text text-anchor="middle" x="510" y="-488" font-family="Helvetica,sans-Serif" font-size="10.00" fill="grey"> &lt; Vector2 &gt;</text>
+<text text-anchor="middle" x="504" y="-488" font-family="Helvetica,sans-Serif" font-size="10.00" fill="grey"> &lt; Vector2 &gt;</text>
 </g>
 <!-- Node5&#45;&gt;Node9 -->
 <g id="edge14_Node000009_Node000005" class="edge">
 <title>Node5&#45;&gt;Node9</title>
 <g id="a_edge14_Node000009_Node000005"><a xlink:title=" ">
-<path fill="none" stroke="orange" d="M575.84,-646.59C593.77,-589.8 614.7,-523.54 632.48,-467.22"/>
-<polygon fill="orange" stroke="orange" points="572.43,-645.76 572.76,-656.35 579.11,-647.87 572.43,-645.76"/>
+<path fill="none" stroke="orange" d="M569.84,-646.59C587.77,-589.8 608.7,-523.54 626.48,-467.22"/>
+<polygon fill="orange" stroke="orange" points="566.43,-645.76 566.76,-656.35 573.11,-647.87 566.43,-645.76"/>
 </a>
 </g>
-<text text-anchor="middle" x="655" y="-488" font-family="Helvetica,sans-Serif" font-size="10.00" fill="grey"> &lt; Vector3 &gt;</text>
+<text text-anchor="middle" x="649" y="-488" font-family="Helvetica,sans-Serif" font-size="10.00" fill="grey"> &lt; Vector3 &gt;</text>
 </g>
 <!-- Node5&#45;&gt;Node11 -->
 <g id="edge18_Node000011_Node000005" class="edge">
 <title>Node5&#45;&gt;Node11</title>
 <g id="a_edge18_Node000011_Node000005"><a xlink:title=" ">
-<path fill="none" stroke="orange" d="M575.94,-647.25C595.74,-600.77 623.4,-550.85 660.5,-514 677.92,-496.7 740.63,-481.42 760.5,-467 774.41,-456.91 788.03,-445.04 800.79,-432.68"/>
-<polygon fill="orange" stroke="orange" points="572.71,-645.92 572.09,-656.5 579.17,-648.62 572.71,-645.92"/>
+<path fill="none" stroke="orange" d="M570.68,-647.01C590.66,-600.63 618.44,-550.84 655.5,-514 672.77,-496.83 734.85,-481.38 754.5,-467 768.07,-457.07 781.35,-445.43 793.82,-433.3"/>
+<polygon fill="orange" stroke="orange" points="567.45,-645.66 566.79,-656.24 573.9,-648.38 567.45,-645.66"/>
 </a>
 </g>
-<text text-anchor="middle" x="750" y="-488" font-family="Helvetica,sans-Serif" font-size="10.00" fill="grey"> &lt; Vector4 &gt;</text>
+<text text-anchor="middle" x="745" y="-488" font-family="Helvetica,sans-Serif" font-size="10.00" fill="grey"> &lt; Vector4 &gt;</text>
 </g>
 <!-- Node6 -->
 <g id="Node000006" class="node">
@@ -601,8 +602,8 @@ var sectionId = 'dynsection-0';
 <g id="edge5_Node000005_Node000006" class="edge">
 <title>Node6&#45;&gt;Node5</title>
 <g id="a_edge5_Node000005_Node000006"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M131.96,-1305.86C218.02,-1256.45 362.49,-1161.88 446.5,-1043 476.28,-1000.85 496.54,-947.91 510.04,-900.55"/>
-<polygon fill="none" stroke="#63b8ff" points="130,-1302.95 123.04,-1310.94 133.46,-1309.03 130,-1302.95"/>
+<path fill="none" stroke="#63b8ff" d="M131.92,-1304.96C216.75,-1255.1 358.1,-1160.55 440.5,-1043 470.05,-1000.84 490.26,-948.02 503.78,-900.77"/>
+<polygon fill="none" stroke="#63b8ff" points="130,-1302.02 123.13,-1310.08 133.53,-1308.07 130,-1302.02"/>
 </a>
 </g>
 </g>
@@ -610,90 +611,90 @@ var sectionId = 'dynsection-0';
 <g id="edge7_Node000001_Node000007" class="edge">
 <title>Node7&#45;&gt;Node1</title>
 <g id="a_edge7_Node000001_Node000007"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M515.36,-211.88C518.8,-202 522.52,-192.26 526.5,-183 527.5,-180.68 528.54,-178.36 529.62,-176.02"/>
-<polygon fill="none" stroke="#63b8ff" points="529.68,-175.89 528.71,-168.75 534.94,-165.1 535.91,-172.25 529.68,-175.89"/>
+<path fill="none" stroke="#63b8ff" d="M509.36,-211.88C512.8,-202 516.52,-192.26 520.5,-183 521.5,-180.68 522.54,-178.36 523.62,-176.02"/>
+<polygon fill="none" stroke="#63b8ff" points="523.68,-175.89 522.71,-168.75 528.94,-165.1 529.91,-172.25 523.68,-175.89"/>
 </a>
 </g>
-<text text-anchor="middle" x="572" y="-186" font-family="Helvetica,sans-Serif" font-size="10.00" fill="grey"> +m_vector2Attrib</text>
+<text text-anchor="middle" x="566" y="-186" font-family="Helvetica,sans-Serif" font-size="10.00" fill="grey"> +m_vector2Attrib</text>
 </g>
 <!-- Node8 -->
 <g id="Node000008" class="node">
 <title>Node8</title>
 <g id="a_Node000008"><a target="_blank" xlink:href="http://en.cppreference.com/w/cpp/container/vector.html" xlink:title=" ">
-<polygon fill="white" stroke="transparent" points="437.5,-1043 281.5,-1043 281.5,-514 437.5,-514 437.5,-1043"/>
-<text text-anchor="start" x="286.5" y="-1030.5" font-family="Helvetica,sans-Serif" font-size="10.00">AlignedStdVector&lt; Vector2 &#160;&gt;</text>
-<text text-anchor="start" x="299.5" y="-1015.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="326.5" y="-1015.5" font-family="Helvetica,sans-Serif" font-size="10.00">elements</text>
-<text text-anchor="start" x="299.5" y="-1000.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="326.5" y="-1000.5" font-family="Helvetica,sans-Serif" font-size="10.00">push_back()</text>
-<text text-anchor="start" x="299.5" y="-985.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="326.5" y="-985.5" font-family="Helvetica,sans-Serif" font-size="10.00">crbegin()</text>
-<text text-anchor="start" x="299.5" y="-970.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="326.5" y="-970.5" font-family="Helvetica,sans-Serif" font-size="10.00">erase()</text>
-<text text-anchor="start" x="299.5" y="-955.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="326.5" y="-955.5" font-family="Helvetica,sans-Serif" font-size="10.00">data()</text>
-<text text-anchor="start" x="299.5" y="-940.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="326.5" y="-940.5" font-family="Helvetica,sans-Serif" font-size="10.00">insert()</text>
-<text text-anchor="start" x="299.5" y="-925.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="326.5" y="-925.5" font-family="Helvetica,sans-Serif" font-size="10.00">pop_back()</text>
-<text text-anchor="start" x="299.5" y="-910.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="326.5" y="-910.5" font-family="Helvetica,sans-Serif" font-size="10.00">shrink_to_fit()</text>
-<text text-anchor="start" x="299.5" y="-895.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="326.5" y="-895.5" font-family="Helvetica,sans-Serif" font-size="10.00">back()</text>
-<text text-anchor="start" x="299.5" y="-880.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="326.5" y="-880.5" font-family="Helvetica,sans-Serif" font-size="10.00">end()</text>
-<text text-anchor="start" x="299.5" y="-865.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="326.5" y="-865.5" font-family="Helvetica,sans-Serif" font-size="10.00">resize()</text>
-<text text-anchor="start" x="299.5" y="-850.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="326.5" y="-850.5" font-family="Helvetica,sans-Serif" font-size="10.00">emplace_back()</text>
-<text text-anchor="start" x="299.5" y="-835.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="326.5" y="-835.5" font-family="Helvetica,sans-Serif" font-size="10.00">size()</text>
-<text text-anchor="start" x="299.5" y="-820.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="326.5" y="-820.5" font-family="Helvetica,sans-Serif" font-size="10.00">cbegin()</text>
-<text text-anchor="start" x="299.5" y="-805.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="326.5" y="-805.5" font-family="Helvetica,sans-Serif" font-size="10.00">front()</text>
-<text text-anchor="start" x="299.5" y="-790.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="326.5" y="-790.5" font-family="Helvetica,sans-Serif" font-size="10.00">~vector()</text>
-<text text-anchor="start" x="299.5" y="-775.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="326.5" y="-775.5" font-family="Helvetica,sans-Serif" font-size="10.00">rbegin()</text>
-<text text-anchor="start" x="299.5" y="-760.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="326.5" y="-760.5" font-family="Helvetica,sans-Serif" font-size="10.00">crend()</text>
-<text text-anchor="start" x="299.5" y="-745.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="326.5" y="-745.5" font-family="Helvetica,sans-Serif" font-size="10.00">assign()</text>
-<text text-anchor="start" x="299.5" y="-730.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="326.5" y="-730.5" font-family="Helvetica,sans-Serif" font-size="10.00">operator=()</text>
-<text text-anchor="start" x="299.5" y="-715.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="326.5" y="-715.5" font-family="Helvetica,sans-Serif" font-size="10.00">vector()</text>
-<text text-anchor="start" x="299.5" y="-700.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="326.5" y="-700.5" font-family="Helvetica,sans-Serif" font-size="10.00">reserve()</text>
-<text text-anchor="start" x="299.5" y="-685.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="326.5" y="-685.5" font-family="Helvetica,sans-Serif" font-size="10.00">capacity()</text>
-<text text-anchor="start" x="299.5" y="-670.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="326.5" y="-670.5" font-family="Helvetica,sans-Serif" font-size="10.00">empty()</text>
-<text text-anchor="start" x="299.5" y="-655.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="326.5" y="-655.5" font-family="Helvetica,sans-Serif" font-size="10.00">cend()</text>
-<text text-anchor="start" x="299.5" y="-640.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="326.5" y="-640.5" font-family="Helvetica,sans-Serif" font-size="10.00">swap()</text>
-<text text-anchor="start" x="299.5" y="-625.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="326.5" y="-625.5" font-family="Helvetica,sans-Serif" font-size="10.00">max_size()</text>
-<text text-anchor="start" x="299.5" y="-610.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="326.5" y="-610.5" font-family="Helvetica,sans-Serif" font-size="10.00">rend()</text>
-<text text-anchor="start" x="299.5" y="-595.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="326.5" y="-595.5" font-family="Helvetica,sans-Serif" font-size="10.00">get_allocator()</text>
-<text text-anchor="start" x="299.5" y="-580.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="326.5" y="-580.5" font-family="Helvetica,sans-Serif" font-size="10.00">clear()</text>
-<text text-anchor="start" x="299.5" y="-565.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="326.5" y="-565.5" font-family="Helvetica,sans-Serif" font-size="10.00">at()</text>
-<text text-anchor="start" x="299.5" y="-550.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="326.5" y="-550.5" font-family="Helvetica,sans-Serif" font-size="10.00">emplace()</text>
-<text text-anchor="start" x="299.5" y="-535.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="326.5" y="-535.5" font-family="Helvetica,sans-Serif" font-size="10.00">operator[]()</text>
-<text text-anchor="start" x="299.5" y="-520.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="326.5" y="-520.5" font-family="Helvetica,sans-Serif" font-size="10.00">begin()</text>
-<polygon fill="#666666" stroke="#666666" points="281.5,-1025.5 281.5,-1025.5 437.5,-1025.5 437.5,-1025.5 281.5,-1025.5"/>
-<polygon fill="#666666" stroke="#666666" points="281.5,-1010.5 281.5,-1010.5 324.5,-1010.5 324.5,-1010.5 281.5,-1010.5"/>
-<polygon fill="#666666" stroke="#666666" points="324.5,-1010.5 324.5,-1010.5 437.5,-1010.5 437.5,-1010.5 324.5,-1010.5"/>
-<polygon fill="none" stroke="#666666" points="281.5,-514 281.5,-1043 437.5,-1043 437.5,-514 281.5,-514"/>
+<polygon fill="white" stroke="transparent" points="432,-1043 279,-1043 279,-514 432,-514 432,-1043"/>
+<text text-anchor="start" x="284.5" y="-1030.5" font-family="Helvetica,sans-Serif" font-size="10.00">AlignedStdVector&lt; Vector2 &gt;</text>
+<text text-anchor="start" x="296.5" y="-1015.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="322.5" y="-1015.5" font-family="Helvetica,sans-Serif" font-size="10.00">elements</text>
+<text text-anchor="start" x="296.5" y="-1000.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="322.5" y="-1000.5" font-family="Helvetica,sans-Serif" font-size="10.00">push_back()</text>
+<text text-anchor="start" x="296.5" y="-985.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="322.5" y="-985.5" font-family="Helvetica,sans-Serif" font-size="10.00">crbegin()</text>
+<text text-anchor="start" x="296.5" y="-970.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="322.5" y="-970.5" font-family="Helvetica,sans-Serif" font-size="10.00">erase()</text>
+<text text-anchor="start" x="296.5" y="-955.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="322.5" y="-955.5" font-family="Helvetica,sans-Serif" font-size="10.00">data()</text>
+<text text-anchor="start" x="296.5" y="-940.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="322.5" y="-940.5" font-family="Helvetica,sans-Serif" font-size="10.00">insert()</text>
+<text text-anchor="start" x="296.5" y="-925.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="322.5" y="-925.5" font-family="Helvetica,sans-Serif" font-size="10.00">pop_back()</text>
+<text text-anchor="start" x="296.5" y="-910.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="322.5" y="-910.5" font-family="Helvetica,sans-Serif" font-size="10.00">shrink_to_fit()</text>
+<text text-anchor="start" x="296.5" y="-895.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="322.5" y="-895.5" font-family="Helvetica,sans-Serif" font-size="10.00">back()</text>
+<text text-anchor="start" x="296.5" y="-880.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="322.5" y="-880.5" font-family="Helvetica,sans-Serif" font-size="10.00">end()</text>
+<text text-anchor="start" x="296.5" y="-865.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="322.5" y="-865.5" font-family="Helvetica,sans-Serif" font-size="10.00">resize()</text>
+<text text-anchor="start" x="296.5" y="-850.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="322.5" y="-850.5" font-family="Helvetica,sans-Serif" font-size="10.00">emplace_back()</text>
+<text text-anchor="start" x="296.5" y="-835.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="322.5" y="-835.5" font-family="Helvetica,sans-Serif" font-size="10.00">size()</text>
+<text text-anchor="start" x="296.5" y="-820.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="322.5" y="-820.5" font-family="Helvetica,sans-Serif" font-size="10.00">cbegin()</text>
+<text text-anchor="start" x="296.5" y="-805.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="322.5" y="-805.5" font-family="Helvetica,sans-Serif" font-size="10.00">front()</text>
+<text text-anchor="start" x="296.5" y="-790.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="322.5" y="-790.5" font-family="Helvetica,sans-Serif" font-size="10.00">~vector()</text>
+<text text-anchor="start" x="296.5" y="-775.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="322.5" y="-775.5" font-family="Helvetica,sans-Serif" font-size="10.00">rbegin()</text>
+<text text-anchor="start" x="296.5" y="-760.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="322.5" y="-760.5" font-family="Helvetica,sans-Serif" font-size="10.00">crend()</text>
+<text text-anchor="start" x="296.5" y="-745.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="322.5" y="-745.5" font-family="Helvetica,sans-Serif" font-size="10.00">assign()</text>
+<text text-anchor="start" x="296.5" y="-730.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="322.5" y="-730.5" font-family="Helvetica,sans-Serif" font-size="10.00">operator=()</text>
+<text text-anchor="start" x="296.5" y="-715.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="322.5" y="-715.5" font-family="Helvetica,sans-Serif" font-size="10.00">vector()</text>
+<text text-anchor="start" x="296.5" y="-700.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="322.5" y="-700.5" font-family="Helvetica,sans-Serif" font-size="10.00">reserve()</text>
+<text text-anchor="start" x="296.5" y="-685.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="322.5" y="-685.5" font-family="Helvetica,sans-Serif" font-size="10.00">capacity()</text>
+<text text-anchor="start" x="296.5" y="-670.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="322.5" y="-670.5" font-family="Helvetica,sans-Serif" font-size="10.00">empty()</text>
+<text text-anchor="start" x="296.5" y="-655.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="322.5" y="-655.5" font-family="Helvetica,sans-Serif" font-size="10.00">cend()</text>
+<text text-anchor="start" x="296.5" y="-640.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="322.5" y="-640.5" font-family="Helvetica,sans-Serif" font-size="10.00">swap()</text>
+<text text-anchor="start" x="296.5" y="-625.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="322.5" y="-625.5" font-family="Helvetica,sans-Serif" font-size="10.00">max_size()</text>
+<text text-anchor="start" x="296.5" y="-610.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="322.5" y="-610.5" font-family="Helvetica,sans-Serif" font-size="10.00">rend()</text>
+<text text-anchor="start" x="296.5" y="-595.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="322.5" y="-595.5" font-family="Helvetica,sans-Serif" font-size="10.00">get_allocator()</text>
+<text text-anchor="start" x="296.5" y="-580.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="322.5" y="-580.5" font-family="Helvetica,sans-Serif" font-size="10.00">clear()</text>
+<text text-anchor="start" x="296.5" y="-565.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="322.5" y="-565.5" font-family="Helvetica,sans-Serif" font-size="10.00">at()</text>
+<text text-anchor="start" x="296.5" y="-550.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="322.5" y="-550.5" font-family="Helvetica,sans-Serif" font-size="10.00">emplace()</text>
+<text text-anchor="start" x="296.5" y="-535.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="322.5" y="-535.5" font-family="Helvetica,sans-Serif" font-size="10.00">operator[]()</text>
+<text text-anchor="start" x="296.5" y="-520.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="322.5" y="-520.5" font-family="Helvetica,sans-Serif" font-size="10.00">begin()</text>
+<polygon fill="#666666" stroke="#666666" points="279.5,-1025.5 279.5,-1025.5 432.5,-1025.5 432.5,-1025.5 279.5,-1025.5"/>
+<polygon fill="#666666" stroke="#666666" points="279.5,-1010.5 279.5,-1010.5 320.5,-1010.5 320.5,-1010.5 279.5,-1010.5"/>
+<polygon fill="#666666" stroke="#666666" points="320.5,-1010.5 320.5,-1010.5 432.5,-1010.5 432.5,-1010.5 320.5,-1010.5"/>
+<polygon fill="none" stroke="#666666" points="279,-514 279,-1043 432,-1043 432,-514 279,-514"/>
 </a>
 </g>
 </g>
@@ -701,8 +702,8 @@ var sectionId = 'dynsection-0';
 <g id="edge8_Node000007_Node000008" class="edge">
 <title>Node8&#45;&gt;Node7</title>
 <g id="a_edge8_Node000007_Node000008"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M367.37,-503.67C369.24,-497.35 371.27,-491.11 373.5,-485 380.89,-464.71 392.2,-444.93 404.81,-426.84"/>
-<polygon fill="none" stroke="#63b8ff" points="363.89,-503.11 364.58,-513.68 370.64,-504.99 363.89,-503.11"/>
+<path fill="none" stroke="#63b8ff" d="M363.44,-503.7C365.29,-497.36 367.3,-491.12 369.5,-485 376.49,-465.55 387.05,-446.52 398.88,-428.99"/>
+<polygon fill="none" stroke="#63b8ff" points="359.96,-503.15 360.69,-513.72 366.71,-505.01 359.96,-503.15"/>
 </a>
 </g>
 </g>
@@ -710,90 +711,90 @@ var sectionId = 'dynsection-0';
 <g id="edge11_Node000001_Node000009" class="edge">
 <title>Node9&#45;&gt;Node1</title>
 <g id="a_edge11_Node000001_Node000009"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M629.75,-211.75C625.78,-199.97 621.8,-188.17 617.96,-176.78"/>
-<polygon fill="none" stroke="#63b8ff" points="617.84,-176.43 612.13,-172.03 614.01,-165.06 619.71,-169.47 617.84,-176.43"/>
+<path fill="none" stroke="#63b8ff" d="M623.75,-211.75C619.78,-199.97 615.8,-188.17 611.96,-176.78"/>
+<polygon fill="none" stroke="#63b8ff" points="611.84,-176.43 606.13,-172.03 608.01,-165.06 613.71,-169.47 611.84,-176.43"/>
 </a>
 </g>
-<text text-anchor="middle" x="667" y="-186" font-family="Helvetica,sans-Serif" font-size="10.00" fill="grey"> +m_vector3Attrib</text>
+<text text-anchor="middle" x="661" y="-186" font-family="Helvetica,sans-Serif" font-size="10.00" fill="grey"> +m_vector3Attrib</text>
 </g>
 <!-- Node10 -->
 <g id="Node000010" class="node">
 <title>Node10</title>
 <g id="a_Node000010"><a target="_blank" xlink:href="http://en.cppreference.com/w/cpp/container/vector.html" xlink:title=" ">
-<polygon fill="white" stroke="transparent" points="825.5,-1043 669.5,-1043 669.5,-514 825.5,-514 825.5,-1043"/>
-<text text-anchor="start" x="674.5" y="-1030.5" font-family="Helvetica,sans-Serif" font-size="10.00">AlignedStdVector&lt; Vector3 &#160;&gt;</text>
-<text text-anchor="start" x="687.5" y="-1015.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="714.5" y="-1015.5" font-family="Helvetica,sans-Serif" font-size="10.00">elements</text>
-<text text-anchor="start" x="687.5" y="-1000.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="714.5" y="-1000.5" font-family="Helvetica,sans-Serif" font-size="10.00">push_back()</text>
-<text text-anchor="start" x="687.5" y="-985.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="714.5" y="-985.5" font-family="Helvetica,sans-Serif" font-size="10.00">crbegin()</text>
-<text text-anchor="start" x="687.5" y="-970.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="714.5" y="-970.5" font-family="Helvetica,sans-Serif" font-size="10.00">erase()</text>
-<text text-anchor="start" x="687.5" y="-955.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="714.5" y="-955.5" font-family="Helvetica,sans-Serif" font-size="10.00">data()</text>
-<text text-anchor="start" x="687.5" y="-940.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="714.5" y="-940.5" font-family="Helvetica,sans-Serif" font-size="10.00">insert()</text>
-<text text-anchor="start" x="687.5" y="-925.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="714.5" y="-925.5" font-family="Helvetica,sans-Serif" font-size="10.00">pop_back()</text>
-<text text-anchor="start" x="687.5" y="-910.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="714.5" y="-910.5" font-family="Helvetica,sans-Serif" font-size="10.00">shrink_to_fit()</text>
-<text text-anchor="start" x="687.5" y="-895.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="714.5" y="-895.5" font-family="Helvetica,sans-Serif" font-size="10.00">back()</text>
-<text text-anchor="start" x="687.5" y="-880.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="714.5" y="-880.5" font-family="Helvetica,sans-Serif" font-size="10.00">end()</text>
-<text text-anchor="start" x="687.5" y="-865.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="714.5" y="-865.5" font-family="Helvetica,sans-Serif" font-size="10.00">resize()</text>
-<text text-anchor="start" x="687.5" y="-850.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="714.5" y="-850.5" font-family="Helvetica,sans-Serif" font-size="10.00">emplace_back()</text>
-<text text-anchor="start" x="687.5" y="-835.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="714.5" y="-835.5" font-family="Helvetica,sans-Serif" font-size="10.00">size()</text>
-<text text-anchor="start" x="687.5" y="-820.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="714.5" y="-820.5" font-family="Helvetica,sans-Serif" font-size="10.00">cbegin()</text>
-<text text-anchor="start" x="687.5" y="-805.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="714.5" y="-805.5" font-family="Helvetica,sans-Serif" font-size="10.00">front()</text>
-<text text-anchor="start" x="687.5" y="-790.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="714.5" y="-790.5" font-family="Helvetica,sans-Serif" font-size="10.00">~vector()</text>
-<text text-anchor="start" x="687.5" y="-775.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="714.5" y="-775.5" font-family="Helvetica,sans-Serif" font-size="10.00">rbegin()</text>
-<text text-anchor="start" x="687.5" y="-760.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="714.5" y="-760.5" font-family="Helvetica,sans-Serif" font-size="10.00">crend()</text>
-<text text-anchor="start" x="687.5" y="-745.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="714.5" y="-745.5" font-family="Helvetica,sans-Serif" font-size="10.00">assign()</text>
-<text text-anchor="start" x="687.5" y="-730.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="714.5" y="-730.5" font-family="Helvetica,sans-Serif" font-size="10.00">operator=()</text>
-<text text-anchor="start" x="687.5" y="-715.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="714.5" y="-715.5" font-family="Helvetica,sans-Serif" font-size="10.00">vector()</text>
-<text text-anchor="start" x="687.5" y="-700.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="714.5" y="-700.5" font-family="Helvetica,sans-Serif" font-size="10.00">reserve()</text>
-<text text-anchor="start" x="687.5" y="-685.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="714.5" y="-685.5" font-family="Helvetica,sans-Serif" font-size="10.00">capacity()</text>
-<text text-anchor="start" x="687.5" y="-670.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="714.5" y="-670.5" font-family="Helvetica,sans-Serif" font-size="10.00">empty()</text>
-<text text-anchor="start" x="687.5" y="-655.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="714.5" y="-655.5" font-family="Helvetica,sans-Serif" font-size="10.00">cend()</text>
-<text text-anchor="start" x="687.5" y="-640.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="714.5" y="-640.5" font-family="Helvetica,sans-Serif" font-size="10.00">swap()</text>
-<text text-anchor="start" x="687.5" y="-625.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="714.5" y="-625.5" font-family="Helvetica,sans-Serif" font-size="10.00">max_size()</text>
-<text text-anchor="start" x="687.5" y="-610.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="714.5" y="-610.5" font-family="Helvetica,sans-Serif" font-size="10.00">rend()</text>
-<text text-anchor="start" x="687.5" y="-595.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="714.5" y="-595.5" font-family="Helvetica,sans-Serif" font-size="10.00">get_allocator()</text>
-<text text-anchor="start" x="687.5" y="-580.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="714.5" y="-580.5" font-family="Helvetica,sans-Serif" font-size="10.00">clear()</text>
-<text text-anchor="start" x="687.5" y="-565.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="714.5" y="-565.5" font-family="Helvetica,sans-Serif" font-size="10.00">at()</text>
-<text text-anchor="start" x="687.5" y="-550.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="714.5" y="-550.5" font-family="Helvetica,sans-Serif" font-size="10.00">emplace()</text>
-<text text-anchor="start" x="687.5" y="-535.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="714.5" y="-535.5" font-family="Helvetica,sans-Serif" font-size="10.00">operator[]()</text>
-<text text-anchor="start" x="687.5" y="-520.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="714.5" y="-520.5" font-family="Helvetica,sans-Serif" font-size="10.00">begin()</text>
-<polygon fill="#666666" stroke="#666666" points="669.5,-1025.5 669.5,-1025.5 825.5,-1025.5 825.5,-1025.5 669.5,-1025.5"/>
-<polygon fill="#666666" stroke="#666666" points="669.5,-1010.5 669.5,-1010.5 712.5,-1010.5 712.5,-1010.5 669.5,-1010.5"/>
-<polygon fill="#666666" stroke="#666666" points="712.5,-1010.5 712.5,-1010.5 825.5,-1010.5 825.5,-1010.5 712.5,-1010.5"/>
-<polygon fill="none" stroke="#666666" points="669.5,-514 669.5,-1043 825.5,-1043 825.5,-514 669.5,-514"/>
+<polygon fill="white" stroke="transparent" points="817,-1043 664,-1043 664,-514 817,-514 817,-1043"/>
+<text text-anchor="start" x="669.5" y="-1030.5" font-family="Helvetica,sans-Serif" font-size="10.00">AlignedStdVector&lt; Vector3 &gt;</text>
+<text text-anchor="start" x="681.5" y="-1015.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="707.5" y="-1015.5" font-family="Helvetica,sans-Serif" font-size="10.00">elements</text>
+<text text-anchor="start" x="681.5" y="-1000.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="707.5" y="-1000.5" font-family="Helvetica,sans-Serif" font-size="10.00">push_back()</text>
+<text text-anchor="start" x="681.5" y="-985.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="707.5" y="-985.5" font-family="Helvetica,sans-Serif" font-size="10.00">crbegin()</text>
+<text text-anchor="start" x="681.5" y="-970.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="707.5" y="-970.5" font-family="Helvetica,sans-Serif" font-size="10.00">erase()</text>
+<text text-anchor="start" x="681.5" y="-955.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="707.5" y="-955.5" font-family="Helvetica,sans-Serif" font-size="10.00">data()</text>
+<text text-anchor="start" x="681.5" y="-940.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="707.5" y="-940.5" font-family="Helvetica,sans-Serif" font-size="10.00">insert()</text>
+<text text-anchor="start" x="681.5" y="-925.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="707.5" y="-925.5" font-family="Helvetica,sans-Serif" font-size="10.00">pop_back()</text>
+<text text-anchor="start" x="681.5" y="-910.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="707.5" y="-910.5" font-family="Helvetica,sans-Serif" font-size="10.00">shrink_to_fit()</text>
+<text text-anchor="start" x="681.5" y="-895.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="707.5" y="-895.5" font-family="Helvetica,sans-Serif" font-size="10.00">back()</text>
+<text text-anchor="start" x="681.5" y="-880.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="707.5" y="-880.5" font-family="Helvetica,sans-Serif" font-size="10.00">end()</text>
+<text text-anchor="start" x="681.5" y="-865.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="707.5" y="-865.5" font-family="Helvetica,sans-Serif" font-size="10.00">resize()</text>
+<text text-anchor="start" x="681.5" y="-850.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="707.5" y="-850.5" font-family="Helvetica,sans-Serif" font-size="10.00">emplace_back()</text>
+<text text-anchor="start" x="681.5" y="-835.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="707.5" y="-835.5" font-family="Helvetica,sans-Serif" font-size="10.00">size()</text>
+<text text-anchor="start" x="681.5" y="-820.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="707.5" y="-820.5" font-family="Helvetica,sans-Serif" font-size="10.00">cbegin()</text>
+<text text-anchor="start" x="681.5" y="-805.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="707.5" y="-805.5" font-family="Helvetica,sans-Serif" font-size="10.00">front()</text>
+<text text-anchor="start" x="681.5" y="-790.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="707.5" y="-790.5" font-family="Helvetica,sans-Serif" font-size="10.00">~vector()</text>
+<text text-anchor="start" x="681.5" y="-775.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="707.5" y="-775.5" font-family="Helvetica,sans-Serif" font-size="10.00">rbegin()</text>
+<text text-anchor="start" x="681.5" y="-760.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="707.5" y="-760.5" font-family="Helvetica,sans-Serif" font-size="10.00">crend()</text>
+<text text-anchor="start" x="681.5" y="-745.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="707.5" y="-745.5" font-family="Helvetica,sans-Serif" font-size="10.00">assign()</text>
+<text text-anchor="start" x="681.5" y="-730.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="707.5" y="-730.5" font-family="Helvetica,sans-Serif" font-size="10.00">operator=()</text>
+<text text-anchor="start" x="681.5" y="-715.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="707.5" y="-715.5" font-family="Helvetica,sans-Serif" font-size="10.00">vector()</text>
+<text text-anchor="start" x="681.5" y="-700.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="707.5" y="-700.5" font-family="Helvetica,sans-Serif" font-size="10.00">reserve()</text>
+<text text-anchor="start" x="681.5" y="-685.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="707.5" y="-685.5" font-family="Helvetica,sans-Serif" font-size="10.00">capacity()</text>
+<text text-anchor="start" x="681.5" y="-670.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="707.5" y="-670.5" font-family="Helvetica,sans-Serif" font-size="10.00">empty()</text>
+<text text-anchor="start" x="681.5" y="-655.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="707.5" y="-655.5" font-family="Helvetica,sans-Serif" font-size="10.00">cend()</text>
+<text text-anchor="start" x="681.5" y="-640.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="707.5" y="-640.5" font-family="Helvetica,sans-Serif" font-size="10.00">swap()</text>
+<text text-anchor="start" x="681.5" y="-625.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="707.5" y="-625.5" font-family="Helvetica,sans-Serif" font-size="10.00">max_size()</text>
+<text text-anchor="start" x="681.5" y="-610.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="707.5" y="-610.5" font-family="Helvetica,sans-Serif" font-size="10.00">rend()</text>
+<text text-anchor="start" x="681.5" y="-595.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="707.5" y="-595.5" font-family="Helvetica,sans-Serif" font-size="10.00">get_allocator()</text>
+<text text-anchor="start" x="681.5" y="-580.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="707.5" y="-580.5" font-family="Helvetica,sans-Serif" font-size="10.00">clear()</text>
+<text text-anchor="start" x="681.5" y="-565.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="707.5" y="-565.5" font-family="Helvetica,sans-Serif" font-size="10.00">at()</text>
+<text text-anchor="start" x="681.5" y="-550.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="707.5" y="-550.5" font-family="Helvetica,sans-Serif" font-size="10.00">emplace()</text>
+<text text-anchor="start" x="681.5" y="-535.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="707.5" y="-535.5" font-family="Helvetica,sans-Serif" font-size="10.00">operator[]()</text>
+<text text-anchor="start" x="681.5" y="-520.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="707.5" y="-520.5" font-family="Helvetica,sans-Serif" font-size="10.00">begin()</text>
+<polygon fill="#666666" stroke="#666666" points="664.5,-1025.5 664.5,-1025.5 817.5,-1025.5 817.5,-1025.5 664.5,-1025.5"/>
+<polygon fill="#666666" stroke="#666666" points="664.5,-1010.5 664.5,-1010.5 705.5,-1010.5 705.5,-1010.5 664.5,-1010.5"/>
+<polygon fill="#666666" stroke="#666666" points="705.5,-1010.5 705.5,-1010.5 817.5,-1010.5 817.5,-1010.5 705.5,-1010.5"/>
+<polygon fill="none" stroke="#666666" points="664,-514 664,-1043 817,-1043 817,-514 664,-514"/>
 </a>
 </g>
 </g>
@@ -801,8 +802,8 @@ var sectionId = 'dynsection-0';
 <g id="edge12_Node000009_Node000010" class="edge">
 <title>Node10&#45;&gt;Node9</title>
 <g id="a_edge12_Node000009_Node000010"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M700.52,-503.74C698.36,-491.21 696.26,-478.93 694.23,-467.1"/>
-<polygon fill="none" stroke="#63b8ff" points="697.11,-504.58 702.25,-513.84 704.01,-503.39 697.11,-504.58"/>
+<path fill="none" stroke="#63b8ff" d="M694.14,-503.74C692.02,-491.21 689.94,-478.93 687.94,-467.1"/>
+<polygon fill="none" stroke="#63b8ff" points="690.73,-504.57 695.85,-513.84 697.63,-503.4 690.73,-504.57"/>
 </a>
 </g>
 </g>
@@ -810,90 +811,90 @@ var sectionId = 'dynsection-0';
 <g id="edge15_Node000001_Node000011" class="edge">
 <title>Node11&#45;&gt;Node1</title>
 <g id="a_edge15_Node000001_Node000011"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M800.84,-250.71C787.75,-237.34 774.03,-224.01 760.5,-212 734.49,-188.91 704.52,-165.7 676.87,-145.49"/>
-<polygon fill="none" stroke="#63b8ff" points="676.51,-145.23 669.3,-144.95 666.79,-138.19 674,-138.47 676.51,-145.23"/>
+<path fill="none" stroke="#63b8ff" d="M793.91,-250.01C781.12,-236.87 767.73,-223.79 754.5,-212 728.54,-188.85 698.58,-165.63 670.92,-145.42"/>
+<polygon fill="none" stroke="#63b8ff" points="670.57,-145.16 663.36,-144.88 660.85,-138.12 668.06,-138.4 670.57,-145.16"/>
 </a>
 </g>
-<text text-anchor="middle" x="783" y="-186" font-family="Helvetica,sans-Serif" font-size="10.00" fill="grey"> +m_vector4Attrib</text>
+<text text-anchor="middle" x="777" y="-186" font-family="Helvetica,sans-Serif" font-size="10.00" fill="grey"> +m_vector4Attrib</text>
 </g>
 <!-- Node12 -->
 <g id="Node000012" class="node">
 <title>Node12</title>
 <g id="a_Node000012"><a target="_blank" xlink:href="http://en.cppreference.com/w/cpp/container/vector.html" xlink:title=" ">
-<polygon fill="white" stroke="transparent" points="1075.5,-1043 919.5,-1043 919.5,-514 1075.5,-514 1075.5,-1043"/>
-<text text-anchor="start" x="924.5" y="-1030.5" font-family="Helvetica,sans-Serif" font-size="10.00">AlignedStdVector&lt; Vector4 &#160;&gt;</text>
-<text text-anchor="start" x="937.5" y="-1015.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="964.5" y="-1015.5" font-family="Helvetica,sans-Serif" font-size="10.00">elements</text>
-<text text-anchor="start" x="937.5" y="-1000.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="964.5" y="-1000.5" font-family="Helvetica,sans-Serif" font-size="10.00">push_back()</text>
-<text text-anchor="start" x="937.5" y="-985.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="964.5" y="-985.5" font-family="Helvetica,sans-Serif" font-size="10.00">crbegin()</text>
-<text text-anchor="start" x="937.5" y="-970.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="964.5" y="-970.5" font-family="Helvetica,sans-Serif" font-size="10.00">erase()</text>
-<text text-anchor="start" x="937.5" y="-955.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="964.5" y="-955.5" font-family="Helvetica,sans-Serif" font-size="10.00">data()</text>
-<text text-anchor="start" x="937.5" y="-940.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="964.5" y="-940.5" font-family="Helvetica,sans-Serif" font-size="10.00">insert()</text>
-<text text-anchor="start" x="937.5" y="-925.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="964.5" y="-925.5" font-family="Helvetica,sans-Serif" font-size="10.00">pop_back()</text>
-<text text-anchor="start" x="937.5" y="-910.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="964.5" y="-910.5" font-family="Helvetica,sans-Serif" font-size="10.00">shrink_to_fit()</text>
-<text text-anchor="start" x="937.5" y="-895.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="964.5" y="-895.5" font-family="Helvetica,sans-Serif" font-size="10.00">back()</text>
-<text text-anchor="start" x="937.5" y="-880.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="964.5" y="-880.5" font-family="Helvetica,sans-Serif" font-size="10.00">end()</text>
-<text text-anchor="start" x="937.5" y="-865.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="964.5" y="-865.5" font-family="Helvetica,sans-Serif" font-size="10.00">resize()</text>
-<text text-anchor="start" x="937.5" y="-850.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="964.5" y="-850.5" font-family="Helvetica,sans-Serif" font-size="10.00">emplace_back()</text>
-<text text-anchor="start" x="937.5" y="-835.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="964.5" y="-835.5" font-family="Helvetica,sans-Serif" font-size="10.00">size()</text>
-<text text-anchor="start" x="937.5" y="-820.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="964.5" y="-820.5" font-family="Helvetica,sans-Serif" font-size="10.00">cbegin()</text>
-<text text-anchor="start" x="937.5" y="-805.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="964.5" y="-805.5" font-family="Helvetica,sans-Serif" font-size="10.00">front()</text>
-<text text-anchor="start" x="937.5" y="-790.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="964.5" y="-790.5" font-family="Helvetica,sans-Serif" font-size="10.00">~vector()</text>
-<text text-anchor="start" x="937.5" y="-775.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="964.5" y="-775.5" font-family="Helvetica,sans-Serif" font-size="10.00">rbegin()</text>
-<text text-anchor="start" x="937.5" y="-760.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="964.5" y="-760.5" font-family="Helvetica,sans-Serif" font-size="10.00">crend()</text>
-<text text-anchor="start" x="937.5" y="-745.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="964.5" y="-745.5" font-family="Helvetica,sans-Serif" font-size="10.00">assign()</text>
-<text text-anchor="start" x="937.5" y="-730.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="964.5" y="-730.5" font-family="Helvetica,sans-Serif" font-size="10.00">operator=()</text>
-<text text-anchor="start" x="937.5" y="-715.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="964.5" y="-715.5" font-family="Helvetica,sans-Serif" font-size="10.00">vector()</text>
-<text text-anchor="start" x="937.5" y="-700.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="964.5" y="-700.5" font-family="Helvetica,sans-Serif" font-size="10.00">reserve()</text>
-<text text-anchor="start" x="937.5" y="-685.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="964.5" y="-685.5" font-family="Helvetica,sans-Serif" font-size="10.00">capacity()</text>
-<text text-anchor="start" x="937.5" y="-670.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="964.5" y="-670.5" font-family="Helvetica,sans-Serif" font-size="10.00">empty()</text>
-<text text-anchor="start" x="937.5" y="-655.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="964.5" y="-655.5" font-family="Helvetica,sans-Serif" font-size="10.00">cend()</text>
-<text text-anchor="start" x="937.5" y="-640.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="964.5" y="-640.5" font-family="Helvetica,sans-Serif" font-size="10.00">swap()</text>
-<text text-anchor="start" x="937.5" y="-625.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="964.5" y="-625.5" font-family="Helvetica,sans-Serif" font-size="10.00">max_size()</text>
-<text text-anchor="start" x="937.5" y="-610.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="964.5" y="-610.5" font-family="Helvetica,sans-Serif" font-size="10.00">rend()</text>
-<text text-anchor="start" x="937.5" y="-595.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="964.5" y="-595.5" font-family="Helvetica,sans-Serif" font-size="10.00">get_allocator()</text>
-<text text-anchor="start" x="937.5" y="-580.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="964.5" y="-580.5" font-family="Helvetica,sans-Serif" font-size="10.00">clear()</text>
-<text text-anchor="start" x="937.5" y="-565.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="964.5" y="-565.5" font-family="Helvetica,sans-Serif" font-size="10.00">at()</text>
-<text text-anchor="start" x="937.5" y="-550.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="964.5" y="-550.5" font-family="Helvetica,sans-Serif" font-size="10.00">emplace()</text>
-<text text-anchor="start" x="937.5" y="-535.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="964.5" y="-535.5" font-family="Helvetica,sans-Serif" font-size="10.00">operator[]()</text>
-<text text-anchor="start" x="937.5" y="-520.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="964.5" y="-520.5" font-family="Helvetica,sans-Serif" font-size="10.00">begin()</text>
-<polygon fill="#666666" stroke="#666666" points="919.5,-1025.5 919.5,-1025.5 1075.5,-1025.5 1075.5,-1025.5 919.5,-1025.5"/>
-<polygon fill="#666666" stroke="#666666" points="919.5,-1010.5 919.5,-1010.5 962.5,-1010.5 962.5,-1010.5 919.5,-1010.5"/>
-<polygon fill="#666666" stroke="#666666" points="962.5,-1010.5 962.5,-1010.5 1075.5,-1010.5 1075.5,-1010.5 962.5,-1010.5"/>
-<polygon fill="none" stroke="#666666" points="919.5,-514 919.5,-1043 1075.5,-1043 1075.5,-514 919.5,-514"/>
+<polygon fill="white" stroke="transparent" points="1065,-1043 912,-1043 912,-514 1065,-514 1065,-1043"/>
+<text text-anchor="start" x="917.5" y="-1030.5" font-family="Helvetica,sans-Serif" font-size="10.00">AlignedStdVector&lt; Vector4 &gt;</text>
+<text text-anchor="start" x="929.5" y="-1015.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="955.5" y="-1015.5" font-family="Helvetica,sans-Serif" font-size="10.00">elements</text>
+<text text-anchor="start" x="929.5" y="-1000.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="955.5" y="-1000.5" font-family="Helvetica,sans-Serif" font-size="10.00">push_back()</text>
+<text text-anchor="start" x="929.5" y="-985.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="955.5" y="-985.5" font-family="Helvetica,sans-Serif" font-size="10.00">crbegin()</text>
+<text text-anchor="start" x="929.5" y="-970.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="955.5" y="-970.5" font-family="Helvetica,sans-Serif" font-size="10.00">erase()</text>
+<text text-anchor="start" x="929.5" y="-955.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="955.5" y="-955.5" font-family="Helvetica,sans-Serif" font-size="10.00">data()</text>
+<text text-anchor="start" x="929.5" y="-940.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="955.5" y="-940.5" font-family="Helvetica,sans-Serif" font-size="10.00">insert()</text>
+<text text-anchor="start" x="929.5" y="-925.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="955.5" y="-925.5" font-family="Helvetica,sans-Serif" font-size="10.00">pop_back()</text>
+<text text-anchor="start" x="929.5" y="-910.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="955.5" y="-910.5" font-family="Helvetica,sans-Serif" font-size="10.00">shrink_to_fit()</text>
+<text text-anchor="start" x="929.5" y="-895.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="955.5" y="-895.5" font-family="Helvetica,sans-Serif" font-size="10.00">back()</text>
+<text text-anchor="start" x="929.5" y="-880.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="955.5" y="-880.5" font-family="Helvetica,sans-Serif" font-size="10.00">end()</text>
+<text text-anchor="start" x="929.5" y="-865.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="955.5" y="-865.5" font-family="Helvetica,sans-Serif" font-size="10.00">resize()</text>
+<text text-anchor="start" x="929.5" y="-850.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="955.5" y="-850.5" font-family="Helvetica,sans-Serif" font-size="10.00">emplace_back()</text>
+<text text-anchor="start" x="929.5" y="-835.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="955.5" y="-835.5" font-family="Helvetica,sans-Serif" font-size="10.00">size()</text>
+<text text-anchor="start" x="929.5" y="-820.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="955.5" y="-820.5" font-family="Helvetica,sans-Serif" font-size="10.00">cbegin()</text>
+<text text-anchor="start" x="929.5" y="-805.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="955.5" y="-805.5" font-family="Helvetica,sans-Serif" font-size="10.00">front()</text>
+<text text-anchor="start" x="929.5" y="-790.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="955.5" y="-790.5" font-family="Helvetica,sans-Serif" font-size="10.00">~vector()</text>
+<text text-anchor="start" x="929.5" y="-775.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="955.5" y="-775.5" font-family="Helvetica,sans-Serif" font-size="10.00">rbegin()</text>
+<text text-anchor="start" x="929.5" y="-760.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="955.5" y="-760.5" font-family="Helvetica,sans-Serif" font-size="10.00">crend()</text>
+<text text-anchor="start" x="929.5" y="-745.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="955.5" y="-745.5" font-family="Helvetica,sans-Serif" font-size="10.00">assign()</text>
+<text text-anchor="start" x="929.5" y="-730.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="955.5" y="-730.5" font-family="Helvetica,sans-Serif" font-size="10.00">operator=()</text>
+<text text-anchor="start" x="929.5" y="-715.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="955.5" y="-715.5" font-family="Helvetica,sans-Serif" font-size="10.00">vector()</text>
+<text text-anchor="start" x="929.5" y="-700.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="955.5" y="-700.5" font-family="Helvetica,sans-Serif" font-size="10.00">reserve()</text>
+<text text-anchor="start" x="929.5" y="-685.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="955.5" y="-685.5" font-family="Helvetica,sans-Serif" font-size="10.00">capacity()</text>
+<text text-anchor="start" x="929.5" y="-670.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="955.5" y="-670.5" font-family="Helvetica,sans-Serif" font-size="10.00">empty()</text>
+<text text-anchor="start" x="929.5" y="-655.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="955.5" y="-655.5" font-family="Helvetica,sans-Serif" font-size="10.00">cend()</text>
+<text text-anchor="start" x="929.5" y="-640.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="955.5" y="-640.5" font-family="Helvetica,sans-Serif" font-size="10.00">swap()</text>
+<text text-anchor="start" x="929.5" y="-625.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="955.5" y="-625.5" font-family="Helvetica,sans-Serif" font-size="10.00">max_size()</text>
+<text text-anchor="start" x="929.5" y="-610.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="955.5" y="-610.5" font-family="Helvetica,sans-Serif" font-size="10.00">rend()</text>
+<text text-anchor="start" x="929.5" y="-595.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="955.5" y="-595.5" font-family="Helvetica,sans-Serif" font-size="10.00">get_allocator()</text>
+<text text-anchor="start" x="929.5" y="-580.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="955.5" y="-580.5" font-family="Helvetica,sans-Serif" font-size="10.00">clear()</text>
+<text text-anchor="start" x="929.5" y="-565.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="955.5" y="-565.5" font-family="Helvetica,sans-Serif" font-size="10.00">at()</text>
+<text text-anchor="start" x="929.5" y="-550.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="955.5" y="-550.5" font-family="Helvetica,sans-Serif" font-size="10.00">emplace()</text>
+<text text-anchor="start" x="929.5" y="-535.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="955.5" y="-535.5" font-family="Helvetica,sans-Serif" font-size="10.00">operator[]()</text>
+<text text-anchor="start" x="929.5" y="-520.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="955.5" y="-520.5" font-family="Helvetica,sans-Serif" font-size="10.00">begin()</text>
+<polygon fill="#666666" stroke="#666666" points="912.5,-1025.5 912.5,-1025.5 1065.5,-1025.5 1065.5,-1025.5 912.5,-1025.5"/>
+<polygon fill="#666666" stroke="#666666" points="912.5,-1010.5 912.5,-1010.5 953.5,-1010.5 953.5,-1010.5 912.5,-1010.5"/>
+<polygon fill="#666666" stroke="#666666" points="953.5,-1010.5 953.5,-1010.5 1065.5,-1010.5 1065.5,-1010.5 953.5,-1010.5"/>
+<polygon fill="none" stroke="#666666" points="912,-514 912,-1043 1065,-1043 1065,-514 912,-514"/>
 </a>
 </g>
 </g>
@@ -901,8 +902,8 @@ var sectionId = 'dynsection-0';
 <g id="edge16_Node000011_Node000012" class="edge">
 <title>Node12&#45;&gt;Node11</title>
 <g id="a_edge16_Node000011_Node000012"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M923.68,-504.11C920.26,-491.45 916.91,-479.05 913.68,-467.1"/>
-<polygon fill="none" stroke="#63b8ff" points="920.32,-505.1 926.31,-513.84 927.08,-503.27 920.32,-505.1"/>
+<path fill="none" stroke="#63b8ff" d="M915.93,-504.11C912.57,-491.45 909.28,-479.05 906.11,-467.1"/>
+<polygon fill="none" stroke="#63b8ff" points="912.56,-505.07 918.51,-513.84 919.33,-503.28 912.56,-505.07"/>
 </a>
 </g>
 </g>

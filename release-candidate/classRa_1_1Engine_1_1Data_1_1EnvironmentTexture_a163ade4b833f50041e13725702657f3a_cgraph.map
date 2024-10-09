@@ -1,7 +1,9 @@
 <map id="Ra::Engine::Data::EnvironmentTexture::render" name="Ra::Engine::Data::EnvironmentTexture::render">
-<area shape="rect" id="Node000001" title="Render the envmap as a textured cube. This method does nothing if the envmap is not a skybox." alt="" coords="5,5,227,45"/>
-<area shape="rect" id="Node000002" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a3dc967879911ed9414b04c8cacea7263" title=" " alt="" coords="275,5,455,45"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="227,23,261,23,261,28,227,28"/>
-<area shape="rect" id="Node000003" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/numeric/math/tan.html#" title=" " alt="" coords="503,13,573,38"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="455,23,489,23,489,28,455,28"/>
+<area shape="rect" id="Node000001" title="Render the envmap as a textured cube. This method does nothing if the envmap is not a skybox." alt="" coords="5,37,227,77"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Engine_1_1Scene_1_1CameraManager.html#a1bdd16b8fbd255287bdd0bf5ede42816" title="Get the pointer on the active camera data." alt="" coords="275,5,525,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="227,42,261,38,261,44,227,48"/>
+<area shape="rect" id="Node000003" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a3dc967879911ed9414b04c8cacea7263" title=" " alt="" coords="310,69,490,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="227,67,296,75,296,80,227,72"/>
+<area shape="rect" id="Node000004" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/numeric/math/tan.html#" title=" " alt="" coords="573,77,644,102"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="490,87,559,87,559,92,490,92"/>
 </map>

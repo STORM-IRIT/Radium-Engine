@@ -1,5 +1,35 @@
 var namespaceRa_1_1Core =
 [
+    [ "Geometry", null, [
+      [ "IndexLayerType", "namespaceRa_1_1Core_1_1Geometry_1_1IndexLayerType.html", null ],
+      [ "AbstractDiscreteVolume", "classRa_1_1Core_1_1Geometry_1_1AbstractDiscreteVolume.html", "classRa_1_1Core_1_1Geometry_1_1AbstractDiscreteVolume" ],
+      [ "AbstractGeometry", "structRa_1_1Core_1_1Geometry_1_1AbstractGeometry.html", "structRa_1_1Core_1_1Geometry_1_1AbstractGeometry" ],
+      [ "AbstractVolume", "classRa_1_1Core_1_1Geometry_1_1AbstractVolume.html", "classRa_1_1Core_1_1Geometry_1_1AbstractVolume" ],
+      [ "AttribArrayGeometry", "classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html", "classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry" ],
+      [ "CatmullClarkSubdivider", "classRa_1_1Core_1_1Geometry_1_1CatmullClarkSubdivider.html", "classRa_1_1Core_1_1Geometry_1_1CatmullClarkSubdivider" ],
+      [ "GeometryIndexLayer", "structRa_1_1Core_1_1Geometry_1_1GeometryIndexLayer.html", "structRa_1_1Core_1_1Geometry_1_1GeometryIndexLayer" ],
+      [ "GeometryIndexLayerBase", "classRa_1_1Core_1_1Geometry_1_1GeometryIndexLayerBase.html", "classRa_1_1Core_1_1Geometry_1_1GeometryIndexLayerBase" ],
+      [ "IndexedGeometry", "classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html", "classRa_1_1Core_1_1Geometry_1_1IndexedGeometry" ],
+      [ "LineIndexLayer", "structRa_1_1Core_1_1Geometry_1_1LineIndexLayer.html", null ],
+      [ "LineToSegmentOutput", "structRa_1_1Core_1_1Geometry_1_1LineToSegmentOutput.html", null ],
+      [ "LineToTriangleOutput", "structRa_1_1Core_1_1Geometry_1_1LineToTriangleOutput.html", null ],
+      [ "LoopSubdivider", "classRa_1_1Core_1_1Geometry_1_1LoopSubdivider.html", "classRa_1_1Core_1_1Geometry_1_1LoopSubdivider" ],
+      [ "MultiIndexedGeometry", "classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html", "classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry" ],
+      [ "Obb", "classRa_1_1Core_1_1Geometry_1_1Obb.html", "classRa_1_1Core_1_1Geometry_1_1Obb" ],
+      [ "PointCloudIndexLayer", "structRa_1_1Core_1_1Geometry_1_1PointCloudIndexLayer.html", "structRa_1_1Core_1_1Geometry_1_1PointCloudIndexLayer" ],
+      [ "PointToTriangleOutput", "structRa_1_1Core_1_1Geometry_1_1PointToTriangleOutput.html", "structRa_1_1Core_1_1Geometry_1_1PointToTriangleOutput" ],
+      [ "PolyIndexLayer", "structRa_1_1Core_1_1Geometry_1_1PolyIndexLayer.html", null ],
+      [ "PolyLine", "classRa_1_1Core_1_1Geometry_1_1PolyLine.html", "classRa_1_1Core_1_1Geometry_1_1PolyLine" ],
+      [ "QuadIndexLayer", "structRa_1_1Core_1_1Geometry_1_1QuadIndexLayer.html", null ],
+      [ "SegmentToTriangleOutput", "structRa_1_1Core_1_1Geometry_1_1SegmentToTriangleOutput.html", null ],
+      [ "Spline", "classRa_1_1Core_1_1Geometry_1_1Spline.html", "classRa_1_1Core_1_1Geometry_1_1Spline" ],
+      [ "TopologicalMesh", "classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html", "classRa_1_1Core_1_1Geometry_1_1TopologicalMesh" ],
+      [ "TopologicalMeshTraits", "structRa_1_1Core_1_1Geometry_1_1TopologicalMeshTraits.html", null ],
+      [ "TriangleIndexLayer", "structRa_1_1Core_1_1Geometry_1_1TriangleIndexLayer.html", null ],
+      [ "TriangleToTriangleOutput", "structRa_1_1Core_1_1Geometry_1_1TriangleToTriangleOutput.html", null ],
+      [ "VolumeGrid", "classRa_1_1Core_1_1Geometry_1_1VolumeGrid.html", "classRa_1_1Core_1_1Geometry_1_1VolumeGrid" ],
+      [ "VolumeSparse", "classRa_1_1Core_1_1Geometry_1_1VolumeSparse.html", "classRa_1_1Core_1_1Geometry_1_1VolumeSparse" ]
+    ] ],
     [ "Math", "namespaceRa_1_1Core_1_1Math.html", [
       [ "add", "namespaceRa_1_1Core_1_1Math.html#a0523a53d2d94a623e194830837863c4c", null ],
       [ "addQlerp", "namespaceRa_1_1Core_1_1Math.html#aa5c9bddd5fdbbdbcdb661348982ff204", null ],
@@ -60,7 +90,7 @@ var namespaceRa_1_1Core =
     [ "VectorArray", "classRa_1_1Core_1_1VectorArray.html", "classRa_1_1Core_1_1VectorArray" ],
     [ "VectorArrayTypeHelper", "structRa_1_1Core_1_1VectorArrayTypeHelper.html", null ],
     [ "VectorArrayTypeHelperInternal", "structRa_1_1Core_1_1VectorArrayTypeHelperInternal.html", null ],
-    [ "AlignedStdVector", "namespaceRa_1_1Core.html#a3b5d52baa689ad80e5e1d84a25838769", null ],
+    [ "AlignedStdVector", "namespaceRa_1_1Core.html#a1a737e5ec9d0c663e65799d07f19073b", null ],
     [ "make_shared", "namespaceRa_1_1Core.html#a51ed2a237e20a947e07bd800839876ca", null ],
     [ "operator*", "namespaceRa_1_1Core.html#a759edbc3c97aec27676fcd8916334ed5", null ]
 ];

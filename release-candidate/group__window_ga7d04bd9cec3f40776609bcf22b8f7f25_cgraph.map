@@ -1,5 +1,0 @@
-<map id="Ra::Headless::OpenGLContext::resizeFrameBuffer" name="Ra::Headless::OpenGLContext::resizeFrameBuffer">
-<area shape="rect" id="Node000001" title="Resize callback." alt="" coords="5,5,223,45"/>
-<area shape="rect" id="Node000002" href="$classRa_1_1Core_1_1Utils_1_1Observable.html#a7e5fe761726d56a51f95192eb6555f8f" title="Notify (i.e. call) each attached observer with argument p." alt="" coords="271,5,468,45"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="223,23,257,23,257,28,223,28"/>
-</map>

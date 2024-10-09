@@ -1,7 +1,5 @@
 <map id="Ra::Core::Geometry::deprecated::TopologicalMesh::interpolatePropsOnFaces" name="Ra::Core::Geometry::deprecated::TopologicalMesh::interpolatePropsOnFaces">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,37,224,92"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,224,60"/>
 <area shape="rect" id="Node000002" href="$classRa_1_1Core_1_1Geometry_1_1deprecated_1_1TopologicalMesh.html#aaba0897eaabd141a25000b5f8efeb14c" title=" " alt="" coords="272,5,491,60"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="224,49,258,45,259,50,224,54"/>
-<area shape="rect" id="Node000003" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector/size.html#" title=" " alt="" coords="319,84,444,109"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="224,75,305,85,305,90,224,80"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="224,30,258,30,258,35,224,35"/>
 </map>

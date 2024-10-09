@@ -11,7 +11,7 @@
 <g id="clust1" class="cluster">
 <title>clusterdir_fae119eb913a40fe8ed97cde8b98911e</title>
 <g id="a_clust1"><a xlink:href="dir_fae119eb913a40fe8ed97cde8b98911e.html" target="_top" xlink:title="IO">
-<polygon fill="#eae7e0" stroke="#7f7f7f" stroke-dasharray="5,2" points="8,-47 8,-101 110,-101 110,-47 8,-47"/>
+<polygon fill="#edf0f7" stroke="#7f7f7f" stroke-dasharray="5,2" points="8,-47 8,-101 110,-101 110,-47 8,-47"/>
 <text text-anchor="middle" x="59" y="-89" font-family="Helvetica,sans-Serif" font-size="10.00">IO</text>
 </a>
 </g>
@@ -20,7 +20,7 @@
 <g id="node1" class="node">
 <title>dir_7788c5f37a81918c772c9185f759a19f</title>
 <g id="a_node1"><a xlink:href="dir_7788c5f37a81918c772c9185f759a19f.html" target="_top" xlink:title="AssimpLoader">
-<polygon fill="#eae7e0" stroke="#404040" stroke-width="2" points="102,-74 16,-74 16,-55 102,-55 102,-74"/>
+<polygon fill="#edf0f7" stroke="#404040" stroke-width="2" points="102,-74 16,-74 16,-55 102,-55 102,-74"/>
 <text text-anchor="middle" x="59" y="-62" font-family="Helvetica,sans-Serif" font-size="10.00">AssimpLoader</text>
 </a>
 </g>
@@ -29,7 +29,7 @@
 <g id="node2" class="node">
 <title>dir_a2f0e5642e47e7ed59fe0f0829eafb5f</title>
 <g id="a_node2"><a xlink:href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html" target="_top" xlink:title="Core">
-<polygon fill="#eae7e0" stroke="red" stroke-dasharray="5,2" points="78.5,-19 39.5,-19 39.5,0 78.5,0 78.5,-19"/>
+<polygon fill="#edf0f7" stroke="red" stroke-dasharray="5,2" points="78.5,-19 39.5,-19 39.5,0 78.5,0 78.5,-19"/>
 <text text-anchor="middle" x="59" y="-7" font-family="Helvetica,sans-Serif" font-size="10.00">Core</text>
 </a>
 </g>

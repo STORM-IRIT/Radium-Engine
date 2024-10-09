@@ -1,15 +1,17 @@
 <map id="Ra::Engine::Data::Material" name="Ra::Engine::Data::Material">
-<area shape="rect" id="Node000001" title="Base class for materials." alt="" coords="233,233,437,579"/>
+<area shape="rect" id="Node000001" title="Base class for materials." alt="" coords="347,233,551,579"/>
 <area shape="rect" id="Node000003" href="$classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html" title="[TextureSemantics]" alt="" coords="5,627,209,1067"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="242,592,223,628,212,649,207,647,218,625,237,590"/>
-<area shape="rect" id="Node000004" href="$classRa_1_1Engine_1_1Data_1_1SimpleMaterial.html" title="Base implementation for simple, monocolored, materials." alt="" coords="233,757,437,937"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="338,593,338,756,333,756,333,593"/>
-<area shape="rect" id="Node000007" href="$classRa_1_1Engine_1_1Data_1_1VolumetricMaterial.html" title=" " alt="" coords="462,667,662,1027"/>
-<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="433,590,472,665,467,668,428,593"/>
-<area shape="rect" id="Node000002" href="$classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html" title=" " alt="" coords="227,5,443,185"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="338,199,338,233,333,233,333,199"/>
-<area shape="rect" id="Node000005" href="$classRa_1_1Engine_1_1Data_1_1LambertianMaterial.html" title="Implementation of the Lambertian Material BSDF." alt="" coords="116,1115,320,1295"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="304,951,250,1115,245,1114,299,949"/>
-<area shape="rect" id="Node000006" href="$classRa_1_1Engine_1_1Data_1_1PlainMaterial.html" title=" " alt="" coords="345,1122,561,1287"/>
-<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="371,949,428,1121,423,1123,366,950"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="338,504,279,563,224,628,212,646,207,643,220,625,275,560,335,501"/>
+<area shape="rect" id="Node000004" href="$classRa_1_1Engine_1_1Data_1_1RawShaderMaterial.html" title=" " alt="" coords="234,717,437,977"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="403,593,371,717,366,716,398,591"/>
+<area shape="rect" id="Node000005" href="$classRa_1_1Engine_1_1Data_1_1SimpleMaterial.html" title="Base implementation for simple, monocolored, materials." alt="" coords="461,757,665,937"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="500,592,543,756,537,757,495,593"/>
+<area shape="rect" id="Node000008" href="$classRa_1_1Engine_1_1Data_1_1VolumetricMaterial.html" title=" " alt="" coords="690,667,890,1027"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="563,499,623,559,679,625,706,665,701,668,675,628,619,563,559,503"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html" title=" " alt="" coords="341,5,557,185"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="451,199,451,233,446,233,446,199"/>
+<area shape="rect" id="Node000006" href="$classRa_1_1Engine_1_1Data_1_1LambertianMaterial.html" title="Implementation of the Lambertian Material BSDF." alt="" coords="344,1115,548,1295"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="532,951,478,1115,473,1114,527,949"/>
+<area shape="rect" id="Node000007" href="$classRa_1_1Engine_1_1Data_1_1PlainMaterial.html" title=" " alt="" coords="573,1122,789,1287"/>
+<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="599,949,656,1121,651,1123,594,950"/>
 </map>

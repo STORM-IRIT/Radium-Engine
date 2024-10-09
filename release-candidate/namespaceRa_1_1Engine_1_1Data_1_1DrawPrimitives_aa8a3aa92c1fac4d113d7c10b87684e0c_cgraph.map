@@ -1,14 +1,11 @@
 <map id="Ra::Engine::Data::DrawPrimitives::LineStrip" name="Ra::Engine::Data::DrawPrimitives::LineStrip">
-<area shape="rect" id="Node000001" title="Display a line strip." alt="" coords="5,97,244,137"/>
-<area shape="poly" id="edge4_Node000001_Node000001" title=" " alt="" coords="78,97,75,87,83,78,99,72,125,70,154,73,170,80,167,85,152,78,125,75,100,77,86,82,80,88,83,96"/>
+<area shape="rect" id="Node000001" title="Display a line strip." alt="" coords="5,73,244,113"/>
 <area shape="rect" id="Node000002" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector/begin.html#" title=" " alt="" coords="309,5,443,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="165,94,224,67,291,40,313,32,314,37,293,44,226,72,167,99"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="190,70,291,39,317,32,318,37,293,45,192,75"/>
 <area shape="rect" id="Node000003" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector/end.html#" title=" " alt="" coords="315,55,437,80"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="227,94,301,79,302,85,228,99"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="244,78,301,72,301,77,244,83"/>
 <area shape="rect" id="Node000004" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/algorithm/iota.html#" title=" " alt="" coords="339,104,413,129"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="244,114,325,114,325,119,244,119"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="244,101,325,109,325,115,244,107"/>
 <area shape="rect" id="Node000005" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector/push_back.html#" title=" " alt="" coords="292,153,460,179"/>
-<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="228,134,298,148,297,153,227,139"/>
-<area shape="rect" id="Node000006" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector/size.html#" title=" " alt="" coords="313,203,439,228"/>
-<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="169,134,293,188,318,196,316,201,291,192,167,139"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="195,110,319,147,318,152,193,115"/>
 </map>

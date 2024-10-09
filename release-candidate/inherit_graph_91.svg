@@ -11,10 +11,10 @@
 <!-- Node0 -->
 <g id="Node000000" class="node">
 <title>Node0</title>
-<g id="a_Node000000"><a xlink:href="structRa_1_1Engine_1_1Data_1_1TextureParameters.html" target="_top" xlink:title="Describes the sampler and image of a texture.">
+<g id="a_Node000000"><a xlink:href="classRa_1_1Engine_1_1Data_1_1TextureManager.html" target="_top" xlink:title="Manage Texture loading and registration.">
 <polygon fill="white" stroke="#666666" points="140,-30 0,-30 0,0 140,0 140,-30"/>
 <text text-anchor="start" x="8" y="-18" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Data::Texture</text>
-<text text-anchor="middle" x="70" y="-7" font-family="Helvetica,sans-Serif" font-size="10.00">Parameters</text>
+<text text-anchor="middle" x="70" y="-7" font-family="Helvetica,sans-Serif" font-size="10.00">Manager</text>
 </a>
 </g>
 </g>

@@ -1,7 +1,9 @@
 <map id="Ra::Core::Utils::AttribManager::getData" name="Ra::Core::Utils::AttribManager::getData">
-<area shape="rect" id="Node000001" title="Get read access to the data container from the attrib handle." alt="" coords="5,23,221,63"/>
-<area shape="rect" id="Node000002" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector/at.html#" title=" " alt="" coords="287,5,399,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="221,29,273,23,274,28,222,34"/>
-<area shape="rect" id="Node000003" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/memory/unique_ptr/get.html#" title=" " alt="" coords="269,55,417,80"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="222,52,256,56,256,61,221,57"/>
+<area shape="rect" id="Node000001" title="Get read access to the data container from the attrib handle." alt="" coords="5,55,221,95"/>
+<area shape="rect" id="Node000002" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector/at.html#" title=" " alt="" coords="293,5,405,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="195,53,282,31,283,37,197,58"/>
+<area shape="rect" id="Node000003" href="$classRa_1_1Core_1_1Utils_1_1Attrib.html#a4179dd4435a6d89f2ab3cadace7fca51" title="Read&#45;only acccess to the attribute content." alt="" coords="269,55,428,95"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="221,73,256,73,256,78,221,78"/>
+<area shape="rect" id="Node000004" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/memory/unique_ptr/get.html#" title=" " alt="" coords="275,120,423,145"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="197,93,283,114,282,119,195,98"/>
 </map>

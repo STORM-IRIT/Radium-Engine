@@ -75,7 +75,7 @@
 <!-- Node5 -->
 <g id="Node000005" class="node">
 <title>Node5</title>
-<g id="a_Node000005"><a xlink:href="classRa_1_1Core_1_1Utils_1_1Observable.html#a7e5fe761726d56a51f95192eb6555f8f" target="_top" xlink:title="Notify (i.e. call) each attached observer with argument p.">
+<g id="a_Node000005"><a xlink:href="classRa_1_1Core_1_1Utils_1_1Observable.html#a7e5fe761726d56a51f95192eb6555f8f" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="#666666" points="346,-41 198,-41 198,0 346,0 346,-41"/>
 <text text-anchor="start" x="206" y="-29" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Utils::Observable</text>
 <text text-anchor="start" x="206" y="-18" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; const std::string &amp; &gt;</text>

@@ -80,9 +80,9 @@
 <!-- Node4 -->
 <g id="Node000004" class="node">
 <title>Node4</title>
-<g id="a_Node000004"><a target="_blank" xlink:href="http://en.cppreference.com/w/cpp/container/vector/clear.html#" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="655,-97.5 557,-97.5 557,-78.5 655,-78.5 655,-97.5"/>
-<text text-anchor="middle" x="606" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">std::vector::clear</text>
+<g id="a_Node000004"><a target="_blank" xlink:href="http://en.cppreference.com/w/cpp/container/map/clear.html#" xlink:title=" ">
+<polygon fill="white" stroke="#666666" points="650.5,-97.5 561.5,-97.5 561.5,-78.5 650.5,-78.5 650.5,-97.5"/>
+<text text-anchor="middle" x="606" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">std::map::clear</text>
 </a>
 </g>
 </g>
@@ -90,17 +90,17 @@
 <g id="edge3_Node000003_Node000004" class="edge">
 <title>Node3&#45;&gt;Node4</title>
 <g id="a_edge3_Node000003_Node000004"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M521.08,-78.28C529.75,-79.28 538.45,-80.29 546.79,-81.26"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="546.42,-84.74 556.76,-82.41 547.23,-77.78 546.42,-84.74"/>
+<path fill="none" stroke="#63b8ff" d="M521.08,-78.28C531.23,-79.45 541.42,-80.63 551.03,-81.75"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="550.86,-85.25 561.19,-82.92 551.66,-78.3 550.86,-85.25"/>
 </a>
 </g>
 </g>
 <!-- Node5 -->
 <g id="Node000005" class="node">
 <title>Node5</title>
-<g id="a_Node000005"><a target="_blank" xlink:href="http://en.cppreference.com/w/cpp/container/map/clear.html#" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="650.5,-60.5 561.5,-60.5 561.5,-41.5 650.5,-41.5 650.5,-60.5"/>
-<text text-anchor="middle" x="606" y="-48.5" font-family="Helvetica,sans-Serif" font-size="10.00">std::map::clear</text>
+<g id="a_Node000005"><a target="_blank" xlink:href="http://en.cppreference.com/w/cpp/container/vector/clear.html#" xlink:title=" ">
+<polygon fill="white" stroke="#666666" points="655,-60.5 557,-60.5 557,-41.5 655,-41.5 655,-60.5"/>
+<text text-anchor="middle" x="606" y="-48.5" font-family="Helvetica,sans-Serif" font-size="10.00">std::vector::clear</text>
 </a>
 </g>
 </g>
@@ -108,8 +108,8 @@
 <g id="edge4_Node000003_Node000005" class="edge">
 <title>Node3&#45;&gt;Node5</title>
 <g id="a_edge4_Node000003_Node000005"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M521.08,-60.21C531.23,-59.1 541.42,-57.98 551.03,-56.92"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="551.63,-60.38 561.19,-55.81 550.87,-53.42 551.63,-60.38"/>
+<path fill="none" stroke="#63b8ff" d="M521.08,-60.21C529.75,-59.26 538.45,-58.3 546.79,-57.39"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="547.2,-60.87 556.76,-56.29 546.44,-53.91 547.2,-60.87"/>
 </a>
 </g>
 </g>

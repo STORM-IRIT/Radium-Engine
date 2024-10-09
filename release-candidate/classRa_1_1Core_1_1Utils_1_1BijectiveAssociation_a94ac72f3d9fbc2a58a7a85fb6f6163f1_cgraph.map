@@ -1,7 +1,5 @@
 <map id="Ra::Core::Utils::BijectiveAssociation::BijectiveAssociation" name="Ra::Core::Utils::BijectiveAssociation::BijectiveAssociation">
-<area shape="rect" id="Node000001" title="Constructor from { &lt;T1, T2&gt; } pairs." alt="" coords="5,23,243,63"/>
-<area shape="rect" id="Node000002" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector/insert.html#" title=" " alt="" coords="291,5,427,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="242,28,277,24,277,29,243,33"/>
-<area shape="rect" id="Node000003" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/map/insert.html#" title=" " alt="" coords="297,55,421,80"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="243,53,283,57,283,62,242,58"/>
+<area shape="rect" id="Node000001" title="Constructor from { &lt;T1, T2&gt; } pairs." alt="" coords="5,5,243,45"/>
+<area shape="rect" id="Node000002" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/map/insert.html#" title=" " alt="" coords="291,13,415,38"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="243,23,277,23,277,28,243,28"/>
 </map>

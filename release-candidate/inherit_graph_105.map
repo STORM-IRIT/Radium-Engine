@@ -1,29 +1,5 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="Node000000" href="$classRa_1_1Engine_1_1Scene_1_1Component.html" title="A component is an element that can be updated by a system. It is also linked to some other components..." alt="" coords="5,229,152,269"/>
-<area shape="rect" id="Node000001" href="$classRa_1_1Engine_1_1Scene_1_1CameraComponent.html" title=" " alt="" coords="207,5,355,45"/>
-<area shape="poly" id="edge98_Node000000_Node000001" title=" " alt="" coords="90,215,107,179,131,136,162,93,198,55,216,43,219,48,202,59,166,96,136,139,112,181,95,218"/>
-<area shape="rect" id="Node000002" href="$classRa_1_1Engine_1_1Scene_1_1DebugComponent.html" title="Component for debug drawing." alt="" coords="208,69,355,109"/>
-<area shape="poly" id="edge99_Node000000_Node000002" title=" " alt="" coords="101,216,143,167,170,142,199,119,220,107,223,112,201,124,173,146,147,171,105,220"/>
-<area shape="rect" id="Node000003" href="$classRa_1_1Engine_1_1Scene_1_1GeometryComponent.html" title="Abstract interface of a geometric compoennet in the Engine." alt="" coords="200,133,363,173"/>
-<area shape="poly" id="edge100_Node000000_Node000003" title=" " alt="" coords="126,220,199,183,227,171,229,176,201,188,129,225"/>
-<area shape="rect" id="Node000006" href="$classRa_1_1Engine_1_1Scene_1_1Light.html" title=" " alt="" coords="208,197,355,237"/>
-<area shape="poly" id="edge103_Node000000_Node000006" title=" " alt="" coords="165,233,207,226,208,232,166,238"/>
-<area shape="rect" id="Node000010" href="$classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html" title=" " alt="" coords="205,261,358,301"/>
-<area shape="poly" id="edge107_Node000000_Node000010" title=" " alt="" coords="166,260,205,267,204,272,165,266"/>
-<area shape="rect" id="Node000011" href="$classRa_1_1Engine_1_1Scene_1_1SkinningComponent.html" title="The SkinningComponent class is responsible for applying Geometric Skinning Methods on an animated obj..." alt="" coords="205,325,358,365"/>
-<area shape="poly" id="edge108_Node000000_Node000011" title=" " alt="" coords="129,274,201,311,229,323,227,328,199,316,126,279"/>
-<area shape="rect" id="Node000012" href="$classRa_1_1Engine_1_1Scene_1_1UiComponent.html" title="Component for UI drawing." alt="" coords="208,389,355,429"/>
-<area shape="poly" id="edge109_Node000000_Node000012" title=" " alt="" coords="105,279,147,328,173,353,201,375,223,387,220,392,199,380,170,357,143,331,101,282"/>
-<area shape="rect" id="Node000013" href="$classRa_1_1Engine_1_1Scene_1_1VolumeComponent.html" title="Main class to convert Ra::Core::Asset::VolumeData to Ra::Engine::VolumeObject." alt="" coords="208,453,355,493"/>
-<area shape="poly" id="edge110_Node000000_Node000013" title=" " alt="" coords="95,281,112,317,136,360,166,402,202,439,219,451,216,455,198,443,162,406,131,363,107,320,90,283"/>
-<area shape="rect" id="Node000004" href="$classRa_1_1Engine_1_1Scene_1_1PointCloudComponent.html" title=" " alt="" coords="418,53,585,93"/>
-<area shape="poly" id="edge101_Node000003_Node000004" title=" " alt="" coords="347,126,410,103,443,91,445,96,412,108,349,131"/>
-<area shape="rect" id="Node000005" href="$classRa_1_1Engine_1_1Scene_1_1SurfaceMeshComponent.html" title="Main class to convert Ra::Core::Asset::GeometryData to Ra::Engine::Mesh." alt="" coords="411,118,592,173"/>
-<area shape="poly" id="edge102_Node000003_Node000005" title=" " alt="" coords="376,147,410,146,411,151,377,153"/>
-<area shape="rect" id="Node000007" href="$classRa_1_1Engine_1_1Scene_1_1DirectionalLight.html" title=" " alt="" coords="428,197,575,237"/>
-<area shape="poly" id="edge104_Node000006_Node000007" title=" " alt="" coords="368,215,428,215,428,220,368,220"/>
-<area shape="rect" id="Node000008" href="$classRa_1_1Engine_1_1Scene_1_1PointLight.html" title=" " alt="" coords="428,261,575,301"/>
-<area shape="poly" id="edge105_Node000006_Node000008" title=" " alt="" coords="365,239,433,259,431,264,363,244"/>
-<area shape="rect" id="Node000009" href="$classRa_1_1Engine_1_1Scene_1_1SpotLight.html" title=" " alt="" coords="428,325,575,365"/>
-<area shape="poly" id="edge106_Node000006_Node000009" title=" " alt="" coords="357,242,364,247,380,264,389,280,397,296,412,311,432,323,429,327,409,315,393,299,384,283,376,267,361,251,354,246"/>
+<area shape="rect" id="Node000000" href="$classRa_1_1Engine_1_1Scene_1_1CameraStorage.html" title=" " alt="" coords="5,5,152,45"/>
+<area shape="rect" id="Node000001" href="$classRa_1_1Engine_1_1Scene_1_1DefaultCameraStorage.html" title=" " alt="" coords="200,5,371,45"/>
+<area shape="poly" id="edge98_Node000000_Node000001" title=" " alt="" coords="166,23,200,23,200,28,166,28"/>
 </map>

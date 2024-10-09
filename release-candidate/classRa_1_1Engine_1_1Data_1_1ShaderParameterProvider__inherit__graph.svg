@@ -7,6 +7,7 @@
 <!--zoomable 975 -->
 
 <svg id="main" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" onload="init(evt)">
+
 <style type="text/css"><![CDATA[
 .node, .edge {opacity: 0.7;}
 .node.selected, .edge.selected {opacity: 1;}
@@ -46,7 +47,7 @@
   </g>
 </defs>
 <script type="application/ecmascript">
-var viewWidth = 501;
+var viewWidth = 672;
 var viewHeight = 975;
 var sectionId = 'dynsection-0';
 </script>
@@ -58,25 +59,25 @@ var sectionId = 'dynsection-0';
 <g id="Node000001" class="node">
 <title>Node1</title>
 <g id="a_Node000001"><a xlink:title=" ">
-<polygon fill="#999999" stroke="transparent" points="411.5,-967 249.5,-967 249.5,-832 411.5,-832 411.5,-967"/>
-<text text-anchor="start" x="270" y="-954.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Data::Shader</text>
-<text text-anchor="start" x="285" y="-943.5" font-family="Helvetica,sans-Serif" font-size="10.00">ParameterProvider</text>
-<text text-anchor="start" x="328.5" y="-928.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<text text-anchor="start" x="253.5" y="-913.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="266.5" y="-913.5" font-family="Helvetica,sans-Serif" font-size="10.00">~ShaderParameterProvider()</text>
-<text text-anchor="start" x="253.5" y="-898.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="266.5" y="-898.5" font-family="Helvetica,sans-Serif" font-size="10.00">getParameters()</text>
-<text text-anchor="start" x="253.5" y="-883.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="266.5" y="-883.5" font-family="Helvetica,sans-Serif" font-size="10.00">getParameters()</text>
-<text text-anchor="start" x="253.5" y="-868.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="266.5" y="-868.5" font-family="Helvetica,sans-Serif" font-size="10.00">updateGL()</text>
-<text text-anchor="start" x="253.5" y="-853.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="266.5" y="-853.5" font-family="Helvetica,sans-Serif" font-size="10.00">updateFromParameters()</text>
-<text text-anchor="start" x="253.5" y="-838.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="266.5" y="-838.5" font-family="Helvetica,sans-Serif" font-size="10.00">getPropertyList()</text>
-<polygon fill="#666666" stroke="#666666" points="249.5,-938.5 249.5,-938.5 411.5,-938.5 411.5,-938.5 249.5,-938.5"/>
-<polygon fill="#666666" stroke="#666666" points="249.5,-923.5 249.5,-923.5 411.5,-923.5 411.5,-923.5 249.5,-923.5"/>
-<polygon fill="none" stroke="#666666" points="249.5,-832 249.5,-967 411.5,-967 411.5,-832 249.5,-832"/>
+<polygon fill="#999999" stroke="transparent" points="496.5,-967 334.5,-967 334.5,-832 496.5,-832 496.5,-967"/>
+<text text-anchor="start" x="355" y="-954.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Data::Shader</text>
+<text text-anchor="start" x="370" y="-943.5" font-family="Helvetica,sans-Serif" font-size="10.00">ParameterProvider</text>
+<text text-anchor="start" x="413.5" y="-928.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<text text-anchor="start" x="338.5" y="-913.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="351.5" y="-913.5" font-family="Helvetica,sans-Serif" font-size="10.00">~ShaderParameterProvider()</text>
+<text text-anchor="start" x="338.5" y="-898.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="351.5" y="-898.5" font-family="Helvetica,sans-Serif" font-size="10.00">getParameters()</text>
+<text text-anchor="start" x="338.5" y="-883.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="351.5" y="-883.5" font-family="Helvetica,sans-Serif" font-size="10.00">getParameters()</text>
+<text text-anchor="start" x="338.5" y="-868.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="351.5" y="-868.5" font-family="Helvetica,sans-Serif" font-size="10.00">updateGL()</text>
+<text text-anchor="start" x="338.5" y="-853.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="351.5" y="-853.5" font-family="Helvetica,sans-Serif" font-size="10.00">updateFromParameters()</text>
+<text text-anchor="start" x="338.5" y="-838.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="351.5" y="-838.5" font-family="Helvetica,sans-Serif" font-size="10.00">getPropertyList()</text>
+<polygon fill="#666666" stroke="#666666" points="334.5,-938.5 334.5,-938.5 496.5,-938.5 496.5,-938.5 334.5,-938.5"/>
+<polygon fill="#666666" stroke="#666666" points="334.5,-923.5 334.5,-923.5 496.5,-923.5 496.5,-923.5 334.5,-923.5"/>
+<polygon fill="none" stroke="#666666" points="334.5,-832 334.5,-967 496.5,-967 496.5,-832 334.5,-832"/>
 </a>
 </g>
 </g>
@@ -84,42 +85,42 @@ var sectionId = 'dynsection-0';
 <g id="Node000002" class="node">
 <title>Node2</title>
 <g id="a_Node000002"><a xlink:href="classRa_1_1Engine_1_1Data_1_1Material.html" target="_top" xlink:title="Base class for materials.">
-<polygon fill="white" stroke="transparent" points="324,-796 171,-796 171,-537 324,-537 324,-796"/>
-<text text-anchor="start" x="184" y="-783.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Data::Material</text>
-<text text-anchor="start" x="246" y="-768.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<text text-anchor="start" x="175.5" y="-753.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="188.5" y="-753.5" font-family="Helvetica,sans-Serif" font-size="10.00">~Material()</text>
-<text text-anchor="start" x="175.5" y="-738.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="188.5" y="-738.5" font-family="Helvetica,sans-Serif" font-size="10.00">getInstanceName()</text>
-<text text-anchor="start" x="175.5" y="-723.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="188.5" y="-723.5" font-family="Helvetica,sans-Serif" font-size="10.00">getMaterialName()</text>
-<text text-anchor="start" x="175.5" y="-708.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="188.5" y="-708.5" font-family="Helvetica,sans-Serif" font-size="10.00">setMaterialAspect()</text>
-<text text-anchor="start" x="175.5" y="-693.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="188.5" y="-693.5" font-family="Helvetica,sans-Serif" font-size="10.00">getMaterialAspect()</text>
-<text text-anchor="start" x="175.5" y="-678.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="188.5" y="-678.5" font-family="Helvetica,sans-Serif" font-size="10.00">isTransparent()</text>
-<text text-anchor="start" x="175.5" y="-663.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="188.5" y="-663.5" font-family="Helvetica,sans-Serif" font-size="10.00">getPropertyList()</text>
-<text text-anchor="start" x="175.5" y="-648.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="188.5" y="-648.5" font-family="Helvetica,sans-Serif" font-size="10.00">setColoredByVertexAttrib()</text>
-<text text-anchor="start" x="175.5" y="-633.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="188.5" y="-633.5" font-family="Helvetica,sans-Serif" font-size="10.00">isColoredByVertexAttrib()</text>
-<text text-anchor="start" x="175.5" y="-618.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="188.5" y="-618.5" font-family="Helvetica,sans-Serif" font-size="10.00">needUpdate()</text>
-<text text-anchor="start" x="175.5" y="-603.5" font-family="Helvetica,sans-Serif" font-size="10.00">#</text>
-<text text-anchor="start" x="188.5" y="-603.5" font-family="Helvetica,sans-Serif" font-size="10.00">Material()</text>
-<text text-anchor="start" x="175.5" y="-588.5" font-family="Helvetica,sans-Serif" font-size="10.00">#</text>
-<text text-anchor="start" x="188.5" y="-588.5" font-family="Helvetica,sans-Serif" font-size="10.00">setMaterialName()</text>
-<text text-anchor="start" x="175.5" y="-573.5" font-family="Helvetica,sans-Serif" font-size="10.00">#</text>
-<text text-anchor="start" x="188.5" y="-573.5" font-family="Helvetica,sans-Serif" font-size="10.00">isDirty()</text>
-<text text-anchor="start" x="175.5" y="-558.5" font-family="Helvetica,sans-Serif" font-size="10.00">#</text>
-<text text-anchor="start" x="188.5" y="-558.5" font-family="Helvetica,sans-Serif" font-size="10.00">setDirty()</text>
-<text text-anchor="start" x="175.5" y="-543.5" font-family="Helvetica,sans-Serif" font-size="10.00">#</text>
-<text text-anchor="start" x="188.5" y="-543.5" font-family="Helvetica,sans-Serif" font-size="10.00">setClean()</text>
-<polygon fill="#666666" stroke="#666666" points="171.5,-778.5 171.5,-778.5 324.5,-778.5 324.5,-778.5 171.5,-778.5"/>
-<polygon fill="#666666" stroke="#666666" points="171.5,-763.5 171.5,-763.5 324.5,-763.5 324.5,-763.5 171.5,-763.5"/>
-<polygon fill="none" stroke="#666666" points="171,-537 171,-796 324,-796 324,-537 171,-537"/>
+<polygon fill="white" stroke="transparent" points="409,-796 256,-796 256,-537 409,-537 409,-796"/>
+<text text-anchor="start" x="269" y="-783.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Data::Material</text>
+<text text-anchor="start" x="331" y="-768.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<text text-anchor="start" x="260.5" y="-753.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="273.5" y="-753.5" font-family="Helvetica,sans-Serif" font-size="10.00">~Material()</text>
+<text text-anchor="start" x="260.5" y="-738.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="273.5" y="-738.5" font-family="Helvetica,sans-Serif" font-size="10.00">getInstanceName()</text>
+<text text-anchor="start" x="260.5" y="-723.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="273.5" y="-723.5" font-family="Helvetica,sans-Serif" font-size="10.00">getMaterialName()</text>
+<text text-anchor="start" x="260.5" y="-708.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="273.5" y="-708.5" font-family="Helvetica,sans-Serif" font-size="10.00">setMaterialAspect()</text>
+<text text-anchor="start" x="260.5" y="-693.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="273.5" y="-693.5" font-family="Helvetica,sans-Serif" font-size="10.00">getMaterialAspect()</text>
+<text text-anchor="start" x="260.5" y="-678.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="273.5" y="-678.5" font-family="Helvetica,sans-Serif" font-size="10.00">isTransparent()</text>
+<text text-anchor="start" x="260.5" y="-663.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="273.5" y="-663.5" font-family="Helvetica,sans-Serif" font-size="10.00">getPropertyList()</text>
+<text text-anchor="start" x="260.5" y="-648.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="273.5" y="-648.5" font-family="Helvetica,sans-Serif" font-size="10.00">setColoredByVertexAttrib()</text>
+<text text-anchor="start" x="260.5" y="-633.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="273.5" y="-633.5" font-family="Helvetica,sans-Serif" font-size="10.00">isColoredByVertexAttrib()</text>
+<text text-anchor="start" x="260.5" y="-618.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="273.5" y="-618.5" font-family="Helvetica,sans-Serif" font-size="10.00">needUpdate()</text>
+<text text-anchor="start" x="260.5" y="-603.5" font-family="Helvetica,sans-Serif" font-size="10.00">#</text>
+<text text-anchor="start" x="273.5" y="-603.5" font-family="Helvetica,sans-Serif" font-size="10.00">Material()</text>
+<text text-anchor="start" x="260.5" y="-588.5" font-family="Helvetica,sans-Serif" font-size="10.00">#</text>
+<text text-anchor="start" x="273.5" y="-588.5" font-family="Helvetica,sans-Serif" font-size="10.00">setMaterialName()</text>
+<text text-anchor="start" x="260.5" y="-573.5" font-family="Helvetica,sans-Serif" font-size="10.00">#</text>
+<text text-anchor="start" x="273.5" y="-573.5" font-family="Helvetica,sans-Serif" font-size="10.00">isDirty()</text>
+<text text-anchor="start" x="260.5" y="-558.5" font-family="Helvetica,sans-Serif" font-size="10.00">#</text>
+<text text-anchor="start" x="273.5" y="-558.5" font-family="Helvetica,sans-Serif" font-size="10.00">setDirty()</text>
+<text text-anchor="start" x="260.5" y="-543.5" font-family="Helvetica,sans-Serif" font-size="10.00">#</text>
+<text text-anchor="start" x="273.5" y="-543.5" font-family="Helvetica,sans-Serif" font-size="10.00">setClean()</text>
+<polygon fill="#666666" stroke="#666666" points="256.5,-778.5 256.5,-778.5 409.5,-778.5 409.5,-778.5 256.5,-778.5"/>
+<polygon fill="#666666" stroke="#666666" points="256.5,-763.5 256.5,-763.5 409.5,-763.5 409.5,-763.5 256.5,-763.5"/>
+<polygon fill="none" stroke="#666666" points="256,-537 256,-796 409,-796 409,-537 256,-537"/>
 </a>
 </g>
 </g>
@@ -127,47 +128,47 @@ var sectionId = 'dynsection-0';
 <g id="edge1_Node000001_Node000002" class="edge">
 <title>Node1&#45;&gt;Node2</title>
 <g id="a_edge1_Node000001_Node000002"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M303.21,-822.54C300.15,-814.03 296.98,-805.2 293.76,-796.26"/>
-<polygon fill="none" stroke="#63b8ff" points="299.93,-823.77 306.6,-832 306.52,-821.4 299.93,-823.77"/>
+<path fill="none" stroke="#63b8ff" d="M388.21,-822.54C385.15,-814.03 381.98,-805.2 378.76,-796.26"/>
+<polygon fill="none" stroke="#63b8ff" points="384.93,-823.77 391.6,-832 391.52,-821.4 384.93,-823.77"/>
 </a>
 </g>
 </g>
-<!-- Node8 -->
-<g id="Node000008" class="node">
-<title>Node8</title>
-<g id="a_Node000008"><a xlink:href="classRa_1_1Gui_1_1Gizmo_1_1UiSelectionControler.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="transparent" points="487,-749 342,-749 342,-584 487,-584 487,-749"/>
-<text text-anchor="start" x="347.5" y="-736.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Gui::Gizmo::UiSelection</text>
-<text text-anchor="start" x="392" y="-725.5" font-family="Helvetica,sans-Serif" font-size="10.00">Controler</text>
-<text text-anchor="start" x="413" y="-710.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<text text-anchor="start" x="348" y="-695.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="362.5" y="-695.5" font-family="Helvetica,sans-Serif" font-size="10.00">UiSelectionControler()</text>
-<text text-anchor="start" x="348" y="-680.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="362.5" y="-680.5" font-family="Helvetica,sans-Serif" font-size="10.00">UiSelectionControler()</text>
-<text text-anchor="start" x="348" y="-665.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="362.5" y="-665.5" font-family="Helvetica,sans-Serif" font-size="10.00">UiSelectionControler()</text>
-<text text-anchor="start" x="348" y="-650.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="362.5" y="-650.5" font-family="Helvetica,sans-Serif" font-size="10.00">~UiSelectionControler()</text>
-<text text-anchor="start" x="348" y="-635.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="362.5" y="-635.5" font-family="Helvetica,sans-Serif" font-size="10.00">updateGL()</text>
-<text text-anchor="start" x="348" y="-620.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="362.5" y="-620.5" font-family="Helvetica,sans-Serif" font-size="10.00">toggleState()</text>
-<text text-anchor="start" x="348" y="-605.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="362.5" y="-605.5" font-family="Helvetica,sans-Serif" font-size="10.00">setState()</text>
-<text text-anchor="start" x="348" y="-590.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="362.5" y="-590.5" font-family="Helvetica,sans-Serif" font-size="10.00">clearState()</text>
-<polygon fill="#666666" stroke="#666666" points="342.5,-720.5 342.5,-720.5 487.5,-720.5 487.5,-720.5 342.5,-720.5"/>
-<polygon fill="#666666" stroke="#666666" points="342.5,-705.5 342.5,-705.5 487.5,-705.5 487.5,-705.5 342.5,-705.5"/>
-<polygon fill="none" stroke="#666666" points="342,-584 342,-749 487,-749 487,-584 342,-584"/>
+<!-- Node9 -->
+<g id="Node000009" class="node">
+<title>Node9</title>
+<g id="a_Node000009"><a xlink:href="classRa_1_1Gui_1_1Gizmo_1_1UiSelectionControler.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="transparent" points="572,-749 427,-749 427,-584 572,-584 572,-749"/>
+<text text-anchor="start" x="432.5" y="-736.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Gui::Gizmo::UiSelection</text>
+<text text-anchor="start" x="477" y="-725.5" font-family="Helvetica,sans-Serif" font-size="10.00">Controler</text>
+<text text-anchor="start" x="498" y="-710.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<text text-anchor="start" x="433" y="-695.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="447.5" y="-695.5" font-family="Helvetica,sans-Serif" font-size="10.00">UiSelectionControler()</text>
+<text text-anchor="start" x="433" y="-680.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="447.5" y="-680.5" font-family="Helvetica,sans-Serif" font-size="10.00">UiSelectionControler()</text>
+<text text-anchor="start" x="433" y="-665.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="447.5" y="-665.5" font-family="Helvetica,sans-Serif" font-size="10.00">UiSelectionControler()</text>
+<text text-anchor="start" x="433" y="-650.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="447.5" y="-650.5" font-family="Helvetica,sans-Serif" font-size="10.00">~UiSelectionControler()</text>
+<text text-anchor="start" x="433" y="-635.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="447.5" y="-635.5" font-family="Helvetica,sans-Serif" font-size="10.00">updateGL()</text>
+<text text-anchor="start" x="433" y="-620.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="447.5" y="-620.5" font-family="Helvetica,sans-Serif" font-size="10.00">toggleState()</text>
+<text text-anchor="start" x="433" y="-605.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="447.5" y="-605.5" font-family="Helvetica,sans-Serif" font-size="10.00">setState()</text>
+<text text-anchor="start" x="433" y="-590.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="447.5" y="-590.5" font-family="Helvetica,sans-Serif" font-size="10.00">clearState()</text>
+<polygon fill="#666666" stroke="#666666" points="427.5,-720.5 427.5,-720.5 572.5,-720.5 572.5,-720.5 427.5,-720.5"/>
+<polygon fill="#666666" stroke="#666666" points="427.5,-705.5 427.5,-705.5 572.5,-705.5 572.5,-705.5 427.5,-705.5"/>
+<polygon fill="none" stroke="#666666" points="427,-584 427,-749 572,-749 572,-584 427,-584"/>
 </a>
 </g>
 </g>
-<!-- Node1&#45;&gt;Node8 -->
-<g id="edge7_Node000001_Node000008" class="edge">
-<title>Node1&#45;&gt;Node8</title>
-<g id="a_edge7_Node000001_Node000008"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M358.16,-822.44C366.7,-798.94 376.15,-772.97 384.82,-749.12"/>
-<polygon fill="none" stroke="#63b8ff" points="354.81,-821.4 354.68,-832 361.39,-823.79 354.81,-821.4"/>
+<!-- Node1&#45;&gt;Node9 -->
+<g id="edge8_Node000001_Node000009" class="edge">
+<title>Node1&#45;&gt;Node9</title>
+<g id="a_edge8_Node000001_Node000009"><a xlink:title=" ">
+<path fill="none" stroke="#63b8ff" d="M443.16,-822.44C451.7,-798.94 461.15,-772.97 469.82,-749.12"/>
+<polygon fill="none" stroke="#63b8ff" points="439.81,-821.4 439.68,-832 446.39,-823.79 439.81,-821.4"/>
 </a>
 </g>
 </g>
@@ -227,34 +228,42 @@ var sectionId = 'dynsection-0';
 <g id="edge2_Node000002_Node000003" class="edge">
 <title>Node2&#45;&gt;Node3</title>
 <g id="a_edge2_Node000002_Node000003"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M175.75,-527.67C168.24,-513.24 160.59,-498.54 153.03,-484.02"/>
-<polygon fill="none" stroke="#63b8ff" points="172.69,-529.36 180.41,-536.61 178.89,-526.12 172.69,-529.36"/>
+<path fill="none" stroke="#63b8ff" d="M248.29,-594.09C219.02,-566.79 187.34,-534.19 162.5,-501 159.32,-496.75 156.2,-492.37 153.13,-487.89"/>
+<polygon fill="none" stroke="#63b8ff" points="245.95,-596.7 255.67,-600.92 250.7,-591.56 245.95,-596.7"/>
 </a>
 </g>
 </g>
 <!-- Node4 -->
 <g id="Node000004" class="node">
 <title>Node4</title>
-<g id="a_Node000004"><a xlink:href="classRa_1_1Engine_1_1Data_1_1SimpleMaterial.html" target="_top" xlink:title="Base implementation for simple, monocolored, materials.">
-<polygon fill="white" stroke="transparent" points="324,-403.5 171,-403.5 171,-268.5 324,-268.5 324,-403.5"/>
-<text text-anchor="start" x="187.5" y="-391" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Data::Simple</text>
-<text text-anchor="start" x="227.5" y="-380" font-family="Helvetica,sans-Serif" font-size="10.00">Material</text>
-<text text-anchor="start" x="246" y="-365" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<g id="a_Node000004"><a xlink:href="classRa_1_1Engine_1_1Data_1_1RawShaderMaterial.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="transparent" points="323.5,-433.5 171.5,-433.5 171.5,-238.5 323.5,-238.5 323.5,-433.5"/>
+<text text-anchor="start" x="176.5" y="-421" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Data::RawShader</text>
+<text text-anchor="start" x="227" y="-410" font-family="Helvetica,sans-Serif" font-size="10.00">Material</text>
+<text text-anchor="start" x="245.5" y="-395" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<text text-anchor="start" x="175.5" y="-380" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="188.5" y="-380" font-family="Helvetica,sans-Serif" font-size="10.00">RawShaderMaterial()</text>
+<text text-anchor="start" x="175.5" y="-365" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="188.5" y="-365" font-family="Helvetica,sans-Serif" font-size="10.00">~RawShaderMaterial()</text>
 <text text-anchor="start" x="175.5" y="-350" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="188.5" y="-350" font-family="Helvetica,sans-Serif" font-size="10.00">SimpleMaterial()</text>
+<text text-anchor="start" x="188.5" y="-350" font-family="Helvetica,sans-Serif" font-size="10.00">RawShaderMaterial()</text>
 <text text-anchor="start" x="175.5" y="-335" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="188.5" y="-335" font-family="Helvetica,sans-Serif" font-size="10.00">updateGL()</text>
+<text text-anchor="start" x="188.5" y="-335" font-family="Helvetica,sans-Serif" font-size="10.00">getParameters()</text>
 <text text-anchor="start" x="175.5" y="-320" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="188.5" y="-320" font-family="Helvetica,sans-Serif" font-size="10.00">setColoredByVertexAttrib()</text>
+<text text-anchor="start" x="188.5" y="-320" font-family="Helvetica,sans-Serif" font-size="10.00">getParameters()</text>
 <text text-anchor="start" x="175.5" y="-305" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="188.5" y="-305" font-family="Helvetica,sans-Serif" font-size="10.00">isColoredByVertexAttrib()</text>
+<text text-anchor="start" x="188.5" y="-305" font-family="Helvetica,sans-Serif" font-size="10.00">registerDefaultTechnique()</text>
 <text text-anchor="start" x="175.5" y="-290" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="188.5" y="-290" font-family="Helvetica,sans-Serif" font-size="10.00">setColor()</text>
-<text text-anchor="start" x="175.5" y="-275" font-family="Helvetica,sans-Serif" font-size="10.00">#</text>
-<text text-anchor="start" x="188.5" y="-275" font-family="Helvetica,sans-Serif" font-size="10.00">loadMetaData()</text>
-<polygon fill="#666666" stroke="#666666" points="171.5,-375 171.5,-375 324.5,-375 324.5,-375 171.5,-375"/>
-<polygon fill="#666666" stroke="#666666" points="171.5,-360 171.5,-360 324.5,-360 324.5,-360 171.5,-360"/>
-<polygon fill="none" stroke="#666666" points="171,-268.5 171,-403.5 324,-403.5 324,-268.5 171,-268.5"/>
+<text text-anchor="start" x="188.5" y="-290" font-family="Helvetica,sans-Serif" font-size="10.00">updateShaders()</text>
+<text text-anchor="start" x="175.5" y="-275" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="188.5" y="-275" font-family="Helvetica,sans-Serif" font-size="10.00">updateGL()</text>
+<text text-anchor="start" x="175.5" y="-260" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="188.5" y="-260" font-family="Helvetica,sans-Serif" font-size="10.00">registerMaterial()</text>
+<text text-anchor="start" x="175.5" y="-245" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="188.5" y="-245" font-family="Helvetica,sans-Serif" font-size="10.00">unregisterMaterial()</text>
+<polygon fill="#666666" stroke="#666666" points="171.5,-405 171.5,-405 323.5,-405 323.5,-405 171.5,-405"/>
+<polygon fill="#666666" stroke="#666666" points="171.5,-390 171.5,-390 323.5,-390 323.5,-390 171.5,-390"/>
+<polygon fill="none" stroke="#666666" points="171.5,-238.5 171.5,-433.5 323.5,-433.5 323.5,-238.5 171.5,-238.5"/>
 </a>
 </g>
 </g>
@@ -262,132 +271,167 @@ var sectionId = 'dynsection-0';
 <g id="edge3_Node000002_Node000004" class="edge">
 <title>Node2&#45;&gt;Node4</title>
 <g id="a_edge3_Node000002_Node000004"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M247.5,-526.43C247.5,-483.88 247.5,-439.03 247.5,-403.65"/>
-<polygon fill="none" stroke="#63b8ff" points="244,-526.61 247.5,-536.61 251,-526.61 244,-526.61"/>
-</a>
-</g>
-</g>
-<!-- Node7 -->
-<g id="Node000007" class="node">
-<title>Node7</title>
-<g id="a_Node000007"><a xlink:href="classRa_1_1Engine_1_1Data_1_1VolumetricMaterial.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="transparent" points="492.5,-471 342.5,-471 342.5,-201 492.5,-201 492.5,-471"/>
-<text text-anchor="start" x="347.5" y="-459" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Data::Volumetric</text>
-<text text-anchor="start" x="397" y="-448" font-family="Helvetica,sans-Serif" font-size="10.00">Material</text>
-<text text-anchor="start" x="347" y="-433" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="360.5" y="-433" font-family="Helvetica,sans-Serif" font-size="10.00">m_sigma_a</text>
-<text text-anchor="start" x="347" y="-418" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="360.5" y="-418" font-family="Helvetica,sans-Serif" font-size="10.00">m_sigma_s</text>
-<text text-anchor="start" x="347" y="-403" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="360.5" y="-403" font-family="Helvetica,sans-Serif" font-size="10.00">m_g</text>
-<text text-anchor="start" x="347" y="-388" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="360.5" y="-388" font-family="Helvetica,sans-Serif" font-size="10.00">m_scale</text>
-<text text-anchor="start" x="347" y="-373" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="360.5" y="-373" font-family="Helvetica,sans-Serif" font-size="10.00">m_stepsize</text>
-<text text-anchor="start" x="347" y="-358" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="360.5" y="-358" font-family="Helvetica,sans-Serif" font-size="10.00">m_modelToMedium</text>
-<text text-anchor="start" x="347" y="-343" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="360.5" y="-343" font-family="Helvetica,sans-Serif" font-size="10.00">VolumetricMaterial()</text>
-<text text-anchor="start" x="347" y="-328" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="360.5" y="-328" font-family="Helvetica,sans-Serif" font-size="10.00">~VolumetricMaterial()</text>
-<text text-anchor="start" x="347" y="-313" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="360.5" y="-313" font-family="Helvetica,sans-Serif" font-size="10.00">updateGL()</text>
-<text text-anchor="start" x="347" y="-298" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="360.5" y="-298" font-family="Helvetica,sans-Serif" font-size="10.00">updateFromParameters()</text>
-<text text-anchor="start" x="347" y="-283" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="360.5" y="-283" font-family="Helvetica,sans-Serif" font-size="10.00">isTransparent()</text>
-<text text-anchor="start" x="347" y="-268" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="360.5" y="-268" font-family="Helvetica,sans-Serif" font-size="10.00">setTexture()</text>
-<text text-anchor="start" x="347" y="-253" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="360.5" y="-253" font-family="Helvetica,sans-Serif" font-size="10.00">getTexture()</text>
-<text text-anchor="start" x="347" y="-238" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="360.5" y="-238" font-family="Helvetica,sans-Serif" font-size="10.00">getParametersMetadata()</text>
-<text text-anchor="start" x="347" y="-223" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="360.5" y="-223" font-family="Helvetica,sans-Serif" font-size="10.00">registerMaterial()</text>
-<text text-anchor="start" x="347" y="-208" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="360.5" y="-208" font-family="Helvetica,sans-Serif" font-size="10.00">unregisterMaterial()</text>
-<polygon fill="#666666" stroke="#666666" points="342.5,-443 342.5,-443 492.5,-443 492.5,-443 342.5,-443"/>
-<polygon fill="#666666" stroke="#666666" points="342.5,-353 342.5,-353 358.5,-353 358.5,-353 342.5,-353"/>
-<polygon fill="#666666" stroke="#666666" points="358.5,-353 358.5,-353 492.5,-353 492.5,-353 358.5,-353"/>
-<polygon fill="none" stroke="#666666" points="342.5,-201 342.5,-471 492.5,-471 492.5,-201 342.5,-201"/>
-</a>
-</g>
-</g>
-<!-- Node2&#45;&gt;Node7 -->
-<g id="edge6_Node000002_Node000007" class="edge">
-<title>Node2&#45;&gt;Node7</title>
-<g id="a_edge6_Node000002_Node000007"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M319.67,-527.66C324.36,-518.64 329,-509.69 333.5,-501 338.5,-491.34 343.65,-481.35 348.83,-471.3"/>
-<polygon fill="none" stroke="#63b8ff" points="316.48,-526.2 314.97,-536.69 322.69,-529.43 316.48,-526.2"/>
+<path fill="none" stroke="#63b8ff" d="M296.64,-526.9C288.51,-495.47 280.04,-462.76 272.47,-433.52"/>
+<polygon fill="none" stroke="#63b8ff" points="293.26,-527.81 299.15,-536.61 300.03,-526.05 293.26,-527.81"/>
 </a>
 </g>
 </g>
 <!-- Node5 -->
 <g id="Node000005" class="node">
 <title>Node5</title>
-<g id="a_Node000005"><a xlink:href="classRa_1_1Engine_1_1Data_1_1LambertianMaterial.html" target="_top" xlink:title="Implementation of the Lambertian Material BSDF.">
-<polygon fill="white" stroke="transparent" points="236,-135 83,-135 83,0 236,0 236,-135"/>
-<text text-anchor="start" x="88.5" y="-122.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Data::Lambertian</text>
-<text text-anchor="start" x="139.5" y="-111.5" font-family="Helvetica,sans-Serif" font-size="10.00">Material</text>
-<text text-anchor="start" x="158" y="-96.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<text text-anchor="start" x="89" y="-81.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="103.5" y="-81.5" font-family="Helvetica,sans-Serif" font-size="10.00">LambertianMaterial()</text>
-<text text-anchor="start" x="89" y="-66.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="103.5" y="-66.5" font-family="Helvetica,sans-Serif" font-size="10.00">~LambertianMaterial()</text>
-<text text-anchor="start" x="89" y="-51.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="103.5" y="-51.5" font-family="Helvetica,sans-Serif" font-size="10.00">updateFromParameters()</text>
-<text text-anchor="start" x="89" y="-36.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="103.5" y="-36.5" font-family="Helvetica,sans-Serif" font-size="10.00">getParametersMetadata()</text>
-<text text-anchor="start" x="89" y="-21.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="103.5" y="-21.5" font-family="Helvetica,sans-Serif" font-size="10.00">registerMaterial()</text>
-<text text-anchor="start" x="89" y="-6.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="103.5" y="-6.5" font-family="Helvetica,sans-Serif" font-size="10.00">unregisterMaterial()</text>
-<polygon fill="#666666" stroke="#666666" points="83.5,-106.5 83.5,-106.5 236.5,-106.5 236.5,-106.5 83.5,-106.5"/>
-<polygon fill="#666666" stroke="#666666" points="83.5,-91.5 83.5,-91.5 236.5,-91.5 236.5,-91.5 83.5,-91.5"/>
-<polygon fill="none" stroke="#666666" points="83,0 83,-135 236,-135 236,0 83,0"/>
+<g id="a_Node000005"><a xlink:href="classRa_1_1Engine_1_1Data_1_1SimpleMaterial.html" target="_top" xlink:title="Base implementation for simple, monocolored, materials.">
+<polygon fill="white" stroke="transparent" points="495,-403.5 342,-403.5 342,-268.5 495,-268.5 495,-403.5"/>
+<text text-anchor="start" x="358.5" y="-391" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Data::Simple</text>
+<text text-anchor="start" x="398.5" y="-380" font-family="Helvetica,sans-Serif" font-size="10.00">Material</text>
+<text text-anchor="start" x="417" y="-365" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<text text-anchor="start" x="346.5" y="-350" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="359.5" y="-350" font-family="Helvetica,sans-Serif" font-size="10.00">SimpleMaterial()</text>
+<text text-anchor="start" x="346.5" y="-335" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="359.5" y="-335" font-family="Helvetica,sans-Serif" font-size="10.00">updateGL()</text>
+<text text-anchor="start" x="346.5" y="-320" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="359.5" y="-320" font-family="Helvetica,sans-Serif" font-size="10.00">setColoredByVertexAttrib()</text>
+<text text-anchor="start" x="346.5" y="-305" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="359.5" y="-305" font-family="Helvetica,sans-Serif" font-size="10.00">isColoredByVertexAttrib()</text>
+<text text-anchor="start" x="346.5" y="-290" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="359.5" y="-290" font-family="Helvetica,sans-Serif" font-size="10.00">setColor()</text>
+<text text-anchor="start" x="346.5" y="-275" font-family="Helvetica,sans-Serif" font-size="10.00">#</text>
+<text text-anchor="start" x="359.5" y="-275" font-family="Helvetica,sans-Serif" font-size="10.00">loadMetaData()</text>
+<polygon fill="#666666" stroke="#666666" points="342.5,-375 342.5,-375 495.5,-375 495.5,-375 342.5,-375"/>
+<polygon fill="#666666" stroke="#666666" points="342.5,-360 342.5,-360 495.5,-360 495.5,-360 342.5,-360"/>
+<polygon fill="none" stroke="#666666" points="342,-268.5 342,-403.5 495,-403.5 495,-268.5 342,-268.5"/>
 </a>
 </g>
 </g>
-<!-- Node4&#45;&gt;Node5 -->
-<g id="edge4_Node000004_Node000005" class="edge">
-<title>Node4&#45;&gt;Node5</title>
-<g id="a_edge4_Node000004_Node000005"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M222.31,-258.7C209.43,-219.7 193.9,-172.67 181.5,-135.14"/>
-<polygon fill="none" stroke="#63b8ff" points="219.06,-260.04 225.52,-268.44 225.71,-257.85 219.06,-260.04"/>
+<!-- Node2&#45;&gt;Node5 -->
+<g id="edge4_Node000002_Node000005" class="edge">
+<title>Node2&#45;&gt;Node5</title>
+<g id="a_edge4_Node000002_Node000005"><a xlink:title=" ">
+<path fill="none" stroke="#63b8ff" d="M368.84,-526.7C380,-484.07 391.77,-439.1 401.05,-403.65"/>
+<polygon fill="none" stroke="#63b8ff" points="365.39,-526.05 366.24,-536.61 372.16,-527.82 365.39,-526.05"/>
+</a>
+</g>
+</g>
+<!-- Node8 -->
+<g id="Node000008" class="node">
+<title>Node8</title>
+<g id="a_Node000008"><a xlink:href="classRa_1_1Engine_1_1Data_1_1VolumetricMaterial.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="transparent" points="663.5,-471 513.5,-471 513.5,-201 663.5,-201 663.5,-471"/>
+<text text-anchor="start" x="518.5" y="-459" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Data::Volumetric</text>
+<text text-anchor="start" x="568" y="-448" font-family="Helvetica,sans-Serif" font-size="10.00">Material</text>
+<text text-anchor="start" x="518" y="-433" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="531.5" y="-433" font-family="Helvetica,sans-Serif" font-size="10.00">m_sigma_a</text>
+<text text-anchor="start" x="518" y="-418" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="531.5" y="-418" font-family="Helvetica,sans-Serif" font-size="10.00">m_sigma_s</text>
+<text text-anchor="start" x="518" y="-403" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="531.5" y="-403" font-family="Helvetica,sans-Serif" font-size="10.00">m_g</text>
+<text text-anchor="start" x="518" y="-388" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="531.5" y="-388" font-family="Helvetica,sans-Serif" font-size="10.00">m_scale</text>
+<text text-anchor="start" x="518" y="-373" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="531.5" y="-373" font-family="Helvetica,sans-Serif" font-size="10.00">m_stepsize</text>
+<text text-anchor="start" x="518" y="-358" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="531.5" y="-358" font-family="Helvetica,sans-Serif" font-size="10.00">m_modelToMedium</text>
+<text text-anchor="start" x="518" y="-343" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="531.5" y="-343" font-family="Helvetica,sans-Serif" font-size="10.00">VolumetricMaterial()</text>
+<text text-anchor="start" x="518" y="-328" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="531.5" y="-328" font-family="Helvetica,sans-Serif" font-size="10.00">~VolumetricMaterial()</text>
+<text text-anchor="start" x="518" y="-313" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="531.5" y="-313" font-family="Helvetica,sans-Serif" font-size="10.00">updateGL()</text>
+<text text-anchor="start" x="518" y="-298" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="531.5" y="-298" font-family="Helvetica,sans-Serif" font-size="10.00">updateFromParameters()</text>
+<text text-anchor="start" x="518" y="-283" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="531.5" y="-283" font-family="Helvetica,sans-Serif" font-size="10.00">isTransparent()</text>
+<text text-anchor="start" x="518" y="-268" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="531.5" y="-268" font-family="Helvetica,sans-Serif" font-size="10.00">setTexture()</text>
+<text text-anchor="start" x="518" y="-253" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="531.5" y="-253" font-family="Helvetica,sans-Serif" font-size="10.00">getTexture()</text>
+<text text-anchor="start" x="518" y="-238" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="531.5" y="-238" font-family="Helvetica,sans-Serif" font-size="10.00">getParametersMetadata()</text>
+<text text-anchor="start" x="518" y="-223" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="531.5" y="-223" font-family="Helvetica,sans-Serif" font-size="10.00">registerMaterial()</text>
+<text text-anchor="start" x="518" y="-208" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="531.5" y="-208" font-family="Helvetica,sans-Serif" font-size="10.00">unregisterMaterial()</text>
+<polygon fill="#666666" stroke="#666666" points="513.5,-443 513.5,-443 663.5,-443 663.5,-443 513.5,-443"/>
+<polygon fill="#666666" stroke="#666666" points="513.5,-353 513.5,-353 529.5,-353 529.5,-353 513.5,-353"/>
+<polygon fill="#666666" stroke="#666666" points="529.5,-353 529.5,-353 663.5,-353 663.5,-353 529.5,-353"/>
+<polygon fill="none" stroke="#666666" points="513.5,-201 513.5,-471 663.5,-471 663.5,-201 513.5,-201"/>
+</a>
+</g>
+</g>
+<!-- Node2&#45;&gt;Node8 -->
+<g id="edge7_Node000002_Node000008" class="edge">
+<title>Node2&#45;&gt;Node8</title>
+<g id="a_edge7_Node000002_Node000008"><a xlink:title=" ">
+<path fill="none" stroke="#63b8ff" d="M416.7,-538.5C417.3,-538 417.9,-537.5 418.5,-537 450.49,-510.67 474.1,-529.15 504.5,-501 514.01,-492.2 522.61,-482.08 530.35,-471.27"/>
+<polygon fill="none" stroke="#63b8ff" points="414.18,-536.07 409.09,-545.36 418.86,-541.27 414.18,-536.07"/>
 </a>
 </g>
 </g>
 <!-- Node6 -->
 <g id="Node000006" class="node">
 <title>Node6</title>
-<g id="a_Node000006"><a xlink:href="classRa_1_1Engine_1_1Data_1_1PlainMaterial.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="transparent" points="416.5,-129.5 254.5,-129.5 254.5,-5.5 416.5,-5.5 416.5,-129.5"/>
-<text text-anchor="start" x="259.5" y="-117.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Data::PlainMaterial</text>
-<text text-anchor="start" x="333.5" y="-102.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<text text-anchor="start" x="262" y="-87.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="278.5" y="-87.5" font-family="Helvetica,sans-Serif" font-size="10.00">PlainMaterial()</text>
-<text text-anchor="start" x="262" y="-72.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="278.5" y="-72.5" font-family="Helvetica,sans-Serif" font-size="10.00">~PlainMaterial()</text>
-<text text-anchor="start" x="262" y="-57.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="278.5" y="-57.5" font-family="Helvetica,sans-Serif" font-size="10.00">updateFromParameters()</text>
-<text text-anchor="start" x="262" y="-42.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="278.5" y="-42.5" font-family="Helvetica,sans-Serif" font-size="10.00">getParametersMetadata()</text>
-<text text-anchor="start" x="262" y="-27.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="278.5" y="-27.5" font-family="Helvetica,sans-Serif" font-size="10.00">registerMaterial()</text>
-<text text-anchor="start" x="262" y="-12.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="278.5" y="-12.5" font-family="Helvetica,sans-Serif" font-size="10.00">unregisterMaterial()</text>
-<polygon fill="#666666" stroke="#666666" points="254.5,-112.5 254.5,-112.5 416.5,-112.5 416.5,-112.5 254.5,-112.5"/>
-<polygon fill="#666666" stroke="#666666" points="254.5,-97.5 254.5,-97.5 416.5,-97.5 416.5,-97.5 254.5,-97.5"/>
-<polygon fill="none" stroke="#666666" points="254.5,-5.5 254.5,-129.5 416.5,-129.5 416.5,-5.5 254.5,-5.5"/>
+<g id="a_Node000006"><a xlink:href="classRa_1_1Engine_1_1Data_1_1LambertianMaterial.html" target="_top" xlink:title="Implementation of the Lambertian Material BSDF.">
+<polygon fill="white" stroke="transparent" points="407,-135 254,-135 254,0 407,0 407,-135"/>
+<text text-anchor="start" x="259.5" y="-122.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Data::Lambertian</text>
+<text text-anchor="start" x="310.5" y="-111.5" font-family="Helvetica,sans-Serif" font-size="10.00">Material</text>
+<text text-anchor="start" x="329" y="-96.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<text text-anchor="start" x="260" y="-81.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="274.5" y="-81.5" font-family="Helvetica,sans-Serif" font-size="10.00">LambertianMaterial()</text>
+<text text-anchor="start" x="260" y="-66.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="274.5" y="-66.5" font-family="Helvetica,sans-Serif" font-size="10.00">~LambertianMaterial()</text>
+<text text-anchor="start" x="260" y="-51.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="274.5" y="-51.5" font-family="Helvetica,sans-Serif" font-size="10.00">updateFromParameters()</text>
+<text text-anchor="start" x="260" y="-36.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="274.5" y="-36.5" font-family="Helvetica,sans-Serif" font-size="10.00">getParametersMetadata()</text>
+<text text-anchor="start" x="260" y="-21.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="274.5" y="-21.5" font-family="Helvetica,sans-Serif" font-size="10.00">registerMaterial()</text>
+<text text-anchor="start" x="260" y="-6.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="274.5" y="-6.5" font-family="Helvetica,sans-Serif" font-size="10.00">unregisterMaterial()</text>
+<polygon fill="#666666" stroke="#666666" points="254.5,-106.5 254.5,-106.5 407.5,-106.5 407.5,-106.5 254.5,-106.5"/>
+<polygon fill="#666666" stroke="#666666" points="254.5,-91.5 254.5,-91.5 407.5,-91.5 407.5,-91.5 254.5,-91.5"/>
+<polygon fill="none" stroke="#666666" points="254,0 254,-135 407,-135 407,0 254,0"/>
 </a>
 </g>
 </g>
-<!-- Node4&#45;&gt;Node6 -->
-<g id="edge5_Node000004_Node000006" class="edge">
-<title>Node4&#45;&gt;Node6</title>
-<g id="a_edge5_Node000004_Node000006"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M272.67,-258.77C286.19,-217.83 302.63,-168.03 315.31,-129.66"/>
-<polygon fill="none" stroke="#63b8ff" points="269.29,-257.85 269.48,-268.44 275.94,-260.04 269.29,-257.85"/>
+<!-- Node5&#45;&gt;Node6 -->
+<g id="edge5_Node000005_Node000006" class="edge">
+<title>Node5&#45;&gt;Node6</title>
+<g id="a_edge5_Node000005_Node000006"><a xlink:title=" ">
+<path fill="none" stroke="#63b8ff" d="M393.31,-258.7C380.43,-219.7 364.9,-172.67 352.5,-135.14"/>
+<polygon fill="none" stroke="#63b8ff" points="390.06,-260.04 396.52,-268.44 396.71,-257.85 390.06,-260.04"/>
+</a>
+</g>
+</g>
+<!-- Node7 -->
+<g id="Node000007" class="node">
+<title>Node7</title>
+<g id="a_Node000007"><a xlink:href="classRa_1_1Engine_1_1Data_1_1PlainMaterial.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="transparent" points="587.5,-129.5 425.5,-129.5 425.5,-5.5 587.5,-5.5 587.5,-129.5"/>
+<text text-anchor="start" x="430.5" y="-117.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Data::PlainMaterial</text>
+<text text-anchor="start" x="504.5" y="-102.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<text text-anchor="start" x="433" y="-87.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="449.5" y="-87.5" font-family="Helvetica,sans-Serif" font-size="10.00">PlainMaterial()</text>
+<text text-anchor="start" x="433" y="-72.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="449.5" y="-72.5" font-family="Helvetica,sans-Serif" font-size="10.00">~PlainMaterial()</text>
+<text text-anchor="start" x="433" y="-57.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="449.5" y="-57.5" font-family="Helvetica,sans-Serif" font-size="10.00">updateFromParameters()</text>
+<text text-anchor="start" x="433" y="-42.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="449.5" y="-42.5" font-family="Helvetica,sans-Serif" font-size="10.00">getParametersMetadata()</text>
+<text text-anchor="start" x="433" y="-27.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="449.5" y="-27.5" font-family="Helvetica,sans-Serif" font-size="10.00">registerMaterial()</text>
+<text text-anchor="start" x="433" y="-12.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="449.5" y="-12.5" font-family="Helvetica,sans-Serif" font-size="10.00">unregisterMaterial()</text>
+<polygon fill="#666666" stroke="#666666" points="425.5,-112.5 425.5,-112.5 587.5,-112.5 587.5,-112.5 425.5,-112.5"/>
+<polygon fill="#666666" stroke="#666666" points="425.5,-97.5 425.5,-97.5 587.5,-97.5 587.5,-97.5 425.5,-97.5"/>
+<polygon fill="none" stroke="#666666" points="425.5,-5.5 425.5,-129.5 587.5,-129.5 587.5,-5.5 425.5,-5.5"/>
+</a>
+</g>
+</g>
+<!-- Node5&#45;&gt;Node7 -->
+<g id="edge6_Node000005_Node000007" class="edge">
+<title>Node5&#45;&gt;Node7</title>
+<g id="a_edge6_Node000005_Node000007"><a xlink:title=" ">
+<path fill="none" stroke="#63b8ff" d="M443.67,-258.77C457.19,-217.83 473.63,-168.03 486.31,-129.66"/>
+<polygon fill="none" stroke="#63b8ff" points="440.29,-257.85 440.48,-268.44 446.94,-260.04 440.29,-257.85"/>
 </a>
 </g>
 </g>

@@ -1,9 +1,7 @@
 <map id="Ra::Gui::TimelineFrameSelector::onDeletingKeyFrame" name="Ra::Gui::TimelineFrameSelector::onDeletingKeyFrame">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,47,233,87"/>
-<area shape="rect" id="Node000002" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/iterator/distance.html#" title=" " alt="" coords="290,5,395,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="210,45,276,30,277,35,211,50"/>
-<area shape="rect" id="Node000003" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector/end.html#" title=" " alt="" coords="281,55,404,80"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="234,65,267,65,267,70,234,70"/>
-<area shape="rect" id="Node000004" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/algorithm/find.html#" title=" " alt="" coords="297,104,388,129"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="211,85,284,101,283,106,210,90"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,23,233,63"/>
+<area shape="rect" id="Node000002" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/iterator/distance.html#" title=" " alt="" coords="281,5,387,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="233,27,267,23,268,28,234,32"/>
+<area shape="rect" id="Node000003" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/algorithm/find.html#" title=" " alt="" coords="289,55,379,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="234,53,275,58,275,63,233,59"/>
 </map>

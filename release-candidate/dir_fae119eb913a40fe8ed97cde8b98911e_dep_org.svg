@@ -11,7 +11,7 @@
 <g id="clust1" class="cluster">
 <title>clusterdir_68267d1309a1af8e8297ef4c3efbcdba</title>
 <g id="a_clust1"><a xlink:href="dir_68267d1309a1af8e8297ef4c3efbcdba.html" target="_top" xlink:title="src">
-<polygon fill="#eae7e0" stroke="#404040" stroke-dasharray="5,2" points="8,-8 8,-125 584,-125 584,-8 8,-8"/>
+<polygon fill="#edf0f7" stroke="#404040" stroke-dasharray="5,2" points="8,-8 8,-125 584,-125 584,-8 8,-8"/>
 <text text-anchor="middle" x="296" y="-113" font-family="Helvetica,sans-Serif" font-size="10.00">src</text>
 </a>
 </g>
@@ -19,7 +19,7 @@
 <g id="clust2" class="cluster">
 <title>clusterdir_fae119eb913a40fe8ed97cde8b98911e</title>
 <g id="a_clust2"><a xlink:href="dir_fae119eb913a40fe8ed97cde8b98911e.html" target="_top">
-<polygon fill="#eae7e0" stroke="#404040" stroke-width="2" points="16,-63 16,-98 576,-98 576,-63 16,-63"/>
+<polygon fill="#edf0f7" stroke="#404040" stroke-width="2" points="16,-63 16,-98 576,-98 576,-63 16,-63"/>
 </a>
 </g>
 </g>
@@ -27,7 +27,7 @@
 <g id="node1" class="node">
 <title>dir_a2f0e5642e47e7ed59fe0f0829eafb5f</title>
 <g id="a_node1"><a xlink:href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html" target="_top" xlink:title="Core">
-<polygon fill="#a29374" stroke="red" points="534.5,-35 495.5,-35 495.5,-16 534.5,-16 534.5,-35"/>
+<polygon fill="#a2b4d6" stroke="red" points="534.5,-35 495.5,-35 495.5,-16 534.5,-16 534.5,-35"/>
 <text text-anchor="middle" x="515" y="-23" font-family="Helvetica,sans-Serif" font-size="10.00">Core</text>
 </a>
 </g>
@@ -54,7 +54,7 @@
 <g id="node3" class="node">
 <title>dir_7788c5f37a81918c772c9185f759a19f</title>
 <g id="a_node3"><a xlink:href="dir_7788c5f37a81918c772c9185f759a19f.html" target="_top" xlink:title="AssimpLoader">
-<polygon fill="#a29374" stroke="#404040" points="520,-90 434,-90 434,-71 520,-71 520,-90"/>
+<polygon fill="#a2b4d6" stroke="#404040" points="520,-90 434,-90 434,-71 520,-71 520,-90"/>
 <text text-anchor="middle" x="477" y="-78" font-family="Helvetica,sans-Serif" font-size="10.00">AssimpLoader</text>
 </a>
 </g>
@@ -76,7 +76,7 @@
 <g id="node4" class="node">
 <title>dir_67e32a227b28c0433b702e220b1d94de</title>
 <g id="a_node4"><a xlink:href="dir_67e32a227b28c0433b702e220b1d94de.html" target="_top" xlink:title="CameraLoader">
-<polygon fill="#a29374" stroke="#404040" points="416,-90 328,-90 328,-71 416,-71 416,-90"/>
+<polygon fill="#a2b4d6" stroke="#404040" points="416,-90 328,-90 328,-71 416,-71 416,-90"/>
 <text text-anchor="middle" x="372" y="-78" font-family="Helvetica,sans-Serif" font-size="10.00">CameraLoader</text>
 </a>
 </g>
@@ -85,7 +85,7 @@
 <g id="node5" class="node">
 <title>dir_01a8c2f0fadc2dca82cf84211ec91544</title>
 <g id="a_node5"><a xlink:href="dir_01a8c2f0fadc2dca82cf84211ec91544.html" target="_top" xlink:title="deprecated">
-<polygon fill="#a29374" stroke="#404040" points="309.5,-90 238.5,-90 238.5,-71 309.5,-71 309.5,-90"/>
+<polygon fill="#a2b4d6" stroke="#404040" points="309.5,-90 238.5,-90 238.5,-71 309.5,-71 309.5,-90"/>
 <text text-anchor="middle" x="274" y="-78" font-family="Helvetica,sans-Serif" font-size="10.00">deprecated</text>
 </a>
 </g>
@@ -94,7 +94,7 @@
 <g id="node6" class="node">
 <title>dir_21c87f206f6872de3cc60b97917f3fdd</title>
 <g id="a_node6"><a xlink:href="dir_21c87f206f6872de3cc60b97917f3fdd.html" target="_top" xlink:title="TinyPlyLoader">
-<polygon fill="#a29374" stroke="#404040" points="220,-90 134,-90 134,-71 220,-71 220,-90"/>
+<polygon fill="#a2b4d6" stroke="#404040" points="220,-90 134,-90 134,-71 220,-71 220,-90"/>
 <text text-anchor="middle" x="177" y="-78" font-family="Helvetica,sans-Serif" font-size="10.00">TinyPlyLoader</text>
 </a>
 </g>
@@ -103,7 +103,7 @@
 <g id="node7" class="node">
 <title>dir_5f23925c27f811db82f51c72002b6339</title>
 <g id="a_node7"><a xlink:href="dir_5f23925c27f811db82f51c72002b6339.html" target="_top" xlink:title="VolumesLoader">
-<polygon fill="#a29374" stroke="#404040" points="116,-90 24,-90 24,-71 116,-71 116,-90"/>
+<polygon fill="#a2b4d6" stroke="#404040" points="116,-90 24,-90 24,-71 116,-71 116,-90"/>
 <text text-anchor="middle" x="70" y="-78" font-family="Helvetica,sans-Serif" font-size="10.00">VolumesLoader</text>
 </a>
 </g>

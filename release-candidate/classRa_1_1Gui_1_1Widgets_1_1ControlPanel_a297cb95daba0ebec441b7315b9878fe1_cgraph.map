@@ -1,9 +1,9 @@
 <map id="Ra::Gui::Widgets::ControlPanel::addButton" name="Ra::Gui::Widgets::ControlPanel::addButton">
 <area shape="rect" id="Node000001" title=" " alt="" coords="5,47,191,87"/>
-<area shape="rect" id="Node000002" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/string/basic_string/c_str.html#" title=" " alt="" coords="246,5,373,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="184,45,240,31,242,36,185,50"/>
-<area shape="rect" id="Node000003" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector/empty.html#" title=" " alt="" coords="239,55,380,80"/>
+<area shape="rect" id="Node000002" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/string/basic_string/c_str.html#" title=" " alt="" coords="244,5,371,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="183,45,239,31,240,36,184,50"/>
+<area shape="rect" id="Node000003" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/string/basic_string/empty.html#" title=" " alt="" coords="239,55,376,80"/>
 <area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="191,65,225,65,225,70,191,70"/>
-<area shape="rect" id="Node000004" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/utility/move.html#" title=" " alt="" coords="266,104,353,129"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="185,85,253,101,252,106,184,90"/>
+<area shape="rect" id="Node000004" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/utility/move.html#" title=" " alt="" coords="264,104,351,129"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="184,85,251,101,250,106,183,90"/>
 </map>

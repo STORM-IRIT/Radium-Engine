@@ -1,9 +1,0 @@
-<map id="Ra::Core::Geometry::deprecated::TopologicalMesh::createPropsOnFaces" name="Ra::Core::Geometry::deprecated::TopologicalMesh::createPropsOnFaces">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,40,224,95"/>
-<area shape="rect" id="Node000002" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector/push_back.html#" title=" " alt="" coords="272,5,440,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="224,42,279,31,281,36,225,48"/>
-<area shape="rect" id="Node000003" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector/reserve.html#" title=" " alt="" coords="282,55,430,80"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="224,65,268,65,268,70,224,70"/>
-<area shape="rect" id="Node000004" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector/size.html#" title=" " alt="" coords="293,104,419,129"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="225,87,281,99,279,104,224,92"/>
-</map>

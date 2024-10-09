@@ -1,6 +1,0 @@
-<map id="Ra::Core::Grid::data" name="Ra::Core::Grid::data">
-<area shape="rect" id="Node000001" title="Read&#45;write access to the underlying data." alt="" coords="5,29,155,55"/>
-<area shape="rect" id="Node000002" href="$classRa_1_1Core_1_1Grid.html#a82cb31cfd2f9f2b46f7be1e1d8ee90ae" title="Read only access to the underlying data." alt="" coords="203,29,352,55"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="155,39,189,39,189,45,155,45"/>
-<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="245,31,238,21,241,11,255,5,277,3,304,6,316,15,312,19,302,11,277,8,256,10,245,15,243,20,249,28"/>
-</map>

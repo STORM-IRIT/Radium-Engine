@@ -1,7 +1,11 @@
 <map id="Ra::Engine::Data::RenderParameters::mergeKeepParameters" name="Ra::Engine::Data::RenderParameters::mergeKeepParameters">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,257,45"/>
-<area shape="rect" id="Node000002" href="$classRa_1_1Core_1_1VariableSet.html#a8632a526adf0342cd1f7407626b536d2" title="Merge the VariableSet from into this." alt="" coords="305,5,469,45"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="257,23,292,23,292,28,257,28"/>
-<area shape="rect" id="Node000003" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector/at.html#" title=" " alt="" coords="517,13,629,38"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="470,23,504,23,504,28,470,28"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,37,257,77"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a2cc7b05dcb15c9316684c10d620811fa" title="Get access to the parameter storage." alt="" coords="305,5,489,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="257,40,291,35,292,41,258,45"/>
+<area shape="rect" id="Node000003" href="$classRa_1_1Core_1_1VariableSet.html#a8632a526adf0342cd1f7407626b536d2" title="Merge the VariableSet from into this." alt="" coords="315,69,479,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="258,70,302,75,301,81,257,75"/>
+<area shape="rect" id="Node000004" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/unordered_map/at.html#" title=" " alt="" coords="537,47,711,73"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="479,76,523,70,524,76,480,81"/>
+<area shape="rect" id="Node000005" href="$classRa_1_1Core_1_1VariableSet.html#a01ef218f41f0b2bc08ad3bce52630fa5" title="Gets the stored data type." alt="" coords="545,97,703,137"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="480,97,531,103,531,109,479,102"/>
 </map>

@@ -7,6 +7,7 @@
 <!--zoomable 2485 -->
 
 <svg id="main" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" onload="init(evt)">
+
 <style type="text/css"><![CDATA[
 .node, .edge {opacity: 0.7;}
 .node.selected, .edge.selected {opacity: 1;}
@@ -609,7 +610,7 @@ var sectionId = 'dynsection-1';
 <g id="a_Node000008"><a target="_blank" xlink:href="http://en.cppreference.com/w/cpp/container/vector.html" xlink:title=" ">
 <polygon fill="white" stroke="transparent" points="483.18,-1024 365.18,-1024 365.18,-484 483.18,-484 483.18,-1024"/>
 <text text-anchor="start" x="370.18" y="-1012" font-family="Helvetica,sans-Serif" font-size="10.00">AlignedStdVector&lt; Ra</text>
-<text text-anchor="start" x="376.68" y="-1001" font-family="Helvetica,sans-Serif" font-size="10.00">::Core::Vector3ui &#160;&gt;</text>
+<text text-anchor="start" x="378.18" y="-1001" font-family="Helvetica,sans-Serif" font-size="10.00">::Core::Vector3ui &gt;</text>
 <text text-anchor="start" x="373.68" y="-986" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
 <text text-anchor="start" x="391.18" y="-986" font-family="Helvetica,sans-Serif" font-size="10.00">elements</text>
 <text text-anchor="start" x="373.68" y="-971" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>

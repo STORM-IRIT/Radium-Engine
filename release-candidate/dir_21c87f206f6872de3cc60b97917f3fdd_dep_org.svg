@@ -11,7 +11,7 @@
 <g id="clust1" class="cluster">
 <title>clusterdir_fae119eb913a40fe8ed97cde8b98911e</title>
 <g id="a_clust1"><a xlink:href="dir_fae119eb913a40fe8ed97cde8b98911e.html" target="_top" xlink:title="IO">
-<polygon fill="#eae7e0" stroke="#7f7f7f" stroke-dasharray="5,2" points="8,-8 8,-62 110,-62 110,-8 8,-8"/>
+<polygon fill="#edf0f7" stroke="#7f7f7f" stroke-dasharray="5,2" points="8,-8 8,-62 110,-62 110,-8 8,-8"/>
 <text text-anchor="middle" x="59" y="-50" font-family="Helvetica,sans-Serif" font-size="10.00">IO</text>
 </a>
 </g>
@@ -20,7 +20,7 @@
 <g id="node1" class="node">
 <title>dir_21c87f206f6872de3cc60b97917f3fdd</title>
 <g id="a_node1"><a xlink:href="dir_21c87f206f6872de3cc60b97917f3fdd.html" target="_top" xlink:title="TinyPlyLoader">
-<polygon fill="#eae7e0" stroke="#404040" stroke-width="2" points="102,-35 16,-35 16,-16 102,-16 102,-35"/>
+<polygon fill="#edf0f7" stroke="#404040" stroke-width="2" points="102,-35 16,-35 16,-16 102,-16 102,-35"/>
 <text text-anchor="middle" x="59" y="-23" font-family="Helvetica,sans-Serif" font-size="10.00">TinyPlyLoader</text>
 </a>
 </g>

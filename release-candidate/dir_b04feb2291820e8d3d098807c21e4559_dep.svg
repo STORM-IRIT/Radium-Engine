@@ -7,7 +7,8 @@
 <svg width="172pt" height="125pt"
  viewBox="0.00 0.00 172.00 125.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 
-<svg id="main" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" onload="init(evt)">
+<svg id="main" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+
 <style type="text/css"><![CDATA[
 .node, .edge {opacity: 0.7;}
 .node.selected, .edge.selected {opacity: 1;}
@@ -21,7 +22,7 @@
 <g id="clust1" class="cluster">
 <title>clusterdir_b5ac5e964c12a6b13a9d28feb9f3d3ed</title>
 <g id="a_clust1"><a xlink:href="dir_b5ac5e964c12a6b13a9d28feb9f3d3ed.html" target="_top" xlink:title="Gui">
-<polygon fill="#eae7e0" stroke="#7f7f7f" stroke-dasharray="5,2" points="8,-39 8,-109 156,-109 156,-39 8,-39"/>
+<polygon fill="#edf0f7" stroke="#7f7f7f" stroke-dasharray="5,2" points="8,-39 8,-109 156,-109 156,-39 8,-39"/>
 <text text-anchor="middle" x="82" y="-97" font-family="Helvetica,sans-Serif" font-size="10.00">Gui</text>
 </a>
 </g>
@@ -29,7 +30,7 @@
 <g id="clust2" class="cluster">
 <title>clusterdir_b04feb2291820e8d3d098807c21e4559</title>
 <g id="a_clust2"><a xlink:href="dir_b04feb2291820e8d3d098807c21e4559.html" target="_top">
-<polygon fill="#eae7e0" stroke="#404040" stroke-width="2" points="16,-47 16,-82 148,-82 148,-47 16,-47"/>
+<polygon fill="#edf0f7" stroke="#404040" stroke-width="2" points="16,-47 16,-82 148,-82 148,-47 16,-47"/>
 </a>
 </g>
 </g>
@@ -42,7 +43,7 @@
 <g id="node3" class="node">
 <title>dir_3072bc1f55ed1280fe4fbe6b21c78379</title>
 <g id="a_node3"><a xlink:href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html" target="_top" xlink:title="Engine">
-<polygon fill="#eae7e0" stroke="red" stroke-dasharray="5,2" points="75,-19 25,-19 25,0 75,0 75,-19"/>
+<polygon fill="#edf0f7" stroke="red" stroke-dasharray="5,2" points="75,-19 25,-19 25,0 75,0 75,-19"/>
 <text text-anchor="middle" x="50" y="-7" font-family="Helvetica,sans-Serif" font-size="10.00">Engine</text>
 </a>
 </g>
@@ -64,7 +65,7 @@
 <g id="node4" class="node">
 <title>dir_a2f0e5642e47e7ed59fe0f0829eafb5f</title>
 <g id="a_node4"><a xlink:href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html" target="_top" xlink:title="Core">
-<polygon fill="#eae7e0" stroke="red" stroke-dasharray="5,2" points="133.5,-19 94.5,-19 94.5,0 133.5,0 133.5,-19"/>
+<polygon fill="#edf0f7" stroke="red" stroke-dasharray="5,2" points="133.5,-19 94.5,-19 94.5,0 133.5,0 133.5,-19"/>
 <text text-anchor="middle" x="114" y="-7" font-family="Helvetica,sans-Serif" font-size="10.00">Core</text>
 </a>
 </g>
@@ -86,7 +87,7 @@
 <g id="node2" class="node">
 <title>dir_48f4a0e7ee74be957161ce5a9fe8f935</title>
 <g id="a_node2"><a xlink:href="dir_48f4a0e7ee74be957161ce5a9fe8f935.html" target="_top" xlink:title="Gizmo">
-<polygon fill="#a29374" stroke="#404040" points="72,-74 24,-74 24,-55 72,-55 72,-74"/>
+<polygon fill="#a2b4d6" stroke="#404040" points="72,-74 24,-74 24,-55 72,-55 72,-74"/>
 <text text-anchor="middle" x="48" y="-62" font-family="Helvetica,sans-Serif" font-size="10.00">Gizmo</text>
 </a>
 </g>

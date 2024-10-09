@@ -10,10 +10,12 @@
 <area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="229,233,279,227,279,232,230,238"/>
 <area shape="rect" id="Node000006" href="$classRa_1_1Core_1_1Utils_1_1Observable.html#a7e5fe761726d56a51f95192eb6555f8f" title="Notify (i.e. call) each attached observer with argument p." alt="" coords="284,261,481,301"/>
 <area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="230,260,271,265,270,270,229,266"/>
-<area shape="rect" id="Node000007" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#ac5e49d14a044ec5c39666cab662f3ba3" title="Set the frame of the camera to frame." alt="" coords="293,325,473,365"/>
-<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="184,274,278,311,301,319,299,324,276,316,182,279"/>
-<area shape="rect" id="Node000008" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a05d8b61c4135de535eb61a6608fd33d6" title="Change the viewport size. Also compute aspectRatio." alt="" coords="293,389,473,429"/>
-<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="148,275,206,326,241,352,279,375,292,382,290,386,276,380,238,356,202,330,144,279"/>
-<area shape="rect" id="Node000009" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a1e1809a93475162a71da46c2816f90e7" title="Update the projection matrix according to the current parameters." alt="" coords="293,453,473,493"/>
-<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="136,275,160,312,193,357,233,401,279,439,288,445,286,449,276,444,229,405,188,360,156,316,132,278"/>
+<area shape="rect" id="Node000008" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#ac5e49d14a044ec5c39666cab662f3ba3" title="Set the frame of the camera to frame." alt="" coords="293,325,473,365"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="184,274,278,311,301,319,299,324,276,316,182,279"/>
+<area shape="rect" id="Node000009" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a05d8b61c4135de535eb61a6608fd33d6" title="Change the viewport size. Also compute aspectRatio." alt="" coords="293,389,473,429"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="148,275,206,326,241,352,279,375,292,382,290,386,276,380,238,356,202,330,144,279"/>
+<area shape="rect" id="Node000010" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a1e1809a93475162a71da46c2816f90e7" title="Update the projection matrix according to the current parameters." alt="" coords="293,453,473,493"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="136,275,160,312,193,357,233,401,279,439,288,445,286,449,276,444,229,405,188,360,156,316,132,278"/>
+<area shape="rect" id="Node000007" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/utility/forward.html#" title=" " alt="" coords="536,269,636,294"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="481,279,522,279,522,284,481,284"/>
 </map>

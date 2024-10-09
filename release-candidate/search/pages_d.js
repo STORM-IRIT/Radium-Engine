@@ -5,5 +5,5 @@ var searchData=
   ['licenses_2',['Licenses',['../licenses.html',1,'']]],
   ['lights_3',['Lights',['../develLights.html',1,'engine']]],
   ['linux_20macos_4',['Commandline Compilation Instructions (Linux, macos...)',['../basicsCompileCommand.html',1,'basicsmanual']]],
-  ['list_5',['list',['../deprecated.html',1,'Deprecated List'],['../todo.html',1,'Todo List']]]
+  ['list_5',['List',['../deprecated.html',1,'Deprecated List'],['../todo.html',1,'Todo List']]]
 ];
