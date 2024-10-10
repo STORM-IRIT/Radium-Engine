@@ -144,7 +144,7 @@ var sectionId = 'dynsection-0';
 <!-- Node3 -->
 <g id="Node000003" class="node">
 <title>Node3</title>
-<g id="a_Node000003"><a xlink:href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html" target="_top" xlink:title=" ">
+<g id="a_Node000003"><a xlink:href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html" target="_top" xlink:title="Shader program parameter provider.">
 <polygon fill="white" stroke="transparent" points="162,-661 0,-661 0,-526 162,-526 162,-661"/>
 <text text-anchor="start" x="20.5" y="-648.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Data::Shader</text>
 <text text-anchor="start" x="35.5" y="-637.5" font-family="Helvetica,sans-Serif" font-size="10.00">ParameterProvider</text>

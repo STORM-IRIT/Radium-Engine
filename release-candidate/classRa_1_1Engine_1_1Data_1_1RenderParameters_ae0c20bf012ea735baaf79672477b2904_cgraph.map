@@ -1,7 +1,0 @@
-<map id="Ra::Engine::Data::RenderParameters::addParameter" name="Ra::Engine::Data::RenderParameters::addParameter">
-<area shape="rect" id="Node000001" title="add a render parameter variable" alt="" coords="5,35,200,75"/>
-<area shape="rect" id="Node000002" href="$classRa_1_1Core_1_1VariableSet.html#a2ae4889235c18238c677b007701f8db6" title="reset (or set if the variable does not exist yet) the value of the variable." alt="" coords="248,5,427,45"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="200,40,234,36,235,41,200,45"/>
-<area shape="rect" id="Node000003" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/utility/functional/ref.html#" title=" " alt="" coords="303,70,371,95"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="200,64,290,74,289,80,200,69"/>
-</map>

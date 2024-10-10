@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.webp"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.5.18</span>
+   &#160;<span id="projectnumber">1.5.19</span>
    </div>
   </td>
  </tr>
@@ -250,7 +250,7 @@ Textures</h2>
 </ul>
 <h3><a class="anchor" id="editable-interface"></a>
 Making a material editable</h3>
-<p>Material which implement the <a class="el" href="classRa_1_1Engine_1_1Data_1_1ParameterSetEditingInterface.html">Ra::Engine::Data::ParameterSetEditingInterface</a> might be modified at runtime.</p>
+<p>Material which implement the <a class="el" href="classRa_1_1Engine_1_1Data_1_1ParameterSetEditingInterface.html" title="Interface to define metadata (constraints, description, ...) for the editing of parameter set.">Ra::Engine::Data::ParameterSetEditingInterface</a> might be modified at runtime.</p>
 <p>This interface exposes the method <a class="el" href="classRa_1_1Engine_1_1Data_1_1ParameterSetEditingInterface.html#a29c608d6266fd4cdd061ee1b666d44a6" title="Get a json containing metadata about the parameters.">Ra::Engine::Data::ParameterSetEditingInterface::getParametersMetadata</a> which return a json-formatted parameter set informations containing type, constraints and documentation on each editable parameter.</p>
 <p>When implementing this interface, you need to return a correctly specified JSON.</p>
 <h3>The Material metadata specification</h3>
@@ -538,7 +538,7 @@ Rendering without using Materials</h2>
 <li>Develop specific vertex and fragment shaders to compute the fragment color</li>
 <li>Build a <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderConfiguration.html">Ra::Engine::Data::ShaderConfiguration</a> that uses these shaders</li>
 <li>Build a render technique that use this configuration</li>
-<li>If the shaders have uniform parameters, implement a specific <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html">Ra::Engine::Data::ShaderParameterProvider</a> and associate an instance of the parameter provider to the render technique.</li>
+<li>If the shaders have uniform parameters, implement a specific <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html" title="Shader program parameter provider.">Ra::Engine::Data::ShaderParameterProvider</a> and associate an instance of the parameter provider to the render technique.</li>
 <li>Associate the render technique with a geometry in a <a class="el" href="classRa_1_1Engine_1_1Rendering_1_1RenderObject.html">Ra::Engine::Rendering::RenderObject</a></li>
 </ol>
 <p>Here is an example snippet.</p>
@@ -550,8 +550,8 @@ Rendering without using Materials</h2>
 <div class="line">  <span class="keywordtype">void</span> updateGL()<span class="keyword"> override </span>{</div>
 <div class="line">    <span class="comment">// Method called before drawing each frame in Rendering::updateRenderObjectsInternal.</span></div>
 <div class="line">    <span class="comment">// The name of the parameter corresponds to the shader&#39;s uniform name.</span></div>
-<div class="line">    m_renderParameters.addParameter( <span class="stringliteral">&quot;aColorUniform&quot;</span>, m_colorParameter );</div>
-<div class="line">    m_renderParameters.addParameter( <span class="stringliteral">&quot;aScalarUniform&quot;</span>, m_scalarParameter );</div>
+<div class="line">    m_renderParameters.setVariable( <span class="stringliteral">&quot;aColorUniform&quot;</span>, m_colorParameter );</div>
+<div class="line">    m_renderParameters.setVariable( <span class="stringliteral">&quot;aScalarUniform&quot;</span>, m_scalarParameter );</div>
 <div class="line">  }</div>
 <div class="line"> </div>
 <div class="line">  <span class="keywordtype">void</span> setOrComputeTheParameterValues() {</div>
@@ -598,7 +598,7 @@ Rendering without using Materials</h2>
 <div class="line"><span class="comment">// 5. Create and associate the parameter provider with the RenderTechnique</span></div>
 <div class="line"><span class="keyword">auto</span> parameterProvider = <a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/memory/shared_ptr/make_shared.html">std::make_shared&lt;MyParameterProvider&gt;</a>();</div>
 <div class="line">parameterProvider-&gt;setOrComputeTheParameterValues();</div>
-<div class="line">renderTechnique.<a class="code hl_function" href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a13f5f243daad1b13a6bec5efe3831c25">setParametersProvider</a>(parameterProvider);</div>
+<div class="line">renderTechnique.setVariablesProvider(parameterProvider);</div>
 <div class="line"> </div>
 <div class="line"><span class="comment">// 6. Associate the render technique with a geometry in a Ra::Engine::Rendering::RenderObject</span></div>
 <div class="line"><a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/memory/shared_ptr.html">std::shared_ptr&lt;Ra::Engine::Data::Mesh&gt;</a> mesh( <span class="keyword">new</span> <a class="code hl_class" href="classRa_1_1Engine_1_1Data_1_1Mesh.html">Ra::Engine::Data::Mesh</a>( <span class="stringliteral">&quot;my mesh&quot;</span> ) );</div>
@@ -612,11 +612,10 @@ Rendering without using Materials</h2>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1Mesh_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1Mesh.html">Ra::Engine::Data::Mesh</a></div><div class="ttdoc">Mesh, own a Core::Geometry::TriangleMesh.</div><div class="ttdef"><b>Definition</b> <a href="Mesh_8hpp_source.html#l00410">Mesh.hpp:411</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1ShaderConfiguration_html_a817ed4e22a81e034776cc21e8cfc6b8b"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1ShaderConfiguration.html#a817ed4e22a81e034776cc21e8cfc6b8b">Ra::Engine::Data::ShaderConfiguration::addShaderSource</a></div><div class="ttdeci">void addShaderSource(ShaderType type, const std::string &amp;source)</div><div class="ttdef"><b>Definition</b> <a href="ShaderConfiguration_8cpp_source.html#l00062">ShaderConfiguration.cpp:62</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Rendering_1_1RenderObject_html_afe02bfade7fd3fe985d553fcf0a88410"><div class="ttname"><a href="classRa_1_1Engine_1_1Rendering_1_1RenderObject.html#afe02bfade7fd3fe985d553fcf0a88410">Ra::Engine::Rendering::RenderObject::createRenderObject</a></div><div class="ttdeci">static RenderObject * createRenderObject(const std::string &amp;name, Scene::Component *comp, const RenderObjectType &amp;type, std::shared_ptr&lt; Data::Displayable &gt; mesh, const RenderTechnique &amp;techniqueConfig=RenderTechnique::createDefaultRenderTechnique())</div><div class="ttdef"><b>Definition</b> <a href="RenderObject_8cpp_source.html#l00044">RenderObject.cpp:44</a></div></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1Rendering_1_1RenderTechnique_html_a13f5f243daad1b13a6bec5efe3831c25"><div class="ttname"><a href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a13f5f243daad1b13a6bec5efe3831c25">Ra::Engine::Rendering::RenderTechnique::setParametersProvider</a></div><div class="ttdeci">void setParametersProvider(std::shared_ptr&lt; Data::ShaderParameterProvider &gt; provider, Core::Utils::Index pass=Core::Utils::Index(-1))</div><div class="ttdef"><b>Definition</b> <a href="RenderTechnique_8cpp_source.html#l00051">RenderTechnique.cpp:51</a></div></div>
 <div class="ttc" id="amake_shared_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/memory/shared_ptr/make_shared.html">std::make_shared</a></div><div class="ttdeci">T make_shared(T... args)</div></div>
 <div class="ttc" id="anamespaceRa_1_1Engine_1_1Data_1_1ShaderConfigurationFactory_html_a00918835250fbd8bbe4deae59ecd6dde"><div class="ttname"><a href="namespaceRa_1_1Engine_1_1Data_1_1ShaderConfigurationFactory.html#a00918835250fbd8bbe4deae59ecd6dde">Ra::Engine::Data::ShaderConfigurationFactory::addConfiguration</a></div><div class="ttdeci">void addConfiguration(const ShaderConfiguration &amp;config)</div><div class="ttdef"><b>Definition</b> <a href="ShaderConfigFactory_8cpp_source.html#l00016">ShaderConfigFactory.cpp:16</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Engine_1_1Rendering_html_a49447e503c13eb01d7b4d279e127f8e1ad9c6333623e6357515fcbf17be806273"><div class="ttname"><a href="namespaceRa_1_1Engine_1_1Rendering.html#a49447e503c13eb01d7b4d279e127f8e1ad9c6333623e6357515fcbf17be806273">Ra::Engine::Rendering::RenderObjectType::Geometry</a></div><div class="ttdeci">@ Geometry</div><div class="ttdoc">&quot;Geometry&quot; render objects are those loaded using Radium::IO and generated by GeometrySystem</div></div>
-<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">Radium Namespaces prefix.</div><div class="ttdef"><b>Definition</b> <a href="Cage_8cpp_source.html#l00003">Cage.cpp:3</a></div></div>
+<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">hepler function to manage enum as underlying types in VariableSet</div><div class="ttdef"><b>Definition</b> <a href="Cage_8cpp_source.html#l00003">Cage.cpp:3</a></div></div>
 </div><!-- fragment --><p>Then the draw call of <code>renderObject</code> uses the <code>myConfig</code> as shader configuration. Before rendering, the method <code>updateGL</code> on the <code>parameterProvider</code> instance is called so that the shader's uniforms values are updated according the one stored in <code>parameterProvider</code>.</p>
 <h1><a class="anchor" id="autotoc_md90"></a>
 TO UPDATE</h1>

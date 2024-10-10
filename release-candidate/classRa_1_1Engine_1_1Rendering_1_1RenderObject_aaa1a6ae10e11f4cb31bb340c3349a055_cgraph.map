@@ -2,10 +2,8 @@
 <area shape="rect" id="Node000001" title=" " alt="" coords="5,37,173,77"/>
 <area shape="rect" id="Node000002" href="$classRa_1_1Engine_1_1Rendering_1_1RenderObject.html#a676f4e9e17938dca3b6740c43cd3a964" title=" " alt="" coords="221,37,389,77"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="174,55,208,55,208,60,174,60"/>
-<area shape="rect" id="Node000003" href="$classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a6a3e5cfdb4ee0618fcdfd72eaac72c98" title=" " alt="" coords="437,5,621,45"/>
+<area shape="rect" id="Node000003" href="$classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a6a3e5cfdb4ee0618fcdfd72eaac72c98" title="Bind the parameter uniform on the shader program." alt="" coords="437,5,621,45"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="389,43,423,38,424,43,390,48"/>
-<area shape="rect" id="Node000005" href="$classRa_1_1Engine_1_1Data_1_1ShaderProgram.html#a02b209f3800adee9a6b039dc8c8d5f62" title="Uniform setters." alt="" coords="438,69,621,109"/>
-<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="390,67,425,72,424,77,389,72"/>
-<area shape="rect" id="Node000004" href="$classRa_1_1Core_1_1VariableSet.html#abff01d871519d7cd33380f6f8bf1899d" title="Visit the container using a user defined visitor." alt="" coords="669,5,828,45"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="622,23,656,23,656,28,622,28"/>
+<area shape="rect" id="Node000004" href="$classRa_1_1Engine_1_1Data_1_1ShaderProgram.html#a02b209f3800adee9a6b039dc8c8d5f62" title="Uniform setters." alt="" coords="438,69,621,109"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="390,67,425,72,424,77,389,72"/>
 </map>

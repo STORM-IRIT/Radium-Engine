@@ -1,5 +1,5 @@
 <map id="Ra::Engine::Data::ShaderParameterProvider" name="Ra::Engine::Data::ShaderParameterProvider">
-<area shape="rect" id="Node000001" title=" " alt="" coords="451,5,667,185"/>
+<area shape="rect" id="Node000001" title="Shader program parameter provider." alt="" coords="451,5,667,185"/>
 <area shape="rect" id="Node000002" href="$classRa_1_1Engine_1_1Data_1_1Material.html" title="Base class for materials." alt="" coords="347,233,551,579"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="525,199,513,234,508,232,520,197"/>
 <area shape="rect" id="Node000009" href="$classRa_1_1Gui_1_1Gizmo_1_1UiSelectionControler.html" title=" " alt="" coords="575,296,768,516"/>

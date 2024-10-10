@@ -1,0 +1,5 @@
+<map id="Ra::Gui::VariableSetEditor" name="Ra::Gui::VariableSetEditor">
+<area shape="rect" id="Node000001" title="Simple Widget for RenderParameter editing The editor will expose a control panel containing all of th..." alt="" coords="27,893,209,1199"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Gui_1_1Widgets_1_1ControlPanel.html" title=" " alt="" coords="5,5,231,845"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="121,859,121,893,115,893,115,859"/>
+</map>

@@ -3,7 +3,6 @@ var namespaceRa =
     [ "Core", "namespaceRa_1_1Core.html", "namespaceRa_1_1Core" ],
     [ "Engine", "namespaceRa_1_1Engine.html", "namespaceRa_1_1Engine" ],
     [ "Gui", null, [
-      [ "internal", "namespaceRa_1_1Gui_1_1internal.html", null ],
       [ "Widgets", null, [
         [ "QtSpinBox", "namespaceRa_1_1Gui_1_1Widgets_1_1QtSpinBox.html", null ],
         [ "ConstrainedNumericSpinBox", "classRa_1_1Gui_1_1Widgets_1_1ConstrainedNumericSpinBox.html", "classRa_1_1Gui_1_1Widgets_1_1ConstrainedNumericSpinBox" ],
@@ -23,7 +22,6 @@ var namespaceRa =
       [ "KeyMappingManager", "classRa_1_1Gui_1_1KeyMappingManager.html", "classRa_1_1Gui_1_1KeyMappingManager" ],
       [ "MainWindowInterface", "classRa_1_1Gui_1_1MainWindowInterface.html", "classRa_1_1Gui_1_1MainWindowInterface" ],
       [ "MaterialParameterEditor", "classRa_1_1Gui_1_1MaterialParameterEditor.html", "classRa_1_1Gui_1_1MaterialParameterEditor" ],
-      [ "ParameterSetEditor", "classRa_1_1Gui_1_1ParameterSetEditor.html", "classRa_1_1Gui_1_1ParameterSetEditor" ],
       [ "RotateGizmo", "classRa_1_1Gui_1_1RotateGizmo.html", "classRa_1_1Gui_1_1RotateGizmo" ],
       [ "ScaleGizmo", "classRa_1_1Gui_1_1ScaleGizmo.html", "classRa_1_1Gui_1_1ScaleGizmo" ],
       [ "SimpleWindow", "classRa_1_1Gui_1_1SimpleWindow.html", "classRa_1_1Gui_1_1SimpleWindow" ],
@@ -37,6 +35,7 @@ var namespaceRa =
       [ "TranslateGizmo", "classRa_1_1Gui_1_1TranslateGizmo.html", "classRa_1_1Gui_1_1TranslateGizmo" ],
       [ "TreeItem", "classRa_1_1Gui_1_1TreeItem.html", "classRa_1_1Gui_1_1TreeItem" ],
       [ "TreeModel", "classRa_1_1Gui_1_1TreeModel.html", "classRa_1_1Gui_1_1TreeModel" ],
+      [ "VariableSetEditor", "classRa_1_1Gui_1_1VariableSetEditor.html", "classRa_1_1Gui_1_1VariableSetEditor" ],
       [ "Viewer", "classRa_1_1Gui_1_1Viewer.html", "classRa_1_1Gui_1_1Viewer" ],
       [ "WindowQt", "classRa_1_1Gui_1_1WindowQt.html", "classRa_1_1Gui_1_1WindowQt" ]
     ] ],

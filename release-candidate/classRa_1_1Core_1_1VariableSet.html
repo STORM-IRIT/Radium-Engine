@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.webp"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.5.18</span>
+   &#160;<span id="projectnumber">1.5.19</span>
    </div>
   </td>
  </tr>
@@ -135,10 +135,17 @@ $(function(){initNavTree('classRa_1_1Core_1_1VariableSet.html',''); initResizabl
 
 <p><code>#include &lt;<a class="el" href="VariableSet_8hpp_source.html">Core/Containers/VariableSet.hpp</a>&gt;</code></p>
 <div id="dynsection-0" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Collaboration diagram for Ra::Core::VariableSet:</div>
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for Ra::Core::VariableSet:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classRa_1_1Core_1_1VariableSet__inherit__graph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<div id="dynsection-1" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-1-trigger" src="closed.png" alt="+"/> Collaboration diagram for Ra::Core::VariableSet:</div>
+<div id="dynsection-1-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-1-content" class="dyncontent" style="display:none;">
 <div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classRa_1_1Core_1_1VariableSet__coll__graph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 <table class="memberdecls">
@@ -221,22 +228,25 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aa1e2566f592c1ccf81f242fae101933a"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#aa1e2566f592c1ccf81f242fae101933a">insertVariable</a> (const <a class="elRef" target="_blank" href="http://en.cppreference.com/w/cpp/string/basic_string.html">std::string</a> &amp;name, const T &amp;value) -&gt; <a class="elRef" target="_blank" href="http://en.cppreference.com/w/cpp/utility/pair.html">std::pair</a>&lt; <a class="el" href="#a2819447e55fdbe30c43726dd10ba9791">VariableHandle</a>&lt; T &gt;, bool &gt;</td></tr>
 <tr class="memdesc:aa1e2566f592c1ccf81f242fae101933a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a variable, i.e. an association name-&gt;value, into the container.  <br /></td></tr>
 <tr class="separator:aa1e2566f592c1ccf81f242fae101933a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a090de4f50aa34f333bba240a4fd0f627" id="r_a090de4f50aa34f333bba240a4fd0f627"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a090de4f50aa34f333bba240a4fd0f627"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a090de4f50aa34f333bba240a4fd0f627">getVariable</a> (const <a class="elRef" target="_blank" href="http://en.cppreference.com/w/cpp/string/basic_string.html">std::string</a> &amp;name) const -&gt; T &amp;</td></tr>
-<tr class="memdesc:a090de4f50aa34f333bba240a4fd0f627"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the value of the given variable  <br /></td></tr>
-<tr class="separator:a090de4f50aa34f333bba240a4fd0f627"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a34a985578d9cceed72e615ca93b15d80" id="r_a34a985578d9cceed72e615ca93b15d80"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a34a985578d9cceed72e615ca93b15d80"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a34a985578d9cceed72e615ca93b15d80">getVariableHandle</a> (const <a class="elRef" target="_blank" href="http://en.cppreference.com/w/cpp/string/basic_string.html">std::string</a> &amp;name) const -&gt; <a class="el" href="#a2819447e55fdbe30c43726dd10ba9791">VariableHandle</a>&lt; T &gt;</td></tr>
-<tr class="memdesc:a34a985578d9cceed72e615ca93b15d80"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the handle on the variable with the given name  <br /></td></tr>
-<tr class="separator:a34a985578d9cceed72e615ca93b15d80"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a93bb14f3813433ffba9a813b526c0800" id="r_a93bb14f3813433ffba9a813b526c0800"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a93bb14f3813433ffba9a813b526c0800"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a93bb14f3813433ffba9a813b526c0800">getVariable</a> (const <a class="elRef" target="_blank" href="http://en.cppreference.com/w/cpp/string/basic_string.html">std::string</a> &amp;name) const -&gt; const T &amp;</td></tr>
+<tr class="memdesc:a93bb14f3813433ffba9a813b526c0800"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the value of the given variable  <br /></td></tr>
+<tr class="separator:a93bb14f3813433ffba9a813b526c0800"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1a547716e768b8a8e22b3768964c2eee" id="r_a1a547716e768b8a8e22b3768964c2eee"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a1a547716e768b8a8e22b3768964c2eee"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a1a547716e768b8a8e22b3768964c2eee">getVariable</a> (const <a class="elRef" target="_blank" href="http://en.cppreference.com/w/cpp/string/basic_string.html">std::string</a> &amp;name) -&gt; T &amp;</td></tr>
+<tr class="separator:a1a547716e768b8a8e22b3768964c2eee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a88252f68e66e114d657f6149ad6c1045" id="r_a88252f68e66e114d657f6149ad6c1045"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a88252f68e66e114d657f6149ad6c1045"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a88252f68e66e114d657f6149ad6c1045">getVariableHandle</a> (const <a class="elRef" target="_blank" href="http://en.cppreference.com/w/cpp/string/basic_string.html">std::string</a> &amp;name) const -&gt; const <a class="el" href="#a2819447e55fdbe30c43726dd10ba9791">VariableHandle</a>&lt; T &gt;</td></tr>
+<tr class="memdesc:a88252f68e66e114d657f6149ad6c1045"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the handle on the variable with the given name  <br /></td></tr>
+<tr class="separator:a88252f68e66e114d657f6149ad6c1045"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2ae681263d3319088935f1ca8c0cef93" id="r_a2ae681263d3319088935f1ca8c0cef93"><td class="memTemplParams" colspan="2">template&lt;typename H &gt; </td></tr>
 <tr class="memitem:a2ae681263d3319088935f1ca8c0cef93"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a2ae681263d3319088935f1ca8c0cef93">isHandleValid</a> (const H &amp;handle) const</td></tr>
 <tr class="memdesc:a2ae681263d3319088935f1ca8c0cef93"><td class="mdescLeft">&#160;</td><td class="mdescRight">Test the validity of a handle.  <br /></td></tr>
 <tr class="separator:a2ae681263d3319088935f1ca8c0cef93"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2ae4889235c18238c677b007701f8db6" id="r_a2ae4889235c18238c677b007701f8db6"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a2ae4889235c18238c677b007701f8db6"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a2ae4889235c18238c677b007701f8db6">insertOrAssignVariable</a> (const <a class="elRef" target="_blank" href="http://en.cppreference.com/w/cpp/string/basic_string.html">std::string</a> &amp;name, const T &amp;value) -&gt; <a class="elRef" target="_blank" href="http://en.cppreference.com/w/cpp/utility/pair.html">std::pair</a>&lt; <a class="el" href="#a2819447e55fdbe30c43726dd10ba9791">VariableHandle</a>&lt; T &gt;, bool &gt;</td></tr>
-<tr class="memdesc:a2ae4889235c18238c677b007701f8db6"><td class="mdescLeft">&#160;</td><td class="mdescRight">reset (or set if the variable does not exist yet) the value of the variable.  <br /></td></tr>
-<tr class="separator:a2ae4889235c18238c677b007701f8db6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a959d89cd2c973021ec2bd50ded23f0a1" id="r_a959d89cd2c973021ec2bd50ded23f0a1"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a959d89cd2c973021ec2bd50ded23f0a1"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a959d89cd2c973021ec2bd50ded23f0a1">setVariable</a> (const <a class="elRef" target="_blank" href="http://en.cppreference.com/w/cpp/string/basic_string.html">std::string</a> &amp;name, const T &amp;value) -&gt; <a class="elRef" target="_blank" href="http://en.cppreference.com/w/cpp/utility/pair.html">std::pair</a>&lt; <a class="el" href="#a2819447e55fdbe30c43726dd10ba9791">VariableHandle</a>&lt; T &gt;, bool &gt;</td></tr>
+<tr class="memdesc:a959d89cd2c973021ec2bd50ded23f0a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">reset (or set if the variable does not exist yet) the value of the variable.  <br /></td></tr>
+<tr class="separator:a959d89cd2c973021ec2bd50ded23f0a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4f3fe97fce185a5bce5f2a5e2cf799a6" id="r_a4f3fe97fce185a5bce5f2a5e2cf799a6"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:a4f3fe97fce185a5bce5f2a5e2cf799a6"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a4f3fe97fce185a5bce5f2a5e2cf799a6">deleteVariable</a> (const <a class="elRef" target="_blank" href="http://en.cppreference.com/w/cpp/string/basic_string.html">std::string</a> &amp;name)</td></tr>
 <tr class="memdesc:a4f3fe97fce185a5bce5f2a5e2cf799a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove a variable, i.e. a name-&gt;value association.  <br /></td></tr>
@@ -490,11 +500,11 @@ template&lt;typename H &gt; </div>
 <p>A <a class="el" href="classRa_1_1Core_1_1VariableSet.html" title="Heterogeneous container storing &quot;Variables&quot;, that maps a name (std::string) to a value (of any type T...">VariableSet</a> is movable. </p>
 
 <p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00111">111</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
-<div id="dynsection-1" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-1-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-1-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-2" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-2-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-2-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-1-content" class="dyncontent" style="display:none;">
+<div id="dynsection-2-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Core_1_1VariableSet_a73c3d2aa19bb60c5ededeff2cb1e2aa0_cgraph.svg" width="304" height="51"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
@@ -519,11 +529,11 @@ template&lt;typename H &gt; </div>
 <p>remove all elements from the container </p>
 
 <p class="definition">Definition at line <a class="el" href="VariableSet_8cpp_source.html#l00033">33</a> of file <a class="el" href="VariableSet_8cpp_source.html">VariableSet.cpp</a>.</p>
-<div id="dynsection-2" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-2-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-2-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-3" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-3-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-3-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-2-content" class="dyncontent" style="display:none;">
+<div id="dynsection-3-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Core_1_1VariableSet_aa54e3ea45c874bb1d3f7c36c63d93034_cgraph.svg" width="370" height="51"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
@@ -555,7 +565,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true if the type is deleted, false if it was not managed before the call. Unregister all the functions associated with the type and remove the storage of existing variables. If several variables are still stored, they will be destroyed. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00748">748</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00756">756</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
 
 </div>
 </div>
@@ -580,7 +590,7 @@ template&lt;typename T &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>true if the variable was removed, false if </dd></dl>
 <dl class="section pre"><dt>Precondition</dt><dd>The element <b>name</b> must exists with type <b>T</b>. If not verified (assert in debug mode) std::bad_any_cast exception could be thrown by the underlying management of type erasure </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00644">644</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00651">651</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
 
 </div>
 </div>
@@ -617,7 +627,7 @@ template&lt;typename H &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>true variable was removed, false if not. If the variable was removed, handle is invalidated </dd></dl>
 <dl class="section pre"><dt>Precondition</dt><dd>the handle must be valid. If not verified (assert in debug mode) std::bad_any_cast exception could be thrown by the underlying management of type erasure </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00655">655</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00662">662</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
 
 </div>
 </div>
@@ -641,7 +651,7 @@ template&lt;typename T &gt; </div>
 <p>test the existence of the given variable </p>
 <dl class="section return"><dt>Returns</dt><dd>an optional variable handle which contains a value if a variable with the given name and type exists in the storage. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00663">663</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00670">670</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
 
 </div>
 </div>
@@ -672,12 +682,12 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>an optional, empty if the type does not exists in the <a class="el" href="classRa_1_1Core_1_1VariableSet.html" title="Heterogeneous container storing &quot;Variables&quot;, that maps a name (std::string) to a value (of any type T...">VariableSet</a> or whose value is a <b>non owning</b> pointer to the variable collection if it exists. This <b>non owning</b> pointer remains valid as long as the <a class="el" href="classRa_1_1Core_1_1VariableSet.html" title="Heterogeneous container storing &quot;Variables&quot;, that maps a name (std::string) to a value (of any type T...">VariableSet</a> exists and contains the given type. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00741">741</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
-<div id="dynsection-3" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-3-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-3-summary" class="dynsummary" style="display:block;">
+<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00749">749</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
+<div id="dynsection-4" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-4-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-4-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-3-content" class="dyncontent" style="display:none;">
+<div id="dynsection-4-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Core_1_1VariableSet_a962c68d54bfc107d007345669cf56393_cgraph.svg" width="370" height="115"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
@@ -710,7 +720,7 @@ template&lt;typename T &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>a reference to the storage of the mapping name-&gt;value for the given type. </dd></dl>
 <dl class="section pre"><dt>Precondition</dt><dd><a class="el" href="#a962c68d54bfc107d007345669cf56393" title="Test if the storage supports a given variable type.">existsVariableType&lt;T&gt;()</a>. If not verified (assert in debug mode) std::bad_any_cast exception will be thrown by the underlying management of type erasure </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00757">757</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00765">765</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
 
 </div>
 </div>
@@ -747,7 +757,7 @@ template&lt;typename H &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>a reference to the storage of the mapping name-&gt;value for the given type. </dd></dl>
 <dl class="section pre"><dt>Precondition</dt><dd><a class="el" href="#a962c68d54bfc107d007345669cf56393" title="Test if the storage supports a given variable type.">existsVariableType&lt;HandledType&lt;H&gt;&gt;()</a>. If not verified (assert in debug mode) std::bad_any_cast exception will be thrown by the underlying management of type erasure </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00766">766</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00774">774</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
 
 </div>
 </div>
@@ -781,8 +791,8 @@ template&lt;typename H &gt; </div>
 
 </div>
 </div>
-<a id="a090de4f50aa34f333bba240a4fd0f627" name="a090de4f50aa34f333bba240a4fd0f627"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a090de4f50aa34f333bba240a4fd0f627">&#9670;&#160;</a></span>getVariable()</h2>
+<a id="a1a547716e768b8a8e22b3768964c2eee" name="a1a547716e768b8a8e22b3768964c2eee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1a547716e768b8a8e22b3768964c2eee">&#9670;&#160;</a></span>getVariable() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -793,7 +803,28 @@ template&lt;typename T &gt; </div>
           <td class="memname">auto Ra::Core::VariableSet::getVariable </td>
           <td>(</td>
           <td class="paramtype">const <a class="elRef" target="_blank" href="http://en.cppreference.com/w/cpp/string/basic_string.html">std::string</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>name</em></span></td><td>)</td>
-          <td> const -&gt; T&amp;</td>
+          <td> -&gt; T&amp;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00618">618</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a93bb14f3813433ffba9a813b526c0800" name="a93bb14f3813433ffba9a813b526c0800"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a93bb14f3813433ffba9a813b526c0800">&#9670;&#160;</a></span>getVariable() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">auto Ra::Core::VariableSet::getVariable </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="elRef" target="_blank" href="http://en.cppreference.com/w/cpp/string/basic_string.html">std::string</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>name</em></span></td><td>)</td>
+          <td> const -&gt; const T&amp;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -802,12 +833,12 @@ template&lt;typename T &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>a reference to the value. </dd></dl>
 <dl class="section pre"><dt>Precondition</dt><dd>The element <b>name</b> must exists with type <b>T</b>. If not verified (assert in debug mode) std::bad_any_cast exception could be thrown by the underlying management of type erasure </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00616">616</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00623">623</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a34a985578d9cceed72e615ca93b15d80" name="a34a985578d9cceed72e615ca93b15d80"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a34a985578d9cceed72e615ca93b15d80">&#9670;&#160;</a></span>getVariableHandle()</h2>
+<a id="a88252f68e66e114d657f6149ad6c1045" name="a88252f68e66e114d657f6149ad6c1045"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a88252f68e66e114d657f6149ad6c1045">&#9670;&#160;</a></span>getVariableHandle()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -818,7 +849,7 @@ template&lt;typename T &gt; </div>
           <td class="memname">auto Ra::Core::VariableSet::getVariableHandle </td>
           <td>(</td>
           <td class="paramtype">const <a class="elRef" target="_blank" href="http://en.cppreference.com/w/cpp/string/basic_string.html">std::string</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>name</em></span></td><td>)</td>
-          <td> const -&gt; <a class="el" href="#a2819447e55fdbe30c43726dd10ba9791">VariableHandle</a>&lt;T&gt;</td>
+          <td> const -&gt; const <a class="el" href="#a2819447e55fdbe30c43726dd10ba9791">VariableHandle</a>&lt;T&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -838,35 +869,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>an handle which can be de-referenced to obtain a std::pair&lt;const std::string, T&gt; representing the name and the value of the variable. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00622">622</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a2ae4889235c18238c677b007701f8db6" name="a2ae4889235c18238c677b007701f8db6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2ae4889235c18238c677b007701f8db6">&#9670;&#160;</a></span>insertOrAssignVariable()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">auto Ra::Core::VariableSet::insertOrAssignVariable </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="elRef" target="_blank" href="http://en.cppreference.com/w/cpp/string/basic_string.html">std::string</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>name</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const T &amp;</td>          <td class="paramname"><span class="paramname"><em>value</em></span>&#160;) -&gt; <a class="elRef" target="_blank" href="http://en.cppreference.com/w/cpp/utility/pair.html">std::pair</a>&lt;<a class="el" href="#a2819447e55fdbe30c43726dd10ba9791">VariableHandle</a>&lt;T&gt;, bool&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>reset (or set if the variable does not exist yet) the value of the variable. </p>
-<dl class="section return"><dt>Returns</dt><dd>a pair with the variable handle and a bool : true if the variable value was reset, false if the variable value was set. </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00634">634</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00628">628</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
 
 </div>
 </div>
@@ -895,7 +898,7 @@ template&lt;typename T &gt; </div>
 <p>Operators acting on a per variable basis</p>
 <dl class="section return"><dt>Returns</dt><dd>true if the variable is inserted, false if the name was already associated with another value (of the same type). In this case, keep the old value. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00606">606</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00608">608</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
 
 </div>
 </div>
@@ -931,7 +934,7 @@ template&lt;typename H &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true if the handle is valid, false if not. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00628">628</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00634">634</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
 
 </div>
 </div>
@@ -960,11 +963,11 @@ template&lt;typename H &gt; </div>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="#ab2b16edce3a38198144e923974c401e6" title="Merge the VariableSet from into this.">mergeReplaceVariables</a> </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="VariableSet_8cpp_source.html#l00037">37</a> of file <a class="el" href="VariableSet_8cpp_source.html">VariableSet.cpp</a>.</p>
-<div id="dynsection-4" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-4-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-4-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-5" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-5-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-5-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-4-content" class="dyncontent" style="display:none;">
+<div id="dynsection-5-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Core_1_1VariableSet_a8632a526adf0342cd1f7407626b536d2_cgraph.svg" width="396" height="102"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
@@ -995,11 +998,11 @@ template&lt;typename H &gt; </div>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="#a8632a526adf0342cd1f7407626b536d2" title="Merge the VariableSet from into this.">mergeKeepVariables</a> </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="VariableSet_8cpp_source.html#l00044">44</a> of file <a class="el" href="VariableSet_8cpp_source.html">VariableSet.cpp</a>.</p>
-<div id="dynsection-5" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-5-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-5-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-6" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-6-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-6-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-5-content" class="dyncontent" style="display:none;">
+<div id="dynsection-6-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Core_1_1VariableSet_ab2b16edce3a38198144e923974c401e6_cgraph.svg" width="416" height="102"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
@@ -1031,7 +1034,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>the number of variables with type T stored in the container </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00773">773</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00781">781</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
 
 </div>
 </div>
@@ -1083,13 +1086,41 @@ template&lt;typename T &gt; </div>
 <p>Move assignment operator. </p>
 
 <p class="definition">Definition at line <a class="el" href="VariableSet_8cpp_source.html#l00026">26</a> of file <a class="el" href="VariableSet_8cpp_source.html">VariableSet.cpp</a>.</p>
-<div id="dynsection-6" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-6-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-6-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-7" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-7-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-7-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-6-content" class="dyncontent" style="display:none;">
+<div id="dynsection-7-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Core_1_1VariableSet_aa5ea8d29552b664941a4ad798c22f545_cgraph.svg" width="304" height="51"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
+
+</div>
+</div>
+<a id="a959d89cd2c973021ec2bd50ded23f0a1" name="a959d89cd2c973021ec2bd50ded23f0a1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a959d89cd2c973021ec2bd50ded23f0a1">&#9670;&#160;</a></span>setVariable()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">auto Ra::Core::VariableSet::setVariable </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="elRef" target="_blank" href="http://en.cppreference.com/w/cpp/string/basic_string.html">std::string</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>name</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const T &amp;</td>          <td class="paramname"><span class="paramname"><em>value</em></span>&#160;) -&gt; <a class="elRef" target="_blank" href="http://en.cppreference.com/w/cpp/utility/pair.html">std::pair</a>&lt;<a class="el" href="#a2819447e55fdbe30c43726dd10ba9791">VariableHandle</a>&lt;T&gt;, bool&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>reset (or set if the variable does not exist yet) the value of the variable. </p>
+<dl class="section return"><dt>Returns</dt><dd>a pair with the variable handle and a bool : true if the variable value was reset, false if the variable value was set. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00640">640</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
 
 </div>
 </div>
@@ -1158,7 +1189,7 @@ template&lt;typename F &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00897">897</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00907">907</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
 
 </div>
 </div>
@@ -1193,12 +1224,12 @@ template&lt;typename F , typename T &gt; </div>
 
 <p>overload of the static visit method to allow a parameter pass by rvalue reference </p>
 
-<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00913">913</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
-<div id="dynsection-7" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-7-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-7-summary" class="dynsummary" style="display:block;">
+<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00923">923</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
+<div id="dynsection-8" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-8-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-8-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-7-content" class="dyncontent" style="display:none;">
+<div id="dynsection-8-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Core_1_1VariableSet_a16ac599636f331aaf2b67257dbd3291c_cgraph.svg" width="318" height="51"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
@@ -1235,12 +1266,12 @@ template&lt;typename F , typename T &gt; </div>
 
 <p>overload of the static visit method to allow a parameter pass by reference </p>
 
-<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00905">905</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
-<div id="dynsection-8" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-8-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-8-summary" class="dynsummary" style="display:block;">
+<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00915">915</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
+<div id="dynsection-9" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-9-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-9-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-8-content" class="dyncontent" style="display:none;">
+<div id="dynsection-9-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Core_1_1VariableSet_a41f13d062e1be33a898983f87ec130bc_cgraph.svg" width="318" height="51"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
@@ -1267,7 +1298,7 @@ template&lt;typename F , typename U &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00816">816</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00826">826</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
 
 </div>
 </div>
@@ -1292,7 +1323,7 @@ template&lt;typename F , typename U &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00810">810</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00820">820</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
 
 </div>
 </div>

@@ -1,3 +1,7 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="Node000000" href="$classRa_1_1IO_1_1AssimpGeometryDataLoader.html" title=" " alt="" coords="5,5,219,45"/>
+<area shape="rect" id="Node000000" href="$classRa_1_1IO_1_1FileManager.html" title=" " alt="" coords="5,16,204,71"/>
+<area shape="rect" id="Node000001" href="$classRa_1_1IO_1_1OBJFileManager.html" title=" " alt="" coords="253,5,425,31"/>
+<area shape="poly" id="edge133_Node000000_Node000001" title=" " alt="" coords="217,29,253,25,253,30,218,34"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1IO_1_1OFFFileManager.html" title=" " alt="" coords="252,55,427,80"/>
+<area shape="poly" id="edge134_Node000000_Node000002" title=" " alt="" coords="218,52,252,56,251,61,217,58"/>
 </map>

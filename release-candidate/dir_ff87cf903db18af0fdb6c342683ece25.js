@@ -27,6 +27,7 @@ var dir_ff87cf903db18af0fdb6c342683ece25 =
     [ "StringUtils.cpp", "StringUtils_8cpp_source.html", null ],
     [ "StringUtils.hpp", "StringUtils_8hpp_source.html", null ],
     [ "Timer.hpp", "Timer_8hpp_source.html", null ],
+    [ "TypesUtils.cpp", "TypesUtils_8cpp_source.html", null ],
     [ "TypesUtils.hpp", "TypesUtils_8hpp_source.html", null ],
     [ "Version.hpp", "Version_8hpp_source.html", null ]
 ];

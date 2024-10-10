@@ -118,7 +118,7 @@ var hierarchy =
     ] ],
     [ "Ra::Plugins::Context", "classRa_1_1Plugins_1_1Context.html", null ],
     [ "Ra::Gui::Widgets::ControlPanel", "classRa_1_1Gui_1_1Widgets_1_1ControlPanel.html", [
-      [ "Ra::Gui::ParameterSetEditor", "classRa_1_1Gui_1_1ParameterSetEditor.html", null ]
+      [ "Ra::Gui::VariableSetEditor", "classRa_1_1Gui_1_1VariableSetEditor.html", null ]
     ] ],
     [ "Ra::Engine::Rendering::DebugRender", "classRa_1_1Engine_1_1Rendering_1_1DebugRender.html", null ],
     [ "Ra::Core::Geometry::deprecated::DefaultNonManifoldFaceCommand", "structRa_1_1Core_1_1Geometry_1_1deprecated_1_1DefaultNonManifoldFaceCommand.html", null ],
@@ -266,7 +266,6 @@ var hierarchy =
     [ "Ra::Engine::Rendering::Renderer", "classRa_1_1Engine_1_1Rendering_1_1Renderer.html", [
       [ "Ra::Engine::Rendering::ForwardRenderer", "classRa_1_1Engine_1_1Rendering_1_1ForwardRenderer.html", null ]
     ] ],
-    [ "Ra::Engine::Data::RenderParameters", "classRa_1_1Engine_1_1Data_1_1RenderParameters.html", null ],
     [ "Ra::Engine::Rendering::RenderTechnique", "classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html", null ],
     [ "Ra::Engine::Data::SamplerParameters", "structRa_1_1Engine_1_1Data_1_1SamplerParameters.html", null ],
     [ "Ra::Core::Utils::AttribManager::ScopedLockState", "classRa_1_1Core_1_1Utils_1_1AttribManager_1_1ScopedLockState.html", null ],
@@ -332,7 +331,9 @@ var hierarchy =
       [ "Ra::Engine::Data::IndexedAttribArrayDisplayable< I >", "classRa_1_1Engine_1_1Data_1_1IndexedAttribArrayDisplayable.html", null ],
       [ "Ra::Engine::Data::IndexedGeometry< T >", "classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html", null ]
     ] ],
-    [ "Ra::Core::VariableSet", "classRa_1_1Core_1_1VariableSet.html", null ],
+    [ "Ra::Core::VariableSet", "classRa_1_1Core_1_1VariableSet.html", [
+      [ "Ra::Engine::Data::RenderParameters", "classRa_1_1Engine_1_1Data_1_1RenderParameters.html", null ]
+    ] ],
     [ "std::vector< T >", "http://en.cppreference.com/w/cpp/container/vector.html", [
       [ "Ra::Core::VectorArray< IndexType >", "classRa_1_1Core_1_1VectorArray.html", null ],
       [ "Ra::Core::VectorArray< Ra::Core::Vector3ui >", "classRa_1_1Core_1_1VectorArray.html", null ],

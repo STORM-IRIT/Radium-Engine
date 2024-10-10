@@ -22,7 +22,7 @@
 <!-- Node1 -->
 <g id="Node000001" class="node">
 <title>Node1</title>
-<g id="a_Node000001"><a xlink:title=" ">
+<g id="a_Node000001"><a xlink:title="Interface to define metadata (constraints, description, ...) for the editing of parameter set.">
 <polygon fill="#999999" stroke="transparent" points="181,-90 0,-90 0,0 181,0 181,-90"/>
 <text text-anchor="start" x="22" y="-78" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Data::Parameter</text>
 <text text-anchor="start" x="44" y="-67" font-family="Helvetica,sans-Serif" font-size="10.00">SetEditingInterface</text>

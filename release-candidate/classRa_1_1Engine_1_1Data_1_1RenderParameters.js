@@ -2,25 +2,8 @@ var classRa_1_1Engine_1_1Data_1_1RenderParameters =
 [
     [ "BindableTypes", "classRa_1_1Engine_1_1Data_1_1RenderParameters.html#ae68623fb42777924f1c29ad0863ecae5", null ],
     [ "TextureInfo", "classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a724f2b9704ecd291e177f1cf77153050", null ],
-    [ "UniformBindableSet", "classRa_1_1Engine_1_1Data_1_1RenderParameters.html#ab20149b57edd3cd5f22bb398e86b2017", null ],
-    [ "UniformVariable", "classRa_1_1Engine_1_1Data_1_1RenderParameters.html#ae7ce251280a424825fa633185d02bc14", null ],
-    [ "addEnumConverter", "classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a6486d91517410290c51cee695b08c927", null ],
-    [ "addParameter", "classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a36b017c65c6ee8c11074b8b9726050c7", null ],
-    [ "addParameter", "classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a741d2d24b1a01ccbe2a4d79015050938", null ],
-    [ "addParameter", "classRa_1_1Engine_1_1Data_1_1RenderParameters.html#ae0c20bf012ea735baaf79672477b2904", null ],
-    [ "addParameter", "classRa_1_1Engine_1_1Data_1_1RenderParameters.html#ac65866711c131725505015b88182681c", null ],
-    [ "addParameter", "classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a30608d23a6e4b4cbcfa0a0211056e04b", null ],
     [ "bind", "classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a6a3e5cfdb4ee0618fcdfd72eaac72c98", null ],
-    [ "containsParameter", "classRa_1_1Engine_1_1Data_1_1RenderParameters.html#ab42dcb90e835f89ab29afecf38811597", null ],
-    [ "getEnumConverter", "classRa_1_1Engine_1_1Data_1_1RenderParameters.html#ab65fb801e5df0692bffe4bb53e0a7d19", null ],
-    [ "getEnumString", "classRa_1_1Engine_1_1Data_1_1RenderParameters.html#ae0c6151e1514dfec98e1cdbc437811c2", null ],
-    [ "getEnumString", "classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a3b3957e308e99a25d6334870041f2380", null ],
-    [ "getParameter", "classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a4925c5ad9c53cf21012146fc3fb41b17", null ],
-    [ "getParameterSet", "classRa_1_1Engine_1_1Data_1_1RenderParameters.html#abfca809b87d4e0deccd3abd7796ae89e", null ],
-    [ "getStorage", "classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a2cc7b05dcb15c9316684c10d620811fa", null ],
-    [ "hasParameterSet", "classRa_1_1Engine_1_1Data_1_1RenderParameters.html#acad3e75e04476f828edfabb6a0d97f39", null ],
-    [ "mergeKeepParameters", "classRa_1_1Engine_1_1Data_1_1RenderParameters.html#ae27dade3c2d0e82d306c45b2491f639a", null ],
-    [ "mergeReplaceParameters", "classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a9d929872799f18541433ade3f118099f", null ],
-    [ "removeParameter", "classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a64bb710e69386358aeb0ec92a825066d", null ],
-    [ "visit", "classRa_1_1Engine_1_1Data_1_1RenderParameters.html#af7a7544b9c818cd5d4e940fb68d9a08e", null ]
+    [ "setTexture", "classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a70f576278ea2327bd0a03f26cbc6b3ef", null ],
+    [ "setVariable", "classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a959d89cd2c973021ec2bd50ded23f0a1", null ],
+    [ "setVariable", "classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a1766905e90db676bdc9d804cd17e9eb4", null ]
 ];

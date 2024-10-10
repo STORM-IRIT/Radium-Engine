@@ -10,5 +10,7 @@ var dir_1456dd235032e023892318efbecb420b =
     [ "Tex.hpp", "Tex_8hpp_source.html", null ],
     [ "VariableSet.cpp", "VariableSet_8cpp_source.html", null ],
     [ "VariableSet.hpp", "VariableSet_8hpp_source.html", null ],
+    [ "VariableSetEnumManagement.cpp", "VariableSetEnumManagement_8cpp_source.html", null ],
+    [ "VariableSetEnumManagement.hpp", "VariableSetEnumManagement_8hpp_source.html", null ],
     [ "VectorArray.hpp", "VectorArray_8hpp_source.html", null ]
 ];

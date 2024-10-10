@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.webp"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.5.18</span>
+   &#160;<span id="projectnumber">1.5.19</span>
    </div>
   </td>
  </tr>
@@ -180,7 +180,7 @@ Public Member Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Base class for visitors with configurable per-type callbacks. Visiting will be prepared at running time by dynamically adding visitor operators for each type one want to visit in the container. The visitor accept type based on either the added operators or an external acceptance functor which can be associated/changed at runtime. This functor is only allowed to reduce the number of visited type as only type for which a visitor operator is registered can be visited. The visitor operators should be any callable that accept to be called using f(const std::string&amp;, T&amp;[, std::any&amp;&amp;]) </p>
 
-<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00307">307</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00309">309</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a0cf47417de334f65b449b157689cb844" name="a0cf47417de334f65b449b157689cb844"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0cf47417de334f65b449b157689cb844">&#9670;&#160;</a></span>accept()</h2>
@@ -261,7 +261,7 @@ template&lt;typename T , typename F &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true if the operator was added, false if not (e.g. there is already an operator associated with the type T) </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00842">842</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00852">852</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
 <div id="dynsection-3" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-3-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-3-summary" class="dynsummary" style="display:block;">
@@ -304,7 +304,7 @@ template&lt;typename T , typename F &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00853">853</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00863">863</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
 
 </div>
 </div>
@@ -334,7 +334,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd></dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00848">848</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00858">858</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
 
 </div>
 </div>
@@ -414,7 +414,7 @@ template&lt;typename T &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd></dd></dl>
 <dl class="section pre"><dt>Precondition</dt><dd>The type <b>T</b> must be accepted by an operator. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00859">859</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="VariableSet_8hpp_source.html#l00869">869</a> of file <a class="el" href="VariableSet_8hpp_source.html">VariableSet.hpp</a>.</p>
 
 </div>
 </div>

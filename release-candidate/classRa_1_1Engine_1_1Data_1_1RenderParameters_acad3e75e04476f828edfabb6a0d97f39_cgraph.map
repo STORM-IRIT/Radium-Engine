@@ -1,9 +1,0 @@
-<map id="Ra::Engine::Data::RenderParameters::hasParameterSet" name="Ra::Engine::Data::RenderParameters::hasParameterSet">
-<area shape="rect" id="Node000001" title="Test if parameters of type T are stored." alt="" coords="5,37,220,77"/>
-<area shape="rect" id="Node000002" href="$classRa_1_1Core_1_1VariableSet.html#a962c68d54bfc107d007345669cf56393" title="Test if the storage supports a given variable type." alt="" coords="268,37,427,77"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="220,55,254,55,254,60,220,60"/>
-<area shape="rect" id="Node000003" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/unordered_map/end.html#" title=" " alt="" coords="475,5,627,45"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="426,42,461,37,462,42,427,48"/>
-<area shape="rect" id="Node000004" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/unordered_map/find.html#" title=" " alt="" coords="475,69,627,109"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="427,67,462,73,461,78,426,72"/>
-</map>

@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.webp"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.5.18</span>
+   &#160;<span id="projectnumber">1.5.19</span>
    </div>
   </td>
  </tr>
@@ -138,74 +138,76 @@ $(function(){initNavTree('ParameterSetEditor_8hpp_source.html',''); initResizabl
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;Gui/Widgets/ControlPanel.hpp&gt;</span></div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespaceRa.html">Ra</a> {</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keyword">namespace </span>Engine {</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keyword">namespace </span>Data {</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keyword">class </span>Material;</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="keyword">class </span>RenderParameters;</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>} <span class="comment">// namespace Data</span></div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>} <span class="comment">// namespace Engine</span></div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="keyword">namespace </span>Gui {</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="keyword">namespace </span><a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/io/manip/left.html">internal</a> {</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="keyword">class </span>RenderParameterUiBuilder;</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>} <span class="comment">// namespace internal</span></div>
-<div class="foldopen" id="foldopen00034" data-start="{" data-end="};">
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1ParameterSetEditor.html">   34</a></span><span class="keyword">class </span>RA_GUI_API <a class="code hl_class" href="classRa_1_1Gui_1_1ParameterSetEditor.html">ParameterSetEditor</a> : <span class="keyword">public</span> <a class="code hl_class" href="classRa_1_1Gui_1_1Widgets_1_1ControlPanel.html">Widgets::ControlPanel</a></div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>{</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    Q_OBJECT</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>  <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keyword">explicit</span> <a class="code hl_class" href="classRa_1_1Gui_1_1ParameterSetEditor.html">ParameterSetEditor</a>( <span class="keyword">const</span> <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/string/basic_string.html">std::string</a>&amp; name, QWidget* parent = <span class="keyword">nullptr</span> );</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <a class="code hl_class" href="classRa_1_1Gui_1_1ParameterSetEditor.html">ParameterSetEditor</a>( <span class="keyword">const</span> <a class="code hl_class" href="classRa_1_1Gui_1_1ParameterSetEditor.html">ParameterSetEditor</a>&amp; )            = <span class="keyword">delete</span>;</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <a class="code hl_class" href="classRa_1_1Gui_1_1ParameterSetEditor.html">ParameterSetEditor</a>&amp; operator=( <span class="keyword">const</span> <a class="code hl_class" href="classRa_1_1Gui_1_1ParameterSetEditor.html">ParameterSetEditor</a>&amp; ) = <span class="keyword">delete</span>;</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <a class="code hl_class" href="classRa_1_1Gui_1_1ParameterSetEditor.html">ParameterSetEditor</a>( <a class="code hl_class" href="classRa_1_1Gui_1_1ParameterSetEditor.html">ParameterSetEditor</a>&amp;&amp; )                 = <span class="keyword">delete</span>;</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <a class="code hl_class" href="classRa_1_1Gui_1_1ParameterSetEditor.html">ParameterSetEditor</a>&amp;&amp; operator=( <a class="code hl_class" href="classRa_1_1Gui_1_1ParameterSetEditor.html">ParameterSetEditor</a>&amp;&amp; )     = <span class="keyword">delete</span>;</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <a class="code hl_class" href="classRa_1_1Gui_1_1ParameterSetEditor.html">~ParameterSetEditor</a>() <span class="keyword">override</span>                             = <span class="keywordflow">default</span>;</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <span class="keywordtype">void</span> setupFromParameters( <a class="code hl_class" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html">Engine::Data::RenderParameters</a>&amp; params,</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>                              <span class="keyword">const</span> nlohmann::json&amp; constraints );</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    <span class="keywordtype">void</span> showUnspecified( <span class="keywordtype">bool</span> enable );</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>  signals:</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1ParameterSetEditor.html#a3c4b1a96671fb3d0dfa6eb3541792dcf">   71</a></span>    <span class="keywordtype">void</span> <a class="code hl_signal" href="classRa_1_1Gui_1_1ParameterSetEditor.html#a3c4b1a96671fb3d0dfa6eb3541792dcf">parameterModified</a>( <span class="keyword">const</span> <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/string/basic_string.html">std::string</a>&amp; name );</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>  <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    <span class="keyword">friend</span> <span class="keyword">class </span>internal::RenderParameterUiBuilder;</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    <span class="keywordtype">void</span> addEnumParameterWidget( <span class="keyword">const</span> <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/string/basic_string.html">std::string</a>&amp; name,</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>                                 T&amp; initial,</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>                                 <a class="code hl_class" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html">Ra::Engine::Data::RenderParameters</a>&amp; params,</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>                                 <span class="keyword">const</span> nlohmann::json&amp; paramMetadata );</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    <span class="keywordtype">void</span> addNumberParameterWidget( <span class="keyword">const</span> <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/string/basic_string.html">std::string</a>&amp; name,</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>                                   T&amp; initial,</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>                                   <a class="code hl_class" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html">Ra::Engine::Data::RenderParameters</a>&amp; params,</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>                                   <span class="keyword">const</span> nlohmann::json&amp; metadata );</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span> </div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    <span class="keywordtype">void</span> addVectorParameterWidget( <span class="keyword">const</span> <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/string/basic_string.html">std::string</a>&amp; key,</div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>                                   <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector.html">std::vector&lt;T&gt;</a>&amp; initial,</div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>                                   <a class="code hl_class" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html">Ra::Engine::Data::RenderParameters</a>&amp; params,</div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>                                   <span class="keyword">const</span> nlohmann::json&amp; metadata );</div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span> </div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>    <span class="keywordtype">void</span> addMatrixParameterWidget( <span class="keyword">const</span> <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/string/basic_string.html">std::string</a>&amp; key,</div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>                                   T&amp; initial,</div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>                                   <a class="code hl_class" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html">Ra::Engine::Data::RenderParameters</a>&amp; params,</div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>                                   <span class="keyword">const</span> nlohmann::json&amp; metadata );</div>
-<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>    <span class="keywordtype">bool</span> m_showUnspecified = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>};</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keyword">namespace </span>Core {</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keyword">class </span>VariableSet;</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>}</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keyword">namespace </span>Engine {</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="keyword">namespace </span>Data {</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="keyword">class </span>Material;</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="keyword">class </span>RenderParameters;</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>} <span class="comment">// namespace Data</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>} <span class="comment">// namespace Engine</span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="keyword">namespace </span>Gui {</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
+<div class="foldopen" id="foldopen00033" data-start="{" data-end="};">
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1VariableSetEditor.html">   33</a></span><span class="keyword">class </span>RA_GUI_API <a class="code hl_class" href="classRa_1_1Gui_1_1VariableSetEditor.html">VariableSetEditor</a> : <span class="keyword">public</span> <a class="code hl_class" href="classRa_1_1Gui_1_1Widgets_1_1ControlPanel.html">Widgets::ControlPanel</a></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>{</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    Q_OBJECT</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>  <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <span class="keyword">explicit</span> <a class="code hl_class" href="classRa_1_1Gui_1_1VariableSetEditor.html">VariableSetEditor</a>( <span class="keyword">const</span> <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/string/basic_string.html">std::string</a>&amp; name, QWidget* parent = <span class="keyword">nullptr</span> );</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <a class="code hl_class" href="classRa_1_1Gui_1_1VariableSetEditor.html">VariableSetEditor</a>( <span class="keyword">const</span> <a class="code hl_class" href="classRa_1_1Gui_1_1VariableSetEditor.html">VariableSetEditor</a>&amp; )            = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <a class="code hl_class" href="classRa_1_1Gui_1_1VariableSetEditor.html">VariableSetEditor</a>&amp; operator=( <span class="keyword">const</span> <a class="code hl_class" href="classRa_1_1Gui_1_1VariableSetEditor.html">VariableSetEditor</a>&amp; ) = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <a class="code hl_class" href="classRa_1_1Gui_1_1VariableSetEditor.html">VariableSetEditor</a>( <a class="code hl_class" href="classRa_1_1Gui_1_1VariableSetEditor.html">VariableSetEditor</a>&amp;&amp; )                 = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <a class="code hl_class" href="classRa_1_1Gui_1_1VariableSetEditor.html">VariableSetEditor</a>&amp;&amp; operator=( <a class="code hl_class" href="classRa_1_1Gui_1_1VariableSetEditor.html">VariableSetEditor</a>&amp;&amp; )     = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <a class="code hl_class" href="classRa_1_1Gui_1_1VariableSetEditor.html">~VariableSetEditor</a>()                                     = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <span class="keywordtype">void</span> setupUi( <a class="code hl_class" href="classRa_1_1Core_1_1VariableSet.html">Core::VariableSet</a>&amp; params, <span class="keyword">const</span> nlohmann::json&amp; constraints );</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1VariableSetEditor.html#af795c6dde2389d936831f88ff37f105a">   56</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classRa_1_1Gui_1_1VariableSetEditor.html#af795c6dde2389d936831f88ff37f105a">setShowUnspecified</a>( <span class="keywordtype">bool</span> enable ) { m_showUnspecified = enable; }</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <span class="keywordtype">bool</span> showUnspecified() { <span class="keywordflow">return</span> m_showUnspecified; }</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    <span class="keywordtype">void</span> addEnumWidget( <span class="keyword">const</span> <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/string/basic_string.html">std::string</a>&amp; name,</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>                        T&amp; initial,</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>                        <a class="code hl_class" href="classRa_1_1Core_1_1VariableSet.html">Core::VariableSet</a>&amp; params,</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>                        <span class="keyword">const</span> nlohmann::json&amp; paramMetadata );</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    <span class="keywordtype">void</span> addNumberWidget( <span class="keyword">const</span> <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/string/basic_string.html">std::string</a>&amp; name,</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>                          T&amp; initial,</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>                          <a class="code hl_class" href="classRa_1_1Core_1_1VariableSet.html">Core::VariableSet</a>&amp; params,</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>                          <span class="keyword">const</span> nlohmann::json&amp; metadata );</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    <span class="keywordtype">void</span> addVectorWidget( <span class="keyword">const</span> <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/string/basic_string.html">std::string</a>&amp; key,</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>                          <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector.html">std::vector&lt;T&gt;</a>&amp; initial,</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>                          <a class="code hl_class" href="classRa_1_1Core_1_1VariableSet.html">Core::VariableSet</a>&amp; params,</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>                          <span class="keyword">const</span> nlohmann::json&amp; metadata );</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span> </div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    <span class="keywordtype">void</span> addMatrixWidget( <span class="keyword">const</span> <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/string/basic_string.html">std::string</a>&amp; key,</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>                          T&amp; initial,</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>                          <a class="code hl_class" href="classRa_1_1Core_1_1VariableSet.html">Core::VariableSet</a>&amp; params,</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>                          <span class="keyword">const</span> nlohmann::json&amp; metadata );</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span> </div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>  signals:</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1VariableSetEditor.html#afb6f0852c781c75c5d028fc788ebf225">  120</a></span>    <span class="keywordtype">void</span> <a class="code hl_signal" href="classRa_1_1Gui_1_1VariableSetEditor.html#afb6f0852c781c75c5d028fc788ebf225">parameterModified</a>( <span class="keyword">const</span> <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/string/basic_string.html">std::string</a>&amp; name );</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span> </div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>  <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>    <span class="keywordtype">bool</span> m_showUnspecified = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>};</div>
 </div>
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span> </div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>} <span class="comment">// namespace Gui</span></div>
-<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>} <span class="comment">// namespace Ra</span></div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span> </div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>} <span class="comment">// namespace Gui</span></div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>} <span class="comment">// namespace Ra</span></div>
 <div class="ttc" id="abasic_string_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/string/basic_string.html">std::string</a></div></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1RenderParameters_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html">Ra::Engine::Data::RenderParameters</a></div><div class="ttdef"><b>Definition</b> <a href="RenderParameters_8hpp_source.html#l00035">RenderParameters.hpp:36</a></div></div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1ParameterSetEditor_html"><div class="ttname"><a href="classRa_1_1Gui_1_1ParameterSetEditor.html">Ra::Gui::ParameterSetEditor</a></div><div class="ttdoc">Simple Widget for RenderParameter editing The editor will expose a control panel containing all of th...</div><div class="ttdef"><b>Definition</b> <a href="#l00034">ParameterSetEditor.hpp:35</a></div></div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1ParameterSetEditor_html_a3c4b1a96671fb3d0dfa6eb3541792dcf"><div class="ttname"><a href="classRa_1_1Gui_1_1ParameterSetEditor.html#a3c4b1a96671fb3d0dfa6eb3541792dcf">Ra::Gui::ParameterSetEditor::parameterModified</a></div><div class="ttdeci">void parameterModified(const std::string &amp;name)</div></div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1Widgets_1_1ControlPanel_html"><div class="ttname"><a href="classRa_1_1Gui_1_1Widgets_1_1ControlPanel.html">Ra::Gui::Widgets::ControlPanel</a></div><div class="ttdef"><b>Definition</b> <a href="ControlPanel_8hpp_source.html#l00025">ControlPanel.hpp:26</a></div></div>
-<div class="ttc" id="aleft_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/io/manip/left.html">std::internal</a></div><div class="ttdeci">T internal(T... args)</div></div>
-<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">Radium Namespaces prefix.</div><div class="ttdef"><b>Definition</b> <a href="Cage_8cpp_source.html#l00003">Cage.cpp:3</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1VariableSet_html"><div class="ttname"><a href="classRa_1_1Core_1_1VariableSet.html">Ra::Core::VariableSet</a></div><div class="ttdoc">Heterogeneous container storing &quot;Variables&quot;, that maps a name (std::string) to a value (of any type T...</div><div class="ttdef"><b>Definition</b> <a href="VariableSet_8hpp_source.html#l00071">VariableSet.hpp:72</a></div></div>
+<div class="ttc" id="aclassRa_1_1Gui_1_1VariableSetEditor_html"><div class="ttname"><a href="classRa_1_1Gui_1_1VariableSetEditor.html">Ra::Gui::VariableSetEditor</a></div><div class="ttdoc">Simple Widget for RenderParameter editing The editor will expose a control panel containing all of th...</div><div class="ttdef"><b>Definition</b> <a href="#l00033">ParameterSetEditor.hpp:34</a></div></div>
+<div class="ttc" id="aclassRa_1_1Gui_1_1VariableSetEditor_html_af795c6dde2389d936831f88ff37f105a"><div class="ttname"><a href="classRa_1_1Gui_1_1VariableSetEditor.html#af795c6dde2389d936831f88ff37f105a">Ra::Gui::VariableSetEditor::setShowUnspecified</a></div><div class="ttdeci">void setShowUnspecified(bool enable)</div><div class="ttdoc">Wether to show parameters without associated metadata.</div><div class="ttdef"><b>Definition</b> <a href="#l00056">ParameterSetEditor.hpp:56</a></div></div>
+<div class="ttc" id="aclassRa_1_1Gui_1_1VariableSetEditor_html_afb6f0852c781c75c5d028fc788ebf225"><div class="ttname"><a href="classRa_1_1Gui_1_1VariableSetEditor.html#afb6f0852c781c75c5d028fc788ebf225">Ra::Gui::VariableSetEditor::parameterModified</a></div><div class="ttdeci">void parameterModified(const std::string &amp;name)</div></div>
+<div class="ttc" id="aclassRa_1_1Gui_1_1Widgets_1_1ControlPanel_html"><div class="ttname"><a href="classRa_1_1Gui_1_1Widgets_1_1ControlPanel.html">Ra::Gui::Widgets::ControlPanel</a></div><div class="ttdef"><b>Definition</b> <a href="ControlPanel_8hpp_source.html#l00026">ControlPanel.hpp:27</a></div></div>
+<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">hepler function to manage enum as underlying types in VariableSet</div><div class="ttdef"><b>Definition</b> <a href="Cage_8cpp_source.html#l00003">Cage.cpp:3</a></div></div>
 <div class="ttc" id="avector_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/container/vector.html">std::vector</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->

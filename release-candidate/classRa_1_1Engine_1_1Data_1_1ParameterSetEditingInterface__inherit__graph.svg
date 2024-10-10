@@ -58,7 +58,7 @@ var sectionId = 'dynsection-0';
 <!-- Node1 -->
 <g id="Node000001" class="node">
 <title>Node1</title>
-<g id="a_Node000001"><a xlink:title=" ">
+<g id="a_Node000001"><a xlink:title="Interface to define metadata (constraints, description, ...) for the editing of parameter set.">
 <polygon fill="#999999" stroke="transparent" points="338,-627 157,-627 157,-537 338,-537 338,-627"/>
 <text text-anchor="start" x="179" y="-615" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Data::Parameter</text>
 <text text-anchor="start" x="201" y="-604" font-family="Helvetica,sans-Serif" font-size="10.00">SetEditingInterface</text>

@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.webp"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.5.18</span>
+   &#160;<span id="projectnumber">1.5.19</span>
    </div>
   </td>
  </tr>
@@ -191,10 +191,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ade4f40da503903689b8c9dea59e03c5e inherit pub_methods_classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider" id="r_ade4f40da503903689b8c9dea59e03c5e"><td class="memItemLeft" align="right" valign="top">virtual const <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html">RenderParameters</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html#ade4f40da503903689b8c9dea59e03c5e">getParameters</a> () const</td></tr>
 <tr class="separator:ade4f40da503903689b8c9dea59e03c5e inherit pub_methods_classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a845c8bdbf880511e008d940e260b0820 inherit pub_methods_classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider" id="r_a845c8bdbf880511e008d940e260b0820"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html#a845c8bdbf880511e008d940e260b0820">updateGL</a> ()=0</td></tr>
-<tr class="memdesc:a845c8bdbf880511e008d940e260b0820 inherit pub_methods_classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update the OpenGL states used by the <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html">ShaderParameterProvider</a>. These state could be the ones from an associated material (textures, precomputed tables or whatever data associated to the material) or some parameters that are specific to the provider semantic.  <br /></td></tr>
+<tr class="memdesc:a845c8bdbf880511e008d940e260b0820 inherit pub_methods_classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update the OpenGL states used by the <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html" title="Shader program parameter provider.">ShaderParameterProvider</a>.  <br /></td></tr>
 <tr class="separator:a845c8bdbf880511e008d940e260b0820 inherit pub_methods_classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a43c416afc9bb641d677c5df3737e5029 inherit pub_methods_classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider" id="r_a43c416afc9bb641d677c5df3737e5029"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html#a43c416afc9bb641d677c5df3737e5029">updateFromParameters</a> ()</td></tr>
-<tr class="memdesc:a43c416afc9bb641d677c5df3737e5029 inherit pub_methods_classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update the attributes of the <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html">ShaderParameterProvider</a> to their actual values stored in the renderParameters.  <br /></td></tr>
+<tr class="memdesc:a43c416afc9bb641d677c5df3737e5029 inherit pub_methods_classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update the attributes of the <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html" title="Shader program parameter provider.">ShaderParameterProvider</a> to their actual values stored in the renderParameters.  <br /></td></tr>
 <tr class="separator:a43c416afc9bb641d677c5df3737e5029 inherit pub_methods_classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
@@ -445,7 +445,7 @@ Protected Member Functions</h2></td></tr>
 </ul>
 <p>Each property will be added to the shader used for rendering this material under the form "#define theProperty". Shaders that support the given property could then fully render the material. Others migh render the meterial eroneously.</p>
 <p>The default implementation returns an empty list.</p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000037">Todo</a></b></dt><dd><p class="startdd">: Validate this proposal </p>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000038">Todo</a></b></dt><dd><p class="startdd">: Validate this proposal </p>
 <p class="enddd">: make the property list modifiable as well </p>
 </dd></dl>
 

@@ -1,9 +1,0 @@
-<map id="Ra::Gui::Widgets::ControlPanel::endLayout" name="Ra::Gui::Widgets::ControlPanel::endLayout">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,63,191,103"/>
-<area shape="rect" id="Node000002" href="$classRa_1_1Gui_1_1Widgets_1_1ControlPanel.html#aed0329df7bc9d2ac40a0f3df09998ce3" title=" " alt="" coords="239,5,424,45"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="179,60,235,46,237,51,181,65"/>
-<area shape="rect" id="Node000003" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/stack/pop.html#" title=" " alt="" coords="273,70,390,95"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="191,80,259,80,259,85,191,85"/>
-<area shape="rect" id="Node000004" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/stack/top.html#" title=" " alt="" coords="274,119,389,145"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="192,100,261,115,260,120,191,105"/>
-</map>

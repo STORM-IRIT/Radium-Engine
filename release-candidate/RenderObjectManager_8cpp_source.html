@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.webp"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.5.18</span>
+   &#160;<span id="projectnumber">1.5.19</span>
    </div>
   </td>
  </tr>
@@ -210,8 +210,8 @@ $(function(){initNavTree('RenderObjectManager_8cpp_source.html',''); initResizab
 <div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/thread/lock_guard.html">std::lock_guard&lt;std::mutex&gt;</a> <a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/thread/lock.html">lock</a>( m_doubleBufferMutex );</div>
 <div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
 <div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    <a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/algorithm/transform.html">std::transform</a>(</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>        m_renderObjectByType[(<span class="keywordtype">int</span>)type].<a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/iterator/begin.html">begin</a>(),</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>        m_renderObjectByType[(<span class="keywordtype">int</span>)type].<a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/iterator/end.html">end</a>(),</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>        m_renderObjectByType[(<span class="keywordtype">int</span>)type].begin(),</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>        m_renderObjectByType[(<span class="keywordtype">int</span>)type].end(),</div>
 <div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>        <a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/iterator/back_inserter.html">std::back_inserter</a>( objectsOut ),</div>
 <div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>        [<span class="keyword">this</span>]( <span class="keyword">const</span> Core::Utils::Index&amp; i ) { <span class="keywordflow">return</span> this-&gt;m_renderObjects.at( i ); } );</div>
 <div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>}</div>
@@ -266,12 +266,10 @@ $(function(){initNavTree('RenderObjectManager_8cpp_source.html',''); initResizab
 <div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>} <span class="comment">// namespace Ra</span></div>
 <div class="ttc" id="aaccumulate_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/algorithm/accumulate.html">std::accumulate</a></div><div class="ttdeci">T accumulate(T... args)</div></div>
 <div class="ttc" id="aback_inserter_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/iterator/back_inserter.html">std::back_inserter</a></div><div class="ttdeci">T back_inserter(T... args)</div></div>
-<div class="ttc" id="abegin_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/iterator/begin.html">std::begin</a></div><div class="ttdeci">T begin(T... args)</div></div>
-<div class="ttc" id="aend_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/iterator/end.html">std::end</a></div><div class="ttdeci">T end(T... args)</div></div>
 <div class="ttc" id="alock_guard_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/thread/lock_guard.html">std::lock_guard</a></div></div>
 <div class="ttc" id="alock_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/thread/lock.html">std::lock</a></div><div class="ttdeci">T lock(T... args)</div></div>
 <div class="ttc" id="anamespaceRa_1_1Engine_1_1Rendering_html_a49447e503c13eb01d7b4d279e127f8e1"><div class="ttname"><a href="namespaceRa_1_1Engine_1_1Rendering.html#a49447e503c13eb01d7b4d279e127f8e1">Ra::Engine::Rendering::RenderObjectType</a></div><div class="ttdeci">RenderObjectType</div><div class="ttdef"><b>Definition</b> <a href="RenderObjectTypes_8hpp_source.html#l00009">RenderObjectTypes.hpp:9</a></div></div>
-<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">Radium Namespaces prefix.</div><div class="ttdef"><b>Definition</b> <a href="Cage_8cpp_source.html#l00003">Cage.cpp:3</a></div></div>
+<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">hepler function to manage enum as underlying types in VariableSet</div><div class="ttdef"><b>Definition</b> <a href="Cage_8cpp_source.html#l00003">Cage.cpp:3</a></div></div>
 <div class="ttc" id="areset_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/memory/shared_ptr/reset.html">std::shared_ptr::reset</a></div><div class="ttdeci">T reset(T... args)</div></div>
 <div class="ttc" id="ashared_ptr_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/memory/shared_ptr.html">std::shared_ptr</a></div></div>
 <div class="ttc" id="atransform_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/algorithm/transform.html">std::transform</a></div><div class="ttdeci">T transform(T... args)</div></div>

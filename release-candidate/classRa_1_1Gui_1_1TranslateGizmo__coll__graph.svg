@@ -370,7 +370,7 @@ var sectionId = 'dynsection-1';
 <!-- Node8 -->
 <g id="Node000008" class="node">
 <title>Node8</title>
-<g id="a_Node000008"><a xlink:href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html" target="_top" xlink:title=" ">
+<g id="a_Node000008"><a xlink:href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html" target="_top" xlink:title="Shader program parameter provider.">
 <polygon fill="white" stroke="transparent" points="537,-3662 375,-3662 375,-3527 537,-3527 537,-3662"/>
 <text text-anchor="start" x="395.5" y="-3649.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Data::Shader</text>
 <text text-anchor="start" x="410.5" y="-3638.5" font-family="Helvetica,sans-Serif" font-size="10.00">ParameterProvider</text>
@@ -405,7 +405,7 @@ var sectionId = 'dynsection-1';
 <!-- Node9 -->
 <g id="Node000009" class="node">
 <title>Node9</title>
-<g id="a_Node000009"><a xlink:href="classRa_1_1Engine_1_1Data_1_1ParameterSetEditingInterface.html" target="_top" xlink:title=" ">
+<g id="a_Node000009"><a xlink:href="classRa_1_1Engine_1_1Data_1_1ParameterSetEditingInterface.html" target="_top" xlink:title="Interface to define metadata (constraints, description, ...) for the editing of parameter set.">
 <polygon fill="white" stroke="transparent" points="731.5,-3384.5 550.5,-3384.5 550.5,-3294.5 731.5,-3294.5 731.5,-3384.5"/>
 <text text-anchor="start" x="572.5" y="-3372.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Data::Parameter</text>
 <text text-anchor="start" x="594.5" y="-3361.5" font-family="Helvetica,sans-Serif" font-size="10.00">SetEditingInterface</text>

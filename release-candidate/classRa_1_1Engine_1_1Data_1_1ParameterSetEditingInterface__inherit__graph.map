@@ -1,5 +1,5 @@
 <map id="Ra::Engine::Data::ParameterSetEditingInterface" name="Ra::Engine::Data::ParameterSetEditingInterface">
-<area shape="rect" id="Node000001" title=" " alt="" coords="215,5,456,125"/>
+<area shape="rect" id="Node000001" title="Interface to define metadata (constraints, description, ...) for the editing of parameter set." alt="" coords="215,5,456,125"/>
 <area shape="rect" id="Node000002" href="$classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html" title="[TextureSemantics]" alt="" coords="5,173,209,613"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="257,137,224,175,212,192,207,189,220,172,253,134"/>
 <area shape="rect" id="Node000003" href="$classRa_1_1Engine_1_1Data_1_1SimpleMaterial.html" title="Base implementation for simple, monocolored, materials." alt="" coords="233,303,437,483"/>

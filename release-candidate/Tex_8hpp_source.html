@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.webp"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.5.18</span>
+   &#160;<span id="projectnumber">1.5.19</span>
    </div>
   </td>
  </tr>
@@ -145,7 +145,7 @@ $(function(){initNavTree('Tex_8hpp_source.html',''); initResizable(true); });
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <span class="keyword">using </span>Vector    = Eigen::Matrix&lt;Scalar, N, 1&gt;;</div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    <span class="keyword">using </span>AabbND    = Eigen::AlignedBox&lt;Scalar, N&gt;;</div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <a class="code hl_function" href="classRa_1_1Core_1_1Tex.html#a2c4fd8281db924430eb5f23cc5ae5243">Tex</a>( <span class="keyword">const</span> IdxVector&amp; resolution, <span class="keyword">const</span> Vector&amp; start, <span class="keyword">const</span> Vector&amp; <a class="code hl_function" href="classRa_1_1Core_1_1Grid.html#ad7d838e7753d2ee71ef33a1fb408cf31">end</a> );</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <a class="code hl_function" href="classRa_1_1Core_1_1Tex.html#a2c4fd8281db924430eb5f23cc5ae5243">Tex</a>( <span class="keyword">const</span> IdxVector&amp; resolution, <span class="keyword">const</span> Vector&amp; start, <span class="keyword">const</span> Vector&amp; end );</div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <a class="code hl_function" href="classRa_1_1Core_1_1Tex.html#a2c4fd8281db924430eb5f23cc5ae5243">Tex</a>( <span class="keyword">const</span> IdxVector&amp; resolution, <span class="keyword">const</span> AabbND&amp; aabb );</div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
@@ -298,14 +298,13 @@ $(function(){initNavTree('Tex_8hpp_source.html',''); initResizable(true); });
 <div class="ttc" id="aTypes_8hpp_html"><div class="ttname"><a href="Types_8hpp.html">Types.hpp</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Grid_html"><div class="ttname"><a href="classRa_1_1Core_1_1Grid.html">Ra::Core::Grid</a></div><div class="ttdef"><b>Definition</b> <a href="Grid_8hpp_source.html#l00017">Grid.hpp:18</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Grid_html_a599505a244d10e84f1cb851e224047ff"><div class="ttname"><a href="classRa_1_1Core_1_1Grid.html#a599505a244d10e84f1cb851e224047ff">Ra::Core::Grid::IdxVector</a></div><div class="ttdeci">Eigen::Matrix&lt; uint, D, 1 &gt; IdxVector</div><div class="ttdoc">Dimension of our grid.</div><div class="ttdef"><b>Definition</b> <a href="Grid_8hpp_source.html#l00023">Grid.hpp:23</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Grid_html_ad7d838e7753d2ee71ef33a1fb408cf31"><div class="ttname"><a href="classRa_1_1Core_1_1Grid.html#ad7d838e7753d2ee71ef33a1fb408cf31">Ra::Core::Grid&lt; T, N &gt;::end</a></div><div class="ttdeci">Iterator end()</div><div class="ttdef"><b>Definition</b> <a href="Grid_8hpp_source.html#l00229">Grid.hpp:364</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Tex_html"><div class="ttname"><a href="classRa_1_1Core_1_1Tex.html">Ra::Core::Tex</a></div><div class="ttdef"><b>Definition</b> <a href="#l00016">Tex.hpp:17</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Tex_html_a2c4fd8281db924430eb5f23cc5ae5243"><div class="ttname"><a href="classRa_1_1Core_1_1Tex.html#a2c4fd8281db924430eb5f23cc5ae5243">Ra::Core::Tex::Tex</a></div><div class="ttdeci">Tex(const IdxVector &amp;resolution, const Vector &amp;start, const Vector &amp;end)</div><div class="ttdoc">Construct a Tex with the given resolution in the box given by two points.</div><div class="ttdef"><b>Definition</b> <a href="#l00135">Tex.hpp:135</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Tex_html_a765cb590e62d311250a50a1095e349d4"><div class="ttname"><a href="classRa_1_1Core_1_1Tex.html#a765cb590e62d311250a50a1095e349d4">Ra::Core::Tex::fetch</a></div><div class="ttdeci">T fetch(const Vector &amp;v) const</div><div class="ttdoc">Tri-linear interpolation of the grid values at position v.</div><div class="ttdef"><b>Definition</b> <a href="#l00154">Tex.hpp:154</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Tex_html_af1906853a2d2e4dea2cf23cf027babdf"><div class="ttname"><a href="classRa_1_1Core_1_1Tex.html#af1906853a2d2e4dea2cf23cf027babdf">Ra::Core::Tex::Tex</a></div><div class="ttdeci">Tex(const Tex &amp;other)=default</div><div class="ttdoc">Copy constructor and assignment operator perform a deep copy.</div></div>
 <div class="ttc" id="anamespaceRa_1_1Core_1_1Math_html_aa3b8bd54c48c000e4881728aec39ee7d"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Math.html#aa3b8bd54c48c000e4881728aec39ee7d">Ra::Core::Math::trunc</a></div><div class="ttdeci">Vector trunc(const Vector &amp;v)</div><div class="ttdoc">Component-wise trunc() function on a floating-point vector.</div></div>
 <div class="ttc" id="anamespaceRa_1_1Core_1_1Math_html_acc9f6f3b880b60bf0ee7723afabaf180"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Math.html#acc9f6f3b880b60bf0ee7723afabaf180">Ra::Core::Math::clamp</a></div><div class="ttdeci">Derived::PlainMatrix clamp(const Eigen::MatrixBase&lt; Derived &gt; &amp;v, const Eigen::MatrixBase&lt; DerivedA &gt; &amp;min, const Eigen::MatrixBase&lt; DerivedB &gt; &amp;max)</div><div class="ttdoc">Component-wise clamp() function on a floating-point vector.</div><div class="ttdef"><b>Definition</b> <a href="LinearAlgebra_8hpp_source.html#l00193">LinearAlgebra.hpp:193</a></div></div>
-<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">Radium Namespaces prefix.</div><div class="ttdef"><b>Definition</b> <a href="Cage_8cpp_source.html#l00003">Cage.cpp:3</a></div></div>
+<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">hepler function to manage enum as underlying types in VariableSet</div><div class="ttdef"><b>Definition</b> <a href="Cage_8cpp_source.html#l00003">Cage.cpp:3</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.webp"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.5.18</span>
+   &#160;<span id="projectnumber">1.5.19</span>
    </div>
   </td>
  </tr>
@@ -249,8 +249,8 @@ $(function(){initNavTree('Gizmo_8cpp_source.html',''); initResizable(true); });
 <div class="line"><a id="l00110" name="l00110"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1Gizmo_1_1UiSelectionControler.html#a74efd7ab1556f13cb24c6ad40a9c7d57">  110</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classRa_1_1Gui_1_1Gizmo_1_1UiSelectionControler.html#a74efd7ab1556f13cb24c6ad40a9c7d57">Gizmo::UiSelectionControler::updateGL</a>() {</div>
 <div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    m_associatedMaterial-&gt;updateGL();</div>
 <div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    <span class="keyword">auto</span>&amp; renderParameters = getParameters();</div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    renderParameters.mergeReplaceParameters( m_associatedMaterial-&gt;getParameters() );</div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    <span class="keywordflow">if</span> ( m_selected ) { renderParameters.addParameter( <span class="stringliteral">&quot;material.color&quot;</span>, m_selectedColor ); }</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    renderParameters.mergeReplaceVariables( m_associatedMaterial-&gt;getParameters() );</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    <span class="keywordflow">if</span> ( m_selected ) { renderParameters.setVariable( <span class="stringliteral">&quot;material.color&quot;</span>, m_selectedColor ); }</div>
 <div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>}</div>
 </div>
 <div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span> </div>
@@ -288,7 +288,7 @@ $(function(){initNavTree('Gizmo_8cpp_source.html',''); initResizable(true); });
 <div class="ttc" id="aclassRa_1_1Gui_1_1Gizmo_1_1UiSelectionControler_html_a74efd7ab1556f13cb24c6ad40a9c7d57"><div class="ttname"><a href="classRa_1_1Gui_1_1Gizmo_1_1UiSelectionControler.html#a74efd7ab1556f13cb24c6ad40a9c7d57">Ra::Gui::Gizmo::UiSelectionControler::updateGL</a></div><div class="ttdeci">void updateGL() override</div><div class="ttdoc">Inherited.</div><div class="ttdef"><b>Definition</b> <a href="#l00110">Gizmo.cpp:110</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1Gizmo_html_a10af7510f144cfd950233a1a173fabf7"><div class="ttname"><a href="classRa_1_1Gui_1_1Gizmo.html#a10af7510f144cfd950233a1a173fabf7">Ra::Gui::Gizmo::s_material</a></div><div class="ttdeci">static std::array&lt; std::shared_ptr&lt; Ra::Engine::Data::PlainMaterial &gt;, 3 &gt; s_material</div><div class="ttdef"><b>Definition</b> <a href="Gizmo_8hpp_source.html#l00117">Gizmo.hpp:117</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Engine_1_1Data_1_1ShaderConfigurationFactory_html_a0ecc004c00bff945aae8b673a738909f"><div class="ttname"><a href="namespaceRa_1_1Engine_1_1Data_1_1ShaderConfigurationFactory.html#a0ecc004c00bff945aae8b673a738909f">Ra::Engine::Data::ShaderConfigurationFactory::getConfiguration</a></div><div class="ttdeci">Core::Utils::optional&lt; ShaderConfiguration &gt; getConfiguration(const std::string &amp;name)</div><div class="ttdef"><b>Definition</b> <a href="ShaderConfigFactory_8cpp_source.html#l00041">ShaderConfigFactory.cpp:41</a></div></div>
-<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">Radium Namespaces prefix.</div><div class="ttdef"><b>Definition</b> <a href="Cage_8cpp_source.html#l00003">Cage.cpp:3</a></div></div>
+<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">hepler function to manage enum as underlying types in VariableSet</div><div class="ttdef"><b>Definition</b> <a href="Cage_8cpp_source.html#l00003">Cage.cpp:3</a></div></div>
 <div class="ttc" id="ashared_ptr_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/memory/shared_ptr.html">std::shared_ptr</a></div></div>
 <div class="ttc" id="avector_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/container/vector.html">std::vector</a></div></div>
 </div><!-- fragment --></div><!-- contents -->

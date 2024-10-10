@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.webp"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.5.18</span>
+   &#160;<span id="projectnumber">1.5.19</span>
    </div>
   </td>
  </tr>
@@ -145,8 +145,8 @@ $(function(){initNavTree('SelectionManager_8cpp_source.html',''); initResizable(
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keywordtype">bool</span> SelectionManager::isSelected( <span class="keyword">const</span> <a class="code hl_struct" href="structRa_1_1Engine_1_1Scene_1_1ItemEntry.html">ItemEntry</a>&amp; ent )<span class="keyword"> const </span>{</div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    QModelIndex idx = itemModel()-&gt;findEntryIndex( ent );</div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <span class="keywordflow">if</span> ( idx.isValid() ) {</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>        <span class="keyword">const</span> <span class="keyword">auto</span>&amp; pos = <a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/algorithm/find.html">std::find</a>( selectedIndexes().<a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/iterator/begin.html">begin</a>(), selectedIndexes().<a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/iterator/end.html">end</a>(), idx );</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        <span class="keywordflow">return</span> ( pos != selectedIndexes().<a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/iterator/end.html">end</a>() );</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>        <span class="keyword">const</span> <span class="keyword">auto</span>&amp; pos = <a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/algorithm/find.html">std::find</a>( selectedIndexes().begin(), selectedIndexes().end(), idx );</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        <span class="keywordflow">return</span> ( pos != selectedIndexes().end() );</div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    }</div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>}</div>
@@ -195,11 +195,9 @@ $(function(){initNavTree('SelectionManager_8cpp_source.html',''); initResizable(
 <div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>} <span class="comment">// namespace Gui</span></div>
 <div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>} <span class="comment">// namespace Ra</span></div>
 <div class="ttc" id="aback_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/container/vector/back.html">std::vector::back</a></div><div class="ttdeci">T back(T... args)</div></div>
-<div class="ttc" id="abegin_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/iterator/begin.html">std::begin</a></div><div class="ttdeci">T begin(T... args)</div></div>
-<div class="ttc" id="aend_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/iterator/end.html">std::end</a></div><div class="ttdeci">T end(T... args)</div></div>
 <div class="ttc" id="afind_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/algorithm/find.html">std::find</a></div><div class="ttdeci">T find(T... args)</div></div>
 <div class="ttc" id="anamespaceRa_1_1Engine_1_1Scene_html_a6e686b60ad6a81dde7a154411273b5f9"><div class="ttname"><a href="namespaceRa_1_1Engine_1_1Scene.html#a6e686b60ad6a81dde7a154411273b5f9">Ra::Engine::Scene::getEntryName</a></div><div class="ttdeci">std::string getEntryName(const Engine::RadiumEngine *engine, const ItemEntry &amp;ent)</div><div class="ttdoc">Returns the name associated to the given item.</div><div class="ttdef"><b>Definition</b> <a href="ItemEntry_8cpp_source.html#l00016">ItemEntry.cpp:16</a></div></div>
-<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">Radium Namespaces prefix.</div><div class="ttdef"><b>Definition</b> <a href="Cage_8cpp_source.html#l00003">Cage.cpp:3</a></div></div>
+<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">hepler function to manage enum as underlying types in VariableSet</div><div class="ttdef"><b>Definition</b> <a href="Cage_8cpp_source.html#l00003">Cage.cpp:3</a></div></div>
 <div class="ttc" id="apush_back_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/container/vector/push_back.html">std::vector::push_back</a></div><div class="ttdeci">T push_back(T... args)</div></div>
 <div class="ttc" id="areserve_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/container/vector/reserve.html">std::vector::reserve</a></div><div class="ttdeci">T reserve(T... args)</div></div>
 <div class="ttc" id="astructRa_1_1Engine_1_1Scene_1_1ItemEntry_html"><div class="ttname"><a href="structRa_1_1Engine_1_1Scene_1_1ItemEntry.html">Ra::Engine::Scene::ItemEntry</a></div><div class="ttdef"><b>Definition</b> <a href="ItemEntry_8hpp_source.html#l00025">ItemEntry.hpp:25</a></div></div>

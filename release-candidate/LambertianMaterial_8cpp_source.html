@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.webp"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.5.18</span>
+   &#160;<span id="projectnumber">1.5.19</span>
    </div>
   </td>
  </tr>
@@ -194,8 +194,8 @@ $(function(){initNavTree('LambertianMaterial_8cpp_source.html',''); initResizabl
 <div class="foldopen" id="foldopen00062" data-start="{" data-end="}">
 <div class="line"><a id="l00062" name="l00062"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1LambertianMaterial.html#aa4c9ff80bc4cea05315c6e47886c5af2">   62</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classRa_1_1Engine_1_1Data_1_1LambertianMaterial.html#aa4c9ff80bc4cea05315c6e47886c5af2">LambertianMaterial::updateFromParameters</a>() {</div>
 <div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    <span class="keyword">auto</span>&amp; renderParameters = getParameters();</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    setColor( renderParameters.getParameter&lt;<a class="code hl_class" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html">Core::Utils::Color</a>&gt;( <span class="stringliteral">&quot;material.color&quot;</span> ) );</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    <a class="code hl_function" href="classRa_1_1Engine_1_1Data_1_1SimpleMaterial.html#a77238ce2e04c31a52e68c64b64a6e11c">setColoredByVertexAttrib</a>( renderParameters.getParameter&lt;<span class="keywordtype">bool</span>&gt;( <span class="stringliteral">&quot;material.perVertexColor&quot;</span> ) );</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    setColor( renderParameters.getVariable&lt;<a class="code hl_class" href="classRa_1_1Core_1_1Utils_1_1ColorBase.html">Core::Utils::Color</a>&gt;( <span class="stringliteral">&quot;material.color&quot;</span> ) );</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    <a class="code hl_function" href="classRa_1_1Engine_1_1Data_1_1SimpleMaterial.html#a77238ce2e04c31a52e68c64b64a6e11c">setColoredByVertexAttrib</a>( renderParameters.getVariable&lt;<span class="keywordtype">bool</span>&gt;( <span class="stringliteral">&quot;material.perVertexColor&quot;</span> ) );</div>
 <div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>}</div>
 </div>
 <div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
@@ -227,7 +227,7 @@ $(function(){initNavTree('LambertianMaterial_8cpp_source.html',''); initResizabl
 <div class="ttc" id="anamespaceRa_1_1Engine_1_1Data_1_1ShaderConfigurationFactory_html_a0ecc004c00bff945aae8b673a738909f"><div class="ttname"><a href="namespaceRa_1_1Engine_1_1Data_1_1ShaderConfigurationFactory.html#a0ecc004c00bff945aae8b673a738909f">Ra::Engine::Data::ShaderConfigurationFactory::getConfiguration</a></div><div class="ttdeci">Core::Utils::optional&lt; ShaderConfiguration &gt; getConfiguration(const std::string &amp;name)</div><div class="ttdef"><b>Definition</b> <a href="ShaderConfigFactory_8cpp_source.html#l00041">ShaderConfigFactory.cpp:41</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Engine_1_1Rendering_html_a6adc37d571180327fbdcf8dd786e9942a3ff981fd9f47ecc46723d5f857391b57"><div class="ttname"><a href="namespaceRa_1_1Engine_1_1Rendering.html#a6adc37d571180327fbdcf8dd786e9942a3ff981fd9f47ecc46723d5f857391b57">Ra::Engine::Rendering::LIGHTING_OPAQUE</a></div><div class="ttdeci">@ LIGHTING_OPAQUE</div><div class="ttdef"><b>Definition</b> <a href="RenderTechnique_8hpp_source.html#l00037">RenderTechnique.hpp:37</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Engine_1_1Rendering_html_a6adc37d571180327fbdcf8dd786e9942a51aa3f3937001c6d503e5fa61fa2a79c"><div class="ttname"><a href="namespaceRa_1_1Engine_1_1Rendering.html#a6adc37d571180327fbdcf8dd786e9942a51aa3f3937001c6d503e5fa61fa2a79c">Ra::Engine::Rendering::Z_PREPASS</a></div><div class="ttdeci">@ Z_PREPASS</div><div class="ttdef"><b>Definition</b> <a href="RenderTechnique_8hpp_source.html#l00042">RenderTechnique.hpp:42</a></div></div>
-<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">Radium Namespaces prefix.</div><div class="ttdef"><b>Definition</b> <a href="Cage_8cpp_source.html#l00003">Cage.cpp:3</a></div></div>
+<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">hepler function to manage enum as underlying types in VariableSet</div><div class="ttdef"><b>Definition</b> <a href="Cage_8cpp_source.html#l00003">Cage.cpp:3</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

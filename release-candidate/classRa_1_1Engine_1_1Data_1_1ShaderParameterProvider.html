@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.webp"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.5.18</span>
+   &#160;<span id="projectnumber">1.5.19</span>
    </div>
   </td>
  </tr>
@@ -128,6 +128,9 @@ $(function(){initNavTree('classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.h
 </div><!--header-->
 <div class="contents">
 
+<p>Shader program parameter provider.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="RenderParameters_8hpp_source.html">Engine/Data/RenderParameters.hpp</a>&gt;</code></p>
 <div id="dynsection-0" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for Ra::Engine::Data::ShaderParameterProvider:</div>
@@ -151,19 +154,20 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ade4f40da503903689b8c9dea59e03c5e" id="r_ade4f40da503903689b8c9dea59e03c5e"><td class="memItemLeft" align="right" valign="top">virtual const <a class="el" href="classRa_1_1Engine_1_1Data_1_1RenderParameters.html">RenderParameters</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ade4f40da503903689b8c9dea59e03c5e">getParameters</a> () const</td></tr>
 <tr class="separator:ade4f40da503903689b8c9dea59e03c5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a845c8bdbf880511e008d940e260b0820" id="r_a845c8bdbf880511e008d940e260b0820"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a845c8bdbf880511e008d940e260b0820">updateGL</a> ()=0</td></tr>
-<tr class="memdesc:a845c8bdbf880511e008d940e260b0820"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update the OpenGL states used by the <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html">ShaderParameterProvider</a>. These state could be the ones from an associated material (textures, precomputed tables or whatever data associated to the material) or some parameters that are specific to the provider semantic.  <br /></td></tr>
+<tr class="memdesc:a845c8bdbf880511e008d940e260b0820"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update the OpenGL states used by the <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html" title="Shader program parameter provider.">ShaderParameterProvider</a>.  <br /></td></tr>
 <tr class="separator:a845c8bdbf880511e008d940e260b0820"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a43c416afc9bb641d677c5df3737e5029" id="r_a43c416afc9bb641d677c5df3737e5029"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a43c416afc9bb641d677c5df3737e5029">updateFromParameters</a> ()</td></tr>
-<tr class="memdesc:a43c416afc9bb641d677c5df3737e5029"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update the attributes of the <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html">ShaderParameterProvider</a> to their actual values stored in the renderParameters.  <br /></td></tr>
+<tr class="memdesc:a43c416afc9bb641d677c5df3737e5029"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update the attributes of the <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html" title="Shader program parameter provider.">ShaderParameterProvider</a> to their actual values stored in the renderParameters.  <br /></td></tr>
 <tr class="separator:a43c416afc9bb641d677c5df3737e5029"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae3cf5544be7650456e51625936311cd5" id="r_ae3cf5544be7650456e51625936311cd5"><td class="memItemLeft" align="right" valign="top">virtual <a class="elRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/list.html">std::list</a>&lt; <a class="elRef" target="_blank" href="http://en.cppreference.com/w/cpp/string/basic_string.html">std::string</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae3cf5544be7650456e51625936311cd5">getPropertyList</a> () const</td></tr>
-<tr class="memdesc:ae3cf5544be7650456e51625936311cd5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the list of properties the provider might use in a shader. Each property will be added to the shader used for rendering under the form "#define theProperty" when the provider is associated with the render technique.  <br /></td></tr>
+<tr class="memdesc:ae3cf5544be7650456e51625936311cd5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the list of properties the provider might use in a shader.  <br /></td></tr>
 <tr class="separator:ae3cf5544be7650456e51625936311cd5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Shader program parameter provider. a <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html">ShaderParameterProvider</a> is an object that is associated to a render technique to provide the uniform parameter set for the program. When an RenderObject is drawn using a given rendertechnique, the <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html">ShaderParameterProvider</a> associated to the renderTechnique is responsible to set all the uniforms needed by the rendertechnique. </p>
+<div class="textblock"><p>Shader program parameter provider. </p>
+<p>A <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html" title="Shader program parameter provider.">ShaderParameterProvider</a> is an object that is associated to a render technique to provide the uniform parameter set for the program. When an RenderObject is drawn using a given rendertechnique, the <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html" title="Shader program parameter provider.">ShaderParameterProvider</a> associated to the renderTechnique is responsible to set all the uniforms needed by the rendertechnique. </p>
 
-<p class="definition">Definition at line <a class="el" href="RenderParameters_8hpp_source.html#l00367">367</a> of file <a class="el" href="RenderParameters_8hpp_source.html">RenderParameters.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="RenderParameters_8hpp_source.html#l00170">170</a> of file <a class="el" href="RenderParameters_8hpp_source.html">RenderParameters.hpp</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="af7a9c7a911e4388bc28c7418a1828805" name="af7a9c7a911e4388bc28c7418a1828805"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af7a9c7a911e4388bc28c7418a1828805">&#9670;&#160;</a></span>getParameters() <span class="overload">[1/2]</span></h2>
@@ -190,7 +194,7 @@ Public Member Functions</h2></td></tr>
 
 <p>Reimplemented in <a class="el" href="classRa_1_1Engine_1_1Data_1_1RawShaderMaterial.html#ad4650ccfdc40104704b3463e6066d1d9">Ra::Engine::Data::RawShaderMaterial</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="RenderParameters_8hpp_source.html#l00371">371</a> of file <a class="el" href="RenderParameters_8hpp_source.html">RenderParameters.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="RenderParameters_8hpp_source.html#l00174">174</a> of file <a class="el" href="RenderParameters_8hpp_source.html">RenderParameters.hpp</a>.</p>
 
 </div>
 </div>
@@ -219,7 +223,7 @@ Public Member Functions</h2></td></tr>
 
 <p>Reimplemented in <a class="el" href="classRa_1_1Engine_1_1Data_1_1RawShaderMaterial.html#a36845e4aa6636f71ec4afab58e3b9790">Ra::Engine::Data::RawShaderMaterial</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="RenderParameters_8hpp_source.html#l00372">372</a> of file <a class="el" href="RenderParameters_8hpp_source.html">RenderParameters.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="RenderParameters_8hpp_source.html#l00175">175</a> of file <a class="el" href="RenderParameters_8hpp_source.html">RenderParameters.hpp</a>.</p>
 
 </div>
 </div>
@@ -246,13 +250,14 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Get the list of properties the provider might use in a shader. Each property will be added to the shader used for rendering under the form "#define theProperty" when the provider is associated with the render technique. </p>
+<p>Get the list of properties the provider might use in a shader. </p>
+<p>Each property will be added to the shader used for rendering under the form "#define theProperty" when the provider is associated with the render technique.</p>
 <p>The default implementation returns an empty list.</p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000050">Todo</a></b></dt><dd>: Validate this proposal </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000051">Todo</a></b></dt><dd>: Validate this proposal </dd></dl>
 
 <p>Reimplemented in <a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html#a7fab8c75a56db577b77d8168bf600420">Ra::Engine::Data::Material</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="RenderParameters_8hpp_source.html#l00396">396</a> of file <a class="el" href="RenderParameters_8hpp_source.html">RenderParameters.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="RenderParameters_8hpp_source.html#l00199">199</a> of file <a class="el" href="RenderParameters_8hpp_source.html">RenderParameters.hpp</a>.</p>
 
 </div>
 </div>
@@ -279,11 +284,11 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Update the attributes of the <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html">ShaderParameterProvider</a> to their actual values stored in the renderParameters. </p>
+<p>Update the attributes of the <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html" title="Shader program parameter provider.">ShaderParameterProvider</a> to their actual values stored in the renderParameters. </p>
 
 <p>Reimplemented in <a class="el" href="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#ac270bc7fab86554604222c1eefc83bc1">Ra::Engine::Data::BlinnPhongMaterial</a>, <a class="el" href="classRa_1_1Engine_1_1Data_1_1LambertianMaterial.html#aa4c9ff80bc4cea05315c6e47886c5af2">Ra::Engine::Data::LambertianMaterial</a>, <a class="el" href="classRa_1_1Engine_1_1Data_1_1PlainMaterial.html#ad2f81f1917bfe12b59dc9e71e2dcc7ab">Ra::Engine::Data::PlainMaterial</a>, and <a class="el" href="classRa_1_1Engine_1_1Data_1_1VolumetricMaterial.html#af25aa6548fe325c7c19b1344f40e3a59">Ra::Engine::Data::VolumetricMaterial</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="RenderParameters_8hpp_source.html#l00385">385</a> of file <a class="el" href="RenderParameters_8hpp_source.html">RenderParameters.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="RenderParameters_8hpp_source.html#l00188">188</a> of file <a class="el" href="RenderParameters_8hpp_source.html">RenderParameters.hpp</a>.</p>
 
 </div>
 </div>
@@ -310,7 +315,8 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Update the OpenGL states used by the <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html">ShaderParameterProvider</a>. These state could be the ones from an associated material (textures, precomputed tables or whatever data associated to the material) or some parameters that are specific to the provider semantic. </p>
+<p>Update the OpenGL states used by the <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html" title="Shader program parameter provider.">ShaderParameterProvider</a>. </p>
+<p>These state could be the ones from an associated material (textures, precomputed tables or whatever data associated to the material) or some parameters that are specific to the provider semantic. </p>
 
 <p>Implemented in <a class="el" href="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html#af66d6609fafb6c0544e8470a680d833b">Ra::Engine::Data::BlinnPhongMaterial</a>, <a class="el" href="classRa_1_1Engine_1_1Data_1_1RawShaderMaterial.html#a02ceaac5e16d5a0061098e2b2f5f6391">Ra::Engine::Data::RawShaderMaterial</a>, <a class="el" href="classRa_1_1Engine_1_1Data_1_1SimpleMaterial.html#a10d18365a6ea94692a1097a7a2f49b57">Ra::Engine::Data::SimpleMaterial</a>, <a class="el" href="classRa_1_1Engine_1_1Data_1_1VolumetricMaterial.html#a92159439586f9783d1334576b1aa1b88">Ra::Engine::Data::VolumetricMaterial</a>, and <a class="el" href="classRa_1_1Gui_1_1Gizmo_1_1UiSelectionControler.html#a74efd7ab1556f13cb24c6ad40a9c7d57">Ra::Gui::Gizmo::UiSelectionControler</a>.</p>
 

@@ -65,7 +65,7 @@
 <!-- Node2 -->
 <g id="Node000002" class="node">
 <title>Node2</title>
-<g id="a_Node000002"><a xlink:href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html" target="_top" xlink:title=" ">
+<g id="a_Node000002"><a xlink:href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html" target="_top" xlink:title="Shader program parameter provider.">
 <polygon fill="white" stroke="transparent" points="162,-430 0,-430 0,-295 162,-295 162,-430"/>
 <text text-anchor="start" x="20.5" y="-417.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Data::Shader</text>
 <text text-anchor="start" x="35.5" y="-406.5" font-family="Helvetica,sans-Serif" font-size="10.00">ParameterProvider</text>

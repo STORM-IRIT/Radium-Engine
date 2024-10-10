@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.webp"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.5.18</span>
+   &#160;<span id="projectnumber">1.5.19</span>
    </div>
   </td>
  </tr>
@@ -153,10 +153,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a1f6ffc62a037db3dcb63c52a1baf508f" id="r_a1f6ffc62a037db3dcb63c52a1baf508f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1f6ffc62a037db3dcb63c52a1baf508f">~VolumetricMaterial</a> () override</td></tr>
 <tr class="separator:a1f6ffc62a037db3dcb63c52a1baf508f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a92159439586f9783d1334576b1aa1b88" id="r_a92159439586f9783d1334576b1aa1b88"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a92159439586f9783d1334576b1aa1b88">updateGL</a> () override</td></tr>
-<tr class="memdesc:a92159439586f9783d1334576b1aa1b88"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update the OpenGL states used by the <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html">ShaderParameterProvider</a>. These state could be the ones from an associated material (textures, precomputed tables or whatever data associated to the material) or some parameters that are specific to the provider semantic.  <br /></td></tr>
+<tr class="memdesc:a92159439586f9783d1334576b1aa1b88"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update the OpenGL states used by the <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html" title="Shader program parameter provider.">ShaderParameterProvider</a>.  <br /></td></tr>
 <tr class="separator:a92159439586f9783d1334576b1aa1b88"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af25aa6548fe325c7c19b1344f40e3a59" id="r_af25aa6548fe325c7c19b1344f40e3a59"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af25aa6548fe325c7c19b1344f40e3a59">updateFromParameters</a> () override</td></tr>
-<tr class="memdesc:af25aa6548fe325c7c19b1344f40e3a59"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update the attributes of the <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html">ShaderParameterProvider</a> to their actual values stored in the renderParameters.  <br /></td></tr>
+<tr class="memdesc:af25aa6548fe325c7c19b1344f40e3a59"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update the attributes of the <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html" title="Shader program parameter provider.">ShaderParameterProvider</a> to their actual values stored in the renderParameters.  <br /></td></tr>
 <tr class="separator:af25aa6548fe325c7c19b1344f40e3a59"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a00fd3ec81be3fb81d97d7b17eaa9be42" id="r_a00fd3ec81be3fb81d97d7b17eaa9be42"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a00fd3ec81be3fb81d97d7b17eaa9be42">isTransparent</a> () const override</td></tr>
 <tr class="separator:a00fd3ec81be3fb81d97d7b17eaa9be42"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -254,7 +254,7 @@ Additional Inherited Members</h2></td></tr>
 <tr class="separator:ab76b987f244bbcc7f230f760357e5a9d inherit pro_methods_classRa_1_1Engine_1_1Data_1_1Material"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Implementation of a simple Volumetric <a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html" title="Base class for materials.">Material</a>. Based on a 3D texture defining the density distribution in the volume, perform ray-marching and absorption based rendering of the volume.. </p><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000058">Todo</a></b></dt><dd>This material does not implement the MaterialGLSL interface. Shader compositing is not allowed. </dd></dl>
+<div class="textblock"><p>Implementation of a simple Volumetric <a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html" title="Base class for materials.">Material</a>. Based on a 3D texture defining the density distribution in the volume, perform ray-marching and absorption based rendering of the volume.. </p><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000059">Todo</a></b></dt><dd>This material does not implement the MaterialGLSL interface. Shader compositing is not allowed. </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="VolumetricMaterial_8hpp_source.html#l00024">24</a> of file <a class="el" href="VolumetricMaterial_8hpp_source.html">VolumetricMaterial.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
@@ -535,7 +535,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Update the attributes of the <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html">ShaderParameterProvider</a> to their actual values stored in the renderParameters. </p>
+<p>Update the attributes of the <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html" title="Shader program parameter provider.">ShaderParameterProvider</a> to their actual values stored in the renderParameters. </p>
 
 <p>Reimplemented from <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html#a43c416afc9bb641d677c5df3737e5029">Ra::Engine::Data::ShaderParameterProvider</a>.</p>
 
@@ -566,7 +566,8 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Update the OpenGL states used by the <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html">ShaderParameterProvider</a>. These state could be the ones from an associated material (textures, precomputed tables or whatever data associated to the material) or some parameters that are specific to the provider semantic. </p>
+<p>Update the OpenGL states used by the <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html" title="Shader program parameter provider.">ShaderParameterProvider</a>. </p>
+<p>These state could be the ones from an associated material (textures, precomputed tables or whatever data associated to the material) or some parameters that are specific to the provider semantic. </p>
 
 <p>Implements <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html#a845c8bdbf880511e008d940e260b0820">Ra::Engine::Data::ShaderParameterProvider</a>.</p>
 

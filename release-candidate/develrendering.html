@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.webp"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.5.18</span>
+   &#160;<span id="projectnumber">1.5.19</span>
    </div>
   </td>
  </tr>
@@ -204,7 +204,7 @@ Main abstract render method</h2>
 Defining a concrete renderer</h2>
 <p>To define a concrete renderer, the <a class="el" href="classRa_1_1Engine_1_1Rendering_1_1Renderer.html">Ra::Engine::Rendering::Renderer</a> class can be inherited to define, at least, the <code>renderInternal</code> method. Note that only two methods can be overridden for the renderer, renderInternal (step 4) and postProcessInternal (step 5).</p>
 <p>A concrete renderer will build its rendering loop, the <code>renderInternal</code> method, by decomposing it into passes configured, for each Ra::engine::RenderObject, using the Ra::Engine::Rendering::RenderTechique class.</p>
-<p>A <a class="el" href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html">Ra::Engine::Rendering::RenderTechnique</a> consists in a set of named <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderConfiguration.html">Ra::Engine::Data::ShaderConfiguration</a> that provide the GLSL code used by each pass to compute the appearance of a <a class="el" href="classRa_1_1Engine_1_1Rendering_1_1RenderObject.html">Ra::Engine::Rendering::RenderObject</a> and a set of <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html">Ra::Engine::Data::ShaderParameterProvider</a> that provide shader data to be used for each pass.</p>
+<p>A <a class="el" href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html">Ra::Engine::Rendering::RenderTechnique</a> consists in a set of named <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderConfiguration.html">Ra::Engine::Data::ShaderConfiguration</a> that provide the GLSL code used by each pass to compute the appearance of a <a class="el" href="classRa_1_1Engine_1_1Rendering_1_1RenderObject.html">Ra::Engine::Rendering::RenderObject</a> and a set of <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html" title="Shader program parameter provider.">Ra::Engine::Data::ShaderParameterProvider</a> that provide shader data to be used for each pass.</p>
 <p>When rendering, the renderer will loop over all the configured <a class="el" href="classRa_1_1Engine_1_1Rendering_1_1RenderObject.html">Ra::Engine::Rendering::RenderObject</a> and, for each rendering pass, will get the OpenGL pipeline configuration and parameters from the <a class="el" href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html">Ra::Engine::Rendering::RenderTechnique</a> associated with the <a class="el" href="classRa_1_1Engine_1_1Rendering_1_1RenderObject.html">Ra::Engine::Rendering::RenderObject</a>.</p>
 <p>The Radium Engine exports a ready to use renderer, <a class="el" href="classRa_1_1Engine_1_1Rendering_1_1ForwardRenderer.html">Ra::Engine::Rendering::ForwardRenderer</a>, that decomposes the rendering into three passes as described in the <a class="el" href="forwardRenderer.html">Forward Render</a> document.</p>
 <h2><a class="anchor" id="autotoc_md117"></a>

@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.webp"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.5.18</span>
+   &#160;<span id="projectnumber">1.5.19</span>
    </div>
   </td>
  </tr>
@@ -335,7 +335,7 @@ Protected Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><div class="compoundTemplParams">template&lt;typename T&gt;<br />
-class Ra::Engine::Data::MultiIndexedGeometry&lt; T &gt;</div><p>An engine mesh owning a MultiIndexedCoreGeometry, with multiple indices layer. </p><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000041">Todo</a></b></dt><dd>Work in progress. </dd></dl>
+class Ra::Engine::Data::MultiIndexedGeometry&lt; T &gt;</div><p>An engine mesh owning a MultiIndexedCoreGeometry, with multiple indices layer. </p><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000042">Todo</a></b></dt><dd>Work in progress. </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="Mesh_8hpp_source.html#l00355">355</a> of file <a class="el" href="Mesh_8hpp_source.html">Mesh.hpp</a>.</p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
@@ -526,8 +526,8 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 <p>Use the given geometry as base for a display mesh. This will move <code>mesh</code> and *this will take the ownership of the data. The currently owned mesh is deleted, if any. This method should be called to set or replace the CoreGeometry, if you want to update attributes or indices, use getCoreGeometry and <a class="el" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html" title="This class represents vertex + attributes per vertex. Toplogy is handled in MultiIndexedGeometry subc...">Core::Geometry::AttribArrayGeometry</a> setters instead. </p><dl class="section warning"><dt>Warning</dt><dd>For indices, you must call setIndicesDirty after modification. </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000049">Todo</a></b></dt><dd>add observer mecanism for indices. </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000043">Todo</a></b></dt><dd>HERE </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000050">Todo</a></b></dt><dd>add observer mecanism for indices. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000044">Todo</a></b></dt><dd>HERE </dd></dl>
 
 <p>Reimplemented from <a class="el" href="classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html#a99500dff926ac595781cfb4d2b1340c1">Ra::Engine::Data::CoreGeometryDisplayable&lt; T &gt;</a>.</p>
 
@@ -567,7 +567,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 <p>Draw the mesh. Prog is used to set VertexAttribBinding, but it has to be already binded </p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000045">Todo</a></b></dt><dd>implement ! </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000046">Todo</a></b></dt><dd>implement ! </dd></dl>
 
 <p>Implements <a class="el" href="classRa_1_1Engine_1_1Data_1_1Displayable.html#a6a2f48112d956abbab5a05495dbe9e5b">Ra::Engine::Data::Displayable</a>.</p>
 
@@ -599,7 +599,7 @@ template&lt;typename T &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000044">Todo</a></b></dt><dd>implement ! </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000045">Todo</a></b></dt><dd>implement ! </dd></dl>
 
 <p>Reimplemented from <a class="el" href="classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html">Ra::Engine::Data::CoreGeometryDisplayable&lt; T &gt;</a>.</p>
 

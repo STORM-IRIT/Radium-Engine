@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.webp"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.5.18</span>
+   &#160;<span id="projectnumber">1.5.19</span>
    </div>
   </td>
  </tr>
@@ -168,10 +168,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a2cceb6feb429256547ad9f41ff4faef5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a named <a class="el" href="classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html" title="[TextureSemantics]">BlinnPhongMaterial</a>.  <br /></td></tr>
 <tr class="separator:a2cceb6feb429256547ad9f41ff4faef5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af66d6609fafb6c0544e8470a680d833b" id="r_af66d6609fafb6c0544e8470a680d833b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af66d6609fafb6c0544e8470a680d833b">updateGL</a> () override</td></tr>
-<tr class="memdesc:af66d6609fafb6c0544e8470a680d833b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update the OpenGL states used by the <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html">ShaderParameterProvider</a>. These state could be the ones from an associated material (textures, precomputed tables or whatever data associated to the material) or some parameters that are specific to the provider semantic.  <br /></td></tr>
+<tr class="memdesc:af66d6609fafb6c0544e8470a680d833b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update the OpenGL states used by the <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html" title="Shader program parameter provider.">ShaderParameterProvider</a>.  <br /></td></tr>
 <tr class="separator:af66d6609fafb6c0544e8470a680d833b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac270bc7fab86554604222c1eefc83bc1" id="r_ac270bc7fab86554604222c1eefc83bc1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac270bc7fab86554604222c1eefc83bc1">updateFromParameters</a> () override</td></tr>
-<tr class="memdesc:ac270bc7fab86554604222c1eefc83bc1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update the attributes of the <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html">ShaderParameterProvider</a> to their actual values stored in the renderParameters.  <br /></td></tr>
+<tr class="memdesc:ac270bc7fab86554604222c1eefc83bc1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update the attributes of the <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html" title="Shader program parameter provider.">ShaderParameterProvider</a> to their actual values stored in the renderParameters.  <br /></td></tr>
 <tr class="separator:ac270bc7fab86554604222c1eefc83bc1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a96117e0c746c30ea97cda45c0e82c3a2" id="r_a96117e0c746c30ea97cda45c0e82c3a2"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a96117e0c746c30ea97cda45c0e82c3a2">isTransparent</a> () const override</td></tr>
 <tr class="separator:a96117e0c746c30ea97cda45c0e82c3a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -276,7 +276,7 @@ Additional Inherited Members</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>[<a class="el" href="namespaceRa_1_1Engine_1_1Data_1_1TextureSemantics.html" title="[TextureSemantics]">TextureSemantics</a>] </p>
 <p>Implementation of the Blinn-Phong <a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html" title="Base class for materials.">Material</a> BSDF.</p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000030">Todo</a></b></dt><dd>due to "Material.glsl" interface modification, must test this version with all plugins, apps, ... that uses Radium Renderer </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000031">Todo</a></b></dt><dd>due to "Material.glsl" interface modification, must test this version with all plugins, apps, ... that uses Radium Renderer </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="BlinnPhongMaterial_8hpp_source.html#l00036">36</a> of file <a class="el" href="BlinnPhongMaterial_8hpp_source.html">BlinnPhongMaterial.hpp</a>.</p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
@@ -841,7 +841,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Update the attributes of the <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html">ShaderParameterProvider</a> to their actual values stored in the renderParameters. </p>
+<p>Update the attributes of the <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html" title="Shader program parameter provider.">ShaderParameterProvider</a> to their actual values stored in the renderParameters. </p>
 
 <p>Reimplemented from <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html#a43c416afc9bb641d677c5df3737e5029">Ra::Engine::Data::ShaderParameterProvider</a>.</p>
 
@@ -872,7 +872,8 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Update the OpenGL states used by the <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html">ShaderParameterProvider</a>. These state could be the ones from an associated material (textures, precomputed tables or whatever data associated to the material) or some parameters that are specific to the provider semantic. </p>
+<p>Update the OpenGL states used by the <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html" title="Shader program parameter provider.">ShaderParameterProvider</a>. </p>
+<p>These state could be the ones from an associated material (textures, precomputed tables or whatever data associated to the material) or some parameters that are specific to the provider semantic. </p>
 
 <p>Implements <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html#a845c8bdbf880511e008d940e260b0820">Ra::Engine::Data::ShaderParameterProvider</a>.</p>
 

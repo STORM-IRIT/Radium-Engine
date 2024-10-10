@@ -1,5 +1,5 @@
 <map id="Ra::Gui::Widgets::ControlPanel" name="Ra::Gui::Widgets::ControlPanel">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,231,1065"/>
-<area shape="rect" id="Node000002" href="$classRa_1_1Gui_1_1ParameterSetEditor.html" title="Simple Widget for RenderParameter editing The editor will expose a control panel containing all of th..." alt="" coords="21,1113,215,1439"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="121,1079,121,1113,115,1113,115,1079"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,231,845"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Gui_1_1VariableSetEditor.html" title="Simple Widget for RenderParameter editing The editor will expose a control panel containing all of th..." alt="" coords="27,893,209,1199"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="121,859,121,893,115,893,115,859"/>
 </map>
