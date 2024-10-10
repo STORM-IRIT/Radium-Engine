@@ -85,7 +85,7 @@ class RA_GUI_API MaterialParameterEditor : public QWidget
     /// The layout containing the control panel
     QVBoxLayout* m_matParamsLayout;
     /// The control panel re-generated whenever setupFromMaterial is called
-    ParameterSetEditor* m_parametersControlPanel;
+    VariableSetEditor* m_parametersControlPanel;
     /// wether to show the unspecified materials
     bool m_showUnspecified = false;
 

@@ -1,7 +1,7 @@
 // Include Radium base application and its simple Gui
-#include "Engine/Data/BlinnPhongMaterial.hpp"
-#include "Engine/Data/LambertianMaterial.hpp"
-#include "Engine/Data/SimpleMaterial.hpp"
+#include <Engine/Data/BlinnPhongMaterial.hpp>
+#include <Engine/Data/LambertianMaterial.hpp>
+#include <Engine/Data/SimpleMaterial.hpp>
 #include <Gui/BaseApplication.hpp>
 #include <Gui/RadiumWindow/SimpleWindowFactory.hpp>
 
