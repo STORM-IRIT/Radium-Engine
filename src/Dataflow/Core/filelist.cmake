@@ -3,7 +3,7 @@
 # ----------------------------------------------------
 
 set(dataflow_core_sources DataflowGraph.cpp Node.cpp NodeFactory.cpp Nodes/CoreBuiltInsNodes.cpp
-                          Port.cpp TypeDemangler.cpp
+                          Port.cpp
 )
 
 set(dataflow_core_headers
@@ -25,7 +25,6 @@ set(dataflow_core_headers
     Nodes/Sources/FunctionSource.hpp
     Nodes/Sources/SingleDataSourceNode.hpp
     Port.hpp
-    TypeDemangler.hpp
 )
 
 set(dataflow_core_private
