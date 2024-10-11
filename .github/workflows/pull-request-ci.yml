@@ -29,7 +29,3 @@ jobs:
       macos: "false"
       build-release: "false"
       coverage: "true"
-  call-deploy-doc:
-    uses: ./.github/workflows/deploy-doc.yml
-    with:
-      deploy-on-gh-pages: "false"
