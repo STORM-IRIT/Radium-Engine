@@ -1,15 +1,16 @@
 #include <catch2/catch.hpp>
 
-#include <string>
-#include <vector>
-
-#include <iostream>
-
+#include <Core/Utils/TypesUtils.hpp>
 #include <Dataflow/Core/DataflowGraph.hpp>
 #include <Dataflow/Core/Nodes/Sinks/CoreDataSinks.hpp>
 #include <Dataflow/Core/Nodes/Sources/CoreDataSources.hpp>
 
+#include <iostream>
+#include <string>
+#include <vector>
+
 using namespace Ra::Dataflow::Core;
+using namespace Ra::Core::Utils;
 
 //! [Create a source to sink graph for type T]
 template <typename T>

@@ -85,9 +85,8 @@ class FilterSelector final : public Node
 
   public:
     static const std::string& getTypename() {
-        static std::string demangledTypeName = std::string { "FilterSelector<" } +
-                                               Ra::Dataflow::Core::simplifiedDemangledType<T>() +
-                                               ">";
+        static std::string demangledTypeName =
+            std::string { "FilterSelector<" } + Ra::Core::Utils::simplifiedDemangledType<T>() + ">";
         return demangledTypeName;
     }
 
