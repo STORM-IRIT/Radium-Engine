@@ -73,8 +73,8 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: doc
-          path: |
-            build/Radium-Engine/html/
+          path: build/Radium-Engine/html/
+          retention-days: 5
       - name: Fix badges github ref
         if: ${{ inputs.deploy-on-gh-pages == 'true' }}
         run: |
