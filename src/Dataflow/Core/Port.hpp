@@ -2,10 +2,10 @@
 
 #include <Dataflow/RaDataflow.hpp>
 
+#include <Core/Utils/TypesUtils.hpp>
+
 #include <string>
 #include <typeinfo>
-
-#include <Dataflow/Core/TypeDemangler.hpp>
 
 namespace Ra {
 namespace Dataflow {
@@ -55,7 +55,7 @@ class RA_DATAFLOW_API PortBase
     ///\brief Gets the human readable type of the port object.
     ///
     ///\return std::string The simplified demangled type.
-    std::string getTypeName() const { return simplifiedDemangledType( m_type ); }
+    std::string getTypeName() const { return Ra::Core::Utils::simplifiedDemangledType( m_type ); }
 
     // can we get data from the port ?
     virtual bool hasData() { return false; }

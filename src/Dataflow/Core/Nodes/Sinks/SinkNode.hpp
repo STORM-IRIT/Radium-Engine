@@ -1,4 +1,5 @@
 #pragma once
+#include <Core/Utils/TypesUtils.hpp>
 #include <Dataflow/Core/Node.hpp>
 
 namespace Ra {
@@ -91,7 +92,7 @@ const T& SinkNode<T>::getDataByRef() const {
 template <typename T>
 const std::string& SinkNode<T>::getTypename() {
     static std::string demangledName =
-        std::string { "Sink<" } + Ra::Dataflow::Core::simplifiedDemangledType<T>() + ">";
+        std::string { "Sink<" } + Ra::Core::Utils::simplifiedDemangledType<T>() + ">";
     return demangledName;
 }
 

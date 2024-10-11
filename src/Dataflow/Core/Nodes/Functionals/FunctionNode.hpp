@@ -62,7 +62,7 @@ bool FunctionNode<Input, Output>::execute() {
 template <typename Input, typename Output>
 const std::string& FunctionNode<Input, Output>::getTypename() {
     static std::string demangledName =
-        std::string { "Function<" } + Ra::Dataflow::Core::simplifiedDemangledType<Input>() + ">";
+        std::string { "Function<" } + Ra::Core::Utils::simplifiedDemangledType<Input>() + ">";
     return demangledName;
 }
 

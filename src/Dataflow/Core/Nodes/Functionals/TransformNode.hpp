@@ -1,4 +1,5 @@
 #pragma once
+#include <Core/Utils/TypesUtils.hpp>
 #include <Dataflow/Core/Node.hpp>
 
 #include <functional>
@@ -110,7 +111,7 @@ bool TransformNode<coll_t, v_t>::execute() {
 template <typename coll_t, typename v_t>
 const std::string& TransformNode<coll_t, v_t>::getTypename() {
     static std::string demangledName =
-        std::string { "Transform<" } + Ra::Dataflow::Core::simplifiedDemangledType<coll_t>() + ">";
+        std::string { "Transform<" } + Ra::Core::Utils::simplifiedDemangledType<coll_t>() + ">";
     return demangledName;
 }
 

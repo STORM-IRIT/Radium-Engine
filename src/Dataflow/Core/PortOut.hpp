@@ -2,7 +2,8 @@
 
 #include <Dataflow/RaDataflow.hpp>
 
-#include "Core/Utils/Log.hpp"
+#include <Core/Utils/Log.hpp>
+#include <Core/Utils/TypesUtils.hpp>
 
 #include <Dataflow/Core/Port.hpp>
 
@@ -108,6 +109,8 @@ template <typename T>
 T& PortBaseOut::getData() {
     auto thisOut = dynamic_cast<PortOut<T>*>( this );
     if ( thisOut ) { return thisOut->getData(); }
+
+    using namespace Ra::Core::Utils;
     LOG( Ra::Core::Utils::logERROR )
         << "Unable to get data with type " << simplifiedDemangledType<T>() << " on port "
         << getName() << " which expect " << getTypeName() << ".\n";
@@ -121,6 +124,8 @@ void PortBaseOut::setData( T* data ) {
         thisOut->setData( data );
         return;
     }
+
+    using namespace Ra::Core::Utils;
     LOG( Ra::Core::Utils::logERROR )
         << "Unable to set data with type " << simplifiedDemangledType( *data ) << " on port "
         << getName() << " which expect " << getTypeName() << ".\n";

@@ -1,5 +1,7 @@
 #pragma once
-#include "Core/Containers/VariableSet.hpp"
+
+#include <Core/Containers/VariableSet.hpp>
+#include <Core/Utils/TypesUtils.hpp>
 #include <Dataflow/Core/Node.hpp>
 
 #include <iostream>
@@ -116,7 +118,7 @@ T* SingleDataSourceNode<T>::getData() const {
 template <typename T>
 const std::string& SingleDataSourceNode<T>::getTypename() {
     static std::string demangledTypeName =
-        std::string { "Source<" } + Ra::Dataflow::Core::simplifiedDemangledType<T>() + ">";
+        std::string { "Source<" } + Ra::Core::Utils::simplifiedDemangledType<T>() + ">";
     return demangledTypeName;
 }
 

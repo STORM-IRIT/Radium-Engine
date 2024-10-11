@@ -90,8 +90,7 @@ FunctionSourceNode<R, Args...>::getData() const {
 template <class R, class... Args>
 const std::string& FunctionSourceNode<R, Args...>::getTypename() {
     static std::string demangledTypeName =
-        std::string { "Source<" } + Ra::Dataflow::Core::simplifiedDemangledType<function_type>() +
-        ">";
+        std::string { "Source<" } + Ra::Core::Utils::simplifiedDemangledType<function_type>() + ">";
     return demangledTypeName;
 }
 

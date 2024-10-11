@@ -116,7 +116,7 @@ bool FilterNode<coll_t, v_t>::execute() {
 template <typename coll_t, typename v_t>
 const std::string& FilterNode<coll_t, v_t>::getTypename() {
     static std::string demangledName =
-        std::string { "Filter<" } + Ra::Dataflow::Core::simplifiedDemangledType<coll_t>() + ">";
+        std::string { "Filter<" } + Ra::Core::Utils::simplifiedDemangledType<coll_t>() + ">";
     return demangledName;
 }
 

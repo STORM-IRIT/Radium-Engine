@@ -127,7 +127,7 @@ bool ReduceNode<coll_t, v_t>::execute() {
 template <typename coll_t, typename v_t>
 const std::string& ReduceNode<coll_t, v_t>::getTypename() {
     static std::string demangledName =
-        std::string { "Reduce<" } + Ra::Dataflow::Core::simplifiedDemangledType<coll_t>() + ">";
+        std::string { "Reduce<" } + Ra::Core::Utils::simplifiedDemangledType<coll_t>() + ">";
     return demangledName;
 }
 

@@ -199,9 +199,9 @@ class BinaryOpNode : public Node
 
     static const std::string& getTypename() {
         static std::string demangledName =
-            std::string { "BinaryOp<" } + Ra::Dataflow::Core::simplifiedDemangledType<t_a>() +
-            " x " + Ra::Dataflow::Core::simplifiedDemangledType<t_b>() + " -> " +
-            Ra::Dataflow::Core::simplifiedDemangledType<t_out>() + ">";
+            std::string { "BinaryOp<" } + Ra::Core::Utils::simplifiedDemangledType<t_a>() + " x " +
+            Ra::Core::Utils::simplifiedDemangledType<t_b>() + " -> " +
+            Ra::Core::Utils::simplifiedDemangledType<t_out>() + ">";
         return demangledName;
     }
 
