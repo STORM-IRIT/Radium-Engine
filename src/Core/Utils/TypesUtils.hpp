@@ -25,7 +25,7 @@ template <typename T>
 std::string demangleType( const T& ) noexcept;
 
 /// Return the human readable version of the given type name
-std::string demangleType( const std::type_index& typeIndex ) noexcept;
+RA_CORE_API std::string demangleType( const std::type_index& typeName ) noexcept;
 
 /// \brief Return the human readable version of the type name T with simplified radium type names
 template <typename T>
@@ -39,8 +39,33 @@ auto simplifiedDemangledType( const T& ) noexcept -> std::string;
 /// radium type names
 /// \param typeName The typeIndex whose simplified named is requested
 /// \return The Radium-simplified type name
-// RA_CORE_API auto simplifiedDemangledType( const std::type_index& typeName ) noexcept ->
-// std::string;
+RA_CORE_API auto simplifiedDemangledType( const std::type_index& typeName ) noexcept -> std::string;
+
+// Check if a type is a container with access to its element type and number
+// adapted from https://stackoverflow.com/questions/13830158/check-if-a-variable-type-is-iterable
+namespace detail {
+
+using std::begin;
+using std::end;
+
+template <typename T>
+auto is_container_impl( int )
+    -> decltype( begin( std::declval<T&>() ) !=
+                     end( std::declval<T&>() ), // begin/end and operator !=
+                 void(),                        // Handle evil operator ,
+                 std::declval<T&>().empty(),
+                 std::declval<T&>().size(),
+                 ++std::declval<decltype( begin( std::declval<T&>() ) )&>(), // operator ++
+                 void( *begin( std::declval<T&>() ) ),                       // operator*
+                 std::true_type {} );
+
+template <typename T>
+std::false_type is_container_impl( ... );
+
+} // namespace detail
+
+template <typename T>
+using is_container = decltype( detail::is_container_impl<T>( 0 ) );
 
 // -----------------------------------------------------------------
 // ---------------------- inline methods ---------------------------
@@ -67,61 +92,6 @@ auto simplifiedDemangledType( const T& ) noexcept -> std::string {
 inline auto simplifiedDemangledType( const std::type_index& typeName ) noexcept -> std::string {
     return TypeInternal::makeTypeReadable( Ra::Core::Utils::demangleType( typeName ) );
 }
-
-// Check if a type is a container with access to its element type and number
-// adapted from https://stackoverflow.com/questions/13830158/check-if-a-variable-type-is-iterable
-namespace detail {
-
-using std::begin;
-using std::end;
-
-template <typename T>
-auto is_container_impl( int )
-    -> decltype( begin( std::declval<T&>() ) !=
-                     end( std::declval<T&>() ), // begin/end and operator !=
-                 void(),                        // Handle evil operator ,
-                 std::declval<T&>().empty(),
-                 std::declval<T&>().size(),
-                 ++std::declval<decltype( begin( std::declval<T&>() ) )&>(), // operator ++
-                 void( *begin( std::declval<T&>() ) ),                       // operator*
-                 std::true_type {} );
-
-template <typename T>
-std::false_type is_container_impl( ... );
-
-} // namespace detail
-
-template <typename T>
-using is_container = decltype( detail::is_container_impl<T>( 0 ) );
-
-/// Return the human readable version of the given type name
-RA_CORE_API std::string demangleType( const std::type_index& typeName ) noexcept;
-
-// Check if a type is a container with access to its element type and number
-// adapted from https://stackoverflow.com/questions/13830158/check-if-a-variable-type-is-iterable
-namespace detail {
-
-using std::begin;
-using std::end;
-
-template <typename T>
-auto is_container_impl( int )
-    -> decltype( begin( std::declval<T&>() ) !=
-                     end( std::declval<T&>() ), // begin/end and operator !=
-                 void(),                        // Handle evil operator ,
-                 std::declval<T&>().empty(),
-                 std::declval<T&>().size(),
-                 ++std::declval<decltype( begin( std::declval<T&>() ) )&>(), // operator ++
-                 void( *begin( std::declval<T&>() ) ),                       // operator*
-                 std::true_type {} );
-
-template <typename T>
-std::false_type is_container_impl( ... );
-
-} // namespace detail
-
-template <typename T>
-using is_container = decltype( detail::is_container_impl<T>( 0 ) );
 
 // TypeList taken and adapted from
 // https://github.com/AcademySoftwareFoundation/openvdb/blob/master/openvdb/openvdb/TypeList.h
