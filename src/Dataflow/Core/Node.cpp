@@ -17,16 +17,19 @@ bool Node::fromJson( const nlohmann::json& data ) {
         return true;
     }
 
-    if ( data.contains( "instance" ) ) { m_instanceName = data["instance"]; }
+    auto it_instance = data.find( "instance" );
+    if ( it_instance != data.end() ) { m_instanceName = *it_instance; }
     else {
         LOG( logERROR ) << "Missing required instance name when loading node " << m_instanceName;
         return false;
     }
     // get the common content of the Node from the json data
     bool loaded = false;
-    if ( data.contains( "model" ) ) {
+
+    auto it_model = data.find( "model" );
+    if ( it_model != data.end() ) {
         // get the specific concrete node information
-        const auto& datamodel = data["model"];
+        const auto& datamodel = *it_model;
         loaded                = fromJsonInternal( datamodel );
     }
     else {
