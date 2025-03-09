@@ -284,7 +284,8 @@ class RA_DATAFLOW_API Node
     /// Effective deserialzation must be implemented by inheriting classes.
     /// Be careful with template specialization and function member overriding in derived classes.
     virtual bool fromJsonInternal( const nlohmann::json& ) {
-        LOG( Ra::Core::Utils::logDEBUG ) << "Unable deserializing " << getTypeName() << ".";
+        LOG( Ra::Core::Utils::logDEBUG )
+            << "unsupported deserialization for " << getInstanceName() + " " + getTypeName() << ".";
         return true;
     }
 
@@ -293,9 +294,10 @@ class RA_DATAFLOW_API Node
     /// Effective serialzation must be implemented by inheriting classes.
     /// Be careful with template specialization and function member overriding in derived classes.
     virtual void toJsonInternal( nlohmann::json& data ) const {
-        data["comment"] = std::string { "Could not serialized " } + getTypeName();
-        LOG( Ra::Core::Utils::logDEBUG )
-            << "Unable to save data when serializing a " << getTypeName() << ".";
+        std::string message = std::string { "unsupported serialization for " } + getInstanceName() +
+                              " " + getTypeName();
+        data["comment"] = message;
+        LOG( Ra::Core::Utils::logDEBUG ) << message;
     }
 
     /// Adds an in port to the node.
