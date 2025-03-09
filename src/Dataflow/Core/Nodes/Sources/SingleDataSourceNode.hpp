@@ -12,6 +12,7 @@ namespace Ra {
 namespace Dataflow {
 namespace Core {
 namespace Sources {
+
 /**
  * \brief Base class for nodes that will give access to some input data to the graph.
  * This class can be used to feed nodes on a dataflow graph with some data coming
@@ -65,9 +66,15 @@ class SingleDataSourceNode : public Node
 
   protected:
     bool fromJsonInternal( const nlohmann::json& data ) override {
+        auto it = data.find( "default_value" );
+        if ( it != data.end() ) { setData( ( *it ).template get<T>() ); }
         return Node::fromJsonInternal( data );
     }
-    void toJsonInternal( nlohmann::json& data ) const override { Node::toJsonInternal( data ); }
+
+    void toJsonInternal( nlohmann::json& data ) const override {
+        Node::toJsonInternal( data );
+        if ( m_portIn->hasDefaultValue() ) { data["default_value"] = m_portIn->getData(); }
+    }
 
   private:
     /// @{
