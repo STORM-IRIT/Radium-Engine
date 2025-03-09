@@ -135,11 +135,8 @@ To develop such an application, the following should be done
 First, an object of type Ra::Dataflow::Core::DataflowGraph is instanced :
 \snippet examples/DataflowExamples/HelloGraph/main.cpp Creating an empty graph
 
-Then, the nodes are instanced
+Then, the nodes are instanced and added to the graph
 \snippet examples/DataflowExamples/HelloGraph/main.cpp Creating Nodes
-
-and added to the graph
-\snippet examples/DataflowExamples/HelloGraph/main.cpp Adding Nodes to the graph
 
 Links between ports are added to the graph, and if an error is detected, due to e.g. port type incompatiblitiy, it is
 reported
