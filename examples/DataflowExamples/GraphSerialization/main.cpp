@@ -44,18 +44,18 @@ int main( int argc, char* argv[] ) {
         // non serializable node using a custom filter
         auto filterNode = std::make_shared<Functionals::FilterNode<VectorType>>(
             "Filter", []( const Scalar& x ) { return x > 0.5_ra; } );
-        auto sinkNode = std::make_shared<Sinks::SinkNode<VectorType>>( "Sink" );
+        auto storeNode = std::make_shared<Sinks::SinkNode<VectorType>>( "Store" );
         //! [Creating Nodes]
 
         //! [Adding Nodes to the graph]
         g.addNode( sourceNode );
         g.addNode( filterNode );
-        g.addNode( sinkNode );
+        g.addNode( storeNode );
         //! [Adding Nodes to the graph]
 
         //! [Creating links between Nodes]
         g.addLink( sourceNode, "to", filterNode, "in" );
-        g.addLink( filterNode, "out", sinkNode, "from" );
+        g.addLink( filterNode, "out", storeNode, "from" );
         //! [Creating links between Nodes]
 
         //! [Inspect the graph interface : inputs and outputs port]
@@ -110,7 +110,7 @@ int main( int argc, char* argv[] ) {
     //! [Creating input variable to test the graph]
 
     //! [setting the values processed by the graph]
-    auto input = g1.getDataSetter( "Source", "to" );
+    auto input = g1.getDataSetter( "Source", "from" );
     input->setDefaultValue( test );
     //! [setting the values processed by the graph]
 
@@ -120,7 +120,7 @@ int main( int argc, char* argv[] ) {
     //! [Execute the graph]
 
     //! [Print the output result]
-    auto output = g1.getDataGetter( "Sink", "from" );
+    auto output = g1.getDataGetter( "Store", "data" );
 
     VectorType result = output->getData<VectorType>();
 
