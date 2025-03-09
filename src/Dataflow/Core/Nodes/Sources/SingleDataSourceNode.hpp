@@ -90,7 +90,8 @@ SingleDataSourceNode<T>::SingleDataSourceNode( const std::string& instanceName,
 
 template <typename T>
 bool SingleDataSourceNode<T>::execute() {
-    // everything is done in ctor
+    // update ouput in case input has changed (if not default value))
+    m_portOut->setData( &m_portIn->getData() );
     return true;
 }
 
