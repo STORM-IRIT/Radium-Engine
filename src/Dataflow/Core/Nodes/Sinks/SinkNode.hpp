@@ -48,7 +48,6 @@ class SinkNode : public Node
     /// @{
     /// \brief Alias for the ports (allow simpler access)
     Node::PortInPtr<T> m_portIn;
-    Ra::Core::VariableSet::VariableHandle<T> m_dataHandle;
     Node::PortOutPtr<T> m_portOut;
     /// @}
   public:
@@ -62,8 +61,7 @@ template <typename T>
 SinkNode<T>::SinkNode( const std::string& instanceName, const std::string& typeName ) :
     Node( instanceName, typeName ),
     m_portIn { addInputPort<T>( "from" ) },
-    m_dataHandle { m_parameters.insertVariable<T>( "data", T {} ).first },
-    m_portOut { addOutputPort<T>( &m_dataHandle->second, "data" ) } {}
+    m_portOut { addOutputPort<T>( "data" ) } {}
 
 template <typename T>
 void SinkNode<T>::init() {
@@ -73,7 +71,7 @@ void SinkNode<T>::init() {
 template <typename T>
 bool SinkNode<T>::execute() {
     if ( m_portIn->hasData() ) {
-        m_dataHandle->second = m_portIn->getData();
+        m_portOut->setData( &m_portIn->getData() );
         return true;
     }
     return false;
@@ -81,12 +79,12 @@ bool SinkNode<T>::execute() {
 
 template <typename T>
 T SinkNode<T>::getData() const {
-    return m_dataHandle->second;
+    return m_portOut->getData();
 }
 
 template <typename T>
 const T& SinkNode<T>::getDataByRef() const {
-    return m_dataHandle->second;
+    return m_portOut->getData();
 }
 
 template <typename T>
