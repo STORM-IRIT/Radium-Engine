@@ -117,11 +117,6 @@ int main( int argc, char* argv[] ) {
     }
     //! [Verifing the graph can be compiled]
 
-    //! [setting the values processed by the graph]
-    auto input = g1.getDataSetter( "Source", "from" );
-    input->setDefaultValue( test );
-    //! [setting the values processed by the graph]
-
     //! [Execute the graph]
     std::cout << "Executing the loaded graph ...\n";
     g1.execute();
