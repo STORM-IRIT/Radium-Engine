@@ -32,6 +32,25 @@ int main( int argc, char* argv[] ) {
 
     //! [Creating the factory for the custom node types and add it to the node system]
 
+    //! [Creating input variable to test the graph]
+    VectorType test { 0.592845,
+                      0.844266,
+                      0.857946,
+                      0.847252,
+                      0.623564,
+                      0.384382,
+                      0.297535,
+                      0.056713,
+                      0.272656,
+                      0.477665 };
+
+    std::cout << "Input values : \n\t";
+    for ( auto v : test ) {
+        std::cout << v << ' ';
+    }
+    std::cout << '\n';
+    //! [Creating input variable to test the graph]
+
     {
         //! [Creating an empty graph using the custom nodes factory]
         DataflowGraph g { "Serialization example" };
@@ -58,9 +77,6 @@ int main( int argc, char* argv[] ) {
         g.addLink( filterNode, "out", storeNode, "from" );
         //! [Creating links between Nodes]
 
-        //! [Inspect the graph interface : inputs and outputs port]
-        //! [Inspect the graph interface : inputs and outputs port]
-
         //! [Verifing the graph can be compiled]
         if ( !g.compile() ) {
             std::cout << " compilation failed";
@@ -68,46 +84,38 @@ int main( int argc, char* argv[] ) {
         }
         //! [Verifing the graph can be compiled]
 
+        sourceNode->setData( test );
+        std::cout << "Executing the initial graph ...\n";
+        g.execute();
+        VectorType result = storeNode->getData();
+
+        std::cout << "Output values : \n\t";
+        for ( auto v : result ) {
+            std::cout << v << ' ';
+        }
+        std::cout << '\n';
+
         //! [Serializing the graph]
         g.saveToJson( "GraphSerializeExample.json" );
         //! [Serializing the graph]
     }
 
-    std::cout << "\t==**==**==*==**==*==**==*==**==*==**==*==**==*==**==\n";
-    std::cout << "\t\tLoading and using the graph ...\n";
-    std::cout << "\t==**==**==*==**==*==**==*==**==*==**==*==**==*==**==\n";
+    std::cout << "Loading and using the graph\n";
 
     //! [Creating an empty graph and load it from a file]
     DataflowGraph g1 { "" };
-    g1.loadFromJson( "GraphSerializeExample.json" );
+    if ( !g1.loadFromJson( "GraphSerializeExample.json" ) ) {
+        std::cerr << "Could not load the graph\n";
+        return 2;
+    }
     //! [Creating an empty graph and load it from a file]
-
-    //! [Inspect the graph interface : inputs and outputs port]
-    //! [Inspect the graph interface : inputs and outputs port]
 
     //! [Verifing the graph can be compiled]
     if ( !g1.compile() ) {
-        std::cout << "Compilation failed for the loaded graph";
-        return 2;
+        std::cerr << "Compilation failed for the loaded graph";
+        return 3;
     }
     //! [Verifing the graph can be compiled]
-
-    //! [Creating input variable to test the graph]
-    VectorType test;
-    test.reserve( 10 );
-    std::mt19937 gen( 0 );
-    std::uniform_real_distribution<> dis( 0.0, 1.0 );
-    // Fill the vector with random numbers between 0 and 1
-    for ( int n = 0; n < test.capacity(); ++n ) {
-        test.push_back( dis( gen ) );
-    }
-
-    std::cout << "Input values : \n\t";
-    for ( auto ord : test ) {
-        std::cout << ord << ' ';
-    }
-    std::cout << '\n';
-    //! [Creating input variable to test the graph]
 
     //! [setting the values processed by the graph]
     auto input = g1.getDataSetter( "Source", "from" );
@@ -125,8 +133,8 @@ int main( int argc, char* argv[] ) {
     VectorType result = output->getData<VectorType>();
 
     std::cout << "Output values : \n\t";
-    for ( auto ord : result ) {
-        std::cout << ord << ' ';
+    for ( auto v : result ) {
+        std::cout << v << ' ';
     }
     std::cout << '\n';
     //! [Print the output result]
@@ -135,8 +143,9 @@ int main( int argc, char* argv[] ) {
     auto filter =
         std::dynamic_pointer_cast<Functionals::FilterNode<VectorType>>( g1.getNode( "Filter" ) );
     if ( !filter ) {
-        std::cerr << "Unable to cast the filter to the right type\n";
-        return 3;
+        std::cerr << "Unable to cast the filter to "
+                  << Ra::Core::Utils::simplifiedDemangledType( filter ) << "\n";
+        return 4;
     }
     filter->setFilterFunction( []( const Scalar& f ) { return f > 0.5_ra; } );
     //! [Set the correct filter on the filter node]
@@ -146,8 +155,8 @@ int main( int argc, char* argv[] ) {
     g1.execute();
     result = output->getData<VectorType>();
     std::cout << "Output values : \n\t";
-    for ( auto ord : result ) {
-        std::cout << ord << ' ';
+    for ( auto v : result ) {
+        std::cout << v << ' ';
     }
     std::cout << '\n';
     //! [Execute the graph]
