@@ -367,13 +367,6 @@ class RA_DATAFLOW_API Node
         return m_parameters.deleteVariable( handle );
     }
 
-    /// \brief get a typed reference to the editable parameter.
-    /// \tparam E The type of the expected editable parameter.
-    /// \param name The name of the editable parameter to get.
-    /// \return the pointer to the editable parameter if any, nullptr if not.
-    template <typename E>
-    EditableParameter<E>* getEditableParameter( const std::string& name );
-
     /// \brief Flag that checks if the node is already initialized
     bool m_initialized { false };
     /// The type name of the node. Initialized once at construction

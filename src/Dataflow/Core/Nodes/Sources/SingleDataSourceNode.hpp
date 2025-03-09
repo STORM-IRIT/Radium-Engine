@@ -46,33 +46,16 @@ class SingleDataSourceNode : public Node
      */
     T* getData() const;
 
-    /**
-     * \brief Set the delivered data editable using the given name
-     * Give access to the internal data storage.
-     * If the node interface is connected, the edition will not result on a propagation to the
-     * graph as internal data storage will be superseeded by the data from the interface.
-     * @param name Name of the data as it will appear on edition gui. If not given, the default
-     * name "Data" will be used.
-     */
-    void setEditable( const std::string& name = "Data" );
-
-    /**
-     * \brief Remove the delivered data from being editable
-     * @param name Name of the data given when calling setEditable
-     */
-    void removeEditable( const std::string& name = "Data" );
-
     std::shared_ptr<PortOut<T>> getOuputPort() { return m_portOut; }
 
   protected:
     bool fromJsonInternal( const nlohmann::json& data ) override {
         auto it = data.find( "default_value" );
         if ( it != data.end() ) { setData( ( *it ).template get<T>() ); }
-        return Node::fromJsonInternal( data );
+        return true;
     }
 
     void toJsonInternal( nlohmann::json& data ) const override {
-        Node::toJsonInternal( data );
         if ( m_portIn->hasDefaultValue() ) { data["default_value"] = m_portIn->getData(); }
     }
 
