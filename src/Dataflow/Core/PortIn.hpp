@@ -2,12 +2,12 @@
 
 #include <Dataflow/RaDataflow.hpp>
 
-#include <optional>
-
-#include "Core/Utils/Log.hpp"
+#include <Core/Containers/VariableSet.hpp>
+#include <Core/Utils/Log.hpp>
 #include <Core/Utils/Observable.hpp>
-
 #include <Dataflow/Core/Port.hpp>
+
+#include <optional>
 
 namespace Ra {
 namespace Dataflow {
@@ -33,8 +33,9 @@ class RA_DATAFLOW_API PortBaseIn : public PortBase
     virtual bool disconnect()                    = 0;
 
     virtual bool isLinkMandatory() const;
-    virtual bool isLinked() const        = 0;
-    virtual bool hasDefaultValue() const = 0;
+    virtual bool isLinked() const                 = 0;
+    virtual bool hasDefaultValue() const          = 0;
+    virtual void insert( Ra::Core::VariableSet& ) = 0;
 
     virtual PortBaseOut* getLink() = 0;
 
@@ -84,7 +85,8 @@ class PortIn : public PortBaseIn,
     PortIn( Node* node, const std::string& name ) : PortBaseIn( node, name, typeid( T ) ) {}
     /// @}
 
-    /// Returns true if the port is linked to an output port that has data.
+    /// Returns true if the port is linked to an output port that has data or if it has a default
+    /// value.
     bool hasData() override;
 
     ///\brief Gets the data pointed by the connected out port.
@@ -109,7 +111,13 @@ class PortIn : public PortBaseIn,
 
     bool isLinkMandatory() const override { return !m_defaultValue.has_value(); }
     void setDefaultValue( const T& value ) { m_defaultValue = value; }
+    T& getDefaultValue() { return *m_defaultValue; }
     bool hasDefaultValue() const override { return m_defaultValue.has_value(); }
+    void insert( Ra::Core::VariableSet& v ) override {
+        if ( hasDefaultValue() )
+            v.setVariable( getName(), std::reference_wrapper( *m_defaultValue ) );
+    }
+
     bool isLinked() const override { return m_from != nullptr; }
 
   private:

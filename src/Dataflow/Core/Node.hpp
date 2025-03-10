@@ -193,6 +193,13 @@ class RA_DATAFLOW_API Node
 
     inline bool isInitialized() const { return m_initialized; }
     Ra::Core::VariableSet& getParameters() { return m_parameters; }
+    Ra::Core::VariableSet& getInputVariables() {
+        for ( const auto& p : m_inputs ) {
+            p->insert( m_input_variables );
+        }
+
+        return m_input_variables;
+    }
 
     inline bool isOutputNode() {
         bool ret = true;
@@ -380,6 +387,7 @@ class RA_DATAFLOW_API Node
 
     /// The editable parameters of the node
     Ra::Core::VariableSet m_parameters;
+    Ra::Core::VariableSet m_input_variables;
 
     /// Additional data on the node, added by application or gui or ...
     nlohmann::json m_extraJsonData;
@@ -396,6 +404,7 @@ inline void Node::destroy() {
     m_inputs.clear();
     m_outputs.clear();
     m_parameters.clear();
+    m_input_variables.clear();
 }
 
 inline const nlohmann::json& Node::getJsonMetaData() {

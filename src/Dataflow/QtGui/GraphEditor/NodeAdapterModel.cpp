@@ -168,14 +168,29 @@ void NodeAdapterModel::restore( QJsonObject const& p ) {
     // 2 - call fromjson on the node using this json object
     m_node->fromJson( nodeData );
     // 3 - update the widget according to the editable parameters
+    checkConnections();
 }
 
 namespace NodeDataModelTools {
 
 QWidget* getWidget( Node* node ) {
-    auto controlPanel = new Ra::Gui::VariableSetEditor( "Editable parameters", nullptr );
-    //  controlPanel->setupFromParameters( node->getParameters(), {} );
 
+    QWidget* controlPanel = new QWidget;
+    QVBoxLayout* layout   = new QVBoxLayout( controlPanel );
+
+    if ( node->getInputVariables().size() > 0 ) {
+        auto controlPanelInputs = new Ra::Gui::VariableSetEditor( "Inputs default", nullptr );
+        controlPanelInputs->setShowUnspecified( true );
+        controlPanelInputs->setupUi( node->getInputVariables(), {} );
+        layout->addWidget( controlPanelInputs );
+    }
+
+    if ( node->getParameters().size() > 0 ) {
+        auto controlPanelParams = new Ra::Gui::VariableSetEditor( "Parameters", nullptr );
+        controlPanelParams->setShowUnspecified( true );
+        controlPanelParams->setupUi( node->getParameters(), {} );
+        layout->addWidget( controlPanelParams );
+    }
     return controlPanel;
 }
 
