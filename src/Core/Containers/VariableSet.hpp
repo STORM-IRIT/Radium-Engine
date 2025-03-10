@@ -846,6 +846,11 @@ void VariableSet::visitImplHelperUserParam( F& visitor, U&& userParams ) const {
             visitor( element.first, element.second, std::forward<U>( userParams ) );
         }
     }
+    if ( auto variables = existsVariableType<std::reference_wrapper<T>>(); variables ) {
+        for ( auto& element : *( variables.value() ) ) {
+            visitor( element.first, element.second.get(), std::forward<U>( userParams ) );
+        }
+    }
 }
 
 template <typename T, typename F>
