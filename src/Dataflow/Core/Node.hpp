@@ -293,8 +293,11 @@ class RA_DATAFLOW_API Node
     virtual bool fromJsonInternal( const nlohmann::json& data ) {
         LOG( Ra::Core::Utils::logDEBUG )
             << "default deserialization for " << getInstanceName() + " " + getTypeName() << ".";
-        for ( auto& p : m_inputs ) {
-            p->from_json( data );
+        if ( const auto& ports = data.find( "ports" ); ports != data.end() ) {
+            for ( const auto& port : *ports ) {
+                int index = port["port_index"];
+                m_inputs[index]->from_json( port );
+            }
         }
         return true;
     }
@@ -306,8 +309,12 @@ class RA_DATAFLOW_API Node
     virtual void toJsonInternal( nlohmann::json& data ) const {
         std::string message =
             std::string { "default serialization for " } + getInstanceName() + " " + getTypeName();
-        for ( const auto& p : m_inputs ) {
-            p->to_json( data );
+        for ( size_t i = 0; i < m_inputs.size(); ++i ) {
+            const auto& p = m_inputs[i];
+            nlohmann::json port;
+            p->to_json( port );
+            port["port_index"] = i;
+            data["ports"].push_back( port );
         }
         LOG( Ra::Core::Utils::logDEBUG ) << message;
     }

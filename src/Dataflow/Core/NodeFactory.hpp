@@ -265,7 +265,11 @@ auto NodeFactory::registerNodeCreator( const std::string& instanceNamePrefix,
         T::getTypename(),
         [this, instanceNamePrefix]( const nlohmann::json& data ) {
             std::string instanceName;
-            if ( data.contains( "instance" ) ) { instanceName = data["instance"]; }
+            if ( data.contains( "instance" ) ) {
+                instanceName = data["instance"];
+                this->nextNodeId(); // increment even if not used to avoid collision on creation
+                                    // after loading files
+            }
             else { instanceName = instanceNamePrefix + std::to_string( this->nextNodeId() ); }
             auto node = std::make_shared<T>( instanceName );
             node->fromJson( data );

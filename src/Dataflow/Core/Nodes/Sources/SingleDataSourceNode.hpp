@@ -50,8 +50,6 @@ class SingleDataSourceNode : public Node
 
   protected:
     bool fromJsonInternal( const nlohmann::json& data ) override {
-        auto it = data.find( "default_value" );
-        if ( it != data.end() ) { setData( ( *it ).template get<T>() ); }
         return Node::fromJsonInternal( data );
     }
 

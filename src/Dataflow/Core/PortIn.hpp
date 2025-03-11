@@ -126,21 +126,32 @@ class PortIn : public PortBaseIn,
     template <typename B                                                              = T,
               std::enable_if_t<std::is_constructible<nlohmann::json, B>::value, bool> = true>
     void to_json_impl( nlohmann::json& data ) {
-        if ( hasDefaultValue() ) { data[getName()] = getData(); }
+        if ( hasDefaultValue() ) {
+            data["name"]          = getName();
+            data["default_value"] = getData();
+        }
     }
     template <typename B                                                               = T,
               std::enable_if_t<!std::is_constructible<nlohmann::json, B>::value, bool> = true>
     void to_json_impl( nlohmann::json& data ) {
         if ( hasDefaultValue() ) {
-            data[getName()] = std::string( "Default value not saved, missing json export for " ) +
-                              Ra::Core::Utils::simplifiedDemangledType<T>();
+            data["name"] = getName();
+            data["default_value"] =
+                std::string( "Default value not saved, missing json export for " ) +
+                Ra::Core::Utils::simplifiedDemangledType<T>();
         }
     }
     template <typename B                                                           = T,
               std::enable_if_t<std::is_assignable<nlohmann::json, B>::value, bool> = true>
     void from_json_impl( const nlohmann::json& data ) {
-        auto it = data.find( getName() );
-        if ( it != data.end() ) { setDefaultValue( ( *it ).template get<T>() ); }
+        using namespace Ra::Core::Utils;
+
+        if ( auto it = data.find( "name" ); it != data.end() ) {
+            if ( *it != getName() ) { LOG( logERROR ) << "port name mismatch"; }
+            if ( auto value_it = data.find( "default_value" ); value_it != data.end() ) {
+                setDefaultValue( ( *value_it ).template get<T>() );
+            }
+        }
     }
     template <typename B                                                           = T,
               std::enable_if_t<!std::is_assignable<nlohmann::json, B>::value, int> = true>
