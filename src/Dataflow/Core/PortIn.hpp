@@ -48,6 +48,9 @@ class RA_DATAFLOW_API PortBaseIn : public PortBase
     template <typename T>
     T& getData();
 
+    virtual void to_json( nlohmann::json& ) {}
+    virtual void from_json( const nlohmann::json& ) {}
+
   protected:
     /// Constructor.
     /// @param name The name of the port.
@@ -119,6 +122,31 @@ class PortIn : public PortBaseIn,
     }
 
     bool isLinked() const override { return m_from != nullptr; }
+
+    template <typename B                                                              = T,
+              std::enable_if_t<std::is_constructible<nlohmann::json, B>::value, bool> = true>
+    void to_json_impl( nlohmann::json& data ) {
+        if ( hasDefaultValue() ) { data[getName()] = getData(); }
+    }
+    template <typename B                                                               = T,
+              std::enable_if_t<!std::is_constructible<nlohmann::json, B>::value, bool> = true>
+    void to_json_impl( nlohmann::json& data ) {
+        if ( hasDefaultValue() ) {
+            data[getName()] = std::string( "Default value not saved, missing json export for " ) +
+                              Ra::Core::Utils::simplifiedDemangledType<T>();
+        }
+    }
+    template <typename B                                                           = T,
+              std::enable_if_t<std::is_assignable<nlohmann::json, B>::value, bool> = true>
+    void from_json_impl( const nlohmann::json& data ) {
+        auto it = data.find( getName() );
+        if ( it != data.end() ) { setDefaultValue( ( *it ).template get<T>() ); }
+    }
+    template <typename B                                                           = T,
+              std::enable_if_t<!std::is_assignable<nlohmann::json, B>::value, int> = true>
+    void from_json_impl( const nlohmann::json& ) {}
+    void to_json( nlohmann::json& data ) override { to_json_impl( data ); }
+    void from_json( const nlohmann::json& data ) override { from_json_impl( data ); }
 
   private:
     PortOut<T>* m_from = nullptr;       ///< A pointer to the out port this port is connected to.

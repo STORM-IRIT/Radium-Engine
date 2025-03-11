@@ -52,11 +52,11 @@ class SingleDataSourceNode : public Node
     bool fromJsonInternal( const nlohmann::json& data ) override {
         auto it = data.find( "default_value" );
         if ( it != data.end() ) { setData( ( *it ).template get<T>() ); }
-        return true;
+        return Node::fromJsonInternal( data );
     }
 
     void toJsonInternal( nlohmann::json& data ) const override {
-        if ( m_portIn->hasDefaultValue() ) { data["default_value"] = m_portIn->getData(); }
+        return Node::toJsonInternal( data );
     }
 
   private:
