@@ -163,8 +163,8 @@ void VariableSetEditor::addNumberWidget( const std::string& key,
                                          T& initial,
                                          Core::VariableSet& /*params*/,
                                          const json& metadata ) {
-
     auto onNumberParameterChanged = [this, &initial, &key]( T value ) {
+        // no need to edit params since initial is a ref
         initial = value;
         emit parameterModified( key );
     };
