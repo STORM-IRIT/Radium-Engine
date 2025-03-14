@@ -79,14 +79,16 @@ class RA_DATAFLOW_API DataflowGraph : public Node
     /// \return true if the node was removed and the given pointer is set to nullptr, false else
     virtual bool removeNode( std::shared_ptr<Node> node );
 
-    /// Connects two nodes of the render graph.
-    /// The two nodes must already be in the render graph (with the addNode(Node* newNode)
-    /// function), the first node's in port must be free and the connected in port and out port must
-    /// have the same type of data.
-    /// \param nodeFrom The node that contains the out port.
-    /// \param nodeFromOutputName The name of the out port in nodeFrom.
-    /// \param nodeTo The node that contains the in port.
-    /// \param nodeToInputName The name of the in port in nodeTo.
+    /// Connects two nodes of the graph.
+    /// The two nodes must already be in the graph (with the addNode(Node* newNode)
+    /// function), in order to be linked the first node's in port must be free and the connected in
+    /// port and out port must have the same type of data.
+    ///
+    /// \param nodeFrom The node that contains
+    /// the out port. \param nodeFromOutputName The name of the out port in nodeFrom. \param nodeTo
+    /// The node that contains the in port. \param nodeToInputName The name of the in port in
+    /// nodeTo.
+    /// \return true if link added, false if link could not be made.
     bool addLink( const std::shared_ptr<Node>& nodeFrom,
                   const std::string& nodeFromOutputName,
                   const std::shared_ptr<Node>& nodeTo,
@@ -103,12 +105,27 @@ class RA_DATAFLOW_API DataflowGraph : public Node
     bool addLink( const std::shared_ptr<PortOut<T>>& outputPort,
                   const std::shared_ptr<PortIn<U>>& inputPort );
 
+    bool canLink( const Node* nodeFrom,
+                  Node::PortIndex portOutIdx,
+                  const Node* nodeTo,
+                  Node::PortIndex portInIdx ) {
+        auto portIn  = nodeTo->getInputByIndex( portInIdx );
+        auto portOut = nodeFrom->getOutputByIndex( portOutIdx );
+        // Compare types
+        return ( portIn->getType() == portOut->getType() ) && !portIn->isLinked();
+    }
+
     ///
     /// \brief Removes the link connected to a node's input port
     /// \param node the node to unlink
     /// \param nodeInputName the name of the port to unlink
     /// \return true if link is removed, false if not.
     bool removeLink( std::shared_ptr<Node>, const std::string& nodeInputName );
+    bool removeLink( std::shared_ptr<Node> node, const PortIndex& in_port_index ) {
+        node->getInputs()[in_port_index]->disconnect();
+        needsRecompile();
+        return true;
+    }
 
     /// \brief Get the vector of all the nodes on the graph
     /// \return

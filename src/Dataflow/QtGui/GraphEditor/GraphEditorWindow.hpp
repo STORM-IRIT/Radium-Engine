@@ -32,10 +32,6 @@ class RA_DATAFLOW_API GraphEditorWindow : public QMainWindow
     ~GraphEditorWindow();
 
     void loadFile( const QString& fileName );
-#if 0
-    // not sure to neeed this
-    void resetGraph( std::shared_ptr<DataflowGraph> graph = nullptr );
-#endif
 
   signals:
     void needUpdate();
@@ -50,6 +46,7 @@ class RA_DATAFLOW_API GraphEditorWindow : public QMainWindow
     bool saveAs();
     void about();
     void documentWasModified();
+    void addNode( QTreeWidgetItem* item, int column );
 
   private:
     void createActions();
@@ -65,6 +62,8 @@ class RA_DATAFLOW_API GraphEditorWindow : public QMainWindow
     QString m_curFile;
 
     std::shared_ptr<DataflowGraph> m_graph { nullptr };
+
+    QMenu* viewMenu;
 };
 
 } // namespace GraphEditor

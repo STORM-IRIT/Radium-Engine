@@ -297,7 +297,7 @@ bool DataflowGraph::checkPortCompatibility( const Node* nodeFrom,
 void nodeNotFoundMessage( const std::string& type, const std::string& name, const Node* node ) {
     LOG( logERROR ) << "DataflowGraph::addLink Unable to find " << type << "input port " << name
                     << " from destination node " << node->getInstanceName() << " ("
-                    << node->getTypeName() << ")";
+                    << node->getModelName() << ")";
 }
 
 bool DataflowGraph::addLink( const std::shared_ptr<Node>& nodeFrom,
@@ -340,11 +340,11 @@ bool DataflowGraph::addLink( const std::shared_ptr<Node>& nodeFrom,
     auto portIn  = nodeTo->getInputByIndex( portInIdx );
 
     if ( !portOut ) {
-        Log::badPortIdx( "output", nodeFrom->getTypeName(), portOutIdx );
+        Log::badPortIdx( "output", nodeFrom->getModelName(), portOutIdx );
         return false;
     }
     if ( !portIn ) {
-        Log::badPortIdx( "input", nodeTo->getTypeName(), portInIdx );
+        Log::badPortIdx( "input", nodeTo->getModelName(), portInIdx );
         return false;
     }
 
@@ -395,9 +395,7 @@ bool DataflowGraph::removeLink( std::shared_ptr<Node> node, const std::string& n
         index++;
     }
     if ( found == -1 ) { return false; }
-
-    node->getInputs()[found]->disconnect();
-    needsRecompile();
+    removeLink( node, found );
     return true;
 }
 
@@ -629,7 +627,7 @@ bool DataflowGraph::checkNodeValidity( const Node* nodeFrom, const Node* nodeTo 
 
 void DataflowGraph::Log::alreadyLinked( const Node* node, const PortBase* port ) {
     LOG( logERROR ) << "DataflowGraph::addLink destination port not available (already linked) for "
-                    << node->getInstanceName() << " (" << node->getTypeName() << "), port "
+                    << node->getInstanceName() << " (" << node->getModelName() << "), port "
                     << port->getName();
 }
 
@@ -640,9 +638,9 @@ void DataflowGraph::Log::addLinkTypeMismatch( const Node* nodeFrom,
                                               Node::PortIndex portInIdx,
                                               const PortBase* portIn ) {
     LOG( logERROR ) << "DataflowGraph::addLink type mismatch from " << nodeFrom->getInstanceName()
-                    << " (" << nodeFrom->getTypeName() << ") / " << portOut->getName() << " ("
+                    << " (" << nodeFrom->getModelName() << ") / " << portOut->getName() << " ("
                     << portOutIdx << " with type " << portOut->getTypeName() << ")"
-                    << " to " << nodeTo->getInstanceName() << " (" << nodeTo->getTypeName()
+                    << " to " << nodeTo->getInstanceName() << " (" << nodeTo->getModelName()
                     << ") / " << portIn->getName() << " (" << portInIdx << " with type "
                     << portIn->getTypeName() << ") ";
 }

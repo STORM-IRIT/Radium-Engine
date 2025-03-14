@@ -3,15 +3,20 @@ list(APPEND CMAKE_MESSAGE_INDENT "[${ra_dataflowqtgui_target}] ")
 
 project(${ra_dataflowqtgui_target} LANGUAGES CXX VERSION ${Radium_VERSION})
 
-find_package(RadiumNodeEditor REQUIRED NO_DEFAULT_PATH)
-
-include(filelist.cmake)
-
 # Qt utility functions
 include(QtFunctions)
 
-# Find Qt packages
+# need to find qt before QtNodes, otherwise got error Some (but not all) targets in this export set
+# were already defined. Targets Defined: Qt::Core Targets not yet defined: Qt::CorePrivate
 find_qt_package(COMPONENTS Core Widgets OpenGL Xml REQUIRED)
+
+find_package(QtNodes REQUIRED NO_DEFAULT_PATH)
+find_package(PowerSlider REQUIRED)
+
+include(filelist.cmake)
+
+# Find Qt packages
+
 set(QT_DEFAULT_MAJOR_VERSION ${QT_DEFAULT_MAJOR_VERSION} PARENT_SCOPE)
 set(Qt_LIBRARIES Qt::Core Qt::Widgets Qt::OpenGL Qt::Xml)
 set(CMAKE_AUTOMOC ON)
@@ -21,7 +26,6 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 qt_wrap_ui(gui_uis ${gui_uis})
 
 # configure library
-find_package(PowerSlider REQUIRED)
 
 add_library(
     ${ra_dataflowqtgui_target} SHARED ${dataflow_qtgui_sources} ${dataflow_qtgui_headers}
@@ -38,8 +42,8 @@ target_include_directories(${ra_dataflowqtgui_target} PRIVATE ${CMAKE_CURRENT_BI
 add_dependencies(${ra_dataflowqtgui_target} DataflowCore Gui)
 
 target_link_libraries(
-    ${ra_dataflowqtgui_target} PUBLIC ${Qt_LIBRARIES} DataflowCore Gui
-    PUBLIC RadiumNodeEditor::RadiumNodeEditor PRIVATE PowerSlider::PowerSlider
+    ${ra_dataflowqtgui_target} PUBLIC ${Qt_LIBRARIES} DataflowCore Gui PUBLIC QtNodes::QtNodes
+    PRIVATE PowerSlider::PowerSlider
 )
 
 message(STATUS "Configuring library ${ra_dataflowqtgui_target} with standard settings")

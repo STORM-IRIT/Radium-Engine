@@ -14,7 +14,7 @@ GraphEditorWindow::~GraphEditorWindow() {
 }
 
 GraphEditorWindow::GraphEditorWindow( std::shared_ptr<DataflowGraph> graph ) :
-    m_graphEdit { new GraphEditorView( nullptr ) }, m_graph { graph } {
+    m_graphEdit { new GraphEditorView( nullptr ) }, m_graph { nullptr } {
 
     setCentralWidget( m_graphEdit );
     m_graphEdit->setFocusPolicy( Qt::StrongFocus );
@@ -29,22 +29,45 @@ GraphEditorWindow::GraphEditorWindow( std::shared_ptr<DataflowGraph> graph ) :
 
     setCurrentFile( QString() );
     setUnifiedTitleAndToolBarOnMac( true );
-    if ( !m_graph ) {
-        m_graph = std::make_shared<DataflowGraph>( "unititled.flow" );
-        newFile();
+
+    //    m_graphEdit->editGraph( m_graph );
+    m_graphEdit->show();
+    QDockWidget* dock = new QDockWidget( this );
+    dock->setAllowedAreas( Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea );
+    auto node_tree = new QTreeWidget( dock );
+    node_tree->setColumnCount( 1 );
+    node_tree->setHeaderLabel( "Nodes" );
+
+    ///\todo sort nodes names
+    for ( const auto& [factoryName, factory] : NodeFactoriesManager::getFactoryManager() ) {
+        auto factory_widget_item =
+            new QTreeWidgetItem( QStringList() << QString::fromStdString( factoryName ) );
+
+        std::map<std::string, QList<QTreeWidgetItem*>> node_list;
+        for ( const auto& [typeName, creator] : factory->getFactoryMap() ) {
+            auto f              = creator.first;
+            auto creatorFactory = factory;
+            node_list[creator.second].push_back(
+                new QTreeWidgetItem( QStringList() << QString::fromStdString( typeName ) ) );
+        }
+        for ( auto [key, value] : node_list ) {
+            auto l = new QTreeWidgetItem( QStringList() << QString::fromStdString( key ) );
+            l->addChildren( value );
+            factory_widget_item->addChild( l );
+        }
+        node_tree->addTopLevelItem( factory_widget_item );
     }
 
-    m_graphEdit->editGraph( m_graph );
-    m_graphEdit->show();
+    connect( node_tree, &QTreeWidget::itemDoubleClicked, this, &GraphEditorWindow::addNode );
+
+    dock->setWidget( node_tree );
+    addDockWidget( Qt::LeftDockWidgetArea, dock );
+    viewMenu->addAction( dock->toggleViewAction() );
 }
 
-#if 0
-void GraphEditorWindow::resetGraph( std::shared_ptr<DataflowGraph> graph ) {
-    m_graph = graph;
-    m_graphEdit->editGraph( m_graph );
-    setCurrentFile( "" );
+void GraphEditorWindow::addNode( QTreeWidgetItem* item, int column ) {
+    if ( item->childCount() == 0 ) { m_graphEdit->getGraph()->addNode( item->text( 0 ) ); }
 }
-#endif
 
 void GraphEditorWindow::closeEvent( QCloseEvent* event ) {
     if ( maybeSave() ) {
@@ -148,6 +171,8 @@ void GraphEditorWindow::createActions() {
     auto aboutQtAct = helpMenu->addAction( tr( "About &Qt" ), qApp, &QApplication::aboutQt );
     aboutQtAct->setStatusTip( tr( "Show the Qt library's About box" ) );
     //    if ( !m_ownGraph ) { menuBar()->hide(); }
+
+    viewMenu = menuBar()->addMenu( tr( "&View" ) );
 }
 
 void GraphEditorWindow::createStatusBar() {
@@ -227,7 +252,7 @@ void GraphEditorWindow::loadFile( const QString& fileName ) {
 
     QGuiApplication::restoreOverrideCursor();
     if ( loaded ) {
-        m_graphEdit->editGraph( m_graph );
+        //        m_graphEdit->editGraph( m_graph );
         setCurrentFile( fileName );
         statusBar()->showMessage( tr( "File loaded" ), 2000 );
         emit needUpdate();

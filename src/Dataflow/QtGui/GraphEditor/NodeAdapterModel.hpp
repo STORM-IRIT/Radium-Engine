@@ -1,84 +1,120 @@
 #pragma once
 #include <Dataflow/RaDataflow.hpp>
 
-#include <Dataflow/QtGui/GraphEditor/ConnectionStatusData.hpp>
-
 #include <Dataflow/Core/DataflowGraph.hpp>
+#include <Dataflow/Core/Node.hpp>
 
-#include <nodes/NodeDataModel>
+#include <QWidget>
 
-#include <iostream>
+#include <QtNodes/ConnectionStyle>
+#include <QtNodes/DataFlowGraphModel>
+#include <QtNodes/DataFlowGraphicsScene>
+#include <QtNodes/GraphicsView>
+#include <QtNodes/NodeData>
+#include <QtNodes/NodeDelegateModelRegistry>
 
 namespace Ra {
 namespace Dataflow {
+namespace Core {
+class DataflowGraph;
+class NodeFactorySet;
+} // namespace Core
+
+/**
+ *
+ */
 namespace QtGui {
 namespace GraphEditor {
 
-using namespace Ra::Dataflow::Core;
-
-class RA_DATAFLOW_API NodeAdapterModel : public QtNodes::NodeDataModel
+/**
+ * Adapter between DataflowGraph and QtNodes, bare minimal, based on simple_graph QtNodes example.
+ */
+class SimpleGraphModel : public QtNodes::AbstractGraphModel
 {
+    using ConnectionId     = QtNodes::ConnectionId;
+    using ConnectionPolicy = QtNodes::ConnectionPolicy;
+    using NodeFlag         = QtNodes::NodeFlag;
+    using NodeId           = QtNodes::NodeId;
+    using NodeRole         = QtNodes::NodeRole;
+    using PortIndex        = QtNodes::PortIndex;
+    using PortRole         = QtNodes::PortRole;
+    using PortType         = QtNodes::PortType;
+    using StyleCollection  = QtNodes::StyleCollection;
+
+    Q_OBJECT
   public:
-    NodeAdapterModel( std::shared_ptr<DataflowGraph> graph, std::shared_ptr<Node> n );
-    NodeAdapterModel()                                     = delete;
-    NodeAdapterModel( const NodeAdapterModel& )            = delete;
-    NodeAdapterModel( NodeAdapterModel&& )                 = delete;
-    NodeAdapterModel& operator=( const NodeAdapterModel& ) = delete;
-    NodeAdapterModel& operator=( NodeAdapterModel&& )      = delete;
-    ~NodeAdapterModel() override;
+    struct NodeGeometryData {
+        QSize size;
+        QPointF pos;
+    };
 
   public:
-    QString caption() const override { return m_node->getTypeName().c_str(); }
+    SimpleGraphModel();
 
-    bool captionVisible() const override { return true; }
+    ~SimpleGraphModel() override;
 
-    QString name() const override { return m_node->getTypeName().c_str(); }
+    std::unordered_set<NodeId> allNodeIds() const override;
 
-    QString uuid() const override { return m_uuid.toString(); }
+    std::unordered_set<ConnectionId> allConnectionIds( NodeId const nodeId ) const override;
 
-    bool isDeletable() override { return true; } // Assume all nodes belong to the graph
+    std::unordered_set<ConnectionId>
+    connections( NodeId nodeId, PortType portType, PortIndex portIndex ) const override;
 
-    void addMetaData( QJsonObject& json ) override;
+    bool connectionExists( ConnectionId const connectionId ) const override;
+
+    NodeId addNode( QString const nodeType = QString() ) override;
+
+    /**
+     * Connection is possible when graph contains no connectivity data
+     * in both directions `Out -> In` and `In -> Out`.
+     */
+    bool connectionPossible( ConnectionId const connectionId ) const override;
+
+    void addConnection( ConnectionId const connectionId ) override;
+
+    bool nodeExists( NodeId const nodeId ) const override;
+
+    QWidget* getWidget( std::shared_ptr<Core::Node> node ) const;
+    QVariant nodeData( NodeId nodeId, NodeRole role ) const override;
+
+    bool setNodeData( NodeId nodeId, NodeRole role, QVariant value ) override;
+
+    QVariant
+    portData( NodeId nodeId, PortType portType, PortIndex portIndex, PortRole role ) const override;
+
+    bool setPortData( NodeId nodeId,
+                      PortType portType,
+                      PortIndex portIndex,
+                      QVariant const& value,
+                      PortRole role = PortRole::Data ) override;
+
+    bool deleteConnection( ConnectionId const connectionId ) override;
+
+    bool deleteNode( NodeId const nodeId ) override;
+
+    NodeId newNodeId() override { return _nextNodeId++; }
+    /// needed for undo/redo
+    void loadNode( QJsonObject const& nodeJson ) override;
+    QJsonObject saveNode( NodeId const ) const override;
 
   private:
-    QtNodes::NodeDataType IOToDataType( const std::string& typeName,
-                                        const std::string& ioName ) const;
+    std::shared_ptr<Core::DataflowGraph> m_graph;
+    std::unordered_set<NodeId> _nodeIds;
+    std::map<NodeId, std::shared_ptr<Core::Node>> m_node_id_to_ptr;
 
-    void checkConnections() const;
+    /// This data structure contains the graph connectivity information in both
+    /// directions, i.e. from Node1 to Node2 and from Node2 to Node1.
+    std::unordered_set<ConnectionId> _connectivity;
 
-  public:
-    unsigned int nPorts( QtNodes::PortType portType ) const override;
+    mutable std::unordered_map<NodeId, NodeGeometryData> _nodeGeometryData;
+    mutable std::unordered_map<NodeId, QWidget*> m_node_widget;
 
-    QtNodes::NodeDataType dataType( QtNodes::PortType portType,
-                                    QtNodes::PortIndex portIndex ) const override;
+    /// A convenience variable needed for generating unique node ids.
+    NodeId _nextNodeId;
 
-    std::shared_ptr<QtNodes::NodeData> outData( QtNodes::PortIndex port ) override;
-
-    void setInData( std::shared_ptr<QtNodes::NodeData> data, int port ) override;
-
-    QtNodes::NodeValidationState validationState() const override { return m_validationState; }
-
-    QString validationMessage() const override { return m_validationError; }
-
-    QWidget* embeddedWidget() override { return m_widget; }
-
-  private:
-    std::shared_ptr<Node> m_node;
-    std::shared_ptr<DataflowGraph> m_dataflowGraph { nullptr };
-
-    QWidget* m_widget { nullptr };
-
-    std::vector<bool> m_inputsConnected;
-    mutable QtNodes::NodeValidationState m_validationState = QtNodes::NodeValidationState::Valid;
-    mutable QString m_validationError                      = QString( "" );
-
-    QUuid m_uuid;
-
-  public:
-    QJsonObject save() const override;
-    void restore( QJsonObject const& p ) override;
+    void buildFactoryMap();
+    std::map<std::string, Core::NodeFactory::NodeCreatorFunctor> m_model_name_to_factory;
 };
-
 } // namespace GraphEditor
 } // namespace QtGui
 } // namespace Dataflow

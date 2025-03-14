@@ -1,10 +1,16 @@
 #pragma once
 #include <Dataflow/RaDataflow.hpp>
 
+#include <Dataflow/QtGui/GraphEditor/NodeAdapterModel.hpp>
+
 #include <QWidget>
 
-#include <nodes/FlowScene>
-#include <nodes/FlowView>
+#include <QtNodes/ConnectionStyle>
+#include <QtNodes/DataFlowGraphModel>
+#include <QtNodes/DataFlowGraphicsScene>
+#include <QtNodes/GraphicsView>
+#include <QtNodes/NodeData>
+#include <QtNodes/NodeDelegateModelRegistry>
 
 namespace Ra {
 namespace Dataflow {
@@ -27,13 +33,8 @@ class RA_DATAFLOW_API GraphEditorView : public QWidget
   public:
     explicit GraphEditorView( QWidget* parent );
     ~GraphEditorView();
-    void disconnectAll();
-    void connectAll();
 
-    /// Fill the editor with the existing nodes in the graph
-    void editGraph( std::shared_ptr<DataflowGraph> g );
-
-    DataflowGraph* editedGraph();
+    std::shared_ptr<SimpleGraphModel> getGraph() { return m_graph; }
 
   Q_SIGNALS:
     void needUpdate();
@@ -42,18 +43,14 @@ class RA_DATAFLOW_API GraphEditorView : public QWidget
     void resizeEvent( QResizeEvent* event ) override;
 
   private:
-    std::vector<QMetaObject::Connection> connections;
-
-    QtNodes::FlowScene* scene { nullptr };
-    QtNodes::FlowView* view { nullptr };
+    QtNodes::BasicGraphicsScene* scene { nullptr };
+    QtNodes::GraphicsView* view { nullptr };
 
     /// Build the registries from the graph's NodeFactory
     void buildAdapterRegistry( const NodeFactorySet& factory );
-
     std::shared_ptr<DataflowGraph> m_dataflowGraph { nullptr };
 
-    /// Node creator registry to be used when creating a node in the editor
-    std::shared_ptr<QtNodes::DataModelRegistry> m_editorRegistry;
+    std::shared_ptr<SimpleGraphModel> m_graph;
 };
 
 } // namespace GraphEditor

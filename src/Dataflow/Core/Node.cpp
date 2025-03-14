@@ -9,7 +9,7 @@ namespace Core {
 using namespace Ra::Core::Utils;
 
 Node::Node( const std::string& instanceName, const std::string& typeName ) :
-    m_typeName { typeName }, m_instanceName { instanceName } {}
+    m_modelName { typeName }, m_instanceName { instanceName } {}
 
 bool Node::fromJson( const nlohmann::json& data ) {
     if ( data.empty() ) {
@@ -49,7 +49,7 @@ void Node::toJson( nlohmann::json& data ) const {
     data["instance"] = m_instanceName;
 
     nlohmann::json model;
-    model["name"] = m_typeName;
+    model["name"] = m_modelName;
 
     // Fill the specific concrete node information (model instance)
     toJsonInternal( model );

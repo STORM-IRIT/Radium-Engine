@@ -15,7 +15,9 @@ namespace QtGui {
 namespace GraphEditor {
 using namespace Ra::Dataflow::Core;
 
-// TODO : instead of a namespace, make it a class ?
+///\todo instead of a namespace, make it a class ?
+///\todo refactor EditableParameter to VariableSet
+
 /**
  * Set of functions to manage automatic widget creation and update for editable parameters in the Qt
  * Node Editor.

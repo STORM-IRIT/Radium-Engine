@@ -1,182 +1,133 @@
 #include <Dataflow/QtGui/GraphEditor/NodeAdapterModel.hpp>
 
-#include <Dataflow/QtGui/GraphEditor/WidgetFactory.hpp>
-
 #include <Gui/ParameterSetEditor/ParameterSetEditor.hpp>
-#include <Gui/Widgets/ControlPanel.hpp>
-
-#include <QColorDialog>
-#include <QJsonArray>
-#include <QObject>
-
-#include <filesystem>
 
 namespace Ra {
 namespace Dataflow {
 namespace QtGui {
 namespace GraphEditor {
-
-namespace NodeDataModelTools {
-/**
- * Construct the widget needed to edit all the EditableParameter of the given node
- * @param node The node to decorate
- * @return the widget (of type RadiumAddons::Gui::Widgets::ControlPanel) exposing the parameters
- */
-QWidget* getWidget( Node* node );
-
-/**
- * Convert a QJsonObject to a nlohmann::json
- */
-void QJsonObjectToNlohmannObject( const QJsonObject& p, nlohmann::json& data );
-
-/**
- * Convert a nlohmann::json to a QJsonObject
- */
-void NlohmannObjectToQJsonObject( const nlohmann::json& data, QJsonObject& p );
-} // namespace NodeDataModelTools
-
 using namespace Ra::Dataflow::Core;
-using namespace Ra::Gui::Widgets;
+using ConnectionId     = QtNodes::ConnectionId;
+using ConnectionPolicy = QtNodes::ConnectionPolicy;
+using NodeFlag         = QtNodes::NodeFlag;
+using NodeId           = QtNodes::NodeId;
+using NodeRole         = QtNodes::NodeRole;
+using PortIndex        = QtNodes::PortIndex;
+using PortRole         = QtNodes::PortRole;
+using PortType         = QtNodes::PortType;
+using StyleCollection  = QtNodes::StyleCollection;
+using QtNodes::InvalidNodeId;
 
-NodeAdapterModel::NodeAdapterModel( std::shared_ptr<DataflowGraph> graph,
-                                    std::shared_ptr<Node> n ) :
-    m_node { n }, m_dataflowGraph { graph } {
-    m_uuid = QUuid::createUuid();
-    m_inputsConnected.resize( m_node->getInputs().size() );
-    m_widget = NodeDataModelTools::getWidget( m_node.get() );
-    checkConnections();
+SimpleGraphModel::SimpleGraphModel() : _nextNodeId { 0 } {
+    m_graph = std::make_shared<DataflowGraph>( "graph" );
+    buildFactoryMap();
 }
 
-void NodeAdapterModel::checkConnections() const {
-    int errors = 0;
-    for ( size_t i = 0; i < m_inputsConnected.size(); i++ ) {
-        if ( !m_inputsConnected[i] && m_node->getInputs()[i]->isLinkMandatory() ) { errors++; }
-    }
+SimpleGraphModel::~SimpleGraphModel() {
+    //
+}
 
-    if ( errors == 0 ) {
-        m_validationState = QtNodes::NodeValidationState::Valid;
-        m_validationError = QString( "" );
-    }
-    else {
-        if ( errors > 1 ) {
-            m_validationError = QString(
-                std::string( std::to_string( errors ) + " mandatory ports are not linked (*)." )
-                    .c_str() );
+void SimpleGraphModel::buildFactoryMap() {
+    auto factories = NodeFactoriesManager::getFactoryManager();
+    for ( const auto& [factoryName, factory] : factories ) {
+        for ( const auto& [model_name, creator] : factory->getFactoryMap() ) {
+            auto f                              = creator.first;
+            auto creatorFactory                 = factory;
+            m_model_name_to_factory[model_name] = f;
         }
-        else { m_validationError = "1 mandatory port is not linked (*)."; }
-
-        m_validationState = QtNodes::NodeValidationState::Error;
     }
 }
 
-unsigned int NodeAdapterModel::nPorts( QtNodes::PortType portType ) const {
-    unsigned int result = 1;
+std::unordered_set<NodeId> SimpleGraphModel::allNodeIds() const {
+    return _nodeIds;
+}
 
-    switch ( portType ) {
-    case QtNodes::PortType::In: {
-        result = m_node->getInputs().size();
-        break;
-    }
+std::unordered_set<ConnectionId> SimpleGraphModel::allConnectionIds( NodeId const nodeId ) const {
+    std::unordered_set<ConnectionId> result;
 
-    case QtNodes::PortType::Out: {
-        result = m_node->getOutputs().size();
-        break;
-    }
-
-    default: {
-        break;
-    }
-    }
+    std::copy_if( _connectivity.begin(),
+                  _connectivity.end(),
+                  std::inserter( result, std::end( result ) ),
+                  [&nodeId]( ConnectionId const& cid ) {
+                      return cid.inNodeId == nodeId || cid.outNodeId == nodeId;
+                  } );
 
     return result;
 }
 
-QtNodes::NodeDataType NodeAdapterModel::dataType( QtNodes::PortType portType,
-                                                  QtNodes::PortIndex portIndex ) const {
-    QtNodes::NodeDataType result { "incorrect", "incorrect" };
+std::unordered_set<ConnectionId>
+SimpleGraphModel::connections( NodeId nodeId, PortType portType, PortIndex portIndex ) const {
+    std::unordered_set<ConnectionId> result;
 
-    switch ( portType ) {
-    case QtNodes::PortType::In: {
-        std::string mandatory = ( m_node->getInputs()[portIndex]->isLinkMandatory() ) ? "*" : "";
-        return IOToDataType( m_node->getInputs()[portIndex]->getTypeName(),
-                             m_node->getInputs()[portIndex]->getName() + mandatory );
-    }
-
-    case QtNodes::PortType::Out: {
-        return IOToDataType( m_node->getOutputs()[portIndex]->getTypeName(),
-                             m_node->getOutputs()[portIndex]->getName() );
-    }
-    default:
-        break;
-    }
-
-    checkConnections();
+    std::copy_if( _connectivity.begin(),
+                  _connectivity.end(),
+                  std::inserter( result, std::end( result ) ),
+                  [&portType, &portIndex, &nodeId]( ConnectionId const& cid ) {
+                      return ( getNodeId( portType, cid ) == nodeId &&
+                               getPortIndex( portType, cid ) == portIndex );
+                  } );
 
     return result;
 }
 
-std::shared_ptr<QtNodes::NodeData> NodeAdapterModel::outData( QtNodes::PortIndex port ) {
-    return std::make_shared<ConnectionStatusData>( m_node, m_node->getOutputs()[port]->getName() );
+bool SimpleGraphModel::connectionExists( ConnectionId const connectionId ) const {
+    return ( _connectivity.find( connectionId ) != _connectivity.end() );
 }
 
-void NodeAdapterModel::setInData( std::shared_ptr<QtNodes::NodeData> data, int port ) {
-    auto connectionData = dynamic_cast<ConnectionStatusData*>( data.get() );
-    if ( connectionData ) {
-        // Add connection
-        m_dataflowGraph->addLink( connectionData->getNode(),
-                                  connectionData->getOutputName(),
-                                  m_node,
-                                  m_node->getInputs()[port]->getName() );
-        m_inputsConnected[port] = true;
-    }
-    else {
-        // Remove connection
-        m_dataflowGraph->removeLink( m_node, m_node->getInputs()[port]->getName() );
-        m_inputsConnected[port] = false;
-    }
-    checkConnections();
+NodeId SimpleGraphModel::addNode( QString const nodeType ) {
+
+    auto f = m_model_name_to_factory[nodeType.toStdString()];
+    auto n = f( {} );
+    m_graph->addNode( n );
+
+    NodeId newId = newNodeId();
+    // Create new node.
+    _nodeIds.insert( newId );
+    m_node_id_to_ptr[newId] = n;
+
+    Q_EMIT nodeCreated( newId );
+
+    return newId;
 }
 
-QtNodes::NodeDataType NodeAdapterModel::IOToDataType( const std::string& typeName,
-                                                      const std::string& ioName ) const {
-    return QtNodes::NodeDataType { typeName.c_str(), ioName.c_str() };
+bool SimpleGraphModel::connectionPossible( ConnectionId const connectionId ) const {
+    auto in_node_id  = connectionId.inNodeId;
+    auto out_node_id = connectionId.outNodeId;
+
+    auto in_port_id  = connectionId.inPortIndex;
+    auto out_port_id = connectionId.outPortIndex;
+
+    bool ret = _connectivity.find( connectionId ) == _connectivity.end() &&
+               m_graph->canLink( m_node_id_to_ptr.at( out_node_id ).get(),
+                                 out_port_id,
+                                 m_node_id_to_ptr.at( in_node_id ).get(),
+                                 in_port_id );
+
+    return ret;
 }
 
-void NodeAdapterModel::addMetaData( QJsonObject& json ) {
-    nlohmann::json data;
-    NodeDataModelTools::QJsonObjectToNlohmannObject( json, data );
-    m_node->addJsonMetaData( data );
+void SimpleGraphModel::addConnection( ConnectionId const connectionId ) {
+    _connectivity.insert( connectionId );
+    auto in_node_id  = connectionId.inNodeId;
+    auto out_node_id = connectionId.outNodeId;
+    auto in_port_id  = connectionId.inPortIndex;
+    auto out_port_id = connectionId.outPortIndex;
+
+    m_graph->addLink( m_node_id_to_ptr.at( out_node_id ),
+                      out_port_id,
+                      m_node_id_to_ptr.at( in_node_id ),
+                      in_port_id );
+    Q_EMIT connectionCreated( connectionId );
 }
 
-NodeAdapterModel::~NodeAdapterModel() {
-    m_dataflowGraph->removeNode( m_node );
+bool SimpleGraphModel::nodeExists( NodeId const nodeId ) const {
+    return ( _nodeIds.find( nodeId ) != _nodeIds.end() );
 }
 
-QJsonObject NodeAdapterModel::save() const {
-    QJsonObject o; // = QtNodes::NodeDataModel::save();
-    nlohmann::json nodeData;
-    m_node->toJson( nodeData );
-    NodeDataModelTools::NlohmannObjectToQJsonObject( nodeData, o );
-    return o;
-}
-
-void NodeAdapterModel::restore( QJsonObject const& p ) {
-    // QtNodes::NodeDataModel::restore( p );
-    //  1 - convert the QJsonObject to nlohmann::json
-    nlohmann::json nodeData;
-    NodeDataModelTools::QJsonObjectToNlohmannObject( p, nodeData );
-    // 2 - call fromjson on the node using this json object
-    m_node->fromJson( nodeData );
-    // 3 - update the widget according to the editable parameters
-    checkConnections();
-}
-
-namespace NodeDataModelTools {
-
-QWidget* getWidget( Node* node ) {
-
+QWidget* SimpleGraphModel::getWidget( std::shared_ptr<Core::Node> node ) const {
     QWidget* controlPanel = new QWidget;
-    QVBoxLayout* layout   = new QVBoxLayout( controlPanel );
+    controlPanel->setStyleSheet( "background-color:transparent;" );
+    QVBoxLayout* layout = new QVBoxLayout( controlPanel );
 
     if ( node->getInputVariables().size() > 0 ) {
         auto controlPanelInputs = new Ra::Gui::VariableSetEditor( "Inputs default", nullptr );
@@ -184,7 +135,6 @@ QWidget* getWidget( Node* node ) {
         controlPanelInputs->setupUi( node->getInputVariables(), {} );
         layout->addWidget( controlPanelInputs );
     }
-
     if ( node->getParameters().size() > 0 ) {
         auto controlPanelParams = new Ra::Gui::VariableSetEditor( "Parameters", nullptr );
         controlPanelParams->setShowUnspecified( true );
@@ -194,112 +144,258 @@ QWidget* getWidget( Node* node ) {
     return controlPanel;
 }
 
-/** Convert from Qt::Json to nlohmann::json */
-void QJsonEntryToNlohmannEntry( const QString& key,
-                                const QJsonValue& value,
-                                nlohmann::json& data ) {
-    switch ( value.type() ) {
-    case QJsonValue::Bool:
-        data[key.toStdString()] = value.toBool();
+QVariant SimpleGraphModel::nodeData( NodeId nodeId, NodeRole role ) const {
+
+    QVariant result;
+    auto node_ptr = m_node_id_to_ptr.at( nodeId );
+
+    switch ( role ) {
+    case NodeRole::Type:
+        result = QString::fromStdString( node_ptr->getTypename() );
         break;
-    case QJsonValue::Double:
-        // as there is no QJsonValue::Int, manage explicitely keys with int value :(
-        // TODO find a better way to do that ...
-        // type is a specific entry of envmapdatasource
-        if ( key.compare( "type" ) == 0 ) { data[key.toStdString()] = int( value.toDouble() ); }
-        else { data[key.toStdString()] = Scalar( value.toDouble() ); }
 
+    case NodeRole::Position:
+        result = _nodeGeometryData[nodeId].pos;
         break;
-    case QJsonValue::String:
-        data[key.toStdString()] = value.toString().toStdString();
+
+    case NodeRole::Size:
+        result = _nodeGeometryData[nodeId].size;
         break;
-    case QJsonValue::Array: {
-        auto jsArray = value.toArray();
-        switch ( jsArray.first().type() ) {
-        case QJsonValue::Double: {
-            std::vector<Scalar> array;
-            for ( auto v : jsArray ) {
-                array.push_back( Scalar( v.toDouble() ) );
-            }
-            data[key.toStdString()] = array;
-            break;
-        }
-        default:
-            LOG( Ra::Core::Utils::logERROR )
-                << "Only Scalar arrays are supported for Json conversion.";
-        }
+
+    case NodeRole::CaptionVisible:
+        result = true;
+        break;
+
+    case NodeRole::Caption:
+        result = QString::fromStdString( node_ptr->getModelName() );
+        break;
+
+    case NodeRole::Style: {
+        auto style = StyleCollection::nodeStyle();
+        result     = style.toJson().toVariantMap();
     } break;
-    default:
-        LOG( Ra::Core::Utils::logERROR ) << "QJson to nlohmann::json : QtJson value type "
-                                         << value.type() << " is not suported.";
+
+    case NodeRole::InternalData:
+        break;
+
+    case NodeRole::InPortCount:
+        result = static_cast<unsigned int>( node_ptr->getInputs().size() );
+        break;
+
+    case NodeRole::OutPortCount:
+        result = static_cast<unsigned int>( node_ptr->getOutputs().size() );
+        break;
+
+    case NodeRole::Widget:
+
+        if ( auto node_itr = m_node_widget.find( nodeId ); node_itr == m_node_widget.end() ) {
+            m_node_widget[nodeId] = getWidget( node_ptr );
+        }
+        result = QVariant::fromValue( m_node_widget[nodeId] );
+        break;
     }
+
+    return result;
 }
 
-void NlohmannEntryToQJsonEntry( const nlohmann::json& data, QJsonValue& value ) {
-    switch ( data.type() ) {
-    case nlohmann::detail::value_t::boolean: {
-        auto v = data.get<bool>();
-        value  = v;
+bool SimpleGraphModel::setNodeData( NodeId nodeId, NodeRole role, QVariant value ) {
+    bool result = false;
+
+    switch ( role ) {
+    case NodeRole::Type:
+        break;
+    case NodeRole::Position: {
+        _nodeGeometryData[nodeId].pos = value.value<QPointF>();
+
+        Q_EMIT nodePositionUpdated( nodeId );
+
+        result = true;
     } break;
-    case nlohmann::detail::value_t::number_float: {
-        auto v = double( data.get<float>() );
-        value  = v;
+
+    case NodeRole::Size: {
+        _nodeGeometryData[nodeId].size = value.value<QSize>();
+        result                         = true;
     } break;
-    case nlohmann::detail::value_t::number_integer: {
-        auto v = data.get<int>();
-        value  = v;
-    } break;
-    case nlohmann::detail::value_t::number_unsigned: {
-        auto v = data.get<unsigned int>();
-        value  = int( v );
-    } break;
-    case nlohmann::detail::value_t::string: {
-        auto v = data.get<std::string>();
-        value  = v.c_str();
-    } break;
-    case nlohmann::detail::value_t::array: {
-        QJsonArray a;
-        QJsonValue v;
-        for ( auto& x : data.items() ) {
-            NlohmannEntryToQJsonEntry( x.value(), v );
-            a.append( v );
-        }
-        value = a;
-    } break;
-    default:
-        LOG( Ra::Core::Utils::logERROR ) << "nlohmann::json to QJson : nlohmann json type "
-                                         << int( data.type() ) << " is not supported.";
+
+    case NodeRole::CaptionVisible:
+        break;
+
+    case NodeRole::Caption:
+        break;
+
+    case NodeRole::Style:
+        break;
+
+    case NodeRole::InternalData:
+        break;
+
+    case NodeRole::InPortCount:
+        break;
+
+    case NodeRole::OutPortCount:
+        break;
+
+    case NodeRole::Widget:
+        break;
     }
+
+    return result;
 }
 
-void QJsonObjectToNlohmannObject( const QJsonObject& p, nlohmann::json& data ) {
-    for ( const auto& key : p.keys() ) {
-        auto value = p.value( key );
-        if ( value.isObject() ) {
-            nlohmann::json j;
-            QJsonObjectToNlohmannObject( value.toObject(), j );
-            data[key.toStdString()] = j;
-        }
-        else { QJsonEntryToNlohmannEntry( key, value, data ); }
+QVariant SimpleGraphModel::portData( NodeId nodeId,
+                                     PortType portType,
+                                     PortIndex portIndex,
+                                     PortRole role ) const {
+
+    auto n = m_node_id_to_ptr.at( nodeId );
+
+    switch ( role ) {
+    case PortRole::Data:
+        return QVariant();
+        break;
+
+    case PortRole::DataType: {
+        auto p = ( portType == PortType::In ) ? n->getPortByIndex( "in", portIndex )
+                                              : n->getPortByIndex( "out", portIndex );
+        QString s =
+            QString::fromStdString( Ra::Core::Utils::simplifiedDemangledType( p->getType() ) );
+        return QVariant::fromValue( QtNodes::NodeDataType { s, s } );
+    } break;
+
+    case PortRole::ConnectionPolicyRole:
+        if ( portType == PortType::In )
+            return QVariant::fromValue( ConnectionPolicy::One );
+        else
+            return QVariant::fromValue( ConnectionPolicy::Many );
+        break;
+
+    case PortRole::CaptionVisible:
+        return true;
+        break;
+
+    case PortRole::Caption: {
+        auto p = ( portType == PortType::In ) ? n->getPortByIndex( "in", portIndex )
+                                              : n->getPortByIndex( "out", portIndex );
+        return QString::fromStdString( p->getName() );
+    } break;
     }
+
+    return QVariant();
 }
 
-void NlohmannObjectToQJsonObject( const nlohmann::json& data, QJsonObject& p ) {
-    for ( const auto& [key, value] : data.items() ) {
-        if ( value.is_object() ) {
-            QJsonObject o;
-            NlohmannObjectToQJsonObject( data[key], o );
-            p.insert( key.c_str(), o );
-        }
-        else {
-            QJsonValue v;
-            NlohmannEntryToQJsonEntry( value, v );
-            p.insert( key.c_str(), v );
-        }
-    }
+bool SimpleGraphModel::setPortData( NodeId nodeId,
+                                    PortType portType,
+                                    PortIndex portIndex,
+                                    QVariant const& value,
+                                    PortRole role ) {
+    Q_UNUSED( nodeId );
+    Q_UNUSED( portType );
+    Q_UNUSED( portIndex );
+    Q_UNUSED( value );
+    Q_UNUSED( role );
+
+    return false;
 }
 
-} // namespace NodeDataModelTools
+bool SimpleGraphModel::deleteConnection( ConnectionId const connectionId ) {
+    bool disconnected = false;
+
+    auto it = _connectivity.find( connectionId );
+
+    if ( it != _connectivity.end() ) {
+        disconnected    = true;
+        auto in_node_id = connectionId.inNodeId;
+        auto in_port_id = connectionId.inPortIndex;
+
+        m_graph->removeLink( m_node_id_to_ptr.at( in_node_id ), in_port_id );
+        _connectivity.erase( it );
+    }
+
+    if ( disconnected ) Q_EMIT connectionDeleted( connectionId );
+
+    return disconnected;
+}
+
+bool SimpleGraphModel::deleteNode( NodeId const nodeId ) {
+    // Delete connections to this node first.
+    auto connectionIds = allConnectionIds( nodeId );
+
+    for ( auto& cId : connectionIds ) {
+        deleteConnection( cId );
+    }
+
+    m_graph->removeNode( m_node_id_to_ptr.at( nodeId ) );
+    m_node_id_to_ptr.erase( nodeId );
+    m_node_widget.erase( nodeId );
+
+    _nodeIds.erase( nodeId );
+    _nodeGeometryData.erase( nodeId );
+
+    Q_EMIT nodeDeleted( nodeId );
+
+    return true;
+}
+
+QJsonObject SimpleGraphModel::saveNode( NodeId const nodeId ) const {
+    QJsonObject nodeJson;
+
+    auto node = m_node_id_to_ptr.at( nodeId );
+
+    // get node's json
+    nlohmann::json json;
+    node->toJson( json );
+
+    // convert to QJsonObject
+    QJsonDocument jsonResponse = QJsonDocument::fromJson( json.dump().c_str() );
+    QJsonObject jsonObject     = jsonResponse.object();
+    for ( auto it = jsonObject.constBegin(); it != jsonObject.constEnd(); it++ ) {
+        nodeJson.insert( it.key(), it.value() );
+    }
+
+    // appens ui stuff
+    nodeJson["id"] = static_cast<qint64>( nodeId );
+    {
+        QPointF const pos = nodeData( nodeId, NodeRole::Position ).value<QPointF>();
+
+        QJsonObject posJson;
+        posJson["x"]         = pos.x();
+        posJson["y"]         = pos.y();
+        nodeJson["position"] = posJson;
+    }
+
+    return nodeJson;
+}
+
+void SimpleGraphModel::loadNode( QJsonObject const& nodeJson ) {
+
+    // init node from json
+    auto json = nlohmann::json::parse( QJsonDocument( nodeJson ).toJson() );
+    auto f    = m_model_name_to_factory[json["model"]["name"]];
+    auto n    = f( json );
+    m_graph->addNode( n );
+
+    // restore model and ui stuff
+    NodeId restoredNodeId = static_cast<NodeId>( nodeJson["id"].toInt() );
+
+    // Next NodeId must be larger that any id existing in the graph
+    _nextNodeId = std::max( _nextNodeId, restoredNodeId + 1 );
+
+    // Create new node.
+    _nodeIds.insert( restoredNodeId );
+
+    // Create new node.
+    _nodeIds.insert( restoredNodeId );
+    m_node_id_to_ptr[restoredNodeId] = n;
+
+    Q_EMIT nodeCreated( restoredNodeId );
+
+    {
+        QJsonObject posJson = nodeJson["position"].toObject();
+        QPointF const pos( posJson["x"].toDouble(), posJson["y"].toDouble() );
+
+        setNodeData( restoredNodeId, NodeRole::Position, pos );
+    }
+}
 
 } // namespace GraphEditor
 } // namespace QtGui

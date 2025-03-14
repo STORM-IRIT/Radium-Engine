@@ -155,8 +155,8 @@ class RA_DATAFLOW_API Node
 
     /// \name Identification methods
     /// @{
-    /// \brief Gets the type name of the node.
-    const std::string& getTypeName() const;
+    /// \brief Gets the model (type/class) name of the node.
+    const std::string& getModelName() const;
 
     /// \brief Gets the instance name of the node.
     const std::string& getInstanceName() const;
@@ -292,7 +292,7 @@ class RA_DATAFLOW_API Node
     /// Be careful with template specialization and function member overriding in derived classes.
     virtual bool fromJsonInternal( const nlohmann::json& data ) {
         LOG( Ra::Core::Utils::logDEBUG )
-            << "default deserialization for " << getInstanceName() + " " + getTypeName() << ".";
+            << "default deserialization for " << getInstanceName() + " " + getModelName() << ".";
         if ( const auto& ports = data.find( "ports" ); ports != data.end() ) {
             for ( const auto& port : *ports ) {
                 int index = port["port_index"];
@@ -308,7 +308,7 @@ class RA_DATAFLOW_API Node
     /// Be careful with template specialization and function member overriding in derived classes.
     virtual void toJsonInternal( nlohmann::json& data ) const {
         std::string message =
-            std::string { "default serialization for " } + getInstanceName() + " " + getTypeName();
+            std::string { "default serialization for " } + getInstanceName() + " " + getModelName();
         for ( size_t i = 0; i < m_inputs.size(); ++i ) {
             const auto& p = m_inputs[i];
             nlohmann::json port;
@@ -389,7 +389,7 @@ class RA_DATAFLOW_API Node
     /// \brief Flag that checks if the node is already initialized
     bool m_initialized { false };
     /// The type name of the node. Initialized once at construction
-    std::string m_typeName;
+    std::string m_modelName;
     /// The instance name of the node
     std::string m_instanceName;
     /// The in ports of the node (own by the node)
@@ -423,8 +423,8 @@ inline const nlohmann::json& Node::getJsonMetaData() {
     return m_extraJsonData;
 }
 
-inline const std::string& Node::getTypeName() const {
-    return m_typeName;
+inline const std::string& Node::getModelName() const {
+    return m_modelName;
 }
 
 inline const std::string& Node::getInstanceName() const {
@@ -444,7 +444,8 @@ inline const Node::PortBaseOutCollection& Node::getOutputs() const {
 }
 
 inline bool Node::operator==( const Node& o_node ) {
-    return ( m_typeName == o_node.getTypeName() ) && ( m_instanceName == o_node.getInstanceName() );
+    return ( m_modelName == o_node.getModelName() ) &&
+           ( m_instanceName == o_node.getInstanceName() );
 }
 
 inline bool Node::addInput( PortBaseInRawPtr in ) {

@@ -17,21 +17,21 @@ set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 add_custom_target(DataflowExternals ALL)
 
-if(NOT DEFINED RadiumNodeEditor_DIR)
+if(NOT DEFINED QtNodes_DIR)
     check_externals_prerequisite()
-    status_message("" "RadiumNodeEditor" "remote git")
+    status_message("" "QtNodes" "remote git")
     ExternalProject_Add(
-        RadiumNodeEditor
-        GIT_REPOSITORY https://github.com/MathiasPaulin/RadiumQtNodeEditor.git
-        GIT_TAG main
+        QtNodes
+        GIT_REPOSITORY https://github.com/paceholder/nodeeditor.git
+        GIT_TAG 34b6f81
         GIT_SHALLOW TRUE
         GIT_PROGRESS TRUE
         INSTALL_DIR "${CMAKE_INSTALL_PREFIX}"
         CMAKE_ARGS ${RADIUM_EXTERNAL_CMAKE_OPTIONS} -DCMAKE_INSTALL_PREFIX=<INSTALL_DIR>
                    "-DCMAKE_MESSAGE_INDENT=${indent_string}\;"
     )
-    set_external_dir(RadiumNodeEditor "lib/cmake/RadiumNodeEditor/")
-    add_dependencies(DataflowExternals RadiumNodeEditor)
+    set_external_dir(QtNodes "lib/cmake/QtNodes/")
+    add_dependencies(DataflowExternals QtNodes)
 else()
-    status_message("" "RadiumNodeEditor" ${RadiumNodeEditor_DIR})
+    status_message("" "QtNodes" ${QtNodes_DIR})
 endif()
