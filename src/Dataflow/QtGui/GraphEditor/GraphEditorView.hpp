@@ -31,24 +31,23 @@ class RA_DATAFLOW_API GraphEditorView : public QWidget
 {
     Q_OBJECT
   public:
-    explicit GraphEditorView( QWidget* parent );
+    explicit GraphEditorView( std::shared_ptr<DataflowGraph> graph, QWidget* parent );
     ~GraphEditorView();
 
     std::shared_ptr<SimpleGraphModel> getGraph() { return m_graph; }
-
-  Q_SIGNALS:
-    void needUpdate();
-
-  protected:
-    void resizeEvent( QResizeEvent* event ) override;
+    void setGraph( std::shared_ptr<DataflowGraph> graph ) {
+        m_graph->setGraph( graph );
+        sync_data();
+    }
+    void sync_data() {
+        m_graph->sync_data();
+        scene->onModelReset();
+        view->centerScene();
+    }
 
   private:
     QtNodes::BasicGraphicsScene* scene { nullptr };
     QtNodes::GraphicsView* view { nullptr };
-
-    /// Build the registries from the graph's NodeFactory
-    void buildAdapterRegistry( const NodeFactorySet& factory );
-    std::shared_ptr<DataflowGraph> m_dataflowGraph { nullptr };
 
     std::shared_ptr<SimpleGraphModel> m_graph;
 };

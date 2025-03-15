@@ -14,8 +14,12 @@ GraphEditorWindow::~GraphEditorWindow() {
 }
 
 GraphEditorWindow::GraphEditorWindow( std::shared_ptr<DataflowGraph> graph ) :
-    m_graphEdit { new GraphEditorView( nullptr ) }, m_graph { nullptr } {
+    m_graph { graph }, m_graphEdit { new GraphEditorView( m_graph, nullptr ) } {
 
+    if ( !m_graph ) {
+        m_graph = std::make_shared<DataflowGraph>( "" );
+        m_graphEdit->getGraph()->setGraph( m_graph );
+    }
     setCentralWidget( m_graphEdit );
     m_graphEdit->setFocusPolicy( Qt::StrongFocus );
 
@@ -24,14 +28,11 @@ GraphEditorWindow::GraphEditorWindow( std::shared_ptr<DataflowGraph> graph ) :
 
     readSettings();
 
-    connect(
-        m_graphEdit, &GraphEditorView::needUpdate, this, &GraphEditorWindow::documentWasModified );
-
     setCurrentFile( QString() );
     setUnifiedTitleAndToolBarOnMac( true );
 
-    //    m_graphEdit->editGraph( m_graph );
     m_graphEdit->show();
+
     QDockWidget* dock = new QDockWidget( this );
     dock->setAllowedAreas( Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea );
 
@@ -70,7 +71,7 @@ GraphEditorWindow::GraphEditorWindow( std::shared_ptr<DataflowGraph> graph ) :
     viewMenu->addAction( dock->toggleViewAction() );
 }
 
-void GraphEditorWindow::addNode( QTreeWidgetItem* item, int column ) {
+void GraphEditorWindow::addNode( QTreeWidgetItem* item, int ) {
     if ( item->childCount() == 0 ) { m_graphEdit->getGraph()->addNode( item->text( 0 ) ); }
 }
 
@@ -119,7 +120,6 @@ void GraphEditorWindow::about() {
 
 void GraphEditorWindow::documentWasModified() {
     setWindowModified( m_graph->shouldBeSaved() );
-    emit needUpdate();
 }
 
 void GraphEditorWindow::createActions() {
@@ -162,12 +162,6 @@ void GraphEditorWindow::createActions() {
     auto exitAct         = fileMenu->addAction( exitIcon, tr( "E&xit" ), this, &QWidget::close );
     exitAct->setShortcuts( QKeySequence::Quit );
     exitAct->setStatusTip( tr( "Exit the application" ) );
-
-#if 0
-    // Activite this section when editMenu might be filled
-    auto editMenu       = menuBar()->addMenu( tr( "&Edit" ) );
-    auto editToolBar = addToolBar( tr( "Edit" ) );
-#endif
 
     auto helpMenu = menuBar()->addMenu( tr( "&Help" ) );
     auto aboutAct = helpMenu->addAction( tr( "&About" ), this, &GraphEditorWindow::about );
@@ -257,9 +251,10 @@ void GraphEditorWindow::loadFile( const QString& fileName ) {
 
     QGuiApplication::restoreOverrideCursor();
     if ( loaded ) {
-        //        m_graphEdit->editGraph( m_graph );
+        m_graphEdit->sync_data();
         setCurrentFile( fileName );
         statusBar()->showMessage( tr( "File loaded" ), 2000 );
+
         emit needUpdate();
     }
 }
@@ -268,25 +263,11 @@ bool GraphEditorWindow::saveFile( const QString& fileName ) {
     QString errorMessage;
 
     QGuiApplication::setOverrideCursor( Qt::WaitCursor );
-    // TODO, if graph do not compile, tell it to the user ?
+    ///\todo if graph do not compile, tell it to the user ?
     // m_graph->compile();
 
     m_graph->saveToJson( fileName.toStdString() );
-#if 0
-    QSaveFile file(fileName);
 
-    if (file.open(QFile::WriteOnly | QFile::Text)) {
-        QTextStream out(&file);
-        out << textEdit->toPlainText();
-        if (!file.commit()) {
-            errorMessage = tr("Cannot write file %1:\n%2.")
-                               .arg(QDir::toNativeSeparators(fileName), file.errorString());
-        }
-    } else {
-        errorMessage = tr("Cannot open file %1 for writing:\n%2.")
-                           .arg(QDir::toNativeSeparators(fileName), file.errorString());
-    }
-#endif
     QGuiApplication::restoreOverrideCursor();
 
     if ( !errorMessage.isEmpty() ) {
@@ -301,7 +282,7 @@ bool GraphEditorWindow::saveFile( const QString& fileName ) {
 
 void GraphEditorWindow::setCurrentFile( const QString& fileName ) {
     m_curFile = fileName;
-    // textEdit->document()->setModified(false);
+
     setWindowModified( false );
 
     QString shownName = m_curFile;

@@ -49,7 +49,7 @@ class SimpleGraphModel : public QtNodes::AbstractGraphModel
     };
 
   public:
-    SimpleGraphModel();
+    SimpleGraphModel( std::shared_ptr<Core::DataflowGraph> graph );
 
     ~SimpleGraphModel() override;
 
@@ -96,6 +96,9 @@ class SimpleGraphModel : public QtNodes::AbstractGraphModel
     /// needed for undo/redo
     void loadNode( QJsonObject const& nodeJson ) override;
     QJsonObject saveNode( NodeId const ) const override;
+
+    void setGraph( std::shared_ptr<Core::DataflowGraph> graph );
+    void sync_data();
 
   private:
     std::shared_ptr<Core::DataflowGraph> m_graph;

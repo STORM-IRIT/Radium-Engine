@@ -58,10 +58,10 @@ class RA_DATAFLOW_API GraphEditorWindow : public QMainWindow
     void setCurrentFile( const QString& fileName );
     QString strippedName( const QString& fullFileName );
 
+    std::shared_ptr<DataflowGraph> m_graph { nullptr };
+
     GraphEditorView* m_graphEdit { nullptr };
     QString m_curFile;
-
-    std::shared_ptr<DataflowGraph> m_graph { nullptr };
 
     QMenu* viewMenu;
 };

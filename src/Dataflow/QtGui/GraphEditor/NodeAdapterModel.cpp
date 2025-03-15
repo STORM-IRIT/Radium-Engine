@@ -18,7 +18,8 @@ using PortType         = QtNodes::PortType;
 using StyleCollection  = QtNodes::StyleCollection;
 using QtNodes::InvalidNodeId;
 
-SimpleGraphModel::SimpleGraphModel() : _nextNodeId { 0 } {
+SimpleGraphModel::SimpleGraphModel( std::shared_ptr<Core::DataflowGraph> graph ) :
+    m_graph { graph }, _nextNodeId { 0 } {
     m_graph = std::make_shared<DataflowGraph>( "graph" );
     buildFactoryMap();
 }
@@ -209,9 +210,7 @@ bool SimpleGraphModel::setNodeData( NodeId nodeId, NodeRole role, QVariant value
         auto pos = value.value<QPointF>();
 
         _nodeGeometryData[nodeId].pos = pos;
-
-        nlohmann::json json = { { "position", { "x", pos.x() }, { "y", pos.y() } } };
-
+        nlohmann::json json           = { { "position", { { "x", pos.x() }, { "y", pos.y() } } } };
         node_ptr->addJsonMetaData( json );
         emit nodePositionUpdated( nodeId );
 
@@ -395,6 +394,84 @@ void SimpleGraphModel::loadNode( QJsonObject const& nodeJson ) {
         QPointF const pos( posJson["x"].toDouble(), posJson["y"].toDouble() );
 
         setNodeData( restoredNodeId, NodeRole::Position, pos );
+    }
+}
+
+void SimpleGraphModel::setGraph( std::shared_ptr<Core::DataflowGraph> graph ) {
+    m_graph = graph;
+    sync_data();
+}
+
+void SimpleGraphModel::sync_data() {
+    _nodeIds.clear();
+    m_node_id_to_ptr.clear();
+    _connectivity.clear();
+    _nodeGeometryData.clear();
+    m_node_widget.clear();
+
+    // Create new nodes
+    for ( const auto& n : m_graph->getNodes() ) {
+        NodeId newId = newNodeId();
+        _nodeIds.insert( newId );
+        m_node_id_to_ptr[newId] = n;
+        if ( auto position = n->getJsonMetaData().find( "position" );
+             position != n->getJsonMetaData().end() ) {
+            _nodeGeometryData[newId].pos.setX( position->at( "x" ) );
+            _nodeGeometryData[newId].pos.setY( position->at( "y" ) );
+        }
+    }
+
+    for ( const auto& in_node : m_graph->getNodes() ) {
+        // get node id
+        auto in_node_itr = std::find_if(
+            m_node_id_to_ptr.begin(), m_node_id_to_ptr.end(), [in_node]( const auto& pair ) {
+                return pair.second.get() == in_node.get();
+            } );
+        if ( in_node_itr == m_node_id_to_ptr.end() ) {
+            std::cerr << "error graph structure in_node\n";
+            return;
+        }
+        const auto& in_node_id = in_node_itr->first;
+
+        for ( size_t in_port_id = 0; in_port_id < in_node->getInputs().size(); ++in_port_id ) {
+            const auto& in_port  = in_node->getInputs()[in_port_id];
+            const auto& out_port = in_port->getLink();
+
+            if ( out_port ) {
+                // get out node id
+                const auto& out_node = out_port->getNode();
+                auto out_node_itr    = std::find_if(
+                    m_node_id_to_ptr.begin(),
+                    m_node_id_to_ptr.end(),
+                    [out_node]( const auto& pair ) { return pair.second.get() == out_node; } );
+                if ( out_node_itr == m_node_id_to_ptr.end() ) {
+                    std::cerr << "error graph structure out_node\n";
+                    return;
+                }
+                const auto& out_node_id = out_node_itr->first;
+
+                // get out port id
+                auto out_port_itr = find_if( out_node->getOutputs().begin(),
+                                             out_node->getOutputs().end(),
+                                             [out_port]( auto p ) { return p.get() == out_port; } );
+                if ( out_port_itr == out_node->getOutputs().end() ) {
+                    std::cerr << "error graph structure out_port\n";
+                    return;
+                }
+                const auto out_port_id =
+                    std::distance( out_port_itr, out_node->getOutputs().begin() );
+
+                // set connection
+                ConnectionId connection_id;
+
+                connection_id.inNodeId     = in_node_id;
+                connection_id.outNodeId    = out_node_id;
+                connection_id.inPortIndex  = in_port_id;
+                connection_id.outPortIndex = out_port_id;
+
+                _connectivity.insert( connection_id );
+            }
+        }
     }
 }
 

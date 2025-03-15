@@ -14,10 +14,11 @@ namespace Ra {
 namespace Dataflow {
 namespace QtGui {
 namespace GraphEditor {
-GraphEditorView::GraphEditorView( QWidget* parent ) : QWidget( parent, Qt::Window ) {
+GraphEditorView::GraphEditorView( std::shared_ptr<DataflowGraph> graph, QWidget* parent ) :
+    QWidget( parent, Qt::Window ) {
     QVBoxLayout* l = new QVBoxLayout( this );
 
-    m_graph = std::make_shared<SimpleGraphModel>();
+    m_graph = std::make_shared<SimpleGraphModel>( graph );
     scene   = new QtNodes::BasicGraphicsScene( *m_graph );
     view    = new QtNodes::GraphicsView( scene );
 
@@ -27,13 +28,6 @@ GraphEditorView::GraphEditorView( QWidget* parent ) : QWidget( parent, Qt::Windo
 }
 
 GraphEditorView::~GraphEditorView() {}
-
-// Find the way to see all the scene in the editor (or, at leas 75% of the scene)
-void GraphEditorView::resizeEvent( QResizeEvent* ) {
-    // view->resetTransform();
-    view->ensureVisible( view->sceneRect() );
-    view->centerOn( view->sceneRect().center() );
-}
 
 } // namespace GraphEditor
 } // namespace QtGui
