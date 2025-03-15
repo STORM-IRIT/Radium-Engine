@@ -1,4 +1,4 @@
-#include <Dataflow/QtGui/GraphEditor/NodeAdapterModel.hpp>
+#include <Dataflow/QtGui/GraphEditor/GraphModel.hpp>
 
 #include <Gui/ParameterSetEditor/ParameterSetEditor.hpp>
 
@@ -76,7 +76,7 @@ bool GraphModel::connectionExists( ConnectionId const connectionId ) const {
 
 NodeId GraphModel::addNode( QString const nodeType ) {
 
-    auto f = m_model_name_to_factory[nodeType.toStdString()];
+    auto f = m_model_name_to_factory.at( nodeType.toStdString() );
     auto n = f( {} );
     m_graph->addNode( n );
 

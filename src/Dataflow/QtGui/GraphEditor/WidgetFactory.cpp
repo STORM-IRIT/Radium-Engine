@@ -1,7 +1,5 @@
 #include <Dataflow/QtGui/GraphEditor/WidgetFactory.hpp>
 
-#include <Dataflow/QtGui/GraphEditor/GraphEditorView.hpp>
-
 #include <Core/Utils/Color.hpp>
 #include <Gui/Widgets/ControlPanel.hpp>
 

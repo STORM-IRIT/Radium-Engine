@@ -10,6 +10,7 @@
 namespace Ra {
 namespace Dataflow {
 namespace Core {
+///\todo remove and use parameter set editor, here is dead code
 
 /// \brief Basic introspection for Node internal data edition
 /// This base class gives key information to associate editing capabilities (and gui) to

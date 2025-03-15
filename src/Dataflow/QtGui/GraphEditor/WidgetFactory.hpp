@@ -16,7 +16,7 @@ namespace GraphEditor {
 using namespace Ra::Dataflow::Core;
 
 ///\todo instead of a namespace, make it a class ?
-///\todo refactor EditableParameter to VariableSet
+///\todo refactor EditableParameter to VariableSet here is dead code
 
 /**
  * Set of functions to manage automatic widget creation and update for editable parameters in the Qt

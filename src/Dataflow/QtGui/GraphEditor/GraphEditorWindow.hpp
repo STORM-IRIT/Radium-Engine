@@ -5,8 +5,7 @@
 #include <QtWidgets>
 
 #include <Dataflow/Core/DataflowGraph.hpp>
-#include <Dataflow/QtGui/GraphEditor/GraphEditorView.hpp>
-#include <Dataflow/QtGui/GraphEditor/NodeAdapterModel.hpp>
+#include <Dataflow/QtGui/GraphEditor/GraphModel.hpp>
 
 namespace Ra {
 namespace Dataflow {

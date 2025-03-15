@@ -77,7 +77,6 @@ GraphEditorWindow::GraphEditorWindow( std::shared_ptr<DataflowGraph> graph ) : m
 
 void GraphEditorWindow::addNode( QTreeWidgetItem* item, int ) {
     if ( item->childCount() == 0 ) { m_graph_model->addNode( item->text( 0 ) ); }
-    std::cerr << "graph w " << m_graph.get() << " " << m_graph->getNodes().size() << "\n";
 }
 
 void GraphEditorWindow::closeEvent( QCloseEvent* event ) {
