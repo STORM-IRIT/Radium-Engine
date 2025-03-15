@@ -128,7 +128,7 @@ class PortIn : public PortBaseIn,
     void to_json_impl( nlohmann::json& data ) {
         if ( hasDefaultValue() ) {
             data["name"]          = getName();
-            data["default_value"] = getData();
+            data["default_value"] = getDefaultValue();
         }
     }
     template <typename B                                                               = T,
