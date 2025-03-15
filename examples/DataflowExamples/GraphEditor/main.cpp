@@ -7,16 +7,8 @@
 #include <QtNodes/ConnectionStyle>
 
 static void setStyle() {
-
     QtNodes::ConnectionStyle::setConnectionStyle(
-        R"(
-  {
-    "ConnectionStyle": {
-
-      "UseDataDefinedColors": true
-    }
-  }
-  )" );
+        R"( { "ConnectionStyle": { "UseDataDefinedColors": true } } )" );
 }
 
 int main( int argc, char* argv[] ) {
