@@ -34,33 +34,38 @@ GraphEditorWindow::GraphEditorWindow( std::shared_ptr<DataflowGraph> graph ) :
     m_graphEdit->show();
     QDockWidget* dock = new QDockWidget( this );
     dock->setAllowedAreas( Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea );
-    auto node_tree = new QTreeWidget( dock );
-    node_tree->setColumnCount( 1 );
-    node_tree->setHeaderLabel( "Nodes" );
 
-    ///\todo sort nodes names
-    for ( const auto& [factoryName, factory] : NodeFactoriesManager::getFactoryManager() ) {
-        auto factory_widget_item =
-            new QTreeWidgetItem( QStringList() << QString::fromStdString( factoryName ) );
+    auto node_tree_widget = new QTreeWidget( dock );
+    node_tree_widget->setColumnCount( 1 );
+    node_tree_widget->setHeaderLabel( "Nodes" );
 
-        std::map<std::string, QList<QTreeWidgetItem*>> node_list;
-        for ( const auto& [typeName, creator] : factory->getFactoryMap() ) {
+    for ( const auto& [factory_name, factory] : NodeFactoriesManager::getFactoryManager() ) {
+
+        std::map<std::string, std::vector<std::string>> node_list;
+        for ( const auto& [model_name, creator] : factory->getFactoryMap() ) {
             auto f              = creator.first;
             auto creatorFactory = factory;
-            node_list[creator.second].push_back(
-                new QTreeWidgetItem( QStringList() << QString::fromStdString( typeName ) ) );
+            node_list[creator.second].push_back( model_name );
         }
-        for ( auto [key, value] : node_list ) {
-            auto l = new QTreeWidgetItem( QStringList() << QString::fromStdString( key ) );
-            l->addChildren( value );
-            factory_widget_item->addChild( l );
+
+        auto factory_item =
+            new QTreeWidgetItem( QStringList() << QString::fromStdString( factory_name ) );
+
+        for ( auto [category, model_names] : node_list ) {
+            auto n = new QTreeWidgetItem( QStringList() << QString::fromStdString( category ) );
+            std::sort( model_names.begin(), model_names.end() );
+            for ( const auto& m : model_names ) {
+                n->addChild( new QTreeWidgetItem( QStringList() << QString::fromStdString( m ) ) );
+            }
+
+            factory_item->addChild( n );
         }
-        node_tree->addTopLevelItem( factory_widget_item );
+        node_tree_widget->addTopLevelItem( factory_item );
     }
 
-    connect( node_tree, &QTreeWidget::itemDoubleClicked, this, &GraphEditorWindow::addNode );
+    connect( node_tree_widget, &QTreeWidget::itemDoubleClicked, this, &GraphEditorWindow::addNode );
 
-    dock->setWidget( node_tree );
+    dock->setWidget( node_tree_widget );
     addDockWidget( Qt::LeftDockWidgetArea, dock );
     viewMenu->addAction( dock->toggleViewAction() );
 }
