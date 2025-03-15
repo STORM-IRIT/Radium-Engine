@@ -4,9 +4,9 @@
 #include <QMainWindow>
 #include <QtWidgets>
 
-#include <Dataflow/QtGui/GraphEditor/GraphEditorView.hpp>
-
 #include <Dataflow/Core/DataflowGraph.hpp>
+#include <Dataflow/QtGui/GraphEditor/GraphEditorView.hpp>
+#include <Dataflow/QtGui/GraphEditor/NodeAdapterModel.hpp>
 
 namespace Ra {
 namespace Dataflow {
@@ -16,8 +16,9 @@ namespace GraphEditor {
 using namespace Ra::Dataflow::Core;
 
 /**
- * \brief Window widget to edit a Node Graph.
- * This class just wrap a Ra::Dataflow::QtGui::GraphEditor::GraphEditorView in a main window with
+ * \brief Window widget to edit a DataflowGraph.
+ * This class wraps  DataflowGraph, GraphModel, QtNodes::BasicGraphicsScene and
+ * QtNodes::GraphicsView in a main window with
  * several services :
  *   - The window can be used as a standalone editor if no parameter is given to the constructor.
  *   - The window can be used to edit an existing graph by giving the graph to the constructor.
@@ -59,11 +60,14 @@ class RA_DATAFLOW_API GraphEditorWindow : public QMainWindow
     QString strippedName( const QString& fullFileName );
 
     std::shared_ptr<DataflowGraph> m_graph { nullptr };
+    std::shared_ptr<GraphModel> m_graph_model { nullptr };
 
-    GraphEditorView* m_graphEdit { nullptr };
-    QString m_curFile;
+    QtNodes::BasicGraphicsScene* m_scene { nullptr };
+    QtNodes::GraphicsView* m_view { nullptr };
 
-    QMenu* viewMenu;
+    QString m_curFile { "" };
+
+    QMenu* viewMenu { nullptr };
 };
 
 } // namespace GraphEditor

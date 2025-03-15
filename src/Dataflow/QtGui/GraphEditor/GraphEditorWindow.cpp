@@ -1,5 +1,7 @@
-#include "Dataflow/Core/NodeFactory.hpp"
 #include <Dataflow/QtGui/GraphEditor/GraphEditorWindow.hpp>
+
+#include <Dataflow/Core/NodeFactory.hpp>
+
 #include <memory>
 
 namespace Ra {
@@ -9,29 +11,31 @@ namespace GraphEditor {
 
 using namespace Ra::Dataflow::Core;
 
-GraphEditorWindow::~GraphEditorWindow() {
-    delete m_graphEdit;
-}
+GraphEditorWindow::~GraphEditorWindow() {}
 
-GraphEditorWindow::GraphEditorWindow( std::shared_ptr<DataflowGraph> graph ) :
-    m_graph { graph }, m_graphEdit { new GraphEditorView( m_graph, nullptr ) } {
+GraphEditorWindow::GraphEditorWindow( std::shared_ptr<DataflowGraph> graph ) : m_graph { graph } {
 
-    if ( !m_graph ) {
-        m_graph = std::make_shared<DataflowGraph>( "" );
-        m_graphEdit->getGraph()->setGraph( m_graph );
-    }
-    setCentralWidget( m_graphEdit );
-    m_graphEdit->setFocusPolicy( Qt::StrongFocus );
+    if ( !m_graph ) { m_graph = std::make_shared<DataflowGraph>( "" ); }
+
+    auto central_widget = new QWidget( this );
+    auto central_layout = new QVBoxLayout( central_widget );
+
+    m_graph_model = std::make_shared<GraphModel>( m_graph );
+    m_scene       = new QtNodes::BasicGraphicsScene( *m_graph_model, this );
+    m_view        = new QtNodes::GraphicsView( m_scene, this );
+
+    central_layout->addWidget( m_view );
+    central_layout->setContentsMargins( 0, 0, 0, 0 );
+    central_layout->setSpacing( 0 );
+    setCentralWidget( central_widget );
+    central_widget->setFocusPolicy( Qt::StrongFocus );
 
     createActions();
     createStatusBar();
-
     readSettings();
 
     setCurrentFile( QString() );
     setUnifiedTitleAndToolBarOnMac( true );
-
-    m_graphEdit->show();
 
     QDockWidget* dock = new QDockWidget( this );
     dock->setAllowedAreas( Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea );
@@ -72,7 +76,8 @@ GraphEditorWindow::GraphEditorWindow( std::shared_ptr<DataflowGraph> graph ) :
 }
 
 void GraphEditorWindow::addNode( QTreeWidgetItem* item, int ) {
-    if ( item->childCount() == 0 ) { m_graphEdit->getGraph()->addNode( item->text( 0 ) ); }
+    if ( item->childCount() == 0 ) { m_graph_model->addNode( item->text( 0 ) ); }
+    std::cerr << "graph w " << m_graph.get() << " " << m_graph->getNodes().size() << "\n";
 }
 
 void GraphEditorWindow::closeEvent( QCloseEvent* event ) {
@@ -85,8 +90,10 @@ void GraphEditorWindow::closeEvent( QCloseEvent* event ) {
 
 void GraphEditorWindow::newFile() {
     if ( maybeSave() ) {
-        // Currently edited graph must be deleted only after it is no more used by the editor
         m_graph->destroy();
+        m_graph_model->sync_data();
+        m_view->centerScene();
+
         setCurrentFile( "" );
     }
 }
@@ -189,9 +196,6 @@ void GraphEditorWindow::readSettings() {
               ( availableGeometry.height() - height() ) / 2 );
     }
     else { restoreGeometry( geometry ); }
-    const QByteArray graphGeometry = settings.value( "graph", QByteArray() ).toByteArray();
-    if ( graphGeometry.isEmpty() ) { m_graphEdit->resize( 800, 600 ); }
-    else { m_graphEdit->restoreGeometry( graphGeometry ); }
     settings.endGroup();
 }
 
@@ -199,7 +203,6 @@ void GraphEditorWindow::writeSettings() {
     QSettings settings( QCoreApplication::organizationName(), QCoreApplication::applicationName() );
     settings.beginGroup( "nodegraph editor" );
     settings.setValue( "geometry", saveGeometry() );
-    settings.setValue( "graph", m_graphEdit->saveGeometry() );
     settings.endGroup();
 }
 
@@ -251,7 +254,8 @@ void GraphEditorWindow::loadFile( const QString& fileName ) {
 
     QGuiApplication::restoreOverrideCursor();
     if ( loaded ) {
-        m_graphEdit->sync_data();
+        m_graph_model->sync_data();
+        m_view->centerScene();
         setCurrentFile( fileName );
         statusBar()->showMessage( tr( "File loaded" ), 2000 );
 

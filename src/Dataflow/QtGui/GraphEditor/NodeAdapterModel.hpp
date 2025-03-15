@@ -29,7 +29,7 @@ namespace GraphEditor {
 /**
  * Adapter between DataflowGraph and QtNodes, bare minimal, based on simple_graph QtNodes example.
  */
-class SimpleGraphModel : public QtNodes::AbstractGraphModel
+class GraphModel : public QtNodes::AbstractGraphModel
 {
     using ConnectionId     = QtNodes::ConnectionId;
     using ConnectionPolicy = QtNodes::ConnectionPolicy;
@@ -49,9 +49,9 @@ class SimpleGraphModel : public QtNodes::AbstractGraphModel
     };
 
   public:
-    SimpleGraphModel( std::shared_ptr<Core::DataflowGraph> graph );
+    GraphModel( std::shared_ptr<Core::DataflowGraph> graph );
 
-    ~SimpleGraphModel() override;
+    ~GraphModel() override;
 
     std::unordered_set<NodeId> allNodeIds() const override;
 

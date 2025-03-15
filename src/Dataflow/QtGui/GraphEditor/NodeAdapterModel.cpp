@@ -18,17 +18,16 @@ using PortType         = QtNodes::PortType;
 using StyleCollection  = QtNodes::StyleCollection;
 using QtNodes::InvalidNodeId;
 
-SimpleGraphModel::SimpleGraphModel( std::shared_ptr<Core::DataflowGraph> graph ) :
+GraphModel::GraphModel( std::shared_ptr<Core::DataflowGraph> graph ) :
     m_graph { graph }, _nextNodeId { 0 } {
-    m_graph = std::make_shared<DataflowGraph>( "graph" );
     buildFactoryMap();
 }
 
-SimpleGraphModel::~SimpleGraphModel() {
+GraphModel::~GraphModel() {
     //
 }
 
-void SimpleGraphModel::buildFactoryMap() {
+void GraphModel::buildFactoryMap() {
     auto factories = NodeFactoriesManager::getFactoryManager();
     for ( const auto& [factoryName, factory] : factories ) {
         for ( const auto& [model_name, creator] : factory->getFactoryMap() ) {
@@ -39,11 +38,11 @@ void SimpleGraphModel::buildFactoryMap() {
     }
 }
 
-std::unordered_set<NodeId> SimpleGraphModel::allNodeIds() const {
+std::unordered_set<NodeId> GraphModel::allNodeIds() const {
     return _nodeIds;
 }
 
-std::unordered_set<ConnectionId> SimpleGraphModel::allConnectionIds( NodeId const nodeId ) const {
+std::unordered_set<ConnectionId> GraphModel::allConnectionIds( NodeId const nodeId ) const {
     std::unordered_set<ConnectionId> result;
 
     std::copy_if( _connectivity.begin(),
@@ -57,7 +56,7 @@ std::unordered_set<ConnectionId> SimpleGraphModel::allConnectionIds( NodeId cons
 }
 
 std::unordered_set<ConnectionId>
-SimpleGraphModel::connections( NodeId nodeId, PortType portType, PortIndex portIndex ) const {
+GraphModel::connections( NodeId nodeId, PortType portType, PortIndex portIndex ) const {
     std::unordered_set<ConnectionId> result;
 
     std::copy_if( _connectivity.begin(),
@@ -71,18 +70,17 @@ SimpleGraphModel::connections( NodeId nodeId, PortType portType, PortIndex portI
     return result;
 }
 
-bool SimpleGraphModel::connectionExists( ConnectionId const connectionId ) const {
+bool GraphModel::connectionExists( ConnectionId const connectionId ) const {
     return ( _connectivity.find( connectionId ) != _connectivity.end() );
 }
 
-NodeId SimpleGraphModel::addNode( QString const nodeType ) {
+NodeId GraphModel::addNode( QString const nodeType ) {
 
     auto f = m_model_name_to_factory[nodeType.toStdString()];
     auto n = f( {} );
     m_graph->addNode( n );
 
     NodeId newId = newNodeId();
-    // Create new node.
     _nodeIds.insert( newId );
     m_node_id_to_ptr[newId] = n;
 
@@ -91,7 +89,7 @@ NodeId SimpleGraphModel::addNode( QString const nodeType ) {
     return newId;
 }
 
-bool SimpleGraphModel::connectionPossible( ConnectionId const connectionId ) const {
+bool GraphModel::connectionPossible( ConnectionId const connectionId ) const {
     auto in_node_id  = connectionId.inNodeId;
     auto out_node_id = connectionId.outNodeId;
 
@@ -107,7 +105,7 @@ bool SimpleGraphModel::connectionPossible( ConnectionId const connectionId ) con
     return ret;
 }
 
-void SimpleGraphModel::addConnection( ConnectionId const connectionId ) {
+void GraphModel::addConnection( ConnectionId const connectionId ) {
     _connectivity.insert( connectionId );
     auto in_node_id  = connectionId.inNodeId;
     auto out_node_id = connectionId.outNodeId;
@@ -121,11 +119,11 @@ void SimpleGraphModel::addConnection( ConnectionId const connectionId ) {
     Q_EMIT connectionCreated( connectionId );
 }
 
-bool SimpleGraphModel::nodeExists( NodeId const nodeId ) const {
+bool GraphModel::nodeExists( NodeId const nodeId ) const {
     return ( _nodeIds.find( nodeId ) != _nodeIds.end() );
 }
 
-QWidget* SimpleGraphModel::getWidget( std::shared_ptr<Core::Node> node ) const {
+QWidget* GraphModel::getWidget( std::shared_ptr<Core::Node> node ) const {
     QWidget* controlPanel = new QWidget;
     controlPanel->setStyleSheet( "background-color:transparent;" );
     QVBoxLayout* layout = new QVBoxLayout( controlPanel );
@@ -145,7 +143,7 @@ QWidget* SimpleGraphModel::getWidget( std::shared_ptr<Core::Node> node ) const {
     return controlPanel;
 }
 
-QVariant SimpleGraphModel::nodeData( NodeId nodeId, NodeRole role ) const {
+QVariant GraphModel::nodeData( NodeId nodeId, NodeRole role ) const {
 
     QVariant result;
     auto node_ptr = m_node_id_to_ptr.at( nodeId );
@@ -199,7 +197,7 @@ QVariant SimpleGraphModel::nodeData( NodeId nodeId, NodeRole role ) const {
     return result;
 }
 
-bool SimpleGraphModel::setNodeData( NodeId nodeId, NodeRole role, QVariant value ) {
+bool GraphModel::setNodeData( NodeId nodeId, NodeRole role, QVariant value ) {
     bool result   = false;
     auto node_ptr = m_node_id_to_ptr.at( nodeId );
 
@@ -247,10 +245,8 @@ bool SimpleGraphModel::setNodeData( NodeId nodeId, NodeRole role, QVariant value
     return result;
 }
 
-QVariant SimpleGraphModel::portData( NodeId nodeId,
-                                     PortType portType,
-                                     PortIndex portIndex,
-                                     PortRole role ) const {
+QVariant
+GraphModel::portData( NodeId nodeId, PortType portType, PortIndex portIndex, PortRole role ) const {
 
     auto n = m_node_id_to_ptr.at( nodeId );
 
@@ -288,11 +284,11 @@ QVariant SimpleGraphModel::portData( NodeId nodeId,
     return QVariant();
 }
 
-bool SimpleGraphModel::setPortData( NodeId nodeId,
-                                    PortType portType,
-                                    PortIndex portIndex,
-                                    QVariant const& value,
-                                    PortRole role ) {
+bool GraphModel::setPortData( NodeId nodeId,
+                              PortType portType,
+                              PortIndex portIndex,
+                              QVariant const& value,
+                              PortRole role ) {
     Q_UNUSED( nodeId );
     Q_UNUSED( portType );
     Q_UNUSED( portIndex );
@@ -302,7 +298,7 @@ bool SimpleGraphModel::setPortData( NodeId nodeId,
     return false;
 }
 
-bool SimpleGraphModel::deleteConnection( ConnectionId const connectionId ) {
+bool GraphModel::deleteConnection( ConnectionId const connectionId ) {
     bool disconnected = false;
 
     auto it = _connectivity.find( connectionId );
@@ -321,7 +317,7 @@ bool SimpleGraphModel::deleteConnection( ConnectionId const connectionId ) {
     return disconnected;
 }
 
-bool SimpleGraphModel::deleteNode( NodeId const nodeId ) {
+bool GraphModel::deleteNode( NodeId const nodeId ) {
     // Delete connections to this node first.
     auto connectionIds = allConnectionIds( nodeId );
 
@@ -341,7 +337,7 @@ bool SimpleGraphModel::deleteNode( NodeId const nodeId ) {
     return true;
 }
 
-QJsonObject SimpleGraphModel::saveNode( NodeId const nodeId ) const {
+QJsonObject GraphModel::saveNode( NodeId const nodeId ) const {
     QJsonObject nodeJson;
 
     auto node = m_node_id_to_ptr.at( nodeId );
@@ -366,7 +362,7 @@ QJsonObject SimpleGraphModel::saveNode( NodeId const nodeId ) const {
     return nodeJson;
 }
 
-void SimpleGraphModel::loadNode( QJsonObject const& nodeJson ) {
+void GraphModel::loadNode( QJsonObject const& nodeJson ) {
 
     // init node from json
     auto json = nlohmann::json::parse( QJsonDocument( nodeJson ).toJson() );
@@ -397,12 +393,12 @@ void SimpleGraphModel::loadNode( QJsonObject const& nodeJson ) {
     }
 }
 
-void SimpleGraphModel::setGraph( std::shared_ptr<Core::DataflowGraph> graph ) {
+void GraphModel::setGraph( std::shared_ptr<Core::DataflowGraph> graph ) {
     m_graph = graph;
     sync_data();
 }
 
-void SimpleGraphModel::sync_data() {
+void GraphModel::sync_data() {
     _nodeIds.clear();
     m_node_id_to_ptr.clear();
     _connectivity.clear();
@@ -473,6 +469,7 @@ void SimpleGraphModel::sync_data() {
             }
         }
     }
+    emit modelReset();
 }
 
 } // namespace GraphEditor
