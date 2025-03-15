@@ -199,15 +199,21 @@ QVariant SimpleGraphModel::nodeData( NodeId nodeId, NodeRole role ) const {
 }
 
 bool SimpleGraphModel::setNodeData( NodeId nodeId, NodeRole role, QVariant value ) {
-    bool result = false;
+    bool result   = false;
+    auto node_ptr = m_node_id_to_ptr.at( nodeId );
 
     switch ( role ) {
     case NodeRole::Type:
         break;
     case NodeRole::Position: {
-        _nodeGeometryData[nodeId].pos = value.value<QPointF>();
+        auto pos = value.value<QPointF>();
 
-        Q_EMIT nodePositionUpdated( nodeId );
+        _nodeGeometryData[nodeId].pos = pos;
+
+        nlohmann::json json = { { "position", { "x", pos.x() }, { "y", pos.y() } } };
+
+        node_ptr->addJsonMetaData( json );
+        emit nodePositionUpdated( nodeId );
 
         result = true;
     } break;
@@ -311,7 +317,7 @@ bool SimpleGraphModel::deleteConnection( ConnectionId const connectionId ) {
         _connectivity.erase( it );
     }
 
-    if ( disconnected ) Q_EMIT connectionDeleted( connectionId );
+    if ( disconnected ) emit connectionDeleted( connectionId );
 
     return disconnected;
 }
@@ -331,7 +337,7 @@ bool SimpleGraphModel::deleteNode( NodeId const nodeId ) {
     _nodeIds.erase( nodeId );
     _nodeGeometryData.erase( nodeId );
 
-    Q_EMIT nodeDeleted( nodeId );
+    emit nodeDeleted( nodeId );
 
     return true;
 }
@@ -344,23 +350,18 @@ QJsonObject SimpleGraphModel::saveNode( NodeId const nodeId ) const {
     // get node's json
     nlohmann::json json;
     node->toJson( json );
+    {
+        // appens ui stuff
+        json["id"]        = static_cast<qint64>( nodeId );
+        QPointF const pos = nodeData( nodeId, NodeRole::Position ).value<QPointF>();
+        json["position"]  = { { "x", pos.x() }, { "y", pos.y() } };
+    }
 
     // convert to QJsonObject
     QJsonDocument jsonResponse = QJsonDocument::fromJson( json.dump().c_str() );
     QJsonObject jsonObject     = jsonResponse.object();
     for ( auto it = jsonObject.constBegin(); it != jsonObject.constEnd(); it++ ) {
         nodeJson.insert( it.key(), it.value() );
-    }
-
-    // appens ui stuff
-    nodeJson["id"] = static_cast<qint64>( nodeId );
-    {
-        QPointF const pos = nodeData( nodeId, NodeRole::Position ).value<QPointF>();
-
-        QJsonObject posJson;
-        posJson["x"]         = pos.x();
-        posJson["y"]         = pos.y();
-        nodeJson["position"] = posJson;
     }
 
     return nodeJson;
