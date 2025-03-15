@@ -62,9 +62,7 @@ void Node::toJson( nlohmann::json& data ) const {
 }
 
 void Node::addJsonMetaData( const nlohmann::json& data ) {
-    for ( auto& [key, value] : data.items() ) {
-        m_extraJsonData[key] = value;
-    }
+    m_extraJsonData.merge_patch( data );
 }
 
 Node::IndexAndPort<Node::PortBaseRawPtr> Node::getPortByName( const std::string& type,
