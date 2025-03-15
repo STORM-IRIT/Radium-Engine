@@ -38,24 +38,6 @@ class RA_DATAFLOW_API DataflowGraph : public Node
     bool execute() override;
     void destroy() override;
 
-    /// \brief Set the factories to use when loading a graph.
-    /// \param factories new factory set that will replace the existing factory set if any.
-    void setNodeFactories( std::shared_ptr<NodeFactorySet> factories ) { m_factories = factories; }
-
-    /// \brief Get the node factories associated with the graph.
-    /// \return returns nullptr if no factory set is associated with the graph.
-    std::shared_ptr<NodeFactorySet> getNodeFactories() const { return m_factories; }
-
-    /// \brief Add a factory to the factory set of the graph.
-    /// Creates the factory set if it does not exists
-    /// \param f  a shared pointer to the factory to be added. The name of this factory
-    void addFactory( std::shared_ptr<NodeFactory> f );
-
-    /// \brief Remove a factory from the factory set of the graph.
-    /// \param name the name of the factory to remove
-    /// \return true if the factory was found and removed
-    bool removeFactory( const std::string& name ) { return m_factories->removeFactory( name ); }
-
     /// \brief Loads nodes and links from a JSON file.
     /// \param jsonFilePath The path to the JSON file.
     /// \return true if the file was loaded, false if an error occurs.
@@ -207,8 +189,8 @@ class RA_DATAFLOW_API DataflowGraph : public Node
      * \brief Load a graph from the given file.
      * \param filename
      * Any type of graph that inherits from DataflowGraph can be loaded by this function as soon
-     * as the appropriate constructor is registered in the node factory. \return The loaded
-     * graph, as a DataFlowGraph pointer to be downcast to the correct type
+     * as the appropriate constructor is registered in Ra::Dataflow::NodeFactoriesManager.
+     * \return The loaded graph, as a DataFlowGraph pointer to be downcast to the correct type
      */
     static std::shared_ptr<DataflowGraph> loadGraphFromJsonFile( const std::string& filename );
 
@@ -291,8 +273,6 @@ class RA_DATAFLOW_API DataflowGraph : public Node
     /// This flag is reset as soon as the graph is modified.
     bool m_ready { false };
 
-    /// The node factory to use for loading
-    std::shared_ptr<NodeFactorySet> m_factories;
     /// The unordered list of nodes.
     std::vector<std::shared_ptr<Node>> m_nodes;
     // Internal node levels representation
@@ -306,10 +286,6 @@ class RA_DATAFLOW_API DataflowGraph : public Node
 // -----------------------------------------------------------------
 // ---------------------- inline methods ---------------------------
 
-inline void DataflowGraph::addFactory( std::shared_ptr<NodeFactory> f ) {
-    if ( !m_factories ) { m_factories.reset( new NodeFactorySet ); }
-    m_factories->addFactory( f );
-}
 template <typename T, typename... U>
 std::shared_ptr<T> DataflowGraph::addNode( U&&... u ) {
     auto ret = std::make_shared<T>( std::forward<U>( u )... );

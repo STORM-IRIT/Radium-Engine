@@ -16,10 +16,7 @@ using namespace Ra::Core::Utils;
 DataflowGraph::DataflowGraph( const std::string& name ) : DataflowGraph( name, getTypename() ) {}
 
 DataflowGraph::DataflowGraph( const std::string& instanceName, const std::string& typeName ) :
-    Node( instanceName, typeName ) {
-    // A graph always use the builtin nodes factory ???
-    // addFactory( NodeFactoriesManager::getDataFlowBuiltInsFactory() );
-}
+    Node( instanceName, typeName ) {}
 
 void DataflowGraph::init() {
     if ( m_ready ) {
@@ -55,7 +52,6 @@ void DataflowGraph::destroy() {
         m_nodesByLevel.begin(), m_nodesByLevel.end(), []( auto& level ) { level.clear(); } );
     m_nodesByLevel.clear();
     m_nodes.clear();
-    m_factories.reset();
     Node::destroy();
     needsRecompile();
 }
@@ -71,21 +67,10 @@ void DataflowGraph::saveToJson( const std::string& jsonFilePath ) {
 }
 
 void DataflowGraph::toJsonInternal( nlohmann::json& data ) const {
-    nlohmann::json factories   = nlohmann::json::array();
     nlohmann::json nodes       = nlohmann::json::array();
     nlohmann::json connections = nlohmann::json::array();
     nlohmann::json model;
     nlohmann::json graph;
-
-    if ( m_factories ) {
-        for ( const auto& [name, factory] : *m_factories ) {
-            // do not save the standard factory, it will always be there
-            if ( name != NodeFactoriesManager::dataFlowBuiltInsFactoryName ) {
-                factories.push_back( name );
-            }
-        }
-        graph["factories"] = factories;
-    }
 
     for ( const auto& n : m_nodes ) {
         nlohmann::json nodeData;
@@ -168,23 +153,8 @@ bool DataflowGraph::fromJsonInternal( const nlohmann::json& data ) {
         // indicate that the graph must be recompiled after loading
         needsRecompile();
         // load the graph
-        m_factories.reset( new NodeFactorySet );
-        addFactory( NodeFactoriesManager::getDataFlowBuiltInsFactory() );
-        if ( data["graph"].contains( "factories" ) ) {
-            auto factories = data["graph"]["factories"];
-            for ( const auto& factoryName : factories ) {
-                // Do not add factories already registered for the graph.
-                if ( m_factories->hasFactory( factoryName ) ) { continue; }
-                auto factory = NodeFactoriesManager::getFactory( factoryName );
-                if ( factory ) { addFactory( factory ); }
-                else {
-                    LOG( logERROR )
-                        << "DataflowGraph::loadFromJson : Unable to find a factory with name "
-                        << factoryName;
-                    return false;
-                }
-            }
-        }
+        auto factories = NodeFactoriesManager::getFactoryManager();
+
         std::map<std::string, std::shared_ptr<Node>> nodeByName;
         auto nodes = data["graph"]["nodes"];
         for ( auto& n : nodes ) {
@@ -202,7 +172,7 @@ bool DataflowGraph::fromJsonInternal( const nlohmann::json& data ) {
                                 << " without identification ";
                 return false;
             }
-            auto newNode = m_factories->createNode( nodeTypeName, n, this );
+            auto newNode = factories.createNode( nodeTypeName, n, this );
             if ( newNode ) {
                 if ( !instanceName.empty() ) {
                     auto [it, inserted] = nodeByName.insert( { instanceName, newNode } );
@@ -592,20 +562,20 @@ std::shared_ptr<DataflowGraph> DataflowGraph::loadGraphFromJsonFile( const std::
     std::string graphType    = j["model"]["name"];
     LOG( logINFO ) << "Loading the graph " << instanceName << ", with type " << graphType << "\n";
 
-    auto& fctMngr = Ra::Dataflow::Core::NodeFactoriesManager::getFactoryManager();
-    auto ndldd    = fctMngr.createNode( graphType, j );
-    if ( ndldd == nullptr ) {
+    auto& factories = Ra::Dataflow::Core::NodeFactoriesManager::getFactoryManager();
+    auto node       = factories.createNode( graphType, j );
+    if ( node == nullptr ) {
         LOG( logERROR ) << "Unable to load a graph with type " << graphType << "\n";
         return nullptr;
     }
 
-    auto graph = std::dynamic_pointer_cast<DataflowGraph>( ndldd );
+    auto graph = std::dynamic_pointer_cast<DataflowGraph>( node );
     if ( graph != nullptr ) {
         graph->m_shouldBeSaved = false;
         return graph;
     }
 
-    LOG( logERROR ) << "Loaded graph not inheriting from DataflowGraph " << graphType << "\n";
+    LOG( logERROR ) << "Loaded graph failed (not derived from DataflowGraph) " << graphType << "\n";
 
     return nullptr;
 }
