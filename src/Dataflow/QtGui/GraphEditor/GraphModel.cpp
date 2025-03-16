@@ -423,7 +423,7 @@ void GraphModel::sync_data() {
                 return pair.second.get() == in_node.get();
             } );
         if ( in_node_itr == m_node_id_to_ptr.end() ) {
-            std::cerr << "error graph structure in_node\n";
+            LOG( Ra::Core::Utils::logERROR ) << "error graph structure in_node";
             return;
         }
         const auto& in_node_id = in_node_itr->first;
@@ -440,7 +440,7 @@ void GraphModel::sync_data() {
                     m_node_id_to_ptr.end(),
                     [out_node]( const auto& pair ) { return pair.second.get() == out_node; } );
                 if ( out_node_itr == m_node_id_to_ptr.end() ) {
-                    std::cerr << "error graph structure out_node\n";
+                    LOG( Ra::Core::Utils::logERROR ) << "error graph structure out_node";
                     return;
                 }
                 const auto& out_node_id = out_node_itr->first;
@@ -450,7 +450,7 @@ void GraphModel::sync_data() {
                                              out_node->getOutputs().end(),
                                              [out_port]( auto p ) { return p.get() == out_port; } );
                 if ( out_port_itr == out_node->getOutputs().end() ) {
-                    std::cerr << "error graph structure out_port\n";
+                    LOG( Ra::Core::Utils::logERROR ) << "error graph structure out_port";
                     return;
                 }
                 const auto out_port_id =
