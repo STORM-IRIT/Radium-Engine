@@ -46,7 +46,7 @@ class FilterSelector final : public Node
         if ( m_portName->isLinked() ) { m_operatorName = m_portName->getData(); }
         if ( m_portThreshold->isLinked() ) { m_threshold = m_portThreshold->getData(); }
         // compute the result associated to the output port
-        m_currentFunction = m_functions[m_operatorName];
+        m_currentFunction = m_functions.at( m_operatorName );
         return true;
     }
 
@@ -59,7 +59,7 @@ class FilterSelector final : public Node
      * \brief Get the delivered data
      * @return The non owning pointer (alias) to the delivered data.
      */
-    function_type* getOperator() const { return m_functions[m_operatorName]; }
+    function_type* getOperator() const { return m_functions.at( m_operatorName ); }
 
     /** \brief Set the threshold - will copy the value into the node
      * @param name
@@ -206,13 +206,11 @@ TEST_CASE( "Dataflow/Core/Custom nodes", "[Dataflow][Core][Custom nodes]" ) {
 
         inputCollection->setData( testVector );
 
-        Scalar threshold { 0.5_ra };
-        inputThreshold->getOutputByName( "to" ).second->setData( &threshold );
+        inputThreshold->setData( .5_ra );
 
-        std::string op { "true" };
-        inputOpName->getOutputByName( "to" ).second->setData( &op );
+        inputOpName->setData( "true" );
 
-        std::cout << "Data sent to graph : \n\toperator " << op << " : \n\t";
+        std::cout << "Data sent to graph : \n\toperator " << inputOpName->getData() << " : \n\t";
         for ( auto ord : testVector ) {
             std::cout << ord << ' ';
         }
@@ -224,57 +222,61 @@ TEST_CASE( "Dataflow/Core/Custom nodes", "[Dataflow][Core][Custom nodes]" ) {
         REQUIRE( r );
 
         // Getters are usable only after successful compilation/execution of the graph
-        // Get results as references (no need to get them again later if the graph does not change)
+        // Get results as references (no need to get them again later if the graph does
+        // not change)
         auto& vres = filteredCollection->getInputByName( "from" ).second->getData<CollectionType>();
         auto& vop  = generatedOperator->getInputByName( "from" ).second->getData<std::string>();
 
         REQUIRE( vop == "true" );
         REQUIRE( vres.size() == testVector.size() );
-        std::cout << "Result after applying operator " << vop << " (from " << op
-                  << " ) and threshold " << threshold << ": \n\t";
+        std::cout << "Result after applying operator " << vop << " (from " << inputOpName->getData()
+                  << " ) and threshold " << inputThreshold->getData() << ": \n\t";
         for ( auto ord : vres ) {
             std::cout << ord << ' ';
         }
         std::cout << '\n';
 
         // change operator to filter out everything
-        op = "false";
-        r  = g->execute();
+        inputOpName->setData( "false" );
+        r = g->execute();
         REQUIRE( r );
         REQUIRE( vop == "false" );
         REQUIRE( vres.size() == 0 );
 
-        std::cout << "Result after applying operator " << vop << " (from " << op
-                  << " ) and threshold " << threshold << ": \n\t";
+        std::cout << "Result after applying operator " << vop << " (from "
+                  << *inputOpName->getData() << " ) and threshold " << inputThreshold->getData()
+                  << ": \n\t";
         for ( auto ord : vres ) {
             std::cout << ord << ' ';
         }
         std::cout << '\n';
         // Change operator to keep element less than threshold
-        op = "<";
-        r  = g->execute();
+        inputOpName->setData( "<" );
+        r = g->execute();
         REQUIRE( r );
 
-        std::cout << "Result after applying operator " << vop << " (from " << op
-                  << " ) and threshold " << threshold << ": \n\t";
+        std::cout << "Result after applying operator " << vop << " (from "
+                  << *inputOpName->getData() << " ) and threshold " << *inputThreshold->getData()
+                  << ": \n\t";
         for ( auto ord : vres ) {
             std::cout << ord << ' ';
         }
         std::cout << '\n';
-        REQUIRE( *( std::max_element( vres.begin(), vres.end() ) ) < threshold );
+        REQUIRE( *( std::max_element( vres.begin(), vres.end() ) ) < *inputThreshold->getData() );
 
         // Change operator to keep element greater than threshold
-        op = ">";
-        r  = g->execute();
+        inputOpName->setData( ">" );
+        r = g->execute();
         REQUIRE( r );
 
-        std::cout << "Result after applying operator " << vop << " (from " << op
-                  << " ) and threshold " << threshold << ": \n\t";
+        std::cout << "Result after applying operator " << vop << " (from "
+                  << *inputOpName->getData() << " ) and threshold " << *inputThreshold->getData()
+                  << ": \n\t";
         for ( auto ord : vres ) {
             std::cout << ord << ' ';
         }
         std::cout << '\n';
-        REQUIRE( *( std::max_element( vres.begin(), vres.end() ) ) > threshold );
+        REQUIRE( *( std::max_element( vres.begin(), vres.end() ) ) > *inputThreshold->getData() );
     }
     SECTION( "Serialization of a custom graph" ) {
         // Create and fill the factory for the custom nodes
@@ -309,12 +311,11 @@ TEST_CASE( "Dataflow/Core/Custom nodes", "[Dataflow][Core][Custom nodes]" ) {
         REQUIRE( customSource != nullptr );
 
         std::cout << "Created node " << customSource->getInstanceName() << " with type "
-                  << customSource->getTypeName() << " // "
+                  << customSource->getModelName() << " // "
                   << Customs::CustomStringSource::getTypename() << "\n";
 
         // build a graph
         auto g = buildgraph<Scalar>( "testCustomNodes" );
-        g->addFactory( customFactory );
 
         std::string tmpdir { "customGraphExport/" };
         std::filesystem::create_directories( tmpdir );

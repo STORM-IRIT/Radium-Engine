@@ -9,19 +9,11 @@
 using namespace Ra::Dataflow::Core;
 
 void inspectGraph( const DataflowGraph& g ) {
-    // Factories used by the graph
-    auto factories = g.getNodeFactories();
-    std::cout << "Used factories by the graph \"" << g.getInstanceName() << "\" with type \""
-              << g.getTypeName() << "\" :\n";
-    for ( const auto& f : *( factories.get() ) ) {
-        std::cout << "\t" << f.first << "\n";
-    }
-
     // Nodes of the graph
     const auto& nodes = g.getNodes();
     std::cout << "Nodes of the graph " << g.getInstanceName() << " (" << nodes.size() << ") :\n";
     for ( const auto& n : nodes ) {
-        std::cout << "\t\"" << n->getInstanceName() << "\" of type \"" << n->getTypeName()
+        std::cout << "\t\"" << n->getInstanceName() << "\" of type \"" << n->getModelName()
                   << "\"\n";
         // Inspect input, output and interfaces of the node
         std::cout << "\t\tInput ports :\n";
@@ -95,24 +87,13 @@ TEST_CASE( "Dataflow/Core/Graph", "[Dataflow][Core][Graph]" ) {
         REQUIRE( result );
         g.destroy();
 
-        // Requesting unknown factory
-        nlohmann::json wrongFactory = {
-            { "instance", "unknown factory" },
-            { "model",
-              { { "name", "Core DataflowGraph" },
-                { "graph", { { "factories", { "NotAFactory" } } } } } } };
-        result = g.fromJson( wrongFactory );
-        REQUIRE( !result );
-        g.destroy();
-
         // trying to instance an unknown node type
         nlohmann::json NotANode = {
             { "instance", "graph with unknown node" },
             { "model",
               { { "name", "Core DataflowGraph" },
                 { "graph",
-                  { { "factories", {} },
-                    { "nodes",
+                  { { "nodes",
                       { { { "instance", "NotANode" },
                           { "model", { { "name", "NotANode" } } } } } } } } } } };
         result = g.fromJson( NotANode );
@@ -125,8 +106,7 @@ TEST_CASE( "Dataflow/Core/Graph", "[Dataflow][Core][Graph]" ) {
             { "model",
               { { "name", "Core DataflowGraph" },
                 { "graph",
-                  { { "factories", {} },
-                    { "nodes",
+                  { { "nodes",
                       { { { "instance", "Unknown model" },
                           { "model", { { "extra", "NotaTypeName" } } } } } } } } } } };
         result = g.fromJson( NoModelName );
@@ -139,8 +119,7 @@ TEST_CASE( "Dataflow/Core/Graph", "[Dataflow][Core][Graph]" ) {
             { "model",
               { { "name", "Core DataflowGraph" },
                 { "graph",
-                  { { "factories", {} },
-                    { "nodes", { { { "model", { { "name", "Source<float>" } } } } } } } } } } };
+                  { { "nodes", { { { "model", { { "name", "Source<float>" } } } } } } } } } } };
         result = g.fromJson( noInstanceIdentification );
         REQUIRE( !result );
         g.destroy();
@@ -151,8 +130,7 @@ TEST_CASE( "Dataflow/Core/Graph", "[Dataflow][Core][Graph]" ) {
             { "model",
               { { "name", "Core DataflowGraph" },
                 { "graph",
-                  { { "factories", {} },
-                    { "nodes",
+                  { { "nodes",
                       { { { "instance", "Source" }, { "model", { { "name", "Source<float>" } } } },
                         { { "instance", "Source" }, { "model", { { "name", "Sink<int>" } } } } } },
                     { "connections", { { { "out_node", "wrongId" } } } } } } } } };
@@ -164,8 +142,7 @@ TEST_CASE( "Dataflow/Core/Graph", "[Dataflow][Core][Graph]" ) {
             { "model",
               { { "name", "Core DataflowGraph" },
                 { "graph",
-                  { { "factories", {} },
-                    { "nodes",
+                  { { "nodes",
                       { { { "model", { { "name", "Source<float>" } } } },
                         { { "model", { { "name", "Sink<int>" } } } } } },
                     { "connections", { { { "out_node", "wrongId" } } } } } } } } };
@@ -179,8 +156,7 @@ TEST_CASE( "Dataflow/Core/Graph", "[Dataflow][Core][Graph]" ) {
             { "model",
               { { "name", "Core DataflowGraph" },
                 { "graph",
-                  { { "factories", {} },
-                    { "nodes",
+                  { { "nodes",
                       { { { "instance", "SourceFloat" },
                           { "model", { { "name", "Source<float>" } } } },
                         { { "instance", "SinkInt" }, { "model", { { "name", "Sink<int>" } } } } } },
@@ -194,8 +170,7 @@ TEST_CASE( "Dataflow/Core/Graph", "[Dataflow][Core][Graph]" ) {
             { "model",
               { { "name", "Core DataflowGraph" },
                 { "graph",
-                  { { "factories", {} },
-                    { "nodes",
+                  { { "nodes",
                       { { { "instance", "SourceFloat" },
                           { "model", { { "name", "Source<float>" } } } },
                         { { "instance", "SinkInt" }, { "model", { { "name", "Sink<int>" } } } } } },
@@ -210,8 +185,7 @@ TEST_CASE( "Dataflow/Core/Graph", "[Dataflow][Core][Graph]" ) {
             { "model",
               { { "name", "Core DataflowGraph" },
                 { "graph",
-                  { { "factories", {} },
-                    { "nodes",
+                  { { "nodes",
                       { { { "instance", "SourceFloat" },
                           { "model", { { "name", "Source<float>" } } } },
                         { { "instance", "SinkInt" }, { "model", { { "name", "Sink<int>" } } } } } },
@@ -229,8 +203,7 @@ TEST_CASE( "Dataflow/Core/Graph", "[Dataflow][Core][Graph]" ) {
             { "model",
               { { "name", "Core DataflowGraph" },
                 { "graph",
-                  { { "factories", {} },
-                    { "nodes",
+                  { { "nodes",
                       { { { "instance", "SourceFloat" },
                           { "model", { { "name", "Source<float>" } } } },
                         { { "instance", "SinkInt" }, { "model", { { "name", "Sink<int>" } } } } } },
@@ -249,8 +222,7 @@ TEST_CASE( "Dataflow/Core/Graph", "[Dataflow][Core][Graph]" ) {
             { "model",
               { { "name", "Core DataflowGraph" },
                 { "graph",
-                  { { "factories", {} },
-                    { "nodes",
+                  { { "nodes",
                       { { { "instance", "SourceFloat" },
                           { "model", { { "name", "Source<float>" } } } },
                         { { "instance", "SinkFloat" },
@@ -353,8 +325,6 @@ TEST_CASE( "Dataflow/Core/Graph", "[Dataflow][Core][Graph]" ) {
         auto g = DataflowGraph::loadGraphFromJsonFile( "data/Dataflow/ExampleGraph.json" );
         REQUIRE( g );
         // Factories used by the graph
-        auto factories = g->getNodeFactories();
-        REQUIRE( factories != nullptr );
         const auto& nodes = g->getNodes();
         REQUIRE( nodes.size() == g->getNodesCount() );
         auto c = g->compile();

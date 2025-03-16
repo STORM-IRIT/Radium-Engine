@@ -164,8 +164,11 @@ TEST_CASE( "Core/Container/VariableSet", "[unittests][Core][Container][VariableS
         REQUIRE( params.getVariable<int>( "i" ) == 0 );
         REQUIRE( params.getVariable<int>( "x" ) == 1 );
         REQUIRE( params.getVariable<float>( "x" ) == 1 );
+        // modifies params i, and params j as a ref, so local var i is also modified
         params.visit( modifyInts {}, modifyFunction );
-        REQUIRE( params.getVariable<int>( "i" ) == modifyFunction( i ) );
+        REQUIRE( params.getVariable<int>( "i" ) == modifyFunction( 0 ) );
+        REQUIRE( i == modifyFunction( 0 ) );
+        REQUIRE( params.getVariable<std::reference_wrapper<int>>( "j" ) == modifyFunction( 0 ) );
         REQUIRE( params.getVariable<int>( "x" ) == modifyFunction( 1 ) );
         REQUIRE( params.getVariable<float>( "x" ) == 1 );
         print_container( "Final set", params );
