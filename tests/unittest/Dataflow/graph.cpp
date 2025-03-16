@@ -3,6 +3,8 @@
 #include <iostream>
 
 #include <Dataflow/Core/DataflowGraph.hpp>
+#include <Dataflow/Core/Nodes/Functionals/ReduceNode.hpp>
+#include <Dataflow/Core/Nodes/Functionals/TransformNode.hpp>
 #include <Dataflow/Core/Nodes/Sinks/CoreDataSinks.hpp>
 #include <Dataflow/Core/Nodes/Sources/CoreDataSources.hpp>
 
@@ -321,6 +323,25 @@ TEST_CASE( "Dataflow/Core/Graph", "[Dataflow][Core][Graph]" ) {
     }
 
     SECTION( "Inspection of a graph" ) {
+        auto& factories = NodeFactoriesManager::getFactoryManager();
+        auto coreFactory =
+            factories.find( NodeFactoriesManager::dataFlowBuiltInsFactoryName )->second;
+        using namespace Ra::Dataflow::Core;
+
+        // add some nodes to factory
+        using FloatFilterSource    = Sources::FunctionSourceNode<float, const float&>;
+        using FloatFunctionSource  = Sources::FunctionSourceNode<float, const float&, const float&>;
+        using FloatPredicateSource = Sources::FunctionSourceNode<bool, const float&, const float&>;
+        using ReduceNode           = Functionals::ReduceNode<Ra::Core::VectorArray<float>>;
+        using TransformNode        = Functionals::TransformNode<Ra::Core::VectorArray<float>>;
+        using FloatVectorSource    = Sources::SingleDataSourceNode<Ra::Core::VectorArray<float>>;
+        REGISTER_TYPE_TO_FACTORY( coreFactory, FloatVectorSource, Sources );
+        REGISTER_TYPE_TO_FACTORY( coreFactory, FloatFilterSource, Sources );
+        REGISTER_TYPE_TO_FACTORY( coreFactory, FloatFunctionSource, Sources );
+        REGISTER_TYPE_TO_FACTORY( coreFactory, FloatPredicateSource, Sources );
+        REGISTER_TYPE_TO_FACTORY( coreFactory, ReduceNode, Functionals );
+        REGISTER_TYPE_TO_FACTORY( coreFactory, TransformNode, Functionals );
+
         std::cout << "Loading graph data/Dataflow/ExampleGraph.json\n";
         auto g = DataflowGraph::loadGraphFromJsonFile( "data/Dataflow/ExampleGraph.json" );
         REQUIRE( g );

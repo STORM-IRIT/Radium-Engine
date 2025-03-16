@@ -10,11 +10,9 @@ namespace Private {
 
 /** TODO : replace this by factory autoregistration at compile time */
 
-#define ADD_SINKS_TO_FACTORY( FACTORY, NAMESPACE, PREFIX )          \
-    FACTORY->registerNodeCreator<NAMESPACE::PREFIX##Sink>(          \
-        NAMESPACE::PREFIX##Sink::getTypename() + "_", #NAMESPACE ); \
-    FACTORY->registerNodeCreator<NAMESPACE::PREFIX##ArraySink>(     \
-        NAMESPACE::PREFIX##ArraySink::getTypename() + "_", #NAMESPACE )
+#define ADD_SINKS_TO_FACTORY( FACTORY, NAMESPACE, PREFIX ) \
+    FACTORY->registerNodeCreator<NAMESPACE::PREFIX##Sink>( \
+        NAMESPACE::PREFIX##Sink::getTypename() + "_", #NAMESPACE );
 
 void registerSinksFactories( NodeFactorySet::mapped_type factory ) {
     /* --- Sinks --- */
@@ -24,27 +22,14 @@ void registerSinksFactories( NodeFactorySet::mapped_type factory ) {
     // Ra::Core::VectorArray of bool
     factory->registerNodeCreator<Sinks::BooleanSink>( Sinks::BooleanSink::getTypename() + "_",
                                                       "Sinks" );
-#ifdef CORE_USE_DOUBLE
-    ADD_SINKS_TO_FACTORY( factory, Sinks, Float );
-#else
-    ADD_SINKS_TO_FACTORY( factory, Sinks, Double );
-#endif
+
     ADD_SINKS_TO_FACTORY( factory, Sinks, Scalar );
     ADD_SINKS_TO_FACTORY( factory, Sinks, Int );
     ADD_SINKS_TO_FACTORY( factory, Sinks, UInt );
     ADD_SINKS_TO_FACTORY( factory, Sinks, Color );
-    ADD_SINKS_TO_FACTORY( factory, Sinks, Vector2f );
-    ADD_SINKS_TO_FACTORY( factory, Sinks, Vector2d );
-    ADD_SINKS_TO_FACTORY( factory, Sinks, Vector3f );
-    ADD_SINKS_TO_FACTORY( factory, Sinks, Vector3d );
-    ADD_SINKS_TO_FACTORY( factory, Sinks, Vector4f );
-    ADD_SINKS_TO_FACTORY( factory, Sinks, Vector4d );
-    ADD_SINKS_TO_FACTORY( factory, Sinks, Vector2i );
-    ADD_SINKS_TO_FACTORY( factory, Sinks, Vector2ui );
-    ADD_SINKS_TO_FACTORY( factory, Sinks, Vector3i );
-    ADD_SINKS_TO_FACTORY( factory, Sinks, Vector3ui );
-    ADD_SINKS_TO_FACTORY( factory, Sinks, Vector4i );
-    ADD_SINKS_TO_FACTORY( factory, Sinks, Vector4ui );
+    ADD_SINKS_TO_FACTORY( factory, Sinks, Vector2 );
+    ADD_SINKS_TO_FACTORY( factory, Sinks, Vector3 );
+    ADD_SINKS_TO_FACTORY( factory, Sinks, Vector4 );
 }
 } // namespace Private
 } // namespace NodeFactoriesManager

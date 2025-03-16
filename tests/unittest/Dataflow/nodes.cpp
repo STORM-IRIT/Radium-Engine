@@ -298,7 +298,7 @@ TEST_CASE( "Dataflow/Core/Nodes", "[Dataflow][Core][Nodes]" ) {
         auto nodeR = std::make_shared<Sinks::ScalarSink>( "r" );
 
         // Transform operator, will double the vectors' values
-        auto nodeT = std::make_shared<Functionals::ArrayTransformerScalar>( "twice" );
+        auto nodeT = std::make_shared<Functionals::TransformNode<VectorType>>( "twice" );
 
         // Will compute the mean on the doubled vector
         auto doubleMeanCalculator = std::make_shared<MeanCalculator>( "double mean" );

@@ -156,6 +156,13 @@ DataflowGraph* buildgraph( const std::string& name ) {
     auto fl = std::make_shared<FilterCollectionType<DataType>>( "fl" );
     REQUIRE( g->addNode( fl ) );
 
+    auto& factories  = NodeFactoriesManager::getFactoryManager();
+    auto coreFactory = factories.find( NodeFactoriesManager::dataFlowBuiltInsFactoryName )->second;
+
+    REGISTER_TYPE_TO_FACTORY( coreFactory, FilterCollectionType<DataType>, Functionals );
+    REGISTER_TYPE_TO_FACTORY( coreFactory, CollectionInputType<DataType>, Functionals );
+    REGISTER_TYPE_TO_FACTORY( coreFactory, CollectionOutputType<DataType>, Functionals );
+
     bool ok;
     ok = g->addLink( ds, "to", fl, "in" );
     REQUIRE( ok );
@@ -320,7 +327,6 @@ TEST_CASE( "Dataflow/Core/Custom nodes", "[Dataflow][Core][Custom nodes]" ) {
         std::string tmpdir { "customGraphExport/" };
         std::filesystem::create_directories( tmpdir );
 
-        // save the graph without factory
         // save the graph with factory
         g->saveToJson( tmpdir + "customGraph.json" );
 
