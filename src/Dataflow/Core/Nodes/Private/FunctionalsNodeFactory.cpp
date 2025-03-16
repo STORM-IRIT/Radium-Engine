@@ -22,7 +22,9 @@ namespace Private {
     FACTORY->registerNodeCreator<NAMESPACE::BinaryOp##SUFFIX##Array>(           \
         NAMESPACE::BinaryOp##SUFFIX##Array::getTypename() + "_", #NAMESPACE );  \
     FACTORY->registerNodeCreator<NAMESPACE::BinaryPredicate##SUFFIX>(           \
-        NAMESPACE::BinaryPredicate##SUFFIX::getTypename() + "_", #NAMESPACE )
+        NAMESPACE::BinaryPredicate##SUFFIX::getTypename() + "_", #NAMESPACE );  \
+    FACTORY->registerNodeCreator<NAMESPACE::Transform##SUFFIX>(                 \
+        NAMESPACE::Transform##SUFFIX::getTypename() + "_", #NAMESPACE );
 
 /*
  * not yet supported

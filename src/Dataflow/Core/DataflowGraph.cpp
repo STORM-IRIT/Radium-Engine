@@ -156,60 +156,67 @@ bool DataflowGraph::fromJsonInternal( const nlohmann::json& data ) {
         auto factories = NodeFactoriesManager::getFactoryManager();
 
         std::map<std::string, std::shared_ptr<Node>> nodeByName;
-        auto nodes = data["graph"]["nodes"];
-        for ( auto& n : nodes ) {
-            if ( !n["model"].contains( "name" ) ) {
-                LOG( logERROR ) << "Found a node without model description." << n.dump()
-                                << "Unable to build an instance.";
-                return false;
-            }
-            std::string nodeTypeName = n["model"]["name"];
-            std::string instanceName;
+        if ( auto nodes_itr = data["graph"].find( "nodes" ); nodes_itr != data["graph"].end() ) {
+            auto nodes = *nodes_itr;
+            for ( auto& n : nodes ) {
+                if ( !n["model"].contains( "name" ) ) {
+                    LOG( logERROR ) << "Found a node without model description." << n.dump()
+                                    << "Unable to build an instance.";
+                    return false;
+                }
+                std::string nodeTypeName = n["model"]["name"];
+                std::string instanceName;
 
-            if ( n.contains( "instance" ) ) { instanceName = n["instance"]; }
-            else {
-                LOG( logERROR ) << "Found a node of type " << nodeTypeName
-                                << " without identification ";
-                return false;
-            }
-            auto newNode = factories.createNode( nodeTypeName, n, this );
-            if ( newNode ) {
-                if ( !instanceName.empty() ) {
-                    auto [it, inserted] = nodeByName.insert( { instanceName, newNode } );
-                    if ( !inserted ) {
-                        LOG( logERROR ) << "DataflowGraph::loadFromJson : duplicated node name "
-                                        << nodeTypeName;
-                        return false;
+                if ( auto instance_itr = n.find( "instance" ); instance_itr != n.end() ) {
+                    instanceName = *instance_itr;
+                }
+                else {
+                    LOG( logERROR )
+                        << "Found a node of type " << nodeTypeName << " without identification ";
+                    return false;
+                }
+                auto newNode = factories.createNode( nodeTypeName, n, this );
+                if ( newNode ) {
+                    if ( !instanceName.empty() ) {
+                        auto [it, inserted] = nodeByName.insert( { instanceName, newNode } );
+                        if ( !inserted ) {
+                            LOG( logERROR ) << "DataflowGraph::loadFromJson : duplicated node name "
+                                            << nodeTypeName;
+                            return false;
+                        }
                     }
                 }
-            }
-            else {
-                LOG( logERROR ) << "Unable to create the node " << nodeTypeName;
-                return false;
+                else {
+                    LOG( logERROR ) << "Unable to create the node " << nodeTypeName;
+                    return false;
+                }
             }
         }
-        auto links = data["graph"]["connections"];
-        for ( auto& l : links ) {
-            auto [nodeFrom, fromOutput] = getLinkInfo( "out", l, nodeByName );
-            if ( nodeFrom == nullptr ) {
-                LOG( logERROR ) << "DataflowGraph::loadFromJson: error when parsing JSON."
-                                << " Could not find the link source (" << fromOutput
-                                << "). Link not added.";
-                return false;
-            }
-            auto [nodeTo, toInput] = getLinkInfo( "in", l, nodeByName );
-            if ( nodeTo == nullptr ) {
-                LOG( logERROR ) << "DataflowGraph::loadFromJson: error when parsing JSON."
-                                << " Could not find the link source (" << toInput
-                                << "). Link not added.";
-                return false;
-            }
-            if ( !addLink( nodeFrom, fromOutput, nodeTo, toInput ) ) {
-                LOG( logERROR )
-                    << "DataflowGraph::loadFromJson: error when parsing JSON"
-                    << ": Could not add a link (missing or wrong information, please refer to "
-                       "the previous error messages). Link not added.";
-                return false;
+        if ( auto links_itr = data["graph"].find( "connections" );
+             links_itr != data["graph"].end() ) {
+            auto links = *links_itr;
+            for ( auto& l : links ) {
+                auto [nodeFrom, fromOutput] = getLinkInfo( "out", l, nodeByName );
+                if ( nodeFrom == nullptr ) {
+                    LOG( logERROR ) << "DataflowGraph::loadFromJson: error when parsing JSON."
+                                    << " Could not find the link source (" << fromOutput
+                                    << "). Link not added.";
+                    return false;
+                }
+                auto [nodeTo, toInput] = getLinkInfo( "in", l, nodeByName );
+                if ( nodeTo == nullptr ) {
+                    LOG( logERROR )
+                        << "DataflowGraph::loadFromJson: error when parsing JSON."
+                        << " Could not find the link source (" << toInput << "). Link not added.";
+                    return false;
+                }
+                if ( !addLink( nodeFrom, fromOutput, nodeTo, toInput ) ) {
+                    LOG( logERROR )
+                        << "DataflowGraph::loadFromJson: error when parsing JSON"
+                        << ": Could not add a link (missing or wrong information, please refer to "
+                           "the previous error messages). Link not added.";
+                    return false;
+                }
             }
         }
     }

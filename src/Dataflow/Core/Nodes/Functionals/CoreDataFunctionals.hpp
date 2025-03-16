@@ -1,5 +1,6 @@
 #pragma once
 #include <Dataflow/Core/Nodes/Functionals/FilterNode.hpp>
+#include <Dataflow/Core/Nodes/Functionals/FunctionNode.hpp>
 #include <Dataflow/Core/Nodes/Functionals/ReduceNode.hpp>
 #include <Dataflow/Core/Nodes/Functionals/TransformNode.hpp>
 
@@ -23,7 +24,8 @@ using namespace Ra::Core;
     using ArrayReducer##SUFFIX     = ReduceNode<Ra::Core::VectorArray<TYPE>>;    \
     using BinaryOp##SUFFIX         = BinaryOpNode<TYPE>;                         \
     using BinaryOp##SUFFIX##Array  = BinaryOpNode<Ra::Core::VectorArray<TYPE>>;  \
-    using BinaryPredicate##SUFFIX  = BinaryOpNode<TYPE, TYPE, bool>
+    using BinaryPredicate##SUFFIX  = BinaryOpNode<TYPE, TYPE, bool>;             \
+    using Transform##SUFFIX        = FunctionNode<TYPE>;
 
 /* Not yet supported
     using BinaryPredicate##SUFFIX##Array =  BinaryOpNode<Ra::Core::VectorArray<TYPE>,

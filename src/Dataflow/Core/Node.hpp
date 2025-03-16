@@ -2,7 +2,6 @@
 
 #include <Core/Containers/VariableSet.hpp>
 #include <Core/Utils/Index.hpp>
-#include <Dataflow/Core/EditableParameter.hpp>
 #include <Dataflow/Core/PortIn.hpp>
 #include <Dataflow/Core/PortOut.hpp>
 #include <Dataflow/RaDataflow.hpp>

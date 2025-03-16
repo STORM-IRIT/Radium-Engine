@@ -32,7 +32,6 @@ void GraphModel::buildFactoryMap() {
     for ( const auto& [factoryName, factory] : factories ) {
         for ( const auto& [model_name, creator] : factory->getFactoryMap() ) {
             auto f                              = creator.first;
-            auto creatorFactory                 = factory;
             m_model_name_to_factory[model_name] = f;
         }
     }

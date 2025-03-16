@@ -10,12 +10,6 @@ namespace Dataflow {
 namespace Core {
 
 /**
- *  \todo : clarify what is a source and how to use it
- *      if sources must be used through interface port only, delete the set_data on all sources
- *  \todo Are node aliases a should-have (to make editing more user friendly)???
- */
-
-/**
  * \brief Represent a set of connected nodes that define a Direct Acyclic Computational Graph
  * Ownership of nodes is given to the graph at construction time.
  * \todo make a "graph embedding node" that allow to seemlesly integrate a graph as a node in
@@ -66,10 +60,10 @@ class RA_DATAFLOW_API DataflowGraph : public Node
     /// function), in order to be linked the first node's in port must be free and the connected in
     /// port and out port must have the same type of data.
     ///
-    /// \param nodeFrom The node that contains
-    /// the out port. \param nodeFromOutputName The name of the out port in nodeFrom. \param nodeTo
-    /// The node that contains the in port. \param nodeToInputName The name of the in port in
-    /// nodeTo.
+    /// \param nodeFrom The node that contains the out port.
+    /// \param nodeFromOutputName The name of the out port in nodeFrom.
+    /// \param nodeTo The node that contains the in port.
+    /// \param nodeToInputName The name of the in port in nodeTo.
     /// \return true if link added, false if link could not be made.
     bool addLink( const std::shared_ptr<Node>& nodeFrom,
                   const std::string& nodeFromOutputName,
