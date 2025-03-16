@@ -564,6 +564,7 @@ class RA_CORE_API VariableSet
     auto createVariableStorage() -> VariableContainer<T>*;
 
     /// \brief Access to the storage for variables of type T
+    /// create variable storage if T is not present
     /// \tparam T
     template <typename T>
     auto getVariableStorage() const -> VariableContainer<T>&;
@@ -588,6 +589,11 @@ auto VariableSet::createVariableStorage() -> VariableContainer<T>* {
 
 template <typename T>
 auto VariableSet::getVariableStorage() const -> VariableContainer<T>& {
+    // if( !m_variables.contains( std::type_index { typeid( T ) })){// with c++20
+    if ( auto search = m_variables.find( std::type_index { typeid( T ) } );
+         search == m_variables.end() )
+        m_variables[std::type_index { typeid( T ) }].emplace<VariableContainer<T>>();
+
     return std::any_cast<VariableContainer<T>&>( m_variables[std::type_index { typeid( T ) }] );
 }
 
@@ -669,7 +675,6 @@ bool VariableSet::deleteVariable( H& handle ) {
 template <typename T>
 auto VariableSet::existsVariable( const std::string& name ) const
     -> Utils::optional<VariableHandle<T>> {
-
     if ( auto typeAccess = existsVariableType<T>(); typeAccess ) {
         auto itr = ( *typeAccess )->find( name );
         if ( itr != ( *typeAccess )->cend() ) { return itr; }
