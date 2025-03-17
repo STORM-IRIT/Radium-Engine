@@ -2,6 +2,7 @@
 #include <QCommandLineOption>
 #include <QCommandLineParser>
 
+#include <Dataflow/Core/Nodes/Sources/CoreDataSources.hpp>
 #include <Dataflow/QtGui/GraphEditor/GraphEditorWindow.hpp>
 
 #include <QtNodes/ConnectionStyle>
@@ -11,10 +12,27 @@ static void setStyle() {
         R"( { "ConnectionStyle": { "UseDataDefinedColors": true } } )" );
 }
 
+class SquareFunction : public Ra::Dataflow::Core::Sources::FunctionSourceNode<Scalar, const Scalar&>
+{
+  public:
+    using base = Ra::Dataflow::Core::Sources::FunctionSourceNode<Scalar, const Scalar&>;
+    SquareFunction( const std::string& name ) : base( name, getTypename() ) {
+        setData( []( const Scalar& b ) { return b * b; } );
+    }
+    static const std::string& getTypename() {
+        static std::string n { "SquareFunction" };
+        return n;
+    }
+};
+
 int main( int argc, char* argv[] ) {
     QApplication app( argc, argv );
 
     setStyle();
+
+    auto coreFactory = Ra::Dataflow::Core::NodeFactoriesManager::getDataFlowBuiltInsFactory();
+    // add node creators to the factory
+    coreFactory->registerNodeCreator<SquareFunction>( SquareFunction::getTypename(), "Sources" );
 
     QCoreApplication::setOrganizationName( "STORM-IRIT" );
     QCoreApplication::setApplicationName( "Radium NodeGraph Editor" );
