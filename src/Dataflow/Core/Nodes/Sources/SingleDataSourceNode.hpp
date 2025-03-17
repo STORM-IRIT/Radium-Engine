@@ -46,7 +46,8 @@ class SingleDataSourceNode : public Node
      */
     T* getData() const;
 
-    std::shared_ptr<PortOut<T>> getOuputPort() { return m_portOut; }
+    std::shared_ptr<PortOut<T>> getOutPort() { return m_portOut; }
+    std::shared_ptr<PortIn<T>> getInPort() { return m_portIn; }
 
   protected:
     bool fromJsonInternal( const nlohmann::json& data ) override {
