@@ -8,7 +8,7 @@ namespace Dataflow {
 namespace Core {
 
 namespace NodeFactoriesManager {
-const std::string dataFlowBuiltInsFactoryName { "DataFlowBuiltIns" };
+const std::string dataFlowBuiltInsFactoryName { "Dataflow Nodes" };
 }
 
 NodeFactory::NodeFactory( std::string name ) : m_name( std::move( name ) ) {}

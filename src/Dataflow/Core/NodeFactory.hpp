@@ -9,6 +9,9 @@
 #include <iostream>
 #include <unordered_map>
 
+#define REGISTER_TYPE_TO_FACTORY( FACTORY, TYPE, NAMESPACE ) \
+    FACTORY->registerNodeCreator<TYPE>( TYPE::getTypename() + "_", #NAMESPACE )
+
 namespace Ra {
 namespace Dataflow {
 namespace Core {
@@ -19,9 +22,6 @@ class DataflowGraph;
  * NodeFactory store a set of functions allowing to dynamically create dataflow nodes.
  * A NodeFactory is used when loading a node graph from a json representation of the graph to
  * instantiate all the loaded nodes.
- * Each DataflowGraph must have a reference to the nodeFactory to be used to create all the node he
- * has.
- *
  */
 class RA_DATAFLOW_API NodeFactory
 {
@@ -161,9 +161,13 @@ class RA_DATAFLOW_API NodeFactorySet
      */
     /**
      * \brief Create a node using one of the functor (if it exists) registered in one factory for
-     * the given type name. \param nodeType name of the node type (as simplified by Radium
-     * demangler) to create \param data json data to fill the created node \param owningGraph Graph
-     * in which the node should be added, if not nullptr. \return The created node, nullptr in case
+     * the given type name.
+     * \param nodeType name of the node type (as simplified by Radium
+     * demangler) to create
+     * \param data json data to fill the created node
+     * \param owningGraph Graph
+     * in which the node should be added, if not nullptr.
+     * \return The created node, nullptr in case
      * of failure
      */
     [[nodiscard]] auto createNode( const std::string& nodeType,

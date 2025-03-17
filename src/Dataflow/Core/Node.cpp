@@ -31,6 +31,7 @@ bool Node::fromJson( const nlohmann::json& data ) {
         // get the specific concrete node information
         const auto& datamodel = *it_model;
         loaded                = fromJsonInternal( datamodel );
+        if ( !loaded ) { LOG( logERROR ) << "Fail to load model " << datamodel; }
     }
     else {
         LOG( logERROR ) << "Missing required model when loading a Dataflow::Node";

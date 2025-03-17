@@ -193,6 +193,7 @@ class RA_DATAFLOW_API Node
     inline bool isInitialized() const { return m_initialized; }
     Ra::Core::VariableSet& getParameters() { return m_parameters; }
     Ra::Core::VariableSet& getInputVariables() {
+        m_input_variables.clear();
         for ( const auto& p : m_inputs ) {
             p->insert( m_input_variables );
         }
