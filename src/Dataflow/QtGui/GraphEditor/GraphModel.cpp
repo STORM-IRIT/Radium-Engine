@@ -1,6 +1,7 @@
 #include <Dataflow/QtGui/GraphEditor/GraphModel.hpp>
 
 #include <Gui/ParameterSetEditor/ParameterSetEditor.hpp>
+#include <QPushButton>
 
 namespace Ra {
 namespace Dataflow {
@@ -21,6 +22,7 @@ using QtNodes::InvalidNodeId;
 GraphModel::GraphModel( std::shared_ptr<Core::DataflowGraph> graph ) :
     m_graph { graph }, _nextNodeId { 0 } {
     buildFactoryMap();
+    sync_data();
 }
 
 GraphModel::~GraphModel() {
@@ -127,10 +129,11 @@ QWidget* GraphModel::getWidget( std::shared_ptr<Core::Node> node ) const {
     controlPanel->setStyleSheet( "background-color:transparent;" );
     QVBoxLayout* layout = new QVBoxLayout( controlPanel );
 
-    if ( node->getInputVariables().size() > 0 ) {
+    auto node_inputs = node->getInputVariables();
+    if ( node_inputs.size() > 0 ) {
         auto controlPanelInputs = new Ra::Gui::VariableSetEditor( "Inputs default", nullptr );
         controlPanelInputs->setShowUnspecified( true );
-        controlPanelInputs->setupUi( node->getInputVariables(), {} );
+        controlPanelInputs->setupUi( node_inputs, {} );
         layout->addWidget( controlPanelInputs );
     }
     if ( node->getParameters().size() > 0 ) {
@@ -138,6 +141,15 @@ QWidget* GraphModel::getWidget( std::shared_ptr<Core::Node> node ) const {
         controlPanelParams->setShowUnspecified( true );
         controlPanelParams->setupUi( node->getParameters(), {} );
         layout->addWidget( controlPanelParams );
+    }
+    auto g = dynamic_cast<DataflowGraph*>( node.get() );
+    if ( g ) {
+        auto b = new QPushButton( "Edit" );
+        b->setFlat( true );
+        connect( b, &QPushButton::clicked, [this, node]() {
+            emit const_cast<GraphModel*>( this )->node_edited( node );
+        } );
+        layout->addWidget( b );
     }
     return controlPanel;
 }
@@ -185,7 +197,6 @@ QVariant GraphModel::nodeData( NodeId nodeId, NodeRole role ) const {
         break;
 
     case NodeRole::Widget:
-
         if ( auto node_itr = m_node_widget.find( nodeId ); node_itr == m_node_widget.end() ) {
             m_node_widget[nodeId] = getWidget( node_ptr );
         }
@@ -469,6 +480,19 @@ void GraphModel::sync_data() {
         }
     }
     emit modelReset();
+}
+
+void GraphModel::clear_node_widget( Core::Node* node ) {
+    auto node_itr =
+        std::find_if( m_node_id_to_ptr.begin(), m_node_id_to_ptr.end(), [node]( const auto& pair ) {
+            return pair.second.get() == node;
+        } );
+    if ( node_itr == m_node_id_to_ptr.end() ) {
+        LOG( Ra::Core::Utils::logERROR ) << "error try to clear widget of an unmanaged node";
+        return;
+    }
+    const auto& node_id = node_itr->first;
+    m_node_widget.erase( node_id );
 }
 
 } // namespace GraphEditor

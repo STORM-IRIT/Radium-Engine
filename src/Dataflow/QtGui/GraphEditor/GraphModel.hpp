@@ -99,6 +99,10 @@ class GraphModel : public QtNodes::AbstractGraphModel
 
     void setGraph( std::shared_ptr<Core::DataflowGraph> graph );
     void sync_data();
+    void clear_node_widget( Core::Node* node );
+
+  signals:
+    void node_edited( std::shared_ptr<Core::Node> node );
 
   private:
     std::shared_ptr<Core::DataflowGraph> m_graph;

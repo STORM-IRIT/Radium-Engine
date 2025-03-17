@@ -69,6 +69,7 @@ GraphEditorWindow::GraphEditorWindow( std::shared_ptr<DataflowGraph> graph ) : m
     }
 
     connect( node_tree_widget, &QTreeWidget::itemDoubleClicked, this, &GraphEditorWindow::addNode );
+    connect( m_graph_model.get(), &GraphModel::node_edited, this, &GraphEditorWindow::node_editor );
 
     dock->setWidget( node_tree_widget );
     addDockWidget( Qt::LeftDockWidgetArea, dock );
@@ -77,6 +78,30 @@ GraphEditorWindow::GraphEditorWindow( std::shared_ptr<DataflowGraph> graph ) : m
 
 void GraphEditorWindow::addNode( QTreeWidgetItem* item, int ) {
     if ( item->childCount() == 0 ) { m_graph_model->addNode( item->text( 0 ) ); }
+}
+
+class GraphEditorDialog : public QDialog
+{
+  public:
+    GraphEditorDialog( std::shared_ptr<DataflowGraph> graph, QWidget* parent ) : QDialog( parent ) {
+        auto p_dialogLayout = new QGridLayout( this );
+        auto p_MainWindow   = new GraphEditorWindow( graph );
+        p_dialogLayout->addWidget( p_MainWindow );
+        p_MainWindow->setParent( this );
+    }
+};
+
+void GraphEditorWindow::node_editor( std::shared_ptr<Node> node ) {
+    auto g = std::dynamic_pointer_cast<DataflowGraph>( node );
+    auto w = new GraphEditorDialog( g, this );
+
+    w->setWindowModality( Qt::ApplicationModal );
+    w->show();
+    connect( w, &GraphEditorDialog::finished, [this, g]( int ) {
+        m_graph_model->clear_node_widget( g.get() );
+        g->generate_ports();
+        m_graph_model->sync_data();
+    } );
 }
 
 void GraphEditorWindow::closeEvent( QCloseEvent* event ) {

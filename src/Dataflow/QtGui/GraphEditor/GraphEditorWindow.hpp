@@ -47,6 +47,7 @@ class RA_DATAFLOW_API GraphEditorWindow : public QMainWindow
     void about();
     void documentWasModified();
     void addNode( QTreeWidgetItem* item, int column );
+    void node_editor( std::shared_ptr<Node> node );
 
   private:
     void createActions();
