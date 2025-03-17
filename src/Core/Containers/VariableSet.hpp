@@ -589,11 +589,7 @@ auto VariableSet::createVariableStorage() -> VariableContainer<T>* {
 
 template <typename T>
 auto VariableSet::getVariableStorage() const -> VariableContainer<T>& {
-    // if( !m_variables.contains( std::type_index { typeid( T ) })){// with c++20
-    if ( auto search = m_variables.find( std::type_index { typeid( T ) } );
-         search == m_variables.end() )
-        m_variables[std::type_index { typeid( T ) }].emplace<VariableContainer<T>>();
-
+    assert( existsVariableType<T>() );
     return std::any_cast<VariableContainer<T>&>( m_variables[std::type_index { typeid( T ) }] );
 }
 
@@ -727,8 +723,10 @@ auto VariableSet::addVariableType() -> Utils::optional<VariableContainer<T>*> {
                 }
             } );
         // use to compute gauge on the stored data
-        m_vtable->m_sizeFunctions.emplace_back(
-            []( const VariableSet& c ) { return c.getVariableStorage<T>().size(); } );
+        m_vtable->m_sizeFunctions.emplace_back( []( const VariableSet& c ) {
+            if ( auto storage = c.existsVariableType<T>(); storage ) return ( *storage )->size();
+            return size_t { 0 }; // use 0uz when c++23
+        } );
         // used to visit the variableSet with a dynamic visitor
         m_vtable->m_visitFunctions.emplace_back(
             []( const VariableSet& c, const DynamicVisitorBase& v )
