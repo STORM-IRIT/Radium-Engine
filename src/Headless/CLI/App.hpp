@@ -647,7 +647,7 @@ class App
         // issues.
         auto Tcount  = detail::type_count<AssignTo>::value;
         auto XCcount = detail::type_count<ConvertTo>::value;
-        opt->type_size( detail::type_count_min<ConvertTo>::value, ( std::max )( Tcount, XCcount ) );
+        opt->type_size( detail::type_count_min<ConvertTo>::value, (std::max)( Tcount, XCcount ) );
         opt->expected( detail::expected_count<ConvertTo>::value );
         opt->run_callback_for_default();
         return opt;
@@ -2718,7 +2718,7 @@ class App
                 op->add_result( std::string {} );
             }
         }
-        int min_num = ( std::min )( op->get_type_size_min(), op->get_items_expected_min() );
+        int min_num = (std::min)( op->get_type_size_min(), op->get_items_expected_min() );
         int max_num = op->get_items_expected_max();
         // check container like options to limit the argument size to a single type if the
         // allow_extra_flags argument is set. 16 is somewhat arbitrary (needs to be at least 4)
