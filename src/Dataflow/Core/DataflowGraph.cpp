@@ -219,6 +219,7 @@ bool DataflowGraph::fromJsonInternal( const nlohmann::json& data ) {
                 }
             }
         }
+        generate_ports();
     }
     return true;
 }
@@ -394,6 +395,22 @@ bool DataflowGraph::findNode2( const Node* node ) const {
         }
     }
     return false;
+}
+void DataflowGraph::generate_ports() {
+    std::unordered_map<Node*, std::pair<int, std::vector<Node*>>> infoNodes;
+
+    m_inputs.clear();
+    m_outputs.clear();
+    for ( auto const& n : m_nodes ) {
+        if ( n->isOutputNode() ) {
+            for ( auto& p : n->getOutputs() ) {
+                if ( p->getLinkCount() == 0 ) { addOutput( p ); }
+            }
+        }
+        for ( auto& p : n->getInputs() ) {
+            if ( !p->isLinked() ) { addInput( p ); }
+        }
+    }
 }
 
 bool DataflowGraph::compile() {

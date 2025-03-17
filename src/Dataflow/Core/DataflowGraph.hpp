@@ -120,6 +120,7 @@ class RA_DATAFLOW_API DataflowGraph : public Node
     /// - Order the nodes by level according to their dependencies
     /// - Check if every mandatory port is linked
     bool compile() override;
+    void compile_as_node();
 
     /// Gets the number of nodes
     size_t getNodesCount() const { return m_nodes.size(); }
