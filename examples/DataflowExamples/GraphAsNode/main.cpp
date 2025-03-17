@@ -69,9 +69,9 @@ int main( int argc, char* argv[] ) {
 
     g.addNode( gAsNode );
 
-    g.addLink( sourceNodeA->getOuputPort().get(), gAsNode->getInputByIndex<Scalar>( inputA ) );
-    g.addLink( sourceNodeB->getOuputPort().get(), gAsNode->getInputByIndex<Scalar>( inputB ) );
-    g.addLink( sourceNodeC->getOuputPort().get(), gAsNode->getInputByIndex<Scalar>( inputC ) );
+    g.addLink( sourceNodeA->getOutPort().get(), gAsNode->getInputByIndex<Scalar>( inputA ) );
+    g.addLink( sourceNodeB->getOutPort().get(), gAsNode->getInputByIndex<Scalar>( inputB ) );
+    g.addLink( sourceNodeC->getOutPort().get(), gAsNode->getInputByIndex<Scalar>( inputC ) );
     g.addLink( gAsNode->getOutputByIndex<Scalar>( output ), resultNode->getInPort().get() );
 
     sourceNodeA->setData( 1 );

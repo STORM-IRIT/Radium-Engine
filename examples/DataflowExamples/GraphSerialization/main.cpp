@@ -54,8 +54,6 @@ int main( int argc, char* argv[] ) {
     {
         //! [Creating an empty graph using the custom nodes factory]
         DataflowGraph g { "Serialization example" };
-        // Add to the graph the custom factory (built-in nodes are automatically managed)
-        g.addFactory( NodeFactoriesManager::getFactory( "ExampleCustomFactory" ) );
         //! [Creating an empty graph using the custom nodes factory]
 
         //! [Creating Nodes]

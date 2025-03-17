@@ -26,7 +26,7 @@ int main( int argc, char* argv[] ) {
     //! [Creating links between Nodes]
     // link using nodes port, with compile time type check
     // node belongship to the graph is checked at runtime
-    if ( !g.addLink( sourceNode->getOuputPort(), filterNode->getInPort() ) ) { std::abort(); }
+    if ( !g.addLink( sourceNode->getOutPort(), filterNode->getInPort() ) ) { std::abort(); }
 
     // link with port names, all runtime check
     if ( !g.addLink( predicateNode, "f", filterNode, "f" ) ) { std::abort(); }
