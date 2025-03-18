@@ -70,6 +70,10 @@ GraphEditorWindow::GraphEditorWindow( std::shared_ptr<DataflowGraph> graph ) : m
 
     connect( node_tree_widget, &QTreeWidget::itemDoubleClicked, this, &GraphEditorWindow::addNode );
     connect( m_graph_model.get(), &GraphModel::node_edited, this, &GraphEditorWindow::node_editor );
+    connect( m_scene,
+             &QtNodes::BasicGraphicsScene::nodeDoubleClicked,
+             this,
+             &GraphEditorWindow::node_dialog );
 
     dock->setWidget( node_tree_widget );
     addDockWidget( Qt::LeftDockWidgetArea, dock );
@@ -102,6 +106,14 @@ void GraphEditorWindow::node_editor( std::shared_ptr<Node> node ) {
         g->generate_ports();
         m_graph_model->sync_data();
     } );
+}
+
+void GraphEditorWindow::node_dialog( QtNodes::NodeId node_id ) {
+    //    std::cerr << node_id << "\n";
+    //    auto node = m_graph_model->node_ptr( node_id );
+    //    node->getInputByIndex( 0 )->setName( "new" );
+
+    ///\todo open a node dialog to edit node name and port name
 }
 
 void GraphEditorWindow::closeEvent( QCloseEvent* event ) {

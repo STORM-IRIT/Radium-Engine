@@ -101,6 +101,10 @@ class GraphModel : public QtNodes::AbstractGraphModel
     void sync_data();
     void clear_node_widget( Core::Node* node );
 
+    auto node_ptr( NodeId node_id ) -> std::shared_ptr<Core::Node> {
+        return m_node_id_to_ptr.at( node_id );
+    }
+
   signals:
     void node_edited( std::shared_ptr<Core::Node> node );
 
