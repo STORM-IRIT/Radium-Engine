@@ -8,8 +8,9 @@ namespace Core {
 
 using namespace Ra::Core::Utils;
 
+// display_name is instanceName unless reset afterward
 Node::Node( const std::string& instanceName, const std::string& typeName ) :
-    m_modelName { typeName }, m_instanceName { instanceName } {}
+    m_modelName { typeName }, m_instanceName { instanceName }, m_display_name { instanceName } {}
 
 bool Node::fromJson( const nlohmann::json& data ) {
     if ( data.empty() ) {
@@ -32,6 +33,8 @@ bool Node::fromJson( const nlohmann::json& data ) {
         const auto& datamodel = *it_model;
         loaded                = fromJsonInternal( datamodel );
         if ( !loaded ) { LOG( logERROR ) << "Fail to load model " << datamodel; }
+        auto it_display_name = datamodel.find( "display_name" );
+        if ( it_display_name != datamodel.end() ) { set_display_name( *it_display_name ); }
     }
     else {
         LOG( logERROR ) << "Missing required model when loading a Dataflow::Node";
@@ -54,6 +57,7 @@ void Node::toJson( nlohmann::json& data ) const {
 
     // Fill the specific concrete node information (model instance)
     toJsonInternal( model );
+    model["display_name"] = display_name();
     data.emplace( "model", model );
 
     // store the supplemental information related to application/gui/...

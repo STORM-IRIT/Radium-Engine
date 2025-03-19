@@ -156,6 +156,8 @@ class RA_DATAFLOW_API Node
     /// @{
     /// \brief Gets the model (type/class) name of the node.
     const std::string& getModelName() const;
+    const std::string& display_name() const { return m_display_name; }
+    void set_display_name( const std::string& name ) { m_display_name = name; }
 
     /// \brief Gets the instance name of the node.
     const std::string& getInstanceName() const;
@@ -309,6 +311,7 @@ class RA_DATAFLOW_API Node
     virtual void toJsonInternal( nlohmann::json& data ) const {
         std::string message =
             std::string { "default serialization for " } + getInstanceName() + " " + getModelName();
+
         for ( size_t i = 0; i < m_inputs.size(); ++i ) {
             const auto& p = m_inputs[i];
             nlohmann::json port;
@@ -392,6 +395,9 @@ class RA_DATAFLOW_API Node
     std::string m_modelName;
     /// The instance name of the node
     std::string m_instanceName;
+    /// Node's name if needed for display
+    std::string m_display_name { "" };
+
     /// The in ports of the node (own by the node)
     PortCollection<PortPtr<PortBaseIn>> m_inputs;
     /// The out ports of the node  (own by the node)

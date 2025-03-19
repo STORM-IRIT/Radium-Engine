@@ -177,7 +177,7 @@ QVariant GraphModel::nodeData( NodeId nodeId, NodeRole role ) const {
         break;
 
     case NodeRole::Caption:
-        result = QString::fromStdString( node_ptr->getModelName() );
+        result = QString::fromStdString( node_ptr->display_name() );
         break;
 
     case NodeRole::Style: {

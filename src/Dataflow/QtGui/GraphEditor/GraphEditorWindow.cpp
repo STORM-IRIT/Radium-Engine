@@ -1,3 +1,5 @@
+#include "ui_NodeEditor.h"
+
 #include <Dataflow/QtGui/GraphEditor/GraphEditorWindow.hpp>
 
 #include <Dataflow/Core/NodeFactory.hpp>
@@ -108,12 +110,68 @@ void GraphEditorWindow::node_editor( std::shared_ptr<Node> node ) {
     } );
 }
 
+class NodeEditorDialog : public QDialog
+{
+  public:
+    NodeEditorDialog( Node* node, QWidget* parent = nullptr, Qt::WindowFlags f = Qt::Dialog ) :
+        QDialog( parent, f ) {
+        ui.setupUi( this );
+
+        {
+            ui.node_model->setText( QString::fromStdString( node->getModelName() ) );
+            ui.node_instance->setText( QString::fromStdString( node->getInstanceName() ) );
+            ui.display_name_line_edit->setText( QString::fromStdString( node->display_name() ) );
+            data_editors.emplace_back( ui.display_name_line_edit, [node]( const QString& text ) {
+                node->set_display_name( text.toStdString() );
+            } );
+        }
+
+        auto layout = ui.port_grid_layout;
+        int row     = 2;
+
+        for ( auto p : node->getInputs() ) {
+            auto l = new QLineEdit( QString::fromStdString( p->getName() ) );
+            data_editors.emplace_back(
+                l, [p]( const QString& text ) { p->setName( text.toStdString() ); } );
+
+            layout->addWidget( new QLabel( QString::fromStdString( p->getName() ) ), row, 0 );
+            layout->addWidget( l, row, 1 );
+
+            ++row;
+        }
+        row = 2;
+        for ( auto p : node->getOutputs() ) {
+            auto l = new QLineEdit( QString::fromStdString( p->getName() ) );
+            data_editors.emplace_back(
+                l, [p]( const QString& text ) { p->setName( text.toStdString() ); } );
+
+            layout->addWidget( new QLabel( QString::fromStdString( p->getName() ) ), row, 2 );
+            layout->addWidget( l, row, 3 );
+
+            ++row;
+        }
+        connect( ui.buttonBox, &QDialogButtonBox::accepted, this, &NodeEditorDialog::run );
+    }
+
+  public slots:
+    void run() {
+        for ( auto p : data_editors ) {
+            p.second( p.first->displayText() );
+        }
+    }
+
+  private:
+    std::vector<std::pair<QLineEdit*, std::function<void( const QString& )>>> data_editors;
+    Ui::NodeEditor ui;
+};
+
 void GraphEditorWindow::node_dialog( QtNodes::NodeId node_id ) {
     //    std::cerr << node_id << "\n";
-    //    auto node = m_graph_model->node_ptr( node_id );
-    //    node->getInputByIndex( 0 )->setName( "new" );
+    auto node = m_graph_model->node_ptr( node_id );
 
-    ///\todo open a node dialog to edit node name and port name
+    NodeEditorDialog dialog( node.get() );
+    int ret = dialog.exec();
+    m_graph_model->sync_data();
 }
 
 void GraphEditorWindow::closeEvent( QCloseEvent* event ) {
@@ -128,7 +186,7 @@ void GraphEditorWindow::newFile() {
     if ( maybeSave() ) {
         m_graph->destroy();
         m_graph_model->sync_data();
-        m_view->centerScene();
+        //        m_view->centerScene();
 
         setCurrentFile( "" );
     }

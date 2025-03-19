@@ -48,9 +48,6 @@ class RA_DATAFLOW_API PortBaseIn : public PortBase
     template <typename T>
     T& getData();
 
-    virtual void to_json( nlohmann::json& ) {}
-    virtual void from_json( const nlohmann::json& ) {}
-
   protected:
     /// Constructor.
     /// @param name The name of the port.
@@ -126,16 +123,12 @@ class PortIn : public PortBaseIn,
     template <typename B                                                              = T,
               std::enable_if_t<std::is_constructible<nlohmann::json, B>::value, bool> = true>
     void to_json_impl( nlohmann::json& data ) {
-        if ( hasDefaultValue() ) {
-            data["name"]          = getName();
-            data["default_value"] = getDefaultValue();
-        }
+        if ( hasDefaultValue() ) { data["default_value"] = getDefaultValue(); }
     }
     template <typename B                                                               = T,
               std::enable_if_t<!std::is_constructible<nlohmann::json, B>::value, bool> = true>
     void to_json_impl( nlohmann::json& data ) {
         if ( hasDefaultValue() ) {
-            data["name"] = getName();
             data["default_value"] =
                 std::string( "Default value not saved, missing json export for " ) +
                 Ra::Core::Utils::simplifiedDemangledType<T>();
@@ -145,19 +138,23 @@ class PortIn : public PortBaseIn,
               std::enable_if_t<std::is_assignable<nlohmann::json, B>::value, bool> = true>
     void from_json_impl( const nlohmann::json& data ) {
         using namespace Ra::Core::Utils;
-
-        if ( auto it = data.find( "name" ); it != data.end() ) {
-            if ( *it != getName() ) { LOG( logERROR ) << "port name mismatch"; }
-            if ( auto value_it = data.find( "default_value" ); value_it != data.end() ) {
-                setDefaultValue( ( *value_it ).template get<T>() );
-            }
+        if ( auto value_it = data.find( "default_value" ); value_it != data.end() ) {
+            setDefaultValue( ( *value_it ).template get<T>() );
         }
     }
     template <typename B                                                           = T,
               std::enable_if_t<!std::is_assignable<nlohmann::json, B>::value, int> = true>
-    void from_json_impl( const nlohmann::json& ) {}
-    void to_json( nlohmann::json& data ) override { to_json_impl( data ); }
-    void from_json( const nlohmann::json& data ) override { from_json_impl( data ); }
+    void from_json_impl( const nlohmann::json& data ) {
+        if ( auto it = data.find( "name" ); it != data.end() ) { setName( *it ); }
+    }
+    void to_json( nlohmann::json& data ) override {
+        PortBase::to_json( data );
+        to_json_impl( data );
+    }
+    void from_json( const nlohmann::json& data ) override {
+        PortBase::from_json( data );
+        from_json_impl( data );
+    }
 
   private:
     PortOut<T>* m_from = nullptr;       ///< A pointer to the out port this port is connected to.

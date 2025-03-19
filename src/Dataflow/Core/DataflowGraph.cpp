@@ -404,11 +404,19 @@ void DataflowGraph::generate_ports() {
     for ( auto const& n : m_nodes ) {
         if ( n->isOutputNode() ) {
             for ( auto& p : n->getOutputs() ) {
-                if ( p->getLinkCount() == 0 ) { addOutput( p ); }
+                if ( p->getLinkCount() == 0 ) {
+                    if ( getOutputByName( p->getName() ).first.isValid() )
+                        p->setName( n->display_name() + " " + p->getName() );
+                    addOutput( p );
+                }
             }
         }
         for ( auto& p : n->getInputs() ) {
-            if ( !p->isLinked() ) { addInput( p ); }
+            if ( !p->isLinked() ) {
+                if ( getInputByName( p->getName() ).first.isValid() )
+                    p->setName( n->display_name() + " " + p->getName() );
+                addInput( p );
+            }
         }
     }
 }

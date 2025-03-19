@@ -60,6 +60,11 @@ class RA_DATAFLOW_API PortBase
     // can we get data from the port ?
     virtual bool hasData() { return false; }
 
+    virtual void to_json( nlohmann::json& data ) { data["name"] = getName(); }
+    virtual void from_json( const nlohmann::json& data ) {
+        if ( auto it = data.find( "name" ); it != data.end() ) { setName( *it ); }
+    }
+
   private:
     std::string m_name { "" }; ///< The name of the port.
     std::type_index m_type;    ///< The port's data's type's index.
