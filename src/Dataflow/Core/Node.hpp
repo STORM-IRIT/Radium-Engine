@@ -197,7 +197,7 @@ class RA_DATAFLOW_API Node
     Ra::Core::VariableSet& getInputVariables() {
         m_input_variables.clear();
         for ( const auto& p : m_inputs ) {
-            p->insert( m_input_variables );
+            if ( p->hasDefaultValue() ) p->insert( m_input_variables );
         }
 
         return m_input_variables;

@@ -166,11 +166,11 @@ class NodeEditorDialog : public QDialog
 };
 
 void GraphEditorWindow::node_dialog( QtNodes::NodeId node_id ) {
-    //    std::cerr << node_id << "\n";
     auto node = m_graph_model->node_ptr( node_id );
 
     NodeEditorDialog dialog( node.get() );
-    int ret = dialog.exec();
+    //    int ret =
+    dialog.exec(); // exec is blocking main window, as expected for a modal
     m_graph_model->sync_data();
 }
 
@@ -186,7 +186,6 @@ void GraphEditorWindow::newFile() {
     if ( maybeSave() ) {
         m_graph->destroy();
         m_graph_model->sync_data();
-        //        m_view->centerScene();
 
         setCurrentFile( "" );
     }
