@@ -295,10 +295,16 @@ class RA_DATAFLOW_API Node
     virtual bool fromJsonInternal( const nlohmann::json& data ) {
         LOG( Ra::Core::Utils::logDEBUG )
             << "default deserialization for " << getInstanceName() + " " + getModelName() << ".";
-        if ( const auto& ports = data.find( "ports" ); ports != data.end() ) {
+        if ( const auto& ports = data.find( "inputs" ); ports != data.end() ) {
             for ( const auto& port : *ports ) {
                 int index = port["port_index"];
                 m_inputs[index]->from_json( port );
+            }
+        }
+        if ( const auto& ports = data.find( "outputs" ); ports != data.end() ) {
+            for ( const auto& port : *ports ) {
+                int index = port["port_index"];
+                m_outputs[index]->from_json( port );
             }
         }
         return true;
@@ -317,7 +323,14 @@ class RA_DATAFLOW_API Node
             nlohmann::json port;
             p->to_json( port );
             port["port_index"] = i;
-            data["ports"].push_back( port );
+            data["inputs"].push_back( port );
+        }
+        for ( size_t i = 0; i < m_outputs.size(); ++i ) {
+            const auto& p = m_outputs[i];
+            nlohmann::json port;
+            p->to_json( port );
+            port["port_index"] = i;
+            data["outputs"].push_back( port );
         }
         LOG( Ra::Core::Utils::logDEBUG ) << message;
     }

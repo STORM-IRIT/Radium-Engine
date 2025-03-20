@@ -53,11 +53,10 @@ void Node::toJson( nlohmann::json& data ) const {
     data["instance"] = m_instanceName;
 
     nlohmann::json model;
-    model["name"] = m_modelName;
-
+    model["name"]         = m_modelName;
+    model["display_name"] = display_name();
     // Fill the specific concrete node information (model instance)
     toJsonInternal( model );
-    model["display_name"] = display_name();
     data.emplace( "model", model );
 
     // store the supplemental information related to application/gui/...
