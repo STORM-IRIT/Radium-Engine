@@ -59,6 +59,7 @@ void DataflowGraph::destroy() {
 void DataflowGraph::saveToJson( const std::string& jsonFilePath ) {
     if ( !jsonFilePath.empty() ) {
         nlohmann::json data;
+        std::cerr << "DatafloweGraph::saveToJson instance " << m_instanceName << "\n";
         toJson( data );
         std::ofstream file( jsonFilePath );
         file << std::setw( 4 ) << data << std::endl;
@@ -69,7 +70,6 @@ void DataflowGraph::saveToJson( const std::string& jsonFilePath ) {
 void DataflowGraph::toJsonInternal( nlohmann::json& data ) const {
     nlohmann::json nodes       = nlohmann::json::array();
     nlohmann::json connections = nlohmann::json::array();
-    nlohmann::json model;
     nlohmann::json graph;
 
     for ( const auto& n : m_nodes ) {
@@ -81,10 +81,17 @@ void DataflowGraph::toJsonInternal( nlohmann::json& data ) const {
                 nlohmann::json link = nlohmann::json::object();
                 auto portOut        = input->getLink();
                 auto nodeOut        = portOut->getNode();
-                link["out_node"]    = nodeOut->getInstanceName();
-                link["out_port"]    = portOut->getName();
-                link["in_node"]     = n->getInstanceName();
-                link["in_port"]     = input->getName();
+                // if nodeOut is not in the graph, skip it. Appens when graph as node
+                if ( auto itr =
+                         std::find_if( m_nodes.begin(),
+                                       m_nodes.end(),
+                                       [nodeOut]( const auto i ) { return i.get() == nodeOut; } );
+                     itr == m_nodes.end() )
+                    continue;
+                link["out_node"] = nodeOut->getInstanceName();
+                link["out_port"] = portOut->getName();
+                link["in_node"]  = n->getInstanceName();
+                link["in_port"]  = input->getName();
                 connections.push_back( link );
             }
         }
@@ -122,8 +129,9 @@ getLinkInfo( const std::string& which,
     if ( itNode != nodeByName.end() ) { node = itNode->second; }
     else {
         // Error, could not find the node
-        std::string msg =
-            std::string { "Node " } + which + " not found in cache " + " : " + linkData.dump();
+        std::string msg = std::string { "Node " } + which + " named " +
+                          std::string( linkData[field] ) + " not found in cache " + " : " +
+                          linkData.dump();
         return { nullptr, msg };
     }
 
@@ -207,7 +215,7 @@ bool DataflowGraph::fromJsonInternal( const nlohmann::json& data ) {
                 if ( nodeTo == nullptr ) {
                     LOG( logERROR )
                         << "DataflowGraph::loadFromJson: error when parsing JSON."
-                        << " Could not find the link source (" << toInput << "). Link not added.";
+                        << " Could not find the link target (" << toInput << "). Link not added.";
                     return false;
                 }
                 if ( !addLink( nodeFrom, fromOutput, nodeTo, toInput ) ) {
