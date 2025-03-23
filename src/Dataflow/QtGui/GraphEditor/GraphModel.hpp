@@ -62,6 +62,7 @@ class GraphModel : public QtNodes::AbstractGraphModel
 
     bool connectionExists( ConnectionId const connectionId ) const override;
 
+    void addInputOutputNodesForGraph();
     NodeId addNode( QString const nodeType = QString() ) override;
 
     /**

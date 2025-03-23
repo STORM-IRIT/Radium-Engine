@@ -103,7 +103,7 @@ class RA_DATAFLOW_API Node
     /// Execute the node function on the input ports (to be fetched) and write the results to the
     /// output ports.
     /// \return the execution status.
-    virtual bool execute() = 0;
+    virtual bool execute() { return true; };
 
     /// \brief delete the node content
     /// The destroy() function is called once at the end of the lifetime of the node.
@@ -341,6 +341,7 @@ class RA_DATAFLOW_API Node
     bool addInput( PortBaseInRawPtr in ); ///< \todo remove
     PortIndex addInput( PortBaseInPtr in );
     PortIndex addOutput( PortBaseOutPtr out );
+
     template <typename PortType>
     PortIndex addPort( PortCollection<PortPtr<PortType>>&, PortPtr<PortType> port );
 

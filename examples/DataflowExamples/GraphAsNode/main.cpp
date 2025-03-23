@@ -15,6 +15,8 @@ using namespace Ra::Dataflow::Core;
 int main( int argc, char* argv[] ) {
     using RaVector = Ra::Core::VectorArray<Scalar>;
 
+    PortFactory::createInstance();
+
     auto gAsNode = Ra::Core::make_shared<DataflowGraph>( "graphAsNode" );
 
     // compute delta = b2 - 4ac;
@@ -32,15 +34,17 @@ int main( int argc, char* argv[] ) {
     auto forwardB = gAsNode->addNode<Functionals::FunctionNode<Scalar>>( "b" );
     auto forwardC = gAsNode->addNode<Functionals::FunctionNode<Scalar>>( "c" );
 
-    forwardA->getInPort()->setName( "a" );
-    forwardB->getInPort()->setName( "b" );
-    forwardC->getInPort()->setName( "c" );
     b2minus4ac->getOutputPort()->setName( "delta" );
 
-    auto inputA = gAsNode->addInput( forwardA->getInPort() );
-    auto inputB = gAsNode->addInput( forwardB->getInPort() );
-    auto inputC = gAsNode->addInput( forwardC->getInPort() );
-    auto output = gAsNode->addOutput( b2minus4ac->getOutputPort() );
+    auto inputA = gAsNode->addInputAlias( forwardA->getInPort() );
+    auto inputB = gAsNode->addInputAlias( forwardB->getInPort() );
+    auto inputC = gAsNode->addInputAlias( forwardC->getInPort() );
+    auto output = gAsNode->addOutputAlias( b2minus4ac->getOutputPort() );
+
+    gAsNode->getInputByIndex( inputA )->setName( "a" );
+    gAsNode->getInputByIndex( inputB )->setName( "b" );
+    gAsNode->getInputByIndex( inputC )->setName( "c" );
+    gAsNode->getOutputByIndex( output )->setName( "delta" );
 
     gAsNode->addLink( forwardB->getOutPort(), b2->getInPort() );
     gAsNode->addLink( forwardA->getOutPort(), fourAC->getPortA() );
@@ -52,12 +56,14 @@ int main( int argc, char* argv[] ) {
     std::cout << "== Graph as node ==\n";
     std::cout << "inputs\n";
     for ( const auto& n : gAsNode->getInputs() ) {
-        std::cout << "\t- " << n->getName() << " <" << n->getTypeName() << ">\n";
+        std::cout << "\t- " << n->getName() << " <" << n->getTypeName() << "> ("
+                  << n->getNode()->display_name() << ")\n";
     }
 
     std::cout << "outputs\n";
     for ( const auto& n : gAsNode->getOutputs() ) {
-        std::cout << "\t- " << n->getName() << " <" << n->getTypeName() << ">\n";
+        std::cout << "\t- " << n->getName() << " <" << n->getTypeName() << "> ("
+                  << n->getNode()->display_name() << ")\n";
     }
 
     DataflowGraph g { "mainGraph" };
@@ -69,24 +75,30 @@ int main( int argc, char* argv[] ) {
 
     g.addNode( gAsNode );
 
-    g.addLink( sourceNodeA->getOutPort().get(), gAsNode->getInputByIndex<Scalar>( inputA ) );
-    g.addLink( sourceNodeB->getOutPort().get(), gAsNode->getInputByIndex<Scalar>( inputB ) );
-    g.addLink( sourceNodeC->getOutPort().get(), gAsNode->getInputByIndex<Scalar>( inputC ) );
-    g.addLink( gAsNode->getOutputByIndex<Scalar>( output ), resultNode->getInPort().get() );
+    g.addLink( sourceNodeA->getOutPort().get(), gAsNode->getInputByIndex( inputA ) );
+    g.addLink( sourceNodeB->getOutPort().get(), gAsNode->getInputByIndex( inputB ) );
+    g.addLink( sourceNodeC->getOutPort().get(), gAsNode->getInputByIndex( inputC ) );
+    g.addLink( gAsNode->getOutputByIndex( output ), resultNode->getInPort().get() );
 
     sourceNodeA->setData( 1 );
     sourceNodeB->setData( 2 );
     sourceNodeC->setData( 3 );
 
+    auto p = resultNode->getInPort();
+    std::cerr << p->getName() << " " << p->isLinked() << "\n";
+    std::cerr << p->getLink()->getName() << "\n";
     if ( !g.compile() ) {
-        std::cout << " compilation failed";
+        std::cout << " compilation failed\n";
         return 1;
     }
-
+    std::cerr << "compile ok\n";
     //! [Verifying the graph can be compiled]
-    g.saveToJson( "illustrateDoc.json" );
+    // g.saveToJson( "illustrateDoc.json" );
 
-    g.execute();
+    if ( g.execute() ) {
+        std::cout << " execution failed\n";
+        //  return 1;
+    }
 
     auto& result = resultNode->getDataByRef();
     std::cout << "Output value delta = " << *sourceNodeB->getData() << "²-4×"

@@ -36,8 +36,7 @@ class RA_DATAFLOW_API PortBaseIn : public PortBase
     virtual bool isLinked() const                 = 0;
     virtual bool hasDefaultValue() const          = 0;
     virtual void insert( Ra::Core::VariableSet& ) = 0;
-
-    virtual PortBaseOut* getLink() = 0;
+    virtual PortBaseOut* getLink()                = 0;
 
     template <typename T>
     PortOut<T>* getLinkAs();

@@ -75,6 +75,25 @@ bool GraphModel::connectionExists( ConnectionId const connectionId ) const {
     return ( _connectivity.find( connectionId ) != _connectivity.end() );
 }
 
+class IONode : public Node
+{
+  public:
+    IONode( const std::string name ) : Node( name, getTypename() ) {}
+    bool execute() { return true; }
+    inline const std::string& getTypename() {
+        static std::string demangledTypeName { "InputNode" };
+        return demangledTypeName;
+    }
+};
+
+void GraphModel::addInputOutputNodesForGraph() {
+    auto inputs_node  = std::make_shared<IONode>( "group inputs" );
+    auto outputs_node = std::make_shared<IONode>( "group outputs" );
+    m_graph->addNode( inputs_node );
+    m_graph->addNode( outputs_node );
+    sync_data();
+}
+
 NodeId GraphModel::addNode( QString const nodeType ) {
 
     auto f = m_model_name_to_factory.at( nodeType.toStdString() );

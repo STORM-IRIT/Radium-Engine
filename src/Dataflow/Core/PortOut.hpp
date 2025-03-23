@@ -38,17 +38,17 @@ class RA_DATAFLOW_API PortBaseOut : public PortBase
     void setData( T* data );
 
     // called by PortIn when connect
-    void increaseLinkCount() {
+    virtual void increaseLinkCount() {
         ++m_linkCount;
         CORE_ASSERT( m_linkCount >= 0, "link count error" );
     }
 
     // called by PortIn when disconnect
-    void decreaseLinkCount() {
+    virtual void decreaseLinkCount() {
         --m_linkCount;
         CORE_ASSERT( m_linkCount >= 0, "link count error" );
     }
-    int getLinkCount() { return m_linkCount; }
+    virtual int getLinkCount() { return m_linkCount; }
 
   protected:
     /// Constructor.

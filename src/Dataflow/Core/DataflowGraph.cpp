@@ -11,6 +11,8 @@ namespace Ra {
 namespace Dataflow {
 namespace Core {
 
+RA_SINGLETON_IMPLEMENTATION( PortFactory );
+
 using namespace Ra::Core::Utils;
 
 DataflowGraph::DataflowGraph( const std::string& name ) : DataflowGraph( name, getTypename() ) {}
@@ -30,16 +32,21 @@ void DataflowGraph::init() {
 }
 
 bool DataflowGraph::execute() {
+    if ( m_inputs.size() > 0 || m_outputs.size() > 0 ) return true;
+
     if ( !m_ready ) {
         if ( !compile() ) { return false; }
     }
     bool result = true;
+    std::cerr << "exec " << display_name() << "\n";
     std::for_each( m_nodesByLevel.begin(), m_nodesByLevel.end(), [&result]( const auto& level ) {
         std::for_each( level.begin(), level.end(), [&result]( auto node ) {
+            std::cerr << "exec " << node->display_name() << "\n";
+
             bool excuted = node->execute();
             if ( !excuted ) {
                 LOG( logERROR ) << "Execution failed with node " << node->getInstanceName() << " ("
-                                << node->getTypename() << ").";
+                                << node->getModelName() << ").";
             }
             result = result && excuted;
         } );
@@ -81,13 +88,14 @@ void DataflowGraph::toJsonInternal( nlohmann::json& data ) const {
                 nlohmann::json link = nlohmann::json::object();
                 auto portOut        = input->getLink();
                 auto nodeOut        = portOut->getNode();
-                // if nodeOut is not in the graph, skip it. Appens when graph as node
-                if ( auto itr =
-                         std::find_if( m_nodes.begin(),
-                                       m_nodes.end(),
-                                       [nodeOut]( const auto i ) { return i.get() == nodeOut; } );
-                     itr == m_nodes.end() )
-                    continue;
+                // if nodeOut is not in the graph, skip it. happens when graph as node
+                // if ( auto itr =
+                //          std::find_if( m_nodes.begin(),
+                //                        m_nodes.end(),
+                //                        [nodeOut]( const auto i ) { return i.get() == nodeOut; }
+                //                        );
+                //      itr == m_nodes.end() )
+                //           continue;
                 link["out_node"] = nodeOut->getInstanceName();
                 link["out_port"] = portOut->getName();
                 link["in_node"]  = n->getInstanceName();
@@ -227,7 +235,6 @@ bool DataflowGraph::fromJsonInternal( const nlohmann::json& data ) {
                 }
             }
         }
-        generate_ports();
     }
     return true;
 }
@@ -405,23 +412,22 @@ bool DataflowGraph::findNode2( const Node* node ) const {
     return false;
 }
 void DataflowGraph::generate_ports() {
-    std::unordered_map<Node*, std::pair<int, std::vector<Node*>>> infoNodes;
-
+    return;
     m_inputs.clear();
     m_outputs.clear();
     for ( auto const& n : m_nodes ) {
         if ( n->isOutputNode() ) {
             for ( auto& p : n->getOutputs() ) {
                 if ( p->getLinkCount() == 0 ) {
-                    if ( getOutputByName( p->getName() ).first.isValid() )
-                        p->setName( n->display_name() + " " + p->getName() );
+                    //                    if ( getOutputByName( p->getName() ).first.isValid() )
+                    p->setName( n->display_name() + " " + p->getName() );
                     addOutput( p );
                 }
             }
         }
         for ( auto& p : n->getInputs() ) {
             if ( !p->isLinked() ) {
-                if ( getInputByName( p->getName() ).first.isValid() )
+                if ( getOutputByName( p->getName() ).first.isValid() )
                     p->setName( n->display_name() + " " + p->getName() );
                 addInput( p );
             }
@@ -430,6 +436,9 @@ void DataflowGraph::generate_ports() {
 }
 
 bool DataflowGraph::compile() {
+    // dataflow with port acts has normal node, no compilation.
+    if ( m_inputs.size() > 0 || m_outputs.size() > 0 ) return true;
+
     // Find useful nodes (directly or indirectly connected to a Sink)
     std::unordered_map<Node*, std::pair<int, std::vector<Node*>>> infoNodes;
     for ( auto const& n : m_nodes ) {
@@ -521,9 +530,19 @@ void DataflowGraph::clearNodes() {
 void DataflowGraph::backtrackGraph(
     Node* current,
     std::unordered_map<Node*, std::pair<int, std::vector<Node*>>>& infoNodes ) {
+    std::cerr << "backtrace " << current->display_name() << "\n";
     for ( auto& input : current->getInputs() ) {
+        std::cerr << "input " << input->getName() << "\n";
         if ( input->getLink() ) {
-            Node* previous = input->getLink()->getNode();
+            std::cerr << "link p " << input->getLink()->getName() << "\n";
+            auto link = input->getLink();
+            if ( auto casted = dynamic_cast<PortOutAlias*>( link ); casted ) {
+                std::cerr << "aliased\n";
+                link = casted->aliased_port().get();
+            }
+            Node* previous = link->getNode();
+            std::cerr << "link n " << previous->display_name() << "\n";
+
             if ( previous ) {
                 auto previousInInfoNodes = infoNodes.find( previous );
                 if ( previousInInfoNodes != infoNodes.end() ) {

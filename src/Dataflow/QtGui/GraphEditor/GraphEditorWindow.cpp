@@ -92,6 +92,8 @@ class GraphEditorDialog : public QDialog
     GraphEditorDialog( std::shared_ptr<DataflowGraph> graph, QWidget* parent ) : QDialog( parent ) {
         auto p_dialogLayout = new QGridLayout( this );
         auto p_MainWindow   = new GraphEditorWindow( graph );
+        auto model          = p_MainWindow->graph_model();
+        model->addInputOutputNodesForGraph();
         p_dialogLayout->addWidget( p_MainWindow );
         p_MainWindow->setParent( this );
     }
@@ -105,7 +107,6 @@ void GraphEditorWindow::node_editor( std::shared_ptr<Node> node ) {
     w->show();
     connect( w, &GraphEditorDialog::finished, [this, g]( int ) {
         m_graph_model->clear_node_widget( g.get() );
-        g->generate_ports();
         m_graph_model->sync_data();
     } );
 }

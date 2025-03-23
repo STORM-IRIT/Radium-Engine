@@ -32,6 +32,7 @@ class RA_DATAFLOW_API GraphEditorWindow : public QMainWindow
     ~GraphEditorWindow();
 
     void loadFile( const QString& fileName );
+    std::shared_ptr<GraphModel> graph_model() { return m_graph_model; }
 
   signals:
     void needUpdate();

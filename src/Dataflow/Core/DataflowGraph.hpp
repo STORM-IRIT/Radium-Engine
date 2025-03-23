@@ -5,9 +5,143 @@
 #include <Dataflow/Core/Node.hpp>
 #include <Dataflow/Core/NodeFactory.hpp>
 
+#include <Core/Utils/Singleton.hpp>
+
 namespace Ra {
 namespace Dataflow {
 namespace Core {
+
+class PortInAlias : public PortBaseIn
+{
+  public:
+    PortInAlias( Node* node, Node::PortBaseInPtr port ) :
+        PortBaseIn { node, port->getName(), port->getType() }, m_port { port } {}
+
+    bool connect( PortBaseOut* portOut ) override { return m_port->connect( portOut ); }
+    bool disconnect() override { return m_port->disconnect(); }
+
+    bool isLinked() const override { return m_port->isLinked(); }
+    bool hasDefaultValue() const override { return m_port->hasDefaultValue(); }
+    void insert( Ra::Core::VariableSet& v ) override { m_port->insert( v ); }
+    Node::PortBaseOutRawPtr getLink() override { return m_port->getLink(); }
+
+    template <typename T>
+    PortOut<T>* getLinkAs() {
+        return m_port->getLinkAs<T>();
+    }
+
+    template <typename T>
+    void setDefaultValue( const T& value ) {
+        m_port->setDefaultValue<T>( value );
+    }
+
+    template <typename T>
+    T& getData() {
+        m_port->getData<T>();
+    }
+
+  private:
+    Node::PortBaseInPtr m_port;
+};
+
+class PortOutAlias : public PortBaseOut
+{
+  public:
+    PortOutAlias( Node* node, Node::PortBaseOutPtr port ) :
+        PortBaseOut { node, port->getName(), port->getType() }, m_port { port } {}
+
+    template <typename T>
+    T& getData() {
+        return m_port->getData<T>();
+    }
+
+    template <typename T>
+    void setData( T* data ) {
+        m_port->setData<T>( data );
+    }
+
+    // called by PortIn when connect
+    void increaseLinkCount() override {
+        PortBaseOut::increaseLinkCount();
+        m_port->increaseLinkCount();
+    }
+
+    // called by PortIn when disconnect
+    void decreaseLinkCount() override {
+        PortBaseOut::decreaseLinkCount();
+        m_port->decreaseLinkCount();
+    }
+    int getLinkCount() override { return m_linkCount; }
+    Node::PortBaseOutPtr aliased_port() { return m_port; }
+
+    bool hasData() override { return m_port->hasData(); }
+
+  private:
+    Node::PortBaseOutPtr m_port;
+};
+class PortFactory
+{
+  public:
+    RA_SINGLETON_INTERFACE( PortFactory );
+
+    Node::PortBaseInPtr
+    make_input_port( Node* node, const std::string& name, std::type_index type ) {
+        return m_input_port.at( type )( node, name );
+    }
+    Node::PortBaseOutPtr
+    make_output_port( Node* node, const std::string& name, std::type_index type ) {
+        return m_output_port.at( type )( node, name );
+    }
+
+  private:
+    PortFactory() {}
+    std::unordered_map<std::type_index,
+                       std::function<Node::PortBaseInPtr( Node*, const std::string& )>>
+        m_input_port;
+    std::unordered_map<std::type_index,
+                       std::function<Node::PortBaseOutPtr( Node*, const std::string& )>>
+        m_output_port;
+};
+
+#define BASIC_NODE_INIT( TYPE )                                                              \
+  public:                                                                                    \
+    explicit TYPE( const std::string& name ) : TYPE( name, TYPE::getTypename() ) {}          \
+    const std::string& getTypename() {                                                       \
+        static std::string demangledName = Ra::Core::Utils::simplifiedDemangledType<TYPE>(); \
+        return demangledName;                                                                \
+    }                                                                                        \
+    TYPE( const std::string& instanceName, const std::string& typeName ) :                   \
+        Node( instanceName, typeName )
+
+class GraphInputNode : public Node
+{
+    BASIC_NODE_INIT( GraphInputNode ) {}
+
+  public:
+    void add_output_port( PortBaseInPtr port ) {
+        auto reflect =
+            PortFactory::getInstance()->make_input_port( this, port->getName(), port->getType() );
+        auto out =
+            PortFactory::getInstance()->make_output_port( this, port->getName(), port->getType() );
+        addInput( reflect );
+        addOutput( out );
+    }
+};
+class GraphOutputNode : public Node
+{
+    BASIC_NODE_INIT( GraphOutputNode ) {}
+
+  public:
+    void add_input_port( PortBaseOutPtr port ) {
+        auto reflect =
+            PortFactory::getInstance()->make_output_port( this, port->getName(), port->getType() );
+        auto in =
+            PortFactory::getInstance()->make_input_port( this, port->getName(), port->getType() );
+
+        addInput( in );
+        addOutput( reflect );
+    }
+};
 
 /**
  * \brief Represent a set of connected nodes that define a Direct Acyclic Computational Graph
@@ -148,6 +282,8 @@ class RA_DATAFLOW_API DataflowGraph : public Node
     Node::PortBaseInRawPtr getDataSetter( const std::string& nodeName,
                                           const std::string& portName ) {
         auto node = getNode( nodeName );
+        std::cerr << "data setter " << node->display_name() << "\n";
+        std::cerr << node->getInputByIndex( 0 )->getName() << "\n";
         auto port = node->getInputByName( portName );
         CORE_ASSERT( port.first.isValid(),
                      "invalid port, node: " + nodeName + " port: " + portName );
@@ -208,6 +344,15 @@ class RA_DATAFLOW_API DataflowGraph : public Node
     using Node::addInputPort;
     using Node::addOutput;
     using Node::addOutputPort;
+
+    PortIndex addInputAlias( PortBaseInPtr port ) {
+        auto p = std::make_shared<PortInAlias>( this, port );
+        return addInput( p );
+    }
+    PortIndex addOutputAlias( PortBaseOutPtr port ) {
+        auto p = std::make_shared<PortOutAlias>( this, port );
+        return addOutput( p );
+    }
 
   protected:
     /** Allow derived class to construct the graph with their own static type
