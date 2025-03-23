@@ -12,7 +12,7 @@
 #include <Dataflow/Core/Nodes/Sinks/CoreDataSinks.hpp>
 #include <Dataflow/Core/Nodes/Sources/CoreDataSources.hpp>
 
-TEST_CASE( "Dataflow/Core/DataflowGraph", "[Dataflow][Core][DataflowGraph]" ) {
+TEST_CASE( "Dataflow/Core/DataflowGraph/Serialization", "[Dataflow][Core][DataflowGraph]" ) {
     SECTION( "Execution and modification of a graph" ) {
         using namespace Ra::Dataflow::Core;
         using DataType = Scalar;
