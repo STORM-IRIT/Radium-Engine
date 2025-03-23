@@ -106,6 +106,7 @@ void GraphEditorWindow::node_editor( std::shared_ptr<Node> node ) {
     w->setWindowModality( Qt::ApplicationModal );
     w->show();
     connect( w, &GraphEditorDialog::finished, [this, g]( int ) {
+        g->generate_ports();
         m_graph_model->clear_node_widget( g.get() );
         m_graph_model->sync_data();
     } );

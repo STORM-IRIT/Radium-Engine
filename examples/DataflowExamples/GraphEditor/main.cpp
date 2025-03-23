@@ -28,6 +28,9 @@ class SquareFunction : public Ra::Dataflow::Core::Sources::FunctionSourceNode<Sc
 int main( int argc, char* argv[] ) {
     QApplication app( argc, argv );
 
+    auto port_fatcory = Ra::Dataflow::Core::PortFactory::createInstance();
+    port_fatcory->add_port_type<Scalar>();
+
     setStyle();
 
     auto coreFactory = Ra::Dataflow::Core::NodeFactoriesManager::getDataFlowBuiltInsFactory();

@@ -38,10 +38,10 @@ int main( int argc, char* argv[] ) {
     b2minus4ac->getOutputPort()->setName( "delta" );
 
     gAsNode->add_input_output_nodes();
-    auto inputA = gAsNode->input_node()->add_output_port( forwardA->getInPort() );
-    auto inputB = gAsNode->input_node()->add_output_port( forwardB->getInPort() );
-    auto inputC = gAsNode->input_node()->add_output_port( forwardC->getInPort() );
-    auto output = gAsNode->output_node()->add_input_port( b2minus4ac->getOutputPort() );
+    auto inputA = gAsNode->input_node()->add_output_port( forwardA->getInPort().get() );
+    auto inputB = gAsNode->input_node()->add_output_port( forwardB->getInPort().get() );
+    auto inputC = gAsNode->input_node()->add_output_port( forwardC->getInPort().get() );
+    auto output = gAsNode->output_node()->add_input_port( b2minus4ac->getOutputPort().get() );
 
     gAsNode->input_node()->getInputByIndex( inputA )->setName( "a" );
     gAsNode->input_node()->getInputByIndex( inputB )->setName( "b" );
@@ -95,8 +95,8 @@ int main( int argc, char* argv[] ) {
         return 1;
     }
     std::cerr << "compile ok\n";
-    //! [Verifying the graph can be compiled]
-    // g.saveToJson( "illustrateDoc.json" );
+
+    g.saveToJson( "illustrateDoc.json" );
 
     if ( !g.execute() ) {
         std::cout << " execution failed\n";

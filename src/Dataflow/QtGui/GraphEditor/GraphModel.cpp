@@ -75,22 +75,8 @@ bool GraphModel::connectionExists( ConnectionId const connectionId ) const {
     return ( _connectivity.find( connectionId ) != _connectivity.end() );
 }
 
-class IONode : public Node
-{
-  public:
-    IONode( const std::string name ) : Node( name, getTypename() ) {}
-    bool execute() { return true; }
-    inline const std::string& getTypename() {
-        static std::string demangledTypeName { "InputNode" };
-        return demangledTypeName;
-    }
-};
-
 void GraphModel::addInputOutputNodesForGraph() {
-    auto inputs_node  = std::make_shared<IONode>( "group inputs" );
-    auto outputs_node = std::make_shared<IONode>( "group outputs" );
-    m_graph->addNode( inputs_node );
-    m_graph->addNode( outputs_node );
+    m_graph->add_input_output_nodes();
     sync_data();
 }
 
@@ -136,7 +122,10 @@ void GraphModel::addConnection( ConnectionId const connectionId ) {
                       out_port_id,
                       m_node_id_to_ptr.at( in_node_id ),
                       in_port_id );
+
     Q_EMIT connectionCreated( connectionId );
+    Q_EMIT nodeUpdated( in_node_id );
+    Q_EMIT nodeUpdated( out_node_id );
 }
 
 bool GraphModel::nodeExists( NodeId const nodeId ) const {
@@ -207,13 +196,17 @@ QVariant GraphModel::nodeData( NodeId nodeId, NodeRole role ) const {
     case NodeRole::InternalData:
         break;
 
-    case NodeRole::InPortCount:
-        result = static_cast<unsigned int>( node_ptr->getInputs().size() );
-        break;
+    case NodeRole::InPortCount: {
+        unsigned int count = ( node_ptr->getInputs().size() );
+        if ( node_ptr == m_graph->output_node() ) ++count;
+        result = ( count );
+    } break;
 
-    case NodeRole::OutPortCount:
-        result = static_cast<unsigned int>( node_ptr->getOutputs().size() );
-        break;
+    case NodeRole::OutPortCount: {
+        unsigned int count = ( node_ptr->getOutputs().size() );
+        if ( node_ptr == m_graph->input_node() ) ++count;
+        result = ( count );
+    } break;
 
     case NodeRole::Widget:
         if ( auto node_itr = m_node_widget.find( nodeId ); node_itr == m_node_widget.end() ) {
@@ -278,6 +271,51 @@ QVariant
 GraphModel::portData( NodeId nodeId, PortType portType, PortIndex portIndex, PortRole role ) const {
 
     auto n = m_node_id_to_ptr.at( nodeId );
+    if ( n == m_graph->input_node() || n == m_graph->output_node() ) {
+        switch ( role ) {
+        case PortRole::Data:
+            return QVariant();
+            break;
+
+        case PortRole::DataType: {
+            QString s;
+            if ( ( n == m_graph->input_node() && portIndex == n->getInputs().size() ) ||
+                 ( n == m_graph->output_node() && portIndex == n->getInputs().size() ) )
+                s = QString( "any" );
+            else {
+                auto p = ( portType == PortType::In ) ? n->getPortByIndex( "in", portIndex )
+                                                      : n->getPortByIndex( "out", portIndex );
+
+                s = QString::fromStdString(
+                    Ra::Core::Utils::simplifiedDemangledType( p->getType() ) );
+            }
+            return QVariant::fromValue( QtNodes::NodeDataType { s, s } );
+        } break;
+
+        case PortRole::ConnectionPolicyRole:
+            if ( portType == PortType::In )
+                return QVariant::fromValue( ConnectionPolicy::One );
+            else
+                return QVariant::fromValue( ConnectionPolicy::Many );
+            break;
+
+        case PortRole::CaptionVisible:
+            return true;
+            break;
+
+        case PortRole::Caption: {
+            if ( n == m_graph->input_node() && portIndex == n->getInputs().size() )
+                return QString( "new" );
+            if ( n == m_graph->output_node() && portIndex == n->getInputs().size() )
+                return QString( "new" );
+
+            auto p = ( portType == PortType::In ) ? n->getPortByIndex( "in", portIndex )
+                                                  : n->getPortByIndex( "out", portIndex );
+            return QString::fromStdString( p->getName() );
+        } break;
+        }
+        return QVariant();
+    }
 
     switch ( role ) {
     case PortRole::Data:

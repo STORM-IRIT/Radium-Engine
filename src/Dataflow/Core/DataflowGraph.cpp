@@ -327,6 +327,34 @@ bool DataflowGraph::addLink( const std::shared_ptr<Node>& nodeFrom,
                              Node::PortIndex portOutIdx,
                              const std::shared_ptr<Node>& nodeTo,
                              Node::PortIndex portInIdx ) {
+    // here
+    if ( ( nodeFrom == m_input_node || nodeFrom == m_output_node ) &&
+         ( nodeTo == m_input_node || nodeTo == m_output_node ) )
+        return false;
+
+    if ( nodeFrom == m_input_node && portOutIdx == m_input_node->getOutputs().size() ) {
+        auto portIn = nodeTo->getInputByIndex( portInIdx );
+        if ( !portIn ) {
+            Log::badPortIdx( "input", nodeTo->getModelName(), portInIdx );
+            return false;
+        }
+
+        m_input_node->add_output_port( portIn );
+        return true;
+    }
+    if ( nodeTo == m_output_node && portInIdx == m_output_node->getInputs().size() ) {
+
+        auto portOut = nodeFrom->getOutputByIndex( portOutIdx );
+
+        if ( !portOut ) {
+            Log::badPortIdx( "output", nodeFrom->getModelName(), portOutIdx );
+            return false;
+        }
+
+        m_output_node->add_input_port( portOut );
+        return true;
+    }
+
     if ( !checkNodeValidity( nodeFrom.get(), nodeTo.get() ) ) { return false; }
 
     auto portOut = nodeFrom->getOutputByIndex( portOutIdx );
@@ -412,6 +440,9 @@ bool DataflowGraph::findNode2( const Node* node ) const {
     return false;
 }
 void DataflowGraph::generate_ports() {
+    if ( m_input_node ) m_inputs = m_input_node->getInputs();
+    if ( m_output_node ) m_outputs = m_output_node->getOutputs();
+
     return;
     m_inputs.clear();
     m_outputs.clear();
@@ -498,8 +529,7 @@ bool DataflowGraph::compile() {
             }
         }
     }
-    if ( m_input_node ) m_inputs = m_input_node->getInputs();
-    if ( m_output_node ) m_outputs = m_output_node->getOutputs();
+    generate_ports();
     m_ready = true;
     init();
     return m_ready;
@@ -667,7 +697,7 @@ void DataflowGraph::Log::unableToFind( const std::string& type, const std::strin
 void DataflowGraph::Log::badPortIdx( const std::string& type,
                                      const std::string& instanceName,
                                      Node::PortIndex idx ) {
-    LOG( logERROR ) << "DataflowGraph::addLink node " << instanceName << "as no " << type
+    LOG( logERROR ) << "DataflowGraph::addLink node " << instanceName << " as no " << type
                     << " port with index " << idx;
 }
 

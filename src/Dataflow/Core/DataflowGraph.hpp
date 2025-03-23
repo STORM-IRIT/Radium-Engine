@@ -80,6 +80,7 @@ class GraphNode : public Node
 
   public:
     bool execute() override {
+        /// \todo add assert check on size ?
         for ( size_t i = 0; i < m_inputs.size(); ++i ) {
             auto factory       = PortFactory::getInstance();
             auto output_setter = factory->output_setter( m_outputs[i]->getType() );
@@ -89,8 +90,16 @@ class GraphNode : public Node
         return true;
     }
 
+    void remove_unlinked_ports() {
+        for ( size_t i = 0; i < m_inputs.size(); ++i ) {
+            if ( !m_inputs[i]->isLinked() && m_outputs[i]->getLinkCount() == 0 ) {
+                ///\todo remove_if like with synchro.
+            }
+        }
+    }
+
   protected:
-    auto add_ports( PortBasePtr port ) {
+    auto add_ports( PortBaseRawPtr port ) {
         auto factory    = PortFactory::getInstance();
         auto in         = factory->make_input_port( this, port->getName(), port->getType() );
         auto out        = factory->make_output_port( this, port->getName(), port->getType() );
@@ -105,7 +114,7 @@ class GraphInputNode : public GraphNode
     BASIC_NODE_INIT( GraphInputNode, GraphNode ) {}
 
   public:
-    PortIndex add_output_port( PortBaseInPtr port ) {
+    PortIndex add_output_port( PortBaseInRawPtr port ) {
         auto [input_idx, output_idx, in, out] = add_ports( port );
         port->connect( out.get() );
         return input_idx;
@@ -116,10 +125,10 @@ class GraphOutputNode : public GraphNode
     BASIC_NODE_INIT( GraphOutputNode, GraphNode ) {}
 
   public:
-    PortIndex add_input_port( PortBaseOutPtr port ) {
+    PortIndex add_input_port( PortBaseOutRawPtr port ) {
         auto [input_idx, output_idx, in, out] = add_ports( port );
 
-        in->connect( port.get() );
+        in->connect( port );
         return output_idx;
     }
 };
@@ -200,6 +209,15 @@ class RA_DATAFLOW_API DataflowGraph : public Node
                   Node::PortIndex portOutIdx,
                   const Node* nodeTo,
                   Node::PortIndex portInIdx ) {
+
+        if ( ( nodeFrom == m_input_node.get() || nodeFrom == m_output_node.get() ) &&
+             ( nodeTo == m_input_node.get() || nodeTo == m_output_node.get() ) )
+            return false;
+        if ( nodeFrom == m_input_node.get() && portOutIdx == m_input_node->getOutputs().size() )
+            return true;
+        if ( nodeTo == m_output_node.get() && portInIdx == m_output_node->getInputs().size() )
+            return true;
+
         auto portIn  = nodeTo->getInputByIndex( portInIdx );
         auto portOut = nodeFrom->getOutputByIndex( portOutIdx );
         // Compare types
