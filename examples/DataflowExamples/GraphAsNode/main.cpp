@@ -98,9 +98,9 @@ int main( int argc, char* argv[] ) {
     //! [Verifying the graph can be compiled]
     // g.saveToJson( "illustrateDoc.json" );
 
-    if ( g.execute() ) {
+    if ( !g.execute() ) {
         std::cout << " execution failed\n";
-        //  return 1;
+        return 1;
     }
 
     auto& result = resultNode->getDataByRef();

@@ -64,7 +64,7 @@ class PortFactory
     std::unordered_map<std::type_index, PortOutSetter> m_output_setter;
 };
 
-#define BASIC_NODE_INIT( TYPE )                                                              \
+#define BASIC_NODE_INIT( TYPE, BASE )                                                        \
   public:                                                                                    \
     explicit TYPE( const std::string& name ) : TYPE( name, TYPE::getTypename() ) {}          \
     const std::string& getTypename() {                                                       \
@@ -72,57 +72,55 @@ class PortFactory
         return demangledName;                                                                \
     }                                                                                        \
     TYPE( const std::string& instanceName, const std::string& typeName ) :                   \
-        Node( instanceName, typeName )
+        BASE( instanceName, typeName )
 
-class GraphInputNode : public Node
+class GraphNode : public Node
 {
-    BASIC_NODE_INIT( GraphInputNode ) {}
+    BASIC_NODE_INIT( GraphNode, Node ) {}
+
+  public:
+    bool execute() override {
+        for ( size_t i = 0; i < m_inputs.size(); ++i ) {
+            auto factory       = PortFactory::getInstance();
+            auto output_setter = factory->output_setter( m_outputs[i]->getType() );
+            auto input_getter  = factory->input_getter( m_inputs[i]->getType() );
+            output_setter( m_outputs[i].get(), input_getter( m_inputs[i].get() ) );
+        }
+        return true;
+    }
+
+  protected:
+    auto add_ports( PortBasePtr port ) {
+        auto factory    = PortFactory::getInstance();
+        auto in         = factory->make_input_port( this, port->getName(), port->getType() );
+        auto out        = factory->make_output_port( this, port->getName(), port->getType() );
+        auto input_idx  = addInput( in );
+        auto output_idx = addOutput( out );
+        return std::make_tuple( input_idx, output_idx, in, out );
+    }
+};
+
+class GraphInputNode : public GraphNode
+{
+    BASIC_NODE_INIT( GraphInputNode, GraphNode ) {}
 
   public:
     PortIndex add_output_port( PortBaseInPtr port ) {
-        auto factory   = PortFactory::getInstance();
-        auto reflect   = factory->make_input_port( this, port->getName(), port->getType() );
-        auto out       = factory->make_output_port( this, port->getName(), port->getType() );
-        auto input_idx = addInput( reflect );
-        // auto output_idx =
-        addOutput( out );
-        ///\todo ckeck  compat
+        auto [input_idx, output_idx, in, out] = add_ports( port );
         port->connect( out.get() );
         return input_idx;
     }
-    bool execute() {
-        for ( size_t i = 0; i < m_inputs.size(); ++i ) {
-            auto factory       = PortFactory::getInstance();
-            auto output_setter = factory->output_setter( m_outputs[i]->getType() );
-            auto input_getter  = factory->input_getter( m_inputs[i]->getType() );
-            output_setter( m_outputs[i].get(), input_getter( m_inputs[i].get() ) );
-        }
-        return true;
-    }
 };
-class GraphOutputNode : public Node
+class GraphOutputNode : public GraphNode
 {
-    BASIC_NODE_INIT( GraphOutputNode ) {}
+    BASIC_NODE_INIT( GraphOutputNode, GraphNode ) {}
 
   public:
     PortIndex add_input_port( PortBaseOutPtr port ) {
-        auto factory = PortFactory::getInstance();
-        auto reflect = factory->make_output_port( this, port->getName(), port->getType() );
-        auto in      = factory->make_input_port( this, port->getName(), port->getType() );
-        //        auto input_idx  =
-        addInput( in );
-        auto output_idx = addOutput( reflect );
+        auto [input_idx, output_idx, in, out] = add_ports( port );
+
         in->connect( port.get() );
         return output_idx;
-    }
-    bool execute() {
-        for ( size_t i = 0; i < m_inputs.size(); ++i ) {
-            auto factory       = PortFactory::getInstance();
-            auto output_setter = factory->output_setter( m_outputs[i]->getType() );
-            auto input_getter  = factory->input_getter( m_inputs[i]->getType() );
-            output_setter( m_outputs[i].get(), input_getter( m_inputs[i].get() ) );
-        }
-        return true;
     }
 };
 
