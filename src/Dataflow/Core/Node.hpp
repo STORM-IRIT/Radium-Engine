@@ -336,9 +336,9 @@ class RA_DATAFLOW_API Node
     }
 
     /// Adds an in port to the node.
-    /// This function checks if the port is an input port.
+    /// If an input porst with the same name, do not insert and return false.
     /// \param in The in port to add.
-    bool addInput( PortBaseInRawPtr in );
+    bool addInput( PortBaseInRawPtr in ); ///< \todo remove
     PortIndex addInput( PortBaseInPtr in );
     PortIndex addOutput( PortBaseOutPtr out );
     template <typename PortType>

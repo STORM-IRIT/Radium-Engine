@@ -16,8 +16,8 @@ namespace Core {
  * another graph
  *      --> Edition of a graph will allow loading and saving to a file directly
  *      --> Edition of an embeded graph will defer loading and saving to the parent graph
- *          --> for this, need to decide if a subgraph is stored in the json of its parent or in a
- * separate file
+ *          --> for this, need to decide if a subgraph is stored in the json of its parent or in
+ * a separate file
  */
 class RA_DATAFLOW_API DataflowGraph : public Node
 {
@@ -44,8 +44,8 @@ class RA_DATAFLOW_API DataflowGraph : public Node
     /// \brief Adds a node to the render graph.
     /// \param newNode The node to add to the graph.
     /// \return a pair with a bool and a raw pointer to the Node. If the bool is true, the raw
-    /// pointer is owned by the graph. If the bool is false, the raw pointer ownership is left to
-    /// the caller.
+    /// pointer is owned by the graph. If the bool is false, the raw pointer ownership is left
+    /// to the caller.
     virtual bool addNode( std::shared_ptr<Node> newNode );
     template <typename T, typename... U>
     std::shared_ptr<T> addNode( U&&... u );
@@ -57,8 +57,8 @@ class RA_DATAFLOW_API DataflowGraph : public Node
 
     /// Connects two nodes of the graph.
     /// The two nodes must already be in the graph (with the addNode(Node* newNode)
-    /// function), in order to be linked the first node's in port must be free and the connected in
-    /// port and out port must have the same type of data.
+    /// function), in order to be linked the first node's in port must be free and the connected
+    /// in port and out port must have the same type of data.
     ///
     /// \param nodeFrom The node that contains the out port.
     /// \param nodeFromOutputName The name of the out port in nodeFrom.
@@ -234,7 +234,7 @@ class RA_DATAFLOW_API DataflowGraph : public Node
     /// contains information about nodes.
     void backtrackGraph( Node* current,
                          std::unordered_map<Node*, std::pair<int, std::vector<Node*>>>& infoNodes );
-    /// Internal compilation function that allows to go through the render graph, using an
+    /// Internal compilation function that allows to go through the graph, using an
     /// information map.
     /// \param current The current node.
     /// \param infoNodes The map that contains information about nodes.

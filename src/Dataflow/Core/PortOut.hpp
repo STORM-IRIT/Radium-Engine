@@ -26,15 +26,13 @@ class RA_DATAFLOW_API PortBaseOut : public PortBase
     PortBaseOut& operator=( const PortBaseOut& ) = delete;
     /// @}
 
-    /// Allows to get data stored at this port if it is an output port.
-    /// This method copy the data onto the given object
-    /// @params t The reference to store the data of this port
+    /// Get data stored at this outpute port
+    /// Check if this port type it the same as T
     template <typename T>
     T& getData();
 
-    /// Check if this port is an output port, then takes a pointer to the data this port will
-    /// point
-    /// to.
+    /// Set port data pointer.
+    /// Check if this port type it the same as T
     /// @param data The pointer to the data.
     template <typename T>
     void setData( T* data );
@@ -100,8 +98,11 @@ class PortOut : public PortBaseOut
     bool hasData() override { return ( m_data ); }
 
   private:
-    T* m_data { nullptr }; ///< The data the port points to. Use raw ptr, data belongs to node
-                           ///< and can be plain stack variable
+    /** Port's data pointer.
+     *
+     * Use raw ptr since data belongs to the node and can be plain stack variable
+     */
+    T* m_data { nullptr };
 
 }; // class PortOut<T>
 
