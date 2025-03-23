@@ -436,28 +436,20 @@ void DataflowGraph::generate_ports() {
 }
 
 bool DataflowGraph::compile() {
-    // dataflow with port acts has normal node, no compilation.
-    if ( m_inputs.size() > 0 || m_outputs.size() > 0 ) return true;
 
     // Find useful nodes (directly or indirectly connected to a Sink)
     std::unordered_map<Node*, std::pair<int, std::vector<Node*>>> infoNodes;
+
+    if ( m_output_node ) {
+        backtrackGraph( m_output_node.get(), infoNodes );
+        infoNodes.emplace( m_output_node.get(), std::pair<int, std::vector<Node*>>( 0, {} ) );
+    }
     for ( auto const& n : m_nodes ) {
-        // Find all sinks
-        if ( n->isOutputNode() ) {
-            // Add the sink in the useful nodes set if any of his port is linked
-            bool activeSink { false };
-            for ( const auto& p : n->getInputs() ) {
-                activeSink |= p->isLinked();
-            }
-            if ( activeSink ) {
-                infoNodes.emplace( n.get(), std::pair<int, std::vector<Node*>>( 0, {} ) );
-                // recursively add the predecessors of the sink
-                backtrackGraph( n.get(), infoNodes );
-            }
-            else {
-                LOG( logWARNING ) << "Sink Node " << n->getInstanceName()
-                                  << " is inactive (belog to the graph but not connected)";
-            }
+        // Find all sinks, skip m_output_node
+        if ( n->isOutputNode() && n != m_output_node ) {
+            infoNodes.emplace( n.get(), std::pair<int, std::vector<Node*>>( 0, {} ) );
+            // recursively add the predecessors of the sink
+            backtrackGraph( n.get(), infoNodes );
         }
     }
     // Compute the level (rank of execution) of useful nodes
@@ -465,7 +457,7 @@ bool DataflowGraph::compile() {
     for ( auto& infNode : infoNodes ) {
         auto n = infNode.first;
         // Compute the nodes' level starting from sources
-        if ( n->isInputNode() ) {
+        if ( n->isInputNode() || n == m_input_node.get() ) {
             // set level to 0 because node is source
             infNode.second.first = 0;
             // Tag successors
@@ -497,7 +489,7 @@ bool DataflowGraph::compile() {
             if ( !lvl[j]->compile() ) { return m_ready = false; }
             // For each input
             for ( size_t k = 0; k < lvl[j]->getInputs().size(); k++ ) {
-                if ( lvl[j]->getInputs()[k]->isLinkMandatory() &&
+                if ( lvl[j] != m_input_node.get() && lvl[j]->getInputs()[k]->isLinkMandatory() &&
                      !lvl[j]->getInputs()[k]->isLinked() ) {
                     LOG( logERROR )
                         << "Node <" << lvl[j]->getInstanceName() << "> is not ready" << std::endl;
@@ -506,6 +498,8 @@ bool DataflowGraph::compile() {
             }
         }
     }
+    if ( m_input_node ) m_inputs = m_input_node->getInputs();
+    if ( m_output_node ) m_outputs = m_output_node->getOutputs();
     m_ready = true;
     init();
     return m_ready;
@@ -534,16 +528,8 @@ void DataflowGraph::backtrackGraph(
     for ( auto& input : current->getInputs() ) {
         std::cerr << "input " << input->getName() << "\n";
         if ( input->getLink() ) {
-            std::cerr << "link p " << input->getLink()->getName() << "\n";
-            auto link = input->getLink();
-            if ( auto casted = dynamic_cast<PortOutAlias*>( link ); casted ) {
-                std::cerr << "aliased\n";
-                link = casted->aliased_port().get();
-            }
-            Node* previous = link->getNode();
-            std::cerr << "link n " << previous->display_name() << "\n";
-
-            if ( previous ) {
+            Node* previous = input->getLink()->getNode();
+            if ( previous && previous != m_input_node.get() ) {
                 auto previousInInfoNodes = infoNodes.find( previous );
                 if ( previousInInfoNodes != infoNodes.end() ) {
                     // If the previous node is already in the map,

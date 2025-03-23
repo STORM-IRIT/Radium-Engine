@@ -11,96 +11,57 @@ namespace Ra {
 namespace Dataflow {
 namespace Core {
 
-class PortInAlias : public PortBaseIn
-{
-  public:
-    PortInAlias( Node* node, Node::PortBaseInPtr port ) :
-        PortBaseIn { node, port->getName(), port->getType() }, m_port { port } {}
-
-    bool connect( PortBaseOut* portOut ) override { return m_port->connect( portOut ); }
-    bool disconnect() override { return m_port->disconnect(); }
-
-    bool isLinked() const override { return m_port->isLinked(); }
-    bool hasDefaultValue() const override { return m_port->hasDefaultValue(); }
-    void insert( Ra::Core::VariableSet& v ) override { m_port->insert( v ); }
-    Node::PortBaseOutRawPtr getLink() override { return m_port->getLink(); }
-
-    template <typename T>
-    PortOut<T>* getLinkAs() {
-        return m_port->getLinkAs<T>();
-    }
-
-    template <typename T>
-    void setDefaultValue( const T& value ) {
-        m_port->setDefaultValue<T>( value );
-    }
-
-    template <typename T>
-    T& getData() {
-        m_port->getData<T>();
-    }
-
-  private:
-    Node::PortBaseInPtr m_port;
-};
-
-class PortOutAlias : public PortBaseOut
-{
-  public:
-    PortOutAlias( Node* node, Node::PortBaseOutPtr port ) :
-        PortBaseOut { node, port->getName(), port->getType() }, m_port { port } {}
-
-    template <typename T>
-    T& getData() {
-        return m_port->getData<T>();
-    }
-
-    template <typename T>
-    void setData( T* data ) {
-        m_port->setData<T>( data );
-    }
-
-    // called by PortIn when connect
-    void increaseLinkCount() override {
-        PortBaseOut::increaseLinkCount();
-        m_port->increaseLinkCount();
-    }
-
-    // called by PortIn when disconnect
-    void decreaseLinkCount() override {
-        PortBaseOut::decreaseLinkCount();
-        m_port->decreaseLinkCount();
-    }
-    int getLinkCount() override { return m_linkCount; }
-    Node::PortBaseOutPtr aliased_port() { return m_port; }
-
-    bool hasData() override { return m_port->hasData(); }
-
-  private:
-    Node::PortBaseOutPtr m_port;
-};
 class PortFactory
 {
   public:
     RA_SINGLETON_INTERFACE( PortFactory );
 
+    using PortInCtorFunctor  = std::function<Node::PortBaseInPtr( Node*, const std::string& )>;
+    using PortOutCtorFunctor = std::function<Node::PortBaseOutPtr( Node*, const std::string& )>;
+    using PortOutSetter      = std::function<void( PortBaseOut*, std::any )>;
+    using PortInGetter       = std::function<std::any( PortBaseIn* )>;
+
     Node::PortBaseInPtr
     make_input_port( Node* node, const std::string& name, std::type_index type ) {
-        return m_input_port.at( type )( node, name );
+        return m_input_ctor.at( type )( node, name );
     }
     Node::PortBaseOutPtr
     make_output_port( Node* node, const std::string& name, std::type_index type ) {
-        return m_output_port.at( type )( node, name );
+        return m_output_ctor.at( type )( node, name );
     }
+
+    template <typename T>
+    void add_port_type() {
+        auto type          = std::type_index( typeid( T ) );
+        m_input_ctor[type] = []( Node* node, const std::string& name ) {
+            return std::make_shared<PortIn<T>>( node, name );
+        };
+
+        m_output_ctor[type] = []( Node* node, const std::string& name ) {
+            return std::make_shared<PortOut<T>>( node, name );
+        };
+
+        m_input_getter[type] = []( PortBaseIn* port ) -> std::any {
+            auto casted = dynamic_cast<PortIn<T>*>( port );
+            return &( casted->getData() );
+        };
+        m_output_setter[type] = []( PortBaseOut* port, std::any any ) {
+            T* data     = std::any_cast<T*>( any );
+            auto casted = dynamic_cast<PortOut<T>*>( port );
+            casted->setData( data );
+        };
+    }
+
+    PortOutSetter output_setter( std::type_index type ) { return m_output_setter[type]; }
+    PortInGetter input_getter( std::type_index type ) { return m_input_getter[type]; }
 
   private:
     PortFactory() {}
-    std::unordered_map<std::type_index,
-                       std::function<Node::PortBaseInPtr( Node*, const std::string& )>>
-        m_input_port;
-    std::unordered_map<std::type_index,
-                       std::function<Node::PortBaseOutPtr( Node*, const std::string& )>>
-        m_output_port;
+
+    std::unordered_map<std::type_index, PortInCtorFunctor> m_input_ctor;
+    std::unordered_map<std::type_index, PortInGetter> m_input_getter;
+    std::unordered_map<std::type_index, PortOutCtorFunctor> m_output_ctor;
+    std::unordered_map<std::type_index, PortOutSetter> m_output_setter;
 };
 
 #define BASIC_NODE_INIT( TYPE )                                                              \
@@ -118,13 +79,25 @@ class GraphInputNode : public Node
     BASIC_NODE_INIT( GraphInputNode ) {}
 
   public:
-    void add_output_port( PortBaseInPtr port ) {
-        auto reflect =
-            PortFactory::getInstance()->make_input_port( this, port->getName(), port->getType() );
-        auto out =
-            PortFactory::getInstance()->make_output_port( this, port->getName(), port->getType() );
-        addInput( reflect );
+    PortIndex add_output_port( PortBaseInPtr port ) {
+        auto factory   = PortFactory::getInstance();
+        auto reflect   = factory->make_input_port( this, port->getName(), port->getType() );
+        auto out       = factory->make_output_port( this, port->getName(), port->getType() );
+        auto input_idx = addInput( reflect );
+        // auto output_idx =
         addOutput( out );
+        ///\todo ckeck  compat
+        port->connect( out.get() );
+        return input_idx;
+    }
+    bool execute() {
+        for ( size_t i = 0; i < m_inputs.size(); ++i ) {
+            auto factory       = PortFactory::getInstance();
+            auto output_setter = factory->output_setter( m_outputs[i]->getType() );
+            auto input_getter  = factory->input_getter( m_inputs[i]->getType() );
+            output_setter( m_outputs[i].get(), input_getter( m_inputs[i].get() ) );
+        }
+        return true;
     }
 };
 class GraphOutputNode : public Node
@@ -132,14 +105,24 @@ class GraphOutputNode : public Node
     BASIC_NODE_INIT( GraphOutputNode ) {}
 
   public:
-    void add_input_port( PortBaseOutPtr port ) {
-        auto reflect =
-            PortFactory::getInstance()->make_output_port( this, port->getName(), port->getType() );
-        auto in =
-            PortFactory::getInstance()->make_input_port( this, port->getName(), port->getType() );
-
+    PortIndex add_input_port( PortBaseOutPtr port ) {
+        auto factory = PortFactory::getInstance();
+        auto reflect = factory->make_output_port( this, port->getName(), port->getType() );
+        auto in      = factory->make_input_port( this, port->getName(), port->getType() );
+        //        auto input_idx  =
         addInput( in );
-        addOutput( reflect );
+        auto output_idx = addOutput( reflect );
+        in->connect( port.get() );
+        return output_idx;
+    }
+    bool execute() {
+        for ( size_t i = 0; i < m_inputs.size(); ++i ) {
+            auto factory       = PortFactory::getInstance();
+            auto output_setter = factory->output_setter( m_outputs[i]->getType() );
+            auto input_getter  = factory->input_getter( m_inputs[i]->getType() );
+            output_setter( m_outputs[i].get(), input_getter( m_inputs[i].get() ) );
+        }
+        return true;
     }
 };
 
@@ -345,14 +328,19 @@ class RA_DATAFLOW_API DataflowGraph : public Node
     using Node::addOutput;
     using Node::addOutputPort;
 
-    PortIndex addInputAlias( PortBaseInPtr port ) {
-        auto p = std::make_shared<PortInAlias>( this, port );
-        return addInput( p );
+    ///\todo add port to ionode
+    PortIndex addInputAlias( PortBaseInPtr port ) { return PortIndex {}; }
+    PortIndex addOutputAlias( PortBaseOutPtr port ) { return PortIndex {}; }
+
+    void add_input_output_nodes() {
+        if ( !m_output_node ) { m_output_node = std::make_shared<GraphOutputNode>( "output" ); }
+        if ( !m_input_node ) { m_input_node = std::make_shared<GraphInputNode>( "input" ); }
+        addNode( m_input_node );
+        addNode( m_output_node );
     }
-    PortIndex addOutputAlias( PortBaseOutPtr port ) {
-        auto p = std::make_shared<PortOutAlias>( this, port );
-        return addOutput( p );
-    }
+
+    std::shared_ptr<GraphOutputNode> output_node() { return m_output_node; }
+    std::shared_ptr<GraphInputNode> input_node() { return m_input_node; }
 
   protected:
     /** Allow derived class to construct the graph with their own static type
@@ -418,6 +406,8 @@ class RA_DATAFLOW_API DataflowGraph : public Node
 
     /// The unordered list of nodes.
     std::vector<std::shared_ptr<Node>> m_nodes;
+    std::shared_ptr<GraphOutputNode> m_output_node { nullptr };
+    std::shared_ptr<GraphInputNode> m_input_node { nullptr };
     // Internal node levels representation
     /// The list of nodes ordered by levels.
     /// Two nodes at the same level have no dependency between them.

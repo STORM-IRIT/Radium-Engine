@@ -15,7 +15,8 @@ using namespace Ra::Dataflow::Core;
 int main( int argc, char* argv[] ) {
     using RaVector = Ra::Core::VectorArray<Scalar>;
 
-    PortFactory::createInstance();
+    auto port_fatcory = PortFactory::createInstance();
+    port_fatcory->add_port_type<Scalar>();
 
     auto gAsNode = Ra::Core::make_shared<DataflowGraph>( "graphAsNode" );
 
@@ -36,15 +37,16 @@ int main( int argc, char* argv[] ) {
 
     b2minus4ac->getOutputPort()->setName( "delta" );
 
-    auto inputA = gAsNode->addInputAlias( forwardA->getInPort() );
-    auto inputB = gAsNode->addInputAlias( forwardB->getInPort() );
-    auto inputC = gAsNode->addInputAlias( forwardC->getInPort() );
-    auto output = gAsNode->addOutputAlias( b2minus4ac->getOutputPort() );
+    gAsNode->add_input_output_nodes();
+    auto inputA = gAsNode->input_node()->add_output_port( forwardA->getInPort() );
+    auto inputB = gAsNode->input_node()->add_output_port( forwardB->getInPort() );
+    auto inputC = gAsNode->input_node()->add_output_port( forwardC->getInPort() );
+    auto output = gAsNode->output_node()->add_input_port( b2minus4ac->getOutputPort() );
 
-    gAsNode->getInputByIndex( inputA )->setName( "a" );
-    gAsNode->getInputByIndex( inputB )->setName( "b" );
-    gAsNode->getInputByIndex( inputC )->setName( "c" );
-    gAsNode->getOutputByIndex( output )->setName( "delta" );
+    gAsNode->input_node()->getInputByIndex( inputA )->setName( "a" );
+    gAsNode->input_node()->getInputByIndex( inputB )->setName( "b" );
+    gAsNode->input_node()->getInputByIndex( inputC )->setName( "c" );
+    gAsNode->output_node()->getOutputByIndex( output )->setName( "delta" );
 
     gAsNode->addLink( forwardB->getOutPort(), b2->getInPort() );
     gAsNode->addLink( forwardA->getOutPort(), fourAC->getPortA() );
@@ -53,6 +55,7 @@ int main( int argc, char* argv[] ) {
     gAsNode->addLink( b2->getOutPort(), b2minus4ac->getPortA() );
     gAsNode->addLink( fourAC->getOutputPort(), b2minus4ac->getPortB() );
 
+    gAsNode->compile();
     std::cout << "== Graph as node ==\n";
     std::cout << "inputs\n";
     for ( const auto& n : gAsNode->getInputs() ) {
@@ -67,11 +70,11 @@ int main( int argc, char* argv[] ) {
     }
 
     DataflowGraph g { "mainGraph" };
-    auto sourceNodeA = g.addNode<Sources::SingleDataSourceNode<Scalar>>( "a" );
-    auto sourceNodeB = g.addNode<Sources::SingleDataSourceNode<Scalar>>( "b" );
-    auto sourceNodeC = g.addNode<Sources::SingleDataSourceNode<Scalar>>( "c" );
+    auto sourceNodeA = g.addNode<Sources::SingleDataSourceNode<Scalar>>( "sa" );
+    auto sourceNodeB = g.addNode<Sources::SingleDataSourceNode<Scalar>>( "sb" );
+    auto sourceNodeC = g.addNode<Sources::SingleDataSourceNode<Scalar>>( "sc" );
 
-    auto resultNode = g.addNode<Sinks::SinkNode<Scalar>>( "delta" );
+    auto resultNode = g.addNode<Sinks::SinkNode<Scalar>>( "odelta" );
 
     g.addNode( gAsNode );
 
