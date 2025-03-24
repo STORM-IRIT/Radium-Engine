@@ -442,28 +442,6 @@ bool DataflowGraph::findNode2( const Node* node ) const {
 void DataflowGraph::generate_ports() {
     if ( m_input_node ) m_inputs = m_input_node->getInputs();
     if ( m_output_node ) m_outputs = m_output_node->getOutputs();
-
-    return;
-    m_inputs.clear();
-    m_outputs.clear();
-    for ( auto const& n : m_nodes ) {
-        if ( n->isOutputNode() ) {
-            for ( auto& p : n->getOutputs() ) {
-                if ( p->getLinkCount() == 0 ) {
-                    //                    if ( getOutputByName( p->getName() ).first.isValid() )
-                    p->setName( n->display_name() + " " + p->getName() );
-                    addOutput( p );
-                }
-            }
-        }
-        for ( auto& p : n->getInputs() ) {
-            if ( !p->isLinked() ) {
-                if ( getOutputByName( p->getName() ).first.isValid() )
-                    p->setName( n->display_name() + " " + p->getName() );
-                addInput( p );
-            }
-        }
-    }
 }
 
 bool DataflowGraph::compile() {

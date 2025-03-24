@@ -116,7 +116,7 @@ class NodeEditorDialog : public QDialog
 {
   public:
     NodeEditorDialog( Node* node, QWidget* parent = nullptr, Qt::WindowFlags f = Qt::Dialog ) :
-        QDialog( parent, f ) {
+        QDialog( parent, f ), m_node { node } {
         ui.setupUi( this );
 
         {
@@ -152,6 +152,11 @@ class NodeEditorDialog : public QDialog
 
             ++row;
         }
+        auto graph_node = dynamic_cast<GraphNode*>( node );
+        if ( graph_node ) {
+            clear_unused = new QCheckBox( "clear unused" );
+            layout->addWidget( clear_unused, row, 0 );
+        }
         connect( ui.buttonBox, &QDialogButtonBox::accepted, this, &NodeEditorDialog::run );
     }
 
@@ -160,10 +165,16 @@ class NodeEditorDialog : public QDialog
         for ( auto p : data_editors ) {
             p.second( p.first->displayText() );
         }
+        if ( clear_unused && clear_unused->checkState() == Qt::Checked ) {
+            auto graph_node = dynamic_cast<GraphNode*>( m_node );
+            if ( graph_node ) { graph_node->remove_unlinked_ports(); }
+        }
     }
 
   private:
     std::vector<std::pair<QLineEdit*, std::function<void( const QString& )>>> data_editors;
+    Node* m_node { nullptr };
+    QCheckBox* clear_unused { nullptr };
     Ui::NodeEditor ui;
 };
 

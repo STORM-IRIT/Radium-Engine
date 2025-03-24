@@ -101,22 +101,44 @@ class GraphNode : public Node
     }
 
     void remove_unlinked_ports() {
-        for ( size_t i = 0; i < m_inputs.size(); ++i ) {
+        int last_index = m_inputs.size();
+        for ( size_t i = 0; i < last_index; ++i ) {
             if ( !m_inputs[i]->isLinked() && m_outputs[i]->getLinkCount() == 0 ) {
-                ///\todo remove_if like with synchro.
+                std::swap( m_inputs[i], m_inputs[last_index - 1] );
+                std::swap( m_outputs[i], m_outputs[last_index - 1] );
+                --last_index;
+                --i;
             }
         }
+        m_inputs.erase( m_inputs.begin() + last_index, m_inputs.end() );
+        m_outputs.erase( m_outputs.begin() + last_index, m_outputs.end() );
     }
+
+    void set_graph( Node* node ) { m_graph = node; }
+    Node* graph() const { return m_graph; }
 
   protected:
     auto add_ports( PortBaseRawPtr port ) {
         auto factory    = PortFactory::getInstance();
-        auto in         = factory->make_input_port( this, port->getName(), port->getType() );
-        auto out        = factory->make_output_port( this, port->getName(), port->getType() );
+        auto in_name    = find_available_name( "in", port->getName() );
+        auto in         = factory->make_input_port( this, in_name, port->getType() );
+        auto out_name   = find_available_name( "out", port->getName() );
+        auto out        = factory->make_output_port( this, out_name, port->getType() );
         auto input_idx  = addInput( in );
         auto output_idx = addOutput( out );
         return std::make_tuple( input_idx, output_idx, in, out );
     }
+
+    auto find_available_name( const std::string& type, const std::string& name ) -> std::string {
+        int suffix           = 1;
+        std::string new_name = name;
+        while ( getPortByName( type, new_name ).first.isValid() ) {
+            new_name = name + "_" + std::to_string( suffix++ );
+        }
+        return new_name;
+    }
+
+    Node* m_graph { nullptr };
 };
 
 class GraphInputNode : public GraphNode
@@ -361,6 +383,8 @@ class RA_DATAFLOW_API DataflowGraph : public Node
     void add_input_output_nodes() {
         if ( !m_output_node ) { m_output_node = std::make_shared<GraphOutputNode>( "output" ); }
         if ( !m_input_node ) { m_input_node = std::make_shared<GraphInputNode>( "input" ); }
+        m_input_node->set_graph( this );
+        m_output_node->set_graph( this );
         addNode( m_input_node );
         addNode( m_output_node );
     }
