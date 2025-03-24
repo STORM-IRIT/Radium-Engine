@@ -5,6 +5,8 @@
 #include <Dataflow/Core/Node.hpp>
 #include <Dataflow/Core/NodeFactory.hpp>
 
+#include <Core/Types.hpp>
+#include <Core/Utils/Color.hpp>
 #include <Core/Utils/Singleton.hpp>
 
 namespace Ra {
@@ -13,9 +15,9 @@ namespace Core {
 
 class PortFactory
 {
-  public:
     RA_SINGLETON_INTERFACE( PortFactory );
 
+  public:
     using PortInCtorFunctor  = std::function<Node::PortBaseInPtr( Node*, const std::string& )>;
     using PortOutCtorFunctor = std::function<Node::PortBaseOutPtr( Node*, const std::string& )>;
     using PortOutSetter      = std::function<void( PortBaseOut*, std::any )>;
@@ -29,6 +31,8 @@ class PortFactory
     make_output_port( Node* node, const std::string& name, std::type_index type ) {
         return m_output_ctor.at( type )( node, name );
     }
+    PortOutSetter output_setter( std::type_index type ) { return m_output_setter[type]; }
+    PortInGetter input_getter( std::type_index type ) { return m_input_getter[type]; }
 
     template <typename T>
     void add_port_type() {
@@ -52,11 +56,17 @@ class PortFactory
         };
     }
 
-    PortOutSetter output_setter( std::type_index type ) { return m_output_setter[type]; }
-    PortInGetter input_getter( std::type_index type ) { return m_input_getter[type]; }
-
   private:
-    PortFactory() {}
+    PortFactory() {
+        using namespace Ra::Core;
+        add_port_type<Scalar>();
+        add_port_type<int>();
+        add_port_type<unsigned int>();
+        add_port_type<Utils::Color>();
+        add_port_type<Vector2>();
+        add_port_type<Vector3>();
+        add_port_type<Vector4>();
+    }
 
     std::unordered_map<std::type_index, PortInCtorFunctor> m_input_ctor;
     std::unordered_map<std::type_index, PortInGetter> m_input_getter;
