@@ -472,13 +472,15 @@ void GraphModel::sync_data() {
     _nodeGeometryData.clear();
     m_node_widget.clear();
     _nextNodeId = 0;
-    std::cerr << "sync_data\n";
+
+    std::cerr << "sync\n";
+
     // Create new nodes
     for ( const auto& n : m_graph->getNodes() ) {
         NodeId newId = newNodeId();
-        std::cerr << newId << " " << static_cast<void*>( n.get() ) << "\n";
         _nodeIds.insert( newId );
         m_node_id_to_ptr[newId] = n;
+        std::cerr << "insert node " << n->display_name() << "\n";
         if ( auto position = n->getJsonMetaData().find( "position" );
              position != n->getJsonMetaData().end() ) {
             _nodeGeometryData[newId].pos.setX( position->at( "x" ) );
@@ -486,8 +488,10 @@ void GraphModel::sync_data() {
         }
     }
 
+    // from nodes input to output
     for ( const auto& in_node : m_graph->getNodes() ) {
-        // get node id
+        std::cerr << "link node " << in_node->display_name() << "\n";
+        // get in_node_id, skip m_graph input_node
         auto in_node_itr = std::find_if(
             m_node_id_to_ptr.begin(), m_node_id_to_ptr.end(), [in_node]( const auto& pair ) {
                 return pair.second.get() == in_node.get();
@@ -512,48 +516,52 @@ void GraphModel::sync_data() {
             if ( out_port ) {
                 // get out node id
                 auto out_node = out_port->getNode();
-                if ( !out_node ) { std::cerr << "null out_node\n"; }
-                else { std::cerr << "out node " << out_node->display_name() << "\n"; }
+                if ( out_node ) {
+                    // if linked to graph out_node, not from the model's graph, use out_node->graph
+                    // as out_node
+                    const auto graph_out_node = dynamic_cast<const GraphNode*>( out_node );
+                    if ( graph_out_node && graph_out_node->graph() != m_graph.get() ) {
+                        out_node = graph_out_node->graph();
+                    }
 
-                const auto graph_out_node = dynamic_cast<const GraphNode*>( out_node );
-                if ( graph_out_node && graph_out_node->graph() != m_graph.get() ) {
-                    out_node = graph_out_node->graph();
+                    auto out_node_itr = std::find_if(
+                        m_node_id_to_ptr.begin(),
+                        m_node_id_to_ptr.end(),
+                        [out_node]( const auto& pair ) { return pair.second.get() == out_node; } );
+                    if ( out_node_itr == m_node_id_to_ptr.end() ) {
+                        LOG( Ra::Core::Utils::logERROR )
+                            << "error graph structure out_node, port " << out_port->getName()
+                            << " in node " << in_node->display_name() << " " << in_port->getName();
+                        return;
+                    }
+
+                    const auto& out_node_id = out_node_itr->first;
+
+                    // get out port id
+                    auto out_port_itr =
+                        find_if( out_node->getOutputs().begin(),
+                                 out_node->getOutputs().end(),
+                                 [out_port]( auto p ) { return p.get() == out_port; } );
+                    if ( out_port_itr == out_node->getOutputs().end() ) {
+                        LOG( Ra::Core::Utils::logERROR )
+                            << "error graph structure, out node " << out_node->display_name()
+                            << " out_port, in node " << in_node->display_name() << " "
+                            << in_port->getName();
+                        return;
+                    }
+                    const auto out_port_id =
+                        std::distance( out_node->getOutputs().begin(), out_port_itr );
+
+                    // set connection
+                    ConnectionId connection_id;
+
+                    connection_id.inNodeId     = in_node_id;
+                    connection_id.outNodeId    = out_node_id;
+                    connection_id.inPortIndex  = in_port_id;
+                    connection_id.outPortIndex = out_port_id;
+
+                    _connectivity.insert( connection_id );
                 }
-                auto out_node_itr = std::find_if(
-                    m_node_id_to_ptr.begin(),
-                    m_node_id_to_ptr.end(),
-                    [out_node]( const auto& pair ) { return pair.second.get() == out_node; } );
-                if ( out_node_itr == m_node_id_to_ptr.end() ) {
-                    LOG( Ra::Core::Utils::logERROR )
-                        << "error graph structure out_node, port " << out_port->getName()
-                        << " in node " << in_node->display_name() << " " << in_port->getName();
-                    return;
-                }
-                const auto& out_node_id = out_node_itr->first;
-
-                // get out port id
-                auto out_port_itr = find_if( out_node->getOutputs().begin(),
-                                             out_node->getOutputs().end(),
-                                             [out_port]( auto p ) { return p.get() == out_port; } );
-                if ( out_port_itr == out_node->getOutputs().end() ) {
-                    LOG( Ra::Core::Utils::logERROR )
-                        << "error graph structure, out node " << out_node->display_name()
-                        << " out_port, in node " << in_node->display_name() << " "
-                        << in_port->getName();
-                    return;
-                }
-                const auto out_port_id =
-                    std::distance( out_port_itr, out_node->getOutputs().begin() );
-
-                // set connection
-                ConnectionId connection_id;
-
-                connection_id.inNodeId     = in_node_id;
-                connection_id.outNodeId    = out_node_id;
-                connection_id.inPortIndex  = in_port_id;
-                connection_id.outPortIndex = out_port_id;
-
-                _connectivity.insert( connection_id );
             }
         }
     }
