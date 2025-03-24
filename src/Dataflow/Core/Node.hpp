@@ -36,6 +36,9 @@ class RA_DATAFLOW_API Node
     using PortIndex = Ra::Core::Utils::Index;
 
     template <typename Port>
+    using PortCollection = std::vector<Port>;
+
+    template <typename Port>
     using PortPtr = std::shared_ptr<Port>;
     template <typename Port>
     using PortRawPtr = typename PortPtr<Port>::element_type*;
@@ -50,17 +53,16 @@ class RA_DATAFLOW_API Node
     template <typename Type>
     using PortOutRawPtr = typename PortOutPtr<Type>::element_type*;
 
-    using PortBasePtr       = PortPtr<PortBase>;
-    using PortBaseInPtr     = PortPtr<PortBaseIn>;
-    using PortBaseOutPtr    = PortPtr<PortBaseOut>;
-    using PortBaseRawPtr    = PortRawPtr<PortBase>;
-    using PortBaseInRawPtr  = PortRawPtr<PortBaseIn>;
-    using PortBaseOutRawPtr = PortRawPtr<PortBaseOut>;
+    using PortBasePtr        = PortPtr<PortBase>;
+    using PortBaseRawPtr     = PortRawPtr<PortBase>;
+    using PortBaseCollection = PortCollection<PortBasePtr>;
 
-    template <typename Port>
-    using PortCollection        = std::vector<Port>;
-    using PortBaseCollection    = PortCollection<PortBasePtr>;
-    using PortBaseInCollection  = PortCollection<PortBaseInPtr>;
+    using PortBaseInPtr        = PortPtr<PortBaseIn>;
+    using PortBaseInRawPtr     = PortRawPtr<PortBaseIn>;
+    using PortBaseInCollection = PortCollection<PortBaseInPtr>;
+
+    using PortBaseOutPtr        = PortPtr<PortBaseOut>;
+    using PortBaseOutRawPtr     = PortRawPtr<PortBaseOut>;
     using PortBaseOutCollection = PortCollection<PortBaseOutPtr>;
 
     template <typename Port>
@@ -237,15 +239,15 @@ class RA_DATAFLOW_API Node
     template <typename PortType>
     IndexAndPort<PortRawPtr<PortType>>
     getPortByName( const PortCollection<PortPtr<PortType>>& ports, const std::string& name ) const {
-        auto itp = std::find_if(
+        auto itr = std::find_if(
             ports.begin(), ports.end(), [n = name]( const auto& p ) { return p->getName() == n; } );
-        PortRawPtr<PortType> fprt { nullptr };
+        PortRawPtr<PortType> port { nullptr };
         PortIndex portIndex;
-        if ( itp != ports.cend() ) {
-            fprt      = itp->get();
-            portIndex = std::distance( ports.begin(), itp );
+        if ( itr != ports.cend() ) {
+            port      = itr->get();
+            portIndex = std::distance( ports.begin(), itr );
         }
-        return { portIndex, fprt };
+        return { portIndex, port };
     }
 
     ///\brief Gets the PortBase In or Out by its index
