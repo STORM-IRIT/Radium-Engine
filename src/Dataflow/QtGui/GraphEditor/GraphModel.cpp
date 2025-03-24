@@ -519,7 +519,7 @@ void GraphModel::sync_data() {
                 if ( out_node ) {
                     // if linked to graph out_node, not from the model's graph, use out_node->graph
                     // as out_node
-                    const auto graph_out_node = dynamic_cast<const GraphNode*>( out_node );
+                    const auto graph_out_node = dynamic_cast<const GraphOutputNode*>( out_node );
                     if ( graph_out_node && graph_out_node->graph() != m_graph.get() ) {
                         out_node = graph_out_node->graph();
                     }

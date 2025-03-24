@@ -38,6 +38,10 @@ void registerStandardFactories() {
 
     /* --- Graphs --- */
     coreFactory->registerNodeCreator<DataflowGraph>( DataflowGraph::getTypename() + "_", "Graph" );
+    coreFactory->registerNodeCreator<GraphInputNode>( GraphInputNode::getTypename() + "_",
+                                                      "Graph" );
+    coreFactory->registerNodeCreator<GraphOutputNode>( GraphOutputNode::getTypename() + "_",
+                                                       "Graph" );
 }
 } // namespace NodeFactoriesManager
 } // namespace Core

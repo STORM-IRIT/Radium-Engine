@@ -83,24 +83,20 @@ void DataflowGraph::toJsonInternal( nlohmann::json& data ) const {
         nlohmann::json nodeData;
         n->toJson( nodeData );
         nodes.push_back( nodeData );
-        for ( const auto& input : n->getInputs() ) {
-            if ( input->isLinked() ) {
-                nlohmann::json link = nlohmann::json::object();
-                auto portOut        = input->getLink();
-                auto nodeOut        = portOut->getNode();
-                // if nodeOut is not in the graph, skip it. happens when graph as node
-                // if ( auto itr =
-                //          std::find_if( m_nodes.begin(),
-                //                        m_nodes.end(),
-                //                        [nodeOut]( const auto i ) { return i.get() == nodeOut; }
-                //                        );
-                //      itr == m_nodes.end() )
-                //           continue;
-                link["out_node"] = nodeOut->getInstanceName();
-                link["out_port"] = portOut->getName();
-                link["in_node"]  = n->getInstanceName();
-                link["in_port"]  = input->getName();
-                connections.push_back( link );
+        // skip input_node's input connection
+        if ( n != m_input_node ) {
+            for ( const auto& input : n->getInputs() ) {
+                if ( input->isLinked() ) {
+                    nlohmann::json link = nlohmann::json::object();
+                    auto portOut        = input->getLink();
+                    auto nodeOut        = portOut->getNode();
+
+                    link["out_node"] = nodeOut->getInstanceName();
+                    link["out_port"] = portOut->getName();
+                    link["in_node"]  = n->getInstanceName();
+                    link["in_port"]  = input->getName();
+                    connections.push_back( link );
+                }
             }
         }
     }
@@ -201,6 +197,12 @@ bool DataflowGraph::fromJsonInternal( const nlohmann::json& data ) {
                             return false;
                         }
                     }
+                    if ( nodeTypeName == GraphInputNode::getTypename() ) {
+                        m_input_node = std::static_pointer_cast<GraphInputNode>( newNode );
+                    }
+                    if ( nodeTypeName == GraphOutputNode::getTypename() ) {
+                        m_output_node = std::static_pointer_cast<GraphOutputNode>( newNode );
+                    }
                 }
                 else {
                     LOG( logERROR ) << "Unable to create the node " << nodeTypeName;
@@ -235,6 +237,7 @@ bool DataflowGraph::fromJsonInternal( const nlohmann::json& data ) {
                 }
             }
         }
+        generate_ports();
     }
     return true;
 }

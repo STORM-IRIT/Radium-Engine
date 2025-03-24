@@ -6,6 +6,7 @@
 #include <Dataflow/Core/NodeFactory.hpp>
 
 #include <Core/Types.hpp>
+#include <Core/Utils/BijectiveAssociation.hpp>
 #include <Core/Utils/Color.hpp>
 #include <Core/Utils/Singleton.hpp>
 
@@ -31,6 +32,14 @@ class PortFactory
     make_output_port( Node* node, const std::string& name, std::type_index type ) {
         return m_output_ctor.at( type )( node, name );
     }
+
+    Node::PortBaseInPtr make_input_port( Node* node, const std::string& name, std::string type ) {
+        return make_input_port( node, name, m_type_to_string.key( type ) );
+    }
+    Node::PortBaseOutPtr make_output_port( Node* node, const std::string& name, std::string type ) {
+        return make_output_port( node, name, m_type_to_string.key( type ) );
+    }
+
     PortOutSetter output_setter( std::type_index type ) { return m_output_setter[type]; }
     PortInGetter input_getter( std::type_index type ) { return m_input_getter[type]; }
 
@@ -54,6 +63,8 @@ class PortFactory
             auto casted = dynamic_cast<PortOut<T>*>( port );
             casted->setData( data );
         };
+
+        m_type_to_string.insert( type, Ra::Core::Utils::simplifiedDemangledType( type ) );
     }
 
   private:
@@ -72,12 +83,14 @@ class PortFactory
     std::unordered_map<std::type_index, PortInGetter> m_input_getter;
     std::unordered_map<std::type_index, PortOutCtorFunctor> m_output_ctor;
     std::unordered_map<std::type_index, PortOutSetter> m_output_setter;
+
+    Ra::Core::Utils::BijectiveAssociation<std::type_index, std::string> m_type_to_string;
 };
 
 #define BASIC_NODE_INIT( TYPE, BASE )                                                        \
   public:                                                                                    \
     explicit TYPE( const std::string& name ) : TYPE( name, TYPE::getTypename() ) {}          \
-    const std::string& getTypename() {                                                       \
+    static const std::string& getTypename() {                                                \
         static std::string demangledName = Ra::Core::Utils::simplifiedDemangledType<TYPE>(); \
         return demangledName;                                                                \
     }                                                                                        \
@@ -138,6 +151,46 @@ class GraphNode : public Node
         return new_name;
     }
 
+    bool fromJsonInternal( const nlohmann::json& data ) override {
+        std::cerr << "GraphNode from json\n";
+        auto factory = PortFactory::getInstance();
+        std::map<int, PortBaseInPtr> inputs;
+        std::map<int, PortBaseOutPtr> outputs;
+        if ( const auto& ports = data.find( "inputs" ); ports != data.end() ) {
+            for ( const auto& port : *ports ) {
+                int index        = port["port_index"];
+                std::string type = port["type"];
+                std::string name = port["name"];
+                inputs[index]    = factory->make_input_port( this, name, type );
+            }
+        }
+        if ( const auto& ports = data.find( "outputs" ); ports != data.end() ) {
+            for ( const auto& port : *ports ) {
+                int index        = port["port_index"];
+                std::string type = port["type"];
+                std::string name = port["name"];
+                outputs[index]   = factory->make_output_port( this, name, type );
+            }
+        }
+
+        m_inputs.clear();
+        m_outputs.clear();
+        for ( const auto& [key, value] : inputs ) {
+            assert( m_inputs.size() == key );
+            std::cerr << "input " << key << " -> " << value->getName() << "\n";
+            m_inputs.push_back( value );
+        }
+        for ( const auto& [key, value] : outputs ) {
+            assert( m_outputs.size() == key );
+            std::cerr << "output " << key << " -> " << value->getName() << "\n";
+            m_outputs.push_back( value );
+        }
+        assert( m_inputs.size() == m_outputs.size() );
+
+        return true;
+    }
+
+  private:
     Node* m_graph { nullptr };
 };
 
@@ -152,6 +205,7 @@ class GraphInputNode : public GraphNode
         return input_idx;
     }
 };
+
 class GraphOutputNode : public GraphNode
 {
     BASIC_NODE_INIT( GraphOutputNode, GraphNode ) {}

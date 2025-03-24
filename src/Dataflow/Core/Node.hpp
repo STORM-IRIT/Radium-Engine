@@ -325,6 +325,7 @@ class RA_DATAFLOW_API Node
             nlohmann::json port;
             p->to_json( port );
             port["port_index"] = i;
+            port["type"]       = Ra::Core::Utils::simplifiedDemangledType( p->getType() );
             data["inputs"].push_back( port );
         }
         for ( size_t i = 0; i < m_outputs.size(); ++i ) {
@@ -332,6 +333,7 @@ class RA_DATAFLOW_API Node
             nlohmann::json port;
             p->to_json( port );
             port["port_index"] = i;
+            port["type"]       = Ra::Core::Utils::simplifiedDemangledType( p->getType() );
             data["outputs"].push_back( port );
         }
         LOG( Ra::Core::Utils::logDEBUG ) << message;
