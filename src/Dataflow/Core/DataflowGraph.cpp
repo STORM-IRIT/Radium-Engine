@@ -457,11 +457,21 @@ bool DataflowGraph::compile() {
         infoNodes.emplace( m_output_node.get(), std::pair<int, std::vector<Node*>>( 0, {} ) );
     }
     for ( auto const& n : m_nodes ) {
-        // Find all sinks, skip m_output_node
+        // Find all active sinks, skip m_output_node
         if ( n->isOutputNode() && n != m_output_node ) {
-            infoNodes.emplace( n.get(), std::pair<int, std::vector<Node*>>( 0, {} ) );
-            // recursively add the predecessors of the sink
-            backtrackGraph( n.get(), infoNodes );
+            // if a linked port exists, backtrace
+            if ( std::any_of( n->getInputs().begin(), n->getInputs().end(), []( const auto& p ) {
+                     return p->isLinked();
+                 } ) ) {
+
+                infoNodes.emplace( n.get(), std::pair<int, std::vector<Node*>>( 0, {} ) );
+                // recursively add the predecessors of the sink
+                backtrackGraph( n.get(), infoNodes );
+            }
+            else {
+                LOG( logWARNING ) << "Sink Node " << n->getInstanceName()
+                                  << " is inactive (belog to the graph but not connected)";
+            }
         }
     }
     // Compute the level (rank of execution) of useful nodes
