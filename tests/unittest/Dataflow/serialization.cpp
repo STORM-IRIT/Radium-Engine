@@ -29,9 +29,9 @@ TEST_CASE( "Dataflow/Core/DataflowGraph/Serialization", "[Dataflow][Core][Datafl
         g.addNode( sink );
         auto r                       = g.getDataGetter( "r", "data" );
         using TestNode               = Functionals::BinaryOpNode<DataType, DataType, DataType>;
-        TestNode::BinaryOperator add = []( TestNode::Arg1_type a,
-                                           TestNode::Arg2_type b ) -> TestNode::Res_type {
-            return a + b;
+        TestNode::BinaryOperator add = []( TestNode::Arg1_type pa,
+                                           TestNode::Arg2_type pb ) -> TestNode::Res_type {
+            return pa + pb;
         };
         auto op_unique = std::make_shared<TestNode>( "addition" );
         op_unique->setOperator( add );

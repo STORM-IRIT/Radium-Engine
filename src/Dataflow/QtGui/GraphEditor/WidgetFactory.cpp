@@ -234,10 +234,11 @@ void initializeWidgetFactory() {
      */
     WidgetFactory::registerWidget<DataflowGraph>(
         []( EditableParameterBase* editableParameter ) {
-            auto editable = dynamic_cast<EditableParameter<DataflowGraph>*>( editableParameter );
-            auto button   = new QPushButton( "Show graph" );
+            //            auto editable = dynamic_cast<EditableParameter<DataflowGraph>*>(
+            //            editableParameter );
+            auto button = new QPushButton( "Show graph" );
             button->setObjectName( editableParameter->getName().c_str() );
-            QPushButton::connect( button, &QPushButton::clicked, [editable]() {
+            QPushButton::connect( button, &QPushButton::clicked, [/*editable*/]() {
                 // Display a window to see the graph
                 /*auto graph = reinterpret_cast<DataflowGraph*>( editable );
                 auto nodeEditor          = new GraphEditorView( nullptr );

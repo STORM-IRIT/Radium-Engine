@@ -115,7 +115,7 @@ class GraphNode : public Node
 
     void remove_unlinked_ports() {
         int last_index = m_inputs.size();
-        for ( size_t i = 0; i < last_index; ++i ) {
+        for ( int i = 0; i < last_index; ++i ) {
             if ( !m_inputs[i]->isLinked() && m_outputs[i]->getLinkCount() == 0 ) {
                 std::swap( m_inputs[i], m_inputs[last_index - 1] );
                 std::swap( m_outputs[i], m_outputs[last_index - 1] );
@@ -154,11 +154,11 @@ class GraphNode : public Node
     bool fromJsonInternal( const nlohmann::json& data ) override {
         std::cerr << "GraphNode from json\n";
         auto factory = PortFactory::getInstance();
-        std::map<int, PortBaseInPtr> inputs;
-        std::map<int, PortBaseOutPtr> outputs;
+        std::map<size_t, PortBaseInPtr> inputs;
+        std::map<size_t, PortBaseOutPtr> outputs;
         if ( const auto& ports = data.find( "inputs" ); ports != data.end() ) {
             for ( const auto& port : *ports ) {
-                int index        = port["port_index"];
+                size_t index     = port["port_index"];
                 std::string type = port["type"];
                 std::string name = port["name"];
                 inputs[index]    = factory->make_input_port( this, name, type );
@@ -166,7 +166,7 @@ class GraphNode : public Node
         }
         if ( const auto& ports = data.find( "outputs" ); ports != data.end() ) {
             for ( const auto& port : *ports ) {
-                int index        = port["port_index"];
+                size_t index     = port["port_index"];
                 std::string type = port["type"];
                 std::string name = port["name"];
                 outputs[index]   = factory->make_output_port( this, name, type );
@@ -429,10 +429,6 @@ class RA_DATAFLOW_API DataflowGraph : public Node
     using Node::addInputPort;
     using Node::addOutput;
     using Node::addOutputPort;
-
-    ///\todo add port to ionode
-    PortIndex addInputAlias( PortBaseInPtr port ) { return PortIndex {}; }
-    PortIndex addOutputAlias( PortBaseOutPtr port ) { return PortIndex {}; }
 
     void add_input_output_nodes() {
         if ( !m_output_node ) { m_output_node = std::make_shared<GraphOutputNode>( "output" ); }

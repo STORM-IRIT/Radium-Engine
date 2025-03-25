@@ -486,7 +486,7 @@ inline Node::PortIndex Node::addPort( PortCollection<PortPtr<PortType>>& ports,
                                       PortPtr<PortType> port ) {
     PortIndex idx;
     // look for a free slot
-    auto it = std::find_if( ports.begin(), ports.end(), []( const auto& port ) { return !port; } );
+    auto it = std::find_if( ports.begin(), ports.end(), []( const auto& p ) { return !p; } );
     if ( it != ports.end() ) {
         it->swap( port );
         idx = std::distance( ports.begin(), it );

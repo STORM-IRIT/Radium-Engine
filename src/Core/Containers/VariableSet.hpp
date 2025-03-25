@@ -724,7 +724,7 @@ auto VariableSet::addVariableType() -> Utils::optional<VariableContainer<T>*> {
             } );
         // use to compute gauge on the stored data
         m_vtable->m_sizeFunctions.emplace_back( []( const VariableSet& c ) {
-            if ( auto storage = c.existsVariableType<T>(); storage ) return ( *storage )->size();
+            if ( auto cs = c.existsVariableType<T>(); cs ) return ( *cs )->size();
             return size_t { 0 }; // use 0uz when c++23
         } );
         // used to visit the variableSet with a dynamic visitor
