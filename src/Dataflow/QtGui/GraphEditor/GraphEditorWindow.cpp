@@ -206,8 +206,12 @@ void GraphEditorWindow::newFile() {
 
 void GraphEditorWindow::open() {
     if ( maybeSave() ) {
-        QString fileName = QFileDialog::getOpenFileName( this );
-        if ( !fileName.isEmpty() ) loadFile( fileName );
+        QSettings settings;
+        QString path  = settings.value( "files/open", QDir::homePath() ).toString();
+        QString fname = QFileDialog::getOpenFileName(
+            this, tr( "Open File" ), path, tr( "Flow (*.flow);; All (*.*)" ) );
+        if ( !fname.isEmpty() ) loadFile( fname );
+        settings.setValue( "files/open", fname );
     }
 }
 
@@ -217,12 +221,13 @@ bool GraphEditorWindow::save() {
 }
 
 bool GraphEditorWindow::saveAs() {
-    QFileDialog dialog( this );
-    dialog.setWindowModality( Qt::WindowModal );
-    dialog.setAcceptMode( QFileDialog::AcceptSave );
-    dialog.setDefaultSuffix( "json" );
-    if ( dialog.exec() != QDialog::Accepted ) return false;
-    return saveFile( dialog.selectedFiles().first() );
+    QSettings settings;
+    QString path  = settings.value( "files/save", QDir::homePath() ).toString();
+    QString fname = QFileDialog::getSaveFileName(
+        this, tr( "Open File" ), path, tr( "Flow (*.flow);; All (*.*)" ) );
+    if ( fname.isNull() || fname.isEmpty() ) return false;
+    settings.setValue( "files/save", fname );
+    return saveFile( fname );
 }
 
 void GraphEditorWindow::about() {
