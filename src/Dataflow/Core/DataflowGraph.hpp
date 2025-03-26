@@ -87,14 +87,14 @@ class PortFactory
     Ra::Core::Utils::BijectiveAssociation<std::type_index, std::string> m_type_to_string;
 };
 
-#define BASIC_NODE_INIT( TYPE, BASE )                                                        \
-  public:                                                                                    \
-    explicit TYPE( const std::string& name ) : TYPE( name, TYPE::getTypename() ) {}          \
-    static const std::string& getTypename() {                                                \
-        static std::string demangledName = Ra::Core::Utils::simplifiedDemangledType<TYPE>(); \
-        return demangledName;                                                                \
-    }                                                                                        \
-    TYPE( const std::string& instanceName, const std::string& typeName ) :                   \
+#define BASIC_NODE_INIT( TYPE, BASE )                                               \
+  public:                                                                           \
+    explicit TYPE( const std::string& name ) : TYPE( name, TYPE::getTypename() ) {} \
+    static const std::string& getTypename() {                                       \
+        static std::string demangledName = #TYPE;                                   \
+        return demangledName;                                                       \
+    }                                                                               \
+    TYPE( const std::string& instanceName, const std::string& typeName ) :          \
         BASE( instanceName, typeName )
 
 class GraphNode : public Node

@@ -43,12 +43,12 @@ bool DataflowGraph::execute() {
         std::for_each( level.begin(), level.end(), [&result]( auto node ) {
             std::cerr << "exec " << node->display_name() << "\n";
 
-            bool excuted = node->execute();
-            if ( !excuted ) {
+            bool executed = node->execute();
+            if ( !executed ) {
                 LOG( logERROR ) << "Execution failed with node " << node->getInstanceName() << " ("
                                 << node->getModelName() << ").";
             }
-            result = result && excuted;
+            result = result && executed;
         } );
     } );
     return result;
@@ -90,6 +90,9 @@ void DataflowGraph::toJsonInternal( nlohmann::json& data ) const {
                     nlohmann::json link = nlohmann::json::object();
                     auto portOut        = input->getLink();
                     auto nodeOut        = portOut->getNode();
+                    if ( auto casted = dynamic_cast<GraphOutputNode*>( nodeOut ); casted ) {
+                        nodeOut = casted->graph();
+                    }
 
                     link["out_node"] = nodeOut->getInstanceName();
                     link["out_port"] = portOut->getName();
@@ -187,6 +190,7 @@ bool DataflowGraph::fromJsonInternal( const nlohmann::json& data ) {
                         << "Found a node of type " << nodeTypeName << " without identification ";
                     return false;
                 }
+                // create and adds node to this
                 auto newNode = factories.createNode( nodeTypeName, n, this );
                 if ( newNode ) {
                     if ( !instanceName.empty() ) {
@@ -198,10 +202,12 @@ bool DataflowGraph::fromJsonInternal( const nlohmann::json& data ) {
                         }
                     }
                     if ( nodeTypeName == GraphInputNode::getTypename() ) {
-                        m_input_node = std::static_pointer_cast<GraphInputNode>( newNode );
+                        m_input_node = std::dynamic_pointer_cast<GraphInputNode>( newNode );
+                        m_input_node->set_graph( this );
                     }
                     if ( nodeTypeName == GraphOutputNode::getTypename() ) {
-                        m_output_node = std::static_pointer_cast<GraphOutputNode>( newNode );
+                        m_output_node = std::dynamic_pointer_cast<GraphOutputNode>( newNode );
+                        m_output_node->set_graph( this );
                     }
                 }
                 else {

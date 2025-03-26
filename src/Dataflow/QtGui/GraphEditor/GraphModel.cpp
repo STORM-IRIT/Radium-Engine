@@ -81,7 +81,17 @@ void GraphModel::addInputOutputNodesForGraph() {
 }
 
 NodeId GraphModel::addNode( QString const nodeType ) {
-
+    if ( nodeType.toStdString() == GraphInputNode::getTypename() ||
+         nodeType.toStdString() == GraphOutputNode::getTypename() ) {
+        m_graph->add_input_output_nodes();
+        sync_data();
+        auto itr = std::find_if( m_node_id_to_ptr.begin(),
+                                 m_node_id_to_ptr.end(),
+                                 [node_typename = nodeType.toStdString()]( const auto& n ) {
+                                     return n.second->getTypename() == node_typename;
+                                 } );
+        return itr->first;
+    }
     auto f = m_model_name_to_factory.at( nodeType.toStdString() );
     auto n = f( {} );
     m_graph->addNode( n );
