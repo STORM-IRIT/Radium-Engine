@@ -3,8 +3,7 @@
 #include <iostream>
 
 #include <Dataflow/Core/DataflowGraph.hpp>
-#include <Dataflow/Core/Nodes/Functionals/ReduceNode.hpp>
-#include <Dataflow/Core/Nodes/Functionals/TransformNode.hpp>
+#include <Dataflow/Core/Nodes/Functionals/CoreDataFunctionals.hpp>
 #include <Dataflow/Core/Nodes/Sinks/CoreDataSinks.hpp>
 #include <Dataflow/Core/Nodes/Sources/CoreDataSources.hpp>
 
@@ -80,20 +79,17 @@ TEST_CASE( "Dataflow/Core/Graph", "[Dataflow][Core][Graph]" ) {
         nlohmann::json noId = { { "model", { "name", "Core DataflowGraph" } } };
         auto result         = g.fromJson( noId );
         REQUIRE( !result );
-        g.destroy();
     }
     SECTION( "missing model" ) {
         nlohmann::json noModel = { { "instance", "No model in this node" } };
         auto result            = g.fromJson( noModel );
         REQUIRE( !result );
-        g.destroy();
     }
     SECTION( "missing instance data -> loads an empty graph" ) {
         nlohmann::json noGraph = { { "instance", "Missing instance data for model" },
                                    { "model", { "name", "Core DataflowGraph" } } };
         auto result            = g.fromJson( noGraph );
         REQUIRE( result );
-        g.destroy();
     }
     SECTION( "trying to instance an unknown node type" ) {
         nlohmann::json NotANode = {
@@ -106,7 +102,6 @@ TEST_CASE( "Dataflow/Core/Graph", "[Dataflow][Core][Graph]" ) {
                           { "model", { { "name", "NotANode" } } } } } } } } } } };
         auto result = g.fromJson( NotANode );
         REQUIRE( !result );
-        g.destroy();
     }
     SECTION( "trying to instance an unknown node type" ) {
         nlohmann::json NoModelName = {
@@ -119,7 +114,6 @@ TEST_CASE( "Dataflow/Core/Graph", "[Dataflow][Core][Graph]" ) {
                           { "model", { { "extra", "NotaTypeName" } } } } } } } } } } };
         auto result = g.fromJson( NoModelName );
         REQUIRE( !result );
-        g.destroy();
     }
     SECTION( "trying to instance an unknown node type" ) {
         nlohmann::json noInstanceIdentification = {
@@ -130,7 +124,6 @@ TEST_CASE( "Dataflow/Core/Graph", "[Dataflow][Core][Graph]" ) {
                   { { "nodes", { { { "model", { { "name", "Source<float>" } } } } } } } } } } };
         auto result = g.fromJson( noInstanceIdentification );
         REQUIRE( !result );
-        g.destroy();
     }
     SECTION( "errors in the connection description" ) {
         nlohmann::json reusingNodeIdentification = {
@@ -171,7 +164,6 @@ TEST_CASE( "Dataflow/Core/Graph", "[Dataflow][Core][Graph]" ) {
                     { "connections", { { { "out_node", "wrongId" } } } } } } } } };
         auto result = g.fromJson( wrongConnection );
         REQUIRE( !result );
-        g.destroy();
     }
     SECTION( "wrong connection 2" ) {
         nlohmann::json wrongConnection = {
@@ -325,6 +317,28 @@ TEST_CASE( "Dataflow/Core/Graph", "[Dataflow][Core][Graph]" ) {
     }
     // destroy everything
     g.destroy();
+}
+
+TEST_CASE( "Node failed exeution" ) {
+    DataflowGraph g( "Test Graph" );
+    auto sourceIntNode = g.addNode<Sources::IntSource>( "SourceInt" );
+    auto sinkIntNode   = g.addNode<Sinks::IntSink>( "SinkInt" );
+    class FailFunction : public Functionals::TransformInt
+    {
+      public:
+        FailFunction( const std::string& instanceName ) : FunctionNode( instanceName ) {}
+        bool execute() { return false; }
+        static const std::string& getTypename() {
+            static std::string demangledName = std::string { "FailFunction" };
+            return demangledName;
+        }
+    };
+    auto failNode = g.addNode<FailFunction>( "FailNode" );
+
+    REQUIRE( g.addLink( sourceIntNode, "to", failNode, "in" ) );
+    REQUIRE( g.addLink( failNode, "out", sinkIntNode, "from" ) );
+    REQUIRE( g.compile() );
+    REQUIRE( !g.execute() );
 }
 
 TEST_CASE( "Inspection of a graph" ) {

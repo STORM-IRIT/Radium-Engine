@@ -64,6 +64,7 @@ TEST_CASE( "Dataflow/Core/Nodes", "[Dataflow][Core][Nodes]" ) {
         auto [g, a, b, r] = createGraph<DataType>( "test scalar binary op", add );
 
         DataType x { 1_ra };
+
         a->setDefaultValue( x );
         REQUIRE( a->getData<DataType>() == x );
 
@@ -409,5 +410,13 @@ TEST_CASE( "Dataflow/Core/Nodes", "[Dataflow][Core][Nodes]" ) {
         g->destroy();
         delete g;
         //! [Create a complex transform/reduce graph]
+    }
+    SECTION( "LinkMandatory" ) {
+        using TestNode = Functionals::FunctionNode<int>;
+        auto n         = std::make_shared<TestNode>( "test" );
+        REQUIRE( n->getInPort()->isLinkMandatory() );
+        REQUIRE( !n->getFunctionPort()->isLinkMandatory() );
+        n->getInPort()->setDefaultValue( 5 );
+        REQUIRE( !n->getInPort()->isLinkMandatory() );
     }
 }

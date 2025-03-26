@@ -33,6 +33,7 @@ set(test_src
     Core/vectorarray.cpp
     Dataflow/customnodes.cpp
     Dataflow/graph.cpp
+    Dataflow/graph_as_node.cpp
     Dataflow/nodes.cpp
     Dataflow/serialization.cpp
     Dataflow/sourcesandsinks.cpp
