@@ -108,7 +108,6 @@ class PortIn : public PortBaseIn,
     PortBaseOut* getLink() override { return m_from; }
     /// @}
 
-    bool isLinkMandatory() const override { return !m_defaultValue.has_value(); }
     void setDefaultValue( const T& value ) { m_defaultValue = value; }
     T& getDefaultValue() { return *m_defaultValue; }
     bool hasDefaultValue() const override { return m_defaultValue.has_value(); }
