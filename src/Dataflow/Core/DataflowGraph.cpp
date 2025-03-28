@@ -336,12 +336,16 @@ bool DataflowGraph::addLink( const std::shared_ptr<Node>& nodeFrom,
                              Node::PortIndex portOutIdx,
                              const std::shared_ptr<Node>& nodeTo,
                              Node::PortIndex portInIdx ) {
-    // here
+
+    if ( !canLink( nodeFrom, portOutIdx, nodeTo, portInIdx ) ) return false;
+    ///\todo since canLink check, maybe don't double check
+
     if ( ( nodeFrom == m_input_node || nodeFrom == m_output_node ) &&
          ( nodeTo == m_input_node || nodeTo == m_output_node ) )
         return false;
 
-    if ( nodeFrom == m_input_node && portOutIdx == m_input_node->getOutputs().size() ) {
+    if ( m_input_node && nodeFrom == m_input_node &&
+         portOutIdx == m_input_node->getOutputs().size() ) {
         auto portIn = nodeTo->getInputByIndex( portInIdx );
         if ( !portIn ) {
             Log::badPortIdx( "input", nodeTo->getModelName(), portInIdx );
@@ -351,7 +355,7 @@ bool DataflowGraph::addLink( const std::shared_ptr<Node>& nodeFrom,
         m_input_node->add_output_port( portIn );
         return true;
     }
-    if ( nodeTo == m_output_node && portInIdx == m_output_node->getInputs().size() ) {
+    if ( nodeTo && nodeTo == m_output_node && portInIdx == m_output_node->getInputs().size() ) {
 
         auto portOut = nodeFrom->getOutputByIndex( portOutIdx );
 
@@ -652,8 +656,9 @@ std::shared_ptr<DataflowGraph> DataflowGraph::loadGraphFromJsonFile( const std::
     return nullptr;
 }
 
-bool DataflowGraph::checkNodeValidity( const Node* nodeFrom, const Node* nodeTo ) {
-    using namespace Ra::Core::Utils; // Check node "from" existence in the graph
+bool DataflowGraph::checkNodeValidity( const Node* nodeFrom, const Node* nodeTo ) const {
+    using namespace Ra::Core::Utils;
+    // Check node "from" existence in the graph
     if ( !findNode2( nodeFrom ) ) {
         Log::unableToFind( "initial node", nodeFrom->getInstanceName() );
         return false;

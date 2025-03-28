@@ -152,7 +152,6 @@ class GraphNode : public Node
     }
 
     bool fromJsonInternal( const nlohmann::json& data ) override {
-        std::cerr << "GraphNode from json\n";
         auto factory = PortFactory::getInstance();
         std::map<size_t, PortBaseInPtr> inputs;
         std::map<size_t, PortBaseOutPtr> outputs;
@@ -177,12 +176,10 @@ class GraphNode : public Node
         m_outputs.clear();
         for ( const auto& [key, value] : inputs ) {
             assert( m_inputs.size() == key );
-            std::cerr << "input " << key << " -> " << value->getName() << "\n";
             m_inputs.push_back( value );
         }
         for ( const auto& [key, value] : outputs ) {
             assert( m_outputs.size() == key );
-            std::cerr << "output " << key << " -> " << value->getName() << "\n";
             m_outputs.push_back( value );
         }
         assert( m_inputs.size() == m_outputs.size() );
@@ -291,10 +288,19 @@ class RA_DATAFLOW_API DataflowGraph : public Node
     bool addLink( const std::shared_ptr<PortOut<T>>& outputPort,
                   const std::shared_ptr<PortIn<U>>& inputPort );
 
+    bool canLink( const std::shared_ptr<Node>& nodeFrom,
+                  Node::PortIndex portOutIdx,
+                  const std::shared_ptr<Node>& nodeTo,
+                  Node::PortIndex portInIdx ) const {
+        return canLink( nodeFrom.get(), portOutIdx, nodeTo.get(), portInIdx );
+    }
+
     bool canLink( const Node* nodeFrom,
                   Node::PortIndex portOutIdx,
                   const Node* nodeTo,
-                  Node::PortIndex portInIdx ) {
+                  Node::PortIndex portInIdx ) const {
+        ///\todo check node and port as in addLink, to replace addLink checks
+        if ( !checkNodeValidity( nodeFrom, nodeTo ) ) { return false; }
 
         if ( ( nodeFrom == m_input_node.get() || nodeFrom == m_output_node.get() ) &&
              ( nodeTo == m_input_node.get() || nodeTo == m_output_node.get() ) )
@@ -306,8 +312,10 @@ class RA_DATAFLOW_API DataflowGraph : public Node
 
         auto portIn  = nodeTo->getInputByIndex( portInIdx );
         auto portOut = nodeFrom->getOutputByIndex( portOutIdx );
+
         // Compare types
-        return ( portIn->getType() == portOut->getType() ) && !portIn->isLinked();
+        return portIn && portOut && ( portIn->getType() == portOut->getType() ) &&
+               !portIn->isLinked();
     }
 
     ///
@@ -367,8 +375,6 @@ class RA_DATAFLOW_API DataflowGraph : public Node
     Node::PortBaseInRawPtr getDataSetter( const std::string& nodeName,
                                           const std::string& portName ) {
         auto node = getNode( nodeName );
-        std::cerr << "data setter " << node->display_name() << "\n";
-        std::cerr << node->getInputByIndex( 0 )->getName() << "\n";
         auto port = node->getInputByName( portName );
         CORE_ASSERT( port.first.isValid(),
                      "invalid port, node: " + nodeName + " port: " + portName );
@@ -431,12 +437,19 @@ class RA_DATAFLOW_API DataflowGraph : public Node
     using Node::addOutputPort;
 
     void add_input_output_nodes() {
-        if ( !m_output_node ) { m_output_node = std::make_shared<GraphOutputNode>( "output" ); }
         if ( !m_input_node ) { m_input_node = std::make_shared<GraphInputNode>( "input" ); }
+        if ( !m_output_node ) { m_output_node = std::make_shared<GraphOutputNode>( "output" ); }
         m_input_node->set_graph( this );
         m_output_node->set_graph( this );
         addNode( m_input_node );
         addNode( m_output_node );
+    }
+
+    // invalidate port indices
+    void remove_unlinked_input_output_ports() {
+        if ( m_input_node ) { m_input_node->remove_unlinked_ports(); }
+        if ( m_output_node ) { m_output_node->remove_unlinked_ports(); }
+        generate_ports();
     }
 
     std::shared_ptr<GraphOutputNode> output_node() { return m_output_node; }
@@ -474,7 +487,7 @@ class RA_DATAFLOW_API DataflowGraph : public Node
     int goThroughGraph( Node* current,
                         std::unordered_map<Node*, std::pair<int, std::vector<Node*>>>& infoNodes );
 
-    bool checkNodeValidity( const Node* nodeFrom, const Node* nodeTo );
+    bool checkNodeValidity( const Node* nodeFrom, const Node* nodeTo ) const;
     static bool checkPortCompatibility( const Node* nodeFrom,
                                         Node::PortIndex portOutIdx,
                                         const PortBaseOut* portOut,
