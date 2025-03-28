@@ -14,7 +14,7 @@ namespace Ra {
 namespace Dataflow {
 namespace Core {
 
-class PortFactory
+class RA_DATAFLOW_API PortFactory
 {
     RA_SINGLETON_INTERFACE( PortFactory );
 
@@ -97,7 +97,7 @@ class PortFactory
     TYPE( const std::string& instanceName, const std::string& typeName ) :          \
         BASE( instanceName, typeName )
 
-class GraphNode : public Node
+class RA_DATAFLOW_API GraphNode : public Node
 {
     BASIC_NODE_INIT( GraphNode, Node ) {}
 
@@ -191,7 +191,7 @@ class GraphNode : public Node
     Node* m_graph { nullptr };
 };
 
-class GraphInputNode : public GraphNode
+class RA_DATAFLOW_API GraphInputNode : public GraphNode
 {
     BASIC_NODE_INIT( GraphInputNode, GraphNode ) {}
 
@@ -203,7 +203,7 @@ class GraphInputNode : public GraphNode
     }
 };
 
-class GraphOutputNode : public GraphNode
+class RA_DATAFLOW_API GraphOutputNode : public GraphNode
 {
     BASIC_NODE_INIT( GraphOutputNode, GraphNode ) {}
 
