@@ -29,17 +29,19 @@ struct RA_DATAFLOW_CORE_API EditableParameterBase {
     EditableParameterBase& operator=( const EditableParameterBase& ) = delete;
 
     /// Construct an base editable parameter from its name and type hash
-    EditableParameterBase( const std::string& name, std::type_index typeIdx );
+    EditableParameterBase( const std::string& name, std::type_index typeIdx ) :
+        m_name( name ), m_typeIdx( typeIdx ) {}
     ///@}
 
     virtual ~EditableParameterBase() = default;
-    std::string getName() const;
-    std::type_index getType() const;
+    std::string getName() const { return m_name; }
+    std::type_index getType() const { return m_typeIdx; }
     /// Constraints on the edited data : json object describing the constraints
     /// Add constraints or associated data to the editable.
-    void setConstraints( const nlohmann::json& constraints );
+    void setConstraints( const nlohmann::json& constraints ) { m_constraints = constraints; }
+
     /// get the constraints or the associated data from the editable.
-    const nlohmann::json& getConstraints() const;
+    const nlohmann::json& getConstraints() const { return m_constraints; }
 
   private:
     std::string m_name { "" };
@@ -59,7 +61,8 @@ struct EditableParameter : public EditableParameterBase {
     EditableParameter& operator=( const EditableParameter& ) = delete;
 
     /// Construct an editable parameter from its name and type hash
-    EditableParameter( const std::string& name, T& data );
+    EditableParameter( const std::string& name, T& data ) :
+        EditableParameterBase( name, typeid( T ) ), m_data( data ) {}
     ///@}
 
     /// The data to edit.
@@ -67,32 +70,6 @@ struct EditableParameter : public EditableParameterBase {
     T& m_data;
 };
 
-// -----------------------------------------------------------------
-// ---------------------- inline methods ---------------------------
-
-inline EditableParameterBase::EditableParameterBase( const std::string& name,
-                                                     std::type_index typeIdx ) :
-    m_name( name ), m_typeIdx( typeIdx ) {}
-
-template <typename T>
-EditableParameter<T>::EditableParameter( const std::string& name, T& data ) :
-    EditableParameterBase( name, typeid( T ) ), m_data( data ) {}
-
-inline std::string EditableParameterBase::getName() const {
-    return m_name;
-}
-
-inline std::type_index EditableParameterBase::getType() const {
-    return m_typeIdx;
-}
-
-inline void EditableParameterBase::setConstraints( const nlohmann::json& constraints ) {
-    m_constraints = constraints;
-}
-
-inline const nlohmann::json& EditableParameterBase::getConstraints() const {
-    return m_constraints;
-}
 } // namespace Core
 } // namespace Dataflow
 } // namespace Ra
