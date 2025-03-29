@@ -38,9 +38,9 @@ using WidgetUpdaterFunc = std::function<bool( QWidget*, EditableParameterBase* )
 
 /** private method to manage the factory
  */
-RA_DATAFLOW_API void registerWidgetInternal( std::type_index typeIdx,
-                                             WidgetCreatorFunc widgetCreator,
-                                             WidgetUpdaterFunc widgetUpdater );
+RA_DATAFLOW_GUI_API void registerWidgetInternal( std::type_index typeIdx,
+                                                 WidgetCreatorFunc widgetCreator,
+                                                 WidgetUpdaterFunc widgetUpdater );
 
 /** Register a widget builder and updater in the factory given the type of the editable parameter
  * @tparam T The concrete type of the editable parameter
@@ -58,13 +58,13 @@ void registerWidget( WidgetCreatorFunc widgetCreator, WidgetUpdaterFunc widgetUp
  * @return the created widget, nullptr if no widget creator is associated with the editable
  * parameter type.
  */
-RA_DATAFLOW_API QWidget* createWidget( EditableParameterBase* editableParameter );
+RA_DATAFLOW_GUI_API QWidget* createWidget( EditableParameterBase* editableParameter );
 
 /**
  * Initialize the factory with pre-defined widgets according to the Radium NodeGraph predefined
  * nodes.
  */
-RA_DATAFLOW_API void initializeWidgetFactory();
+RA_DATAFLOW_GUI_API void initializeWidgetFactory();
 
 } // namespace WidgetFactory
 

@@ -23,7 +23,7 @@ class DataflowGraph;
  * A NodeFactory is used when loading a node graph from a json representation of the graph to
  * instantiate all the loaded nodes.
  */
-class RA_DATAFLOW_API NodeFactory
+class RA_DATAFLOW_CORE_API NodeFactory
 {
   public:
     /** Creates an empty factory with the given name */
@@ -119,7 +119,7 @@ class RA_DATAFLOW_API NodeFactory
 /**
  * NodeFactorySet store a set of NodeFactory
  */
-class RA_DATAFLOW_API NodeFactorySet
+class RA_DATAFLOW_CORE_API NodeFactorySet
 {
   public:
     using container_type = std::map<std::string, std::shared_ptr<NodeFactory>>;
@@ -210,7 +210,7 @@ namespace NodeFactoriesManager {
 /** Names of the system Builtins factories (automatically added to each graph) */
 extern const std::string dataFlowBuiltInsFactoryName;
 
-RA_DATAFLOW_API auto getFactoryManager() -> NodeFactorySet&;
+RA_DATAFLOW_CORE_API auto getFactoryManager() -> NodeFactorySet&;
 
 /** Register a factory into the manager.
  * The key will be fetched from the factory (its name)
@@ -221,14 +221,14 @@ RA_DATAFLOW_API auto getFactoryManager() -> NodeFactorySet&;
  * \param factory
  * \return true if the factory was registered, false if not (e.g. due to name collision).
  */
-RA_DATAFLOW_API auto registerFactory( NodeFactorySet::mapped_type factory ) -> bool;
+RA_DATAFLOW_CORE_API auto registerFactory( NodeFactorySet::mapped_type factory ) -> bool;
 
 /**
  * \brief Create and register a factory to the manager.
  * \param name The name of the factory to create
  * \return a configurable factory.
  */
-RA_DATAFLOW_API auto createFactory( const NodeFactorySet::key_type& name )
+RA_DATAFLOW_CORE_API auto createFactory( const NodeFactorySet::key_type& name )
     -> NodeFactorySet::mapped_type;
 
 /**
@@ -236,7 +236,7 @@ RA_DATAFLOW_API auto createFactory( const NodeFactorySet::key_type& name )
  * \param name The name of the factory to get
  * \return  a shared_ptr to the requested factory, nullptr if the factory does not exist.
  */
-RA_DATAFLOW_API auto getFactory( const NodeFactorySet::key_type& name )
+RA_DATAFLOW_CORE_API auto getFactory( const NodeFactorySet::key_type& name )
     -> NodeFactorySet::mapped_type;
 
 /**
@@ -244,13 +244,13 @@ RA_DATAFLOW_API auto getFactory( const NodeFactorySet::key_type& name )
  * \param name The name of the factory to unregister
  * \return true if the factory was unregistered, false if not (e.g. for names not being managed).
  */
-RA_DATAFLOW_API auto unregisterFactory( const NodeFactorySet::key_type& name ) -> bool;
+RA_DATAFLOW_CORE_API auto unregisterFactory( const NodeFactorySet::key_type& name ) -> bool;
 
 /**
  * \brief Gets the factory for nodes exported by the Core dataflow library.
  * \return
  */
-RA_DATAFLOW_API auto getDataFlowBuiltInsFactory() -> NodeFactorySet::mapped_type;
+RA_DATAFLOW_CORE_API auto getDataFlowBuiltInsFactory() -> NodeFactorySet::mapped_type;
 } // namespace NodeFactoriesManager
 
 // -----------------------------------------------------------------

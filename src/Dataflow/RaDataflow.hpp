@@ -2,12 +2,20 @@
 #include <Core/CoreMacros.hpp>
 
 /// Defines the correct macro to export dll symbols.
-#if defined RA_DATAFLOW_EXPORTS
-#    define RA_DATAFLOW_API DLL_EXPORT
+#if defined RA_DATAFLOW_CORE_EXPORTS
+#    define RA_DATAFLOW_CORE_API DLL_EXPORT
 #elif defined RA_DATAFLOW_STATIC
-#    define RA_DATAFLOW_API
+#    define RA_DATAFLOW_CORE_API
 #else
-#    define RA_DATAFLOW_API DLL_IMPORT
+#    define RA_DATAFLOW_CORE_API DLL_IMPORT
+#endif
+
+#if defined RA_DATAFLOW_GUI_EXPORTS
+#    define RA_DATAFLOW_GUI_API DLL_EXPORT
+#elif defined RA_DATAFLOW_STATIC
+#    define RA_DATAFLOW_GUI_API
+#else
+#    define RA_DATAFLOW_GUI_API DLL_IMPORT
 #endif
 
 #include <Core/Containers/VectorArray.hpp>

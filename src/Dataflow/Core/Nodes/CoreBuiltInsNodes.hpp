@@ -31,7 +31,7 @@ namespace NodeFactoriesManager {
  *  - #include <Dataflow/Core/Nodes/Sinks/CoreDataSinks.hpp>
  *  - #include <Dataflow/Core/Nodes/Sources/CoreDataSources.hpp>
  */
-RA_DATAFLOW_API void registerStandardFactories();
+RA_DATAFLOW_CORE_API void registerStandardFactories();
 } // namespace NodeFactoriesManager
 } // namespace Core
 } // namespace Dataflow

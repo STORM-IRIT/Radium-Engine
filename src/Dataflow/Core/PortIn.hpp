@@ -17,7 +17,7 @@ class PortBaseOut; /// Forward PortOut classes used by getLink and reflect
 template <typename T>
 class PortOut;
 
-class RA_DATAFLOW_API PortBaseIn : public PortBase
+class RA_DATAFLOW_CORE_API PortBaseIn : public PortBase
 {
   public:
     /// \name Constructors

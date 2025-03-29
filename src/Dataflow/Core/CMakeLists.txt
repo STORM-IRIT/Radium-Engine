@@ -1,5 +1,5 @@
 set(ra_dataflowcore_target DataflowCore)
-list(APPEND CMAKE_MESSAGE_INDENT "[${ra_dataflowcore_target}] ")
+message_prefix_push("${ra_dataflowcore_target}")
 
 project(${ra_dataflowcore_target} LANGUAGES CXX VERSION ${Radium_VERSION})
 
@@ -10,10 +10,10 @@ add_library(
                                      ${dataflow_core_private}
 )
 
-# This one should be extracted directly from parent project properties.
-target_compile_definitions(${ra_dataflowcore_target} PRIVATE RA_DATAFLOW_EXPORTS)
+target_compile_definitions(${ra_dataflowcore_target} PRIVATE RA_DATAFLOW_CORE_EXPORTS)
 
 target_compile_options(${ra_dataflowcore_target} PUBLIC ${RA_DEFAULT_COMPILE_OPTIONS})
+
 if("${CMAKE_CXX_COMPILER_ID}" MATCHES "MSVC")
     target_compile_options(${ra_dataflowcore_target} PRIVATE /bigobj)
 endif()
@@ -40,4 +40,4 @@ if(RADIUM_ENABLE_PCH)
     target_precompile_headers(${ra_dataflowcore_target} PRIVATE pch.hpp)
 endif()
 
-list(REMOVE_AT CMAKE_MESSAGE_INDENT -1)
+message_prefix_pop()

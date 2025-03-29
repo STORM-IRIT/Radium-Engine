@@ -22,7 +22,7 @@ class Node;
  * (https://en.cppreference.com/w/cpp/language/const_cast).
  *
  */
-class RA_DATAFLOW_API PortBase
+class RA_DATAFLOW_CORE_API PortBase
 {
   public:
     /// \name Constructors

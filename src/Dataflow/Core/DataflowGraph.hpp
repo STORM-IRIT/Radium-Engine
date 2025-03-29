@@ -10,11 +10,13 @@
 #include <Core/Utils/Color.hpp>
 #include <Core/Utils/Singleton.hpp>
 
+#include <functional>
+
 namespace Ra {
 namespace Dataflow {
 namespace Core {
 
-class RA_DATAFLOW_API PortFactory
+class RA_DATAFLOW_CORE_API PortFactory
 {
     RA_SINGLETON_INTERFACE( PortFactory );
 
@@ -33,10 +35,12 @@ class RA_DATAFLOW_API PortFactory
         return m_output_ctor.at( type )( node, name );
     }
 
-    Node::PortBaseInPtr make_input_port( Node* node, const std::string& name, std::string type ) {
+    Node::PortBaseInPtr
+    make_input_port_from_name( Node* node, const std::string& name, std::string type ) {
         return make_input_port( node, name, m_type_to_string.key( type ) );
     }
-    Node::PortBaseOutPtr make_output_port( Node* node, const std::string& name, std::string type ) {
+    Node::PortBaseOutPtr
+    make_output_port_from_name( Node* node, const std::string& name, std::string type ) {
         return make_output_port( node, name, m_type_to_string.key( type ) );
     }
 
@@ -97,13 +101,15 @@ class RA_DATAFLOW_API PortFactory
     TYPE( const std::string& instanceName, const std::string& typeName ) :          \
         BASE( instanceName, typeName )
 
-class RA_DATAFLOW_API GraphNode : public Node
+class RA_DATAFLOW_CORE_API GraphNode : public Node
 {
     BASIC_NODE_INIT( GraphNode, Node ) {}
 
   public:
     bool execute() override {
-        /// \todo add assert check on size ?
+        CORE_ASSERT( m_inputs.size() == m_outputs.size(),
+                     "GraphNode input and output size differ" );
+
         for ( size_t i = 0; i < m_inputs.size(); ++i ) {
             auto factory       = PortFactory::getInstance();
             auto output_setter = factory->output_setter( m_outputs[i]->getType() );
@@ -114,6 +120,9 @@ class RA_DATAFLOW_API GraphNode : public Node
     }
 
     void remove_unlinked_ports() {
+        CORE_ASSERT( m_inputs.size() == m_outputs.size(),
+                     "GraphNode input and output size differ" );
+
         int last_index = m_inputs.size();
         for ( int i = 0; i < last_index; ++i ) {
             if ( !m_inputs[i]->isLinked() && m_outputs[i]->getLinkCount() == 0 ) {
@@ -151,25 +160,31 @@ class RA_DATAFLOW_API GraphNode : public Node
         return new_name;
     }
 
+    template <typename T>
+    void make_port_helper(
+        const nlohmann::json& ports,
+        std::map<size_t, T>& port_map,
+        std::function<T( Node* node, const std::string& name, std::string type )> ctor ) {
+        for ( const auto& port : ports ) {
+            size_t index     = port["port_index"];
+            std::string type = port["type"];
+            std::string name = port["name"];
+            port_map[index]  = ctor( this, name, type );
+        }
+    }
+
     bool fromJsonInternal( const nlohmann::json& data ) override {
         auto factory = PortFactory::getInstance();
         std::map<size_t, PortBaseInPtr> inputs;
         std::map<size_t, PortBaseOutPtr> outputs;
+        using namespace std::placeholders;
         if ( const auto& ports = data.find( "inputs" ); ports != data.end() ) {
-            for ( const auto& port : *ports ) {
-                size_t index     = port["port_index"];
-                std::string type = port["type"];
-                std::string name = port["name"];
-                inputs[index]    = factory->make_input_port( this, name, type );
-            }
+            auto ctor = std::bind( &PortFactory::make_input_port_from_name, factory, _1, _2, _3 );
+            make_port_helper<PortBaseInPtr>( *ports, inputs, ctor );
         }
         if ( const auto& ports = data.find( "outputs" ); ports != data.end() ) {
-            for ( const auto& port : *ports ) {
-                size_t index     = port["port_index"];
-                std::string type = port["type"];
-                std::string name = port["name"];
-                outputs[index]   = factory->make_output_port( this, name, type );
-            }
+            auto ctor = std::bind( &PortFactory::make_output_port_from_name, factory, _1, _2, _3 );
+            make_port_helper<PortBaseOutPtr>( *ports, outputs, ctor );
         }
 
         m_inputs.clear();
@@ -182,7 +197,8 @@ class RA_DATAFLOW_API GraphNode : public Node
             assert( m_outputs.size() == key );
             m_outputs.push_back( value );
         }
-        assert( m_inputs.size() == m_outputs.size() );
+        CORE_ASSERT( m_inputs.size() == m_outputs.size(),
+                     "json do not contains same number of inputs and outputs for GraphNode" );
 
         return true;
     }
@@ -191,7 +207,7 @@ class RA_DATAFLOW_API GraphNode : public Node
     Node* m_graph { nullptr };
 };
 
-class RA_DATAFLOW_API GraphInputNode : public GraphNode
+class RA_DATAFLOW_CORE_API GraphInputNode : public GraphNode
 {
     BASIC_NODE_INIT( GraphInputNode, GraphNode ) {}
 
@@ -203,7 +219,7 @@ class RA_DATAFLOW_API GraphInputNode : public GraphNode
     }
 };
 
-class RA_DATAFLOW_API GraphOutputNode : public GraphNode
+class RA_DATAFLOW_CORE_API GraphOutputNode : public GraphNode
 {
     BASIC_NODE_INIT( GraphOutputNode, GraphNode ) {}
 
@@ -226,7 +242,7 @@ class RA_DATAFLOW_API GraphOutputNode : public GraphNode
  *          --> for this, need to decide if a subgraph is stored in the json of its parent or in
  * a separate file
  */
-class RA_DATAFLOW_API DataflowGraph : public Node
+class RA_DATAFLOW_CORE_API DataflowGraph : public Node
 {
   public:
     /// Constructor.
@@ -494,7 +510,7 @@ class RA_DATAFLOW_API DataflowGraph : public Node
                                         const Node* nodeTo,
                                         Node::PortIndex portInIdx,
                                         const PortBaseIn* portIn );
-    class RA_DATAFLOW_API Log
+    class RA_DATAFLOW_CORE_API Log
     {
       public:
         static void alreadyLinked( const Node* node, const PortBase* port );

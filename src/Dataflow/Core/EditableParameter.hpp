@@ -20,7 +20,7 @@ namespace Core {
 /// general, this class does not depend on Engine.
 /// \todo Unify with Ra::Engine::RenderParameter (using Core only parameters set)
 ///
-struct RA_DATAFLOW_API EditableParameterBase {
+struct RA_DATAFLOW_CORE_API EditableParameterBase {
     /// \name Constructors
     /// @{
     /// \brief delete default constructors.

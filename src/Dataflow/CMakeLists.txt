@@ -1,5 +1,6 @@
 set(ra_dataflow_target Dataflow)
-list(APPEND CMAKE_MESSAGE_INDENT "[${ra_dataflow_target}] ")
+
+message_prefix_push("${ra_dataflow_target}")
 
 project(${ra_dataflow_target} LANGUAGES CXX VERSION ${Radium_VERSION})
 
@@ -33,3 +34,5 @@ configure_radium_library(
 )
 set(RADIUM_COMPONENTS ${RADIUM_COMPONENTS} ${ra_dataflow_target} PARENT_SCOPE)
 set(RADIUM_MISSING_COMPONENTS ${RADIUM_MISSING_COMPONENTS} PARENT_SCOPE)
+
+message_prefix_pop()

@@ -1,5 +1,6 @@
 set(ra_dataflowqtgui_target DataflowQtGui)
-list(APPEND CMAKE_MESSAGE_INDENT "[${ra_dataflowqtgui_target}] ")
+
+message_prefix_push("${ra_dataflowqtgui_target}")
 
 project(${ra_dataflowqtgui_target} LANGUAGES CXX VERSION ${Radium_VERSION})
 
@@ -16,7 +17,6 @@ find_package(PowerSlider REQUIRED)
 include(filelist.cmake)
 
 # Find Qt packages
-
 set(QT_DEFAULT_MAJOR_VERSION ${QT_DEFAULT_MAJOR_VERSION} PARENT_SCOPE)
 set(Qt_LIBRARIES Qt::Core Qt::Widgets Qt::OpenGL Qt::Xml)
 set(CMAKE_AUTOMOC_PATH_PREFIX ON)
@@ -27,19 +27,16 @@ set(CMAKE_AUTOUIC_SEARCH_PATHS "${CMAKE_CURRENT_SOURCE_DIR}/")
 set(CMAKE_AUTOUIC ON)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
+# Moc
+include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
-set(CMAKE_INCLUDE_CURRENT_DIR ON)
-include_directories(${CMAKE_CURRENT_BINARY_DIR} # Moc
-)
 # configure library
-
 add_library(
     ${ra_dataflowqtgui_target} SHARED ${dataflow_qtgui_sources} ${dataflow_qtgui_headers}
                                       ${dataflow_qtgui_resources}
 )
 
-# This one should be extracted directly from parent project properties.
-target_compile_definitions(${ra_dataflowqtgui_target} PRIVATE RA_DATAFLOW_EXPORTS)
+target_compile_definitions(${ra_dataflowqtgui_target} PRIVATE RA_DATAFLOW_GUI_EXPORTS)
 
 target_compile_options(${ra_dataflowqtgui_target} PUBLIC ${RA_DEFAULT_COMPILE_OPTIONS})
 
@@ -71,4 +68,4 @@ if(RADIUM_ENABLE_PCH)
     target_precompile_headers(${ra_dataflowqtgui_target} PRIVATE pch.hpp)
 endif()
 
-list(REMOVE_AT CMAKE_MESSAGE_INDENT -1)
+message_prefix_pop()

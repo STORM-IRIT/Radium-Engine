@@ -30,7 +30,7 @@ namespace Core {
  * sent to their output ports.
  *
  */
-class RA_DATAFLOW_API Node
+class RA_DATAFLOW_CORE_API Node
 {
   public:
     using PortIndex = Ra::Core::Utils::Index;
