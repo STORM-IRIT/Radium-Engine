@@ -24,6 +24,7 @@ set(core_sources
     Asset/LightData.cpp
     Asset/MaterialData.cpp
     Containers/AdjacencyList.cpp
+    Containers/DynamicVisitor.cpp
     Containers/VariableSet.cpp
     Containers/VariableSetEnumManagement.cpp
     Geometry/CatmullClarkSubdivider.cpp
@@ -80,6 +81,8 @@ set(core_headers
     Containers/AdjacencyList.hpp
     Containers/AlignedAllocator.hpp
     Containers/AlignedStdVector.hpp
+    Containers/DynamicVisitor.hpp
+    Containers/DynamicVisitorBase.hpp
     Containers/Grid.hpp
     Containers/Iterators.hpp
     Containers/MakeShared.hpp
