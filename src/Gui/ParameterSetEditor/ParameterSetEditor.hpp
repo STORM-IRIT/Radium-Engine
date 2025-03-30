@@ -43,11 +43,16 @@ class RA_GUI_API VariableSetEditor : public Widgets::ControlPanel
     VariableSetEditor&& operator=( VariableSetEditor&& )     = delete;
     ~VariableSetEditor()                                     = default;
 
-    /** \brief Update the different UI element with the given renderParameter, using the given
-     * constraints.
+    /** \brief Setup UI according to \p params and \p constraints.
+     *
+     * This method uses static visitor on \p params, with supported type as
+     * Engine::Data::RenderParameters::BindableTypes.
+     *
      *
      * \param params the VariableSet to edit
-     * \param constraints the parameter constraints descriptor
+     * \param[in] constraints the parameter constraints descriptor
+     *
+     * \sa
      */
     void setupUi( Core::VariableSet& params, const nlohmann::json& constraints );
 
