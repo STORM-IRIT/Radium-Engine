@@ -13,7 +13,7 @@ using namespace Ra::Core;
 using namespace Ra::Core::Utils;
 
 #include <Core/Utils/TypesUtils.hpp>
-class PrintThemAllVisitor : public VariableSet::DynamicVisitor
+class PrintThemAllVisitor : public DynamicVisitor
 {
   public:
     template <typename T>

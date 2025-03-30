@@ -18,10 +18,10 @@ struct printThemAll {
     }
 };
 
-class MyParameterVisitor : public VariableSet::DynamicVisitor
+class MyParameterVisitor : public DynamicVisitor
 {
   public:
-    MyParameterVisitor() : VariableSet::DynamicVisitor() {
+    MyParameterVisitor() : DynamicVisitor() {
         addOperator<std::reference_wrapper<int>>( *this );
         addOperator<float>( *this );
         addOperator<std::string>( *this );
@@ -193,7 +193,7 @@ TEST_CASE( "Core/Container/VariableSet", "[unittests][Core][Container][VariableS
         REQUIRE( params.getVariable<int>( "x" ) == 2 );
         REQUIRE( params.getVariable<float>( "x" ) == 1 );
 
-        VariableSet::DynamicVisitor vf;
+        DynamicVisitor vf;
         // Adding a visitor operator on ints
         vf.addOperator<int>( []( const std::string& name, auto& value, std::any&& ) {
             std::cout << "\tDoubling the int " << name << " (equal to " << value << ")\n";
