@@ -156,8 +156,7 @@ DataflowGraph* buildgraph( const std::string& name ) {
     auto fl = std::make_shared<FilterCollectionType<DataType>>( "fl" );
     REQUIRE( g->addNode( fl ) );
 
-    auto& factories  = NodeFactoriesManager::getFactoryManager();
-    auto coreFactory = factories.find( NodeFactoriesManager::dataFlowBuiltInsFactoryName )->second;
+    auto coreFactory = NodeFactoriesManager::getDataFlowBuiltInsFactory();
 
     REGISTER_TYPE_TO_FACTORY( coreFactory, FilterCollectionType<DataType>, Functionals );
     REGISTER_TYPE_TO_FACTORY( coreFactory, CollectionInputType<DataType>, Functionals );

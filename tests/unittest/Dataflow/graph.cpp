@@ -342,8 +342,8 @@ TEST_CASE( "Node failed exeution" ) {
 }
 
 TEST_CASE( "Inspection of a graph" ) {
-    auto& factories  = NodeFactoriesManager::getFactoryManager();
-    auto coreFactory = factories.find( NodeFactoriesManager::dataFlowBuiltInsFactoryName )->second;
+    auto coreFactory = NodeFactoriesManager::getDataFlowBuiltInsFactory();
+
     using namespace Ra::Dataflow::Core;
 
     // add some nodes to factory
