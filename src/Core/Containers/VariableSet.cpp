@@ -56,11 +56,11 @@ size_t VariableSet::size() const {
     return sum;
 }
 
-bool VariableSet::DynamicVisitor::accept( const std::type_index& id ) const {
+bool DynamicVisitor::accept( const std::type_index& id ) const {
     return m_visitorOperator.find( id ) != m_visitorOperator.cend();
 }
 
-void VariableSet::DynamicVisitor::operator()( std::any&& in, std::any&& userParam ) const {
+void DynamicVisitor::operator()( std::any&& in, std::any&& userParam ) const {
     m_visitorOperator.at( std::type_index( in.type() ) )( in, std::forward<std::any>( userParam ) );
 }
 
