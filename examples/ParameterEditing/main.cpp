@@ -233,6 +233,11 @@ int main( int argc, char* argv[] ) {
     //! [Filling the editor with the parameter set ]
 
     BasicUiBuilder builder { parameters, &editor, parameterSet_metadata };
+    // extends visited types, functor already present as template accepting
+    // std::is_assignable_v<VariableSet>
+    builder.addOperator<std::reference_wrapper<RenderParameters>>( builder );
+    builder.addOperator<std::reference_wrapper<const RenderParameters>>( builder );
+
     parameters.visit( builder );
 
     //    editor.setupUi( parameters, parameterSet_metadata );

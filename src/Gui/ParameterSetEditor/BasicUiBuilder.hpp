@@ -43,8 +43,6 @@ class BasicUiBuilder : public Ra::Core::DynamicVisitor
         addOperator<Ra::Core::Matrix4>( *this );
         addOperator<std::reference_wrapper<VariableSet>>( *this );
         addOperator<std::reference_wrapper<const VariableSet>>( *this );
-        addOperator<std::reference_wrapper<RenderParameters>>( *this );
-        addOperator<std::reference_wrapper<const RenderParameters>>( *this );
     }
 
     void operator()( const std::string& name, bool& p ) {

@@ -18,7 +18,8 @@ MatrixEditor::MatrixEditor( const Ra::Core::MatrixN& matrix, int dec, QWidget* p
     layout->setSpacing( 0 );
     for ( long i = 0; i < m_matrix.rows(); ++i ) {
         for ( int j = 0; j < m_matrix.cols(); ++j ) {
-            auto& elem   = m_matrix( i, j );
+            auto& elem = m_matrix( i, j );
+            ///\todo switch to more compact line edit
             auto spinbox = new QDoubleSpinBox();
             spinbox->setDecimals( dec );
             spinbox->setMinimum( std::numeric_limits<Scalar>::lowest() );
@@ -41,4 +42,5 @@ MatrixEditor::MatrixEditor( const Ra::Core::MatrixN& matrix, int dec, QWidget* p
 const Ra::Core::MatrixN& MatrixEditor::matrix() const {
     return m_matrix;
 }
+
 } // namespace Ra::Gui::Widgets
