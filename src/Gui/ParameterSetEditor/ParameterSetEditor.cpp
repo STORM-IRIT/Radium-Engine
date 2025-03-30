@@ -18,6 +18,7 @@ using namespace Engine;
 namespace Gui {
 
 namespace internal {
+///\todo use a dynamic visitor with add operator, hence this is customizable
 class RenderParameterUiBuilder
 {
   public:
