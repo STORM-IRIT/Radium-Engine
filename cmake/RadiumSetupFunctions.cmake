@@ -985,7 +985,9 @@ function(configure_radium_library)
     if(OPENMP_FOUND)
         target_link_libraries(${ARGS_TARGET} ${PropertyQualifier} OpenMP::OpenMP_CXX)
     endif(OPENMP_FOUND)
-    target_include_directories(${ARGS_TARGET} ${PropertyQualifier} $<INSTALL_INTERFACE:include/>)
+    target_include_directories(
+        ${ARGS_TARGET} SYSTEM ${PropertyQualifier} $<INSTALL_INTERFACE:include/>
+    )
 
     add_library(${ARGS_NAMESPACE}::${ARGS_TARGET} ALIAS ${ARGS_TARGET})
 
@@ -1117,12 +1119,14 @@ endfunction()
 # ------------------------------------------------------------------------------
 macro(configure_radium_target target)
     target_include_directories(
-        ${target} PUBLIC $<BUILD_INTERFACE:${RADIUM_SRC_DIR}> $<INSTALL_INTERFACE:include>
+        ${target} SYSTEM PUBLIC $<BUILD_INTERFACE:${RADIUM_SRC_DIR}> $<INSTALL_INTERFACE:include>
     )
 
     set_target_properties(${target} PROPERTIES ${RA_DEFAULT_PROJECT_OPTIONS})
 
-    target_include_directories(${target} PRIVATE PUBLIC ${RA_DEFAULT_INCLUDE_DIRECTORIES} INTERFACE)
+    target_include_directories(
+        ${target} SYSTEM PRIVATE PUBLIC ${RA_DEFAULT_INCLUDE_DIRECTORIES} INTERFACE
+    )
 
     target_link_libraries(${target} PRIVATE PUBLIC ${RA_DEFAULT_LIBRARIES} INTERFACE)
 
