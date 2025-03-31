@@ -1,8 +1,10 @@
 #include <Core/Utils/Log.hpp>
+#include <Core/Utils/StdOptional.hpp>
 #include <Engine/Data/ShaderConfigFactory.hpp>
 #include <Engine/Data/ShaderConfiguration.hpp>
 #include <map>
 #include <ostream>
+#include <string>
 #include <utility>
 
 namespace Ra {

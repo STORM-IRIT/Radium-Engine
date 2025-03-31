@@ -1,8 +1,17 @@
 #include <Gui/AboutDialog/AboutDialog.hpp>
+#include <QByteArray>
+#include <QDialog>
+#include <QDialogButtonBox>
 #include <QFile>
+#include <QIODevice>
+#include <QLabel>
+#include <QObject>
 #include <QPushButton>
+#include <QString>
 
 #include "ui_AboutDialog.h"
+
+class QWidget;
 
 namespace Ra {
 namespace Gui {

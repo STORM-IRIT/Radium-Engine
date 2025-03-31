@@ -1,9 +1,22 @@
 #include "KeyMappingManager.hpp"
 
+#include <Core/CoreMacros.hpp>
 #include <Core/Resources/Resources.hpp>
 #include <Core/Utils/Log.hpp>
-
-#include <QMessageBox>
+#include <QByteArray>
+#include <QDomElement>
+#include <QIODevice>
+#include <QKeySequence>
+#include <QMetaEnum>
+#include <QMouseEvent>
+#include <QSettings>
+#include <QVariant>
+#include <QXmlStreamWriter>
+#include <QtCore>
+#include <algorithm>
+#include <iterator>
+#include <sstream>
+#include <stddef.h>
 
 namespace Ra::Gui {
 

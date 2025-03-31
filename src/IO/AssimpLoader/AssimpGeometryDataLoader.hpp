@@ -6,9 +6,7 @@
 #include <Core/Types.hpp>
 #include <IO/AssimpLoader/AssimpWrapper.hpp>
 #include <IO/RaIO.hpp>
-
 #include <assimp/mesh.h>
-
 #include <memory>
 #include <set>
 

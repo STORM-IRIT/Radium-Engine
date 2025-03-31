@@ -4,7 +4,7 @@
 #include <ExampleLibrary.hpp>
 #include <PrivateHeader.hpp>
 #include <fstream>
-#include <optional>
+#include <sstream>
 #include <string>
 
 namespace ExampleLibrary {

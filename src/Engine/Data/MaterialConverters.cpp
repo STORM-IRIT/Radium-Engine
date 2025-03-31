@@ -1,9 +1,11 @@
 #include <Core/Utils/Log.hpp>
 #include <Engine/Data/MaterialConverters.hpp>
 #include <cstddef>
+#include <functional>
 #include <map>
 #include <ostream>
-#include <type_traits>
+#include <string>
+#include <utility>
 
 ///////////////////////////////////////////////
 ////        Material converter system       ///

@@ -1,5 +1,9 @@
 #include <Gui/AboutDialog/RadiumHelpDialog.hpp>
 #include <Gui/Utils/KeyMappingManager.hpp>
+#include <QDialog>
+#include <QTextDocument>
+#include <QTextEdit>
+#include <memory>
 #include <string>
 
 #include "ui_RadiumHelpDialog.h"

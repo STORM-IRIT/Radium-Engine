@@ -1,6 +1,9 @@
+#include <Core/RaCore.hpp>
 #include <Core/Utils/StringUtils.hpp>
 #include <Core/Utils/TypesUtils.hpp>
 #include <map>
+#include <string>
+#include <utility>
 
 namespace Ra {
 namespace Core {

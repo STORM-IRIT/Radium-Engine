@@ -1,8 +1,11 @@
-#include <Gui/Timeline/TimelineTimeScale.hpp>
-
-#include <QPainter>
-
+#include <Core/CoreMacros.hpp>
 #include <Gui/Timeline/TimelineScrollArea.hpp>
+#include <Gui/Timeline/TimelineTimeScale.hpp>
+#include <QFrame>
+#include <QPainter>
+#include <QString>
+
+class QWidget;
 
 namespace Ra::Gui {
 

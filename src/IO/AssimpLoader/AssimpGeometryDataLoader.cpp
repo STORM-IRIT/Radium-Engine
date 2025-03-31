@@ -5,8 +5,8 @@
 #include <Core/Utils/Log.hpp>
 #include <IO/AssimpLoader/AssimpGeometryDataLoader.hpp>
 #include <algorithm>
-#include <assimp/mesh.h>
 #include <assimp/scene.h>
+
 #include <cstddef>
 #include <limits>
 #include <ostream>
@@ -14,8 +14,8 @@
 namespace Ra {
 namespace IO {
 
-using namespace Core::Utils; // log
-using namespace Core::Asset; // log
+using namespace Core::Utils;
+using namespace Core::Asset;
 
 AssimpGeometryDataLoader::AssimpGeometryDataLoader( const std::string& filepath,
                                                     const bool VERBOSE_MODE ) :

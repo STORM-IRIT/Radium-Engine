@@ -10,11 +10,13 @@
 #endif
 
 #include <PluginBase/RadiumPluginInterface.hpp>
+#include <QObject>
 
 class QAction;
 class QMenu;
 class QString;
 class QWidget;
+
 namespace Ra {
 namespace Plugins {
 class Context;

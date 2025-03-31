@@ -1,7 +1,17 @@
+#include <Core/CoreMacros.hpp>
 #include <Core/Resources/Resources.hpp>
 #include <Engine/Data/ShaderConfiguration.hpp>
-#include <Engine/Data/ShaderProgramManager.hpp>
+#include <array>
 #include <glbinding/Version.h>
+#include <glbinding/Version.inl>
+#include <list>
+#include <map>
+#include <ostream>
+#include <set>
+#include <stddef.h>
+#include <string>
+#include <utility>
+#include <vector>
 
 /**
  * Plain will be the default shader program

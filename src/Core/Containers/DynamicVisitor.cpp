@@ -1,4 +1,9 @@
 #include <Core/Containers/DynamicVisitor.hpp>
+#include <any>
+#include <functional>
+#include <typeindex>
+#include <unordered_map>
+#include <utility>
 
 namespace Ra {
 namespace Core {

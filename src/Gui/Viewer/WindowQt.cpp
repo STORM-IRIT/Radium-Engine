@@ -1,13 +1,18 @@
 #include "WindowQt.hpp"
 
+#include <Core/Utils/Log.hpp>
 #include <QApplication>
-#include <QDebug>
+#include <QByteArray>
 #include <QOpenGLContext>
 #include <QResizeEvent>
 #include <QScreen>
+#include <QSize>
 #include <QSurfaceFormat>
+#include <QTypeInfoMerger>
+#include <ostream>
+#include <string>
 
-#include <Core/Utils/Log.hpp>
+class QEvent;
 
 using namespace Ra::Core::Utils; // log
 

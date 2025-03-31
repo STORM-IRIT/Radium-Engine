@@ -1,12 +1,29 @@
-#include <Gui/Timeline/TimelineFrameSelector.hpp>
-
-#include <QMouseEvent>
-#include <QPainter>
-#include <QTimer>
-#include <QtGlobal>
-
+#include <Core/CoreMacros.hpp>
 #include <Core/Math/Math.hpp>
+#include <Gui/Timeline/Configurations.hpp>
+#include <Gui/Timeline/TimelineFrameSelector.hpp>
 #include <Gui/Timeline/TimelineScrollArea.hpp>
+#include <Gui/Timeline/TimelineSlider.hpp>
+#include <QColor>
+#include <QDoubleSpinBox>
+#include <QFlags>
+#include <QFrame>
+#include <QLabel>
+#include <QMouseEvent>
+#include <QObject>
+#include <QPainter>
+#include <QPen>
+#include <QString>
+#include <QTimer>
+#include <QToolButton>
+#include <QWidget>
+#include <QtCore>
+#include <QtGui>
+#include <algorithm>
+#include <cmath>
+#include <iterator>
+#include <utility>
+#include <vector>
 
 #include "ui_Timeline.h"
 

@@ -1,6 +1,7 @@
 #include <Core/Utils/StdMapIterators.hpp>
 
 #include <string>
+#include <utility>
 
 #include <catch2/catch_test_macros.hpp>
 
