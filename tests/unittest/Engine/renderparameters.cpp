@@ -1,5 +1,6 @@
 #include <catch2/catch_test_macros.hpp>
 
+#include <Core/Containers/DynamicVisitor.hpp>
 #include <Core/Containers/VariableSetEnumManagement.hpp>
 #include <Core/Types.hpp>
 #include <Core/Utils/Color.hpp>
@@ -17,13 +18,13 @@ class PrintThemAllVisitor : public DynamicVisitor
 {
   public:
     template <typename T>
-    void operator()( const std::string& name, const T& _in, std::any&& ) {
+    void operator()( const std::string& name, const T& value ) {
         output << "\tPrintThemAllVisitor: ( " << Utils::demangleType<T>() << " ) " << name
-               << " --> " << _in << "\n";
+               << " --> " << value << "\n";
     }
 
     template <typename T>
-    void allowVisit( /* T = T {}*/ ) {
+    void allowVisit() {
         addOperator<T>( *this );
     }
 

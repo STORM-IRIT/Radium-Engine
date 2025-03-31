@@ -1,3 +1,4 @@
+#include <Core/Containers/DynamicVisitor.hpp>
 #include <Core/Containers/VariableSet.hpp>
 
 #include <Core/Utils/TypesUtils.hpp>
