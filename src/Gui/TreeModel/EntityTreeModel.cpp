@@ -6,7 +6,6 @@
 #include <Engine/Scene/EntityManager.hpp>
 #include <Gui/TreeModel/EntityTreeModel.hpp>
 #include <Gui/TreeModel/TreeModel.hpp>
-#include <QtCore/qtcoreexports.h>
 #include <algorithm>
 #include <memory>
 #include <stack>

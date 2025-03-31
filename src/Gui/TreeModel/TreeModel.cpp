@@ -1,15 +1,7 @@
 #include <Core/CoreMacros.hpp>
 #include <Core/Utils/Log.hpp>
 #include <Gui/TreeModel/TreeModel.hpp>
-#include <QAbstractItemModel>
 #include <QApplication>
-#include <QFlags>
-#include <QList>
-#include <QModelIndex>
-#include <QObject>
-#include <QString>
-#include <QVariant>
-#include <Qt>
 #include <memory>
 #include <ostream>
 #include <stack>

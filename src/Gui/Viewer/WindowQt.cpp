@@ -2,17 +2,13 @@
 
 #include <Core/Utils/Log.hpp>
 #include <QApplication>
-#include <QByteArray>
+#include <QDebug>
 #include <QOpenGLContext>
 #include <QResizeEvent>
 #include <QScreen>
-#include <QSize>
 #include <QSurfaceFormat>
-#include <QTypeInfoMerger>
 #include <ostream>
 #include <string>
-
-class QEvent;
 
 using namespace Ra::Core::Utils; // log
 

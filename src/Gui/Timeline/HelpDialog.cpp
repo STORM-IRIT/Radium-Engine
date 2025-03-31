@@ -1,11 +1,7 @@
 
 #include <Gui/Timeline/HelpDialog.hpp>
-#include <QDialog>
-#include <QObject>
 
 #include "ui_HelpDialog.h"
-
-class QWidget;
 
 namespace Ra::Gui {
 

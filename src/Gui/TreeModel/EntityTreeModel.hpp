@@ -7,8 +7,6 @@
 #include <Gui/TreeModel/TreeModel.hpp>
 #include <string>
 
-class QObject;
-
 namespace Ra {
 namespace Gui {
 

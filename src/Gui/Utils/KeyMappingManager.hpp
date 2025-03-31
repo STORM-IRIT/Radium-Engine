@@ -6,14 +6,7 @@
 #include <Core/Utils/Singleton.hpp>
 #include <Core/Utils/StdOptional.hpp>
 #include <Gui/RaGui.hpp>
-#include <QDomDocument>
-#include <QDomNode>
-#include <QEvent>
-#include <QFile>
-#include <QFlags>
-#include <QString>
 #include <QXmlStreamWriter>
-#include <Qt>
 #include <QtGui/QKeyEvent>
 #include <QtGui/QMouseEvent>
 #include <QtXml/QtXml>
@@ -23,8 +16,6 @@
 #include <string>
 #include <utility>
 #include <vector>
-
-class QXmlStreamWriter;
 
 namespace Ra {
 namespace Gui {

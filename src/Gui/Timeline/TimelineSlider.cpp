@@ -1,10 +1,5 @@
 #include <Gui/Timeline/TimelineSlider.hpp>
-#include <QLabel>
 #include <QMouseEvent>
-#include <QObject>
-#include <Qt>
-
-class QWidget;
 
 namespace Ra::Gui {
 
