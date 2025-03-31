@@ -326,7 +326,7 @@ TEST_CASE( "Node failed exeution" ) {
     class FailFunction : public Functionals::TransformInt
     {
       public:
-        FailFunction( const std::string& instanceName ) : FunctionNode( instanceName ) {}
+        explicit FailFunction( const std::string& instanceName ) : FunctionNode( instanceName ) {}
         bool execute() { return false; }
         static const std::string& getTypename() {
             static std::string demangledName = std::string { "FailFunction" };

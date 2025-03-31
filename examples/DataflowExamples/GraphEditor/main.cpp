@@ -16,7 +16,7 @@ class SquareFunction : public Ra::Dataflow::Core::Sources::FunctionSourceNode<Sc
 {
   public:
     using base = Ra::Dataflow::Core::Sources::FunctionSourceNode<Scalar, const Scalar&>;
-    SquareFunction( const std::string& name ) : base( name, getTypename() ) {
+    explicit SquareFunction( const std::string& name ) : base( name, getTypename() ) {
         setData( []( const Scalar& b ) { return b * b; } );
     }
     static const std::string& getTypename() {
