@@ -40,14 +40,14 @@ void GraphModel::buildFactoryMap() {
 }
 
 std::unordered_set<NodeId> GraphModel::allNodeIds() const {
-    return _nodeIds;
+    return m_node_ids;
 }
 
 std::unordered_set<ConnectionId> GraphModel::allConnectionIds( NodeId const nodeId ) const {
     std::unordered_set<ConnectionId> result;
 
-    std::copy_if( _connectivity.begin(),
-                  _connectivity.end(),
+    std::copy_if( m_connectivity.begin(),
+                  m_connectivity.end(),
                   std::inserter( result, std::end( result ) ),
                   [&nodeId]( ConnectionId const& cid ) {
                       return cid.inNodeId == nodeId || cid.outNodeId == nodeId;
@@ -60,8 +60,8 @@ std::unordered_set<ConnectionId>
 GraphModel::connections( NodeId nodeId, PortType portType, PortIndex portIndex ) const {
     std::unordered_set<ConnectionId> result;
 
-    std::copy_if( _connectivity.begin(),
-                  _connectivity.end(),
+    std::copy_if( m_connectivity.begin(),
+                  m_connectivity.end(),
                   std::inserter( result, std::end( result ) ),
                   [&portType, &portIndex, &nodeId]( ConnectionId const& cid ) {
                       return ( getNodeId( portType, cid ) == nodeId &&
@@ -72,7 +72,7 @@ GraphModel::connections( NodeId nodeId, PortType portType, PortIndex portIndex )
 }
 
 bool GraphModel::connectionExists( ConnectionId const connectionId ) const {
-    return ( _connectivity.find( connectionId ) != _connectivity.end() );
+    return ( m_connectivity.find( connectionId ) != m_connectivity.end() );
 }
 
 void GraphModel::addInputOutputNodesForGraph() {
@@ -97,7 +97,7 @@ NodeId GraphModel::addNode( QString const nodeType ) {
     m_graph->addNode( n );
 
     NodeId newId = newNodeId();
-    _nodeIds.insert( newId );
+    m_node_ids.insert( newId );
     m_node_id_to_ptr[newId] = n;
 
     Q_EMIT nodeCreated( newId );
@@ -112,7 +112,7 @@ bool GraphModel::connectionPossible( ConnectionId const connectionId ) const {
     auto in_port_id  = connectionId.inPortIndex;
     auto out_port_id = connectionId.outPortIndex;
 
-    bool ret = _connectivity.find( connectionId ) == _connectivity.end() &&
+    bool ret = m_connectivity.find( connectionId ) == m_connectivity.end() &&
                m_graph->canLink( m_node_id_to_ptr.at( out_node_id ).get(),
                                  out_port_id,
                                  m_node_id_to_ptr.at( in_node_id ).get(),
@@ -122,7 +122,7 @@ bool GraphModel::connectionPossible( ConnectionId const connectionId ) const {
 }
 
 void GraphModel::addConnection( ConnectionId const connectionId ) {
-    _connectivity.insert( connectionId );
+    m_connectivity.insert( connectionId );
     auto in_node_id  = connectionId.inNodeId;
     auto out_node_id = connectionId.outNodeId;
     auto in_port_id  = connectionId.inPortIndex;
@@ -139,7 +139,7 @@ void GraphModel::addConnection( ConnectionId const connectionId ) {
 }
 
 bool GraphModel::nodeExists( NodeId const nodeId ) const {
-    return ( _nodeIds.find( nodeId ) != _nodeIds.end() );
+    return ( m_node_ids.find( nodeId ) != m_node_ids.end() );
 }
 
 QWidget* GraphModel::getWidget( std::shared_ptr<Core::Node> node ) const {
@@ -183,11 +183,11 @@ QVariant GraphModel::nodeData( NodeId nodeId, NodeRole role ) const {
         break;
 
     case NodeRole::Position:
-        result = _nodeGeometryData[nodeId].pos;
+        result = m_node_geometry_data[nodeId].pos;
         break;
 
     case NodeRole::Size:
-        result = _nodeGeometryData[nodeId].size;
+        result = m_node_geometry_data[nodeId].size;
         break;
 
     case NodeRole::CaptionVisible:
@@ -239,8 +239,8 @@ bool GraphModel::setNodeData( NodeId nodeId, NodeRole role, QVariant value ) {
     case NodeRole::Position: {
         auto pos = value.value<QPointF>();
 
-        _nodeGeometryData[nodeId].pos = pos;
-        nlohmann::json json           = { { "position", { { "x", pos.x() }, { "y", pos.y() } } } };
+        m_node_geometry_data[nodeId].pos = pos;
+        nlohmann::json json = { { "position", { { "x", pos.x() }, { "y", pos.y() } } } };
         node_ptr->addJsonMetaData( json );
         emit nodePositionUpdated( nodeId );
 
@@ -248,8 +248,8 @@ bool GraphModel::setNodeData( NodeId nodeId, NodeRole role, QVariant value ) {
     } break;
 
     case NodeRole::Size: {
-        _nodeGeometryData[nodeId].size = value.value<QSize>();
-        result                         = true;
+        m_node_geometry_data[nodeId].size = value.value<QSize>();
+        result                            = true;
     } break;
 
     case NodeRole::CaptionVisible:
@@ -378,15 +378,15 @@ bool GraphModel::setPortData( NodeId nodeId,
 bool GraphModel::deleteConnection( ConnectionId const connectionId ) {
     bool disconnected = false;
 
-    auto it = _connectivity.find( connectionId );
+    auto it = m_connectivity.find( connectionId );
 
-    if ( it != _connectivity.end() ) {
+    if ( it != m_connectivity.end() ) {
         disconnected    = true;
         auto in_node_id = connectionId.inNodeId;
         auto in_port_id = connectionId.inPortIndex;
 
         m_graph->removeLink( m_node_id_to_ptr.at( in_node_id ), in_port_id );
-        _connectivity.erase( it );
+        m_connectivity.erase( it );
     }
 
     if ( disconnected ) emit connectionDeleted( connectionId );
@@ -406,8 +406,8 @@ bool GraphModel::deleteNode( NodeId const nodeId ) {
     m_node_id_to_ptr.erase( nodeId );
     m_node_widget.erase( nodeId );
 
-    _nodeIds.erase( nodeId );
-    _nodeGeometryData.erase( nodeId );
+    m_node_ids.erase( nodeId );
+    m_node_geometry_data.erase( nodeId );
 
     emit nodeDeleted( nodeId );
 
@@ -454,10 +454,10 @@ void GraphModel::loadNode( QJsonObject const& nodeJson ) {
     _nextNodeId = std::max( _nextNodeId, restoredNodeId + 1 );
 
     // Create new node.
-    _nodeIds.insert( restoredNodeId );
+    m_node_ids.insert( restoredNodeId );
 
     // Create new node.
-    _nodeIds.insert( restoredNodeId );
+    m_node_ids.insert( restoredNodeId );
     m_node_id_to_ptr[restoredNodeId] = n;
 
     Q_EMIT nodeCreated( restoredNodeId );
@@ -476,10 +476,10 @@ void GraphModel::setGraph( std::shared_ptr<Core::DataflowGraph> graph ) {
 }
 
 void GraphModel::sync_data() {
-    _nodeIds.clear();
+    m_node_ids.clear();
     m_node_id_to_ptr.clear();
-    _connectivity.clear();
-    _nodeGeometryData.clear();
+    m_connectivity.clear();
+    m_node_geometry_data.clear();
     m_node_widget.clear();
     _nextNodeId = 0;
 
@@ -488,13 +488,13 @@ void GraphModel::sync_data() {
     // Create new nodes
     for ( const auto& n : m_graph->getNodes() ) {
         NodeId newId = newNodeId();
-        _nodeIds.insert( newId );
+        m_node_ids.insert( newId );
         m_node_id_to_ptr[newId] = n;
         std::cerr << "insert node " << n->display_name() << "\n";
         if ( auto position = n->getJsonMetaData().find( "position" );
              position != n->getJsonMetaData().end() ) {
-            _nodeGeometryData[newId].pos.setX( position->at( "x" ) );
-            _nodeGeometryData[newId].pos.setY( position->at( "y" ) );
+            m_node_geometry_data[newId].pos.setX( position->at( "x" ) );
+            m_node_geometry_data[newId].pos.setY( position->at( "y" ) );
         }
     }
 
@@ -570,7 +570,7 @@ void GraphModel::sync_data() {
                     connection_id.inPortIndex  = in_port_id;
                     connection_id.outPortIndex = out_port_id;
 
-                    _connectivity.insert( connection_id );
+                    m_connectivity.insert( connection_id );
                 }
             }
         }

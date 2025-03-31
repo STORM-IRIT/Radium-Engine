@@ -111,14 +111,14 @@ class GraphModel : public QtNodes::AbstractGraphModel
 
   private:
     std::shared_ptr<Core::DataflowGraph> m_graph;
-    std::unordered_set<NodeId> _nodeIds;
+    std::unordered_set<NodeId> m_node_ids;
     std::map<NodeId, std::shared_ptr<Core::Node>> m_node_id_to_ptr;
 
     /// This data structure contains the graph connectivity information in both
     /// directions, i.e. from Node1 to Node2 and from Node2 to Node1.
-    std::unordered_set<ConnectionId> _connectivity;
+    std::unordered_set<ConnectionId> m_connectivity;
 
-    mutable std::unordered_map<NodeId, NodeGeometryData> _nodeGeometryData;
+    mutable std::unordered_map<NodeId, NodeGeometryData> m_node_geometry_data;
     mutable std::unordered_map<NodeId, QWidget*> m_node_widget;
 
     /// A convenience variable needed for generating unique node ids.
