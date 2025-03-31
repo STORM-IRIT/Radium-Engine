@@ -3,6 +3,8 @@
 
 #include "ui_HelpDialog.h"
 
+class QWidget;
+
 namespace Ra::Gui {
 
 HelpDialog::HelpDialog( QWidget* parent ) : QDialog( parent ), ui( new Ui::HelpDialog ) {

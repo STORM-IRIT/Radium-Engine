@@ -1,19 +1,37 @@
-#include <Engine/Scene/SkeletonBasedAnimationSystem.hpp>
-
-#include <string>
-
+#include <Core/Animation/KeyFramedValue.hpp>
+#include <Core/Animation/Skeleton.hpp>
 #include <Core/Asset/FileData.hpp>
+#include <Core/Asset/GeometryData.hpp>
+#include <Core/Asset/HandleData.hpp>
 #include <Core/Math/Math.hpp>
 #include <Core/Resources/Resources.hpp>
 #include <Core/Tasks/Task.hpp>
 #include <Core/Tasks/TaskQueue.hpp>
-
 #include <Engine/Data/Texture.hpp>
 #include <Engine/Data/TextureManager.hpp>
 #include <Engine/FrameInfo.hpp>
 #include <Engine/RadiumEngine.hpp>
+#include <Engine/Scene/Component.hpp>
+#include <Engine/Scene/SkeletonBasedAnimationSystem.hpp>
 #include <Engine/Scene/SkeletonComponent.hpp>
 #include <Engine/Scene/SkinningComponent.hpp>
+#include <algorithm>
+#include <functional>
+#include <limits>
+#include <map>
+#include <memory>
+#include <optional>
+#include <string>
+#include <utility>
+#include <vector>
+
+namespace Ra {
+namespace Engine {
+namespace Scene {
+class Entity;
+} // namespace Scene
+} // namespace Engine
+} // namespace Ra
 
 using namespace Ra::Core::Animation;
 

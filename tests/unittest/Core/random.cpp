@@ -1,9 +1,6 @@
 #include <catch2/catch_test_macros.hpp>
 #include <unittestUtils.hpp>
 
-#include <iomanip>
-#include <iostream>
-
 #include <Core/Random/RandomPointSet.hpp>
 using namespace Ra::Core::Random;
 

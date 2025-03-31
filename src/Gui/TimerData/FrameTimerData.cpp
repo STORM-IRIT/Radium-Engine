@@ -1,4 +1,5 @@
 #include <Gui/TimerData/FrameTimerData.hpp>
+#include <string>
 
 namespace Ra {
 void FrameTimerData::print( std::ostream& ostream ) const {

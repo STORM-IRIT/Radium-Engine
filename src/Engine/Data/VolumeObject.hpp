@@ -1,11 +1,21 @@
 #pragma once
 
+#include <Core/Geometry/AbstractGeometry.hpp>
+#include <Core/Types.hpp>
 #include <Engine/Data/DisplayableObject.hpp>
 #include <Engine/Data/Mesh.hpp>
 #include <Engine/Data/Texture.hpp>
 #include <Engine/RaEngine.hpp>
+#include <memory>
+#include <string>
 
 namespace Ra {
+namespace Engine {
+namespace Data {
+class ShaderProgram;
+} // namespace Data
+} // namespace Engine
+
 namespace Core {
 namespace Geometry {
 class AbstractVolume;

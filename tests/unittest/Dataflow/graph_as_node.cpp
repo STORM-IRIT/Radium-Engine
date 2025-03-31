@@ -1,6 +1,4 @@
-#include <catch2/catch.hpp>
-
-#include <iostream>
+#include <catch2/catch_test_macros.hpp>
 
 #include <Core/Containers/MakeShared.hpp>
 #include <Dataflow/Core/DataflowGraph.hpp>
@@ -16,7 +14,7 @@
 using namespace Ra::Dataflow::Core;
 using namespace Ra::Core;
 
-TEST_CASE( "Dataflow/Core/GraphAsNode", "[Dataflow][Core][Graph]" ) {
+TEST_CASE( "Dataflow/Core/GraphAsNode", "[unittests][Dataflow][Core][Graph]" ) {
     using RaVector = Ra::Core::VectorArray<Scalar>;
 
     auto port_fatcory = PortFactory::createInstance();
@@ -99,7 +97,7 @@ TEST_CASE( "Dataflow/Core/GraphAsNode", "[Dataflow][Core][Graph]" ) {
     REQUIRE( result == -8 );
 }
 
-TEST_CASE( "Dataflow/Core/GraphAsNode/IO", "[Dataflow][Core][Graph]" ) {
+TEST_CASE( "Dataflow/Core/GraphAsNode/IO", "[unittests][Dataflow][Core][Graph]" ) {
 
     using PortIndex    = Ra::Dataflow::Core::Node::PortIndex;
     using FunctionNode = Functionals::FunctionNode<Scalar>;
@@ -176,7 +174,7 @@ TEST_CASE( "Dataflow/Core/GraphAsNode/IO", "[Dataflow][Core][Graph]" ) {
     }
 }
 
-TEST_CASE( "Dataflow/Core/GraphAsNode/RemoveUnlinked", "[Dataflow][Core][Graph]" ) {
+TEST_CASE( "Dataflow/Core/GraphAsNode/RemoveUnlinked", "[unittests][Dataflow][Core][Graph]" ) {
 
     using PortIndex    = Ra::Dataflow::Core::Node::PortIndex;
     using FunctionNode = Functionals::FunctionNode<Scalar>;

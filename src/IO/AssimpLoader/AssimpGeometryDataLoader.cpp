@@ -1,11 +1,15 @@
+#include <Core/Asset/BlinnPhongMaterialData.hpp>
+#include <Core/Asset/GeometryData.hpp>
+#include <Core/Utils/Color.hpp>
+#include <Core/Utils/ContainerIntrospectionInterface.hpp>
+#include <Core/Utils/Log.hpp>
 #include <IO/AssimpLoader/AssimpGeometryDataLoader.hpp>
-
+#include <algorithm>
 #include <assimp/mesh.h>
 #include <assimp/scene.h>
-
-#include <Core/Utils/Log.hpp>
-
-#include <Core/Asset/BlinnPhongMaterialData.hpp>
+#include <cstddef>
+#include <limits>
+#include <ostream>
 
 namespace Ra {
 namespace IO {

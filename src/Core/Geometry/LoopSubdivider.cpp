@@ -1,4 +1,16 @@
 #include <Core/Geometry/LoopSubdivider.hpp>
+#include <Core/Types.hpp>
+#include <Core/Utils/Index.hpp>
+#include <Eigen/Core>
+#include <OpenMesh/Core/Mesh/ArrayKernel.hh>
+#include <OpenMesh/Core/Mesh/AttribKernelT.hh>
+#include <OpenMesh/Core/Mesh/CirculatorsT.hh>
+#include <OpenMesh/Core/Mesh/Handles.hh>
+#include <OpenMesh/Core/Mesh/IteratorsT.hh>
+#include <OpenMesh/Core/Mesh/PolyConnectivity.hh>
+#include <OpenMesh/Core/Mesh/SmartHandles.hh>
+#include <OpenMesh/Tools/Utils/MeshCheckerT.hh>
+#include <memory>
 
 namespace Ra {
 namespace Core {

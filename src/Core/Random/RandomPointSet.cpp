@@ -1,4 +1,5 @@
 #include <Core/Random/RandomPointSet.hpp>
+#include <algorithm>
 
 namespace Ra {
 namespace Core {

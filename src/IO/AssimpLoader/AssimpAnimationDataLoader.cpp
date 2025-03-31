@@ -1,15 +1,19 @@
-#include <IO/AssimpLoader/AssimpAnimationDataLoader.hpp>
-
-#include <assimp/scene.h>
-#include <set>
-
 #include <Core/Animation/KeyFramedValue.hpp>
 #include <Core/Animation/KeyFramedValueInterpolators.hpp>
 #include <Core/Asset/AnimationData.hpp>
 #include <Core/Math/Math.hpp>
+#include <Core/Types.hpp>
 #include <Core/Utils/Log.hpp>
-
+#include <Eigen/Core>
+#include <IO/AssimpLoader/AssimpAnimationDataLoader.hpp>
 #include <IO/AssimpLoader/AssimpWrapper.hpp>
+#include <algorithm>
+#include <assimp/anim.h>
+#include <assimp/scene.h>
+#include <iterator>
+#include <ostream>
+#include <set>
+#include <string>
 
 namespace Ra {
 namespace IO {

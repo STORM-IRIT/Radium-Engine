@@ -1,11 +1,25 @@
-#include <catch2/catch.hpp>
-
-#include <iostream>
+#include <catch2/catch_test_macros.hpp>
 
 #include <Dataflow/Core/DataflowGraph.hpp>
+#include <Dataflow/Core/Enumerator.hpp>
+#include <Dataflow/Core/Node.hpp>
+#include <Dataflow/Core/NodeFactory.hpp>
 #include <Dataflow/Core/Nodes/Functionals/CoreDataFunctionals.hpp>
+#include <Dataflow/Core/Nodes/Functionals/FunctionNode.hpp>
+#include <Dataflow/Core/Nodes/Functionals/ReduceNode.hpp>
+#include <Dataflow/Core/Nodes/Functionals/TransformNode.hpp>
 #include <Dataflow/Core/Nodes/Sinks/CoreDataSinks.hpp>
 #include <Dataflow/Core/Nodes/Sources/CoreDataSources.hpp>
+#include <Dataflow/Core/Nodes/Sources/FunctionSource.hpp>
+#include <Dataflow/Core/Nodes/Sources/SingleDataSourceNode.hpp>
+#include <Dataflow/Core/PortIn.hpp>
+#include <Dataflow/Core/PortOut.hpp>
+#include <algorithm>
+
+#include <memory>
+#include <nlohmann/json.hpp>
+#include <string>
+#include <vector>
 
 using namespace Ra::Dataflow::Core;
 
@@ -319,7 +333,7 @@ TEST_CASE( "Dataflow/Core/Graph", "[Dataflow][Core][Graph]" ) {
     g.destroy();
 }
 
-TEST_CASE( "Node failed exeution" ) {
+TEST_CASE( "Node failed exeution", "[unittests]" ) {
     DataflowGraph g( "Test Graph" );
     auto sourceIntNode = g.addNode<Sources::IntSource>( "SourceInt" );
     auto sinkIntNode   = g.addNode<Sinks::IntSink>( "SinkInt" );
@@ -341,7 +355,7 @@ TEST_CASE( "Node failed exeution" ) {
     REQUIRE( !g.execute() );
 }
 
-TEST_CASE( "Inspection of a graph" ) {
+TEST_CASE( "Inspection of a graph", "[unittests]" ) {
     auto coreFactory = NodeFactoriesManager::getDataFlowBuiltInsFactory();
 
     using namespace Ra::Dataflow::Core;

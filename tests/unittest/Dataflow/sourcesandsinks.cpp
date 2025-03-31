@@ -1,4 +1,5 @@
-#include <catch2/catch.hpp>
+
+#include <catch2/catch_test_macros.hpp>
 
 #include <Core/Utils/TypesUtils.hpp>
 #include <Dataflow/Core/DataflowGraph.hpp>
@@ -7,7 +8,6 @@
 
 #include <iostream>
 #include <string>
-#include <vector>
 
 using namespace Ra::Dataflow::Core;
 using namespace Ra::Core::Utils;
@@ -54,7 +54,7 @@ void testGraph( const std::string& name, T in, T& out ) {
     REQUIRE( ok );
 }
 //! [Create a source to sink graph for type T]
-TEST_CASE( "Dataflow/Core/Sources and Sinks", "[Dataflow][Core][Sources and Sinks]" ) {
+TEST_CASE( "Dataflow/Core/Sources and Sinks", "[unittests][Dataflow][Core][Sources and Sinks]" ) {
     SECTION( "Operations on base type : Scalar" ) {
         using DataType = Scalar;
         std::cout << "Test on " << simplifiedDemangledType<DataType>() << " ... ";

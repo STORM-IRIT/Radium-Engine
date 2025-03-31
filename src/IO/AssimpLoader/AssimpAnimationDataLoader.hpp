@@ -2,7 +2,10 @@
 
 #include <Core/Asset/AnimationTime.hpp>
 #include <Core/Asset/DataLoader.hpp>
+#include <Core/CoreMacros.hpp>
 #include <IO/RaIO.hpp>
+#include <memory>
+#include <vector>
 
 struct aiScene;
 struct aiAnimation;

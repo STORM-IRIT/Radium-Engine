@@ -1,10 +1,14 @@
-#include <Engine/Rendering/RenderTechnique.hpp>
-
+#include <Core/Utils/Log.hpp>
 #include <Engine/Data/BlinnPhongMaterial.hpp>
+#include <Engine/Data/RenderParameters.hpp>
 #include <Engine/Data/ShaderProgramManager.hpp>
 #include <Engine/RadiumEngine.hpp>
-
-#include <Core/Utils/Log.hpp>
+#include <Engine/Rendering/RenderTechnique.hpp>
+#include <algorithm>
+#include <cstddef>
+#include <map>
+#include <ostream>
+#include <type_traits>
 
 namespace Ra {
 namespace Engine {

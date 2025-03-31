@@ -1,7 +1,13 @@
 #pragma once
 
 #include <Core/Animation/HandleArray.hpp>
+#include <Core/Animation/Pose.hpp>
 #include <Core/Containers/AdjacencyList.hpp>
+#include <Core/CoreMacros.hpp>
+#include <Core/RaCore.hpp>
+#include <Core/Types.hpp>
+#include <iosfwd>
+#include <memory>
 
 namespace Ra {
 namespace Core {

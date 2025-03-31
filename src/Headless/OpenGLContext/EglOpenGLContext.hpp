@@ -1,6 +1,13 @@
 #pragma once
 #ifdef HEADLESS_HAS_EGL
 #    include <Headless/OpenGLContext/OpenGLContext.hpp>
+#    include <Headless/RaHeadless.hpp>
+#    include <memory>
+#    include <string>
+
+namespace glbinding {
+class Version;
+} // namespace glbinding
 
 namespace Ra {
 namespace Headless {

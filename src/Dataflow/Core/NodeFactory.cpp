@@ -1,11 +1,13 @@
-#include <Dataflow/Core/NodeFactory.hpp>
-
+#include <Core/Utils/Log.hpp>
 #include <Dataflow/Core/DataflowGraph.hpp>
+#include <Dataflow/Core/NodeFactory.hpp>
+#include <iostream>
 #include <memory>
 
 namespace Ra {
 namespace Dataflow {
 namespace Core {
+class Node;
 
 namespace NodeFactoriesManager {
 const std::string dataFlowBuiltInsFactoryName { "Dataflow Nodes" };

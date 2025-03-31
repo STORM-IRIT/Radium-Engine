@@ -1,8 +1,7 @@
-#include <catch2/catch.hpp>
+#include <catch2/catch_test_macros.hpp>
 
 #include <memory>
 #include <string>
-#include <vector>
 
 #include <iostream>
 
@@ -53,7 +52,7 @@ createGraph(
     return { g, a, b, r };
 }
 
-TEST_CASE( "Dataflow/Core/Nodes", "[Dataflow][Core][Nodes]" ) {
+TEST_CASE( "Dataflow/Core/Nodes", "[unittests][Dataflow][Core][Nodes]" ) {
     SECTION( "Operations on Scalar" ) {
         using DataType = Scalar;
         using TestNode = Functionals::BinaryOpNode<DataType, DataType, DataType>;

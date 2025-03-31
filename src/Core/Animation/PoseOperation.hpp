@@ -1,6 +1,9 @@
 #pragma once
 
 #include <Core/Animation/Pose.hpp>
+#include <Core/Containers/AlignedStdVector.hpp>
+#include <Core/CoreMacros.hpp>
+#include <Core/RaCore.hpp>
 #include <Core/Types.hpp>
 
 namespace Ra {

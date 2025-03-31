@@ -1,4 +1,10 @@
+#include <Core/Geometry/DistanceQueries.hpp>
 #include <Core/Geometry/PolyLine.hpp>
+#include <Core/Math/LinearAlgebra.hpp>
+#include <algorithm>
+#include <cmath>
+#include <limits>
+#include <memory>
 
 namespace Ra {
 namespace Core {

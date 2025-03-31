@@ -2,13 +2,17 @@
 
 #include <Core/Asset/AssetData.hpp>
 #include <Core/Containers/AlignedStdVector.hpp>
+#include <Core/CoreMacros.hpp>
 #include <Core/RaCore.hpp>
 #include <Core/Types.hpp>
 #include <Core/Utils/Log.hpp>
-
+#include <Eigen/Geometry>
 #include <map>
+#include <memory>
+#include <ostream>
 #include <set>
 #include <string>
+#include <utility>
 #include <vector>
 
 namespace Ra {

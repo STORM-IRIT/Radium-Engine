@@ -1,5 +1,7 @@
 #include <Dataflow/Core/Nodes/Functionals/CoreDataFunctionals.hpp>
 #include <Dataflow/Core/Nodes/Private/FunctionalsNodeFactory.hpp>
+#include <memory>
+#include <string>
 
 namespace Ra {
 namespace Dataflow {

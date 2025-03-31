@@ -1,3 +1,5 @@
+#include <Core/CoreMacros.hpp>
+#include <Engine/Scene/ItemEntry.hpp>
 #include <Engine/Scene/SignalManager.hpp>
 
 namespace Ra {

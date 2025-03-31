@@ -1,8 +1,9 @@
-#include <Engine/Data/ShaderConfigFactory.hpp>
-
-#include <map>
-
 #include <Core/Utils/Log.hpp>
+#include <Engine/Data/ShaderConfigFactory.hpp>
+#include <Engine/Data/ShaderConfiguration.hpp>
+#include <map>
+#include <ostream>
+#include <utility>
 
 namespace Ra {
 namespace Engine {

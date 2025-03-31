@@ -1,6 +1,12 @@
-#include <PluginA.hpp>
-
 #include <ExampleLibrary.hpp>
+#include <PluginA.hpp>
+#include <memory>
+
+namespace Ra {
+namespace Plugins {
+class Context;
+} // namespace Plugins
+} // namespace Ra
 
 namespace PluginA_NS {
 

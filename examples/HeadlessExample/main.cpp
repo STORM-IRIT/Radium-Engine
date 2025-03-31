@@ -1,4 +1,8 @@
+#include <Core/Utils/Observable.hpp>
+#include <Headless/CLIBaseApplication.hpp>
 #include <Headless/CLIViewer.hpp>
+#include <Headless/OpenGLContext/OpenGLContext.hpp>
+#include <glbinding/Version.h>
 
 #ifdef USE_EGL_CONTEXT
 #    include <Headless/OpenGLContext/EglOpenGLContext.hpp>
@@ -6,12 +10,14 @@
 #    include <Headless/OpenGLContext/GlfwOpenGLContext.hpp>
 #endif
 
-#include <iostream>
-
+#include <Core/Resources/Resources.hpp>
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Rendering/ForwardRenderer.hpp>
-
-#include <Core/Resources/Resources.hpp>
+#include <iostream>
+#include <memory>
+#include <optional>
+#include <stdexcept>
+#include <string>
 
 #ifdef IO_HAS_ASSIMP
 #    include <IO/AssimpLoader/AssimpFileLoader.hpp>

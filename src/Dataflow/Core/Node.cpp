@@ -1,10 +1,10 @@
-#include <Dataflow/Core/Node.hpp>
-
 #include <Core/Utils/Log.hpp>
+#include <Dataflow/Core/Node.hpp>
 
 namespace Ra {
 namespace Dataflow {
 namespace Core {
+class PortBase;
 
 using namespace Ra::Core::Utils;
 

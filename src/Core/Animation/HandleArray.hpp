@@ -1,8 +1,13 @@
 #pragma once
 
 #include <Core/Animation/Pose.hpp>
+#include <Core/CoreMacros.hpp>
 #include <Core/RaCore.hpp>
 #include <Core/Types.hpp>
+#include <memory>
+#include <string>
+#include <type_traits>
+#include <vector>
 
 namespace Ra {
 namespace Core {

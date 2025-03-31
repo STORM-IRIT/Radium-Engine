@@ -1,9 +1,13 @@
+#include <Dataflow/Core/Port.hpp>
 #include <Dataflow/Core/PortIn.hpp>
 #include <Dataflow/Core/PortOut.hpp>
+#include <string>
+#include <typeindex>
 
 namespace Ra {
 namespace Dataflow {
 namespace Core {
+class Node;
 
 bool PortBaseIn::accept( PortBaseOut* portOut ) const {
     return portOut->getType() == getType();

@@ -1,4 +1,8 @@
 #include <Core/Containers/VariableSetEnumManagement.hpp>
+#include <map>
+#include <optional>
+#include <ostream>
+#include <utility>
 
 namespace Ra {
 namespace Core {

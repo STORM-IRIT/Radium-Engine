@@ -1,8 +1,8 @@
 #pragma once
 #include <Core/RaCore.hpp>
-
 #include <Core/Types.hpp>
-
+#include <Eigen/Core>
+#include <cmath>
 #include <random>
 
 namespace Ra {

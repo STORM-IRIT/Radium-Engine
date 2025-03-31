@@ -1,7 +1,5 @@
-#include <Core/Utils/TypesUtils.hpp>
-
 #include <Core/Utils/StringUtils.hpp>
-
+#include <Core/Utils/TypesUtils.hpp>
 #include <map>
 
 namespace Ra {

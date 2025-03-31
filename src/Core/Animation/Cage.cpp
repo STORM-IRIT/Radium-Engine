@@ -1,4 +1,5 @@
 #include <Core/Animation/Cage.hpp>
+#include <Core/Animation/Pose.hpp>
 
 namespace Ra {
 namespace Core {

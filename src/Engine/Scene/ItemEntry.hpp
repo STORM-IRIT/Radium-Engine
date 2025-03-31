@@ -1,9 +1,8 @@
 #pragma once
 
-#include <Engine/RaEngine.hpp>
-
+#include <Core/CoreMacros.hpp>
 #include <Core/Utils/Index.hpp>
-
+#include <Engine/RaEngine.hpp>
 #include <string>
 #include <vector>
 

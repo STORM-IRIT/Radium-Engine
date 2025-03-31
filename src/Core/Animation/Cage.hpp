@@ -2,7 +2,9 @@
 
 #include <Core/Animation/HandleArray.hpp>
 #include <Core/Containers/VectorArray.hpp>
+#include <Core/CoreMacros.hpp>
 #include <Core/RaCore.hpp>
+#include <Core/Types.hpp>
 
 namespace Ra {
 namespace Core {

@@ -1,8 +1,10 @@
 #include <Gui/AboutDialog/RadiumHelpDialog.hpp>
-
 #include <Gui/Utils/KeyMappingManager.hpp>
+#include <string>
 
 #include "ui_RadiumHelpDialog.h"
+
+class QWidget;
 
 namespace Ra {
 namespace Gui {

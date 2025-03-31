@@ -1,10 +1,23 @@
-#include "ui_NodeEditor.h"
-
-#include <Dataflow/QtGui/GraphEditor/GraphEditorWindow.hpp>
-
+#include <Dataflow/Core/DataflowGraph.hpp>
+#include <Dataflow/Core/Node.hpp>
 #include <Dataflow/Core/NodeFactory.hpp>
-
+#include <Dataflow/Core/PortIn.hpp>
+#include <Dataflow/Core/PortOut.hpp>
+#include <Dataflow/QtGui/GraphEditor/GraphEditorWindow.hpp>
+#include <QtNodes/DataFlowGraphicsScene>
+#include <QtNodes/GraphicsView>
+#include <algorithm>
+#include <functional>
+#include <map>
 #include <memory>
+#include <string>
+#include <type_traits>
+#include <unordered_map>
+#include <utility>
+#include <vector>
+
+#include "GraphEditor/GraphModel.hpp"
+#include "ui_NodeEditor.h"
 
 namespace Ra {
 namespace Dataflow {

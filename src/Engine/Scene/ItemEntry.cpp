@@ -1,13 +1,14 @@
 
-#include <Engine/Scene/ItemEntry.hpp>
-
 #include <Engine/RadiumEngine.hpp>
-
-#include <Engine/Scene/EntityManager.hpp>
-#include <Engine/Scene/SystemDisplay.hpp>
-
 #include <Engine/Rendering/RenderObject.hpp>
 #include <Engine/Rendering/RenderObjectManager.hpp>
+#include <Engine/Rendering/RenderObjectTypes.hpp>
+#include <Engine/Scene/Component.hpp>
+#include <Engine/Scene/Entity.hpp>
+#include <Engine/Scene/EntityManager.hpp>
+#include <Engine/Scene/ItemEntry.hpp>
+#include <Engine/Scene/SystemDisplay.hpp>
+#include <memory>
 
 namespace Ra {
 namespace Engine {

@@ -2,8 +2,11 @@
 
 #include <Core/Containers/AlignedStdVector.hpp>
 #include <Core/Containers/VectorArray.hpp>
+#include <Core/RaCore.hpp>
 #include <Eigen/Core>
 #include <iostream>
+#include <memory>
+#include <vector>
 
 namespace Ra {
 namespace Core {

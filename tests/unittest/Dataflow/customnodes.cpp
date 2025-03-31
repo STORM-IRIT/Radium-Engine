@@ -1,10 +1,9 @@
 /**
  * Demonstrate how to define custom nodes anduse factory to serialize graphs with custom nodes
  */
-#include <catch2/catch.hpp>
+#include <catch2/catch_test_macros.hpp>
 
 #include <string>
-#include <vector>
 
 #include <iostream>
 
@@ -179,7 +178,7 @@ DataflowGraph* buildgraph( const std::string& name ) {
 }
 
 // test sections
-TEST_CASE( "Dataflow/Core/Custom nodes", "[Dataflow][Core][Custom nodes]" ) {
+TEST_CASE( "Dataflow/Core/Custom nodes", "[unittests][Dataflow][Core][Custom nodes]" ) {
     SECTION( "Build graph with custom nodes" ) {
         // build a graph
         auto g = buildgraph<Scalar>( "testCustomNodes" );
