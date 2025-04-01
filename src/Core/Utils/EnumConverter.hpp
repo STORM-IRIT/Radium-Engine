@@ -27,45 +27,25 @@ class EnumConverter
     /// Eg using EnumUnderlyingType = std::underling_type_t<Enum>;
     /// getEnumeratorUnderlying ->EnumUnderlyingType
     /// getEnumerator -> Enum
+    /// After thinking, complexify management of variableset and visitor.
   public:
-    explicit EnumConverter( std::initializer_list<std::pair<EnumBaseType, std::string>> pairs );
+    explicit EnumConverter( std::initializer_list<std::pair<EnumBaseType, std::string>> pairs ) :
+        m_valueToString { pairs } {}
 
-    std::string getEnumerator( EnumBaseType v ) const;
-    EnumBaseType getEnumerator( const std::string& v ) const;
-    std::vector<std::string> getEnumerators() const;
+    std::string getEnumerator( EnumBaseType v ) const { return m_valueToString( v ); }
+    EnumBaseType getEnumerator( const std::string& v ) const { return m_valueToString.key( v ); }
+    std::vector<std::string> getEnumerators() const {
+        std::vector<std::string> keys;
+        keys.reserve( m_valueToString.size() );
+        for ( const auto& p : m_valueToString ) {
+            keys.push_back( p.second );
+        }
+        return keys;
+    }
 
   private:
     Core::Utils::BijectiveAssociation<EnumBaseType, std::string> m_valueToString;
 };
-
-/* -------------------------------------------------------------------------------------------
- * Implementation of template functions
- * -----------------------------------------------------------------------------------------*/
-
-template <typename EnumBaseType>
-EnumConverter<EnumBaseType>::EnumConverter(
-    std::initializer_list<std::pair<EnumBaseType, std::string>> pairs ) :
-    m_valueToString { pairs } {}
-
-template <typename EnumBaseType>
-std::string EnumConverter<EnumBaseType>::getEnumerator( EnumBaseType v ) const {
-    return m_valueToString( v );
-}
-
-template <typename EnumBaseType>
-EnumBaseType EnumConverter<EnumBaseType>::getEnumerator( const std::string& v ) const {
-    return m_valueToString.key( v );
-}
-
-template <typename EnumBaseType>
-std::vector<std::string> EnumConverter<EnumBaseType>::getEnumerators() const {
-    std::vector<std::string> keys;
-    keys.reserve( m_valueToString.size() );
-    for ( const auto& p : m_valueToString ) {
-        keys.push_back( p.second );
-    }
-    return keys;
-}
 
 } // namespace Utils
 } // namespace Core
