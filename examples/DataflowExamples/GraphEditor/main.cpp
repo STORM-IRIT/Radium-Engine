@@ -12,6 +12,17 @@ static void setStyle() {
         R"( { "ConnectionStyle": { "UseDataDefinedColors": true } } )" );
 }
 
+class StringInput : public Ra::Dataflow::Core::Sources::SingleDataSourceNode<std::string>
+{
+  public:
+    using base = Ra::Dataflow::Core::Sources::SingleDataSourceNode<std::string>;
+    explicit StringInput( const std::string& name ) : base( name, getTypename() ) {}
+    static const std::string& getTypename() {
+        static std::string n { "StringInput" };
+        return n;
+    }
+};
+
 class SquareFunction : public Ra::Dataflow::Core::Sources::FunctionSourceNode<Scalar, const Scalar&>
 {
   public:
@@ -35,6 +46,7 @@ int main( int argc, char* argv[] ) {
     auto coreFactory = Ra::Dataflow::Core::NodeFactoriesManager::getDataFlowBuiltInsFactory();
     // add node creators to the factory
     coreFactory->registerNodeCreator<SquareFunction>( SquareFunction::getTypename(), "Sources" );
+    coreFactory->registerNodeCreator<StringInput>( StringInput::getTypename(), "Sources" );
 
     QCoreApplication::setOrganizationName( "STORM-IRIT" );
     QCoreApplication::setApplicationName( "Radium NodeGraph Editor" );
