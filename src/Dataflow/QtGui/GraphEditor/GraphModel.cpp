@@ -156,7 +156,7 @@ class WidgetFactory : public Ra::Gui::BasicUiBuilder
 
     void operator()( const std::string& name, std::string& p ) {
         auto line = new QLineEdit();
-        line->setObjectName( name );
+        line->setObjectName( QString::fromStdString( name ) );
         QLineEdit::connect( line, &QLineEdit::textEdited, [&p]( const QString& string ) {
             p = string.toStdString();
         } );
