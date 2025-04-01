@@ -9,16 +9,6 @@ namespace Dataflow {
 namespace QtGui {
 namespace GraphEditor {
 using namespace Ra::Dataflow::Core;
-using ConnectionId     = QtNodes::ConnectionId;
-using ConnectionPolicy = QtNodes::ConnectionPolicy;
-using NodeFlag         = QtNodes::NodeFlag;
-using NodeId           = QtNodes::NodeId;
-using NodeRole         = QtNodes::NodeRole;
-using PortIndex        = QtNodes::PortIndex;
-using PortRole         = QtNodes::PortRole;
-using PortType         = QtNodes::PortType;
-using StyleCollection  = QtNodes::StyleCollection;
-using QtNodes::InvalidNodeId;
 
 GraphModel::GraphModel( std::shared_ptr<Core::DataflowGraph> graph ) :
     m_graph { graph }, m_next_node_id { 0 } {
@@ -40,11 +30,12 @@ void GraphModel::fill_factory_map() {
     }
 }
 
-std::unordered_set<NodeId> GraphModel::allNodeIds() const {
+std::unordered_set<GraphModel::NodeId> GraphModel::allNodeIds() const {
     return m_node_ids;
 }
 
-std::unordered_set<ConnectionId> GraphModel::allConnectionIds( NodeId const nodeId ) const {
+std::unordered_set<GraphModel::ConnectionId>
+GraphModel::allConnectionIds( NodeId const nodeId ) const {
     std::unordered_set<ConnectionId> result;
 
     std::copy_if( m_connectivity.begin(),
@@ -57,7 +48,7 @@ std::unordered_set<ConnectionId> GraphModel::allConnectionIds( NodeId const node
     return result;
 }
 
-std::unordered_set<ConnectionId>
+std::unordered_set<GraphModel::ConnectionId>
 GraphModel::connections( NodeId nodeId, PortType portType, PortIndex portIndex ) const {
     std::unordered_set<ConnectionId> result;
 
@@ -81,7 +72,7 @@ void GraphModel::addInputOutputNodesForGraph() {
     sync_data();
 }
 
-NodeId GraphModel::addNode( QString const nodeType ) {
+GraphModel::NodeId GraphModel::addNode( QString const nodeType ) {
     if ( nodeType.toStdString() == GraphInputNode::getTypename() ||
          nodeType.toStdString() == GraphOutputNode::getTypename() ) {
         m_graph->add_input_output_nodes();
