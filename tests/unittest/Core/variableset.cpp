@@ -7,17 +7,12 @@
 #include <cmath>
 #include <string>
 
+#include "../unittestUtils.hpp"
+
 using namespace Ra::Core;
 
-struct printThemAll {
-    using types = Utils::TypeList<int, size_t, float, double, std::string>;
-
-    template <typename T>
-    void operator()( const std::string& name, T& value ) {
-        std::cout << " [ " << name << " --> " << value << " ("
-                  << Utils::simplifiedDemangledType<T>() << ") ] ";
-    }
-};
+struct PrintThemAll
+    : public PrintAllHelper<Ra::Core::Utils::TypeList<int, size_t, float, double, std::string>> {};
 
 class MyParameterVisitor : public DynamicVisitor
 {
@@ -56,27 +51,31 @@ struct modifyInts : public VariableSet::StaticVisitor<int> {
         value = f( value );
     }
 };
+auto print_container = []( const std::string& name, VariableSet& ps ) {
+    std::cout << name << " content : ";
+    ps.visit( PrintThemAll {} );
+    std::cout << std::endl;
+};
 
-TEST_CASE( "Core/Container/VariableSet", "[unittests][Core][Container][VariableSet]" ) {
-    auto print_container = []( const std::string& name, VariableSet& ps ) {
-        std::cout << name << " content : ";
-        ps.visit( printThemAll {} );
-        std::cout << std::endl;
-    };
+TEST_CASE( "Core/Container/VariableSet", "[Core][Container][VariableSet]" ) {
+    REQUIRE( PrintThemAll::types::Size == 5 );
+
+    VariableSet params;
+    REQUIRE( !params.existsVariableType<int>() );
+    int i { 1 };
+    int initial_i = i;
+    float x { 1.f };
+
+    std::cout << "Adding parameters" << std::endl;
+    params.insertVariable( "i", i );             // i added by value
+    params.insertVariable( "j", std::ref( i ) ); // j is a reference on i
+    params.insertVariable( "x", 2 );
+    params.insertVariable( "x", x );
+    params.insertVariable( "foo", std::string { "bar" } );
+    std::cout << " ... done!" << std::endl;
+    print_container( "Initial set", params );
 
     SECTION( "Construction, access and removal to and from a variable set" ) {
-        VariableSet params;
-        REQUIRE( !params.existsVariableType<int>() );
-        int i { 0 };
-        float x { 1.f };
-
-        std::cout << "Adding parameters" << std::endl;
-        params.insertVariable( "i", i );             // i added by value
-        params.insertVariable( "j", std::ref( i ) ); // j is a reference on i
-        params.insertVariable( "x", 1 );
-        params.insertVariable( "x", x );
-        params.insertVariable( "foo", std::string { "bar" } );
-        std::cout << " ... done!" << std::endl;
 
         REQUIRE( params.existsVariable<int>( "i" ) );
         REQUIRE( params.existsVariable<std::reference_wrapper<int>>( "j" ) );
@@ -103,8 +102,6 @@ TEST_CASE( "Core/Container/VariableSet", "[unittests][Core][Container][VariableS
         REQUIRE( params.numberOf<float>() == 1 );
         REQUIRE( params.numberOf<std::string>() == 1 );
 
-        print_container( "Initial set", params );
-
         REQUIRE( params.getVariable<float>( "x" ) == x );
         // modify "x" through its handle
         auto xHandle = params.getVariableHandle<float>( "x" );
@@ -118,7 +115,7 @@ TEST_CASE( "Core/Container/VariableSet", "[unittests][Core][Container][VariableS
         REQUIRE( inserted.second == false );
         REQUIRE( params.getVariable<int>( "i" ) == 2 );
         // does not change the local variable i
-        REQUIRE( i == 0 );
+        REQUIRE( i == 1 );
 
         inserted = params.setVariable( "k", 3 );
         REQUIRE( inserted.second == true );
@@ -137,59 +134,25 @@ TEST_CASE( "Core/Container/VariableSet", "[unittests][Core][Container][VariableS
         REQUIRE( params.existsVariable<int>( "x" ).has_value() );
         params.deleteVariable<int>( "x" );
         REQUIRE( !params.existsVariable<int>( "x" ).has_value() );
-        print_container( "Final set", params );
     }
 
     SECTION( "Visiting and modifying variable set using static visitor" ) {
-        REQUIRE( printThemAll::types::Size == 5 );
-        VariableSet params;
-        REQUIRE( !params.existsVariableType<int>() );
-        int i { 0 };
-
-        float x { 1.f };
-
-        std::cout << "Adding parameters" << std::endl;
-        params.insertVariable( "i", i );             // i added by value
-        params.insertVariable( "j", std::ref( i ) ); // j is a reference on i
-        params.insertVariable( "x", 1 );
-        params.insertVariable( "x", x );
-        params.insertVariable( "foo", std::string { "bar" } );
-        std::cout << " ... done!" << std::endl;
-
-        print_container( "Initial set", params );
-
         auto modifyFunction = []( int x_ ) { return 2 * x_ + 1; };
 
-        REQUIRE( params.getVariable<int>( "i" ) == 0 );
-        REQUIRE( params.getVariable<int>( "x" ) == 1 );
+        REQUIRE( params.getVariable<int>( "i" ) == 1 );
+        REQUIRE( params.getVariable<int>( "x" ) == 2 );
         REQUIRE( params.getVariable<float>( "x" ) == 1 );
         // modifies params i, and params j as a ref, so local var i is also modified
         params.visit( modifyInts {}, modifyFunction );
-        REQUIRE( params.getVariable<int>( "i" ) == modifyFunction( 0 ) );
-        REQUIRE( i == modifyFunction( 0 ) );
-        REQUIRE( params.getVariable<std::reference_wrapper<int>>( "j" ) == modifyFunction( 0 ) );
-        REQUIRE( params.getVariable<int>( "x" ) == modifyFunction( 1 ) );
+        REQUIRE( params.getVariable<int>( "i" ) == modifyFunction( initial_i ) );
+        REQUIRE( i == modifyFunction( initial_i ) );
+        REQUIRE( params.getVariable<std::reference_wrapper<int>>( "j" ) ==
+                 modifyFunction( initial_i ) );
+        REQUIRE( params.getVariable<int>( "x" ) == modifyFunction( 2 ) );
         REQUIRE( params.getVariable<float>( "x" ) == 1 );
-        print_container( "Final set", params );
     }
 
     SECTION( "Visiting and modifying variable set using dynamic visitor" ) {
-        VariableSet params;
-        REQUIRE( !params.existsVariableType<int>() );
-        int i { 1 };
-        int initial_i = i;
-        float x { 1.f };
-
-        std::cout << "Adding parameters" << std::endl;
-        params.insertVariable( "i", i );             // i added by value
-        params.insertVariable( "j", std::ref( i ) ); // j is a reference on i
-        params.insertVariable( "x", 2 );
-        params.insertVariable( "x", x );
-        params.insertVariable( "foo", std::string { "bar" } );
-        std::cout << " ... done!" << std::endl;
-
-        print_container( "Initial set", params );
-
         REQUIRE( params.getVariable<int>( "i" ) == 1 );
         REQUIRE( params.getVariable<int>( "x" ) == 2 );
         REQUIRE( params.getVariable<float>( "x" ) == 1 );
@@ -214,7 +177,6 @@ TEST_CASE( "Core/Container/VariableSet", "[unittests][Core][Container][VariableS
             value /= 2;
         } );
         params.visit( vf );
-        print_container( "Final set", params );
         REQUIRE( params.getVariable<int>( "i" ) == ( i ) );
         REQUIRE( params.getVariable<int>( "x" ) == ( 2 ) );
         REQUIRE( params.getVariable<float>( "x" ) == 1 );
@@ -227,21 +189,7 @@ TEST_CASE( "Core/Container/VariableSet", "[unittests][Core][Container][VariableS
     }
 
     SECTION( "Visiting and modifying variable set using standard range for" ) {
-        VariableSet params;
-        REQUIRE( !params.existsVariableType<int>() );
-        int i { 1 };
-        float x { 1.f };
-
-        std::cout << "Adding parameters" << std::endl;
-        params.insertVariable( "i", i );             // i added by value
-        params.insertVariable( "j", std::ref( i ) ); // j is a reference on i
-        params.insertVariable( "x", 2 );
-        params.insertVariable( "x", x );
         params.insertVariable( "y", std::sqrt( 3 * x ) );
-        params.insertVariable( "foo", std::string { "bar" } );
-        std::cout << " ... done!" << std::endl;
-
-        print_container( "Initial set", params );
 
         REQUIRE( params.getVariable<float>( "x" ) == x );
         REQUIRE( params.getVariable<float>( "y" ) == std::sqrt( 3 * x ) );
@@ -274,28 +222,13 @@ TEST_CASE( "Core/Container/VariableSet", "[unittests][Core][Container][VariableS
         }
         std::cout << "\n";
     }
-
     SECTION( "General visit using a custom visitor" ) {
-        VariableSet params;
-        REQUIRE( !params.existsVariableType<int>() );
-        int i { 1 };
-        float x { 1.f };
         std::cout << "General visit using a custom visitor" << std::endl;
-        std::cout << "Adding parameters" << std::endl;
-        params.insertVariable( "i", i );             // i added by value
-        params.insertVariable( "j", std::ref( i ) ); // j is a reference on i
-        params.insertVariable( "x", 2 );
-        params.insertVariable( "x", x );
-        params.insertVariable( "y", std::sqrt( 3 * x ) );
-        params.insertVariable( "foo", std::string { "bar" } );
-        std::cout << " ... done!" << std::endl;
-
-        print_container( "Initial set", params );
 
         MyParameterVisitor mp;
         REQUIRE( mp.getCount() == 0 );
         params.visit( mp );
-        REQUIRE( mp.getCount() == 6 );
+        REQUIRE( mp.getCount() == 5 );
         REQUIRE( i == 0 );
 
         auto xHandle = params.getVariableHandle<float>( "x" );
@@ -314,117 +247,122 @@ TEST_CASE( "Core/Container/VariableSet", "[unittests][Core][Container][VariableS
         print_container( "Final set", params );
     }
 
-    SECTION( "Merging, copying, moving" ) {
-        VariableSet params;
+    print_container( "Final set", params );
+}
+TEST_CASE( "Core/Container/VariableSet/Merging, copying, moving",
+           "[Core][Container][VariableSet]" ) {
 
-        REQUIRE( !params.existsVariableType<int>() );
-        params.insertVariable( "a", 1 );
-        params.insertVariable( "b", 2 );
-        print_container( "initial params ", params );
+    VariableSet params;
 
-        VariableSet params2;
-        params2.insertVariable( "b", 4 );
-        params2.insertVariable( "c", 5 );
-        params2.insertVariable( "e", 2.7182818285 );
-        print_container( "initial params2 ", params2 );
+    REQUIRE( !params.existsVariableType<int>() );
+    params.insertVariable( "a", 1 );
+    params.insertVariable( "b", 2 );
+    print_container( "initial params ", params );
 
-        VariableSet params3;
-        params3.insertVariable( "a", 0 );
-        params3.insertVariable( "c", 4 );
-        params3.insertVariable( "pi", 3.151592f );
-        print_container( "initial params3 ", params3 );
+    VariableSet params2;
+    params2.insertVariable( "b", 4 );
+    params2.insertVariable( "c", 5 );
+    params2.insertVariable( "e", 2.7182818285 );
+    print_container( "initial params2 ", params2 );
 
-        print_container( "initial params ", params );
+    VariableSet params3;
+    params3.insertVariable( "a", 0 );
+    params3.insertVariable( "c", 4 );
+    params3.insertVariable( "pi", 3.151592f );
+    print_container( "initial params3 ", params3 );
 
-        REQUIRE( params.getVariable<int>( "b" ) == 2 );
-        REQUIRE( params2.getVariable<int>( "b" ) == 4 );
-        params.mergeReplaceVariables( params2 );
-        REQUIRE( params.getVariable<int>( "b" ) == 4 );
-        print_container( "params after merge of params2 (replace)", params );
+    print_container( "initial params ", params );
 
-        REQUIRE( params.getVariable<int>( "c" ) == 5 );
-        REQUIRE( params3.getVariable<int>( "c" ) == 4 );
-        params.mergeKeepVariables( params3 );
-        REQUIRE( params.getVariable<int>( "c" ) == 5 );
-        print_container( "params after merge of params3 (keep)", params );
+    REQUIRE( params.getVariable<int>( "b" ) == 2 );
+    REQUIRE( params2.getVariable<int>( "b" ) == 4 );
+    params.mergeReplaceVariables( params2 );
+    REQUIRE( params.getVariable<int>( "b" ) == 4 );
+    print_container( "params after merge of params2 (replace)", params );
 
-        // copy constructor
-        auto newparams = new VariableSet( params );
-        REQUIRE( newparams->size() == params.size() );
+    REQUIRE( params.getVariable<int>( "c" ) == 5 );
+    REQUIRE( params3.getVariable<int>( "c" ) == 4 );
+    params.mergeKeepVariables( params3 );
+    REQUIRE( params.getVariable<int>( "c" ) == 5 );
+    print_container( "params after merge of params3 (keep)", params );
 
-        auto numInt  = params.numberOf<int>();
-        auto numIntN = newparams->numberOf<int>();
-        REQUIRE( numInt == numIntN );
+    // copy constructor
+    auto newparams = new VariableSet( params );
+    REQUIRE( newparams->size() == params.size() );
 
-        auto numFloat  = params.numberOf<float>();
-        auto numFloatN = newparams->numberOf<float>();
-        REQUIRE( numFloat == numFloatN );
+    auto numInt  = params.numberOf<int>();
+    auto numIntN = newparams->numberOf<int>();
+    REQUIRE( numInt == numIntN );
 
-        auto numDouble  = params.numberOf<double>();
-        auto numDoubleN = newparams->numberOf<double>();
-        REQUIRE( numDouble == numDoubleN );
+    auto numFloat  = params.numberOf<float>();
+    auto numFloatN = newparams->numberOf<float>();
+    REQUIRE( numFloat == numFloatN );
 
-        REQUIRE( ( numIntN + numFloatN + numDoubleN ) == newparams->size() );
+    auto numDouble  = params.numberOf<double>();
+    auto numDoubleN = newparams->numberOf<double>();
+    REQUIRE( numDouble == numDoubleN );
 
-        auto numString = newparams->numberOf<std::string>();
-        REQUIRE( numString == 0 );
-        auto removed = newparams->deleteAllVariables<std::string>();
-        REQUIRE( removed == false );
+    REQUIRE( ( numIntN + numFloatN + numDoubleN ) == newparams->size() );
 
-        print_container( "Copied params into newparams", *newparams );
-        delete newparams;
-        auto sp = params.size();
-        auto paramsMoved { std::move( params ) };
-        REQUIRE( params.size() == 0 );
-        REQUIRE( paramsMoved.size() == sp );
-        print_container( "Moved params into paramsMoved", paramsMoved );
-        print_container( "params is empty", params );
+    auto numString = newparams->numberOf<std::string>();
+    REQUIRE( numString == 0 );
+    auto removed = newparams->deleteAllVariables<std::string>();
+    REQUIRE( removed == false );
 
-        REQUIRE( !params.existsVariableType<int>() );
+    print_container( "Copied params into newparams", *newparams );
+    delete newparams;
+    auto sp = params.size();
+    auto paramsMoved { std::move( params ) };
+    REQUIRE( params.size() == 0 );
+    REQUIRE( paramsMoved.size() == sp );
+    print_container( "Moved params into paramsMoved", paramsMoved );
+    print_container( "params is empty", params );
+
+    REQUIRE( !params.existsVariableType<int>() );
+}
+
+TEST_CASE( "Core/Container/VariableSe/Iterating on stored types",
+           "[unittests][Core][Container][VariableSet]" ) {
+    VariableSet vs;
+    vs.insertVariable( "x", 1.414_ra );
+    vs.insertVariable( "y", std::sqrt( 2 ) );
+    std::function<Scalar( Scalar )> multBy2 = []( Scalar x ) { return x * 2_ra; };
+    vs.insertVariable( "f", multBy2 );
+    auto typeVector = vs.getStoredTypes();
+    std::cout << "Stored types : \n";
+    for ( const auto& t : typeVector ) {
+        std::cout << "\t" << Ra::Core::Utils::simplifiedDemangledType( t ) << "\n";
     }
 
-    SECTION( "Iterating on stored types" ) {
-        VariableSet vs;
-        vs.insertVariable( "x", 1.414_ra );
-        vs.insertVariable( "y", std::sqrt( 2 ) );
-        std::function<Scalar( Scalar )> multBy2 = []( Scalar x ) { return x * 2_ra; };
-        vs.insertVariable( "f", multBy2 );
-        auto typeVector = vs.getStoredTypes();
-        std::cout << "Stored types : \n";
-        for ( const auto& t : typeVector ) {
-            std::cout << "\t" << Ra::Core::Utils::simplifiedDemangledType( t ) << "\n";
-        }
-        REQUIRE( std::find( typeVector.begin(),
-                            typeVector.end(),
-                            std::type_index( typeid( Scalar ) ) ) != typeVector.end() );
-        //        REQUIRE( typeVector[1] == std::type_index( typeid( double ) ) );
-        // h       REQUIRE( typeVector[2] == std::type_index( typeid( std::function<Scalar( Scalar
-        // )>
-        //       ) ) );
+    REQUIRE( std::find( typeVector.begin(),
+                        typeVector.end(),
+                        std::type_index( typeid( Scalar ) ) ) != typeVector.end() );
+    REQUIRE( std::find( typeVector.begin(),
+                        typeVector.end(),
+                        std::type_index( typeid( std::function<Scalar( Scalar )> ) ) ) !=
+             typeVector.end() );
 
-        auto b = vs.deleteVariable<Scalar>( "x" );
-        REQUIRE( b );
-        b = vs.deleteVariable<float>( "y" );
-        REQUIRE( !b );
-        b = vs.deleteVariable<double>( "y" );
-        REQUIRE( b );
-    }
+    auto b = vs.deleteVariable<Scalar>( "x" );
+    REQUIRE( b );
+    b = vs.deleteVariable<float>( "y" );
+    REQUIRE( !b );
+    b = vs.deleteVariable<double>( "y" );
+    REQUIRE( b );
+}
 
-    SECTION( "Clear" ) {
-        VariableSet params;
-        REQUIRE( !params.existsVariableType<int>() );
-        REQUIRE( !params.existsVariableType<std::string>() );
+TEST_CASE( "Core/Container/VariableSet/Clear", "[unittests][Core][Container][VariableSet]" ) {
+    VariableSet params;
+    REQUIRE( !params.existsVariableType<int>() );
+    REQUIRE( !params.existsVariableType<std::string>() );
 
-        params.insertVariable( "a", 1 );
-        params.insertVariable( "b", 2 );
-        params.insertVariable( "s1", std::string { "String 1" } );
-        REQUIRE( params.existsVariableType<int>() );
+    params.insertVariable( "a", 1 );
+    params.insertVariable( "b", 2 );
+    params.insertVariable( "s1", std::string { "String 1" } );
+    REQUIRE( params.existsVariableType<int>() );
 
-        REQUIRE( params.existsVariableType<std::string>() );
-        REQUIRE( params.size() == 3 );
-        params.clear();
-        REQUIRE( params.size() == 0 );
-        REQUIRE( !params.existsVariableType<int>() );
-        REQUIRE( !params.existsVariableType<std::string>() );
-    }
+    REQUIRE( params.existsVariableType<std::string>() );
+    REQUIRE( params.size() == 3 );
+    params.clear();
+    REQUIRE( params.size() == 0 );
+    REQUIRE( !params.existsVariableType<int>() );
+    REQUIRE( !params.existsVariableType<std::string>() );
 }

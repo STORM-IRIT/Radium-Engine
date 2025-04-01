@@ -4,23 +4,23 @@
 #include <Core/Containers/VariableSetEnumManagement.hpp>
 #include <Core/Types.hpp>
 #include <Core/Utils/Color.hpp>
+#include <Core/Utils/TypesUtils.hpp>
 #include <Engine/Data/RenderParameters.hpp>
 #include <Engine/Data/Texture.hpp>
 #include <Engine/RadiumEngine.hpp>
 #include <sstream>
 
-using namespace Ra::Engine::Data;
 using namespace Ra::Core;
 using namespace Ra::Core::Utils;
+using namespace Ra::Engine::Data;
 
-#include <Core/Utils/TypesUtils.hpp>
 class PrintThemAllVisitor : public DynamicVisitor
 {
   public:
     template <typename T>
     void operator()( const std::string& name, const T& value ) {
-        output << "\tPrintThemAllVisitor: ( " << Utils::demangleType<T>() << " ) " << name
-               << " --> " << value << "\n";
+        output << "\tPrintThemAllVisitor: ( " << demangleType<T>() << " ) " << name << " --> "
+               << value << "\n";
     }
 
     template <typename T>
@@ -34,7 +34,7 @@ class PrintThemAllVisitor : public DynamicVisitor
 class StaticPrintVisitor
 {
   public:
-    using customTypes = Utils::TypeList<std::string>;
+    using customTypes = TypeList<std::string>;
     // append custom types to the list of default BindableTypes
     using types = RenderParameters::BindableTypes::Append<customTypes>;
 
@@ -47,8 +47,7 @@ class StaticPrintVisitor
     void operator()( const std::string& name, const T& _in, const std::string& prefix = "" ) {
         if ( !prefix.empty() ) { output << "\t" << prefix << ": "; }
         else { output << "\tStaticPrintVisitor: "; }
-        output << "( " << Utils::simplifiedDemangledType<T>() << " ) " << name << " --> " << _in
-               << "\n";
+        output << "( " << simplifiedDemangledType<T>() << " ) " << name << " --> " << _in << "\n";
     }
 
     template <typename T, typename std::enable_if<std::is_class<T>::value, bool>::type = true>
@@ -58,10 +57,10 @@ class StaticPrintVisitor
         if ( !prefix.empty() ) { output << "\t" << prefix << ": "; }
         else { output << "\tStaticPrintVisitor: "; }
         if constexpr ( std::is_same<T, std::string>::value ) {
-            output << "( " << Utils::simplifiedDemangledType<T>() << " ) " << name << " --> " << _in
+            output << "( " << simplifiedDemangledType<T>() << " ) " << name << " --> " << _in
                    << "\n";
         }
-        else { output << "( " << Utils::simplifiedDemangledType<T>() << " ) " << name << "\n"; }
+        else { output << "( " << simplifiedDemangledType<T>() << " ) " << name << "\n"; }
     }
 
     void operator()( const std::string& name,
@@ -71,13 +70,13 @@ class StaticPrintVisitor
         if ( prefix.empty() ) { localPrefix = "StaticPrintVisitor: "; }
         else { localPrefix = prefix; }
 
-        output << "\t" << localPrefix << "( " << Utils::simplifiedDemangledType( p ) << " ) "
-               << name << " --> visiting recursively\n";
+        output << "\t" << localPrefix << "( " << simplifiedDemangledType( p ) << " ) " << name
+               << " --> visiting recursively\n";
         // visit the sub-parameters
         p.visit( *this, std::string { "\t" } + localPrefix );
 
-        output << "\t" << localPrefix << "( " << Utils::simplifiedDemangledType( p ) << " ) "
-               << name << " --> end recursive visit\n";
+        output << "\t" << localPrefix << "( " << simplifiedDemangledType( p ) << " ) " << name
+               << " --> end recursive visit\n";
     }
 
     std::stringstream output;
@@ -85,7 +84,7 @@ class StaticPrintVisitor
 
 TEST_CASE( "Engine/Data/RenderParameters", "[unittests][Engine][Engine/Data][RenderParameters]" ) {
     using RP = RenderParameters;
-    using namespace Ra::Core::VariableSetEnumManagement;
+    using namespace VariableSetEnumManagement;
 
     SECTION( "Parameter storage" ) {
         RP p1;
@@ -96,13 +95,13 @@ TEST_CASE( "Engine/Data/RenderParameters", "[unittests][Engine][Engine/Data][Ren
         REQUIRE( !( p1.existsVariableType<std::vector<int>>().has_value() ) );
         REQUIRE( !( p1.existsVariableType<std::vector<uint>>().has_value() ) );
         REQUIRE( !( p1.existsVariableType<std::vector<Scalar>>().has_value() ) );
-        REQUIRE( !( p1.existsVariableType<Ra::Core::Vector2>().has_value() ) );
-        REQUIRE( !( p1.existsVariableType<Ra::Core::Vector3>().has_value() ) );
-        REQUIRE( !( p1.existsVariableType<Ra::Core::Vector4>().has_value() ) );
-        REQUIRE( !( p1.existsVariableType<Ra::Core::Utils::Color>().has_value() ) );
-        REQUIRE( !( p1.existsVariableType<Ra::Core::Matrix2>().has_value() ) );
-        REQUIRE( !( p1.existsVariableType<Ra::Core::Matrix3>().has_value() ) );
-        REQUIRE( !( p1.existsVariableType<Ra::Core::Matrix4>().has_value() ) );
+        REQUIRE( !( p1.existsVariableType<Vector2>().has_value() ) );
+        REQUIRE( !( p1.existsVariableType<Vector3>().has_value() ) );
+        REQUIRE( !( p1.existsVariableType<Vector4>().has_value() ) );
+        REQUIRE( !( p1.existsVariableType<Color>().has_value() ) );
+        REQUIRE( !( p1.existsVariableType<Matrix2>().has_value() ) );
+        REQUIRE( !( p1.existsVariableType<Matrix3>().has_value() ) );
+        REQUIRE( !( p1.existsVariableType<Matrix4>().has_value() ) );
         REQUIRE( !( p1.existsVariableType<RP::TextureInfo>().has_value() ) );
         int i    = 1;
         uint ui  = 1u;
@@ -143,13 +142,13 @@ TEST_CASE( "Engine/Data/RenderParameters", "[unittests][Engine][Engine/Data][Ren
         REQUIRE( p1.getAllVariables<std::vector<int>>().size() == 1 );
         REQUIRE( p1.getAllVariables<std::vector<uint>>().size() == 1 );
         REQUIRE( p1.getAllVariables<std::vector<Scalar>>().size() == 1 );
-        REQUIRE( p1.getAllVariables<Ra::Core::Vector2>().size() == 1 );
-        REQUIRE( p1.getAllVariables<Ra::Core::Vector3>().size() == 1 );
-        REQUIRE( p1.getAllVariables<Ra::Core::Vector4>().size() == 1 );
-        REQUIRE( p1.getAllVariables<Ra::Core::Utils::Color>().size() == 1 );
-        REQUIRE( p1.getAllVariables<Ra::Core::Matrix2>().size() == 1 );
-        REQUIRE( p1.getAllVariables<Ra::Core::Matrix3>().size() == 1 );
-        REQUIRE( p1.getAllVariables<Ra::Core::Matrix4>().size() == 1 );
+        REQUIRE( p1.getAllVariables<Vector2>().size() == 1 );
+        REQUIRE( p1.getAllVariables<Vector3>().size() == 1 );
+        REQUIRE( p1.getAllVariables<Vector4>().size() == 1 );
+        REQUIRE( p1.getAllVariables<Color>().size() == 1 );
+        REQUIRE( p1.getAllVariables<Matrix2>().size() == 1 );
+        REQUIRE( p1.getAllVariables<Matrix3>().size() == 1 );
+        REQUIRE( p1.getAllVariables<Matrix4>().size() == 1 );
         REQUIRE( p1.getAllVariables<RP::TextureInfo>().size() == 1 );
 
         REQUIRE( p1.getAllVariables<int>().at( "IntParameter" ) == i );
@@ -159,13 +158,13 @@ TEST_CASE( "Engine/Data/RenderParameters", "[unittests][Engine][Engine/Data][Ren
         REQUIRE( p1.getAllVariables<std::vector<int>>().at( "IntsParameter" ) == is );
         REQUIRE( p1.getAllVariables<std::vector<uint>>().at( "UIntsParameter" ) == uis );
         REQUIRE( p1.getAllVariables<std::vector<Scalar>>().at( "ScalarsParameter" ) == ss );
-        REQUIRE( p1.getAllVariables<Ra::Core::Vector2>().at( "Vec2Parameter" ) == vec2 );
-        REQUIRE( p1.getAllVariables<Ra::Core::Vector3>().at( "Vec3Parameter" ) == vec3 );
-        REQUIRE( p1.getAllVariables<Ra::Core::Vector4>().at( "Vec4Parameter" ) == vec4 );
-        REQUIRE( p1.getAllVariables<Ra::Core::Utils::Color>().at( "ColorParameter" ) == color );
-        REQUIRE( p1.getAllVariables<Ra::Core::Matrix2>().at( "Mat2Parameter" ) == mat2 );
-        REQUIRE( p1.getAllVariables<Ra::Core::Matrix3>().at( "Mat3Parameter" ) == mat3 );
-        REQUIRE( p1.getAllVariables<Ra::Core::Matrix4>().at( "Mat4Parameter" ) == mat4 );
+        REQUIRE( p1.getAllVariables<Vector2>().at( "Vec2Parameter" ) == vec2 );
+        REQUIRE( p1.getAllVariables<Vector3>().at( "Vec3Parameter" ) == vec3 );
+        REQUIRE( p1.getAllVariables<Vector4>().at( "Vec4Parameter" ) == vec4 );
+        REQUIRE( p1.getAllVariables<Color>().at( "ColorParameter" ) == color );
+        REQUIRE( p1.getAllVariables<Matrix2>().at( "Mat2Parameter" ) == mat2 );
+        REQUIRE( p1.getAllVariables<Matrix3>().at( "Mat3Parameter" ) == mat3 );
+        REQUIRE( p1.getAllVariables<Matrix4>().at( "Mat4Parameter" ) == mat4 );
         REQUIRE( p1.getAllVariables<RP::TextureInfo>().at( "TextureParameter" ).first == &tex1 );
         REQUIRE( p1.getAllVariables<RP::TextureInfo>().at( "TextureParameter" ).second == 1 );
 
@@ -214,14 +213,14 @@ TEST_CASE( "Engine/Data/RenderParameters", "[unittests][Engine][Engine/Data][Ren
                  p1.getAllVariables<std::vector<uint>>().at( "UIntsParameter" ) );
         REQUIRE( kept.getAllVariables<std::vector<Scalar>>().at( "ScalarsParameter" ) ==
                  p1.getAllVariables<std::vector<Scalar>>().at( "ScalarsParameter" ) );
-        REQUIRE( kept.getAllVariables<Ra::Core::Vector2>().at( "Vec2Parameter" ) ==
-                 p1.getAllVariables<Ra::Core::Vector2>().at( "Vec2Parameter" ) );
-        REQUIRE( kept.getAllVariables<Ra::Core::Vector3>().at( "Vec3Parameter" ) ==
-                 p1.getAllVariables<Ra::Core::Vector3>().at( "Vec3Parameter" ) );
-        REQUIRE( kept.getAllVariables<Ra::Core::Vector4>().at( "Vec4Parameter" ) ==
-                 p1.getAllVariables<Ra::Core::Vector4>().at( "Vec4Parameter" ) );
-        REQUIRE( kept.getAllVariables<Ra::Core::Utils::Color>().at( "ColorParameter" ) ==
-                 p1.getAllVariables<Ra::Core::Utils::Color>().at( "ColorParameter" ) );
+        REQUIRE( kept.getAllVariables<Vector2>().at( "Vec2Parameter" ) ==
+                 p1.getAllVariables<Vector2>().at( "Vec2Parameter" ) );
+        REQUIRE( kept.getAllVariables<Vector3>().at( "Vec3Parameter" ) ==
+                 p1.getAllVariables<Vector3>().at( "Vec3Parameter" ) );
+        REQUIRE( kept.getAllVariables<Vector4>().at( "Vec4Parameter" ) ==
+                 p1.getAllVariables<Vector4>().at( "Vec4Parameter" ) );
+        REQUIRE( kept.getAllVariables<Color>().at( "ColorParameter" ) ==
+                 p1.getAllVariables<Color>().at( "ColorParameter" ) );
         REQUIRE( kept.getAllVariables<RP::TextureInfo>().at( "TextureParameter" ) ==
                  p1.getAllVariables<RP::TextureInfo>().at( "TextureParameter" ) );
         // Foo is p2's value
@@ -247,14 +246,14 @@ TEST_CASE( "Engine/Data/RenderParameters", "[unittests][Engine][Engine/Data][Ren
                  p2.getAllVariables<std::vector<uint>>().at( "UIntsParameter" ) );
         REQUIRE( replaced.getAllVariables<std::vector<Scalar>>().at( "ScalarsParameter" ) ==
                  p2.getAllVariables<std::vector<Scalar>>().at( "ScalarsParameter" ) );
-        REQUIRE( replaced.getAllVariables<Ra::Core::Vector2>().at( "Vec2Parameter" ) ==
-                 p2.getAllVariables<Ra::Core::Vector2>().at( "Vec2Parameter" ) );
-        REQUIRE( replaced.getAllVariables<Ra::Core::Vector3>().at( "Vec3Parameter" ) ==
-                 p2.getAllVariables<Ra::Core::Vector3>().at( "Vec3Parameter" ) );
-        REQUIRE( replaced.getAllVariables<Ra::Core::Vector4>().at( "Vec4Parameter" ) ==
-                 p2.getAllVariables<Ra::Core::Vector4>().at( "Vec4Parameter" ) );
-        REQUIRE( replaced.getAllVariables<Ra::Core::Utils::Color>().at( "ColorParameter" ) ==
-                 p2.getAllVariables<Ra::Core::Utils::Color>().at( "ColorParameter" ) );
+        REQUIRE( replaced.getAllVariables<Vector2>().at( "Vec2Parameter" ) ==
+                 p2.getAllVariables<Vector2>().at( "Vec2Parameter" ) );
+        REQUIRE( replaced.getAllVariables<Vector3>().at( "Vec3Parameter" ) ==
+                 p2.getAllVariables<Vector3>().at( "Vec3Parameter" ) );
+        REQUIRE( replaced.getAllVariables<Vector4>().at( "Vec4Parameter" ) ==
+                 p2.getAllVariables<Vector4>().at( "Vec4Parameter" ) );
+        REQUIRE( replaced.getAllVariables<Color>().at( "ColorParameter" ) ==
+                 p2.getAllVariables<Color>().at( "ColorParameter" ) );
         REQUIRE( replaced.getAllVariables<int>().at( "Foo" ) ==
                  p2.getAllVariables<int>().at( "Foo" ) );
         REQUIRE( replaced.getAllVariables<RP::TextureInfo>().at( "TextureParameter" ) ==
@@ -278,7 +277,7 @@ TEST_CASE( "Engine/Data/RenderParameters", "[unittests][Engine][Engine/Data][Ren
         enum Unregistered : int { LOW = -1, MIDDDLE = 0, HIGH = 1 };
         using UnregisteredType = typename std::underlying_type_t<Unregistered>;
 
-        auto valuesEnumConverter = std::make_shared<Ra::Core::Utils::EnumConverter<ValuesType>>(
+        auto valuesEnumConverter = std::make_shared<EnumConverter<ValuesType>>(
             std::initializer_list<std::pair<ValuesType, std::string>> {
                 { Values::VALUE_0, "VALUE_0" },
                 { Values::VALUE_1, "VALUE_1" },
@@ -340,12 +339,10 @@ TEST_CASE( "Engine/Data/RenderParameters", "[unittests][Engine][Engine/Data][Ren
         enum Values : unsigned int { VALUE_0 = 10, VALUE_1 = 20, VALUE_2 = 30 };
         using ValuesType = typename std::underlying_type<Values>::type;
 
-        auto vnc =
-            new Ra::Core::Utils::EnumConverter<ValuesType>( { { Values::VALUE_0, "VALUE_0" },
-                                                              { Values::VALUE_1, "VALUE_1" },
-                                                              { Values::VALUE_2, "VALUE_2" } } );
-        auto valuesEnumConverter =
-            std::shared_ptr<Ra::Core::Utils::EnumConverter<ValuesType>>( vnc );
+        auto vnc                 = new EnumConverter<ValuesType>( { { Values::VALUE_0, "VALUE_0" },
+                                                                    { Values::VALUE_1, "VALUE_1" },
+                                                                    { Values::VALUE_2, "VALUE_2" } } );
+        auto valuesEnumConverter = std::shared_ptr<EnumConverter<ValuesType>>( vnc );
         addEnumConverter( paramsToVisit, "enum.semantic", valuesEnumConverter );
         setEnumVariable( paramsToVisit, "enum.semantic", "VALUE_0" );
         paramsToVisit.setVariable( "int.simple", int( 1 ) );

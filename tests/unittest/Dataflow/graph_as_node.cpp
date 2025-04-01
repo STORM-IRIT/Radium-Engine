@@ -14,7 +14,7 @@
 using namespace Ra::Dataflow::Core;
 using namespace Ra::Core;
 
-TEST_CASE( "Dataflow/Core/GraphAsNode", "[unittests][Dataflow][Core][Graph]" ) {
+TEST_CASE( "Dataflow/Core/GraphAsNode/Delta", "[unittests][Dataflow][Core][Graph]" ) {
     auto port_fatcory = PortFactory::createInstance();
     port_fatcory->add_port_type<Scalar>();
 
@@ -95,21 +95,18 @@ TEST_CASE( "Dataflow/Core/GraphAsNode", "[unittests][Dataflow][Core][Graph]" ) {
     REQUIRE( result == -8 );
 }
 
-TEST_CASE( "Dataflow/Core/GraphAsNode/IO", "[unittests][Dataflow][Core][Graph]" ) {
+using PortIndex    = Ra::Dataflow::Core::Node::PortIndex;
+using FunctionNode = Functionals::FunctionNode<Scalar>;
+using Source       = Sources::SingleDataSourceNode<Scalar>;
+using Sink         = Sinks::SinkNode<Scalar>;
 
-    using PortIndex    = Ra::Dataflow::Core::Node::PortIndex;
-    using FunctionNode = Functionals::FunctionNode<Scalar>;
-    using Source       = Sources::SingleDataSourceNode<Scalar>;
-    using Sink         = Sinks::SinkNode<Scalar>;
+TEST_CASE( "Dataflow/Core/GraphAsNode/Forward", "[unittests][Dataflow][Core][Graph]" ) {
 
     auto port_fatcory = PortFactory::createInstance();
     port_fatcory->add_port_type<Scalar>();
 
     auto gAsNode = make_shared<DataflowGraph>( "graphAsNode" );
-
-    // compute delta = b2 - 4ac;
-
-    auto f = gAsNode->addNode<FunctionNode>( "f" );
+    auto f       = gAsNode->addNode<FunctionNode>( "f" );
 
     REQUIRE( !gAsNode->input_node() );
     REQUIRE( !gAsNode->output_node() );
@@ -118,74 +115,6 @@ TEST_CASE( "Dataflow/Core/GraphAsNode/IO", "[unittests][Dataflow][Core][Graph]" 
 
     REQUIRE( gAsNode->input_node() );
     REQUIRE( gAsNode->output_node() );
-
-    // add link to portIndex = input_node().size(), creates port on input_node()
-    REQUIRE( gAsNode->addLink( gAsNode->input_node(), PortIndex { 0 }, f, PortIndex { 0 } ) );
-    REQUIRE( gAsNode->addLink( f, PortIndex { 0 }, gAsNode->output_node(), PortIndex { 0 } ) );
-
-    REQUIRE( gAsNode->input_node() );
-    REQUIRE( gAsNode->output_node() );
-    REQUIRE( gAsNode->input_node()->getOutputs().size() == 1 );
-    REQUIRE( gAsNode->output_node()->getInputs().size() == 1 );
-    REQUIRE( gAsNode->getInputs().size() == 0 );
-    REQUIRE( gAsNode->getOutputs().size() == 0 );
-
-    gAsNode->generate_ports();
-
-    REQUIRE( gAsNode->getInputs().size() == 1 );
-    REQUIRE( gAsNode->getOutputs().size() == 1 );
-
-    DataflowGraph g { "mainGraph" };
-    {
-        auto sourceNodeA = g.addNode<Source>( "s" );
-        auto resultNode  = g.addNode<Sink>( "r" );
-
-        g.addNode( gAsNode );
-        g.addLink( sourceNodeA->getOutPort().get(), gAsNode->getInputByIndex( 0 ) );
-        g.addLink( gAsNode->getOutputByIndex( 0 ), resultNode->getInPort().get() );
-
-        sourceNodeA->setData( 2 );
-    }
-    ///\todo make own test with serializable nodes and checks.
-    std::string tmpdir { "tmpDir4Tests" };
-    std::filesystem::create_directories( tmpdir );
-    REQUIRE( g.shouldBeSaved() );
-    g.saveToJson( tmpdir + "/graph_as_node_io.json" );
-    REQUIRE( !g.shouldBeSaved() );
-
-    // Create a new graph and load from the saved graph
-    DataflowGraph g1 { "loaded graph" };
-    g1.loadFromJson( tmpdir + "/graph_as_node_io.json" );
-
-    {
-        auto sourceNodeA = std::dynamic_pointer_cast<Source>( g1.getNode( "s" ) );
-
-        REQUIRE( sourceNodeA );
-        auto nodeGraph = std::dynamic_pointer_cast<DataflowGraph>( g1.getNode( "graphAsNode" ) );
-        REQUIRE( nodeGraph->display_name() == "graphAsNode" );
-        REQUIRE( nodeGraph );
-        auto resultNode = std::dynamic_pointer_cast<Sink>( g1.getNode( "r" ) );
-        REQUIRE( resultNode );
-
-        REQUIRE( sourceNodeA->getData() );
-        REQUIRE( *sourceNodeA->getData() == 2 );
-    }
-}
-
-TEST_CASE( "Dataflow/Core/GraphAsNode/RemoveUnlinked", "[unittests][Dataflow][Core][Graph]" ) {
-
-    using PortIndex    = Ra::Dataflow::Core::Node::PortIndex;
-    using FunctionNode = Functionals::FunctionNode<Scalar>;
-    using Source       = Sources::SingleDataSourceNode<Scalar>;
-    using Sink         = Sinks::SinkNode<Scalar>;
-
-    auto port_fatcory = PortFactory::createInstance();
-    port_fatcory->add_port_type<Scalar>();
-
-    auto gAsNode = make_shared<DataflowGraph>( "graphAsNode" );
-    auto f       = gAsNode->addNode<FunctionNode>( "f" );
-
-    gAsNode->add_input_output_nodes();
 
     REQUIRE( !gAsNode->canLink(
         gAsNode->input_node(), PortIndex { 0 }, gAsNode->output_node(), PortIndex { 0 } ) );
@@ -222,60 +151,90 @@ TEST_CASE( "Dataflow/Core/GraphAsNode/RemoveUnlinked", "[unittests][Dataflow][Co
 
     sourceNodeA->setData( 2 );
 
-    REQUIRE( g.compile() );
-    REQUIRE( g.execute() );
+    SECTION( "Serialization" ) {
 
-    // first setup
-    gAsNode->remove_unlinked_input_output_ports();
-    REQUIRE( gAsNode->input_node() );
-    REQUIRE( gAsNode->output_node() );
-    REQUIRE( gAsNode->input_node()->getOutputs().size() == 1 );
-    REQUIRE( gAsNode->output_node()->getInputs().size() == 1 );
-    REQUIRE( gAsNode->getInputs().size() == 1 );
-    REQUIRE( gAsNode->getOutputs().size() == 1 );
+        ///\todo make own test with serializable nodes and checks.
+        std::string tmpdir { "tmpDir4Tests" };
+        std::filesystem::create_directories( tmpdir );
+        REQUIRE( g.shouldBeSaved() );
+        g.saveToJson( tmpdir + "/graph_as_node_io.json" );
+        REQUIRE( !g.shouldBeSaved() );
 
-    // re link in gAsNode
-    REQUIRE( gAsNode->removeLink( f, PortIndex { 0 } ) );
-    REQUIRE( gAsNode->addLink( gAsNode->input_node(), PortIndex { 1 }, f, PortIndex { 0 } ) );
-    REQUIRE( gAsNode->addLink( f, PortIndex { 0 }, gAsNode->output_node(), PortIndex { 1 } ) );
-    REQUIRE( gAsNode->removeLink( gAsNode->output_node(), PortIndex { 0 } ) );
+        // Create a new graph and load from the saved graph
+        DataflowGraph g1 { "loaded graph" };
+        g1.loadFromJson( tmpdir + "/graph_as_node_io.json" );
+        {
+            auto g1_sourceNodeA = std::dynamic_pointer_cast<Source>( g1.getNode( "s" ) );
 
-    // input/output node of gAsNode still linked in g, remove unlink do nothing
-    gAsNode->remove_unlinked_input_output_ports();
+            REQUIRE( g1_sourceNodeA );
+            auto g1_nodeGraph =
+                std::dynamic_pointer_cast<DataflowGraph>( g1.getNode( "graphAsNode" ) );
+            REQUIRE( g1_nodeGraph->display_name() == "graphAsNode" );
+            REQUIRE( g1_nodeGraph );
+            auto g1_resultNode = std::dynamic_pointer_cast<Sink>( g1.getNode( "r" ) );
+            REQUIRE( g1_resultNode );
 
-    REQUIRE( gAsNode->input_node() );
-    REQUIRE( gAsNode->output_node() );
-    REQUIRE( gAsNode->input_node()->getOutputs().size() == 2 );
-    REQUIRE( gAsNode->output_node()->getInputs().size() == 2 );
-    REQUIRE( gAsNode->getInputs().size() == 2 );
-    REQUIRE( gAsNode->getOutputs().size() == 2 );
+            REQUIRE( g1_sourceNodeA->getData() );
+            REQUIRE( *g1_sourceNodeA->getData() == 2 );
+        }
+    }
 
-    // unlinked in g, remove unlink clean up unused port in input/output nodes
-    REQUIRE( g.removeLink( gAsNode->input_node(), PortIndex { 0 } ) );
-    REQUIRE( g.removeLink( resultNode, PortIndex { 0 } ) );
+    SECTION( "Remove unlinked" ) {
 
-    gAsNode->remove_unlinked_input_output_ports();
+        REQUIRE( g.compile() );
+        REQUIRE( g.execute() );
 
-    // now cleaned
-    REQUIRE( gAsNode->input_node() );
-    REQUIRE( gAsNode->output_node() );
-    REQUIRE( gAsNode->input_node()->getOutputs().size() == 1 );
-    REQUIRE( gAsNode->output_node()->getInputs().size() == 1 );
-    REQUIRE( gAsNode->getInputs().size() == 1 );
-    REQUIRE( gAsNode->getOutputs().size() == 1 );
+        // first setup
+        gAsNode->remove_unlinked_input_output_ports();
+        REQUIRE( gAsNode->input_node() );
+        REQUIRE( gAsNode->output_node() );
+        REQUIRE( gAsNode->input_node()->getOutputs().size() == 1 );
+        REQUIRE( gAsNode->output_node()->getInputs().size() == 1 );
+        REQUIRE( gAsNode->getInputs().size() == 1 );
+        REQUIRE( gAsNode->getOutputs().size() == 1 );
 
-    // relink
-    std::cerr << "relink in g\n";
-    REQUIRE( g.addLink( sourceNodeA->getOutPort().get(), gAsNode->getInputByIndex( 0 ) ) );
-    REQUIRE( g.addLink( gAsNode->getOutputByIndex( 0 ), resultNode->getInPort().get() ) );
+        // re link in gAsNode
+        REQUIRE( gAsNode->removeLink( f, PortIndex { 0 } ) );
+        REQUIRE( gAsNode->addLink( gAsNode->input_node(), PortIndex { 1 }, f, PortIndex { 0 } ) );
+        REQUIRE( gAsNode->addLink( f, PortIndex { 0 }, gAsNode->output_node(), PortIndex { 1 } ) );
+        REQUIRE( gAsNode->removeLink( gAsNode->output_node(), PortIndex { 0 } ) );
 
-    gAsNode->remove_unlinked_input_output_ports();
+        // input/output node of gAsNode still linked in g, remove unlink do nothing
+        gAsNode->remove_unlinked_input_output_ports();
 
-    // no change
-    REQUIRE( gAsNode->input_node() );
-    REQUIRE( gAsNode->output_node() );
-    REQUIRE( gAsNode->input_node()->getOutputs().size() == 1 );
-    REQUIRE( gAsNode->output_node()->getInputs().size() == 1 );
-    REQUIRE( gAsNode->getInputs().size() == 1 );
-    REQUIRE( gAsNode->getOutputs().size() == 1 );
+        REQUIRE( gAsNode->input_node() );
+        REQUIRE( gAsNode->output_node() );
+        REQUIRE( gAsNode->input_node()->getOutputs().size() == 2 );
+        REQUIRE( gAsNode->output_node()->getInputs().size() == 2 );
+        REQUIRE( gAsNode->getInputs().size() == 2 );
+        REQUIRE( gAsNode->getOutputs().size() == 2 );
+
+        // unlinked in g, remove unlink clean up unused port in input/output nodes
+        REQUIRE( g.removeLink( gAsNode->input_node(), PortIndex { 0 } ) );
+        REQUIRE( g.removeLink( resultNode, PortIndex { 0 } ) );
+
+        gAsNode->remove_unlinked_input_output_ports();
+
+        // now cleaned
+        REQUIRE( gAsNode->input_node() );
+        REQUIRE( gAsNode->output_node() );
+        REQUIRE( gAsNode->input_node()->getOutputs().size() == 1 );
+        REQUIRE( gAsNode->output_node()->getInputs().size() == 1 );
+        REQUIRE( gAsNode->getInputs().size() == 1 );
+        REQUIRE( gAsNode->getOutputs().size() == 1 );
+
+        // relink
+        REQUIRE( g.addLink( sourceNodeA->getOutPort().get(), gAsNode->getInputByIndex( 0 ) ) );
+        REQUIRE( g.addLink( gAsNode->getOutputByIndex( 0 ), resultNode->getInPort().get() ) );
+
+        gAsNode->remove_unlinked_input_output_ports();
+
+        // no change
+        REQUIRE( gAsNode->input_node() );
+        REQUIRE( gAsNode->output_node() );
+        REQUIRE( gAsNode->input_node()->getOutputs().size() == 1 );
+        REQUIRE( gAsNode->output_node()->getInputs().size() == 1 );
+        REQUIRE( gAsNode->getInputs().size() == 1 );
+        REQUIRE( gAsNode->getOutputs().size() == 1 );
+    }
 }

@@ -4,42 +4,46 @@
 #include <Core/Random/RandomPointSet.hpp>
 using namespace Ra::Core::Random;
 
+#define CHECK_SEQ1                                     \
+    for ( size_t i = 0; i < 5; ++i ) {                 \
+        REQUIRE( isApprox( seq( i ), seq_verif[i] ) ); \
+    }
+
+#define CHECK_SEQ2                                        \
+    for ( size_t i = 0; i < 5; ++i ) {                    \
+        auto v = seq( i );                                \
+        REQUIRE( isApprox( v[0], seq_verif[i].first ) );  \
+        REQUIRE( isApprox( v[1], seq_verif[i].second ) ); \
+    }
+
 TEST_CASE( "Core/Random/RandomPointSet", "[unittests][Core][Core/Random][PointSet]" ) {
     SECTION( "Fibonacci sequence" ) {
-        std::array<Scalar, 5> fib_verif { 0_ra,
+        std::array<Scalar, 5> seq_verif { 0_ra,
                                           0.61803398874989479150343640867504_ra,
                                           1.2360679774997895830068728173501_ra,
                                           1.8541019662496844855326116885408_ra,
                                           2.4721359549995791660137456347002_ra };
-        FibonacciSequence fib { 2 };
+        FibonacciSequence seq { 2 };
         // Our fibonacci sequence is only defined for more than 5 points
-        REQUIRE( fib.range() == 5 );
-        for ( size_t i = 0; i < 5; ++i ) {
-            REQUIRE( isApprox( fib( i ), fib_verif[i] ) );
-        }
+        REQUIRE( seq.range() == 5 );
+        CHECK_SEQ1
     }
 
     SECTION( "VanDerCorput sequence" ) {
-        std::array<Scalar, 5> vdc_verif { 0_ra, 0.5_ra, 0.25_ra, 0.75_ra, 0.125_ra };
-        VanDerCorputSequence vdc;
-        for ( size_t i = 0; i < 5; ++i ) {
-            REQUIRE( isApprox( vdc( i ), vdc_verif[i] ) );
-        }
+        std::array<Scalar, 5> seq_verif { 0_ra, 0.5_ra, 0.25_ra, 0.75_ra, 0.125_ra };
+        VanDerCorputSequence seq;
+        CHECK_SEQ1
     }
 
     SECTION( "Fibonacci point set" ) {
-        std::array<std::pair<Scalar, Scalar>, 5> fibseq_verif {
+        std::array<std::pair<Scalar, Scalar>, 5> seq_verif {
             std::pair<Scalar, Scalar> { 0_ra, 0_ra / 5_ra },
             { 0.61803398874989479150343640867504_ra, 1_ra / 5_ra },
             { 1.2360679774997895830068728173501_ra, 2_ra / 5_ra },
             { 1.8541019662496844855326116885408_ra, 3_ra / 5_ra },
             { 2.4721359549995791660137456347002_ra, 4_ra / 5_ra } };
-        FibonacciPointSet fibs { 5 };
-        for ( size_t i = 0; i < 5; ++i ) {
-            auto v = fibs( i );
-            REQUIRE( isApprox( v[0], fibseq_verif[i].first ) );
-            REQUIRE( isApprox( v[1], fibseq_verif[i].second ) );
-        }
+        FibonacciPointSet seq { 5 };
+        CHECK_SEQ2
     }
 
     SECTION( "Hammersley point set" ) {
@@ -50,11 +54,7 @@ TEST_CASE( "Core/Random/RandomPointSet", "[unittests][Core][Core/Random][PointSe
             { 3_ra / 5_ra, 0.75_ra },
             { 4_ra / 5_ra, 0.125_ra } };
         HammersleyPointSet seq { 5 };
-        for ( size_t i = 0; i < 5; ++i ) {
-            auto v = seq( i );
-            REQUIRE( isApprox( v[0], seq_verif[i].first ) );
-            REQUIRE( isApprox( v[1], seq_verif[i].second ) );
-        }
+        CHECK_SEQ2
     }
 
     // todo, verify if the sequence is always the same (it should) on any systems/run
@@ -79,11 +79,7 @@ TEST_CASE( "Core/Random/RandomPointSet", "[unittests][Core][Core/Random][PointSe
             { 0.4236547946929931640625_ra, 0.623563706874847412109375_ra } };
 #endif
         MersenneTwisterPointSet seq { 5 };
-        for ( size_t i = 0; i < 5; ++i ) {
-            auto v = seq( i );
-            REQUIRE( isApprox( v[0], seq_verif[i].first ) );
-            REQUIRE( isApprox( v[1], seq_verif[i].second ) );
-        }
+        CHECK_SEQ2
     }
 
     SECTION( "SphericalPointSet point set (Hammersley)" ) {
@@ -94,10 +90,6 @@ TEST_CASE( "Core/Random/RandomPointSet", "[unittests][Core][Core/Random][PointSe
             { -0.70062926922203672130962104347418_ra, -0.50903696045512702994528808631003_ra },
             { 0.20439552950218897731105016646325_ra, -0.62906475622110624712490789534058_ra } };
         SphericalPointSet<HammersleyPointSet> seq { 5 };
-        for ( size_t i = 0; i < 5; ++i ) {
-            auto v = seq( i );
-            REQUIRE( isApprox( v[0], seq_verif[i].first ) );
-            REQUIRE( isApprox( v[1], seq_verif[i].second ) );
-        }
+        CHECK_SEQ2
     }
 }
