@@ -1,8 +1,7 @@
 #include <Dataflow/QtGui/GraphEditor/GraphModel.hpp>
 
-#include <Gui/ParameterSetEditor/BasicUiBuilder.hpp>
+#include <Dataflow/QtGui/GraphEditor/WidgetFactory.hpp>
 #include <Gui/ParameterSetEditor/ParameterSetEditor.hpp>
-#include <QLineEdit>
 #include <QPushButton>
 
 namespace Ra {
@@ -143,26 +142,6 @@ void GraphModel::addConnection( ConnectionId const connectionId ) {
 bool GraphModel::nodeExists( NodeId const nodeId ) const {
     return ( m_node_ids.find( nodeId ) != m_node_ids.end() );
 }
-
-class WidgetFactory : public Ra::Gui::BasicUiBuilder
-{
-  public:
-    WidgetFactory( Ra::Core::VariableSet& params,
-                   Ra::Gui::VariableSetEditor* pse,
-                   const nlohmann::json& constraints ) :
-        Ra::Gui::BasicUiBuilder( params, pse, constraints ) {
-        addOperator<std::string>( *this );
-    }
-
-    void operator()( const std::string& name, std::string& p ) {
-        auto line = new QLineEdit();
-        line->setObjectName( QString::fromStdString( name ) );
-        QLineEdit::connect( line, &QLineEdit::textEdited, [&p]( const QString& string ) {
-            p = string.toStdString();
-        } );
-        variable_set_editor()->addWidget( line );
-    }
-};
 
 QWidget* GraphModel::getWidget( std::shared_ptr<Core::Node> node ) const {
     QWidget* controlPanel = new QWidget;
