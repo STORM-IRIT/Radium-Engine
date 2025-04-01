@@ -10,12 +10,12 @@
 using namespace Ra::Core;
 
 struct printThemAll {
-    using types =
-        Utils::TypeList<int, size_t, float, double, std::reference_wrapper<int>, std::string>;
+    using types = Utils::TypeList<int, size_t, float, double, std::string>;
 
     template <typename T>
     void operator()( const std::string& name, T& value ) {
-        std::cout << " [ " << name << " --> " << value << " ] ";
+        std::cout << " [ " << name << " --> " << value << " ("
+                  << Utils::simplifiedDemangledType<T>() << ") ] ";
     }
 };
 
@@ -23,15 +23,15 @@ class MyParameterVisitor : public DynamicVisitor
 {
   public:
     MyParameterVisitor() : DynamicVisitor() {
-        addOperator<std::reference_wrapper<int>>( *this );
+        addOperator<int>( *this );
         addOperator<float>( *this );
         addOperator<std::string>( *this );
     }
 
     template <typename T>
     void operator()( const std::string& name, T& _in, std::any&& ) {
-        std::cout << "\t(MyParameterVisitor : ( " << Utils::demangleType<T>() << " ) " << name
-                  << " --> " << _in << " // ";
+        std::cout << "\t(MyParameterVisitor : ( " << Utils::simplifiedDemangledType<T>() << " ) "
+                  << name << " --> " << _in << " // ";
         _in /= 2;
         std::cout << _in << "\n";
         ++m_counter;
@@ -141,7 +141,7 @@ TEST_CASE( "Core/Container/VariableSet", "[unittests][Core][Container][VariableS
     }
 
     SECTION( "Visiting and modifying variable set using static visitor" ) {
-        REQUIRE( printThemAll::types::Size == 6 );
+        REQUIRE( printThemAll::types::Size == 5 );
         VariableSet params;
         REQUIRE( !params.existsVariableType<int>() );
         int i { 0 };
@@ -177,7 +177,7 @@ TEST_CASE( "Core/Container/VariableSet", "[unittests][Core][Container][VariableS
         VariableSet params;
         REQUIRE( !params.existsVariableType<int>() );
         int i { 1 };
-
+        int initial_i = i;
         float x { 1.f };
 
         std::cout << "Adding parameters" << std::endl;
@@ -202,7 +202,9 @@ TEST_CASE( "Core/Container/VariableSet", "[unittests][Core][Container][VariableS
         } );
         params.visit( vf );
         print_container( "Doubled set", params );
-        REQUIRE( params.getVariable<int>( "i" ) == ( 2 * i ) );
+        REQUIRE( params.getVariable<int>( "i" ) == ( 2 * initial_i ) );
+        REQUIRE( params.getVariable<std::reference_wrapper<int>>( "j" ) == ( 2 * initial_i ) );
+        REQUIRE( params.getVariable<std::reference_wrapper<int>>( "j" ) == i );
         REQUIRE( params.getVariable<int>( "x" ) == ( 2 * 2 ) );
         REQUIRE( params.getVariable<float>( "x" ) == 1 );
 
@@ -293,7 +295,7 @@ TEST_CASE( "Core/Container/VariableSet", "[unittests][Core][Container][VariableS
         MyParameterVisitor mp;
         REQUIRE( mp.getCount() == 0 );
         params.visit( mp );
-        REQUIRE( mp.getCount() == 4 );
+        REQUIRE( mp.getCount() == 6 );
         REQUIRE( i == 0 );
 
         auto xHandle = params.getVariableHandle<float>( "x" );
@@ -308,7 +310,7 @@ TEST_CASE( "Core/Container/VariableSet", "[unittests][Core][Container][VariableS
 
         mp.resetCount();
         params.visit( mp );
-        REQUIRE( mp.getCount() == 2 );
+        REQUIRE( mp.getCount() == 4 );
         print_container( "Final set", params );
     }
 
@@ -390,8 +392,7 @@ TEST_CASE( "Core/Container/VariableSet", "[unittests][Core][Container][VariableS
         auto typeVector = vs.getStoredTypes();
         std::cout << "Stored types : \n";
         for ( const auto& t : typeVector ) {
-            std::cout << "\t" << t.name()
-                      << "\n"; // todo, use demangler from type name (in a future PR)
+            std::cout << "\t" << Ra::Core::Utils::simplifiedDemangledType( t ) << "\n";
         }
         REQUIRE( std::find( typeVector.begin(),
                             typeVector.end(),

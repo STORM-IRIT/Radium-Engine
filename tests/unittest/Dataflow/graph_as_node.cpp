@@ -15,8 +15,6 @@ using namespace Ra::Dataflow::Core;
 using namespace Ra::Core;
 
 TEST_CASE( "Dataflow/Core/GraphAsNode", "[unittests][Dataflow][Core][Graph]" ) {
-    using RaVector = Ra::Core::VectorArray<Scalar>;
-
     auto port_fatcory = PortFactory::createInstance();
     port_fatcory->add_port_type<Scalar>();
 

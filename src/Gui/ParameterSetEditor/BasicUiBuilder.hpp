@@ -20,7 +20,7 @@ namespace Ra {
 
 namespace Gui {
 
-class BasicUiBuilder : public Ra::Core::DynamicVisitor
+class RA_GUI_API BasicUiBuilder : public Ra::Core::DynamicVisitor
 {
   public:
     using VariableSet      = Ra::Core::VariableSet;
@@ -41,8 +41,7 @@ class BasicUiBuilder : public Ra::Core::DynamicVisitor
         addOperator<Ra::Core::Vector4>( *this );
         addOperator<Ra::Core::Matrix3>( *this );
         addOperator<Ra::Core::Matrix4>( *this );
-        addOperator<std::reference_wrapper<VariableSet>>( *this );
-        addOperator<std::reference_wrapper<const VariableSet>>( *this );
+        addOperator<VariableSet>( *this );
     }
 
     void operator()( const std::string& name, bool& p ) {
@@ -66,13 +65,12 @@ class BasicUiBuilder : public Ra::Core::DynamicVisitor
     template <typename TParam, std::enable_if_t<std::is_arithmetic<TParam>::value, bool> = true>
     void operator()( const std::string& name, TParam& p ) {
         using namespace Ra::Core::VariableSetEnumManagement;
-
         if ( getEnumConverter<TParam>( m_params, name ) ) {
             // known enum
             m_pse->addEnumWidget( name, p, m_params, m_constraints );
         }
         else {
-            // number (or unknown enum
+            // number (or unknown enum)
             m_pse->addNumberWidget( name, p, m_params, m_constraints );
         }
     }
@@ -85,9 +83,9 @@ class BasicUiBuilder : public Ra::Core::DynamicVisitor
     }
 
     void operator()( const std::string& name, Ra::Core::Utils::Color& p ) {
-        auto onColorParameterChanged = [pse = this->m_pse, &params = m_params, nm = name](
+        auto onColorParameterChanged = [pse = this->m_pse, &p, &params = m_params, nm = name](
                                            const Ra::Core::Utils::Color& val ) {
-            params.setVariable( nm, val );
+            p = val;
             emit pse->parameterModified( nm );
         };
         if ( m_constraints.contains( name ) ) {
@@ -101,28 +99,23 @@ class BasicUiBuilder : public Ra::Core::DynamicVisitor
         }
     }
 
-    template <template <typename, int...> typename M, typename T, int... dim>
-    void operator()( const std::string& name, M<T, dim...>& p ) {
+    template <typename T, int... dim>
+    void operator()( const std::string& name, Eigen::Matrix<T, dim...>& p ) {
+        std::cerr << "ui builder matrix\n";
         m_pse->addMatrixWidget( name, p, m_params, m_constraints );
     }
 
-    //    void operator()( const std::string& /*name*/,
-    //                   Data::RenderParameters::TextureInfo& /*p*/,
-    //               Core::VariableSet&& /*params*/ ) {
-    // textures are not yet editable
-    //}
-
-    template <typename T>
-    void operator()( const std::string& name, std::reference_wrapper<T>& p ) {
+    template <typename T,
+              std::enable_if_t<std::is_assignable_v<VariableSet, typename std::decay<T>::type>,
+                               bool> = true>
+    void operator()( const std::string& name, T& p ) {
         m_pse->addLabel( name );
-        if constexpr ( std::is_assignable_v<VariableSet, typename std::decay<T>::type> ) {
-            if constexpr ( std::is_const_v<T> ) {
-                p.get().visit(
-                    *this, const_cast<VariableSet&>( static_cast<const VariableSet&>( p.get() ) ) );
-            }
-            else { p.get().visit( *this, static_cast<VariableSet&>( p.get() ) ); }
-        }
+        p.visit( *this, p );
     }
+
+    VariableSet& variable_set() { return m_params; }
+    VariableSetEditor* variable_set_editor() { return m_pse; }
+    const nlohmann::json& constraints() { return m_constraints; }
 
   private:
     VariableSet& m_params;

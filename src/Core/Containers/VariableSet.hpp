@@ -17,6 +17,25 @@
 namespace Ra {
 namespace Core {
 
+namespace detail {
+template <typename type_t, class orig_t>
+struct unwrap_impl {
+    using type = orig_t;
+};
+
+template <typename type_t, class V>
+struct unwrap_impl<std::reference_wrapper<type_t>, V> {
+    using type = type_t;
+};
+} // namespace detail
+
+template <class T>
+struct unwrap {
+    using type = typename detail::unwrap_impl<std::decay_t<T>, T>::type;
+};
+template <typename type_t>
+using unwrap_t = typename unwrap<type_t>::type;
+
 class DynamicVisitorBase;
 class DynamicVisitor;
 
@@ -354,11 +373,19 @@ class RA_CORE_API VariableSet
     template <typename F, typename T>
     void visitStatic( F&& visitor, T&& userParams ) const;
 
-    /// \brief Helper function that associate an index to a type
-    /// \tparam T The type to index
-    /// \return the identifier index of the type
+    /**  \brief Helper to get parameter type to visit a variable.
+     *
+     * It return the type
+     * \tparam T The type to index
+     * \return the identifier index of the type
+     */
     template <typename T>
     static auto getVariableVisitTypeIndex() -> std::type_index;
+    template <typename VariableType>
+    // same but more complex
+    // std::reference_wrapper<std::decay_t<unwrap_t<typename
+    //        VariableSet::VariableContainer<VariableType>::mapped_type>>>;
+    using VisitTypeIndex = std::reference_wrapper<std::decay_t<unwrap_t<VariableType>>>;
 
     /// \brief Add support for a given type.
     /// \tparam T The type to manage
@@ -580,11 +607,9 @@ auto VariableSet::existsVariable( const std::string& name ) const
 
 template <typename T>
 auto VariableSet::getVariableVisitTypeIndex() -> std::type_index {
-    static std::type_index idT(
-        typeid( std::reference_wrapper<typename VariableSet::VariableContainer<T>::value_type> ) );
+    static std::type_index idT( typeid( VisitTypeIndex<T> ) );
     return idT;
 }
-
 template <typename T>
 auto VariableSet::addVariableType() -> Utils::optional<VariableContainer<T>*> {
     auto storage = createVariableStorage<T>();
@@ -633,11 +658,11 @@ auto VariableSet::addVariableType() -> Utils::optional<VariableContainer<T>*> {
                 -> std::pair<bool, std::function<void( DynamicVisitorBase&, std::any&& )>> {
                 auto id = getVariableVisitTypeIndex<T>();
                 if ( v.accept( id ) ) {
-                    auto& visitedStorage = c.getVariableStorage<T>();
-                    auto coll            = std::ref( visitedStorage );
+                    auto coll = std::ref( c.getVariableStorage<T>() );
                     return { true, [coll]( DynamicVisitorBase& visitor, std::any&& userParam ) {
                                 for ( auto&& t : coll.get() ) {
-                                    visitor( { std::ref( t ) },
+                                    visitor( t.first,
+                                             std::any { std::ref( t.second ) },
                                              std::forward<std::any>( userParam ) );
                                 }
                             } };
@@ -715,6 +740,11 @@ void VariableSet::visitImplHelper( F& visitor ) const {
     if ( auto variables = existsVariableType<T>() ) {
         for ( auto& element : *( variables.value() ) ) {
             visitor( element.first, element.second );
+        }
+    }
+    if ( auto variables = existsVariableType<std::reference_wrapper<T>>(); variables ) {
+        for ( auto& element : *( variables.value() ) ) {
+            visitor( element.first, element.second.get() );
         }
     }
 }

@@ -65,18 +65,18 @@ class StaticPrintVisitor
     }
 
     void operator()( const std::string& name,
-                     const std::reference_wrapper<RenderParameters>& p,
+                     const RenderParameters& p,
                      const std::string& prefix = "" ) {
         std::string localPrefix;
         if ( prefix.empty() ) { localPrefix = "StaticPrintVisitor: "; }
         else { localPrefix = prefix; }
 
-        output << "\t" << localPrefix << "( " << Utils::simplifiedDemangledType( p.get() ) << " ) "
+        output << "\t" << localPrefix << "( " << Utils::simplifiedDemangledType( p ) << " ) "
                << name << " --> visiting recursively\n";
         // visit the sub-parameters
-        p.get().visit( *this, std::string { "\t" } + localPrefix );
+        p.visit( *this, std::string { "\t" } + localPrefix );
 
-        output << "\t" << localPrefix << "( " << Utils::simplifiedDemangledType( p.get() ) << " ) "
+        output << "\t" << localPrefix << "( " << Utils::simplifiedDemangledType( p ) << " ) "
                << name << " --> end recursive visit\n";
     }
 

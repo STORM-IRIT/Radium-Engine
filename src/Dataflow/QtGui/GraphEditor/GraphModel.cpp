@@ -1,6 +1,8 @@
 #include <Dataflow/QtGui/GraphEditor/GraphModel.hpp>
 
+#include <Gui/ParameterSetEditor/BasicUiBuilder.hpp>
 #include <Gui/ParameterSetEditor/ParameterSetEditor.hpp>
+#include <QLineEdit>
 #include <QPushButton>
 
 namespace Ra {
@@ -142,6 +144,26 @@ bool GraphModel::nodeExists( NodeId const nodeId ) const {
     return ( m_node_ids.find( nodeId ) != m_node_ids.end() );
 }
 
+class WidgetFactory : public Ra::Gui::BasicUiBuilder
+{
+  public:
+    WidgetFactory( Ra::Core::VariableSet& params,
+                   Ra::Gui::VariableSetEditor* pse,
+                   const nlohmann::json& constraints ) :
+        Ra::Gui::BasicUiBuilder( params, pse, constraints ) {
+        addOperator<std::string>( *this );
+    }
+
+    void operator()( const std::string& name, std::string& p ) {
+        auto line = new QLineEdit();
+        line->setObjectName( name );
+        QLineEdit::connect( line, &QLineEdit::textEdited, [&p]( const QString& string ) {
+            p = string.toStdString();
+        } );
+        variable_set_editor()->addWidget( line );
+    }
+};
+
 QWidget* GraphModel::getWidget( std::shared_ptr<Core::Node> node ) const {
     QWidget* controlPanel = new QWidget;
     controlPanel->setStyleSheet( "background-color:transparent;" );
@@ -151,13 +173,19 @@ QWidget* GraphModel::getWidget( std::shared_ptr<Core::Node> node ) const {
     if ( node_inputs.size() > 0 ) {
         auto controlPanelInputs = new Ra::Gui::VariableSetEditor( "Inputs default", nullptr );
         controlPanelInputs->setShowUnspecified( true );
-        controlPanelInputs->setupUi( node_inputs, {} );
+
+        WidgetFactory ui_builder { node_inputs, controlPanelInputs, {} };
+        node_inputs.visit( ui_builder );
+
         layout->addWidget( controlPanelInputs );
     }
     if ( node->getParameters().size() > 0 ) {
         auto controlPanelParams = new Ra::Gui::VariableSetEditor( "Parameters", nullptr );
         controlPanelParams->setShowUnspecified( true );
-        controlPanelParams->setupUi( node->getParameters(), {} );
+
+        WidgetFactory ui_builder { node->getParameters(), controlPanelParams, {} };
+        node_inputs.visit( ui_builder );
+
         layout->addWidget( controlPanelParams );
     }
     auto g = dynamic_cast<DataflowGraph*>( node.get() );
@@ -527,8 +555,8 @@ void GraphModel::sync_data() {
                 // get out node id
                 auto out_node = out_port->getNode();
                 if ( out_node ) {
-                    // if linked to graph out_node, not from the model's graph, use out_node->graph
-                    // as out_node
+                    // if linked to graph out_node, not from the model's graph, use
+                    // out_node->graph as out_node
                     const auto graph_out_node = dynamic_cast<const GraphOutputNode*>( out_node );
                     if ( graph_out_node && graph_out_node->graph() != m_graph.get() ) {
                         out_node = graph_out_node->graph();

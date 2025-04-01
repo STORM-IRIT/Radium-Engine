@@ -55,8 +55,7 @@ class RA_ENGINE_API RenderParameters final : public Core::VariableSet
                                                 Core::Matrix2,
                                                 Core::Matrix3,
                                                 Core::Matrix4,
-                                                std::reference_wrapper<RenderParameters>,
-                                                std::reference_wrapper<const RenderParameters>>;
+                                                RenderParameters>;
 
     /** \brief Adding a texture parameter.
      *
@@ -126,11 +125,10 @@ class RA_ENGINE_API RenderParameters final : public Core::VariableSet
          *
          * This allows to build hierarchies of RenderParameters.
          */
-        template <typename T>
         void operator()( const std::string& /*name*/,
-                         const std::reference_wrapper<T>& p,
+                         const RenderParameters& p,
                          const Data::ShaderProgram* shader ) {
-            p.get().bind( shader );
+            p.bind( shader );
         }
 
         /** \brief Bind any type of parameter that do not requires special access

@@ -39,7 +39,7 @@ class RA_CORE_API DynamicVisitor : public DynamicVisitorBase
     /// functor The variable \b in contains a wrapping of the association name->value whose
     /// visit is accepted. Visiting the association is done by calling the visit operator
     /// associated with the underlying type of the variable \b in.
-    void operator()( std::any&& in, std::any&& userParam ) const override;
+    void operator()( const std::string& name, std::any&& in, std::any&& userParam ) const override;
 
     /// \brief Acceptance function for the visitor
     /// \param id The type to test
@@ -80,7 +80,7 @@ class RA_CORE_API DynamicVisitor : public DynamicVisitorBase
 
   private:
     /// \brief Type of the callback function that type-erased the user registered operators
-    using CallbackFunction = std::function<void( std::any&, std::any&& )>;
+    using CallbackFunction = std::function<void( const std::string& name, std::any&, std::any&& )>;
 
     /// \brief Storage of the type erased operators
     using OperatorsStorageType = std::unordered_map<std::type_index, CallbackFunction>;
@@ -128,30 +128,33 @@ bool DynamicVisitor::removeOperator() {
 template <typename T, typename F>
 struct DynamicVisitor::MakeVisitOperatorHelper<T, F, true> {
     inline auto makeOperator( F& f ) -> OperatorsStorageType::value_type {
-        return {
-            VariableSet::getVariableVisitTypeIndex<T>(), [&f]( std::any& a, std::any&& userParam ) {
-                auto rp = std::any_cast<std::reference_wrapper<VariableSet::Variable<T>>&>( a );
-                auto& p = rp.get();
-                f( p.first, p.second, std::forward<std::any>( userParam ) );
-            } };
+        return { VariableSet::getVariableVisitTypeIndex<T>(),
+                 [&f]( const std::string& name, std::any& a, std::any&& userParam ) {
+                     auto rp = std::any_cast<std::reference_wrapper<T>>( a );
+                     auto& p = rp.get();
+                     f( name, p, std::forward<std::any>( userParam ) );
+                 } };
     }
 };
 
 template <typename T, typename F>
 struct DynamicVisitor::MakeVisitOperatorHelper<T, F, false> {
     inline auto makeOperator( F& f ) -> OperatorsStorageType::value_type {
-        return { VariableSet::getVariableVisitTypeIndex<T>(), [&f]( std::any& a, std::any&& ) {
-                    auto rp = std::any_cast<std::reference_wrapper<VariableSet::Variable<T>>&>( a );
-                    auto& p = rp.get();
-                    f( p.first, p.second );
-                } };
+        return { // type index
+                 VariableSet::getVariableVisitTypeIndex<T>(),
+                 // callback
+                 [&f]( const std::string& name, std::any& a, std::any&& ) {
+                     auto rp = std::any_cast<std::reference_wrapper<T>>( a );
+                     auto& p = rp.get();
+                     f( name, p );
+                 } };
     }
 };
 
 template <class T, class F>
 inline auto DynamicVisitor::makeVisitorOperator( F& f ) -> OperatorsStorageType::value_type {
     auto opBuilder = MakeVisitOperatorHelper < T, F,
-         std::is_invocable<F, const std::string&, T, std::any&&>::value ||
+         std::is_invocable<F, const std::string&, T&, std::any&&>::value ||
              std::is_invocable<F, const std::string&, T&, std::any&&>::value > {};
     return opBuilder.makeOperator( f );
 }

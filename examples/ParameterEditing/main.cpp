@@ -96,21 +96,17 @@ struct ParameterPrinter {
         // textures are not yet editable
     }
 
-    template <typename T>
+    template <typename T,
+              std::enable_if_t<std::is_assignable_v<RenderParameters, typename std::decay<T>::type>,
+                               bool> = true>
     void operator()(
         const std::string& name,
-        std::reference_wrapper<T>& p,
+        T& p,
         SelectionPredicate&& pred = []( const std::string& ) { return true; } ) {
-        if constexpr ( std::is_same<typename std::decay<T>::type, RenderParameters>::value ) {
-            if ( pred( name ) ) {
-                std::cout << name << " (" << Utils::demangleType<std::reference_wrapper<T>>()
-                          << ") --> \n";
-                p.get().visit( *this, pred );
-                std::cout << " <-- " << name << "\n";
-            }
-        }
-        else {
-            // embedded wrapped reference other than RenderParameters is not managed.
+        if ( pred( name ) ) {
+            std::cout << name << " (" << Utils::demangleType<T>() << ") --> \n";
+            p.visit( *this, pred );
+            std::cout << " <-- " << name << "\n";
         }
     }
 };
@@ -207,6 +203,9 @@ int main( int argc, char* argv[] ) {
     parameters.setVariable( "int_constrained", int( 0 ) );
     parameters.setVariable( "uint", (unsigned int)( 10 ) );
     parameters.setVariable( "uint_constrained", (unsigned int)( 5 ) );
+
+    float f;
+    parameters.setVariable( "FLOAT REF", std::ref( f ) );
     parameters.setVariable( "Scalar", 0_ra );
     parameters.setVariable( "Scalar_constrained", 0.5_ra );
     parameters.setVariable( "Scalar_half_constrained", 0_ra );
@@ -235,12 +234,10 @@ int main( int argc, char* argv[] ) {
     BasicUiBuilder builder { parameters, &editor, parameterSet_metadata };
     // extends visited types, functor already present as template accepting
     // std::is_assignable_v<VariableSet>
-    builder.addOperator<std::reference_wrapper<RenderParameters>>( builder );
-    builder.addOperator<std::reference_wrapper<const RenderParameters>>( builder );
+    builder.addOperator<RenderParameters>( builder );
 
     parameters.visit( builder );
 
-    //    editor.setupUi( parameters, parameterSet_metadata );
     auto printParameter = [&parameters]( const std::string& p ) {
         std::cout << "Parameter " << p << " was modified. New value is ";
         parameters.visit( ParameterPrinter {},
