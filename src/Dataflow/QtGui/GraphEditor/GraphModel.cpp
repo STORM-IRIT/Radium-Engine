@@ -21,8 +21,8 @@ using StyleCollection  = QtNodes::StyleCollection;
 using QtNodes::InvalidNodeId;
 
 GraphModel::GraphModel( std::shared_ptr<Core::DataflowGraph> graph ) :
-    m_graph { graph }, _nextNodeId { 0 } {
-    buildFactoryMap();
+    m_graph { graph }, m_next_node_id { 0 } {
+    fill_factory_map();
     sync_data();
 }
 
@@ -30,7 +30,7 @@ GraphModel::~GraphModel() {
     //
 }
 
-void GraphModel::buildFactoryMap() {
+void GraphModel::fill_factory_map() {
     auto factories = NodeFactoriesManager::getFactoryManager();
     for ( const auto& [factoryName, factory] : factories ) {
         for ( const auto& [model_name, creator] : factory->getFactoryMap() ) {
@@ -458,7 +458,7 @@ void GraphModel::loadNode( QJsonObject const& nodeJson ) {
     NodeId restoredNodeId = static_cast<NodeId>( nodeJson["id"].toInt() );
 
     // Next NodeId must be larger that any id existing in the graph
-    _nextNodeId = std::max( _nextNodeId, restoredNodeId + 1 );
+    m_next_node_id = std::max( m_next_node_id, restoredNodeId + 1 );
 
     // Create new node.
     m_node_ids.insert( restoredNodeId );
@@ -488,7 +488,7 @@ void GraphModel::sync_data() {
     m_connectivity.clear();
     m_node_geometry_data.clear();
     m_node_widget.clear();
-    _nextNodeId = 0;
+    m_next_node_id = 0;
 
     std::cerr << "sync\n";
 

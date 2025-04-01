@@ -20,16 +20,13 @@ class DataflowGraph;
 class NodeFactorySet;
 } // namespace Core
 
-/**
- *
- */
 namespace QtGui {
 namespace GraphEditor {
 
 /**
  * Adapter between DataflowGraph and QtNodes, bare minimal, based on simple_graph QtNodes example.
  */
-class GraphModel : public QtNodes::AbstractGraphModel
+class RA_DATAFLOW_GUI_API GraphModel : public QtNodes::AbstractGraphModel
 {
     using ConnectionId     = QtNodes::ConnectionId;
     using ConnectionPolicy = QtNodes::ConnectionPolicy;
@@ -93,7 +90,7 @@ class GraphModel : public QtNodes::AbstractGraphModel
 
     bool deleteNode( NodeId const nodeId ) override;
 
-    NodeId newNodeId() override { return _nextNodeId++; }
+    NodeId newNodeId() override { return m_next_node_id++; }
     /// needed for undo/redo
     void loadNode( QJsonObject const& nodeJson ) override;
     QJsonObject saveNode( NodeId const ) const override;
@@ -122,9 +119,9 @@ class GraphModel : public QtNodes::AbstractGraphModel
     mutable std::unordered_map<NodeId, QWidget*> m_node_widget;
 
     /// A convenience variable needed for generating unique node ids.
-    NodeId _nextNodeId;
+    NodeId m_next_node_id;
 
-    void buildFactoryMap();
+    void fill_factory_map();
     std::map<std::string, Core::NodeFactory::NodeCreatorFunctor> m_model_name_to_factory;
 };
 } // namespace GraphEditor
