@@ -277,14 +277,12 @@ bool DataflowGraph::removeNode( std::shared_ptr<Node> node ) {
 }
 
 bool DataflowGraph::checkPortCompatibility( const Node* nodeFrom,
-                                            Node::PortIndex portOutIdx,
                                             const PortBaseOut* portOut,
                                             const Node* nodeTo,
-                                            Node::PortIndex portInIdx,
                                             const PortBaseIn* portIn ) {
     // Compare types
     if ( !( portIn->getType() == portOut->getType() ) ) {
-        Log::addLinkTypeMismatch( nodeFrom, portOutIdx, portOut, nodeTo, portInIdx, portIn );
+        Log::addLinkTypeMismatch( nodeFrom, portOut, nodeTo, portIn );
         return false;
     }
 
@@ -306,7 +304,7 @@ bool DataflowGraph::addLink( const std::shared_ptr<Node>& nodeFrom,
                              const std::string& nodeFromOutputName,
                              const std::shared_ptr<Node>& nodeTo,
                              const std::string& nodeToInputName ) {
-    if ( !checkNodeValidity( nodeFrom.get(), nodeTo.get() ) ) { return false; }
+    if ( !checkNodeValidity( nodeFrom.get(), nodeTo.get(), true ) ) { return false; }
 
     auto [inputIdx, inputPort] = nodeTo->getInputByName( nodeToInputName );
     if ( !inputPort ) {
@@ -319,17 +317,7 @@ bool DataflowGraph::addLink( const std::shared_ptr<Node>& nodeFrom,
         return false;
     }
 
-    // Compare types
-    if ( !checkPortCompatibility(
-             nodeFrom.get(), outputIdx, outputPort, nodeTo.get(), inputIdx, inputPort ) ) {
-        return false;
-    }
-
-    // port can be connected
-    inputPort->connect( outputPort );
-    // The state of the graph changes, set it to not ready
-    needsRecompile();
-    return true;
+    return addLink( outputPort, inputPort );
 }
 
 bool DataflowGraph::addLink( const std::shared_ptr<Node>& nodeFrom,
@@ -337,38 +325,28 @@ bool DataflowGraph::addLink( const std::shared_ptr<Node>& nodeFrom,
                              const std::shared_ptr<Node>& nodeTo,
                              Node::PortIndex portInIdx ) {
 
-    if ( !canLink( nodeFrom, portOutIdx, nodeTo, portInIdx ) ) return false;
-    ///\todo since canLink check, maybe don't double check
-
-    if ( ( nodeFrom == m_input_node || nodeFrom == m_output_node ) &&
-         ( nodeTo == m_input_node || nodeTo == m_output_node ) )
-        return false;
-
-    if ( m_input_node && nodeFrom == m_input_node &&
-         portOutIdx == m_input_node->getOutputs().size() ) {
-        auto portIn = nodeTo->getInputByIndex( portInIdx );
-        if ( !portIn ) {
-            Log::badPortIdx( "input", nodeTo->getModelName(), portInIdx );
-            return false;
+    if ( !checkNodeValidity( nodeFrom.get(), nodeTo.get(), true ) ) { return false; }
+    if ( check_last_port_io_nodes( nodeFrom.get(), portOutIdx, nodeTo.get(), portInIdx ) ) {
+        if ( m_input_node && nodeFrom == m_input_node &&
+             portOutIdx == m_input_node->getOutputs().size() ) {
+            auto portIn = nodeTo->getInputByIndex( portInIdx );
+            if ( !portIn ) {
+                Log::badPortIdx( "input", nodeTo->getModelName(), portInIdx );
+                return false;
+            }
+            m_input_node->add_output_port( portIn );
+            return true;
         }
-
-        m_input_node->add_output_port( portIn );
-        return true;
-    }
-    if ( nodeTo && nodeTo == m_output_node && portInIdx == m_output_node->getInputs().size() ) {
-
-        auto portOut = nodeFrom->getOutputByIndex( portOutIdx );
-
-        if ( !portOut ) {
-            Log::badPortIdx( "output", nodeFrom->getModelName(), portOutIdx );
-            return false;
+        if ( nodeTo && nodeTo == m_output_node && portInIdx == m_output_node->getInputs().size() ) {
+            auto portOut = nodeFrom->getOutputByIndex( portOutIdx );
+            if ( !portOut ) {
+                Log::badPortIdx( "output", nodeFrom->getModelName(), portOutIdx );
+                return false;
+            }
+            m_output_node->add_input_port( portOut );
+            return true;
         }
-
-        m_output_node->add_input_port( portOut );
-        return true;
     }
-
-    if ( !checkNodeValidity( nodeFrom.get(), nodeTo.get() ) ) { return false; }
 
     auto portOut = nodeFrom->getOutputByIndex( portOutIdx );
     auto portIn  = nodeTo->getInputByIndex( portInIdx );
@@ -382,16 +360,7 @@ bool DataflowGraph::addLink( const std::shared_ptr<Node>& nodeFrom,
         return false;
     }
 
-    // Compare types
-    if ( !checkPortCompatibility(
-             nodeFrom.get(), portOutIdx, portOut, nodeTo.get(), portInIdx, portIn ) )
-        return false;
-
-    // port can be connected
-    portIn->connect( portOut );
-    // The state of the graph changes, set it to not ready
-    needsRecompile();
-    return true;
+    return addLink( portOut, portIn );
 }
 
 bool DataflowGraph::addLink( Node::PortBaseOutRawPtr outputPort,
@@ -400,10 +369,7 @@ bool DataflowGraph::addLink( Node::PortBaseOutRawPtr outputPort,
     auto nodeTo   = inputPort->getNode();
     if ( !checkNodeValidity( nodeFrom, nodeTo ) ) { return false; }
     // Compare types
-    if ( !checkPortCompatibility(
-             nodeFrom, Node::PortIndex {}, outputPort, nodeTo, Node::PortIndex {}, inputPort ) ) {
-        return false;
-    }
+    if ( !checkPortCompatibility( nodeFrom, outputPort, nodeTo, inputPort ) ) { return false; }
     // port can be connected
     inputPort->connect( outputPort );
     // The state of the graph changes, set it to not ready
@@ -656,17 +622,25 @@ std::shared_ptr<DataflowGraph> DataflowGraph::loadGraphFromJsonFile( const std::
     return nullptr;
 }
 
-bool DataflowGraph::checkNodeValidity( const Node* nodeFrom, const Node* nodeTo ) const {
+bool DataflowGraph::checkNodeValidity( const Node* nodeFrom,
+                                       const Node* nodeTo,
+                                       bool verbose ) const {
     using namespace Ra::Core::Utils;
     // Check node "from" existence in the graph
     if ( !findNode2( nodeFrom ) ) {
-        Log::unableToFind( "initial node", nodeFrom->getInstanceName() );
+        if ( verbose ) Log::unableToFind( "initial node", nodeFrom->getInstanceName() );
         return false;
     }
 
     // Check node "to" existence in the graph
     if ( !findNode2( nodeTo ) ) {
-        Log::unableToFind( "destination node", nodeTo->getInstanceName() );
+        if ( verbose ) Log::unableToFind( "destination node", nodeTo->getInstanceName() );
+        return false;
+    }
+
+    if ( ( nodeFrom == m_input_node.get() || nodeFrom == m_output_node.get() ) &&
+         ( nodeTo == m_input_node.get() || nodeTo == m_output_node.get() ) ) {
+        if ( verbose ) Log::try_to_link_input_to_output();
         return false;
     }
     return true;
@@ -679,17 +653,14 @@ void DataflowGraph::Log::alreadyLinked( const Node* node, const PortBase* port )
 }
 
 void DataflowGraph::Log::addLinkTypeMismatch( const Node* nodeFrom,
-                                              Node::PortIndex portOutIdx,
                                               const PortBase* portOut,
                                               const Node* nodeTo,
-                                              Node::PortIndex portInIdx,
                                               const PortBase* portIn ) {
-    LOG( logERROR ) << "DataflowGraph::addLink type mismatch from " << nodeFrom->getInstanceName()
-                    << " (" << nodeFrom->getModelName() << ") / " << portOut->getName() << " ("
-                    << portOutIdx << " with type " << portOut->getTypeName() << ")"
-                    << " to " << nodeTo->getInstanceName() << " (" << nodeTo->getModelName()
-                    << ") / " << portIn->getName() << " (" << portInIdx << " with type "
-                    << portIn->getTypeName() << ") ";
+    LOG( logERROR ) << "DataflowGraph link type mismatch from " << nodeFrom->display_name() << " ("
+                    << nodeFrom->getModelName() << ") / " << portOut->getName() << " with type "
+                    << portOut->getTypeName() << ")"
+                    << " to " << nodeTo->display_name() << " (" << nodeTo->getModelName() << ") / "
+                    << portIn->getName() << " ( with type " << portIn->getTypeName() << ") ";
 }
 
 void DataflowGraph::Log::unableToFind( const std::string& type, const std::string& instanceName ) {
@@ -701,6 +672,10 @@ void DataflowGraph::Log::badPortIdx( const std::string& type,
                                      Node::PortIndex idx ) {
     LOG( logERROR ) << "DataflowGraph::addLink node " << instanceName << " as no " << type
                     << " port with index " << idx;
+}
+
+void DataflowGraph::Log::try_to_link_input_to_output() {
+    LOG( logERROR ) << "DataflowGraph could not link input to ouput directrly";
 }
 
 } // namespace Core

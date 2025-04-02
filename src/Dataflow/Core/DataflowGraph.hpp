@@ -315,23 +315,18 @@ class RA_DATAFLOW_CORE_API DataflowGraph : public Node
                   Node::PortIndex portOutIdx,
                   const Node* nodeTo,
                   Node::PortIndex portInIdx ) const {
-        ///\todo check node and port as in addLink, to replace addLink checks
-        if ( !checkNodeValidity( nodeFrom, nodeTo ) ) { return false; }
-
-        if ( ( nodeFrom == m_input_node.get() || nodeFrom == m_output_node.get() ) &&
-             ( nodeTo == m_input_node.get() || nodeTo == m_output_node.get() ) )
-            return false;
-        if ( nodeFrom == m_input_node.get() && portOutIdx == m_input_node->getOutputs().size() )
-            return true;
-        if ( nodeTo == m_output_node.get() && portInIdx == m_output_node->getInputs().size() )
-            return true;
-
         auto portIn  = nodeTo->getInputByIndex( portInIdx );
         auto portOut = nodeFrom->getOutputByIndex( portOutIdx );
 
+        if ( !checkNodeValidity( nodeFrom, nodeTo ) ) { return false; }
+        if ( check_last_port_io_nodes( nodeFrom, portOutIdx, nodeTo, portInIdx ) ) {
+            if ( nodeFrom == m_input_node.get() ) return portIn != nullptr;
+            if ( nodeTo == m_output_node.get() ) return portOut != nullptr;
+        }
+
         // Compare types
-        return portIn && portOut && ( portIn->getType() == portOut->getType() ) &&
-               !portIn->isLinked();
+        return portIn && portOut &&
+               ( portIn->getType() == portOut->getType() && !portIn->isLinked() );
     }
 
     ///
@@ -503,26 +498,34 @@ class RA_DATAFLOW_CORE_API DataflowGraph : public Node
     int goThroughGraph( Node* current,
                         std::unordered_map<Node*, std::pair<int, std::vector<Node*>>>& infoNodes );
 
-    bool checkNodeValidity( const Node* nodeFrom, const Node* nodeTo ) const;
+    bool check_last_port_io_nodes( const Node* nodeFrom,
+                                   Node::PortIndex portOutIdx,
+                                   const Node* nodeTo,
+                                   Node::PortIndex portInIdx ) const {
+        if ( nodeFrom == m_input_node.get() && portOutIdx == m_input_node->getOutputs().size() )
+            return true;
+        if ( nodeTo == m_output_node.get() && portInIdx == m_output_node->getInputs().size() )
+            return true;
+        return false;
+    }
+
+    bool checkNodeValidity( const Node* nodeFrom, const Node* nodeTo, bool verbose = false ) const;
     static bool checkPortCompatibility( const Node* nodeFrom,
-                                        Node::PortIndex portOutIdx,
                                         const PortBaseOut* portOut,
                                         const Node* nodeTo,
-                                        Node::PortIndex portInIdx,
                                         const PortBaseIn* portIn );
     class RA_DATAFLOW_CORE_API Log
     {
       public:
         static void alreadyLinked( const Node* node, const PortBase* port );
         static void addLinkTypeMismatch( const Node* nodeFrom,
-                                         Node::PortIndex portOutIdx,
                                          const PortBase* portOut,
                                          const Node* nodeTo,
-                                         Node::PortIndex portInIdx,
                                          const PortBase* portIn );
         static void unableToFind( const std::string& type, const std::string& instanceName );
         static void
         badPortIdx( const std::string& type, const std::string& instanceName, Node::PortIndex idx );
+        static void try_to_link_input_to_output();
     };
 
     /// Flag that indicates if the graph should be saved to a file
@@ -560,21 +563,9 @@ bool DataflowGraph::addLink( const std::shared_ptr<PortOut<T>>& outputPort,
                              const std::shared_ptr<PortIn<U>>& inputPort ) {
     using namespace Ra::Core::Utils;
 
-    static_assert( std::is_same_v<T, U>, "in and out port type mismatch" );
-    auto nodeFrom = outputPort->getNode();
-    auto nodeTo   = inputPort->getNode();
+    static_assert( std::is_same_v<T, U>, "in and out port's types mismatch" );
 
-    if ( !checkNodeValidity( nodeFrom, nodeTo ) ) { return false; }
-
-    if ( inputPort->isLinked() ) {
-        Log::alreadyLinked( nodeTo, inputPort.get() );
-        return false;
-    }
-    inputPort->connect( outputPort.get() );
-
-    // The state of the graph changes, set it to not ready
-    needsRecompile();
-    return true;
+    return addLink( outputPort.get(), inputPort.get() );
 }
 
 inline void DataflowGraph::needsRecompile() {
