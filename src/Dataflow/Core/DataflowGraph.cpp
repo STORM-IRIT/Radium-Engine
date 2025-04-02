@@ -385,18 +385,8 @@ bool DataflowGraph::removeLink( std::shared_ptr<Node> node, const std::string& n
     if ( findNode( node.get() ) == -1 ) { return false; }
 
     // Check if node's input exists
-    int found = -1;
-    int index = 0;
-    for ( auto& input : node->getInputs() ) {
-        if ( input->getName() == nodeInputName ) {
-            found = index;
-            break;
-        }
-        index++;
-    }
-    if ( found == -1 ) { return false; }
-    removeLink( node, found );
-    return true;
+    auto [idx, port] = node->getInputByName( nodeInputName );
+    return removeLink( node, idx );
 }
 
 int DataflowGraph::findNode( const Node* node ) const {
