@@ -336,9 +336,13 @@ class RA_DATAFLOW_CORE_API DataflowGraph : public Node
     /// \return true if link is removed, false if not.
     bool removeLink( std::shared_ptr<Node>, const std::string& nodeInputName );
     bool removeLink( std::shared_ptr<Node> node, const PortIndex& in_port_index ) {
-        node->getInputs()[in_port_index]->disconnect();
-        needsRecompile();
-        return true;
+        if ( m_nodesAndLinksProtected ) { return false; }
+        if ( in_port_index.isInvalid() || in_port_index >= node->getInputs().size() ) {
+            return false;
+        }
+        auto ret = node->getInputs()[in_port_index]->disconnect();
+        if ( ret ) needsRecompile();
+        return ret;
     }
 
     /// \brief Get the vector of all the nodes on the graph
