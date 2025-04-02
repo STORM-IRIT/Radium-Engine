@@ -20,7 +20,7 @@ namespace Ra {
 
 namespace Gui {
 
-class RA_GUI_API BasicUiBuilder : public Ra::Core::DynamicVisitor
+class BasicUiBuilder : public Ra::Core::DynamicVisitor
 {
   public:
     using VariableSet      = Ra::Core::VariableSet;
@@ -43,6 +43,8 @@ class RA_GUI_API BasicUiBuilder : public Ra::Core::DynamicVisitor
         addOperator<Ra::Core::Matrix4>( *this );
         addOperator<VariableSet>( *this );
     }
+
+    virtual ~BasicUiBuilder() = default;
 
     void operator()( const std::string& name, bool& p ) {
         auto onBoolParameterChanged = [pse = this->m_pse, &p, nm = name]( bool val ) {
