@@ -14,6 +14,7 @@ set(dataflow_core_headers
     DataflowGraph.hpp
     EditableParameter.hpp
     Enumerator.hpp
+    GraphNodes.hpp
     Node.hpp
     NodeFactory.hpp
     Nodes/CoreBuiltInsNodes.hpp
