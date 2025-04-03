@@ -80,7 +80,7 @@ GraphModel::NodeId GraphModel::addNode( QString const nodeType ) {
         auto itr = std::find_if( m_node_id_to_ptr.begin(),
                                  m_node_id_to_ptr.end(),
                                  [node_typename = nodeType.toStdString()]( const auto& n ) {
-                                     return n.second->getTypename() == node_typename;
+                                     return n.second->getModelName() == node_typename;
                                  } );
         return itr->first;
     }
@@ -177,7 +177,7 @@ QVariant GraphModel::nodeData( NodeId nodeId, NodeRole role ) const {
 
     switch ( role ) {
     case NodeRole::Type:
-        result = QString::fromStdString( node_ptr->getTypename() );
+        result = QString::fromStdString( node_ptr->getModelName() );
         break;
 
     case NodeRole::Position:
