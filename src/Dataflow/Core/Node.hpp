@@ -29,6 +29,13 @@ namespace Core {
  * in an evaluation context (possibly empty) defined by their internal data to generate results
  * sent to their output ports.
  *
+ * Derived class must implement bool execute() and static const std::string & getTypename()
+ *
+ * static const std::string& getTypename() returns the demangled type name of the node or any human
+ * readable representation of the type name.This is a public static member each node must define to
+ * be serializable. Since we want to manipulate Node*, CRTP is not an option here.
+ *
+ *
  */
 class RA_DATAFLOW_CORE_API Node
 {
@@ -105,7 +112,7 @@ class RA_DATAFLOW_CORE_API Node
     /// Execute the node function on the input ports (to be fetched) and write the results to the
     /// output ports.
     /// \return the execution status.
-    virtual bool execute() { return true; };
+    virtual bool execute() = 0;
 
     /// \brief delete the node content
     /// The destroy() function is called once at the end of the lifetime of the node.
@@ -189,11 +196,6 @@ class RA_DATAFLOW_CORE_API Node
     const nlohmann::json& getJsonMetaData();
     /// @}
 
-    /// \brief Returns the demangled type name of the node or any human readable representation of
-    /// the type name.
-    /// This is a public static member each node must define to be serializable
-    static const std::string& getTypename();
-
     inline bool isInitialized() const { return m_initialized; }
     Ra::Core::VariableSet& getParameters() { return m_parameters; }
     Ra::Core::VariableSet& getInputVariables() {
@@ -261,18 +263,6 @@ class RA_DATAFLOW_CORE_API Node
                                       PortIndex idx ) const {
         if ( 0 <= idx && size_t( idx ) < ports.size() ) { return ports[idx].get(); }
         return nullptr;
-    }
-
-    ///\brief Gets the PortBase In or Out by its index
-    ///
-    ///\tparam PortType PortBaseIn or PortBaseOut
-    ///\param ports
-    ///\param idx
-    ///\return PortRawPtr<PortType>
-    template <typename PortType>
-    PortRawPtr<PortType> getPortBaseNoCheck( const PortCollection<PortPtr<PortType>>& ports,
-                                             PortIndex idx ) const {
-        return ports[idx].get();
     }
 
     ///\brief Gets a port in a collection by its index.
@@ -538,11 +528,6 @@ inline bool Node::removeOutput( PortBaseOutRawPtr& out ) {
         return true;
     }
     return false;
-}
-
-inline const std::string& Node::getTypename() {
-    static std::string demangledTypeName { "Abstract Node" };
-    return demangledTypeName;
 }
 
 inline bool Node::compile() {

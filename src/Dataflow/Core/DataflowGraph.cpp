@@ -1,3 +1,4 @@
+
 #include <Dataflow/Core/DataflowGraph.hpp>
 #include <Dataflow/Core/Port.hpp>
 
@@ -111,18 +112,23 @@ void DataflowGraph::toJsonInternal( nlohmann::json& data ) const {
     data.emplace( "graph", graph );
 }
 
-bool DataflowGraph::loadFromJson( const std::string& jsonFilePath ) {
+std::optional<nlohmann::json> read_json( const std::string& jsonFilePath ) {
+    std::ifstream f( jsonFilePath );
+    nlohmann::json j = nlohmann::json::parse( f, nullptr, false );
 
-    if ( !nlohmann::json::accept( std::ifstream( jsonFilePath ) ) ) {
+    if ( j.is_discarded() ) {
         LOG( logERROR ) << jsonFilePath << " is not a valid json file !!";
-        return false;
+        return std::nullopt;
     }
+    return j;
+}
 
-    std::ifstream file( jsonFilePath );
-    nlohmann::json j;
-    file >> j;
+bool DataflowGraph::loadFromJson( const std::string& jsonFilePath ) {
+    auto j = read_json( jsonFilePath );
+    if ( !j ) return false;
+
     m_shouldBeSaved = false;
-    return fromJson( j );
+    return fromJson( *j );
 }
 
 std::pair<std::shared_ptr<Node>, std::string>
@@ -384,7 +390,6 @@ bool DataflowGraph::removeLink( std::shared_ptr<Node> node, const std::string& n
     // Check node's existence in the graph
     if ( findNode( node.get() ) == -1 ) { return false; }
 
-    // Check if node's input exists
     auto [idx, port] = node->getInputByName( nodeInputName );
     return removeLink( node, idx );
 }
@@ -446,27 +451,21 @@ bool DataflowGraph::compile() {
         auto n = infNode.first;
         // Compute the nodes' level starting from sources
         if ( n->isInputNode() || n == m_input_node.get() ) {
+
             // set level to 0 because node is source
             infNode.second.first = 0;
-            // Tag successors
-            for ( auto const successor : infNode.second.second ) {
-                // Successors is a least +1 level
-                infoNodes[successor].first =
-                    std::max( infoNodes[successor].first, infNode.second.first + 1 );
-                maxLevel = std::max( maxLevel,
-                                     std::max( infoNodes[successor].first,
-                                               goThroughGraph( successor, infoNodes ) ) );
-            }
+            // Tag successors (go through graph)
+            maxLevel = goThroughGraph( n, infoNodes );
         }
     }
     m_nodesByLevel.clear();
     m_nodesByLevel.resize( infoNodes.size() != 0 ? maxLevel + 1 : 0 );
     for ( auto& infNode : infoNodes ) {
-        if ( size_t( infNode.second.first ) >= m_nodesByLevel.size() ) {
-            LOG( logERROR ) << "Node " << infNode.first->getInstanceName() << " is at level "
-                            << infNode.second.first << " but level max is " << maxLevel;
-            std::abort();
-        }
+        CORE_ASSERT( size_t( infNode.second.first ) < m_nodesByLevel.size(),
+                     std::string( "Node " ) + infNode.first->getInstanceName() + " is at level " +
+                         std::to_string( infNode.second.first ) + " but level max is " +
+                         std::to_string( maxLevel ) );
+
         m_nodesByLevel[infNode.second.first].push_back( infNode.first );
     }
 
@@ -547,9 +546,12 @@ void DataflowGraph::backtrackGraph(
 int DataflowGraph::goThroughGraph(
     Node* current,
     std::unordered_map<Node*, std::pair<int, std::vector<Node*>>>& infoNodes ) {
+
     int maxLevel = 0;
     if ( infoNodes.find( current ) != infoNodes.end() ) {
+
         for ( auto const& successor : infoNodes[current].second ) {
+            // Successors is a least +1 level
             infoNodes[successor].first =
                 std::max( infoNodes[successor].first, infoNodes[current].first + 1 );
             maxLevel = std::max(
@@ -557,6 +559,7 @@ int DataflowGraph::goThroughGraph(
                 std::max( infoNodes[successor].first, goThroughGraph( successor, infoNodes ) ) );
         }
     }
+
     return maxLevel;
 }
 
@@ -572,16 +575,13 @@ std::shared_ptr<Node> DataflowGraph::getNode( const std::string& instanceNameNod
 }
 
 std::shared_ptr<DataflowGraph> DataflowGraph::loadGraphFromJsonFile( const std::string& filename ) {
-    if ( !nlohmann::json::accept( std::ifstream( filename ) ) ) {
-        LOG( logERROR ) << filename << " is not a valid json file !!";
-        return nullptr;
-    }
 
-    std::ifstream jsonFile( filename );
-    nlohmann::json j;
-    jsonFile >> j;
+    auto oj = read_json( filename );
+    if ( !oj ) return nullptr;
+    const auto& j = *oj;
 
     bool valid = false;
+
     if ( j.contains( "instance" ) && j.contains( "model" ) ) {
         valid = j["model"].contains( "name" );
     }
@@ -590,12 +590,15 @@ std::shared_ptr<DataflowGraph> DataflowGraph::loadGraphFromJsonFile( const std::
                         << " does not contain a valid json NodeGraph\n";
         return nullptr;
     }
+
     std::string instanceName = j["instance"];
     std::string graphType    = j["model"]["name"];
+
     LOG( logINFO ) << "Loading the graph " << instanceName << ", with type " << graphType << "\n";
 
     auto& factories = Ra::Dataflow::Core::NodeFactoriesManager::getFactoryManager();
     auto node       = factories.createNode( graphType, j );
+
     if ( node == nullptr ) {
         LOG( logERROR ) << "Unable to load a graph with type " << graphType << "\n";
         return nullptr;

@@ -13,10 +13,8 @@ Node::Node( const std::string& instanceName, const std::string& typeName ) :
     m_modelName { typeName }, m_instanceName { instanceName }, m_display_name { instanceName } {}
 
 bool Node::fromJson( const nlohmann::json& data ) {
-    if ( data.empty() ) {
-        // This is to avoid wrong error message when creating node from the editor
-        return true;
-    }
+    // This is to avoid wrong error message when creating node from the editor
+    if ( data.empty() ) { return true; }
 
     auto it_instance = data.find( "instance" );
     if ( it_instance != data.end() ) { m_instanceName = *it_instance; }
