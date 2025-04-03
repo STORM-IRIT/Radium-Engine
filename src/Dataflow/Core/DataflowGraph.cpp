@@ -39,11 +39,8 @@ bool DataflowGraph::execute() {
         if ( !compile() ) { return false; }
     }
     bool result = true;
-    std::cerr << "exec " << display_name() << "\n";
     std::for_each( m_nodesByLevel.begin(), m_nodesByLevel.end(), [&result]( const auto& level ) {
         std::for_each( level.begin(), level.end(), [&result]( auto node ) {
-            std::cerr << "exec " << node->display_name() << "\n";
-
             bool executed = node->execute();
             if ( !executed ) {
                 LOG( logERROR ) << "Execution failed with node " << node->getInstanceName() << " ("
@@ -67,7 +64,6 @@ void DataflowGraph::destroy() {
 void DataflowGraph::saveToJson( const std::string& jsonFilePath ) {
     if ( !jsonFilePath.empty() ) {
         nlohmann::json data;
-        std::cerr << "DatafloweGraph::saveToJson instance " << m_instanceName << "\n";
         toJson( data );
         std::ofstream file( jsonFilePath );
         file << std::setw( 4 ) << data << std::endl;
@@ -149,20 +145,24 @@ getLinkInfo( const std::string& which,
     }
 
     std::string port;
+    std::string err;
+
     field = which + "_port";
     if ( linkData.contains( field ) ) {
         auto p = node->getPortByName( which, linkData[field] ).second;
         if ( p != nullptr ) { port = p->getName(); }
+        else { err = linkData[field]; }
     }
     else {
         field = which + "_index";
         if ( linkData.contains( field ) ) {
             auto p = node->getPortByIndex( which, Node::PortIndex { int { linkData[field] } } );
             if ( p != nullptr ) { port = p->getName(); }
+            else { err = std::to_string( int { linkData[field] } ); }
         }
     }
     if ( port.empty() ) {
-        std::string msg = std::string { "Port " } + which + " not found in node " +
+        std::string msg = std::string { "Port " } + which + " " + err + " not found in node " +
                           node->getInstanceName() + " : " + linkData.dump();
         return { nullptr, msg };
     }
@@ -441,7 +441,7 @@ bool DataflowGraph::compile() {
             }
             else {
                 LOG( logWARNING ) << "Sink Node " << n->getInstanceName()
-                                  << " is inactive (belog to the graph but not connected)";
+                                  << " is inactive (belongs to the graph but not connected)";
             }
         }
     }
@@ -455,7 +455,7 @@ bool DataflowGraph::compile() {
             // set level to 0 because node is source
             infNode.second.first = 0;
             // Tag successors (go through graph)
-            maxLevel = goThroughGraph( n, infoNodes );
+            maxLevel = std::max( maxLevel, goThroughGraph( n, infoNodes ) );
         }
     }
     m_nodesByLevel.clear();
@@ -510,9 +510,7 @@ void DataflowGraph::clearNodes() {
 void DataflowGraph::backtrackGraph(
     Node* current,
     std::unordered_map<Node*, std::pair<int, std::vector<Node*>>>& infoNodes ) {
-    std::cerr << "backtrace " << current->display_name() << "\n";
     for ( auto& input : current->getInputs() ) {
-        std::cerr << "input " << input->getName() << "\n";
         if ( input->getLink() ) {
             Node* previous = input->getLink()->getNode();
             if ( previous && previous != m_input_node.get() ) {
