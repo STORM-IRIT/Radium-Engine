@@ -275,7 +275,7 @@ auto NodeFactory::registerNodeCreator( const std::string& instanceNamePrefix,
             }
             else { instanceName = instanceNamePrefix + std::to_string( this->nextNodeId() ); }
             auto node = std::make_shared<T>( instanceName );
-            node->fromJson( data );
+            if ( !node->fromJson( data ) ) return std::shared_ptr<T> { nullptr };
             return node;
         },
         nodeCategory );
