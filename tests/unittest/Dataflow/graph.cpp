@@ -77,6 +77,7 @@ void inspectGraph( const DataflowGraph& g ) {
 
     std::cout << "DataSetters and DataGetters port of the graph " << g.getInstanceName() << " :\n";
 }
+using PortIndex = Ra::Dataflow::Core::Node::PortIndex;
 
 TEST_CASE( "Dataflow/Core/Graph", "[Dataflow][Core][Graph]" ) {
     DataflowGraph g( "Test Graph" );
@@ -252,8 +253,8 @@ TEST_CASE( "Dataflow/Core/Graph", "[Dataflow][Core][Graph]" ) {
         // trying to add a duplicated node
         auto duplicatedNodeName =
             std::make_shared<Sources::SingleDataSourceNode<float>>( "SourceFloat" );
-        auto r = g.addNode( duplicatedNodeName );
-        REQUIRE( !r );
+        REQUIRE( !g.addNode( duplicatedNodeName ) );
+        REQUIRE( !g.addNode<Sources::SingleDataSourceNode<float>>( "SourceFloat" ) );
 
         // get unknown node
         auto sinkFloatNode = g.getNode( "Sink" );
@@ -272,17 +273,24 @@ TEST_CASE( "Dataflow/Core/Graph", "[Dataflow][Core][Graph]" ) {
 
         // "from" node not found
         REQUIRE( !g.addLink( sourceIntNode, "out", sinkIntNode, "in" ) );
+        REQUIRE( !g.canLink( sourceIntNode, PortIndex { 0 }, sinkIntNode, PortIndex { 0 } ) );
+        REQUIRE( !g.addLink( sourceIntNode, PortIndex { 0 }, sinkIntNode, PortIndex { 0 } ) );
 
         REQUIRE( g.addNode( sourceIntNode ) );
         // "to" node not found
         REQUIRE( !g.addLink( sourceIntNode, "out", sinkIntNode, "in" ) );
+        REQUIRE( !g.canLink( sourceIntNode, PortIndex { 0 }, sinkIntNode, PortIndex { 0 } ) );
+        REQUIRE( !g.addLink( sourceIntNode, PortIndex { 0 }, sinkIntNode, PortIndex { 0 } ) );
 
         REQUIRE( g.addNode( sinkIntNode ) );
 
-        // output port of "from" node not found
-        REQUIRE( !g.addLink( sourceIntNode, "out", sinkIntNode, "in" ) );
-
+        // output port of "in" node not found
         // input port of "to" node not found
+        REQUIRE( !g.addLink( sourceIntNode, "out", sinkIntNode, "from" ) );
+        REQUIRE( !g.addLink( sourceIntNode, PortIndex { 10 }, sinkIntNode, PortIndex { 0 } ) );
+        REQUIRE( !g.addLink( sourceIntNode, PortIndex { 0 }, sinkIntNode, PortIndex { 10 } ) );
+        REQUIRE( !g.canLink( sourceIntNode, PortIndex { 10 }, sinkIntNode, PortIndex { 0 } ) );
+        REQUIRE( !g.canLink( sourceIntNode, PortIndex { 0 }, sinkIntNode, PortIndex { 10 } ) );
         REQUIRE( !g.addLink( sourceIntNode, "to", sinkIntNode, "in" ) );
 
         // link OK
@@ -304,10 +312,12 @@ TEST_CASE( "Dataflow/Core/Graph", "[Dataflow][Core][Graph]" ) {
         // remove link OK
 
         REQUIRE( g.removeLink( sinkIntNode, "from" ) );
-
         // input port not found to remove its link
-
         REQUIRE( !g.removeLink( sinkIntNode, "in" ) );
+        REQUIRE( !g.removeLink( sinkIntNode, PortIndex { 0 } ) );
+        REQUIRE( g.addLink( sourceIntNode, PortIndex { 0 }, sinkIntNode, PortIndex { 0 } ) );
+        REQUIRE( !g.removeLink( sinkIntNode, PortIndex { 10 } ) );
+        REQUIRE( g.removeLink( sinkIntNode, PortIndex { 0 } ) );
 
         // compile the graph
         inspectGraph( g );
@@ -333,7 +343,7 @@ TEST_CASE( "Dataflow/Core/Graph", "[Dataflow][Core][Graph]" ) {
     g.destroy();
 }
 
-TEST_CASE( "Node failed exeution", "[unittests]" ) {
+TEST_CASE( "Dataflow/Core/Graph/Node failed execution", "[unittests]" ) {
     DataflowGraph g( "Test Graph" );
     auto sourceIntNode = g.addNode<Sources::IntSource>( "SourceInt" );
     auto sinkIntNode   = g.addNode<Sinks::IntSink>( "SinkInt" );
@@ -355,7 +365,7 @@ TEST_CASE( "Node failed exeution", "[unittests]" ) {
     REQUIRE( !g.execute() );
 }
 
-TEST_CASE( "Inspection of a graph", "[unittests]" ) {
+TEST_CASE( "Dataflow/Core/Graph/Inspection of a graph", "[unittests]" ) {
     auto coreFactory = NodeFactoriesManager::getDataFlowBuiltInsFactory();
 
     using namespace Ra::Dataflow::Core;
@@ -375,6 +385,19 @@ TEST_CASE( "Inspection of a graph", "[unittests]" ) {
     REGISTER_TYPE_TO_FACTORY( coreFactory, TransformNode, Functionals );
 
     std::cout << "Loading graph data/Dataflow/ExampleGraph.json\n";
+
+    auto f1 = DataflowGraph::loadGraphFromJsonFile( "data/Dataflow/NotAJsonFile.json" );
+    REQUIRE( !f1 );
+
+    auto f2 = DataflowGraph::loadGraphFromJsonFile( "data/Dataflow/InvalidGraph.json" );
+    REQUIRE( !f2 );
+
+    auto f3 = DataflowGraph::loadGraphFromJsonFile( "data/Dataflow/UnknownTypeGraph.json" );
+    REQUIRE( !f3 );
+
+    auto f4 = DataflowGraph::loadGraphFromJsonFile( "data/Dataflow/Node.json" );
+    REQUIRE( !f4 );
+
     auto g = DataflowGraph::loadGraphFromJsonFile( "data/Dataflow/ExampleGraph.json" );
     REQUIRE( g );
     // Factories used by the graph

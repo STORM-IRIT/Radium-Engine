@@ -118,13 +118,24 @@ TEST_CASE( "Dataflow/Core/GraphAsNode/Forward", "[unittests][Dataflow][Core][Gra
 
     REQUIRE( !gAsNode->canLink(
         gAsNode->input_node(), PortIndex { 0 }, gAsNode->output_node(), PortIndex { 0 } ) );
+    REQUIRE( !gAsNode->addLink(
+        gAsNode->input_node(), PortIndex { 0 }, gAsNode->output_node(), PortIndex { 0 } ) );
 
     // add link to portIndex = input_node().size(), creates port on input_node()
-    REQUIRE( gAsNode->canLink( gAsNode->input_node(), PortIndex { 0 }, f, PortIndex { 0 } ) );
     REQUIRE( !gAsNode->canLink( gAsNode->input_node(), PortIndex { 10 }, f, PortIndex { 0 } ) );
+    REQUIRE( !gAsNode->canLink( gAsNode->input_node(), PortIndex { 0 }, f, PortIndex { 10 } ) );
+    REQUIRE( gAsNode->canLink( gAsNode->input_node(), PortIndex { 0 }, f, PortIndex { 0 } ) );
+
+    REQUIRE( !gAsNode->addLink( gAsNode->input_node(), PortIndex { 10 }, f, PortIndex { 0 } ) );
+    REQUIRE( !gAsNode->addLink( gAsNode->input_node(), PortIndex { 0 }, f, PortIndex { 10 } ) );
     REQUIRE( gAsNode->addLink( gAsNode->input_node(), PortIndex { 0 }, f, PortIndex { 0 } ) );
-    REQUIRE( gAsNode->canLink( f, PortIndex { 0 }, gAsNode->output_node(), PortIndex { 0 } ) );
+
     REQUIRE( !gAsNode->canLink( f, PortIndex { 0 }, gAsNode->output_node(), PortIndex { 1 } ) );
+    REQUIRE( !gAsNode->canLink( f, PortIndex { 1 }, gAsNode->output_node(), PortIndex { 0 } ) );
+    REQUIRE( gAsNode->canLink( f, PortIndex { 0 }, gAsNode->output_node(), PortIndex { 0 } ) );
+
+    REQUIRE( !gAsNode->addLink( f, PortIndex { 0 }, gAsNode->output_node(), PortIndex { 1 } ) );
+    REQUIRE( !gAsNode->addLink( f, PortIndex { 1 }, gAsNode->output_node(), PortIndex { 0 } ) );
     REQUIRE( gAsNode->addLink( f, PortIndex { 0 }, gAsNode->output_node(), PortIndex { 0 } ) );
 
     REQUIRE( gAsNode->input_node() );

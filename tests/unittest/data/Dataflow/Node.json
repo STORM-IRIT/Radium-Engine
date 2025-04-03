@@ -1,0 +1,7 @@
+{
+    "instance": "Vector",
+    "model": {
+        "comment": "Unable to save data when serializing a SingleDataSourceNode<RaVector<float>>.",
+        "name": "Source<RaVector<float>>"
+    }
+}
