@@ -41,45 +41,25 @@ class FilterSelector final : public Node
     explicit FilterSelector( const std::string& name ) : FilterSelector( name, getTypename() ) {}
 
     bool execute() override {
-        // get operator parameters
-        if ( m_portName->isLinked() ) { m_operatorName = m_portName->getData(); }
-        if ( m_portThreshold->isLinked() ) { m_threshold = m_portThreshold->getData(); }
-        // compute the result associated to the output port
-        m_currentFunction = m_functions.at( m_operatorName );
+        m_nameOut->setData( &m_portName->getData() );
+        m_currentFunction = m_functions.at( m_portName->getData() );
         return true;
     }
 
-    /** \brief Set the function name used to select the function to deliver.
-     * this name will be used if the input port "name" is not linked
-     * @param name
-     */
-    void setOperatorName( const std::string& name ) { m_operatorName = name; }
-    /**
-     * \brief Get the delivered data
-     * @return The non owning pointer (alias) to the delivered data.
-     */
-    function_type* getOperator() const { return m_functions.at( m_operatorName ); }
-
-    /** \brief Set the threshold - will copy the value into the node
-     * @param name
-     */
-    void setThreshold( const T& t ) { m_threshold = t; }
-    /** \brief Get the threshold
-     */
-    T getThreshold() const { return m_threshold; }
-
   protected:
     bool fromJsonInternal( const nlohmann::json& data ) override {
-        if ( data.contains( "operator" ) ) { m_operatorName = data["operator"]; }
-        else { m_operatorName = "true"; }
-        if ( data.contains( "threshold" ) ) { m_threshold = data["threshold"]; }
-        else { m_threshold = T {}; }
+        if ( data.contains( "operator" ) ) { m_portName->setDefaultValue( data["operator"] ); }
+        else { m_portName->setDefaultValue( "true" ); }
+        if ( data.contains( "threshold" ) ) {
+            m_portThreshold->setDefaultValue( data["threshold"] );
+        }
+        else { m_portThreshold->setDefaultValue( {} ); }
         return true;
     }
 
     void toJsonInternal( nlohmann::json& data ) const override {
-        data["operator"]  = m_operatorName;
-        data["threshold"] = m_threshold;
+        data["operator"]  = m_portName->getData();
+        data["threshold"] = m_portThreshold->getData();
     }
 
   public:
@@ -91,31 +71,23 @@ class FilterSelector final : public Node
 
   private:
     FilterSelector( const std::string& instanceName, const std::string& typeName ) :
-        Node( instanceName, typeName ) {
-        // Adding ports to node
-        addInput( m_portName );
-        addInput( m_portThreshold );
-        addOutput( m_operatourOut, &m_currentFunction );
-        addOutput( m_nameOut, &m_operatorName );
-    }
-
-    /// Alias to the output port
-    PortOut<function_type>* m_operatourOut { new PortOut<function_type>( this, "f" ) };
-    PortOut<std::string>* m_nameOut { new PortOut<std::string>( this, "name" ) };
-    /// Alias for the input ports
-    PortIn<std::string>* m_portName { new PortIn<std::string>( this, "name" ) };
-    PortIn<T>* m_portThreshold { new PortIn<T>( this, "threshold" ) };
-
-    /// The data provided by the node
+        Node( instanceName, typeName ) {}
+    /// map name's string to function
     std::map<std::string, function_type> m_functions {
         { "true", []( const T& ) { return true; } },
         { "false", []( const T& ) { return false; } },
-        { "<", [this]( const T& v ) { return v < this->m_threshold; } },
-        { ">", [this]( const T& v ) { return v > this->m_threshold; } } };
+        { "<", [this]( const T& v ) { return v < this->m_portThreshold->getData(); } },
+        { ">", [this]( const T& v ) { return v > this->m_portThreshold->getData(); } } };
 
-    std::string m_operatorName { "true" };
-    function_type m_currentFunction = m_functions[m_operatorName];
-    T m_threshold {};
+    function_type m_currentFunction = m_functions["true"];
+
+    /// Alias to the output port
+    PortOutPtr<function_type> m_operatourOut {
+        addOutputPort<function_type>( &m_currentFunction, "f" ) };
+    PortOutPtr<std::string> m_nameOut { addOutputPort<std::string>( "name" ) };
+    /// Alias for the input ports
+    PortInPtr<std::string> m_portName { addInputPort<std::string>( "name", "true" ) };
+    PortInPtr<T> m_portThreshold { addInputPort<T>( "threshold", T {} ) };
 };
 //! [Develop a custom node]
 } // namespace Customs
@@ -185,12 +157,13 @@ TEST_CASE( "Dataflow/Core/Custom nodes", "[unittests][Dataflow][Core][Custom nod
 
         // get input and ouput of the graph
         auto inputCollection =
-            dynamic_cast<CollectionInputType<Scalar>*>( g->getNode( "ds" ).get() );
+            std::dynamic_pointer_cast<CollectionInputType<Scalar>>( g->getNode( "ds" ) );
         REQUIRE( inputCollection != nullptr );
-        auto inputOpName = dynamic_cast<Customs::CustomStringSource*>( g->getNode( "ss" ).get() );
+        auto inputOpName =
+            std::dynamic_pointer_cast<Customs::CustomStringSource>( g->getNode( "ss" ) );
         REQUIRE( inputOpName != nullptr );
         auto inputThreshold =
-            dynamic_cast<Sources::SingleDataSourceNode<Scalar>*>( g->getNode( "ts" ).get() );
+            std::dynamic_pointer_cast<Sources::SingleDataSourceNode<Scalar>>( g->getNode( "ts" ) );
         REQUIRE( inputThreshold != nullptr );
 
         auto filteredCollection = g->getNode( "rs" );
