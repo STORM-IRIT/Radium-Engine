@@ -332,7 +332,6 @@ class RA_DATAFLOW_CORE_API Node
     /// Adds an in port to the node.
     /// If an input porst with the same name, do not insert and return false.
     /// \param in The in port to add.
-    bool addInput( PortBaseInRawPtr in ); ///< \todo remove
     PortIndex addInput( PortBaseInPtr in );
     PortIndex addOutput( PortBaseOutPtr out );
 
@@ -363,7 +362,7 @@ class RA_DATAFLOW_CORE_API Node
     PortBaseInPtr getInputPort( PortIndex idx ) { return m_inputs[idx]; }
     PortBaseOutPtr getOutputPort( PortIndex idx ) { return m_outputs[idx]; }
 
-    ///\todo remove these it not needed by dataflow graph
+    /// \todo remove these if not needed by dataflow graph
     /// \brief remove the given input port from the managed input ports
     /// \param in the port to remove
     /// \return true if the port was removed (the in pointer is the set to nullptr), false else
@@ -460,15 +459,6 @@ inline const Node::PortBaseOutCollection& Node::getOutputs() const {
 inline bool Node::operator==( const Node& o_node ) {
     return ( m_modelName == o_node.getModelName() ) &&
            ( m_instanceName == o_node.getInstanceName() );
-}
-
-inline bool Node::addInput( PortBaseInRawPtr in ) {
-    bool found = false;
-    for ( auto& input : m_inputs ) {
-        if ( input->getName() == in->getName() ) { found = true; }
-    }
-    if ( !found ) { m_inputs.emplace_back( in ); }
-    return !found;
 }
 
 template <typename PortType>
