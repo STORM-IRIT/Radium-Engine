@@ -151,7 +151,7 @@ struct ExecutorHelper<t_a, t_b, t_out, funcType, false, false, false> {
  * This node has one output :
  *   - out : port giving a t_out such that out = std::transform(a, b, f)
  */
-template <typename t_a, typename t_b = t_a, typename t_out = t_a>
+template <typename t_a, typename t_b = t_a, typename t_result = t_a>
 class BinaryOpNode : public Node
 {
   public:
@@ -160,13 +160,8 @@ class BinaryOpNode : public Node
      */
     using Arg1_type      = typename internal::ArgTypeHelper<t_a>::const_value_ref;
     using Arg2_type      = typename internal::ArgTypeHelper<t_b>::const_value_ref;
-    using Res_type       = typename internal::ArgTypeHelper<t_out>::value_type;
+    using Res_type       = typename internal::ArgTypeHelper<t_result>::value_type;
     using BinaryOperator = std::function<Res_type( Arg1_type, Arg2_type )>;
-
-    using PortA = PortIn<t_a>;
-    using PortB = PortIn<t_b>;
-    using PortF = PortIn<BinaryOperator>;
-    using PortR = PortOut<t_out>;
 
     /**
      * \brief Construct a BinaryOpNode with the given operator
@@ -177,31 +172,26 @@ class BinaryOpNode : public Node
         BinaryOpNode( instanceName, getTypename(), op ) {}
 
     void init() override {
-        m_result = t_out {};
+        m_result = t_result {};
         Node::init();
     }
 
     bool execute() override {
 
-        const auto& f = m_portF->getData();
-        m_result      = internal::ExecutorHelper<t_a, t_b, t_out, BinaryOperator>::executeInternal(
-            m_portA->getData(), m_portB->getData(), f );
+        const auto& f = m_port_in_op->getData();
+        m_result = internal::ExecutorHelper<t_a, t_b, t_result, BinaryOperator>::executeInternal(
+            m_port_in_a->getData(), m_port_in_b->getData(), f );
         return true;
     }
 
     /// \brief Sets the operator to be evaluated by the node.
-    void setOperator( BinaryOperator op ) { m_portF->setDefaultValue( op ); }
-
-    Node::PortInPtr<t_a> getPortA() { return m_portA; };
-    Node::PortInPtr<t_b> getPortB() { return m_portB; };
-
-    Node::PortOutPtr<t_out> getOutputPort() { return m_portR; }
+    void setOperator( BinaryOperator op ) { m_port_in_op->setDefaultValue( op ); }
 
     static const std::string& getTypename() {
         static std::string demangledName =
             std::string { "BinaryOp<" } + Ra::Core::Utils::simplifiedDemangledType<t_a>() + " x " +
             Ra::Core::Utils::simplifiedDemangledType<t_b>() + " -> " +
-            Ra::Core::Utils::simplifiedDemangledType<t_out>() + ">";
+            Ra::Core::Utils::simplifiedDemangledType<t_result>() + ">";
         return demangledName;
     }
 
@@ -209,14 +199,8 @@ class BinaryOpNode : public Node
     BinaryOpNode( const std::string& instanceName,
                   const std::string& typeName,
                   std::optional<BinaryOperator> op ) :
-        Node( instanceName, typeName ),
-        m_portA { addInputPort<t_a>( "a" ) },
-        m_portB { addInputPort<t_b>( "b" ) },
-        m_portF { addInputPort<BinaryOperator>( "f" ) },
-        m_portR { addOutputPort<t_out>( &m_result, "r" ) }
-
-    {
-        if ( op ) m_portF->setDefaultValue( *op );
+        Node( instanceName, typeName ) {
+        if ( op ) m_port_in_op->setDefaultValue( *op );
     }
 
     void toJsonInternal( nlohmann::json& data ) const override { Node::toJsonInternal( data ); }
@@ -227,11 +211,11 @@ class BinaryOpNode : public Node
 
   private:
     /// \brief the used operator
-    t_out m_result;
-    Node::PortInPtr<t_a> m_portA;
-    Node::PortInPtr<t_b> m_portB;
-    Node::PortInPtr<BinaryOperator> m_portF;
-    Node::PortOutPtr<t_out> m_portR;
+
+    RA_NODE_PORT_IN( t_a, a );
+    RA_NODE_PORT_IN( t_b, b );
+    RA_NODE_PORT_IN( BinaryOperator, op );
+    RA_NODE_PORT_OUT_WITH_DATA( t_result, result );
 };
 
 } // namespace Functionals

@@ -70,15 +70,10 @@ class ReduceNode : public Node
     }
 
   private:
-    v_t m_result;
-
-    /// @{
-    /// \brief Alias for the ports (allow simpler access)
-    Node::PortInPtr<coll_t> m_portIn { new PortIn<coll_t>( "in", this ) };
-    Node::PortInPtr<ReduceOperator> m_portF { new PortIn<ReduceOperator>( "f", this ) };
-    Node::PortInPtr<v_t> m_portInit { new PortIn<v_t>( "init", this ) };
-    Node::PortOutPtr<v_t> m_portOut { new PortOut<v_t>( "out", this ) };
-    /// @}
+    RA_NODE_PORT_IN( v_t, init );
+    RA_NODE_PORT_IN( coll_t, data );
+    RA_NODE_PORT_IN( ReduceOperator, op );
+    RA_NODE_PORT_OUT_WITH_DATA( v_t, result );
 
   public:
     static const std::string& getTypename();
@@ -103,23 +98,22 @@ ReduceNode<coll_t, v_t>::ReduceNode( const std::string& instanceName,
 
 template <typename coll_t, typename v_t>
 void ReduceNode<coll_t, v_t>::setOperator( ReduceOperator op, v_t initialValue ) {
-    m_portF->setDefaultValue( op );
-    m_portInit->setDefaultValue( initialValue );
+    m_port_in_op->setDefaultValue( op );
+    m_port_in_init->setDefaultValue( initialValue );
 }
 
 template <typename coll_t, typename v_t>
 void ReduceNode<coll_t, v_t>::init() {
     Node::init();
-    m_result = m_portInit->getData();
+    m_result = m_port_in_init->getData();
 }
 
 template <typename coll_t, typename v_t>
 bool ReduceNode<coll_t, v_t>::execute() {
-    const auto& f      = m_portF->getData();
-    const auto& iv     = m_portInit->getData();
-    m_result           = iv;
-    const auto& inData = m_portIn->getData();
-    m_result           = std::accumulate( inData.begin(), inData.end(), iv, f );
+    const auto& f  = m_port_in_op->getData();
+    const auto& in = m_port_in_data->getData();
+
+    m_result = std::accumulate( in.begin(), in.end(), m_port_in_init->getData(), f );
 
     return true;
 }
@@ -136,15 +130,9 @@ ReduceNode<coll_t, v_t>::ReduceNode( const std::string& instanceName,
                                      const std::string& typeName,
                                      ReduceOperator op,
                                      v_t initialValue ) :
-    Node( instanceName, typeName ),
-    m_portIn { addInputPort<coll_t>( "in" ) },
-    m_portF { addInputPort<ReduceOperator>( "f" ) },
-    m_portInit { addInputPort<v_t>( "init" ) },
-    m_portOut { addOutputPort<v_t>( &m_result, "out" ) }
-
-{
-    m_portF->setDefaultValue( op );
-    m_portInit->setDefaultValue( initialValue );
+    Node( instanceName, typeName ) {
+    m_port_in_op->setDefaultValue( op );
+    m_port_in_init->setDefaultValue( initialValue );
 }
 
 } // namespace Functionals

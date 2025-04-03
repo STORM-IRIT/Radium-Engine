@@ -12,7 +12,7 @@ namespace Core {
 namespace Sources {
 
 /**
- * \brief Node that deliver a std::function<R( Args... )>
+ * \brief Node that deliver a std::function<R( Args... )}}>
  * \tparam R return type of the function
  * \tparam Type of the function arguments
  */
@@ -39,8 +39,6 @@ class FunctionSourceNode : public Node
      */
     function_type* getData() const;
 
-    Node::PortOutPtr<function_type> getFunctionPort() { return m_portOut; }
-
   protected:
     FunctionSourceNode( const std::string& instanceName, const std::string& typeName );
 
@@ -49,9 +47,8 @@ class FunctionSourceNode : public Node
     }
     void toJsonInternal( nlohmann::json& data ) const override { Node::toJsonInternal( data ); }
 
-    /// Alias to the output port
-    Node::PortInPtr<function_type> m_portIn;
-    Node::PortOutPtr<function_type> m_portOut;
+    RA_NODE_PORT_IN( function_type, from );
+    RA_NODE_PORT_OUT( function_type, to );
 
   public:
     static const std::string& getTypename();
@@ -63,11 +60,9 @@ class FunctionSourceNode : public Node
 template <class R, class... Args>
 FunctionSourceNode<R, Args...>::FunctionSourceNode( const std::string& instanceName,
                                                     const std::string& typeName ) :
-    Node( instanceName, typeName ),
-    m_portIn { addInputPort<function_type>( "f" ) },
-    m_portOut { addOutputPort<function_type>( "f" ) } {
-    m_portIn->setDefaultValue( []( Args... ) { return R {}; } );
-    m_portOut->setData( &m_portIn->getData() );
+    Node( instanceName, typeName ) {
+    m_port_in_from->setDefaultValue( []( Args... ) { return R {}; } );
+    m_port_out_to->setData( &m_port_in_from->getData() );
 }
 
 template <class R, class... Args>
@@ -77,14 +72,14 @@ bool FunctionSourceNode<R, Args...>::execute() {
 
 template <class R, class... Args>
 void FunctionSourceNode<R, Args...>::setData( function_type data ) {
-    m_portIn->setDefaultValue( std::move( data ) );
-    m_portOut->setData( &m_portIn->getData() );
+    m_port_in_from->setDefaultValue( std::move( data ) );
+    m_port_out_to->setData( &m_port_in_from->getData() );
 }
 
 template <class R, class... Args>
 typename FunctionSourceNode<R, Args...>::function_type*
 FunctionSourceNode<R, Args...>::getData() const {
-    return m_portIn->getData();
+    return m_port_in_from->getData();
 }
 
 template <class R, class... Args>

@@ -20,10 +20,7 @@ class FunctionNode : public Node
     void init() override { Node::init(); }
     bool execute() override;
 
-    void setFunction( Function function ) { m_portFunction->setDefaultValue( function ); }
-    Node::PortInPtr<Input> getInPort() { return m_portIn; }
-    Node::PortInPtr<Function> getFunctionPort() { return m_portFunction; }
-    Node::PortOutPtr<Output> getOutPort() { return m_portOut; }
+    void setFunction( Function function ) { m_port_in_op->setDefaultValue( function ); }
 
     static const std::string& getTypename();
 
@@ -36,11 +33,9 @@ class FunctionNode : public Node
     }
 
   private:
-    Output m_result;
-
-    Node::PortInPtr<Input> m_portIn;
-    Node::PortInPtr<Function> m_portFunction;
-    Node::PortOutPtr<Output> m_portOut;
+    RA_NODE_PORT_IN( Input, data );
+    RA_NODE_PORT_IN( Function, op );
+    RA_NODE_PORT_OUT_WITH_DATA( Output, result );
 };
 
 // -----------------------------------------------------------------
@@ -51,8 +46,8 @@ FunctionNode<Input, Output>::FunctionNode( const std::string& instanceName, Func
 
 template <typename Input, typename Output>
 bool FunctionNode<Input, Output>::execute() {
-    const auto& f = m_portFunction->getData();
-    const auto& x = m_portIn->getData();
+    const auto& f = m_port_in_op->getData();
+    const auto& x = m_port_in_data->getData();
 
     m_result = f( x );
 
@@ -70,11 +65,8 @@ template <typename Input, typename Output>
 FunctionNode<Input, Output>::FunctionNode( const std::string& instanceName,
                                            const std::string& typeName,
                                            Function function ) :
-    Node( instanceName, typeName ),
-    m_portIn { addInputPort<Input>( "in" ) },
-    m_portFunction { addInputPort<Function>( "f" ) },
-    m_portOut { addOutputPort<Input>( &m_result, "out" ) } {
-    m_portFunction->setDefaultValue( function );
+    Node( instanceName, typeName ) {
+    m_port_in_op->setDefaultValue( function );
 }
 
 } // namespace Functionals

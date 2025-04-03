@@ -15,13 +15,13 @@ namespace Functionals {
  * \see https://en.cppreference.com/w/cpp/named_req/SequenceContainer
  *
  * This node has two inputs :
- *   - in : port accepting a coll_t data. Linking to this port is mandatory
- *   - f : port accepting an operator with profile std::function<v_t( const v_t& )>.
+ *   - data : port accepting a coll_t data. Linking to this port is mandatory
+ *   - op : port accepting an operator with profile std::function<v_t( const v_t& )>.
  *   Linking to this port is not mandatory, the operator might be set once for the node.
  *   If this port is linked, the operator will be taken from the port.
  *
  * This node has one output :
- *   - out : port giving a coll_t such that out = std::transform(in, f)
+ *   - result : port giving a coll_t such that result = std::transform(data, op)
  */
 template <typename coll_t, typename v_t = typename coll_t::value_type>
 class TransformNode : public Node
@@ -41,7 +41,7 @@ class TransformNode : public Node
     /**
      * \brief Construct a transformer with the given operator
      * \param instanceName
-     * \param filterFunction
+     * \param op
      */
     TransformNode( const std::string& instanceName, TransformOperator op );
 
@@ -62,14 +62,10 @@ class TransformNode : public Node
     }
 
   private:
-    coll_t m_elements;
+    RA_NODE_PORT_IN( coll_t, data );
+    RA_NODE_PORT_IN( TransformOperator, op );
+    RA_NODE_PORT_OUT_WITH_DATA( coll_t, result );
 
-    /// @{
-    /// \brief Alias for the ports (allow simpler access)
-    PortInPtr<coll_t> m_portIn;
-    PortInPtr<TransformOperator> m_portOperator;
-    PortOutPtr<coll_t> m_portOut;
-    /// @}
   public:
     static const std::string& getTypename();
 };
@@ -87,23 +83,23 @@ TransformNode<coll_t, v_t>::TransformNode( const std::string& instanceName, Tran
 
 template <typename coll_t, typename v_t>
 void TransformNode<coll_t, v_t>::setOperator( TransformOperator op ) {
-    m_portOperator->setDefaultValue( op );
+    m_port_in_op->setDefaultValue( op );
 }
 
 template <typename coll_t, typename v_t>
 void TransformNode<coll_t, v_t>::init() {
     Node::init();
-    m_elements.clear();
+    m_result.clear();
 }
 
 template <typename coll_t, typename v_t>
 bool TransformNode<coll_t, v_t>::execute() {
-    const auto& f      = m_portOperator->getData();
-    const auto& inData = m_portIn->getData();
-    m_elements.clear();
+    const auto& f      = m_port_in_op->getData();
+    const auto& inData = m_port_in_data->getData();
+    m_result.clear();
     // m_elements.reserve( inData.size() ); // --> this is not a requirement of
     // SequenceContainer
-    std::transform( inData.begin(), inData.end(), std::back_inserter( m_elements ), f );
+    std::transform( inData.begin(), inData.end(), std::back_inserter( m_result ), f );
 
     return true;
 }
@@ -119,11 +115,8 @@ template <typename coll_t, typename v_t>
 TransformNode<coll_t, v_t>::TransformNode( const std::string& instanceName,
                                            const std::string& typeName,
                                            TransformOperator op ) :
-    Node( instanceName, typeName ),
-    m_portIn { addInputPort<coll_t>( "in" ) },
-    m_portOperator { addInputPort<TransformOperator>( "f" ) },
-    m_portOut { addOutputPort<coll_t>( &m_elements, "out" ) } {
-    m_portOperator->setDefaultValue( op );
+    Node( instanceName, typeName ) {
+    m_port_in_op->setDefaultValue( op );
 }
 
 } // namespace Functionals

@@ -37,8 +37,6 @@ class SinkNode : public Node
      */
     const T& getDataByRef() const;
 
-    Node::PortInPtr<T> getInPort() { return m_portIn; }
-
   protected:
     /// \todo why are these empty ?
     void toJsonInternal( nlohmann::json& ) const override {}
@@ -47,8 +45,8 @@ class SinkNode : public Node
   private:
     /// @{
     /// \brief Alias for the ports (allow simpler access)
-    Node::PortInPtr<T> m_portIn;
-    Node::PortOutPtr<T> m_portOut;
+    RA_NODE_PORT_IN( T, from );
+    RA_NODE_PORT_OUT( T, data );
     /// @}
   public:
     static const std::string& getTypename();
@@ -59,9 +57,7 @@ class SinkNode : public Node
 
 template <typename T>
 SinkNode<T>::SinkNode( const std::string& instanceName, const std::string& typeName ) :
-    Node( instanceName, typeName ),
-    m_portIn { addInputPort<T>( "from" ) },
-    m_portOut { addOutputPort<T>( "data" ) } {}
+    Node( instanceName, typeName ) {}
 
 template <typename T>
 void SinkNode<T>::init() {
@@ -70,8 +66,8 @@ void SinkNode<T>::init() {
 
 template <typename T>
 bool SinkNode<T>::execute() {
-    if ( m_portIn->hasData() ) {
-        m_portOut->setData( &m_portIn->getData() );
+    if ( m_port_in_from->hasData() ) {
+        m_port_out_data->setData( &m_port_in_from->getData() );
         return true;
     }
     return false;
@@ -79,12 +75,12 @@ bool SinkNode<T>::execute() {
 
 template <typename T>
 T SinkNode<T>::getData() const {
-    return m_portOut->getData();
+    return m_port_out_data->getData();
 }
 
 template <typename T>
 const T& SinkNode<T>::getDataByRef() const {
-    return m_portOut->getData();
+    return m_port_out_data->getData();
 }
 
 template <typename T>

@@ -36,6 +36,8 @@ class SingleDataSourceNode : public Node
     bool execute() override;
 
     /** \brief Set the data to be delivered by the node.
+     *
+     * Sets port_in_from default value and port_out_to data points to port_in_from
      * @param data
      */
     void setData( T data );
@@ -45,9 +47,6 @@ class SingleDataSourceNode : public Node
      * @return The non owning pointer (alias) to the delivered data.
      */
     T* getData() const;
-
-    std::shared_ptr<PortOut<T>> getOutPort() { return m_portOut; }
-    std::shared_ptr<PortIn<T>> getInPort() { return m_portIn; }
 
   protected:
     bool fromJsonInternal( const nlohmann::json& data ) override {
@@ -59,16 +58,8 @@ class SingleDataSourceNode : public Node
     }
 
   private:
-    /// @{
-    /// The data provided by the node
-    /// Used to deliver (and edit) data when the interface is not connected.
-
-    /// Ownership of this pointer is left to the caller
-    /// @}
-
-    /// Alias to the output port
-    Node::PortInPtr<T> m_portIn;
-    Node::PortOutPtr<T> m_portOut;
+    RA_NODE_PORT_IN( T, from );
+    RA_NODE_PORT_OUT( T, to );
 
   public:
     static const std::string& getTypename();
@@ -80,29 +71,27 @@ class SingleDataSourceNode : public Node
 template <typename T>
 SingleDataSourceNode<T>::SingleDataSourceNode( const std::string& instanceName,
                                                const std::string& typeName ) :
-    Node( instanceName, typeName ),
-    m_portIn { addInputPort<T>( "from" ) },
-    m_portOut { addOutputPort<T>( "to" ) } {
-    m_portIn->setDefaultValue( T {} );
-    m_portOut->setData( &m_portIn->getData() );
+    Node( instanceName, typeName ) {
+    m_port_in_from->setDefaultValue( T {} );
+    m_port_out_to->setData( &m_port_in_from->getData() );
 }
 
 template <typename T>
 bool SingleDataSourceNode<T>::execute() {
     // update ouput in case input has changed (if not default value))
-    m_portOut->setData( &m_portIn->getData() );
+    m_port_out_to->setData( &m_port_in_from->getData() );
     return true;
 }
 
 template <typename T>
 void SingleDataSourceNode<T>::setData( T data ) {
-    m_portIn->setDefaultValue( std::move( data ) );
-    m_portOut->setData( &m_portIn->getData() );
+    m_port_in_from->setDefaultValue( std::move( data ) );
+    m_port_out_to->setData( &m_port_in_from->getData() );
 }
 
 template <typename T>
 T* SingleDataSourceNode<T>::getData() const {
-    return &( m_portIn->getData() );
+    return &( m_port_in_from->getData() );
 }
 
 template <typename T>

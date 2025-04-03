@@ -17,13 +17,13 @@ namespace Functionals {
  * predicate :
  *
  * This node has two inputs :
- *   - in : port accepting the input data of type coll_t. Must be linked.
- *   - f : port accepting an operator with profile std::function<bool( const v_t& )>.
+ *   - data : port accepting the input data of type coll_t. Must be linked.
+ *   - predicate : port accepting an operator with profile std::function<bool( const v_t& )>.
  *   Link to this port is not mandatory, the operator might be set once for the node.
  *   If this port is linked, the operator will be taken from the port.
  *
  * This node has one output :
- *   - out : port giving a coll_t such that out = std::copy_if(a, f)
+ *   - result : port giving a coll_t such that out = std::copy_if(a, f)
  */
 template <typename coll_t, typename v_t = typename coll_t::value_type>
 class FilterNode : public Node
@@ -51,10 +51,7 @@ class FilterNode : public Node
     bool execute() override;
 
     /// Sets the filtering predicate on the node
-    void setFilterFunction( UnaryPredicate predicate );
-    Node::PortInPtr<coll_t> getInPort() { return m_portIn; }
-    Node::PortInPtr<UnaryPredicate> getPredicatePort() { return m_portPredicate; }
-    Node::PortOutPtr<coll_t> getOutPort() { return m_portOut; }
+    void set_predicate( UnaryPredicate predicate );
 
   protected:
     FilterNode( const std::string& instanceName,
@@ -67,14 +64,10 @@ class FilterNode : public Node
     }
 
   private:
-    coll_t m_elements;
+    RA_NODE_PORT_IN( coll_t, data );
+    RA_NODE_PORT_IN( UnaryPredicate, predicate );
+    RA_NODE_PORT_OUT_WITH_DATA( coll_t, result );
 
-    /// @{
-    /// \brief Alias for the ports (allow simpler access)
-    Node::PortInPtr<coll_t> m_portIn;
-    Node::PortInPtr<UnaryPredicate> m_portPredicate;
-    Node::PortOutPtr<coll_t> m_portOut;
-    /// @}
   public:
     static const std::string& getTypename();
 };
@@ -91,24 +84,23 @@ FilterNode<coll_t, v_t>::FilterNode( const std::string& instanceName, UnaryPredi
     FilterNode( instanceName, getTypename(), predicate ) {}
 
 template <typename coll_t, typename v_t>
-void FilterNode<coll_t, v_t>::setFilterFunction( UnaryPredicate predicate ) {
-    m_portPredicate->setDefaultValue( predicate );
+void FilterNode<coll_t, v_t>::set_predicate( UnaryPredicate predicate ) {
+    m_port_in_predicate->setDefaultValue( predicate );
 }
 
 template <typename coll_t, typename v_t>
 void FilterNode<coll_t, v_t>::init() {
     Node::init();
-    m_elements.clear();
+    m_result.clear();
 }
 
 template <typename coll_t, typename v_t>
 bool FilterNode<coll_t, v_t>::execute() {
-    const auto& f      = m_portPredicate->getData();
-    const auto& inData = m_portIn->getData();
-    m_elements.clear();
-    // m_elements.reserve( inData.size() ); // --> this is not a requirement of
-    // SequenceContainer
-    std::copy_if( inData.begin(), inData.end(), std::back_inserter( m_elements ), f );
+    const auto& f      = m_port_in_predicate->getData();
+    const auto& inData = m_port_in_data->getData();
+    m_result.clear();
+    // since we do not know how many inData respect the predicate, do not reserve m_result
+    std::copy_if( inData.begin(), inData.end(), std::back_inserter( m_result ), f );
 
     return true;
 }
@@ -123,12 +115,9 @@ const std::string& FilterNode<coll_t, v_t>::getTypename() {
 template <typename coll_t, typename v_t>
 FilterNode<coll_t, v_t>::FilterNode( const std::string& instanceName,
                                      const std::string& typeName,
-                                     UnaryPredicate filterFunction ) :
-    Node( instanceName, typeName ),
-    m_portIn { addInputPort<coll_t>( "in" ) },
-    m_portPredicate { addInputPort<UnaryPredicate>( "f" ) },
-    m_portOut { addOutputPort<coll_t>( &m_elements, "out" ) } {
-    m_portPredicate->setDefaultValue( filterFunction );
+                                     UnaryPredicate predicate ) :
+    Node( instanceName, typeName ) {
+    m_port_in_predicate->setDefaultValue( predicate );
 }
 
 } // namespace Functionals
