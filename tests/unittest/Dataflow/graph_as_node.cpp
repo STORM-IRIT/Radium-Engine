@@ -35,16 +35,16 @@ TEST_CASE( "Dataflow/Core/GraphAsNode/Delta", "[unittests][Dataflow][Core][Graph
     auto forwardB = gAsNode->addNode<Functionals::FunctionNode<Scalar>>( "b" );
     auto forwardC = gAsNode->addNode<Functionals::FunctionNode<Scalar>>( "c" );
 
-    b2minus4ac->getOutputPort()->setName( "delta" );
+    b2minus4ac->port_out_result()->setName( "delta" );
 
     REQUIRE( !gAsNode->input_node() );
     REQUIRE( !gAsNode->output_node() );
 
     gAsNode->add_input_output_nodes();
-    auto inputA = gAsNode->input_node()->add_output_port( forwardA->getInPort().get() );
-    auto inputB = gAsNode->input_node()->add_output_port( forwardB->getInPort().get() );
-    auto inputC = gAsNode->input_node()->add_output_port( forwardC->getInPort().get() );
-    auto output = gAsNode->output_node()->add_input_port( b2minus4ac->getOutputPort().get() );
+    auto inputA = gAsNode->input_node()->add_output_port( forwardA->port_in_data().get() );
+    auto inputB = gAsNode->input_node()->add_output_port( forwardB->port_in_data().get() );
+    auto inputC = gAsNode->input_node()->add_output_port( forwardC->port_in_data().get() );
+    auto output = gAsNode->output_node()->add_input_port( b2minus4ac->port_out_result().get() );
 
     REQUIRE( gAsNode->input_node() );
     REQUIRE( gAsNode->output_node() );
@@ -58,12 +58,12 @@ TEST_CASE( "Dataflow/Core/GraphAsNode/Delta", "[unittests][Dataflow][Core][Graph
     gAsNode->input_node()->getInputByIndex( inputC )->setName( "c" );
     gAsNode->output_node()->getOutputByIndex( output )->setName( "delta" );
 
-    REQUIRE( gAsNode->addLink( forwardB->getOutPort(), b2->getInPort() ) );
-    REQUIRE( gAsNode->addLink( forwardA->getOutPort(), fourAC->getPortA() ) );
-    REQUIRE( gAsNode->addLink( forwardC->getOutPort(), fourAC->getPortB() ) );
+    REQUIRE( gAsNode->addLink( forwardB->port_out_result(), b2->port_in_data() ) );
+    REQUIRE( gAsNode->addLink( forwardA->port_out_result(), fourAC->port_in_a() ) );
+    REQUIRE( gAsNode->addLink( forwardC->port_out_result(), fourAC->port_in_b() ) );
 
-    REQUIRE( gAsNode->addLink( b2->getOutPort(), b2minus4ac->getPortA() ) );
-    REQUIRE( gAsNode->addLink( fourAC->getOutputPort(), b2minus4ac->getPortB() ) );
+    REQUIRE( gAsNode->addLink( b2->port_out_result(), b2minus4ac->port_in_a() ) );
+    REQUIRE( gAsNode->addLink( fourAC->port_out_result(), b2minus4ac->port_in_b() ) );
 
     REQUIRE( gAsNode->compile() );
 
@@ -79,10 +79,10 @@ TEST_CASE( "Dataflow/Core/GraphAsNode/Delta", "[unittests][Dataflow][Core][Graph
 
     REQUIRE( g.addNode( gAsNode ) );
 
-    REQUIRE( g.addLink( sourceNodeA->getOutPort().get(), gAsNode->getInputByIndex( inputA ) ) );
-    REQUIRE( g.addLink( sourceNodeB->getOutPort().get(), gAsNode->getInputByIndex( inputB ) ) );
-    REQUIRE( g.addLink( sourceNodeC->getOutPort().get(), gAsNode->getInputByIndex( inputC ) ) );
-    REQUIRE( g.addLink( gAsNode->getOutputByIndex( output ), resultNode->getInPort().get() ) );
+    REQUIRE( g.addLink( sourceNodeA->port_out_to().get(), gAsNode->getInputByIndex( inputA ) ) );
+    REQUIRE( g.addLink( sourceNodeB->port_out_to().get(), gAsNode->getInputByIndex( inputB ) ) );
+    REQUIRE( g.addLink( sourceNodeC->port_out_to().get(), gAsNode->getInputByIndex( inputC ) ) );
+    REQUIRE( g.addLink( gAsNode->getOutputByIndex( output ), resultNode->port_in_from().get() ) );
 
     sourceNodeA->setData( 1 );
     sourceNodeB->setData( 2 );
@@ -157,8 +157,8 @@ TEST_CASE( "Dataflow/Core/GraphAsNode/Forward", "[unittests][Dataflow][Core][Gra
 
     REQUIRE( g.addNode( gAsNode ) );
     REQUIRE( g.canLink( sourceNodeA, PortIndex { 0 }, gAsNode, PortIndex { 0 } ) );
-    REQUIRE( g.addLink( sourceNodeA->getOutPort().get(), gAsNode->getInputByIndex( 0 ) ) );
-    REQUIRE( g.addLink( gAsNode->getOutputByIndex( 0 ), resultNode->getInPort().get() ) );
+    REQUIRE( g.addLink( sourceNodeA->port_out_to().get(), gAsNode->getInputByIndex( 0 ) ) );
+    REQUIRE( g.addLink( gAsNode->getOutputByIndex( 0 ), resultNode->port_in_from().get() ) );
 
     sourceNodeA->setData( 2 );
 
@@ -235,8 +235,8 @@ TEST_CASE( "Dataflow/Core/GraphAsNode/Forward", "[unittests][Dataflow][Core][Gra
         REQUIRE( gAsNode->getOutputs().size() == 1 );
 
         // relink
-        REQUIRE( g.addLink( sourceNodeA->getOutPort().get(), gAsNode->getInputByIndex( 0 ) ) );
-        REQUIRE( g.addLink( gAsNode->getOutputByIndex( 0 ), resultNode->getInPort().get() ) );
+        REQUIRE( g.addLink( sourceNodeA->port_out_to().get(), gAsNode->getInputByIndex( 0 ) ) );
+        REQUIRE( g.addLink( gAsNode->getOutputByIndex( 0 ), resultNode->port_in_from().get() ) );
 
         gAsNode->remove_unlinked_input_output_ports();
 

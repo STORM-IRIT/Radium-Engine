@@ -71,8 +71,8 @@ int main( int argc, char* argv[] ) {
         //! [Adding Nodes to the graph]
 
         //! [Creating links between Nodes]
-        g.addLink( sourceNode, "to", filterNode, "in" );
-        g.addLink( filterNode, "out", storeNode, "from" );
+        g.addLink( sourceNode, "to", filterNode, "data" );
+        g.addLink( filterNode, "result", storeNode, "from" );
         //! [Creating links between Nodes]
 
         //! [Verifing the graph can be compiled]
@@ -140,7 +140,7 @@ int main( int argc, char* argv[] ) {
                   << Ra::Core::Utils::simplifiedDemangledType( filter ) << "\n";
         return 4;
     }
-    filter->setFilterFunction( []( const Scalar& f ) { return f > 0.5_ra; } );
+    filter->set_predicate( []( const Scalar& f ) { return f > 0.5_ra; } );
     //! [Set the correct filter on the filter node]
 
     //! [Execute the graph]

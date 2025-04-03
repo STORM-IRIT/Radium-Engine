@@ -271,14 +271,12 @@ TEST_CASE( "Dataflow/Core/Graph", "[Dataflow][Core][Graph]" ) {
         // node not found
         REQUIRE( !g.removeLink( sinkIntNode, "from" ) );
 
-        // "from" node not found
-        REQUIRE( !g.addLink( sourceIntNode, "out", sinkIntNode, "in" ) );
+        REQUIRE( !g.addLink( sourceIntNode, "to", sinkIntNode, "from" ) );
         REQUIRE( !g.canLink( sourceIntNode, PortIndex { 0 }, sinkIntNode, PortIndex { 0 } ) );
         REQUIRE( !g.addLink( sourceIntNode, PortIndex { 0 }, sinkIntNode, PortIndex { 0 } ) );
 
         REQUIRE( g.addNode( sourceIntNode ) );
-        // "to" node not found
-        REQUIRE( !g.addLink( sourceIntNode, "out", sinkIntNode, "in" ) );
+        REQUIRE( !g.addLink( sourceIntNode, "to", sinkIntNode, "from" ) );
         REQUIRE( !g.canLink( sourceIntNode, PortIndex { 0 }, sinkIntNode, PortIndex { 0 } ) );
         REQUIRE( !g.addLink( sourceIntNode, PortIndex { 0 }, sinkIntNode, PortIndex { 0 } ) );
 
@@ -359,8 +357,8 @@ TEST_CASE( "Dataflow/Core/Graph/Node failed execution", "[unittests]" ) {
     };
     auto failNode = g.addNode<FailFunction>( "FailNode" );
 
-    REQUIRE( g.addLink( sourceIntNode, "to", failNode, "in" ) );
-    REQUIRE( g.addLink( failNode, "out", sinkIntNode, "from" ) );
+    REQUIRE( g.addLink( sourceIntNode, "to", failNode, "data" ) );
+    REQUIRE( g.addLink( failNode, "result", sinkIntNode, "from" ) );
     REQUIRE( g.compile() );
     REQUIRE( !g.execute() );
 }
@@ -386,25 +384,18 @@ TEST_CASE( "Dataflow/Core/Graph/Inspection of a graph", "[unittests]" ) {
 
     std::cout << "Loading graph data/Dataflow/ExampleGraph.json\n";
 
-    auto f1 = DataflowGraph::loadGraphFromJsonFile( "data/Dataflow/NotAJsonFile.json" );
-    REQUIRE( !f1 );
-
-    auto f2 = DataflowGraph::loadGraphFromJsonFile( "data/Dataflow/InvalidGraph.json" );
-    REQUIRE( !f2 );
-
-    auto f3 = DataflowGraph::loadGraphFromJsonFile( "data/Dataflow/UnknownTypeGraph.json" );
-    REQUIRE( !f3 );
-
-    auto f4 = DataflowGraph::loadGraphFromJsonFile( "data/Dataflow/Node.json" );
-    REQUIRE( !f4 );
+    REQUIRE( !DataflowGraph::loadGraphFromJsonFile( "data/Dataflow/NotAJsonFile.json" ) );
+    REQUIRE( !DataflowGraph::loadGraphFromJsonFile( "data/Dataflow/InvalidGraph.json" ) );
+    REQUIRE( !DataflowGraph::loadGraphFromJsonFile( "data/Dataflow/UnknownTypeGraph.json" ) );
+    REQUIRE( !DataflowGraph::loadGraphFromJsonFile( "data/Dataflow/Node.json" ) );
 
     auto g = DataflowGraph::loadGraphFromJsonFile( "data/Dataflow/ExampleGraph.json" );
     REQUIRE( g );
     // Factories used by the graph
     const auto& nodes = g->getNodes();
     REQUIRE( nodes.size() == g->getNodesCount() );
-    auto c = g->compile();
-    REQUIRE( c == true );
+
+    REQUIRE( g->compile() );
     REQUIRE( g->isCompiled() );
     // Prints the graph content
     inspectGraph( *g );
@@ -415,12 +406,12 @@ TEST_CASE( "Dataflow/Core/Graph/Inspection of a graph", "[unittests]" ) {
     auto n        = g->getNode( "validation value" );
     auto useCount = n.use_count();
     REQUIRE( n->getInstanceName() == "validation value" );
-    c = g->removeNode( n );
-    REQUIRE( c == true );
+
+    REQUIRE( g->removeNode( n ) );
     REQUIRE( n );
     REQUIRE( n.use_count() == useCount - 1 );
-    c = g->compile();
-    REQUIRE( c == true );
+
+    REQUIRE( g->compile() );
 
     // Simplified graph after compilation
     auto& cn = g->getNodesByLevel();
@@ -436,11 +427,9 @@ TEST_CASE( "Dataflow/Core/Graph/Inspection of a graph", "[unittests]" ) {
     REQUIRE( n->getInstanceName() == "Validator" );
     // protect the graph to prevent node removal
     g->setNodesAndLinksProtection( true );
-    c = g->removeNode( n );
-    REQUIRE( !c );
+    REQUIRE( !g->removeNode( n ) );
     g->setNodesAndLinksProtection( false );
-    c = g->removeNode( n );
-    REQUIRE( c );
+    REQUIRE( g->removeNode( n ) );
 
     std::cout << "####### Graph after sink and source removal\n";
     inspectGraph( *g );

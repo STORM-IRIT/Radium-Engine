@@ -6,19 +6,19 @@
                     "in_node": "reduced vector",
                     "in_port": "from",
                     "out_node": "Collection reducer - original collection",
-                    "out_port": "out"
+                    "out_port": "result"
                 },
                 {
                     "in_node": "Collection reducer - original collection",
-                    "in_port": "in",
+                    "in_port": "data",
                     "out_node": "Vector",
                     "out_port": "to"
                 },
                 {
                     "in_node": "Collection reducer - original collection",
-                    "in_port": "f",
+                    "in_port": "op",
                     "out_node": "Reducer",
-                    "out_port": "f"
+                    "out_port": "to"
                 },
                 {
                     "in_node": "Collection reducer - original collection",
@@ -28,60 +28,59 @@
                 },
                 {
                     "in_node": "Collection reducer - transformed collection",
-                    "in_port": "in",
+                    "in_port": "data",
                     "out_node": "Collection transformer",
-                    "out_port": "out"
+                    "out_port": "result"
                 },
                 {
                     "in_node": "Collection reducer - transformed collection",
-                    "in_port": "f",
+                    "in_port": "op",
                     "out_node": "Reducer",
-                    "out_port": "f"
+                    "out_port": "to"
                 },
                 {
                     "in_node": "Collection transformer",
-                    "in_port": "in",
+                    "in_port": "data",
                     "out_node": "Vector",
                     "out_port": "to"
                 },
                 {
                     "in_node": "Collection transformer",
-                    "in_port": "f",
+                    "in_port": "op",
                     "out_node": "Doubler",
-                    "out_port": "f"
+                    "out_port": "to"
                 },
                 {
                     "in_node": "transformed/reduced vector",
                     "in_port": "from",
                     "out_node": "Collection reducer - transformed collection",
-                    "out_port": "out"
+                    "out_port": "result"
                 },
                 {
                     "in_node": "validation value",
                     "in_port": "from",
                     "out_node": "Validator : evaluate the validation predicate",
-                    "out_port": "r"
+                    "out_port": "result"
                 },
                 {
                     "in_node": "Validator : evaluate the validation predicate",
                     "in_port": "a",
                     "out_node": "Collection reducer - original collection",
-                    "out_port": "out"
+                    "out_port": "result"
                 },
                 {
                     "in_node": "Validator : evaluate the validation predicate",
                     "in_port": "b",
                     "out_node": "Collection reducer - transformed collection",
-                    "out_port": "out"
+                    "out_port": "result"
                 },
                 {
                     "in_node": "Validator : evaluate the validation predicate",
-                    "in_port": "f",
+                    "in_port": "op",
                     "out_node": "Validator",
-                    "out_port": "f"
+                    "out_port": "to"
                 }
             ],
-            "factories": [],
             "nodes": [
                 {
                     "instance": "Vector",

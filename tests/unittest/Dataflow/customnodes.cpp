@@ -41,6 +41,7 @@ class FilterSelector final : public Node
     explicit FilterSelector( const std::string& name ) : FilterSelector( name, getTypename() ) {}
 
     bool execute() override {
+        if ( !m_portName->hasData() ) return false;
         m_nameOut->setData( &m_portName->getData() );
         m_currentFunction = m_functions.at( m_portName->getData() );
         return true;
@@ -133,19 +134,12 @@ DataflowGraph* buildgraph( const std::string& name ) {
     REGISTER_TYPE_TO_FACTORY( coreFactory, CollectionInputType<DataType>, Functionals );
     REGISTER_TYPE_TO_FACTORY( coreFactory, CollectionOutputType<DataType>, Functionals );
 
-    bool ok;
-    ok = g->addLink( ds, "to", fl, "in" );
-    REQUIRE( ok );
-    ok = g->addLink( fl, "out", rs, "from" );
-    REQUIRE( ok );
-    ok = g->addLink( ss, "to", fs, "name" );
-    REQUIRE( ok );
-    ok = g->addLink( ts, "to", fs, "threshold" );
-    REQUIRE( ok );
-    ok = g->addLink( fs, "f", fl, "f" );
-    REQUIRE( ok );
-    ok = g->addLink( fs, "name", nm, "from" );
-    REQUIRE( ok );
+    REQUIRE( g->addLink( ds, "to", fl, "data" ) );
+    REQUIRE( g->addLink( fl, "result", rs, "from" ) );
+    REQUIRE( g->addLink( ss, "to", fs, "name" ) );
+    REQUIRE( g->addLink( ts, "to", fs, "threshold" ) );
+    REQUIRE( g->addLink( fs, "f", fl, "predicate" ) );
+    REQUIRE( g->addLink( fs, "name", nm, "from" ) );
     return g;
 }
 
@@ -183,21 +177,11 @@ TEST_CASE( "Dataflow/Core/Custom nodes", "[unittests][Dataflow][Core][Custom nod
         }
 
         inputCollection->setData( testVector );
-
         inputThreshold->setData( .5_ra );
-
         inputOpName->setData( "true" );
 
-        std::cout << "Data sent to graph : \n\toperator " << inputOpName->getData() << " : \n\t";
-        for ( auto ord : testVector ) {
-            std::cout << ord << ' ';
-        }
-        std::cout << '\n';
-
         // execute the graph that filter out nothing
-        // execute
-        auto r = g->execute();
-        REQUIRE( r );
+        REQUIRE( g->execute() );
 
         // Getters are usable only after successful compilation/execution of the graph
         // Get results as references (no need to get them again later if the graph does
@@ -207,53 +191,24 @@ TEST_CASE( "Dataflow/Core/Custom nodes", "[unittests][Dataflow][Core][Custom nod
 
         REQUIRE( vop == "true" );
         REQUIRE( vres.size() == testVector.size() );
-        std::cout << "Result after applying operator " << vop << " (from " << inputOpName->getData()
-                  << " ) and threshold " << inputThreshold->getData() << ": \n\t";
-        for ( auto ord : vres ) {
-            std::cout << ord << ' ';
-        }
-        std::cout << '\n';
 
         // change operator to filter out everything
         inputOpName->setData( "false" );
-        r = g->execute();
-        REQUIRE( r );
+
+        REQUIRE( g->execute() );
         REQUIRE( vop == "false" );
         REQUIRE( vres.size() == 0 );
 
-        std::cout << "Result after applying operator " << vop << " (from "
-                  << *inputOpName->getData() << " ) and threshold " << inputThreshold->getData()
-                  << ": \n\t";
-        for ( auto ord : vres ) {
-            std::cout << ord << ' ';
-        }
-        std::cout << '\n';
         // Change operator to keep element less than threshold
         inputOpName->setData( "<" );
-        r = g->execute();
-        REQUIRE( r );
 
-        std::cout << "Result after applying operator " << vop << " (from "
-                  << *inputOpName->getData() << " ) and threshold " << *inputThreshold->getData()
-                  << ": \n\t";
-        for ( auto ord : vres ) {
-            std::cout << ord << ' ';
-        }
-        std::cout << '\n';
+        REQUIRE( g->execute() );
+
         REQUIRE( *( std::max_element( vres.begin(), vres.end() ) ) < *inputThreshold->getData() );
 
         // Change operator to keep element greater than threshold
         inputOpName->setData( ">" );
-        r = g->execute();
-        REQUIRE( r );
-
-        std::cout << "Result after applying operator " << vop << " (from "
-                  << *inputOpName->getData() << " ) and threshold " << *inputThreshold->getData()
-                  << ": \n\t";
-        for ( auto ord : vres ) {
-            std::cout << ord << ' ';
-        }
-        std::cout << '\n';
+        REQUIRE( g->execute() );
         REQUIRE( *( std::max_element( vres.begin(), vres.end() ) ) > *inputThreshold->getData() );
     }
     SECTION( "Serialization of a custom graph" ) {
@@ -276,21 +231,10 @@ TEST_CASE( "Dataflow/Core/Custom nodes", "[unittests][Dataflow][Core][Custom nod
             Customs::FilterSelector<Scalar>::getTypename() + "_", "Custom" );
         REQUIRE( registered == false );
 
-        std::cout << "Building the following custom nodes with the factory "
-                  << customFactory->getName() << "\n";
-        for ( auto [name, functor] : customFactory->getFactoryMap() ) {
-            std::cout << name << ", ";
-        }
-        std::cout << "\n";
-
         nlohmann::json emptyData;
         auto customSource = customFactory->createNode(
             Customs::CustomStringSource::getTypename(), emptyData, nullptr );
         REQUIRE( customSource != nullptr );
-
-        std::cout << "Created node " << customSource->getInstanceName() << " with type "
-                  << customSource->getModelName() << " // "
-                  << Customs::CustomStringSource::getTypename() << "\n";
 
         // build a graph
         auto g = buildgraph<Scalar>( "testCustomNodes" );

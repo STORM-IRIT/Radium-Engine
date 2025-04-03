@@ -41,7 +41,7 @@ createGraph(
     g->addNode( op );
 
     REQUIRE( g->addLink( source_a, "to", op, "a" ) );
-    REQUIRE( g->addLink( op, "r", sink, "from" ) );
+    REQUIRE( g->addLink( op, "result", sink, "from" ) );
     REQUIRE( !g->compile() );
     // this will not execute the graph as it does not compile
     g->execute();
@@ -319,53 +319,39 @@ TEST_CASE( "Dataflow/Core/Nodes", "[unittests][Dataflow][Core][Nodes]" ) {
         auto validator =
             std::make_shared<Functionals::BinaryOpNode<Scalar, Scalar, bool>>( "validator" );
 
-        g->addNode( nodeS );
-        g->addNode( nodeD );
-        g->addNode( nodeN );
-        g->addNode( nodeM );
-        g->addNode( nodeR );
-        g->addNode( meanCalculator );
-        g->addNode( doubleMeanCalculator );
-        g->addNode( nodeT );
-        g->addNode( nodeRD );
+        REQUIRE( g->addNode( nodeS ) );
+        REQUIRE( g->addNode( nodeD ) );
+        REQUIRE( g->addNode( nodeN ) );
+        REQUIRE( g->addNode( nodeM ) );
+        REQUIRE( g->addNode( nodeR ) );
+        REQUIRE( g->addNode( meanCalculator ) );
+        REQUIRE( g->addNode( doubleMeanCalculator ) );
+        REQUIRE( g->addNode( nodeT ) );
+        REQUIRE( g->addNode( nodeRD ) );
 
-        bool linkAdded;
-        linkAdded = g->addLink( nodeS, "to", meanCalculator, "in" );
-        REQUIRE( linkAdded == true );
-        linkAdded = g->addLink( nodeM, "f", meanCalculator, "f" );
-        REQUIRE( linkAdded == true );
-        linkAdded = g->addLink( nodeN, "to", meanCalculator, "init" );
-        REQUIRE( linkAdded == true );
-        linkAdded = g->addLink( meanCalculator, "out", nodeR, "from" );
-        REQUIRE( linkAdded == true );
-        linkAdded = g->addLink( nodeS, "to", nodeT, "in" );
-        REQUIRE( linkAdded == true );
-        linkAdded = g->addLink( nodeD, "f", nodeT, "f" );
-        REQUIRE( linkAdded == true );
-        linkAdded = g->addLink( nodeT, "out", doubleMeanCalculator, "in" );
-        REQUIRE( linkAdded == true );
-        linkAdded = g->addLink( doubleMeanCalculator, "out", nodeRD, "from" );
-        REQUIRE( linkAdded == true );
-        linkAdded = g->addLink( nodeM, "f", doubleMeanCalculator, "f" );
-        REQUIRE( linkAdded == true );
+        REQUIRE( g->addLink( nodeS, "to", meanCalculator, "data" ) );
+        REQUIRE( g->addLink( nodeM, "to", meanCalculator, "op" ) );
+        REQUIRE( g->addLink( nodeN, "to", meanCalculator, "init" ) );
+        REQUIRE( g->addLink( meanCalculator, "result", nodeR, "from" ) );
+        REQUIRE( g->addLink( nodeS, "to", nodeT, "data" ) );
+        REQUIRE( g->addLink( nodeD, "to", nodeT, "op" ) );
+        REQUIRE( g->addLink( nodeT, "result", doubleMeanCalculator, "data" ) );
+        REQUIRE( g->addLink( doubleMeanCalculator, "result", nodeRD, "from" ) );
+        REQUIRE( g->addLink( nodeM, "to", doubleMeanCalculator, "op" ) );
 
-        g->addNode( nodePred );
-        g->addNode( sinkB );
-        g->addNode( validator );
-        linkAdded = g->addLink( meanCalculator, "out", validator, "a" );
-        REQUIRE( linkAdded == true );
-        linkAdded = g->addLink( doubleMeanCalculator, "out", validator, "b" );
-        REQUIRE( linkAdded == true );
-        linkAdded = g->addLink( nodePred, "f", validator, "f" );
-        REQUIRE( linkAdded == true );
-        linkAdded = g->addLink( validator, "r", sinkB, "from" );
-        REQUIRE( linkAdded == true );
+        REQUIRE( g->addNode( nodePred ) );
+        REQUIRE( g->addNode( sinkB ) );
+        REQUIRE( g->addNode( validator ) );
+        REQUIRE( g->addLink( meanCalculator, "result", validator, "a" ) );
+        REQUIRE( g->addLink( doubleMeanCalculator, "result", validator, "b" ) );
+        REQUIRE( g->addLink( nodePred, "to", validator, "op" ) );
+        REQUIRE( g->addLink( validator, "result", sinkB, "from" ) );
 
         auto input   = g->getDataSetter( "s", "from" );
         auto output  = g->getDataGetter( "r", "data" );
         auto outputD = g->getDataGetter( "rd", "data" );
         auto outputB = g->getDataGetter( "test", "data" );
-        auto inputR  = g->getDataSetter( "m", "f" );
+        auto inputR  = g->getDataSetter( "m", "from" );
         if ( inputR == nullptr ) { std::cout << "Failed to get the graph function input !!\n"; }
 
         // Inspect the graph interface : inputs and outputs port
@@ -413,9 +399,9 @@ TEST_CASE( "Dataflow/Core/Nodes", "[unittests][Dataflow][Core][Nodes]" ) {
     SECTION( "LinkMandatory" ) {
         using TestNode = Functionals::FunctionNode<int>;
         auto n         = std::make_shared<TestNode>( "test" );
-        REQUIRE( n->getInPort()->isLinkMandatory() );
-        REQUIRE( !n->getFunctionPort()->isLinkMandatory() );
-        n->getInPort()->setDefaultValue( 5 );
-        REQUIRE( !n->getInPort()->isLinkMandatory() );
+        REQUIRE( n->port_in_data()->isLinkMandatory() );
+        REQUIRE( !n->port_in_op()->isLinkMandatory() );
+        n->port_in_data()->setDefaultValue( 5 );
+        REQUIRE( !n->port_in_data()->isLinkMandatory() );
     }
 }

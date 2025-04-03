@@ -17,27 +17,23 @@ TEST_CASE( "Dataflow/Core/DataflowGraph/Serialization",
         DataflowGraph g { "original graph" };
         g.addJsonMetaData(
             { { "extra", { { "info", "missing operators on functional node" } } } } );
-        auto source_a = std::make_shared<Sources::SingleDataSourceNode<DataType>>( "a" );
-        g.addNode( source_a );
-        auto a        = g.getDataSetter( "a", "from" );
-        auto source_b = std::make_shared<Sources::SingleDataSourceNode<DataType>>( "b" );
-        g.addNode( source_b );
-        auto b    = g.getDataSetter( "b", "from" );
-        auto sink = std::make_shared<Sinks::SinkNode<DataType>>( "r" );
-        g.addNode( sink );
+        auto source_a                = g.addNode<Sources::SingleDataSourceNode<DataType>>( "a" );
+        auto a                       = g.getDataSetter( "a", "from" );
+        auto source_b                = g.addNode<Sources::SingleDataSourceNode<DataType>>( "b" );
+        auto b                       = g.getDataSetter( "b", "from" );
+        auto sink                    = g.addNode<Sinks::SinkNode<DataType>>( "r" );
         auto r                       = g.getDataGetter( "r", "data" );
         using TestNode               = Functionals::BinaryOpNode<DataType, DataType, DataType>;
         TestNode::BinaryOperator add = []( TestNode::Arg1_type pa,
                                            TestNode::Arg2_type pb ) -> TestNode::Res_type {
             return pa + pb;
         };
-        auto op_unique = std::make_shared<TestNode>( "addition" );
+        auto op_unique = g.addNode<TestNode>( "addition" );
         op_unique->setOperator( add );
-        auto added = g.addNode( op_unique );
-        REQUIRE( added );
-        g.addLink( source_a, "to", op_unique, "a" );
-        g.addLink( op_unique, "r", sink, "from" );
-        g.addLink( source_b, "to", op_unique, "b" );
+
+        REQUIRE( g.addLink( source_a, "to", op_unique, "a" ) );
+        REQUIRE( g.addLink( op_unique, "result", sink, "from" ) );
+        REQUIRE( g.addLink( source_b, "to", op_unique, "b" ) );
 
         // execution of the original graph
         DataType x { 1_ra };
@@ -45,7 +41,7 @@ TEST_CASE( "Dataflow/Core/DataflowGraph/Serialization",
         DataType y { 2_ra };
         b->setDefaultValue( y );
         // Execute initial graph";
-        g.execute();
+        REQUIRE( g.execute() );
         auto z = r->getData<DataType>();
         REQUIRE( z == x + y );
 
@@ -55,11 +51,11 @@ TEST_CASE( "Dataflow/Core/DataflowGraph/Serialization",
         g.saveToJson( tmpdir + "/GraphSerializationTest.json" );
         g.destroy();
         // this does nothing as g was destroyed
-        g.execute();
+        REQUIRE( g.execute() );
 
         // Create a new graph and load from the saved graph
         DataflowGraph g1 { "loaded graph" };
-        g1.loadFromJson( tmpdir + "/GraphSerializationTest.json" );
+        REQUIRE( g1.loadFromJson( tmpdir + "/GraphSerializationTest.json" ) );
 
         // Setting the unserializable data on nodes (functions)
         auto addition = g1.getNode( "addition" );
@@ -71,7 +67,7 @@ TEST_CASE( "Dataflow/Core/DataflowGraph/Serialization",
 
         // Execute loaded graph
         // Data delivered by the source nodes are the one saved by the original graph
-        g1.execute();
+        REQUIRE( g1.execute() );
         auto r_loaded  = g1.getDataGetter( "r", "data" );
         auto& z_loaded = r_loaded->getData<DataType>();
         REQUIRE( z_loaded == z );
@@ -82,7 +78,7 @@ TEST_CASE( "Dataflow/Core/DataflowGraph/Serialization",
         a_loaded->setDefaultValue( xp );
         DataType yp { 3_ra };
         b_loaded->setDefaultValue( yp );
-        g1.execute();
+        REQUIRE( g1.execute() );
         REQUIRE( z_loaded == 5 );
 
         // change the data delivered by a
@@ -90,7 +86,8 @@ TEST_CASE( "Dataflow/Core/DataflowGraph/Serialization",
             std::dynamic_pointer_cast<Sources::SingleDataSourceNode<DataType>>( g1.getNode( "a" ) );
         Scalar newX = 3_ra;
         loadedSource_a->setData( newX );
-        g1.execute();
+
+        REQUIRE( g1.execute() );
         REQUIRE( z_loaded == 6 );
         std::filesystem::remove_all( tmpdir );
     }

@@ -1,0 +1,16 @@
+- [0-9][0-9]:[0-9][0-9]:[0-9][0-9] DEBUG: default serialization for Source Source<vector<float>>
+- [0-9][0-9]:[0-9][0-9]:[0-9][0-9] DEBUG: default serialization for Filter Filter<vector<float>>
+- [0-9][0-9]:[0-9][0-9]:[0-9][0-9] DEBUG: default deserialization for Source Source<vector<float>>.
+- [0-9][0-9]:[0-9][0-9]:[0-9][0-9] DEBUG: default deserialization for Filter Filter<vector<float>>.
+Input values : 
+	0\.592845 0\.844266 0\.857946 0\.847252 0\.623564 0\.384382 0\.297535 0\.056713 0\.272656 0\.477665 
+Executing the initial graph \.\.\.
+Output values : 
+	0\.592845 0\.844266 0\.857946 0\.847252 0\.623564 
+Loading and using the graph
+Executing the loaded graph \.\.\.
+Output values : 
+	0\.592845 0\.844266 0\.857946 0\.847252 0\.623564 0\.384382 0\.297535 0\.056713 0\.272656 0\.477665 
+Executing the re-parameterized graph \.\.\.
+Output values : 
+	0\.592845 0\.844266 0\.857946 0\.847252 0\.623564 

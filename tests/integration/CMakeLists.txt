@@ -130,6 +130,15 @@ foreach(INTEGRATION_TEST CoreExample)
              COMMAND "$<TARGET_FILE:${INTEGRATION_TEST}>"
     )
 
+    file(READ ${CMAKE_CURRENT_SOURCE_DIR}/data/references/${INTEGRATION_TEST}.regex
+         ${INTEGRATION_TEST}_regex
+    )
+
+    set_property(
+        TEST integration_${INTEGRATION_TEST} PROPERTY PASS_REGULAR_EXPRESSION
+                                                      ${${INTEGRATION_TEST}_regex}
+    )
+
     set(TEST_PROPERTIES LABELS "integration")
     if(DEFINED TEST_ENV_VAR)
         set(TEST_PROPERTIES ${TEST_PROPERTIES} ENVIRONMENT ${TEST_ENV_VAR})

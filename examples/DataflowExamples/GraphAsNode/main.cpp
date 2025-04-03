@@ -35,25 +35,25 @@ int main( int argc, char* argv[] ) {
     auto forwardB = gAsNode->addNode<Functionals::FunctionNode<Scalar>>( "b" );
     auto forwardC = gAsNode->addNode<Functionals::FunctionNode<Scalar>>( "c" );
 
-    b2minus4ac->getOutputPort()->setName( "delta" );
+    b2minus4ac->port_out_result()->setName( "delta" );
 
     gAsNode->add_input_output_nodes();
-    auto inputA = gAsNode->input_node()->add_output_port( forwardA->getInPort().get() );
-    auto inputB = gAsNode->input_node()->add_output_port( forwardB->getInPort().get() );
-    auto inputC = gAsNode->input_node()->add_output_port( forwardC->getInPort().get() );
-    auto output = gAsNode->output_node()->add_input_port( b2minus4ac->getOutputPort().get() );
+    auto inputA = gAsNode->input_node()->add_output_port( forwardA->port_in_data().get() );
+    auto inputB = gAsNode->input_node()->add_output_port( forwardB->port_in_data().get() );
+    auto inputC = gAsNode->input_node()->add_output_port( forwardC->port_in_data().get() );
+    auto output = gAsNode->output_node()->add_input_port( b2minus4ac->port_out_result().get() );
 
     gAsNode->input_node()->getInputByIndex( inputA )->setName( "a" );
     gAsNode->input_node()->getInputByIndex( inputB )->setName( "b" );
     gAsNode->input_node()->getInputByIndex( inputC )->setName( "c" );
     gAsNode->output_node()->getOutputByIndex( output )->setName( "delta" );
 
-    gAsNode->addLink( forwardB->getOutPort(), b2->getInPort() );
-    gAsNode->addLink( forwardA->getOutPort(), fourAC->getPortA() );
-    gAsNode->addLink( forwardC->getOutPort(), fourAC->getPortB() );
+    gAsNode->addLink( forwardB->port_out_result(), b2->port_in_data() );
+    gAsNode->addLink( forwardA->port_out_result(), fourAC->port_in_a() );
+    gAsNode->addLink( forwardC->port_out_result(), fourAC->port_in_b() );
 
-    gAsNode->addLink( b2->getOutPort(), b2minus4ac->getPortA() );
-    gAsNode->addLink( fourAC->getOutputPort(), b2minus4ac->getPortB() );
+    gAsNode->addLink( b2->port_out_result(), b2minus4ac->port_in_a() );
+    gAsNode->addLink( fourAC->port_out_result(), b2minus4ac->port_in_b() );
 
     gAsNode->compile();
     std::cout << "== Graph as node ==\n";
@@ -78,16 +78,16 @@ int main( int argc, char* argv[] ) {
 
     g.addNode( gAsNode );
 
-    g.addLink( sourceNodeA->getOutPort().get(), gAsNode->getInputByIndex( inputA ) );
-    g.addLink( sourceNodeB->getOutPort().get(), gAsNode->getInputByIndex( inputB ) );
-    g.addLink( sourceNodeC->getOutPort().get(), gAsNode->getInputByIndex( inputC ) );
-    g.addLink( gAsNode->getOutputByIndex( output ), resultNode->getInPort().get() );
+    g.addLink( sourceNodeA->port_out_to().get(), gAsNode->getInputByIndex( inputA ) );
+    g.addLink( sourceNodeB->port_out_to().get(), gAsNode->getInputByIndex( inputB ) );
+    g.addLink( sourceNodeC->port_out_to().get(), gAsNode->getInputByIndex( inputC ) );
+    g.addLink( gAsNode->getOutputByIndex( output ), resultNode->port_in_from().get() );
 
     sourceNodeA->setData( 1 );
     sourceNodeB->setData( 2 );
     sourceNodeC->setData( 3 );
 
-    auto p = resultNode->getInPort();
+    auto p = resultNode->port_in_from();
     std::cerr << p->getName() << " " << p->isLinked() << "\n";
     std::cerr << p->getLink()->getName() << "\n";
     if ( !g.compile() ) {

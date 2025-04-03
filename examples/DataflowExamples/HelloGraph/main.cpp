@@ -41,10 +41,10 @@ int main( int argc, char* argv[] ) {
     //! [Creating links between Nodes]
     // link using nodes port, with compile time type check
     // node belongship to the graph is checked at runtime
-    if ( !g.addLink( sourceNode->getOutPort(), filterNode->getInPort() ) ) { std::abort(); }
+    if ( !g.addLink( sourceNode->port_out_to(), filterNode->port_in_data() ) ) { std::abort(); }
 
     // link with port names, all runtime check
-    if ( !g.addLink( predicateNode, "f", filterNode, "f" ) ) { std::abort(); }
+    if ( !g.addLink( predicateNode, "to", filterNode, "predicate" ) ) { std::abort(); }
     // one can also link using node index, it depends on node init, so be sure to have the right
     // index
     // Functional Port "out" as index 0, and Sink "from" is 0 also

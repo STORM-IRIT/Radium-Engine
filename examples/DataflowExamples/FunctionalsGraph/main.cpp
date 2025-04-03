@@ -54,10 +54,10 @@ int main( int argc, char* argv[] ) {
     //! [Adding Nodes to the graph]
 
     //! [Creating links between Nodes]
-    g.addLink( sourceNode, "to", transformNode, "in" );
-    g.addLink( transformNode, "out", sinkNode, "from" );
-    g.addLink( transformNode, "out", reduceNode, "in" );
-    g.addLink( reduceNode, "out", scalarSinkNode, "from" );
+    g.addLink( sourceNode, "to", transformNode, "data" );
+    g.addLink( transformNode, "result", sinkNode, "from" );
+    g.addLink( transformNode, "result", reduceNode, "data" );
+    g.addLink( reduceNode, "result", scalarSinkNode, "from" );
     //! [Creating links between Nodes]
 
     //! [Verifing the graph can be compiled]
@@ -118,7 +118,7 @@ int main( int argc, char* argv[] ) {
     //! [Verify the result]
 
     //! [Modifying the graph to add link to map operator]
-    if ( !g.addLink( mapSource, "f", transformNode, "f" ) ) {
+    if ( !g.addLink( mapSource, "to", transformNode, "op" ) ) {
         std::cout << "Unable to link port f ("
                   << ") from " << mapSource->getInstanceName() << " to port f("
                   << ") of " << transformNode->getInstanceName() << "\n";
