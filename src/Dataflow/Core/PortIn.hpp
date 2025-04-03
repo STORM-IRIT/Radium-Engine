@@ -82,6 +82,8 @@ class PortIn : public PortBaseIn,
     /// @param node The pointer to the node associated with the port.
     /// @param name The name of the port.
     PortIn( Node* node, const std::string& name ) : PortBaseIn( node, name, typeid( T ) ) {}
+    PortIn( Node* node, const std::string& name, const T& value ) :
+        PortBaseIn( node, name, typeid( T ) ), m_defaultValue { value } {}
     /// @}
 
     /// Returns true if the port is linked to an output port that has data or if it has a default
