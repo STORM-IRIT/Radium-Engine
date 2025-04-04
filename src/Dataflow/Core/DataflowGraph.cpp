@@ -340,8 +340,8 @@ bool DataflowGraph::addLink( const std::shared_ptr<Node>& nodeFrom,
                 Log::badPortIdx( "input", nodeTo->getModelName(), portInIdx );
                 return false;
             }
-            m_input_node->add_output_port( portIn );
-            return true;
+            auto idx = m_input_node->add_output_port( portIn );
+            return idx.isValid();
         }
         if ( nodeTo && nodeTo == m_output_node && portInIdx == m_output_node->getInputs().size() ) {
             auto portOut = nodeFrom->getOutputByIndex( portOutIdx );
@@ -349,8 +349,8 @@ bool DataflowGraph::addLink( const std::shared_ptr<Node>& nodeFrom,
                 Log::badPortIdx( "output", nodeFrom->getModelName(), portOutIdx );
                 return false;
             }
-            m_output_node->add_input_port( portOut );
-            return true;
+            auto idx = m_output_node->add_input_port( portOut );
+            return idx.isValid();
         }
     }
 

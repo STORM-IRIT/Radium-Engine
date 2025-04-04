@@ -29,11 +29,21 @@ class RA_DATAFLOW_CORE_API PortFactory
 
     Node::PortBaseInPtr
     make_input_port( Node* node, const std::string& name, std::type_index type ) {
-        return m_input_ctor.at( type )( node, name );
+        if ( auto itr = m_input_ctor.find( type ); itr != m_input_ctor.end() ) {
+            return itr->second( node, name );
+        }
+        LOG( Ra::Core::Utils::logERROR )
+            << "input ctor type not found " << Ra::Core::Utils::simplifiedDemangledType( type );
+        return {};
     }
     Node::PortBaseOutPtr
     make_output_port( Node* node, const std::string& name, std::type_index type ) {
-        return m_output_ctor.at( type )( node, name );
+        if ( auto itr = m_output_ctor.find( type ); itr != m_output_ctor.end() ) {
+            return itr->second( node, name );
+        }
+        LOG( Ra::Core::Utils::logERROR )
+            << "output ctor type not found " << Ra::Core::Utils::simplifiedDemangledType( type );
+        return {};
     }
 
     Node::PortBaseInPtr
@@ -82,6 +92,7 @@ class RA_DATAFLOW_CORE_API PortFactory
         add_port_type<Vector2>();
         add_port_type<Vector3>();
         add_port_type<Vector4>();
+        add_port_type<std::function<float( const float& )>>();
     }
 
     std::unordered_map<std::type_index, PortInCtorFunctor> m_input_ctor;
@@ -142,14 +153,17 @@ class RA_DATAFLOW_CORE_API GraphNode : public Node
 
   protected:
     auto add_ports( PortBaseRawPtr port ) {
-        auto factory    = PortFactory::getInstance();
-        auto in_name    = find_available_name( "in", port->getName() );
-        auto in         = factory->make_input_port( this, in_name, port->getType() );
-        auto out_name   = find_available_name( "out", port->getName() );
-        auto out        = factory->make_output_port( this, out_name, port->getType() );
-        auto input_idx  = addInput( in );
-        auto output_idx = addOutput( out );
-        return std::make_tuple( input_idx, output_idx, in, out );
+        auto factory  = PortFactory::getInstance();
+        auto in_name  = find_available_name( "in", port->getName() );
+        auto in       = factory->make_input_port( this, in_name, port->getType() );
+        auto out_name = find_available_name( "out", port->getName() );
+        auto out      = factory->make_output_port( this, out_name, port->getType() );
+        if ( in && out ) {
+            auto input_idx  = addInput( in );
+            auto output_idx = addOutput( out );
+            return std::make_tuple( input_idx, output_idx, in, out );
+        }
+        return std::make_tuple( PortIndex {}, PortIndex {}, in, out );
     }
 
     auto find_available_name( const std::string& type, const std::string& name ) -> std::string {
@@ -215,7 +229,7 @@ class RA_DATAFLOW_CORE_API GraphInputNode : public GraphNode
   public:
     PortIndex add_output_port( PortBaseInRawPtr port ) {
         auto [input_idx, output_idx, in, out] = add_ports( port );
-        port->connect( out.get() );
+        if ( in && out ) port->connect( out.get() );
         return input_idx;
     }
 };
@@ -227,8 +241,7 @@ class RA_DATAFLOW_CORE_API GraphOutputNode : public GraphNode
   public:
     PortIndex add_input_port( PortBaseOutRawPtr port ) {
         auto [input_idx, output_idx, in, out] = add_ports( port );
-
-        in->connect( port );
+        if ( in && out ) in->connect( port );
         return output_idx;
     }
 };
