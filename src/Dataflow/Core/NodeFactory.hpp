@@ -185,8 +185,11 @@ class RA_DATAFLOW_CORE_API NodeFactorySet
     auto insert( value_type value ) -> std::pair<iterator, bool>;
     auto erase( const key_type& key ) -> size_t;
 
+    const std::string& default_factory_name() { return m_default_factory_name; }
+
   private:
     container_type m_factories;
+    const std::string m_default_factory_name { "Dataflow Nodes" };
 };
 
 /**

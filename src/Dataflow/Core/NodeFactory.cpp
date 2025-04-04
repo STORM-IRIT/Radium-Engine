@@ -82,8 +82,10 @@ auto createFactory( const NodeFactorySet::key_type& name ) -> NodeFactorySet::ma
 }
 
 auto getFactory( const NodeFactorySet::key_type& name ) -> NodeFactorySet::mapped_type {
-    auto& fctMgr = getFactoryManager();
-    if ( auto factory = fctMgr.find( name ); factory != fctMgr.end() ) { return factory->second; }
+    auto& factories = getFactoryManager();
+    if ( auto factory = factories.find( name ); factory != factories.end() ) {
+        return factory->second;
+    }
     return nullptr;
 }
 
@@ -92,7 +94,7 @@ auto unregisterFactory( const NodeFactorySet::key_type& name ) -> bool {
 }
 
 auto getDataFlowBuiltInsFactory() -> NodeFactorySet::mapped_type {
-    return getFactory( "Dataflow Nodes" );
+    return getFactory( getFactoryManager().default_factory_name() );
 }
 
 } // namespace NodeFactoriesManager
