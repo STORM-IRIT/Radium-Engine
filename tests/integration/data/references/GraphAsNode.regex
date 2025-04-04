@@ -1,8 +1,0 @@
-== Graph as node ==
-inputs
-	- a <float> \(input\)
-	- b <float> \(input\)
-	- c <float> \(input\)
-outputs
-	- delta <float> \(output\)
-Output value delta = 2²-4×1×3 = -8

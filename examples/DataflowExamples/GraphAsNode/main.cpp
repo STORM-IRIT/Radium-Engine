@@ -107,6 +107,6 @@ int main( int argc, char* argv[] ) {
     std::cout << "Output value delta = " << *sourceNodeB->getData() << "²-4×"
               << *sourceNodeA->getData() << "×" << *sourceNodeC->getData() << " = " << result
               << "\n";
-
+    if ( result != ( 2 * 2 ) - 4 * 1 * 3 ) return 1;
     return 0;
 }

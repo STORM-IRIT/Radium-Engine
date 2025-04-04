@@ -57,18 +57,12 @@ int main( int argc, char* argv[] ) {
         //! [Creating an empty graph using the custom nodes factory]
 
         //! [Creating Nodes]
-        auto sourceNode = std::make_shared<Sources::SingleDataSourceNode<VectorType>>( "Source" );
+        auto sourceNode = g.addNode<Sources::SingleDataSourceNode<VectorType>>( "Source" );
         // non serializable node using a custom filter
-        auto filterNode = std::make_shared<Functionals::FilterNode<VectorType>>(
+        auto filterNode = g.addNode<Functionals::FilterNode<VectorType>>(
             "Filter", []( const Scalar& x ) { return x > 0.5_ra; } );
-        auto storeNode = std::make_shared<Sinks::SinkNode<VectorType>>( "Store" );
+        auto storeNode = g.addNode<Sinks::SinkNode<VectorType>>( "Store" );
         //! [Creating Nodes]
-
-        //! [Adding Nodes to the graph]
-        g.addNode( sourceNode );
-        g.addNode( filterNode );
-        g.addNode( storeNode );
-        //! [Adding Nodes to the graph]
 
         //! [Creating links between Nodes]
         g.addLink( sourceNode, "to", filterNode, "data" );

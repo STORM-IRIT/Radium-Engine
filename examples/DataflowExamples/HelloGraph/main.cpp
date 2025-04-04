@@ -77,7 +77,10 @@ int main( int argc, char* argv[] ) {
     std::cout << '\n';
 
     //! [Execute the graph]
-    if ( !g.execute() ) { std::cerr << "execution failed!\n"; }
+    if ( !g.execute() ) {
+        std::cerr << "execution failed!\n";
+        return 1;
+    }
     //! [Execute the graph]
 
     //! [Print the output result]
