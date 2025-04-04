@@ -27,8 +27,8 @@ namespace Core {
 namespace NodeFactoriesManager {
 
 void registerStandardFactories() {
-    if ( getFactory( NodeFactoriesManager::dataFlowBuiltInsFactoryName ) ) { return; }
-    auto coreFactory = createFactory( NodeFactoriesManager::dataFlowBuiltInsFactoryName );
+    if ( getFactory( "Dataflow Nodes" ) ) { return; }
+    auto coreFactory = createFactory( "Dataflow Nodes" );
     /* --- Sources --- */
     Private::registerSourcesFactories( coreFactory );
 

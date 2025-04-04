@@ -9,10 +9,6 @@ namespace Dataflow {
 namespace Core {
 class Node;
 
-namespace NodeFactoriesManager {
-const std::string dataFlowBuiltInsFactoryName { "Dataflow Nodes" };
-}
-
 NodeFactory::NodeFactory( std::string name ) : m_name( std::move( name ) ) {}
 
 auto NodeFactory::getName() const -> std::string {
@@ -96,7 +92,7 @@ auto unregisterFactory( const NodeFactorySet::key_type& name ) -> bool {
 }
 
 auto getDataFlowBuiltInsFactory() -> NodeFactorySet::mapped_type {
-    return getFactory( NodeFactoriesManager::dataFlowBuiltInsFactoryName );
+    return getFactory( "Dataflow Nodes" );
 }
 
 } // namespace NodeFactoriesManager

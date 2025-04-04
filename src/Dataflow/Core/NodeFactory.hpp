@@ -207,8 +207,6 @@ class RA_DATAFLOW_CORE_API NodeFactorySet
  * automatically added to all created factory set.
  */
 namespace NodeFactoriesManager {
-RA_DATAFLOW_CORE_API extern const std::string dataFlowBuiltInsFactoryName;
-
 RA_DATAFLOW_CORE_API auto getFactoryManager() -> NodeFactorySet&;
 
 /** Register a factory into the manager.
