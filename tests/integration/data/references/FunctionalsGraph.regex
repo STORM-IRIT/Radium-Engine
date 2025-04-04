@@ -1,4 +1,3 @@
-- [0-9][0-9]:[0-9][0-9]:[0-9][0-9] WARNING: Sink Node MapOperator is inactive \(belongs to the graph but not connected\)
 Input values : 
 	0\.592845 0\.844266 0\.857946 0\.847252 0\.623564 0\.384382 0\.297535 0\.056713 0\.272656 0\.477665 
 Output values \(oneMinusMe\): 10

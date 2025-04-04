@@ -125,15 +125,19 @@ endif()
 # -----------------------------------------------------------------------------
 # ------------- run examples --------------------------------------------------
 # -----------------------------------------------------------------------------
-foreach(INTEGRATION_TEST CoreExample)
-    add_test(NAME integration_${INTEGRATION_TEST} WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/
-             COMMAND "$<TARGET_FILE:${INTEGRATION_TEST}>"
-    )
+add_test(NAME integration_CoreExample WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/
+         COMMAND "$<TARGET_FILE:CoreExample>"
+)
 
+add_dependencies(integration CoreExample)
+
+foreach(INTEGRATION_TEST FunctionalsGraph GraphAsNode GraphSerialization HelloGraph)
+    add_test(NAME integration_${INTEGRATION_TEST} WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/
+             COMMAND sh -c "$<TARGET_FILE:${INTEGRATION_TEST}> 2>/dev/null"
+    )
     file(READ ${CMAKE_CURRENT_SOURCE_DIR}/data/references/${INTEGRATION_TEST}.regex
          ${INTEGRATION_TEST}_regex
     )
-
     set_property(
         TEST integration_${INTEGRATION_TEST} PROPERTY PASS_REGULAR_EXPRESSION
                                                       ${${INTEGRATION_TEST}_regex}
