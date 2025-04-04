@@ -153,6 +153,8 @@ jobs:
           # Setting paths to dll needed by catch2 and run in build dir
           echo "$GITHUB_WORKSPACE/build/Radium-Engine/src/Core" >> $GITHUB_PATH
           echo "$GITHUB_WORKSPACE/build/Radium-Engine/src/Engine" >> $GITHUB_PATH
+          echo "$GITHUB_WORKSPACE/build/Radium-Engine/src/Dataflow/Core" >> $GITHUB_PATH
+          echo "$GITHUB_WORKSPACE/build/Radium-Engine/src/Dataflow/QtGui" >> $GITHUB_PATH
           echo "$GITHUB_WORKSPACE/build/Radium-Engine/src/Gui" >> $GITHUB_PATH
           echo "$GITHUB_WORKSPACE/build/Radium-Engine/src/Headless" >> $GITHUB_PATH
           echo "$GITHUB_WORKSPACE/build/Radium-Engine/src/IO" >> $GITHUB_PATH
