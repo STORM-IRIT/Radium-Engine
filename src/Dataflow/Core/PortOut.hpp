@@ -83,10 +83,14 @@ class PortOut : public PortBaseOut
     /// Constructor.
     /// @param name The name of the port.
     /// @param node The pointer to the node associated with the port.
-    PortOut( Node* node, const std::string& name ) : PortBaseOut( node, name, typeid( T ) ) {}
+    PortOut( Node* node, const std::string& name ) : PortBaseOut( node, name, typeid( T ) ) {
+        add_port_type<T>();
+    }
 
     PortOut( Node* node, T* data, const std::string& name ) :
-        PortBaseOut( node, name, typeid( T ) ), m_data { data } {}
+        PortBaseOut( node, name, typeid( T ) ), m_data { data } {
+        add_port_type<T>();
+    }
     /// @}
 
     /// Gets a reference to the data this ports points to.
@@ -105,6 +109,14 @@ class PortOut : public PortBaseOut
     T* m_data { nullptr };
 
 }; // class PortOut<T>
+
+template <typename Type>
+using PortOutPtr = PortPtr<PortOut<Type>>;
+template <typename Type>
+using PortOutRawPtr = typename PortOutPtr<Type>::element_type*;
+
+using PortBaseOutRawPtr = PortRawPtr<PortBaseOut>;
+using PortBaseOutPtr    = PortPtr<PortBaseOut>;
 
 template <typename T>
 T& PortBaseOut::getData() {

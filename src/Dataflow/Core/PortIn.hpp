@@ -81,9 +81,13 @@ class PortIn : public PortBaseIn,
     /// Constructor.
     /// @param node The pointer to the node associated with the port.
     /// @param name The name of the port.
-    PortIn( Node* node, const std::string& name ) : PortBaseIn( node, name, typeid( T ) ) {}
+    PortIn( Node* node, const std::string& name ) : PortBaseIn( node, name, typeid( T ) ) {
+        add_port_type<T>();
+    }
     PortIn( Node* node, const std::string& name, const T& value ) :
-        PortBaseIn( node, name, typeid( T ) ), m_defaultValue { value } {}
+        PortBaseIn( node, name, typeid( T ) ), m_defaultValue { value } {
+        add_port_type<T>();
+    }
     /// @}
 
     /// Returns true if the port is linked to an output port that has data or if it has a default
@@ -161,6 +165,14 @@ class PortIn : public PortBaseIn,
     std::optional<T> m_defaultValue {}; ///< The value used when not connected.
 
 }; // class PortIn<T>
+
+template <typename Type>
+using PortInPtr = PortPtr<PortIn<Type>>;
+template <typename Type>
+using PortInRawPtr = typename PortInPtr<Type>::element_type*;
+
+using PortBaseInPtr    = PortPtr<PortBaseIn>;
+using PortBaseInRawPtr = PortRawPtr<PortBaseIn>;
 
 template <typename T>
 PortOut<T>* PortBaseIn::getLinkAs() {

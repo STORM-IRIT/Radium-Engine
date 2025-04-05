@@ -216,25 +216,21 @@ TEST_CASE( "Dataflow/Core/Custom nodes", "[unittests][Dataflow][Core][Custom nod
         auto customFactory = NodeFactoriesManager::createFactory( "CustomNodesUnitTests" );
 
         // add node creators to the factory
-        bool registered;
-        registered = customFactory->registerNodeCreator<Customs::CustomStringSource>(
-            Customs::CustomStringSource::getTypename() + "_", "Custom" );
-        REQUIRE( registered == true );
-        registered = customFactory->registerNodeCreator<Customs::CustomStringSink>(
-            Customs::CustomStringSink::getTypename() + "_", "Custom" );
-        REQUIRE( registered == true );
-        registered = customFactory->registerNodeCreator<Customs::FilterSelector<Scalar>>(
-            Customs::FilterSelector<Scalar>::getTypename() + "_", "Custom" );
-        REQUIRE( registered == true );
+
+        REQUIRE( customFactory->registerNodeCreator<Customs::CustomStringSource>(
+            Customs::CustomStringSource::getTypename() + "_", "Custom" ) );
+        REQUIRE( customFactory->registerNodeCreator<Customs::CustomStringSink>(
+            Customs::CustomStringSink::getTypename() + "_", "Custom" ) );
+        REQUIRE( customFactory->registerNodeCreator<Customs::FilterSelector<Scalar>>(
+            Customs::FilterSelector<Scalar>::getTypename() + "_", "Custom" ) );
         // The same node can't be register twice in the same factory
-        registered = customFactory->registerNodeCreator<Customs::FilterSelector<Scalar>>(
-            Customs::FilterSelector<Scalar>::getTypename() + "_", "Custom" );
-        REQUIRE( registered == false );
+        REQUIRE( !customFactory->registerNodeCreator<Customs::FilterSelector<Scalar>>(
+            Customs::FilterSelector<Scalar>::getTypename() + "_", "Custom" ) );
 
         nlohmann::json emptyData;
         auto customSource = customFactory->createNode(
             Customs::CustomStringSource::getTypename(), emptyData, nullptr );
-        REQUIRE( customSource != nullptr );
+        REQUIRE( customSource );
 
         // build a graph
         auto g = buildgraph<Scalar>( "testCustomNodes" );
@@ -249,9 +245,7 @@ TEST_CASE( "Dataflow/Core/Custom nodes", "[unittests][Dataflow][Core][Custom nod
         delete g;
         g = new DataflowGraph( "" );
 
-        bool loaded = g->loadFromJson( tmpdir + "customGraph.json" );
-
-        REQUIRE( loaded == true );
+        REQUIRE( g->loadFromJson( tmpdir + "customGraph.json" ) );
         g->destroy();
         delete g;
 
@@ -259,9 +253,8 @@ TEST_CASE( "Dataflow/Core/Custom nodes", "[unittests][Dataflow][Core][Custom nod
         auto unregistered = NodeFactoriesManager::unregisterFactory( customFactory->getName() );
         REQUIRE( unregistered == true );
 
-        g      = new DataflowGraph( "" );
-        loaded = g->loadFromJson( tmpdir + "customGraph.json" );
-        REQUIRE( loaded == false );
+        g = new DataflowGraph( "" );
+        REQUIRE( !g->loadFromJson( tmpdir + "customGraph.json" ) );
         delete g;
 
         std::filesystem::remove_all( tmpdir );

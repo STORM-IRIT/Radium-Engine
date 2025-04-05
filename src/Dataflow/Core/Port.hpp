@@ -13,12 +13,15 @@ namespace Core {
 
 class Node;
 
+// forward, defined in port facotory
+template <typename T>
+void add_port_type();
 /**
  * \brief Base class for nodes' ports
  * A port is a strongly typed extremity of connections between nodes.
  * \warning when comparing and using typed port, beware of the const qualifier
- * that is not always exposed by the C++ type system. There are some undefined behavior concerning
- * const_casts and const qualifier in the C++ documentation
+ * that is not always exposed by the C++ type system. There are some undefined behavior
+ * concerning const_casts and const qualifier in the C++ documentation
  * (https://en.cppreference.com/w/cpp/language/const_cast).
  *
  */
@@ -71,6 +74,15 @@ class RA_DATAFLOW_CORE_API PortBase
     Node* m_node { nullptr };  ///< A pointer to the node this port belongs to.
     /// \todo switch to shared_ptr ?
 };
+
+template <typename Port>
+using PortPtr = std::shared_ptr<Port>;
+
+template <typename Port>
+using PortRawPtr = typename PortPtr<Port>::element_type*;
+
+using PortBasePtr    = PortPtr<PortBase>;
+using PortBaseRawPtr = PortRawPtr<PortBase>;
 
 } // namespace Core
 } // namespace Dataflow

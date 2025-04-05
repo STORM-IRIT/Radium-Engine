@@ -39,6 +39,7 @@ set(dataflow_core_headers
     Nodes/Sources/FunctionSource.hpp
     Nodes/Sources/SingleDataSourceNode.hpp
     Port.hpp
+    PortFactory.hpp
     PortIn.hpp
     PortOut.hpp
 )
