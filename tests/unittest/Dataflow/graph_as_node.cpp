@@ -15,7 +15,7 @@ using namespace Ra::Dataflow::Core;
 using namespace Ra::Core;
 
 TEST_CASE( "Dataflow/Core/GraphAsNode/Delta", "[unittests][Dataflow][Core][Graph]" ) {
-    auto port_fatcory = PortFactory::createInstance();
+    auto port_fatcory = PortFactory::getInstance();
     port_fatcory->add_port_type<Scalar>();
 
     auto gAsNode = make_shared<DataflowGraph>( "graphAsNode" );

@@ -15,7 +15,7 @@ using namespace Ra::Dataflow::Core;
 int main( int argc, char* argv[] ) {
     using RaVector = Ra::Core::VectorArray<Scalar>;
 
-    auto port_fatcory = PortFactory::createInstance();
+    auto port_fatcory = PortFactory::getInstance();
     port_fatcory->add_port_type<Scalar>();
 
     auto gAsNode = Ra::Core::make_shared<DataflowGraph>( "graphAsNode" );

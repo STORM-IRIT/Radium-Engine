@@ -5,9 +5,15 @@
 # ----------------------------------------------------
 
 set(dataflow_core_sources
-    DataflowGraph.cpp Node.cpp NodeFactory.cpp Nodes/CoreBuiltInsNodes.cpp
-    Nodes/Private/FunctionalsNodeFactory.cpp Nodes/Private/SinksNodeFactory.cpp
-    Nodes/Private/SourcesNodeFactory.cpp Port.cpp
+    Core.cpp
+    DataflowGraph.cpp
+    Node.cpp
+    NodeFactory.cpp
+    Nodes/CoreBuiltInsNodes.cpp
+    Nodes/Private/FunctionalsNodeFactory.cpp
+    Nodes/Private/SinksNodeFactory.cpp
+    Nodes/Private/SourcesNodeFactory.cpp
+    Port.cpp
 )
 
 set(dataflow_core_headers
