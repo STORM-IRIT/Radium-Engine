@@ -207,6 +207,8 @@ macro(generate_includes name)
 endmacro()
 
 generate_includes(Core)
+generate_includes(Dataflow/Core)
+generate_includes(Dataflow/QtGui)
 generate_includes(Engine)
 generate_includes(Gui)
 generate_includes(IO)
@@ -220,7 +222,8 @@ add_executable(integration_${INTEGRATION_TEST} "${CMAKE_CURRENT_BINARY_DIR}/incl
 target_compile_options(integration_${INTEGRATION_TEST} PUBLIC ${RA_DEFAULT_COMPILE_OPTIONS})
 
 target_link_libraries(
-    integration_${INTEGRATION_TEST} PUBLIC Core Gui Engine PRIVATE std::filesystem ${Qt_LIBRARIES}
+    integration_${INTEGRATION_TEST} PUBLIC Core Dataflow Gui Engine PRIVATE std::filesystem
+                                                                            ${Qt_LIBRARIES}
 )
 
 target_compile_definitions(
