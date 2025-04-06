@@ -2,7 +2,6 @@
 #include <Core/Containers/VariableSet.hpp>
 
 #include <Core/Utils/TypesUtils.hpp>
-
 #include <catch2/catch_test_macros.hpp>
 #include <cmath>
 #include <string>
@@ -57,7 +56,7 @@ auto print_container = []( const std::string& name, VariableSet& ps ) {
     std::cout << std::endl;
 };
 
-TEST_CASE( "Core/Container/VariableSet", "[Core][Container][VariableSet]" ) {
+TEST_CASE( "Core/Container/VariableSet", "[unittests][Core][Container][VariableSet]" ) {
     REQUIRE( PrintThemAll::types::Size == 5 );
 
     VariableSet params;

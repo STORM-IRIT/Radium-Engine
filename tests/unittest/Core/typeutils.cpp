@@ -7,7 +7,7 @@
 namespace TypeTests {
 struct TypeName_struct {};
 } // namespace TypeTests
-TEST_CASE( "Core/Utils/TypesUtils", "[unittests][Core][Core/Utils][TypesUtils]" ) {
+TEST_CASE( "Core/Utils/TypesUtils", "[unittests][Core][Utils][TypesUtils]" ) {
     SECTION( "Demangle from typename" ) {
         using Ra::Core::Utils::demangleType;
 

@@ -8,8 +8,8 @@ set(dataflow_qtgui_sources GraphEditor/GraphEditorWindow.cpp GraphEditor/GraphMo
                            GraphEditor/WidgetFactory.cpp
 )
 
-set(dataflow_qtgui_headers GraphEditor/ConnectionStatusData.hpp GraphEditor/GraphEditorWindow.hpp
-                           GraphEditor/GraphModel.hpp GraphEditor/WidgetFactory.hpp
+set(dataflow_qtgui_headers GraphEditor/GraphEditorWindow.hpp GraphEditor/GraphModel.hpp
+                           GraphEditor/WidgetFactory.hpp
 )
 
 set(dataflow_qtgui_uis GraphEditor/NodeEditor.ui)

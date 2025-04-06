@@ -41,7 +41,6 @@ set(test_src
     Engine/renderparameters.cpp
     Engine/signalmanager.cpp
     Gui/keymapping.cpp
-    unittest.cpp
     unittestUtils.hpp
 )
 

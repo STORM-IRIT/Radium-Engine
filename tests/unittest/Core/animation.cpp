@@ -24,7 +24,7 @@
 #include <Eigen/Core>
 #include <Eigen/Geometry>
 #include <Eigen/SparseCore>
-
+#include <algorithm>
 #include <catch2/catch_test_macros.hpp>
 #include <cmath>
 #include <iostream>
