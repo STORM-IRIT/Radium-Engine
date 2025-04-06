@@ -1,6 +1,7 @@
+#include <Dataflow/Core/NodeFactory.hpp>
+
 #include <Core/Utils/Log.hpp>
 #include <Dataflow/Core/DataflowGraph.hpp>
-#include <Dataflow/Core/NodeFactory.hpp>
 #include <iostream>
 #include <memory>
 

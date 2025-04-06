@@ -1,6 +1,9 @@
 #pragma once
 #include <Dataflow/RaDataflow.hpp>
 
+// include first for qt/gl include order
+#include <Gui/RaGui.hpp>
+
 #include <Dataflow/Core/DataflowGraph.hpp>
 #include <Dataflow/Core/Node.hpp>
 

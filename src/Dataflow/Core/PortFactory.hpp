@@ -1,5 +1,7 @@
+#pragma once
 #include <Dataflow/RaDataflow.hpp>
 
+#include <Core/Utils/BijectiveAssociation.hpp>
 #include <Core/Utils/Singleton.hpp>
 #include <Dataflow/Core/PortIn.hpp>
 #include <Dataflow/Core/PortOut.hpp>

@@ -2,7 +2,6 @@
 #include <Dataflow/RaDataflow.hpp>
 
 #include <Core/Containers/VariableSet.hpp>
-#include <Core/Utils/BijectiveAssociation.hpp>
 #include <Core/Utils/Index.hpp>
 #include <Dataflow/Core/PortFactory.hpp>
 #include <Dataflow/Core/PortIn.hpp>

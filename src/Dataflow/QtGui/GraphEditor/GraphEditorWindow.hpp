@@ -1,6 +1,9 @@
 #pragma once
 #include <Dataflow/RaDataflow.hpp>
 
+// include first for qt/gl include order
+#include <Gui/RaGui.hpp>
+
 #include <QMainWindow>
 #include <QtWidgets>
 
