@@ -397,7 +397,10 @@ bool DataflowGraph::removeLink( std::shared_ptr<Node> node, const std::string& n
 
 bool DataflowGraph::removeLink( std::shared_ptr<Node> node, const PortIndex& in_port_index ) {
     if ( m_nodesAndLinksProtected ) { return false; }
-    if ( in_port_index.isInvalid() || in_port_index >= node->getInputs().size() ) { return false; }
+    if ( in_port_index.isInvalid() ||
+         static_cast<size_t>( in_port_index ) >= node->getInputs().size() ) {
+        return false;
+    }
     auto ret = node->getInputs()[in_port_index]->disconnect();
     if ( ret ) needsRecompile();
     return ret;
