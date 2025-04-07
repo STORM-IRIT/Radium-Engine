@@ -1,4 +1,4 @@
-\page nodeSystem Radium node system
+\page dataflow Radium Dataflow
 [TOC]
 
 # Radium node system
