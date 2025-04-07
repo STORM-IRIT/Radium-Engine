@@ -114,21 +114,22 @@ class RA_DATAFLOW_CORE_API DataflowGraph : public Node
                ( portIn->getType() == portOut->getType() && !portIn->isLinked() );
     }
 
-    ///
-    /// \brief Removes the link connected to a node's input port
-    /// \param node the node to unlink
-    /// \param nodeInputName the name of the port to unlink
-    /// \return true if link is removed, false if not.
-    bool removeLink( std::shared_ptr<Node>, const std::string& nodeInputName );
-    bool removeLink( std::shared_ptr<Node> node, const PortIndex& in_port_index ) {
-        if ( m_nodesAndLinksProtected ) { return false; }
-        if ( in_port_index.isInvalid() || in_port_index >= node->getInputs().size() ) {
-            return false;
-        }
-        auto ret = node->getInputs()[in_port_index]->disconnect();
-        if ( ret ) needsRecompile();
-        return ret;
-    }
+    /** \brief Removes the link connected to a node's input port
+     *
+     * \param node the node to unlink
+     * \param nodeInputName the name of the port to unlink
+     * \return true if link is removed, false if not.
+     */
+
+    bool removeLink( std::shared_ptr<Node> node, const std::string& nodeInputName );
+
+    /** \copybrief removeLink
+     *
+     * \param node the node to unlink
+     * \param in_port_index index of the port's input port to unlink
+     * \return true if link is removed, false if not.
+     */
+    bool removeLink( std::shared_ptr<Node> node, const PortIndex& in_port_index );
 
     /// \brief Get the vector of all the nodes on the graph
     /// \return
@@ -137,6 +138,16 @@ class RA_DATAFLOW_CORE_API DataflowGraph : public Node
     /// Gets a specific node according to its instance name.
     /// \param instanceNameNode The instance name of the node.
     std::shared_ptr<Node> getNode( const std::string& instanceNameNode ) const;
+    /** \copydoc getNode()
+     *
+     * Dynamic cast of the node pointer to T
+     *
+     * \tparam T Node's type to cast node to.
+     */
+    template <typename T>
+    std::shared_ptr<T> getNode( const std::string& instanceNameNode ) const {
+        return std::dynamic_pointer_cast<T>( getNode( instanceNameNode ) );
+    }
 
     /// Gets the nodes ordered by level (after compilation)
     const std::vector<std::vector<Node*>>& getNodesByLevel() const { return m_nodesByLevel; }

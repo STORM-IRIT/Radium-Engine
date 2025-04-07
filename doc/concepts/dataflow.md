@@ -1,13 +1,11 @@
-\page dataflow Radium Dataflow
+\page dataflow Dataflow
 [TOC]
-
-# Radium node system
 
 Radium-Engine embed a node system allowing to develop computation graph using an adaptation of dataflow programming.
 This documentation explain the concepts used in the node system and how to develop computation graph using the Core
 node system and how to extend the Core node system to be used in specific Radium-Engine application or library.
 
-## Structure and usage of the Radium::Dataflow component
+# Structure and usage of the Radium::Dataflow component
 
 When building the Radium-Engine libraries, the node system is available from the Radium::Dataflow component.
 The availability of this component in the set of built/installed libraries is managed using the
@@ -38,7 +36,7 @@ The targets that depends on a Dataflow components should then be configured as a
 requested dataflow component, by, e.g, adding the line
 `target_link_libraries(target_name PUBLIC Radium::Dataflow)` (or the only needed subcomponent).
 
-## Concepts of the node system
+# Concepts of the node system
 
 The node system allow to build computation graph that takes its input from some _data source_ and store their results
 in some _data sink_ after applying several _functions_ on the data.
@@ -130,7 +128,7 @@ of the computation.
 
 To develop such an application, the following should be done
 
-### 1. Building and inspecting the graph
+## 1. Building and inspecting the graph
 
 First, an object of type Ra::Dataflow::Core::DataflowGraph is instanced :
 \snippet examples/DataflowExamples/HelloGraph/main.cpp Creating an empty graph
@@ -142,55 +140,41 @@ Links between ports are added to the graph, and if an error is detected, due to 
 reported
 \snippet examples/DataflowExamples/HelloGraph/main.cpp Creating links between Nodes
 
-Once the graph is built, it can be inspected using dedicated methods.
-\snippet examples/DataflowExamples/HelloGraph/main.cpp Inspect the graph interface : inputs and outputs port
-
-For the graph constructed above, this prints on stdout
-
-```text
-Input ports (2) are :
- "Selector_f" accepting type function<bool (float const&)>
- "Source_to" accepting type RaVector<float>
-Output ports (1) are :
- "Sink_from" generating type RaVector<float>
-```
-
-### 2. Compiling the graph and getting input/output accessors
+## 2. Compiling the graph and getting input/output accessors
 
 In order to use the graph as a function acting on its input, it should be first compiled by
 \snippet examples/DataflowExamples/HelloGraph/main.cpp Verifying the graph can be compiled
 
-If the compilation success the accessors for the input data and the output result might be fetched from the graph
-\snippet examples/DataflowExamples/HelloGraph/main.cpp Configure the interface ports (input and output of the graph)
+If the compilation success the graph inputs can be set either using node return by Ra::Dataflow::Core::DataflowGraph::addNode, or getting the node from the graph with Ra::Dataflow::Core::DataflowGraph::getNode
+\snippet examples/DataflowExamples/HelloGraph/main.cpp Configure nodes
 
 Here, the accessor `input` allows to set the pointer on the `RaVector` to be processed while the accessor `selector`
 allows to set the predicate to evaluate when filtering the collection. This predicates select values les than `0.5`
 
 The accessor `output` will allow, once the graph is executed, to get a reference to or to copy the resulting values.
 
-### 3. Executing the graph
+## 3. Executing the graph
 
 Once the input data are available (in this example, the `test` vector is filled with 10 random values between 0 and 1),
 the graph can be executed and a reference to the resulting vector can be fetched using
 \snippet examples/DataflowExamples/HelloGraph/main.cpp Execute the graph
 
-### 4. Multiple run of the graph on different input
+## 4. Multiple run of the graph on different input
 
-As accessors use pointers and references on the data sent to / fetched from the graph, the HelloGraph example shows how
-to change the input using different available means so that every run of the graph process different values.
-See the file examples/DataflowExamples/HelloGraph/main.cpp for all the details.
+Data setters copy values to the nodes, but getters return a reference, hence results are uptodate when running the graph process again.
+\snippet examples/DataflowExamples/HelloGraph/main.cpp Modify input and rerun the graph
 
-## Examples of graphs and of programming custom nodes
+# Examples of graphs and of programming custom nodes
 
 The unittests developed alongside the Radium::Dataflow component, and located in the directory
 `tests/unittest/Dataflow/` of the Radium-Engine source tree, can be used to learn the following :
 
-- sourcesandsinks.cpp : demonstrate the default supported types for sources and sinks node.
-- nodes.cpp : demonstrate the development of a more complex graph implementing transform/reduce
+- sourcesandsinks.cpp : shows the default supported types for sources and sinks node.
+- nodes.cpp : shows the development of a more complex graph implementing transform/reduce
 on several collections using different reduction operators.
-- graphinspect.cpp : demonstrate the way a graph can be inspected to discover its structure.
-- serialization.cpp : demonstrate how to save/load a graph from a json file and use it in an
+- graphinspect.cpp : shows the way a graph can be inspected to discover its structure.
+- serialization.cpp : shows to save/load a graph from a json file and use it in an
 application.
-- customnodes.cpp : demonstrate how it is simple to develop your own node type (in C++) and
+- customnodes.cpp : shows how it is simple to develop your own node type (in C++) and
 use your nodes alongside standard nodes.
   \snippet unittest/Dataflow/customnodes.cpp Develop a custom node

@@ -61,12 +61,9 @@ int main( int argc, char* argv[] ) {
     //! [Verifying the graph can be compiled]
 
     //! [Configure nodes]
-    RaVector test( 10 );
-    std::mt19937 gen( 0 );
-    std::uniform_real_distribution<> dis( 0.0, 1.0 );
-    // Fill the vector with random numbers between 0 and 1
-    std::generate( test.begin(), test.end(), [&dis, &gen]() { return dis( gen ); } );
-    sourceNode->setData( test );
+    RaVector test {
+        0.0_ra, 1.0_ra, 0.1_ra, 0.9_ra, 0.2_ra, 0.8_ra, 0.3_ra, 0.7_ra, 0.4_ra, 0.6_ra, 0.5_ra };
+    g.getNode<Sources::SingleDataSourceNode<RaVector>>( "Source" )->setData( test );
 
     Sources::ScalarUnaryPredicateSource::function_type pred = []( Scalar x ) { return x < 0.5; };
     predicateNode->setData( pred );
@@ -85,7 +82,7 @@ int main( int argc, char* argv[] ) {
 
     //! [Print the output result]
     auto& result = sinkNode->getDataByRef();
-    std::cout << "Output values (reference): " << result.size() << "\n\t";
+    std::cout << "Output values: " << result.size() << "\n\t";
     std::copy( result.begin(), result.end(), std::ostream_iterator<Scalar>( std::cout, " " ) );
     std::cout << '\n';
     //! [Print the output result]

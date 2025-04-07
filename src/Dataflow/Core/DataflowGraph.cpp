@@ -395,6 +395,14 @@ bool DataflowGraph::removeLink( std::shared_ptr<Node> node, const std::string& n
     return removeLink( node, idx );
 }
 
+bool DataflowGraph::removeLink( std::shared_ptr<Node> node, const PortIndex& in_port_index ) {
+    if ( m_nodesAndLinksProtected ) { return false; }
+    if ( in_port_index.isInvalid() || in_port_index >= node->getInputs().size() ) { return false; }
+    auto ret = node->getInputs()[in_port_index]->disconnect();
+    if ( ret ) needsRecompile();
+    return ret;
+}
+
 int DataflowGraph::findNode( const Node* node ) const {
     auto foundIt = std::find_if(
         m_nodes.begin(), m_nodes.end(), [node]( const auto& p ) { return *p == *node; } );
@@ -414,6 +422,7 @@ bool DataflowGraph::findNode2( const Node* node ) const {
     }
     return false;
 }
+
 void DataflowGraph::generate_ports() {
     if ( m_input_node ) m_inputs = m_input_node->getInputs();
     if ( m_output_node ) m_outputs = m_output_node->getOutputs();
