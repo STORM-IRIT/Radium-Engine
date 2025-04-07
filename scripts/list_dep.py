@@ -63,11 +63,11 @@ for filename in filenames:
     if len(dep) >0 : modules[filename.parts[0]] = dep
     dep={}
 
-#for module in ['Core', 'Engine', 'IO', 'Gui', 'Headless', 'Dataflow']:
-#    if module in modules:
-#        dep = modules[module]
-#        for key in dep:
-#            print(f"* `{key}_DIR`")
+for module in ['Core', 'Engine', 'IO', 'Gui', 'Headless', 'Dataflow']:
+    if module in modules:
+        dep = modules[module]
+        for key in dep:
+            print(f"* `{key}_DIR`")
 
 print("Radium is compiled and tested with specific version of dependencies, as given in the external's folder CMakeLists.txt and state here for the record\n")
 

@@ -19,7 +19,7 @@ add_custom_target(CoreExternals ALL)
 
 if(NOT DEFINED Eigen3_DIR)
     check_externals_prerequisite()
-    status_message("[CoreExternal]" "eigen3" "remote git")
+    status_message("eigen3" "remote git")
 
     ExternalProject_Add(
         Eigen3
@@ -36,12 +36,12 @@ if(NOT DEFINED Eigen3_DIR)
     add_dependencies(CoreExternals Eigen3)
     set_external_dir(Eigen3 "share/eigen3/cmake/")
 else()
-    status_message("" "eigen3" ${Eigen3_DIR})
+    status_message("eigen3" ${Eigen3_DIR})
 endif()
 
 if(NOT DEFINED OpenMesh_DIR)
     check_externals_prerequisite()
-    status_message("[CoreExternal]" "OpenMesh" "remote git")
+    status_message("OpenMesh" "remote git")
     # I found some problems when generating xcode project for OpenMesh: the libXXX.dylib link to
     # libXXX.Major.minor.dylib (eg libOpenMesh.2.1.dylib) is not generated and the script failed.
     # Need to generate this link manually. TODO, find why only OpenMesh is problematic
@@ -58,12 +58,12 @@ if(NOT DEFINED OpenMesh_DIR)
     add_dependencies(CoreExternals OpenMesh)
     set_external_dir(OpenMesh "share/OpenMesh/cmake/")
 else()
-    status_message("" "OpenMesh" ${OpenMesh_DIR})
+    status_message("OpenMesh" ${OpenMesh_DIR})
 endif()
 
 if(NOT DEFINED cpplocate_DIR OR NOT cpplocate_DIR)
     check_externals_prerequisite()
-    status_message("[CoreExternal]" "cpplocate" "remote git")
+    status_message("cpplocate" "remote git")
     ExternalProject_Add(
         cpplocate
         GIT_REPOSITORY https://github.com/cginternals/cpplocate.git
@@ -79,12 +79,12 @@ if(NOT DEFINED cpplocate_DIR OR NOT cpplocate_DIR)
     set_external_dir(cpplocate "cpplocate/")
 else()
     add_custom_target(cpplocate)
-    status_message("" "cpplocate" ${cpplocate_DIR})
+    status_message("cpplocate" ${cpplocate_DIR})
 endif()
 
 if(NOT DEFINED nlohmann_json_DIR)
     check_externals_prerequisite()
-    status_message("" "nlohmann_json" "remote git")
+    status_message("nlohmann_json" "remote git")
     ExternalProject_Add(
         nlohmann_json
         GIT_REPOSITORY https://github.com/nlohmann/json.git
@@ -98,5 +98,5 @@ if(NOT DEFINED nlohmann_json_DIR)
     add_dependencies(CoreExternals nlohmann_json)
     set_external_dir(nlohmann_json "share/cmake/nlohmann_json/")
 else()
-    status_message("" "nlohmann_json" ${nlohmann_json_DIR})
+    status_message("nlohmann_json" ${nlohmann_json_DIR})
 endif()

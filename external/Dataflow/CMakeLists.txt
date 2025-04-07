@@ -19,7 +19,7 @@ add_custom_target(DataflowExternals ALL)
 
 if(NOT DEFINED QtNodes_DIR)
     check_externals_prerequisite()
-    status_message("" "QtNodes" "remote git")
+    status_message("QtNodes" "remote git")
     ExternalProject_Add(
         QtNodes
         GIT_REPOSITORY https://github.com/paceholder/nodeeditor.git
@@ -33,5 +33,5 @@ if(NOT DEFINED QtNodes_DIR)
     set_external_dir(QtNodes "lib/cmake/QtNodes/")
     add_dependencies(DataflowExternals QtNodes)
 else()
-    status_message("" "QtNodes" ${QtNodes_DIR})
+    status_message("QtNodes" ${QtNodes_DIR})
 endif()
