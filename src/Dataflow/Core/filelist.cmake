@@ -9,22 +9,22 @@ set(dataflow_core_sources Core.cpp DataflowGraph.cpp Node.cpp NodeFactory.cpp Po
 set(dataflow_core_headers
     DataflowGraph.hpp
     EditableParameter.hpp
+    Functionals/BinaryOpNode.hpp
+    Functionals/CoreDataFunctionals.hpp
+    Functionals/FilterNode.hpp
+    Functionals/FunctionNode.hpp
+    Functionals/ReduceNode.hpp
+    Functionals/TransformNode.hpp
     GraphNodes.hpp
     Node.hpp
     NodeFactory.hpp
-    Nodes/Functionals/BinaryOpNode.hpp
-    Nodes/Functionals/CoreDataFunctionals.hpp
-    Nodes/Functionals/FilterNode.hpp
-    Nodes/Functionals/FunctionNode.hpp
-    Nodes/Functionals/ReduceNode.hpp
-    Nodes/Functionals/TransformNode.hpp
-    Nodes/Sinks/CoreDataSinks.hpp
-    Nodes/Sinks/SinkNode.hpp
-    Nodes/Sources/CoreDataSources.hpp
-    Nodes/Sources/FunctionSource.hpp
-    Nodes/Sources/SingleDataSourceNode.hpp
     Port.hpp
     PortFactory.hpp
     PortIn.hpp
     PortOut.hpp
+    Sinks/CoreDataSinks.hpp
+    Sinks/SinkNode.hpp
+    Sources/CoreDataSources.hpp
+    Sources/FunctionSource.hpp
+    Sources/SingleDataSourceNode.hpp
 )

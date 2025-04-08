@@ -1,10 +1,10 @@
 #include <Core/CoreMacros.hpp>
 #include <Dataflow/Core/DataflowGraph.hpp>
-#include <Dataflow/Core/Nodes/Functionals/ReduceNode.hpp>
-#include <Dataflow/Core/Nodes/Functionals/TransformNode.hpp>
-#include <Dataflow/Core/Nodes/Sinks/SinkNode.hpp>
-#include <Dataflow/Core/Nodes/Sources/FunctionSource.hpp>
-#include <Dataflow/Core/Nodes/Sources/SingleDataSourceNode.hpp>
+#include <Dataflow/Core/Functionals/ReduceNode.hpp>
+#include <Dataflow/Core/Functionals/TransformNode.hpp>
+#include <Dataflow/Core/Sinks/SinkNode.hpp>
+#include <Dataflow/Core/Sources/FunctionSource.hpp>
+#include <Dataflow/Core/Sources/SingleDataSourceNode.hpp>
 
 #include <iostream>
 #include <limits>

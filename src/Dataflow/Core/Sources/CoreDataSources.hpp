@@ -1,6 +1,6 @@
 #pragma once
-#include <Dataflow/Core/Nodes/Sources/FunctionSource.hpp>
-#include <Dataflow/Core/Nodes/Sources/SingleDataSourceNode.hpp>
+#include <Dataflow/Core/Sources/FunctionSource.hpp>
+#include <Dataflow/Core/Sources/SingleDataSourceNode.hpp>
 
 #include <Core/Containers/VectorArray.hpp>
 #include <Core/Types.hpp>

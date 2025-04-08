@@ -1,10 +1,10 @@
 #include <Core/Containers/MakeShared.hpp>
 #include <Dataflow/Core/DataflowGraph.hpp>
-#include <Dataflow/Core/Nodes/Functionals/BinaryOpNode.hpp>
-#include <Dataflow/Core/Nodes/Functionals/FilterNode.hpp>
-#include <Dataflow/Core/Nodes/Functionals/FunctionNode.hpp>
-#include <Dataflow/Core/Nodes/Sinks/SinkNode.hpp>
-#include <Dataflow/Core/Nodes/Sources/CoreDataSources.hpp>
+#include <Dataflow/Core/Functionals/BinaryOpNode.hpp>
+#include <Dataflow/Core/Functionals/FilterNode.hpp>
+#include <Dataflow/Core/Functionals/FunctionNode.hpp>
+#include <Dataflow/Core/Sinks/SinkNode.hpp>
+#include <Dataflow/Core/Sources/CoreDataSources.hpp>
 
 using namespace Ra::Dataflow::Core;
 

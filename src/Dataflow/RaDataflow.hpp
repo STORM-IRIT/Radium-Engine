@@ -46,9 +46,9 @@
  * All these node might be serialized/unserialized without any additional nor custom factory.
  *
  * If needed, the definition of all these type aliases can be included using one of the headers
- *  - #include <Dataflow/Core/Nodes/Functionals/CoreDataFunctionals.hpp>
- *  - #include <Dataflow/Core/Nodes/Sinks/CoreDataSinks.hpp>
- *  - #include <Dataflow/Core/Nodes/Sources/CoreDataSources.hpp>
+ *  - #include <Dataflow/Core/Functionals/CoreDataFunctionals.hpp>
+ *  - #include <Dataflow/Core/Sinks/CoreDataSinks.hpp>
+ *  - #include <Dataflow/Core/Sources/CoreDataSources.hpp>
  */
 // PREFIX/SUFFIX TYPE FACTORY NAMESPACE
 #define NODE_TYPES( FACTORY, NAMESPACE )                       \

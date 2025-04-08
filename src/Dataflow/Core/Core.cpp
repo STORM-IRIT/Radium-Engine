@@ -1,12 +1,12 @@
 #include <Dataflow/RaDataflow.hpp>
 
 #include <Dataflow/Core/DataflowGraph.hpp>
+#include <Dataflow/Core/Functionals/CoreDataFunctionals.hpp>
 #include <Dataflow/Core/GraphNodes.hpp>
 #include <Dataflow/Core/Node.hpp>
 #include <Dataflow/Core/NodeFactory.hpp>
-#include <Dataflow/Core/Nodes/Functionals/CoreDataFunctionals.hpp>
-#include <Dataflow/Core/Nodes/Sinks/CoreDataSinks.hpp>
-#include <Dataflow/Core/Nodes/Sources/CoreDataSources.hpp>
+#include <Dataflow/Core/Sinks/CoreDataSinks.hpp>
+#include <Dataflow/Core/Sources/CoreDataSources.hpp>
 
 void CoreNodes__Initializer();
 

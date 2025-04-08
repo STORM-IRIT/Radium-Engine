@@ -7,9 +7,9 @@
 
 #include <Dataflow/Core/DataflowGraph.hpp>
 
-#include <Dataflow/Core/Nodes/Functionals/CoreDataFunctionals.hpp>
-#include <Dataflow/Core/Nodes/Sinks/CoreDataSinks.hpp>
-#include <Dataflow/Core/Nodes/Sources/CoreDataSources.hpp>
+#include <Dataflow/Core/Functionals/CoreDataFunctionals.hpp>
+#include <Dataflow/Core/Sinks/CoreDataSinks.hpp>
+#include <Dataflow/Core/Sources/CoreDataSources.hpp>
 
 //! [Create a source to sink graph for type T]
 using namespace Ra::Dataflow::Core;

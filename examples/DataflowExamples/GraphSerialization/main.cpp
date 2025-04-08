@@ -1,7 +1,7 @@
 #include <Dataflow/Core/DataflowGraph.hpp>
-#include <Dataflow/Core/Nodes/Functionals/FilterNode.hpp>
-#include <Dataflow/Core/Nodes/Sinks/SinkNode.hpp>
-#include <Dataflow/Core/Nodes/Sources/SingleDataSourceNode.hpp>
+#include <Dataflow/Core/Functionals/FilterNode.hpp>
+#include <Dataflow/Core/Sinks/SinkNode.hpp>
+#include <Dataflow/Core/Sources/SingleDataSourceNode.hpp>
 
 #include <Core/Containers/VectorArray.hpp>
 

@@ -1,5 +1,5 @@
 #pragma once
-#include <Dataflow/Core/Nodes/Sinks/SinkNode.hpp>
+#include <Dataflow/Core/Sinks/SinkNode.hpp>
 
 #include <Core/Containers/VectorArray.hpp>
 #include <Core/Types.hpp>

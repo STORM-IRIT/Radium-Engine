@@ -2,7 +2,7 @@
 #include <QCommandLineOption>
 #include <QCommandLineParser>
 
-#include <Dataflow/Core/Nodes/Sources/CoreDataSources.hpp>
+#include <Dataflow/Core/Sources/CoreDataSources.hpp>
 #include <Dataflow/QtGui/GraphEditor/GraphEditorWindow.hpp>
 
 #include <QtNodes/ConnectionStyle>

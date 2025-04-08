@@ -2,8 +2,8 @@
 
 #include <Core/Utils/TypesUtils.hpp>
 #include <Dataflow/Core/DataflowGraph.hpp>
-#include <Dataflow/Core/Nodes/Sinks/CoreDataSinks.hpp>
-#include <Dataflow/Core/Nodes/Sources/CoreDataSources.hpp>
+#include <Dataflow/Core/Sinks/CoreDataSinks.hpp>
+#include <Dataflow/Core/Sources/CoreDataSources.hpp>
 
 #include <iostream>
 #include <string>

@@ -1,9 +1,9 @@
 #pragma once
-#include <Dataflow/Core/Nodes/Functionals/BinaryOpNode.hpp>
-#include <Dataflow/Core/Nodes/Functionals/FilterNode.hpp>
-#include <Dataflow/Core/Nodes/Functionals/FunctionNode.hpp>
-#include <Dataflow/Core/Nodes/Functionals/ReduceNode.hpp>
-#include <Dataflow/Core/Nodes/Functionals/TransformNode.hpp>
+#include <Dataflow/Core/Functionals/BinaryOpNode.hpp>
+#include <Dataflow/Core/Functionals/FilterNode.hpp>
+#include <Dataflow/Core/Functionals/FunctionNode.hpp>
+#include <Dataflow/Core/Functionals/ReduceNode.hpp>
+#include <Dataflow/Core/Functionals/TransformNode.hpp>
 
 #include <Core/Containers/VectorArray.hpp>
 #include <Core/Types.hpp>

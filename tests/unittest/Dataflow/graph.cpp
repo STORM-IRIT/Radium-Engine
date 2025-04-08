@@ -1,18 +1,18 @@
 #include <catch2/catch_test_macros.hpp>
 
 #include <Dataflow/Core/DataflowGraph.hpp>
+#include <Dataflow/Core/Functionals/CoreDataFunctionals.hpp>
+#include <Dataflow/Core/Functionals/FunctionNode.hpp>
+#include <Dataflow/Core/Functionals/ReduceNode.hpp>
+#include <Dataflow/Core/Functionals/TransformNode.hpp>
 #include <Dataflow/Core/Node.hpp>
 #include <Dataflow/Core/NodeFactory.hpp>
-#include <Dataflow/Core/Nodes/Functionals/CoreDataFunctionals.hpp>
-#include <Dataflow/Core/Nodes/Functionals/FunctionNode.hpp>
-#include <Dataflow/Core/Nodes/Functionals/ReduceNode.hpp>
-#include <Dataflow/Core/Nodes/Functionals/TransformNode.hpp>
-#include <Dataflow/Core/Nodes/Sinks/CoreDataSinks.hpp>
-#include <Dataflow/Core/Nodes/Sources/CoreDataSources.hpp>
-#include <Dataflow/Core/Nodes/Sources/FunctionSource.hpp>
-#include <Dataflow/Core/Nodes/Sources/SingleDataSourceNode.hpp>
 #include <Dataflow/Core/PortIn.hpp>
 #include <Dataflow/Core/PortOut.hpp>
+#include <Dataflow/Core/Sinks/CoreDataSinks.hpp>
+#include <Dataflow/Core/Sources/CoreDataSources.hpp>
+#include <Dataflow/Core/Sources/FunctionSource.hpp>
+#include <Dataflow/Core/Sources/SingleDataSourceNode.hpp>
 
 #include <nlohmann/json.hpp>
 
