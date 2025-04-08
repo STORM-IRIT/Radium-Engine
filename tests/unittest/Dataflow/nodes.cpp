@@ -23,17 +23,17 @@ createGraph(
 
     auto source_a = std::make_shared<Sources::SingleDataSourceNode<DataType_a>>( "a" );
     g->addNode( source_a );
-    auto a = g->getDataSetter( "a", "from" );
+    auto a = g->getNodeInputPort( "a", "from" );
     REQUIRE( a->getNode() == source_a.get() );
 
     auto source_b = std::make_shared<Sources::SingleDataSourceNode<DataType_b>>( "b" );
     g->addNode( source_b );
-    auto b = g->getDataSetter( "b", "from" );
+    auto b = g->getNodeInputPort( "b", "from" );
     REQUIRE( b->getNode() == source_b.get() );
 
     auto sink = std::make_shared<Sinks::SinkNode<DataType_r>>( "r" );
     g->addNode( sink );
-    auto r = g->getDataGetter( "r", "data" );
+    auto r = g->getNodeOutputPort( "r", "data" );
     REQUIRE( r->getNode() == sink.get() );
 
     auto op = std::make_shared<TestNode>( "operator", f );
@@ -347,11 +347,11 @@ TEST_CASE( "Dataflow/Core/Nodes", "[unittests][Dataflow][Core][Nodes]" ) {
         REQUIRE( g->addLink( nodePred, "to", validator, "op" ) );
         REQUIRE( g->addLink( validator, "result", sinkB, "from" ) );
 
-        auto input   = g->getDataSetter( "s", "from" );
-        auto output  = g->getDataGetter( "r", "data" );
-        auto outputD = g->getDataGetter( "rd", "data" );
-        auto outputB = g->getDataGetter( "test", "data" );
-        auto inputR  = g->getDataSetter( "m", "from" );
+        auto input   = g->getNodeInputPort( "s", "from" );
+        auto output  = g->getNodeOutputPort( "r", "data" );
+        auto outputD = g->getNodeOutputPort( "rd", "data" );
+        auto outputB = g->getNodeOutputPort( "test", "data" );
+        auto inputR  = g->getNodeInputPort( "m", "from" );
         if ( inputR == nullptr ) { std::cout << "Failed to get the graph function input !!\n"; }
 
         // Inspect the graph interface : inputs and outputs port

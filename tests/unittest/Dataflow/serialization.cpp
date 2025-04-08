@@ -18,11 +18,11 @@ TEST_CASE( "Dataflow/Core/DataflowGraph/Serialization",
         g.addJsonMetaData(
             { { "extra", { { "info", "missing operators on functional node" } } } } );
         auto source_a                = g.addNode<Sources::SingleDataSourceNode<DataType>>( "a" );
-        auto a                       = g.getDataSetter( "a", "from" );
+        auto a                       = g.getNodeInputPort( "a", "from" );
         auto source_b                = g.addNode<Sources::SingleDataSourceNode<DataType>>( "b" );
-        auto b                       = g.getDataSetter( "b", "from" );
+        auto b                       = g.getNodeInputPort( "b", "from" );
         auto sink                    = g.addNode<Sinks::SinkNode<DataType>>( "r" );
-        auto r                       = g.getDataGetter( "r", "data" );
+        auto r                       = g.getNodeOutputPort( "r", "data" );
         using TestNode               = Functionals::BinaryOpNode<DataType, DataType, DataType>;
         TestNode::BinaryOperator add = []( TestNode::Arg1_type pa,
                                            TestNode::Arg2_type pb ) -> TestNode::Res_type {
@@ -68,12 +68,12 @@ TEST_CASE( "Dataflow/Core/DataflowGraph/Serialization",
         // Execute loaded graph
         // Data delivered by the source nodes are the one saved by the original graph
         REQUIRE( g1.execute() );
-        auto r_loaded  = g1.getDataGetter( "r", "data" );
+        auto r_loaded  = g1.getNodeOutputPort( "r", "data" );
         auto& z_loaded = r_loaded->getData<DataType>();
         REQUIRE( z_loaded == z );
 
-        auto a_loaded = g1.getDataSetter( "a", "from" );
-        auto b_loaded = g1.getDataSetter( "b", "from" );
+        auto a_loaded = g1.getNodeInputPort( "a", "from" );
+        auto b_loaded = g1.getNodeInputPort( "b", "from" );
         DataType xp { 2_ra };
         a_loaded->setDefaultValue( xp );
         DataType yp { 3_ra };

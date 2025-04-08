@@ -23,9 +23,9 @@ void testGraph( const std::string& name, T in, T& out ) {
     if ( !linked ) { std::cerr << "Error linking source and sink nodes.\n"; }
     REQUIRE( linked );
 
-    auto input = g->getDataSetter( "in", "from" );
+    auto input = g->getNodeInputPort( "in", "from" );
     REQUIRE( input != nullptr );
-    auto output = g->getDataGetter( "out", "data" );
+    auto output = g->getNodeOutputPort( "out", "data" );
     REQUIRE( output != nullptr );
 
     auto compiled = g->compile();

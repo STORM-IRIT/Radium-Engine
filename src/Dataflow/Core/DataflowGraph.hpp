@@ -175,15 +175,15 @@ class RA_DATAFLOW_CORE_API DataflowGraph : public Node
     /// update)
     inline void needsRecompile();
 
-    /// \brief Gets an output port connected to the named input port of the graph.
-    /// Return the connected output port if success, sharing the ownership with the caller.
-    /// This output port could then be used through setter->setData( ptr ) to set the graph
-    /// input from the data pointer owned by the caller. \note As ownership is shared with the
-    /// caller, the graph must survive the returned pointer to be able to use the dataSetter..
-    /// \params portName The name of the input port of the graph
-
-    Node::PortBaseInRawPtr getDataSetter( const std::string& nodeName,
-                                          const std::string& portName ) {
+    /// \brief Gets an input port form a node of the graph.
+    /// Return the port if exists.
+    /// This input port could then be used through setter->setDefaultValue( data ) to set the graph
+    /// input from the data.
+    /// \note The raw pointer is only valid as graph is valid.
+    /// \param nodeNome The name of the node
+    /// \param portName The name of the input port
+    Node::PortBaseInRawPtr getNodeInputPort( const std::string& nodeName,
+                                             const std::string& portName ) {
         auto node = getNode( nodeName );
         auto port = node->getInputByName( portName );
         CORE_ASSERT( port.first.isValid(),
@@ -191,13 +191,15 @@ class RA_DATAFLOW_CORE_API DataflowGraph : public Node
         return port.second;
     }
 
-    /// \brief Returns an alias to the named output port of the graph.
+    /// \brief Gets an output port from a node of the graph.
     /// Allows to get the data stored at this port after the execution of the graph.
+    /// The return port can be use as in port->getData().
     /// \note ownership is left to the graph, not shared. The graph must survive the returned
-    /// pointer to be able to use the dataGetter.
-    /// \params portName the name of the output port
-    Node::PortBaseOutRawPtr getDataGetter( const std::string& nodeName,
-                                           const std::string& portName ) {
+    /// raw pointer to be able to use the dataGetter.
+    /// \param nodeNome The name of the node
+    /// \param portName The name of the output port
+    Node::PortBaseOutRawPtr getNodeOutputPort( const std::string& nodeName,
+                                               const std::string& portName ) {
         auto node = getNode( nodeName );
         auto port = node->getOutputByName( portName );
         CORE_ASSERT( port.first.isValid(),
@@ -205,14 +207,6 @@ class RA_DATAFLOW_CORE_API DataflowGraph : public Node
 
         return port.second;
     }
-
-    /// \brief Data getter descriptor.
-    /// A Data getter descriptor is composed of an output port (belonging to any node of the
-    /// graph), its name and its type. Use getData on the output port to extract data from the
-    /// graph. \note, a dataGetter is valid only after successful compilation of the graph.
-    /// \todo find a way to test the validity of the getter (invalid if no path exists from any
-    /// source port to the associated sink port)
-    using DataGetterDesc = std::tuple<PortBase*, std::string, std::string>;
 
     bool findNode2( const Node* node ) const;
 
@@ -280,7 +274,7 @@ class RA_DATAFLOW_CORE_API DataflowGraph : public Node
 
     /// Returns the index of the given node in the graph.
     /// if there is none, returns -1.
-    /// \param name The name of the node to find.
+    /// \param node Raw pointer of the node to find.
     int findNode( const Node* node ) const;
 
   private:

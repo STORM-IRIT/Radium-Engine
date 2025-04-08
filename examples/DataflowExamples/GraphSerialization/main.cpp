@@ -115,7 +115,7 @@ int main( int argc, char* argv[] ) {
     //! [Execute the graph]
 
     //! [Print the output result]
-    auto output = g1.getDataGetter( "Store", "data" );
+    auto output = g1.getNodeOutputPort( "Store", "data" );
 
     VectorType result = output->getData<VectorType>();
 
