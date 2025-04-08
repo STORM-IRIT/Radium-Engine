@@ -29,9 +29,9 @@ namespace Core {
 class RA_DATAFLOW_CORE_API DataflowGraph : public Node
 {
   public:
-    /// Constructor.
-    /// The nodes pointing to external data are created here.
-    /// \param name The name of the render graph.
+    /** The nodes pointing to external data are created here.
+     * \param name The name of the render graph.
+     */
     explicit DataflowGraph( const std::string& name );
     virtual ~DataflowGraph() = default;
 
@@ -208,8 +208,6 @@ class RA_DATAFLOW_CORE_API DataflowGraph : public Node
         return port.second;
     }
 
-    bool findNode2( const Node* node ) const;
-
     bool shouldBeSaved() { return m_shouldBeSaved; }
 
     static const std::string& getTypename();
@@ -267,15 +265,16 @@ class RA_DATAFLOW_CORE_API DataflowGraph : public Node
     bool fromJsonInternal( const nlohmann::json& data ) override;
     void toJsonInternal( nlohmann::json& ) const override;
 
-    /// \brief Test if a node can be added to a graph
-    /// \param newNode const naked pointer to the candidate node
-    /// \return true if ownership could be transferred to the graph.
-    virtual bool canAdd( const Node* newNode ) const;
-
-    /// Returns the index of the given node in the graph.
-    /// if there is none, returns -1.
-    /// \param node Raw pointer of the node to find.
-    int findNode( const Node* node ) const;
+    /** Check if there node with same instance and model is in the graph.
+     *
+     * \param instance Instance name to search
+     * \param model Model name to search
+     */
+    bool findNode( const std::string& instance, const std::string& model ) const;
+    /** Check if node is part of the graph, or part of its "inner" graph.
+     * \param node Raw pointer of the node to find.
+     */
+    bool findNodeDeep( const Node* node ) const;
 
   private:
     // Internal helper functions

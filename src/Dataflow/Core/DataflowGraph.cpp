@@ -255,13 +255,9 @@ bool DataflowGraph::fromJsonInternal( const nlohmann::json& data ) {
     return true;
 }
 
-bool DataflowGraph::canAdd( const Node* newNode ) const {
-    return findNode( newNode ) == -1;
-}
-
 bool DataflowGraph::addNode( std::shared_ptr<Node> newNode ) {
     // Check if the new node already exists (= same name and type)
-    if ( canAdd( newNode.get() ) ) {
+    if ( !findNode( newNode->getInstanceName(), newNode->getModelName() ) ) {
         m_nodes.emplace_back( std::move( newNode ) );
         needsRecompile();
         return true;
@@ -273,14 +269,12 @@ bool DataflowGraph::removeNode( std::shared_ptr<Node> node ) {
     // This is to prevent graph destruction from the graph editor, depending on how it is used
     if ( m_nodesAndLinksProtected ) { return false; }
 
-    // Check if the node is in the list already exists (= same name)
-    int index = -1;
-    if ( ( index = findNode( node.get() ) ) == -1 ) { return false; }
-    else {
-        m_nodes.erase( m_nodes.begin() + index );
+    if ( auto itr = std::find( m_nodes.begin(), m_nodes.end(), node ); itr != m_nodes.end() ) {
+        m_nodes.erase( itr );
         needsRecompile();
         return true;
     }
+    return false;
 }
 
 bool DataflowGraph::checkPortCompatibility( const Node* nodeFrom,
@@ -385,42 +379,41 @@ bool DataflowGraph::addLink( Node::PortBaseOutRawPtr outputPort,
 }
 
 bool DataflowGraph::removeLink( std::shared_ptr<Node> node, const std::string& nodeInputName ) {
-    // This is to prevent graph destruction from the graph editor, depending on how it is used
-    if ( m_nodesAndLinksProtected ) { return false; }
-
-    // Check node's existence in the graph
-    if ( findNode( node.get() ) == -1 ) { return false; }
-
     auto [idx, port] = node->getInputByName( nodeInputName );
     return removeLink( node, idx );
 }
 
 bool DataflowGraph::removeLink( std::shared_ptr<Node> node, const PortIndex& in_port_index ) {
+    // This is to prevent graph destruction from the graph editor, depending on how it is used
     if ( m_nodesAndLinksProtected ) { return false; }
-    if ( in_port_index.isInvalid() ||
-         static_cast<size_t>( in_port_index ) >= node->getInputs().size() ) {
-        return false;
+
+    // Check node's existence in the graph
+    bool ret = false;
+    if ( // node in graph
+        findNodeDeep( node.get() ) &&
+        // port index valid
+        in_port_index.isValid() &&
+        // port index less than input size
+        static_cast<size_t>( in_port_index ) < node->getInputs().size() ) {
+        ret = node->getInputs()[in_port_index]->disconnect();
+        if ( ret ) needsRecompile();
     }
-    auto ret = node->getInputs()[in_port_index]->disconnect();
-    if ( ret ) needsRecompile();
     return ret;
 }
 
-int DataflowGraph::findNode( const Node* node ) const {
-    auto foundIt = std::find_if(
-        m_nodes.begin(), m_nodes.end(), [node]( const auto& p ) { return *p == *node; } );
-    if ( foundIt != m_nodes.end() ) { return std::distance( m_nodes.begin(), foundIt ); }
-    else { return -1; }
+bool DataflowGraph::findNode( const std::string& instance, const std::string& model ) const {
+    return std::find_if( m_nodes.begin(), m_nodes.end(), [instance, model]( const auto& p ) {
+               return p->getModelName() == model && p->getInstanceName() == instance;
+           } ) != m_nodes.end();
 }
 
-bool DataflowGraph::findNode2( const Node* node ) const {
+bool DataflowGraph::findNodeDeep( const Node* node ) const {
     if ( !node ) return false;
-
     for ( const auto& n : m_nodes ) {
         if ( n.get() == node ) return true;
         auto g = dynamic_cast<DataflowGraph*>( n.get() );
         if ( g ) {
-            if ( g->findNode2( node ) ) return true;
+            if ( g->findNodeDeep( node ) ) return true;
         }
     }
     return false;
@@ -631,13 +624,13 @@ bool DataflowGraph::checkNodeValidity( const Node* nodeFrom,
                                        bool verbose ) const {
     using namespace Ra::Core::Utils;
     // Check node "from" existence in the graph
-    if ( !findNode2( nodeFrom ) ) {
+    if ( !findNodeDeep( nodeFrom ) ) {
         if ( verbose ) Log::unableToFind( "initial node", nodeFrom->getInstanceName() );
         return false;
     }
 
     // Check node "to" existence in the graph
-    if ( !findNode2( nodeTo ) ) {
+    if ( !findNodeDeep( nodeTo ) ) {
         if ( verbose ) Log::unableToFind( "destination node", nodeTo->getInstanceName() );
         return false;
     }
