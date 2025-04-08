@@ -60,8 +60,8 @@ TEST_CASE( "Dataflow/Core/DataflowGraph/Serialization",
         // Setting the unserializable data on nodes (functions)
         auto addition = g1.getNode( "addition" );
         REQUIRE( addition != nullptr );
-        REQUIRE( addition->getModelName() == Functionals::BinaryOpFloat::getTypename() );
-        auto typedAddition = std::dynamic_pointer_cast<Functionals::BinaryOpFloat>( addition );
+        REQUIRE( addition->getModelName() == Functionals::BinaryOpScalar::getTypename() );
+        auto typedAddition = std::dynamic_pointer_cast<Functionals::BinaryOpScalar>( addition );
         REQUIRE( typedAddition != nullptr );
         if ( typedAddition != nullptr ) { typedAddition->setOperator( add ); }
 

@@ -31,8 +31,8 @@
  *
  * The default factory of the node system contains instantiation of the nodes below for the
  * following type
- *   - Scalar, float, double, int, unsigned int
- *   - Color, VectorDf, VectorDd (where D in {2, 3, 4}
+ *   - Scalar, int,
+ *   - Color, Vector{2,3,4}
  *
  * List of instanced nodes for any TYPE above
  *   - SingleDataSourceNode<TYPE> and SingleDataSourceNode<Ra::Core::VectorArray<TYPE>>
@@ -52,17 +52,12 @@
  */
 // PREFIX/SUFFIX TYPE FACTORY NAMESPACE
 #define NODE_TYPES( FACTORY, NAMESPACE )                       \
-    DATAFLOW_MACRO( Float, float, FACTORY, NAMESPACE );        \
-    DATAFLOW_MACRO( Double, double, FACTORY, NAMESPACE );      \
+    DATAFLOW_MACRO( Scalar, Scalar, FACTORY, NAMESPACE );      \
     DATAFLOW_MACRO( Int, int, FACTORY, NAMESPACE );            \
-    DATAFLOW_MACRO( UInt, unsigned int, FACTORY, NAMESPACE );  \
     DATAFLOW_MACRO( Color, Utils::Color, FACTORY, NAMESPACE ); \
-    DATAFLOW_MACRO( Vector2f, Vector2f, FACTORY, NAMESPACE );  \
-    DATAFLOW_MACRO( Vector3f, Vector3f, FACTORY, NAMESPACE );  \
-    DATAFLOW_MACRO( Vector4f, Vector4f, FACTORY, NAMESPACE );  \
-    DATAFLOW_MACRO( Vector2d, Vector2d, FACTORY, NAMESPACE );  \
-    DATAFLOW_MACRO( Vector3d, Vector3d, FACTORY, NAMESPACE );  \
-    DATAFLOW_MACRO( Vector4d, Vector4d, FACTORY, NAMESPACE );
+    DATAFLOW_MACRO( Vector2, Vector2, FACTORY, NAMESPACE );    \
+    DATAFLOW_MACRO( Vector3, Vector3, FACTORY, NAMESPACE );    \
+    DATAFLOW_MACRO( Vector4, Vector4, FACTORY, NAMESPACE );
 
 // add json serialization
 namespace nlohmann {

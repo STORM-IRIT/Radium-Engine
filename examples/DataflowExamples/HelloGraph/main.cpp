@@ -24,7 +24,7 @@ using namespace Ra::Dataflow::Core;
  * \brief Demonstrate how to use a graph to filter a collection
  */
 int main( int argc, char* argv[] ) {
-    using RaVector = Ra::Core::VectorArray<float>;
+    using RaVector = Ra::Core::VectorArray<Scalar>;
 
     //! [Creating an empty graph]
     DataflowGraph g { "helloGraph" };
@@ -32,7 +32,7 @@ int main( int argc, char* argv[] ) {
 
     //! [Creating Nodes]
     auto sourceNode    = g.addNode<Sources::SingleDataSourceNode<RaVector>>( "Source" );
-    auto predicateNode = g.addNode<Sources::FloatUnaryPredicateSource>( "Selector" );
+    auto predicateNode = g.addNode<Sources::ScalarUnaryPredicateSource>( "Selector" );
     auto filterNode    = g.addNode<Functionals::FilterNode<RaVector>>( "Filter" );
     auto sinkNode      = g.addNode<Sinks::SinkNode<RaVector>>( "Sink" );
     //! [Creating Nodes]
@@ -64,12 +64,12 @@ int main( int argc, char* argv[] ) {
         0.0_ra, 1.0_ra, 0.1_ra, 0.9_ra, 0.2_ra, 0.8_ra, 0.3_ra, 0.7_ra, 0.4_ra, 0.6_ra, 0.5_ra };
     g.getNode<Sources::SingleDataSourceNode<RaVector>>( "Source" )->setData( test );
 
-    Sources::FloatUnaryPredicateSource::function_type pred = []( float x ) { return x < 0.5; };
+    Sources::ScalarUnaryPredicateSource::function_type pred = []( Scalar x ) { return x < 0.5; };
     predicateNode->setData( pred );
     //! [Configure nodes]
 
     std::cout << "Input values : \n\t";
-    std::copy( test.begin(), test.end(), std::ostream_iterator<float>( std::cout, " " ) );
+    std::copy( test.begin(), test.end(), std::ostream_iterator<Scalar>( std::cout, " " ) );
     std::cout << '\n';
 
     //! [Execute the graph]
@@ -82,18 +82,18 @@ int main( int argc, char* argv[] ) {
     //! [Print the output result]
     auto& result = sinkNode->getDataByRef();
     std::cout << "Output values: " << result.size() << "\n\t";
-    std::copy( result.begin(), result.end(), std::ostream_iterator<float>( std::cout, " " ) );
+    std::copy( result.begin(), result.end(), std::ostream_iterator<Scalar>( std::cout, " " ) );
     std::cout << '\n';
     //! [Print the output result]
 
     //! [Modify input and rerun the graph]
-    Sources::FloatUnaryPredicateSource::function_type predbig = []( float x ) { return x > 0.5; };
+    Sources::ScalarUnaryPredicateSource::function_type predbig = []( Scalar x ) { return x > 0.5; };
     predicateNode->setData( predbig );
 
     g.execute();
     // since result is a ref to node's output, no need to get it again
     std::cout << "Output values after second execution: " << result.size() << "\n\t";
-    std::copy( result.begin(), result.end(), std::ostream_iterator<float>( std::cout, " " ) );
+    std::copy( result.begin(), result.end(), std::ostream_iterator<Scalar>( std::cout, " " ) );
     std::cout << '\n';
     //! [Modify input and rerun the graph]
 

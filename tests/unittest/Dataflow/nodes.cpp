@@ -53,8 +53,8 @@ createGraph(
 }
 
 TEST_CASE( "Dataflow/Core/Nodes", "[unittests][Dataflow][Core][Nodes]" ) {
-    SECTION( "Operations on Float" ) {
-        using DataType = float;
+    SECTION( "Operations on Scalar" ) {
+        using DataType = Scalar;
         using TestNode = Functionals::BinaryOpNode<DataType, DataType, DataType>;
         typename TestNode::BinaryOperator add = []( typename TestNode::Arg1_type a,
                                                     typename TestNode::Arg2_type b ) ->
@@ -154,19 +154,19 @@ TEST_CASE( "Dataflow/Core/Nodes", "[unittests][Dataflow][Core][Nodes]" ) {
         delete g;
     }
 
-    SECTION( "Operations between VectorArray and Float" ) {
+    SECTION( "Operations between VectorArray and Scalar" ) {
         using DataType_a = Ra::Core::VectorArray<Ra::Core::Vector2>;
         using DataType_b = Scalar;
         // How to do this ? Eigen generates an error due to align allocation
         // using DataType_r = Ra::Core::VectorArray< decltype(  std::declval<Ra::Core::Vector2>() *
-        // std::declval<float>() ) >;
+        // std::declval<Scalar>() ) >;
         using DataType_r = Ra::Core::VectorArray<Ra::Core::Vector2>;
         using TestNode   = Functionals::BinaryOpNode<DataType_a, DataType_b, DataType_r>;
         typename TestNode::BinaryOperator op = []( typename TestNode::Arg1_type a,
                                                    typename TestNode::Arg2_type b ) ->
             typename TestNode::Res_type { return a * b; };
-        auto [g, a, b, r] =
-            createGraph<DataType_a, DataType_b, DataType_r>( "test Vector2 x Float binary op", op );
+        auto [g, a, b, r] = createGraph<DataType_a, DataType_b, DataType_r>(
+            "test Vector2 x Scalar binary op", op );
 
         DataType_a x { { 1_ra, 2_ra }, { 3_ra, 4_ra } };
         a->setDefaultValue( x );
@@ -221,17 +221,17 @@ TEST_CASE( "Dataflow/Core/Nodes", "[unittests][Dataflow][Core][Nodes]" ) {
         delete g;
     }
 
-    SECTION( "Operations between Float and VectorArray" ) {
+    SECTION( "Operations between Scalar and VectorArray" ) {
         using namespace Ra::Dataflow::Core;
-        using DataType_a = float;
+        using DataType_a = Scalar;
         using DataType_b = Ra::Core::VectorArray<Ra::Core::Vector2>;
         using DataType_r = Ra::Core::VectorArray<Ra::Core::Vector2>;
         using TestNode   = Functionals::BinaryOpNode<DataType_a, DataType_b, DataType_r>;
         typename TestNode::BinaryOperator op = []( typename TestNode::Arg1_type a,
                                                    typename TestNode::Arg2_type b ) ->
             typename TestNode::Res_type { return a * b; };
-        auto [g, a, b, r] =
-            createGraph<DataType_a, DataType_b, DataType_r>( "test Vector2 x Float binary op", op );
+        auto [g, a, b, r] = createGraph<DataType_a, DataType_b, DataType_r>(
+            "test Vector2 x Scalar binary op", op );
 
         DataType_a x { 4_ra };
         a->setDefaultValue( x );
@@ -264,26 +264,26 @@ TEST_CASE( "Dataflow/Core/Nodes", "[unittests][Dataflow][Core][Nodes]" ) {
     SECTION( "Transform/reduce/filter/test" ) {
         //! [Create a complex transform/reduce graph]
         auto g           = new DataflowGraph( "Complex graph" );
-        using VectorType = Ra::Core::VectorArray<float>;
+        using VectorType = Ra::Core::VectorArray<Scalar>;
 
-        // Source of a vector of Float : random vector
-        auto nodeS = std::make_shared<Sources::FloatArraySource>( "s" );
+        // Source of a vector of Scalar : random vector
+        auto nodeS = std::make_shared<Sources::ScalarArraySource>( "s" );
 
         // Source of an operator on scalars : f(x) = 2*x
-        using DoubleFunction    = Sources::FunctionSourceNode<float, const float&>::function_type;
-        DoubleFunction doubleMe = []( const float& x ) -> float { return 2_ra * x; };
-        auto nodeD = std::make_shared<Sources::FunctionSourceNode<float, const float&>>( "d" );
+        using DoubleFunction    = Sources::FunctionSourceNode<Scalar, const Scalar&>::function_type;
+        DoubleFunction doubleMe = []( const Scalar& x ) -> Scalar { return 2_ra * x; };
+        auto nodeD = std::make_shared<Sources::FunctionSourceNode<Scalar, const Scalar&>>( "d" );
         nodeD->setData( doubleMe );
 
-        // Source of a float : mean neutral element 0_ra
-        auto nodeN = std::make_shared<Sources::FloatSource>( "n" );
+        // Source of a Scalar : mean neutral element 0_ra
+        auto nodeN = std::make_shared<Sources::ScalarSource>( "n" );
         nodeN->setData( 0_ra );
 
         // Source of a reduction operator : compute the mean using Welford online algo
-        using ReduceOperator = Sources::FunctionSourceNode<float, const float&, const float&>;
+        using ReduceOperator = Sources::FunctionSourceNode<Scalar, const Scalar&, const Scalar&>;
         struct MeanOperator {
             size_t n { 0 };
-            float operator()( const float& m, const float& x ) {
+            Scalar operator()( const Scalar& m, const Scalar& x ) {
                 return m + ( ( x - m ) / ( ++n ) );
             }
         };
@@ -295,7 +295,7 @@ TEST_CASE( "Dataflow/Core/Nodes", "[unittests][Dataflow][Core][Nodes]" ) {
         auto meanCalculator  = std::make_shared<MeanCalculator>( "mean" );
 
         // Sink for the mean
-        auto nodeR = std::make_shared<Sinks::FloatSink>( "r" );
+        auto nodeR = std::make_shared<Sinks::ScalarSink>( "r" );
 
         // Transform operator, will double the vectors' values
         auto nodeT = std::make_shared<Functionals::TransformNode<VectorType>>( "twice" );
@@ -304,12 +304,12 @@ TEST_CASE( "Dataflow/Core/Nodes", "[unittests][Dataflow][Core][Nodes]" ) {
         auto doubleMeanCalculator = std::make_shared<MeanCalculator>( "double mean" );
 
         // Sink for the double mean
-        auto nodeRD = std::make_shared<Sinks::FloatSink>( "rd" );
+        auto nodeRD = std::make_shared<Sinks::ScalarSink>( "rd" );
 
         // Source for a comparison functor , eg f(x, y) -> 2*x == y
-        auto nodePred = std::make_shared<Sources::FloatBinaryPredicateSource>( "predicate" );
-        Sources::FloatBinaryPredicateSource::function_type predicate =
-            []( const float& a, const float& b ) -> bool { return 2_ra * a == b; };
+        auto nodePred = std::make_shared<Sources::ScalarBinaryPredicateSource>( "predicate" );
+        Sources::ScalarBinaryPredicateSource::function_type predicate =
+            []( const Scalar& a, const Scalar& b ) -> bool { return 2_ra * a == b; };
         nodePred->setData( predicate );
 
         // Boolean sink for the validation result
@@ -317,7 +317,7 @@ TEST_CASE( "Dataflow/Core/Nodes", "[unittests][Dataflow][Core][Nodes]" ) {
 
         // Node for coparing the results of the computation graph
         auto validator =
-            std::make_shared<Functionals::BinaryOpNode<float, float, bool>>( "validator" );
+            std::make_shared<Functionals::BinaryOpNode<Scalar, Scalar, bool>>( "validator" );
 
         REQUIRE( g->addNode( nodeS ) );
         REQUIRE( g->addNode( nodeD ) );
@@ -376,8 +376,8 @@ TEST_CASE( "Dataflow/Core/Nodes", "[unittests][Dataflow][Core][Nodes]" ) {
 
         g->execute();
 
-        auto& result  = output->getData<float>();
-        auto& resultD = outputD->getData<float>();
+        auto& result  = output->getData<Scalar>();
+        auto& resultD = outputD->getData<Scalar>();
         auto& resultB = outputB->getData<bool>();
 
         std::cout << "Computed mean ( ref ): " << result << "\n";
