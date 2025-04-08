@@ -4,7 +4,7 @@
 #include <Dataflow/Core/Functionals/FilterNode.hpp>
 #include <Dataflow/Core/Functionals/FunctionNode.hpp>
 #include <Dataflow/Core/Sinks/SinkNode.hpp>
-#include <Dataflow/Core/Sources/CoreDataSources.hpp>
+#include <Dataflow/Core/Sources/Types.hpp>
 
 using namespace Ra::Dataflow::Core;
 

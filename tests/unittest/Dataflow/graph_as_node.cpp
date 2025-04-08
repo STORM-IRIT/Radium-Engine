@@ -7,9 +7,9 @@
 #include <Dataflow/Core/Functionals/FunctionNode.hpp>
 #include <Dataflow/Core/Functionals/ReduceNode.hpp>
 #include <Dataflow/Core/Functionals/TransformNode.hpp>
-#include <Dataflow/Core/Sinks/CoreDataSinks.hpp>
 #include <Dataflow/Core/Sinks/SinkNode.hpp>
-#include <Dataflow/Core/Sources/CoreDataSources.hpp>
+#include <Dataflow/Core/Sinks/Types.hpp>
+#include <Dataflow/Core/Sources/Types.hpp>
 
 using namespace Ra::Dataflow::Core;
 using namespace Ra::Core;

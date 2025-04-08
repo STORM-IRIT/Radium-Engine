@@ -10,11 +10,11 @@ set(dataflow_core_headers
     DataflowGraph.hpp
     EditableParameter.hpp
     Functionals/BinaryOpNode.hpp
-    Functionals/CoreDataFunctionals.hpp
     Functionals/FilterNode.hpp
     Functionals/FunctionNode.hpp
     Functionals/ReduceNode.hpp
     Functionals/TransformNode.hpp
+    Functionals/Types.hpp
     GraphNodes.hpp
     Node.hpp
     NodeFactory.hpp
@@ -22,9 +22,9 @@ set(dataflow_core_headers
     PortFactory.hpp
     PortIn.hpp
     PortOut.hpp
-    Sinks/CoreDataSinks.hpp
     Sinks/SinkNode.hpp
-    Sources/CoreDataSources.hpp
+    Sinks/Types.hpp
     Sources/FunctionSource.hpp
     Sources/SingleDataSourceNode.hpp
+    Sources/Types.hpp
 )

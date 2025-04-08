@@ -4,9 +4,9 @@
 #include <Dataflow/Core/Functionals/FilterNode.hpp>
 #include <Dataflow/Core/Node.hpp>
 #include <Dataflow/Core/Sinks/SinkNode.hpp>
-#include <Dataflow/Core/Sources/CoreDataSources.hpp>
 #include <Dataflow/Core/Sources/FunctionSource.hpp>
 #include <Dataflow/Core/Sources/SingleDataSourceNode.hpp>
+#include <Dataflow/Core/Sources/Types.hpp>
 
 #include <nlohmann/json.hpp>
 
