@@ -133,8 +133,8 @@ class NodeEditorDialog : public QDialog
         ui.setupUi( this );
 
         {
-            ui.node_model->setText( QString::fromStdString( node->getModelName() ) );
-            ui.node_instance->setText( QString::fromStdString( node->getInstanceName() ) );
+            ui.node_model->setText( QString::fromStdString( node->model_name() ) );
+            ui.node_instance->setText( QString::fromStdString( node->instance_name() ) );
             ui.display_name_line_edit->setText( QString::fromStdString( node->display_name() ) );
             data_editors.emplace_back( ui.display_name_line_edit, [node]( const QString& text ) {
                 node->set_display_name( text.toStdString() );
@@ -144,7 +144,7 @@ class NodeEditorDialog : public QDialog
         auto layout = ui.port_grid_layout;
         int row     = 2;
 
-        for ( auto p : node->getInputs() ) {
+        for ( auto p : node->inputs() ) {
             auto l = new QLineEdit( QString::fromStdString( p->getName() ) );
             data_editors.emplace_back(
                 l, [p]( const QString& text ) { p->setName( text.toStdString() ); } );
@@ -155,7 +155,7 @@ class NodeEditorDialog : public QDialog
             ++row;
         }
         row = 2;
-        for ( auto p : node->getOutputs() ) {
+        for ( auto p : node->outputs() ) {
             auto l = new QLineEdit( QString::fromStdString( p->getName() ) );
             data_editors.emplace_back(
                 l, [p]( const QString& text ) { p->setName( text.toStdString() ); } );

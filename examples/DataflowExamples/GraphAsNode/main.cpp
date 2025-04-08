@@ -43,10 +43,10 @@ int main( int argc, char* argv[] ) {
     auto inputC = gAsNode->input_node()->add_output_port( forwardC->port_in_data().get() );
     auto output = gAsNode->output_node()->add_input_port( b2minus4ac->port_out_result().get() );
 
-    gAsNode->input_node()->getInputByIndex( inputA )->setName( "a" );
-    gAsNode->input_node()->getInputByIndex( inputB )->setName( "b" );
-    gAsNode->input_node()->getInputByIndex( inputC )->setName( "c" );
-    gAsNode->output_node()->getOutputByIndex( output )->setName( "delta" );
+    gAsNode->input_node()->input_by_index( inputA )->setName( "a" );
+    gAsNode->input_node()->input_by_index( inputB )->setName( "b" );
+    gAsNode->input_node()->input_by_index( inputC )->setName( "c" );
+    gAsNode->output_node()->output_by_index( output )->setName( "delta" );
 
     gAsNode->addLink( forwardB->port_out_result(), b2->port_in_data() );
     gAsNode->addLink( forwardA->port_out_result(), fourAC->port_in_a() );
@@ -58,13 +58,13 @@ int main( int argc, char* argv[] ) {
     gAsNode->compile();
     std::cout << "== Graph as node ==\n";
     std::cout << "inputs\n";
-    for ( const auto& n : gAsNode->getInputs() ) {
+    for ( const auto& n : gAsNode->inputs() ) {
         std::cout << "\t- " << n->getName() << " <" << n->getTypeName() << "> ("
                   << n->getNode()->display_name() << ")\n";
     }
 
     std::cout << "outputs\n";
-    for ( const auto& n : gAsNode->getOutputs() ) {
+    for ( const auto& n : gAsNode->outputs() ) {
         std::cout << "\t- " << n->getName() << " <" << n->getTypeName() << "> ("
                   << n->getNode()->display_name() << ")\n";
     }
@@ -78,10 +78,10 @@ int main( int argc, char* argv[] ) {
 
     g.addNode( gAsNode );
 
-    g.addLink( sourceNodeA->port_out_to().get(), gAsNode->getInputByIndex( inputA ) );
-    g.addLink( sourceNodeB->port_out_to().get(), gAsNode->getInputByIndex( inputB ) );
-    g.addLink( sourceNodeC->port_out_to().get(), gAsNode->getInputByIndex( inputC ) );
-    g.addLink( gAsNode->getOutputByIndex( output ), resultNode->port_in_from().get() );
+    g.addLink( sourceNodeA->port_out_to().get(), gAsNode->input_by_index( inputA ) );
+    g.addLink( sourceNodeB->port_out_to().get(), gAsNode->input_by_index( inputB ) );
+    g.addLink( sourceNodeC->port_out_to().get(), gAsNode->input_by_index( inputC ) );
+    g.addLink( gAsNode->output_by_index( output ), resultNode->port_in_from().get() );
 
     sourceNodeA->setData( 1 );
     sourceNodeB->setData( 2 );

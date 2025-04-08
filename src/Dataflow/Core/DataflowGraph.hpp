@@ -99,8 +99,8 @@ class RA_DATAFLOW_CORE_API DataflowGraph : public Node
                   Node::PortIndex portOutIdx,
                   const Node* nodeTo,
                   Node::PortIndex portInIdx ) const {
-        auto portIn  = nodeTo->getInputByIndex( portInIdx );
-        auto portOut = nodeFrom->getOutputByIndex( portOutIdx );
+        auto portIn  = nodeTo->input_by_index( portInIdx );
+        auto portOut = nodeFrom->output_by_index( portOutIdx );
 
         if ( !checkNodeValidity( nodeFrom, nodeTo ) ) { return false; }
         if ( check_last_port_io_nodes( nodeFrom, portOutIdx, nodeTo, portInIdx ) ) {
@@ -185,7 +185,7 @@ class RA_DATAFLOW_CORE_API DataflowGraph : public Node
     Node::PortBaseInRawPtr getNodeInputPort( const std::string& nodeName,
                                              const std::string& portName ) {
         auto node = getNode( nodeName );
-        auto port = node->getInputByName( portName );
+        auto port = node->input_by_name( portName );
         CORE_ASSERT( port.first.isValid(),
                      "invalid port, node: " + nodeName + " port: " + portName );
         return port.second;
@@ -201,7 +201,7 @@ class RA_DATAFLOW_CORE_API DataflowGraph : public Node
     Node::PortBaseOutRawPtr getNodeOutputPort( const std::string& nodeName,
                                                const std::string& portName ) {
         auto node = getNode( nodeName );
-        auto port = node->getOutputByName( portName );
+        auto port = node->output_by_name( portName );
         CORE_ASSERT( port.first.isValid(),
                      "invalid port, node: " + nodeName + " port: " + portName );
 
@@ -294,9 +294,9 @@ class RA_DATAFLOW_CORE_API DataflowGraph : public Node
                                    Node::PortIndex portOutIdx,
                                    const Node* nodeTo,
                                    Node::PortIndex portInIdx ) const {
-        if ( nodeFrom == m_input_node.get() && portOutIdx == m_input_node->getOutputs().size() )
+        if ( nodeFrom == m_input_node.get() && portOutIdx == m_input_node->outputs().size() )
             return true;
-        if ( nodeTo == m_output_node.get() && portInIdx == m_output_node->getInputs().size() )
+        if ( nodeTo == m_output_node.get() && portInIdx == m_output_node->inputs().size() )
             return true;
         return false;
     }

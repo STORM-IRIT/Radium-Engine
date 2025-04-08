@@ -186,8 +186,8 @@ TEST_CASE( "Dataflow/Core/Custom nodes", "[unittests][Dataflow][Core][Custom nod
         // Getters are usable only after successful compilation/execution of the graph
         // Get results as references (no need to get them again later if the graph does
         // not change)
-        auto& vres = filteredCollection->getInputByName( "from" ).second->getData<CollectionType>();
-        auto& vop  = generatedOperator->getInputByName( "from" ).second->getData<std::string>();
+        auto& vres = filteredCollection->input_by_name( "from" ).second->getData<CollectionType>();
+        auto& vop  = generatedOperator->input_by_name( "from" ).second->getData<std::string>();
 
         REQUIRE( vop == "true" );
         REQUIRE( vres.size() == testVector.size() );

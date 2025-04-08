@@ -35,8 +35,6 @@ namespace Core {
  * static const std::string& getTypename() returns the demangled type name of the node or any human
  * readable representation of the type name.This is a public static member each node must define to
  * be serializable. Since we want to manipulate Node*, CRTP is not an option here.
- *
- *
  */
 class RA_DATAFLOW_CORE_API Node
 {
@@ -91,89 +89,101 @@ class RA_DATAFLOW_CORE_API Node
     /// \brief make Node a base abstract class
     virtual ~Node() = default;
 
-    /// \brief Two nodes are considered equal if there type and instance names are the same.
-    bool operator==( const Node& o_node );
+    /// \brief Two nodes are considered equal if there model and instance names are the same.
+    bool operator==( const Node& node );
 
     /// \name Function execution control
     /// @{
-    /// \brief Initializes the node content
-    /// The init() function should be called once at the beginning of the lifetime of the node by
-    /// the owner of the node (the graph which contains the node).
-    /// Its goal is to initialize the node's internal data if any.
-    /// The base version do nothing.
+    /** \brief Initializes the node content.
+     * The init() function should be called once at the beginning of the lifetime of the node by
+     * the owner of the node (the graph which contains the node).
+     * Its goal is to initialize the node's internal data if any.
+     * The default do nothing.
+     */
     virtual void init();
 
-    /// \brief Compile the node to check its validity
-    /// Only nodes defining a full computation graph will need to override this method.
-    /// The base version do nothing.
-    /// \return the compilation status
+    /** \brief Compile the node to check its validity.
+     * Only nodes defining a full computation graph will need to override this method.
+     * The base version do nothing.
+     * \return the compilation status
+     */
     virtual bool compile();
 
-    /// \brief Executes the node.
-    /// Execute the node function on the input ports (to be fetched) and write the results to the
-    /// output ports.
-    /// \return the execution status.
+    /** \brief Executes the node.
+     * Execute the node function on the input ports (to be fetched) and write the results to the
+     * output ports.
+     * \return the execution status.
+     */
     virtual bool execute() = 0;
 
-    /// \brief delete the node content
-    /// The destroy() function is called once at the end of the lifetime of the node.
-    /// Its goal is to free the internal data that have been allocated.
+    /** \brief delete the node content
+     * The destroy() function is called once at the end of the lifetime of the node.
+     * Its goal is to free the internal data that have been allocated.
+     */
     virtual void destroy();
     /// @}
 
     /// \name Control the interfaces of the nodes (inputs, outputs, internal data, ...)
     /// @{
 
-    /// \brief Get a port by its name
-    /// \param type either "in" or "out", the directional type of the port
-    /// \param name
-    /// \return the index to access the port and a raw ptr to the port.
-    IndexAndPort<PortBaseRawPtr> getPortByName( const std::string& type,
-                                                const std::string& name ) const;
-    IndexAndPort<PortBaseInRawPtr> getInputByName( const std::string& name ) const;
-    IndexAndPort<PortBaseOutRawPtr> getOutputByName( const std::string& name ) const;
+    /** \brief Get a port by its name
+     * \param type either "in" or "out", the directional type of the port
+     * \param name
+     * \return the index to access the port and a raw ptr to the port.
+     */
+    IndexAndPort<PortBaseRawPtr> port_by_name( const std::string& type,
+                                               const std::string& name ) const;
+    /// Convenience alias to port_by_name("in", name)
+    IndexAndPort<PortBaseInRawPtr> input_by_name( const std::string& name ) const;
+    /// Convenience alias to port_by_name("out", name)
+    IndexAndPort<PortBaseOutRawPtr> output_by_name( const std::string& name ) const;
 
-    /// \brief Get a port by its index
-    /// \param type either "in" or "out", the directional type of the port
-    /// \param idx
-    /// \return an alias pointer on the requested port if it exists, nullptr else
-    PortBaseRawPtr getPortByIndex( const std::string& type, PortIndex idx ) const;
-    auto getInputByIndex( PortIndex idx ) const { return getPortBase( m_inputs, idx ); }
-    auto getOutputByIndex( PortIndex idx ) const { return getPortBase( m_outputs, idx ); }
-
+    /**
+     * \brief Get a port by its index
+     * \param type either "in" or "out", the directional type of the port
+     * \param index Index of the port \in [0 get(Inputs|Output).size()[
+     * \return a raw pointer on the requested port if it exists, nullptr else
+     */
+    PortBaseRawPtr port_by_index( const std::string& type, PortIndex index ) const;
+    /// Convenience alias to port_by_index("in", index)
+    auto input_by_index( PortIndex index ) const { return getPortBase( m_inputs, index ); }
+    /// Convenience alias to port_by_index("out", index)
+    auto output_by_index( PortIndex index ) const { return getPortBase( m_outputs, index ); }
+    /// Convenience alias with typed port
     template <typename T>
-    auto getInputByIndex( PortIndex idx ) const {
+    auto input_by_index( PortIndex idx ) const {
         return getPort<T>( m_inputs, idx );
     }
-
-    /// \brief Gets a output typed port by its index
-    /// \param idx
-    /// \return
+    /// Convenience alias with typed port
     template <typename T>
-    auto getOutputByIndex( PortIndex idx ) const {
+    auto output_by_index( PortIndex idx ) const {
         return getPort<T>( m_outputs, idx );
     }
 
-    /// \brief Gets the in ports of the node.
-    /// Input ports are own to the node.
-    const PortBaseInCollection& getInputs() const;
+    /**
+     * \brief Gets the in ports of the node.
+     * Input ports are own by the node.
+     */
+    const PortBaseInCollection& inputs() const;
 
-    /// \brief Gets the out ports of the node.
-    /// Output ports are own to the node.
-    const PortBaseOutCollection& getOutputs() const;
+    /**
+     * \brief Gets the out ports of the node.
+     * Output ports are own by the node.
+     */
+    const PortBaseOutCollection& outputs() const;
 
     /// \name Identification methods
     /// @{
     /// \brief Gets the model (type/class) name of the node.
-    const std::string& getModelName() const;
+    const std::string& model_name() const;
     const std::string& display_name() const { return m_display_name; }
     void set_display_name( const std::string& name ) { m_display_name = name; }
 
     /// \brief Gets the instance name of the node.
-    const std::string& getInstanceName() const;
+    const std::string& instance_name() const;
 
     /// \brief Sets the instance name (rename) the node
-    void setInstanceName( const std::string& newName );
+    void set_instance_name( const std::string& newName );
 
     /// @}
 
@@ -287,7 +297,7 @@ class RA_DATAFLOW_CORE_API Node
     /// Be careful with template specialization and function member overriding in derived classes.
     virtual bool fromJsonInternal( const nlohmann::json& data ) {
         LOG( Ra::Core::Utils::logDEBUG )
-            << "default deserialization for " << getInstanceName() + " " + getModelName() << ".";
+            << "default deserialization for " << instance_name() + " " + model_name() << ".";
         if ( const auto& ports = data.find( "inputs" ); ports != data.end() ) {
             for ( const auto& port : *ports ) {
                 int index = port["port_index"];
@@ -309,7 +319,7 @@ class RA_DATAFLOW_CORE_API Node
     /// Be careful with template specialization and function member overriding in derived classes.
     virtual void toJsonInternal( nlohmann::json& data ) const {
         std::string message =
-            std::string { "default serialization for " } + getInstanceName() + " " + getModelName();
+            std::string { "default serialization for " } + instance_name() + " " + model_name();
 
         for ( size_t i = 0; i < m_inputs.size(); ++i ) {
             const auto& p = m_inputs[i];
@@ -437,29 +447,28 @@ inline const nlohmann::json& Node::getJsonMetaData() {
     return m_extraJsonData;
 }
 
-inline const std::string& Node::getModelName() const {
+inline const std::string& Node::model_name() const {
     return m_modelName;
 }
 
-inline const std::string& Node::getInstanceName() const {
+inline const std::string& Node::instance_name() const {
     return m_instanceName;
 }
 
-inline void Node::setInstanceName( const std::string& newName ) {
+inline void Node::set_instance_name( const std::string& newName ) {
     m_instanceName = newName;
 }
 
-inline const Node::PortBaseInCollection& Node::getInputs() const {
+inline const Node::PortBaseInCollection& Node::inputs() const {
     return m_inputs;
 }
 
-inline const Node::PortBaseOutCollection& Node::getOutputs() const {
+inline const Node::PortBaseOutCollection& Node::outputs() const {
     return m_outputs;
 }
 
-inline bool Node::operator==( const Node& o_node ) {
-    return ( m_modelName == o_node.getModelName() ) &&
-           ( m_instanceName == o_node.getInstanceName() );
+inline bool Node::operator==( const Node& node ) {
+    return ( m_modelName == node.model_name() ) && ( m_instanceName == node.instance_name() );
 }
 
 template <typename PortType>

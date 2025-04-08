@@ -80,7 +80,7 @@ GraphModel::NodeId GraphModel::addNode( QString const nodeType ) {
         auto itr = std::find_if( m_node_id_to_ptr.begin(),
                                  m_node_id_to_ptr.end(),
                                  [node_typename = nodeType.toStdString()]( const auto& n ) {
-                                     return n.second->getModelName() == node_typename;
+                                     return n.second->model_name() == node_typename;
                                  } );
         return itr->first;
     }
@@ -180,7 +180,7 @@ QVariant GraphModel::nodeData( NodeId nodeId, NodeRole role ) const {
 
     switch ( role ) {
     case NodeRole::Type:
-        result = QString::fromStdString( node_ptr->getModelName() );
+        result = QString::fromStdString( node_ptr->model_name() );
         break;
 
     case NodeRole::Position:
@@ -208,13 +208,13 @@ QVariant GraphModel::nodeData( NodeId nodeId, NodeRole role ) const {
         break;
 
     case NodeRole::InPortCount: {
-        unsigned int count = ( node_ptr->getInputs().size() );
+        unsigned int count = ( node_ptr->inputs().size() );
         if ( node_ptr == m_graph->output_node() ) ++count;
         result = ( count );
     } break;
 
     case NodeRole::OutPortCount: {
-        unsigned int count = ( node_ptr->getOutputs().size() );
+        unsigned int count = ( node_ptr->outputs().size() );
         if ( node_ptr == m_graph->input_node() ) ++count;
         result = ( count );
     } break;
@@ -290,12 +290,12 @@ GraphModel::portData( NodeId nodeId, PortType portType, PortIndex portIndex, Por
 
         case PortRole::DataType: {
             QString s;
-            if ( ( n == m_graph->input_node() && portIndex == n->getInputs().size() ) ||
-                 ( n == m_graph->output_node() && portIndex == n->getInputs().size() ) )
+            if ( ( n == m_graph->input_node() && portIndex == n->inputs().size() ) ||
+                 ( n == m_graph->output_node() && portIndex == n->inputs().size() ) )
                 s = QString( "any" );
             else {
-                auto p = ( portType == PortType::In ) ? n->getPortByIndex( "in", portIndex )
-                                                      : n->getPortByIndex( "out", portIndex );
+                auto p = ( portType == PortType::In ) ? n->port_by_index( "in", portIndex )
+                                                      : n->port_by_index( "out", portIndex );
 
                 s = QString::fromStdString(
                     Ra::Core::Utils::simplifiedDemangledType( p->getType() ) );
@@ -315,13 +315,13 @@ GraphModel::portData( NodeId nodeId, PortType portType, PortIndex portIndex, Por
             break;
 
         case PortRole::Caption: {
-            if ( n == m_graph->input_node() && portIndex == n->getInputs().size() )
+            if ( n == m_graph->input_node() && portIndex == n->inputs().size() )
                 return QString( "new" );
-            if ( n == m_graph->output_node() && portIndex == n->getInputs().size() )
+            if ( n == m_graph->output_node() && portIndex == n->inputs().size() )
                 return QString( "new" );
 
-            auto p = ( portType == PortType::In ) ? n->getPortByIndex( "in", portIndex )
-                                                  : n->getPortByIndex( "out", portIndex );
+            auto p = ( portType == PortType::In ) ? n->port_by_index( "in", portIndex )
+                                                  : n->port_by_index( "out", portIndex );
             return QString::fromStdString( p->getName() );
         } break;
         }
@@ -334,8 +334,8 @@ GraphModel::portData( NodeId nodeId, PortType portType, PortIndex portIndex, Por
         break;
 
     case PortRole::DataType: {
-        auto p = ( portType == PortType::In ) ? n->getPortByIndex( "in", portIndex )
-                                              : n->getPortByIndex( "out", portIndex );
+        auto p = ( portType == PortType::In ) ? n->port_by_index( "in", portIndex )
+                                              : n->port_by_index( "out", portIndex );
         QString s =
             QString::fromStdString( Ra::Core::Utils::simplifiedDemangledType( p->getType() ) );
         return QVariant::fromValue( QtNodes::NodeDataType { s, s } );
@@ -353,8 +353,8 @@ GraphModel::portData( NodeId nodeId, PortType portType, PortIndex portIndex, Por
         break;
 
     case PortRole::Caption: {
-        auto p = ( portType == PortType::In ) ? n->getPortByIndex( "in", portIndex )
-                                              : n->getPortByIndex( "out", portIndex );
+        auto p = ( portType == PortType::In ) ? n->port_by_index( "in", portIndex )
+                                              : n->port_by_index( "out", portIndex );
         return QString::fromStdString( p->getName() );
     } break;
     }
@@ -513,8 +513,8 @@ void GraphModel::sync_data() {
 
         const auto& in_node_id = in_node_itr->first;
 
-        for ( size_t in_port_id = 0; in_port_id < in_node->getInputs().size(); ++in_port_id ) {
-            const auto& in_port  = in_node->getInputs()[in_port_id];
+        for ( size_t in_port_id = 0; in_port_id < in_node->inputs().size(); ++in_port_id ) {
+            const auto& in_port  = in_node->inputs()[in_port_id];
             const auto& out_port = in_port->getLink();
 
             if ( out_port ) {
@@ -543,10 +543,10 @@ void GraphModel::sync_data() {
 
                     // get out port id
                     auto out_port_itr =
-                        find_if( out_node->getOutputs().begin(),
-                                 out_node->getOutputs().end(),
+                        find_if( out_node->outputs().begin(),
+                                 out_node->outputs().end(),
                                  [out_port]( auto p ) { return p.get() == out_port; } );
-                    if ( out_port_itr == out_node->getOutputs().end() ) {
+                    if ( out_port_itr == out_node->outputs().end() ) {
                         LOG( Ra::Core::Utils::logERROR )
                             << "error graph structure, out node " << out_node->display_name()
                             << " out_port, in node " << in_node->display_name() << " "
@@ -554,7 +554,7 @@ void GraphModel::sync_data() {
                         return;
                     }
                     const auto out_port_id =
-                        std::distance( out_node->getOutputs().begin(), out_port_itr );
+                        std::distance( out_node->outputs().begin(), out_port_itr );
 
                     // set connection
                     ConnectionId connection_id;

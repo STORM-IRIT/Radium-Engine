@@ -120,8 +120,8 @@ int main( int argc, char* argv[] ) {
     //! [Modifying the graph to add link to map operator]
     if ( !g.addLink( mapSource, "to", transformNode, "op" ) ) {
         std::cout << "Unable to link port f ("
-                  << ") from " << mapSource->getInstanceName() << " to port f("
-                  << ") of " << transformNode->getInstanceName() << "\n";
+                  << ") from " << mapSource->instance_name() << " to port f("
+                  << ") of " << transformNode->instance_name() << "\n";
         return 1;
     }
     //! [Modifying the graph to add link to map operator]

@@ -26,13 +26,12 @@ using namespace Ra::Dataflow::Core;
 void inspectGraph( const DataflowGraph& g ) {
     // Nodes of the graph
     const auto& nodes = g.getNodes();
-    std::cout << "Nodes of the graph " << g.getInstanceName() << " (" << nodes.size() << ") :\n";
+    std::cout << "Nodes of the graph " << g.instance_name() << " (" << nodes.size() << ") :\n";
     for ( const auto& n : nodes ) {
-        std::cout << "\t\"" << n->getInstanceName() << "\" of type \"" << n->getModelName()
-                  << "\"\n";
+        std::cout << "\t\"" << n->instance_name() << "\" of type \"" << n->model_name() << "\"\n";
         // Inspect input, output and interfaces of the node
         std::cout << "\t\tInput ports :\n";
-        for ( const auto& p : n->getInputs() ) {
+        for ( const auto& p : n->inputs() ) {
             std::cout << "\t\t\t\"" << p->getName() << "\" with type " << p->getTypeName();
             if ( p->isLinked() ) {
                 std::cout << " linked to " << p->getLink()->getNode()->display_name() << " "
@@ -41,7 +40,7 @@ void inspectGraph( const DataflowGraph& g ) {
             std::cout << "\n";
         }
         std::cout << "\t\tOutput ports :\n";
-        for ( const auto& p : n->getOutputs() ) {
+        for ( const auto& p : n->outputs() ) {
             std::cout << "\t\t\t\"" << p->getName() << "\" with type " << p->getTypeName();
             std::cout << "\n";
         }
@@ -54,28 +53,28 @@ void inspectGraph( const DataflowGraph& g ) {
         for ( size_t i = 0; i < cn.size(); ++i ) {
             std::cout << "\tLevel " << i << " :\n";
             for ( const auto n : cn[i] ) {
-                std::cout << "\t\t\"" << n->getInstanceName() << "\"\n";
+                std::cout << "\t\t\"" << n->instance_name() << "\"\n";
             }
         }
     }
 
     // describe the graph interface : inputs and outputs port of the whole graph (not of the
     // nodes)
-    std::cout << "Inputs and output ports of the graph " << g.getInstanceName() << " :\n";
-    const auto& inputs = g.getInputs();
+    std::cout << "Inputs and output ports of the graph " << g.instance_name() << " :\n";
+    const auto& inputs = g.inputs();
     std::cout << "\tInput ports (" << inputs.size() << ") are :\n";
     for ( const auto& inp : inputs ) {
         std::cout << "\t\t\"" << inp->getName() << "\" accepting type \"" << inp->getTypeName()
                   << "\"\n";
     }
-    const auto& outputs = g.getOutputs();
+    const auto& outputs = g.outputs();
     std::cout << "\tOutput ports (" << outputs.size() << ") are :\n";
     for ( const auto& outp : outputs ) {
         std::cout << "\t\t\"" << outp->getName() << "\" accepting type \"" << outp->getTypeName()
                   << "\"\n";
     }
 
-    std::cout << "DataSetters and DataGetters port of the graph " << g.getInstanceName() << " :\n";
+    std::cout << "DataSetters and DataGetters port of the graph " << g.instance_name() << " :\n";
 }
 using PortIndex = Ra::Dataflow::Core::Node::PortIndex;
 
@@ -405,7 +404,7 @@ TEST_CASE( "Dataflow/Core/Graph/Inspection of a graph", "[unittests]" ) {
     // removing the boolean sink from the graph
     auto n        = g->getNode( "validation value" );
     auto useCount = n.use_count();
-    REQUIRE( n->getInstanceName() == "validation value" );
+    REQUIRE( n->instance_name() == "validation value" );
 
     REQUIRE( g->removeNode( n ) );
     REQUIRE( n );
@@ -418,13 +417,13 @@ TEST_CASE( "Dataflow/Core/Graph/Inspection of a graph", "[unittests]" ) {
     // the source "Validator" is no more in level 0 as it is not reachable from a sink in the
     // graph.
     auto found = std::find_if( cn[0].begin(), cn[0].end(), []( const auto& nn ) {
-        return nn->getInstanceName() == "Validator";
+        return nn->instance_name() == "Validator";
     } );
     REQUIRE( found == cn[0].end() );
 
     // removing the source "Validator"
     n = g->getNode( "Validator" );
-    REQUIRE( n->getInstanceName() == "Validator" );
+    REQUIRE( n->instance_name() == "Validator" );
     // protect the graph to prevent node removal
     g->setNodesAndLinksProtection( true );
     REQUIRE( !g->removeNode( n ) );

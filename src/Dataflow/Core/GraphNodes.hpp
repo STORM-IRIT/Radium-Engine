@@ -78,7 +78,7 @@ class RA_DATAFLOW_CORE_API GraphNode : public Node
     auto find_available_name( const std::string& type, const std::string& name ) -> std::string {
         int suffix           = 1;
         std::string new_name = name;
-        while ( getPortByName( type, new_name ).first.isValid() ) {
+        while ( port_by_name( type, new_name ).first.isValid() ) {
             new_name = name + "_" + std::to_string( suffix++ );
         }
         return new_name;
