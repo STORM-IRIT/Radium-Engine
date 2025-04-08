@@ -4,7 +4,6 @@
 
 #include <Core/Containers/VectorArray.hpp>
 #include <Core/Types.hpp>
-#include <Core/Utils/Color.hpp>
 
 #include <iostream>
 #include <utility>
@@ -13,10 +12,7 @@ namespace Ra {
 namespace Dataflow {
 namespace Core {
 namespace Sources {
-// TODO unify editable and non editable data sources
 
-// declare synonyms for convenient sources
-// This macro does not end with semicolon. To be added when calling it
 #define DECLARE_SOURCES( PREFIX, TYPE )                                                       \
     using PREFIX##Source                = SingleDataSourceNode<TYPE>;                         \
     using PREFIX##ArraySource           = SingleDataSourceNode<Ra::Core::VectorArray<TYPE>>;  \

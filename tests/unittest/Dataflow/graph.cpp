@@ -1,7 +1,6 @@
 #include <catch2/catch_test_macros.hpp>
 
 #include <Dataflow/Core/DataflowGraph.hpp>
-#include <Dataflow/Core/Enumerator.hpp>
 #include <Dataflow/Core/Node.hpp>
 #include <Dataflow/Core/NodeFactory.hpp>
 #include <Dataflow/Core/Nodes/Functionals/CoreDataFunctionals.hpp>
@@ -14,9 +13,11 @@
 #include <Dataflow/Core/Nodes/Sources/SingleDataSourceNode.hpp>
 #include <Dataflow/Core/PortIn.hpp>
 #include <Dataflow/Core/PortOut.hpp>
+
+#include <nlohmann/json.hpp>
+
 #include <algorithm>
 #include <memory>
-#include <nlohmann/json.hpp>
 #include <string>
 #include <vector>
 

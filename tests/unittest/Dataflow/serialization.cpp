@@ -61,7 +61,7 @@ TEST_CASE( "Dataflow/Core/DataflowGraph/Serialization",
         auto addition = g1.getNode( "addition" );
         REQUIRE( addition != nullptr );
         REQUIRE( addition->getModelName() == Functionals::BinaryOpScalar::getTypename() );
-        auto typedAddition = std::dynamic_pointer_cast<Functionals::BinaryOpScalar>( addition );
+        auto typedAddition = std::dynamic_pointer_cast<Functionals::BinaryOpFloat>( addition );
         REQUIRE( typedAddition != nullptr );
         if ( typedAddition != nullptr ) { typedAddition->setOperator( add ); }
 

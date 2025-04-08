@@ -1,21 +1,20 @@
 #include <Core/Containers/VectorArray.hpp>
 #include <Core/CoreMacros.hpp>
 #include <Dataflow/Core/DataflowGraph.hpp>
-#include <Dataflow/Core/Enumerator.hpp>
 #include <Dataflow/Core/Node.hpp>
 #include <Dataflow/Core/Nodes/Functionals/FilterNode.hpp>
 #include <Dataflow/Core/Nodes/Sinks/SinkNode.hpp>
 #include <Dataflow/Core/Nodes/Sources/CoreDataSources.hpp>
 #include <Dataflow/Core/Nodes/Sources/FunctionSource.hpp>
 #include <Dataflow/Core/Nodes/Sources/SingleDataSourceNode.hpp>
+
+#include <nlohmann/json.hpp>
+
 #include <algorithm>
 #include <cstdlib>
 #include <iostream>
 #include <iterator>
-#include <map>
 #include <memory>
-#include <nlohmann/json.hpp>
-#include <random>
 #include <string>
 
 using namespace Ra::Dataflow::Core;
