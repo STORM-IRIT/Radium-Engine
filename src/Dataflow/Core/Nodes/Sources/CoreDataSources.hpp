@@ -17,7 +17,7 @@ namespace Sources {
 
 // declare synonyms for convenient sources
 // This macro does not end with semicolon. To be added when calling it
-#define DECLARE_COREDATA_SOURCES( PREFIX, TYPE )                                              \
+#define DECLARE_SOURCES( PREFIX, TYPE )                                                       \
     using PREFIX##Source                = SingleDataSourceNode<TYPE>;                         \
     using PREFIX##ArraySource           = SingleDataSourceNode<Ra::Core::VectorArray<TYPE>>;  \
     using PREFIX##UnaryFunctionSource   = FunctionSourceNode<TYPE, const TYPE&>;              \
@@ -32,19 +32,12 @@ using namespace Ra::Core;
 // https://en.cppreference.com/w/cpp/container/vector_bool Right now, there is no
 // Ra::Core::VectorArray of bool
 using BooleanSource = SingleDataSourceNode<bool>;
-DECLARE_COREDATA_SOURCES( Float, float )
-DECLARE_COREDATA_SOURCES( Double, double )
-DECLARE_COREDATA_SOURCES( Int, int )
-DECLARE_COREDATA_SOURCES( UInt, unsigned int )
-DECLARE_COREDATA_SOURCES( Color, Utils::Color )
-DECLARE_COREDATA_SOURCES( Vector2f, Vector2f )
-DECLARE_COREDATA_SOURCES( Vector3f, Vector3f )
-DECLARE_COREDATA_SOURCES( Vector4f, Vector4f )
-DECLARE_COREDATA_SOURCES( Vector2d, Vector2d )
-DECLARE_COREDATA_SOURCES( Vector3d, Vector3d )
-DECLARE_COREDATA_SOURCES( Vector4d, Vector4d )
 
-#undef DECLARE_COREDATA_SOURCES
+#define DATAFLOW_MACRO( PREFIX, TYPE, FACTORY, NAMESPACE ) DECLARE_SOURCES( PREFIX, TYPE )
+NODE_TYPES( _, _ );
+#undef DATAFLOW_MACRO
+
+#undef DECLARE_SOURCES
 
 } // namespace Sources
 } // namespace Core

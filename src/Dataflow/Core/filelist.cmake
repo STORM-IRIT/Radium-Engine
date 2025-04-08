@@ -4,16 +4,8 @@
 # from ./scripts directory
 # ----------------------------------------------------
 
-set(dataflow_core_sources
-    Core.cpp
-    DataflowGraph.cpp
-    Node.cpp
-    NodeFactory.cpp
-    Nodes/CoreBuiltInsNodes.cpp
-    Nodes/Private/FunctionalsNodeFactory.cpp
-    Nodes/Private/SinksNodeFactory.cpp
-    Nodes/Private/SourcesNodeFactory.cpp
-    Port.cpp
+set(dataflow_core_sources Core.cpp DataflowGraph.cpp Node.cpp NodeFactory.cpp
+                          Nodes/CoreBuiltInsNodes.cpp Port.cpp
 )
 
 set(dataflow_core_headers
@@ -29,9 +21,6 @@ set(dataflow_core_headers
     Nodes/Functionals/FunctionNode.hpp
     Nodes/Functionals/ReduceNode.hpp
     Nodes/Functionals/TransformNode.hpp
-    Nodes/Private/FunctionalsNodeFactory.hpp
-    Nodes/Private/SinksNodeFactory.hpp
-    Nodes/Private/SourcesNodeFactory.hpp
     Nodes/Sinks/CoreDataSinks.hpp
     Nodes/Sinks/SinkNode.hpp
     Nodes/Sources/CoreDataSources.hpp

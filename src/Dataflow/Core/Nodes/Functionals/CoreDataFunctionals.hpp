@@ -31,17 +31,9 @@ using namespace Ra::Core;
    Ra::Core::VectorArray<TYPE>, bool>
 */
 
-DECLARE_FUNCTIONALS( Float, float );
-DECLARE_FUNCTIONALS( Doupble, double );
-DECLARE_FUNCTIONALS( Int, int );
-DECLARE_FUNCTIONALS( UInt, unsigned int );
-DECLARE_FUNCTIONALS( Color, Utils::Colorf );
-DECLARE_FUNCTIONALS( Vector2f, Vector2f )
-DECLARE_FUNCTIONALS( Vector3f, Vector3f )
-DECLARE_FUNCTIONALS( Vector4f, Vector4f )
-DECLARE_FUNCTIONALS( Vector2d, Vector2d )
-DECLARE_FUNCTIONALS( Vector3d, Vector3d )
-DECLARE_FUNCTIONALS( Vector4d, Vector4d )
+#define DATAFLOW_MACRO( PREFIX, TYPE, FACTORY, NAMESPACE ) DECLARE_FUNCTIONALS( PREFIX, TYPE )
+NODE_TYPES( _, _ );
+#undef DATAFLOW_MACRO
 
 // TODO, instanciate nodes for otherypes ?
 

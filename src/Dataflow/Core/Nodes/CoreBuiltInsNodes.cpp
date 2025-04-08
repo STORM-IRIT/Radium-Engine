@@ -46,29 +46,17 @@ void registerStandardFactories() {
     factory->registerNodeCreator<Sources::BooleanSource>(
         Sources::BooleanSource::getTypename() + "_", "Sources" );
     // prevent Scalar type collision with float or double in factory
-    ADD_SOURCES_TO_FACTORY( factory, Sources, Float );
-    ADD_SOURCES_TO_FACTORY( factory, Sources, Double );
-    ADD_SOURCES_TO_FACTORY( factory, Sources, Int );
-    ADD_SOURCES_TO_FACTORY( factory, Sources, UInt );
-    ADD_SOURCES_TO_FACTORY( factory, Sources, Color );
-    ADD_SOURCES_TO_FACTORY( factory, Sources, Vector2f );
-    ADD_SOURCES_TO_FACTORY( factory, Sources, Vector3f );
-    ADD_SOURCES_TO_FACTORY( factory, Sources, Vector4f );
-    ADD_SOURCES_TO_FACTORY( factory, Sources, Vector2d );
-    ADD_SOURCES_TO_FACTORY( factory, Sources, Vector3d );
-    ADD_SOURCES_TO_FACTORY( factory, Sources, Vector4d );
+
+#define DATAFLOW_MACRO( PREFIX, TYPE, FACTORY, NAMESPACE ) \
+    ADD_SOURCES_TO_FACTORY( FACTORY, NAMESPACE, PREFIX )
+    NODE_TYPES( factory, Sources );
+#undef DATAFLOW_MACRO
 
     /* --- Functionals */
-    ADD_FUNCTIONALS_TO_FACTORY( factory, Functionals, Float );
-    ADD_FUNCTIONALS_TO_FACTORY( factory, Functionals, Int );
-    ADD_FUNCTIONALS_TO_FACTORY( factory, Functionals, UInt );
-    ADD_FUNCTIONALS_TO_FACTORY( factory, Functionals, Color );
-    ADD_FUNCTIONALS_TO_FACTORY( factory, Functionals, Vector2f );
-    ADD_FUNCTIONALS_TO_FACTORY( factory, Functionals, Vector3f );
-    ADD_FUNCTIONALS_TO_FACTORY( factory, Functionals, Vector4f );
-    ADD_FUNCTIONALS_TO_FACTORY( factory, Functionals, Vector2d );
-    ADD_FUNCTIONALS_TO_FACTORY( factory, Functionals, Vector3d );
-    ADD_FUNCTIONALS_TO_FACTORY( factory, Functionals, Vector4d );
+#define DATAFLOW_MACRO( PREFIX, TYPE, FACTORY, NAMESPACE ) \
+    ADD_FUNCTIONALS_TO_FACTORY( FACTORY, NAMESPACE, PREFIX )
+    NODE_TYPES( factory, Functionals );
+#undef DATAFLOW_MACRO
 
     /* --- Sinks --- */
     // bool could not be declared as others, because of the specificity of std::vector<bool> that is
@@ -78,17 +66,10 @@ void registerStandardFactories() {
     factory->registerNodeCreator<Sinks::BooleanSink>( Sinks::BooleanSink::getTypename() + "_",
                                                       "Sinks" );
 
-    ADD_SINKS_TO_FACTORY( factory, Sinks, Float );
-    ADD_SINKS_TO_FACTORY( factory, Sinks, Double );
-    ADD_SINKS_TO_FACTORY( factory, Sinks, Int );
-    ADD_SINKS_TO_FACTORY( factory, Sinks, UInt );
-    ADD_SINKS_TO_FACTORY( factory, Sinks, Color );
-    ADD_SINKS_TO_FACTORY( factory, Sinks, Vector2f );
-    ADD_SINKS_TO_FACTORY( factory, Sinks, Vector3f );
-    ADD_SINKS_TO_FACTORY( factory, Sinks, Vector4f );
-    ADD_SINKS_TO_FACTORY( factory, Sinks, Vector2d );
-    ADD_SINKS_TO_FACTORY( factory, Sinks, Vector3d );
-    ADD_SINKS_TO_FACTORY( factory, Sinks, Vector4d );
+#define DATAFLOW_MACRO( PREFIX, TYPE, FACTORY, NAMESPACE ) \
+    ADD_SINKS_TO_FACTORY( FACTORY, NAMESPACE, PREFIX )
+    NODE_TYPES( factory, Sinks );
+#undef DATAFLOW_MACRO
 
     /* --- Graphs --- */
     factory->registerNodeCreator<DataflowGraph>( DataflowGraph::getTypename() + "_", "Graph" );

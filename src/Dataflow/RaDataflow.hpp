@@ -26,6 +26,20 @@
 
 #include <nlohmann/json.hpp>
 
+// PREFIX/suffix TYPE FACTORY NAMESPACE
+#define NODE_TYPES( FACTORY, NAMESPACE )                       \
+    DATAFLOW_MACRO( Float, float, FACTORY, NAMESPACE );        \
+    DATAFLOW_MACRO( Double, double, FACTORY, NAMESPACE );      \
+    DATAFLOW_MACRO( Int, int, FACTORY, NAMESPACE );            \
+    DATAFLOW_MACRO( UInt, unsigned int, FACTORY, NAMESPACE );  \
+    DATAFLOW_MACRO( Color, Utils::Color, FACTORY, NAMESPACE ); \
+    DATAFLOW_MACRO( Vector2f, Vector2f, FACTORY, NAMESPACE );  \
+    DATAFLOW_MACRO( Vector3f, Vector3f, FACTORY, NAMESPACE );  \
+    DATAFLOW_MACRO( Vector4f, Vector4f, FACTORY, NAMESPACE );  \
+    DATAFLOW_MACRO( Vector2d, Vector2d, FACTORY, NAMESPACE );  \
+    DATAFLOW_MACRO( Vector3d, Vector3d, FACTORY, NAMESPACE );  \
+    DATAFLOW_MACRO( Vector4d, Vector4d, FACTORY, NAMESPACE );
+
 // add json serialization
 namespace nlohmann {
 
