@@ -14,6 +14,11 @@ RA_CORE_API auto makeTypeReadable( const std::string& fullType ) -> std::string 
     static std::map<std::string, std::string> knownTypes {
         { "std::", "" },
         { "__cxx11::", "" },
+#ifndef CORE_USE_DOUBLE
+        { "float", "Scalar" },
+#else
+        { "double", "Scalar" },
+#endif
         { ", std::allocator<float>", "" },
         { ", std::allocator<double>", "" },
         { ", std::allocator<int>", "" },

@@ -33,15 +33,15 @@
                                 "default_value": [],
                                 "name": "from",
                                 "port_index": 0,
-                                "type": "RaVector<float>"
+                                "type": "RaVector<Scalar>"
                             }
                         ],
-                        "name": "Source<RaVector<float>>",
+                        "name": "Source<RaVector<Scalar>>",
                         "outputs": [
                             {
                                 "name": "to",
                                 "port_index": 0,
-                                "type": "RaVector<float>"
+                                "type": "RaVector<Scalar>"
                             }
                         ]
                     },
@@ -56,18 +56,18 @@
                         "display_name": "Selector",
                         "inputs": [
                             {
-                                "default_value": "Default value not saved, missing json export for function<bool (float const&)>",
+                                "default_value": "Default value not saved, missing json export for function<bool (Scalar const&)>",
                                 "name": "from",
                                 "port_index": 0,
-                                "type": "function<bool (float const&)>"
+                                "type": "function<bool (Scalar const&)>"
                             }
                         ],
-                        "name": "Source<function<bool (float const&)>>",
+                        "name": "Source<function<bool (Scalar const&)>>",
                         "outputs": [
                             {
                                 "name": "to",
                                 "port_index": 0,
-                                "type": "function<bool (float const&)>"
+                                "type": "function<bool (Scalar const&)>"
                             }
                         ]
                     },
@@ -84,21 +84,21 @@
                             {
                                 "name": "data",
                                 "port_index": 0,
-                                "type": "RaVector<float>"
+                                "type": "RaVector<Scalar>"
                             },
                             {
-                                "default_value": "Default value not saved, missing json export for function<bool (float const&)>",
+                                "default_value": "Default value not saved, missing json export for function<bool (Scalar const&)>",
                                 "name": "predicate",
                                 "port_index": 1,
-                                "type": "function<bool (float const&)>"
+                                "type": "function<bool (Scalar const&)>"
                             }
                         ],
-                        "name": "Filter<RaVector<float>>",
+                        "name": "Filter<RaVector<Scalar>>",
                         "outputs": [
                             {
                                 "name": "result",
                                 "port_index": 0,
-                                "type": "RaVector<float>"
+                                "type": "RaVector<Scalar>"
                             }
                         ]
                     },
@@ -111,7 +111,7 @@
                     "instance": "Sink",
                     "model": {
                         "display_name": "Sink",
-                        "name": "Sink<RaVector<float>>"
+                        "name": "Sink<RaVector<Scalar>>"
                     },
                     "position": {
                         "x": 238.0,

@@ -136,7 +136,7 @@ TEST_CASE( "Dataflow/Core/Graph", "[unittests][Dataflow][Core][Graph]" ) {
             { "model",
               { { "name", "Core DataflowGraph" },
                 { "graph",
-                  { { "nodes", { { { "model", { { "name", "Source<float>" } } } } } } } } } } };
+                  { { "nodes", { { { "model", { { "name", "Source<Scalar>" } } } } } } } } } } };
         auto result = g.fromJson( noInstanceIdentification );
         REQUIRE( !result );
     }
@@ -147,7 +147,7 @@ TEST_CASE( "Dataflow/Core/Graph", "[unittests][Dataflow][Core][Graph]" ) {
               { { "name", "Core DataflowGraph" },
                 { "graph",
                   { { "nodes",
-                      { { { "instance", "Source" }, { "model", { { "name", "Source<float>" } } } },
+                      { { { "instance", "Source" }, { "model", { { "name", "Source<Scalar>" } } } },
                         { { "instance", "Source" }, { "model", { { "name", "Sink<int>" } } } } } },
                     { "connections", { { { "out_node", "wrongId" } } } } } } } } };
         auto result = g.fromJson( reusingNodeIdentification );
@@ -160,7 +160,7 @@ TEST_CASE( "Dataflow/Core/Graph", "[unittests][Dataflow][Core][Graph]" ) {
               { { "name", "Core DataflowGraph" },
                 { "graph",
                   { { "nodes",
-                      { { { "model", { { "name", "Source<float>" } } } },
+                      { { { "model", { { "name", "Source<Scalar>" } } } },
                         { { "model", { { "name", "Sink<int>" } } } } } },
                     { "connections", { { { "out_node", "wrongId" } } } } } } } } };
         auto result = g.fromJson( reusingNodeIdentification );
@@ -173,8 +173,8 @@ TEST_CASE( "Dataflow/Core/Graph", "[unittests][Dataflow][Core][Graph]" ) {
               { { "name", "Core DataflowGraph" },
                 { "graph",
                   { { "nodes",
-                      { { { "instance", "SourceFloat" },
-                          { "model", { { "name", "Source<float>" } } } },
+                      { { { "instance", "SourceScalar" },
+                          { "model", { { "name", "Source<Scalar>" } } } },
                         { { "instance", "SinkInt" }, { "model", { { "name", "Sink<int>" } } } } } },
                     { "connections", { { { "out_node", "wrongId" } } } } } } } } };
         auto result = g.fromJson( wrongConnection );
@@ -187,11 +187,11 @@ TEST_CASE( "Dataflow/Core/Graph", "[unittests][Dataflow][Core][Graph]" ) {
               { { "name", "Core DataflowGraph" },
                 { "graph",
                   { { "nodes",
-                      { { { "instance", "SourceFloat" },
-                          { "model", { { "name", "Source<float>" } } } },
+                      { { { "instance", "SourceScalar" },
+                          { "model", { { "name", "Source<Scalar>" } } } },
                         { { "instance", "SinkInt" }, { "model", { { "name", "Sink<int>" } } } } } },
                     { "connections",
-                      { { { "out_node", "SourceFloat" }, { "out_index", 2 } } } } } } } } };
+                      { { { "out_node", "SourceScalar" }, { "out_index", 2 } } } } } } } } };
         auto result = g.fromJson( wrongConnection );
         REQUIRE( !result );
     }
@@ -202,11 +202,11 @@ TEST_CASE( "Dataflow/Core/Graph", "[unittests][Dataflow][Core][Graph]" ) {
               { { "name", "Core DataflowGraph" },
                 { "graph",
                   { { "nodes",
-                      { { { "instance", "SourceFloat" },
-                          { "model", { { "name", "Source<float>" } } } },
+                      { { { "instance", "SourceScalar" },
+                          { "model", { { "name", "Source<Scalar>" } } } },
                         { { "instance", "SinkInt" }, { "model", { { "name", "Sink<int>" } } } } } },
                     { "connections",
-                      { { { "out_node", "SourceFloat" },
+                      { { { "out_node", "SourceScalar" },
                           { "out_index", 0 },
                           { "in_node", "Sink" },
                           { "in_port", "from" } } } } } } } } };
@@ -220,11 +220,11 @@ TEST_CASE( "Dataflow/Core/Graph", "[unittests][Dataflow][Core][Graph]" ) {
               { { "name", "Core DataflowGraph" },
                 { "graph",
                   { { "nodes",
-                      { { { "instance", "SourceFloat" },
-                          { "model", { { "name", "Source<float>" } } } },
+                      { { { "instance", "SourceScalar" },
+                          { "model", { { "name", "Source<Scalar>" } } } },
                         { { "instance", "SinkInt" }, { "model", { { "name", "Sink<int>" } } } } } },
                     { "connections",
-                      { { { "out_node", "SourceFloat" },
+                      { { { "out_node", "SourceScalar" },
                           { "out_index", 0 },
                           { "in_node", "SinkInt" },
                           { "in_port", "from" } } } } } } } } };
@@ -238,33 +238,33 @@ TEST_CASE( "Dataflow/Core/Graph", "[unittests][Dataflow][Core][Graph]" ) {
               { { "name", "Core DataflowGraph" },
                 { "graph",
                   { { "nodes",
-                      { { { "instance", "SourceFloat" },
-                          { "model", { { "name", "Source<float>" } } } },
-                        { { "instance", "SinkFloat" },
-                          { "model", { { "name", "Sink<float>" } } } } } },
+                      { { { "instance", "SourceScalar" },
+                          { "model", { { "name", "Source<Scalar>" } } } },
+                        { { "instance", "SinkScalar" },
+                          { "model", { { "name", "Sink<Scalar>" } } } } } },
                     { "connections",
-                      { { { "out_node", "SourceFloat" },
+                      { { { "out_node", "SourceScalar" },
                           { "out_port", "to" },
-                          { "in_node", "SinkFloat" },
+                          { "in_node", "SinkScalar" },
                           { "in_index", 0 } } } } } } } } };
 
         REQUIRE( g.fromJson( goodSimpleGraph ) );
 
         // trying to add a duplicated node
         auto duplicatedNodeName =
-            std::make_shared<Sources::SingleDataSourceNode<float>>( "SourceFloat" );
+            std::make_shared<Sources::SingleDataSourceNode<Scalar>>( "SourceScalar" );
         REQUIRE( !g.addNode( duplicatedNodeName ) );
-        REQUIRE( !g.addNode<Sources::SingleDataSourceNode<float>>( "SourceFloat" ) );
+        REQUIRE( !g.addNode<Sources::SingleDataSourceNode<Scalar>>( "SourceScalar" ) );
 
         // get unknown node
-        auto sinkFloatNode = g.getNode( "Sink" );
-        REQUIRE( sinkFloatNode == nullptr );
+        auto sinkScalarNode = g.getNode( "Sink" );
+        REQUIRE( sinkScalarNode == nullptr );
         // get known node
-        sinkFloatNode = g.getNode( "SinkFloat" );
-        REQUIRE( sinkFloatNode != nullptr );
+        sinkScalarNode = g.getNode( "SinkScalar" );
+        REQUIRE( sinkScalarNode != nullptr );
 
-        auto sourceFloatNode = g.getNode( "SourceFloat" );
-        REQUIRE( sourceFloatNode != nullptr );
+        auto sourceScalarNode = g.getNode( "SourceScalar" );
+        REQUIRE( sourceScalarNode != nullptr );
 
         auto sourceIntNode = std::make_shared<Sources::IntSource>( "SourceInt" );
         auto sinkIntNode   = std::make_shared<Sinks::IntSink>( "SinkInt" );
@@ -298,7 +298,7 @@ TEST_CASE( "Dataflow/Core/Graph", "[unittests][Dataflow][Core][Graph]" ) {
         REQUIRE( !g.addLink( sourceIntNode, "to", sinkIntNode, "from" ) );
 
         // type mismatch
-        REQUIRE( !g.addLink( sourceIntNode, "to", sinkFloatNode, "from" ) );
+        REQUIRE( !g.addLink( sourceIntNode, "to", sinkScalarNode, "from" ) );
 
         // protect the graph to prevent link removal
         g.setNodesAndLinksProtection( true );
@@ -332,9 +332,9 @@ TEST_CASE( "Dataflow/Core/Graph", "[unittests][Dataflow][Core][Graph]" ) {
         nullNode = g.getNode( "SinkInt" );
         REQUIRE( nullNode == nullptr );
         // Nodes can't be found
-        nullNode = g.getNode( "SourceFloat" );
+        nullNode = g.getNode( "SourceScalar" );
         REQUIRE( nullNode == nullptr );
-        nullNode = g.getNode( "SinkFloat" );
+        nullNode = g.getNode( "SinkScalar" );
         REQUIRE( nullNode == nullptr );
     }
     // destroy everything
@@ -369,16 +369,16 @@ TEST_CASE( "Dataflow/Core/Graph/Inspection of a graph", "[unittests]" ) {
     using namespace Ra::Dataflow::Core;
 
     // add some nodes to factory
-    using FloatFilterSource    = Sources::FunctionSourceNode<float, const float&>;
-    using FloatFunctionSource  = Sources::FunctionSourceNode<float, const float&, const float&>;
-    using FloatPredicateSource = Sources::FunctionSourceNode<bool, const float&, const float&>;
-    using ReduceNode           = Functionals::ReduceNode<Ra::Core::VectorArray<float>>;
-    using TransformNode        = Functionals::TransformNode<Ra::Core::VectorArray<float>>;
-    using FloatVectorSource    = Sources::SingleDataSourceNode<Ra::Core::VectorArray<float>>;
-    REGISTER_TYPE_TO_FACTORY( coreFactory, FloatVectorSource, Sources );
-    REGISTER_TYPE_TO_FACTORY( coreFactory, FloatFilterSource, Sources );
-    REGISTER_TYPE_TO_FACTORY( coreFactory, FloatFunctionSource, Sources );
-    REGISTER_TYPE_TO_FACTORY( coreFactory, FloatPredicateSource, Sources );
+    using ScalarFilterSource    = Sources::FunctionSourceNode<Scalar, const Scalar&>;
+    using ScalarFunctionSource  = Sources::FunctionSourceNode<Scalar, const Scalar&, const Scalar&>;
+    using ScalarPredicateSource = Sources::FunctionSourceNode<bool, const Scalar&, const Scalar&>;
+    using ReduceNode            = Functionals::ReduceNode<Ra::Core::VectorArray<Scalar>>;
+    using TransformNode         = Functionals::TransformNode<Ra::Core::VectorArray<Scalar>>;
+    using ScalarVectorSource    = Sources::SingleDataSourceNode<Ra::Core::VectorArray<Scalar>>;
+    REGISTER_TYPE_TO_FACTORY( coreFactory, ScalarVectorSource, Sources );
+    REGISTER_TYPE_TO_FACTORY( coreFactory, ScalarFilterSource, Sources );
+    REGISTER_TYPE_TO_FACTORY( coreFactory, ScalarFunctionSource, Sources );
+    REGISTER_TYPE_TO_FACTORY( coreFactory, ScalarPredicateSource, Sources );
     REGISTER_TYPE_TO_FACTORY( coreFactory, ReduceNode, Functionals );
     REGISTER_TYPE_TO_FACTORY( coreFactory, TransformNode, Functionals );
 
