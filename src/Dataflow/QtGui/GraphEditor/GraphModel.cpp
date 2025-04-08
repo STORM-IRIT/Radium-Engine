@@ -146,8 +146,11 @@ QWidget* GraphModel::getWidget( std::shared_ptr<Core::Node> node ) const {
 
         WidgetFactory ui_builder { node_inputs, controlPanelInputs, {} };
         node_inputs.visit( ui_builder );
-
-        layout->addWidget( controlPanelInputs );
+        // empty controlPanel has 3 children, if no more, then no widget for the inputs
+        if ( controlPanelInputs->children().size() > 3 )
+            layout->addWidget( controlPanelInputs );
+        else
+            delete controlPanelInputs;
     }
     if ( node->getParameters().size() > 0 ) {
         auto controlPanelParams = new Ra::Gui::VariableSetEditor( "Parameters", nullptr );
@@ -481,14 +484,11 @@ void GraphModel::sync_data() {
     m_node_widget.clear();
     m_next_node_id = 0;
 
-    std::cerr << "sync\n";
-
     // Create new nodes
     for ( const auto& n : m_graph->getNodes() ) {
         NodeId newId = newNodeId();
         m_node_ids.insert( newId );
         m_node_id_to_ptr[newId] = n;
-        std::cerr << "insert node " << n->display_name() << "\n";
         if ( auto position = n->getJsonMetaData().find( "position" );
              position != n->getJsonMetaData().end() ) {
             m_node_geometry_data[newId].pos.setX( position->at( "x" ) );
@@ -498,7 +498,6 @@ void GraphModel::sync_data() {
 
     // from nodes input to output
     for ( const auto& in_node : m_graph->getNodes() ) {
-        std::cerr << "link node " << in_node->display_name() << "\n";
         // get in_node_id, skip m_graph input_node
         auto in_node_itr = std::find_if(
             m_node_id_to_ptr.begin(), m_node_id_to_ptr.end(), [in_node]( const auto& pair ) {
@@ -510,10 +509,7 @@ void GraphModel::sync_data() {
         }
 
         // skip connection outside graph
-        if ( in_node_itr->second == m_graph->input_node() ) {
-            std::cerr << "skip " << in_node->display_name() << "\n";
-            continue;
-        }
+        if ( in_node_itr->second == m_graph->input_node() ) { continue; }
 
         const auto& in_node_id = in_node_itr->first;
 
