@@ -1,0 +1,125 @@
+{
+    "instance": "helloGraph",
+    "model": {
+        "display_name": "",
+        "graph": {
+            "connections": [
+                {
+                    "in_node": "Filter",
+                    "in_port": "data",
+                    "out_node": "Source",
+                    "out_port": "to"
+                },
+                {
+                    "in_node": "Filter",
+                    "in_port": "predicate",
+                    "out_node": "Selector",
+                    "out_port": "to"
+                },
+                {
+                    "in_node": "Sink",
+                    "in_port": "from",
+                    "out_node": "Filter",
+                    "out_port": "result"
+                }
+            ],
+            "nodes": [
+                {
+                    "instance": "Source",
+                    "model": {
+                        "display_name": "Source",
+                        "inputs": [
+                            {
+                                "default_value": [],
+                                "name": "from",
+                                "port_index": 0,
+                                "type": "RaVector<float>"
+                            }
+                        ],
+                        "name": "Source<RaVector<float>>",
+                        "outputs": [
+                            {
+                                "name": "to",
+                                "port_index": 0,
+                                "type": "RaVector<float>"
+                            }
+                        ]
+                    },
+                    "position": {
+                        "x": -182.0,
+                        "y": -108.0
+                    }
+                },
+                {
+                    "instance": "Selector",
+                    "model": {
+                        "display_name": "Selector",
+                        "inputs": [
+                            {
+                                "default_value": "Default value not saved, missing json export for function<bool (float const&)>",
+                                "name": "from",
+                                "port_index": 0,
+                                "type": "function<bool (float const&)>"
+                            }
+                        ],
+                        "name": "Source<function<bool (float const&)>>",
+                        "outputs": [
+                            {
+                                "name": "to",
+                                "port_index": 0,
+                                "type": "function<bool (float const&)>"
+                            }
+                        ]
+                    },
+                    "position": {
+                        "x": -151.0,
+                        "y": -26.0
+                    }
+                },
+                {
+                    "instance": "Filter",
+                    "model": {
+                        "display_name": "Filter",
+                        "inputs": [
+                            {
+                                "name": "data",
+                                "port_index": 0,
+                                "type": "RaVector<float>"
+                            },
+                            {
+                                "default_value": "Default value not saved, missing json export for function<bool (float const&)>",
+                                "name": "predicate",
+                                "port_index": 1,
+                                "type": "function<bool (float const&)>"
+                            }
+                        ],
+                        "name": "Filter<RaVector<float>>",
+                        "outputs": [
+                            {
+                                "name": "result",
+                                "port_index": 0,
+                                "type": "RaVector<float>"
+                            }
+                        ]
+                    },
+                    "position": {
+                        "x": 30.0,
+                        "y": -85.0
+                    }
+                },
+                {
+                    "instance": "Sink",
+                    "model": {
+                        "display_name": "Sink",
+                        "name": "Sink<RaVector<float>>"
+                    },
+                    "position": {
+                        "x": 238.0,
+                        "y": -76.0
+                    }
+                }
+            ]
+        },
+        "name": "Core DataflowGraph"
+    }
+}
