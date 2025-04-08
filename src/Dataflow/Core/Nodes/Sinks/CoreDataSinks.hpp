@@ -23,13 +23,15 @@ using namespace Ra::Core;
 using BooleanSink = SinkNode<bool>;
 DECLARE_SINKS( Float, float );
 DECLARE_SINKS( Double, double );
-DECLARE_SINKS( Scalar, Scalar );
 DECLARE_SINKS( Int, int );
 DECLARE_SINKS( UInt, unsigned int );
-DECLARE_SINKS( Color, Utils::Color );
-DECLARE_SINKS( Vector2, Vector2 );
-DECLARE_SINKS( Vector3, Vector3 );
-DECLARE_SINKS( Vector4, Vector4 );
+DECLARE_SINKS( Color, Utils::Colorf );
+DECLARE_SINKS( Vector2f, Vector2f );
+DECLARE_SINKS( Vector3f, Vector3f );
+DECLARE_SINKS( Vector4f, Vector4f );
+DECLARE_SINKS( Vector2d, Vector2d );
+DECLARE_SINKS( Vector3d, Vector3d );
+DECLARE_SINKS( Vector4d, Vector4d );
 
 #undef DECLARE_SINKS
 } // namespace Sinks

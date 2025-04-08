@@ -1,35 +1,99 @@
 #include <Dataflow/Core/DataflowGraph.hpp>
 #include <Dataflow/Core/NodeFactory.hpp>
-#include <Dataflow/Core/Nodes/Private/FunctionalsNodeFactory.hpp>
-#include <Dataflow/Core/Nodes/Private/SinksNodeFactory.hpp>
-#include <Dataflow/Core/Nodes/Private/SourcesNodeFactory.hpp>
+#include <Dataflow/Core/Nodes/Functionals/CoreDataFunctionals.hpp>
+#include <Dataflow/Core/Nodes/Sinks/CoreDataSinks.hpp>
+#include <Dataflow/Core/Nodes/Sources/CoreDataSources.hpp>
 #include <memory>
 #include <string>
 
 namespace Ra {
 namespace Dataflow {
 namespace Core {
-
 namespace NodeFactoriesManager {
+
+/** TODO : replace this by factory autoregistration at compile time */
+#define ADD_FUNCTIONALS_TO_FACTORY( FACTORY, NAMESPACE, SUFFIX )                         \
+    REGISTER_TYPE_TO_FACTORY( FACTORY, NAMESPACE::ArrayFilter##SUFFIX, NAMESPACE );      \
+    REGISTER_TYPE_TO_FACTORY( FACTORY, NAMESPACE::ArrayTransformer##SUFFIX, NAMESPACE ); \
+    REGISTER_TYPE_TO_FACTORY( FACTORY, NAMESPACE::ArrayReducer##SUFFIX, NAMESPACE );     \
+    REGISTER_TYPE_TO_FACTORY( FACTORY, NAMESPACE::BinaryOp##SUFFIX, NAMESPACE );         \
+    REGISTER_TYPE_TO_FACTORY( FACTORY, NAMESPACE::BinaryOp##SUFFIX##Array, NAMESPACE );  \
+    REGISTER_TYPE_TO_FACTORY( FACTORY, NAMESPACE::BinaryPredicate##SUFFIX, NAMESPACE );  \
+    REGISTER_TYPE_TO_FACTORY( FACTORY, NAMESPACE::Transform##SUFFIX, NAMESPACE )
+
+#define ADD_SINKS_TO_FACTORY( FACTORY, NAMESPACE, PREFIX )                   \
+    REGISTER_TYPE_TO_FACTORY( FACTORY, NAMESPACE::PREFIX##Sink, NAMESPACE ); \
+    REGISTER_TYPE_TO_FACTORY( FACTORY, NAMESPACE::PREFIX##ArraySink, NAMESPACE )
+
+#define ADD_SOURCES_TO_FACTORY( FACTORY, NAMESPACE, PREFIX )                                 \
+    REGISTER_TYPE_TO_FACTORY( FACTORY, NAMESPACE::PREFIX##Source, NAMESPACE );               \
+    REGISTER_TYPE_TO_FACTORY( FACTORY, NAMESPACE::PREFIX##ArraySource, NAMESPACE );          \
+    REGISTER_TYPE_TO_FACTORY( FACTORY, NAMESPACE::PREFIX##UnaryFunctionSource, NAMESPACE );  \
+    REGISTER_TYPE_TO_FACTORY( FACTORY, NAMESPACE::PREFIX##BinaryFunctionSource, NAMESPACE ); \
+    REGISTER_TYPE_TO_FACTORY( FACTORY, NAMESPACE::PREFIX##UnaryPredicateSource, NAMESPACE ); \
+    REGISTER_TYPE_TO_FACTORY( FACTORY, NAMESPACE::PREFIX##BinaryPredicateSource, NAMESPACE )
 
 void registerStandardFactories() {
     if ( getFactory( getFactoryManager().default_factory_name() ) ) { return; }
-    auto coreFactory = createFactory( getFactoryManager().default_factory_name() );
-    /* --- Sources --- */
-    Private::registerSourcesFactories( coreFactory );
-
-    /* --- Sinks --- */
-    Private::registerSinksFactories( coreFactory );
+    auto factory = createFactory( getFactoryManager().default_factory_name() );
 
     /* --- Functionals */
-    Private::registerFunctionalsFactories( coreFactory );
+    /* --- Sources --- */
+    // bool could not be declared as others, because of the specificity of std::vector<bool> that is
+    // not compatible with Ra::Core::VectorArray implementation see
+    // https://en.cppreference.com/w/cpp/container/vector_bool Right now, there is no
+    // Ra::Core::VectorArray of bool
+    factory->registerNodeCreator<Sources::BooleanSource>(
+        Sources::BooleanSource::getTypename() + "_", "Sources" );
+    // prevent Scalar type collision with float or double in factory
+    ADD_SOURCES_TO_FACTORY( factory, Sources, Float );
+    ADD_SOURCES_TO_FACTORY( factory, Sources, Double );
+    ADD_SOURCES_TO_FACTORY( factory, Sources, Int );
+    ADD_SOURCES_TO_FACTORY( factory, Sources, UInt );
+    ADD_SOURCES_TO_FACTORY( factory, Sources, Color );
+    ADD_SOURCES_TO_FACTORY( factory, Sources, Vector2f );
+    ADD_SOURCES_TO_FACTORY( factory, Sources, Vector3f );
+    ADD_SOURCES_TO_FACTORY( factory, Sources, Vector4f );
+    ADD_SOURCES_TO_FACTORY( factory, Sources, Vector2d );
+    ADD_SOURCES_TO_FACTORY( factory, Sources, Vector3d );
+    ADD_SOURCES_TO_FACTORY( factory, Sources, Vector4d );
+
+    /* --- Functionals */
+    ADD_FUNCTIONALS_TO_FACTORY( factory, Functionals, Float );
+    ADD_FUNCTIONALS_TO_FACTORY( factory, Functionals, Int );
+    ADD_FUNCTIONALS_TO_FACTORY( factory, Functionals, UInt );
+    ADD_FUNCTIONALS_TO_FACTORY( factory, Functionals, Color );
+    ADD_FUNCTIONALS_TO_FACTORY( factory, Functionals, Vector2f );
+    ADD_FUNCTIONALS_TO_FACTORY( factory, Functionals, Vector3f );
+    ADD_FUNCTIONALS_TO_FACTORY( factory, Functionals, Vector4f );
+    ADD_FUNCTIONALS_TO_FACTORY( factory, Functionals, Vector2d );
+    ADD_FUNCTIONALS_TO_FACTORY( factory, Functionals, Vector3d );
+    ADD_FUNCTIONALS_TO_FACTORY( factory, Functionals, Vector4d );
+
+    /* --- Sinks --- */
+    // bool could not be declared as others, because of the specificity of std::vector<bool> that is
+    // not compatible with Ra::Core::VectorArray implementation see
+    // https://en.cppreference.com/w/cpp/container/vector_bool Right now, there is no
+    // Ra::Core::VectorArray of bool
+    factory->registerNodeCreator<Sinks::BooleanSink>( Sinks::BooleanSink::getTypename() + "_",
+                                                      "Sinks" );
+
+    ADD_SINKS_TO_FACTORY( factory, Sinks, Float );
+    ADD_SINKS_TO_FACTORY( factory, Sinks, Double );
+    ADD_SINKS_TO_FACTORY( factory, Sinks, Int );
+    ADD_SINKS_TO_FACTORY( factory, Sinks, UInt );
+    ADD_SINKS_TO_FACTORY( factory, Sinks, Color );
+    ADD_SINKS_TO_FACTORY( factory, Sinks, Vector2f );
+    ADD_SINKS_TO_FACTORY( factory, Sinks, Vector3f );
+    ADD_SINKS_TO_FACTORY( factory, Sinks, Vector4f );
+    ADD_SINKS_TO_FACTORY( factory, Sinks, Vector2d );
+    ADD_SINKS_TO_FACTORY( factory, Sinks, Vector3d );
+    ADD_SINKS_TO_FACTORY( factory, Sinks, Vector4d );
 
     /* --- Graphs --- */
-    coreFactory->registerNodeCreator<DataflowGraph>( DataflowGraph::getTypename() + "_", "Graph" );
-    coreFactory->registerNodeCreator<GraphInputNode>( GraphInputNode::getTypename() + "_",
-                                                      "Graph" );
-    coreFactory->registerNodeCreator<GraphOutputNode>( GraphOutputNode::getTypename() + "_",
-                                                       "Graph" );
+    factory->registerNodeCreator<DataflowGraph>( DataflowGraph::getTypename() + "_", "Graph" );
+    factory->registerNodeCreator<GraphInputNode>( GraphInputNode::getTypename() + "_", "Graph" );
+    factory->registerNodeCreator<GraphOutputNode>( GraphOutputNode::getTypename() + "_", "Graph" );
 }
 } // namespace NodeFactoriesManager
 } // namespace Core

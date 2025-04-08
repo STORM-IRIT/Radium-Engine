@@ -12,7 +12,7 @@ namespace NodeFactoriesManager {
  *
  * The default factory of the node system contains instantiation of the nodes below for the
  * following type
- *   - Scalar, float, double int, unsigned int
+ *   - Scalar, float, double, int, unsigned int
  *   - Color, VectorDf, VectorDd, VectorDi, VectorDi (where D in {2, 3, 4}
  *
  * List of instanced nodes for any TYPE above
