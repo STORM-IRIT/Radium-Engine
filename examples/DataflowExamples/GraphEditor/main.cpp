@@ -45,8 +45,8 @@ int main( int argc, char* argv[] ) {
 
     auto coreFactory = Ra::Dataflow::Core::NodeFactoriesManager::getDataFlowBuiltInsFactory();
     // add node creators to the factory
-    coreFactory->registerNodeCreator<SquareFunction>( SquareFunction::getTypename(), "Sources" );
-    coreFactory->registerNodeCreator<StringInput>( StringInput::getTypename(), "Sources" );
+    REGISTER_TYPE_TO_FACTORY( coreFactory, SquareFunction, Sources );
+    REGISTER_TYPE_TO_FACTORY( coreFactory, StringInput, Sources );
 
     QCoreApplication::setOrganizationName( "STORM-IRIT" );
     QCoreApplication::setApplicationName( "Radium NodeGraph Editor" );
