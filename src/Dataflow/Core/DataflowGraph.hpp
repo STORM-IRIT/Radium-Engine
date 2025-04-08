@@ -1,7 +1,6 @@
 #pragma once
 #include <Dataflow/RaDataflow.hpp>
 
-#include <Dataflow/Core/Enumerator.hpp>
 #include <Dataflow/Core/GraphNodes.hpp>
 #include <Dataflow/Core/Node.hpp>
 #include <Dataflow/Core/NodeFactory.hpp>

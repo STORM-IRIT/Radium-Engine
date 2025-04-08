@@ -2,9 +2,7 @@
 
 #include <Dataflow/RaDataflow.hpp>
 
-#include <Dataflow/Core/Enumerator.hpp>
 #include <Dataflow/Core/Node.hpp>
-#include <Dataflow/Core/NodeFactory.hpp>
 
 #include <Core/Types.hpp>
 
