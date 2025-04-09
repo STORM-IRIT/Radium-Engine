@@ -12,14 +12,14 @@ namespace Ra {
 namespace Dataflow {
 namespace Core {
 
-#define BASIC_NODE_INIT( TYPE, BASE )                                               \
-  public:                                                                           \
-    explicit TYPE( const std::string& name ) : TYPE( name, TYPE::getTypename() ) {} \
-    static const std::string& getTypename() {                                       \
-        static std::string demangledName = #TYPE;                                   \
-        return demangledName;                                                       \
-    }                                                                               \
-    TYPE( const std::string& instanceName, const std::string& typeName ) :          \
+#define BASIC_NODE_INIT( TYPE, BASE )                                                 \
+  public:                                                                             \
+    explicit TYPE( const std::string& name ) : TYPE( name, TYPE::node_typename() ) {} \
+    static const std::string& node_typename() {                                       \
+        static std::string demangledName = #TYPE;                                     \
+        return demangledName;                                                         \
+    }                                                                                 \
+    TYPE( const std::string& instanceName, const std::string& typeName ) :            \
         BASE( instanceName, typeName )
 
 class RA_DATAFLOW_CORE_API GraphNode : public Node
@@ -68,8 +68,8 @@ class RA_DATAFLOW_CORE_API GraphNode : public Node
         auto out_name = find_available_name( "out", port->getName() );
         auto out      = factory->make_output_port( this, out_name, port->getType() );
         if ( in && out ) {
-            auto input_idx  = addInput( in );
-            auto output_idx = addOutput( out );
+            auto input_idx  = add_input( in );
+            auto output_idx = add_output( out );
             return std::make_tuple( input_idx, output_idx, in, out );
         }
         return std::make_tuple( PortIndex {}, PortIndex {}, in, out );

@@ -17,7 +17,7 @@ RA_SINGLETON_IMPLEMENTATION( PortFactory );
 
 using namespace Ra::Core::Utils;
 
-DataflowGraph::DataflowGraph( const std::string& name ) : DataflowGraph( name, getTypename() ) {}
+DataflowGraph::DataflowGraph( const std::string& name ) : DataflowGraph( name, node_typename() ) {}
 
 DataflowGraph::DataflowGraph( const std::string& instanceName, const std::string& typeName ) :
     Node( instanceName, typeName ) {}
@@ -208,11 +208,11 @@ bool DataflowGraph::fromJsonInternal( const nlohmann::json& data ) {
                             return false;
                         }
                     }
-                    if ( nodeTypeName == GraphInputNode::getTypename() ) {
+                    if ( nodeTypeName == GraphInputNode::node_typename() ) {
                         m_input_node = std::dynamic_pointer_cast<GraphInputNode>( newNode );
                         m_input_node->set_graph( this );
                     }
-                    if ( nodeTypeName == GraphOutputNode::getTypename() ) {
+                    if ( nodeTypeName == GraphOutputNode::node_typename() ) {
                         m_output_node = std::dynamic_pointer_cast<GraphOutputNode>( newNode );
                         m_output_node->set_graph( this );
                     }

@@ -210,7 +210,7 @@ class RA_DATAFLOW_CORE_API DataflowGraph : public Node
 
     bool shouldBeSaved() { return m_shouldBeSaved; }
 
-    static const std::string& getTypename();
+    static const std::string& node_typename();
 
     /**
      * \brief Load a graph from the given file.
@@ -233,10 +233,10 @@ class RA_DATAFLOW_CORE_API DataflowGraph : public Node
      */
     bool getNodesAndLinksProtection() const { return m_nodesAndLinksProtected; }
 
-    using Node::addInput;
-    using Node::addInputPort;
-    using Node::addOutput;
-    using Node::addOutputPort;
+    using Node::add_input;
+    using Node::add_input_port;
+    using Node::add_output;
+    using Node::add_output_port;
 
     void add_input_output_nodes() {
         if ( !m_input_node ) { m_input_node = std::make_shared<GraphInputNode>( "input" ); }
@@ -365,7 +365,7 @@ inline void DataflowGraph::needsRecompile() {
     m_ready         = false;
 }
 
-inline const std::string& DataflowGraph::getTypename() {
+inline const std::string& DataflowGraph::node_typename() {
     static std::string demangledTypeName { "Core DataflowGraph" };
     return demangledTypeName;
 }

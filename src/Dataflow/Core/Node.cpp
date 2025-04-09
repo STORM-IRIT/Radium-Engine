@@ -69,21 +69,21 @@ void Node::add_metadata( const nlohmann::json& data ) {
 
 Node::IndexAndPort<Node::PortBaseRawPtr> Node::port_by_name( const std::string& type,
                                                              const std::string& name ) const {
-    if ( type == "in" ) { return getPortByName( m_inputs, name ); }
-    return getPortByName( m_outputs, name );
+    if ( type == "in" ) { return port_by_name( m_inputs, name ); }
+    return port_by_name( m_outputs, name );
 }
 
 Node::IndexAndPort<Node::PortBaseInRawPtr> Node::input_by_name( const std::string& name ) const {
-    return getPortByName( m_inputs, name );
+    return port_by_name( m_inputs, name );
 }
 
 Node::IndexAndPort<Node::PortBaseOutRawPtr> Node::output_by_name( const std::string& name ) const {
-    return getPortByName( m_outputs, name );
+    return port_by_name( m_outputs, name );
 }
 
 PortBase* Node::port_by_index( const std::string& type, PortIndex idx ) const {
-    if ( type == "in" ) return getPortBase( m_inputs, idx );
-    return getPortBase( m_outputs, idx );
+    if ( type == "in" ) return port_base( m_inputs, idx );
+    return port_base( m_outputs, idx );
 }
 
 } // namespace Core

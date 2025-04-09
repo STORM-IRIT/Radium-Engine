@@ -18,7 +18,7 @@ class SinkNode : public Node
     SinkNode( const std::string& instanceName, const std::string& typeName );
 
   public:
-    explicit SinkNode( const std::string& name ) : SinkNode( name, SinkNode<T>::getTypename() ) {}
+    explicit SinkNode( const std::string& name ) : SinkNode( name, SinkNode<T>::node_typename() ) {}
 
     /**
      * \brief initialize the interface port data pointer
@@ -49,7 +49,7 @@ class SinkNode : public Node
     RA_NODE_PORT_OUT( T, data );
     /// @}
   public:
-    static const std::string& getTypename();
+    static const std::string& node_typename();
 };
 
 // -----------------------------------------------------------------
@@ -84,7 +84,7 @@ const T& SinkNode<T>::getDataByRef() const {
 }
 
 template <typename T>
-const std::string& SinkNode<T>::getTypename() {
+const std::string& SinkNode<T>::node_typename() {
     static std::string demangledName =
         std::string { "Sink<" } + Ra::Core::Utils::simplifiedDemangledType<T>() + ">";
     return demangledName;

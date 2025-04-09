@@ -67,7 +67,7 @@ class TransformNode : public Node
     RA_NODE_PORT_OUT_WITH_DATA( coll_t, result );
 
   public:
-    static const std::string& getTypename();
+    static const std::string& node_typename();
 };
 
 // -----------------------------------------------------------------
@@ -75,11 +75,11 @@ class TransformNode : public Node
 
 template <typename coll_t, typename v_t>
 TransformNode<coll_t, v_t>::TransformNode( const std::string& instanceName ) :
-    TransformNode( instanceName, getTypename(), []( v_t ) { return v_t {}; } ) {}
+    TransformNode( instanceName, node_typename(), []( v_t ) { return v_t {}; } ) {}
 
 template <typename coll_t, typename v_t>
 TransformNode<coll_t, v_t>::TransformNode( const std::string& instanceName, TransformOperator op ) :
-    TransformNode( instanceName, getTypename(), op ) {}
+    TransformNode( instanceName, node_typename(), op ) {}
 
 template <typename coll_t, typename v_t>
 void TransformNode<coll_t, v_t>::setOperator( TransformOperator op ) {
@@ -105,7 +105,7 @@ bool TransformNode<coll_t, v_t>::execute() {
 }
 
 template <typename coll_t, typename v_t>
-const std::string& TransformNode<coll_t, v_t>::getTypename() {
+const std::string& TransformNode<coll_t, v_t>::node_typename() {
     static std::string demangledName =
         std::string { "Transform<" } + Ra::Core::Utils::simplifiedDemangledType<coll_t>() + ">";
     return demangledName;

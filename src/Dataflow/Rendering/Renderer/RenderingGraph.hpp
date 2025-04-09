@@ -47,7 +47,7 @@ class RA_DATAFLOW_API RenderingGraph : public DataflowGraph
     /// Set render techniques needed by the rendering nodes
     void buildRenderTechnique( Ra::Engine::Rendering::RenderObject* ro ) const;
     /// Return the typename of the Graph
-    static const std::string& getTypename();
+    static const std::string& node_typename();
 
   protected:
     void fromJsonInternal( const nlohmann::json& ) override;
@@ -74,9 +74,9 @@ class RA_DATAFLOW_API RenderingGraph : public DataflowGraph
 };
 
 inline RenderingGraph::RenderingGraph( const std::string& name ) :
-    DataflowGraph( name, getTypename() ) {}
+    DataflowGraph( name, node_typename() ) {}
 
-inline const std::string& RenderingGraph::getTypename() {
+inline const std::string& RenderingGraph::node_typename() {
     static std::string demangledTypeName { "Rendering Graph" };
     return demangledTypeName;
 }

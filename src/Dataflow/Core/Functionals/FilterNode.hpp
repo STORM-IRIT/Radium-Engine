@@ -69,7 +69,7 @@ class FilterNode : public Node
     RA_NODE_PORT_OUT_WITH_DATA( coll_t, result );
 
   public:
-    static const std::string& getTypename();
+    static const std::string& node_typename();
 };
 
 // -----------------------------------------------------------------
@@ -77,11 +77,11 @@ class FilterNode : public Node
 
 template <typename coll_t, typename v_t>
 FilterNode<coll_t, v_t>::FilterNode( const std::string& instanceName ) :
-    FilterNode( instanceName, getTypename(), []( v_t ) { return true; } ) {}
+    FilterNode( instanceName, node_typename(), []( v_t ) { return true; } ) {}
 
 template <typename coll_t, typename v_t>
 FilterNode<coll_t, v_t>::FilterNode( const std::string& instanceName, UnaryPredicate predicate ) :
-    FilterNode( instanceName, getTypename(), predicate ) {}
+    FilterNode( instanceName, node_typename(), predicate ) {}
 
 template <typename coll_t, typename v_t>
 void FilterNode<coll_t, v_t>::set_predicate( UnaryPredicate predicate ) {
@@ -106,7 +106,7 @@ bool FilterNode<coll_t, v_t>::execute() {
 }
 
 template <typename coll_t, typename v_t>
-const std::string& FilterNode<coll_t, v_t>::getTypename() {
+const std::string& FilterNode<coll_t, v_t>::node_typename() {
     static std::string demangledName =
         std::string { "Filter<" } + Ra::Core::Utils::simplifiedDemangledType<coll_t>() + ">";
     return demangledName;

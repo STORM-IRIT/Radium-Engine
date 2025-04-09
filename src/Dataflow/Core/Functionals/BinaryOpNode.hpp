@@ -169,7 +169,7 @@ class BinaryOpNode : public Node
      * \param op
      */
     BinaryOpNode( const std::string& instanceName, std::optional<BinaryOperator> op = {} ) :
-        BinaryOpNode( instanceName, getTypename(), op ) {}
+        BinaryOpNode( instanceName, node_typename(), op ) {}
 
     void init() override {
         m_result = t_result {};
@@ -187,7 +187,7 @@ class BinaryOpNode : public Node
     /// \brief Sets the operator to be evaluated by the node.
     void setOperator( BinaryOperator op ) { m_port_in_op->setDefaultValue( op ); }
 
-    static const std::string& getTypename() {
+    static const std::string& node_typename() {
         static std::string demangledName =
             std::string { "BinaryOp<" } + Ra::Core::Utils::simplifiedDemangledType<t_a>() + " x " +
             Ra::Core::Utils::simplifiedDemangledType<t_b>() + " -> " +

@@ -24,7 +24,7 @@ class FunctionSourceNode : public Node
     using function_type = std::function<R( Args... )>;
 
     explicit FunctionSourceNode( const std::string& name ) :
-        FunctionSourceNode( name, FunctionSourceNode<R, Args...>::getTypename() ) {}
+        FunctionSourceNode( name, FunctionSourceNode<R, Args...>::node_typename() ) {}
 
     bool execute() override;
 
@@ -51,7 +51,7 @@ class FunctionSourceNode : public Node
     RA_NODE_PORT_OUT( function_type, to );
 
   public:
-    static const std::string& getTypename();
+    static const std::string& node_typename();
 };
 
 // -----------------------------------------------------------------
@@ -83,7 +83,7 @@ FunctionSourceNode<R, Args...>::getData() const {
 }
 
 template <class R, class... Args>
-const std::string& FunctionSourceNode<R, Args...>::getTypename() {
+const std::string& FunctionSourceNode<R, Args...>::node_typename() {
     static std::string demangledTypeName =
         std::string { "Source<" } + Ra::Core::Utils::simplifiedDemangledType<function_type>() + ">";
     return demangledTypeName;

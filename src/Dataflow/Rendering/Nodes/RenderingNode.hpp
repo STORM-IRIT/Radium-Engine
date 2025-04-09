@@ -59,7 +59,7 @@ class RA_DATAFLOW_API RenderingNode : public Dataflow::Core::Node,
         m_shaderMngr = shaderMngr;
     }
 
-    static const std::string getTypename() { return "RenderingNode"; }
+    static const std::string node_typename() { return "RenderingNode"; }
 
   protected:
     void toJsonInternal( nlohmann::json& ) const override {}

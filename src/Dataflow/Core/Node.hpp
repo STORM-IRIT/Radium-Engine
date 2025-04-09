@@ -30,11 +30,12 @@ namespace Core {
  * in an evaluation context (possibly empty) defined by their internal data to generate results
  * sent to their output ports.
  *
- * Derived class must implement bool execute() and static const std::string & typename()
+ * Derived class must implement bool execute() and static const std::string & node_typename()
  *
- * static const std::string& typename() returns the demangled type name of the node or any human
- * readable representation of the type name. This is a public static member each node concrete class
- * must define to be serializable. Since we want to manipulate Node*, CRTP is not an option here.
+ * static const std::string& node_typename() returns the demangled type name of the node or any
+ * human readable representation of the type name. This is a public static member each node concrete
+ * class must define to be serializable. Since we want to manipulate Node*, CRTP is not an option
+ * here.
  */
 class RA_DATAFLOW_CORE_API Node
 {
@@ -147,18 +148,18 @@ class RA_DATAFLOW_CORE_API Node
      */
     PortBaseRawPtr port_by_index( const std::string& type, PortIndex index ) const;
     /// Convenience alias to port_by_index("in", index)
-    auto input_by_index( PortIndex index ) const { return getPortBase( m_inputs, index ); }
+    auto input_by_index( PortIndex index ) const { return port_base( m_inputs, index ); }
     /// Convenience alias to port_by_index("out", index)
-    auto output_by_index( PortIndex index ) const { return getPortBase( m_outputs, index ); }
+    auto output_by_index( PortIndex index ) const { return port_base( m_outputs, index ); }
     /// Convenience alias with typed port
     template <typename T>
     auto input_by_index( PortIndex idx ) const {
-        return getPort<T>( m_inputs, idx );
+        return port<T>( m_inputs, idx );
     }
     /// Convenience alias with typed port
     template <typename T>
     auto output_by_index( PortIndex idx ) const {
-        return getPort<T>( m_outputs, idx );
+        return port<T>( m_outputs, idx );
     }
 
     /**
@@ -244,8 +245,8 @@ class RA_DATAFLOW_CORE_API Node
     ///\return IndexAndPort<PortRawPtr<PortType>> the index to access the port and a raw ptr to
     /// the port.
     template <typename PortType>
-    IndexAndPort<PortRawPtr<PortType>>
-    getPortByName( const PortCollection<PortPtr<PortType>>& ports, const std::string& name ) const {
+    IndexAndPort<PortRawPtr<PortType>> port_by_name( const PortCollection<PortPtr<PortType>>& ports,
+                                                     const std::string& name ) const {
         auto itr = std::find_if(
             ports.begin(), ports.end(), [n = name]( const auto& p ) { return p->getName() == n; } );
         PortRawPtr<PortType> port { nullptr };
@@ -264,8 +265,8 @@ class RA_DATAFLOW_CORE_API Node
     ///\param idx
     ///\return PortRawPtr<PortType>
     template <typename PortType>
-    PortRawPtr<PortType> getPortBase( const PortCollection<PortPtr<PortType>>& ports,
-                                      PortIndex idx ) const {
+    PortRawPtr<PortType> port_base( const PortCollection<PortPtr<PortType>>& ports,
+                                    PortIndex idx ) const {
         if ( 0 <= idx && size_t( idx ) < ports.size() ) { return ports[idx].get(); }
         return nullptr;
     }
@@ -278,11 +279,11 @@ class RA_DATAFLOW_CORE_API Node
     ///\param idx
     ///\return auto A raw ptr to the port typed in or out.
     template <typename T, typename PortType>
-    auto getPort( const PortCollection<PortPtr<PortType>>& ports, PortIndex idx ) const {
+    auto port( const PortCollection<PortPtr<PortType>>& ports, PortIndex idx ) const {
         return static_cast<typename std::conditional<
             /*if*/ std::is_same<PortBaseIn, PortType>::value,
             /*then*/ PortInRawPtr<T>,
-            /*else*/ PortOutRawPtr<T>>::type>( getPortBase( ports, idx ) );
+            /*else*/ PortOutRawPtr<T>>::type>( port_base( ports, idx ) );
     }
 
     /// internal json representation of the Node.
@@ -337,67 +338,67 @@ class RA_DATAFLOW_CORE_API Node
     /// Adds an in port to the node.
     /// If an input porst with the same name, do not insert and return false.
     /// \param in The in port to add.
-    PortIndex addInput( PortBaseInPtr in );
-    PortIndex addOutput( PortBaseOutPtr out );
+    PortIndex add_input( PortBaseInPtr in );
+    PortIndex add_output( PortBaseOutPtr out );
 
     template <typename PortType>
-    PortIndex addPort( PortCollection<PortPtr<PortType>>&, PortPtr<PortType> port );
+    PortIndex add_port( PortCollection<PortPtr<PortType>>&, PortPtr<PortType> port );
 
     template <typename T, typename... U>
-    PortInPtr<T> addInputPort( U&&... u ) {
-        auto idx = addInput( std::make_shared<PortIn<T>>( this, std::forward<U>( u )... ) );
-        return getInputPort<T>( idx );
+    PortInPtr<T> add_input_port( U&&... u ) {
+        auto idx = add_input( std::make_shared<PortIn<T>>( this, std::forward<U>( u )... ) );
+        return input_port<T>( idx );
     }
     template <typename T, typename... U>
-    PortOutPtr<T> addOutputPort( U&&... u ) {
-        auto idx = addOutput( std::make_shared<PortOut<T>>( this, std::forward<U>( u )... ) );
-        return getOutputPort<T>( idx );
+    PortOutPtr<T> add_output_port( U&&... u ) {
+        auto idx = add_output( std::make_shared<PortOut<T>>( this, std::forward<U>( u )... ) );
+        return output_port<T>( idx );
     }
 
     template <typename T>
-    PortInPtr<T> getInputPort( PortIndex idx ) {
+    PortInPtr<T> input_port( PortIndex idx ) {
         return std::static_pointer_cast<PortIn<T>>( m_inputs[idx] );
     }
 
     template <typename T>
-    PortOutPtr<T> getOutputPort( PortIndex idx ) {
+    PortOutPtr<T> output_port( PortIndex idx ) {
         return std::static_pointer_cast<PortOut<T>>( m_outputs[idx] );
     }
 
-    PortBaseInPtr getInputPort( PortIndex idx ) { return m_inputs[idx]; }
-    PortBaseOutPtr getOutputPort( PortIndex idx ) { return m_outputs[idx]; }
+    PortBaseInPtr input_port( PortIndex idx ) { return m_inputs[idx]; }
+    PortBaseOutPtr output_port( PortIndex idx ) { return m_outputs[idx]; }
 
     /// \todo remove these if not needed by dataflow graph
     /// \brief remove the given input port from the managed input ports
     /// \param in the port to remove
     /// \return true if the port was removed (the in pointer is the set to nullptr), false else
-    bool removeInput( PortBaseInRawPtr& in );
-    void removeInput( PortIndex idx ) { m_inputs[idx].reset(); }
+    bool remove_input( PortBaseInRawPtr& in );
+    void remove_input( PortIndex idx ) { m_inputs[idx].reset(); }
 
     /// Adds an out port to the node and the data associated with it.
     /// This function checks if there is no out port with the same name already associated with
     /// this node. \param out The in port to add. \param data The data associated with the port.
     template <typename T>
-    void addOutput( PortOutRawPtr<T> out, T* data );
+    void add_output( PortOutRawPtr<T> out, T* data );
 
     /// \brief remove the given output port from the managed input ports
     /// \param out the port to remove
     /// \return true if the port was removed (the out pointer is the set to nullptr), false else
-    bool removeOutput( PortBaseOutRawPtr& out );
-    void removeOutput( PortIndex idx ) { m_outputs[idx].reset(); }
+    bool remove_output( PortBaseOutRawPtr& out );
+    void remove_output( PortIndex idx ) { m_outputs[idx].reset(); }
 
     template <typename T>
-    ParamHandle<T> addParameter( const std::string& name, const T& value ) {
+    ParamHandle<T> add_parameter( const std::string& name, const T& value ) {
         return m_parameters.insertVariable<T>( name, value ).first;
     }
 
     template <typename T>
-    bool removeParameter( const std::string& name ) {
+    bool remove_parameter( const std::string& name ) {
         return m_parameters.deleteVariable( name );
     }
 
     template <typename T>
-    bool removeParameter( ParamHandle<T>& handle ) {
+    bool remove_parameter( ParamHandle<T>& handle ) {
         return m_parameters.deleteVariable( handle );
     }
 
@@ -466,8 +467,8 @@ inline bool Node::operator==( const Node& node ) {
 }
 
 template <typename PortType>
-inline Node::PortIndex Node::addPort( PortCollection<PortPtr<PortType>>& ports,
-                                      PortPtr<PortType> port ) {
+inline Node::PortIndex Node::add_port( PortCollection<PortPtr<PortType>>& ports,
+                                       PortPtr<PortType> port ) {
     PortIndex idx;
     // look for a free slot
     auto it = std::find_if( ports.begin(), ports.end(), []( const auto& p ) { return !p; } );
@@ -482,15 +483,15 @@ inline Node::PortIndex Node::addPort( PortCollection<PortPtr<PortType>>& ports,
     return idx;
 }
 
-inline Node::PortIndex Node::addInput( PortBaseInPtr in ) {
-    return addPort( m_inputs, std::move( in ) );
+inline Node::PortIndex Node::add_input( PortBaseInPtr in ) {
+    return add_port( m_inputs, std::move( in ) );
 }
 
-inline Node::PortIndex Node::addOutput( PortBaseOutPtr out ) {
-    return addPort( m_outputs, std::move( out ) );
+inline Node::PortIndex Node::add_output( PortBaseOutPtr out ) {
+    return add_port( m_outputs, std::move( out ) );
 }
 
-inline bool Node::removeInput( PortBaseInRawPtr& in ) {
+inline bool Node::remove_input( PortBaseInRawPtr& in ) {
     auto itP = std::find_if(
         m_inputs.begin(), m_inputs.end(), [in]( const auto& p ) { return p.get() == in; } );
     if ( itP != m_inputs.end() ) {
@@ -502,7 +503,7 @@ inline bool Node::removeInput( PortBaseInRawPtr& in ) {
 }
 
 template <typename T>
-void Node::addOutput( PortOutRawPtr<T> out, T* data ) {
+void Node::add_output( PortOutRawPtr<T> out, T* data ) {
     bool found = false;
     for ( auto& output : m_outputs ) {
         if ( output->getName() == out->getName() ) { found = true; }
@@ -513,7 +514,7 @@ void Node::addOutput( PortOutRawPtr<T> out, T* data ) {
     }
 }
 
-inline bool Node::removeOutput( PortBaseOutRawPtr& out ) {
+inline bool Node::remove_output( PortBaseOutRawPtr& out ) {
     auto outP = std::find_if(
         m_outputs.begin(), m_outputs.end(), [out]( const auto& p ) { return p.get() == out; } );
     if ( outP != m_outputs.end() ) {

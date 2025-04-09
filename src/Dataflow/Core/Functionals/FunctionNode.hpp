@@ -22,7 +22,7 @@ class FunctionNode : public Node
 
     void setFunction( Function function ) { m_port_in_op->setDefaultValue( function ); }
 
-    static const std::string& getTypename();
+    static const std::string& node_typename();
 
   protected:
     FunctionNode( const std::string& instanceName, const std::string& typeName, Function function );
@@ -42,7 +42,7 @@ class FunctionNode : public Node
 
 template <typename Input, typename Output>
 FunctionNode<Input, Output>::FunctionNode( const std::string& instanceName, Function function ) :
-    FunctionNode( instanceName, getTypename(), function ) {}
+    FunctionNode( instanceName, node_typename(), function ) {}
 
 template <typename Input, typename Output>
 bool FunctionNode<Input, Output>::execute() {
@@ -55,7 +55,7 @@ bool FunctionNode<Input, Output>::execute() {
 }
 
 template <typename Input, typename Output>
-const std::string& FunctionNode<Input, Output>::getTypename() {
+const std::string& FunctionNode<Input, Output>::node_typename() {
     static std::string demangledName =
         std::string { "Function<" } + Ra::Core::Utils::simplifiedDemangledType<Input>() + ">";
     return demangledName;

@@ -24,11 +24,11 @@ int main( int argc, char* argv[] ) {
     auto customFactory = NodeFactoriesManager::createFactory( "ExampleCustomFactory" );
     // add node creators to the factory
     customFactory->registerNodeCreator<Sources::SingleDataSourceNode<VectorType>>(
-        Sources::SingleDataSourceNode<VectorType>::getTypename() + "_", "Custom" );
+        Sources::SingleDataSourceNode<VectorType>::node_typename() + "_", "Custom" );
     customFactory->registerNodeCreator<Functionals::FilterNode<VectorType>>(
-        Functionals::FilterNode<VectorType>::getTypename() + "_", "Custom" );
+        Functionals::FilterNode<VectorType>::node_typename() + "_", "Custom" );
     customFactory->registerNodeCreator<Sinks::SinkNode<VectorType>>(
-        Sinks::SinkNode<VectorType>::getTypename() + "_", "Custom" );
+        Sinks::SinkNode<VectorType>::node_typename() + "_", "Custom" );
 
     //! [Creating the factory for the custom node types and add it to the node system]
 

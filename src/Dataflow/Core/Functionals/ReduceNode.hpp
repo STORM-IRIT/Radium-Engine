@@ -76,7 +76,7 @@ class ReduceNode : public Node
     RA_NODE_PORT_OUT_WITH_DATA( v_t, result );
 
   public:
-    static const std::string& getTypename();
+    static const std::string& node_typename();
 };
 
 // -----------------------------------------------------------------
@@ -86,7 +86,7 @@ template <typename coll_t, typename v_t>
 ReduceNode<coll_t, v_t>::ReduceNode( const std::string& instanceName ) :
     ReduceNode(
         instanceName,
-        getTypename(),
+        node_typename(),
         []( const v_t& a, const v_t& ) -> v_t { return a; },
         v_t {} ) {}
 
@@ -94,7 +94,7 @@ template <typename coll_t, typename v_t>
 ReduceNode<coll_t, v_t>::ReduceNode( const std::string& instanceName,
                                      ReduceOperator op,
                                      v_t initialValue ) :
-    ReduceNode( instanceName, getTypename(), op, initialValue ) {}
+    ReduceNode( instanceName, node_typename(), op, initialValue ) {}
 
 template <typename coll_t, typename v_t>
 void ReduceNode<coll_t, v_t>::setOperator( ReduceOperator op, v_t initialValue ) {
@@ -119,7 +119,7 @@ bool ReduceNode<coll_t, v_t>::execute() {
 }
 
 template <typename coll_t, typename v_t>
-const std::string& ReduceNode<coll_t, v_t>::getTypename() {
+const std::string& ReduceNode<coll_t, v_t>::node_typename() {
     static std::string demangledName =
         std::string { "Reduce<" } + Ra::Core::Utils::simplifiedDemangledType<coll_t>() + ">";
     return demangledName;

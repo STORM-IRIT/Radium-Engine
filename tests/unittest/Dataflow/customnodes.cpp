@@ -38,7 +38,7 @@ class FilterSelector final : public Node
   public:
     using function_type = std::function<bool( const T& )>;
 
-    explicit FilterSelector( const std::string& name ) : FilterSelector( name, getTypename() ) {}
+    explicit FilterSelector( const std::string& name ) : FilterSelector( name, node_typename() ) {}
 
     bool execute() override {
         if ( !m_portName->hasData() ) return false;
@@ -64,7 +64,7 @@ class FilterSelector final : public Node
     }
 
   public:
-    static const std::string& getTypename() {
+    static const std::string& node_typename() {
         static std::string demangledTypeName =
             std::string { "FilterSelector<" } + Ra::Core::Utils::simplifiedDemangledType<T>() + ">";
         return demangledTypeName;
@@ -84,11 +84,11 @@ class FilterSelector final : public Node
 
     /// Alias to the output port
     PortOutPtr<function_type> m_operatourOut {
-        addOutputPort<function_type>( &m_currentFunction, "f" ) };
-    PortOutPtr<std::string> m_nameOut { addOutputPort<std::string>( "name" ) };
+        add_output_port<function_type>( &m_currentFunction, "f" ) };
+    PortOutPtr<std::string> m_nameOut { add_output_port<std::string>( "name" ) };
     /// Alias for the input ports
-    PortInPtr<std::string> m_portName { addInputPort<std::string>( "name", "true" ) };
-    PortInPtr<T> m_portThreshold { addInputPort<T>( "threshold", T {} ) };
+    PortInPtr<std::string> m_portName { add_input_port<std::string>( "name", "true" ) };
+    PortInPtr<T> m_portThreshold { add_input_port<T>( "threshold", T {} ) };
 };
 //! [Develop a custom node]
 } // namespace Customs
@@ -218,18 +218,18 @@ TEST_CASE( "Dataflow/Core/Custom nodes", "[unittests][Dataflow][Core][Custom nod
         // add node creators to the factory
 
         REQUIRE( customFactory->registerNodeCreator<Customs::CustomStringSource>(
-            Customs::CustomStringSource::getTypename() + "_", "Custom" ) );
+            Customs::CustomStringSource::node_typename() + "_", "Custom" ) );
         REQUIRE( customFactory->registerNodeCreator<Customs::CustomStringSink>(
-            Customs::CustomStringSink::getTypename() + "_", "Custom" ) );
+            Customs::CustomStringSink::node_typename() + "_", "Custom" ) );
         REQUIRE( customFactory->registerNodeCreator<Customs::FilterSelector<Scalar>>(
-            Customs::FilterSelector<Scalar>::getTypename() + "_", "Custom" ) );
+            Customs::FilterSelector<Scalar>::node_typename() + "_", "Custom" ) );
         // The same node can't be register twice in the same factory
         REQUIRE( !customFactory->registerNodeCreator<Customs::FilterSelector<Scalar>>(
-            Customs::FilterSelector<Scalar>::getTypename() + "_", "Custom" ) );
+            Customs::FilterSelector<Scalar>::node_typename() + "_", "Custom" ) );
 
         nlohmann::json emptyData;
         auto customSource = customFactory->createNode(
-            Customs::CustomStringSource::getTypename(), emptyData, nullptr );
+            Customs::CustomStringSource::node_typename(), emptyData, nullptr );
         REQUIRE( customSource );
 
         // build a graph

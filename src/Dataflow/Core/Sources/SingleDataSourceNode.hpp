@@ -31,7 +31,7 @@ class SingleDataSourceNode : public Node
   public:
     // warning, hacky specialization for set editable
     explicit SingleDataSourceNode( const std::string& name ) :
-        SingleDataSourceNode( name, SingleDataSourceNode<T>::getTypename() ) {}
+        SingleDataSourceNode( name, SingleDataSourceNode<T>::node_typename() ) {}
 
     bool execute() override;
 
@@ -62,7 +62,7 @@ class SingleDataSourceNode : public Node
     RA_NODE_PORT_OUT( T, to );
 
   public:
-    static const std::string& getTypename();
+    static const std::string& node_typename();
 };
 
 // -----------------------------------------------------------------
@@ -95,7 +95,7 @@ T* SingleDataSourceNode<T>::getData() const {
 }
 
 template <typename T>
-const std::string& SingleDataSourceNode<T>::getTypename() {
+const std::string& SingleDataSourceNode<T>::node_typename() {
     static std::string demangledTypeName =
         std::string { "Source<" } + Ra::Core::Utils::simplifiedDemangledType<T>() + ">";
     return demangledTypeName;

@@ -16,8 +16,8 @@ class StringInput : public Ra::Dataflow::Core::Sources::SingleDataSourceNode<std
 {
   public:
     using base = Ra::Dataflow::Core::Sources::SingleDataSourceNode<std::string>;
-    explicit StringInput( const std::string& name ) : base( name, getTypename() ) {}
-    static const std::string& getTypename() {
+    explicit StringInput( const std::string& name ) : base( name, node_typename() ) {}
+    static const std::string& node_typename() {
         static std::string n { "StringInput" };
         return n;
     }
@@ -27,10 +27,10 @@ class SquareFunction : public Ra::Dataflow::Core::Sources::FunctionSourceNode<Sc
 {
   public:
     using base = Ra::Dataflow::Core::Sources::FunctionSourceNode<Scalar, const Scalar&>;
-    explicit SquareFunction( const std::string& name ) : base( name, getTypename() ) {
+    explicit SquareFunction( const std::string& name ) : base( name, node_typename() ) {
         setData( []( const Scalar& b ) { return b * b; } );
     }
-    static const std::string& getTypename() {
+    static const std::string& node_typename() {
         static std::string n { "SquareFunction" };
         return n;
     }

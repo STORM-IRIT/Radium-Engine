@@ -10,7 +10,7 @@
 #include <unordered_map>
 
 #define REGISTER_TYPE_TO_FACTORY( FACTORY, TYPE, NAMESPACE ) \
-    FACTORY->registerNodeCreator<TYPE>( TYPE::getTypename() + "_", #NAMESPACE )
+    FACTORY->registerNodeCreator<TYPE>( TYPE::node_typename() + "_", #NAMESPACE )
 
 namespace Ra {
 namespace Dataflow {
@@ -68,7 +68,7 @@ class RA_DATAFLOW_CORE_API NodeFactory
     /**
      * Associate, for a given concrete node type name, a NodeCreatorFunctor
      * \param nodeType the name of the concrete type
-     * (the same as what is obtained by T::getTypename() on a node of type T)
+     * (the same as what is obtained by T::node_typename() on a node of type T)
      * \param nodeCreator Functor to create an node of the corresponding concrete node type.
      * \return true if the node creator is successfully added, false if not (e.g. due to a name
      * collision).
@@ -259,14 +259,14 @@ RA_DATAFLOW_CORE_API auto getDataFlowBuiltInsFactory() -> NodeFactorySet::mapped
 template <typename T>
 auto NodeFactory::registerNodeCreator( NodeCreatorFunctor nodeCreator,
                                        const std::string& nodeCategory ) -> bool {
-    return registerNodeCreator( T::getTypename(), std::move( nodeCreator ), nodeCategory );
+    return registerNodeCreator( T::node_typename(), std::move( nodeCreator ), nodeCategory );
 }
 
 template <typename T>
 auto NodeFactory::registerNodeCreator( const std::string& instanceNamePrefix,
                                        const std::string& nodeCategory ) -> bool {
     return registerNodeCreator(
-        T::getTypename(),
+        T::node_typename(),
         [this, instanceNamePrefix]( const nlohmann::json& data ) {
             std::string instanceName;
             if ( data.contains( "instance" ) ) {
