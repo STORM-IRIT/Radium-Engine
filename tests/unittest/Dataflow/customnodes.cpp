@@ -84,11 +84,11 @@ class FilterSelector final : public Node
 
     /// Alias to the output port
     PortOutPtr<function_type> m_operatourOut {
-        add_output_port<function_type>( &m_currentFunction, "f" ) };
-    PortOutPtr<std::string> m_nameOut { add_output_port<std::string>( "name" ) };
+        add_output<function_type>( &m_currentFunction, "f" ) };
+    PortOutPtr<std::string> m_nameOut { add_output<std::string>( "name" ) };
     /// Alias for the input ports
-    PortInPtr<std::string> m_portName { add_input_port<std::string>( "name", "true" ) };
-    PortInPtr<T> m_portThreshold { add_input_port<T>( "threshold", T {} ) };
+    PortInPtr<std::string> m_portName { add_input<std::string>( "name", "true" ) };
+    PortInPtr<T> m_portThreshold { add_input<T>( "threshold", T {} ) };
 };
 //! [Develop a custom node]
 } // namespace Customs

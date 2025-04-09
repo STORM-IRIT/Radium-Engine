@@ -140,12 +140,12 @@ struct adl_serializer<Ra::Core::Utils::ColorBase<T>> {
  *                                                                       \
  * This macro defines an accessor to the port called `port_in_##name()`. \
  */
-#define RA_NODE_PORT_IN( T, name )                \
-    RA_NODE_PORT_IN_ACCESSOR( T, name )           \
-                                                  \
-  private:                                        \
-    PortInPtr<T> m_port_in_##name {               \
-        add_input_port<T>( std::string( #name ) ) \
+#define RA_NODE_PORT_IN( T, name )           \
+    RA_NODE_PORT_IN_ACCESSOR( T, name )      \
+                                             \
+  private:                                   \
+    PortInPtr<T> m_port_in_##name {          \
+        add_input<T>( std::string( #name ) ) \
     }
 
 /**                                                                      \
@@ -153,12 +153,12 @@ struct adl_serializer<Ra::Core::Utils::ColorBase<T>> {
  *                                                                       \
  * This macro defines an accessor to the port called `port_in_##name()`. \
  */
-#define RA_NODE_PORT_IN_WITH_DEFAULT( T, name, default_value )   \
-    RA_NODE_PORT_IN_ACCESSOR( T, name )                          \
-                                                                 \
-  private:                                                       \
-    PortInPtr<T> m_port_in_##name {                              \
-        add_input_port<T>( std::string( #name ), default_value ) \
+#define RA_NODE_PORT_IN_WITH_DEFAULT( T, name, default_value ) \
+    RA_NODE_PORT_IN_ACCESSOR( T, name )                        \
+                                                               \
+  private:                                                     \
+    PortInPtr<T> m_port_in_##name {                            \
+        add_input<T>( std::string( #name ), default_value )    \
     }
 
 #define RA_NODE_PORT_OUT_ACCESSOR( T, name ) \
@@ -172,11 +172,11 @@ struct adl_serializer<Ra::Core::Utils::ColorBase<T>> {
  *
  * This macro defines an accessor to the port called `port_out_##name()`.
  */
-#define RA_NODE_PORT_OUT( T, name )                \
-    RA_NODE_PORT_OUT_ACCESSOR( T, name )           \
-  private:                                         \
-    PortOutPtr<T> m_port_out_##name {              \
-        add_output_port<T>( std::string( #name ) ) \
+#define RA_NODE_PORT_OUT( T, name )           \
+    RA_NODE_PORT_OUT_ACCESSOR( T, name )      \
+  private:                                    \
+    PortOutPtr<T> m_port_out_##name {         \
+        add_output<T>( std::string( #name ) ) \
     }
 
 /**
@@ -184,10 +184,10 @@ struct adl_serializer<Ra::Core::Utils::ColorBase<T>> {
  *
  * This macro defines an accessor to the port called `port_out_##name()`.
  */
-#define RA_NODE_PORT_OUT_WITH_DATA( T, name )                 \
-    RA_NODE_PORT_OUT_ACCESSOR( T, name )                      \
-  private:                                                    \
-    T m_##name;                                               \
-    PortOutPtr<T> m_port_out_##name {                         \
-        add_output_port<T>( &m_##name, std::string( #name ) ) \
+#define RA_NODE_PORT_OUT_WITH_DATA( T, name )            \
+    RA_NODE_PORT_OUT_ACCESSOR( T, name )                 \
+  private:                                               \
+    T m_##name;                                          \
+    PortOutPtr<T> m_port_out_##name {                    \
+        add_output<T>( &m_##name, std::string( #name ) ) \
     }

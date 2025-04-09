@@ -234,9 +234,7 @@ class RA_DATAFLOW_CORE_API DataflowGraph : public Node
     bool getNodesAndLinksProtection() const { return m_nodesAndLinksProtected; }
 
     using Node::add_input;
-    using Node::add_input_port;
     using Node::add_output;
-    using Node::add_output_port;
 
     void add_input_output_nodes() {
         if ( !m_input_node ) { m_input_node = std::make_shared<GraphInputNode>( "input" ); }

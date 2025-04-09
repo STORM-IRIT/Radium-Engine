@@ -316,13 +316,13 @@ class RA_DATAFLOW_CORE_API Node
      * \return Typed port shared pointer.
      */
     template <typename T, typename... U>
-    PortInPtr<T> add_input_port( U&&... u ) {
+    PortInPtr<T> add_input( U&&... u ) {
         auto idx = add_input( std::make_shared<PortIn<T>>( this, std::forward<U>( u )... ) );
         return input_port<T>( idx );
     }
     /// \copydoc    template <typename T, typename... U> PortInPtr<T> add_input_port( U&&... u )
     template <typename T, typename... U>
-    PortOutPtr<T> add_output_port( U&&... u ) {
+    PortOutPtr<T> add_output( U&&... u ) {
         auto idx = add_output( std::make_shared<PortOut<T>>( this, std::forward<U>( u )... ) );
         return output_port<T>( idx );
     }
