@@ -30,11 +30,11 @@ namespace Core {
  * in an evaluation context (possibly empty) defined by their internal data to generate results
  * sent to their output ports.
  *
- * Derived class must implement bool execute() and static const std::string & getTypename()
+ * Derived class must implement bool execute() and static const std::string & typename()
  *
- * static const std::string& getTypename() returns the demangled type name of the node or any human
- * readable representation of the type name.This is a public static member each node must define to
- * be serializable. Since we want to manipulate Node*, CRTP is not an option here.
+ * static const std::string& typename() returns the demangled type name of the node or any human
+ * readable representation of the type name. This is a public static member each node concrete class
+ * must define to be serializable. Since we want to manipulate Node*, CRTP is not an option here.
  */
 class RA_DATAFLOW_CORE_API Node
 {
@@ -133,6 +133,7 @@ class RA_DATAFLOW_CORE_API Node
      */
     IndexAndPort<PortBaseRawPtr> port_by_name( const std::string& type,
                                                const std::string& name ) const;
+
     /// Convenience alias to port_by_name("in", name)
     IndexAndPort<PortBaseInRawPtr> input_by_name( const std::string& name ) const;
     /// Convenience alias to port_by_name("out", name)
@@ -199,47 +200,40 @@ class RA_DATAFLOW_CORE_API Node
     /// Fill the node from its json representation
     bool fromJson( const nlohmann::json& data );
 
-    /// \brief Add a metadata to the node to store application specific information.
-    /// used, e.g. by the node editor gui to save node position in the graphical canvas.
-    void addJsonMetaData( const nlohmann::json& data );
+    /**
+     *\brief Add a metadata to the node to store application specific information.
+     *
+     * Merge/replace node's metadata using \p data.
+     * Used, e.g. by the node editor gui to save node position in the graphical canvas.
+     * \param data a json object containing metadata.
+     */
+    void add_metadata( const nlohmann::json& data );
 
     /// \brief Give access to extra json data stored on the node.
-    const nlohmann::json& getJsonMetaData();
+    const nlohmann::json& metadata();
     /// @}
 
-    inline bool isInitialized() const { return m_initialized; }
-    Ra::Core::VariableSet& getParameters() { return m_parameters; }
-    Ra::Core::VariableSet& getInputVariables() {
-        m_input_variables.clear();
-        for ( const auto& p : m_inputs ) {
-            if ( p->hasDefaultValue() ) p->insert( m_input_variables );
-        }
+    inline bool is_initialized() const { return m_initialized; }
 
-        return m_input_variables;
-    }
+    /// \brief Return node's parameters
+    Ra::Core::VariableSet& parameters() { return m_parameters; }
 
-    inline bool isOutputNode() {
-        bool ret = true;
-        // isOutput if none of the outputs port are connected
-        for ( const auto& p : m_outputs ) {
-            ret = ret && ( p->getLinkCount() == 0 );
-        }
-        return ret;
-    }
+    /// \brief Return a variable set of input ports default value reference, if any.
+    Ra::Core::VariableSet& input_variables();
 
-    inline bool isInputNode() {
-        bool ret = true;
-        // isOutput if none of the outputs port are connected
-        for ( const auto& p : m_inputs ) {
-            ret = ret && p->hasDefaultValue() && !p->isLinked();
-        }
-        return ret;
-    }
+    /// \brief Is output if none of the output ports is linked.
+    inline bool is_output();
+
+    /// \brief is Input if all input ports have default values and not linked.
+    inline bool is_input();
 
   protected:
-    /// Construct the base node given its name and type
-    /// \param instanceName The name of the node
-    /// \param typeName The type name of the node
+    /** \brief
+     * Construct the base node given its name and type.
+     *
+     * \param instanceName The name of the node, unique in a graph
+     * \param typeName The type name of the node, from static typename() concrete node class.
+     */
     Node( const std::string& instanceName, const std::string& typeName );
 
     ///\brief Gets the Port By Name
@@ -443,7 +437,7 @@ inline void Node::destroy() {
     m_input_variables.clear();
 }
 
-inline const nlohmann::json& Node::getJsonMetaData() {
+inline const nlohmann::json& Node::metadata() {
     return m_extraJsonData;
 }
 
@@ -532,6 +526,35 @@ inline bool Node::removeOutput( PortBaseOutRawPtr& out ) {
 
 inline bool Node::compile() {
     return true;
+}
+
+/// \brief Return a variable set of input ports default value reference, if any.
+inline Ra::Core::VariableSet& Node::input_variables() {
+    m_input_variables.clear();
+    for ( const auto& p : m_inputs ) {
+        if ( p->hasDefaultValue() ) p->insert( m_input_variables );
+    }
+
+    return m_input_variables;
+}
+
+/// \brief Is output if none of the output ports is linked.
+inline bool Node::is_output() {
+    bool ret = true;
+    for ( const auto& p : m_outputs ) {
+        ret = ret && ( p->getLinkCount() == 0 );
+    }
+    return ret;
+}
+
+/// \brief is Input if all input ports have default values and not linked.
+inline bool Node::is_input() {
+    bool ret = true;
+    //
+    for ( const auto& p : m_inputs ) {
+        ret = ret && p->hasDefaultValue() && !p->isLinked();
+    }
+    return ret;
 }
 
 } // namespace Core

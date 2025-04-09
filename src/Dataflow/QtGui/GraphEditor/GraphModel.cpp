@@ -139,7 +139,7 @@ QWidget* GraphModel::getWidget( std::shared_ptr<Core::Node> node ) const {
     controlPanel->setStyleSheet( "background-color:transparent;" );
     QVBoxLayout* layout = new QVBoxLayout( controlPanel );
 
-    auto node_inputs = node->getInputVariables();
+    auto node_inputs = node->input_variables();
     if ( node_inputs.size() > 0 ) {
         auto controlPanelInputs = new Ra::Gui::VariableSetEditor( "Inputs default", nullptr );
         controlPanelInputs->setShowUnspecified( true );
@@ -152,11 +152,11 @@ QWidget* GraphModel::getWidget( std::shared_ptr<Core::Node> node ) const {
         else
             delete controlPanelInputs;
     }
-    if ( node->getParameters().size() > 0 ) {
+    if ( node->parameters().size() > 0 ) {
         auto controlPanelParams = new Ra::Gui::VariableSetEditor( "Parameters", nullptr );
         controlPanelParams->setShowUnspecified( true );
 
-        WidgetFactory ui_builder { node->getParameters(), controlPanelParams, {} };
+        WidgetFactory ui_builder { node->parameters(), controlPanelParams, {} };
         node_inputs.visit( ui_builder );
 
         layout->addWidget( controlPanelParams );
@@ -242,7 +242,7 @@ bool GraphModel::setNodeData( NodeId nodeId, NodeRole role, QVariant value ) {
 
         m_node_geometry_data[nodeId].pos = pos;
         nlohmann::json json = { { "position", { { "x", pos.x() }, { "y", pos.y() } } } };
-        node_ptr->addJsonMetaData( json );
+        node_ptr->add_metadata( json );
         emit nodePositionUpdated( nodeId );
 
         result = true;
@@ -489,8 +489,7 @@ void GraphModel::sync_data() {
         NodeId newId = newNodeId();
         m_node_ids.insert( newId );
         m_node_id_to_ptr[newId] = n;
-        if ( auto position = n->getJsonMetaData().find( "position" );
-             position != n->getJsonMetaData().end() ) {
+        if ( auto position = n->metadata().find( "position" ); position != n->metadata().end() ) {
             m_node_geometry_data[newId].pos.setX( position->at( "x" ) );
             m_node_geometry_data[newId].pos.setY( position->at( "y" ) );
         }

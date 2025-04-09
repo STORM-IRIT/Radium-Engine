@@ -27,7 +27,7 @@ void DataflowGraph::init() {
         Node::init();
         std::for_each( m_nodesByLevel.begin(), m_nodesByLevel.end(), []( const auto& level ) {
             std::for_each( level.begin(), level.end(), []( auto node ) {
-                if ( !node->isInitialized() ) { node->init(); }
+                if ( !node->is_initialized() ) { node->init(); }
             } );
         } );
     }
@@ -435,7 +435,7 @@ bool DataflowGraph::compile() {
     }
     for ( auto const& n : m_nodes ) {
         // Find all active sinks, skip m_output_node
-        if ( n->isOutputNode() && n != m_output_node ) {
+        if ( n->is_output() && n != m_output_node ) {
             // if a linked port exists, backtrace
             if ( std::any_of( n->inputs().begin(), n->inputs().end(), []( const auto& p ) {
                      return p->isLinked();
@@ -456,7 +456,7 @@ bool DataflowGraph::compile() {
     for ( auto& infNode : infoNodes ) {
         auto n = infNode.first;
         // Compute the nodes' level starting from sources
-        if ( n->isInputNode() || n == m_input_node.get() ) {
+        if ( n->is_input() || n == m_input_node.get() ) {
 
             // set level to 0 because node is source
             infNode.second.first = 0;

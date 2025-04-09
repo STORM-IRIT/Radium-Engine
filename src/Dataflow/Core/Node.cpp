@@ -63,7 +63,7 @@ void Node::toJson( nlohmann::json& data ) const {
     }
 }
 
-void Node::addJsonMetaData( const nlohmann::json& data ) {
+void Node::add_metadata( const nlohmann::json& data ) {
     m_extraJsonData.merge_patch( data );
 }
 

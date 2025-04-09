@@ -15,8 +15,12 @@ TEST_CASE( "Dataflow/Core/DataflowGraph/Serialization",
         using namespace Ra::Dataflow::Core;
         using DataType = Scalar;
         DataflowGraph g { "original graph" };
-        g.addJsonMetaData(
-            { { "extra", { { "info", "missing operators on functional node" } } } } );
+        g.add_metadata( { { "extra", { { "info", "missing operators on functional node" } } } } );
+
+        REQUIRE( g.metadata().contains( "extra" ) );
+        REQUIRE( g.metadata()["extra"].contains( "info" ) );
+        REQUIRE( g.metadata()["extra"]["info"] == "missing operators on functional node" );
+
         auto source_a                = g.addNode<Sources::SingleDataSourceNode<DataType>>( "a" );
         auto a                       = g.getNodeInputPort( "a", "from" );
         auto source_b                = g.addNode<Sources::SingleDataSourceNode<DataType>>( "b" );
