@@ -21,7 +21,9 @@ namespace Ra {
 namespace Dataflow {
 namespace Core {
 
-/** \brief Base abstract class for all the nodes added and used by the node system.
+/**
+ * \brief Base abstract class for all the nodes added and used by the node system.
+ *
  * A node represent a function acting on some input data and generating some outputs.
  * To build a computation graph, nodes should be added to the graph, which is itself a node
  * (\see Ra::Dataflow::Core::DataflowGraph) and linked together through their input/output port.
@@ -192,7 +194,7 @@ class RA_DATAFLOW_CORE_API Node
     /// \name Serialization of a node
     /// @{
     /// \todo : specify the json format for nodes and what is expected from the following methods
-
+    /// \todo : use standardize json serialization
     /// \brief serialize the content of the node.
     /// Fill the given json object with the json representation of the concrete node.
     void toJson( nlohmann::json& data ) const;
@@ -201,6 +203,7 @@ class RA_DATAFLOW_CORE_API Node
     /// Fill the node from its json representation
     bool fromJson( const nlohmann::json& data );
 
+    /// @}
     /**
      *\brief Add a metadata to the node to store application specific information.
      *
@@ -212,7 +215,6 @@ class RA_DATAFLOW_CORE_API Node
 
     /// \brief Give access to extra json data stored on the node.
     const nlohmann::json& metadata();
-    /// @}
 
     inline bool is_initialized() const { return m_initialized; }
 
@@ -353,7 +355,7 @@ class RA_DATAFLOW_CORE_API Node
         return m_parameters.deleteVariable( handle );
     }
 
-    /// \brief Flag that checks if the node is already initialized
+    /// Flag that checks if the node is already initialized.
     bool m_initialized { false };
     /// The type name of the node. Initialized once at construction
     std::string m_modelName;
@@ -369,6 +371,8 @@ class RA_DATAFLOW_CORE_API Node
 
     /// The editable parameters of the node
     Ra::Core::VariableSet m_parameters;
+    /// To edit input port's default values, filled by input_variables. Maybe not needed, and
+    /// input_variables just return a variable set ?
     Ra::Core::VariableSet m_input_variables;
 
     /// Additional data on the node, added by application or gui or ...
