@@ -22,18 +22,18 @@ int main( int argc, char* argv[] ) {
 
     // compute delta = b2 - 4ac;
 
-    auto b2 = gAsNode->addNode<Functionals::FunctionNode<Scalar>>( "b2" );
+    auto b2 = gAsNode->add_node<Functionals::FunctionNode<Scalar>>( "b2" );
     b2->setFunction( []( const Scalar& b ) { return b * b; } );
 
-    auto fourAC = gAsNode->addNode<Functionals::BinaryOpNode<Scalar>>(
+    auto fourAC = gAsNode->add_node<Functionals::BinaryOpNode<Scalar>>(
         "4ac", []( const Scalar& a, const Scalar& c ) { return 4_ra * a * c; } );
 
-    auto b2minus4ac = gAsNode->addNode<Functionals::BinaryOpNode<Scalar>>(
+    auto b2minus4ac = gAsNode->add_node<Functionals::BinaryOpNode<Scalar>>(
         "b2-4ac", []( const Scalar& x, const Scalar& y ) { return x - y; } );
 
-    auto forwardA = gAsNode->addNode<Functionals::FunctionNode<Scalar>>( "a" );
-    auto forwardB = gAsNode->addNode<Functionals::FunctionNode<Scalar>>( "b" );
-    auto forwardC = gAsNode->addNode<Functionals::FunctionNode<Scalar>>( "c" );
+    auto forwardA = gAsNode->add_node<Functionals::FunctionNode<Scalar>>( "a" );
+    auto forwardB = gAsNode->add_node<Functionals::FunctionNode<Scalar>>( "b" );
+    auto forwardC = gAsNode->add_node<Functionals::FunctionNode<Scalar>>( "c" );
 
     b2minus4ac->port_out_result()->setName( "delta" );
 
@@ -48,40 +48,40 @@ int main( int argc, char* argv[] ) {
     gAsNode->input_node()->input_by_index( inputC )->setName( "c" );
     gAsNode->output_node()->output_by_index( output )->setName( "delta" );
 
-    gAsNode->addLink( forwardB->port_out_result(), b2->port_in_data() );
-    gAsNode->addLink( forwardA->port_out_result(), fourAC->port_in_a() );
-    gAsNode->addLink( forwardC->port_out_result(), fourAC->port_in_b() );
+    gAsNode->add_link( forwardB->port_out_result(), b2->port_in_data() );
+    gAsNode->add_link( forwardA->port_out_result(), fourAC->port_in_a() );
+    gAsNode->add_link( forwardC->port_out_result(), fourAC->port_in_b() );
 
-    gAsNode->addLink( b2->port_out_result(), b2minus4ac->port_in_a() );
-    gAsNode->addLink( fourAC->port_out_result(), b2minus4ac->port_in_b() );
+    gAsNode->add_link( b2->port_out_result(), b2minus4ac->port_in_a() );
+    gAsNode->add_link( fourAC->port_out_result(), b2minus4ac->port_in_b() );
 
     gAsNode->compile();
     std::cout << "== Graph as node ==\n";
     std::cout << "inputs\n";
     for ( const auto& n : gAsNode->inputs() ) {
         std::cout << "\t- " << n->getName() << " <" << n->getTypeName() << "> ("
-                  << n->getNode()->display_name() << ")\n";
+                  << n->node()->display_name() << ")\n";
     }
 
     std::cout << "outputs\n";
     for ( const auto& n : gAsNode->outputs() ) {
         std::cout << "\t- " << n->getName() << " <" << n->getTypeName() << "> ("
-                  << n->getNode()->display_name() << ")\n";
+                  << n->node()->display_name() << ")\n";
     }
 
     DataflowGraph g { "mainGraph" };
-    auto sourceNodeA = g.addNode<Sources::SingleDataSourceNode<Scalar>>( "sa" );
-    auto sourceNodeB = g.addNode<Sources::SingleDataSourceNode<Scalar>>( "sb" );
-    auto sourceNodeC = g.addNode<Sources::SingleDataSourceNode<Scalar>>( "sc" );
+    auto sourceNodeA = g.add_node<Sources::SingleDataSourceNode<Scalar>>( "sa" );
+    auto sourceNodeB = g.add_node<Sources::SingleDataSourceNode<Scalar>>( "sb" );
+    auto sourceNodeC = g.add_node<Sources::SingleDataSourceNode<Scalar>>( "sc" );
 
-    auto resultNode = g.addNode<Sinks::SinkNode<Scalar>>( "odelta" );
+    auto resultNode = g.add_node<Sinks::SinkNode<Scalar>>( "odelta" );
 
-    g.addNode( gAsNode );
+    g.add_node( gAsNode );
 
-    g.addLink( sourceNodeA->port_out_to().get(), gAsNode->input_by_index( inputA ) );
-    g.addLink( sourceNodeB->port_out_to().get(), gAsNode->input_by_index( inputB ) );
-    g.addLink( sourceNodeC->port_out_to().get(), gAsNode->input_by_index( inputC ) );
-    g.addLink( gAsNode->output_by_index( output ), resultNode->port_in_from().get() );
+    g.add_link( sourceNodeA->port_out_to().get(), gAsNode->input_by_index( inputA ) );
+    g.add_link( sourceNodeB->port_out_to().get(), gAsNode->input_by_index( inputB ) );
+    g.add_link( sourceNodeC->port_out_to().get(), gAsNode->input_by_index( inputC ) );
+    g.add_link( gAsNode->output_by_index( output ), resultNode->port_in_from().get() );
 
     sourceNodeA->setData( 1 );
     sourceNodeB->setData( 2 );

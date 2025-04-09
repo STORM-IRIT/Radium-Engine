@@ -22,32 +22,32 @@ createGraph(
     auto g         = new DataflowGraph { name };
 
     auto source_a = std::make_shared<Sources::SingleDataSourceNode<DataType_a>>( "a" );
-    g->addNode( source_a );
-    auto a = g->getNodeInputPort( "a", "from" );
-    REQUIRE( a->getNode() == source_a.get() );
+    g->add_node( source_a );
+    auto a = g->input_node_port( "a", "from" );
+    REQUIRE( a->node() == source_a.get() );
 
     auto source_b = std::make_shared<Sources::SingleDataSourceNode<DataType_b>>( "b" );
-    g->addNode( source_b );
-    auto b = g->getNodeInputPort( "b", "from" );
-    REQUIRE( b->getNode() == source_b.get() );
+    g->add_node( source_b );
+    auto b = g->input_node_port( "b", "from" );
+    REQUIRE( b->node() == source_b.get() );
 
     auto sink = std::make_shared<Sinks::SinkNode<DataType_r>>( "r" );
-    g->addNode( sink );
-    auto r = g->getNodeOutputPort( "r", "data" );
-    REQUIRE( r->getNode() == sink.get() );
+    g->add_node( sink );
+    auto r = g->output_node_port( "r", "data" );
+    REQUIRE( r->node() == sink.get() );
 
     auto op = std::make_shared<TestNode>( "operator", f );
     // op->setOperator( f );
-    g->addNode( op );
+    g->add_node( op );
 
-    REQUIRE( g->addLink( source_a, "to", op, "a" ) );
-    REQUIRE( g->addLink( op, "result", sink, "from" ) );
+    REQUIRE( g->add_link( source_a, "to", op, "a" ) );
+    REQUIRE( g->add_link( op, "result", sink, "from" ) );
     REQUIRE( !g->compile() );
     // this will not execute the graph as it does not compile
     g->execute();
-    REQUIRE( !g->isCompiled() );
+    REQUIRE( !g->is_compiled() );
     // add missing link
-    REQUIRE( g->addLink( source_b, "to", op, "b" ) );
+    REQUIRE( g->add_link( source_b, "to", op, "b" ) );
 
     return { g, a, b, r };
 }
@@ -194,7 +194,7 @@ TEST_CASE( "Dataflow/Core/Nodes", "[unittests][Dataflow][Core][Nodes]" ) {
         std::cout << "}\n";
 
         // change operator
-        auto opNode = std::dynamic_pointer_cast<TestNode>( g->getNode( "operator" ) );
+        auto opNode = std::dynamic_pointer_cast<TestNode>( g->node( "operator" ) );
         REQUIRE( opNode != nullptr );
         if ( opNode ) {
             typename TestNode::BinaryOperator f = []( typename TestNode::Arg1_type arg1,
@@ -319,39 +319,39 @@ TEST_CASE( "Dataflow/Core/Nodes", "[unittests][Dataflow][Core][Nodes]" ) {
         auto validator =
             std::make_shared<Functionals::BinaryOpNode<Scalar, Scalar, bool>>( "validator" );
 
-        REQUIRE( g->addNode( nodeS ) );
-        REQUIRE( g->addNode( nodeD ) );
-        REQUIRE( g->addNode( nodeN ) );
-        REQUIRE( g->addNode( nodeM ) );
-        REQUIRE( g->addNode( nodeR ) );
-        REQUIRE( g->addNode( meanCalculator ) );
-        REQUIRE( g->addNode( doubleMeanCalculator ) );
-        REQUIRE( g->addNode( nodeT ) );
-        REQUIRE( g->addNode( nodeRD ) );
+        REQUIRE( g->add_node( nodeS ) );
+        REQUIRE( g->add_node( nodeD ) );
+        REQUIRE( g->add_node( nodeN ) );
+        REQUIRE( g->add_node( nodeM ) );
+        REQUIRE( g->add_node( nodeR ) );
+        REQUIRE( g->add_node( meanCalculator ) );
+        REQUIRE( g->add_node( doubleMeanCalculator ) );
+        REQUIRE( g->add_node( nodeT ) );
+        REQUIRE( g->add_node( nodeRD ) );
 
-        REQUIRE( g->addLink( nodeS, "to", meanCalculator, "data" ) );
-        REQUIRE( g->addLink( nodeM, "to", meanCalculator, "op" ) );
-        REQUIRE( g->addLink( nodeN, "to", meanCalculator, "init" ) );
-        REQUIRE( g->addLink( meanCalculator, "result", nodeR, "from" ) );
-        REQUIRE( g->addLink( nodeS, "to", nodeT, "data" ) );
-        REQUIRE( g->addLink( nodeD, "to", nodeT, "op" ) );
-        REQUIRE( g->addLink( nodeT, "result", doubleMeanCalculator, "data" ) );
-        REQUIRE( g->addLink( doubleMeanCalculator, "result", nodeRD, "from" ) );
-        REQUIRE( g->addLink( nodeM, "to", doubleMeanCalculator, "op" ) );
+        REQUIRE( g->add_link( nodeS, "to", meanCalculator, "data" ) );
+        REQUIRE( g->add_link( nodeM, "to", meanCalculator, "op" ) );
+        REQUIRE( g->add_link( nodeN, "to", meanCalculator, "init" ) );
+        REQUIRE( g->add_link( meanCalculator, "result", nodeR, "from" ) );
+        REQUIRE( g->add_link( nodeS, "to", nodeT, "data" ) );
+        REQUIRE( g->add_link( nodeD, "to", nodeT, "op" ) );
+        REQUIRE( g->add_link( nodeT, "result", doubleMeanCalculator, "data" ) );
+        REQUIRE( g->add_link( doubleMeanCalculator, "result", nodeRD, "from" ) );
+        REQUIRE( g->add_link( nodeM, "to", doubleMeanCalculator, "op" ) );
 
-        REQUIRE( g->addNode( nodePred ) );
-        REQUIRE( g->addNode( sinkB ) );
-        REQUIRE( g->addNode( validator ) );
-        REQUIRE( g->addLink( meanCalculator, "result", validator, "a" ) );
-        REQUIRE( g->addLink( doubleMeanCalculator, "result", validator, "b" ) );
-        REQUIRE( g->addLink( nodePred, "to", validator, "op" ) );
-        REQUIRE( g->addLink( validator, "result", sinkB, "from" ) );
+        REQUIRE( g->add_node( nodePred ) );
+        REQUIRE( g->add_node( sinkB ) );
+        REQUIRE( g->add_node( validator ) );
+        REQUIRE( g->add_link( meanCalculator, "result", validator, "a" ) );
+        REQUIRE( g->add_link( doubleMeanCalculator, "result", validator, "b" ) );
+        REQUIRE( g->add_link( nodePred, "to", validator, "op" ) );
+        REQUIRE( g->add_link( validator, "result", sinkB, "from" ) );
 
-        auto input   = g->getNodeInputPort( "s", "from" );
-        auto output  = g->getNodeOutputPort( "r", "data" );
-        auto outputD = g->getNodeOutputPort( "rd", "data" );
-        auto outputB = g->getNodeOutputPort( "test", "data" );
-        auto inputR  = g->getNodeInputPort( "m", "from" );
+        auto input   = g->input_node_port( "s", "from" );
+        auto output  = g->output_node_port( "r", "data" );
+        auto outputD = g->output_node_port( "rd", "data" );
+        auto outputB = g->output_node_port( "test", "data" );
+        auto inputR  = g->input_node_port( "m", "from" );
         if ( inputR == nullptr ) { std::cout << "Failed to get the graph function input !!\n"; }
 
         // Inspect the graph interface : inputs and outputs port

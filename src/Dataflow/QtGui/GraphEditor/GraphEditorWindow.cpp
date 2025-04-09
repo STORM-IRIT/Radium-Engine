@@ -83,7 +83,8 @@ GraphEditorWindow::GraphEditorWindow( std::shared_ptr<DataflowGraph> graph ) : m
         node_tree_widget->addTopLevelItem( factory_item );
     }
 
-    connect( node_tree_widget, &QTreeWidget::itemDoubleClicked, this, &GraphEditorWindow::addNode );
+    connect(
+        node_tree_widget, &QTreeWidget::itemDoubleClicked, this, &GraphEditorWindow::add_node );
     connect( m_graph_model.get(), &GraphModel::node_edited, this, &GraphEditorWindow::node_editor );
     connect( m_scene,
              &QtNodes::BasicGraphicsScene::nodeDoubleClicked,
@@ -95,7 +96,8 @@ GraphEditorWindow::GraphEditorWindow( std::shared_ptr<DataflowGraph> graph ) : m
     viewMenu->addAction( dock->toggleViewAction() );
 }
 
-void GraphEditorWindow::addNode( QTreeWidgetItem* item, int ) {
+void GraphEditorWindow::add_node( QTreeWidgetItem* item, int ) {
+    // if no child, it's a model name
     if ( item->childCount() == 0 ) { m_graph_model->addNode( item->text( 0 ) ); }
 }
 

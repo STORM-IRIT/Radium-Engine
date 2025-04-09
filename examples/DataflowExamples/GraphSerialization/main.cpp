@@ -57,16 +57,16 @@ int main( int argc, char* argv[] ) {
         //! [Creating an empty graph using the custom nodes factory]
 
         //! [Creating Nodes]
-        auto sourceNode = g.addNode<Sources::SingleDataSourceNode<VectorType>>( "Source" );
+        auto sourceNode = g.add_node<Sources::SingleDataSourceNode<VectorType>>( "Source" );
         // non serializable node using a custom filter
-        auto filterNode = g.addNode<Functionals::FilterNode<VectorType>>(
+        auto filterNode = g.add_node<Functionals::FilterNode<VectorType>>(
             "Filter", []( const Scalar& x ) { return x > 0.5_ra; } );
-        auto storeNode = g.addNode<Sinks::SinkNode<VectorType>>( "Store" );
+        auto storeNode = g.add_node<Sinks::SinkNode<VectorType>>( "Store" );
         //! [Creating Nodes]
 
         //! [Creating links between Nodes]
-        g.addLink( sourceNode, "to", filterNode, "data" );
-        g.addLink( filterNode, "result", storeNode, "from" );
+        g.add_link( sourceNode, "to", filterNode, "data" );
+        g.add_link( filterNode, "result", storeNode, "from" );
         //! [Creating links between Nodes]
 
         //! [Verifing the graph can be compiled]
@@ -115,7 +115,7 @@ int main( int argc, char* argv[] ) {
     //! [Execute the graph]
 
     //! [Print the output result]
-    auto output = g1.getNodeOutputPort( "Store", "data" );
+    auto output = g1.output_node_port( "Store", "data" );
 
     VectorType result = output->getData<VectorType>();
 
@@ -128,7 +128,7 @@ int main( int argc, char* argv[] ) {
 
     //! [Set the correct filter on the filter node]
     auto filter =
-        std::dynamic_pointer_cast<Functionals::FilterNode<VectorType>>( g1.getNode( "Filter" ) );
+        std::dynamic_pointer_cast<Functionals::FilterNode<VectorType>>( g1.node( "Filter" ) );
     if ( !filter ) {
         std::cerr << "Unable to cast the filter to "
                   << Ra::Core::Utils::simplifiedDemangledType( filter ) << "\n";

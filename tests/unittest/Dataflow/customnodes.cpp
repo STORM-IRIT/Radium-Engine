@@ -108,25 +108,25 @@ DataflowGraph* buildgraph( const std::string& name ) {
     auto g = new DataflowGraph( name );
 
     auto ds = std::make_shared<CollectionInputType<DataType>>( "ds" );
-    REQUIRE( g->addNode( ds ) );
+    REQUIRE( g->add_node( ds ) );
 
     auto rs = std::make_shared<CollectionOutputType<DataType>>( "rs" );
-    REQUIRE( g->addNode( rs ) );
+    REQUIRE( g->add_node( rs ) );
 
     auto ts = std::make_shared<Sources::SingleDataSourceNode<DataType>>( "ts" );
-    REQUIRE( g->addNode( ts ) );
+    REQUIRE( g->add_node( ts ) );
 
     auto ss = std::make_shared<Customs::CustomStringSource>( "ss" );
-    REQUIRE( g->addNode( ss ) );
+    REQUIRE( g->add_node( ss ) );
 
     auto nm = std::make_shared<Customs::CustomStringSink>( "nm" );
-    REQUIRE( g->addNode( nm ) );
+    REQUIRE( g->add_node( nm ) );
 
     auto fs = std::make_shared<Customs::FilterSelector<DataType>>( "fs" );
-    REQUIRE( g->addNode( fs ) );
+    REQUIRE( g->add_node( fs ) );
 
     auto fl = std::make_shared<FilterCollectionType<DataType>>( "fl" );
-    REQUIRE( g->addNode( fl ) );
+    REQUIRE( g->add_node( fl ) );
 
     auto coreFactory = NodeFactoriesManager::getDataFlowBuiltInsFactory();
 
@@ -134,12 +134,12 @@ DataflowGraph* buildgraph( const std::string& name ) {
     REGISTER_TYPE_TO_FACTORY( coreFactory, CollectionInputType<DataType>, Functionals );
     REGISTER_TYPE_TO_FACTORY( coreFactory, CollectionOutputType<DataType>, Functionals );
 
-    REQUIRE( g->addLink( ds, "to", fl, "data" ) );
-    REQUIRE( g->addLink( fl, "result", rs, "from" ) );
-    REQUIRE( g->addLink( ss, "to", fs, "name" ) );
-    REQUIRE( g->addLink( ts, "to", fs, "threshold" ) );
-    REQUIRE( g->addLink( fs, "f", fl, "predicate" ) );
-    REQUIRE( g->addLink( fs, "name", nm, "from" ) );
+    REQUIRE( g->add_link( ds, "to", fl, "data" ) );
+    REQUIRE( g->add_link( fl, "result", rs, "from" ) );
+    REQUIRE( g->add_link( ss, "to", fs, "name" ) );
+    REQUIRE( g->add_link( ts, "to", fs, "threshold" ) );
+    REQUIRE( g->add_link( fs, "f", fl, "predicate" ) );
+    REQUIRE( g->add_link( fs, "name", nm, "from" ) );
     return g;
 }
 
@@ -151,18 +151,18 @@ TEST_CASE( "Dataflow/Core/Custom nodes", "[unittests][Dataflow][Core][Custom nod
 
         // get input and ouput of the graph
         auto inputCollection =
-            std::dynamic_pointer_cast<CollectionInputType<Scalar>>( g->getNode( "ds" ) );
+            std::dynamic_pointer_cast<CollectionInputType<Scalar>>( g->node( "ds" ) );
         REQUIRE( inputCollection != nullptr );
         auto inputOpName =
-            std::dynamic_pointer_cast<Customs::CustomStringSource>( g->getNode( "ss" ) );
+            std::dynamic_pointer_cast<Customs::CustomStringSource>( g->node( "ss" ) );
         REQUIRE( inputOpName != nullptr );
         auto inputThreshold =
-            std::dynamic_pointer_cast<Sources::SingleDataSourceNode<Scalar>>( g->getNode( "ts" ) );
+            std::dynamic_pointer_cast<Sources::SingleDataSourceNode<Scalar>>( g->node( "ts" ) );
         REQUIRE( inputThreshold != nullptr );
 
-        auto filteredCollection = g->getNode( "rs" );
+        auto filteredCollection = g->node( "rs" );
         REQUIRE( filteredCollection != nullptr );
-        auto generatedOperator = g->getNode( "nm" );
+        auto generatedOperator = g->node( "nm" );
         REQUIRE( generatedOperator != nullptr );
 
         // parameterize the graph

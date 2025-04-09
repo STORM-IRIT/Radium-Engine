@@ -145,7 +145,7 @@ reported
 In order to use the graph as a function acting on its input, it should be first compiled by
 \snippet examples/DataflowExamples/HelloGraph/main.cpp Verifying the graph can be compiled
 
-If the compilation success the graph inputs can be set either using node return by Ra::Dataflow::Core::DataflowGraph::addNode, or getting the node from the graph with Ra::Dataflow::Core::DataflowGraph::getNode
+If the compilation success the graph inputs can be set either using node return by Ra::Dataflow::Core::DataflowGraph::add_node, or getting the node from the graph with Ra::Dataflow::Core::DataflowGraph::node
 \snippet examples/DataflowExamples/HelloGraph/main.cpp Configure nodes
 
 Here, the accessor `input` allows to set the pointer on the `RaVector` to be processed while the accessor `selector`

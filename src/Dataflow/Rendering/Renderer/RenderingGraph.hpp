@@ -24,9 +24,9 @@ class RA_DATAFLOW_API RenderingGraph : public DataflowGraph
     ~RenderingGraph() override = default;
 
     void init() override;
-    bool addNode( Node* newNode ) override;
-    bool removeNode( Node* node ) override;
-    void clearNodes() override;
+    bool add_node( Node* newNode ) override;
+    bool remove_node( Node* node ) override;
+    void clear_nodes() override;
 
     /// Sets the shader program manager
     void setShaderProgramManager( Ra::Engine::Data::ShaderProgramManager* shaderMngr ) {

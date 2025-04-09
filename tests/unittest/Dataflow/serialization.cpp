@@ -21,23 +21,23 @@ TEST_CASE( "Dataflow/Core/DataflowGraph/Serialization",
         REQUIRE( g.metadata()["extra"].contains( "info" ) );
         REQUIRE( g.metadata()["extra"]["info"] == "missing operators on functional node" );
 
-        auto source_a                = g.addNode<Sources::SingleDataSourceNode<DataType>>( "a" );
-        auto a                       = g.getNodeInputPort( "a", "from" );
-        auto source_b                = g.addNode<Sources::SingleDataSourceNode<DataType>>( "b" );
-        auto b                       = g.getNodeInputPort( "b", "from" );
-        auto sink                    = g.addNode<Sinks::SinkNode<DataType>>( "r" );
-        auto r                       = g.getNodeOutputPort( "r", "data" );
+        auto source_a                = g.add_node<Sources::SingleDataSourceNode<DataType>>( "a" );
+        auto a                       = g.input_node_port( "a", "from" );
+        auto source_b                = g.add_node<Sources::SingleDataSourceNode<DataType>>( "b" );
+        auto b                       = g.input_node_port( "b", "from" );
+        auto sink                    = g.add_node<Sinks::SinkNode<DataType>>( "r" );
+        auto r                       = g.output_node_port( "r", "data" );
         using TestNode               = Functionals::BinaryOpNode<DataType, DataType, DataType>;
         TestNode::BinaryOperator add = []( TestNode::Arg1_type pa,
                                            TestNode::Arg2_type pb ) -> TestNode::Res_type {
             return pa + pb;
         };
-        auto op_unique = g.addNode<TestNode>( "addition" );
+        auto op_unique = g.add_node<TestNode>( "addition" );
         op_unique->setOperator( add );
 
-        REQUIRE( g.addLink( source_a, "to", op_unique, "a" ) );
-        REQUIRE( g.addLink( op_unique, "result", sink, "from" ) );
-        REQUIRE( g.addLink( source_b, "to", op_unique, "b" ) );
+        REQUIRE( g.add_link( source_a, "to", op_unique, "a" ) );
+        REQUIRE( g.add_link( op_unique, "result", sink, "from" ) );
+        REQUIRE( g.add_link( source_b, "to", op_unique, "b" ) );
 
         // execution of the original graph
         DataType x { 1_ra };
@@ -62,7 +62,7 @@ TEST_CASE( "Dataflow/Core/DataflowGraph/Serialization",
         REQUIRE( g1.loadFromJson( tmpdir + "/GraphSerializationTest.json" ) );
 
         // Setting the unserializable data on nodes (functions)
-        auto addition = g1.getNode( "addition" );
+        auto addition = g1.node( "addition" );
         REQUIRE( addition != nullptr );
         REQUIRE( addition->model_name() == Functionals::BinaryOpScalar::node_typename() );
         auto typedAddition = std::dynamic_pointer_cast<Functionals::BinaryOpScalar>( addition );
@@ -72,12 +72,12 @@ TEST_CASE( "Dataflow/Core/DataflowGraph/Serialization",
         // Execute loaded graph
         // Data delivered by the source nodes are the one saved by the original graph
         REQUIRE( g1.execute() );
-        auto r_loaded  = g1.getNodeOutputPort( "r", "data" );
+        auto r_loaded  = g1.output_node_port( "r", "data" );
         auto& z_loaded = r_loaded->getData<DataType>();
         REQUIRE( z_loaded == z );
 
-        auto a_loaded = g1.getNodeInputPort( "a", "from" );
-        auto b_loaded = g1.getNodeInputPort( "b", "from" );
+        auto a_loaded = g1.input_node_port( "a", "from" );
+        auto b_loaded = g1.input_node_port( "b", "from" );
         DataType xp { 2_ra };
         a_loaded->setDefaultValue( xp );
         DataType yp { 3_ra };
@@ -87,7 +87,7 @@ TEST_CASE( "Dataflow/Core/DataflowGraph/Serialization",
 
         // change the data delivered by a
         auto loadedSource_a =
-            std::dynamic_pointer_cast<Sources::SingleDataSourceNode<DataType>>( g1.getNode( "a" ) );
+            std::dynamic_pointer_cast<Sources::SingleDataSourceNode<DataType>>( g1.node( "a" ) );
         Scalar newX = 3_ra;
         loadedSource_a->setData( newX );
 

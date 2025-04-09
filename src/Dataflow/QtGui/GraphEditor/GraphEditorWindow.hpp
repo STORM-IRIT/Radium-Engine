@@ -50,7 +50,7 @@ class RA_DATAFLOW_GUI_API GraphEditorWindow : public QMainWindow
     bool saveAs();
     void about();
     void documentWasModified();
-    void addNode( QTreeWidgetItem* item, int column );
+    void add_node( QTreeWidgetItem* item, int column );
     void node_editor( std::shared_ptr<Node> node );
     void node_dialog( QtNodes::NodeId node_id );
 

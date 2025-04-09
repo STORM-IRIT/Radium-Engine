@@ -21,7 +21,7 @@ auto NodeFactory::createNode( const std::string& nodeType,
                               DataflowGraph* owningGraph ) -> std::shared_ptr<Node> {
     if ( auto itr = m_nodesCreators.find( nodeType ); itr != m_nodesCreators.end() ) {
         auto node = std::shared_ptr<Node> { itr->second.first( data ) };
-        if ( owningGraph != nullptr ) { owningGraph->addNode( node ); }
+        if ( owningGraph != nullptr ) { owningGraph->add_node( node ); }
         return node;
     }
     return nullptr;

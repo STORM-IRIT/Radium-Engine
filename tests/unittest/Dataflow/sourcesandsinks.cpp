@@ -17,15 +17,15 @@ void testGraph( const std::string& name, T in, T& out ) {
     auto g      = std::make_unique<DataflowGraph>( name );
     auto source = std::make_shared<Sources::SingleDataSourceNode<T>>( "in" );
     auto sink   = std::make_shared<Sinks::SinkNode<T>>( "out" );
-    g->addNode( source );
-    g->addNode( sink );
-    auto linked = g->addLink( source, "to", sink, "from" );
+    g->add_node( source );
+    g->add_node( sink );
+    auto linked = g->add_link( source, "to", sink, "from" );
     if ( !linked ) { std::cerr << "Error linking source and sink nodes.\n"; }
     REQUIRE( linked );
 
-    auto input = g->getNodeInputPort( "in", "from" );
+    auto input = g->input_node_port( "in", "from" );
     REQUIRE( input != nullptr );
-    auto output = g->getNodeOutputPort( "out", "data" );
+    auto output = g->output_node_port( "out", "data" );
     REQUIRE( output != nullptr );
 
     auto compiled = g->compile();

@@ -53,7 +53,7 @@ class RA_DATAFLOW_CORE_API PortBase
     /// Gets the type of the data (efficient for comparisons).
     std::type_index getType() const { return m_type; }
     /// Gets a pointer to the node this port belongs to.
-    Node* getNode() const { return m_node; }
+    Node* node() const { return m_node; }
 
     ///\brief Gets the human readable type of the port object.
     ///

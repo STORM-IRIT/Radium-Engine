@@ -16,16 +16,16 @@ void RenderingGraph::init() {
     DataflowGraph::init();
 }
 
-bool RenderingGraph::addNode( Node* newNode ) {
-    auto added = DataflowGraph::addNode( newNode );
+bool RenderingGraph::add_node( Node* newNode ) {
+    auto added = DataflowGraph::add_node( newNode );
     if ( added ) {
         // Todo : is there something to do ?
     }
     return added;
 }
 
-bool RenderingGraph::removeNode( Node* node ) {
-    auto removed = DataflowGraph::removeNode( node );
+bool RenderingGraph::remove_node( Node* node ) {
+    auto removed = DataflowGraph::remove_node( node );
     if ( removed ) {
         // Todo : is there something to do ?
     }
@@ -43,7 +43,7 @@ bool RenderingGraph::postCompilationOperation() {
         m_displayObserverId = -1;
         m_displaySinkNode   = nullptr;
     }
-    const auto& compiledNodes = getNodesByLevel();
+    const auto& compiledNodes = nodes_by_level();
     int idx                   = 1; // The renderTechnique id = 0 is reserved for ui/debug objects
     for ( const auto& lvl : *compiledNodes ) {
         for ( auto n : lvl ) {
@@ -104,8 +104,8 @@ const std::vector<TextureType*>& RenderingGraph::getImagesOutput() const {
     return m_outputTextures;
 }
 
-void RenderingGraph::clearNodes() {
-    DataflowGraph::clearNodes();
+void RenderingGraph::clear_nodes() {
+    DataflowGraph::clear_nodes();
     m_renderingNodes.clear();
     m_rtIndexedNodes.clear();
 }

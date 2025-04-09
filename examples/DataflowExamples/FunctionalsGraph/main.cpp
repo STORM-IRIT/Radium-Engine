@@ -27,12 +27,12 @@ int main( int argc, char* argv[] ) {
     using TransformNode           = Functionals::TransformNode<std::vector<Scalar>>;
     using TransformOperatorSource = Sources::FunctionSourceNode<Scalar, const Scalar&>;
 
-    auto sourceNode     = g.addNode<Sources::SingleDataSourceNode<std::vector<Scalar>>>( "Source" );
-    auto mapSource      = g.addNode<TransformOperatorSource>( "MapOperator" );
-    auto transformNode  = g.addNode<TransformNode>( "Transformer" );
-    auto reduceNode     = g.addNode<Functionals::ReduceNode<std::vector<Scalar>>>( "Minimum" );
-    auto sinkNode       = g.addNode<Sinks::SinkNode<std::vector<Scalar>>>( "Sink" );
-    auto scalarSinkNode = g.addNode<Sinks::SinkNode<Scalar>>( "ScalarSink" );
+    auto sourceNode    = g.add_node<Sources::SingleDataSourceNode<std::vector<Scalar>>>( "Source" );
+    auto mapSource     = g.add_node<TransformOperatorSource>( "MapOperator" );
+    auto transformNode = g.add_node<TransformNode>( "Transformer" );
+    auto reduceNode    = g.add_node<Functionals::ReduceNode<std::vector<Scalar>>>( "Minimum" );
+    auto sinkNode      = g.add_node<Sinks::SinkNode<std::vector<Scalar>>>( "Sink" );
+    auto scalarSinkNode = g.add_node<Sinks::SinkNode<Scalar>>( "ScalarSink" );
 
     TransformNode::TransformOperator oneMinusMe = []( const Scalar& i ) -> Scalar {
         return 1_ra - i;
@@ -51,10 +51,10 @@ int main( int argc, char* argv[] ) {
     //! [Adding Nodes to the graph]
 
     //! [Creating links between Nodes]
-    g.addLink( sourceNode, "to", transformNode, "data" );
-    g.addLink( transformNode, "result", sinkNode, "from" );
-    g.addLink( transformNode, "result", reduceNode, "data" );
-    g.addLink( reduceNode, "result", scalarSinkNode, "from" );
+    g.add_link( sourceNode, "to", transformNode, "data" );
+    g.add_link( transformNode, "result", sinkNode, "from" );
+    g.add_link( transformNode, "result", reduceNode, "data" );
+    g.add_link( reduceNode, "result", scalarSinkNode, "from" );
     //! [Creating links between Nodes]
 
     //! [Verifing the graph can be compiled]
@@ -118,7 +118,7 @@ int main( int argc, char* argv[] ) {
     //! [Verify the result]
 
     //! [Modifying the graph to add link to map operator]
-    if ( !g.addLink( mapSource, "to", transformNode, "op" ) ) {
+    if ( !g.add_link( mapSource, "to", transformNode, "op" ) ) {
         std::cout << "Unable to link port f ("
                   << ") from " << mapSource->instance_name() << " to port f("
                   << ") of " << transformNode->instance_name() << "\n";

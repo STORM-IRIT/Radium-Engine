@@ -86,7 +86,7 @@ GraphModel::NodeId GraphModel::addNode( QString const nodeType ) {
     }
     auto f = m_model_name_to_factory.at( nodeType.toStdString() );
     auto n = f( {} );
-    m_graph->addNode( n );
+    m_graph->add_node( n );
 
     NodeId newId = newNodeId();
     m_node_ids.insert( newId );
@@ -105,10 +105,10 @@ bool GraphModel::connectionPossible( ConnectionId const connectionId ) const {
     auto out_port_id = connectionId.outPortIndex;
 
     bool ret = m_connectivity.find( connectionId ) == m_connectivity.end() &&
-               m_graph->canLink( m_node_id_to_ptr.at( out_node_id ).get(),
-                                 out_port_id,
-                                 m_node_id_to_ptr.at( in_node_id ).get(),
-                                 in_port_id );
+               m_graph->can_link( m_node_id_to_ptr.at( out_node_id ).get(),
+                                  out_port_id,
+                                  m_node_id_to_ptr.at( in_node_id ).get(),
+                                  in_port_id );
 
     return ret;
 }
@@ -120,10 +120,10 @@ void GraphModel::addConnection( ConnectionId const connectionId ) {
     auto in_port_id  = connectionId.inPortIndex;
     auto out_port_id = connectionId.outPortIndex;
 
-    m_graph->addLink( m_node_id_to_ptr.at( out_node_id ),
-                      out_port_id,
-                      m_node_id_to_ptr.at( in_node_id ),
-                      in_port_id );
+    m_graph->add_link( m_node_id_to_ptr.at( out_node_id ),
+                       out_port_id,
+                       m_node_id_to_ptr.at( in_node_id ),
+                       in_port_id );
 
     Q_EMIT connectionCreated( connectionId );
     Q_EMIT nodeUpdated( in_node_id );
@@ -386,7 +386,7 @@ bool GraphModel::deleteConnection( ConnectionId const connectionId ) {
         auto in_node_id = connectionId.inNodeId;
         auto in_port_id = connectionId.inPortIndex;
 
-        m_graph->removeLink( m_node_id_to_ptr.at( in_node_id ), in_port_id );
+        m_graph->remove_link( m_node_id_to_ptr.at( in_node_id ), in_port_id );
         m_connectivity.erase( it );
     }
 
@@ -403,7 +403,7 @@ bool GraphModel::deleteNode( NodeId const nodeId ) {
         deleteConnection( cId );
     }
 
-    m_graph->removeNode( m_node_id_to_ptr.at( nodeId ) );
+    m_graph->remove_node( m_node_id_to_ptr.at( nodeId ) );
     m_node_id_to_ptr.erase( nodeId );
     m_node_widget.erase( nodeId );
 
@@ -446,7 +446,7 @@ void GraphModel::loadNode( QJsonObject const& nodeJson ) {
     auto json = nlohmann::json::parse( QJsonDocument( nodeJson ).toJson() );
     auto f    = m_model_name_to_factory[json["model"]["name"]];
     auto n    = f( json );
-    m_graph->addNode( n );
+    m_graph->add_node( n );
 
     // restore model and ui stuff
     NodeId restoredNodeId = static_cast<NodeId>( nodeJson["id"].toInt() );
@@ -485,7 +485,7 @@ void GraphModel::sync_data() {
     m_next_node_id = 0;
 
     // Create new nodes
-    for ( const auto& n : m_graph->getNodes() ) {
+    for ( const auto& n : m_graph->nodes() ) {
         NodeId newId = newNodeId();
         m_node_ids.insert( newId );
         m_node_id_to_ptr[newId] = n;
@@ -496,7 +496,7 @@ void GraphModel::sync_data() {
     }
 
     // from nodes input to output
-    for ( const auto& in_node : m_graph->getNodes() ) {
+    for ( const auto& in_node : m_graph->nodes() ) {
         // get in_node_id, skip m_graph input_node
         auto in_node_itr = std::find_if(
             m_node_id_to_ptr.begin(), m_node_id_to_ptr.end(), [in_node]( const auto& pair ) {
@@ -518,7 +518,7 @@ void GraphModel::sync_data() {
 
             if ( out_port ) {
                 // get out node id
-                auto out_node = out_port->getNode();
+                auto out_node = out_port->node();
                 if ( out_node ) {
                     // if linked to graph out_node, not from the model's graph, use
                     // out_node->graph as out_node

@@ -59,7 +59,7 @@ void DataflowGraph::destroy() {
     m_nodesByLevel.clear();
     m_nodes.clear();
     Node::destroy();
-    needsRecompile();
+    needs_recompile();
 }
 
 void DataflowGraph::saveToJson( const std::string& jsonFilePath ) {
@@ -87,7 +87,7 @@ void DataflowGraph::toJsonInternal( nlohmann::json& data ) const {
                 if ( input->isLinked() ) {
                     nlohmann::json link = nlohmann::json::object();
                     auto portOut        = input->getLink();
-                    auto nodeOut        = portOut->getNode();
+                    auto nodeOut        = portOut->node();
                     if ( auto casted = dynamic_cast<GraphOutputNode*>( nodeOut ); casted ) {
                         nodeOut = casted->graph();
                     }
@@ -173,7 +173,7 @@ getLinkInfo( const std::string& which,
 bool DataflowGraph::fromJsonInternal( const nlohmann::json& data ) {
     if ( data.contains( "graph" ) ) {
         // indicate that the graph must be recompiled after loading
-        needsRecompile();
+        needs_recompile();
         // load the graph
         auto factories = NodeFactoriesManager::getFactoryManager();
 
@@ -241,7 +241,7 @@ bool DataflowGraph::fromJsonInternal( const nlohmann::json& data ) {
                         << " Could not find the link target (" << toInput << "). Link not added.";
                     return false;
                 }
-                if ( !addLink( nodeFrom, fromOutput, nodeTo, toInput ) ) {
+                if ( !add_link( nodeFrom, fromOutput, nodeTo, toInput ) ) {
                     LOG( logERROR )
                         << "DataflowGraph::loadFromJson: error when parsing JSON"
                         << ": Could not add a link (missing or wrong information, please refer to "
@@ -255,57 +255,57 @@ bool DataflowGraph::fromJsonInternal( const nlohmann::json& data ) {
     return true;
 }
 
-bool DataflowGraph::addNode( std::shared_ptr<Node> newNode ) {
+bool DataflowGraph::add_node( std::shared_ptr<Node> newNode ) {
     // Check if the new node already exists (= same name and type)
-    if ( !findNode( newNode->instance_name(), newNode->model_name() ) ) {
+    if ( !has_node_by_name( newNode->instance_name(), newNode->model_name() ) ) {
         m_nodes.emplace_back( std::move( newNode ) );
-        needsRecompile();
+        needs_recompile();
         return true;
     }
     else { return false; }
 }
 
-bool DataflowGraph::removeNode( std::shared_ptr<Node> node ) {
+bool DataflowGraph::remove_node( std::shared_ptr<Node> node ) {
     // This is to prevent graph destruction from the graph editor, depending on how it is used
     if ( m_nodesAndLinksProtected ) { return false; }
 
     if ( auto itr = std::find( m_nodes.begin(), m_nodes.end(), node ); itr != m_nodes.end() ) {
         m_nodes.erase( itr );
-        needsRecompile();
+        needs_recompile();
         return true;
     }
     return false;
 }
 
-bool DataflowGraph::checkPortCompatibility( const Node* nodeFrom,
-                                            const PortBaseOut* portOut,
-                                            const Node* nodeTo,
-                                            const PortBaseIn* portIn ) {
+bool DataflowGraph::are_ports_compatible( const Node* nodeFrom,
+                                          const PortBaseOut* portOut,
+                                          const Node* nodeTo,
+                                          const PortBaseIn* portIn ) {
     // Compare types
     if ( !( portIn->getType() == portOut->getType() ) ) {
-        Log::addLinkTypeMismatch( nodeFrom, portOut, nodeTo, portIn );
+        Log::link_type_mismatch( nodeFrom, portOut, nodeTo, portIn );
         return false;
     }
 
     // Check if input is connected
     if ( portIn->isLinked() ) {
-        Log::alreadyLinked( nodeTo, portIn );
+        Log::already_linked( nodeTo, portIn );
         return false;
     }
     return true;
 }
 
 void nodeNotFoundMessage( const std::string& type, const std::string& name, const Node* node ) {
-    LOG( logERROR ) << "DataflowGraph::addLink Unable to find " << type << "input port " << name
+    LOG( logERROR ) << "DataflowGraph::add_link Unable to find " << type << "input port " << name
                     << " from destination node " << node->instance_name() << " ("
                     << node->model_name() << ")";
 }
 
-bool DataflowGraph::addLink( const std::shared_ptr<Node>& nodeFrom,
-                             const std::string& nodeFromOutputName,
-                             const std::shared_ptr<Node>& nodeTo,
-                             const std::string& nodeToInputName ) {
-    if ( !checkNodeValidity( nodeFrom.get(), nodeTo.get(), true ) ) { return false; }
+bool DataflowGraph::add_link( const std::shared_ptr<Node>& nodeFrom,
+                              const std::string& nodeFromOutputName,
+                              const std::shared_ptr<Node>& nodeTo,
+                              const std::string& nodeToInputName ) {
+    if ( !are_nodes_valids( nodeFrom.get(), nodeTo.get(), true ) ) { return false; }
 
     auto [inputIdx, inputPort] = nodeTo->input_by_name( nodeToInputName );
     if ( !inputPort ) {
@@ -318,21 +318,21 @@ bool DataflowGraph::addLink( const std::shared_ptr<Node>& nodeFrom,
         return false;
     }
 
-    return addLink( outputPort, inputPort );
+    return add_link( outputPort, inputPort );
 }
 
-bool DataflowGraph::addLink( const std::shared_ptr<Node>& nodeFrom,
-                             Node::PortIndex portOutIdx,
-                             const std::shared_ptr<Node>& nodeTo,
-                             Node::PortIndex portInIdx ) {
+bool DataflowGraph::add_link( const std::shared_ptr<Node>& nodeFrom,
+                              Node::PortIndex portOutIdx,
+                              const std::shared_ptr<Node>& nodeTo,
+                              Node::PortIndex portInIdx ) {
 
-    if ( !checkNodeValidity( nodeFrom.get(), nodeTo.get(), true ) ) { return false; }
+    if ( !are_nodes_valids( nodeFrom.get(), nodeTo.get(), true ) ) { return false; }
     if ( check_last_port_io_nodes( nodeFrom.get(), portOutIdx, nodeTo.get(), portInIdx ) ) {
         if ( m_input_node && nodeFrom == m_input_node &&
              portOutIdx == m_input_node->outputs().size() ) {
             auto portIn = nodeTo->input_by_index( portInIdx );
             if ( !portIn ) {
-                Log::badPortIdx( "input", nodeTo->model_name(), portInIdx );
+                Log::bad_port_index( "input", nodeTo->model_name(), portInIdx );
                 return false;
             }
             auto idx = m_input_node->add_output_port( portIn );
@@ -341,7 +341,7 @@ bool DataflowGraph::addLink( const std::shared_ptr<Node>& nodeFrom,
         if ( nodeTo && nodeTo == m_output_node && portInIdx == m_output_node->inputs().size() ) {
             auto portOut = nodeFrom->output_by_index( portOutIdx );
             if ( !portOut ) {
-                Log::badPortIdx( "output", nodeFrom->model_name(), portOutIdx );
+                Log::bad_port_index( "output", nodeFrom->model_name(), portOutIdx );
                 return false;
             }
             auto idx = m_output_node->add_input_port( portOut );
@@ -353,67 +353,68 @@ bool DataflowGraph::addLink( const std::shared_ptr<Node>& nodeFrom,
     auto portIn  = nodeTo->input_by_index( portInIdx );
 
     if ( !portOut ) {
-        Log::badPortIdx( "output", nodeFrom->model_name(), portOutIdx );
+        Log::bad_port_index( "output", nodeFrom->model_name(), portOutIdx );
         return false;
     }
     if ( !portIn ) {
-        Log::badPortIdx( "input", nodeTo->model_name(), portInIdx );
+        Log::bad_port_index( "input", nodeTo->model_name(), portInIdx );
         return false;
     }
 
-    return addLink( portOut, portIn );
+    return add_link( portOut, portIn );
 }
 
-bool DataflowGraph::addLink( Node::PortBaseOutRawPtr outputPort,
-                             Node::PortBaseInRawPtr inputPort ) {
-    auto nodeFrom = outputPort->getNode();
-    auto nodeTo   = inputPort->getNode();
-    if ( !checkNodeValidity( nodeFrom, nodeTo ) ) { return false; }
+bool DataflowGraph::add_link( Node::PortBaseOutRawPtr outputPort,
+                              Node::PortBaseInRawPtr inputPort ) {
+    auto nodeFrom = outputPort->node();
+    auto nodeTo   = inputPort->node();
+    if ( !are_nodes_valids( nodeFrom, nodeTo ) ) { return false; }
     // Compare types
-    if ( !checkPortCompatibility( nodeFrom, outputPort, nodeTo, inputPort ) ) { return false; }
+    if ( !are_ports_compatible( nodeFrom, outputPort, nodeTo, inputPort ) ) { return false; }
     // port can be connected
     inputPort->connect( outputPort );
     // The state of the graph changes, set it to not ready
-    needsRecompile();
+    needs_recompile();
     return true;
 }
 
-bool DataflowGraph::removeLink( std::shared_ptr<Node> node, const std::string& nodeInputName ) {
+bool DataflowGraph::remove_link( std::shared_ptr<Node> node, const std::string& nodeInputName ) {
     auto [idx, port] = node->input_by_name( nodeInputName );
-    return removeLink( node, idx );
+    return remove_link( node, idx );
 }
 
-bool DataflowGraph::removeLink( std::shared_ptr<Node> node, const PortIndex& in_port_index ) {
+bool DataflowGraph::remove_link( std::shared_ptr<Node> node, const PortIndex& in_port_index ) {
     // This is to prevent graph destruction from the graph editor, depending on how it is used
     if ( m_nodesAndLinksProtected ) { return false; }
 
     // Check node's existence in the graph
     bool ret = false;
     if ( // node in graph
-        findNodeDeep( node.get() ) &&
+        contains_node_recursive( node.get() ) &&
         // port index valid
         in_port_index.isValid() &&
         // port index less than input size
         static_cast<size_t>( in_port_index ) < node->inputs().size() ) {
         ret = node->inputs()[in_port_index]->disconnect();
-        if ( ret ) needsRecompile();
+        if ( ret ) needs_recompile();
     }
     return ret;
 }
 
-bool DataflowGraph::findNode( const std::string& instance, const std::string& model ) const {
+bool DataflowGraph::has_node_by_name( const std::string& instance,
+                                      const std::string& model ) const {
     return std::find_if( m_nodes.begin(), m_nodes.end(), [instance, model]( const auto& p ) {
                return p->model_name() == model && p->instance_name() == instance;
            } ) != m_nodes.end();
 }
 
-bool DataflowGraph::findNodeDeep( const Node* node ) const {
+bool DataflowGraph::contains_node_recursive( const Node* node ) const {
     if ( !node ) return false;
     for ( const auto& n : m_nodes ) {
         if ( n.get() == node ) return true;
         auto g = dynamic_cast<DataflowGraph*>( n.get() );
         if ( g ) {
-            if ( g->findNodeDeep( node ) ) return true;
+            if ( g->contains_node_recursive( node ) ) return true;
         }
     }
     return false;
@@ -430,7 +431,7 @@ bool DataflowGraph::compile() {
     std::unordered_map<Node*, std::pair<int, std::vector<Node*>>> infoNodes;
 
     if ( m_output_node ) {
-        backtrackGraph( m_output_node.get(), infoNodes );
+        backtrack_graph( m_output_node.get(), infoNodes );
         infoNodes.emplace( m_output_node.get(), std::pair<int, std::vector<Node*>>( 0, {} ) );
     }
     for ( auto const& n : m_nodes ) {
@@ -443,7 +444,7 @@ bool DataflowGraph::compile() {
 
                 infoNodes.emplace( n.get(), std::pair<int, std::vector<Node*>>( 0, {} ) );
                 // recursively add the predecessors of the sink
-                backtrackGraph( n.get(), infoNodes );
+                backtrack_graph( n.get(), infoNodes );
             }
             else {
                 LOG( logWARNING ) << "Sink Node " << n->instance_name()
@@ -461,7 +462,7 @@ bool DataflowGraph::compile() {
             // set level to 0 because node is source
             infNode.second.first = 0;
             // Tag successors (go through graph)
-            maxLevel = std::max( maxLevel, goThroughGraph( n, infoNodes ) );
+            maxLevel = std::max( maxLevel, traverse_graph( n, infoNodes ) );
         }
     }
     m_nodesByLevel.clear();
@@ -497,7 +498,7 @@ bool DataflowGraph::compile() {
     return m_ready;
 }
 
-void DataflowGraph::clearNodes() {
+void DataflowGraph::clear_nodes() {
     for ( size_t i = 0; i < m_nodesByLevel.size(); i++ ) {
         m_nodesByLevel[i].clear();
         m_nodesByLevel[i].shrink_to_fit();
@@ -513,12 +514,12 @@ void DataflowGraph::clearNodes() {
     m_shouldBeSaved = true;
 }
 
-void DataflowGraph::backtrackGraph(
+void DataflowGraph::backtrack_graph(
     Node* current,
     std::unordered_map<Node*, std::pair<int, std::vector<Node*>>>& infoNodes ) {
     for ( auto& input : current->inputs() ) {
         if ( input->getLink() ) {
-            Node* previous = input->getLink()->getNode();
+            Node* previous = input->getLink()->node();
             if ( previous && previous != m_input_node.get() ) {
                 auto previousInInfoNodes = infoNodes.find( previous );
                 if ( previousInInfoNodes != infoNodes.end() ) {
@@ -540,14 +541,14 @@ void DataflowGraph::backtrackGraph(
                     infoNodes.emplace(
                         previous,
                         std::pair<int, std::vector<Node*>>( 0, std::move( successors ) ) );
-                    backtrackGraph( previous, infoNodes );
+                    backtrack_graph( previous, infoNodes );
                 }
             }
         }
     }
 }
 
-int DataflowGraph::goThroughGraph(
+int DataflowGraph::traverse_graph(
     Node* current,
     std::unordered_map<Node*, std::pair<int, std::vector<Node*>>>& infoNodes ) {
 
@@ -560,20 +561,20 @@ int DataflowGraph::goThroughGraph(
                 std::max( infoNodes[successor].first, infoNodes[current].first + 1 );
             maxLevel = std::max(
                 maxLevel,
-                std::max( infoNodes[successor].first, goThroughGraph( successor, infoNodes ) ) );
+                std::max( infoNodes[successor].first, traverse_graph( successor, infoNodes ) ) );
         }
     }
 
     return maxLevel;
 }
 
-std::shared_ptr<Node> DataflowGraph::getNode( const std::string& instanceNameNode ) const {
+std::shared_ptr<Node> DataflowGraph::node( const std::string& instanceNameNode ) const {
     auto nodeIt =
         std::find_if( m_nodes.begin(), m_nodes.end(), [instanceNameNode]( const auto& n ) {
             return n->instance_name() == instanceNameNode;
         } );
     if ( nodeIt != m_nodes.end() ) { return *nodeIt; }
-    LOG( logERROR ) << "DataflowGraph::getNode : The node with the instance name \""
+    LOG( logERROR ) << "DataflowGraph::node : The node with the instance name \""
                     << instanceNameNode << "\" has not been found";
     return { nullptr };
 }
@@ -619,19 +620,19 @@ std::shared_ptr<DataflowGraph> DataflowGraph::loadGraphFromJsonFile( const std::
     return nullptr;
 }
 
-bool DataflowGraph::checkNodeValidity( const Node* nodeFrom,
-                                       const Node* nodeTo,
-                                       bool verbose ) const {
+bool DataflowGraph::are_nodes_valids( const Node* nodeFrom,
+                                      const Node* nodeTo,
+                                      bool verbose ) const {
     using namespace Ra::Core::Utils;
     // Check node "from" existence in the graph
-    if ( !findNodeDeep( nodeFrom ) ) {
-        if ( verbose ) Log::unableToFind( "initial node", nodeFrom->instance_name() );
+    if ( !contains_node_recursive( nodeFrom ) ) {
+        if ( verbose ) Log::unable_to_find( "initial node", nodeFrom->instance_name() );
         return false;
     }
 
     // Check node "to" existence in the graph
-    if ( !findNodeDeep( nodeTo ) ) {
-        if ( verbose ) Log::unableToFind( "destination node", nodeTo->instance_name() );
+    if ( !contains_node_recursive( nodeTo ) ) {
+        if ( verbose ) Log::unable_to_find( "destination node", nodeTo->instance_name() );
         return false;
     }
 
@@ -643,16 +644,16 @@ bool DataflowGraph::checkNodeValidity( const Node* nodeFrom,
     return true;
 }
 
-void DataflowGraph::Log::alreadyLinked( const Node* node, const PortBase* port ) {
-    LOG( logERROR ) << "DataflowGraph::addLink destination port not available (already linked) for "
-                    << node->instance_name() << " (" << node->model_name() << "), port "
-                    << port->getName();
+void DataflowGraph::Log::already_linked( const Node* node, const PortBase* port ) {
+    LOG( logERROR )
+        << "DataflowGraph::add_link destination port not available (already linked) for "
+        << node->instance_name() << " (" << node->model_name() << "), port " << port->getName();
 }
 
-void DataflowGraph::Log::addLinkTypeMismatch( const Node* nodeFrom,
-                                              const PortBase* portOut,
-                                              const Node* nodeTo,
-                                              const PortBase* portIn ) {
+void DataflowGraph::Log::link_type_mismatch( const Node* nodeFrom,
+                                             const PortBase* portOut,
+                                             const Node* nodeTo,
+                                             const PortBase* portIn ) {
     LOG( logERROR ) << "DataflowGraph link type mismatch from " << nodeFrom->display_name() << " ("
                     << nodeFrom->model_name() << ") / " << portOut->getName() << " with type "
                     << portOut->getTypeName() << ")"
@@ -660,14 +661,15 @@ void DataflowGraph::Log::addLinkTypeMismatch( const Node* nodeFrom,
                     << portIn->getName() << " ( with type " << portIn->getTypeName() << ") ";
 }
 
-void DataflowGraph::Log::unableToFind( const std::string& type, const std::string& instanceName ) {
-    LOG( logERROR ) << "DataflowGraph::addLink Unable to find " << type << " " << instanceName;
+void DataflowGraph::Log::unable_to_find( const std::string& type,
+                                         const std::string& instanceName ) {
+    LOG( logERROR ) << "DataflowGraph::add_link Unable to find " << type << " " << instanceName;
 }
 
-void DataflowGraph::Log::badPortIdx( const std::string& type,
-                                     const std::string& instanceName,
-                                     Node::PortIndex idx ) {
-    LOG( logERROR ) << "DataflowGraph::addLink node " << instanceName << " as no " << type
+void DataflowGraph::Log::bad_port_index( const std::string& type,
+                                         const std::string& instanceName,
+                                         Node::PortIndex idx ) {
+    LOG( logERROR ) << "DataflowGraph::add_link node " << instanceName << " as no " << type
                     << " port with index " << idx;
 }
 

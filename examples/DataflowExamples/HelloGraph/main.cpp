@@ -31,23 +31,23 @@ int main( int argc, char* argv[] ) {
     //! [Creating an empty graph]
 
     //! [Creating Nodes]
-    auto sourceNode    = g.addNode<Sources::SingleDataSourceNode<RaVector>>( "Source" );
-    auto predicateNode = g.addNode<Sources::ScalarUnaryPredicateSource>( "Selector" );
-    auto filterNode    = g.addNode<Functionals::FilterNode<RaVector>>( "Filter" );
-    auto sinkNode      = g.addNode<Sinks::SinkNode<RaVector>>( "Sink" );
+    auto sourceNode    = g.add_node<Sources::SingleDataSourceNode<RaVector>>( "Source" );
+    auto predicateNode = g.add_node<Sources::ScalarUnaryPredicateSource>( "Selector" );
+    auto filterNode    = g.add_node<Functionals::FilterNode<RaVector>>( "Filter" );
+    auto sinkNode      = g.add_node<Sinks::SinkNode<RaVector>>( "Sink" );
     //! [Creating Nodes]
 
     //! [Creating links between Nodes]
     // link using nodes port, with compile time type check
     // node belongship to the graph is checked at runtime
-    if ( !g.addLink( sourceNode->port_out_to(), filterNode->port_in_data() ) ) { std::abort(); }
+    if ( !g.add_link( sourceNode->port_out_to(), filterNode->port_in_data() ) ) { std::abort(); }
 
     // link with port names, all runtime check
-    if ( !g.addLink( predicateNode, "to", filterNode, "predicate" ) ) { std::abort(); }
+    if ( !g.add_link( predicateNode, "to", filterNode, "predicate" ) ) { std::abort(); }
     // one can also link using node index, it depends on node init, so be sure to have the right
     // index
     // Functional Port "out" as index 0, and Sink "from" is 0 also
-    if ( !g.addLink( filterNode, Node::PortIndex { 0 }, sinkNode, Node::PortIndex { 0 } ) ) {
+    if ( !g.add_link( filterNode, Node::PortIndex { 0 }, sinkNode, Node::PortIndex { 0 } ) ) {
         std::abort();
     }
     //! [Creating links between Nodes]
@@ -62,7 +62,7 @@ int main( int argc, char* argv[] ) {
     //! [Configure nodes]
     RaVector test {
         0.0_ra, 1.0_ra, 0.1_ra, 0.9_ra, 0.2_ra, 0.8_ra, 0.3_ra, 0.7_ra, 0.4_ra, 0.6_ra, 0.5_ra };
-    g.getNode<Sources::SingleDataSourceNode<RaVector>>( "Source" )->setData( test );
+    g.node<Sources::SingleDataSourceNode<RaVector>>( "Source" )->setData( test );
 
     Sources::ScalarUnaryPredicateSource::function_type pred = []( Scalar x ) { return x < 0.5; };
     predicateNode->setData( pred );

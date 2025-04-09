@@ -25,7 +25,7 @@ using namespace Ra::Dataflow::Core;
 
 void inspectGraph( const DataflowGraph& g ) {
     // Nodes of the graph
-    const auto& nodes = g.getNodes();
+    const auto& nodes = g.nodes();
     std::cout << "Nodes of the graph " << g.instance_name() << " (" << nodes.size() << ") :\n";
     for ( const auto& n : nodes ) {
         std::cout << "\t\"" << n->instance_name() << "\" of type \"" << n->model_name() << "\"\n";
@@ -34,7 +34,7 @@ void inspectGraph( const DataflowGraph& g ) {
         for ( const auto& p : n->inputs() ) {
             std::cout << "\t\t\t\"" << p->getName() << "\" with type " << p->getTypeName();
             if ( p->isLinked() ) {
-                std::cout << " linked to " << p->getLink()->getNode()->display_name() << " "
+                std::cout << " linked to " << p->getLink()->node()->display_name() << " "
                           << p->getLink()->getName();
             }
             std::cout << "\n";
@@ -47,8 +47,8 @@ void inspectGraph( const DataflowGraph& g ) {
     }
 
     // Nodes by level after the compilation
-    if ( g.isCompiled() ) {
-        auto& cn = g.getNodesByLevel();
+    if ( g.is_compiled() ) {
+        auto& cn = g.nodes_by_level();
         std::cout << "Nodes of the graph, sorted by level after compiling the graph :\n";
         for ( size_t i = 0; i < cn.size(); ++i ) {
             std::cout << "\tLevel " << i << " :\n";
@@ -252,88 +252,88 @@ TEST_CASE( "Dataflow/Core/Graph", "[unittests][Dataflow][Core][Graph]" ) {
         // trying to add a duplicated node
         auto duplicatedNodeName =
             std::make_shared<Sources::SingleDataSourceNode<Scalar>>( "SourceScalar" );
-        REQUIRE( !g.addNode( duplicatedNodeName ) );
-        REQUIRE( !g.addNode<Sources::SingleDataSourceNode<Scalar>>( "SourceScalar" ) );
+        REQUIRE( !g.add_node( duplicatedNodeName ) );
+        REQUIRE( !g.add_node<Sources::SingleDataSourceNode<Scalar>>( "SourceScalar" ) );
 
         // get unknown node
-        auto sinkScalarNode = g.getNode( "Sink" );
+        auto sinkScalarNode = g.node( "Sink" );
         REQUIRE( sinkScalarNode == nullptr );
         // get known node
-        sinkScalarNode = g.getNode( "SinkScalar" );
+        sinkScalarNode = g.node( "SinkScalar" );
         REQUIRE( sinkScalarNode != nullptr );
 
-        auto sourceScalarNode = g.getNode( "SourceScalar" );
+        auto sourceScalarNode = g.node( "SourceScalar" );
         REQUIRE( sourceScalarNode != nullptr );
 
         auto sourceIntNode = std::make_shared<Sources::IntSource>( "SourceInt" );
         auto sinkIntNode   = std::make_shared<Sinks::IntSink>( "SinkInt" );
         // node not found
-        REQUIRE( !g.removeLink( sinkIntNode, "from" ) );
+        REQUIRE( !g.remove_link( sinkIntNode, "from" ) );
 
-        REQUIRE( !g.addLink( sourceIntNode, "to", sinkIntNode, "from" ) );
-        REQUIRE( !g.canLink( sourceIntNode, PortIndex { 0 }, sinkIntNode, PortIndex { 0 } ) );
-        REQUIRE( !g.addLink( sourceIntNode, PortIndex { 0 }, sinkIntNode, PortIndex { 0 } ) );
+        REQUIRE( !g.add_link( sourceIntNode, "to", sinkIntNode, "from" ) );
+        REQUIRE( !g.can_link( sourceIntNode, PortIndex { 0 }, sinkIntNode, PortIndex { 0 } ) );
+        REQUIRE( !g.add_link( sourceIntNode, PortIndex { 0 }, sinkIntNode, PortIndex { 0 } ) );
 
-        REQUIRE( g.addNode( sourceIntNode ) );
-        REQUIRE( !g.addLink( sourceIntNode, "to", sinkIntNode, "from" ) );
-        REQUIRE( !g.canLink( sourceIntNode, PortIndex { 0 }, sinkIntNode, PortIndex { 0 } ) );
-        REQUIRE( !g.addLink( sourceIntNode, PortIndex { 0 }, sinkIntNode, PortIndex { 0 } ) );
+        REQUIRE( g.add_node( sourceIntNode ) );
+        REQUIRE( !g.add_link( sourceIntNode, "to", sinkIntNode, "from" ) );
+        REQUIRE( !g.can_link( sourceIntNode, PortIndex { 0 }, sinkIntNode, PortIndex { 0 } ) );
+        REQUIRE( !g.add_link( sourceIntNode, PortIndex { 0 }, sinkIntNode, PortIndex { 0 } ) );
 
-        REQUIRE( g.addNode( sinkIntNode ) );
+        REQUIRE( g.add_node( sinkIntNode ) );
 
         // output port of "in" node not found
         // input port of "to" node not found
-        REQUIRE( !g.addLink( sourceIntNode, "out", sinkIntNode, "from" ) );
-        REQUIRE( !g.addLink( sourceIntNode, PortIndex { 10 }, sinkIntNode, PortIndex { 0 } ) );
-        REQUIRE( !g.addLink( sourceIntNode, PortIndex { 0 }, sinkIntNode, PortIndex { 10 } ) );
-        REQUIRE( !g.canLink( sourceIntNode, PortIndex { 10 }, sinkIntNode, PortIndex { 0 } ) );
-        REQUIRE( !g.canLink( sourceIntNode, PortIndex { 0 }, sinkIntNode, PortIndex { 10 } ) );
-        REQUIRE( !g.addLink( sourceIntNode, "to", sinkIntNode, "in" ) );
+        REQUIRE( !g.add_link( sourceIntNode, "out", sinkIntNode, "from" ) );
+        REQUIRE( !g.add_link( sourceIntNode, PortIndex { 10 }, sinkIntNode, PortIndex { 0 } ) );
+        REQUIRE( !g.add_link( sourceIntNode, PortIndex { 0 }, sinkIntNode, PortIndex { 10 } ) );
+        REQUIRE( !g.can_link( sourceIntNode, PortIndex { 10 }, sinkIntNode, PortIndex { 0 } ) );
+        REQUIRE( !g.can_link( sourceIntNode, PortIndex { 0 }, sinkIntNode, PortIndex { 10 } ) );
+        REQUIRE( !g.add_link( sourceIntNode, "to", sinkIntNode, "in" ) );
 
         // link OK
-        REQUIRE( g.addLink( sourceIntNode, "to", sinkIntNode, "from" ) );
+        REQUIRE( g.add_link( sourceIntNode, "to", sinkIntNode, "from" ) );
 
         // from port of "to" node already linked
-        REQUIRE( !g.addLink( sourceIntNode, "to", sinkIntNode, "from" ) );
+        REQUIRE( !g.add_link( sourceIntNode, "to", sinkIntNode, "from" ) );
 
         // type mismatch
-        REQUIRE( !g.addLink( sourceIntNode, "to", sinkScalarNode, "from" ) );
+        REQUIRE( !g.add_link( sourceIntNode, "to", sinkScalarNode, "from" ) );
 
         // protect the graph to prevent link removal
         g.setNodesAndLinksProtection( true );
-        REQUIRE( g.getNodesAndLinksProtection() );
+        REQUIRE( g.nodesAndLinksProtection() );
         // unable to remove links from protected graph ...
-        REQUIRE( !g.removeLink( sinkIntNode, "from" ) );
+        REQUIRE( !g.remove_link( sinkIntNode, "from" ) );
         g.setNodesAndLinksProtection( false );
-        REQUIRE( !g.getNodesAndLinksProtection() );
+        REQUIRE( !g.nodesAndLinksProtection() );
         // remove link OK
 
-        REQUIRE( g.removeLink( sinkIntNode, "from" ) );
+        REQUIRE( g.remove_link( sinkIntNode, "from" ) );
         // input port not found to remove its link
-        REQUIRE( !g.removeLink( sinkIntNode, "in" ) );
-        REQUIRE( !g.removeLink( sinkIntNode, PortIndex { 0 } ) );
-        REQUIRE( g.addLink( sourceIntNode, PortIndex { 0 }, sinkIntNode, PortIndex { 0 } ) );
-        REQUIRE( !g.removeLink( sinkIntNode, PortIndex { 10 } ) );
-        REQUIRE( g.removeLink( sinkIntNode, PortIndex { 0 } ) );
+        REQUIRE( !g.remove_link( sinkIntNode, "in" ) );
+        REQUIRE( !g.remove_link( sinkIntNode, PortIndex { 0 } ) );
+        REQUIRE( g.add_link( sourceIntNode, PortIndex { 0 }, sinkIntNode, PortIndex { 0 } ) );
+        REQUIRE( !g.remove_link( sinkIntNode, PortIndex { 10 } ) );
+        REQUIRE( g.remove_link( sinkIntNode, PortIndex { 0 } ) );
 
         // compile the graph
         inspectGraph( g );
 
         REQUIRE( g.compile() );
-        REQUIRE( g.isCompiled() );
+        REQUIRE( g.is_compiled() );
 
         // clear the graph
-        g.clearNodes();
+        g.clear_nodes();
 
         // Nodes can't be found
-        auto nullNode = g.getNode( "SourceInt" );
+        auto nullNode = g.node( "SourceInt" );
         REQUIRE( nullNode == nullptr );
-        nullNode = g.getNode( "SinkInt" );
+        nullNode = g.node( "SinkInt" );
         REQUIRE( nullNode == nullptr );
         // Nodes can't be found
-        nullNode = g.getNode( "SourceScalar" );
+        nullNode = g.node( "SourceScalar" );
         REQUIRE( nullNode == nullptr );
-        nullNode = g.getNode( "SinkScalar" );
+        nullNode = g.node( "SinkScalar" );
         REQUIRE( nullNode == nullptr );
     }
     // destroy everything
@@ -342,8 +342,8 @@ TEST_CASE( "Dataflow/Core/Graph", "[unittests][Dataflow][Core][Graph]" ) {
 
 TEST_CASE( "Dataflow/Core/Graph/Node failed execution", "[unittests]" ) {
     DataflowGraph g( "Test Graph" );
-    auto sourceIntNode = g.addNode<Sources::IntSource>( "SourceInt" );
-    auto sinkIntNode   = g.addNode<Sinks::IntSink>( "SinkInt" );
+    auto sourceIntNode = g.add_node<Sources::IntSource>( "SourceInt" );
+    auto sinkIntNode   = g.add_node<Sinks::IntSink>( "SinkInt" );
     class FailFunction : public Functionals::TransformInt
     {
       public:
@@ -354,10 +354,10 @@ TEST_CASE( "Dataflow/Core/Graph/Node failed execution", "[unittests]" ) {
             return demangledName;
         }
     };
-    auto failNode = g.addNode<FailFunction>( "FailNode" );
+    auto failNode = g.add_node<FailFunction>( "FailNode" );
 
-    REQUIRE( g.addLink( sourceIntNode, "to", failNode, "data" ) );
-    REQUIRE( g.addLink( failNode, "result", sinkIntNode, "from" ) );
+    REQUIRE( g.add_link( sourceIntNode, "to", failNode, "data" ) );
+    REQUIRE( g.add_link( failNode, "result", sinkIntNode, "from" ) );
     REQUIRE( g.compile() );
     REQUIRE( !g.execute() );
 }
@@ -391,29 +391,29 @@ TEST_CASE( "Dataflow/Core/Graph/Inspection of a graph", "[unittests]" ) {
     auto g = DataflowGraph::loadGraphFromJsonFile( "data/Dataflow/ExampleGraph.json" );
     REQUIRE( g );
     // Factories used by the graph
-    const auto& nodes = g->getNodes();
-    REQUIRE( nodes.size() == g->getNodesCount() );
+    const auto& nodes = g->nodes();
+    REQUIRE( nodes.size() == g->node_count() );
 
     REQUIRE( g->compile() );
-    REQUIRE( g->isCompiled() );
+    REQUIRE( g->is_compiled() );
     // Prints the graph content
     inspectGraph( *g );
-    g->needsRecompile();
-    REQUIRE( !g->isCompiled() );
+    g->needs_recompile();
+    REQUIRE( !g->is_compiled() );
 
     // removing the boolean sink from the graph
-    auto n        = g->getNode( "validation value" );
+    auto n        = g->node( "validation value" );
     auto useCount = n.use_count();
     REQUIRE( n->instance_name() == "validation value" );
 
-    REQUIRE( g->removeNode( n ) );
+    REQUIRE( g->remove_node( n ) );
     REQUIRE( n );
     REQUIRE( n.use_count() == useCount - 1 );
 
     REQUIRE( g->compile() );
 
     // Simplified graph after compilation
-    auto& cn = g->getNodesByLevel();
+    auto& cn = g->nodes_by_level();
     // the source "Validator" is no more in level 0 as it is not reachable from a sink in the
     // graph.
     auto found = std::find_if( cn[0].begin(), cn[0].end(), []( const auto& nn ) {
@@ -422,13 +422,13 @@ TEST_CASE( "Dataflow/Core/Graph/Inspection of a graph", "[unittests]" ) {
     REQUIRE( found == cn[0].end() );
 
     // removing the source "Validator"
-    n = g->getNode( "Validator" );
+    n = g->node( "Validator" );
     REQUIRE( n->instance_name() == "Validator" );
     // protect the graph to prevent node removal
     g->setNodesAndLinksProtection( true );
-    REQUIRE( !g->removeNode( n ) );
+    REQUIRE( !g->remove_node( n ) );
     g->setNodesAndLinksProtection( false );
-    REQUIRE( g->removeNode( n ) );
+    REQUIRE( g->remove_node( n ) );
 
     std::cout << "####### Graph after sink and source removal\n";
     inspectGraph( *g );

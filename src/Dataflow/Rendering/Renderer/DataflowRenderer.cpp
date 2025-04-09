@@ -287,12 +287,12 @@ NodeBasedRenderer::~NodeBasedRenderer() {
 
 bool NodeBasedRenderer::buildRenderTechnique( RenderObject* ro ) const {
     auto rt = Ra::Core::make_shared<RenderTechnique>();
-    for ( size_t level = 0; level < m_originalRenderGraph.getNodesByLevel()->size(); level++ )
+    for ( size_t level = 0; level < m_originalRenderGraph.nodes_by_level()->size(); level++ )
     {
-        for ( size_t node = 0; node < m_originalRenderGraph.getNodesByLevel()->at( level ).size();
+        for ( size_t node = 0; node < m_originalRenderGraph.nodes_by_level()->at( level ).size();
               node++ )
         {
-            m_originalRenderGraph.getNodesByLevel()->at( level ).at( node )->buildRenderTechnique(
+            m_originalRenderGraph.nodes_by_level()->at( level ).at( node )->buildRenderTechnique(
                 ro, *rt );
         }
     }
@@ -340,7 +340,7 @@ void NodeBasedRenderer::reloadRenderGraphFromJson() {
         m_originalRenderGraph.destroy();
 
         // Clear the nodes
-        m_originalRenderGraph.clearNodes();
+        m_originalRenderGraph.clear_nodes();
 
         // Reload
         m_originalRenderGraph.loadFromJson( m_jsonFilePath );
