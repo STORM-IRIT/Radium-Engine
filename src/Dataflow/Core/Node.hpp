@@ -50,17 +50,17 @@ class RA_DATAFLOW_CORE_API Node
     template <typename Port>
     using PortPtr = std::shared_ptr<Port>;
     template <typename Port>
-    using PortRawPtr = typename PortPtr<Port>::element_type*;
+    using PortRawPtr = Port*;
 
     template <typename Type>
     using PortInPtr = PortPtr<PortIn<Type>>;
     template <typename Type>
-    using PortInRawPtr = typename PortInPtr<Type>::element_type*;
+    using PortInRawPtr = PortIn<Type>*;
 
     template <typename Type>
     using PortOutPtr = PortPtr<PortOut<Type>>;
     template <typename Type>
-    using PortOutRawPtr = typename PortOutPtr<Type>::element_type*;
+    using PortOutRawPtr = PortOut<Type>*;
 
     using PortBasePtr        = PortPtr<PortBase>;
     using PortBaseRawPtr     = PortRawPtr<PortBase>;
