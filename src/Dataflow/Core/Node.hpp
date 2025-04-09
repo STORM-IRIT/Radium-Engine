@@ -338,19 +338,6 @@ class RA_DATAFLOW_CORE_API Node
     PortBaseInPtr input_port( PortIndex idx ) { return m_inputs[idx]; }
     PortBaseOutPtr output_port( PortIndex idx ) { return m_outputs[idx]; }
 
-    /// \todo remove these if not needed by dataflow graph
-    /// \brief remove the given input port from the managed input ports
-    /// \param in the port to remove
-    /// \return true if the port was removed (the in pointer is the set to nullptr), false else
-    bool remove_input( PortBaseInRawPtr& in );
-    void remove_input( PortIndex idx ) { m_inputs[idx].reset(); }
-
-    /// \brief remove the given output port from the managed input ports
-    /// \param out the port to remove
-    /// \return true if the port was removed (the out pointer is the set to nullptr), false else
-    bool remove_output( PortBaseOutRawPtr& out );
-    void remove_output( PortIndex idx ) { m_outputs[idx].reset(); }
-
     template <typename T>
     ParamHandle<T> add_parameter( const std::string& name, const T& value ) {
         return m_parameters.insertVariable<T>( name, value ).first;
@@ -453,28 +440,6 @@ inline Node::PortIndex Node::add_input( PortBaseInPtr in ) {
 
 inline Node::PortIndex Node::add_output( PortBaseOutPtr out ) {
     return add_port( m_outputs, std::move( out ) );
-}
-
-inline bool Node::remove_input( PortBaseInRawPtr& in ) {
-    auto itP = std::find_if(
-        m_inputs.begin(), m_inputs.end(), [in]( const auto& p ) { return p.get() == in; } );
-    if ( itP != m_inputs.end() ) {
-        m_inputs.erase( itP );
-        in = nullptr;
-        return true;
-    }
-    return false;
-}
-
-inline bool Node::remove_output( PortBaseOutRawPtr& out ) {
-    auto outP = std::find_if(
-        m_outputs.begin(), m_outputs.end(), [out]( const auto& p ) { return p.get() == out; } );
-    if ( outP != m_outputs.end() ) {
-        m_outputs.erase( outP );
-        out = nullptr;
-        return true;
-    }
-    return false;
 }
 
 inline bool Node::compile() {
