@@ -10,16 +10,16 @@ using namespace Ra::Core::Utils;
 
 // display_name is instanceName unless reset afterward
 Node::Node( const std::string& instanceName, const std::string& typeName ) :
-    m_modelName { typeName }, m_instanceName { instanceName }, m_display_name { instanceName } {}
+    m_model_name { typeName }, m_instance_name { instanceName }, m_display_name { instanceName } {}
 
 bool Node::fromJson( const nlohmann::json& data ) {
     // This is to avoid wrong error message when creating node from the editor
     if ( data.empty() ) { return true; }
 
     auto it_instance = data.find( "instance" );
-    if ( it_instance != data.end() ) { m_instanceName = *it_instance; }
+    if ( it_instance != data.end() ) { m_instance_name = *it_instance; }
     else {
-        LOG( logERROR ) << "Missing required instance name when loading node " << m_instanceName;
+        LOG( logERROR ) << "Missing required instance name when loading node " << m_instance_name;
         return false;
     }
     // get the common content of the Node from the json data
@@ -40,7 +40,7 @@ bool Node::fromJson( const nlohmann::json& data ) {
     }
     // get the supplemental information related to application/gui/...
     for ( auto& [key, value] : data.items() ) {
-        if ( key != "instance" && key != "model" ) { m_extraJsonData.emplace( key, value ); }
+        if ( key != "instance" && key != "model" ) { m_metadata.emplace( key, value ); }
     }
     return loaded;
 }
@@ -48,23 +48,23 @@ bool Node::fromJson( const nlohmann::json& data ) {
 void Node::toJson( nlohmann::json& data ) const {
 
     // write the common content of the Node to the json data
-    data["instance"] = m_instanceName;
+    data["instance"] = m_instance_name;
 
     nlohmann::json model;
-    model["name"]         = m_modelName;
+    model["name"]         = m_model_name;
     model["display_name"] = display_name();
     // Fill the specific concrete node information (model instance)
     toJsonInternal( model );
     data.emplace( "model", model );
 
     // store the supplemental information related to application/gui/...
-    for ( auto& [key, value] : m_extraJsonData.items() ) {
+    for ( auto& [key, value] : m_metadata.items() ) {
         if ( key != "instance" && key != "model" ) { data.emplace( key, value ); }
     }
 }
 
 void Node::add_metadata( const nlohmann::json& data ) {
-    m_extraJsonData.merge_patch( data );
+    m_metadata.merge_patch( data );
 }
 
 Node::IndexAndPort<Node::PortBaseRawPtr> Node::port_by_name( const std::string& type,

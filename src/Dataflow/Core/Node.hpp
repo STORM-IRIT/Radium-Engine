@@ -155,13 +155,13 @@ class RA_DATAFLOW_CORE_API Node
     auto output_by_index( PortIndex index ) const { return port_base( m_outputs, index ); }
     /// Convenience alias with typed port
     template <typename T>
-    auto input_by_index( PortIndex idx ) const {
-        return port<T>( m_inputs, idx );
+    auto input_by_index( PortIndex index ) const {
+        return port<T>( m_inputs, index );
     }
     /// Convenience alias with typed port
     template <typename T>
-    auto output_by_index( PortIndex idx ) const {
-        return port<T>( m_outputs, idx );
+    auto output_by_index( PortIndex index ) const {
+        return port<T>( m_outputs, index );
     }
 
     /**
@@ -186,8 +186,8 @@ class RA_DATAFLOW_CORE_API Node
     /// \brief Gets the instance name of the node.
     const std::string& instance_name() const;
 
-    /// \brief Sets the instance name (rename) the node
-    void set_instance_name( const std::string& newName );
+    /// \brief Sets the instance name (rename) the node (unused?)
+    void set_instance_name( const std::string& name );
 
     /// @}
 
@@ -224,10 +224,10 @@ class RA_DATAFLOW_CORE_API Node
     /// \brief Return a variable set of input ports default value reference, if any.
     Ra::Core::VariableSet& input_variables();
 
-    /// \brief Is output if none of the output ports is linked.
+    /// \brief Node is output if none of the output ports is linked.
     inline bool is_output();
 
-    /// \brief is Input if all input ports have default values and not linked.
+    /// \brief Node is input if all input ports have default values and not linked.
     inline bool is_input();
 
   protected:
@@ -237,7 +237,7 @@ class RA_DATAFLOW_CORE_API Node
      * \param instanceName The name of the node, unique in a graph
      * \param typeName The type name of the node, from static typename() concrete node class.
      */
-    Node( const std::string& instanceName, const std::string& typeName );
+    Node( const std::string& instance, const std::string& typeName );
 
     /**
      * \brief Gets the Port By Name
@@ -272,11 +272,11 @@ class RA_DATAFLOW_CORE_API Node
      * \return auto A raw ptr to the port typed in or out.
      */
     template <typename T, typename PortType>
-    auto port( const PortCollection<PortPtr<PortType>>& ports, PortIndex idx ) const {
+    auto port( const PortCollection<PortPtr<PortType>>& ports, PortIndex index ) const {
         return static_cast<typename std::conditional<
             /*if*/ std::is_same<PortBaseIn, PortType>::value,
             /*then*/ PortInRawPtr<T>,
-            /*else*/ PortOutRawPtr<T>>::type>( port_base( ports, idx ) );
+            /*else*/ PortOutRawPtr<T>>::type>( port_base( ports, index ) );
     }
     /**
      *  \brief Internal json representation of the Node.
@@ -328,17 +328,17 @@ class RA_DATAFLOW_CORE_API Node
     }
 
     template <typename T>
-    PortInPtr<T> input_port( PortIndex idx ) {
-        return std::static_pointer_cast<PortIn<T>>( m_inputs[idx] );
+    PortInPtr<T> input_port( PortIndex index ) {
+        return std::static_pointer_cast<PortIn<T>>( m_inputs[index] );
     }
 
     template <typename T>
-    PortOutPtr<T> output_port( PortIndex idx ) {
-        return std::static_pointer_cast<PortOut<T>>( m_outputs[idx] );
+    PortOutPtr<T> output_port( PortIndex index ) {
+        return std::static_pointer_cast<PortOut<T>>( m_outputs[index] );
     }
 
-    PortBaseInPtr input_port( PortIndex idx ) { return m_inputs[idx]; }
-    PortBaseOutPtr output_port( PortIndex idx ) { return m_outputs[idx]; }
+    PortBaseInPtr input_port( PortIndex index ) { return m_inputs[index]; }
+    PortBaseOutPtr output_port( PortIndex index ) { return m_outputs[index]; }
 
     template <typename T>
     ParamHandle<T> add_parameter( const std::string& name, const T& value ) {
@@ -358,9 +358,9 @@ class RA_DATAFLOW_CORE_API Node
     /// Flag that checks if the node is already initialized.
     bool m_initialized { false };
     /// The type name of the node. Initialized once at construction
-    std::string m_modelName;
+    std::string m_model_name;
     /// The instance name of the node
-    std::string m_instanceName;
+    std::string m_instance_name;
     /// Node's name if needed for display
     std::string m_display_name { "" };
 
@@ -376,7 +376,7 @@ class RA_DATAFLOW_CORE_API Node
     Ra::Core::VariableSet m_input_variables;
 
     /// Additional data on the node, added by application or gui or ...
-    nlohmann::json m_extraJsonData;
+    nlohmann::json m_metadata;
 };
 
 // -----------------------------------------------------------------
@@ -394,19 +394,19 @@ inline void Node::destroy() {
 }
 
 inline const nlohmann::json& Node::metadata() {
-    return m_extraJsonData;
+    return m_metadata;
 }
 
 inline const std::string& Node::model_name() const {
-    return m_modelName;
+    return m_model_name;
 }
 
 inline const std::string& Node::instance_name() const {
-    return m_instanceName;
+    return m_instance_name;
 }
 
 inline void Node::set_instance_name( const std::string& newName ) {
-    m_instanceName = newName;
+    m_instance_name = newName;
 }
 
 inline const Node::PortBaseInCollection& Node::inputs() const {
@@ -418,24 +418,24 @@ inline const Node::PortBaseOutCollection& Node::outputs() const {
 }
 
 inline bool Node::operator==( const Node& node ) {
-    return ( m_modelName == node.model_name() ) && ( m_instanceName == node.instance_name() );
+    return ( m_model_name == node.model_name() ) && ( m_instance_name == node.instance_name() );
 }
 
 template <typename PortType>
 inline Node::PortIndex Node::add_port( PortCollection<PortPtr<PortType>>& ports,
                                        PortPtr<PortType> port ) {
-    PortIndex idx;
+    PortIndex index;
     // look for a free slot
     auto it = std::find_if( ports.begin(), ports.end(), []( const auto& p ) { return !p; } );
     if ( it != ports.end() ) {
         it->swap( port );
-        idx = std::distance( ports.begin(), it );
+        index = std::distance( ports.begin(), it );
     }
     else {
         ports.push_back( std::move( port ) );
-        idx = ports.size() - 1;
+        index = ports.size() - 1;
     }
-    return idx;
+    return index;
 }
 
 inline Node::PortIndex Node::add_input( PortBaseInPtr in ) {
@@ -491,9 +491,9 @@ auto Node::port_by_name( const PortCollection<PortPtr<PortType>>& ports,
 }
 
 template <typename PortType>
-auto Node::port_base( const PortCollection<PortPtr<PortType>>& ports, PortIndex idx ) const
+auto Node::port_base( const PortCollection<PortPtr<PortType>>& ports, PortIndex index ) const
     -> PortRawPtr<PortType> {
-    if ( 0 <= idx && size_t( idx ) < ports.size() ) { return ports[idx].get(); }
+    if ( 0 <= index && size_t( index ) < ports.size() ) { return ports[index].get(); }
     return nullptr;
 }
 
