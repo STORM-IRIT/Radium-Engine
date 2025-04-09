@@ -8,7 +8,6 @@ set(dataflow_core_sources Core.cpp DataflowGraph.cpp Node.cpp NodeFactory.cpp Po
 
 set(dataflow_core_headers
     DataflowGraph.hpp
-    EditableParameter.hpp
     Functionals/BinaryOpNode.hpp
     Functionals/FilterNode.hpp
     Functionals/FunctionNode.hpp

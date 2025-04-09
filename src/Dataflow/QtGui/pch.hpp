@@ -2,7 +2,6 @@
 
 #include <Core/Utils/Color.hpp>
 #include <Dataflow/Core/DataflowGraph.hpp>
-#include <Dataflow/Core/EditableParameter.hpp>
 #include <Dataflow/Core/Node.hpp>
 #include <Dataflow/Core/NodeFactory.hpp>
 #include <Dataflow/Core/PortIn.hpp>
