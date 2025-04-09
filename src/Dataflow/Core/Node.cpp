@@ -86,6 +86,47 @@ PortBase* Node::port_by_index( const std::string& type, PortIndex idx ) const {
     return port_base( m_outputs, idx );
 }
 
+bool Node::fromJsonInternal( const nlohmann::json& data ) {
+    LOG( Ra::Core::Utils::logDEBUG )
+        << "default deserialization for " << instance_name() + " " + model_name() << ".";
+    if ( const auto& ports = data.find( "inputs" ); ports != data.end() ) {
+        for ( const auto& port : *ports ) {
+            int index = port["port_index"];
+            m_inputs[index]->from_json( port );
+        }
+    }
+    if ( const auto& ports = data.find( "outputs" ); ports != data.end() ) {
+        for ( const auto& port : *ports ) {
+            int index = port["port_index"];
+            m_outputs[index]->from_json( port );
+        }
+    }
+    return true;
+}
+
+void Node::toJsonInternal( nlohmann::json& data ) const {
+    std::string message =
+        std::string { "default serialization for " } + instance_name() + " " + model_name();
+
+    for ( size_t i = 0; i < m_inputs.size(); ++i ) {
+        const auto& p = m_inputs[i];
+        nlohmann::json port;
+        p->to_json( port );
+        port["port_index"] = i;
+        port["type"]       = Ra::Core::Utils::simplifiedDemangledType( p->getType() );
+        data["inputs"].push_back( port );
+    }
+    for ( size_t i = 0; i < m_outputs.size(); ++i ) {
+        const auto& p = m_outputs[i];
+        nlohmann::json port;
+        p->to_json( port );
+        port["port_index"] = i;
+        port["type"]       = Ra::Core::Utils::simplifiedDemangledType( p->getType() );
+        data["outputs"].push_back( port );
+    }
+    LOG( Ra::Core::Utils::logDEBUG ) << message;
+}
+
 } // namespace Core
 } // namespace Dataflow
 } // namespace Ra

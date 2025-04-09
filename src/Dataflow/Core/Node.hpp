@@ -132,8 +132,8 @@ class RA_DATAFLOW_CORE_API Node
      * \param name
      * \return the index to access the port and a raw ptr to the port.
      */
-    IndexAndPort<PortBaseRawPtr> port_by_name( const std::string& type,
-                                               const std::string& name ) const;
+    auto port_by_name( const std::string& type, const std::string& name ) const
+        -> IndexAndPort<PortBaseRawPtr>;
 
     /// Convenience alias to port_by_name("in", name)
     IndexAndPort<PortBaseInRawPtr> input_by_name( const std::string& name ) const;
@@ -229,55 +229,46 @@ class RA_DATAFLOW_CORE_API Node
     inline bool is_input();
 
   protected:
-    /** \brief
-     * Construct the base node given its name and type.
+    /**
+     * \brief Construct the base node given its name and type.
      *
      * \param instanceName The name of the node, unique in a graph
      * \param typeName The type name of the node, from static typename() concrete node class.
      */
     Node( const std::string& instanceName, const std::string& typeName );
 
-    ///\brief Gets the Port By Name
-    ///
-    ///\tparam PortType PortBaseIn or PortBaseOut
-    ///\param ports
-    ///\param name The named used to add the port.
-    ///\return IndexAndPort<PortRawPtr<PortType>> the index to access the port and a raw ptr to
-    /// the port.
+    /**
+     * \brief Gets the Port By Name
+     *
+     * \tparam PortType PortBaseIn or PortBaseOut
+     * \param ports Port collection to search in.
+     * \param name The named used to add the port.
+     * \return IndexAndPort<PortRawPtr<PortType>> the index to access the port and a raw ptr to
+     * the port.
+     */
     template <typename PortType>
     IndexAndPort<PortRawPtr<PortType>> port_by_name( const PortCollection<PortPtr<PortType>>& ports,
-                                                     const std::string& name ) const {
-        auto itr = std::find_if(
-            ports.begin(), ports.end(), [n = name]( const auto& p ) { return p->getName() == n; } );
-        PortRawPtr<PortType> port { nullptr };
-        PortIndex portIndex;
-        if ( itr != ports.cend() ) {
-            port      = itr->get();
-            portIndex = std::distance( ports.begin(), itr );
-        }
-        return { portIndex, port };
-    }
-
-    ///\brief Gets the PortBase In or Out by its index
-    ///
-    ///\tparam PortType PortBaseIn or PortBaseOut
-    ///\param ports
-    ///\param idx
-    ///\return PortRawPtr<PortType>
+                                                     const std::string& name ) const;
+    /**
+     * \brief Gets the PortBase In or Out by its index.
+     *
+     * \tparam PortType PortBaseIn or PortBaseOut
+     * \param ports
+     * \param idx
+     * \return PortRawPtr<PortType>
+     */
     template <typename PortType>
-    PortRawPtr<PortType> port_base( const PortCollection<PortPtr<PortType>>& ports,
-                                    PortIndex idx ) const {
-        if ( 0 <= idx && size_t( idx ) < ports.size() ) { return ports[idx].get(); }
-        return nullptr;
-    }
-
-    ///\brief Gets a port in a collection by its index.
-    ///
-    ///\tparam T The contained type.
-    ///\tparam PortType PortBaseIn or PortBaseOut
-    ///\param ports The port collection
-    ///\param idx
-    ///\return auto A raw ptr to the port typed in or out.
+    auto port_base( const PortCollection<PortPtr<PortType>>& ports, PortIndex idx ) const
+        -> PortRawPtr<PortType>;
+    /**
+     * \brief Gets a port in a collection by its index.
+     *
+     * \tparam T The contained type.
+     * \tparam PortType PortBaseIn or PortBaseOut
+     * \param ports The port collection
+     * \param idx
+     * \return auto A raw ptr to the port typed in or out.
+     */
     template <typename T, typename PortType>
     auto port( const PortCollection<PortPtr<PortType>>& ports, PortIndex idx ) const {
         return static_cast<typename std::conditional<
@@ -285,70 +276,49 @@ class RA_DATAFLOW_CORE_API Node
             /*then*/ PortInRawPtr<T>,
             /*else*/ PortOutRawPtr<T>>::type>( port_base( ports, idx ) );
     }
-
-    /// internal json representation of the Node.
-    /// Default implementation warn about unsupported deserialization.
-    /// Effective deserialzation must be implemented by inheriting classes.
-    /// Be careful with template specialization and function member overriding in derived classes.
-    virtual bool fromJsonInternal( const nlohmann::json& data ) {
-        LOG( Ra::Core::Utils::logDEBUG )
-            << "default deserialization for " << instance_name() + " " + model_name() << ".";
-        if ( const auto& ports = data.find( "inputs" ); ports != data.end() ) {
-            for ( const auto& port : *ports ) {
-                int index = port["port_index"];
-                m_inputs[index]->from_json( port );
-            }
-        }
-        if ( const auto& ports = data.find( "outputs" ); ports != data.end() ) {
-            for ( const auto& port : *ports ) {
-                int index = port["port_index"];
-                m_outputs[index]->from_json( port );
-            }
-        }
-        return true;
-    }
-
-    /// internal json representation of the Node.
-    /// Default implementation warn about unsupported serialization.
-    /// Effective serialzation must be implemented by inheriting classes.
-    /// Be careful with template specialization and function member overriding in derived classes.
-    virtual void toJsonInternal( nlohmann::json& data ) const {
-        std::string message =
-            std::string { "default serialization for " } + instance_name() + " " + model_name();
-
-        for ( size_t i = 0; i < m_inputs.size(); ++i ) {
-            const auto& p = m_inputs[i];
-            nlohmann::json port;
-            p->to_json( port );
-            port["port_index"] = i;
-            port["type"]       = Ra::Core::Utils::simplifiedDemangledType( p->getType() );
-            data["inputs"].push_back( port );
-        }
-        for ( size_t i = 0; i < m_outputs.size(); ++i ) {
-            const auto& p = m_outputs[i];
-            nlohmann::json port;
-            p->to_json( port );
-            port["port_index"] = i;
-            port["type"]       = Ra::Core::Utils::simplifiedDemangledType( p->getType() );
-            data["outputs"].push_back( port );
-        }
-        LOG( Ra::Core::Utils::logDEBUG ) << message;
-    }
-
-    /// Adds an in port to the node.
-    /// If an input porst with the same name, do not insert and return false.
-    /// \param in The in port to add.
-    PortIndex add_input( PortBaseInPtr in );
-    PortIndex add_output( PortBaseOutPtr out );
-
+    /**
+     *  \brief Internal json representation of the Node.
+     *
+     *  Default implementation warn about unsupported deserialization.
+     *  Effective deserialzation must be implemented by inheriting classes.
+     *  Be careful with template specialization and function member overriding in derived classes.
+     */
+    virtual bool fromJsonInternal( const nlohmann::json& data );
+    /**
+     *  \brief Internal json representation of the Node.
+     *
+     *  Default implementation warn about unsupported deserialization.
+     *  Effective deserialzation must be implemented by inheriting classes.
+     *  Be careful with template specialization and function member overriding in derived classes.
+     */
+    virtual void toJsonInternal( nlohmann::json& data ) const;
+    /**
+     * \brief Adds a port to port collection
+     *
+     * \param port The in port to add.
+     * \param coll Port collection (input or output)
+     * \return The index of the inserted port.
+     */
     template <typename PortType>
     PortIndex add_port( PortCollection<PortPtr<PortType>>&, PortPtr<PortType> port );
+    /// Convenience alias to add_port(inputs(), in)
+    PortIndex add_input( PortBaseInPtr in );
+    /// Convenience alias to add_port(outputs(), out)
+    PortIndex add_output( PortBaseOutPtr out );
 
+    /**
+     * \brief Adds a typed input port
+     *
+     * \tparam T Port data type.
+     * \param u Port ctor parameter.
+     * \return Typed port shared pointer.
+     */
     template <typename T, typename... U>
     PortInPtr<T> add_input_port( U&&... u ) {
         auto idx = add_input( std::make_shared<PortIn<T>>( this, std::forward<U>( u )... ) );
         return input_port<T>( idx );
     }
+    /// \copydoc    template <typename T, typename... U> PortInPtr<T> add_input_port( U&&... u )
     template <typename T, typename... U>
     PortOutPtr<T> add_output_port( U&&... u ) {
         auto idx = add_output( std::make_shared<PortOut<T>>( this, std::forward<U>( u )... ) );
@@ -374,12 +344,6 @@ class RA_DATAFLOW_CORE_API Node
     /// \return true if the port was removed (the in pointer is the set to nullptr), false else
     bool remove_input( PortBaseInRawPtr& in );
     void remove_input( PortIndex idx ) { m_inputs[idx].reset(); }
-
-    /// Adds an out port to the node and the data associated with it.
-    /// This function checks if there is no out port with the same name already associated with
-    /// this node. \param out The in port to add. \param data The data associated with the port.
-    template <typename T>
-    void add_output( PortOutRawPtr<T> out, T* data );
 
     /// \brief remove the given output port from the managed input ports
     /// \param out the port to remove
@@ -502,18 +466,6 @@ inline bool Node::remove_input( PortBaseInRawPtr& in ) {
     return false;
 }
 
-template <typename T>
-void Node::add_output( PortOutRawPtr<T> out, T* data ) {
-    bool found = false;
-    for ( auto& output : m_outputs ) {
-        if ( output->getName() == out->getName() ) { found = true; }
-    }
-    if ( !found ) {
-        m_outputs.emplace_back( out );
-        out->setData( data );
-    }
-}
-
 inline bool Node::remove_output( PortBaseOutRawPtr& out ) {
     auto outP = std::find_if(
         m_outputs.begin(), m_outputs.end(), [out]( const auto& p ) { return p.get() == out; } );
@@ -529,7 +481,6 @@ inline bool Node::compile() {
     return true;
 }
 
-/// \brief Return a variable set of input ports default value reference, if any.
 inline Ra::Core::VariableSet& Node::input_variables() {
     m_input_variables.clear();
     for ( const auto& p : m_inputs ) {
@@ -539,7 +490,6 @@ inline Ra::Core::VariableSet& Node::input_variables() {
     return m_input_variables;
 }
 
-/// \brief Is output if none of the output ports is linked.
 inline bool Node::is_output() {
     bool ret = true;
     for ( const auto& p : m_outputs ) {
@@ -548,7 +498,6 @@ inline bool Node::is_output() {
     return ret;
 }
 
-/// \brief is Input if all input ports have default values and not linked.
 inline bool Node::is_input() {
     bool ret = true;
     //
@@ -556,6 +505,27 @@ inline bool Node::is_input() {
         ret = ret && p->hasDefaultValue() && !p->isLinked();
     }
     return ret;
+}
+
+template <typename PortType>
+auto Node::port_by_name( const PortCollection<PortPtr<PortType>>& ports,
+                         const std::string& name ) const -> IndexAndPort<PortRawPtr<PortType>> {
+    auto itr = std::find_if(
+        ports.begin(), ports.end(), [n = name]( const auto& p ) { return p->getName() == n; } );
+    PortRawPtr<PortType> port { nullptr };
+    PortIndex portIndex;
+    if ( itr != ports.cend() ) {
+        port      = itr->get();
+        portIndex = std::distance( ports.begin(), itr );
+    }
+    return { portIndex, port };
+}
+
+template <typename PortType>
+auto Node::port_base( const PortCollection<PortPtr<PortType>>& ports, PortIndex idx ) const
+    -> PortRawPtr<PortType> {
+    if ( 0 <= idx && size_t( idx ) < ports.size() ) { return ports[idx].get(); }
+    return nullptr;
 }
 
 } // namespace Core
