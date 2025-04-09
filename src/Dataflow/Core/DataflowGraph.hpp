@@ -59,69 +59,62 @@ class RA_DATAFLOW_CORE_API DataflowGraph : public Node
     template <typename T, typename... U>
     std::shared_ptr<T> add_node( U&&... u );
 
-    /// \brief Removes a node from the render graph.
-    /// \param node The node to remove from the graph.
-    /// \return true if the node was removed and the given pointer is set to nullptr, false else
+    /**
+     * \brief Removes a node from the graph.
+     * \param node The node to remove from the graph.
+     * \return true if the node was removed.
+     */
     virtual bool remove_node( std::shared_ptr<Node> node );
 
-    /// Connects two nodes of the graph.
-    /// The two nodes must already be in the graph (with the add_node(Node* newNode)
-    /// function), in order to be linked the first node's in port must be free and the connected
-    /// in port and out port must have the same type of data.
-    ///
-    /// \param nodeFrom The node that contains the out port.
-    /// \param nodeFromOutputName The name of the out port in nodeFrom.
-    /// \param nodeTo The node that contains the in port.
-    /// \param nodeToInputName The name of the in port in nodeTo.
-    /// \return true if link added, false if link could not be made.
+    /**
+     * \brief Connects two nodes of the graph.
+     *
+     * The two nodes must already be in the graph (with the add_node), in order to be linked the
+     * seconde node's in port must be free and the connected in port and out port must have the same
+     * type of data.
+     *
+     * \param nodeFrom The node that contains the out port.
+     * \param nodeFromOutputName The name of the out port in nodeFrom.
+     * \param nodeTo The node that contains the in port.
+     * \param nodeToInputName The name of the in port in nodeTo.
+     * \return true if link added, false if link could not be made.
+     */
     bool add_link( const std::shared_ptr<Node>& nodeFrom,
                    const std::string& nodeFromOutputName,
                    const std::shared_ptr<Node>& nodeTo,
                    const std::string& nodeToInputName );
-
+    /// Convenience alias using port index
     bool add_link( const std::shared_ptr<Node>& nodeFrom,
                    Node::PortIndex portOutIdx,
                    const std::shared_ptr<Node>& nodeTo,
                    Node::PortIndex portInIdx );
-
+    /// Convenience alias using port raw ptr, checks if ports' nodes are in the graph.
     bool add_link( Node::PortBaseOutRawPtr outputPort, Node::PortBaseInRawPtr inputPort );
 
+    /// Convenience alias strongly typed
     template <typename T, typename U>
     bool add_link( const std::shared_ptr<PortOut<T>>& outputPort,
                    const std::shared_ptr<PortIn<U>>& inputPort );
 
+    /// \return true if ports can be linked
     bool can_link( const std::shared_ptr<Node>& nodeFrom,
                    Node::PortIndex portOutIdx,
                    const std::shared_ptr<Node>& nodeTo,
-                   Node::PortIndex portInIdx ) const {
-        return can_link( nodeFrom.get(), portOutIdx, nodeTo.get(), portInIdx );
-    }
+                   Node::PortIndex portInIdx ) const;
 
+    /// Convenience alias using raw pointer.
     bool can_link( const Node* nodeFrom,
                    Node::PortIndex portOutIdx,
                    const Node* nodeTo,
-                   Node::PortIndex portInIdx ) const {
-        auto portIn  = nodeTo->input_by_index( portInIdx );
-        auto portOut = nodeFrom->output_by_index( portOutIdx );
+                   Node::PortIndex portInIdx ) const;
 
-        if ( !are_nodes_valids( nodeFrom, nodeTo ) ) { return false; }
-        if ( check_last_port_io_nodes( nodeFrom, portOutIdx, nodeTo, portInIdx ) ) {
-            if ( nodeFrom == m_input_node.get() ) return portIn != nullptr;
-            if ( nodeTo == m_output_node.get() ) return portOut != nullptr;
-        }
-
-        // Compare types
-        return portIn && portOut &&
-               ( portIn->getType() == portOut->getType() && !portIn->isLinked() );
-    }
-
-    /** \brief Removes the link connected to a node's input port
+    /**
+     * \brief Removes the link connected to a node's input port
      *
      * \param node the node to unlink
      * \param nodeInputName the name of the port to unlink
      * \return true if link is removed, false if not.
      */
-
     bool remove_link( std::shared_ptr<Node> node, const std::string& nodeInputName );
 
     /** \copybrief remove_link
@@ -133,12 +126,12 @@ class RA_DATAFLOW_CORE_API DataflowGraph : public Node
     bool remove_link( std::shared_ptr<Node> node, const PortIndex& in_port_index );
 
     /// \brief Get the vector of all the nodes on the graph
-    /// \return
     const std::vector<std::shared_ptr<Node>>& nodes() const { return m_nodes; }
 
     /// Gets a specific node according to its instance name.
     /// \param instanceNameNode The instance name of the node.
     std::shared_ptr<Node> node( const std::string& instanceNameNode ) const;
+
     /** \copydoc node()
      *
      * Dynamic cast of the node pointer to T
@@ -151,16 +144,22 @@ class RA_DATAFLOW_CORE_API DataflowGraph : public Node
     }
 
     /// Gets the nodes ordered by level (after compilation)
-    const std::vector<std::vector<Node*>>& nodes_by_level() const { return m_nodesByLevel; }
+    const std::vector<std::vector<Node*>>& nodes_by_level() const { return m_nodes_by_level; }
 
-    /// Compile the render graph to check its validity and simplify it.
-    /// The compilation has multiple goals:
-    /// - Remove the nodes that have no direct or indirect connections to sink nodes
-    /// - Order the nodes by level according to their dependencies
-    /// - Check if every mandatory port is linked
+    /**
+     * \brief Compile the graph to check its validity and simplify it.
+     *
+     * The compilation has multiple goals:
+     * - Remove the nodes that have no direct or indirect connections to sink nodes
+     * - Order the nodes by level according to their dependencies
+     * - Check if every mandatory port is linked
+     */
     bool compile() override;
 
-    /** fill input and output ports of graph frome its nodes.
+    /**
+     * \brief fill input and output ports of graph from its input and output nodes if exists.
+     *
+     * \see add_input_output_nodes()
      */
     void generate_ports();
 
@@ -208,7 +207,7 @@ class RA_DATAFLOW_CORE_API DataflowGraph : public Node
         return p.second;
     }
 
-    bool shouldBeSaved() { return m_shouldBeSaved; }
+    bool shouldBeSaved() { return m_should_save; }
 
     static const std::string& node_typename();
 
@@ -224,6 +223,7 @@ class RA_DATAFLOW_CORE_API DataflowGraph : public Node
     /**
      * \brief protect nodes and links from deletion.
      * \param on true to protect, false to unprotect.
+     * \todo should this be only on gui side ?
      */
     void setNodesAndLinksProtection( bool on ) { m_nodesAndLinksProtected = on; }
 
@@ -322,7 +322,7 @@ class RA_DATAFLOW_CORE_API DataflowGraph : public Node
 
     /// Flag that indicates if the graph should be saved to a file
     /// This flag is useless outside an load/edit/save scenario
-    bool m_shouldBeSaved { false };
+    bool m_should_save { false };
 
     /// Flag set after successful compilation indicating graph is ready to be executed
     /// This flag is reset as soon as the graph is modified.
@@ -332,10 +332,10 @@ class RA_DATAFLOW_CORE_API DataflowGraph : public Node
     std::vector<std::shared_ptr<Node>> m_nodes;
     std::shared_ptr<GraphOutputNode> m_output_node { nullptr };
     std::shared_ptr<GraphInputNode> m_input_node { nullptr };
-    // Internal node levels representation
+
     /// The list of nodes ordered by levels.
     /// Two nodes at the same level have no dependency between them.
-    std::vector<std::vector<Node*>> m_nodesByLevel;
+    std::vector<std::vector<Node*>> m_nodes_by_level;
 
     bool m_nodesAndLinksProtected { false };
 };
@@ -360,9 +360,33 @@ bool DataflowGraph::add_link( const std::shared_ptr<PortOut<T>>& outputPort,
     return add_link( outputPort.get(), inputPort.get() );
 }
 
+inline bool DataflowGraph::can_link( const std::shared_ptr<Node>& nodeFrom,
+                                     Node::PortIndex portOutIdx,
+                                     const std::shared_ptr<Node>& nodeTo,
+                                     Node::PortIndex portInIdx ) const {
+    return can_link( nodeFrom.get(), portOutIdx, nodeTo.get(), portInIdx );
+}
+
+inline bool DataflowGraph::can_link( const Node* nodeFrom,
+                                     Node::PortIndex portOutIdx,
+                                     const Node* nodeTo,
+                                     Node::PortIndex portInIdx ) const {
+    auto portIn  = nodeTo->input_by_index( portInIdx );
+    auto portOut = nodeFrom->output_by_index( portOutIdx );
+
+    if ( !are_nodes_valids( nodeFrom, nodeTo ) ) { return false; }
+    if ( check_last_port_io_nodes( nodeFrom, portOutIdx, nodeTo, portInIdx ) ) {
+        if ( nodeFrom == m_input_node.get() ) return portIn != nullptr;
+        if ( nodeTo == m_output_node.get() ) return portOut != nullptr;
+    }
+
+    // Compare types
+    return portIn && portOut && ( portIn->getType() == portOut->getType() && !portIn->isLinked() );
+}
+
 inline void DataflowGraph::needs_recompile() {
-    m_shouldBeSaved = true;
-    m_ready         = false;
+    m_should_save = true;
+    m_ready       = false;
 }
 
 inline const std::string& DataflowGraph::node_typename() {

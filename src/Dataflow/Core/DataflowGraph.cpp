@@ -25,7 +25,7 @@ DataflowGraph::DataflowGraph( const std::string& instanceName, const std::string
 void DataflowGraph::init() {
     if ( m_ready ) {
         Node::init();
-        std::for_each( m_nodesByLevel.begin(), m_nodesByLevel.end(), []( const auto& level ) {
+        std::for_each( m_nodes_by_level.begin(), m_nodes_by_level.end(), []( const auto& level ) {
             std::for_each( level.begin(), level.end(), []( auto node ) {
                 if ( !node->is_initialized() ) { node->init(); }
             } );
@@ -40,23 +40,24 @@ bool DataflowGraph::execute() {
         if ( !compile() ) { return false; }
     }
     bool result = true;
-    std::for_each( m_nodesByLevel.begin(), m_nodesByLevel.end(), [&result]( const auto& level ) {
-        std::for_each( level.begin(), level.end(), [&result]( auto node ) {
-            bool executed = node->execute();
-            if ( !executed ) {
-                LOG( logERROR ) << "Execution failed with node " << node->instance_name() << " ("
-                                << node->model_name() << ").";
-            }
-            result = result && executed;
+    std::for_each(
+        m_nodes_by_level.begin(), m_nodes_by_level.end(), [&result]( const auto& level ) {
+            std::for_each( level.begin(), level.end(), [&result]( auto node ) {
+                bool executed = node->execute();
+                if ( !executed ) {
+                    LOG( logERROR ) << "Execution failed with node " << node->instance_name()
+                                    << " (" << node->model_name() << ").";
+                }
+                result = result && executed;
+            } );
         } );
-    } );
     return result;
 }
 
 void DataflowGraph::destroy() {
     std::for_each(
-        m_nodesByLevel.begin(), m_nodesByLevel.end(), []( auto& level ) { level.clear(); } );
-    m_nodesByLevel.clear();
+        m_nodes_by_level.begin(), m_nodes_by_level.end(), []( auto& level ) { level.clear(); } );
+    m_nodes_by_level.clear();
     m_nodes.clear();
     Node::destroy();
     needs_recompile();
@@ -68,7 +69,7 @@ void DataflowGraph::saveToJson( const std::string& jsonFilePath ) {
         toJson( data );
         std::ofstream file( jsonFilePath );
         file << std::setw( 4 ) << data << std::endl;
-        m_shouldBeSaved = false;
+        m_should_save = false;
     }
 }
 
@@ -124,7 +125,7 @@ bool DataflowGraph::loadFromJson( const std::string& jsonFilePath ) {
     auto j = read_json( jsonFilePath );
     if ( !j ) return false;
 
-    m_shouldBeSaved = false;
+    m_should_save = false;
     return fromJson( *j );
 }
 
@@ -428,6 +429,8 @@ void DataflowGraph::generate_ports() {
 bool DataflowGraph::compile() {
 
     // Find useful nodes (directly or indirectly connected to a Sink)
+
+    /// Node -> level, linked nodes
     std::unordered_map<Node*, std::pair<int, std::vector<Node*>>> infoNodes;
 
     if ( m_output_node ) {
@@ -465,19 +468,19 @@ bool DataflowGraph::compile() {
             maxLevel = std::max( maxLevel, traverse_graph( n, infoNodes ) );
         }
     }
-    m_nodesByLevel.clear();
-    m_nodesByLevel.resize( infoNodes.size() != 0 ? maxLevel + 1 : 0 );
+    m_nodes_by_level.clear();
+    m_nodes_by_level.resize( infoNodes.size() != 0 ? maxLevel + 1 : 0 );
     for ( auto& infNode : infoNodes ) {
-        CORE_ASSERT( size_t( infNode.second.first ) < m_nodesByLevel.size(),
+        CORE_ASSERT( size_t( infNode.second.first ) < m_nodes_by_level.size(),
                      std::string( "Node " ) + infNode.first->instance_name() + " is at level " +
                          std::to_string( infNode.second.first ) + " but level max is " +
                          std::to_string( maxLevel ) );
 
-        m_nodesByLevel[infNode.second.first].push_back( infNode.first );
+        m_nodes_by_level[infNode.second.first].push_back( infNode.first );
     }
 
     // For each level
-    for ( auto& lvl : m_nodesByLevel ) {
+    for ( auto& lvl : m_nodes_by_level ) {
         // For each node
         for ( size_t j = 0; j < lvl.size(); j++ ) {
             if ( !lvl[j]->compile() ) { return m_ready = false; }
@@ -499,19 +502,19 @@ bool DataflowGraph::compile() {
 }
 
 void DataflowGraph::clear_nodes() {
-    for ( size_t i = 0; i < m_nodesByLevel.size(); i++ ) {
-        m_nodesByLevel[i].clear();
-        m_nodesByLevel[i].shrink_to_fit();
+    for ( size_t i = 0; i < m_nodes_by_level.size(); i++ ) {
+        m_nodes_by_level[i].clear();
+        m_nodes_by_level[i].shrink_to_fit();
     }
-    m_nodesByLevel.clear();
-    m_nodesByLevel.shrink_to_fit();
+    m_nodes_by_level.clear();
+    m_nodes_by_level.shrink_to_fit();
     m_nodes.erase( m_nodes.begin(), m_nodes.end() );
     m_nodes.shrink_to_fit();
     m_inputs.erase( m_inputs.begin(), m_inputs.end() );
     m_inputs.shrink_to_fit();
     m_outputs.erase( m_outputs.begin(), m_outputs.end() );
     m_outputs.shrink_to_fit();
-    m_shouldBeSaved = true;
+    m_should_save = true;
 }
 
 void DataflowGraph::backtrack_graph(
@@ -611,7 +614,7 @@ std::shared_ptr<DataflowGraph> DataflowGraph::loadGraphFromJsonFile( const std::
 
     auto graph = std::dynamic_pointer_cast<DataflowGraph>( node );
     if ( graph != nullptr ) {
-        graph->m_shouldBeSaved = false;
+        graph->m_should_save = false;
         return graph;
     }
 
