@@ -23,7 +23,7 @@ int main( int argc, char* argv[] ) {
     // compute delta = b2 - 4ac;
 
     auto b2 = gAsNode->add_node<Functionals::FunctionNode<Scalar>>( "b2" );
-    b2->setFunction( []( const Scalar& b ) { return b * b; } );
+    b2->set_function( []( const Scalar& b ) { return b * b; } );
 
     auto fourAC = gAsNode->add_node<Functionals::BinaryOpNode<Scalar>>(
         "4ac", []( const Scalar& a, const Scalar& c ) { return 4_ra * a * c; } );

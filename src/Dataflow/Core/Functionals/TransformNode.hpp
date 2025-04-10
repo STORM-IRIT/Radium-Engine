@@ -49,7 +49,7 @@ class TransformNode : public Node
     bool execute() override;
 
     /// Sets the operator on the node
-    void setOperator( TransformOperator op );
+    void set_operator( TransformOperator op );
 
   protected:
     TransformNode( const std::string& instanceName,
@@ -82,7 +82,7 @@ TransformNode<coll_t, v_t>::TransformNode( const std::string& instanceName, Tran
     TransformNode( instanceName, node_typename(), op ) {}
 
 template <typename coll_t, typename v_t>
-void TransformNode<coll_t, v_t>::setOperator( TransformOperator op ) {
+void TransformNode<coll_t, v_t>::set_operator( TransformOperator op ) {
     m_port_in_op->set_default_value( op );
 }
 

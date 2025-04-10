@@ -21,7 +21,7 @@ int main( int argc, char* argv[] ) {
     // custom node type are either specialization of templated nodes or user-define nodes class
 
     // create the custom node factory
-    auto customFactory = NodeFactoriesManager::createFactory( "ExampleCustomFactory" );
+    auto customFactory = NodeFactoriesManager::create_factory( "ExampleCustomFactory" );
     // add node creators to the factory
     customFactory->register_node_creator<Sources::SingleDataSourceNode<VectorType>>(
         Sources::SingleDataSourceNode<VectorType>::node_typename() + "_", "Custom" );

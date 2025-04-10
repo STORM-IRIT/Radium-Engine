@@ -37,11 +37,11 @@ int main( int argc, char* argv[] ) {
     TransformNode::TransformOperator oneMinusMe = []( const Scalar& i ) -> Scalar {
         return 1_ra - i;
     };
-    transformNode->setOperator( oneMinusMe );
+    transformNode->set_operator( oneMinusMe );
 
     Functionals::ReduceNode<std::vector<Scalar>>::ReduceOperator getMin =
         []( const Scalar& a, const Scalar& b ) -> Scalar { return std::min( a, b ); };
-    reduceNode->setOperator( getMin, std::numeric_limits<Scalar>::max() );
+    reduceNode->set_operator( getMin, std::numeric_limits<Scalar>::max() );
 
     TransformOperatorSource::function_type doubleMe = []( const Scalar& i ) -> Scalar {
         return 2_ra * i;

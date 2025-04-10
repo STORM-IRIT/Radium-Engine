@@ -56,7 +56,7 @@ class ReduceNode : public Node
     bool execute() override;
 
     /// Sets the operator on the node
-    void setOperator( ReduceOperator op, v_t initialValue = v_t {} );
+    void set_operator( ReduceOperator op, v_t initialValue = v_t {} );
 
   protected:
     ReduceNode( const std::string& instanceName,
@@ -97,7 +97,7 @@ ReduceNode<coll_t, v_t>::ReduceNode( const std::string& instanceName,
     ReduceNode( instanceName, node_typename(), op, initialValue ) {}
 
 template <typename coll_t, typename v_t>
-void ReduceNode<coll_t, v_t>::setOperator( ReduceOperator op, v_t initialValue ) {
+void ReduceNode<coll_t, v_t>::set_operator( ReduceOperator op, v_t initialValue ) {
     m_port_in_op->set_default_value( op );
     m_port_in_init->set_default_value( initialValue );
 }

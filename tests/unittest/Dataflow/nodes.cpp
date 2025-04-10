@@ -200,7 +200,7 @@ TEST_CASE( "Dataflow/Core/Nodes", "[unittests][Dataflow][Core][Nodes]" ) {
             typename TestNode::BinaryOperator f = []( typename TestNode::Arg1_type arg1,
                                                       typename TestNode::Arg2_type arg2 ) ->
                 typename TestNode::Res_type { return arg1 / arg2; };
-            opNode->setOperator( f );
+            opNode->set_operator( f );
         }
         g->execute();
 

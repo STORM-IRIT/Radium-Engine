@@ -185,7 +185,7 @@ class BinaryOpNode : public Node
     }
 
     /// \brief Sets the operator to be evaluated by the node.
-    void setOperator( BinaryOperator op ) { m_port_in_op->set_default_value( op ); }
+    void set_operator( BinaryOperator op ) { m_port_in_op->set_default_value( op ); }
 
     static const std::string& node_typename() {
         static std::string demangledName =

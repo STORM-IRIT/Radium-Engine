@@ -33,7 +33,7 @@ TEST_CASE( "Dataflow/Core/DataflowGraph/Serialization",
             return pa + pb;
         };
         auto op_unique = g.add_node<TestNode>( "addition" );
-        op_unique->setOperator( add );
+        op_unique->set_operator( add );
 
         REQUIRE( g.add_link( source_a, "to", op_unique, "a" ) );
         REQUIRE( g.add_link( op_unique, "result", sink, "from" ) );
@@ -67,7 +67,7 @@ TEST_CASE( "Dataflow/Core/DataflowGraph/Serialization",
         REQUIRE( addition->model_name() == Functionals::BinaryOpScalar::node_typename() );
         auto typedAddition = std::dynamic_pointer_cast<Functionals::BinaryOpScalar>( addition );
         REQUIRE( typedAddition != nullptr );
-        if ( typedAddition != nullptr ) { typedAddition->setOperator( add ); }
+        if ( typedAddition != nullptr ) { typedAddition->set_operator( add ); }
 
         // Execute loaded graph
         // Data delivered by the source nodes are the one saved by the original graph
