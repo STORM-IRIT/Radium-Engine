@@ -80,7 +80,7 @@ int main( int argc, char* argv[] ) {
     //! [Execute the graph]
 
     //! [Print the output result]
-    auto& result = sinkNode->dataByRef();
+    auto& result = sinkNode->data_reference();
     std::cout << "Output values: " << result.size() << "\n\t";
     std::copy( result.begin(), result.end(), std::ostream_iterator<Scalar>( std::cout, " " ) );
     std::cout << '\n';

@@ -91,7 +91,7 @@ TEST_CASE( "Dataflow/Core/GraphAsNode/Delta", "[unittests][Dataflow][Core][Graph
     REQUIRE( g.compile() );
     REQUIRE( g.execute() );
 
-    auto& result = resultNode->dataByRef();
+    auto& result = resultNode->data_reference();
     REQUIRE( result == -8 );
 }
 

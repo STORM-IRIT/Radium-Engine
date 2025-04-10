@@ -103,7 +103,7 @@ int main( int argc, char* argv[] ) {
         return 1;
     }
 
-    auto& result = resultNode->dataByRef();
+    auto& result = resultNode->data_reference();
     std::cout << "Output value delta = " << *sourceNodeB->data() << "²-4×" << *sourceNodeA->data()
               << "×" << *sourceNodeC->data() << " = " << result << "\n";
     if ( result != ( 2 * 2 ) - 4 * 1 * 3 ) return 1;

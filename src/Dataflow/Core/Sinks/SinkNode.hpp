@@ -28,19 +28,20 @@ class SinkNode : public Node
 
     /**
      * Get the delivered data
-     * @return a copy of the delivered data.
+     * \return a copy of the delivered data.
      */
     T data() const;
     /**
      * Get the delivered data
-     * @return a const ref to the delivered data.
+     * \return a const ref to the delivered data.
      */
-    const T& dataByRef() const;
+    const T& data_reference() const;
 
   protected:
-    /// \todo why are these empty ?
-    void toJsonInternal( nlohmann::json& ) const override {}
-    bool fromJsonInternal( const nlohmann::json& ) override { return true; }
+    void toJsonInternal( nlohmann::json& data ) const override { Node::toJsonInternal( data ); }
+    bool fromJsonInternal( const nlohmann::json& data ) override {
+        return Node::fromJsonInternal( data );
+    }
 
   private:
     /// @{
@@ -79,7 +80,7 @@ T SinkNode<T>::data() const {
 }
 
 template <typename T>
-const T& SinkNode<T>::dataByRef() const {
+const T& SinkNode<T>::data_reference() const {
     return m_port_out_data->data();
 }
 

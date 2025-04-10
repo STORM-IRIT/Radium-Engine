@@ -86,8 +86,8 @@ int main( int argc, char* argv[] ) {
     //! [Execute the graph]
     g.execute();
     // The reference to the result is now available
-    auto& result   = sinkNode->dataByRef();
-    auto& minValue = scalarSinkNode->dataByRef();
+    auto& result   = sinkNode->data_reference();
+    auto& minValue = scalarSinkNode->data_reference();
     //! [Execute the graph]
 
     //! [Print the output result]

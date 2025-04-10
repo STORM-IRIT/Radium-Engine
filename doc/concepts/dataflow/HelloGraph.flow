@@ -111,7 +111,21 @@
                     "instance": "Sink",
                     "model": {
                         "display_name": "Sink",
-                        "name": "Sink<RaVector<Scalar>>"
+                        "inputs": [
+                            {
+                                "name": "from",
+                                "port_index": 0,
+                                "type": "RaVector<Scalar>"
+                            }
+                        ],
+                        "name": "Sink<RaVector<Scalar>>",
+                        "outputs": [
+                            {
+                                "name": "data",
+                                "port_index": 0,
+                                "type": "RaVector<Scalar>"
+                            }
+                        ]
                     },
                     "position": {
                         "x": 238.0,
