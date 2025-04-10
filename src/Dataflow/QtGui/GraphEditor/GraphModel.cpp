@@ -21,9 +21,9 @@ GraphModel::~GraphModel() {
 }
 
 void GraphModel::fill_factory_map() {
-    auto factories = NodeFactoriesManager::getFactoryManager();
+    auto factories = NodeFactoriesManager::factory_manager();
     for ( const auto& [factoryName, factory] : factories ) {
-        for ( const auto& [model_name, creator] : factory->getFactoryMap() ) {
+        for ( const auto& [model_name, creator] : factory->factory_map() ) {
             auto f                              = creator.first;
             m_model_name_to_factory[model_name] = f;
         }

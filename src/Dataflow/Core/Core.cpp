@@ -36,8 +36,8 @@ using namespace Ra::Dataflow::Core;
 void CoreNodes__Initializer() {
     PortFactory::createInstance();
     using namespace Ra::Dataflow::Core::NodeFactoriesManager;
-    if ( getFactory( getFactoryManager().default_factory_name() ) ) { return; }
-    auto factory = createFactory( getFactoryManager().default_factory_name() );
+    if ( factory( factory_manager().default_factory_name() ) ) { return; }
+    auto factory = create_factory( factory_manager().default_factory_name() );
 
     // bool could not be declared as others, because of the specificity of std::vector<bool> that is
     // not compatible with Ra::Core::VectorArray implementation see

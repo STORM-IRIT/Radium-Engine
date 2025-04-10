@@ -12,13 +12,13 @@ class Node;
 
 NodeFactory::NodeFactory( std::string name ) : m_name( std::move( name ) ) {}
 
-auto NodeFactory::getName() const -> std::string {
+auto NodeFactory::name() const -> std::string {
     return m_name;
 }
 
-auto NodeFactory::createNode( const std::string& nodeType,
-                              const nlohmann::json& data,
-                              DataflowGraph* owningGraph ) -> std::shared_ptr<Node> {
+auto NodeFactory::create_node( const std::string& nodeType,
+                               const nlohmann::json& data,
+                               DataflowGraph* owningGraph ) -> std::shared_ptr<Node> {
     if ( auto itr = m_nodesCreators.find( nodeType ); itr != m_nodesCreators.end() ) {
         auto node = std::shared_ptr<Node> { itr->second.first( data ) };
         if ( owningGraph != nullptr ) { owningGraph->add_node( node ); }
@@ -27,29 +27,29 @@ auto NodeFactory::createNode( const std::string& nodeType,
     return nullptr;
 }
 
-auto NodeFactory::registerNodeCreator( const std::string& nodeType,
-                                       NodeCreatorFunctor nodeCreator,
-                                       const std::string& nodeCategory ) -> bool {
+auto NodeFactory::register_node_creator( const std::string& nodeType,
+                                         NodeCreatorFunctor nodeCreator,
+                                         const std::string& nodeCategory ) -> bool {
 
     if ( auto itr = m_nodesCreators.find( nodeType ); itr == m_nodesCreators.end() ) {
         m_nodesCreators[nodeType] = { std::move( nodeCreator ), nodeCategory };
         return true;
     }
     LOG( Ra::Core::Utils::logWARNING )
-        << "NodeFactory (" << getName()
+        << "NodeFactory (" << name()
         << ") : trying to add an already existing node creator for type " << nodeType << ".";
     return false;
 }
 
-auto NodeFactory::nextNodeId() -> size_t {
+auto NodeFactory::next_node_id() -> size_t {
     return ++m_nodesCreated;
 }
 
-auto NodeFactorySet::createNode( const std::string& nodeType,
-                                 const nlohmann::json& data,
-                                 DataflowGraph* owningGraph ) -> std::shared_ptr<Node> {
+auto NodeFactorySet::create_node( const std::string& nodeType,
+                                  const nlohmann::json& data,
+                                  DataflowGraph* owningGraph ) -> std::shared_ptr<Node> {
     for ( const auto& itr : m_factories ) {
-        if ( auto node = itr.second->createNode( nodeType, data, owningGraph ); node ) {
+        if ( auto node = itr.second->create_node( nodeType, data, owningGraph ); node ) {
             return node;
         }
     }
@@ -64,38 +64,38 @@ namespace NodeFactoriesManager {
  * \brief Allow static initialization without init order problems
  * \return The manager singleton
  */
-auto getFactoryManager() -> NodeFactorySet& {
+auto factory_manager() -> NodeFactorySet& {
     static NodeFactorySet s_factoryManager {};
     return s_factoryManager;
 }
 
-auto registerFactory( NodeFactorySet::mapped_type factory ) -> bool {
-    return getFactoryManager().addFactory( std::move( factory ) );
+auto register_factory( NodeFactorySet::mapped_type factory ) -> bool {
+    return factory_manager().add_factory( std::move( factory ) );
 }
 
-auto createFactory( const NodeFactorySet::key_type& name ) -> NodeFactorySet::mapped_type {
-    auto factory = getFactory( name );
-    if ( factory == nullptr ) {
-        factory = std::make_shared<NodeFactory>( name );
-        registerFactory( factory );
+auto create_factory( const NodeFactorySet::key_type& name ) -> NodeFactorySet::mapped_type {
+    auto f = factory( name );
+    if ( f == nullptr ) {
+        f = std::make_shared<NodeFactory>( name );
+        register_factory( f );
     }
-    return factory;
+    return f;
 }
 
-auto getFactory( const NodeFactorySet::key_type& name ) -> NodeFactorySet::mapped_type {
-    auto& factories = getFactoryManager();
+auto factory( const NodeFactorySet::key_type& name ) -> NodeFactorySet::mapped_type {
+    auto& factories = factory_manager();
     if ( auto factory = factories.find( name ); factory != factories.end() ) {
         return factory->second;
     }
     return nullptr;
 }
 
-auto unregisterFactory( const NodeFactorySet::key_type& name ) -> bool {
-    return getFactoryManager().removeFactory( name );
+auto unregister_factory( const NodeFactorySet::key_type& name ) -> bool {
+    return factory_manager().remove_factory( name );
 }
 
-auto dataFlowBuiltInsFactory() -> NodeFactorySet::mapped_type {
-    return getFactory( getFactoryManager().default_factory_name() );
+auto default_factory() -> NodeFactorySet::mapped_type {
+    return factory( factory_manager().default_factory_name() );
 }
 
 } // namespace NodeFactoriesManager

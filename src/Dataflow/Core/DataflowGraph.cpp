@@ -176,7 +176,7 @@ bool DataflowGraph::fromJsonInternal( const nlohmann::json& data ) {
         // indicate that the graph must be recompiled after loading
         needs_recompile();
         // load the graph
-        auto factories = NodeFactoriesManager::getFactoryManager();
+        auto factories = NodeFactoriesManager::factory_manager();
 
         std::map<std::string, std::shared_ptr<Node>> nodeByName;
         if ( auto nodes_itr = data["graph"].find( "nodes" ); nodes_itr != data["graph"].end() ) {
@@ -199,7 +199,7 @@ bool DataflowGraph::fromJsonInternal( const nlohmann::json& data ) {
                     return false;
                 }
                 // create and adds node to this
-                auto newNode = factories.createNode( nodeTypeName, n, this );
+                auto newNode = factories.create_node( nodeTypeName, n, this );
                 if ( newNode ) {
                     if ( !instanceName.empty() ) {
                         auto [it, inserted] = nodeByName.insert( { instanceName, newNode } );
@@ -604,8 +604,8 @@ std::shared_ptr<DataflowGraph> DataflowGraph::loadGraphFromJsonFile( const std::
 
     LOG( logINFO ) << "Loading the graph " << instanceName << ", with type " << graphType << "\n";
 
-    auto& factories = Ra::Dataflow::Core::NodeFactoriesManager::getFactoryManager();
-    auto node       = factories.createNode( graphType, j );
+    auto& factories = Ra::Dataflow::Core::NodeFactoriesManager::factory_manager();
+    auto node       = factories.create_node( graphType, j );
 
     if ( node == nullptr ) {
         LOG( logERROR ) << "Unable to load a graph with type " << graphType << "\n";

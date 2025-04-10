@@ -213,22 +213,22 @@ TEST_CASE( "Dataflow/Core/Custom nodes", "[unittests][Dataflow][Core][Custom nod
     }
     SECTION( "Serialization of a custom graph" ) {
         // Create and fill the factory for the custom nodes
-        auto customFactory = NodeFactoriesManager::createFactory( "CustomNodesUnitTests" );
+        auto customFactory = NodeFactoriesManager::create_factory( "CustomNodesUnitTests" );
 
         // add node creators to the factory
 
-        REQUIRE( customFactory->registerNodeCreator<Customs::CustomStringSource>(
+        REQUIRE( customFactory->register_node_creator<Customs::CustomStringSource>(
             Customs::CustomStringSource::node_typename() + "_", "Custom" ) );
-        REQUIRE( customFactory->registerNodeCreator<Customs::CustomStringSink>(
+        REQUIRE( customFactory->register_node_creator<Customs::CustomStringSink>(
             Customs::CustomStringSink::node_typename() + "_", "Custom" ) );
-        REQUIRE( customFactory->registerNodeCreator<Customs::FilterSelector<Scalar>>(
+        REQUIRE( customFactory->register_node_creator<Customs::FilterSelector<Scalar>>(
             Customs::FilterSelector<Scalar>::node_typename() + "_", "Custom" ) );
         // The same node can't be register twice in the same factory
-        REQUIRE( !customFactory->registerNodeCreator<Customs::FilterSelector<Scalar>>(
+        REQUIRE( !customFactory->register_node_creator<Customs::FilterSelector<Scalar>>(
             Customs::FilterSelector<Scalar>::node_typename() + "_", "Custom" ) );
 
         nlohmann::json emptyData;
-        auto customSource = customFactory->createNode(
+        auto customSource = customFactory->create_node(
             Customs::CustomStringSource::node_typename(), emptyData, nullptr );
         REQUIRE( customSource );
 
@@ -250,7 +250,7 @@ TEST_CASE( "Dataflow/Core/Custom nodes", "[unittests][Dataflow][Core][Custom nod
         delete g;
 
         /// try to load the graph without custom factory
-        auto unregistered = NodeFactoriesManager::unregisterFactory( customFactory->getName() );
+        auto unregistered = NodeFactoriesManager::unregister_factory( customFactory->name() );
         REQUIRE( unregistered == true );
 
         g = new DataflowGraph( "" );

@@ -59,10 +59,10 @@ GraphEditorWindow::GraphEditorWindow( std::shared_ptr<DataflowGraph> graph ) : m
     node_tree_widget->setColumnCount( 1 );
     node_tree_widget->setHeaderLabel( "Nodes" );
 
-    for ( const auto& [factory_name, factory] : NodeFactoriesManager::getFactoryManager() ) {
+    for ( const auto& [factory_name, factory] : NodeFactoriesManager::factory_manager() ) {
 
         std::map<std::string, std::vector<std::string>> node_list;
-        for ( const auto& [model_name, creator] : factory->getFactoryMap() ) {
+        for ( const auto& [model_name, creator] : factory->factory_map() ) {
             auto f              = creator.first;
             auto creatorFactory = factory;
             node_list[creator.second].push_back( model_name );
