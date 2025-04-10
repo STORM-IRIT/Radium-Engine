@@ -239,6 +239,7 @@ class RA_DATAFLOW_CORE_API DataflowGraph : public Node
      *
      * These nodes are usefull for using graph as node and stating the graph as node input/output
      * ports.
+     * ![example inner graph](images/graph_as_node_inner.png)
      */
     void add_input_output_nodes();
 

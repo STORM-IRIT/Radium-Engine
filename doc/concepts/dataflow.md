@@ -178,3 +178,16 @@ application.
 - customnodes.cpp : shows how it is simple to develop your own node type (in C++) and
 use your nodes alongside standard nodes.
   \snippet unittest/Dataflow/customnodes.cpp Develop a custom node
+
+# Graph As Node
+
+A graph can use another graph as node.
+The inner graph must have input/output nodes to expose input/output ports.
+Related methods :
+
+- Ra::Dataflow::Core::DataflowGraph::add_input_output_nodes()
+- Ra::Dataflow::Core::DataflowGraph::generate_ports()
+- Ra::Dataflow::Core::DataflowGraph::remove_unlinked_input_output_ports()
+
+![A graph can use another graph as node](images/graph_as_node_outter.png)
+![The inner graph must have input/output nodes to expose input/output ports](images/graph_as_node_inner.png)
