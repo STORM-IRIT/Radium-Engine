@@ -64,12 +64,12 @@ class RA_DATAFLOW_CORE_API PortFactory
 
             m_input_getter[type] = []( PortBaseIn* port ) -> std::any {
                 auto casted = dynamic_cast<PortIn<T>*>( port );
-                return &( casted->getData() );
+                return &( casted->data() );
             };
             m_output_setter[type] = []( PortBaseOut* port, std::any any ) {
                 T* data     = std::any_cast<T*>( any );
                 auto casted = dynamic_cast<PortOut<T>*>( port );
-                casted->setData( data );
+                casted->set_data( data );
             };
 
             m_type_to_string.insert( type, Ra::Core::Utils::simplifiedDemangledType( type ) );

@@ -35,7 +35,7 @@ int main( int argc, char* argv[] ) {
     auto forwardB = gAsNode->add_node<Functionals::FunctionNode<Scalar>>( "b" );
     auto forwardC = gAsNode->add_node<Functionals::FunctionNode<Scalar>>( "c" );
 
-    b2minus4ac->port_out_result()->setName( "delta" );
+    b2minus4ac->port_out_result()->set_name( "delta" );
 
     gAsNode->add_input_output_nodes();
     auto inputA = gAsNode->input_node()->add_output_port( forwardA->port_in_data().get() );
@@ -43,10 +43,10 @@ int main( int argc, char* argv[] ) {
     auto inputC = gAsNode->input_node()->add_output_port( forwardC->port_in_data().get() );
     auto output = gAsNode->output_node()->add_input_port( b2minus4ac->port_out_result().get() );
 
-    gAsNode->input_node()->input_by_index( inputA )->setName( "a" );
-    gAsNode->input_node()->input_by_index( inputB )->setName( "b" );
-    gAsNode->input_node()->input_by_index( inputC )->setName( "c" );
-    gAsNode->output_node()->output_by_index( output )->setName( "delta" );
+    gAsNode->input_node()->input_by_index( inputA )->set_name( "a" );
+    gAsNode->input_node()->input_by_index( inputB )->set_name( "b" );
+    gAsNode->input_node()->input_by_index( inputC )->set_name( "c" );
+    gAsNode->output_node()->output_by_index( output )->set_name( "delta" );
 
     gAsNode->add_link( forwardB->port_out_result(), b2->port_in_data() );
     gAsNode->add_link( forwardA->port_out_result(), fourAC->port_in_a() );
@@ -59,13 +59,13 @@ int main( int argc, char* argv[] ) {
     std::cout << "== Graph as node ==\n";
     std::cout << "inputs\n";
     for ( const auto& n : gAsNode->inputs() ) {
-        std::cout << "\t- " << n->getName() << " <" << n->getTypeName() << "> ("
+        std::cout << "\t- " << n->name() << " <" << n->port_typename() << "> ("
                   << n->node()->display_name() << ")\n";
     }
 
     std::cout << "outputs\n";
     for ( const auto& n : gAsNode->outputs() ) {
-        std::cout << "\t- " << n->getName() << " <" << n->getTypeName() << "> ("
+        std::cout << "\t- " << n->name() << " <" << n->port_typename() << "> ("
                   << n->node()->display_name() << ")\n";
     }
 
@@ -83,13 +83,13 @@ int main( int argc, char* argv[] ) {
     g.add_link( sourceNodeC->port_out_to().get(), gAsNode->input_by_index( inputC ) );
     g.add_link( gAsNode->output_by_index( output ), resultNode->port_in_from().get() );
 
-    sourceNodeA->setData( 1 );
-    sourceNodeB->setData( 2 );
-    sourceNodeC->setData( 3 );
+    sourceNodeA->set_data( 1 );
+    sourceNodeB->set_data( 2 );
+    sourceNodeC->set_data( 3 );
 
     auto p = resultNode->port_in_from();
-    std::cerr << p->getName() << " " << p->isLinked() << "\n";
-    std::cerr << p->getLink()->getName() << "\n";
+    std::cerr << p->name() << " " << p->isLinked() << "\n";
+    std::cerr << p->getLink()->name() << "\n";
     if ( !g.compile() ) {
         std::cout << " compilation failed\n";
         return 1;
@@ -103,10 +103,9 @@ int main( int argc, char* argv[] ) {
         return 1;
     }
 
-    auto& result = resultNode->getDataByRef();
-    std::cout << "Output value delta = " << *sourceNodeB->getData() << "²-4×"
-              << *sourceNodeA->getData() << "×" << *sourceNodeC->getData() << " = " << result
-              << "\n";
+    auto& result = resultNode->dataByRef();
+    std::cout << "Output value delta = " << *sourceNodeB->data() << "²-4×" << *sourceNodeA->data()
+              << "×" << *sourceNodeC->data() << " = " << result << "\n";
     if ( result != ( 2 * 2 ) - 4 * 1 * 3 ) return 1;
     return 0;
 }

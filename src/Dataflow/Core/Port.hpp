@@ -48,24 +48,24 @@ class RA_DATAFLOW_CORE_API PortBase
     virtual ~PortBase() = default;
 
     /// Gets the port's name.
-    const std::string& getName() const { return m_name; }
-    void setName( const std::string& name ) { m_name = name; }
+    const std::string& name() const { return m_name; }
+    void set_name( const std::string& name ) { m_name = name; }
     /// Gets the type of the data (efficient for comparisons).
-    std::type_index getType() const { return m_type; }
+    std::type_index type() const { return m_type; }
     /// Gets a pointer to the node this port belongs to.
     Node* node() const { return m_node; }
 
     ///\brief Gets the human readable type of the port object.
     ///
     ///\return std::string The simplified demangled type.
-    std::string getTypeName() const { return Ra::Core::Utils::simplifiedDemangledType( m_type ); }
+    std::string port_typename() const { return Ra::Core::Utils::simplifiedDemangledType( m_type ); }
 
     // can we get data from the port ?
-    virtual bool hasData() { return false; }
+    virtual bool has_data() { return false; }
 
-    virtual void to_json( nlohmann::json& data ) { data["name"] = getName(); }
+    virtual void to_json( nlohmann::json& data ) { data["name"] = name(); }
     virtual void from_json( const nlohmann::json& data ) {
-        if ( auto it = data.find( "name" ); it != data.end() ) { setName( *it ); }
+        if ( auto it = data.find( "name" ); it != data.end() ) { set_name( *it ); }
     }
 
   private:

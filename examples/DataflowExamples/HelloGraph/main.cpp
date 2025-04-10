@@ -62,10 +62,10 @@ int main( int argc, char* argv[] ) {
     //! [Configure nodes]
     RaVector test {
         0.0_ra, 1.0_ra, 0.1_ra, 0.9_ra, 0.2_ra, 0.8_ra, 0.3_ra, 0.7_ra, 0.4_ra, 0.6_ra, 0.5_ra };
-    g.node<Sources::SingleDataSourceNode<RaVector>>( "Source" )->setData( test );
+    g.node<Sources::SingleDataSourceNode<RaVector>>( "Source" )->set_data( test );
 
     Sources::ScalarUnaryPredicateSource::function_type pred = []( Scalar x ) { return x < 0.5; };
-    predicateNode->setData( pred );
+    predicateNode->set_data( pred );
     //! [Configure nodes]
 
     std::cout << "Input values : \n\t";
@@ -80,7 +80,7 @@ int main( int argc, char* argv[] ) {
     //! [Execute the graph]
 
     //! [Print the output result]
-    auto& result = sinkNode->getDataByRef();
+    auto& result = sinkNode->dataByRef();
     std::cout << "Output values: " << result.size() << "\n\t";
     std::copy( result.begin(), result.end(), std::ostream_iterator<Scalar>( std::cout, " " ) );
     std::cout << '\n';
@@ -88,7 +88,7 @@ int main( int argc, char* argv[] ) {
 
     //! [Modify input and rerun the graph]
     Sources::ScalarUnaryPredicateSource::function_type predbig = []( Scalar x ) { return x > 0.5; };
-    predicateNode->setData( predbig );
+    predicateNode->set_data( predbig );
 
     g.execute();
     // since result is a ref to node's output, no need to get it again

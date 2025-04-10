@@ -105,15 +105,15 @@ void ReduceNode<coll_t, v_t>::setOperator( ReduceOperator op, v_t initialValue )
 template <typename coll_t, typename v_t>
 void ReduceNode<coll_t, v_t>::init() {
     Node::init();
-    m_result = m_port_in_init->getData();
+    m_result = m_port_in_init->data();
 }
 
 template <typename coll_t, typename v_t>
 bool ReduceNode<coll_t, v_t>::execute() {
-    const auto& f  = m_port_in_op->getData();
-    const auto& in = m_port_in_data->getData();
+    const auto& f  = m_port_in_op->data();
+    const auto& in = m_port_in_data->data();
 
-    m_result = std::accumulate( in.begin(), in.end(), m_port_in_init->getData(), f );
+    m_result = std::accumulate( in.begin(), in.end(), m_port_in_init->data(), f );
 
     return true;
 }

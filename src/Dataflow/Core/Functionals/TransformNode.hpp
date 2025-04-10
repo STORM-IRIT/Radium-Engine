@@ -94,8 +94,8 @@ void TransformNode<coll_t, v_t>::init() {
 
 template <typename coll_t, typename v_t>
 bool TransformNode<coll_t, v_t>::execute() {
-    const auto& f      = m_port_in_op->getData();
-    const auto& inData = m_port_in_data->getData();
+    const auto& f      = m_port_in_op->data();
+    const auto& inData = m_port_in_data->data();
     m_result.clear();
     // m_elements.reserve( inData.size() ); // --> this is not a requirement of
     // SequenceContainer

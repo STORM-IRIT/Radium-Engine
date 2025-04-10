@@ -65,16 +65,16 @@ TEST_CASE( "Dataflow/Core/Nodes", "[unittests][Dataflow][Core][Nodes]" ) {
         DataType x { 1_ra };
 
         a->setDefaultValue( x );
-        REQUIRE( a->getData<DataType>() == x );
+        REQUIRE( a->data<DataType>() == x );
 
         DataType y { 2_ra };
         b->setDefaultValue( y );
-        REQUIRE( b->getData<DataType>() == y );
+        REQUIRE( b->data<DataType>() == y );
 
         // As graph was modified since last compilation, this will recompile the graph
         g->execute();
 
-        auto& z = r->getData<DataType>();
+        auto& z = r->data<DataType>();
         REQUIRE( z == x + y );
 
         std::cout << x << " + " << y << " == " << z << "\n";
@@ -94,15 +94,15 @@ TEST_CASE( "Dataflow/Core/Nodes", "[unittests][Dataflow][Core][Nodes]" ) {
 
         DataType x { 1_ra, 2_ra, 3_ra };
         a->setDefaultValue( x );
-        REQUIRE( a->getData<DataType>() == x );
+        REQUIRE( a->data<DataType>() == x );
 
         DataType y { 3_ra, 2_ra, 1_ra };
         b->setDefaultValue( y );
-        REQUIRE( b->getData<DataType>() == y );
+        REQUIRE( b->data<DataType>() == y );
 
         g->execute();
 
-        auto& z = r->getData<DataType>();
+        auto& z = r->data<DataType>();
         REQUIRE( z == x + y );
 
         std::cout << "[" << x.transpose() << "] + [" << y.transpose() << "] == [" << z.transpose()
@@ -123,15 +123,15 @@ TEST_CASE( "Dataflow/Core/Nodes", "[unittests][Dataflow][Core][Nodes]" ) {
 
         DataType x { { 1_ra, 2_ra }, { 3_ra, 4_ra } };
         a->setDefaultValue( x );
-        REQUIRE( a->getData<DataType>() == x );
+        REQUIRE( a->data<DataType>() == x );
 
         DataType y { { 5_ra, 6_ra }, { 7_ra, 8_ra } };
         b->setDefaultValue( y );
-        REQUIRE( b->getData<DataType>() == y );
+        REQUIRE( b->data<DataType>() == y );
 
         g->execute();
 
-        auto& z = r->getData<DataType>();
+        auto& z = r->data<DataType>();
         for ( size_t i = 0; i < z.size(); i++ ) {
             REQUIRE( z[i] == x[i] + y[i] );
         }
@@ -170,15 +170,15 @@ TEST_CASE( "Dataflow/Core/Nodes", "[unittests][Dataflow][Core][Nodes]" ) {
 
         DataType_a x { { 1_ra, 2_ra }, { 3_ra, 4_ra } };
         a->setDefaultValue( x );
-        REQUIRE( a->getData<DataType_a>() == x );
+        REQUIRE( a->data<DataType_a>() == x );
 
         DataType_b y { 5_ra };
         b->setDefaultValue( y );
-        REQUIRE( b->getData<DataType_b>() == y );
+        REQUIRE( b->data<DataType_b>() == y );
 
         g->execute();
 
-        auto& z = r->getData<DataType_r>();
+        auto& z = r->data<DataType_r>();
         for ( size_t i = 0; i < z.size(); i++ ) {
             REQUIRE( z[i] == x[i] * y );
         }
@@ -235,15 +235,15 @@ TEST_CASE( "Dataflow/Core/Nodes", "[unittests][Dataflow][Core][Nodes]" ) {
 
         DataType_a x { 4_ra };
         a->setDefaultValue( x );
-        REQUIRE( a->getData<DataType_a>() == x );
+        REQUIRE( a->data<DataType_a>() == x );
 
         DataType_b y { { 1_ra, 2_ra }, { 3_ra, 4_ra } };
         b->setDefaultValue( y );
-        REQUIRE( b->getData<DataType_b>() == y );
+        REQUIRE( b->data<DataType_b>() == y );
 
         g->execute();
 
-        auto& z = r->getData<DataType_r>();
+        auto& z = r->data<DataType_r>();
         for ( size_t i = 0; i < z.size(); i++ ) {
             REQUIRE( z[i] == x * y[i] );
         }
@@ -273,11 +273,11 @@ TEST_CASE( "Dataflow/Core/Nodes", "[unittests][Dataflow][Core][Nodes]" ) {
         using DoubleFunction    = Sources::FunctionSourceNode<Scalar, const Scalar&>::function_type;
         DoubleFunction doubleMe = []( const Scalar& x ) -> Scalar { return 2_ra * x; };
         auto nodeD = std::make_shared<Sources::FunctionSourceNode<Scalar, const Scalar&>>( "d" );
-        nodeD->setData( doubleMe );
+        nodeD->set_data( doubleMe );
 
         // Source of a Scalar : mean neutral element 0_ra
         auto nodeN = std::make_shared<Sources::ScalarSource>( "n" );
-        nodeN->setData( 0_ra );
+        nodeN->set_data( 0_ra );
 
         // Source of a reduction operator : compute the mean using Welford online algo
         using ReduceOperator = Sources::FunctionSourceNode<Scalar, const Scalar&, const Scalar&>;
@@ -310,7 +310,7 @@ TEST_CASE( "Dataflow/Core/Nodes", "[unittests][Dataflow][Core][Nodes]" ) {
         auto nodePred = std::make_shared<Sources::ScalarBinaryPredicateSource>( "predicate" );
         Sources::ScalarBinaryPredicateSource::function_type predicate =
             []( const Scalar& a, const Scalar& b ) -> bool { return 2_ra * a == b; };
-        nodePred->setData( predicate );
+        nodePred->set_data( predicate );
 
         // Boolean sink for the validation result
         auto sinkB = std::make_shared<Sinks::BooleanSink>( "test" );
@@ -376,9 +376,9 @@ TEST_CASE( "Dataflow/Core/Nodes", "[unittests][Dataflow][Core][Nodes]" ) {
 
         g->execute();
 
-        auto& result  = output->getData<Scalar>();
-        auto& resultD = outputD->getData<Scalar>();
-        auto& resultB = outputB->getData<bool>();
+        auto& result  = output->data<Scalar>();
+        auto& resultD = outputD->data<Scalar>();
+        auto& resultB = outputB->data<bool>();
 
         std::cout << "Computed mean ( ref ): " << result << "\n";
         std::cout << "Computed mean ( tra ): " << resultD << "\n";

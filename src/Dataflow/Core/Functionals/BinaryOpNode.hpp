@@ -178,9 +178,9 @@ class BinaryOpNode : public Node
 
     bool execute() override {
 
-        const auto& f = m_port_in_op->getData();
+        const auto& f = m_port_in_op->data();
         m_result = internal::ExecutorHelper<t_a, t_b, t_result, BinaryOperator>::executeInternal(
-            m_port_in_a->getData(), m_port_in_b->getData(), f );
+            m_port_in_a->data(), m_port_in_b->data(), f );
         return true;
     }
 

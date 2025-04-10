@@ -41,9 +41,9 @@ class FilterSelector final : public Node
     explicit FilterSelector( const std::string& name ) : FilterSelector( name, node_typename() ) {}
 
     bool execute() override {
-        if ( !m_portName->hasData() ) return false;
-        m_nameOut->setData( &m_portName->getData() );
-        m_currentFunction = m_functions.at( m_portName->getData() );
+        if ( !m_portName->has_data() ) return false;
+        m_nameOut->set_data( &m_portName->data() );
+        m_currentFunction = m_functions.at( m_portName->data() );
         return true;
     }
 
@@ -59,8 +59,8 @@ class FilterSelector final : public Node
     }
 
     void toJsonInternal( nlohmann::json& data ) const override {
-        data["operator"]  = m_portName->getData();
-        data["threshold"] = m_portThreshold->getData();
+        data["operator"]  = m_portName->data();
+        data["threshold"] = m_portThreshold->data();
     }
 
   public:
@@ -77,8 +77,8 @@ class FilterSelector final : public Node
     std::map<std::string, function_type> m_functions {
         { "true", []( const T& ) { return true; } },
         { "false", []( const T& ) { return false; } },
-        { "<", [this]( const T& v ) { return v < this->m_portThreshold->getData(); } },
-        { ">", [this]( const T& v ) { return v > this->m_portThreshold->getData(); } } };
+        { "<", [this]( const T& v ) { return v < this->m_portThreshold->data(); } },
+        { ">", [this]( const T& v ) { return v > this->m_portThreshold->data(); } } };
 
     function_type m_currentFunction = m_functions["true"];
 
@@ -128,7 +128,7 @@ DataflowGraph* buildgraph( const std::string& name ) {
     auto fl = std::make_shared<FilterCollectionType<DataType>>( "fl" );
     REQUIRE( g->add_node( fl ) );
 
-    auto coreFactory = NodeFactoriesManager::getDataFlowBuiltInsFactory();
+    auto coreFactory = NodeFactoriesManager::dataFlowBuiltInsFactory();
 
     REGISTER_TYPE_TO_FACTORY( coreFactory, FilterCollectionType<DataType>, Functionals );
     REGISTER_TYPE_TO_FACTORY( coreFactory, CollectionInputType<DataType>, Functionals );
@@ -176,9 +176,9 @@ TEST_CASE( "Dataflow/Core/Custom nodes", "[unittests][Dataflow][Core][Custom nod
             testVector.push_back( dis( gen ) );
         }
 
-        inputCollection->setData( testVector );
-        inputThreshold->setData( .5_ra );
-        inputOpName->setData( "true" );
+        inputCollection->set_data( testVector );
+        inputThreshold->set_data( .5_ra );
+        inputOpName->set_data( "true" );
 
         // execute the graph that filter out nothing
         REQUIRE( g->execute() );
@@ -186,30 +186,30 @@ TEST_CASE( "Dataflow/Core/Custom nodes", "[unittests][Dataflow][Core][Custom nod
         // Getters are usable only after successful compilation/execution of the graph
         // Get results as references (no need to get them again later if the graph does
         // not change)
-        auto& vres = filteredCollection->input_by_name( "from" ).second->getData<CollectionType>();
-        auto& vop  = generatedOperator->input_by_name( "from" ).second->getData<std::string>();
+        auto& vres = filteredCollection->input_by_name( "from" ).second->data<CollectionType>();
+        auto& vop  = generatedOperator->input_by_name( "from" ).second->data<std::string>();
 
         REQUIRE( vop == "true" );
         REQUIRE( vres.size() == testVector.size() );
 
         // change operator to filter out everything
-        inputOpName->setData( "false" );
+        inputOpName->set_data( "false" );
 
         REQUIRE( g->execute() );
         REQUIRE( vop == "false" );
         REQUIRE( vres.size() == 0 );
 
         // Change operator to keep element less than threshold
-        inputOpName->setData( "<" );
+        inputOpName->set_data( "<" );
 
         REQUIRE( g->execute() );
 
-        REQUIRE( *( std::max_element( vres.begin(), vres.end() ) ) < *inputThreshold->getData() );
+        REQUIRE( *( std::max_element( vres.begin(), vres.end() ) ) < *inputThreshold->data() );
 
         // Change operator to keep element greater than threshold
-        inputOpName->setData( ">" );
+        inputOpName->set_data( ">" );
         REQUIRE( g->execute() );
-        REQUIRE( *( std::max_element( vres.begin(), vres.end() ) ) > *inputThreshold->getData() );
+        REQUIRE( *( std::max_element( vres.begin(), vres.end() ) ) > *inputThreshold->data() );
     }
     SECTION( "Serialization of a custom graph" ) {
         // Create and fill the factory for the custom nodes

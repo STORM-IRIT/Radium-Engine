@@ -35,7 +35,7 @@ TEST_CASE( "Dataflow/Core/GraphAsNode/Delta", "[unittests][Dataflow][Core][Graph
     auto forwardB = gAsNode->add_node<Functionals::FunctionNode<Scalar>>( "b" );
     auto forwardC = gAsNode->add_node<Functionals::FunctionNode<Scalar>>( "c" );
 
-    b2minus4ac->port_out_result()->setName( "delta" );
+    b2minus4ac->port_out_result()->set_name( "delta" );
 
     REQUIRE( !gAsNode->input_node() );
     REQUIRE( !gAsNode->output_node() );
@@ -53,10 +53,10 @@ TEST_CASE( "Dataflow/Core/GraphAsNode/Delta", "[unittests][Dataflow][Core][Graph
     REQUIRE( gAsNode->inputs().size() == 0 );
     REQUIRE( gAsNode->outputs().size() == 0 );
 
-    gAsNode->input_node()->input_by_index( inputA )->setName( "a" );
-    gAsNode->input_node()->input_by_index( inputB )->setName( "b" );
-    gAsNode->input_node()->input_by_index( inputC )->setName( "c" );
-    gAsNode->output_node()->output_by_index( output )->setName( "delta" );
+    gAsNode->input_node()->input_by_index( inputA )->set_name( "a" );
+    gAsNode->input_node()->input_by_index( inputB )->set_name( "b" );
+    gAsNode->input_node()->input_by_index( inputC )->set_name( "c" );
+    gAsNode->output_node()->output_by_index( output )->set_name( "delta" );
 
     REQUIRE( gAsNode->add_link( forwardB->port_out_result(), b2->port_in_data() ) );
     REQUIRE( gAsNode->add_link( forwardA->port_out_result(), fourAC->port_in_a() ) );
@@ -84,14 +84,14 @@ TEST_CASE( "Dataflow/Core/GraphAsNode/Delta", "[unittests][Dataflow][Core][Graph
     REQUIRE( g.add_link( sourceNodeC->port_out_to().get(), gAsNode->input_by_index( inputC ) ) );
     REQUIRE( g.add_link( gAsNode->output_by_index( output ), resultNode->port_in_from().get() ) );
 
-    sourceNodeA->setData( 1 );
-    sourceNodeB->setData( 2 );
-    sourceNodeC->setData( 3 );
+    sourceNodeA->set_data( 1 );
+    sourceNodeB->set_data( 2 );
+    sourceNodeC->set_data( 3 );
 
     REQUIRE( g.compile() );
     REQUIRE( g.execute() );
 
-    auto& result = resultNode->getDataByRef();
+    auto& result = resultNode->dataByRef();
     REQUIRE( result == -8 );
 }
 
@@ -160,7 +160,7 @@ TEST_CASE( "Dataflow/Core/GraphAsNode/Forward", "[unittests][Dataflow][Core][Gra
     REQUIRE( g.add_link( sourceNodeA->port_out_to().get(), gAsNode->input_by_index( 0 ) ) );
     REQUIRE( g.add_link( gAsNode->output_by_index( 0 ), resultNode->port_in_from().get() ) );
 
-    sourceNodeA->setData( 2 );
+    sourceNodeA->set_data( 2 );
 
     SECTION( "Serialization" ) {
 
@@ -185,8 +185,8 @@ TEST_CASE( "Dataflow/Core/GraphAsNode/Forward", "[unittests][Dataflow][Core][Gra
             auto g1_resultNode = std::dynamic_pointer_cast<Sink>( g1.node( "r" ) );
             REQUIRE( g1_resultNode );
 
-            REQUIRE( g1_sourceNodeA->getData() );
-            REQUIRE( *g1_sourceNodeA->getData() == 2 );
+            REQUIRE( g1_sourceNodeA->data() );
+            REQUIRE( *g1_sourceNodeA->data() == 2 );
         }
     }
 

@@ -96,8 +96,8 @@ void FilterNode<coll_t, v_t>::init() {
 
 template <typename coll_t, typename v_t>
 bool FilterNode<coll_t, v_t>::execute() {
-    const auto& f      = m_port_in_predicate->getData();
-    const auto& inData = m_port_in_data->getData();
+    const auto& f      = m_port_in_predicate->data();
+    const auto& inData = m_port_in_data->data();
     m_result.clear();
     // since we do not know how many inData respect the predicate, do not reserve m_result
     std::copy_if( inData.begin(), inData.end(), std::back_inserter( m_result ), f );

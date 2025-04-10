@@ -46,8 +46,8 @@ FunctionNode<Input, Output>::FunctionNode( const std::string& instanceName, Func
 
 template <typename Input, typename Output>
 bool FunctionNode<Input, Output>::execute() {
-    const auto& f = m_port_in_op->getData();
-    const auto& x = m_port_in_data->getData();
+    const auto& f = m_port_in_op->data();
+    const auto& x = m_port_in_data->data();
 
     m_result = f( x );
 

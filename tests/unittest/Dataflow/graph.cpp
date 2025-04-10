@@ -32,16 +32,16 @@ void inspectGraph( const DataflowGraph& g ) {
         // Inspect input, output and interfaces of the node
         std::cout << "\t\tInput ports :\n";
         for ( const auto& p : n->inputs() ) {
-            std::cout << "\t\t\t\"" << p->getName() << "\" with type " << p->getTypeName();
+            std::cout << "\t\t\t\"" << p->name() << "\" with type " << p->port_typename();
             if ( p->isLinked() ) {
                 std::cout << " linked to " << p->getLink()->node()->display_name() << " "
-                          << p->getLink()->getName();
+                          << p->getLink()->name();
             }
             std::cout << "\n";
         }
         std::cout << "\t\tOutput ports :\n";
         for ( const auto& p : n->outputs() ) {
-            std::cout << "\t\t\t\"" << p->getName() << "\" with type " << p->getTypeName();
+            std::cout << "\t\t\t\"" << p->name() << "\" with type " << p->port_typename();
             std::cout << "\n";
         }
     }
@@ -64,13 +64,13 @@ void inspectGraph( const DataflowGraph& g ) {
     const auto& inputs = g.inputs();
     std::cout << "\tInput ports (" << inputs.size() << ") are :\n";
     for ( const auto& inp : inputs ) {
-        std::cout << "\t\t\"" << inp->getName() << "\" accepting type \"" << inp->getTypeName()
+        std::cout << "\t\t\"" << inp->name() << "\" accepting type \"" << inp->port_typename()
                   << "\"\n";
     }
     const auto& outputs = g.outputs();
     std::cout << "\tOutput ports (" << outputs.size() << ") are :\n";
     for ( const auto& outp : outputs ) {
-        std::cout << "\t\t\"" << outp->getName() << "\" accepting type \"" << outp->getTypeName()
+        std::cout << "\t\t\"" << outp->name() << "\" accepting type \"" << outp->port_typename()
                   << "\"\n";
     }
 
@@ -363,7 +363,7 @@ TEST_CASE( "Dataflow/Core/Graph/Node failed execution", "[unittests]" ) {
 }
 
 TEST_CASE( "Dataflow/Core/Graph/Inspection of a graph", "[unittests]" ) {
-    auto coreFactory = NodeFactoriesManager::getDataFlowBuiltInsFactory();
+    auto coreFactory = NodeFactoriesManager::dataFlowBuiltInsFactory();
 
     using namespace Ra::Dataflow::Core;
 

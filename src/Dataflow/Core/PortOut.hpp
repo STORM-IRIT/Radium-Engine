@@ -29,13 +29,13 @@ class RA_DATAFLOW_CORE_API PortBaseOut : public PortBase
     /// Get data stored at this outpute port
     /// Check if this port type it the same as T
     template <typename T>
-    T& getData();
+    T& data();
 
     /// Set port data pointer.
     /// Check if this port type it the same as T
     /// @param data The pointer to the data.
     template <typename T>
-    void setData( T* data );
+    void set_data( T* data );
 
     // called by PortIn when connect
     virtual void increaseLinkCount() {
@@ -94,12 +94,12 @@ class PortOut : public PortBaseOut
     /// @}
 
     /// Gets a reference to the data this ports points to.
-    T& getData() { return *m_data; }
+    T& data() { return *m_data; }
     /// Takes a pointer to the data this port will point to.
     /// @param data The pointer to the data.
-    void setData( T* data ) { m_data = data; }
+    void set_data( T* data ) { m_data = data; }
     /// Returns true if the pointer to the data is not null.
-    bool hasData() override { return ( m_data ); }
+    bool has_data() override { return ( m_data ); }
 
   private:
     /** Port's data pointer.
@@ -119,29 +119,29 @@ using PortBaseOutRawPtr = PortRawPtr<PortBaseOut>;
 using PortBaseOutPtr    = PortPtr<PortBaseOut>;
 
 template <typename T>
-T& PortBaseOut::getData() {
+T& PortBaseOut::data() {
     auto thisOut = dynamic_cast<PortOut<T>*>( this );
-    if ( thisOut ) { return thisOut->getData(); }
+    if ( thisOut ) { return thisOut->data(); }
 
     using namespace Ra::Core::Utils;
     LOG( Ra::Core::Utils::logERROR )
-        << "Unable to get data with type " << simplifiedDemangledType<T>() << " on port "
-        << getName() << " which expect " << getTypeName() << ".\n";
+        << "Unable to get data with type " << simplifiedDemangledType<T>() << " on port " << name()
+        << " which expect " << port_typename() << ".\n";
     std::abort();
 }
 
 template <typename T>
-void PortBaseOut::setData( T* data ) {
+void PortBaseOut::set_data( T* data ) {
     auto thisOut = dynamic_cast<PortOut<T>*>( this );
     if ( thisOut ) {
-        thisOut->setData( data );
+        thisOut->set_data( data );
         return;
     }
 
     using namespace Ra::Core::Utils;
     LOG( Ra::Core::Utils::logERROR )
         << "Unable to set data with type " << simplifiedDemangledType( *data ) << " on port "
-        << getName() << " which expect " << getTypeName() << ".\n";
+        << name() << " which expect " << port_typename() << ".\n";
     std::abort();
 }
 

@@ -94,9 +94,9 @@ void DataflowGraph::toJsonInternal( nlohmann::json& data ) const {
                     }
 
                     link["out_node"] = nodeOut->instance_name();
-                    link["out_port"] = portOut->getName();
+                    link["out_port"] = portOut->name();
                     link["in_node"]  = n->instance_name();
-                    link["in_port"]  = input->getName();
+                    link["in_port"]  = input->name();
                     connections.push_back( link );
                 }
             }
@@ -152,14 +152,14 @@ getLinkInfo( const std::string& which,
     field = which + "_port";
     if ( linkData.contains( field ) ) {
         auto p = node->port_by_name( which, linkData[field] ).second;
-        if ( p != nullptr ) { port = p->getName(); }
+        if ( p != nullptr ) { port = p->name(); }
         else { err = linkData[field]; }
     }
     else {
         field = which + "_index";
         if ( linkData.contains( field ) ) {
             auto p = node->port_by_index( which, Node::PortIndex { int { linkData[field] } } );
-            if ( p != nullptr ) { port = p->getName(); }
+            if ( p != nullptr ) { port = p->name(); }
             else { err = std::to_string( int { linkData[field] } ); }
         }
     }
@@ -283,7 +283,7 @@ bool DataflowGraph::are_ports_compatible( const Node* nodeFrom,
                                           const Node* nodeTo,
                                           const PortBaseIn* portIn ) {
     // Compare types
-    if ( !( portIn->getType() == portOut->getType() ) ) {
+    if ( !( portIn->type() == portOut->type() ) ) {
         Log::link_type_mismatch( nodeFrom, portOut, nodeTo, portIn );
         return false;
     }
@@ -650,7 +650,7 @@ bool DataflowGraph::are_nodes_valids( const Node* nodeFrom,
 void DataflowGraph::Log::already_linked( const Node* node, const PortBase* port ) {
     LOG( logERROR )
         << "DataflowGraph::add_link destination port not available (already linked) for "
-        << node->instance_name() << " (" << node->model_name() << "), port " << port->getName();
+        << node->instance_name() << " (" << node->model_name() << "), port " << port->name();
 }
 
 void DataflowGraph::Log::link_type_mismatch( const Node* nodeFrom,
@@ -658,10 +658,10 @@ void DataflowGraph::Log::link_type_mismatch( const Node* nodeFrom,
                                              const Node* nodeTo,
                                              const PortBase* portIn ) {
     LOG( logERROR ) << "DataflowGraph link type mismatch from " << nodeFrom->display_name() << " ("
-                    << nodeFrom->model_name() << ") / " << portOut->getName() << " with type "
-                    << portOut->getTypeName() << ")"
+                    << nodeFrom->model_name() << ") / " << portOut->name() << " with type "
+                    << portOut->port_typename() << ")"
                     << " to " << nodeTo->display_name() << " (" << nodeTo->model_name() << ") / "
-                    << portIn->getName() << " ( with type " << portIn->getTypeName() << ") ";
+                    << portIn->name() << " ( with type " << portIn->port_typename() << ") ";
 }
 
 void DataflowGraph::Log::unable_to_find( const std::string& type,

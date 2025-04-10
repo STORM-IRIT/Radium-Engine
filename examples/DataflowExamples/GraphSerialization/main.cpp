@@ -76,10 +76,10 @@ int main( int argc, char* argv[] ) {
         }
         //! [Verifing the graph can be compiled]
 
-        sourceNode->setData( test );
+        sourceNode->set_data( test );
         std::cout << "Executing the initial graph ...\n";
         g.execute();
-        VectorType result = storeNode->getData();
+        VectorType result = storeNode->data();
 
         std::cout << "Output values : \n\t";
         for ( auto v : result ) {
@@ -117,7 +117,7 @@ int main( int argc, char* argv[] ) {
     //! [Print the output result]
     auto output = g1.output_node_port( "Store", "data" );
 
-    VectorType result = output->getData<VectorType>();
+    VectorType result = output->data<VectorType>();
 
     std::cout << "Output values : \n\t";
     for ( auto v : result ) {
@@ -140,7 +140,7 @@ int main( int argc, char* argv[] ) {
     //! [Execute the graph]
     std::cout << "Executing the re-parameterized graph ...\n";
     g1.execute();
-    result = output->getData<VectorType>();
+    result = output->data<VectorType>();
     std::cout << "Output values : \n\t";
     for ( auto v : result ) {
         std::cout << v << ' ';

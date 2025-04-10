@@ -250,7 +250,7 @@ RA_DATAFLOW_CORE_API auto unregisterFactory( const NodeFactorySet::key_type& nam
  * \brief Gets the factory for nodes exported by the Core dataflow library.
  * \return
  */
-RA_DATAFLOW_CORE_API auto getDataFlowBuiltInsFactory() -> NodeFactorySet::mapped_type;
+RA_DATAFLOW_CORE_API auto dataFlowBuiltInsFactory() -> NodeFactorySet::mapped_type;
 } // namespace NodeFactoriesManager
 
 // -----------------------------------------------------------------

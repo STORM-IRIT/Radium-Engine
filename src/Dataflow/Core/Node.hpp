@@ -480,7 +480,7 @@ template <typename PortType>
 auto Node::port_by_name( const PortCollection<PortPtr<PortType>>& ports,
                          const std::string& name ) const -> IndexAndPort<PortRawPtr<PortType>> {
     auto itr = std::find_if(
-        ports.begin(), ports.end(), [n = name]( const auto& p ) { return p->getName() == n; } );
+        ports.begin(), ports.end(), [n = name]( const auto& p ) { return p->name() == n; } );
     PortRawPtr<PortType> port { nullptr };
     PortIndex portIndex;
     if ( itr != ports.cend() ) {

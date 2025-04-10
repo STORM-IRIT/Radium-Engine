@@ -46,7 +46,7 @@ TEST_CASE( "Dataflow/Core/DataflowGraph/Serialization",
         b->setDefaultValue( y );
         // Execute initial graph";
         REQUIRE( g.execute() );
-        auto z = r->getData<DataType>();
+        auto z = r->data<DataType>();
         REQUIRE( z == x + y );
 
         // Save the graph
@@ -73,7 +73,7 @@ TEST_CASE( "Dataflow/Core/DataflowGraph/Serialization",
         // Data delivered by the source nodes are the one saved by the original graph
         REQUIRE( g1.execute() );
         auto r_loaded  = g1.output_node_port( "r", "data" );
-        auto& z_loaded = r_loaded->getData<DataType>();
+        auto& z_loaded = r_loaded->data<DataType>();
         REQUIRE( z_loaded == z );
 
         auto a_loaded = g1.input_node_port( "a", "from" );
@@ -89,7 +89,7 @@ TEST_CASE( "Dataflow/Core/DataflowGraph/Serialization",
         auto loadedSource_a =
             std::dynamic_pointer_cast<Sources::SingleDataSourceNode<DataType>>( g1.node( "a" ) );
         Scalar newX = 3_ra;
-        loadedSource_a->setData( newX );
+        loadedSource_a->set_data( newX );
 
         REQUIRE( g1.execute() );
         REQUIRE( z_loaded == 6 );

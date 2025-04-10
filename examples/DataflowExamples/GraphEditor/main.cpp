@@ -28,7 +28,7 @@ class SquareFunction : public Ra::Dataflow::Core::Sources::FunctionSourceNode<Sc
   public:
     using base = Ra::Dataflow::Core::Sources::FunctionSourceNode<Scalar, const Scalar&>;
     explicit SquareFunction( const std::string& name ) : base( name, node_typename() ) {
-        setData( []( const Scalar& b ) { return b * b; } );
+        set_data( []( const Scalar& b ) { return b * b; } );
     }
     static const std::string& node_typename() {
         static std::string n { "SquareFunction" };
@@ -43,7 +43,7 @@ int main( int argc, char* argv[] ) {
 
     setStyle();
 
-    auto coreFactory = Ra::Dataflow::Core::NodeFactoriesManager::getDataFlowBuiltInsFactory();
+    auto coreFactory = Ra::Dataflow::Core::NodeFactoriesManager::dataFlowBuiltInsFactory();
     // add node creators to the factory
     REGISTER_TYPE_TO_FACTORY( coreFactory, SquareFunction, Sources );
     REGISTER_TYPE_TO_FACTORY( coreFactory, StringInput, Sources );

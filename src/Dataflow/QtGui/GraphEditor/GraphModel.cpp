@@ -297,8 +297,7 @@ GraphModel::portData( NodeId nodeId, PortType portType, PortIndex portIndex, Por
                 auto p = ( portType == PortType::In ) ? n->port_by_index( "in", portIndex )
                                                       : n->port_by_index( "out", portIndex );
 
-                s = QString::fromStdString(
-                    Ra::Core::Utils::simplifiedDemangledType( p->getType() ) );
+                s = QString::fromStdString( Ra::Core::Utils::simplifiedDemangledType( p->type() ) );
             }
             return QVariant::fromValue( QtNodes::NodeDataType { s, s } );
         } break;
@@ -322,7 +321,7 @@ GraphModel::portData( NodeId nodeId, PortType portType, PortIndex portIndex, Por
 
             auto p = ( portType == PortType::In ) ? n->port_by_index( "in", portIndex )
                                                   : n->port_by_index( "out", portIndex );
-            return QString::fromStdString( p->getName() );
+            return QString::fromStdString( p->name() );
         } break;
         }
         return QVariant();
@@ -334,10 +333,9 @@ GraphModel::portData( NodeId nodeId, PortType portType, PortIndex portIndex, Por
         break;
 
     case PortRole::DataType: {
-        auto p = ( portType == PortType::In ) ? n->port_by_index( "in", portIndex )
-                                              : n->port_by_index( "out", portIndex );
-        QString s =
-            QString::fromStdString( Ra::Core::Utils::simplifiedDemangledType( p->getType() ) );
+        auto p    = ( portType == PortType::In ) ? n->port_by_index( "in", portIndex )
+                                                 : n->port_by_index( "out", portIndex );
+        QString s = QString::fromStdString( Ra::Core::Utils::simplifiedDemangledType( p->type() ) );
         return QVariant::fromValue( QtNodes::NodeDataType { s, s } );
     } break;
 
@@ -355,7 +353,7 @@ GraphModel::portData( NodeId nodeId, PortType portType, PortIndex portIndex, Por
     case PortRole::Caption: {
         auto p = ( portType == PortType::In ) ? n->port_by_index( "in", portIndex )
                                               : n->port_by_index( "out", portIndex );
-        return QString::fromStdString( p->getName() );
+        return QString::fromStdString( p->name() );
     } break;
     }
 
@@ -533,8 +531,8 @@ void GraphModel::sync_data() {
                         [out_node]( const auto& pair ) { return pair.second.get() == out_node; } );
                     if ( out_node_itr == m_node_id_to_ptr.end() ) {
                         LOG( Ra::Core::Utils::logERROR )
-                            << "error graph structure out_node, port " << out_port->getName()
-                            << " in node " << in_node->display_name() << " " << in_port->getName();
+                            << "error graph structure out_node, port " << out_port->name()
+                            << " in node " << in_node->display_name() << " " << in_port->name();
                         return;
                     }
 
@@ -549,7 +547,7 @@ void GraphModel::sync_data() {
                         LOG( Ra::Core::Utils::logERROR )
                             << "error graph structure, out node " << out_node->display_name()
                             << " out_port, in node " << in_node->display_name() << " "
-                            << in_port->getName();
+                            << in_port->name();
                         return;
                     }
                     const auto out_port_id =

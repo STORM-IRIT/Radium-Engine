@@ -46,7 +46,7 @@ int main( int argc, char* argv[] ) {
     TransformOperatorSource::function_type doubleMe = []( const Scalar& i ) -> Scalar {
         return 2_ra * i;
     };
-    mapSource->setData( doubleMe );
+    mapSource->set_data( doubleMe );
 
     //! [Adding Nodes to the graph]
 
@@ -80,14 +80,14 @@ int main( int argc, char* argv[] ) {
         std::cout << ord << ' ';
     }
     std::cout << '\n';
-    sourceNode->setData( test );
+    sourceNode->set_data( test );
     //! [Initializing input variable to test the graph]
 
     //! [Execute the graph]
     g.execute();
     // The reference to the result is now available
-    auto& result   = sinkNode->getDataByRef();
-    auto& minValue = scalarSinkNode->getDataByRef();
+    auto& result   = sinkNode->dataByRef();
+    auto& minValue = scalarSinkNode->dataByRef();
     //! [Execute the graph]
 
     //! [Print the output result]

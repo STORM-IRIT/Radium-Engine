@@ -193,7 +193,7 @@ class RA_DATAFLOW_CORE_API DataflowGraph : public Node
 
     /// \brief Gets an output port from a node of the graph.
     /// Allows to get the data stored at this port after the execution of the graph.
-    /// The return port can be use as in port->getData().
+    /// The return port can be use as in port->data().
     /// \note ownership is left to the graph, not shared. The graph must survive the returned
     /// raw pointer to be able to use the dataGetter.
     /// \param nodeNome The name of the node
@@ -381,7 +381,7 @@ inline bool DataflowGraph::can_link( const Node* nodeFrom,
     }
 
     // Compare types
-    return portIn && portOut && ( portIn->getType() == portOut->getType() && !portIn->isLinked() );
+    return portIn && portOut && ( portIn->type() == portOut->type() && !portIn->isLinked() );
 }
 
 inline void DataflowGraph::needs_recompile() {

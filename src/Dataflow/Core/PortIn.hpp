@@ -45,7 +45,7 @@ class RA_DATAFLOW_CORE_API PortBaseIn : public PortBase
     void setDefaultValue( const T& value );
 
     template <typename T>
-    T& getData();
+    T& data();
 
   protected:
     /// Constructor.
@@ -92,14 +92,14 @@ class PortIn : public PortBaseIn,
 
     /// Returns true if the port is linked to an output port that has data or if it has a default
     /// value.
-    bool hasData() override;
+    bool has_data() override;
 
     ///\brief Gets the data pointed by the connected out port.
     ///
     /// It checks if the data is available. If it is not, it returns the default value.
     ///
     ///\return T& The reference to the data.
-    T& getData();
+    T& data();
 
     /// \name Manage the connection with a PortOut.
     /// @{
@@ -118,8 +118,7 @@ class PortIn : public PortBaseIn,
     T& getDefaultValue() { return *m_defaultValue; }
     bool hasDefaultValue() const override { return m_defaultValue.has_value(); }
     void insert( Ra::Core::VariableSet& v ) override {
-        if ( hasDefaultValue() )
-            v.setVariable( getName(), std::reference_wrapper( *m_defaultValue ) );
+        if ( hasDefaultValue() ) v.setVariable( name(), std::reference_wrapper( *m_defaultValue ) );
     }
 
     bool isLinked() const override { return m_from != nullptr; }
@@ -149,7 +148,7 @@ class PortIn : public PortBaseIn,
     template <typename B                                                           = T,
               std::enable_if_t<!std::is_assignable<nlohmann::json, B>::value, int> = true>
     void from_json_impl( const nlohmann::json& data ) {
-        if ( auto it = data.find( "name" ); it != data.end() ) { setName( *it ); }
+        if ( auto it = data.find( "name" ); it != data.end() ) { set_name( *it ); }
     }
     void to_json( nlohmann::json& data ) override {
         PortBase::to_json( data );
@@ -185,13 +184,13 @@ void PortBaseIn::setDefaultValue( const T& value ) {
 }
 
 template <typename T>
-T& PortBaseIn::getData() {
-    return static_cast<PortIn<T>*>( this )->getData();
+T& PortBaseIn::data() {
+    return static_cast<PortIn<T>*>( this )->data();
 }
 
 template <typename T>
-T& PortIn<T>::getData() {
-    if ( isLinked() ) return m_from->getData();
+T& PortIn<T>::data() {
+    if ( isLinked() ) return m_from->data();
     if ( m_defaultValue ) return *m_defaultValue;
     CORE_ASSERT( false, "should not get here" );
     using namespace Ra::Core::Utils;
@@ -200,8 +199,8 @@ T& PortIn<T>::getData() {
 }
 
 template <typename T>
-inline bool PortIn<T>::hasData() {
-    if ( isLinked() ) { return m_from->hasData(); }
+inline bool PortIn<T>::has_data() {
+    if ( isLinked() ) { return m_from->has_data(); }
     return m_defaultValue.has_value();
 }
 
@@ -221,7 +220,7 @@ bool PortIn<T>::connect( PortBaseOut* portOut ) {
         m_from = static_cast<PortOut<T>*>( portOut );
         m_from->increaseLinkCount();
         // notify after connect
-        this->notify( getName(), *this, true );
+        this->notify( name(), *this, true );
     }
     return ( m_from );
 }
@@ -232,7 +231,7 @@ bool PortIn<T>::connect( PortOut<T>* portOut ) {
         m_from = portOut;
         m_from->increaseLinkCount();
         // notify after connect
-        this->notify( getName(), *this, true );
+        this->notify( name(), *this, true );
     }
     return ( m_from );
 }
@@ -242,7 +241,7 @@ bool PortIn<T>::disconnect() {
     if ( m_from ) {
         // notify before disconnect
         m_from->decreaseLinkCount();
-        this->notify( getName(), *this, false );
+        this->notify( name(), *this, false );
         m_from = nullptr;
         return true;
     }

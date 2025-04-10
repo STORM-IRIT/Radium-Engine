@@ -30,12 +30,12 @@ class SinkNode : public Node
      * Get the delivered data
      * @return a copy of the delivered data.
      */
-    T getData() const;
+    T data() const;
     /**
      * Get the delivered data
      * @return a const ref to the delivered data.
      */
-    const T& getDataByRef() const;
+    const T& dataByRef() const;
 
   protected:
     /// \todo why are these empty ?
@@ -66,21 +66,21 @@ void SinkNode<T>::init() {
 
 template <typename T>
 bool SinkNode<T>::execute() {
-    if ( m_port_in_from->hasData() ) {
-        m_port_out_data->setData( &m_port_in_from->getData() );
+    if ( m_port_in_from->has_data() ) {
+        m_port_out_data->set_data( &m_port_in_from->data() );
         return true;
     }
     return false;
 }
 
 template <typename T>
-T SinkNode<T>::getData() const {
-    return m_port_out_data->getData();
+T SinkNode<T>::data() const {
+    return m_port_out_data->data();
 }
 
 template <typename T>
-const T& SinkNode<T>::getDataByRef() const {
-    return m_port_out_data->getData();
+const T& SinkNode<T>::dataByRef() const {
+    return m_port_out_data->data();
 }
 
 template <typename T>

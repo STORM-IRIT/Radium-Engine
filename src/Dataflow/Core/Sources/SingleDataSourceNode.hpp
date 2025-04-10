@@ -40,13 +40,13 @@ class SingleDataSourceNode : public Node
      * Sets port_in_from default value and port_out_to data points to port_in_from
      * @param data
      */
-    void setData( T data );
+    void set_data( T data );
 
     /**
      * \brief Get the delivered data
      * @return The non owning pointer (alias) to the delivered data.
      */
-    T* getData() const;
+    T* data() const;
 
   protected:
     bool fromJsonInternal( const nlohmann::json& data ) override {
@@ -73,25 +73,25 @@ SingleDataSourceNode<T>::SingleDataSourceNode( const std::string& instanceName,
                                                const std::string& typeName ) :
     Node( instanceName, typeName ) {
     m_port_in_from->setDefaultValue( T {} );
-    m_port_out_to->setData( &m_port_in_from->getData() );
+    m_port_out_to->set_data( &m_port_in_from->data() );
 }
 
 template <typename T>
 bool SingleDataSourceNode<T>::execute() {
     // update ouput in case input has changed (if not default value))
-    m_port_out_to->setData( &m_port_in_from->getData() );
+    m_port_out_to->set_data( &m_port_in_from->data() );
     return true;
 }
 
 template <typename T>
-void SingleDataSourceNode<T>::setData( T data ) {
+void SingleDataSourceNode<T>::set_data( T data ) {
     m_port_in_from->setDefaultValue( std::move( data ) );
-    m_port_out_to->setData( &m_port_in_from->getData() );
+    m_port_out_to->set_data( &m_port_in_from->data() );
 }
 
 template <typename T>
-T* SingleDataSourceNode<T>::getData() const {
-    return &( m_port_in_from->getData() );
+T* SingleDataSourceNode<T>::data() const {
+    return &( m_port_in_from->data() );
 }
 
 template <typename T>

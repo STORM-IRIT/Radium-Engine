@@ -33,8 +33,8 @@ class RA_DATAFLOW_CORE_API GraphNode : public Node
 
         for ( size_t i = 0; i < m_inputs.size(); ++i ) {
             auto factory       = PortFactory::getInstance();
-            auto output_setter = factory->output_setter( m_outputs[i]->getType() );
-            auto input_getter  = factory->input_getter( m_inputs[i]->getType() );
+            auto output_setter = factory->output_setter( m_outputs[i]->type() );
+            auto input_getter  = factory->input_getter( m_inputs[i]->type() );
             output_setter( m_outputs[i].get(), input_getter( m_inputs[i].get() ) );
         }
         return true;
@@ -63,10 +63,10 @@ class RA_DATAFLOW_CORE_API GraphNode : public Node
   protected:
     auto add_ports( PortBaseRawPtr port ) {
         auto factory  = PortFactory::getInstance();
-        auto in_name  = find_available_name( "in", port->getName() );
-        auto in       = factory->make_input_port( this, in_name, port->getType() );
-        auto out_name = find_available_name( "out", port->getName() );
-        auto out      = factory->make_output_port( this, out_name, port->getType() );
+        auto in_name  = find_available_name( "in", port->name() );
+        auto in       = factory->make_input_port( this, in_name, port->type() );
+        auto out_name = find_available_name( "out", port->name() );
+        auto out      = factory->make_output_port( this, out_name, port->type() );
         if ( in && out ) {
             auto input_idx  = add_input( in );
             auto output_idx = add_output( out );

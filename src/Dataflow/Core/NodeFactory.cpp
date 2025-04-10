@@ -94,7 +94,7 @@ auto unregisterFactory( const NodeFactorySet::key_type& name ) -> bool {
     return getFactoryManager().removeFactory( name );
 }
 
-auto getDataFlowBuiltInsFactory() -> NodeFactorySet::mapped_type {
+auto dataFlowBuiltInsFactory() -> NodeFactorySet::mapped_type {
     return getFactory( getFactoryManager().default_factory_name() );
 }
 

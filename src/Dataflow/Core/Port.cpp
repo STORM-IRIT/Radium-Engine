@@ -10,7 +10,7 @@ namespace Core {
 class Node;
 
 bool PortBaseIn::accept( PortBaseOut* portOut ) const {
-    return portOut->getType() == getType();
+    return portOut->type() == type();
 }
 
 PortBaseIn::PortBaseIn( Node* node, const std::string& name, std::type_index type ) :

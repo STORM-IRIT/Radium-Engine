@@ -31,13 +31,13 @@ class FunctionSourceNode : public Node
     /** \brief Set the function to be delivered by the node.
      * @param data
      */
-    void setData( function_type data );
+    void set_data( function_type data );
 
     /**
      * \brief Get the delivered data
      * @return The non owning pointer (alias) to the delivered data.
      */
-    function_type* getData() const;
+    function_type* data() const;
 
   protected:
     FunctionSourceNode( const std::string& instanceName, const std::string& typeName );
@@ -62,7 +62,7 @@ FunctionSourceNode<R, Args...>::FunctionSourceNode( const std::string& instanceN
                                                     const std::string& typeName ) :
     Node( instanceName, typeName ) {
     m_port_in_from->setDefaultValue( []( Args... ) { return R {}; } );
-    m_port_out_to->setData( &m_port_in_from->getData() );
+    m_port_out_to->set_data( &m_port_in_from->data() );
 }
 
 template <class R, class... Args>
@@ -71,15 +71,15 @@ bool FunctionSourceNode<R, Args...>::execute() {
 }
 
 template <class R, class... Args>
-void FunctionSourceNode<R, Args...>::setData( function_type data ) {
+void FunctionSourceNode<R, Args...>::set_data( function_type data ) {
     m_port_in_from->setDefaultValue( std::move( data ) );
-    m_port_out_to->setData( &m_port_in_from->getData() );
+    m_port_out_to->set_data( &m_port_in_from->data() );
 }
 
 template <class R, class... Args>
 typename FunctionSourceNode<R, Args...>::function_type*
-FunctionSourceNode<R, Args...>::getData() const {
-    return m_port_in_from->getData();
+FunctionSourceNode<R, Args...>::data() const {
+    return m_port_in_from->data();
 }
 
 template <class R, class... Args>

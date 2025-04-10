@@ -147,22 +147,22 @@ class NodeEditorDialog : public QDialog
         int row     = 2;
 
         for ( auto p : node->inputs() ) {
-            auto l = new QLineEdit( QString::fromStdString( p->getName() ) );
+            auto l = new QLineEdit( QString::fromStdString( p->name() ) );
             data_editors.emplace_back(
-                l, [p]( const QString& text ) { p->setName( text.toStdString() ); } );
+                l, [p]( const QString& text ) { p->set_name( text.toStdString() ); } );
 
-            layout->addWidget( new QLabel( QString::fromStdString( p->getName() ) ), row, 0 );
+            layout->addWidget( new QLabel( QString::fromStdString( p->name() ) ), row, 0 );
             layout->addWidget( l, row, 1 );
 
             ++row;
         }
         row = 2;
         for ( auto p : node->outputs() ) {
-            auto l = new QLineEdit( QString::fromStdString( p->getName() ) );
+            auto l = new QLineEdit( QString::fromStdString( p->name() ) );
             data_editors.emplace_back(
-                l, [p]( const QString& text ) { p->setName( text.toStdString() ); } );
+                l, [p]( const QString& text ) { p->set_name( text.toStdString() ); } );
 
-            layout->addWidget( new QLabel( QString::fromStdString( p->getName() ) ), row, 2 );
+            layout->addWidget( new QLabel( QString::fromStdString( p->name() ) ), row, 2 );
             layout->addWidget( l, row, 3 );
 
             ++row;

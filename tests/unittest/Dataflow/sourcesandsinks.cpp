@@ -37,11 +37,11 @@ void testGraph( const std::string& name, T in, T& out ) {
 
     g->execute();
 
-    T r = output->getData<T>();
+    T r = output->data<T>();
     std::cout << "Getting a " << simplifiedDemangledType( r ) << " from interface port ... ";
     out = r;
 
-    source->setData( in );
+    source->set_data( in );
 
     nlohmann::json graphData;
     g->toJson( graphData );
