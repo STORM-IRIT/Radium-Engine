@@ -97,7 +97,9 @@ class RA_DATAFLOW_CORE_API Node
 
     /// \name Function execution control
     /// @{
-    /** \brief Initializes the node content.
+    /**
+     * \brief Initializes the node content.
+     *
      * The init() function should be called once at the beginning of the lifetime of the node by
      * the owner of the node (the graph which contains the node).
      * Its goal is to initialize the node's internal data if any.
@@ -105,21 +107,27 @@ class RA_DATAFLOW_CORE_API Node
      */
     virtual void init();
 
-    /** \brief Compile the node to check its validity.
+    /**
+     *\brief Compile the node to check its validity.
+     *
      * Only nodes defining a full computation graph will need to override this method.
      * The base version do nothing.
      * \return the compilation status
      */
     virtual bool compile();
 
-    /** \brief Executes the node.
+    /**
+     * \brief Executes the node.
+     *
      * Execute the node function on the input ports (to be fetched) and write the results to the
      * output ports.
      * \return the execution status.
      */
     virtual bool execute() = 0;
 
-    /** \brief delete the node content
+    /**
+     * \brief Delete the node's content.
+     *
      * The destroy() function is called once at the end of the lifetime of the node.
      * Its goal is to free the internal data that have been allocated.
      */
@@ -129,7 +137,9 @@ class RA_DATAFLOW_CORE_API Node
     /// \name Control the interfaces of the nodes (inputs, outputs, internal data, ...)
     /// @{
 
-    /** \brief Get a port by its name
+    /**
+     * \brief Get a port by its name
+     *
      * \param type either "in" or "out", the directional type of the port
      * \param name
      * \return the index to access the port and a raw ptr to the port.
@@ -144,6 +154,7 @@ class RA_DATAFLOW_CORE_API Node
 
     /**
      * \brief Get a port by its index
+     *
      * \param type either "in" or "out", the directional type of the port
      * \param index Index of the port \in [0 get(Inputs|Output).size()[
      * \return a raw pointer on the requested port if it exists, nullptr else
@@ -166,41 +177,53 @@ class RA_DATAFLOW_CORE_API Node
 
     /**
      * \brief Gets the in ports of the node.
+     *
      * Input ports are own by the node.
      */
     const PortBaseInCollection& inputs() const;
 
     /**
      * \brief Gets the out ports of the node.
+     *
      * Output ports are own by the node.
      */
     const PortBaseOutCollection& outputs() const;
 
     /// \name Identification methods
     /// @{
+
     /// \brief Gets the model (type/class) name of the node.
     const std::string& model_name() const;
+    /// \brief Gets the display name of the node (e.g. for gui), no need to be unique in a graph.
     const std::string& display_name() const { return m_display_name; }
+    /// \brief Set the display name.
     void set_display_name( const std::string& name ) { m_display_name = name; }
 
     /// \brief Gets the instance name of the node.
     const std::string& instance_name() const;
 
-    /// \brief Sets the instance name (rename) the node (unused?)
+    /// \brief Sets the instance name the node (unused?) instance name must be unique in a graph.
     void set_instance_name( const std::string& name );
 
     /// @}
 
     /// \name Serialization of a node
     /// @{
-    /// \todo : specify the json format for nodes and what is expected from the following methods
-    /// \todo : use standardize json serialization
-    /// \brief serialize the content of the node.
-    /// Fill the given json object with the json representation of the concrete node.
+    /// \todo specify the json format for nodes and what is expected from the following methods
+    /// \todo use standardize json serialization
+
+    /**
+     * \brief serialize the content of the node.
+     *
+     * Fill the given json object with the json representation of the concrete node.
+     */
     void toJson( nlohmann::json& data ) const;
 
-    /// \brief unserialized the content of the node.
-    /// Fill the node from its json representation
+    /**
+     * \brief unserialized the content of the node.
+     *
+     * Fill the node from its json representation.
+     */
     bool fromJson( const nlohmann::json& data );
 
     /// @}

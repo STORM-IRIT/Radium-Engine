@@ -19,12 +19,6 @@ namespace Core {
 /**
  * \brief Represent a set of connected nodes that define a Direct Acyclic Computational Graph
  * Ownership of nodes is given to the graph at construction time.
- * \todo make a "graph embedding node" that allow to seemlesly integrate a graph as a node in
- * another graph
- *      --> Edition of a graph will allow loading and saving to a file directly
- *      --> Edition of an embeded graph will defer loading and saving to the parent graph
- *          --> for this, need to decide if a subgraph is stored in the json of its parent or in
- * a separate file
  */
 class RA_DATAFLOW_CORE_API DataflowGraph : public Node
 {
@@ -39,14 +33,21 @@ class RA_DATAFLOW_CORE_API DataflowGraph : public Node
     bool execute() override;
     void destroy() override;
 
-    /// \brief Loads nodes and links from a JSON file.
-    /// \param jsonFilePath The path to the JSON file.
-    /// \return true if the file was loaded, false if an error occurs.
+    /**
+     * \brief Loads nodes and links from a JSON file.
+     *
+     * \param jsonFilePath The path to the JSON file.
+     * \return true if the file was loaded, false if an error occurs.
+     */
     bool loadFromJson( const std::string& jsonFilePath );
 
-    /// \brief Saves nodes and links to a JSON file.
-    /// \param jsonFilePath The path to the JSON file.
+    /**
+     * \brief Saves nodes and links to a JSON file.
+     *
+     * \param jsonFilePath The path to the JSON file.
+     */
     void saveToJson( const std::string& jsonFilePath );
+
     /**
      * \brief Adds a node to the graph.
      *
@@ -91,7 +92,7 @@ class RA_DATAFLOW_CORE_API DataflowGraph : public Node
     /// Convenience alias using port raw ptr, checks if ports' nodes are in the graph.
     bool add_link( Node::PortBaseOutRawPtr outputPort, Node::PortBaseInRawPtr inputPort );
 
-    /// Convenience alias strongly typed
+    /// Convenience typed alias
     template <typename T, typename U>
     bool add_link( const std::shared_ptr<PortOut<T>>& outputPort,
                    const std::shared_ptr<PortIn<U>>& inputPort );
@@ -176,36 +177,31 @@ class RA_DATAFLOW_CORE_API DataflowGraph : public Node
     /// update)
     inline void needs_recompile();
 
-    /// \brief Gets an input port form a node of the graph.
-    /// Return the port if exists.
-    /// This input port could then be used through setter->set_default_value( data ) to set the
-    /// graph input from the data.
-    /// \note The raw pointer is only valid as graph is valid.
-    /// \param nodeNome The name of the node
-    /// \param portName The name of the input port
+    /**
+     * \brief Gets an input port form a node of the graph.
+     *
+     * This input port could then be used through setter->set_default_value( data ) to set the
+     * graph input from the data.
+     * \note The raw pointer is only valid as graph is valid.
+     * \param nodeNome The name of the node
+     * \param portName The name of the input port
+     * \return the port if exists, nullptr otherwise.
+     */
     Node::PortBaseInRawPtr input_node_port( const std::string& nodeName,
-                                            const std::string& portName ) {
-        auto n = node( nodeName );
-        auto p = n->input_by_name( portName );
-        CORE_ASSERT( p.first.isValid(), "invalid port, node: " + nodeName + " port: " + portName );
-        return p.second;
-    }
-
-    /// \brief Gets an output port from a node of the graph.
-    /// Allows to get the data stored at this port after the execution of the graph.
-    /// The return port can be use as in port->data().
-    /// \note ownership is left to the graph, not shared. The graph must survive the returned
-    /// raw pointer to be able to use the dataGetter.
-    /// \param nodeNome The name of the node
-    /// \param portName The name of the output port
+                                            const std::string& portName );
+    /**
+     * \brief Gets an output port from a node of the graph.
+     *
+     * Allows to get the data stored at this port after the execution of the graph.
+     * The return port can be use as in port->data().
+     * \note ownership is left to the graph, not shared. The graph must survive the returned
+     * raw pointer to be able to use the dataGetter.
+     * \param nodeNome The name of the node
+     * \param portName The name of the output port
+     * \return the port if exists, nullptr otherwise.
+     */
     Node::PortBaseOutRawPtr output_node_port( const std::string& nodeName,
-                                              const std::string& portName ) {
-        auto n = node( nodeName );
-        auto p = n->output_by_name( portName );
-        CORE_ASSERT( p.first.isValid(), "invalid port, node: " + nodeName + " port: " + portName );
-
-        return p.second;
-    }
+                                              const std::string& portName );
 
     bool shouldBeSaved() { return m_should_save; }
 
@@ -213,9 +209,10 @@ class RA_DATAFLOW_CORE_API DataflowGraph : public Node
 
     /**
      * \brief Load a graph from the given file.
-     * \param filename
+     *
      * Any type of graph that inherits from DataflowGraph can be loaded by this function as soon
      * as the appropriate constructor is registered in Ra::Dataflow::NodeFactoriesManager.
+     * \param filename
      * \return The loaded graph, as a DataFlowGraph pointer to be downcast to the correct type
      */
     static std::shared_ptr<DataflowGraph> loadGraphFromJsonFile( const std::string& filename );
@@ -236,40 +233,46 @@ class RA_DATAFLOW_CORE_API DataflowGraph : public Node
     using Node::add_input;
     using Node::add_output;
 
-    void add_input_output_nodes() {
-        if ( !m_input_node ) { m_input_node = std::make_shared<GraphInputNode>( "input" ); }
-        if ( !m_output_node ) { m_output_node = std::make_shared<GraphOutputNode>( "output" ); }
-        m_input_node->set_graph( this );
-        m_output_node->set_graph( this );
-        add_node( m_input_node );
-        add_node( m_output_node );
-    }
+    /**
+     * \brief Create (if not already created) input/output node of the graph, and fills graph
+     * input/output.
+     *
+     * These nodes are usefull for using graph as node and stating the graph as node input/output
+     * ports.
+     */
+    void add_input_output_nodes();
 
-    // invalidate port indices
-    void remove_unlinked_input_output_ports() {
-        if ( m_input_node ) { m_input_node->remove_unlinked_ports(); }
-        if ( m_output_node ) { m_output_node->remove_unlinked_ports(); }
-        generate_ports();
-    }
+    /**
+     * \brief Removes unsused (unlinked) input/output ports.
+     *
+     * A (e.g. input) port is unlink, if the corresponding ports of input_node is unlink both on
+     * input (outside the graph) and input (inside the graph).
+     * \note invalidate port indices
+     */
+    void remove_unlinked_input_output_ports();
 
     std::shared_ptr<GraphOutputNode> output_node() { return m_output_node; }
     std::shared_ptr<GraphInputNode> input_node() { return m_input_node; }
 
   protected:
-    /** Allow derived class to construct the graph with their own static type
+    /**
+     * \brief Allow derived class to construct the graph with their own static type.
      */
     DataflowGraph( const std::string& instanceName, const std::string& typeName );
 
     bool fromJsonInternal( const nlohmann::json& data ) override;
     void toJsonInternal( nlohmann::json& ) const override;
 
-    /** Check if there node with same instance and model is in the graph.
+    /**
+     * \brief Check if there node with same instance and model is in the graph.
      *
      * \param instance Instance name to search
      * \param model Model name to search
      */
     bool has_node_by_name( const std::string& instance, const std::string& model ) const;
-    /** Check if node is part of the graph, or part of its "inner" graph.
+    /**
+     * \brief Check if node is part of the graph, or part of its "inner" graph.
+     *
      * \param node Raw pointer of the node to find.
      */
     bool contains_node_recursive( const Node* node ) const;
@@ -289,6 +292,8 @@ class RA_DATAFLOW_CORE_API DataflowGraph : public Node
     int traverse_graph( Node* current,
                         std::unordered_map<Node*, std::pair<int, std::vector<Node*>>>& infoNodes );
 
+    /// to allow dynamic creation of ports on input/output nodes, only possible new port is last
+    /// port of the given node.
     bool check_last_port_io_nodes( const Node* nodeFrom,
                                    Node::PortIndex portOutIdx,
                                    const Node* nodeTo,
@@ -387,6 +392,38 @@ inline bool DataflowGraph::can_link( const Node* nodeFrom,
 inline void DataflowGraph::needs_recompile() {
     m_should_save = true;
     m_ready       = false;
+}
+
+inline Node::PortBaseInRawPtr DataflowGraph::input_node_port( const std::string& nodeName,
+                                                              const std::string& portName ) {
+    auto n = node( nodeName );
+    auto p = n->input_by_name( portName );
+    CORE_ASSERT( p.first.isValid(), "invalid port, node: " + nodeName + " port: " + portName );
+    return p.second;
+}
+
+inline Node::PortBaseOutRawPtr DataflowGraph::output_node_port( const std::string& nodeName,
+                                                                const std::string& portName ) {
+    auto n = node( nodeName );
+    auto p = n->output_by_name( portName );
+    CORE_ASSERT( p.first.isValid(), "invalid port, node: " + nodeName + " port: " + portName );
+
+    return p.second;
+}
+
+inline void DataflowGraph::add_input_output_nodes() {
+    if ( !m_input_node ) { m_input_node = std::make_shared<GraphInputNode>( "input" ); }
+    if ( !m_output_node ) { m_output_node = std::make_shared<GraphOutputNode>( "output" ); }
+    m_input_node->set_graph( this );
+    m_output_node->set_graph( this );
+    add_node( m_input_node );
+    add_node( m_output_node );
+}
+
+inline void DataflowGraph::remove_unlinked_input_output_ports() {
+    if ( m_input_node ) { m_input_node->remove_unlinked_ports(); }
+    if ( m_output_node ) { m_output_node->remove_unlinked_ports(); }
+    generate_ports();
 }
 
 inline const std::string& DataflowGraph::node_typename() {
