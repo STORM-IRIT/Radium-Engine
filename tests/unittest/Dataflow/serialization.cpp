@@ -41,9 +41,9 @@ TEST_CASE( "Dataflow/Core/DataflowGraph/Serialization",
 
         // execution of the original graph
         DataType x { 1_ra };
-        a->setDefaultValue( x );
+        a->set_default_value( x );
         DataType y { 2_ra };
-        b->setDefaultValue( y );
+        b->set_default_value( y );
         // Execute initial graph";
         REQUIRE( g.execute() );
         auto z = r->data<DataType>();
@@ -79,9 +79,9 @@ TEST_CASE( "Dataflow/Core/DataflowGraph/Serialization",
         auto a_loaded = g1.input_node_port( "a", "from" );
         auto b_loaded = g1.input_node_port( "b", "from" );
         DataType xp { 2_ra };
-        a_loaded->setDefaultValue( xp );
+        a_loaded->set_default_value( xp );
         DataType yp { 3_ra };
-        b_loaded->setDefaultValue( yp );
+        b_loaded->set_default_value( yp );
         REQUIRE( g1.execute() );
         REQUIRE( z_loaded == 5 );
 

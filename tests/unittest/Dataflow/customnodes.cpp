@@ -49,12 +49,12 @@ class FilterSelector final : public Node
 
   protected:
     bool fromJsonInternal( const nlohmann::json& data ) override {
-        if ( data.contains( "operator" ) ) { m_portName->setDefaultValue( data["operator"] ); }
-        else { m_portName->setDefaultValue( "true" ); }
+        if ( data.contains( "operator" ) ) { m_portName->set_default_value( data["operator"] ); }
+        else { m_portName->set_default_value( "true" ); }
         if ( data.contains( "threshold" ) ) {
-            m_portThreshold->setDefaultValue( data["threshold"] );
+            m_portThreshold->set_default_value( data["threshold"] );
         }
-        else { m_portThreshold->setDefaultValue( {} ); }
+        else { m_portThreshold->set_default_value( {} ); }
         return true;
     }
 

@@ -72,7 +72,7 @@ template <typename T>
 SingleDataSourceNode<T>::SingleDataSourceNode( const std::string& instanceName,
                                                const std::string& typeName ) :
     Node( instanceName, typeName ) {
-    m_port_in_from->setDefaultValue( T {} );
+    m_port_in_from->set_default_value( T {} );
     m_port_out_to->set_data( &m_port_in_from->data() );
 }
 
@@ -85,7 +85,7 @@ bool SingleDataSourceNode<T>::execute() {
 
 template <typename T>
 void SingleDataSourceNode<T>::set_data( T data ) {
-    m_port_in_from->setDefaultValue( std::move( data ) );
+    m_port_in_from->set_default_value( std::move( data ) );
     m_port_out_to->set_data( &m_port_in_from->data() );
 }
 

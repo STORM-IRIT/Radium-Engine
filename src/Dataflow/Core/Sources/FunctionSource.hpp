@@ -61,7 +61,7 @@ template <class R, class... Args>
 FunctionSourceNode<R, Args...>::FunctionSourceNode( const std::string& instanceName,
                                                     const std::string& typeName ) :
     Node( instanceName, typeName ) {
-    m_port_in_from->setDefaultValue( []( Args... ) { return R {}; } );
+    m_port_in_from->set_default_value( []( Args... ) { return R {}; } );
     m_port_out_to->set_data( &m_port_in_from->data() );
 }
 
@@ -72,7 +72,7 @@ bool FunctionSourceNode<R, Args...>::execute() {
 
 template <class R, class... Args>
 void FunctionSourceNode<R, Args...>::set_data( function_type data ) {
-    m_port_in_from->setDefaultValue( std::move( data ) );
+    m_port_in_from->set_default_value( std::move( data ) );
     m_port_out_to->set_data( &m_port_in_from->data() );
 }
 

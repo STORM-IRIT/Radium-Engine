@@ -16,8 +16,8 @@ bool PortBaseIn::accept( PortBaseOut* portOut ) const {
 PortBaseIn::PortBaseIn( Node* node, const std::string& name, std::type_index type ) :
     PortBase( name, type, node ) {}
 
-bool PortBaseIn::isLinkMandatory() const {
-    return !hasDefaultValue();
+bool PortBaseIn::is_link_mandatory() const {
+    return !has_default_value();
 }
 
 PortBaseOut::PortBaseOut( Node* node, const std::string& name, std::type_index type ) :

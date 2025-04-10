@@ -33,9 +33,9 @@ void inspectGraph( const DataflowGraph& g ) {
         std::cout << "\t\tInput ports :\n";
         for ( const auto& p : n->inputs() ) {
             std::cout << "\t\t\t\"" << p->name() << "\" with type " << p->port_typename();
-            if ( p->isLinked() ) {
-                std::cout << " linked to " << p->getLink()->node()->display_name() << " "
-                          << p->getLink()->name();
+            if ( p->is_linked() ) {
+                std::cout << " linked to " << p->link()->node()->display_name() << " "
+                          << p->link()->name();
             }
             std::cout << "\n";
         }

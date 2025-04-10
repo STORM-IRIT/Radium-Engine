@@ -98,8 +98,8 @@ ReduceNode<coll_t, v_t>::ReduceNode( const std::string& instanceName,
 
 template <typename coll_t, typename v_t>
 void ReduceNode<coll_t, v_t>::setOperator( ReduceOperator op, v_t initialValue ) {
-    m_port_in_op->setDefaultValue( op );
-    m_port_in_init->setDefaultValue( initialValue );
+    m_port_in_op->set_default_value( op );
+    m_port_in_init->set_default_value( initialValue );
 }
 
 template <typename coll_t, typename v_t>
@@ -131,8 +131,8 @@ ReduceNode<coll_t, v_t>::ReduceNode( const std::string& instanceName,
                                      ReduceOperator op,
                                      v_t initialValue ) :
     Node( instanceName, typeName ) {
-    m_port_in_op->setDefaultValue( op );
-    m_port_in_init->setDefaultValue( initialValue );
+    m_port_in_op->set_default_value( op );
+    m_port_in_init->set_default_value( initialValue );
 }
 
 } // namespace Functionals

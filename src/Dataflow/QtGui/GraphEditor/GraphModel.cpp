@@ -512,7 +512,7 @@ void GraphModel::sync_data() {
 
         for ( size_t in_port_id = 0; in_port_id < in_node->inputs().size(); ++in_port_id ) {
             const auto& in_port  = in_node->inputs()[in_port_id];
-            const auto& out_port = in_port->getLink();
+            const auto& out_port = in_port->link();
 
             if ( out_port ) {
                 // get out node id

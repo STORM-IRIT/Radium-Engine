@@ -30,16 +30,16 @@ class RA_DATAFLOW_CORE_API PortBase
   public:
     /// \name Constructors
     /// @{
-    /// \brief delete default constructors.
+    /// \brief delete default copy constructors.
     /// \see https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#Rc-copy-virtual
-    /// Constructors.
     PortBase()                             = delete;
     PortBase( const PortBase& )            = delete;
     PortBase& operator=( const PortBase& ) = delete;
-
-    /// @param name The name of the port.
-    /// @param type The data's type's hash.
-    /// @param node The pointer to the node associated with the port.
+    /**
+     * \param name The name of the port.
+     * \param type The data's type's hash.
+     * \param node The pointer to the node associated with the port.
+     */
     PortBase( const std::string& name, std::type_index type, Node* node ) :
         m_name( name ), m_type( type ), m_node( node ) {}
     /// @}
@@ -47,20 +47,20 @@ class RA_DATAFLOW_CORE_API PortBase
     /// \brief Make PortBase a base abstract class
     virtual ~PortBase() = default;
 
-    /// Gets the port's name.
+    /// \brief Gets the port's name.
     const std::string& name() const { return m_name; }
+    /// \brief Set's port name
     void set_name( const std::string& name ) { m_name = name; }
-    /// Gets the type of the data (efficient for comparisons).
+    /// \brief Gets the type of the data (efficient for comparisons).
     std::type_index type() const { return m_type; }
-    /// Gets a pointer to the node this port belongs to.
+    /// \brief Gets a pointer to the node this port belongs to.
     Node* node() const { return m_node; }
 
-    ///\brief Gets the human readable type of the port object.
-    ///
-    ///\return std::string The simplified demangled type.
+    /// \brief Gets the human readable type of the port object.
+    /// \return The simplified demangled type.
     std::string port_typename() const { return Ra::Core::Utils::simplifiedDemangledType( m_type ); }
 
-    // can we get data from the port ?
+    /// can we get data from the port ?
     virtual bool has_data() { return false; }
 
     virtual void to_json( nlohmann::json& data ) { data["name"] = name(); }

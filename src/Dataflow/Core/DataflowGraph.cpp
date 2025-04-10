@@ -85,9 +85,9 @@ void DataflowGraph::toJsonInternal( nlohmann::json& data ) const {
         // skip input_node's input connection
         if ( n != m_input_node ) {
             for ( const auto& input : n->inputs() ) {
-                if ( input->isLinked() ) {
+                if ( input->is_linked() ) {
                     nlohmann::json link = nlohmann::json::object();
-                    auto portOut        = input->getLink();
+                    auto portOut        = input->link();
                     auto nodeOut        = portOut->node();
                     if ( auto casted = dynamic_cast<GraphOutputNode*>( nodeOut ); casted ) {
                         nodeOut = casted->graph();
@@ -289,7 +289,7 @@ bool DataflowGraph::are_ports_compatible( const Node* nodeFrom,
     }
 
     // Check if input is connected
-    if ( portIn->isLinked() ) {
+    if ( portIn->is_linked() ) {
         Log::already_linked( nodeTo, portIn );
         return false;
     }
@@ -442,7 +442,7 @@ bool DataflowGraph::compile() {
         if ( n->is_output() && n != m_output_node ) {
             // if a linked port exists, backtrace
             if ( std::any_of( n->inputs().begin(), n->inputs().end(), []( const auto& p ) {
-                     return p->isLinked();
+                     return p->is_linked();
                  } ) ) {
 
                 infoNodes.emplace( n.get(), std::pair<int, std::vector<Node*>>( 0, {} ) );
@@ -486,8 +486,8 @@ bool DataflowGraph::compile() {
             if ( !lvl[j]->compile() ) { return m_ready = false; }
             // For each input
             for ( size_t k = 0; k < lvl[j]->inputs().size(); k++ ) {
-                if ( lvl[j] != m_input_node.get() && lvl[j]->inputs()[k]->isLinkMandatory() &&
-                     !lvl[j]->inputs()[k]->isLinked() ) {
+                if ( lvl[j] != m_input_node.get() && lvl[j]->inputs()[k]->is_link_mandatory() &&
+                     !lvl[j]->inputs()[k]->is_linked() ) {
                     LOG( logERROR )
                         << "Node <" << lvl[j]->instance_name() << "> is not ready" << std::endl;
                     return m_ready = false;
@@ -521,8 +521,8 @@ void DataflowGraph::backtrack_graph(
     Node* current,
     std::unordered_map<Node*, std::pair<int, std::vector<Node*>>>& infoNodes ) {
     for ( auto& input : current->inputs() ) {
-        if ( input->getLink() ) {
-            Node* previous = input->getLink()->node();
+        if ( input->link() ) {
+            Node* previous = input->link()->node();
             if ( previous && previous != m_input_node.get() ) {
                 auto previousInInfoNodes = infoNodes.find( previous );
                 if ( previousInInfoNodes != infoNodes.end() ) {

@@ -33,7 +33,7 @@ void testGraph( const std::string& name, T in, T& out ) {
     REQUIRE( compiled );
 
     std::cout << "Setting " << simplifiedDemangledType<T>() << " data on interface port ... ";
-    input->setDefaultValue( in );
+    input->set_default_value( in );
 
     g->execute();
 

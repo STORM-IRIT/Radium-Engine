@@ -83,7 +83,7 @@ TransformNode<coll_t, v_t>::TransformNode( const std::string& instanceName, Tran
 
 template <typename coll_t, typename v_t>
 void TransformNode<coll_t, v_t>::setOperator( TransformOperator op ) {
-    m_port_in_op->setDefaultValue( op );
+    m_port_in_op->set_default_value( op );
 }
 
 template <typename coll_t, typename v_t>
@@ -116,7 +116,7 @@ TransformNode<coll_t, v_t>::TransformNode( const std::string& instanceName,
                                            const std::string& typeName,
                                            TransformOperator op ) :
     Node( instanceName, typeName ) {
-    m_port_in_op->setDefaultValue( op );
+    m_port_in_op->set_default_value( op );
 }
 
 } // namespace Functionals

@@ -85,7 +85,7 @@ FilterNode<coll_t, v_t>::FilterNode( const std::string& instanceName, UnaryPredi
 
 template <typename coll_t, typename v_t>
 void FilterNode<coll_t, v_t>::set_predicate( UnaryPredicate predicate ) {
-    m_port_in_predicate->setDefaultValue( predicate );
+    m_port_in_predicate->set_default_value( predicate );
 }
 
 template <typename coll_t, typename v_t>
@@ -117,7 +117,7 @@ FilterNode<coll_t, v_t>::FilterNode( const std::string& instanceName,
                                      const std::string& typeName,
                                      UnaryPredicate predicate ) :
     Node( instanceName, typeName ) {
-    m_port_in_predicate->setDefaultValue( predicate );
+    m_port_in_predicate->set_default_value( predicate );
 }
 
 } // namespace Functionals

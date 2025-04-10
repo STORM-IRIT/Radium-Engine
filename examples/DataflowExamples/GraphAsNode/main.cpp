@@ -88,8 +88,8 @@ int main( int argc, char* argv[] ) {
     sourceNodeC->set_data( 3 );
 
     auto p = resultNode->port_in_from();
-    std::cerr << p->name() << " " << p->isLinked() << "\n";
-    std::cerr << p->getLink()->name() << "\n";
+    std::cerr << p->name() << " " << p->is_linked() << "\n";
+    std::cerr << p->link()->name() << "\n";
     if ( !g.compile() ) {
         std::cout << " compilation failed\n";
         return 1;

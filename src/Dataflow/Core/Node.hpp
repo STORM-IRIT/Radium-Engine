@@ -453,7 +453,7 @@ inline bool Node::compile() {
 inline Ra::Core::VariableSet& Node::input_variables() {
     m_input_variables.clear();
     for ( const auto& p : m_inputs ) {
-        if ( p->hasDefaultValue() ) p->insert( m_input_variables );
+        if ( p->has_default_value() ) p->insert( m_input_variables );
     }
 
     return m_input_variables;
@@ -462,7 +462,7 @@ inline Ra::Core::VariableSet& Node::input_variables() {
 inline bool Node::is_output() {
     bool ret = true;
     for ( const auto& p : m_outputs ) {
-        ret = ret && ( p->getLinkCount() == 0 );
+        ret = ret && ( p->link_count() == 0 );
     }
     return ret;
 }
@@ -471,7 +471,7 @@ inline bool Node::is_input() {
     bool ret = true;
     //
     for ( const auto& p : m_inputs ) {
-        ret = ret && p->hasDefaultValue() && !p->isLinked();
+        ret = ret && p->has_default_value() && !p->is_linked();
     }
     return ret;
 }

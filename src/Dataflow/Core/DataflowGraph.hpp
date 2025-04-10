@@ -178,8 +178,8 @@ class RA_DATAFLOW_CORE_API DataflowGraph : public Node
 
     /// \brief Gets an input port form a node of the graph.
     /// Return the port if exists.
-    /// This input port could then be used through setter->setDefaultValue( data ) to set the graph
-    /// input from the data.
+    /// This input port could then be used through setter->set_default_value( data ) to set the
+    /// graph input from the data.
     /// \note The raw pointer is only valid as graph is valid.
     /// \param nodeNome The name of the node
     /// \param portName The name of the input port
@@ -381,7 +381,7 @@ inline bool DataflowGraph::can_link( const Node* nodeFrom,
     }
 
     // Compare types
-    return portIn && portOut && ( portIn->type() == portOut->type() && !portIn->isLinked() );
+    return portIn && portOut && ( portIn->type() == portOut->type() && !portIn->is_linked() );
 }
 
 inline void DataflowGraph::needs_recompile() {

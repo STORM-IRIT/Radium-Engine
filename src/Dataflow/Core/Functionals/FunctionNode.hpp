@@ -20,7 +20,7 @@ class FunctionNode : public Node
     void init() override { Node::init(); }
     bool execute() override;
 
-    void setFunction( Function function ) { m_port_in_op->setDefaultValue( function ); }
+    void setFunction( Function function ) { m_port_in_op->set_default_value( function ); }
 
     static const std::string& node_typename();
 
@@ -66,7 +66,7 @@ FunctionNode<Input, Output>::FunctionNode( const std::string& instanceName,
                                            const std::string& typeName,
                                            Function function ) :
     Node( instanceName, typeName ) {
-    m_port_in_op->setDefaultValue( function );
+    m_port_in_op->set_default_value( function );
 }
 
 } // namespace Functionals

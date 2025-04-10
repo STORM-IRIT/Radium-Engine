@@ -46,7 +46,7 @@ class RA_DATAFLOW_CORE_API GraphNode : public Node
 
         int last_index = m_inputs.size();
         for ( int i = 0; i < last_index; ++i ) {
-            if ( !m_inputs[i]->isLinked() && m_outputs[i]->getLinkCount() == 0 ) {
+            if ( !m_inputs[i]->is_linked() && m_outputs[i]->link_count() == 0 ) {
                 std::swap( m_inputs[i], m_inputs[last_index - 1] );
                 std::swap( m_outputs[i], m_outputs[last_index - 1] );
                 --last_index;
