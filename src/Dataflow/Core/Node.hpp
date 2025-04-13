@@ -9,12 +9,9 @@
 
 #include <nlohmann/json.hpp>
 
-#include <cstdint>
-#include <iostream>
 #include <memory>
 #include <string>
 #include <type_traits> // conditional, is_same
-#include <typeinfo>
 #include <vector>
 
 namespace Ra {
@@ -232,6 +229,7 @@ class RA_DATAFLOW_CORE_API Node
      *
      * Merge/replace node's metadata using \p data.
      * Used, e.g. by the node editor gui to save node position in the graphical canvas.
+     * To remove a field, set it to "null"_json == nullptr
      * \param data a json object containing metadata.
      */
     void add_metadata( const nlohmann::json& data );
@@ -447,18 +445,8 @@ inline bool Node::operator==( const Node& node ) {
 template <typename PortType>
 inline Node::PortIndex Node::add_port( PortCollection<PortPtr<PortType>>& ports,
                                        PortPtr<PortType> port ) {
-    PortIndex index;
-    // look for a free slot
-    auto it = std::find_if( ports.begin(), ports.end(), []( const auto& p ) { return !p; } );
-    if ( it != ports.end() ) {
-        it->swap( port );
-        index = std::distance( ports.begin(), it );
-    }
-    else {
-        ports.push_back( std::move( port ) );
-        index = ports.size() - 1;
-    }
-    return index;
+    ports.push_back( std::move( port ) );
+    return ports.size() - 1;
 }
 
 inline Node::PortIndex Node::add_input( PortBaseInPtr in ) {
