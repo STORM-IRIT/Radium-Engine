@@ -35,6 +35,7 @@ set(test_src
     Dataflow/graph.cpp
     Dataflow/graph_as_node.cpp
     Dataflow/nodes.cpp
+    Dataflow/portfactory.cpp
     Dataflow/serialization.cpp
     Dataflow/sourcesandsinks.cpp
     Engine/environmentmap.cpp

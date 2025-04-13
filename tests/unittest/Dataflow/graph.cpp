@@ -57,29 +57,10 @@ void inspectGraph( const DataflowGraph& g ) {
             }
         }
     }
-
-    // describe the graph interface : inputs and outputs port of the whole graph (not of the
-    // nodes)
-    std::cout << "Inputs and output ports of the graph " << g.instance_name() << " :\n";
-    const auto& inputs = g.inputs();
-    std::cout << "\tInput ports (" << inputs.size() << ") are :\n";
-    for ( const auto& inp : inputs ) {
-        std::cout << "\t\t\"" << inp->name() << "\" accepting type \"" << inp->port_typename()
-                  << "\"\n";
-    }
-    const auto& outputs = g.outputs();
-    std::cout << "\tOutput ports (" << outputs.size() << ") are :\n";
-    for ( const auto& outp : outputs ) {
-        std::cout << "\t\t\"" << outp->name() << "\" accepting type \"" << outp->port_typename()
-                  << "\"\n";
-    }
-
-    std::cout << "DataSetters and DataGetters port of the graph " << g.instance_name() << " :\n";
 }
 using PortIndex = Ra::Dataflow::Core::Node::PortIndex;
 
-TEST_CASE( "Dataflow/Core/Graph/Json"
-           "[unittests][Dataflow][Core][Graph]" ) {
+TEST_CASE( "Dataflow/Core/Graph/Json", "[unittests][Dataflow][Core][Graph]" ) {
     DataflowGraph g( "Test Graph" );
     SECTION( "not a json" ) {
         auto result = g.loadFromJson( "data/Dataflow/NotAJsonFile.json" );
@@ -318,10 +299,9 @@ TEST_CASE( "Dataflow/Core/Graph/Json"
         REQUIRE( g.remove_link( sinkIntNode, PortIndex { 0 } ) );
 
         // compile the graph
-        inspectGraph( g );
-
         REQUIRE( g.compile() );
         REQUIRE( g.is_compiled() );
+        inspectGraph( g );
 
         // clear the graph
         g.clear_nodes();
@@ -350,10 +330,6 @@ TEST_CASE( "Dataflow/Core/Graph/Node failed execution", "[unittests][Dataflow][C
       public:
         explicit FailFunction( const std::string& instanceName ) : FunctionNode( instanceName ) {}
         bool execute() { return false; }
-        static const std::string& node_typename() {
-            static std::string demangledName = std::string { "FailFunction" };
-            return demangledName;
-        }
     };
     auto failNode = g.add_node<FailFunction>( "FailNode" );
 
@@ -500,6 +476,8 @@ TEST_CASE( "Dataflow/Core/Nodes", "[unittests][Dataflow][Core][Nodes]" ) {
 
         auto& z = r->data<DataType>();
         REQUIRE( z == x + y );
+        // could not get data as other type.
+        REQUIRE_THROWS( r->data<int>() );
 
         std::cout << x << " + " << y << " == " << z << "\n";
 
@@ -776,11 +754,11 @@ TEST_CASE( "Dataflow/Core/Nodes", "[unittests][Dataflow][Core][Nodes]" ) {
         auto outputD = g->output_node_port( "rd", "data" );
         auto outputB = g->output_node_port( "test", "data" );
         auto inputR  = g->input_node_port( "m", "from" );
-        if ( inputR == nullptr ) { std::cout << "Failed to get the graph function input !!\n"; }
+        REQUIRE( inputR );
 
         // Inspect the graph interface : inputs and outputs port
 
-        if ( !g->compile() ) { std::cout << "Compilation error !!"; }
+        REQUIRE( g->compile() );
 
         // Set input/ouput data
         VectorType test;

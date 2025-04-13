@@ -41,7 +41,8 @@ class FilterSelector final : public Node
     explicit FilterSelector( const std::string& name ) : FilterSelector( name, node_typename() ) {}
 
     bool execute() override {
-        if ( !m_portName->has_data() ) return false;
+        // since init with default value, always has_data
+        REQUIRE( m_portName->has_data() );
         m_nameOut->set_data( &m_portName->data() );
         m_currentFunction = m_functions.at( m_portName->data() );
         return true;
@@ -49,12 +50,11 @@ class FilterSelector final : public Node
 
   protected:
     bool fromJsonInternal( const nlohmann::json& data ) override {
-        if ( data.contains( "operator" ) ) { m_portName->set_default_value( data["operator"] ); }
-        else { m_portName->set_default_value( "true" ); }
-        if ( data.contains( "threshold" ) ) {
-            m_portThreshold->set_default_value( data["threshold"] );
-        }
-        else { m_portThreshold->set_default_value( {} ); }
+        // no need to have fallback, since json is ok.
+        REQUIRE( data.contains( "operator" ) );
+        m_portName->set_default_value( "true" );
+        REQUIRE( data.contains( "threshold" ) );
+        m_portThreshold->set_default_value( data["threshold"] );
         return true;
     }
 

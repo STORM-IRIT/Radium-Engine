@@ -4,6 +4,7 @@
 #include <Dataflow/Core/DataflowGraph.hpp>
 #include <Dataflow/Core/Functionals/Types.hpp>
 #include <Dataflow/Core/Node.hpp>
+#include <Dataflow/Core/Sinks/SinkNode.hpp>
 #include <Dataflow/Core/Sinks/Types.hpp>
 #include <Dataflow/Core/Sources/Types.hpp>
 
@@ -210,5 +211,26 @@ TEST_CASE( "Dataflow/Core/LinkMandatory", "[unittests][Dataflow][Core]" ) {
         REQUIRE( !n->port_in_op()->is_link_mandatory() );
         n->port_in_data()->set_default_value( 5 );
         REQUIRE( !n->port_in_data()->is_link_mandatory() );
+    }
+}
+
+TEST_CASE( "Dataflow/Core/Sink", "[unittests][Dataflow][Core]" ) {
+    auto node = Sinks::SinkNode<int>( "sink" );
+    REQUIRE( node.is_output() );
+    REQUIRE( !node.execute() );
+    REQUIRE( !node.is_initialized() );
+
+    SECTION( "Without data, sink could not execute nor has data" ) {
+        REQUIRE_THROWS_AS( node.data(), std::runtime_error );
+        REQUIRE_THROWS_AS( node.data_reference(), std::runtime_error );
+    }
+
+    SECTION( "Set data needs also initilized to be executed" ) {
+        node.port_in_from()->set_default_value( 1 );
+        REQUIRE( !node.execute() );
+        REQUIRE( !node.is_initialized() );
+        node.init();
+        REQUIRE( node.is_initialized() );
+        REQUIRE( node.execute() );
     }
 }
