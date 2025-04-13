@@ -27,12 +27,14 @@ bool Node::fromJson( const nlohmann::json& data ) {
 
     auto it_model = data.find( "model" );
     if ( it_model != data.end() ) {
+        ///\todo check model name ...
         // get the specific concrete node information
         const auto& datamodel = *it_model;
         loaded                = fromJsonInternal( datamodel );
         if ( !loaded ) { LOG( logERROR ) << "Fail to load model " << datamodel; }
         auto it_display_name = datamodel.find( "display_name" );
         if ( it_display_name != datamodel.end() ) { set_display_name( *it_display_name ); }
+        else { set_display_name( m_instance_name ); }
     }
     else {
         LOG( logERROR ) << "Missing required model when loading a Dataflow::Node";
