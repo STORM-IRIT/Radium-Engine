@@ -1,6 +1,7 @@
 #pragma once
 #include <Core/Utils/TypesUtils.hpp>
 #include <Dataflow/Core/Node.hpp>
+#include <stdexcept>
 
 namespace Ra {
 namespace Dataflow {
@@ -67,7 +68,7 @@ void SinkNode<T>::init() {
 
 template <typename T>
 bool SinkNode<T>::execute() {
-    if ( m_port_in_from->has_data() ) {
+    if ( is_initialized() && m_port_in_from->has_data() ) {
         m_port_out_data->set_data( &m_port_in_from->data() );
         return true;
     }
@@ -76,12 +77,14 @@ bool SinkNode<T>::execute() {
 
 template <typename T>
 T SinkNode<T>::data() const {
-    return m_port_out_data->data();
+    if ( m_port_out_data->has_data() ) return m_port_out_data->data();
+    throw std::runtime_error( "Sink out port hasn't data" );
 }
 
 template <typename T>
 const T& SinkNode<T>::data_reference() const {
-    return m_port_out_data->data();
+    if ( m_port_out_data->has_data() ) return m_port_out_data->data();
+    throw std::runtime_error( "Sink out port hasn't data" );
 }
 
 template <typename T>

@@ -61,7 +61,7 @@ class RA_DATAFLOW_CORE_API PortBase
     std::string port_typename() const { return Ra::Core::Utils::simplifiedDemangledType( m_type ); }
 
     /// can we get data from the port ?
-    virtual bool has_data() { return false; }
+    virtual bool has_data() = 0;
 
     virtual void to_json( nlohmann::json& data ) { data["name"] = name(); }
     virtual void from_json( const nlohmann::json& data ) {

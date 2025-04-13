@@ -46,8 +46,8 @@ class RA_DATAFLOW_CORE_API PortFactory
         return make_output_port( node, name, m_type_to_string.key( type ) );
     }
 
-    PortOutSetter output_setter( std::type_index type ) { return m_output_setter[type]; }
-    PortInGetter input_getter( std::type_index type ) { return m_input_getter[type]; }
+    PortOutSetter output_setter( std::type_index type ) { return m_output_setter.at( type ); }
+    PortInGetter input_getter( std::type_index type ) { return m_input_getter.at( type ); }
 
     template <typename T>
     void add_port_type() {

@@ -6,6 +6,7 @@
 #include <Core/Utils/TypesUtils.hpp>
 
 #include <Dataflow/Core/Port.hpp>
+#include <stdexcept>
 
 namespace Ra {
 namespace Dataflow {
@@ -121,13 +122,13 @@ using PortBaseOutPtr    = PortPtr<PortBaseOut>;
 template <typename T>
 T& PortBaseOut::data() {
     auto thisOut = dynamic_cast<PortOut<T>*>( this );
-    if ( thisOut ) { return thisOut->data(); }
+    if ( thisOut && thisOut->has_data() ) { return thisOut->data(); }
 
     using namespace Ra::Core::Utils;
     LOG( Ra::Core::Utils::logERROR )
         << "Unable to get data with type " << simplifiedDemangledType<T>() << " on port " << name()
         << " which expect " << port_typename() << ".\n";
-    std::abort();
+    throw std::runtime_error( "data reference do not exists" );
 }
 
 template <typename T>
@@ -142,7 +143,7 @@ void PortBaseOut::set_data( T* data ) {
     LOG( Ra::Core::Utils::logERROR )
         << "Unable to set data with type " << simplifiedDemangledType( *data ) << " on port "
         << name() << " which expect " << port_typename() << ".\n";
-    std::abort();
+    throw std::runtime_error( "data reference do not exists" );
 }
 
 } // namespace Core

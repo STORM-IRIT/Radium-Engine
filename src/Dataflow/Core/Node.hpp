@@ -358,9 +358,6 @@ class RA_DATAFLOW_CORE_API Node
         return std::static_pointer_cast<PortOut<T>>( m_outputs[index] );
     }
 
-    PortBaseInPtr input_port( PortIndex index ) { return m_inputs[index]; }
-    PortBaseOutPtr output_port( PortIndex index ) { return m_outputs[index]; }
-
     template <typename T>
     ParamHandle<T> add_parameter( const std::string& name, const T& value ) {
         return m_parameters.insertVariable<T>( name, value ).first;
