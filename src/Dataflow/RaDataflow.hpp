@@ -117,17 +117,19 @@ struct adl_serializer<Ra::Core::Utils::ColorBase<T>> {
  * This macro defines const and non-const accessors to the parameter called
  * `param_##name()`.
  */
-#define RA_NODE_PARAMETER( T, name, ... )    \
-  public:                                    \
-    T& param_##name() noexcept {             \
-        return m_param_##name->second;       \
-    }                                        \
-    const T& param_##name() const noexcept { \
-        return m_param_##name->second;       \
-    }                                        \
-                                             \
-  private:                                   \
-    ParamHandle<T> m_param_##name { add_parameter<T>( std::string( name ), __VA_ARGS__ ) };
+#define RA_NODE_PARAMETER( T, name, ... )                     \
+  public:                                                     \
+    T& param_##name() noexcept {                              \
+        return m_param_##name->second;                        \
+    }                                                         \
+    const T& param_##name() const noexcept {                  \
+        return m_param_##name->second;                        \
+    }                                                         \
+                                                              \
+  private:                                                    \
+    ParamHandle<T> m_param_##name {                           \
+        add_parameter<T>( std::string( #name ), __VA_ARGS__ ) \
+    }
 
 #define RA_NODE_PORT_IN_ACCESSOR( T, name ) \
   public:                                   \
