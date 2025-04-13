@@ -85,11 +85,11 @@ class BasicUiBuilder : public Ra::Core::DynamicVisitor
     }
 
     void operator()( const std::string& name, Ra::Core::Utils::Color& p ) {
-        auto onColorParameterChanged = [pse = this->m_pse, &p, &params = m_params, nm = name](
-                                           const Ra::Core::Utils::Color& val ) {
-            p = val;
-            emit pse->parameterModified( nm );
-        };
+        auto onColorParameterChanged =
+            [pse = this->m_pse, &p, nm = name]( const Ra::Core::Utils::Color& val ) {
+                p = val;
+                emit pse->parameterModified( nm );
+            };
         if ( m_constraints.contains( name ) ) {
             const auto& m           = m_constraints[name];
             std::string description = m.contains( "description" ) ? m["description"] : "";
