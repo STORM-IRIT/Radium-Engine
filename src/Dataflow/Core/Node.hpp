@@ -210,14 +210,14 @@ class RA_DATAFLOW_CORE_API Node
     /// \todo use standardize json serialization
 
     /**
-     * \brief serialize the content of the node.
+     * \brief Serialize the content of the node.
      *
      * Fill the given json object with the json representation of the concrete node.
      */
     void toJson( nlohmann::json& data ) const;
 
     /**
-     * \brief unserialized the content of the node.
+     * \brief Unserialized the content of the node.
      *
      * Fill the node from its json representation.
      */
@@ -341,22 +341,47 @@ class RA_DATAFLOW_CORE_API Node
         auto idx = add_input( std::make_shared<PortIn<T>>( this, std::forward<U>( u )... ) );
         return input_port<T>( idx );
     }
-    /// \copydoc    template <typename T, typename... U> PortInPtr<T> add_input_port( U&&... u )
+    /**
+     * \brief Adds a typed output port
+     *
+     * \tparam T Port data type.
+     * \param u Port ctor parameter.
+     * \return Typed port shared pointer.
+     */
     template <typename T, typename... U>
     PortOutPtr<T> add_output( U&&... u ) {
         auto idx = add_output( std::make_shared<PortOut<T>>( this, std::forward<U>( u )... ) );
         return output_port<T>( idx );
     }
 
+    /**
+     * \brief Gets a typed (input/output) port
+     *
+     * \tparam T Port data type.
+     * \param index The (input or output) port index.
+     * \return Typed port shared pointer or nullptr if index of removed port.
+     */
     template <typename T>
     PortInPtr<T> input_port( PortIndex index ) {
         return std::static_pointer_cast<PortIn<T>>( m_inputs[index] );
     }
 
+    /// \copydoc input_port
     template <typename T>
     PortOutPtr<T> output_port( PortIndex index ) {
         return std::static_pointer_cast<PortOut<T>>( m_outputs[index] );
     }
+
+    /**
+     * \brief Remove the given port from the managed (input/output) ports.
+     *
+     * The port is reset, but the index might be used by a newly added port.
+     * Other port index remains valid.
+     * \param index the port to remove.
+     */
+    void remove_input( PortIndex index ) { m_inputs[index].reset(); }
+    /// \copydoc remove_input
+    void remove_output( PortIndex index ) { m_outputs[index].reset(); }
 
     template <typename T>
     ParamHandle<T> add_parameter( const std::string& name, const T& value ) {
@@ -442,8 +467,18 @@ inline bool Node::operator==( const Node& node ) {
 template <typename PortType>
 inline Node::PortIndex Node::add_port( PortCollection<PortPtr<PortType>>& ports,
                                        PortPtr<PortType> port ) {
-    ports.push_back( std::move( port ) );
-    return ports.size() - 1;
+    PortIndex index;
+    // look for a free slot
+    auto it = std::find_if( ports.begin(), ports.end(), []( const auto& p ) { return !p; } );
+    if ( it != ports.end() ) {
+        it->swap( port );
+        index = std::distance( ports.begin(), it );
+    }
+    else {
+        ports.push_back( std::move( port ) );
+        index = ports.size() - 1;
+    }
+    return index;
 }
 
 inline Node::PortIndex Node::add_input( PortBaseInPtr in ) {
@@ -487,8 +522,9 @@ inline bool Node::is_input() {
 template <typename PortType>
 auto Node::port_by_name( const PortCollection<PortPtr<PortType>>& ports,
                          const std::string& name ) const -> IndexAndPort<PortRawPtr<PortType>> {
+    // p might be nullptr if has been removed from ports
     auto itr = std::find_if(
-        ports.begin(), ports.end(), [n = name]( const auto& p ) { return p->name() == n; } );
+        ports.begin(), ports.end(), [n = name]( const auto& p ) { return p && p->name() == n; } );
     PortRawPtr<PortType> port { nullptr };
     PortIndex portIndex;
     if ( itr != ports.cend() ) {
