@@ -1,8 +1,6 @@
 #include <Core/Containers/VariableSet.hpp>
-#include <any>
 #include <functional>
 #include <stddef.h>
-#include <typeindex>
 #include <unordered_map>
 #include <utility>
 #include <vector>

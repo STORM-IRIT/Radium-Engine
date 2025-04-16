@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Core/Math/Math.hpp>
+#include <Core/Types.hpp>
 #include <Core/Utils/StdOptional.hpp>
 #include <Core/Utils/TypesUtils.hpp>
 
