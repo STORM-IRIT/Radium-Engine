@@ -32,6 +32,11 @@ class DummyNode : public Node
     }
     bool execute() override { return is_initialized(); }
 
+    void remove_in_0() { remove_input( 0 ); }
+    void remove_out_0() { remove_output( 0 ); }
+    void add_in_0() { add_input( m_port_in_port0 ); }
+    void add_out_0() { add_output( m_port_out_port0 ); }
+
   protected:
     RA_NODE_PORT_IN( Scalar, port0 );
     RA_NODE_PORT_IN_WITH_DEFAULT( Scalar, port1, 2_ra );
@@ -200,6 +205,30 @@ TEST_CASE( "Dataflow/Core/DummyNode", "[unittests][Dataflow][Core]" ) {
                                 { "foo", "bar" } };
         REQUIRE( dummy.fromJson( json ) );
         REQUIRE( dummy.metadata()["foo"] == "bar" );
+    }
+    SECTION( "Remove port maintains ports index" ) {
+        REQUIRE( dummy.port_in_port1().get() == dummy.input_by_index( 1 ) );
+        dummy.remove_in_0();
+        REQUIRE( !dummy.input_by_index( 0 ) );
+        auto in_by_name = dummy.input_by_name( "port0" );
+        REQUIRE( in_by_name.first.isInvalid() );
+        REQUIRE( !in_by_name.second );
+        REQUIRE( dummy.port_in_port1().get() == dummy.input_by_index( 1 ) );
+
+        REQUIRE( dummy.port_out_port1().get() == dummy.output_by_index( 1 ) );
+        dummy.remove_out_0();
+        REQUIRE( !dummy.input_by_index( 0 ) );
+        auto out_by_name = dummy.input_by_name( "port0" );
+        REQUIRE( out_by_name.first.isInvalid() );
+        REQUIRE( !out_by_name.second );
+        REQUIRE( dummy.port_out_port1().get() == dummy.output_by_index( 1 ) );
+
+        dummy.add_in_0();
+        REQUIRE( dummy.port_in_port0().get() == dummy.input_by_index( 0 ) );
+        REQUIRE( dummy.port_in_port1().get() == dummy.input_by_index( 1 ) );
+        dummy.add_out_0();
+        REQUIRE( dummy.port_out_port0().get() == dummy.output_by_index( 0 ) );
+        REQUIRE( dummy.port_out_port1().get() == dummy.output_by_index( 1 ) );
     }
 }
 
