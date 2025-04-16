@@ -145,9 +145,9 @@ class RA_DATAFLOW_CORE_API Node
         -> IndexAndPort<PortBaseRawPtr>;
 
     /// Convenience alias to port_by_name("in", name)
-    IndexAndPort<PortBaseInRawPtr> input_by_name( const std::string& name ) const;
+    auto input_by_name( const std::string& name ) const -> IndexAndPort<PortBaseInRawPtr>;
     /// Convenience alias to port_by_name("out", name)
-    IndexAndPort<PortBaseOutRawPtr> output_by_name( const std::string& name ) const;
+    auto output_by_name( const std::string& name ) const -> IndexAndPort<PortBaseOutRawPtr>;
 
     /**
      * \brief Get a port by its index
@@ -270,8 +270,8 @@ class RA_DATAFLOW_CORE_API Node
      * the port.
      */
     template <typename PortType>
-    IndexAndPort<PortRawPtr<PortType>> port_by_name( const PortCollection<PortPtr<PortType>>& ports,
-                                                     const std::string& name ) const;
+    auto port_by_name( const PortCollection<PortPtr<PortType>>& ports,
+                       const std::string& name ) const -> IndexAndPort<PortRawPtr<PortType>>;
     /**
      * \brief Gets the PortBase In or Out by its index.
      *
@@ -337,7 +337,7 @@ class RA_DATAFLOW_CORE_API Node
      * \return Typed port shared pointer.
      */
     template <typename T, typename... U>
-    PortInPtr<T> add_input( U&&... u ) {
+    auto add_input( U&&... u ) {
         auto idx = add_input( std::make_shared<PortIn<T>>( this, std::forward<U>( u )... ) );
         return input_port<T>( idx );
     }
@@ -349,7 +349,7 @@ class RA_DATAFLOW_CORE_API Node
      * \return Typed port shared pointer.
      */
     template <typename T, typename... U>
-    PortOutPtr<T> add_output( U&&... u ) {
+    auto add_output( U&&... u ) {
         auto idx = add_output( std::make_shared<PortOut<T>>( this, std::forward<U>( u )... ) );
         return output_port<T>( idx );
     }
@@ -362,13 +362,13 @@ class RA_DATAFLOW_CORE_API Node
      * \return Typed port shared pointer or nullptr if index of removed port.
      */
     template <typename T>
-    PortInPtr<T> input_port( PortIndex index ) {
+    auto input_port( PortIndex index ) {
         return std::static_pointer_cast<PortIn<T>>( m_inputs[index] );
     }
 
     /// \copydoc input_port
     template <typename T>
-    PortOutPtr<T> output_port( PortIndex index ) {
+    auto output_port( PortIndex index ) {
         return std::static_pointer_cast<PortOut<T>>( m_outputs[index] );
     }
 
@@ -384,7 +384,7 @@ class RA_DATAFLOW_CORE_API Node
     void remove_output( PortIndex index ) { m_outputs[index].reset(); }
 
     template <typename T>
-    ParamHandle<T> add_parameter( const std::string& name, const T& value ) {
+    auto add_parameter( const std::string& name, const T& value ) {
         return m_parameters.insertVariable<T>( name, value ).first;
     }
 

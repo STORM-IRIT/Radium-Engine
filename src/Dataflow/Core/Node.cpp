@@ -69,17 +69,17 @@ void Node::add_metadata( const nlohmann::json& data ) {
     m_metadata.merge_patch( data );
 }
 
-Node::IndexAndPort<Node::PortBaseRawPtr> Node::port_by_name( const std::string& type,
-                                                             const std::string& name ) const {
+auto Node::port_by_name( const std::string& type, const std::string& name ) const
+    -> IndexAndPort<PortBaseRawPtr> {
     if ( type == "in" ) { return port_by_name( m_inputs, name ); }
     return port_by_name( m_outputs, name );
 }
 
-Node::IndexAndPort<Node::PortBaseInRawPtr> Node::input_by_name( const std::string& name ) const {
+auto Node::input_by_name( const std::string& name ) const -> IndexAndPort<PortBaseInRawPtr> {
     return port_by_name( m_inputs, name );
 }
 
-Node::IndexAndPort<Node::PortBaseOutRawPtr> Node::output_by_name( const std::string& name ) const {
+auto Node::output_by_name( const std::string& name ) const -> IndexAndPort<PortBaseOutRawPtr> {
     return port_by_name( m_outputs, name );
 }
 
