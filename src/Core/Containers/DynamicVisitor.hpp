@@ -10,10 +10,8 @@
 
 #include <any>
 #include <functional>
-#include <map>
 #include <typeindex>
 #include <unordered_map>
-#include <vector>
 
 namespace Ra {
 namespace Core {
@@ -85,15 +83,18 @@ class RA_CORE_API DynamicVisitor : public DynamicVisitorBase
     /// \brief Storage of the type erased operators
     using OperatorsStorageType = std::unordered_map<std::type_index, CallbackFunction>;
 
-    /// \brief Helper struct to build type-erased operators (allowing to test calling profile)
-    template <typename T, typename F, bool WithUserParam>
-    struct MakeVisitOperatorHelper {
-        auto makeOperator( F& f ) -> OperatorsStorageType::value_type;
-    };
+    template <typename T, typename F>
+    using WithParam =
+        std::enable_if_t<std::is_invocable<F, const std::string&, T&, std::any&&>::value, bool>;
+    template <typename T, typename F>
+    using WithoutParam =
+        std::enable_if_t<std::is_invocable<F, const std::string&, T&>::value, bool>;
 
     /// \brief construct a type-erased operator from a user define functor with profile
     /// void(const std::string, [const]T[&] [, [const] std::any&&])
-    template <typename T, typename F>
+    template <typename T, typename F, WithParam<T, F> = true>
+    auto makeVisitorOperator( F& f ) -> OperatorsStorageType::value_type;
+    template <typename T, typename F, WithoutParam<T, F> = true>
     auto makeVisitorOperator( F& f ) -> OperatorsStorageType::value_type;
 
     /// \brief The type erased operators
@@ -125,40 +126,27 @@ bool DynamicVisitor::removeOperator() {
     return res;
 }
 
-template <typename T, typename F>
-struct DynamicVisitor::MakeVisitOperatorHelper<T, F, true> {
-    inline auto makeOperator( F& f ) -> OperatorsStorageType::value_type {
-        return { VariableSet::getVariableVisitTypeIndex<T>(),
-                 [&f]( const std::string& name, std::any& a, std::any&& userParam ) {
-                     auto rp = std::any_cast<std::reference_wrapper<T>>( a );
-                     auto& p = rp.get();
-                     f( name, p, std::forward<std::any>( userParam ) );
-                 } };
-    }
-};
-
-template <typename T, typename F>
-struct DynamicVisitor::MakeVisitOperatorHelper<T, F, false> {
-    inline auto makeOperator( F& f ) -> OperatorsStorageType::value_type {
-        return { // type index
-                 VariableSet::getVariableVisitTypeIndex<T>(),
-                 // callback
-                 [&f]( const std::string& name, std::any& a, std::any&& ) {
-                     auto rp = std::any_cast<std::reference_wrapper<T>>( a );
-                     auto& p = rp.get();
-                     f( name, p );
-                 } };
-    }
-};
-
-template <class T, class F>
-inline auto DynamicVisitor::makeVisitorOperator( F& f ) -> OperatorsStorageType::value_type {
-    auto opBuilder =
-        MakeVisitOperatorHelper<T,
-                                F,
-                                std::is_invocable<F, const std::string&, T&, std::any&&>::value> {};
-    return opBuilder.makeOperator( f );
+template <typename T, typename F, DynamicVisitor::WithParam<T, F>>
+auto DynamicVisitor::makeVisitorOperator( F& f ) -> OperatorsStorageType::value_type {
+    return { // type index
+             VariableSet::getVariableVisitTypeIndex<T>(),
+             // callback
+             [&f]( const std::string& name, std::any& a, std::any&& userParam ) {
+                 auto rp = std::any_cast<std::reference_wrapper<T>>( a );
+                 auto& p = rp.get();
+                 f( name, p, std::forward<std::any>( userParam ) );
+             } };
 }
-
+template <typename T, typename F, DynamicVisitor::WithoutParam<T, F>>
+auto DynamicVisitor::makeVisitorOperator( F& f ) -> OperatorsStorageType::value_type {
+    return { // type index
+             VariableSet::getVariableVisitTypeIndex<T>(),
+             // callback
+             [&f]( const std::string& name, std::any& a, std::any&& ) {
+                 auto rp = std::any_cast<std::reference_wrapper<T>>( a );
+                 auto& p = rp.get();
+                 f( name, p );
+             } };
+}
 } // namespace Core
 } // namespace Ra
