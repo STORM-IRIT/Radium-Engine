@@ -153,9 +153,10 @@ struct DynamicVisitor::MakeVisitOperatorHelper<T, F, false> {
 
 template <class T, class F>
 inline auto DynamicVisitor::makeVisitorOperator( F& f ) -> OperatorsStorageType::value_type {
-    auto opBuilder = MakeVisitOperatorHelper < T, F,
-         std::is_invocable<F, const std::string&, T&, std::any&&>::value ||
-             std::is_invocable<F, const std::string&, T&, std::any&&>::value > {};
+    auto opBuilder =
+        MakeVisitOperatorHelper<T,
+                                F,
+                                std::is_invocable<F, const std::string&, T&, std::any&&>::value> {};
     return opBuilder.makeOperator( f );
 }
 
