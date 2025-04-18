@@ -25,8 +25,8 @@ endif()
 
 message(STATUS "Configuring library ${ra_dataflow_target} with standard settings")
 target_include_directories(
-    ${ra_dataflow_target} SYSTEM INTERFACE $<BUILD_INTERFACE:${RADIUM_SRC_DIR}>
-                                           $<INSTALL_INTERFACE:include>
+    ${ra_dataflow_target} INTERFACE $<BUILD_INTERFACE:${RADIUM_SRC_DIR}>
+                                    $<INSTALL_INTERFACE:include>
 )
 configure_radium_library(
     TARGET ${ra_dataflow_target} COMPONENT
