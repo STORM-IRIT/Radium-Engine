@@ -29,7 +29,6 @@ set(Radium_VERSION_PATCH ${PROJECT_VERSION_PATCH})
 
 include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/CompilerVersion.cmake)
 include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/CompilerOptions.cmake)
-
 option(
     RADIUM_ENABLE_TESTING
     "Enable testing. Tests are automatically built with target all, run with target check or test."

@@ -129,7 +129,13 @@ foreach(INTEGRATION_TEST CoreExample FunctionalsGraph GraphAsNode GraphSerializa
     add_test(NAME integration_${INTEGRATION_TEST} WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/
              COMMAND "$<TARGET_FILE:${INTEGRATION_TEST}>"
     )
-    set_property(TEST integration_${INTEGRATION_TEST} PROPERTY LABELS "integration")
+
+    set(TEST_PROPERTIES LABELS "integration")
+    if(DEFINED TEST_ENV_VAR)
+        set(TEST_PROPERTIES ${TEST_PROPERTIES} ENVIRONMENT ${TEST_ENV_VAR})
+    endif()
+
+    set_tests_properties(integration_${INTEGRATION_TEST} PROPERTIES ${TEST_PROPERTIES})
 
     set(TEST_PROPERTIES LABELS "integration")
     if(DEFINED TEST_ENV_VAR)
