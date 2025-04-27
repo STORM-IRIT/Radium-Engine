@@ -38,7 +38,7 @@ SurfaceMeshComponent<Ra::Core::Geometry::MultiIndexedGeometry>::SurfaceMeshCompo
     GeometryComponent( name, entity ),
     m_displayMesh( new Data::GeometryDisplayable( name, std::move( mesh ) ) ) {
     setContentName( name );
-    finalizeROFromGeometry( mat, Core::Transform::Identity() );
+    finalizeROFromGeometry( convertMatdataToMaterial( mat ), Core::Transform::Identity() );
 }
 
 void GeometryComponent::setupIO( const std::string& id ) {
@@ -61,8 +61,9 @@ void SurfaceMeshComponent<Ra::Core::Geometry::MultiIndexedGeometry>::generateMes
 
     m_displayMesh->loadGeometry( std::move( mesh ) );
 
-    finalizeROFromGeometry( data->hasMaterial() ? &( data->getMaterial() ) : nullptr,
-                            data->getFrame() );
+    finalizeROFromGeometry(
+        convertMatdataToMaterial( data->hasMaterial() ? &( data->getMaterial() ) : nullptr ),
+        data->getFrame() );
 }
 
 /*-----------------------------------------------------------------------------------------------*/
