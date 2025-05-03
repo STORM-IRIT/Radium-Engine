@@ -1,5 +1,6 @@
 #include <Engine/Data/DrawPrimitives.hpp>
 
+#include <Core/Geometry/IndexedGeometry.hpp>
 #include <Core/Geometry/MeshPrimitives.hpp>
 #include <Core/Geometry/StandardAttribNames.hpp>
 #include <Core/Utils/Color.hpp>
@@ -111,29 +112,45 @@ LineMeshPtr Ray( const Core::Ray& ray, const Core::Utils::Color& color, Scalar l
     return make_shared<LineMesh>( "Ray Primitive", std::move( geom ) );
 }
 
-AttribArrayDisplayablePtr Triangle( const Core::Vector3& a,
-                                    const Core::Vector3& b,
-                                    const Core::Vector3& c,
-                                    const Core::Utils::Color& color,
-                                    bool fill ) {
-    if ( fill ) {
-        Geometry::TriangleMesh geom;
-        geom.setVertices( { a, b, c } );
-        geom.setIndices( { { 0, 1, 2 } } );
-        geom.addAttrib(
-            Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::MeshAttrib::VERTEX_COLOR ),
-            Core::Vector4Array { geom.vertices().size(), color } );
-        return make_shared<Mesh>( "Triangle Primitive", std::move( geom ) );
-    }
-    else {
-        Geometry::LineMesh geom;
-        geom.setVertices( { a, b, c } );
-        geom.setIndices( { { 0, 1 }, { 1, 2 }, { 2, 0 } } );
-        geom.addAttrib(
-            Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::MeshAttrib::VERTEX_COLOR ),
-            Core::Vector4Array { geom.vertices().size(), color } );
-        return make_shared<LineMesh>( "Triangle Primitive", std::move( geom ) );
-    }
+GeometryDisplayablePtr Triangle( const Core::Vector3& a,
+                                 const Core::Vector3& b,
+                                 const Core::Vector3& c,
+                                 const Core::Utils::Color& color,
+                                 bool fill ) {
+
+    MultiIndexedGeometry geom;
+    geom.setVertices( { a, b, c } );
+
+    auto face_layer          = std::make_unique<TriangleIndexLayer>();
+    face_layer->collection() = { { 0, 1, 2 } };
+    geom.addLayer( std::move( face_layer ) );
+
+    auto boundary_layer          = std::make_unique<LineIndexLayer>();
+    boundary_layer->collection() = { { 0, 1 }, { 1, 2 }, { 2, 0 } };
+    geom.addLayer( std::move( boundary_layer ) );
+
+    geom.addAttrib(
+        Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::MeshAttrib::VERTEX_COLOR ),
+        Core::Vector4Array { geom.vertices().size(), color } );
+
+    auto [face_key, dummy_1] =
+        geom.getFirstLayerOccurrence( Core::Geometry::TriangleIndexLayer::staticSemanticName );
+    auto [boundary_key, dummy_2] =
+        geom.getFirstLayerOccurrence( Core::Geometry::LineIndexLayer::staticSemanticName );
+
+    auto ret = make_shared<GeometryDisplayable>( "Triangle" );
+    std::vector<
+        std::pair<GeometryDisplayable::LayerKeyType, AttribArrayDisplayable::MeshRenderMode>>
+        r { { face_key, AttribArrayDisplayable::RM_TRIANGLES },
+            { boundary_key, AttribArrayDisplayable::RM_LINES } };
+    ret->loadGeometry( std::move( geom ), r );
+
+    auto [key, layer] = ret->getCoreGeometry().getFirstLayerOccurrence(
+        Core::Geometry::TriangleIndexLayer::staticSemanticName );
+
+    if ( fill ) { ret->set_active_layer( face_key ); }
+
+    return ret;
 }
 
 /// \todo continue to convert mesh creation and remove call to deprecated Mesh::loadGeometry
@@ -211,7 +228,6 @@ LineMeshPtr CircleArc( const Core::Vector3& center,
                        Scalar angle,
                        uint segments,
                        const Core::Utils::Color& color ) {
-
     Geometry::LineMesh geom;
     Core::Vector3Array vertices( segments + 1 );
     Geometry::LineMesh::IndexContainerType indices;
@@ -434,7 +450,6 @@ MeshPtr Grid( const Core::Vector3& center,
               const Core::Utils::Color& color,
               Scalar cellSize,
               uint res ) {
-
     CORE_ASSERT( res > 1, "Grid has to be at least a 2x2 grid." );
     Core::Vector3Array vertices;
     std::vector<uint> indices;
@@ -552,7 +567,6 @@ MeshPtr Spline( const Core::Geometry::Spline<3, 3>& spline,
 }
 
 MeshPtr LineStrip( const Core::Vector3Array& vertices, const Core::Vector4Array& colors ) {
-
     std::vector<uint> indices( vertices.size() );
     std::iota( indices.begin(), indices.end(), 0 );
     auto r = ( vertices.size() % 3 );
