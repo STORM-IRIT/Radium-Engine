@@ -23,7 +23,6 @@ class Component;
 namespace Data {
 class Mesh;
 class AttribArrayDisplayable;
-class LineMesh;
 class GeometryDisplayable;
 
 /// A set of convenient functions to instantiate simple displays such as points, lines, etc.
@@ -31,37 +30,35 @@ class GeometryDisplayable;
 /// For "instant" debug drawing, \see DebugDisplay.
 namespace DrawPrimitives {
 using MeshPtr                   = std::shared_ptr<Mesh>;
-using LineMeshPtr               = std::shared_ptr<LineMesh>;
 using AttribArrayDisplayablePtr = std::shared_ptr<AttribArrayDisplayable>;
 using GeometryDisplayablePtr    = std::shared_ptr<GeometryDisplayable>;
 
 ///\{
 /// Renturn a render object to display the given geometry
 RA_ENGINE_API Rendering::RenderObject* Primitive( Scene::Component* comp, const MeshPtr& mesh );
-RA_ENGINE_API Rendering::RenderObject* Primitive( Scene::Component* comp, const LineMeshPtr& mesh );
 RA_ENGINE_API Rendering::RenderObject* Primitive( Scene::Component* comp,
                                                   const AttribArrayDisplayablePtr& mesh );
 ///\}
 
 /// Displays given point shown as the crossing of 3 lines of length 'scale'
-RA_ENGINE_API LineMeshPtr Point( const Core::Vector3& point,
-                                 const Core::Utils::Color& color,
-                                 Scalar scale = 0.1f );
+RA_ENGINE_API GeometryDisplayablePtr Point( const Core::Vector3& point,
+                                            const Core::Utils::Color& color,
+                                            Scalar scale = 0.1f );
 
 /// Displays given line
-RA_ENGINE_API LineMeshPtr Line( const Core::Vector3& a,
-                                const Core::Vector3& b,
-                                const Core::Utils::Color& color );
+RA_ENGINE_API GeometryDisplayablePtr Line( const Core::Vector3& a,
+                                           const Core::Vector3& b,
+                                           const Core::Utils::Color& color );
 
 /// Displays given vector shown as an arrow originating from 'start'
-RA_ENGINE_API LineMeshPtr Vector( const Core::Vector3& start,
-                                  const Core::Vector3& v,
-                                  const Core::Utils::Color& color );
+RA_ENGINE_API GeometryDisplayablePtr Vector( const Core::Vector3& start,
+                                             const Core::Vector3& v,
+                                             const Core::Utils::Color& color );
 
 /// Displays given ray as a straight line.
-RA_ENGINE_API LineMeshPtr Ray( const Core::Ray& ray,
-                               const Core::Utils::Color& color,
-                               Scalar len = 1000_ra );
+RA_ENGINE_API GeometryDisplayablePtr Ray( const Core::Ray& ray,
+                                          const Core::Utils::Color& color,
+                                          Scalar len = 1000_ra );
 
 /// Displays given triangle ABC, either in wireframe (fill = false)
 /// or filled with the color(fill = true).
@@ -81,21 +78,21 @@ RA_ENGINE_API MeshPtr QuadStrip( const Core::Vector3& a,
 /// Displays circle computed with given center and radius,
 /// in plane normal to given vector in wireframe
 /// \note normal must be a normalized vector.
-RA_ENGINE_API LineMeshPtr Circle( const Core::Vector3& center,
-                                  const Core::Vector3& normal,
-                                  Scalar radius,
-                                  uint segments,
-                                  const Core::Utils::Color& color );
+RA_ENGINE_API GeometryDisplayablePtr Circle( const Core::Vector3& center,
+                                             const Core::Vector3& normal,
+                                             Scalar radius,
+                                             uint segments,
+                                             const Core::Utils::Color& color );
 
 /// Displays arc of a circle computed with given center, radius and angle
 /// in plane normal to given vector in wireframe
 /// \note normal must be a normalized vector.
-RA_ENGINE_API LineMeshPtr CircleArc( const Core::Vector3& center,
-                                     const Core::Vector3& normal,
-                                     Scalar radius,
-                                     Scalar angle,
-                                     uint segments,
-                                     const Core::Utils::Color& color );
+RA_ENGINE_API GeometryDisplayablePtr CircleArc( const Core::Vector3& center,
+                                                const Core::Vector3& normal,
+                                                Scalar radius,
+                                                Scalar angle,
+                                                uint segments,
+                                                const Core::Utils::Color& color );
 
 /// Displays geodesic sphere computed with given center and radius
 RA_ENGINE_API MeshPtr Sphere( const Core::Vector3& center,
@@ -126,10 +123,10 @@ RA_ENGINE_API MeshPtr Disk( const Core::Vector3& center,
 
 /// Displays a normal vector emanating from the given point as a vector arrow
 /// and a normal plane of size 'scale'.
-RA_ENGINE_API LineMeshPtr Normal( const Core::Vector3& point,
-                                  const Core::Vector3& normal,
-                                  const Core::Utils::Color& color,
-                                  Scalar scale = 0.1f );
+RA_ENGINE_API GeometryDisplayablePtr Normal( const Core::Vector3& point,
+                                             const Core::Vector3& normal,
+                                             const Core::Utils::Color& color,
+                                             Scalar scale = 0.1f );
 
 /// Displays a 3D frame representing the given transform.
 /// Each axis has length 'scale' and are in usual colors

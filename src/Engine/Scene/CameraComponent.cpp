@@ -54,7 +54,7 @@ void CameraComponent::initialize() {
                           { 5, 6 },
                           { 6, 7 } } );
 
-    auto m = std::make_shared<Data::LineMesh>( m_name + "_mesh" );
+    auto m = std::make_shared<Data::GeometryDisplayable>( m_name + "_mesh" );
     m->loadGeometry( std::move( triMesh ) );
 
     // Create the RO
