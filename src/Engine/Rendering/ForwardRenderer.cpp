@@ -169,29 +169,6 @@ void ForwardRenderer::updateStepInternal( const Data::ViewingParameters& renderD
 }
 
 template <typename IndexContainerType>
-void computeIndices( Core::Geometry::LineMesh::IndexContainerType& indices,
-                     IndexContainerType& other ) {
-
-    for ( const auto& index : other ) {
-        auto s = index.size();
-        for ( unsigned int i = 0; i < s; ++i ) {
-            int i1 = index[i];
-            int i2 = index[( i + 1 ) % s];
-            if ( i1 > i2 ) std::swap( i1, i2 );
-            indices.emplace_back( i1, i2 );
-        }
-    }
-
-    std::sort( indices.begin(),
-               indices.end(),
-               []( const Core::Geometry::LineMesh::IndexType& a,
-                   const Core::Geometry::LineMesh::IndexType& b ) {
-                   return a[0] < b[0] || ( a[0] == b[0] && a[1] < b[1] );
-               } );
-    indices.erase( std::unique( indices.begin(), indices.end() ), indices.end() );
-}
-
-template <typename IndexContainerType>
 void computeIndices2( Core::Geometry::LineIndexLayer::IndexContainerType& indices,
                       const IndexContainerType& other ) {
 
@@ -212,60 +189,6 @@ void computeIndices2( Core::Geometry::LineIndexLayer::IndexContainerType& indice
                    return a[0] < b[0] || ( a[0] == b[0] && a[1] < b[1] );
                } );
     indices.erase( std::unique( indices.begin(), indices.end() ), indices.end() );
-}
-
-// store LineMesh and Core, define the observer functor to update data one core update for wireframe
-// linemesh
-template <typename CoreGeometry>
-class VerticesUpdater
-{
-  public:
-    VerticesUpdater( std::shared_ptr<Data::LineMesh> disp, CoreGeometry& core ) :
-        m_disp { disp }, m_core { core } {};
-
-    void operator()() { m_disp->getCoreGeometry().setVertices( m_core.vertices() ); }
-    std::shared_ptr<Data::LineMesh> m_disp;
-    CoreGeometry& m_core;
-};
-
-template <typename CoreGeometry>
-class IndicesUpdater
-{
-  public:
-    IndicesUpdater( std::shared_ptr<Data::LineMesh> disp, CoreGeometry& core ) :
-        m_disp { disp }, m_core { core } {};
-
-    void operator()() {
-        auto lineIndices = m_disp->getCoreGeometry().getIndicesWithLock();
-        computeIndices( lineIndices, m_core.getIndices() );
-        m_disp->getCoreGeometry().indicesUnlock();
-    }
-    std::shared_ptr<Data::LineMesh> m_disp;
-    CoreGeometry& m_core;
-};
-
-// create a linemesh to draw wireframe given a core mesh
-template <typename CoreGeometry>
-void setupLineMesh( std::shared_ptr<Data::LineMesh>& disp, CoreGeometry& core ) {
-
-    Core::Geometry::LineMesh lines;
-    Core::Geometry::LineMesh::IndexContainerType indices;
-
-    lines.setVertices( core.vertices() );
-    computeIndices( indices, core.getIndices() );
-    if ( indices.size() > 0 ) {
-        lines.setIndices( std::move( indices ) );
-        disp =
-            Ra::Core::make_shared<Data::LineMesh>( std::string( "wireframe" ), std::move( lines ) );
-        disp->updateGL();
-
-        // add observer
-        auto handle = core.template getAttribHandle<typename CoreGeometry::Point>(
-            Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::VERTEX_POSITION ) );
-        core.vertexAttribs().getAttrib( handle ).attach( VerticesUpdater( disp, core ) );
-        core.attach( IndicesUpdater( disp, core ) );
-    }
-    else { disp.reset(); }
 }
 
 // create a linemesh to draw wireframe given a core mesh
@@ -513,7 +436,7 @@ void ForwardRenderer::renderInternal( const Data::ViewingParameters& renderData 
                 const Data::ShaderProgram* shader =
                     m_shaderProgramManager->getShaderProgram( "Wireframe" );
 
-                if ( shader && ro->isVisible() ) {
+                if ( hasTriangleLayer && shader && ro->isVisible() ) {
                     GL_CHECK_ERROR;
                     td->updateGL();
                     GL_CHECK_ERROR;
@@ -543,6 +466,7 @@ void ForwardRenderer::renderInternal( const Data::ViewingParameters& renderData 
                 }
             }
             else {
+                std::cerr << "not dispmesh " << displayable->getName() << "\n";
                 // skip
             }
         };

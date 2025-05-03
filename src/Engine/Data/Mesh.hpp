@@ -376,15 +376,10 @@ class RA_ENGINE_API GeometryDisplayable : public AttribArrayDisplayable
                                 const std::string& shaderAttribName );
 
     void loadGeometry( Core::Geometry::MultiIndexedGeometry&& mesh );
-    inline void loadGeometry( Core::Geometry::MultiIndexedGeometry&& mesh,
-                              LayerKeyType key,
-                              base::MeshRenderMode renderMode ) {
-        loadGeometry( std::move( mesh ) );
-        addRenderLayer( key, renderMode );
-    }
 
     /// \param r is a collection of keys and renderMode, e.g. { {key1, RM_TRIANGLES}, {key2,
     /// RM_LINES} }
+    /// \todo c++20 switch to range concept
     template <typename RangeOfLayerKeys>
     inline void loadGeometry( Core::Geometry::MultiIndexedGeometry&& mesh,
                               const RangeOfLayerKeys& r ) {
@@ -392,6 +387,15 @@ class RA_ENGINE_API GeometryDisplayable : public AttribArrayDisplayable
         for ( const auto& k : r )
             addRenderLayer( k.first, k.second );
     }
+    inline void loadGeometry( Core::Geometry::MultiIndexedGeometry&& mesh,
+                              LayerKeyType key,
+                              base::MeshRenderMode renderMode ) {
+        using LayerKeysType = std::array<
+            std::pair<GeometryDisplayable::LayerKeyType, AttribArrayDisplayable::MeshRenderMode>,
+            1>;
+        loadGeometry( std::move( mesh ), LayerKeysType { { { key, renderMode } } } );
+    }
+
     bool addRenderLayer( LayerKeyType key, base::MeshRenderMode renderMode );
     bool removeRenderLayer( LayerKeyType key );
     // bool setRenderMode( LayerKeyType key, RenderMode );
@@ -402,7 +406,8 @@ class RA_ENGINE_API GeometryDisplayable : public AttribArrayDisplayable
 
     inline size_t getNumVertices() const override { return m_geom.vertices().size(); }
 
-    void set_active_layer( LayerKeyType layer_key ) { m_activeLayerKey = layer_key; }
+    void set_active_layer_key( LayerKeyType layer_key ) { m_activeLayerKey = layer_key; }
+    LayerKeyType active_layer_key() { return m_activeLayerKey; }
 
   protected:
     void setupCoreMeshObservers();
@@ -457,25 +462,6 @@ class RA_ENGINE_API GeometryDisplayable : public AttribArrayDisplayable
     /// Core::Mesh attrib name to Render::Mesh attrib name
     /// key: core mesh name, value: shader name
     BijectiveAssociation<std::string, std::string> m_translationTable {};
-};
-
-/// LineMesh, own a Core::Geometry::LineMesh
-class RA_ENGINE_API LineMesh : public IndexedGeometry<Core::Geometry::LineMesh>
-{
-    using base = IndexedGeometry<Core::Geometry::LineMesh>;
-
-  public:
-    using base::IndexedGeometry;
-    inline explicit LineMesh(
-        const std::string& name,
-        typename base::CoreGeometry&& geom,
-        typename base::MeshRenderMode renderMode = base::MeshRenderMode::RM_LINES );
-    inline explicit LineMesh(
-        const std::string& name,
-        typename base::MeshRenderMode renderMode = base::MeshRenderMode::RM_LINES );
-
-  protected:
-  private:
 };
 
 /// Mesh, own a Core::Geometry::TriangleMesh
@@ -570,11 +556,6 @@ CoreMeshType createCoreMeshFromGeometryData( const Ra::Core::Asset::GeometryData
 namespace RenderMeshType {
 template <class CoreMeshT>
 struct getType {};
-
-template <>
-struct getType<Ra::Core::Geometry::LineMesh> {
-    using Type = Ra::Engine::Data::LineMesh;
-};
 
 template <>
 struct getType<Ra::Core::Geometry::TriangleMesh> {
@@ -936,16 +917,6 @@ PointCloud::PointCloud( const std::string& name,
 }
 
 PointCloud::PointCloud( const std::string& name, typename base::MeshRenderMode renderMode ) :
-    base( name, renderMode ) {}
-
-/////////  LineMesh ///////////
-
-LineMesh::LineMesh( const std::string& name,
-                    typename base::CoreGeometry&& geom,
-                    typename base::MeshRenderMode renderMode ) :
-    base( name, std::move( geom ), renderMode ) {}
-
-LineMesh::LineMesh( const std::string& name, typename base::MeshRenderMode renderMode ) :
     base( name, renderMode ) {}
 
 /////////  PolyMesh ///////////
