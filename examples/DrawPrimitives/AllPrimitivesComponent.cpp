@@ -650,9 +650,8 @@ void AllPrimitivesComponent::initialize() {
         auto hepta = VectorNui( 7 );
         hepta << 3, 2, 4, 5, 6, 7, 8;
         polyMesh.setIndices( { quad, hepta } );
+        auto poly1 = make_shared<GeometryDisplayable>( "Poly", std::move( polyMesh ) );
 
-        std::shared_ptr<Data::PolyMesh> poly1(
-            new Data::PolyMesh( "Poly", std::move( polyMesh ) ) );
         poly1->getCoreGeometry().addAttrib(
             Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::VERTEX_COLOR ),
             Vector4Array { poly1->getNumVertices(), colorBoost * Color { 1_ra, 0.6_ra, 0.1_ra } } );
@@ -665,11 +664,12 @@ void AllPrimitivesComponent::initialize() {
 
         addRenderObject( renderObject1 );
 
-        Ra::Core::Geometry::TopologicalMesh topo { poly1->getCoreGeometry() };
+        Ra::Core::Geometry::TopologicalMesh topo { poly1->getCoreGeometry(),
+                                                   poly1->active_layer_key() };
         topo.triangulate();
         topo.checkIntegrity();
         auto triangulated = topo.toTriangleMesh();
-        std::shared_ptr<Mesh> poly2( new Mesh( "Poly", std::move( triangulated ) ) );
+        auto poly2        = make_shared<GeometryDisplayable>( "Poly", std::move( triangulated ) );
         poly2->getCoreGeometry().addAttrib(
             Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::VERTEX_COLOR ),
             Vector4Array { poly2->getNumVertices(), colorBoost * Color { 0_ra, 0.6_ra, 0.1_ra } } );
@@ -869,7 +869,7 @@ void AllPrimitivesComponent::initialize() {
     auto addMesh = [this, colorBoost, plainMaterial]( Vector3 pos, TopologicalMesh topo1 ) {
         topo1.checkIntegrity();
         auto mesh1 = topo1.toTriangleMesh();
-        std::shared_ptr<Mesh> poly( new Mesh( "TEST", std::move( mesh1 ) ) );
+        auto poly  = make_shared<GeometryDisplayable>( "topo mesh", std::move( mesh1 ) );
 
         auto renderObject2 =
             RenderObject::createRenderObject( "TEST", this, RenderObjectType::Geometry, poly, {} );
