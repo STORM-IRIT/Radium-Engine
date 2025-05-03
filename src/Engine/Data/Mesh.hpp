@@ -402,6 +402,8 @@ class RA_ENGINE_API GeometryDisplayable : public AttribArrayDisplayable
 
     inline size_t getNumVertices() const override { return m_geom.vertices().size(); }
 
+    void set_active_layer( LayerKeyType layer_key ) { m_activeLayerKey = layer_key; }
+
   protected:
     void setupCoreMeshObservers();
 
