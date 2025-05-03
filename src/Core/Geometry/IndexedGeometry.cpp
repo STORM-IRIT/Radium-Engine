@@ -211,10 +211,10 @@ void MultiIndexedGeometry::unlockLayer( const LayerKeyType& layerKey ) {
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 
-std::pair<bool, GeometryIndexLayerBase&>
-MultiIndexedGeometry::addLayer( std::unique_ptr<GeometryIndexLayerBase>&& layer,
-                                const bool withLock,
-                                const std::string& layerName ) {
+auto MultiIndexedGeometry::addLayer( std::unique_ptr<GeometryIndexLayerBase>&& layer,
+                                     const bool withLock,
+                                     const std::string& layerName )
+    -> std::pair<bool, LayerKeyType> {
     LayerKeyType key { layer->semantics(), layerName };
     auto elt             = std::make_pair( key, std::make_pair( false, std::move( layer ) ) );
     auto [pos, inserted] = m_indices.insert( std::move( elt ) );
@@ -227,7 +227,7 @@ MultiIndexedGeometry::addLayer( std::unique_ptr<GeometryIndexLayerBase>&& layer,
     /// If not inserted, the pointer is deleted. So the caller must ensure this possible
     /// deletion is safe before calling this method.
 
-    return { inserted, *( pos->second.second ) };
+    return { inserted, key };
 }
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////

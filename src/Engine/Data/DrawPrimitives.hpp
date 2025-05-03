@@ -24,6 +24,7 @@ namespace Data {
 class Mesh;
 class AttribArrayDisplayable;
 class LineMesh;
+class GeometryDisplayable;
 
 /// A set of convenient functions to instantiate simple displays such as points, lines, etc.
 /// note that objects will be drawn in their entity's local frame.
@@ -32,6 +33,7 @@ namespace DrawPrimitives {
 using MeshPtr                   = std::shared_ptr<Mesh>;
 using LineMeshPtr               = std::shared_ptr<LineMesh>;
 using AttribArrayDisplayablePtr = std::shared_ptr<AttribArrayDisplayable>;
+using GeometryDisplayablePtr    = std::shared_ptr<GeometryDisplayable>;
 
 ///\{
 /// Renturn a render object to display the given geometry
@@ -63,11 +65,11 @@ RA_ENGINE_API LineMeshPtr Ray( const Core::Ray& ray,
 
 /// Displays given triangle ABC, either in wireframe (fill = false)
 /// or filled with the color(fill = true).
-RA_ENGINE_API AttribArrayDisplayablePtr Triangle( const Core::Vector3& a,
-                                                  const Core::Vector3& b,
-                                                  const Core::Vector3& c,
-                                                  const Core::Utils::Color& color,
-                                                  bool fill = false );
+RA_ENGINE_API GeometryDisplayablePtr Triangle( const Core::Vector3& a,
+                                               const Core::Vector3& b,
+                                               const Core::Vector3& c,
+                                               const Core::Utils::Color& color,
+                                               bool fill = false );
 
 /// Displays a strip of n quads, starting at A and with directions X and Y.
 RA_ENGINE_API MeshPtr QuadStrip( const Core::Vector3& a,
