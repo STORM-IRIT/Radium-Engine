@@ -209,7 +209,6 @@ MultiIndexedGeometry makeSharpBox2( const Aabb& aabb,
         Vector4ui( 16, 17, 18, 19 ), // Bottom
         Vector4ui( 20, 21, 22, 23 )  // Top
     };
-    auto semantic = layer->semantics();
 
     result.addLayer( std::move( layer ) );
     if ( bool( color ) ) result.colorize( *color );
