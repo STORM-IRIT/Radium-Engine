@@ -37,7 +37,10 @@ using GeometryDisplayablePtr    = std::shared_ptr<GeometryDisplayable>;
 /// Renturn a render object to display the given geometry
 RA_ENGINE_API Rendering::RenderObject* Primitive( Scene::Component* comp, const MeshPtr& mesh );
 RA_ENGINE_API Rendering::RenderObject* Primitive( Scene::Component* comp,
+                                                  const GeometryDisplayablePtr& mesh );
+RA_ENGINE_API Rendering::RenderObject* Primitive( Scene::Component* comp,
                                                   const AttribArrayDisplayablePtr& mesh );
+
 ///\}
 
 /// Displays given point shown as the crossing of 3 lines of length 'scale'
@@ -95,16 +98,16 @@ RA_ENGINE_API GeometryDisplayablePtr CircleArc( const Core::Vector3& center,
                                                 const Core::Utils::Color& color );
 
 /// Displays geodesic sphere computed with given center and radius
-RA_ENGINE_API MeshPtr Sphere( const Core::Vector3& center,
-                              Scalar radius,
-                              const Core::Utils::Color& color );
+RA_ENGINE_API GeometryDisplayablePtr Sphere( const Core::Vector3& center,
+                                             Scalar radius,
+                                             const Core::Utils::Color& color );
 
 /// Displays uv sphere computed with given center and radius
 /// \param generateTexCoord: ask texture coordinate generation
-RA_ENGINE_API MeshPtr ParametricSphere( const Core::Vector3& center,
-                                        Scalar radius,
-                                        const Core::Utils::Color& color,
-                                        bool generateTexCoord = false );
+RA_ENGINE_API GeometryDisplayablePtr ParametricSphere( const Core::Vector3& center,
+                                                       Scalar radius,
+                                                       const Core::Utils::Color& color,
+                                                       bool generateTexCoord = false );
 
 /// Displays a capsule computed with given endpoints and radius.
 RA_ENGINE_API MeshPtr Capsule( const Core::Vector3& p1,
