@@ -30,6 +30,11 @@ Rendering::RenderObject* Primitive( Scene::Component* component, const MeshPtr& 
 }
 
 Rendering::RenderObject* Primitive( Scene::Component* component,
+                                    const GeometryDisplayablePtr& mesh ) {
+    return Primitive( component, std::dynamic_pointer_cast<Data::AttribArrayDisplayable>( mesh ) );
+}
+
+Rendering::RenderObject* Primitive( Scene::Component* component,
                                     const AttribArrayDisplayablePtr& mesh ) {
     Rendering::RenderTechnique rt;
     auto builder = Rendering::EngineRenderTechniques::getDefaultTechnique( "Plain" );
@@ -253,8 +258,9 @@ GeometryDisplayablePtr CircleArc( const Core::Vector3& center,
     return make_shared<GeometryDisplayable>( "Arc Circle Primitive", std::move( geom ) );
 }
 
-MeshPtr Sphere( const Core::Vector3& center, Scalar radius, const Core::Utils::Color& color ) {
-    auto geom   = makeGeodesicSphere( radius, 4, color );
+GeometryDisplayablePtr
+Sphere( const Core::Vector3& center, Scalar radius, const Core::Utils::Color& color ) {
+    auto geom   = makeGeodesicSphere( radius, 3, color );
     auto handle = geom.getAttribHandle<TriangleMesh::Point>(
         Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::MeshAttrib::VERTEX_POSITION ) );
     auto& vertices = geom.getAttrib<TriangleMesh::Point>( handle );
@@ -263,13 +269,13 @@ MeshPtr Sphere( const Core::Vector3& center, Scalar radius, const Core::Utils::C
     std::for_each( data.begin(), data.end(), [center]( Core::Vector3& v ) { v += center; } );
     vertices.unlock();
 
-    return make_shared<Mesh>( "Sphere Primitive", std::move( geom ) );
+    return make_shared<GeometryDisplayable>( "Sphere Primitive", std::move( geom ) );
 }
 
-MeshPtr ParametricSphere( const Core::Vector3& center,
-                          Scalar radius,
-                          const Core::Utils::Color& color,
-                          bool generateTexCoord ) {
+GeometryDisplayablePtr ParametricSphere( const Core::Vector3& center,
+                                         Scalar radius,
+                                         const Core::Utils::Color& color,
+                                         bool generateTexCoord ) {
     auto geom   = makeParametricSphere<32, 32>( radius, color, generateTexCoord );
     auto handle = geom.getAttribHandle<TriangleMesh::Point>(
         Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::MeshAttrib::VERTEX_POSITION ) );
@@ -279,7 +285,7 @@ MeshPtr ParametricSphere( const Core::Vector3& center,
     std::for_each( data.begin(), data.end(), [center]( Core::Vector3& v ) { v += center; } );
     vertices.unlock();
 
-    return make_shared<Mesh>( "Sphere Primitive", std::move( geom ) );
+    return make_shared<GeometryDisplayable>( "Sphere Primitive", std::move( geom ) );
 }
 
 MeshPtr Capsule( const Core::Vector3& p1,
