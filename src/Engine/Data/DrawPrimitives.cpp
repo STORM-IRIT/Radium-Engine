@@ -145,6 +145,7 @@ GeometryDisplayablePtr Triangle( const Core::Vector3& a,
                              { boundary_key, AttribArrayDisplayable::RM_LINES } } } );
 
     if ( fill ) { ret->set_active_layer_key( face_key ); }
+    else { ret->set_active_layer_key( boundary_key ); }
 
     return ret;
 }
