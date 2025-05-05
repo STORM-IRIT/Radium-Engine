@@ -600,17 +600,10 @@ class IndexedGeometry : public MultiIndexedGeometry
 class RA_CORE_API IndexedPointCloud : public IndexedGeometry<Vector1ui>
 {};
 
-class RA_CORE_API TriangleMesh : public IndexedGeometry<Vector3ui>
-{};
-
-class RA_CORE_API QuadMesh : public IndexedGeometry<Vector4ui>
-{};
-
-class RA_CORE_API PolyMesh : public IndexedGeometry<VectorNui>
-{};
-
-class RA_CORE_API LineMesh : public IndexedGeometry<Vector2ui>
-{};
+using TriangleMesh = IndexedGeometry<Vector3ui>;
+using QuadMesh     = IndexedGeometry<Vector4ui>;
+using PolyMesh     = IndexedGeometry<VectorNui>;
+using LineMesh     = IndexedGeometry<Vector2ui>;
 
 //  GeometryIndexLayerBase
 inline GeometryIndexLayerBase::GeometryIndexLayerBase( const GeometryIndexLayerBase& other ) :

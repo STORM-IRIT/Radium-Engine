@@ -10,8 +10,11 @@ using namespace Ra::Core;
 using namespace Ra::Core::Utils;
 using namespace Ra::Core::Geometry;
 
-bool isSameMesh( const Ra::Core::Geometry::TriangleMesh& meshOne,
-                 const Ra::Core::Geometry::TriangleMesh& meshTwo,
+template <typename IndexType>
+bool isSameMesh( const Ra::Core::Geometry::MultiIndexedGeometry& meshOne,
+                 const VectorArray<IndexType>& indices_mesh_one,
+                 const Ra::Core::Geometry::MultiIndexedGeometry& meshTwo,
+                 const VectorArray<IndexType>& indices_mesh_two,
                  bool expected = true ) {
 
     bool result = true;
@@ -29,7 +32,7 @@ bool isSameMesh( const Ra::Core::Geometry::TriangleMesh& meshOne,
         return false;
     }
 
-    if ( meshOne.getIndices().size() != meshTwo.getIndices().size() ) {
+    if ( indices_mesh_one.size() != indices_mesh_two.size() ) {
         if ( expected ) { LOG( logINFO ) << "isSameMesh failed getIndices().size()"; }
         return false;
     }
@@ -41,23 +44,25 @@ bool isSameMesh( const Ra::Core::Geometry::TriangleMesh& meshOne,
     bool hasNormals = meshOne.normals().size() > 0;
 
     i = 0;
-    while ( result && i < int( meshOne.getIndices().size() ) ) {
+    while ( result && i < int( indices_mesh_one.size() ) ) {
         std::vector<Ra::Core::Vector3>::iterator it;
         stackVertices.clear();
-        stackVertices.push_back( meshOne.vertices()[meshOne.getIndices()[i][0]] );
-        stackVertices.push_back( meshOne.vertices()[meshOne.getIndices()[i][1]] );
-        stackVertices.push_back( meshOne.vertices()[meshOne.getIndices()[i][2]] );
+        if ( indices_mesh_two[i].size() != indices_mesh_one[i].size() ) { return false; }
 
+        auto index = indices_mesh_one[i];
+        for ( auto coord : index ) {
+            stackVertices.push_back( meshOne.vertices()[coord] );
+        }
         if ( hasNormals ) {
             stackNormals.clear();
-            stackNormals.push_back( meshOne.normals()[meshOne.getIndices()[i][0]] );
-            stackNormals.push_back( meshOne.normals()[meshOne.getIndices()[i][1]] );
-            stackNormals.push_back( meshOne.normals()[meshOne.getIndices()[i][2]] );
+            for ( auto coord : index ) {
+                stackNormals.push_back( meshOne.normals()[coord] );
+            }
         }
-        for ( int j = 0; j < 3; ++j ) {
+        for ( int j = 0; j < indices_mesh_two[i].size(); ++j ) {
             it = find( stackVertices.begin(),
                        stackVertices.end(),
-                       meshTwo.vertices()[meshTwo.getIndices()[i][j]] );
+                       meshTwo.vertices()[indices_mesh_two[i][j]] );
             if ( it != stackVertices.end() ) { stackVertices.erase( it ); }
             else {
 
@@ -68,10 +73,10 @@ bool isSameMesh( const Ra::Core::Geometry::TriangleMesh& meshOne,
         }
 
         if ( hasNormals ) {
-            for ( int j = 0; j < 3; ++j ) {
+            for ( int j = 0; j < indices_mesh_two[i].size(); ++j ) {
                 it = find( stackNormals.begin(),
                            stackNormals.end(),
-                           meshTwo.normals()[meshTwo.getIndices()[i][j]] );
+                           meshTwo.normals()[indices_mesh_two[i][j]] );
                 if ( it != stackNormals.end() ) { stackNormals.erase( it ); }
                 else {
 
@@ -228,25 +233,26 @@ bool isSameMeshWedge( const Ra::Core::Geometry::IndexedGeometry<T>& meshOne,
     return true;
 }
 
+template <typename T>
+void testConverter1( const Ra::Core::Geometry::IndexedGeometry<T>& mesh ) {
+    auto topologicalMesh = TopologicalMesh( mesh );
+    auto newMesh         = topologicalMesh.toIndexedMesh<T>();
+    REQUIRE( ( isSameMesh( mesh, mesh.getIndices(), newMesh, newMesh.getIndices(), false ) ) );
+    REQUIRE( topologicalMesh.checkIntegrity() );
+};
+
 TEST_CASE( "Core/Geometry/TopologicalMesh", "[Core][Core/Geometry][TopologicalMesh]" ) {
     using Ra::Core::Vector3;
     using Ra::Core::Geometry::TopologicalMesh;
     using Ra::Core::Geometry::TriangleMesh;
 
-    auto testConverter = []( const TriangleMesh& mesh ) {
-        auto topologicalMesh = TopologicalMesh( mesh );
-        auto newMesh         = topologicalMesh.toTriangleMesh();
-        REQUIRE( isSameMesh( mesh, newMesh ) );
-        REQUIRE( topologicalMesh.checkIntegrity() );
-    };
-
     SECTION( "Closed mesh" ) {
-        testConverter( Ra::Core::Geometry::makeBox() );
-        testConverter( Ra::Core::Geometry::makeSharpBox() );
+        testConverter1( Ra::Core::Geometry::makeBox() );
+        testConverter1( Ra::Core::Geometry::makeSharpBox() );
     }
 
     SECTION( "Mesh with boundaries" ) {
-        testConverter( Ra::Core::Geometry::makePlaneGrid( 2, 2 ) );
+        testConverter1( Ra::Core::Geometry::makePlaneGrid( 2, 2 ) );
     }
 
     SECTION( "With user def attribs" ) {
@@ -299,7 +305,7 @@ TEST_CASE( "Core/Geometry/TopologicalMesh", "[Core][Core/Geometry][TopologicalMe
 
         auto topologicalMesh = TopologicalMesh( mesh );
         auto newMesh         = topologicalMesh.toTriangleMesh();
-        REQUIRE( isSameMesh( mesh, newMesh ) );
+        REQUIRE( isSameMesh( mesh, mesh.getIndices(), newMesh, newMesh.getIndices() ) );
         REQUIRE( topologicalMesh.checkIntegrity() );
 
         // oversize attrib not suported
@@ -324,7 +330,7 @@ TEST_CASE( "Core/Geometry/TopologicalMesh", "[Core][Core/Geometry][TopologicalMe
             TopologicalMesh::WedgeIndex { 0 }, getAttribName( VERTEX_NORMAL ), Vector3( 0, 0, 0 ) );
         auto newMeshModified = topologicalMesh.toTriangleMesh();
 
-        REQUIRE( isSameMesh( mesh, newMesh ) );
+        REQUIRE( isSameMesh( mesh, mesh.getIndices(), newMesh, newMesh.getIndices() ) );
         REQUIRE( isSameMeshWedge( mesh, newMesh ) );
         REQUIRE( !isSameMeshWedge( mesh, newMeshModified ) );
         REQUIRE( topologicalMesh.checkIntegrity() );
@@ -404,7 +410,7 @@ TEST_CASE( "Core/Geometry/TopologicalMesh", "[Core][Core/Geometry][TopologicalMe
         OpenMesh::FPropHandleT<TopologicalMesh::Normal> fProp;
 
         REQUIRE( mesh.vertexAttribs().hasSameAttribs( mesh1.vertexAttribs() ) );
-        REQUIRE( isSameMesh( mesh, mesh1 ) );
+        REQUIRE( isSameMesh( mesh, mesh.getIndices(), mesh1, mesh1.getIndices() ) );
 
         REQUIRE( mesh1.normals().size() == 0 );
     }
@@ -589,19 +595,25 @@ TEST_CASE( "Core/Geometry/TopologicalMesh/Manifold", "[Core][Core/Geometry][Topo
             return m;
         };
 
-        // test if candidateMesh  -> TopologicalMesh -> TriangleMesh isSameMesh than referenceMesh,
-        // with and without the command.
+        // test if candidateMesh  -> TopologicalMesh -> TriangleMesh isSameMesh than
+        // referenceMesh, with and without the command.
         auto testConverter = []( const TriangleMesh& referenceMesh,
                                  const TriangleMesh& candidateMesh,
                                  MyNonManifoldCommand command ) {
             // test with functor
             TopologicalMesh topoWithCommand { candidateMesh, command };
             auto convertedMeshWithCommand = topoWithCommand.toTriangleMesh();
-            REQUIRE( isSameMesh( referenceMesh, convertedMeshWithCommand ) );
+            REQUIRE( isSameMesh( referenceMesh,
+                                 referenceMesh.getIndices(),
+                                 convertedMeshWithCommand,
+                                 convertedMeshWithCommand.getIndices() ) );
             // test without functor
             TopologicalMesh topoWithoutCommand { candidateMesh };
             auto convertedMeshWithoutCommand = topoWithoutCommand.toTriangleMesh();
-            REQUIRE( isSameMesh( referenceMesh, convertedMeshWithoutCommand ) );
+            REQUIRE( isSameMesh( referenceMesh,
+                                 referenceMesh.getIndices(),
+                                 convertedMeshWithoutCommand,
+                                 convertedMeshWithoutCommand.getIndices() ) );
             return convertedMeshWithoutCommand;
         };
 
@@ -669,7 +681,8 @@ TEST_CASE( "Core/Geometry/TopologicalMesh/Manifold", "[Core][Core/Geometry][Topo
         REQUIRE( !mesh3.vertexAttribs().hasSameAttribs( mesh4.vertexAttribs() ) );
 
         // TODO : build a functor that add the faces as independant faces in the topomesh and
-        // define a manifold mesh that is similar to the result of processing of this non manifold.
+        // define a manifold mesh that is similar to the result of processing of this non
+        // manifold.
         //
     }
     SECTION( "Non manifold vertex : Bow tie" ) {
@@ -1258,46 +1271,47 @@ TEST_CASE( "Core/TopologicalMesh/CollapseWedge" ) {
         addSplitScene( points2, colors2, indices4, points1[5], points1[2] );
     }
 }
+template <typename IndexType>
+void testConverter( IndexedGeometry<IndexType>&& mesh ) {
+    auto topologicalMesh = TopologicalMesh { mesh };
+    auto& vertices       = mesh.verticesWithLock();
+    for ( auto& v : vertices ) {
+        v = TriangleMesh::Point( 0_ra, 1_ra, 2_ra );
+    }
+    mesh.verticesUnlock();
+
+    // update topo mesh positions from mesh
+    topologicalMesh.updatePositions( mesh.vertices() );
+
+    for ( auto itr = topologicalMesh.vertices_begin(); itr != topologicalMesh.vertices_end();
+          ++itr ) {
+        REQUIRE(
+            topologicalMesh.point( *itr ).isApprox( TriangleMesh::Point( 0_ra, 1_ra, 2_ra ) ) );
+        // modify for next test.
+        topologicalMesh.point( *itr ) = TopologicalMesh::Point( 3_ra, 4_ra, 5_ra );
+    }
+
+    // the other way round
+    topologicalMesh.updateTriangleMesh( mesh );
+
+    // not update since wedges are not updated yet
+    for ( auto itr = mesh.vertices().begin(); itr != mesh.vertices().end(); ++itr ) {
+        REQUIRE( itr->isApprox( TriangleMesh::Point( 0_ra, 1_ra, 2_ra ) ) );
+    }
+
+    topologicalMesh.copyPointsPositionToWedges();
+    topologicalMesh.updateTriangleMesh( mesh );
+
+    // not update since wedges are not updated yet
+    for ( auto itr = mesh.vertices().begin(); itr != mesh.vertices().end(); ++itr ) {
+        REQUIRE( itr->isApprox( TriangleMesh::Point( 3_ra, 4_ra, 5_ra ) ) );
+    }
+};
 
 TEST_CASE( "Core/Geometry/TopologicalMesh/Updates", "[Core][Core/Geometry][TopologicalMesh]" ) {
     using Ra::Core::Vector3;
     using Ra::Core::Geometry::TopologicalMesh;
     using Ra::Core::Geometry::TriangleMesh;
-
-    auto testConverter = []( TriangleMesh mesh ) {
-        auto topologicalMesh = TopologicalMesh( mesh );
-        auto& vertices       = mesh.verticesWithLock();
-        for ( auto& v : vertices ) {
-            v = TriangleMesh::Point( 0_ra, 1_ra, 2_ra );
-        }
-        mesh.verticesUnlock();
-
-        // update topo mesh positions from mesh
-        topologicalMesh.updatePositions( mesh.vertices() );
-        for ( auto itr = topologicalMesh.vertices_begin(); itr != topologicalMesh.vertices_end();
-              ++itr ) {
-            REQUIRE(
-                topologicalMesh.point( *itr ).isApprox( TriangleMesh::Point( 0_ra, 1_ra, 2_ra ) ) );
-            // modify for next test.
-            topologicalMesh.point( *itr ) = TopologicalMesh::Point( 3_ra, 4_ra, 5_ra );
-        }
-
-        // the other way round
-        topologicalMesh.updateTriangleMesh( mesh );
-
-        // not update since wedges are not updated yet
-        for ( auto itr = mesh.vertices().begin(); itr != mesh.vertices().end(); ++itr ) {
-            REQUIRE( itr->isApprox( TriangleMesh::Point( 0_ra, 1_ra, 2_ra ) ) );
-        }
-
-        topologicalMesh.copyPointsPositionToWedges();
-        topologicalMesh.updateTriangleMesh( mesh );
-
-        // not update since wedges are not updated yet
-        for ( auto itr = mesh.vertices().begin(); itr != mesh.vertices().end(); ++itr ) {
-            REQUIRE( itr->isApprox( TriangleMesh::Point( 3_ra, 4_ra, 5_ra ) ) );
-        }
-    };
 
     SECTION( "Closed mesh" ) {
         testConverter( Ra::Core::Geometry::makeBox() );
