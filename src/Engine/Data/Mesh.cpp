@@ -167,6 +167,7 @@ void GeometryDisplayable::loadGeometry( Core::Geometry::MultiIndexedGeometry&& m
     m_geomLayers.clear();
     m_geom = std::move( mesh );
     setupCoreMeshObservers();
+    bool ok = false;
 
     if ( m_geom.containsLayer( Core::Geometry::LineIndexLayer::staticSemanticName ) ) {
         auto [key, layer] =
@@ -174,13 +175,15 @@ void GeometryDisplayable::loadGeometry( Core::Geometry::MultiIndexedGeometry&& m
         m_activeLayerKey = key;
         setRenderMode( AttribArrayDisplayable::RM_LINES );
 
-        auto ok = addRenderLayer( key, AttribArrayDisplayable::RM_LINES );
+        ok = addRenderLayer( key, AttribArrayDisplayable::RM_LINES );
         if ( !ok ) { LOG( logERROR ) << "loadGeometry could not add layer"; }
     }
-    else if ( m_geom.containsLayer( Core::Geometry::TriangleIndexLayer::staticSemanticName ) ) {
+    // if triangle also, add and set as default
+    if ( m_geom.containsLayer( Core::Geometry::TriangleIndexLayer::staticSemanticName ) ) {
         auto [key, layer] = m_geom.getFirstLayerOccurrence(
             Core::Geometry::TriangleIndexLayer::staticSemanticName );
         m_activeLayerKey = key;
+        setRenderMode( AttribArrayDisplayable::RM_TRIANGLES );
         addRenderLayer( key, AttribArrayDisplayable::RM_TRIANGLES );
     }
     else if ( m_geom.containsLayer( Core::Geometry::QuadIndexLayer::staticSemanticName ) ) {
@@ -218,7 +221,8 @@ void GeometryDisplayable::loadGeometry( Core::Geometry::MultiIndexedGeometry&& m
             addRenderLayer( triangleKey, AttribArrayDisplayable::RM_TRIANGLES );
         }
     }
-    else { LOG( logERROR ) << "no valid layer found"; }
+    // if no line, nor any other
+    else if ( !ok ) { LOG( logERROR ) << "no valid layer found"; }
     m_isDirty = true;
 }
 

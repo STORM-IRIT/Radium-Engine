@@ -5,6 +5,7 @@
 #include <Core/Utils/Color.hpp>
 
 #include <Core/Asset/Camera.hpp>
+#include <Core/Containers/MakeShared.hpp>
 #include <Engine/Data/Mesh.hpp>
 #include <Engine/Rendering/RenderObject.hpp>
 #include <Engine/Rendering/RenderTechnique.hpp>
@@ -57,7 +58,7 @@ TranslateGizmo::TranslateGizmo( Engine::Scene::Component* c,
         T.translation()[( i + 1 ) % 3] += arrowScale / 8_ra * 3_ra;
         T.translation()[( i + 2 ) % 3] += arrowScale / 8_ra * 3_ra;
 
-        Core::Geometry::TriangleMesh plane = Core::Geometry::makePlaneGrid(
+        auto plane = Core::Geometry::makePlaneGrid(
             1, 1, Core::Vector2( arrowScale / 8_ra, arrowScale / 8_ra ), T );
 
         // \FIXME this hack is here to be sure the plane will be selected (see shader)
@@ -66,7 +67,7 @@ TranslateGizmo::TranslateGizmo( Engine::Scene::Component* c,
         normals.getMap().fill( 0_ra );
         plane.normalsUnlock();
 
-        std::shared_ptr<Engine::Data::Mesh> mesh( new Engine::Data::Mesh( "Gizmo Plane" ) );
+        auto mesh = Ra::Core::make_shared<Engine::Data::GeometryDisplayable>( "Gizmo Plane" );
         mesh->loadGeometry( std::move( plane ) );
 
         Engine::Rendering::RenderObject* planeDrawable = new Engine::Rendering::RenderObject(
