@@ -339,7 +339,10 @@ class RA_ENGINE_API GeometryDisplayable : public AttribArrayDisplayable
     using LayerSemantic = typename Core::Geometry::MultiIndexedGeometry::LayerSemantic;
     using LayerKeyType  = typename Core::Geometry::MultiIndexedGeometry::LayerKeyType;
     using LayerKeyHash  = Core::Geometry::MultiIndexedGeometry::LayerKeyHash;
-
+    template <int N>
+    using ArrayOfLayerKeys = std::array<
+        std::pair<GeometryDisplayable::LayerKeyType, AttribArrayDisplayable::MeshRenderMode>,
+        N>;
     explicit GeometryDisplayable( const std::string& name );
     explicit GeometryDisplayable( const std::string& name,
                                   typename Core::Geometry::MultiIndexedGeometry&& geom );
@@ -390,10 +393,7 @@ class RA_ENGINE_API GeometryDisplayable : public AttribArrayDisplayable
     inline void loadGeometry( Core::Geometry::MultiIndexedGeometry&& mesh,
                               LayerKeyType key,
                               base::MeshRenderMode renderMode ) {
-        using LayerKeysType = std::array<
-            std::pair<GeometryDisplayable::LayerKeyType, AttribArrayDisplayable::MeshRenderMode>,
-            1>;
-        loadGeometry( std::move( mesh ), LayerKeysType { { { key, renderMode } } } );
+        loadGeometry( std::move( mesh ), ArrayOfLayerKeys<1> { { { key, renderMode } } } );
     }
 
     bool addRenderLayer( LayerKeyType key, base::MeshRenderMode renderMode );

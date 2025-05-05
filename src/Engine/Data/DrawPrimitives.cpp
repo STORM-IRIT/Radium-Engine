@@ -139,13 +139,10 @@ GeometryDisplayablePtr Triangle( const Core::Vector3& a,
 
     auto ret = make_shared<GeometryDisplayable>( "Triangle" );
 
-    using LayerKeysType = std::array<
-        std::pair<GeometryDisplayable::LayerKeyType, AttribArrayDisplayable::MeshRenderMode>,
-        2>;
-
     ret->loadGeometry( std::move( geom ),
-                       LayerKeysType { { { face_key, AttribArrayDisplayable::RM_TRIANGLES },
-                                         { boundary_key, AttribArrayDisplayable::RM_LINES } } } );
+                       GeometryDisplayable::ArrayOfLayerKeys<2> {
+                           { { face_key, AttribArrayDisplayable::RM_TRIANGLES },
+                             { boundary_key, AttribArrayDisplayable::RM_LINES } } } );
 
     if ( fill ) { ret->set_active_layer_key( face_key ); }
 
@@ -444,48 +441,15 @@ MeshPtr Frame( const Core::Transform& frameFromEntity, Scalar scale ) {
     return mesh;
 }
 
-MeshPtr Grid( const Core::Vector3& center,
-              const Core::Vector3& x,
-              const Core::Vector3& y,
-              const Core::Utils::Color& color,
-              Scalar cellSize,
-              uint res ) {
-    CORE_ASSERT( res > 1, "Grid has to be at least a 2x2 grid." );
-    Core::Vector3Array vertices;
-    std::vector<uint> indices;
+GeometryDisplayablePtr Grid( const Core::Vector3& center,
+                             const Core::Vector3& x,
+                             const Core::Vector3& y,
+                             const Core::Utils::Color& color,
+                             Scalar cellSize,
+                             uint res ) {
 
-    const Scalar halfWidth { ( cellSize * res ) / 2.f };
-    const Core::Vector3 deltaPosX { cellSize * x };
-    const Core::Vector3 startPosX { center - halfWidth * x };
-    const Core::Vector3 endPosX { center + halfWidth * x };
-    const Core::Vector3 deltaPosY { cellSize * y };
-    const Core::Vector3 startPosY { center - halfWidth * y };
-    const Core::Vector3 endPosY { center + halfWidth * y };
-    Core::Vector3 currentPosX { startPosX };
-    for ( uint i = 0; i < res + 1; ++i ) {
-        vertices.push_back( startPosY + currentPosX );
-        vertices.push_back( endPosY + currentPosX );
-        indices.push_back( uint( vertices.size() ) - 2 );
-        indices.push_back( uint( vertices.size() ) - 1 );
-        currentPosX += deltaPosX;
-    }
-
-    Core::Vector3 currentPosY = startPosY;
-    for ( uint i = 0; i < res + 1; ++i ) {
-        vertices.push_back( startPosX + currentPosY );
-        vertices.push_back( endPosX + currentPosY );
-        indices.push_back( uint( vertices.size() ) - 2 );
-        indices.push_back( uint( vertices.size() ) - 1 );
-        currentPosY += deltaPosY;
-    }
-
-    Core::Vector4Array colors( vertices.size(), color );
-
-    MeshPtr mesh( new Mesh( "GridPrimitive", Mesh::RM_LINES ) );
-    mesh->loadGeometry( vertices, indices );
-    mesh->getCoreGeometry().addAttrib(
-        Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::MeshAttrib::VERTEX_COLOR ), colors );
-
+    auto geom = makeGrid( center, x, y, color, cellSize, res );
+    auto mesh = make_shared<GeometryDisplayable>( "GridPrimitive", std::move( geom ) );
     return mesh;
 }
 

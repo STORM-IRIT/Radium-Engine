@@ -12,27 +12,27 @@ namespace Ra {
 namespace Core {
 namespace Geometry {
 
-TriangleMesh makeXNormalQuad( const Vector2& halfExts,
-                              const Utils::optional<Utils::Color>& color,
-                              bool generateTexCoord ) {
+QuadMesh makeXNormalQuad( const Vector2& halfExts,
+                          const Utils::optional<Utils::Color>& color,
+                          bool generateTexCoord ) {
     Transform T = Transform::Identity();
     T.linear().col( 0 ).swap( T.linear().col( 1 ) );
     T.linear().col( 1 ).swap( T.linear().col( 2 ) );
     return makePlaneGrid( 1, 1, halfExts, T, color, generateTexCoord );
 }
 
-TriangleMesh makeYNormalQuad( const Vector2& halfExts,
-                              const Utils::optional<Utils::Color>& color,
-                              bool generateTexCoord ) {
+QuadMesh makeYNormalQuad( const Vector2& halfExts,
+                          const Utils::optional<Utils::Color>& color,
+                          bool generateTexCoord ) {
     Transform T = Transform::Identity();
     T.linear().col( 1 ).swap( T.linear().col( 2 ) );
     T.linear().col( 0 ).swap( T.linear().col( 1 ) );
     return makePlaneGrid( 1, 1, halfExts, T, color, generateTexCoord );
 }
 
-TriangleMesh makeZNormalQuad( const Vector2& halfExts,
-                              const Utils::optional<Utils::Color>& color,
-                              bool generateTexCoord ) {
+QuadMesh makeZNormalQuad( const Vector2& halfExts,
+                          const Utils::optional<Utils::Color>& color,
+                          bool generateTexCoord ) {
     return makePlaneGrid( 1, 1, halfExts, Transform::Identity(), color, generateTexCoord );
 }
 
@@ -861,26 +861,71 @@ TriangleMesh makeCone( const Vector3& base,
     return result;
 }
 
-TriangleMesh makePlaneGrid( const uint rows,
-                            const uint cols,
-                            const Vector2& halfExts,
-                            const Transform& T,
-                            const Utils::optional<Utils::Color>& color,
-                            bool generateTexCoord ) {
-    TriangleMesh result;
+LineMesh makeGrid( const Core::Vector3& center,
+                   const Core::Vector3& x,
+                   const Core::Vector3& y,
+                   const Core::Utils::Color& color,
+                   Scalar cell_size,
+                   uint res ) {
+
+    CORE_ASSERT( res > 1, "Grid has to be at least a 2x2 grid." );
+
+    LineMesh result;
     TriangleMesh::PointAttribHandle::Container vertices;
-    TriangleMesh::NormalAttribHandle::Container normals;
-    TriangleMesh::IndexContainerType indices;
+    auto indices = LineMesh::IndexContainerType {};
+
+    vertices.reserve( 4 * ( res + 1 ) );
+    indices.reserve( 2 * ( res + 1 ) );
+
+    const Scalar halfWidth { ( cell_size * res ) / 2.f };
+    const Core::Vector3 deltaPosX { cell_size * x };
+    const Core::Vector3 startPosX { center - halfWidth * x };
+    const Core::Vector3 endPosX { center + halfWidth * x };
+    const Core::Vector3 deltaPosY { cell_size * y };
+    const Core::Vector3 startPosY { center - halfWidth * y };
+    const Core::Vector3 endPosY { center + halfWidth * y };
+    Core::Vector3 currentPosX { startPosX };
+    for ( uint i = 0; i < res + 1; ++i ) {
+        vertices.emplace_back( startPosY + currentPosX );
+        vertices.emplace_back( endPosY + currentPosX );
+        indices.emplace_back( uint( vertices.size() ) - 2, uint( vertices.size() ) - 1 );
+        currentPosX += deltaPosX;
+    }
+
+    Core::Vector3 currentPosY = startPosY;
+    for ( uint i = 0; i < res + 1; ++i ) {
+        vertices.emplace_back( startPosX + currentPosY );
+        vertices.emplace_back( endPosX + currentPosY );
+        indices.emplace_back( uint( vertices.size() ) - 2, uint( vertices.size() ) - 1 );
+        currentPosY += deltaPosY;
+    }
+
+    result.setVertices( std::move( vertices ) );
+    result.setIndices( std::move( indices ) );
+
+    result.colorize( color );
+    return result;
+}
+
+QuadMesh makePlaneGrid( const uint rows,
+                        const uint cols,
+                        const Vector2& halfExts,
+                        const Transform& T,
+                        const Utils::optional<Utils::Color>& color,
+                        bool generateTexCoord ) {
+    QuadMesh result;
+
+    QuadMesh::PointAttribHandle::Container vertices;
+    QuadMesh::NormalAttribHandle::Container normals;
     Ra::Core::Vector3Array texCoords;
 
     const uint R      = ( rows + 1 );
     const uint C      = ( cols + 1 );
     const uint v_size = C * R;
-    const uint t_size = 2 * cols * rows;
+    const uint t_size = cols * rows;
 
     vertices.resize( v_size );
     normals.resize( v_size );
-    indices.reserve( t_size );
     texCoords.reserve( v_size );
 
     const Vector3 X = T.linear().col( 0 ).normalized();
@@ -905,20 +950,25 @@ TriangleMesh makePlaneGrid( const uint rows,
         }
     }
 
-    for ( uint i = 0; i < rows; ++i ) {
-        for ( uint j = 0; j < cols; ++j ) {
-            indices.emplace_back(
-                v.at( { i, j } ), v.at( { i, j + 1 } ), v.at( { i + 1, j + 1 } ) );
-            indices.emplace_back(
-                v.at( { i, j } ), v.at( { i + 1, j + 1 } ), v.at( { i + 1, j } ) );
-        }
-    }
     result.setVertices( std::move( vertices ) );
     result.setNormals( std::move( normals ) );
-    result.setIndices( std::move( indices ) );
     if ( generateTexCoord )
         result.addAttrib( getAttribName( MeshAttrib::VERTEX_TEXCOORD ), std::move( texCoords ) );
     if ( bool( color ) ) result.colorize( *color );
+
+    auto& face_layer = result.getIndicesWithLock();
+    face_layer.reserve( t_size );
+
+    for ( uint i = 0; i < rows; ++i ) {
+        for ( uint j = 0; j < cols; ++j ) {
+            face_layer.emplace_back( v.at( { i, j } ),
+                                     v.at( { i, j + 1 } ),
+                                     v.at( { i + 1, j + 1 } ),
+                                     v.at( { i + 1, j } ) );
+        }
+    }
+
+    result.indicesUnlock();
     result.checkConsistency();
 
     return result;

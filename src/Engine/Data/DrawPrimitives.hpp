@@ -140,12 +140,12 @@ RA_ENGINE_API MeshPtr Frame( const Core::Transform& frameFromEntity, Scalar scal
 
 /// Create a res*res square grid centered on center,
 /// in plane defined by the vectors x and y.
-RA_ENGINE_API MeshPtr Grid( const Core::Vector3& center,
-                            const Core::Vector3& x,
-                            const Core::Vector3& y,
-                            const Core::Utils::Color& color,
-                            Scalar cellSize = 1.f,
-                            uint res        = 10 );
+RA_ENGINE_API GeometryDisplayablePtr Grid( const Core::Vector3& center,
+                                           const Core::Vector3& x,
+                                           const Core::Vector3& y,
+                                           const Core::Utils::Color& color,
+                                           Scalar cellSize = 1.f,
+                                           uint res        = 10 );
 
 /// Display a wireframe AABB
 RA_ENGINE_API MeshPtr AABB( const Core::Aabb& aabb, const Core::Utils::Color& color );

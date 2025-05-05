@@ -1,10 +1,11 @@
 #include <Gui/Viewer/Gizmo/ScaleGizmo.hpp>
 
+#include <Core/Asset/Camera.hpp>
+#include <Core/Containers/MakeShared.hpp>
 #include <Core/Containers/VectorArray.hpp>
 #include <Core/Geometry/MeshPrimitives.hpp>
 #include <Core/Utils/Color.hpp>
 
-#include <Core/Asset/Camera.hpp>
 #include <Engine/Data/Mesh.hpp>
 #include <Engine/Rendering/RenderObject.hpp>
 #include <Engine/Rendering/RenderTechnique.hpp>
@@ -61,7 +62,7 @@ ScaleGizmo::ScaleGizmo( Engine::Scene::Component* c,
         T.translation()[( i + 1 ) % 3] += arrowFrac * arrowScale * 3;
         T.translation()[( i + 2 ) % 3] += arrowFrac * arrowScale * 3;
 
-        Core::Geometry::TriangleMesh plane = Core::Geometry::makePlaneGrid(
+        auto plane = Core::Geometry::makePlaneGrid(
             1, 1, Core::Vector2( arrowFrac * arrowScale, arrowFrac * arrowScale ), T );
 
         // \FIXME this hack is here to be sure the plane will be selected (see shader)
@@ -69,7 +70,7 @@ ScaleGizmo::ScaleGizmo( Engine::Scene::Component* c,
         normals.getMap().fill( 0_ra );
         plane.normalsUnlock();
 
-        std::shared_ptr<Engine::Data::Mesh> mesh( new Engine::Data::Mesh( "Gizmo Plane" ) );
+        auto mesh = std::make_shared<Engine::Data::GeometryDisplayable>( "Gizmo Plane" );
         mesh->loadGeometry( std::move( plane ) );
 
         Engine::Rendering::RenderObject* planeDrawable = new Engine::Rendering::RenderObject(

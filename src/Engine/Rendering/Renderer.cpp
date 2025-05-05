@@ -175,10 +175,9 @@ void Renderer::initialize( uint width, uint height ) {
     m_secondaryTextures["Picking Texture"] = m_pickingTexture.get();
 
     // Quad mesh
-    Core::Geometry::TriangleMesh mesh =
-        Core::Geometry::makeZNormalQuad( Core::Vector2( -1.f, 1.f ) );
+    auto mesh = Core::Geometry::makeZNormalQuad( Core::Vector2( -1.f, 1.f ) );
 
-    auto qm = std::make_unique<Data::Mesh>( "quad" );
+    auto qm = std::make_unique<Data::GeometryDisplayable>( "quad" );
     qm->loadGeometry( std::move( mesh ) );
     m_quadMesh = std::move( qm ); // we need to move, as loadGeometry is not a member of Displayable
     m_quadMesh->updateGL();
