@@ -596,6 +596,14 @@ createMeshFromGeometryData( const std::string& name, const Ra::Core::Asset::Geom
     return ret;
 }
 
+template <typename CoreMeshType>
+std::shared_ptr<GeometryDisplayable>
+createMeshFromGeometryData2( const std::string& name, const Ra::Core::Asset::GeometryData* data ) {
+    auto mesh = createCoreMeshFromGeometryData<CoreMeshType>( data );
+    auto ret  = std::make_shared<GeometryDisplayable>( name, std::move( mesh ) );
+    return ret;
+}
+
 ////////////////  AttribArrayDisplayable ///////////////////////////////
 
 void AttribArrayDisplayable::setRenderMode( MeshRenderMode mode ) {

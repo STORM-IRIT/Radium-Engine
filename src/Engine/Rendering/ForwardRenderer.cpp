@@ -449,15 +449,15 @@ void ForwardRenderer::renderInternal( const Data::ViewingParameters& renderData 
                     shader->setUniform( "transform.model", modelMatrix );
                     shader->setUniform( "viewport", Core::Vector2 { m_width, m_height } );
                     if ( hasTriangleLayer && ( hasQuadLayer || hasPolyLayer ) )
-                        shader->setUniform( "pixelWidth", 1.2f );
+                        shader->setUniform( "pixelWidth", 1.5f );
                     else
-                        shader->setUniform( "pixelWidth", 2.8f );
+                        shader->setUniform( "pixelWidth", 1.8f );
 
                     GL_CHECK_ERROR;
                     td->render( shader, lineKey );
 
                     if ( ( hasQuadLayer || hasPolyLayer ) ) {
-                        shader->setUniform( "pixelWidth", 2.8f );
+                        shader->setUniform( "pixelWidth", 2.1f );
                         GL_CHECK_ERROR;
                         td->render( shader, lineKey2 );
                     }
