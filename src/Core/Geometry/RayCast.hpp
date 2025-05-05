@@ -1,5 +1,6 @@
 #pragma once
 
+#include <Core/Geometry/IndexedGeometry.hpp>
 #include <Core/RaCore.hpp>
 #include <Core/Types.hpp>
 #include <Eigen/Core>
@@ -14,7 +15,6 @@ namespace Core {
 // If a ray starts inside the shape, the resulting hit will be at the ray's origin (t=0).
 
 namespace Geometry {
-class TriangleMesh;
 
 /// Intersect a ray with an axis-aligned bounding box.
 bool RA_CORE_API RayCastAabb( const Ray& r,
