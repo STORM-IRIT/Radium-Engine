@@ -74,7 +74,8 @@ class RA_CORE_API GeometryIndexLayerBase : public Utils::ObservableVoid,
 
     /// \brief Append content from another layer
     /// \return false if data cannot be appended, e.g., different semantics
-    virtual bool append( const GeometryIndexLayerBase& other ) = 0;
+    virtual bool append( const GeometryIndexLayerBase& other, int offset = 0 ) = 0;
+    virtual void offset( int offset, uint start_index = 0 )                    = 0;
 
     /// \brief Compare if two layers have the same content
     virtual inline bool operator==( const GeometryIndexLayerBase& other ) const;
@@ -95,8 +96,8 @@ struct GeometryIndexLayer : public GeometryIndexLayerBase {
     inline IndexContainerType& collection();
     const IndexContainerType& collection() const;
 
-    inline bool append( const GeometryIndexLayerBase& other ) final;
-
+    inline bool append( const GeometryIndexLayerBase& other, int offset = 0 ) final;
+    inline void offset( int offset, uint start_index = 0 ) final;
     /// \warning Does not account for elements permutations
     inline bool operator==( const GeometryIndexLayerBase& other ) const final;
 
@@ -634,14 +635,29 @@ GeometryIndexLayer<T>::collection() const {
 }
 
 template <typename T>
-inline bool GeometryIndexLayer<T>::append( const GeometryIndexLayerBase& other ) {
+inline bool GeometryIndexLayer<T>::append( const GeometryIndexLayerBase& other, int offset ) {
     if ( shareSemantic( other ) ) {
         const auto& othercasted = static_cast<const GeometryIndexLayer<T>&>( other );
-        m_collection.insert(
-            m_collection.end(), othercasted.collection().begin(), othercasted.collection().end() );
+
+        // m_collection.insert(
+        //     m_collection.end(), othercasted.collection().begin(), othercasted.collection().end()
+        //     );
+
+        std::transform( othercasted.collection().cbegin(),
+                        othercasted.collection().cend(),
+                        std::back_inserter( m_collection ),
+                        [offset]( const T& indice ) -> T { return indice.array() + offset; } );
         return true;
     }
     return false;
+}
+
+template <typename T>
+inline void GeometryIndexLayer<T>::offset( int offset, uint start_index ) {
+    std::transform( m_collection.cbegin() + start_index,
+                    m_collection.cend(),
+                    m_collection.begin() + start_index,
+                    [offset]( const T& indice ) -> T { return indice.array() + offset; } );
 }
 
 template <typename T>
