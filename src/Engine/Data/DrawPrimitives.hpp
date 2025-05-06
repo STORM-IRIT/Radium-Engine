@@ -118,11 +118,11 @@ RA_ENGINE_API GeometryDisplayablePtr Capsule( const Core::Vector3& p1,
 /// Displays disk (filled circle) computed with given center and radius,
 /// in plane normal to given vector in wireframe
 /// \note normal must be a normalized vector.
-RA_ENGINE_API MeshPtr Disk( const Core::Vector3& center,
-                            const Core::Vector3& normal,
-                            Scalar radius,
-                            uint segments,
-                            const Core::Utils::Color& color );
+RA_ENGINE_API GeometryDisplayablePtr Disk( const Core::Vector3& center,
+                                           const Core::Vector3& normal,
+                                           Scalar radius,
+                                           uint segments,
+                                           const Core::Utils::Color& color );
 
 /// Displays a normal vector emanating from the given point as a vector arrow
 /// and a normal plane of size 'scale'.
