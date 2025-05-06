@@ -110,10 +110,10 @@ RA_ENGINE_API GeometryDisplayablePtr ParametricSphere( const Core::Vector3& cent
                                                        bool generateTexCoord = false );
 
 /// Displays a capsule computed with given endpoints and radius.
-RA_ENGINE_API MeshPtr Capsule( const Core::Vector3& p1,
-                               const Core::Vector3& p2,
-                               Scalar radius,
-                               const Core::Utils::Color& color );
+RA_ENGINE_API GeometryDisplayablePtr Capsule( const Core::Vector3& p1,
+                                              const Core::Vector3& p2,
+                                              Scalar radius,
+                                              const Core::Utils::Color& color );
 
 /// Displays disk (filled circle) computed with given center and radius,
 /// in plane normal to given vector in wireframe

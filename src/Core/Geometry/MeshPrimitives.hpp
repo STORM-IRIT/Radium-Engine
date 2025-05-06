@@ -97,10 +97,10 @@ TriangleMesh makeParametricSphere( Scalar radius                              = 
 /// and have Z as rotation axis. Template parameters set the resolution of the mesh. \param
 /// generateTexCoord: maps parametric (u,v) to texture corrdinates [0,1]^2
 template <uint U = 16, uint V = U>
-TriangleMesh makeParametricTorus( Scalar majorRadius,
-                                  Scalar minorRadius,
-                                  const Utils::optional<Utils::Color>& color = {},
-                                  bool generateTexCoord                      = false );
+QuadMesh makeParametricTorus( Scalar majorRadius,
+                              Scalar minorRadius,
+                              const Utils::optional<Utils::Color>& color = {},
+                              bool generateTexCoord                      = false );
 
 /// Create a spherical mesh by subdivision of an icosahedron.
 RA_CORE_API TriangleMesh makeGeodesicSphere( Scalar radius                              = 1_ra,
@@ -285,14 +285,14 @@ makeParametricSphere( Scalar radius, const Utils::optional<Utils::Color>& color,
 }
 
 template <uint U, uint V>
-TriangleMesh makeParametricTorus( Scalar majorRadius,
-                                  Scalar minorRadius,
-                                  const Utils::optional<Utils::Color>& color,
-                                  bool generateTexCoord ) {
-    TriangleMesh result;
-    TriangleMesh::PointAttribHandle::Container vertices;
-    TriangleMesh::NormalAttribHandle::Container normals;
-    TriangleMesh::IndexContainerType indices;
+QuadMesh makeParametricTorus( Scalar majorRadius,
+                              Scalar minorRadius,
+                              const Utils::optional<Utils::Color>& color,
+                              bool generateTexCoord ) {
+    QuadMesh result;
+    QuadMesh::PointAttribHandle::Container vertices;
+    QuadMesh::NormalAttribHandle::Container normals;
+    QuadMesh::IndexContainerType indices;
     Ra::Core::Vector3Array texCoords;
 
     vertices.reserve( ( U + 1 ) * ( V + 1 ) );
@@ -319,12 +319,10 @@ TriangleMesh makeParametricTorus( Scalar majorRadius,
             texCoords.emplace_back( iu * du, iv * dv, 0_ra );
 
             if ( iu != U && iv != V ) {
-                indices.push_back( Vector3ui( iu * ( V + 1 ) + iv,
-                                              ( iu + 1 ) * ( V + 1 ) + iv,
-                                              iu * ( V + 1 ) + ( iv + 1 ) ) );
-                indices.push_back( Vector3ui( ( iu + 1 ) * ( V + 1 ) + iv,
-                                              ( iu + 1 ) * ( V + 1 ) + ( iv + 1 ),
-                                              iu * ( V + 1 ) + ( iv + 1 ) ) );
+                indices.emplace_back( iu * ( V + 1 ) + iv,
+                                      ( iu + 1 ) * ( V + 1 ) + iv,
+                                      ( iu + 1 ) * ( V + 1 ) + ( iv + 1 ),
+                                      iu * ( V + 1 ) + ( iv + 1 ) );
             }
         }
     }
