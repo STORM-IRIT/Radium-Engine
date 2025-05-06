@@ -294,7 +294,6 @@ GeometryDisplayablePtr Capsule( const Core::Vector3& p1,
     const Scalar l = ( p2 - p1 ).norm();
 
     TriangleMesh geom = makeCapsule( l, radius, 32, color );
-
     // Compute the transform so that
     // (0,0,-l/2) maps to p1 and (0,0,l/2) maps to p2
 
@@ -362,15 +361,23 @@ GeometryDisplayablePtr Disk( const Core::Vector3& center,
     auto fan_layer = std::make_unique<StripOrFanIndexLayer>();
     fan_layer->collection().push_back( Eigen::Map<VectorNui>( &indices[0], indices.size() ) );
 
-    auto [fan_check, fan_key] = geom.addLayer( std::move( fan_layer ) );
-    CORE_ASSERT( fan_check, "failed to add triangle layer" );
+    auto face_layer = std::make_unique<TriangleIndexLayer>();
+    for ( size_t i = 1; i < indices.size() - 1; ++i ) {
+        face_layer->collection().emplace_back( 0, indices[i], indices[i + 1] );
+    }
+
+    auto [fan_check, fan_key]   = geom.addLayer( std::move( fan_layer ) );
+    auto [face_check, face_key] = geom.addLayer( std::move( face_layer ) );
 
     geom.addAttrib(
         Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::MeshAttrib::VERTEX_COLOR ),
         Core::Vector4Array { geom.vertices().size(), color } );
 
     auto mesh = make_shared<GeometryDisplayable>( "Disk Primitive" );
-    mesh->loadGeometry( std::move( geom ), fan_key, Mesh::RM_TRIANGLE_FAN );
+    mesh->loadGeometry(
+        std::move( geom ),
+        GeometryDisplayable::ArrayOfLayerKeys<2> {
+            { { fan_key, Mesh::RM_TRIANGLE_FAN }, { face_key, Mesh::RM_TRIANGLES } } } );
     mesh->set_active_layer_key( fan_key );
     return mesh;
 }
@@ -459,7 +466,6 @@ GeometryDisplayablePtr Grid( const Core::Vector3& center,
                              const Core::Utils::Color& color,
                              Scalar cellSize,
                              uint res ) {
-
     auto geom = makeGrid( center, x, y, color, cellSize, res );
     auto mesh = make_shared<GeometryDisplayable>( "GridPrimitive", std::move( geom ) );
     return mesh;
