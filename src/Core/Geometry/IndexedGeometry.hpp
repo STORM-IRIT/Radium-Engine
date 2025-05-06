@@ -2,6 +2,7 @@
 
 #include <Core/Containers/VectorArray.hpp>
 #include <Core/Geometry/TriangleMesh.hpp>
+#include <Core/Types.hpp>
 #include <Core/Utils/ContainerIntrospectionInterface.hpp>
 #include <Core/Utils/ObjectWithSemantic.hpp>
 #include <Core/Utils/StdMapIterators.hpp>
@@ -445,95 +446,71 @@ class RA_CORE_API MultiIndexedGeometry : public AttribArrayGeometry, public Util
         return copy;                                                  \
     }
 
+#define OPEN_DECLARATION_INDEX_LAYER( NAME, TYPE )                        \
+    struct RA_CORE_API NAME : public GeometryIndexLayer<TYPE> {           \
+        inline NAME() : GeometryIndexLayer( NAME::staticSemanticName ) {} \
+        static constexpr const char* staticSemanticName = #NAME;          \
+        INDEX_LAYER_CLONE_IMPLEMENTATION( NAME )                          \
+      protected:                                                          \
+        template <class... SemanticNames>                                 \
+        inline explicit NAME( SemanticNames... names ) :                  \
+            GeometryIndexLayer( NAME::staticSemanticName, names... ) {}   \
+                                                                          \
+      public:
+
+#define DECLARE_INDEX_LAYER( NAME, TYPE )      \
+    OPEN_DECLARATION_INDEX_LAYER( NAME, TYPE ) \
+    }                                          \
+    ;
+
 /// \name Predefined index layers
 /// The use of these layers helps in generic management of geometries
 /// \{
 
 /// \brief Index layer for a point cloud
-struct RA_CORE_API PointCloudIndexLayer : public GeometryIndexLayer<Vector1ui> {
-    /// \brief Constructor of an empty layer
-    inline PointCloudIndexLayer();
+OPEN_DECLARATION_INDEX_LAYER( PointCloudIndexLayer, Vector1ui )
+/// \brief Constructor of an index layer with linearly spaced indices ranging from \f$0\f$ to
+/// \f$n-1\f$
+inline explicit PointCloudIndexLayer( size_t n ) :
+    GeometryIndexLayer( PointCloudIndexLayer::staticSemanticName ) {
+    collection().resize( n );
+    collection().getMap() = IndexContainerType::Matrix::LinSpaced( n, 0, n - 1 );
+}
 
-    /// \brief Constructor of an index layer with linearly spaced indices ranging from \f$0\f$ to
-    /// \f$n-1\f$
-    inline explicit PointCloudIndexLayer( size_t n );
+/// \brief Generate linearly spaced indices with same size as \p attr vertex buffer
+void linearIndices( const AttribArrayGeometry& attr ) {
+    auto nbVert = attr.vertices().size();
+    collection().resize( nbVert );
+    collection().getMap() = IndexContainerType::Matrix::LinSpaced( nbVert, 0, nbVert - 1 );
+}
 
-    /// \brief Generate linearly spaced indices with same size as \p attr vertex buffer
-    void linearIndices( const AttribArrayGeometry& attr );
-
-    static constexpr const char* staticSemanticName = "PointCloud";
-    INDEX_LAYER_CLONE_IMPLEMENTATION( PointCloudIndexLayer )
-
-  protected:
-    template <class... SemanticNames>
-    inline PointCloudIndexLayer( SemanticNames... names );
 };
 
 /// \brief Index layer for triangle mesh.
 /// \note, This layer ensures that all faces have exactly 3 vertices
-struct RA_CORE_API TriangleIndexLayer : public GeometryIndexLayer<Vector3ui> {
-    inline TriangleIndexLayer();
-    static constexpr const char* staticSemanticName = "TriangleMesh";
-    INDEX_LAYER_CLONE_IMPLEMENTATION( TriangleIndexLayer )
-
-  protected:
-    template <class... SemanticNames>
-    inline explicit TriangleIndexLayer( SemanticNames... names );
-};
+DECLARE_INDEX_LAYER( TriangleIndexLayer, Vector3ui )
 
 /// \brief Index layer for quadrilateral mesh.
 /// \note, This layer ensures that all faces have exactly 4 vertices
-struct RA_CORE_API QuadIndexLayer : public GeometryIndexLayer<Vector4ui> {
-    inline QuadIndexLayer();
-    static constexpr const char* staticSemanticName = "QuadMesh";
-    INDEX_LAYER_CLONE_IMPLEMENTATION( QuadIndexLayer )
-
-  protected:
-    template <class... SemanticNames>
-    inline explicit QuadIndexLayer( SemanticNames... names );
-};
+DECLARE_INDEX_LAYER( QuadIndexLayer, Vector4ui )
 
 /// \brief Index layer for polygonal mesh.
 /// \note, Using this layer, all faces might have more than 4 vertices or have different number of
 /// vertices.
-struct RA_CORE_API PolyIndexLayer : public GeometryIndexLayer<VectorNui> {
-    inline PolyIndexLayer();
-    static constexpr const char* staticSemanticName = "PolyMesh";
-    INDEX_LAYER_CLONE_IMPLEMENTATION( PolyIndexLayer )
+DECLARE_INDEX_LAYER( PolyIndexLayer, VectorNui )
 
-  protected:
-    template <class... SemanticNames>
-    inline explicit PolyIndexLayer( SemanticNames... names );
-};
-
-struct RA_CORE_API StripOrFanIndexLayer : public GeometryIndexLayer<VectorNui> {
-    inline StripOrFanIndexLayer() :
-        GeometryIndexLayer( StripOrFanIndexLayer::staticSemanticName ) {}
-
-    static constexpr const char* staticSemanticName = "TriangleStrip";
-    INDEX_LAYER_CLONE_IMPLEMENTATION( StripOrFanIndexLayer )
-
-  protected:
-    template <class... SemanticNames>
-    inline explicit StripOrFanIndexLayer( SemanticNames... names ) :
-        GeometryIndexLayer( StripOrFanIndexLayer::staticSemanticName, names... ) {}
-};
+/** one Ni index -> one strip */
+DECLARE_INDEX_LAYER( StripOrFanIndexLayer, VectorNui )
 
 /// \brief Index layer for line mesh.
 /// \note, This layer ensures that all faces have exactly 2 vertices
-struct RA_CORE_API LineIndexLayer : public GeometryIndexLayer<Vector2ui> {
-    inline LineIndexLayer();
-    static constexpr const char* staticSemanticName = "LineMesh";
-    INDEX_LAYER_CLONE_IMPLEMENTATION( LineIndexLayer )
-
-  protected:
-    template <class... SemanticNames>
-    inline explicit LineIndexLayer( SemanticNames... names );
-};
+DECLARE_INDEX_LAYER( LineIndexLayer, Vector2ui )
 
 /// \}
 
 #undef INDEX_LAYER_CLONE_IMPLEMENTATION
+#undef OPEN_DECLARATION_INDEX_LAYER
+#undef DECLARE_INDEX_LAYER
 
 /// Temporary class providing the old API for TriangleMesh, LineMesh and PolyMesh
 /// This class will be marked as deprecated soon.
@@ -758,41 +735,6 @@ MultiIndexedGeometry::unlockLayer( const MultiIndexedGeometry::LayerSemanticColl
 }
 
 // PointCloudIndexLayer
-inline PointCloudIndexLayer::PointCloudIndexLayer() :
-    GeometryIndexLayer( PointCloudIndexLayer::staticSemanticName ) {}
-inline PointCloudIndexLayer::PointCloudIndexLayer( size_t n ) :
-    GeometryIndexLayer( PointCloudIndexLayer::staticSemanticName ) {
-    collection().resize( n );
-    collection().getMap() = IndexContainerType::Matrix::LinSpaced( n, 0, n - 1 );
-}
-template <class... SemanticNames>
-inline PointCloudIndexLayer::PointCloudIndexLayer( SemanticNames... names ) :
-    GeometryIndexLayer( PointCloudIndexLayer::staticSemanticName, names... ) {}
-// TriangleIndexLayer
-inline TriangleIndexLayer::TriangleIndexLayer() :
-    GeometryIndexLayer( TriangleIndexLayer::staticSemanticName ) {}
-template <class... SemanticNames>
-inline TriangleIndexLayer::TriangleIndexLayer( SemanticNames... names ) :
-    GeometryIndexLayer( TriangleIndexLayer::staticSemanticName, names... ) {}
-// QuadIndexLayer
-inline QuadIndexLayer::QuadIndexLayer() :
-    GeometryIndexLayer( QuadIndexLayer::staticSemanticName ) {}
-template <class... SemanticNames>
-inline QuadIndexLayer::QuadIndexLayer( SemanticNames... names ) :
-    GeometryIndexLayer( QuadIndexLayer::staticSemanticName, names... ) {}
-// PolyIndexLayer
-inline PolyIndexLayer::PolyIndexLayer() :
-    GeometryIndexLayer( PolyIndexLayer::staticSemanticName ) {}
-template <class... SemanticNames>
-inline PolyIndexLayer::PolyIndexLayer( SemanticNames... names ) :
-    GeometryIndexLayer( PolyIndexLayer::staticSemanticName, names... ) {}
-// LineIndexLayer
-inline LineIndexLayer::LineIndexLayer() :
-    GeometryIndexLayer( LineIndexLayer::staticSemanticName ) {}
-template <class... SemanticNames>
-inline LineIndexLayer::LineIndexLayer( SemanticNames... names ) :
-    GeometryIndexLayer( LineIndexLayer::staticSemanticName, names... ) {}
-// IndexedGeometry
 template <typename T>
 inline IndexedGeometry<T>::IndexedGeometry() {
     auto layer          = std::make_unique<DefaultLayerType>();

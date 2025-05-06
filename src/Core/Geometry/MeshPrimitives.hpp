@@ -102,6 +102,12 @@ QuadMesh makeParametricTorus( Scalar majorRadius,
                               const Utils::optional<Utils::Color>& color = {},
                               bool generateTexCoord                      = false );
 
+// QuadMesh makeParametricTorus( Scalar majorRadius,
+//                               Scalar minorRadius,
+//                               int U                                      = 16,
+//                               int V                                      = 16,
+//                               const Utils::optional<Utils::Color>& color = {},
+//                               bool generateTexCoord                      = false );
 /// Create a spherical mesh by subdivision of an icosahedron.
 RA_CORE_API TriangleMesh makeGeodesicSphere( Scalar radius                              = 1_ra,
                                              uint numSubdiv                             = 3,

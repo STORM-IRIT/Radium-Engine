@@ -257,15 +257,6 @@ std::size_t MultiIndexedGeometry::LayerKeyHash::operator()( const LayerKeyType& 
     return std::hash<std::string> {}( result ) ^ ( std::hash<std::string> {}( k.second ) << 1 );
 }
 
-//////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////
-
-void PointCloudIndexLayer::linearIndices( const AttribArrayGeometry& attr ) {
-    auto nbVert = attr.vertices().size();
-    collection().resize( nbVert );
-    collection().getMap() = IndexContainerType::Matrix::LinSpaced( nbVert, 0, nbVert - 1 );
-}
-
 } // namespace Geometry
 } // namespace Core
 } // namespace Ra
