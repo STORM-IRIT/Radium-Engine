@@ -1,4 +1,5 @@
 #include <Core/Geometry/IndexedGeometry.hpp>
+#include <Core/Geometry/TriangleMesh.hpp>
 
 #include <iterator>
 
@@ -57,6 +58,12 @@ void MultiIndexedGeometry::checkConsistency() const {
 }
 
 bool MultiIndexedGeometry::append( const MultiIndexedGeometry& other ) {
+
+    int offset = other.vertices().size();
+    // first append attribs
+    AttribArrayGeometry::append( other );
+
+    // then indices, and offset.
     bool dataHasBeenCopied = false;
     for ( const auto& [key, value] : other.m_indices ) {
         auto it = m_indices.find( key );
@@ -64,16 +71,20 @@ bool MultiIndexedGeometry::append( const MultiIndexedGeometry& other ) {
         {
             m_indices[key] = std::make_pair(
                 value.first, std::unique_ptr<GeometryIndexLayerBase> { value.second->clone() } );
-
             dataHasBeenCopied = true;
+            m_indices[key].second->offset( offset );
+            ///\todo offest indices.
         }
         else {
             // try to append to an existing layer: should always work
-            if ( it->second.second->append( *( value.second ) ) ) { dataHasBeenCopied = true; }
+            if ( it->second.second->append( *( value.second ), offset ) ) {
+                dataHasBeenCopied = true;
+            }
             else {
                 CORE_ASSERT( false,
                              "Inconsistency: layers with different semantics shares the same key" );
             }
+            ///\todo offest indices.
         }
     }
 
