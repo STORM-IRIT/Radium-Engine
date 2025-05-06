@@ -1,10 +1,11 @@
-#include "Core/CoreMacros.hpp"
 #include <Engine/Data/DrawPrimitives.hpp>
 
 #include <Core/Containers/MakeShared.hpp>
+#include <Core/CoreMacros.hpp>
 #include <Core/Geometry/IndexedGeometry.hpp>
 #include <Core/Geometry/MeshPrimitives.hpp>
 #include <Core/Geometry/StandardAttribNames.hpp>
+#include <Core/Types.hpp>
 #include <Core/Utils/Color.hpp>
 
 #include <Engine/Data/Mesh.hpp>
@@ -258,7 +259,7 @@ GeometryDisplayablePtr CircleArc( const Core::Vector3& center,
 
 GeometryDisplayablePtr
 Sphere( const Core::Vector3& center, Scalar radius, const Core::Utils::Color& color ) {
-    auto geom   = makeGeodesicSphere( radius, 3, color );
+    auto geom   = makeGeodesicSphere( radius, 2, color );
     auto handle = geom.getAttribHandle<TriangleMesh::Point>(
         Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::MeshAttrib::VERTEX_POSITION ) );
     auto& vertices = geom.getAttrib<TriangleMesh::Point>( handle );
@@ -325,12 +326,14 @@ GeometryDisplayablePtr Capsule( const Core::Vector3& p1,
     return make_shared<GeometryDisplayable>( "Capsule Primitive", std::move( geom ) );
 }
 
-MeshPtr Disk( const Core::Vector3& center,
-              const Core::Vector3& normal,
-              Scalar radius,
-              uint segments,
-              const Core::Utils::Color& color ) {
+GeometryDisplayablePtr Disk( const Core::Vector3& center,
+                             const Core::Vector3& normal,
+                             Scalar radius,
+                             uint segments,
+                             const Core::Utils::Color& color ) {
     CORE_ASSERT( segments > 2, "Cannot draw a circle with less than 3 points" );
+    // MultiIndexedGeometry geom;
+    // GeometryIndexLayer<Vector1ui> fan_indices;
 
     uint seg = segments + 1;
     Core::Vector3Array vertices( seg );
@@ -354,13 +357,21 @@ MeshPtr Disk( const Core::Vector3& center,
     }
     indices[seg] = 1;
 
-    Core::Vector4Array colors( vertices.size(), color );
+    MultiIndexedGeometry geom;
+    geom.setVertices( std::move( vertices ) );
+    auto fan_layer = std::make_unique<StripOrFanIndexLayer>();
+    fan_layer->collection().push_back( Eigen::Map<VectorNui>( &indices[0], indices.size() ) );
 
-    MeshPtr mesh( new Mesh( "Disk Primitive", Mesh::RM_TRIANGLE_FAN ) );
-    mesh->loadGeometry( vertices, indices );
-    mesh->getCoreGeometry().addAttrib(
-        Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::MeshAttrib::VERTEX_COLOR ), colors );
+    auto [fan_check, fan_key] = geom.addLayer( std::move( fan_layer ) );
+    CORE_ASSERT( fan_check, "failed to add triangle layer" );
 
+    geom.addAttrib(
+        Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::MeshAttrib::VERTEX_COLOR ),
+        Core::Vector4Array { geom.vertices().size(), color } );
+
+    auto mesh = make_shared<GeometryDisplayable>( "Disk Primitive" );
+    mesh->loadGeometry( std::move( geom ), fan_key, Mesh::RM_TRIANGLE_FAN );
+    mesh->set_active_layer_key( fan_key );
     return mesh;
 }
 

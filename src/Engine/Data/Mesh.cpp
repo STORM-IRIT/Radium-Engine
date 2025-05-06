@@ -7,6 +7,7 @@
 #include <Engine/Data/ShaderProgram.hpp>
 #include <Engine/OpenGL.hpp>
 
+#include <glbinding/gl/functions.h>
 #include <globjects/Buffer.h>
 #include <globjects/VertexArray.h>
 
@@ -331,9 +332,31 @@ void GeometryDisplayable::updateGL() {
 
             // upload data to gpu
             if ( vbo.dirty ) {
-                vbo.buffer->setData( static_cast<gl::GLsizeiptr>( abstractLayer.getBufferSize() ),
-                                     abstractLayer.dataPtr(),
-                                     GL_STATIC_DRAW );
+                const auto& layer = m_geom.getLayer( itr.first );
+                bool is_strip =
+                    layer.hasSemantic( Core::Geometry::StripOrFanIndexLayer::staticSemanticName );
+                if ( is_strip ) {
+                    l.restart = m_geom.vertices().size();
+
+                    const auto& indices =
+                        static_cast<const Core::Geometry::GeometryIndexLayer<Core::VectorNi>&>(
+                            abstractLayer );
+                    std::vector<uint> buffer;
+                    for ( const auto& strip : indices.collection() ) {
+                        for ( const auto& indice : strip ) {
+                            buffer.push_back( indice );
+                        }
+                        buffer.push_back( l.restart );
+                        vbo.buffer->setData( buffer, GL_STATIC_DRAW );
+                        vbo.numElements = buffer.size();
+                    }
+                }
+                else {
+                    vbo.buffer->setData(
+                        static_cast<gl::GLsizeiptr>( abstractLayer.getBufferSize() ),
+                        abstractLayer.dataPtr(),
+                        GL_STATIC_DRAW );
+                }
                 vbo.dirty = false;
             }
             m_geom.unlockLayer( itr.first );
@@ -382,11 +405,23 @@ void GeometryDisplayable::render( const ShaderProgram* prog, const LayerKeyType&
             GL_CHECK_ERROR;
             autoVertexAttribPointer( prog, key );
             GL_CHECK_ERROR;
-            m_geomLayers[key].vao->drawElements(
-                static_cast<GLenum>( m_geomLayers[key].renderMode ),
-                GLsizei( m_geomLayers[key].indices.numElements ),
-                GL_UNSIGNED_INT,
-                nullptr );
+            if ( m_geomLayers[key].restart == LayerEntryType::no_restart ) {
+                m_geomLayers[key].vao->drawElements(
+                    static_cast<GLenum>( m_geomLayers[key].renderMode ),
+                    GLsizei( m_geomLayers[key].indices.numElements ),
+                    GL_UNSIGNED_INT,
+                    nullptr );
+            }
+            else {
+                glEnable( GL_PRIMITIVE_RESTART );
+                glPrimitiveRestartIndex( m_geomLayers[key].restart );
+                m_geomLayers[key].vao->drawElements(
+                    static_cast<GLenum>( m_geomLayers[key].renderMode ),
+                    GLsizei( m_geomLayers[key].indices.numElements ),
+                    GL_UNSIGNED_INT,
+                    nullptr );
+                glDisable( GL_PRIMITIVE_RESTART );
+            }
             GL_CHECK_ERROR;
             m_geomLayers[key].vao->unbind();
             GL_CHECK_ERROR;

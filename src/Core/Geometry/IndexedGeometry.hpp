@@ -506,6 +506,19 @@ struct RA_CORE_API PolyIndexLayer : public GeometryIndexLayer<VectorNui> {
     inline explicit PolyIndexLayer( SemanticNames... names );
 };
 
+struct RA_CORE_API StripOrFanIndexLayer : public GeometryIndexLayer<VectorNui> {
+    inline StripOrFanIndexLayer() :
+        GeometryIndexLayer( StripOrFanIndexLayer::staticSemanticName ) {}
+
+    static constexpr const char* staticSemanticName = "TriangleStrip";
+    INDEX_LAYER_CLONE_IMPLEMENTATION( StripOrFanIndexLayer )
+
+  protected:
+    template <class... SemanticNames>
+    inline explicit StripOrFanIndexLayer( SemanticNames... names ) :
+        GeometryIndexLayer( StripOrFanIndexLayer::staticSemanticName, names... ) {}
+};
+
 /// \brief Index layer for line mesh.
 /// \note, This layer ensures that all faces have exactly 2 vertices
 struct RA_CORE_API LineIndexLayer : public GeometryIndexLayer<Vector2ui> {

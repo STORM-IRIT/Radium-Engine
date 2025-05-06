@@ -386,9 +386,14 @@ class RA_ENGINE_API GeometryDisplayable : public AttribArrayDisplayable
     template <typename RangeOfLayerKeys>
     inline void loadGeometry( Core::Geometry::MultiIndexedGeometry&& mesh,
                               const RangeOfLayerKeys& r ) {
-        loadGeometry( std::move( mesh ) );
+        m_geomLayers.clear();
+        m_geom = std::move( mesh );
+        setupCoreMeshObservers();
+
         for ( const auto& k : r )
             addRenderLayer( k.first, k.second );
+
+        set_active_layer_key( r[0].first );
     }
     inline void loadGeometry( Core::Geometry::MultiIndexedGeometry&& mesh,
                               LayerKeyType key,
@@ -447,6 +452,8 @@ class RA_ENGINE_API GeometryDisplayable : public AttribArrayDisplayable
         std::unique_ptr<globjects::VertexArray> vao { nullptr };
         IndicesVBO indices;
         base::MeshRenderMode renderMode { RM_TRIANGLES };
+        static const uint no_restart = 0;
+        uint restart { 0 };
 
         inline LayerEntryType() = default;
     };
