@@ -1056,8 +1056,8 @@ void AllPrimitivesComponent::initialize() {
         {
             using Ra::Engine::Data::Mesh;
             {
-                auto torusGeom = makeParametricTorus<32, 16>( .04_ra, .01_ra, Color::White() );
-                auto torusMesh = make_shared<Mesh>( "Torus", std::move( torusGeom ) );
+                auto geom      = makeParametricTorus<16, 8>( .04_ra, .01_ra, Color::White() );
+                auto torusMesh = make_shared<GeometryDisplayable>( "Torus", std::move( geom ) );
                 auto torus     = RenderObject::createRenderObject(
                     "test_torus", this, RenderObjectType::Geometry, torusMesh, {} );
                 torus->setMaterial( blinnPhongMaterial );
@@ -1068,10 +1068,9 @@ void AllPrimitivesComponent::initialize() {
             }
 
             {
-                auto texTorusGeom =
-                    makeParametricTorus<64, 16>( .1_ra, .05_ra, Color::White(), true );
+                auto geom = makeParametricTorus<32, 12>( .1_ra, .05_ra, Color::White(), true );
                 auto texTorusMesh =
-                    make_shared<Mesh>( "Textured Torus", std::move( texTorusGeom ) );
+                    make_shared<GeometryDisplayable>( "Textured Torus", std::move( geom ) );
                 auto texTorus = RenderObject::createRenderObject(
                     "test_tex_torus", this, RenderObjectType::Geometry, texTorusMesh, {} );
                 texTorus->setMaterial( blinnPhongTexturedMaterial );

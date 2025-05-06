@@ -286,10 +286,10 @@ GeometryDisplayablePtr ParametricSphere( const Core::Vector3& center,
     return make_shared<GeometryDisplayable>( "Sphere Primitive", std::move( geom ) );
 }
 
-MeshPtr Capsule( const Core::Vector3& p1,
-                 const Core::Vector3& p2,
-                 Scalar radius,
-                 const Core::Utils::Color& color ) {
+GeometryDisplayablePtr Capsule( const Core::Vector3& p1,
+                                const Core::Vector3& p2,
+                                Scalar radius,
+                                const Core::Utils::Color& color ) {
     const Scalar l = ( p2 - p1 ).norm();
 
     TriangleMesh geom = makeCapsule( l, radius, 32, color );
@@ -322,7 +322,7 @@ MeshPtr Capsule( const Core::Vector3& p1,
     } );
     normalAttrib.unlock();
 
-    return make_shared<Mesh>( "Capsule Primitive", std::move( geom ) );
+    return make_shared<GeometryDisplayable>( "Capsule Primitive", std::move( geom ) );
 }
 
 MeshPtr Disk( const Core::Vector3& center,
