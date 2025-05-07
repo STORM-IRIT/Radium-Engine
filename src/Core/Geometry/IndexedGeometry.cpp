@@ -1,4 +1,6 @@
 #include <Core/Geometry/IndexedGeometry.hpp>
+#include <Core/Geometry/TriangleMesh.hpp>
+
 #include <iterator>
 
 namespace Ra {
@@ -56,6 +58,12 @@ void MultiIndexedGeometry::checkConsistency() const {
 }
 
 bool MultiIndexedGeometry::append( const MultiIndexedGeometry& other ) {
+
+    int offset = other.vertices().size();
+    // first append attribs
+    AttribArrayGeometry::append( other );
+
+    // then indices, and offset.
     bool dataHasBeenCopied = false;
     for ( const auto& [key, value] : other.m_indices ) {
         auto it = m_indices.find( key );
@@ -63,16 +71,20 @@ bool MultiIndexedGeometry::append( const MultiIndexedGeometry& other ) {
         {
             m_indices[key] = std::make_pair(
                 value.first, std::unique_ptr<GeometryIndexLayerBase> { value.second->clone() } );
-
             dataHasBeenCopied = true;
+            m_indices[key].second->offset( offset );
+            ///\todo offest indices.
         }
         else {
             // try to append to an existing layer: should always work
-            if ( it->second.second->append( *( value.second ) ) ) { dataHasBeenCopied = true; }
+            if ( it->second.second->append( *( value.second ), offset ) ) {
+                dataHasBeenCopied = true;
+            }
             else {
                 CORE_ASSERT( false,
                              "Inconsistency: layers with different semantics shares the same key" );
             }
+            ///\todo offest indices.
         }
     }
 
@@ -210,12 +222,12 @@ void MultiIndexedGeometry::unlockLayer( const LayerKeyType& layerKey ) {
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 
-std::pair<bool, GeometryIndexLayerBase&>
-MultiIndexedGeometry::addLayer( std::unique_ptr<GeometryIndexLayerBase>&& layer,
-                                const bool withLock,
-                                const std::string& layerName ) {
+auto MultiIndexedGeometry::addLayer( std::unique_ptr<GeometryIndexLayerBase>&& layer,
+                                     const bool withLock,
+                                     const std::string& layerName )
+    -> std::pair<bool, LayerKeyType> {
     LayerKeyType key { layer->semantics(), layerName };
-    std::pair<LayerKeyType, EntryType> elt { key, std::make_pair( false, std::move( layer ) ) };
+    auto elt             = std::make_pair( key, std::make_pair( false, std::move( layer ) ) );
     auto [pos, inserted] = m_indices.insert( std::move( elt ) );
     notify();
 
@@ -223,10 +235,10 @@ MultiIndexedGeometry::addLayer( std::unique_ptr<GeometryIndexLayerBase>&& layer,
         CORE_ASSERT( !pos->second.first, "try to get already locked layer" );
         pos->second.first = true;
     }
-    /// If not inserted, the pointer is deleted. So the caller must ensure this possible deletion
-    /// is safe before calling this method.
+    /// If not inserted, the pointer is deleted. So the caller must ensure this possible
+    /// deletion is safe before calling this method.
 
-    return { inserted, *( pos->second.second ) };
+    return { inserted, key };
 }
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
@@ -245,7 +257,7 @@ void MultiIndexedGeometry::deepClear() {
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 
-std::size_t MultiIndexedGeometry::KeyHash::operator()( const LayerKeyType& k ) const {
+std::size_t MultiIndexedGeometry::LayerKeyHash::operator()( const LayerKeyType& k ) const {
     // Mix semantic collection into a single identifier string
     std::ostringstream stream;
     std::copy( k.first.begin(), k.first.end(), std::ostream_iterator<std::string>( stream, "" ) );
@@ -254,15 +266,6 @@ std::size_t MultiIndexedGeometry::KeyHash::operator()( const LayerKeyType& k ) c
 
     // Combine with layer name hash
     return std::hash<std::string> {}( result ) ^ ( std::hash<std::string> {}( k.second ) << 1 );
-}
-
-//////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////
-
-void PointCloudIndexLayer::linearIndices( const AttribArrayGeometry& attr ) {
-    auto nbVert = attr.vertices().size();
-    collection().resize( nbVert );
-    collection().getMap() = IndexContainerType::Matrix::LinSpaced( nbVert, 0, nbVert - 1 );
 }
 
 } // namespace Geometry

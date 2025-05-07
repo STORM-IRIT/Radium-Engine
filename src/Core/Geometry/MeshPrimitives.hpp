@@ -1,13 +1,12 @@
 #pragma once
 
+#include <Core/Geometry/IndexedGeometry.hpp>
 #include <Core/Geometry/TopologicalMesh.hpp>
 #include <Core/Geometry/TriangleMesh.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
 #include <Core/RaCore.hpp>
 #include <Core/Utils/Color.hpp>
 #include <Core/Utils/StdOptional.hpp>
-
-#include <random>
 
 namespace Ra {
 namespace Core {
@@ -24,30 +23,37 @@ namespace Geometry {
 /// \param color: if set, colorize vertices
 /// \param generateTexCoord: create uv tex coordinates on the grid, -halfExts have uv = (0,0),
 /// +halfExts have uv=(1,1)
-RA_CORE_API TriangleMesh makePlaneGrid( const uint rows         = 1,
-                                        const uint cols         = 1,
-                                        const Vector2& halfExts = Vector2( .5_ra, .5_ra ),
-                                        const Transform& T      = Transform::Identity(),
-                                        const Utils::optional<Utils::Color>& color = {},
-                                        bool generateTexCoord                      = false );
+RA_CORE_API QuadMesh makePlaneGrid( const uint rows         = 1,
+                                    const uint cols         = 1,
+                                    const Vector2& halfExts = Vector2( .5_ra, .5_ra ),
+                                    const Transform& T      = Transform::Identity(),
+                                    const Utils::optional<Utils::Color>& color = {},
+                                    bool generateTexCoord                      = false );
+
+RA_CORE_API LineMesh makeGrid( const Core::Vector3& center,
+                               const Core::Vector3& x,
+                               const Core::Vector3& y,
+                               const Core::Utils::Color& color,
+                               Scalar cell_size,
+                               uint res );
 
 /// Create a 2D quad mesh given half extents, centered on the origin with x axis as normal
 /// \see makePlaneGrid
-RA_CORE_API TriangleMesh makeXNormalQuad( const Vector2& halfExts = Vector2( .5_ra, .5_ra ),
-                                          const Utils::optional<Utils::Color>& color = {},
-                                          bool generateTexCoord                      = false );
+RA_CORE_API QuadMesh makeXNormalQuad( const Vector2& halfExts = Vector2( .5_ra, .5_ra ),
+                                      const Utils::optional<Utils::Color>& color = {},
+                                      bool generateTexCoord                      = false );
 
 /// Create a 2D quad mesh given half extents, centered on the origin with y axis as normal
 /// \see makePlaneGrid
-RA_CORE_API TriangleMesh makeYNormalQuad( const Vector2& halfExts = Vector2( .5_ra, .5_ra ),
-                                          const Utils::optional<Utils::Color>& color = {},
-                                          bool generateTexCoord                      = false );
+RA_CORE_API QuadMesh makeYNormalQuad( const Vector2& halfExts = Vector2( .5_ra, .5_ra ),
+                                      const Utils::optional<Utils::Color>& color = {},
+                                      bool generateTexCoord                      = false );
 
 /// Create a 2D quad mesh given half extents, centered on the origin with z axis as normal
 /// \see makePlaneGrid
-RA_CORE_API TriangleMesh makeZNormalQuad( const Vector2& halfExts = Vector2( .5_ra, .5_ra ),
-                                          const Utils::optional<Utils::Color>& color = {},
-                                          bool generateTexCoord                      = false );
+RA_CORE_API QuadMesh makeZNormalQuad( const Vector2& halfExts = Vector2( .5_ra, .5_ra ),
+                                      const Utils::optional<Utils::Color>& color = {},
+                                      bool generateTexCoord                      = false );
 
 /// Create an axis-aligned cubic mesh with the given half extents, centered on the origin.
 RA_CORE_API TriangleMesh makeBox( const Vector3& halfExts = Vector3( .5_ra, .5_ra, .5_ra ),
@@ -67,6 +73,18 @@ RA_CORE_API TriangleMesh makeSharpBox( const Aabb& aabb,
                                        const Utils::optional<Utils::Color>& color = {},
                                        bool generateTexCoord                      = false );
 
+/// Create an axis-aligned cubic mesh with the given half extents, centered on the origin.
+RA_CORE_API MultiIndexedGeometry makeSharpBox2( const Vector3& halfExts = Vector3( .5_ra,
+                                                                                   .5_ra,
+                                                                                   .5_ra ),
+                                                const Utils::optional<Utils::Color>& color = {},
+                                                bool generateTexCoord = false );
+
+/// Create an axis-aligned cubic mesh
+RA_CORE_API MultiIndexedGeometry makeSharpBox2( const Aabb& aabb,
+                                                const Utils::optional<Utils::Color>& color = {},
+                                                bool generateTexCoord = false );
+
 /// Create a parametric spherical mesh of given radius. Template parameters set the resolution.
 /// \param generateTexCoord: maps parametric (u,v) to texture corrdinates [0,1]^2
 template <uint U = 16, uint V = U>
@@ -74,25 +92,30 @@ TriangleMesh makeParametricSphere( Scalar radius                              = 
                                    const Utils::optional<Utils::Color>& color = {},
                                    bool generateTexCoord                      = false );
 
-/// Create a parametric torus mesh. The minor radius is the radius of the inside of the tube and the
-/// major radius is the radius of the whole torus. The torus will be centered at the origin and have
-/// Z as rotation axis. Template parameters set the resolution of the mesh.
-/// \param generateTexCoord: maps parametric (u,v) to texture corrdinates [0,1]^2
+/// Create a parametric torus mesh. The minor radius is the radius of the inside of the tube and
+/// the major radius is the radius of the whole torus. The torus will be centered at the origin
+/// and have Z as rotation axis. Template parameters set the resolution of the mesh. \param
+/// generateTexCoord: maps parametric (u,v) to texture corrdinates [0,1]^2
 template <uint U = 16, uint V = U>
-TriangleMesh makeParametricTorus( Scalar majorRadius,
-                                  Scalar minorRadius,
-                                  const Utils::optional<Utils::Color>& color = {},
-                                  bool generateTexCoord                      = false );
+QuadMesh makeParametricTorus( Scalar majorRadius,
+                              Scalar minorRadius,
+                              const Utils::optional<Utils::Color>& color = {},
+                              bool generateTexCoord                      = false );
 
+// QuadMesh makeParametricTorus( Scalar majorRadius,
+//                               Scalar minorRadius,
+//                               int U                                      = 16,
+//                               int V                                      = 16,
+//                               const Utils::optional<Utils::Color>& color = {},
+//                               bool generateTexCoord                      = false );
 /// Create a spherical mesh by subdivision of an icosahedron.
 RA_CORE_API TriangleMesh makeGeodesicSphere( Scalar radius                              = 1_ra,
                                              uint numSubdiv                             = 3,
                                              const Utils::optional<Utils::Color>& color = {} );
 
-/// Create a cylinder approximation (sideSegments-faced prism) with base faces centered on a and b
-/// with given radius.
-/// Fill (the tube part) is split into equally sapced fill segments.
-/// Side and fill make a sharp edge.
+/// Create a cylinder approximation (sideSegments-faced prism) with base faces centered on a and
+/// b with given radius. Fill (the tube part) is split into equally sapced fill segments. Side
+/// and fill make a sharp edge.
 RA_CORE_API TriangleMesh makeCylinder( const Vector3& a,
                                        const Vector3& b,
                                        Scalar radius,
@@ -268,14 +291,14 @@ makeParametricSphere( Scalar radius, const Utils::optional<Utils::Color>& color,
 }
 
 template <uint U, uint V>
-TriangleMesh makeParametricTorus( Scalar majorRadius,
-                                  Scalar minorRadius,
-                                  const Utils::optional<Utils::Color>& color,
-                                  bool generateTexCoord ) {
-    TriangleMesh result;
-    TriangleMesh::PointAttribHandle::Container vertices;
-    TriangleMesh::NormalAttribHandle::Container normals;
-    TriangleMesh::IndexContainerType indices;
+QuadMesh makeParametricTorus( Scalar majorRadius,
+                              Scalar minorRadius,
+                              const Utils::optional<Utils::Color>& color,
+                              bool generateTexCoord ) {
+    QuadMesh result;
+    QuadMesh::PointAttribHandle::Container vertices;
+    QuadMesh::NormalAttribHandle::Container normals;
+    QuadMesh::IndexContainerType indices;
     Ra::Core::Vector3Array texCoords;
 
     vertices.reserve( ( U + 1 ) * ( V + 1 ) );
@@ -302,12 +325,10 @@ TriangleMesh makeParametricTorus( Scalar majorRadius,
             texCoords.emplace_back( iu * du, iv * dv, 0_ra );
 
             if ( iu != U && iv != V ) {
-                indices.push_back( Vector3ui( iu * ( V + 1 ) + iv,
-                                              ( iu + 1 ) * ( V + 1 ) + iv,
-                                              iu * ( V + 1 ) + ( iv + 1 ) ) );
-                indices.push_back( Vector3ui( ( iu + 1 ) * ( V + 1 ) + iv,
-                                              ( iu + 1 ) * ( V + 1 ) + ( iv + 1 ),
-                                              iu * ( V + 1 ) + ( iv + 1 ) ) );
+                indices.emplace_back( iu * ( V + 1 ) + iv,
+                                      ( iu + 1 ) * ( V + 1 ) + iv,
+                                      ( iu + 1 ) * ( V + 1 ) + ( iv + 1 ),
+                                      iu * ( V + 1 ) + ( iv + 1 ) );
             }
         }
     }

@@ -1,5 +1,6 @@
 #include <Gui/Viewer/Gizmo/RotateGizmo.hpp>
 
+#include <Core/Containers/MakeShared.hpp>
 #include <Core/Containers/VectorArray.hpp>
 #include <Core/Geometry/MeshPrimitives.hpp>
 #include <Core/Utils/Color.hpp>
@@ -12,6 +13,7 @@
 
 namespace Ra {
 namespace Gui {
+using namespace Ra::Core;
 
 RotateGizmo::RotateGizmo( Engine::Scene::Component* c,
                           const Core::Transform& worldTo,
@@ -22,8 +24,8 @@ RotateGizmo::RotateGizmo( Engine::Scene::Component* c,
     constexpr Scalar torusAspectRatio = .08_ra;
     // For x,y,z
     for ( uint i = 0; i < 3; ++i ) {
-        Core::Geometry::TriangleMesh torus = Core::Geometry::makeParametricTorus<32>(
-            torusOutRadius, torusAspectRatio * torusOutRadius );
+        auto torus = Core::Geometry::makeParametricTorus<32>( torusOutRadius,
+                                                              torusAspectRatio * torusOutRadius );
         // Transform the torus from z-axis to axis i.
         auto& data = torus.verticesWithLock();
         for ( auto& v : data ) {
@@ -32,8 +34,8 @@ RotateGizmo::RotateGizmo( Engine::Scene::Component* c,
         }
         torus.verticesUnlock();
 
-        auto mesh = std::shared_ptr<Engine::Data::Mesh>( new Engine::Data::Mesh( "Gizmo Torus" ) );
-        mesh->loadGeometry( std::move( torus ) );
+        auto mesh =
+            make_shared<Engine::Data::GeometryDisplayable>( "Gizmo Torus", std::move( torus ) );
 
         auto torusDrawable = new Engine::Rendering::RenderObject(
             "Gizmo Torus", m_comp, Engine::Rendering::RenderObjectType::UI );

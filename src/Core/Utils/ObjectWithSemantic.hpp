@@ -2,6 +2,7 @@
 
 #include <Core/RaCore.hpp>
 
+#include <algorithm>
 #include <cstdarg>
 #include <set>
 

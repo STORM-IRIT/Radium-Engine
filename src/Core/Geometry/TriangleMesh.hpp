@@ -13,7 +13,7 @@ namespace Ra {
 namespace Core {
 namespace Geometry {
 
-/// \brief This class represents vertex + attributes per vertex. Toplogy is handled in
+/// \brief This class represents vertex + attributes per vertex. Topology is handled in
 /// MultiIndexedGeometry subclass.
 ///
 /// Attributes are unique per vertex, so that same position with different
@@ -441,6 +441,8 @@ inline void AttribArrayGeometry::normalsUnlock() {
 inline void AttribArrayGeometry::initDefaultAttribs() {
     m_verticesHandle = m_vertexAttribs.addAttrib<PointAttribHandle::value_type>(
         getAttribName( MeshAttrib::VERTEX_POSITION ) );
+
+    /// \todo remove normals ?
     m_normalsHandle = m_vertexAttribs.addAttrib<NormalAttribHandle::value_type>(
         getAttribName( MeshAttrib::VERTEX_NORMAL ) );
     invalidateAabb();

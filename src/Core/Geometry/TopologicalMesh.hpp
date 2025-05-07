@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Core/Geometry/IndexedGeometry.hpp"
 #include <Core/Containers/VectorArray.hpp>
 #include <Core/Geometry/OpenMesh.hpp>
 #include <Core/Geometry/StandardAttribNames.hpp>
@@ -77,9 +78,7 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
      * \see TopologicalMesh( const Ra::Core::Geometry::TriangleMesh&, NonManifoldFaceCommand)
      */
     template <typename MeshIndex>
-    explicit TopologicalMesh( [[deprecated(
-        "Use MultiIndexedGeometry instead" )]] const Ra::Core::Geometry::IndexedGeometry<MeshIndex>&
-                                  mesh );
+    explicit TopologicalMesh( const Ra::Core::Geometry::IndexedGeometry<MeshIndex>& mesh );
 
     /**
      * \brief Convenience constructor
@@ -103,8 +102,7 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
      *
      */
     template <typename MeshIndex, typename NonManifoldFaceCommand>
-    explicit TopologicalMesh( [[deprecated( "Use MultiIndexedGeometry instead" )]] const Ra::Core::
-                                  Geometry::IndexedGeometry<MeshIndex>& mesh,
+    explicit TopologicalMesh( const Ra::Core::Geometry::IndexedGeometry<MeshIndex>& mesh,
                               NonManifoldFaceCommand command );
 
     /**
@@ -137,17 +135,33 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
     /**
      * Return a triangleMesh from the topological mesh.
      * \note This is a costly operation.
-     */
-    TriangleMesh toTriangleMesh();
-
-    /**
-     * Return a triangleMesh from the topological mesh.
-     * \note This is a costly operation.
      * \warning It uses the attributes defined on wedges
      */
-    PolyMesh toPolyMesh();
+    template <typename IndexType>
+    IndexedGeometry<IndexType> toIndexedMesh();
+    PolyMesh toPolyMesh() { return toIndexedMesh<PolyMesh::IndexType>(); }
+    LineMesh toLineMesh() { return toIndexedMesh<LineMesh::IndexType>(); }
+    QuadMesh toQuadMesh() { return toIndexedMesh<QuadMesh::IndexType>(); }
+    TriangleMesh toTriangleMesh() { return toIndexedMesh<TriangleMesh::IndexType>(); }
 
-    LineMesh toLineMesh();
+    ///\todo move the who next methods as templated lambda when switch to c++20
+    template <typename T>
+    void copyWedgeDataToAttribContainer( AlignedStdVector<typename Attrib<T>::Container>& c,
+                                         const VectorArray<T>& wd ) {
+        for ( size_t i = 0; i < wd.size(); ++i ) {
+            c[i].push_back( wd[i] );
+        }
+    }
+
+    template <typename T>
+    void moveContainerToMesh( Ra::Core::Geometry::MultiIndexedGeometry& out,
+                              const std::vector<std::string>& names,
+                              AlignedStdVector<typename Attrib<T>::Container>& wedgeAttribData ) {
+        for ( size_t i = 0; i < wedgeAttribData.size(); ++i ) {
+            auto attrHandle = out.template addAttrib<T>( names[i] );
+            out.getAttrib( attrHandle ).setData( std::move( wedgeAttribData[i] ) );
+        }
+    }
 
     /**
      * Update triangle mesh data, assuming the mesh and this topo mesh has the
@@ -1232,6 +1246,11 @@ void TopologicalMesh::initWithWedge(
         LOG( logDEBUG ) << "TopologicalMesh: process " << faces.size() << " triangular faces ";
         processFaces( faces );
     }
+    else if ( abstractLayer.hasSemantic( QuadIndexLayer::staticSemanticName ) ) {
+        const auto& faces = static_cast<const QuadIndexLayer&>( abstractLayer ).collection();
+        LOG( logDEBUG ) << "TopologicalMesh: process " << faces.size() << " polygonal faces ";
+        processFaces( faces );
+    }
     else if ( abstractLayer.hasSemantic( PolyIndexLayer::staticSemanticName ) ) {
         const auto& faces = static_cast<const PolyIndexLayer&>( abstractLayer ).collection();
         LOG( logDEBUG ) << "TopologicalMesh: process " << faces.size() << " polygonal faces ";
@@ -1447,6 +1466,66 @@ inline bool TopologicalMesh::isFeatureEdge( const EdgeHandle& eh ) const {
 inline const OpenMesh::HPropHandleT<TopologicalMesh::WedgeIndex>&
 TopologicalMesh::getWedgeIndexPph() const {
     return m_wedgeIndexPph;
+}
+
+template <typename IndexType>
+IndexedGeometry<IndexType> TopologicalMesh::toIndexedMesh() { // first cleanup deleted element
+
+    garbage_collection();
+
+    IndexedGeometry<IndexType> out;
+    typename IndexedGeometry<IndexType>::IndexContainerType indices;
+
+    /// add attribs to out
+    std::vector<AttribHandle<Scalar>> wedgeFloatAttribHandles;
+    std::vector<AttribHandle<Vector2>> wedgeVector2AttribHandles;
+    std::vector<AttribHandle<Vector3>> wedgeVector3AttribHandles;
+    std::vector<AttribHandle<Vector4>> wedgeVector4AttribHandles;
+
+    TriangleMesh::PointAttribHandle::Container wedgePosition;
+    AlignedStdVector<Attrib<Scalar>::Container> wedgeFloatAttribData(
+        m_wedges.m_floatAttribNames.size() );
+    AlignedStdVector<Attrib<Vector2>::Container> wedgeVector2AttribData(
+        m_wedges.m_vector2AttribNames.size() );
+    AlignedStdVector<Attrib<Vector3>::Container> wedgeVector3AttribData(
+        m_wedges.m_vector3AttribNames.size() );
+    AlignedStdVector<Attrib<Vector4>::Container> wedgeVector4AttribData(
+        m_wedges.m_vector4AttribNames.size() );
+
+    /// Wedges are output vertices !
+    for ( WedgeIndex widx { 0 }; widx < WedgeIndex( m_wedges.size() ); ++widx ) {
+        const auto& wd = m_wedges.getWedgeData( widx );
+        wedgePosition.push_back( wd.m_position );
+        copyWedgeDataToAttribContainer( wedgeFloatAttribData, wd.m_floatAttrib );
+        copyWedgeDataToAttribContainer( wedgeVector2AttribData, wd.m_vector2Attrib );
+        copyWedgeDataToAttribContainer( wedgeVector3AttribData, wd.m_vector3Attrib );
+        copyWedgeDataToAttribContainer( wedgeVector4AttribData, wd.m_vector4Attrib );
+    }
+
+    out.setVertices( std::move( wedgePosition ) );
+    moveContainerToMesh<Scalar>( out, m_wedges.m_floatAttribNames, wedgeFloatAttribData );
+    moveContainerToMesh<Vector2>( out, m_wedges.m_vector2AttribNames, wedgeVector2AttribData );
+    moveContainerToMesh<Vector3>( out, m_wedges.m_vector3AttribNames, wedgeVector3AttribData );
+    moveContainerToMesh<Vector4>( out, m_wedges.m_vector4AttribNames, wedgeVector4AttribData );
+
+    for ( TopologicalMesh::FaceIter f_it = faces_sbegin(); f_it != faces_end(); ++f_it ) {
+        int i = 0;
+        IndexType faceIndices( valence( *f_it ) );
+        CORE_ASSERT( faceIndices.size() == valence( *f_it ), "Invalid face size." );
+
+        // iterator over vertex (through halfedge to get access to halfedge normals)
+        for ( TopologicalMesh::ConstFaceHalfedgeIter fh_it = cfh_iter( *f_it ); fh_it.is_valid();
+              ++fh_it ) {
+            faceIndices( i ) = property( m_wedgeIndexPph, *fh_it );
+            i++;
+        }
+
+        indices.push_back( faceIndices );
+    }
+
+    out.setIndices( std::move( indices ) );
+
+    return out;
 }
 
 } // namespace Geometry

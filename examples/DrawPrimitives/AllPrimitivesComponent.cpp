@@ -133,18 +133,18 @@ void AllPrimitivesComponent::initialize() {
 
     //// CUBES ////
     if ( ENABLE_CUBES ) {
-        std::shared_ptr<Mesh> cube1( new Mesh( "Cube" ) );
+        std::shared_ptr<GeometryDisplayable> cube1( new GeometryDisplayable( "Cube" ) );
         auto coord = cellSize / 16_ra;
         cube1->loadGeometry(
-            Geometry::makeSharpBox( Vector3 { coord, coord, coord }, Color::Green() ) );
+            Geometry::makeSharpBox2( Vector3 { coord, coord, coord }, Color::Green() ) );
         auto renderObject1 = RenderObject::createRenderObject(
             "Cube1", this, RenderObjectType::Geometry, cube1, {} );
         renderObject1->setLocalTransform( Transform { Translation( cellCorner ) } );
         renderObject1->setMaterial( blinnPhongMaterial );
         addRenderObject( renderObject1 );
 
-        std::shared_ptr<Mesh> texCube( new Mesh( "Cube" ) );
-        texCube->loadGeometry( Geometry::makeSharpBox(
+        std::shared_ptr<GeometryDisplayable> texCube( new GeometryDisplayable( "Cube" ) );
+        texCube->loadGeometry( Geometry::makeSharpBox2(
             Vector3 { 1.2_ra * coord, 1.2_ra * coord, 1.2_ra * coord }, Color::White(), true ) );
         auto renderObjectTexCube = RenderObject::createRenderObject(
             "TexCube", this, RenderObjectType::Geometry, texCube, {} );
@@ -155,14 +155,15 @@ void AllPrimitivesComponent::initialize() {
         addRenderObject( renderObjectTexCube );
 
         // another cube
-        std::shared_ptr<Mesh> cube2( new Mesh( "Cube" ) );
+        std::shared_ptr<GeometryDisplayable> cube2( new GeometryDisplayable( "Cube" ) );
         coord = cellSize / 4_ra;
-        cube2->loadGeometry( Geometry::makeSharpBox( Vector3 { coord, coord, coord } ) );
+        cube2->loadGeometry( Geometry::makeSharpBox2( Vector3 { coord, coord, coord } ) );
+
         const std::string myColourName { "colour" };
         cube2->getCoreGeometry().addAttrib(
             myColourName, Vector4Array { cube2->getNumVertices(), Color::Red() } );
 
-        cube2->setAttribNameCorrespondance(
+        cube2->setAttribNameMatching(
             myColourName, Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::VERTEX_COLOR ) );
         auto renderObject2 = RenderObject::createRenderObject(
             "CubeRO_2", this, RenderObjectType::Geometry, cube2, {} );
@@ -649,9 +650,8 @@ void AllPrimitivesComponent::initialize() {
         auto hepta = VectorNui( 7 );
         hepta << 3, 2, 4, 5, 6, 7, 8;
         polyMesh.setIndices( { quad, hepta } );
+        auto poly1 = make_shared<GeometryDisplayable>( "Poly", std::move( polyMesh ) );
 
-        std::shared_ptr<Data::PolyMesh> poly1(
-            new Data::PolyMesh( "Poly", std::move( polyMesh ) ) );
         poly1->getCoreGeometry().addAttrib(
             Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::VERTEX_COLOR ),
             Vector4Array { poly1->getNumVertices(), colorBoost * Color { 1_ra, 0.6_ra, 0.1_ra } } );
@@ -664,11 +664,12 @@ void AllPrimitivesComponent::initialize() {
 
         addRenderObject( renderObject1 );
 
-        Ra::Core::Geometry::TopologicalMesh topo { poly1->getCoreGeometry() };
+        Ra::Core::Geometry::TopologicalMesh topo { poly1->getCoreGeometry(),
+                                                   poly1->active_layer_key() };
         topo.triangulate();
         topo.checkIntegrity();
         auto triangulated = topo.toTriangleMesh();
-        std::shared_ptr<Mesh> poly2( new Mesh( "Poly", std::move( triangulated ) ) );
+        auto poly2        = make_shared<GeometryDisplayable>( "Poly", std::move( triangulated ) );
         poly2->getCoreGeometry().addAttrib(
             Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::VERTEX_COLOR ),
             Vector4Array { poly2->getNumVertices(), colorBoost * Color { 0_ra, 0.6_ra, 0.1_ra } } );
@@ -698,19 +699,16 @@ void AllPrimitivesComponent::initialize() {
             auto geomData = data->getGeometryData();
 
             for ( const auto& gd : geomData ) {
-                std::shared_ptr<AttribArrayDisplayable> mesh { nullptr };
+                std::shared_ptr<GeometryDisplayable> mesh { nullptr };
                 switch ( gd->getType() ) {
                 case Ra::Core::Asset::GeometryData::TRI_MESH:
-                    mesh = std::shared_ptr<Mesh> {
-                        createMeshFromGeometryData<Geometry::TriangleMesh>( "logo", gd ) };
+                    mesh = createMeshFromGeometryData2<Geometry::TriangleMesh>( "logo", gd );
                     break;
                 case Ra::Core::Asset::GeometryData::QUAD_MESH:
-                    mesh = std::shared_ptr<Data::QuadMesh> {
-                        createMeshFromGeometryData<Geometry::QuadMesh>( "logo", gd ) };
+                    mesh = createMeshFromGeometryData2<Geometry::QuadMesh>( "logo", gd );
                     break;
                 case Ra::Core::Asset::GeometryData::POLY_MESH:
-                    mesh = std::shared_ptr<Data::PolyMesh> {
-                        createMeshFromGeometryData<Geometry::PolyMesh>( "logo", gd ) };
+                    mesh = createMeshFromGeometryData2<Geometry::PolyMesh>( "logo", gd );
                     break;
                 default:
                     break;
@@ -868,7 +866,7 @@ void AllPrimitivesComponent::initialize() {
     auto addMesh = [this, colorBoost, plainMaterial]( Vector3 pos, TopologicalMesh topo1 ) {
         topo1.checkIntegrity();
         auto mesh1 = topo1.toTriangleMesh();
-        std::shared_ptr<Mesh> poly( new Mesh( "TEST", std::move( mesh1 ) ) );
+        auto poly  = make_shared<GeometryDisplayable>( "topo mesh", std::move( mesh1 ) );
 
         auto renderObject2 =
             RenderObject::createRenderObject( "TEST", this, RenderObjectType::Geometry, poly, {} );
@@ -1058,8 +1056,8 @@ void AllPrimitivesComponent::initialize() {
         {
             using Ra::Engine::Data::Mesh;
             {
-                auto torusGeom = makeParametricTorus<32, 16>( .04_ra, .01_ra, Color::White() );
-                auto torusMesh = make_shared<Mesh>( "Torus", std::move( torusGeom ) );
+                auto geom      = makeParametricTorus<16, 8>( .04_ra, .01_ra, Color::White() );
+                auto torusMesh = make_shared<GeometryDisplayable>( "Torus", std::move( geom ) );
                 auto torus     = RenderObject::createRenderObject(
                     "test_torus", this, RenderObjectType::Geometry, torusMesh, {} );
                 torus->setMaterial( blinnPhongMaterial );
@@ -1070,10 +1068,9 @@ void AllPrimitivesComponent::initialize() {
             }
 
             {
-                auto texTorusGeom =
-                    makeParametricTorus<64, 16>( .1_ra, .05_ra, Color::White(), true );
+                auto geom = makeParametricTorus<32, 12>( .1_ra, .05_ra, Color::White(), true );
                 auto texTorusMesh =
-                    make_shared<Mesh>( "Textured Torus", std::move( texTorusGeom ) );
+                    make_shared<GeometryDisplayable>( "Textured Torus", std::move( geom ) );
                 auto texTorus = RenderObject::createRenderObject(
                     "test_tex_torus", this, RenderObjectType::Geometry, texTorusMesh, {} );
                 texTorus->setMaterial( blinnPhongTexturedMaterial );
