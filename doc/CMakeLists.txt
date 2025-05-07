@@ -1,6 +1,6 @@
 # inspiration https://github.com/kracejic/EmptyDoxygenCMake/blob/master/CMakeLists.txt
 
-cmake_minimum_required(VERSION 3.18)
+cmake_minimum_required(VERSION 3.20)
 project(radium-doc)
 
 if(POLICY CMP0077)
@@ -31,7 +31,7 @@ if(DOXYGEN_FOUND)
 
     # configure doxygen target
     set(RADIUM_DOC_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/)
-    set(RADIUM_MAIN_DOC_FILE ${CMAKE_CURRENT_SOURCE_DIR}/main.md)
+    set(RADIUM_MAIN_DOC_FILE "${CMAKE_CURRENT_BINARY_DIR}/md/main.md")
 
     # Get awesome css
     set(RADIUM_DOXYGEN_AWESOME_CSS_ROOT
@@ -60,17 +60,41 @@ if(DOXYGEN_FOUND)
     endif()
     message_setting("USE_AWESOME_CSS")
 
+    find_package(Python3 REQUIRED COMPONENTS Interpreter)
+
+    execute_process(
+        COMMAND ${Python3_EXECUTABLE} "${CMAKE_CURRENT_SOURCE_DIR}/../scripts/list_dep.py" "dep"
+        WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/../external"
+        OUTPUT_VARIABLE RADIUM_DEPENDENCIES_VERSION
+    )
+    execute_process(
+        COMMAND ${Python3_EXECUTABLE} "${CMAKE_CURRENT_SOURCE_DIR}/../scripts/list_dep.py" "dir"
+        WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/../external"
+        OUTPUT_VARIABLE RADIUM_DEPENDENCIES_DIR
+    )
+
     # set RADIUM_PROJECT_NUMBER from VERSION file
     file(STRINGS "${CMAKE_CURRENT_SOURCE_DIR}/../VERSION" INPUT_Radium_VERSION)
     set(RADIUM_PROJECT_NUMBER ${INPUT_Radium_VERSION})
 
     # be nice with IDE: add .md files
-    file(GLOB_RECURSE md_files ${CMAKE_CURRENT_SOURCE_DIR}/*/*.md)
+    file(GLOB_RECURSE input_md_files ${CMAKE_CURRENT_SOURCE_DIR}/*.md)
+
+    foreach(md_file ${input_md_files})
+        cmake_path(
+            RELATIVE_PATH md_file BASE_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} OUTPUT_VARIABLE
+            dest_md_file
+        )
+        configure_file(${md_file} "md/${dest_md_file}" @ONLY)
+        list(APPEND md_files "${CMAKE_CURRENT_BINARY_DIR}/md/${dest_md_file}")
+    endforeach()
+
+    message(STATUS "${md_files}")
 
     set(md_pages_order
-        "${CMAKE_CURRENT_SOURCE_DIR}/main.md" "${CMAKE_CURRENT_SOURCE_DIR}/basics.md"
-        "${CMAKE_CURRENT_SOURCE_DIR}/concepts.md" "${CMAKE_CURRENT_SOURCE_DIR}/developer.md"
-        "${CMAKE_CURRENT_SOURCE_DIR}/LICENSES.md"
+        "${CMAKE_CURRENT_BINARY_DIR}/md/main.md" "${CMAKE_CURRENT_BINARY_DIR}/md/basics.md"
+        "${CMAKE_CURRENT_BINARY_DIR}/md/concepts.md" "${CMAKE_CURRENT_BINARY_DIR}/md/developer.md"
+        "${CMAKE_CURRENT_BINARY_DIR}/md/LICENSES.md"
     )
 
     set(DOXYGEN_ALIASES [[complexity="@par Complexity:^^"]])
