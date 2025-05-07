@@ -492,11 +492,13 @@ bool Viewer::initializeGL() {
     // Register to the camera manager active camera changes
     auto cameraManager = static_cast<Ra::Engine::Scene::CameraManager*>(
         Engine::RadiumEngine::getInstance()->getSystem( "DefaultCameraManager" ) );
-    cameraManager->activeCameraObservers().attach(
-        [this, size = deviceSize]( Core::Utils::Index /*idx*/ ) {
-            m_camera->updateCamera();
-            m_camera->getCamera()->setViewport( size.x(), size.y() );
-        } );
+
+    cameraManager->activeCameraObservers().attach( [this]( Core::Utils::Index /*idx*/ ) {
+        m_camera->updateCamera();
+        // not sure still needed on mac, if yes, use up to date size.
+        // auto size = toDevice( { width(), height() } );
+        // m_camera->getCamera()->setViewport( size.x(), size.y() );
+    } );
 
     // Initialize renderers added to the viewer before initializeGL
     for ( auto& rptr : m_pendingRenderers ) {

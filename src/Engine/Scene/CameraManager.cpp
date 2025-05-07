@@ -113,12 +113,6 @@ void CameraManager::handleAssetLoading( Entity* entity, const FileData* filedata
 void CameraManager::registerComponent( const Entity* entity, Component* component ) {
     System::registerComponent( entity, component );
     m_data->add( reinterpret_cast<CameraComponent*>( component ) );
-    /// register the manager to the entity's transformationObservers to update
-    /// active camera data on entity's transformation changes
-    auto idx = getCameraIndex( reinterpret_cast<CameraComponent*>( component ) );
-    entity->transformationObservers().attach( [this, idx]( const Entity* ) {
-        if ( idx == m_activeIndex ) { updateActiveCameraData(); }
-    } );
 }
 
 void CameraManager::unregisterComponent( const Entity* entity, Component* component ) {
