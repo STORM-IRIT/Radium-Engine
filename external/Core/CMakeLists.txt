@@ -96,7 +96,7 @@ if(NOT DEFINED nlohmann_json_DIR)
                    "-DCMAKE_MESSAGE_INDENT=${indent_string}\;"
     )
     add_dependencies(CoreExternals nlohmann_json)
-    set_external_dir(nlohmann_json "lib/cmake/nlohmann_json/")
+    set_external_dir(nlohmann_json "share/cmake/nlohmann_json/")
 else()
     status_message("" "nlohmann_json" ${nlohmann_json_DIR})
 endif()
