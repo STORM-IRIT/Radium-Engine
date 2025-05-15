@@ -88,7 +88,7 @@ if(NOT DEFINED nlohmann_json_DIR)
     ExternalProject_Add(
         nlohmann_json
         GIT_REPOSITORY https://github.com/nlohmann/json.git
-        GIT_TAG tags/v3.10.5
+        GIT_TAG tags/v3.12.0
         GIT_SHALLOW TRUE
         GIT_PROGRESS TRUE
         INSTALL_DIR "${CMAKE_INSTALL_PREFIX}"
