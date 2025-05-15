@@ -136,7 +136,7 @@ inline std::string NowTime() {
 #endif
 
 #define FILE_LOG( level )                                           \
-    if ( level > FILELOG_MAX_LEVEL )                                \
+    if constexpr ( level > FILELOG_MAX_LEVEL )                      \
         ;                                                           \
     else if ( level > Ra::Core::Utils::FILELog::ReportingLevel() || \
               !Ra::Core::Utils::Output2FILE::Stream() )             \
