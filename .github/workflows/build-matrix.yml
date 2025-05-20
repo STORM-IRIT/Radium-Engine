@@ -68,7 +68,7 @@ jobs:
           echo '{ "config" : ['
           [[ "true" == "${{ inputs.windows }}" ]] && echo '{ "name": "Windows MSVC", "os": "windows-latest", "cc": "cl.exe", "cxx": "cl.exe", "icon": "Windows", "extra-flags": "" }'
           [[ "true" == "${{ inputs.windows }}" && "true" == "${{inputs.linux}}" ]] && echo ','
-          [[ "true" == "${{ inputs.linux }}" ]] && echo '{ "name": "Ubuntu gcc", "os": "ubuntu-latest", "cc": "gcc-10", "cxx": "g++-10", "icon": "Linux", "extra-flags": "-DCMAKE_CXX_FLAGS=-Wno-deprecated-declarations -DRADIUM_ENABLE_GL_TESTING=ON" }'
+          [[ "true" == "${{ inputs.linux }}" ]] && echo '{ "name": "Ubuntu gcc", "os": "ubuntu-latest", "cc": "gcc", "cxx": "g++", "icon": "Linux", "extra-flags": "-DCMAKE_CXX_FLAGS=-Wno-deprecated-declarations -DRADIUM_ENABLE_GL_TESTING=ON" }'
           [[ "true" == "${{ inputs.windows }}" || "true" == "${{inputs.linux}}" ]] && [[ "true" == "${{inputs.macos}}" ]] && echo ','
           [[ "true" == "${{ inputs.macos }}" ]] && echo '{ "name": "MacOS clang", "os": "macos-13", "cc": "clang", "cxx": "clang++", "icon": "Apple", "extra-flags": "-DCMAKE_CXX_FLAGS=-Wno-deprecated-declarations" }'
           echo '],'
@@ -119,20 +119,17 @@ jobs:
         uses: seanmiddleditch/gha-setup-vsdevenv@master
         if: runner.os == 'Windows'
       - name: Install Qt
-        uses: jurplel/install-qt-action@v3
+        uses: jurplel/install-qt-action@v4
         with:
           cache: true
           cache-key-prefix: install-qt-action-${{ matrix.config.name }}-${{ matrix.qtversion.value }}
           version: ${{ matrix.qtversion.value }}
-      - name: Install dep Linux
+      - name: Install dep Linux (normal, test, coverage)
         if: runner.os == 'Linux'
-        run: sudo apt-get install -y libglfw3-dev
-      - name: Install tests dep
-        if: runner.os == 'Linux'
-        run: sudo apt-get install -y libxml2-utils
-      - name: Install dep coverage
-        if: ${{ inputs.coverage == 'true' }}
-        run: sudo apt-get install -y lcov
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libglfw3-dev libxml2-utils lcov
+          pip3 install fastcov
       - name: Install dep MacOS
         if: runner.os == 'macOS'
         run: brew install glfw
@@ -141,7 +138,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           repository: glfw/glfw
-          ref: 3.3.4
+          ref: 3.4
           path: glfw
       - name: Build windows dep, config path
         if: runner.os == 'Windows'
@@ -249,10 +246,29 @@ jobs:
           namedLogo: ${{ matrix.config.icon }}
           logoColor: white
           color: 1BCC1B
-      - name: Create and upload coverage report
+      - name: Create coverage report
         if: ${{ inputs.coverage == 'true' }}
         run: |
           cd build/Radium-Engine
-          cmake --build . --config Debug --target coverage
-          # Uploading report to CodeCov
-          bash <(curl -s https://codecov.io/bash) -f coverage.info -R ../../src/Radium-Engine || echo "Codecov did not collect coverage reports"
+          cmake --build . --config Debug --target fastcov_integration
+          cmake --build . --config Debug --target fastcov_unittests
+      - name: Upload coverage report
+        if: ${{ inputs.coverage == 'true' }}
+        uses: codecov/codecov-action@v5
+        with:
+          fail_ci_if_error: true # optional (default = false)
+          files: ./build/Radium-Engine/fastcov_unittests.info
+          flags: unittests
+          token: ${{ secrets.CODECOV_TOKEN }}
+          verbose: true # optional (default = false)
+          disable_search: true
+      - name: Upload coverage report
+        if: ${{ inputs.coverage == 'true' }}
+        uses: codecov/codecov-action@v5
+        with:
+          fail_ci_if_error: true # optional (default = false)
+          files: ./build/Radium-Engine/fastcov_integration.info
+          flags: integration
+          token: ${{ secrets.CODECOV_TOKEN }}
+          verbose: true # optional (default = false)
+          disable_search: true
