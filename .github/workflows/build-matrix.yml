@@ -16,6 +16,8 @@ on:
         required: false
       GIST_BADGES_SECRET:
         required: false
+      CODECOV_TOKEN:
+        required: false
     inputs:
       use-double:
         required: false
@@ -252,7 +254,7 @@ jobs:
           cd build/Radium-Engine
           cmake --build . --config Debug --target fastcov_integration
           cmake --build . --config Debug --target fastcov_unittests
-      - name: Upload coverage report
+      - name: Upload unittests coverage report
         if: ${{ inputs.coverage == 'true' }}
         uses: codecov/codecov-action@v5
         with:
@@ -262,7 +264,7 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
           verbose: true # optional (default = false)
           disable_search: true
-      - name: Upload coverage report
+      - name: Upload integration coverage report
         if: ${{ inputs.coverage == 'true' }}
         uses: codecov/codecov-action@v5
         with:
