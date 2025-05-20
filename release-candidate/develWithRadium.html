@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.webp"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.5.20</span>
+   &#160;<span id="projectnumber">1.5.21</span>
    </div>
   </td>
  </tr>
@@ -183,9 +183,9 @@ How to write tests</h2>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;Core/Geometry/Obb.hpp&gt;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;Core/Math/Math.hpp&gt;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;<a class="code" href="Types_8hpp.html">Core/Types.hpp</a>&gt;</span></div>
-<div class="line"><span class="preprocessor">#include &lt;catch2/catch.hpp&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;catch2/catch_test_macros.hpp&gt;</span></div>
 <div class="line"> </div>
-<div class="line">TEST_CASE( <span class="stringliteral">&quot;Core/Geometry/Obb&quot;</span>, <span class="stringliteral">&quot;[Core][Core/Geometry][Obb]&quot;</span> ) {</div>
+<div class="line">TEST_CASE( <span class="stringliteral">&quot;Core/Geometry/Obb&quot;</span>, <span class="stringliteral">&quot;[unittests][Core][Core/Geometry][Obb]&quot;</span> ) {</div>
 <div class="line"> </div>
 <div class="line">    <span class="keyword">using namespace </span><a class="code hl_namespace" href="namespaceRa_1_1Core.html">Ra::Core</a>;</div>
 <div class="line">    SECTION( <span class="stringliteral">&quot;Simple tests&quot;</span> ) {</div>
