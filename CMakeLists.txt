@@ -165,8 +165,7 @@ endif()
 
 if(RADIUM_ENABLE_COVERAGE)
     set(RADIUM_ENABLE_TESTING "ON")
-    include(CodeCoverage)
-    append_coverage_compiler_flags()
+    include(RadiumCoverage)
 endif(RADIUM_ENABLE_COVERAGE)
 
 # ------------------------------------------------------------------------------
@@ -211,6 +210,11 @@ if(RADIUM_ENABLE_TESTING)
     # prepare integration tests
     if(NOT RADIUM_ENABLE_EXAMPLES)
         add_subdirectory(examples/CoreExample EXCLUDE_FROM_ALL)
+
+        foreach(INTEGRATION_TEST FunctionalsGraph GraphAsNode GraphSerialization HelloGraph)
+            add_subdirectory(examples/DataflowExamples/${INTEGRATION_TEST} EXCLUDE_FROM_ALL)
+        endforeach()
+
         list(FIND RADIUM_COMPONENTS "Headless" res)
         if(res GREATER "-1")
             add_subdirectory(examples/HeadlessExample EXCLUDE_FROM_ALL)
@@ -220,76 +224,7 @@ if(RADIUM_ENABLE_TESTING)
 endif()
 
 if(RADIUM_ENABLE_COVERAGE)
-    append_coverage_compiler_flags()
-    setup_target_for_coverage_lcov(
-        NAME
-        coverage
-        EXECUTABLE
-        ${CMAKE_CTEST_COMMAND}
-        --output-on-failure
-        -C
-        ${CMAKE_BUILD_TYPE}
-        -j
-        $ENV{CMAKE_BUILD_PARALLEL_LEVEL}
-        BASE_DIRECTORY
-        "/"
-        DEPENDENCIES
-        RadiumLibs
-        unittests
-        integration
-        EXCLUDE
-        "/*external*/"
-        "/*/glbinding/*"
-        "/*/globjects/*"
-        "/*/OpenMesh/*"
-        "/*/assimp/*"
-        "/*/eigen3/*"
-        "/*/nlohmann/*"
-        "/*/stb/*"
-        "/usr/*"
-        "${CMAKE_SOURCE_DIR}/examples*"
-        "${CMAKE_SOURCE_DIR}/*/Catch2/*"
-        "${CMAKE_BINARY_DIR}/*_autogen/*"
-        "${CMAKE_BINARY_DIR}/*mocs*"
-    )
-
-    # Fastcov is not supported with gcov llvm: disabling for MacOS Source:
-    # https://github.com/RPGillespie6/fastcov/issues/36
-    if(UNIX AND NOT APPLE AND FASTCOV_PATH)
-        setup_target_for_coverage_fastcov(
-            NAME
-            coverage_fastcov
-            EXECUTABLE
-            ${CMAKE_CTEST_COMMAND}
-            --output-on-failure
-            -C
-            ${CMAKE_BUILD_TYPE}
-            -j
-            $ENV{CMAKE_BUILD_PARALLEL_LEVEL}
-            DEPENDENCIES
-            RadiumLibs
-            unittests
-            integration
-            BASE_DIRECTORY
-            "/"
-            EXCLUDE
-            "/usr/"
-            "examples"
-            "glbinding"
-            "globjects"
-            "OpenMesh"
-            "assimp"
-            "eigen3"
-            "nlohmann"
-            "stb"
-            "external"
-            "install"
-            "/Catch2/"
-            "_autogen/"
-            "build"
-            "mocs"
-        )
-    endif()
+    radium_setup_coverage_targets()
 endif()
 
 # Packaging stuff (deb, rpm, windows installer) add_subdirectory(packaging)

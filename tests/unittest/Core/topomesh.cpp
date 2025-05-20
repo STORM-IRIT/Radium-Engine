@@ -2,7 +2,7 @@
 #include <Core/Geometry/StandardAttribNames.hpp>
 #include <Core/Geometry/TopologicalMesh.hpp>
 #include <Core/Geometry/TriangleMesh.hpp>
-#include <catch2/catch.hpp>
+#include <catch2/catch_test_macros.hpp>
 
 #include <OpenMesh/Tools/Subdivider/Uniform/CatmullClarkT.hh>
 
@@ -228,7 +228,7 @@ bool isSameMeshWedge( const Ra::Core::Geometry::IndexedGeometry<T>& meshOne,
     return true;
 }
 
-TEST_CASE( "Core/Geometry/TopologicalMesh", "[Core][Core/Geometry][TopologicalMesh]" ) {
+TEST_CASE( "Core/Geometry/TopologicalMesh", "[unittests][Core][Core/Geometry][TopologicalMesh]" ) {
     using Ra::Core::Vector3;
     using Ra::Core::Geometry::TopologicalMesh;
     using Ra::Core::Geometry::TriangleMesh;
@@ -504,7 +504,7 @@ void test_poly() {
 }
 
 TEST_CASE( "Core/Geometry/TopologicalMesh/PolyMesh",
-           "[Core][Core/Geometry][TopologicalMesh][PolyMesh]" ) {
+           "[unittests][Core][Core/Geometry][TopologicalMesh][PolyMesh]" ) {
 
     test_poly();
 }
@@ -519,7 +519,8 @@ TEST_CASE( "Core/Geometry/TopologicalMesh/PolyMesh",
 //     OpenMesh::Decimater::ModQuadricT<Ra::Core::Geometry::TopologicalMesh>::Handle;
 //}
 
-TEST_CASE( "Core/Geometry/TopologicalMesh/EdgeSplit", "[Core][Core/Geometry][TopologicalMesh]" ) {
+TEST_CASE( "Core/Geometry/TopologicalMesh/EdgeSplit",
+           "[unittests][Core][Core/Geometry][TopologicalMesh]" ) {
     using Ra::Core::Vector3;
     using Ra::Core::Geometry::TopologicalMesh;
     using Ra::Core::Geometry::TriangleMesh;
@@ -554,7 +555,8 @@ TEST_CASE( "Core/Geometry/TopologicalMesh/EdgeSplit", "[Core][Core/Geometry][Top
     /// \todo : split boundary edge.
 }
 
-TEST_CASE( "Core/Geometry/TopologicalMesh/Manifold", "[Core][Core/Geometry][TopologicalMesh]" ) {
+TEST_CASE( "Core/Geometry/TopologicalMesh/Manifold",
+           "[unittests][Core][Core/Geometry][TopologicalMesh]" ) {
     SECTION( "Non manifold faces" ) {
         struct MyNonManifoldCommand {
             explicit inline MyNonManifoldCommand( int target ) : targetNonManifoldFaces( target ) {}
@@ -761,7 +763,7 @@ TEST_CASE( "Core/Geometry/TopologicalMesh/Manifold", "[Core][Core/Geometry][Topo
 }
 
 TEST_CASE( "Core/Geometry/TopologicalMesh/Initialization",
-           "[Core][Core/Geometry][TopologicalMesh]" ) {
+           "[unittests][Core][Core/Geometry][TopologicalMesh]" ) {
     TopologicalMesh topo;
     TopologicalMesh::VertexHandle vhandle[3];
     TopologicalMesh::FaceHandle fhandle;
@@ -791,7 +793,8 @@ TEST_CASE( "Core/Geometry/TopologicalMesh/Initialization",
     REQUIRE( topo.n_faces() == 0 );
 }
 
-TEST_CASE( "Core/Geometry/TopologicalMesh/MergeWedges", "[Core][Core/Geometry][TopologicalMesh]" ) {
+TEST_CASE( "Core/Geometry/TopologicalMesh/MergeWedges",
+           "[unittests][Core][Core/Geometry][TopologicalMesh]" ) {
 
     auto mesh = Ra::Core::Geometry::makeSharpBox();
     auto topo = TopologicalMesh { mesh };
@@ -840,7 +843,8 @@ void testAttrib( const IndexedGeometry<T>& mesh, const std::string& name, Scalar
     }
 }
 
-TEST_CASE( "Core/Geometry/TopologicalMesh/Triangulate", "[Core][Core/Geometry][TopologicalMesh]" ) {
+TEST_CASE( "Core/Geometry/TopologicalMesh/Triangulate",
+           "[unittests][Core][Core/Geometry][TopologicalMesh]" ) {
     TopologicalMesh topo {};
     TopologicalMesh::VertexHandle vhandle[4];
     TopologicalMesh::FaceHandle fhandle;
@@ -944,7 +948,7 @@ findHalfedge( TopologicalMesh& topo, const Vector3& from, const Vector3& to ) {
     return {};
 }
 
-TEST_CASE( "Core/TopologicalMesh/CollapseWedge" ) {
+TEST_CASE( "Core/TopologicalMesh/CollapseWedge", "[unittests]" ) {
     using namespace Ra::Core;
     using namespace Ra::Core::Utils;
     using namespace Ra::Core::Geometry;
@@ -1259,7 +1263,8 @@ TEST_CASE( "Core/TopologicalMesh/CollapseWedge" ) {
     }
 }
 
-TEST_CASE( "Core/Geometry/TopologicalMesh/Updates", "[Core][Core/Geometry][TopologicalMesh]" ) {
+TEST_CASE( "Core/Geometry/TopologicalMesh/Updates",
+           "[unittests][Core][Core/Geometry][TopologicalMesh]" ) {
     using Ra::Core::Vector3;
     using Ra::Core::Geometry::TopologicalMesh;
     using Ra::Core::Geometry::TriangleMesh;

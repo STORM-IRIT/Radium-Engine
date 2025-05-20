@@ -2,7 +2,8 @@
 
 #include <Core/Utils/TypesUtils.hpp>
 
-#include <catch2/catch.hpp>
+#include <catch2/catch_test_macros.hpp>
+#include <cmath>
 #include <string>
 
 using namespace Ra::Core;
@@ -55,7 +56,7 @@ struct modifyInts : public VariableSet::StaticVisitor<int> {
     }
 };
 
-TEST_CASE( "Core/Container/VariableSet", "[Core][Container][VariableSet]" ) {
+TEST_CASE( "Core/Container/VariableSet", "[unittests][Core][Container][VariableSet]" ) {
     auto print_container = []( const std::string& name, VariableSet& ps ) {
         std::cout << name << " content : ";
         ps.visit( printThemAll {} );

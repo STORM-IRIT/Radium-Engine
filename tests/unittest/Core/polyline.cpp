@@ -1,7 +1,7 @@
 #include <Core/Geometry/PolyLine.hpp>
-#include <catch2/catch.hpp>
+#include <catch2/catch_test_macros.hpp>
 
-TEST_CASE( "Core/Geometry/Polyline", "[Core][Core/Geometry][Polyline]" ) {
+TEST_CASE( "Core/Geometry/Polyline", "[unittests][Core][Core/Geometry][Polyline]" ) {
     using namespace Ra::Core;
     SECTION( "2 points polyline" ) {
         Vector3Array v2 { { 1, 2, 3 }, { 4, 5, 6 } };

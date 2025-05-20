@@ -4,9 +4,9 @@
 #include <Core/Math/Math.hpp>
 #include <Core/Utils/Log.hpp>
 #include <IO/VolumesLoader/VolumeLoader.hpp>
-#include <catch2/catch.hpp>
+#include <catch2/catch_test_macros.hpp>
 
-TEST_CASE( "IO/VolumesLoader", "[IO]" ) {
+TEST_CASE( "IO/VolumesLoader", "[unittests][IO]" ) {
     using namespace Ra::Core;
     using namespace Ra::Core::Asset;
     using namespace Ra::Core::Geometry;

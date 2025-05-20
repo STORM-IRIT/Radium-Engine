@@ -1,6 +1,6 @@
 #include "Engine/Data/Texture.hpp"
 
-#include <catch2/catch.hpp>
+#include <catch2/catch_test_macros.hpp>
 
 #include <Core/CoreMacros.hpp>
 #include <Engine/Data/BlinnPhongMaterial.hpp>
@@ -26,7 +26,7 @@ using namespace Ra::Core::Utils;
 using namespace gl;
 using namespace gl45core;
 
-TEST_CASE( "Engine/Data/Texture", "[Engine][Engine/Data][Textures]" ) {
+TEST_CASE( "Engine/Data/Texture", "[unittests][Engine][Engine/Data][Textures]" ) {
     // Get the Engine and materials initialized
     glbinding::Version glVersion { 4, 4 };
 #ifdef HEADLESS_HAS_EGL
