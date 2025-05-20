@@ -1,4 +1,4 @@
-#include <catch2/catch.hpp>
+#include <catch2/catch_test_macros.hpp>
 
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Scene/Component.hpp>
@@ -33,7 +33,8 @@ class FooBarComponent : public Component
     void initialize() override {};
 };
 
-TEST_CASE( "Engine/Scene/SignalManager/ON", "[Engine][Engine/Scene][SignalManager][ON]" ) {
+TEST_CASE( "Engine/Scene/SignalManager/ON",
+           "[unittests][Engine][Engine/Scene][SignalManager][ON]" ) {
 
     auto engine = Ra::Engine::RadiumEngine::createInstance();
     engine->initialize();
@@ -195,7 +196,8 @@ TEST_CASE( "Engine/Scene/SignalManager/ON", "[Engine][Engine/Scene][SignalManage
     Ra::Engine::RadiumEngine::destroyInstance();
 }
 
-TEST_CASE( "Engine/Scene/SignalManager/OFF/", "[Engine][Engine/Scene][SignalManager][OFF]" ) {
+TEST_CASE( "Engine/Scene/SignalManager/OFF/",
+           "[unittests][Engine][Engine/Scene][SignalManager][OFF]" ) {
 
     auto engine = Ra::Engine::RadiumEngine::createInstance();
     engine->initialize();

@@ -2,7 +2,7 @@
 #include <Core/Math/Math.hpp>
 #include <Engine/Scene/CameraComponent.hpp>
 
-#include <catch2/catch.hpp>
+#include <catch2/catch_test_macros.hpp>
 
 using namespace Ra::Core;
 using namespace Ra::Core::Utils;
@@ -40,7 +40,7 @@ void testProjectUnproject( const Camera& cam, const Vector3& x, const Vector2& r
         REQUIRE( Math::areApproxEqual( r.norm(), 0_ra ) );
 }
 
-TEST_CASE( "Core/Camera" ) {
+TEST_CASE( "Core/Camera", "[unittests]" ) {
 
     auto cam = std::make_unique<Camera>( 10, 20 );
     REQUIRE( cam->getWidth() == 10 );

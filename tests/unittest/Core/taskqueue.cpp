@@ -1,7 +1,7 @@
 #include <Core/Tasks/Task.hpp>
 #include <Core/Tasks/TaskQueue.hpp>
 
-#include <catch2/catch.hpp>
+#include <catch2/catch_test_macros.hpp>
 #include <memory>
 #include <string>
 
@@ -9,7 +9,7 @@ using namespace Ra::Core;
 using namespace Ra::Core::Utils;
 
 // run some dummy task, to check that there is no deadlock
-TEST_CASE( "Core/TaskQueueInit", "[Core][TaskQueue]" ) {
+TEST_CASE( "Core/TaskQueueInit", "[unittests][Core][TaskQueue]" ) {
     for ( int i = 0; i < 5; ++i ) {
         TaskQueue taskQueue1( 10 );
         for ( int j = 0; j < 20; ++j ) {
@@ -36,7 +36,7 @@ TEST_CASE( "Core/TaskQueueInit", "[Core][TaskQueue]" ) {
     }
 }
 
-TEST_CASE( "Core/TaskQueue", "[Core][TaskQueue]" ) {
+TEST_CASE( "Core/TaskQueue", "[unittests][Core][TaskQueue]" ) {
     TaskQueue taskQueue( 4 );
 
     const int arraySize  = 7; // if changed, update test values also

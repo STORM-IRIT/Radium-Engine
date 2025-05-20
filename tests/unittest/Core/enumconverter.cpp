@@ -1,10 +1,8 @@
-#include <catch2/catch.hpp>
+#include <catch2/catch_test_macros.hpp>
 
 #include <Core/Utils/EnumConverter.hpp>
 
-#include <random>
-
-TEST_CASE( "Core/Utils/EnumConverter", "[Core][Core/Utils][EnumConverter]" ) {
+TEST_CASE( "Core/Utils/EnumConverter", "[unittests][Core][Core/Utils][EnumConverter]" ) {
     SECTION( "Test enum converter" ) {
         using namespace Ra::Core::Utils;
 

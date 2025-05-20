@@ -13,14 +13,20 @@
 
 #include <Core/Animation/PoseOperation.hpp>
 #include <Core/Animation/Skeleton.hpp>
+#include <Eigen/Core>
+#include <Eigen/Geometry>
+#include <Eigen/SparseCore>
 
-#include <catch2/catch.hpp>
+#include <catch2/catch_test_macros.hpp>
+#include <cmath>
+#include <iostream>
+#include <vector>
 
 using namespace Ra::Core;
 using namespace Ra::Core::Animation;
 
 TEST_CASE( "Core/Animation/HandleWeightOperation",
-           "[Core][Core/Animation][HandleWeightOperation]" ) {
+           "[unittests][Core][Core/Animation][HandleWeightOperation]" ) {
     static const constexpr int w = 50;
     static const constexpr int h = w;
 
@@ -58,7 +64,7 @@ TEST_CASE( "Core/Animation/HandleWeightOperation",
     }
 }
 
-TEST_CASE( "Core/Animation/KeyFramedValue", "[Core][Core/Animation][KeyFramedValue]" ) {
+TEST_CASE( "Core/Animation/KeyFramedValue", "[unittests][Core][Core/Animation][KeyFramedValue]" ) {
 
     KeyFramedValue<Scalar> kf { 2_ra, 2_ra };
 
@@ -296,7 +302,7 @@ TEST_CASE( "Core/Animation/KeyFramedValue", "[Core][Core/Animation][KeyFramedVal
     }
 }
 
-TEST_CASE( "Core/Animation/KeyFramedStruct" ) {
+TEST_CASE( "Core/Animation/KeyFramedStruct", "[unittests]" ) {
     //! [declare MyStruct]
     struct MyStruct {
         MyStruct() :
@@ -393,7 +399,7 @@ TEST_CASE( "Core/Animation/KeyFramedStruct" ) {
     }
 }
 
-TEST_CASE( "Core/Animation/Skeleton", "[Core][Core/Animation][Skeleton]" ) {
+TEST_CASE( "Core/Animation/Skeleton", "[unittests][Core][Core/Animation][Skeleton]" ) {
     using Space = HandleArray::SpaceType;
     // build the skeleton in the X direction: > - > - > - > starting at the origin
     Skeleton skel;
@@ -965,7 +971,7 @@ TEST_CASE( "Core/Animation/Skeleton", "[Core][Core/Animation][Skeleton]" ) {
 }
 
 TEST_CASE( "Core/Animation/DualQuaternionSkinning",
-           "[Core][Core/Animation][DualQuaternionSkinning]" ) {
+           "[unitests][Core][Core/Animation][DualQuaternionSkinning]" ) {
     // initialize the pose
     Ra::Core::Animation::Pose pose;
     Ra::Core::Transform t0 { Ra::Core::Transform::Identity() };

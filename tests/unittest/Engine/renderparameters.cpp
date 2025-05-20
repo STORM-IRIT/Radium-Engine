@@ -1,4 +1,4 @@
-#include <catch2/catch.hpp>
+#include <catch2/catch_test_macros.hpp>
 
 #include <Core/Containers/VariableSetEnumManagement.hpp>
 #include <Core/Types.hpp>
@@ -82,7 +82,7 @@ class StaticPrintVisitor
     std::stringstream output;
 };
 
-TEST_CASE( "Engine/Data/RenderParameters", "[Engine][Engine/Data][RenderParameters]" ) {
+TEST_CASE( "Engine/Data/RenderParameters", "[unittests][Engine][Engine/Data][RenderParameters]" ) {
     using RP = RenderParameters;
     using namespace Ra::Core::VariableSetEnumManagement;
 

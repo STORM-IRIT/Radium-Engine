@@ -165,20 +165,22 @@ foreach(LANG ${LANGUAGES})
     endif()
 endforeach()
 
-set(COVERAGE_COMPILER_FLAGS "-g --coverage" CACHE INTERNAL "")
+set(COVERAGE_COMPILER_FLAGS "-g" "--coverage" CACHE INTERNAL "")
+set(COVERAGE_C_COMPILER_FLAGS ${COVERAGE_COMPILER_FLAGS})
+set(COVERAGE_CXX_COMPILER_FLAGS ${COVERAGE_COMPILER_FLAGS})
 
 if(CMAKE_CXX_COMPILER_ID MATCHES "(GNU|Clang)")
     include(CheckCXXCompilerFlag)
     check_cxx_compiler_flag(-fprofile-abs-path HAVE_cxx_fprofile_abs_path)
-    if(HAVE_cxx_fprofile_abs_path)
-        set(COVERAGE_CXX_COMPILER_FLAGS "${COVERAGE_COMPILER_FLAGS} -fprofile-abs-path")
+    if(${HAVE_cxx_fprofile_abs_path})
+        list(APPEND COVERAGE_CXX_COMPILER_FLAGS "-fprofile-abs-path")
     endif()
 endif()
 if(CMAKE_C_COMPILER_ID MATCHES "(GNU|Clang)")
     include(CheckCCompilerFlag)
     check_c_compiler_flag(-fprofile-abs-path HAVE_c_fprofile_abs_path)
-    if(HAVE_c_fprofile_abs_path)
-        set(COVERAGE_C_COMPILER_FLAGS "${COVERAGE_COMPILER_FLAGS} -fprofile-abs-path")
+    if(${HAVE_c_fprofile_abs_path})
+        list(APPEND COVERAGE_C_COMPILER_FLAGS "-fprofile-abs-path")
     endif()
 endif()
 
@@ -754,11 +756,15 @@ endfunction() # append_coverage_compiler_flags
 
 # Setup coverage for specific library
 function(append_coverage_compiler_flags_to_target name)
-    separate_arguments(_flag_list NATIVE_COMMAND "${COVERAGE_COMPILER_FLAGS}")
-    target_compile_options(${name} PRIVATE ${_flag_list})
+    target_compile_options(
+        ${name} PRIVATE $<$<COMPILE_LANGUAGE:C>:${COVERAGE_C_COMPILER_FLAGS}>
+                        $<$<COMPILE_LANGUAGE:CXX>:${COVERAGE_CXX_COMPILER_FLAGS}>
+    )
+    target_link_options(${name} PRIVATE ${COVERAGE_COMPILER_FLAGS})
     if(CMAKE_C_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID STREQUAL "GNU"
        OR CMAKE_Fortran_COMPILER_ID STREQUAL "GNU"
     )
         target_link_libraries(${name} PRIVATE gcov)
     endif()
+
 endfunction()

@@ -1,4 +1,4 @@
-#include <catch2/catch.hpp>
+#include <catch2/catch_test_macros.hpp>
 
 #include <Engine/Data/BlinnPhongMaterial.hpp>
 #include <Engine/Data/LambertianMaterial.hpp>
@@ -22,7 +22,7 @@ struct PrintThemAll {
         std::cout << name << " with type " << typeid( T ).name() << "\n";
     }
 };
-TEST_CASE( "Engine/Data/Materials", "[Engine][Engine/Data][Materials]" ) {
+TEST_CASE( "Engine/Data/Materials", "[unittests][Engine][Engine/Data][Materials]" ) {
 
     // Get the Engine and materials initialized
     glbinding::Version glVersion { 4, 4 };

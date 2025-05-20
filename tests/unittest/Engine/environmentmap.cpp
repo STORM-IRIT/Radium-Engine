@@ -1,4 +1,4 @@
-#include <catch2/catch.hpp>
+#include <catch2/catch_test_macros.hpp>
 
 #include <Engine/Data/EnvironmentTexture.hpp>
 #include <Engine/RadiumEngine.hpp>
@@ -6,7 +6,7 @@
 using namespace Ra::Engine::Data;
 
 TEST_CASE( "Engine/Data/EnvironmentTexture/Equirectangular",
-           "[Engine][Engine/Data][EnvironmentTexture][equirectangular]" ) {
+           "[unittests][Engine][Engine/Data][EnvironmentTexture][equirectangular]" ) {
     SECTION( "Create environment texture" ) {
         EnvironmentTexture tex { "data/studio_garden_2k.exr", true };
 
@@ -37,7 +37,7 @@ TEST_CASE( "Engine/Data/EnvironmentTexture/Equirectangular",
 }
 
 TEST_CASE( "Engine/Data/EnvironmentTexture/PFM",
-           "[Engine][Engine/Data][EnvironmentTexture][PFM]" ) {
+           "[unittests][Engine][Engine/Data][EnvironmentTexture][PFM]" ) {
     SECTION( "Create environment texture" ) {
         EnvironmentTexture tex { "data/uffizi_cross.pfm" };
 
@@ -67,7 +67,7 @@ TEST_CASE( "Engine/Data/EnvironmentTexture/PFM",
     }
 }
 TEST_CASE( "Engine/Data/EnvironmentTexture/CubeMap",
-           "[Engine][Engine/Data][EnvironmentTexture][CubeMap]" ) {
+           "[unittests][Engine][Engine/Data][EnvironmentTexture][CubeMap]" ) {
     SECTION( "Create environment texture" ) {
         EnvironmentTexture tex {
             "data/smallpark/negx.jpg;data/smallpark/negy.jpg;data/smallpark/negz.jpg;"

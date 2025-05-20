@@ -1,15 +1,10 @@
 #include <Core/Utils/TypesUtils.hpp>
-#include <catch2/catch.hpp>
-
-#include <string>
-#include <vector>
-
-#include <iostream>
+#include <catch2/catch_test_macros.hpp>
 
 namespace TypeTests {
 struct TypeName_struct {};
 } // namespace TypeTests
-TEST_CASE( "Core/Utils/TypesUtils", "[Core][Core/Utils][TypesUtils]" ) {
+TEST_CASE( "Core/Utils/TypesUtils", "[unittests][Core][Core/Utils][TypesUtils]" ) {
     SECTION( "Demangle from typename" ) {
         using Ra::Core::Utils::demangleType;
 
