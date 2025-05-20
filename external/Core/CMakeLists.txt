@@ -88,7 +88,7 @@ if(NOT DEFINED nlohmann_json_DIR)
     ExternalProject_Add(
         nlohmann_json
         GIT_REPOSITORY https://github.com/nlohmann/json.git
-        GIT_TAG tags/v3.10.5
+        GIT_TAG tags/v3.12.0
         GIT_SHALLOW TRUE
         GIT_PROGRESS TRUE
         INSTALL_DIR "${CMAKE_INSTALL_PREFIX}"
@@ -96,7 +96,7 @@ if(NOT DEFINED nlohmann_json_DIR)
                    "-DCMAKE_MESSAGE_INDENT=${indent_string}\;"
     )
     add_dependencies(CoreExternals nlohmann_json)
-    set_external_dir(nlohmann_json "lib/cmake/nlohmann_json/")
+    set_external_dir(nlohmann_json "share/cmake/nlohmann_json/")
 else()
     status_message("" "nlohmann_json" ${nlohmann_json_DIR})
 endif()
