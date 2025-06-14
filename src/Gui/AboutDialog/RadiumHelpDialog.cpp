@@ -1,5 +1,4 @@
 #include <Gui/AboutDialog/RadiumHelpDialog.hpp>
-
 #include <Gui/Utils/KeyMappingManager.hpp>
 
 #include "ui_RadiumHelpDialog.h"

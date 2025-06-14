@@ -1,7 +1,9 @@
 #pragma once
 
 #include <Core/RaCore.hpp>
+#include <cstddef>
 #include <string>
+#include <string_view>
 
 namespace Ra {
 namespace Core {

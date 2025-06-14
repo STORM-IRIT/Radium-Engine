@@ -1,6 +1,6 @@
-#include <PluginA.hpp>
-
 #include <ExampleLibrary.hpp>
+#include <PluginA.hpp>
+#include <string>
 
 namespace PluginA_NS {
 

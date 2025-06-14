@@ -1,3 +1,5 @@
+#include <Headless/CLI/App.hpp>
+#include <Headless/CLI/Error.hpp>
 #include <Headless/CLIBaseApplication.hpp>
 
 namespace Ra {

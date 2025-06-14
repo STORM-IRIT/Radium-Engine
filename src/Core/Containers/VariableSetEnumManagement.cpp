@@ -1,4 +1,11 @@
+#include <Core/Containers/VariableSet.hpp>
 #include <Core/Containers/VariableSetEnumManagement.hpp>
+#include <Core/Utils/Log.hpp>
+#include <functional>
+#include <map>
+#include <ostream>
+#include <string>
+#include <utility>
 
 namespace Ra {
 namespace Core {

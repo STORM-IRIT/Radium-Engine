@@ -2,7 +2,7 @@
 
 #include <Core/Tasks/TaskQueue.hpp>
 #include <Core/Utils/Color.hpp>
-#include <Engine/OpenGL.hpp>
+
 #include <Engine/RaEngine.hpp>
 
 #include <memory>

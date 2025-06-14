@@ -46,6 +46,7 @@ set(gui_headers
     AboutDialog/RadiumHelpDialog.hpp
     BaseApplication.hpp
     MainWindowInterface.hpp
+    ParameterSetEditor/BasicUiBuilder.hpp
     ParameterSetEditor/MaterialParameterEditor.hpp
     ParameterSetEditor/ParameterSetEditor.hpp
     RaGui.hpp

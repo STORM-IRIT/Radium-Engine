@@ -23,7 +23,7 @@ add_custom_target(IOExternals ALL)
 if(RADIUM_IO_ASSIMP)
     if(NOT DEFINED assimp_DIR)
         check_externals_prerequisite()
-        status_message("" "assimp" "remote git")
+        status_message("assimp" "remote git")
 
         # I found some problems when generating xcode project for Assimp. The debug version is
         # expected even in Release mode. As Release build does not generate the debug version, the
@@ -50,14 +50,14 @@ if(RADIUM_IO_ASSIMP)
 
         add_dependencies(IOExternals assimp)
     else()
-        status_message("" "assimp" "${assimp_DIR}")
+        status_message("assimp" "${assimp_DIR}")
     endif()
 endif()
 
 if(RADIUM_IO_TINYPLY)
     if(NOT DEFINED tinyply_DIR)
         check_externals_prerequisite()
-        status_message("" "tinyply" "remote git")
+        status_message("tinyply" "remote git")
         ExternalProject_Add(
             tinyply
             GIT_REPOSITORY https://github.com/ddiakopoulos/tinyply.git
@@ -72,6 +72,6 @@ if(RADIUM_IO_TINYPLY)
 
         add_dependencies(IOExternals tinyply)
     else()
-        status_message("" "tinyply" "${tinyply_DIR}")
+        status_message("tinyply" "${tinyply_DIR}")
     endif()
 endif()

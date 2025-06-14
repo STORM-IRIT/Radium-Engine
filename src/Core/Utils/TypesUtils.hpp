@@ -1,6 +1,5 @@
 #pragma once
-
-#include <Core/CoreMacros.hpp>
+#include <Core/RaCore.hpp>
 #include <Core/Utils/StringUtils.hpp>
 
 #ifndef _WIN32
@@ -26,7 +25,7 @@ template <typename T>
 std::string demangleType( const T& ) noexcept;
 
 /// Return the human readable version of the given type name
-std::string demangleType( const std::type_index& typeIndex ) noexcept;
+RA_CORE_API std::string demangleType( const std::type_index& typeName ) noexcept;
 
 /// \brief Return the human readable version of the type name T with simplified radium type names
 template <typename T>
@@ -40,34 +39,7 @@ auto simplifiedDemangledType( const T& ) noexcept -> std::string;
 /// radium type names
 /// \param typeName The typeIndex whose simplified named is requested
 /// \return The Radium-simplified type name
-// RA_CORE_API auto simplifiedDemangledType( const std::type_index& typeName ) noexcept ->
-// std::string;
-
-// -----------------------------------------------------------------
-// ---------------------- inline methods ---------------------------
-
-namespace TypeInternal {
-RA_CORE_API auto makeTypeReadable( const std::string& ) -> std::string;
-}
-
-template <typename T>
-auto simplifiedDemangledType() noexcept -> std::string {
-    static auto demangled_name = []() {
-        std::string demangledType =
-            TypeInternal::makeTypeReadable( Ra::Core::Utils::demangleType<T>() );
-        return demangledType;
-    }();
-    return demangled_name;
-}
-
-template <typename T>
-auto simplifiedDemangledType( const T& ) noexcept -> std::string {
-    return simplifiedDemangledType<T>();
-}
-
-inline auto simplifiedDemangledType( const std::type_index& typeName ) noexcept -> std::string {
-    return TypeInternal::makeTypeReadable( Ra::Core::Utils::demangleType( typeName ) );
-}
+RA_CORE_API auto simplifiedDemangledType( const std::type_index& typeName ) noexcept -> std::string;
 
 // Check if a type is a container with access to its element type and number
 // adapted from https://stackoverflow.com/questions/13830158/check-if-a-variable-type-is-iterable
@@ -94,6 +66,32 @@ std::false_type is_container_impl( ... );
 
 template <typename T>
 using is_container = decltype( detail::is_container_impl<T>( 0 ) );
+
+// -----------------------------------------------------------------
+// ---------------------- inline methods ---------------------------
+
+namespace TypeInternal {
+RA_CORE_API auto makeTypeReadable( const std::string& ) -> std::string;
+}
+
+template <typename T>
+auto simplifiedDemangledType() noexcept -> std::string {
+    static auto demangled_name = []() {
+        std::string demangledType =
+            TypeInternal::makeTypeReadable( Ra::Core::Utils::demangleType<T>() );
+        return demangledType;
+    }();
+    return demangled_name;
+}
+
+template <typename T>
+auto simplifiedDemangledType( const T& ) noexcept -> std::string {
+    return simplifiedDemangledType<T>();
+}
+
+inline auto simplifiedDemangledType( const std::type_index& typeName ) noexcept -> std::string {
+    return TypeInternal::makeTypeReadable( Ra::Core::Utils::demangleType( typeName ) );
+}
 
 // TypeList taken and adapted from
 // https://github.com/AcademySoftwareFoundation/openvdb/blob/master/openvdb/openvdb/TypeList.h

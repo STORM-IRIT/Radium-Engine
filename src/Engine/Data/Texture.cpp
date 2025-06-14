@@ -1,14 +1,20 @@
 
 #include <Core/Tasks/Task.hpp>
 #include <Core/Tasks/TaskQueue.hpp>
+#include <Core/Utils/Index.hpp>
 #include <Core/Utils/Log.hpp>
 #include <Engine/Data/Texture.hpp>
+#include <Engine/OpenGL.hpp>
 #include <Engine/RadiumEngine.hpp>
-
+#include <algorithm>
+#include <cmath>
+#include <glbinding-aux/types_to_string.h>
 #include <glbinding/gl/enum.h>
 #include <globjects/Texture.h>
-
-#include <cmath>
+#include <globjects/base/Instantiator.inl>
+#include <iterator>
+#include <ostream>
+#include <utility>
 
 namespace Ra {
 namespace Engine {

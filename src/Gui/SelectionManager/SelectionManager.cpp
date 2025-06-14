@@ -1,7 +1,15 @@
-#include <Gui/SelectionManager/SelectionManager.hpp>
-
+#include <Core/CoreMacros.hpp>
 #include <Core/Utils/Log.hpp>
 #include <Engine/RadiumEngine.hpp>
+#include <Engine/Scene/ItemEntry.hpp>
+#include <Gui/SelectionManager/SelectionManager.hpp>
+#include <Gui/TreeModel/EntityTreeModel.hpp>
+#include <algorithm>
+#include <memory>
+#include <ostream>
+#include <string>
+
+class QObject;
 
 using Ra::Engine::Scene::ItemEntry;
 

@@ -1,4 +1,15 @@
+#include <Core/Containers/AlignedStdVector.hpp>
+#include <Core/Containers/VectorArray.hpp>
+#include <Core/CoreMacros.hpp>
+#include <Core/Geometry/IndexedGeometry.hpp>
+#include <Core/Types.hpp>
+#include <Core/Utils/Attribs.hpp>
+#include <Eigen/Core>
 #include <IO/deprecated/OFFFileManager.hpp>
+#include <istream>
+#include <memory>
+#include <utility>
+#include <vector>
 
 namespace Ra {
 

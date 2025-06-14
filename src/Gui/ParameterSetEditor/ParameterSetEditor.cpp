@@ -1,6 +1,5 @@
 #include <Gui/ParameterSetEditor/ParameterSetEditor.hpp>
 
-#include <Core/Containers/VariableSetEnumManagement.hpp>
 #include <Engine/Data/Material.hpp>
 #include <Gui/Widgets/ControlPanel.hpp>
 
@@ -18,6 +17,7 @@ using namespace Engine;
 namespace Gui {
 
 namespace internal {
+///\todo use a dynamic visitor with add operator, hence this is customizable
 class RenderParameterUiBuilder
 {
   public:
@@ -94,19 +94,11 @@ class RenderParameterUiBuilder
         // textures are not yet editable
     }
 
-    template <typename T>
     void operator()( const std::string& name,
-                     std::reference_wrapper<T>& p,
+                     Ra::Engine::Data::RenderParameters& p,
                      Core::VariableSet&& /*params*/ ) {
         m_pse->addLabel( name );
-        if constexpr ( std::is_assignable_v<Core::VariableSet, typename std::decay<T>::type> ) {
-            if constexpr ( std::is_const_v<T> ) {
-                p.get().visit( *this,
-                               const_cast<Core::VariableSet&>(
-                                   static_cast<const Core::VariableSet&>( p.get() ) ) );
-            }
-            else { p.get().visit( *this, static_cast<Core::VariableSet&>( p.get() ) ); }
-        }
+        p.visit( *this, p );
     }
 
   private:
@@ -117,139 +109,6 @@ class RenderParameterUiBuilder
 
 VariableSetEditor::VariableSetEditor( const std::string& name, QWidget* parent ) :
     ControlPanel( name, !name.empty(), parent ) {}
-
-template <typename T>
-void VariableSetEditor::addEnumWidget( const std::string& key,
-                                       T& initial,
-                                       Core::VariableSet& params,
-                                       const json& metadata ) {
-    using namespace Ra::Core::VariableSetEnumManagement;
-    auto m = metadata[key];
-
-    std::string description = m.contains( "description" ) ? m["description"] : "";
-    std::string nm          = m.contains( "name" ) ? std::string { m["name"] } : key;
-    if ( auto ec = getEnumConverter<T>( params, key ) ) {
-        auto items                        = ( *ec )->getEnumerators();
-        auto onEnumParameterStringChanged = [this, &params, &key]( const QString& value ) {
-            params.setVariable( key, value.toStdString() );
-            emit parameterModified( key );
-        };
-        addComboBox( nm,
-                     onEnumParameterStringChanged,
-                     getEnumString( params, key, initial ),
-                     items,
-                     description );
-    }
-    else {
-        LOG( Core::Utils::logWARNING )
-            << "ParameterSet don't have converter for enum " << key << " use index<>int instead.";
-
-        auto items = std::vector<std::string>();
-        items.reserve( m["values"].size() );
-        for ( const auto& value : m["values"] ) {
-            items.push_back( value );
-        }
-
-        auto onEnumParameterIntChanged = [this, &params, &key]( T value ) {
-            params.setVariable( key, value );
-            emit parameterModified( key );
-        };
-        addComboBox( nm, onEnumParameterIntChanged, initial, items, description );
-    }
-}
-
-template <typename T>
-void VariableSetEditor::addNumberWidget( const std::string& key,
-                                         T& initial,
-                                         Core::VariableSet& /*params*/,
-                                         const json& metadata ) {
-
-    auto onNumberParameterChanged = [this, &initial, &key]( T value ) {
-        initial = value;
-        emit parameterModified( key );
-    };
-    if ( metadata.contains( key ) ) {
-        auto m   = metadata[key];
-        auto min = std::numeric_limits<T>::lowest();
-        auto max = std::numeric_limits<T>::max();
-
-        std::string description = m.contains( "description" ) ? m["description"] : "";
-        std::string nm          = m.contains( "name" ) ? std::string { m["name"] } : key;
-
-        if ( m.contains( "oneOf" ) ) {
-            // the variable has multiple valid bounds
-            std::vector<std::pair<T, T>> bounds;
-            bounds.reserve( m["oneOf"].size() );
-            for ( const auto& bound : m["oneOf"] ) {
-                auto mini = bound.contains( "minimum" ) ? T( bound["minimum"] ) : min;
-                auto maxi = bound.contains( "maximum" ) ? T( bound["maximum"] ) : max;
-                bounds.emplace_back( mini, maxi );
-            }
-            auto predicate = [bounds]( T value ) {
-                bool valid = false;
-                auto it    = bounds.begin();
-                while ( !valid && it != bounds.end() ) {
-                    valid = value >= ( *it ).first && value <= ( *it ).second;
-                    ++it;
-                }
-                return valid;
-            };
-
-            addConstrainedNumberInput<T>(
-                nm, onNumberParameterChanged, initial, predicate, description );
-        }
-        else if ( m.contains( "minimum" ) && m.contains( "maximum" ) ) {
-            min = T( m["minimum"] );
-            max = T( m["maximum"] );
-            if constexpr ( std::is_floating_point_v<T> ) {
-                addPowerSliderInput( nm, onNumberParameterChanged, initial, min, max, description );
-            }
-            else { addSliderInput( nm, onNumberParameterChanged, initial, min, max, description ); }
-        }
-        else {
-            min = m.contains( "minimum" ) ? T( m["minimum"] ) : min;
-            max = m.contains( "maximum" ) ? T( m["maximum"] ) : max;
-            addNumberInput<T>( nm, onNumberParameterChanged, initial, min, max, description );
-        }
-    }
-    else if ( m_showUnspecified ) { addNumberInput<T>( key, onNumberParameterChanged, initial ); }
-}
-
-template <typename T>
-void VariableSetEditor::addVectorWidget( const std::string& key,
-                                         std::vector<T>& initial,
-                                         Core::VariableSet& /*params*/,
-                                         const json& metadata ) {
-    auto onVectorParameterChanged = [this, &initial, &key]( const std::vector<T>& value ) {
-        initial = value;
-        emit parameterModified( key );
-    };
-
-    if ( metadata.contains( key ) ) {
-        auto m                  = metadata[key];
-        std::string description = m.contains( "description" ) ? m["description"] : "";
-        addVectorInput<T>( m["name"], onVectorParameterChanged, initial, description );
-    }
-    else if ( m_showUnspecified ) { addVectorInput<T>( key, onVectorParameterChanged, initial ); }
-}
-
-template <typename T>
-void VariableSetEditor::addMatrixWidget( const std::string& key,
-                                         T& initial,
-                                         Core::VariableSet& /*params*/,
-                                         const json& metadata ) {
-    auto onMatrixParameterChanged = [this, &initial, &key]( const Ra::Core::MatrixN& value ) {
-        initial = T( value );
-        emit parameterModified( key );
-    };
-
-    if ( metadata.contains( key ) ) {
-        auto m                  = metadata[key];
-        std::string description = m.contains( "description" ) ? m["description"] : "";
-        addMatrixInput( m["name"], onMatrixParameterChanged, initial, 3, description );
-    }
-    else if ( m_showUnspecified ) { addMatrixInput( key, onMatrixParameterChanged, initial ); }
-}
 
 void VariableSetEditor::setupUi( Core::VariableSet& params, const nlohmann::json& constraints ) {
 

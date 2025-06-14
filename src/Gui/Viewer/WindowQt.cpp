@@ -1,13 +1,14 @@
 #include "WindowQt.hpp"
 
+#include <Core/Utils/Log.hpp>
 #include <QApplication>
 #include <QDebug>
 #include <QOpenGLContext>
 #include <QResizeEvent>
 #include <QScreen>
 #include <QSurfaceFormat>
-
-#include <Core/Utils/Log.hpp>
+#include <ostream>
+#include <string>
 
 using namespace Ra::Core::Utils; // log
 

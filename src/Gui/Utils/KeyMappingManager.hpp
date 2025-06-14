@@ -1,17 +1,21 @@
 #pragma once
 
-#include <QXmlStreamWriter>
-#include <QtGui/QKeyEvent>
-#include <QtGui/QMouseEvent>
-#include <QtXml/QtXml>
-
-#include <Gui/RaGui.hpp>
-
 #include <Core/Utils/Index.hpp>
 #include <Core/Utils/Log.hpp>
 #include <Core/Utils/Observable.hpp>
 #include <Core/Utils/Singleton.hpp>
 #include <Core/Utils/StdOptional.hpp>
+#include <Gui/RaGui.hpp>
+#include <QXmlStreamWriter>
+#include <QtGui/QKeyEvent>
+#include <QtGui/QMouseEvent>
+#include <QtXml/QtXml>
+#include <functional>
+#include <map>
+#include <optional>
+#include <string>
+#include <utility>
+#include <vector>
 
 namespace Ra {
 namespace Gui {

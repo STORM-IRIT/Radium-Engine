@@ -21,15 +21,15 @@ Radium-Engine comes in two flavors:
 
 The Radium ecosystem is composed of
 
-- **Radium Libraries**: this project (see documentation here: https://storm-irit.github.io/Radium-Engine/).
+- **Radium Libraries**: this project (see documentation here: <https://storm-irit.github.io/Radium-Engine/>).
   Contains the Radium libraries.
-- **Radium Apps** (https://github.com/STORM-IRIT/Radium-Apps): contains several applications, including MainApp,
+- **Radium Apps** (<https://github.com/STORM-IRIT/Radium-Apps>): contains several applications, including MainApp,
   which is for now the default software with GUI. This repository also demonstrates command-line applications.
-- **Radium Releases** (https://github.com/STORM-IRIT/Radium-Releases): meta-repository generating precompiled binaries
+- **Radium Releases** (<https://github.com/STORM-IRIT/Radium-Releases>): meta-repository generating precompiled binaries
   for Radium libraries and its applications.
-- **Radium Plugins Example** (https://github.com/STORM-IRIT/Radium-PluginExample): contains plugins examples,
+- **Radium Plugins Example** (<https://github.com/STORM-IRIT/Radium-PluginExample>): contains plugins examples,
   demonstrating how to write, compile and use plugins with MainApp.
-- **Radium Official Plugins** (https://gitlab.com/Storm-IRIT/radium-official-plugins): general purpose plugins.
+- **Radium Official Plugins** (<https://gitlab.com/Storm-IRIT/radium-official-plugins>): general purpose plugins.
 
 ## Which repository should I use ?
 
@@ -37,7 +37,7 @@ Depending on you needs, you may want to:
 
 - Use Radium as a viewer and processing software, with graphical user interface.
   That's the most simple case: simply download the latest release, and run.
-  See https://github.com/STORM-IRIT/Radium-Releases/releases.
+  See <https://github.com/STORM-IRIT/Radium-Releases/releases>.
 - Contribute to Radium, or develop your own application of plugin:
   **Radium Libraries** is the default and mandatory repository you need to fetch first.
   If you only want to _use_ Radium, compile and install it (see [documentation](https://storm-irit.github.io/Radium-Engine/)).

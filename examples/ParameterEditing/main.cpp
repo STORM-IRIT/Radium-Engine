@@ -4,6 +4,7 @@
 #include <Core/Containers/VariableSetEnumManagement.hpp>
 #include <Core/Utils/TypesUtils.hpp>
 #include <Engine/Data/RenderParameters.hpp>
+#include <Gui/ParameterSetEditor/BasicUiBuilder.hpp>
 #include <Gui/ParameterSetEditor/ParameterSetEditor.hpp>
 
 #include <nlohmann/json.hpp>
@@ -95,21 +96,17 @@ struct ParameterPrinter {
         // textures are not yet editable
     }
 
-    template <typename T>
+    template <typename T,
+              std::enable_if_t<std::is_assignable_v<RenderParameters, typename std::decay<T>::type>,
+                               bool> = true>
     void operator()(
         const std::string& name,
-        std::reference_wrapper<T>& p,
+        T& p,
         SelectionPredicate&& pred = []( const std::string& ) { return true; } ) {
-        if constexpr ( std::is_same<typename std::decay<T>::type, RenderParameters>::value ) {
-            if ( pred( name ) ) {
-                std::cout << name << " (" << Utils::demangleType<std::reference_wrapper<T>>()
-                          << ") --> \n";
-                p.get().visit( *this, pred );
-                std::cout << " <-- " << name << "\n";
-            }
-        }
-        else {
-            // embedded wrapped reference other than RenderParameters is not managed.
+        if ( pred( name ) ) {
+            std::cout << name << " (" << Utils::demangleType<T>() << ") --> \n";
+            p.visit( *this, pred );
+            std::cout << " <-- " << name << "\n";
         }
     }
 };
@@ -117,6 +114,9 @@ struct ParameterPrinter {
 // Enumeration that will be available as string or numeric value
 enum Values : unsigned int { VALUE_0 = 10, VALUE_1 = 20, VALUE_2 = 30 };
 using ValuesType = typename std::underlying_type_t<Values>;
+
+enum Values2 : unsigned int { VALUE2_0 = 10, VALUE2_1 = 20, VALUE2_2 = 30 };
+using Values2Type = typename std::underlying_type_t<Values2>;
 
 int main( int argc, char* argv[] ) {
     //! [Filling json parameter descriptor]
@@ -154,7 +154,7 @@ int main( int argc, char* argv[] ) {
       "minimum": -2.0,
       "type": "number"
     },
-    "Scalar_Multiconstrained": {
+    "Scalar_multiconstrained": {
     "description": "Scalar value between -1.0 and 1.0 or greater than 5.0",
     "oneOf": [
         {
@@ -197,11 +197,15 @@ int main( int argc, char* argv[] ) {
     using namespace Ra::Core::VariableSetEnumManagement;
     addEnumConverter( parameters, "enum", valuesEnumConverter );
     parameters.setVariable( "bool", false );
-    parameters.setVariable( "enum", Values::VALUE_1 );
+    setEnumVariable( parameters, "enum", Values::VALUE_1 );
+    setEnumVariable( parameters, "enum2", Values2::VALUE2_1 );
     parameters.setVariable( "int", int( 0 ) );
     parameters.setVariable( "int_constrained", int( 0 ) );
     parameters.setVariable( "uint", (unsigned int)( 10 ) );
     parameters.setVariable( "uint_constrained", (unsigned int)( 5 ) );
+
+    float f;
+    parameters.setVariable( "FLOAT REF", std::ref( f ) );
     parameters.setVariable( "Scalar", 0_ra );
     parameters.setVariable( "Scalar_constrained", 0.5_ra );
     parameters.setVariable( "Scalar_half_constrained", 0_ra );
@@ -226,7 +230,14 @@ int main( int argc, char* argv[] ) {
     //! [Printing several parameters before editing ]
 
     //! [Filling the editor with the parameter set ]
-    editor.setupUi( parameters, parameterSet_metadata );
+
+    BasicUiBuilder builder { parameters, &editor, parameterSet_metadata };
+    // extends visited types, functor already present as template accepting
+    // std::is_assignable_v<VariableSet>
+    builder.addOperator<RenderParameters>( builder );
+
+    parameters.visit( builder );
+
     auto printParameter = [&parameters]( const std::string& p ) {
         std::cout << "Parameter " << p << " was modified. New value is ";
         parameters.visit( ParameterPrinter {},

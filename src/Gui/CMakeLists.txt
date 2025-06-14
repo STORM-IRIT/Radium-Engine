@@ -33,7 +33,7 @@ add_library(${ra_gui_target} SHARED ${gui_sources} ${gui_headers} ${gui_uis} ${g
 
 # Dependencies
 add_dependencies(${ra_gui_target} Core Engine PluginBase IO)
-target_link_libraries(${ra_gui_target} PUBLIC Core Engine PluginBase IO)
+target_link_libraries(${ra_gui_target} PUBLIC Core Engine PluginBase IO ${Qt_LIBRARIES})
 target_link_libraries(${ra_gui_target} PRIVATE ${Qt_LIBRARIES} OpenGL::GL PowerSlider::PowerSlider)
 target_include_directories(${ra_gui_target} PRIVATE ${stb_INCLUDE_DIR})
 

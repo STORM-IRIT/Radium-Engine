@@ -6,9 +6,14 @@
 
 #define RA_REQUIRE_OPTIONAL
 #include <Core/Utils/StdOptional.hpp> // trigger an error if optional is not found
+
 #undef RA_REQUIRE_OPTIONAL
 
+#include <Eigen/Core>
 #include <algorithm> // find_if
+#include <iterator>
+#include <optional>
+#include <vector>
 
 namespace Ra {
 namespace Core {

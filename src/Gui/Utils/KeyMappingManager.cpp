@@ -1,8 +1,8 @@
 #include "KeyMappingManager.hpp"
 
+#include <Core/CoreMacros.hpp>
 #include <Core/Resources/Resources.hpp>
 #include <Core/Utils/Log.hpp>
-
 #include <QMessageBox>
 
 namespace Ra::Gui {

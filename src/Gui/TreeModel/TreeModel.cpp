@@ -1,9 +1,13 @@
-#include <Gui/TreeModel/TreeModel.hpp>
-
+#include <Core/CoreMacros.hpp>
 #include <Core/Utils/Log.hpp>
-#include <stack>
-
+#include <Gui/TreeModel/TreeModel.hpp>
 #include <QApplication>
+#include <memory>
+#include <ostream>
+#include <stack>
+#include <stddef.h>
+#include <string>
+#include <vector>
 
 namespace Ra {
 namespace Gui {

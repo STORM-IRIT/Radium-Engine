@@ -1,8 +1,8 @@
 #include <Core/Utils/StdMapIterators.hpp>
+#include <catch2/catch_test_macros.hpp>
 
 #include <string>
-
-#include <catch2/catch_test_macros.hpp>
+#include <utility>
 
 TEST_CASE( "Core/Utils/StdMapIterators", "[unittests][Core][Core/Utils][StdMapIterators]" ) {
     std::map<int, std::string> myMap { { 2, "2" }, { 3, "3" } };

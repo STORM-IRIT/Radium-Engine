@@ -1,10 +1,15 @@
-#include <IO/AssimpLoader/AssimpLightDataLoader.hpp>
-
-#include <assimp/scene.h>
-
+#include <Core/Utils/Color.hpp>
 #include <Core/Utils/Log.hpp>
-
+#include <Eigen/Core>
+#include <Eigen/Geometry>
+#include <Eigen/LU>
+#include <IO/AssimpLoader/AssimpLightDataLoader.hpp>
 #include <IO/AssimpLoader/AssimpWrapper.hpp>
+#include <algorithm>
+#include <assimp/matrix4x4.inl>
+#include <assimp/scene.h>
+#include <assimp/vector3.inl>
+#include <ostream>
 
 namespace Ra {
 namespace IO {

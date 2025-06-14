@@ -1,12 +1,17 @@
+#include <Core/CoreMacros.hpp>
+#include <Core/Math/Math.hpp>
+#include <Gui/Timeline/Configurations.hpp>
 #include <Gui/Timeline/TimelineFrameSelector.hpp>
-
+#include <Gui/Timeline/TimelineScrollArea.hpp>
+#include <Gui/Timeline/TimelineSlider.hpp>
 #include <QMouseEvent>
 #include <QPainter>
 #include <QTimer>
-#include <QtGlobal>
-
-#include <Core/Math/Math.hpp>
-#include <Gui/Timeline/TimelineScrollArea.hpp>
+#include <algorithm>
+#include <cmath>
+#include <iterator>
+#include <utility>
+#include <vector>
 
 #include "ui_Timeline.h"
 

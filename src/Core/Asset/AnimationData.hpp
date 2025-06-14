@@ -3,9 +3,13 @@
 #include <Core/Animation/KeyFramedValue.hpp>
 #include <Core/Asset/AnimationTime.hpp>
 #include <Core/Asset/AssetData.hpp>
+#include <Core/CoreMacros.hpp>
 #include <Core/RaCore.hpp>
+#include <Core/Types.hpp>
 #include <Core/Utils/Log.hpp>
-
+#include <algorithm>
+#include <memory>
+#include <ostream>
 #include <string>
 #include <vector>
 

@@ -7,7 +7,7 @@ import re
 
 p = Path('.')
 
-filenames=list(p.glob('**/CMakeLists.txt'))
+filenames= list(p.glob('**/CMakeLists.txt'))
 full = re.compile(r'(Add\([^\)]*\))')
 name = re.compile(r'Add\([\s]*(\S*)')
 git = re.compile(r'[^\)]*GIT_REPOSITORY (.*)')
@@ -63,17 +63,17 @@ for filename in filenames:
     if len(dep) >0 : modules[filename.parts[0]] = dep
     dep={}
 
-for module in {'Core', 'Engine', 'IO', 'Gui', 'Headless'}:
+for module in ['Core', 'Engine', 'IO', 'Gui', 'Headless', 'Dataflow']:
     if module in modules:
         dep = modules[module]
         for key in dep:
             print(f"* `{key}_DIR`")
 
-print("\n\nRadium is compiled and tested with specific version of dependencies, as given in the external's folder CMakeLists.txt and state here for the record\n\n")
+print("Radium is compiled and tested with specific version of dependencies, as given in the external's folder CMakeLists.txt and state here for the record\n")
 
-for module in {'Core', 'Engine', 'IO', 'Gui', 'Headless'}:
+for module in ['Core', 'Engine', 'IO', 'Gui', 'Headless', 'Dataflow']:
     if module in modules:
         dep = modules[module]
         print(f"* [{module}]")
         for key in dep:
-            print(f" * {key}: {dep[key]['git']}, [{dep[key]['tag']}],\n    * with options `{dep[key]['option'] if 'option' in dep[key] else None }`")
+            print(f"  * {key}: <{dep[key]['git']}>, [{dep[key]['tag']}],\n    * with options `{dep[key]['option'] if 'option' in dep[key] else None }`")

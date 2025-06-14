@@ -1,9 +1,19 @@
 #pragma once
 
+#include <Core/CoreMacros.hpp>
+#include <Core/Types.hpp>
+#include <Gui/RaGui.hpp>
+#include <Gui/Utils/KeyMappingManager.hpp>
 #include <Gui/Viewer/TrackballCameraManipulator.hpp>
+
+class QEvent;
+class QKeyEvent;
+class QMouseEvent;
 
 namespace Ra {
 namespace Gui {
+class CameraManipulator;
+
 class Viewer;
 
 class RA_GUI_API RotateAroundCameraManipulator

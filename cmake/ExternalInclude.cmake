@@ -39,8 +39,8 @@ endif()
 set(EXTERNAL_INSTALL_MESSAGE ${CMAKE_INSTALL_MESSAGE})
 
 # First message formating function, need other to have better consistency
-macro(status_message MODULE NAME VAR)
-    message(STATUS "${MODULE} Using ${NAME} from ${VAR}")
+macro(status_message NAME VAR)
+    message(STATUS "Using ${NAME} from ${VAR}")
 endmacro()
 
 macro(check_externals_prerequisite)

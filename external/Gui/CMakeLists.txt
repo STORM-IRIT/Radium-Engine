@@ -55,7 +55,7 @@ set(RPATH_CONFIG
 
 if(NOT DEFINED PowerSlider_DIR)
     check_externals_prerequisite()
-    status_message("" "PowerSlider" "remote git")
+    status_message("PowerSlider" "remote git")
     ExternalProject_Add(
         PowerSlider
         GIT_REPOSITORY https://github.com/dlyr/PowerSlider.git
@@ -72,5 +72,5 @@ if(NOT DEFINED PowerSlider_DIR)
 
     add_dependencies(GuiExternals PowerSlider)
 else()
-    status_message("" "PowerSlider" "${PowerSlider_DIR}")
+    status_message("PowerSlider" "${PowerSlider_DIR}")
 endif()

@@ -36,6 +36,7 @@ set(tinyEXR_DIR "/path/to/external/install/share/tinyEXR/cmake/" CACHE PATH "My 
 set(assimp_DIR "/path/to/external/install/lib/cmake/assimp-5.0/" CACHE PATH "My assimp location")
 set(tinyply_DIR "/path/to/external/install/lib/cmake/tinyply/" CACHE PATH "My tinyply location")
 set(PowerSlider_DIR "/path/to/external/install/lib/cmake/PowerSlider/" CACHE PATH "My PowerSlider location")
+set(QtNodes_DIR "/path/to/external/install/lib/cmake/QtNodes/" CACHE PATH "My QtNodes location")
 set(RADIUM_IO_ASSIMP ON CACHE BOOL "Radium uses assimp io")
 set(RADIUM_IO_TINYPLY ON CACHE BOOL "Radium uses tinyply io")
 ~~~
@@ -57,20 +58,19 @@ To this end, just provide the corresponding '*_DIR' to cmake at configuration ti
 
 Currently supported (note that these paths must refer to the installation directory of the corresponding library):
 <!--  (generated running ../scripts/list_dep.py from Radium-Engine/external directory) -->
-
-* `assimp_DIR`
-* `tinyply_DIR`
-* `PowerSlider_DIR`
+* `Eigen3_DIR`
+* `OpenMesh_DIR`
+* `cpplocate_DIR`
+* `nlohmann_json_DIR`
 * `glm_DIR`
 * `glbinding_DIR`
 * `globjects_DIR`
 * `stb_DIR`
 * `tinyEXR_DIR`
-* `Eigen3_DIR`
-* `OpenMesh_DIR`
-* `cpplocate_DIR`
-* `nlohmann_json_DIR`
-
+* `assimp_DIR`
+* `tinyply_DIR`
+* `PowerSlider_DIR`
+* `QtNodes_DIR`
 <!--  (end script copy) -->
 
 \warning You have to take care of the consistency of the external dependencies, e.g. it's not possible to use your version of globjects without providing your version of eigen, otherwise you will have mixed version in Radium.
@@ -119,12 +119,16 @@ Bundle-*
 
 Radium offers the following build options:
 
+<!-- cmake -LAH | grep RADIUM -B1 | sed s/--//g -->
 ~~~{.bash}
 // Enable coverage, gcc only. Experimental, need ENABLE_TESTING
-RADIUM_ENABLE_COVERAGE:BOOL=OFF
+RADIUM_ENABLE_COVERAGE:BOOL=ON
 
 // Enable examples app build. To install examples, build explicitly the target Install_RadiumExamples.
-RADIUM_ENABLE_EXAMPLES:BOOL=OFF
+RADIUM_ENABLE_EXAMPLES:BOOL=ON
+
+// Enable testing of OpenGL functionalities. Option only available if RADIUM_ENABLE_TESTING is ON.
+RADIUM_ENABLE_GL_TESTING:BOOL=ON
 
 // Enable precompiled headers.
 RADIUM_ENABLE_PCH:BOOL=OFF
@@ -132,11 +136,11 @@ RADIUM_ENABLE_PCH:BOOL=OFF
 // Enable testing. Tests are automatically built with target all, run with target check or test.
 RADIUM_ENABLE_TESTING:BOOL=ON
 
-// Enable testing of OpenGL functionalities. Option only available if RADIUM_ENABLE_TESTING is ON.
-RADIUM_ENABLE_GL_TESTING:BOOL=OFF
-
 // Include Radium::Core in CMake project.
 RADIUM_GENERATE_LIB_CORE:BOOL=ON
+
+// Include Radium::Dataflow* in CMake project.
+RADIUM_GENERATE_LIB_DATAFLOW:BOOL=ON
 
 // Include Radium::Engine in CMake project.
 RADIUM_GENERATE_LIB_ENGINE:BOOL=ON
@@ -172,10 +176,16 @@ RADIUM_IO_VOLUMES:BOOL=ON
 RADIUM_QUIET:BOOL=OFF
 
 // Update version file each time the project is compiled (update compilation time in version.cpp).
-RADIUM_UPDATE_VERSION:BOOL=ON
+RADIUM_UPDATE_VERSION:BOOL=OFF
 
 // Use double precision for Scalar.
 RADIUM_USE_DOUBLE:BOOL=OFF
+
+// Enable loading/saving files with RadiumGltf extension
+USE_RADIUMGLTF:BOOL=OFF
+
+// Use assimp data loader from Radium IO
+USE_RADIUM_IO_ASSIMPLOADER:BOOL=ON
 ~~~
 
 All radium related cmake options (with their current values) can be printed with `cmake -LAH | grep -B1 RADIUM` (on linux like system)
@@ -193,10 +203,15 @@ The options `RADIUM_GENERATE_LIB_XXXX` allows to enable/disable each Radium libr
 The dependencies between libraries are set as follow:
 
 ~~~{.cmake}
-add_dependencies (${ra_engine_target} PUBLIC Radium::Core)
-add_dependencies (${ra_io_target} PUBLIC Radium::Core)
-add_dependencies (${ra_pluginbase_target} Radium::Core Radium::Engine)
-add_dependencies (${ra_gui_target} PUBLIC Radium::Core Radium::Engine Radium::PluginBase Radium::IO)
+add_dependencies(${ra_dataflowrendering_target} DataflowCore Engine)
+add_dependencies(${ra_headless_target} Core Engine IO)
+add_dependencies(${ra_gui_target} Core Engine PluginBase IO)
+add_dependencies(${ra_io_target} Core)
+add_dependencies(${ra_pluginbase_target} Core Engine)
+add_dependencies(${ra_engine_target} Core RadiumEngineShaders)
+add_dependencies(${ra_dataflowcore_target} Core)
+add_dependencies(${ra_dataflowqtgui_target} DataflowCore Gui)
+add_dependencies(${ra_dataflow_target} DataflowCore DataflowQtGui)
 ~~~
 
 \warning Consistency of `RADIUM_GENERATE_LIB_***` options is not checked wrt. the dependencies.

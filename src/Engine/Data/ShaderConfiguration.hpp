@@ -1,12 +1,18 @@
 #pragma once
 
+#include <Core/CoreMacros.hpp>
 #include <Engine/RaEngine.hpp>
-
 #include <array>
+#include <iosfwd>
 #include <list>
 #include <set>
 #include <string>
+#include <utility>
 #include <vector>
+
+namespace glbinding {
+class Version;
+} // namespace glbinding
 
 namespace Ra {
 namespace Engine {

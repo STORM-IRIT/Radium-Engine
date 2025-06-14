@@ -1,4 +1,5 @@
 #include <Core/Utils/CircularIndex.hpp>
+#include <stddef.h>
 
 namespace Ra {
 namespace Core {

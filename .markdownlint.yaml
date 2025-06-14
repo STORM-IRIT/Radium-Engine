@@ -5,7 +5,8 @@ MD033: false
 
 MD013:
   line_length: 520
-MD034: false
+  code_block_line_length: 200
+MD034: true
 MD041: false
 # link fragments from php markdown are not recognized
 MD051: false

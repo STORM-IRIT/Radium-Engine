@@ -125,10 +125,17 @@ endif()
 # -----------------------------------------------------------------------------
 # ------------- run examples --------------------------------------------------
 # -----------------------------------------------------------------------------
-foreach(INTEGRATION_TEST CoreExample)
+foreach(INTEGRATION_TEST CoreExample FunctionalsGraph GraphAsNode GraphSerialization HelloGraph)
     add_test(NAME integration_${INTEGRATION_TEST} WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/
              COMMAND "$<TARGET_FILE:${INTEGRATION_TEST}>"
     )
+
+    set(TEST_PROPERTIES LABELS "integration")
+    if(DEFINED TEST_ENV_VAR)
+        set(TEST_PROPERTIES ${TEST_PROPERTIES} ENVIRONMENT ${TEST_ENV_VAR})
+    endif()
+
+    set_tests_properties(integration_${INTEGRATION_TEST} PROPERTIES ${TEST_PROPERTIES})
 
     set(TEST_PROPERTIES LABELS "integration")
     if(DEFINED TEST_ENV_VAR)
@@ -207,6 +214,8 @@ macro(generate_includes name)
 endmacro()
 
 generate_includes(Core)
+generate_includes(Dataflow/Core)
+generate_includes(Dataflow/QtGui)
 generate_includes(Engine)
 generate_includes(Gui)
 generate_includes(IO)
@@ -220,7 +229,8 @@ add_executable(integration_${INTEGRATION_TEST} "${CMAKE_CURRENT_BINARY_DIR}/incl
 target_compile_options(integration_${INTEGRATION_TEST} PUBLIC ${RA_DEFAULT_COMPILE_OPTIONS})
 
 target_link_libraries(
-    integration_${INTEGRATION_TEST} PUBLIC Core Gui Engine PRIVATE std::filesystem ${Qt_LIBRARIES}
+    integration_${INTEGRATION_TEST} PUBLIC Core Dataflow Gui Engine PRIVATE std::filesystem
+                                                                            ${Qt_LIBRARIES}
 )
 
 target_compile_definitions(

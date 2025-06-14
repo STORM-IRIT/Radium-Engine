@@ -3,12 +3,23 @@
 #include <Engine/RaEngine.hpp>
 #include <Engine/Scene/LightStorage.hpp>
 #include <Engine/Scene/System.hpp>
-
 #include <memory>
 
 namespace Ra {
+namespace Core {
+class TaskQueue;
+namespace Asset {
+class FileData;
+} // namespace Asset
+} // namespace Core
+
 namespace Engine {
+struct FrameInfo;
+
 namespace Scene {
+class Component;
+class Entity;
+class Light;
 
 /**
  * Interface providing functions to manage a group or type of lights

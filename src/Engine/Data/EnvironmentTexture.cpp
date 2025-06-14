@@ -432,13 +432,16 @@ void EnvironmentTexture::setupTexturesFromSphericalEquiRectangular() {
                 Scalar v  = -1 + j * duv;
                 Vector3 d = bases[imgIdx][0] + u * bases[imgIdx][1] + v * bases[imgIdx][2];
                 d         = d.normalized();
-                Vector2 st { w * sphericalPhi( d ) / ( 2 * M_PI ), h * sphericalTheta( d ) / M_PI };
+                Vector2 st { w * sphericalPhi( d ) / ( 2_ra * M_PI ),
+                             h * sphericalTheta( d ) / M_PI };
                 // TODO : use st to access and filter the original envmap
                 // for now, no filtering is done. (eq to GL_NEAREST)
-                int s  = std::clamp( int( st.x() ), 0, w - 1 );
-                int t  = std::clamp( int( st.y() ), 0, h - 1 );
-                int cu = std::clamp( int( ( u / 2 + 0.5 ) * textureSize ), 0, textureSize - 1 );
-                int cv = std::clamp( int( ( v / 2 + 0.5 ) * textureSize ), 0, textureSize - 1 );
+                int s = std::clamp( int( st.x() ), 0, w - 1 );
+                int t = std::clamp( int( st.y() ), 0, h - 1 );
+                int cu =
+                    std::clamp( int( ( u / 2_ra + 0.5_ra ) * textureSize ), 0, textureSize - 1 );
+                int cv =
+                    std::clamp( int( ( v / 2_ra + 0.5_ra ) * textureSize ), 0, textureSize - 1 );
                 int skyIndex    = 4 * ( cv * textureSize + cu );
                 int latlonIndex = 4 * ( t * w + s );
 

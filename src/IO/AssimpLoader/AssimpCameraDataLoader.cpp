@@ -1,11 +1,11 @@
-#include <IO/AssimpLoader/AssimpCameraDataLoader.hpp>
-
-#include <assimp/scene.h>
-
 #include <Core/Asset/Camera.hpp>
 #include <Core/Utils/Log.hpp>
-
+#include <Eigen/Core>
+#include <Eigen/Geometry>
+#include <IO/AssimpLoader/AssimpCameraDataLoader.hpp>
 #include <IO/AssimpLoader/AssimpWrapper.hpp>
+#include <assimp/scene.h>
+#include <ostream>
 
 namespace Ra {
 namespace IO {

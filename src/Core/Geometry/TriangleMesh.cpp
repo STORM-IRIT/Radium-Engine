@@ -1,3 +1,4 @@
+#include <Core/Containers/VectorArray.hpp>
 #include <Core/Geometry/StandardAttribNames.hpp>
 #include <Core/Geometry/TriangleMesh.hpp>
 #include <Core/Types.hpp>

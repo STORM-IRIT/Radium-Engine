@@ -1,9 +1,14 @@
 #pragma once
 
-#include <Engine/RaEngine.hpp>
-
 #include <Core/Asset/MaterialData.hpp>
 #include <Engine/Data/Material.hpp>
+#include <Engine/Data/RenderParameters.hpp>
+#include <Engine/Data/ShaderConfiguration.hpp>
+#include <Engine/RaEngine.hpp>
+#include <memory>
+#include <string>
+#include <utility>
+#include <vector>
 
 namespace Ra {
 namespace Engine {

@@ -31,34 +31,39 @@ Radium expects the following dependencies to be available during compilation.
 These dependencies are shipped with radium, fetching external git sources.
 
 <!--  (generated running ../scripts/list_dep.py from Radium-Engine/external directory) -->
+Radium is compiled and tested with specific version of dependencies, as given in the external's folder CMakeLists.txt and state here for the record
+
+* [Core]
+  * Eigen3: <https://gitlab.com/libeigen/eigen.git>, [tags/3.4.0],
+    * with options `-DEIGEN_TEST_CXX11=OFF -DBUILD_TESTING=OFF -DEIGEN_BUILD_DOC=OFF`
+  * OpenMesh: <https://www.graphics.rwth-aachen.de:9000/OpenMesh/OpenMesh.git>, [tags/OpenMesh-8.1],
+    * with options `-DBUILD_APPS=OFF`
+  * cpplocate: <https://github.com/cginternals/cpplocate.git>, [tags/v2.2.0],
+    * with options `-DOPTION_BUILD_TESTS=OFF -DOPTION_BUILD_DOCS=OFF -DCMAKE_INSTALL_PREFIX=<INSTALL_DIR>`
+  * nlohmann_json: <https://github.com/nlohmann/json.git>, [tags/v3.10.5],
+    * with options `-DJSON_Install=ON -DJSON_BuildTests=OFF`
+* [Engine]
+  * glm: <https://github.com/g-truc/glm.git>, [cc98465e3508535ba8c7f6208df934c156a018dc],
+    * with options `-DGLM_TEST_ENABLE=OFF -DBUILD_STATIC_LIBS=OFF -DCMAKE_INSTALL_PREFIX=<INSTALL_DIR>`
+  * glbinding: <https://github.com/cginternals/glbinding.git>, [758d33b4d4f1815d46d91fcf4ca4914d837267fa],
+    * with options `-DOPTION_BUILD_TESTS=OFF -DOPTION_BUILD_DOCS=OFF -DOPTION_BUILD_TOOLS=OFF -DOPTION_BUILD_EXAMPLES=OFF -DOPTION_BUILD_OWN_KHR_HEADERS=ON -DCMAKE_INSTALL_PREFIX=<INSTALL_DIR>`
+  * globjects: <https://github.com/cginternals/globjects.git>, [4363356ae2ef5c936ab078fba48d1ea507c295c4],
+    * with options `-DOPTION_BUILD_DOCS=OFF -DOPTION_BUILD_EXAMPLES=OFF -DOPTION_USE_EIGEN=ON -Dglbinding_DIR=${glbinding_DIR} -Dglm_DIR=${glm_DIR} -DEigen3_DIR=${Eigen3_DIR} -DCMAKE_INSTALL_PREFIX=<INSTALL_DIR>`
+  * stb: <https://github.com/nothings/stb.git>, [1034f5e5c4809ea0a7f4387e0cd37c5184de3cdd],
+    * with options `None`
+  * tinyEXR: <https://github.com/MathiasPaulin/tinyexr.git>, [origin/radium],
+    * with options `-DBUILD_INSTALLABLE_LIB=ON`
 * [IO]
-  * assimp: https://github.com/assimp/assimp.git, [tags/v5.0.1],
+  * assimp: <https://github.com/assimp/assimp.git>, [tags/v5.0.1],
     * with options `-DASSIMP_BUILD_ASSIMP_TOOLS=False -DASSIMP_BUILD_SAMPLES=False -DASSIMP_BUILD_TESTS=False -DIGNORE_GIT_HASH=True -DASSIMP_NO_EXPORT=True`
-  * tinyply: https://github.com/ddiakopoulos/tinyply.git, [tags/2.3.2],
+  * tinyply: <https://github.com/ddiakopoulos/tinyply.git>, [tags/2.3.2],
     * with options `-DSHARED_LIB=TRUE`
 * [Gui]
-  * PowerSlider: https://github.com/dlyr/PowerSlider.git, [origin/master],
+  * PowerSlider: <https://github.com/dlyr/PowerSlider.git>, [origin/master],
     * with options `-DBUILD_DESIGNER_PLUGIN=OFF -DBUILD_EXAMPLE_APP=OFF`
-* [Engine]
-  * glm: https://github.com/g-truc/glm.git, [cc98465e3508535ba8c7f6208df934c156a018dc],
-    * with options `-DGLM_TEST_ENABLE=OFF -DBUILD_STATIC_LIBS=OFF -DCMAKE_INSTALL_PREFIX=<INSTALL_DIR>`
-  * glbinding: https://github.com/cginternals/glbinding.git, [758d33b4d4f1815d46d91fcf4ca4914d837267fa],
-    * with options `-DOPTION_BUILD_TESTS=OFF -DOPTION_BUILD_DOCS=OFF -DOPTION_BUILD_TOOLS=OFF -DOPTION_BUILD_EXAMPLES=OFF -DOPTION_BUILD_OWN_KHR_HEADERS=ON -DCMAKE_INSTALL_PREFIX=<INSTALL_DIR>`
-  * globjects: https://github.com/cginternals/globjects.git, [4363356ae2ef5c936ab078fba48d1ea507c295c4],
-    * with options `-DOPTION_BUILD_DOCS=OFF -DOPTION_BUILD_EXAMPLES=OFF -DOPTION_USE_EIGEN=ON -Dglbinding_DIR=${glbinding_DIR} -Dglm_DIR=${glm_DIR} -DEigen3_DIR=${Eigen3_DIR} -DCMAKE_INSTALL_PREFIX=<INSTALL_DIR>`
-  * stb: https://github.com/nothings/stb.git, [1034f5e5c4809ea0a7f4387e0cd37c5184de3cdd],
-    * with options `None`
-  * tinyEXR: https://github.com/MathiasPaulin/tinyexr.git, [origin/radium],
-    * with options `-DBUILD_INSTALLABLE_LIB=ON`
-* [Core]
-  * Eigen3: https://gitlab.com/libeigen/eigen.git, [tags/3.4.0],
-    * with options `-DEIGEN_TEST_CXX11=OFF -DBUILD_TESTING=OFF -DEIGEN_BUILD_DOC=OFF`
-  * OpenMesh: https://www.graphics.rwth-aachen.de:9000/OpenMesh/OpenMesh.git, [tags/OpenMesh-8.1],
-    * with options `-DBUILD_APPS=OFF`
-  * cpplocate: https://github.com/cginternals/cpplocate.git, [tags/v2.2.0],
-    * with options `-DOPTION_BUILD_TESTS=OFF -DOPTION_BUILD_DOCS=OFF -DCMAKE_INSTALL_PREFIX=<INSTALL_DIR>`
-  * nlohmann_json: https://github.com/nlohmann/json.git, [tags/v3.10.5],
-    * with options `-DJSON_Install=ON -DJSON_BuildTests=OFF`
+* [Dataflow]
+  * QtNodes: <https://github.com/paceholder/nodeeditor.git>, [34b6f81],
+    * with options `-DCMAKE_INSTALL_PREFIX=<INSTALL_DIR>`
 <!--  (end script copy) -->
 
 ## TL;DR; command line version

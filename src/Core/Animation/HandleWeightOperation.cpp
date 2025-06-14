@@ -1,6 +1,13 @@
 #include <Core/Animation/HandleWeightOperation.hpp>
 #include <Core/Math/LinearAlgebra.hpp> // Math::checkInvalidNumbers
+#include <Core/Math/Math.hpp>
+#include <Core/Types.hpp>
 #include <Core/Utils/Log.hpp>
+#include <Eigen/Core>
+#include <algorithm>
+#include <memory>
+#include <ostream>
+#include <string>
 #include <utility>
 
 namespace Ra {

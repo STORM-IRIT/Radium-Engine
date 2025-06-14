@@ -1,8 +1,8 @@
 #include <Core/Resources/Resources.hpp>
-#include <Core/Utils/StdFilesystem.hpp>
 #include <Gui/Utils/KeyMappingManager.hpp>
-
-#include <QtGlobal>
+#include <QSettings>
+#include <QString>
+#include <string>
 
 using namespace Ra;
 using namespace Ra::Gui;

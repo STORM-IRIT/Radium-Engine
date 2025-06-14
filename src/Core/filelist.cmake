@@ -24,6 +24,7 @@ set(core_sources
     Asset/LightData.cpp
     Asset/MaterialData.cpp
     Containers/AdjacencyList.cpp
+    Containers/DynamicVisitor.cpp
     Containers/VariableSet.cpp
     Containers/VariableSetEnumManagement.cpp
     Geometry/CatmullClarkSubdivider.cpp
@@ -36,6 +37,7 @@ set(core_sources
     Geometry/TriangleMesh.cpp
     Geometry/Volume.cpp
     Geometry/deprecated/TopologicalMesh.cpp
+    Random/RandomPointSet.cpp
     Resources/Resources.cpp
     Tasks/TaskQueue.cpp
     Utils/Attribs.cpp
@@ -79,6 +81,8 @@ set(core_headers
     Containers/AdjacencyList.hpp
     Containers/AlignedAllocator.hpp
     Containers/AlignedStdVector.hpp
+    Containers/DynamicVisitor.hpp
+    Containers/DynamicVisitorBase.hpp
     Containers/Grid.hpp
     Containers/Iterators.hpp
     Containers/MakeShared.hpp
@@ -110,6 +114,7 @@ set(core_headers
     Math/Math.hpp
     Math/Quadric.hpp
     RaCore.hpp
+    Random/RandomPointSet.hpp
     Resources/Resources.hpp
     Tasks/Task.hpp
     Tasks/TaskQueue.hpp
