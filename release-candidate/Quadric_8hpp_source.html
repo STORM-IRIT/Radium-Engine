@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.webp"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.5.23</span>
+   &#160;<span id="projectnumber">1.5.24</span>
    </div>
   </td>
  </tr>
@@ -127,7 +127,7 @@ $(function(){initNavTree('Quadric_8hpp_source.html',''); initResizable(true); })
 <div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;Core/RaCore.hpp&gt;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="Types_8hpp.html">Core/Types.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="Core_2Types_8hpp.html">Core/Types.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;Eigen/Eigenvalues&gt;</span></div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
@@ -284,7 +284,7 @@ $(function(){initNavTree('Quadric_8hpp_source.html',''); initResizable(true); })
 <div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span> </div>
 <div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>} <span class="comment">// namespace Core</span></div>
 <div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>} <span class="comment">// namespace Ra</span></div>
-<div class="ttc" id="aTypes_8hpp_html"><div class="ttname"><a href="Types_8hpp.html">Types.hpp</a></div></div>
+<div class="ttc" id="aCore_2Types_8hpp_html"><div class="ttname"><a href="Core_2Types_8hpp.html">Types.hpp</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Quadric_html"><div class="ttname"><a href="classRa_1_1Core_1_1Quadric.html">Ra::Core::Quadric</a></div><div class="ttdef"><b>Definition</b> <a href="#l00027">Quadric.hpp:28</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Quadric_html_a11aed72785711bff4f1d738f15ce3e3d"><div class="ttname"><a href="classRa_1_1Core_1_1Quadric.html#a11aed72785711bff4f1d738f15ce3e3d">Ra::Core::Quadric::compute</a></div><div class="ttdeci">void compute(const Vector &amp;n, double ndotp)</div><div class="ttdef"><b>Definition</b> <a href="#l00098">Quadric.hpp:98</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Quadric_html_a1b519985e1e96507441552fe0b989a52"><div class="ttname"><a href="classRa_1_1Core_1_1Quadric.html#a1b519985e1e96507441552fe0b989a52">Ra::Core::Quadric::Quadric</a></div><div class="ttdeci">Quadric()</div><div class="ttdoc">Construct an initialized quadric.</div><div class="ttdef"><b>Definition</b> <a href="#l00085">Quadric.hpp:85</a></div></div>
@@ -292,7 +292,7 @@ $(function(){initNavTree('Quadric_8hpp_source.html',''); initResizable(true); })
 <div class="ttc" id="aclassRa_1_1Core_1_1Quadric_html_ab8a2267e23a1d96e2b08940a04edf3d6"><div class="ttname"><a href="classRa_1_1Core_1_1Quadric.html#ab8a2267e23a1d96e2b08940a04edf3d6">Ra::Core::Quadric::Quadric</a></div><div class="ttdeci">Quadric(const Matrix &amp;a, const Vector &amp;b, double c)</div><div class="ttdoc">Construct and initialize a quadric.</div><div class="ttdef"><b>Definition</b> <a href="#l00038">Quadric.hpp:38</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Quadric_html_ac3f77afd295214a049f72026d6d64753"><div class="ttname"><a href="classRa_1_1Core_1_1Quadric.html#ac3f77afd295214a049f72026d6d64753">Ra::Core::Quadric::computeEigenValuesA</a></div><div class="ttdeci">Eigen::EigenSolver&lt; Matrix3 &gt;::EigenvalueType computeEigenValuesA()</div><div class="ttdoc">Computes eigen values and vectors of matrix A.</div><div class="ttdef"><b>Definition</b> <a href="#l00135">Quadric.hpp:135</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Quadric_html_aff5a0df07f44c436350c368b84579615"><div class="ttname"><a href="classRa_1_1Core_1_1Quadric.html#aff5a0df07f44c436350c368b84579615">Ra::Core::Quadric::operator+</a></div><div class="ttdeci">Quadric operator+(const Quadric &amp;q) const</div><div class="ttdoc">Operators.</div><div class="ttdef"><b>Definition</b> <a href="#l00147">Quadric.hpp:147</a></div></div>
-<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">hepler function to manage enum as underlying types in VariableSet</div><div class="ttdef"><b>Definition</b> <a href="Cage_8cpp_source.html#l00003">Cage.cpp:3</a></div></div>
+<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">hepler function to manage enum as underlying types in VariableSet</div><div class="ttdef"><b>Definition</b> <a href="Cage_8cpp_source.html#l00004">Cage.cpp:4</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

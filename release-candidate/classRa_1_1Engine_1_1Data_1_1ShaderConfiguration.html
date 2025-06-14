@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.webp"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.5.23</span>
+   &#160;<span id="projectnumber">1.5.24</span>
    </div>
   </td>
  </tr>
@@ -204,9 +204,9 @@ Friends</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A class used to create shader programs later on. A <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderConfiguration.html">ShaderConfiguration</a> should be added once to the <a class="el" href="namespaceRa_1_1Engine_1_1Data_1_1ShaderConfigurationFactory.html">ShaderConfigurationFactory</a>, then the factory must be used to retrieve the added shader configurations. Typical use case : **************************** CREATION **************************** // Create the shader configuration once (see MainApplication::addBasicShaders for example) <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderConfiguration.html">ShaderConfiguration</a> config("MyConfig"); // Add shader files to the config (note that the file extensions can be whatever you want) config.addShader(ShaderType_VERTEX, "path/to/shader.vert.glsl"); config.addShader(ShaderType_FRAGMENT, "path/to/shader.frag.glsl"); // Same for other shader types. Vertex and fragment are required, other are optional // Note that, for a compute shader, only the compute shader is needed. // Add eventually some properties to the shader configuration config.addProperties( {"USE_MICROFACET;", "MICROFACET_DISTRIBUTION Trowbridge_Reitz;"} ); // Add also some includes if needed config.addInclude{"\"MicrofacetFunctions.glsl\";"); // Add the configuration to the factory ShaderConfigurationFactory::addConfiguration(config);</p>
 <p>**************************** USAGE **************************** // When you want to reuse created shader configurations, just set it using auto config = <a class="el" href="namespaceRa_1_1Engine_1_1Data_1_1ShaderConfigurationFactory.html#a0ecc004c00bff945aae8b673a738909f">ShaderConfigurationFactory::getConfiguration</a>("MyConfig"); // You can then use it to extract the shader from the <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderProgramManager.html">ShaderProgramManager</a> and use it auto shader = ShaderProgramManager::getInstance()-&gt;getShaderProgram(); shader-&gt;bind(); ...</p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000052">Todo</a></b></dt><dd>: make configuration and program (in the OpenGL sense) be packed. A shader configuration might contains a <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderProgram.html">ShaderProgram</a> after compiling. This will remove the need for <a class="el" href="namespaceRa_1_1Engine_1_1Data_1_1ShaderConfigurationFactory.html">ShaderConfigurationFactory</a> as ShaderManager will offer the same services. Actually, there is redundancy between <a class="el" href="namespaceRa_1_1Engine_1_1Data_1_1ShaderConfigurationFactory.html">ShaderConfigurationFactory</a> and <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderProgramManager.html">ShaderProgramManager</a></dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000057">Todo</a></b></dt><dd>: make configuration and program (in the OpenGL sense) be packed. A shader configuration might contains a <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderProgram.html">ShaderProgram</a> after compiling. This will remove the need for <a class="el" href="namespaceRa_1_1Engine_1_1Data_1_1ShaderConfigurationFactory.html">ShaderConfigurationFactory</a> as ShaderManager will offer the same services. Actually, there is redundancy between <a class="el" href="namespaceRa_1_1Engine_1_1Data_1_1ShaderConfigurationFactory.html">ShaderConfigurationFactory</a> and <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderProgramManager.html">ShaderProgramManager</a></dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="ShaderConfiguration_8hpp_source.html#l00061">61</a> of file <a class="el" href="ShaderConfiguration_8hpp_source.html">ShaderConfiguration.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ShaderConfiguration_8hpp_source.html#l00067">67</a> of file <a class="el" href="ShaderConfiguration_8hpp_source.html">ShaderConfiguration.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ae0b13c681a725721cfb713b9b2902d07" name="ae0b13c681a725721cfb713b9b2902d07"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae0b13c681a725721cfb713b9b2902d07">&#9670;&#160;</a></span>ShaderConfiguration() <span class="overload">[1/2]</span></h2>
@@ -232,7 +232,7 @@ Friends</h2></td></tr>
 </div><div class="memdoc">
 <p>Initializes a shader configuration with a name Warning: This does not query the corresponding configuration in the <a class="el" href="namespaceRa_1_1Engine_1_1Data_1_1ShaderConfigurationFactory.html">ShaderConfigurationFactory</a>. The proper way to do this is by calling ShaderConfigurationFactory::getConfiguration(name); </p>
 
-<p class="definition">Definition at line <a class="el" href="ShaderConfiguration_8cpp_source.html#l00047">47</a> of file <a class="el" href="ShaderConfiguration_8cpp_source.html">ShaderConfiguration.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ShaderConfiguration_8cpp_source.html#l00057">57</a> of file <a class="el" href="ShaderConfiguration_8cpp_source.html">ShaderConfiguration.cpp</a>.</p>
 
 </div>
 </div>
@@ -261,7 +261,7 @@ Friends</h2></td></tr>
 </div><div class="memdoc">
 <p>Initializes a configuration with a name, a vertex and a fragment shader This does not add the configuration to the factory ShaderConfigurationFactory::addConfiguration(config) must be called. </p>
 
-<p class="definition">Definition at line <a class="el" href="ShaderConfiguration_8cpp_source.html#l00050">50</a> of file <a class="el" href="ShaderConfiguration_8cpp_source.html">ShaderConfiguration.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ShaderConfiguration_8cpp_source.html#l00060">60</a> of file <a class="el" href="ShaderConfiguration_8cpp_source.html">ShaderConfiguration.cpp</a>.</p>
 
 </div>
 </div>
@@ -286,7 +286,7 @@ Friends</h2></td></tr>
 </div><div class="memdoc">
 <p>Add a property in the form of an #include The same shader files with different properties leads to different shader programs </p>
 
-<p class="definition">Definition at line <a class="el" href="ShaderConfiguration_8cpp_source.html#l00080">80</a> of file <a class="el" href="ShaderConfiguration_8cpp_source.html">ShaderConfiguration.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ShaderConfiguration_8cpp_source.html#l00090">90</a> of file <a class="el" href="ShaderConfiguration_8cpp_source.html">ShaderConfiguration.cpp</a>.</p>
 <div id="dynsection-1" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-1-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-1-summary" class="dynsummary" style="display:block;">
@@ -316,7 +316,7 @@ Friends</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="ShaderConfiguration_8cpp_source.html#l00084">84</a> of file <a class="el" href="ShaderConfiguration_8cpp_source.html">ShaderConfiguration.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ShaderConfiguration_8cpp_source.html#l00094">94</a> of file <a class="el" href="ShaderConfiguration_8cpp_source.html">ShaderConfiguration.cpp</a>.</p>
 
 </div>
 </div>
@@ -341,7 +341,7 @@ Friends</h2></td></tr>
 
 <p>Manage named strings (see <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderProgramManager.html#ae775537f28c1b2f538babc04d315d494">ShaderProgramManager::addNamedString</a>) </p>
 
-<p class="definition">Definition at line <a class="el" href="ShaderConfiguration_8cpp_source.html#l00095">95</a> of file <a class="el" href="ShaderConfiguration_8cpp_source.html">ShaderConfiguration.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ShaderConfiguration_8cpp_source.html#l00105">105</a> of file <a class="el" href="ShaderConfiguration_8cpp_source.html">ShaderConfiguration.cpp</a>.</p>
 <div id="dynsection-2" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-2-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-2-summary" class="dynsummary" style="display:block;">
@@ -367,7 +367,7 @@ Friends</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="ShaderConfiguration_8cpp_source.html#l00070">70</a> of file <a class="el" href="ShaderConfiguration_8cpp_source.html">ShaderConfiguration.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ShaderConfiguration_8cpp_source.html#l00080">80</a> of file <a class="el" href="ShaderConfiguration_8cpp_source.html">ShaderConfiguration.cpp</a>.</p>
 
 </div>
 </div>
@@ -387,7 +387,7 @@ Friends</h2></td></tr>
 </div><div class="memdoc">
 <p>Add a property in the form of a #define The same shader files with different properties leads to different shader programs </p>
 
-<p class="definition">Definition at line <a class="el" href="ShaderConfiguration_8cpp_source.html#l00066">66</a> of file <a class="el" href="ShaderConfiguration_8cpp_source.html">ShaderConfiguration.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ShaderConfiguration_8cpp_source.html#l00076">76</a> of file <a class="el" href="ShaderConfiguration_8cpp_source.html">ShaderConfiguration.cpp</a>.</p>
 <div id="dynsection-3" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-3-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-3-summary" class="dynsummary" style="display:block;">
@@ -425,7 +425,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="ShaderConfiguration_8cpp_source.html#l00058">58</a> of file <a class="el" href="ShaderConfiguration_8cpp_source.html">ShaderConfiguration.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ShaderConfiguration_8cpp_source.html#l00068">68</a> of file <a class="el" href="ShaderConfiguration_8cpp_source.html">ShaderConfiguration.cpp</a>.</p>
 
 </div>
 </div>
@@ -456,7 +456,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="ShaderConfiguration_8cpp_source.html#l00062">62</a> of file <a class="el" href="ShaderConfiguration_8cpp_source.html">ShaderConfiguration.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ShaderConfiguration_8cpp_source.html#l00072">72</a> of file <a class="el" href="ShaderConfiguration_8cpp_source.html">ShaderConfiguration.cpp</a>.</p>
 
 </div>
 </div>
@@ -483,7 +483,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="ShaderConfiguration_8hpp_source.html#l00129">129</a> of file <a class="el" href="ShaderConfiguration_8hpp_source.html">ShaderConfiguration.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ShaderConfiguration_8hpp_source.html#l00135">135</a> of file <a class="el" href="ShaderConfiguration_8hpp_source.html">ShaderConfiguration.hpp</a>.</p>
 
 </div>
 </div>
@@ -513,7 +513,7 @@ Friends</h2></td></tr>
 <p>get the OpenGL version used in the generated header for shaders. </p>
 <dl class="section return"><dt>Returns</dt><dd></dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="ShaderConfiguration_8cpp_source.html#l00178">178</a> of file <a class="el" href="ShaderConfiguration_8cpp_source.html">ShaderConfiguration.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ShaderConfiguration_8cpp_source.html#l00188">188</a> of file <a class="el" href="ShaderConfiguration_8cpp_source.html">ShaderConfiguration.cpp</a>.</p>
 
 </div>
 </div>
@@ -532,7 +532,7 @@ Friends</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="ShaderConfiguration_8cpp_source.html#l00149">149</a> of file <a class="el" href="ShaderConfiguration_8cpp_source.html">ShaderConfiguration.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ShaderConfiguration_8cpp_source.html#l00159">159</a> of file <a class="el" href="ShaderConfiguration_8cpp_source.html">ShaderConfiguration.cpp</a>.</p>
 
 </div>
 </div>
@@ -559,7 +559,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="ShaderConfiguration_8hpp_source.html#l00134">134</a> of file <a class="el" href="ShaderConfiguration_8hpp_source.html">ShaderConfiguration.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ShaderConfiguration_8hpp_source.html#l00140">140</a> of file <a class="el" href="ShaderConfiguration_8hpp_source.html">ShaderConfiguration.hpp</a>.</p>
 
 </div>
 </div>
@@ -578,7 +578,7 @@ Friends</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="ShaderConfiguration_8cpp_source.html#l00154">154</a> of file <a class="el" href="ShaderConfiguration_8cpp_source.html">ShaderConfiguration.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ShaderConfiguration_8cpp_source.html#l00164">164</a> of file <a class="el" href="ShaderConfiguration_8cpp_source.html">ShaderConfiguration.cpp</a>.</p>
 
 </div>
 </div>
@@ -597,7 +597,7 @@ Friends</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="ShaderConfiguration_8cpp_source.html#l00145">145</a> of file <a class="el" href="ShaderConfiguration_8cpp_source.html">ShaderConfiguration.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ShaderConfiguration_8cpp_source.html#l00155">155</a> of file <a class="el" href="ShaderConfiguration_8cpp_source.html">ShaderConfiguration.cpp</a>.</p>
 
 </div>
 </div>
@@ -624,7 +624,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="ShaderConfiguration_8hpp_source.html#l00135">135</a> of file <a class="el" href="ShaderConfiguration_8hpp_source.html">ShaderConfiguration.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ShaderConfiguration_8hpp_source.html#l00141">141</a> of file <a class="el" href="ShaderConfiguration_8hpp_source.html">ShaderConfiguration.hpp</a>.</p>
 
 </div>
 </div>
@@ -644,7 +644,7 @@ Friends</h2></td></tr>
 </div><div class="memdoc">
 <p>Tell if a shader configuration has at least a vertex and a fragment shader, or a compute shader. </p>
 
-<p class="definition">Definition at line <a class="el" href="ShaderConfiguration_8cpp_source.html#l00100">100</a> of file <a class="el" href="ShaderConfiguration_8cpp_source.html">ShaderConfiguration.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ShaderConfiguration_8cpp_source.html#l00110">110</a> of file <a class="el" href="ShaderConfiguration_8cpp_source.html">ShaderConfiguration.cpp</a>.</p>
 <div id="dynsection-4" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-4-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-4-summary" class="dynsummary" style="display:block;">
@@ -670,7 +670,7 @@ Friends</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="ShaderConfiguration_8cpp_source.html#l00106">106</a> of file <a class="el" href="ShaderConfiguration_8cpp_source.html">ShaderConfiguration.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ShaderConfiguration_8cpp_source.html#l00116">116</a> of file <a class="el" href="ShaderConfiguration_8cpp_source.html">ShaderConfiguration.cpp</a>.</p>
 
 </div>
 </div>
@@ -693,7 +693,7 @@ Friends</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="ShaderConfiguration_8cpp_source.html#l00090">90</a> of file <a class="el" href="ShaderConfiguration_8cpp_source.html">ShaderConfiguration.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ShaderConfiguration_8cpp_source.html#l00100">100</a> of file <a class="el" href="ShaderConfiguration_8cpp_source.html">ShaderConfiguration.cpp</a>.</p>
 
 </div>
 </div>
@@ -712,7 +712,7 @@ Friends</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="ShaderConfiguration_8cpp_source.html#l00076">76</a> of file <a class="el" href="ShaderConfiguration_8cpp_source.html">ShaderConfiguration.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ShaderConfiguration_8cpp_source.html#l00086">86</a> of file <a class="el" href="ShaderConfiguration_8cpp_source.html">ShaderConfiguration.cpp</a>.</p>
 
 </div>
 </div>
@@ -739,7 +739,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="ShaderConfiguration_8hpp_source.html#l00132">132</a> of file <a class="el" href="ShaderConfiguration_8hpp_source.html">ShaderConfiguration.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ShaderConfiguration_8hpp_source.html#l00138">138</a> of file <a class="el" href="ShaderConfiguration_8hpp_source.html">ShaderConfiguration.hpp</a>.</p>
 
 </div>
 </div>
@@ -774,7 +774,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="ShaderConfiguration_8cpp_source.html#l00160">160</a> of file <a class="el" href="ShaderConfiguration_8cpp_source.html">ShaderConfiguration.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ShaderConfiguration_8cpp_source.html#l00170">170</a> of file <a class="el" href="ShaderConfiguration_8cpp_source.html">ShaderConfiguration.cpp</a>.</p>
 <div id="dynsection-5" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-5-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-5-summary" class="dynsummary" style="display:block;">
@@ -808,7 +808,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="ShaderConfiguration_8hpp_source.html#l00131">131</a> of file <a class="el" href="ShaderConfiguration_8hpp_source.html">ShaderConfiguration.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ShaderConfiguration_8hpp_source.html#l00137">137</a> of file <a class="el" href="ShaderConfiguration_8hpp_source.html">ShaderConfiguration.hpp</a>.</p>
 
 </div>
 </div>
@@ -840,7 +840,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="ShaderConfiguration_8cpp_source.html#l00022">22</a> of file <a class="el" href="ShaderConfiguration_8cpp_source.html">ShaderConfiguration.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ShaderConfiguration_8cpp_source.html#l00032">32</a> of file <a class="el" href="ShaderConfiguration_8cpp_source.html">ShaderConfiguration.cpp</a>.</p>
 
 </div>
 </div>
@@ -864,7 +864,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="ShaderConfiguration_8hpp_source.html#l00063">63</a> of file <a class="el" href="ShaderConfiguration_8hpp_source.html">ShaderConfiguration.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ShaderConfiguration_8hpp_source.html#l00069">69</a> of file <a class="el" href="ShaderConfiguration_8hpp_source.html">ShaderConfiguration.hpp</a>.</p>
 
 </div>
 </div>

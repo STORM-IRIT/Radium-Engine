@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.webp"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.5.23</span>
+   &#160;<span id="projectnumber">1.5.24</span>
    </div>
   </td>
  </tr>
@@ -124,28 +124,30 @@ $(function(){initNavTree('CLIBaseApplication_8cpp_source.html',''); initResizabl
   <div class="headertitle"><div class="title">CLIBaseApplication.cpp</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;Headless/CLIBaseApplication.hpp&gt;</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespaceRa.html">Ra</a> {</div>
+<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;Headless/CLI/App.hpp&gt;</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#include &lt;Headless/CLI/Error.hpp&gt;</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;Headless/CLIBaseApplication.hpp&gt;</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">namespace </span>Headless {</div>
-<div class="foldopen" id="foldopen00006" data-start="{" data-end="}">
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno"><a class="line" href="classRa_1_1Headless_1_1CLIBaseApplication.html#a0e897989bba7eefb0fc399ae5285cb85">    6</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="classRa_1_1Headless_1_1CLIBaseApplication.html#a0e897989bba7eefb0fc399ae5285cb85">CLIBaseApplication::init</a>( <span class="keywordtype">int</span> argc, <span class="keyword">const</span> <span class="keywordtype">char</span>** argv ) {</div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>    <span class="keywordflow">try</span> {</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>        <a class="code hl_variable" href="classRa_1_1Headless_1_1CLIBaseApplication.html#ae146f19fcda600ef75067c31ebb28ece">m_cmdLineParser</a>.parse( argc, argv );</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>    }</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>    <span class="keywordflow">catch</span> ( <span class="keyword">const</span> CLI::ParseError&amp; e ) {</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classRa_1_1Headless_1_1CLIBaseApplication.html#ae146f19fcda600ef75067c31ebb28ece">m_cmdLineParser</a>.exit( e ) + 1;</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    }</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>}</div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespaceRa.html">Ra</a> {</div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span>Headless {</div>
+<div class="foldopen" id="foldopen00008" data-start="{" data-end="}">
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno"><a class="line" href="classRa_1_1Headless_1_1CLIBaseApplication.html#a0e897989bba7eefb0fc399ae5285cb85">    8</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="classRa_1_1Headless_1_1CLIBaseApplication.html#a0e897989bba7eefb0fc399ae5285cb85">CLIBaseApplication::init</a>( <span class="keywordtype">int</span> argc, <span class="keyword">const</span> <span class="keywordtype">char</span>** argv ) {</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>    <span class="keywordflow">try</span> {</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>        <a class="code hl_variable" href="classRa_1_1Headless_1_1CLIBaseApplication.html#ae146f19fcda600ef75067c31ebb28ece">m_cmdLineParser</a>.parse( argc, argv );</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    }</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    <span class="keywordflow">catch</span> ( <span class="keyword">const</span> CLI::ParseError&amp; e ) {</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classRa_1_1Headless_1_1CLIBaseApplication.html#ae146f19fcda600ef75067c31ebb28ece">m_cmdLineParser</a>.exit( e ) + 1;</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    }</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>}</div>
 </div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>} <span class="comment">// namespace Headless</span></div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>} <span class="comment">// namespace Ra</span></div>
-<div class="ttc" id="aclassRa_1_1Headless_1_1CLIBaseApplication_html_a0e897989bba7eefb0fc399ae5285cb85"><div class="ttname"><a href="classRa_1_1Headless_1_1CLIBaseApplication.html#a0e897989bba7eefb0fc399ae5285cb85">Ra::Headless::CLIBaseApplication::init</a></div><div class="ttdeci">virtual int init(int argc, const char *argv[])</div><div class="ttdef"><b>Definition</b> <a href="#l00006">CLIBaseApplication.cpp:6</a></div></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>} <span class="comment">// namespace Headless</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>} <span class="comment">// namespace Ra</span></div>
+<div class="ttc" id="aclassRa_1_1Headless_1_1CLIBaseApplication_html_a0e897989bba7eefb0fc399ae5285cb85"><div class="ttname"><a href="classRa_1_1Headless_1_1CLIBaseApplication.html#a0e897989bba7eefb0fc399ae5285cb85">Ra::Headless::CLIBaseApplication::init</a></div><div class="ttdeci">virtual int init(int argc, const char *argv[])</div><div class="ttdef"><b>Definition</b> <a href="#l00008">CLIBaseApplication.cpp:8</a></div></div>
 <div class="ttc" id="aclassRa_1_1Headless_1_1CLIBaseApplication_html_ae146f19fcda600ef75067c31ebb28ece"><div class="ttname"><a href="classRa_1_1Headless_1_1CLIBaseApplication.html#ae146f19fcda600ef75067c31ebb28ece">Ra::Headless::CLIBaseApplication::m_cmdLineParser</a></div><div class="ttdeci">CLI::App m_cmdLineParser</div><div class="ttdef"><b>Definition</b> <a href="CLIBaseApplication_8hpp_source.html#l00025">CLIBaseApplication.hpp:25</a></div></div>
-<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">hepler function to manage enum as underlying types in VariableSet</div><div class="ttdef"><b>Definition</b> <a href="Cage_8cpp_source.html#l00003">Cage.cpp:3</a></div></div>
+<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">hepler function to manage enum as underlying types in VariableSet</div><div class="ttdef"><b>Definition</b> <a href="Cage_8cpp_source.html#l00004">Cage.cpp:4</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

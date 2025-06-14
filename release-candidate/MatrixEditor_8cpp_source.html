@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.webp"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.5.23</span>
+   &#160;<span id="projectnumber">1.5.24</span>
    </div>
   </td>
  </tr>
@@ -143,38 +143,37 @@ $(function(){initNavTree('MatrixEditor_8cpp_source.html',''); initResizable(true
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    QGridLayout* layout = <span class="keyword">new</span> QGridLayout;</div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    layout-&gt;setContentsMargins( {} ); <span class="comment">// margins are set to 0, see Qt documentation</span></div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    layout-&gt;setSpacing( 0 );</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    <span class="keywordflow">for</span> ( <span class="keywordtype">long</span> i = 0; i &lt; m_matrix.rows(); ++i ) {</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>        <span class="keywordflow">for</span> ( <span class="keywordtype">int</span> j = 0; j &lt; m_matrix.cols(); ++j ) {</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>            <span class="keyword">auto</span>&amp; elem   = m_matrix( i, j );</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    <span class="keywordflow">for</span> ( <span class="keywordtype">long</span> i = 0; i &lt; m_matrix.rows(); ++i ) {</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>        <span class="keywordflow">for</span> ( <span class="keywordtype">int</span> j = 0; j &lt; m_matrix.cols(); ++j ) {</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>            <span class="keyword">auto</span>&amp; elem = m_matrix( i, j );</div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>            <span class="keyword">auto</span> spinbox = <span class="keyword">new</span> QDoubleSpinBox();</div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>            spinbox-&gt;setDecimals( dec );</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>            spinbox-&gt;setValue( elem );</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>            spinbox-&gt;setMinimum( <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/types/numeric_limits.html">std::numeric_limits&lt;Scalar&gt;::lowest</a>() );</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>            spinbox-&gt;setMaximum( <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/types/numeric_limits.html">std::numeric_limits&lt;Scalar&gt;::max</a>() );</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>            layout-&gt;addWidget( spinbox, i, j );</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>            <span class="keyword">auto</span> updateMatrixOnChange = [<span class="keyword">this</span>, &amp;elem]( <span class="keywordtype">double</span> value ) {</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>                elem = value;</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>                emit valueChanged( m_matrix );</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>            };</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>            connect( spinbox,</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>                     QOverload&lt;double&gt;::of( &amp;QDoubleSpinBox::valueChanged ),</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>                     updateMatrixOnChange );</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        }</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    }</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    setLayout( layout );</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>}</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>            spinbox-&gt;setMinimum( <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/types/numeric_limits.html">std::numeric_limits&lt;Scalar&gt;::lowest</a>() );</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>            spinbox-&gt;setMaximum( <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/types/numeric_limits.html">std::numeric_limits&lt;Scalar&gt;::max</a>() );</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>            spinbox-&gt;setValue( elem );</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>            layout-&gt;addWidget( spinbox, i, j );</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>            <span class="keyword">auto</span> updateMatrixOnChange = [<span class="keyword">this</span>, &amp;elem]( <span class="keywordtype">double</span> value ) {</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>                elem = value;</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>                emit valueChanged( m_matrix );</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>            };</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>            connect( spinbox,</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>                     QOverload&lt;double&gt;::of( &amp;QDoubleSpinBox::valueChanged ),</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>                     updateMatrixOnChange );</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        }</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    }</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    setLayout( layout );</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>}</div>
 </div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
-<div class="foldopen" id="foldopen00043" data-start="{" data-end="}">
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1Widgets_1_1MatrixEditor.html#a1cb216c3af5c8ead6cd1f27af517e543">   43</a></span><span class="keyword">const</span> Ra::Core::MatrixN&amp; <a class="code hl_function" href="classRa_1_1Gui_1_1Widgets_1_1MatrixEditor.html#a1cb216c3af5c8ead6cd1f27af517e543">MatrixEditor::matrix</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <span class="keywordflow">return</span> m_matrix;</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>}</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
+<div class="foldopen" id="foldopen00042" data-start="{" data-end="}">
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1Widgets_1_1MatrixEditor.html#a1cb216c3af5c8ead6cd1f27af517e543">   42</a></span><span class="keyword">const</span> Ra::Core::MatrixN&amp; <a class="code hl_function" href="classRa_1_1Gui_1_1Widgets_1_1MatrixEditor.html#a1cb216c3af5c8ead6cd1f27af517e543">MatrixEditor::matrix</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="keywordflow">return</span> m_matrix;</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>}</div>
 </div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>} <span class="comment">// namespace Ra::Gui::Widgets</span></div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1Widgets_1_1MatrixEditor_html_a1cb216c3af5c8ead6cd1f27af517e543"><div class="ttname"><a href="classRa_1_1Gui_1_1Widgets_1_1MatrixEditor.html#a1cb216c3af5c8ead6cd1f27af517e543">Ra::Gui::Widgets::MatrixEditor::matrix</a></div><div class="ttdeci">const Ra::Core::MatrixN &amp; matrix() const</div><div class="ttdoc">Get the edited matrix.</div><div class="ttdef"><b>Definition</b> <a href="#l00043">MatrixEditor.cpp:43</a></div></div>
+<div class="ttc" id="aclassRa_1_1Gui_1_1Widgets_1_1MatrixEditor_html_a1cb216c3af5c8ead6cd1f27af517e543"><div class="ttname"><a href="classRa_1_1Gui_1_1Widgets_1_1MatrixEditor.html#a1cb216c3af5c8ead6cd1f27af517e543">Ra::Gui::Widgets::MatrixEditor::matrix</a></div><div class="ttdeci">const Ra::Core::MatrixN &amp; matrix() const</div><div class="ttdoc">Get the edited matrix.</div><div class="ttdef"><b>Definition</b> <a href="#l00042">MatrixEditor.cpp:42</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1Widgets_1_1MatrixEditor_html_ab1b928e37610f4cedaf5491a217dc0a6"><div class="ttname"><a href="classRa_1_1Gui_1_1Widgets_1_1MatrixEditor.html#ab1b928e37610f4cedaf5491a217dc0a6">Ra::Gui::Widgets::MatrixEditor::MatrixEditor</a></div><div class="ttdeci">MatrixEditor(const Ra::Core::MatrixN &amp;matrix, int dec, QWidget *parent=nullptr)</div><div class="ttdef"><b>Definition</b> <a href="#l00013">MatrixEditor.cpp:13</a></div></div>
 <div class="ttc" id="anumeric_limits_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/types/numeric_limits.html">std::numeric_limits</a></div></div>
 </div><!-- fragment --></div><!-- contents -->

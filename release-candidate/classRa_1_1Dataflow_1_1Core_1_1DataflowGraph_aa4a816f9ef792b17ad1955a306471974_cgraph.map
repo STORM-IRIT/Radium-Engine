@@ -1,0 +1,7 @@
+<map id="Ra::Dataflow::Core::DataflowGraph::add_link" name="Ra::Dataflow::Core::DataflowGraph::add_link">
+<area shape="rect" id="Node000001" title="Convenience typed alias." alt="" coords="5,5,196,45"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Dataflow_1_1Core_1_1DataflowGraph.html#a02b9dc6e8de132ced4c2ff2ae54f3c7b" title="Connects two nodes of the graph." alt="" coords="244,5,435,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="196,23,230,23,230,28,196,28"/>
+<area shape="rect" id="Node000003" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/memory/shared_ptr/get.html#" title=" " alt="" coords="483,13,631,38"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="435,23,469,23,469,28,435,28"/>
+</map>

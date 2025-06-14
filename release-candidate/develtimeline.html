@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.webp"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.5.23</span>
+   &#160;<span id="projectnumber">1.5.24</span>
    </div>
   </td>
  </tr>
@@ -127,22 +127,22 @@ $(function(){initNavTree('develtimeline.html',''); initResizable(true); });
 <div class="toc"><h3>Table of Contents</h3>
 <ul>
   <li class="level1">
-    <a href="#autotoc_md120">Timeline And Keyframes</a>
+    <a href="#autotoc_md85">Timeline And Keyframes</a>
     <ul>
       <li class="level2">
-        <a href="#autotoc_md121">The Timeline UI</a>
+        <a href="#autotoc_md86">The Timeline UI</a>
       </li>
       <li class="level2">
-        <a href="#autotoc_md122">Display animated data using the Timeline</a>
+        <a href="#autotoc_md87">Display animated data using the Timeline</a>
       </li>
     </ul>
   </li>
 </ul>
 </div>
-<div class="textblock"><h1><a class="anchor" id="autotoc_md120"></a>
+<div class="textblock"><h1><a class="anchor" id="autotoc_md85"></a>
 Timeline And Keyframes</h1>
 <p>The <code><a class="el" href="classRa_1_1Gui_1_1Timeline.html" title="The Timeline class provides display and management of time, as well as keyframes.">Ra::Gui::Timeline</a></code> class provides display and management of <code><a class="el" href="classRa_1_1Core_1_1Animation_1_1KeyFramedValue.html">Ra::Core::Animation::KeyFramedValue</a></code>s through the <code><a class="el" href="classRa_1_1Core_1_1Animation_1_1KeyFramedValueController.html">Ra::Core::Animation::KeyFramedValueController</a></code> class.</p>
-<h2><a class="anchor" id="autotoc_md121"></a>
+<h2><a class="anchor" id="autotoc_md86"></a>
 The Timeline UI</h2>
 <p>The Timeline UI is a widget allowing to manipulate time and display animation keyframes: <img src="../images/timeline_ui.png" alt="Timeline UI" class="inline"/> The central part of the UI shows the time space, in which we have:</p>
 <ul>
@@ -174,7 +174,7 @@ The Timeline UI</h2>
 </ul>
 <p>On the upper-far-right corner, one can open the help window, displaying shortcuts and hints on how to manipulate the time space and the selected KeyFramedValue:</p>
 <p><img src="../images/timeline_help.png" alt="Timeline Help" class="inline"/></p>
-<h2><a class="anchor" id="autotoc_md122"></a>
+<h2><a class="anchor" id="autotoc_md87"></a>
 Display animated data using the Timeline</h2>
 <p><code><a class="el" href="classRa_1_1Core_1_1Animation_1_1KeyFramedValueController.html">Ra::Core::Animation::KeyFramedValueController</a></code>s must be registered into the <code><a class="el" href="classRa_1_1Gui_1_1Timeline.html" title="The Timeline class provides display and management of time, as well as keyframes.">Ra::Gui::Timeline</a></code>, which can be done using the <code><a class="el" href="classRa_1_1Gui_1_1Timeline.html#ac6ec7a3145e199e3de1de67ea7bd15a0">Ra::Gui::Timeline::registerKeyFramedValue</a></code> methods, binding them to the <code><a class="el" href="classRa_1_1Engine_1_1Scene_1_1Entity.html" title="An entity is an scene element. It ties together components with a transform.">Ra::Engine::Scene::Entity</a></code>, <code><a class="el" href="classRa_1_1Engine_1_1Scene_1_1Component.html" title="A component is an element that can be updated by a system. It is also linked to some other components...">Ra::Engine::Scene::Component</a></code> or <code><a class="el" href="classRa_1_1Engine_1_1Rendering_1_1RenderObject.html">Ra::Engine::Rendering::RenderObject</a></code> they belong to.</p>
 <h3>Binding "Static" KeyFramedValue</h3>
@@ -248,8 +248,8 @@ Display animated data using the Timeline</h2>
 <div class="ttc" id="abind_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/utility/functional/bind.html">std::bind</a></div><div class="ttdeci">T bind(T... args)</div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Animation_1_1KeyFramedValueController_html"><div class="ttname"><a href="classRa_1_1Core_1_1Animation_1_1KeyFramedValueController.html">Ra::Core::Animation::KeyFramedValueController</a></div><div class="ttdef"><b>Definition</b> <a href="KeyFramedValueController_8hpp_source.html#l00016">KeyFramedValueController.hpp:17</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Animation_1_1KeyFramedValue_html"><div class="ttname"><a href="classRa_1_1Core_1_1Animation_1_1KeyFramedValue.html">Ra::Core::Animation::KeyFramedValue</a></div><div class="ttdef"><b>Definition</b> <a href="KeyFramedValue_8hpp_source.html#l00062">KeyFramedValue.hpp:63</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1TaskQueue_html"><div class="ttname"><a href="classRa_1_1Core_1_1TaskQueue.html">Ra::Core::TaskQueue</a></div><div class="ttdoc">This class allows tasks to be registered and then executed in parallel on separate threads.</div><div class="ttdef"><b>Definition</b> <a href="TaskQueue_8hpp_source.html#l00047">TaskQueue.hpp:48</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1TaskQueue_html_ad0082015fff6570c90c7c06da147d20c"><div class="ttname"><a href="classRa_1_1Core_1_1TaskQueue.html#ad0082015fff6570c90c7c06da147d20c">Ra::Core::TaskQueue::registerTask</a></div><div class="ttdeci">TaskId registerTask(std::unique_ptr&lt; Task &gt; task)</div><div class="ttdef"><b>Definition</b> <a href="TaskQueue_8cpp_source.html#l00033">TaskQueue.cpp:33</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1TaskQueue_html"><div class="ttname"><a href="classRa_1_1Core_1_1TaskQueue.html">Ra::Core::TaskQueue</a></div><div class="ttdoc">This class allows tasks to be registered and then executed in parallel on separate threads.</div><div class="ttdef"><b>Definition</b> <a href="TaskQueue_8hpp_source.html#l00049">TaskQueue.hpp:50</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1TaskQueue_html_ad0082015fff6570c90c7c06da147d20c"><div class="ttname"><a href="classRa_1_1Core_1_1TaskQueue.html#ad0082015fff6570c90c7c06da147d20c">Ra::Core::TaskQueue::registerTask</a></div><div class="ttdeci">TaskId registerTask(std::unique_ptr&lt; Task &gt; task)</div><div class="ttdef"><b>Definition</b> <a href="TaskQueue_8cpp_source.html#l00040">TaskQueue.cpp:40</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1Component_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1Component.html">Ra::Engine::Scene::Component</a></div><div class="ttdoc">A component is an element that can be updated by a system. It is also linked to some other components...</div><div class="ttdef"><b>Definition</b> <a href="Component_8hpp_source.html#l00030">Component.hpp:31</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1Component_html_a6314dec2b1d03680ad80ec3adf6dd8f9"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1Component.html#a6314dec2b1d03680ad80ec3adf6dd8f9">Ra::Engine::Scene::Component::initialize</a></div><div class="ttdeci">virtual void initialize()=0</div><div class="ttdoc">Pure virtual method to be overridden by any component. When this method is called you are guaranteed ...</div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1Entity_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1Entity.html">Ra::Engine::Scene::Entity</a></div><div class="ttdoc">An entity is an scene element. It ties together components with a transform.</div><div class="ttdef"><b>Definition</b> <a href="Entity_8hpp_source.html#l00022">Entity.hpp:23</a></div></div>
@@ -259,7 +259,7 @@ Display animated data using the Timeline</h2>
 <div class="ttc" id="aclassRa_1_1Gui_1_1Timeline_html"><div class="ttname"><a href="classRa_1_1Gui_1_1Timeline.html">Ra::Gui::Timeline</a></div><div class="ttdoc">The Timeline class provides display and management of time, as well as keyframes.</div><div class="ttdef"><b>Definition</b> <a href="Timeline_8hpp_source.html#l00037">Timeline.hpp:38</a></div></div>
 <div class="ttc" id="ainserter_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/iterator/inserter.html">std::inserter</a></div><div class="ttdeci">T inserter(T... args)</div></div>
 <div class="ttc" id="amove_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/utility/move.html">std::move</a></div><div class="ttdeci">T move(T... args)</div></div>
-<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">hepler function to manage enum as underlying types in VariableSet</div><div class="ttdef"><b>Definition</b> <a href="Cage_8cpp_source.html#l00003">Cage.cpp:3</a></div></div>
+<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">hepler function to manage enum as underlying types in VariableSet</div><div class="ttdef"><b>Definition</b> <a href="Cage_8cpp_source.html#l00004">Cage.cpp:4</a></div></div>
 <div class="ttc" id="astructRa_1_1Engine_1_1FrameInfo_html"><div class="ttname"><a href="structRa_1_1Engine_1_1FrameInfo.html">Ra::Engine::FrameInfo</a></div><div class="ttdoc">Structure passed to each system before they fill the task queue.</div><div class="ttdef"><b>Definition</b> <a href="FrameInfo_8hpp_source.html#l00008">FrameInfo.hpp:8</a></div></div>
 </div><!-- fragment --><h3>Binding "Dynamic" KeyFramedValues</h3>
 <p>Those are <code><a class="el" href="classRa_1_1Core_1_1Animation_1_1KeyFramedValue.html">Ra::Core::Animation::KeyFramedValue</a></code>s that are not part of an <code><a class="el" href="classRa_1_1Engine_1_1Scene_1_1Entity.html" title="An entity is an scene element. It ties together components with a transform.">Ra::Engine::Scene::Entity</a></code>, <code><a class="el" href="classRa_1_1Engine_1_1Scene_1_1Component.html" title="A component is an element that can be updated by a system. It is also linked to some other components...">Ra::Engine::Scene::Component</a></code> or <code><a class="el" href="classRa_1_1Engine_1_1Rendering_1_1RenderObject.html">Ra::Engine::Rendering::RenderObject</a></code> data, but are used to keyframe some of its data. Dynamic <code><a class="el" href="classRa_1_1Core_1_1Animation_1_1KeyFramedValue.html">Ra::Core::Animation::KeyFramedValue</a></code>s must be created for and owned by the UI, and registered in the <code><a class="el" href="classRa_1_1Gui_1_1Timeline.html" title="The Timeline class provides display and management of time, as well as keyframes.">Ra::Gui::Timeline</a></code>. They are usually bound to an UpdateCallback function since they have to update the object's data they are linked to.</p>
@@ -381,15 +381,15 @@ Display animated data using the Timeline</h2>
 <div class="ttc" id="aclassRa_1_1Plugins_1_1RadiumPluginInterface_html_ac67c90cbc774815037521ec11b9fdbc5"><div class="ttname"><a href="classRa_1_1Plugins_1_1RadiumPluginInterface.html#ac67c90cbc774815037521ec11b9fdbc5">Ra::Plugins::RadiumPluginInterface::doAddAction</a></div><div class="ttdeci">virtual bool doAddAction(int &amp;nb)=0</div><div class="ttdoc">Tells wether the plugin wants to add actions or not. If it does, getAction() will be called for each ...</div></div>
 <div class="ttc" id="aendl_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/io/manip/endl.html">std::endl</a></div><div class="ttdeci">T endl(T... args)</div></div>
 <div class="ttc" id="amap_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/container/map.html">std::map</a></div></div>
-<div class="ttc" id="astructRa_1_1Engine_1_1Scene_1_1ItemEntry_html"><div class="ttname"><a href="structRa_1_1Engine_1_1Scene_1_1ItemEntry.html">Ra::Engine::Scene::ItemEntry</a></div><div class="ttdef"><b>Definition</b> <a href="ItemEntry_8hpp_source.html#l00025">ItemEntry.hpp:25</a></div></div>
-<div class="ttc" id="astructRa_1_1Engine_1_1Scene_1_1ItemEntry_html_a50018166fe6777de51b2b8f858498d03"><div class="ttname"><a href="structRa_1_1Engine_1_1Scene_1_1ItemEntry.html#a50018166fe6777de51b2b8f858498d03">Ra::Engine::Scene::ItemEntry::m_component</a></div><div class="ttdeci">Component * m_component</div><div class="ttdef"><b>Definition</b> <a href="ItemEntry_8hpp_source.html#l00064">ItemEntry.hpp:64</a></div></div>
+<div class="ttc" id="astructRa_1_1Engine_1_1Scene_1_1ItemEntry_html"><div class="ttname"><a href="structRa_1_1Engine_1_1Scene_1_1ItemEntry.html">Ra::Engine::Scene::ItemEntry</a></div><div class="ttdef"><b>Definition</b> <a href="ItemEntry_8hpp_source.html#l00024">ItemEntry.hpp:24</a></div></div>
+<div class="ttc" id="astructRa_1_1Engine_1_1Scene_1_1ItemEntry_html_a50018166fe6777de51b2b8f858498d03"><div class="ttname"><a href="structRa_1_1Engine_1_1Scene_1_1ItemEntry.html#a50018166fe6777de51b2b8f858498d03">Ra::Engine::Scene::ItemEntry::m_component</a></div><div class="ttdeci">Component * m_component</div><div class="ttdef"><b>Definition</b> <a href="ItemEntry_8hpp_source.html#l00063">ItemEntry.hpp:63</a></div></div>
 </div><!-- fragment --> </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="develmanual.html">Developer manual</a></li><li class="navelem"><a class="el" href="api.html">API</a></li><li class="navelem"><a class="el" href="engine.html">Engine</a></li>
+    <li class="navelem"><a class="el" href="conceptsmanual.html">Radium Concepts</a></li><li class="navelem"><a class="el" href="api.html">API</a></li><li class="navelem"><a class="el" href="engine.html">Engine</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
   </ul>
 </div>

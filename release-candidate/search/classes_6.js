@@ -15,8 +15,10 @@ var searchData=
   ['giga_12',['giga',['http://en.cppreference.com/w/cpp/numeric/ratio/ratio.html',0,'std']]],
   ['gizmo_13',['Gizmo',['../classRa_1_1Gui_1_1Gizmo.html',1,'Ra::Gui']]],
   ['gizmomanager_14',['GizmoManager',['../classRa_1_1Gui_1_1GizmoManager.html',1,'Ra::Gui']]],
-  ['greater_15',['greater',['http://en.cppreference.com/w/cpp/utility/functional/greater.html',0,'std']]],
-  ['greater_5fequal_16',['greater_equal',['http://en.cppreference.com/w/cpp/utility/functional/greater_equal.html',0,'std']]],
-  ['grid_17',['Grid',['../classRa_1_1Core_1_1Grid.html',1,'Ra::Core']]],
-  ['grid_3c_20t_2c_20n_20_3e_18',['Grid&lt; T, N &gt;',['../classRa_1_1Core_1_1Grid.html',1,'Ra::Core']]]
+  ['grapheditorwindow_15',['GraphEditorWindow',['../classRa_1_1Dataflow_1_1QtGui_1_1GraphEditor_1_1GraphEditorWindow.html',1,'Ra::Dataflow::QtGui::GraphEditor']]],
+  ['graphmodel_16',['GraphModel',['../classRa_1_1Dataflow_1_1QtGui_1_1GraphEditor_1_1GraphModel.html',1,'Ra::Dataflow::QtGui::GraphEditor']]],
+  ['greater_17',['greater',['http://en.cppreference.com/w/cpp/utility/functional/greater.html',0,'std']]],
+  ['greater_5fequal_18',['greater_equal',['http://en.cppreference.com/w/cpp/utility/functional/greater_equal.html',0,'std']]],
+  ['grid_19',['Grid',['../classRa_1_1Core_1_1Grid.html',1,'Ra::Core']]],
+  ['grid_3c_20t_2c_20n_20_3e_20',['Grid&lt; T, N &gt;',['../classRa_1_1Core_1_1Grid.html',1,'Ra::Core']]]
 ];

@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.webp"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.5.23</span>
+   &#160;<span id="projectnumber">1.5.24</span>
    </div>
   </td>
  </tr>
@@ -128,7 +128,7 @@ $(function(){initNavTree('DualQuaternion_8hpp_source.html',''); initResizable(tr
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;Core/Math/LinearAlgebra.hpp&gt;</span> <span class="comment">// Quaternion operators</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;Core/RaCore.hpp&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="Types_8hpp.html">Core/Types.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="Core_2Types_8hpp.html">Core/Types.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespaceRa.html">Ra</a> {</div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span>Core {</div>
@@ -289,7 +289,7 @@ $(function(){initNavTree('DualQuaternion_8hpp_source.html',''); initResizable(tr
 <div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span> </div>
 <div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>} <span class="comment">// namespace Core</span></div>
 <div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>} <span class="comment">// namespace Ra</span></div>
-<div class="ttc" id="aTypes_8hpp_html"><div class="ttname"><a href="Types_8hpp.html">Types.hpp</a></div></div>
+<div class="ttc" id="aCore_2Types_8hpp_html"><div class="ttname"><a href="Core_2Types_8hpp.html">Types.hpp</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1DualQuaternion_html"><div class="ttname"><a href="classRa_1_1Core_1_1DualQuaternion.html">Ra::Core::DualQuaternion</a></div><div class="ttdef"><b>Definition</b> <a href="#l00018">DualQuaternion.hpp:19</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1DualQuaternion_html_a0e9fbf03265fb5dd5a4c390503a1cb36"><div class="ttname"><a href="classRa_1_1Core_1_1DualQuaternion.html#a0e9fbf03265fb5dd5a4c390503a1cb36">Ra::Core::DualQuaternion::setFromTransform</a></div><div class="ttdeci">void setFromTransform(const Transform &amp;t)</div><div class="ttdoc">Other methods.</div><div class="ttdef"><b>Definition</b> <a href="#l00158">DualQuaternion.hpp:158</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1DualQuaternion_html_a2b5cdd730d414ff7fd5e3a391ad32572"><div class="ttname"><a href="classRa_1_1Core_1_1DualQuaternion.html#a2b5cdd730d414ff7fd5e3a391ad32572">Ra::Core::DualQuaternion::transform</a></div><div class="ttdeci">Vector3 transform(const Vector3 &amp;p) const</div><div class="ttdef"><b>Definition</b> <a href="#l00125">DualQuaternion.hpp:125</a></div></div>
@@ -304,7 +304,7 @@ $(function(){initNavTree('DualQuaternion_8hpp_source.html',''); initResizable(tr
 <div class="ttc" id="aclassRa_1_1Core_1_1DualQuaternion_html_ac5d767c7ed2acdace145f2079284e07a"><div class="ttname"><a href="classRa_1_1Core_1_1DualQuaternion.html#ac5d767c7ed2acdace145f2079284e07a">Ra::Core::DualQuaternion::DualQuaternion</a></div><div class="ttdeci">DualQuaternion(const Quaternion &amp;q0, const Quaternion &amp;qe)</div><div class="ttdoc">Construct a dual-quaternion from two quaternions.</div><div class="ttdef"><b>Definition</b> <a href="#l00026">DualQuaternion.hpp:26</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Core_1_1Math_html_a46540d56930b4c1ff3b115872cde4893"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Math.html#a46540d56930b4c1ff3b115872cde4893">Ra::Core::Math::areApproxEqual</a></div><div class="ttdeci">std::enable_if&lt;!std::numeric_limits&lt; T &gt;::is_integer, bool &gt;::type areApproxEqual(T x, T y, T espilonBoostFactor=T(10))</div><div class="ttdoc">Compare two numbers such that |x-y| &lt; espilon*epsilonBoostFactor.</div><div class="ttdef"><b>Definition</b> <a href="Math_8hpp_source.html#l00042">Math.hpp:42</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Core_html_a759edbc3c97aec27676fcd8916334ed5"><div class="ttname"><a href="namespaceRa_1_1Core.html#a759edbc3c97aec27676fcd8916334ed5">Ra::Core::operator*</a></div><div class="ttdeci">DualQuaternion operator*(Scalar scalar, const DualQuaternion &amp;dq)</div><div class="ttdoc">Pre-multiplication of dual quaternion.</div><div class="ttdef"><b>Definition</b> <a href="#l00165">DualQuaternion.hpp:165</a></div></div>
-<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">hepler function to manage enum as underlying types in VariableSet</div><div class="ttdef"><b>Definition</b> <a href="Cage_8cpp_source.html#l00003">Cage.cpp:3</a></div></div>
+<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">hepler function to manage enum as underlying types in VariableSet</div><div class="ttdef"><b>Definition</b> <a href="Cage_8cpp_source.html#l00004">Cage.cpp:4</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

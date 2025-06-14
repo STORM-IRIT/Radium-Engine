@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.webp"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.5.23</span>
+   &#160;<span id="projectnumber">1.5.24</span>
    </div>
   </td>
  </tr>
@@ -130,7 +130,7 @@ $(function(){initNavTree('PolyLine_8hpp_source.html',''); initResizable(true); }
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;Core/Geometry/DistanceQueries.hpp&gt;</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;Core/Math/LinearAlgebra.hpp&gt;</span> <span class="comment">// cotan, saturate (from Math.hpp)</span></div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;Core/RaCore.hpp&gt;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;<a class="code" href="Types_8hpp.html">Core/Types.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;<a class="code" href="Core_2Types_8hpp.html">Core/Types.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespaceRa.html">Ra</a> {</div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace </span>Core {</div>
@@ -243,7 +243,7 @@ $(function(){initNavTree('PolyLine_8hpp_source.html',''); initResizable(true); }
 <div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>} <span class="comment">// namespace Geometry</span></div>
 <div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>} <span class="comment">// namespace Core</span></div>
 <div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>} <span class="comment">// namespace Ra</span></div>
-<div class="ttc" id="aTypes_8hpp_html"><div class="ttname"><a href="Types_8hpp.html">Types.hpp</a></div></div>
+<div class="ttc" id="aCore_2Types_8hpp_html"><div class="ttname"><a href="Core_2Types_8hpp.html">Types.hpp</a></div></div>
 <div class="ttc" id="aback_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/container/vector/back.html">std::vector::back</a></div><div class="ttdeci">T back(T... args)</div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1PolyLine_html"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1PolyLine.html">Ra::Core::Geometry::PolyLine</a></div><div class="ttdef"><b>Definition</b> <a href="#l00014">PolyLine.hpp:15</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1PolyLine_html_a1509e442e9b183a1cdf0b23eb20c235a"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1PolyLine.html#a1509e442e9b183a1cdf0b23eb20c235a">Ra::Core::Geometry::PolyLine::getSegment</a></div><div class="ttdeci">void getSegment(uint segment, Vector3 &amp;aOut, Vector3 &amp;abOut) const</div><div class="ttdoc">Get the ith segment AB as starting point A and vector AB.</div><div class="ttdef"><b>Definition</b> <a href="#l00104">PolyLine.hpp:104</a></div></div>
@@ -255,7 +255,7 @@ $(function(){initNavTree('PolyLine_8hpp_source.html',''); initResizable(true); }
 <div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1PolyLine_html_aea6eff907b3b5ac247f34644f4378c81"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1PolyLine.html#aea6eff907b3b5ac247f34644f4378c81">Ra::Core::Geometry::PolyLine::getSegmentVectors</a></div><div class="ttdeci">const Vector3Array &amp; getSegmentVectors() const</div><div class="ttdoc">Get the segment vector ( Pi+1 - Pi)</div><div class="ttdef"><b>Definition</b> <a href="#l00110">PolyLine.hpp:110</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Core_1_1Math_html_ac59d3507a0a632719542d21a16a11bba"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Math.html#ac59d3507a0a632719542d21a16a11bba">Ra::Core::Math::saturate</a></div><div class="ttdeci">constexpr T saturate(T v)</div><div class="ttdoc">Clamps the value between 0 and 1.</div><div class="ttdef"><b>Definition</b> <a href="Math_8hpp_source.html#l00120">Math.hpp:120</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Engine_1_1Rendering_html_a49447e503c13eb01d7b4d279e127f8e1ad9c6333623e6357515fcbf17be806273"><div class="ttname"><a href="namespaceRa_1_1Engine_1_1Rendering.html#a49447e503c13eb01d7b4d279e127f8e1ad9c6333623e6357515fcbf17be806273">Ra::Engine::Rendering::RenderObjectType::Geometry</a></div><div class="ttdeci">@ Geometry</div><div class="ttdoc">&quot;Geometry&quot; render objects are those loaded using Radium::IO and generated by GeometrySystem</div></div>
-<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">hepler function to manage enum as underlying types in VariableSet</div><div class="ttdef"><b>Definition</b> <a href="Cage_8cpp_source.html#l00003">Cage.cpp:3</a></div></div>
+<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">hepler function to manage enum as underlying types in VariableSet</div><div class="ttdef"><b>Definition</b> <a href="Cage_8cpp_source.html#l00004">Cage.cpp:4</a></div></div>
 <div class="ttc" id="avector_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/container/vector.html">std::vector</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->

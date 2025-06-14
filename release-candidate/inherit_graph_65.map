@@ -1,3 +1,61 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="Node000000" href="$classRa_1_1Core_1_1Utils_1_1Observable.html" title=" " alt="" coords="5,5,203,45"/>
+<area shape="rect" id="Node000000" href="$classRa_1_1Core_1_1Utils_1_1ContainerIntrospectionInterface.html" title="This class defines the introspection interface a container need to implement." alt="" coords="9,297,196,337"/>
+<area shape="rect" id="Node000001" href="$classRa_1_1Core_1_1VectorArray.html" title=" " alt="" coords="267,169,429,209"/>
+<area shape="poly" id="edge27_Node000000_Node000001" title=" " alt="" coords="175,289,198,275,213,261,221,247,231,233,246,219,269,207,271,212,250,224,235,237,226,250,217,265,202,279,178,294"/>
+<area shape="rect" id="Node000003" href="$classRa_1_1Core_1_1VectorArray.html" title=" " alt="" coords="260,233,436,273"/>
+<area shape="poly" id="edge28_Node000000_Node000003" title=" " alt="" coords="193,291,270,271,272,276,194,296"/>
+<area shape="rect" id="Node000004" href="$classRa_1_1Core_1_1VectorArray.html" title=" " alt="" coords="267,297,429,337"/>
+<area shape="poly" id="edge29_Node000000_Node000004" title=" " alt="" coords="209,315,267,315,267,320,209,320"/>
+<area shape="rect" id="Node000005" href="$classRa_1_1Core_1_1VectorArray.html" title=" " alt="" coords="267,361,429,401"/>
+<area shape="poly" id="edge30_Node000000_Node000005" title=" " alt="" coords="194,338,272,359,270,364,193,343"/>
+<area shape="rect" id="Node000006" href="$classRa_1_1Core_1_1VectorArray.html" title=" " alt="" coords="267,425,429,465"/>
+<area shape="poly" id="edge31_Node000000_Node000006" title=" " alt="" coords="142,344,192,378,249,411,278,423,276,428,247,416,189,383,139,348"/>
+<area shape="rect" id="Node000007" href="$classRa_1_1Core_1_1VectorArray.html" title=" " alt="" coords="267,489,429,529"/>
+<area shape="poly" id="edge32_Node000000_Node000007" title=" " alt="" coords="127,347,178,412,212,446,249,475,272,487,269,492,247,480,208,450,174,416,123,351"/>
+<area shape="rect" id="Node000008" href="$classRa_1_1Core_1_1VectorArray.html" title=" " alt="" coords="267,5,429,45"/>
+<area shape="poly" id="edge33_Node000000_Node000008" title=" " alt="" coords="185,288,198,276,215,248,222,221,223,194,220,167,218,139,219,112,227,84,246,56,266,40,269,45,250,59,232,86,224,113,223,139,226,166,228,193,228,221,220,250,202,279,188,292"/>
+<area shape="rect" id="Node000009" href="$classRa_1_1Core_1_1VectorArray.html" title=" " alt="" coords="249,70,447,95"/>
+<area shape="poly" id="edge34_Node000000_Node000009" title=" " alt="" coords="184,288,198,276,212,254,219,233,220,190,221,148,229,126,246,105,262,93,265,98,250,109,234,129,227,149,225,190,224,234,217,256,202,279,187,292"/>
+<area shape="rect" id="Node000011" href="$classRa_1_1Core_1_1Geometry_1_1GeometryIndexLayerBase.html" title="Base class for index collections stored in MultiIndexedGeometry." alt="" coords="249,679,447,719"/>
+<area shape="poly" id="edge35_Node000000_Node000011" title=" " alt="" coords="120,349,173,459,209,525,250,589,289,638,327,677,323,680,285,641,246,592,205,528,168,461,116,351"/>
+<area shape="rect" id="Node000024" href="$classRa_1_1Core_1_1Utils_1_1AttribBase.html" title=" " alt="" coords="253,554,443,579"/>
+<area shape="poly" id="edge47_Node000000_Node000024" title=" " alt="" coords="118,349,138,393,166,444,203,496,225,519,249,539,273,552,270,556,247,544,222,523,199,499,161,447,133,395,113,351"/>
+<area shape="rect" id="Node000010" href="$classRa_1_1Core_1_1VectorArray.html" title="This class implements ContainerIntrospectionInterface for AlignedStdVector." alt="" coords="248,119,448,145"/>
+<area shape="poly" id="edge49_Node000000_Node000010" title=" " alt="" coords="182,288,198,275,210,261,216,246,220,216,225,186,233,170,246,155,266,143,269,147,250,159,237,173,231,187,226,217,221,247,214,263,202,279,185,293"/>
+<area shape="rect" id="Node000012" href="$structRa_1_1Core_1_1Geometry_1_1GeometryIndexLayer.html" title=" " alt="" coords="515,671,682,726"/>
+<area shape="poly" id="edge36_Node000011_Node000012" title=" " alt="" coords="461,696,515,696,515,701,461,701"/>
+<area shape="rect" id="Node000014" href="$structRa_1_1Core_1_1Geometry_1_1GeometryIndexLayer.html" title=" " alt="" coords="515,750,682,805"/>
+<area shape="poly" id="edge38_Node000011_Node000014" title=" " alt="" coords="426,720,516,749,514,754,424,725"/>
+<area shape="rect" id="Node000016" href="$structRa_1_1Core_1_1Geometry_1_1GeometryIndexLayer.html" title=" " alt="" coords="515,829,682,883"/>
+<area shape="poly" id="edge40_Node000011_Node000016" title=" " alt="" coords="382,726,434,771,497,815,519,826,517,831,495,820,431,775,378,731"/>
+<area shape="rect" id="Node000018" href="$structRa_1_1Core_1_1Geometry_1_1GeometryIndexLayer.html" title=" " alt="" coords="515,907,682,962"/>
+<area shape="poly" id="edge42_Node000011_Node000018" title=" " alt="" coords="368,730,419,811,456,855,498,894,516,906,514,910,494,898,452,859,415,814,364,733"/>
+<area shape="rect" id="Node000020" href="$structRa_1_1Core_1_1Geometry_1_1GeometryIndexLayer.html" title=" " alt="" coords="515,527,682,582"/>
+<area shape="poly" id="edge44_Node000011_Node000020" title=" " alt="" coords="383,668,435,630,495,592,521,580,523,585,497,597,438,634,386,672"/>
+<area shape="rect" id="Node000022" href="$structRa_1_1Core_1_1Geometry_1_1GeometryIndexLayer.html" title="Typed index collection." alt="" coords="496,607,701,647"/>
+<area shape="poly" id="edge46_Node000011_Node000022" title=" " alt="" coords="431,672,527,644,529,649,432,677"/>
+<area shape="rect" id="Node000013" href="$structRa_1_1Core_1_1Geometry_1_1LineIndexLayer.html" title="Index layer for line mesh." alt="" coords="760,679,911,719"/>
+<area shape="poly" id="edge37_Node000012_Node000013" title=" " alt="" coords="696,696,760,696,760,701,696,701"/>
+<area shape="rect" id="Node000015" href="$structRa_1_1Core_1_1Geometry_1_1PointCloudIndexLayer.html" title="Index layer for a point cloud." alt="" coords="749,757,921,797"/>
+<area shape="poly" id="edge39_Node000014_Node000015" title=" " alt="" coords="696,775,749,775,749,780,696,780"/>
+<area shape="rect" id="Node000017" href="$structRa_1_1Core_1_1Geometry_1_1PolyIndexLayer.html" title="Index layer for polygonal mesh." alt="" coords="760,836,911,876"/>
+<area shape="poly" id="edge41_Node000016_Node000017" title=" " alt="" coords="696,853,760,853,760,859,696,859"/>
+<area shape="rect" id="Node000019" href="$structRa_1_1Core_1_1Geometry_1_1QuadIndexLayer.html" title="Index layer for quadrilateral mesh." alt="" coords="760,915,911,955"/>
+<area shape="poly" id="edge43_Node000018_Node000019" title=" " alt="" coords="696,932,760,932,760,937,696,937"/>
+<area shape="rect" id="Node000021" href="$structRa_1_1Core_1_1Geometry_1_1TriangleIndexLayer.html" title="Index layer for triangle mesh." alt="" coords="759,535,912,575"/>
+<area shape="poly" id="edge45_Node000020_Node000021" title=" " alt="" coords="696,552,758,552,758,557,696,557"/>
+<area shape="rect" id="Node000025" href="$classRa_1_1Core_1_1Utils_1_1Attrib.html" title=" " alt="" coords="500,478,697,503"/>
+<area shape="poly" id="edge48_Node000024_Node000025" title=" " alt="" coords="421,548,447,539,471,526,495,512,531,501,532,506,497,517,473,530,449,544,423,553"/>
+<area shape="rect" id="Node000023" href="$classRa_1_1Core_1_1Utils_1_1ObjectWithSemantic.html" title="Object associated with one or multiple semantic names." alt="" coords="5,679,200,719"/>
+<area shape="poly" id="edge50_Node000023_Node000011" title=" " alt="" coords="214,696,249,696,249,701,214,701"/>
+<area shape="rect" id="Node000002" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector.html" title=" " alt="" coords="38,241,167,266"/>
+<area shape="poly" id="edge51_Node000002_Node000001" title=" " alt="" coords="165,234,270,207,271,212,166,240"/>
+<area shape="poly" id="edge52_Node000002_Node000003" title=" " alt="" coords="181,251,260,251,260,256,181,256"/>
+<area shape="poly" id="edge53_Node000002_Node000004" title=" " alt="" coords="166,267,271,295,270,300,165,272"/>
+<area shape="poly" id="edge54_Node000002_Node000005" title=" " alt="" coords="175,269,202,283,218,300,226,316,235,332,250,347,270,359,268,364,246,351,230,335,222,319,213,303,198,287,172,273"/>
+<area shape="poly" id="edge55_Node000002_Node000006" title=" " alt="" coords="182,269,202,283,215,300,222,317,227,349,231,381,237,396,250,411,269,425,265,429,246,415,233,399,226,382,221,350,217,318,211,303,198,287,178,273"/>
+<area shape="poly" id="edge56_Node000002_Node000007" title=" " alt="" coords="181,268,202,283,219,308,227,333,228,358,227,382,225,405,226,429,234,452,250,475,268,490,265,494,246,479,229,454,221,430,220,405,221,381,223,357,222,334,214,311,198,287,178,272"/>
+<area shape="poly" id="edge57_Node000002_Node000008" title=" " alt="" coords="114,226,134,189,164,143,202,96,246,55,267,43,270,48,250,59,205,99,168,146,139,191,118,229"/>
+<area shape="poly" id="edge58_Node000002_Node000009" title=" " alt="" coords="119,227,171,165,207,132,247,104,273,93,275,98,249,109,210,136,175,169,123,231"/>
+<area shape="poly" id="edge59_Node000002_Node000010" title=" " alt="" coords="129,230,181,192,247,155,283,142,285,147,249,160,184,196,132,234"/>
 </map>

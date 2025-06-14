@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.webp"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.5.23</span>
+   &#160;<span id="projectnumber">1.5.24</span>
    </div>
   </td>
  </tr>
@@ -129,33 +129,33 @@ $(function(){initNavTree('develkeymapping.html',''); initResizable(true); });
   <li class="level1 empty">
     <ul>
       <li class="level2">
-        <a href="#autotoc_md79">Introduction</a>
+        <a href="#autotoc_md57">Introduction</a>
       </li>
       <li class="level2">
-        <a href="#autotoc_md80">Usage</a>
+        <a href="#autotoc_md58">Usage</a>
       </li>
       <li class="level2">
-        <a href="#autotoc_md81">Implementation note</a>
+        <a href="#autotoc_md59">Implementation note</a>
       </li>
       <li class="level2">
-        <a href="#autotoc_md82">Key mapping and inheritence</a>
+        <a href="#autotoc_md60">Key mapping and inheritence</a>
       </li>
       <li class="level2">
-        <a href="#autotoc_md83">Callback manager</a>
+        <a href="#autotoc_md61">Callback manager</a>
       </li>
       <li class="level2">
-        <a href="#autotoc_md84">Limits</a>
+        <a href="#autotoc_md62">Limits</a>
       </li>
     </ul>
   </li>
 </ul>
 </div>
-<div class="textblock"><h2><a class="anchor" id="autotoc_md79"></a>
+<div class="textblock"><h2><a class="anchor" id="autotoc_md57"></a>
 Introduction</h2>
 <p>KeyMapping is defined around two concepts, context (<a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html#a78183dd70a4a26eec1f46c0b523ddc18" title="handle to a Context">Ra::Gui::KeyMappingManager::Context</a>) and action (<a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html#a41a05099c01660b695cdb70be3eb1655" title="handle to an action">Ra::Gui::KeyMappingManager::KeyMappingAction</a>). An action is associated to an event binding (<a class="el" href="classRa_1_1Gui_1_1KeyMappingManager_1_1EventBinding.html" title="Inner class to store event binding.">Ra::Gui::KeyMappingManager::EventBinding</a>), this binding represents the input (mouse, keys, modifiers) that are associated with the action. The context allows to use same binding for different actions depending of the considered context. The first widget that receive input event needs to manage contexts and determine which context to use to request corresponding action. Typically the viewer is this first widget, and can decide which context to use depending on what is under mouse, if gizmo edit is enable, or if an active camera manipulator is active. Action, context and binding are managed with <a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html" title="An utility class used to map a (combination of) key / modifiers / mouse buttons to a specific action....">Ra::Gui::KeyMappingManager</a> singleton.</p>
 <p>Context and action are simply indices (handle) stored in the key mapping manager, they are associated with <a class="elRef" target="_blank" href="http://en.cppreference.com/w/cpp/string/basic_string.html">std::string</a> name, to ease user key mapping management. Typical usage is to have one context per class that may have its specific key mapping actions.</p>
 <p>On the user side, one can test which action corresponds to a given binding (the one that triggers the event for instance), or use <a class="el" href="classRa_1_1Gui_1_1KeyMappingCallbackManager.html" title="This class manage a collection of binding/callback associated with a context.">Ra::Gui::KeyMappingCallbackManager</a> to trigger registered callback.</p>
-<h2><a class="anchor" id="autotoc_md80"></a>
+<h2><a class="anchor" id="autotoc_md58"></a>
 Usage</h2>
 <p>First step is to add the context, the actions and associated bindings to the manager. To this end you can either use configuration file or call <a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html#a333fc2c96c69caee3a8a96245eee8e05" title="Creates the context index for the given context name.">Ra::Gui::KeyMappingManager::addContext</a> and <a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html#ab95c41c67b46756514b13cfa0f4d5136">Ra::Gui::KeyMappingManager::addAction</a>.</p>
 <h3>Configuration file</h3>
@@ -178,9 +178,9 @@ Usage</h2>
 <h3>Implementation</h3>
 <p>On the implementation side, your class <code>C</code> need (could) derive from <code>KeyMappingManageable&lt;C&gt;</code>, it defines the static member variable <code>m_keyMappingContext</code>, and the static function <code>configureKeyMapping()</code>, that calls <code>configureKeyMapping_impl()</code>, which have to be implemented in your class <code>C</code>.</p>
 <p>Then you can store your specific actions as static member of your class, to ease checking which action is triggered.</p>
-<div class="fragment"><div class="line"><span class="keyword">class </span>Dummy : <span class="keyword">public</span> <a class="code hl_class" href="classRa_1_1Gui_1_1KeyMappingManageable.html">KeyMappingManageable</a>&lt;Dummy&gt;</div>
+<div class="fragment"><div class="line"><span class="keyword">class </span><a class="code hl_class" href="classDummy.html">Dummy</a> : <span class="keyword">public</span> <a class="code hl_class" href="classRa_1_1Gui_1_1KeyMappingManageable.html">KeyMappingManageable</a>&lt;Dummy&gt;</div>
 <div class="line">{</div>
-<div class="line">    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code hl_class" href="classRa_1_1Gui_1_1KeyMappingManageable.html">KeyMappingManageable</a>&lt;Dummy&gt;;</div>
+<div class="line">    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code hl_class" href="classRa_1_1Gui_1_1KeyMappingManageable.html">KeyMappingManageable</a>&lt;<a class="code hl_class" href="classDummy.html">Dummy</a>&gt;;</div>
 <div class="line">    <span class="keyword">static</span> <span class="keywordtype">void</span> configureKeyMapping_impl();</div>
 <div class="line">    <span class="keyword">static</span> <a class="code hl_typedef" href="classRa_1_1Gui_1_1KeyMappingManager.html#a41a05099c01660b695cdb70be3eb1655">KeyMappingManager::KeyMappingAction</a> m_myAction;</div>
 <div class="line"> </div>
@@ -196,9 +196,9 @@ Usage</h2>
 <div class="line"> </div>
 <div class="line">    m_myAction =</div>
 <div class="line">        Ra::Gui::KeyMappingManager::getInstance()-&gt;getAction( getContext(), <span class="stringliteral">&quot;MyActionName&quot;</span> );</div>
-</div><!-- fragment --><p>And also add a listener so key mapping context and action handles are updated in case of new configuration load. This can be done typically in application or viewer constructor, but after KeyMappingManager instance is created. </p><div class="fragment"><div class="line">            Gui::KeyMappingManager::getInstance()-&gt;addListener( Dummy::configureKeyMapping );</div>
+</div><!-- fragment --><p>And also add a listener so key mapping context and action handles are updated in case of new configuration load. This can be done typically in application or viewer constructor, but after KeyMappingManager instance is created. </p><div class="fragment"><div class="line">            Gui::KeyMappingManager::getInstance()-&gt;addListener( <a class="code hl_function" href="classRa_1_1Gui_1_1KeyMappingManageable.html#a32756ab3dce798b29ccad350f7c815ec">Dummy::configureKeyMapping</a> );</div>
 </div><!-- fragment --><p>To ease the initialization of Action handles, you can use macro as shown in <a class="el" href="Viewer_8hpp_source.html">Viewer.hpp</a> and <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a> (KeyMappingViewer and KMA_VALUE).</p>
-<h2><a class="anchor" id="autotoc_md81"></a>
+<h2><a class="anchor" id="autotoc_md59"></a>
 Implementation note</h2>
 <p>The viewer is the main entry point to dispatch key and mouse event. The idea is that at a key press or mouse press event, the viewer is capable of determining which class will receive the events.</p>
 <p>For instance see <code><a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a></code> <code>Viewer::mousePressEvent</code>: </p><div class="fragment"><div class="line">    <span class="keyword">auto</span> buttons   = <span class="keyword">event</span>-&gt;buttons();</div>
@@ -215,7 +215,7 @@ Implementation note</h2>
 <div class="line">            m_activeContext = KeyMappingManageable::getContext();</div>
 <div class="line">        }</div>
 <div class="line">    }</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md82"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md60"></a>
 Key mapping and inheritence</h2>
 <p>If you want to define a derived class that inherits a base class with key mapping, and you want to have key mapping management in this derived, you have to consider the following implementation details:</p>
 <ul>
@@ -260,10 +260,10 @@ Key mapping and inheritence</h2>
 <div class="line"> </div>
 <div class="line"><span class="preprocessor">#undef KMA_VALUE</span></div>
 <div class="line">}</div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1KeyMappingManageable_html"><div class="ttname"><a href="classRa_1_1Gui_1_1KeyMappingManageable.html">Ra::Gui::KeyMappingManageable</a></div><div class="ttdoc">KeyMappingManageable decorator to use as CRTP.</div><div class="ttdef"><b>Definition</b> <a href="KeyMappingManager_8hpp_source.html#l00239">KeyMappingManager.hpp:240</a></div></div>
+<div class="ttc" id="aclassRa_1_1Gui_1_1KeyMappingManageable_html"><div class="ttname"><a href="classRa_1_1Gui_1_1KeyMappingManageable.html">Ra::Gui::KeyMappingManageable</a></div><div class="ttdoc">KeyMappingManageable decorator to use as CRTP.</div><div class="ttdef"><b>Definition</b> <a href="KeyMappingManager_8hpp_source.html#l00243">KeyMappingManager.hpp:244</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1Viewer_html"><div class="ttname"><a href="classRa_1_1Gui_1_1Viewer.html">Ra::Gui::Viewer</a></div><div class="ttdef"><b>Definition</b> <a href="Viewer_8hpp_source.html#l00053">Viewer.hpp:54</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1Viewer_html_aaae0a0c0c419bd1dc8f0296214120a7d"><div class="ttname"><a href="classRa_1_1Gui_1_1Viewer.html#aaae0a0c0c419bd1dc8f0296214120a7d">Ra::Gui::Viewer::setupKeyMappingCallbacks</a></div><div class="ttdeci">virtual void setupKeyMappingCallbacks()</div><div class="ttdoc">add observers to keyMappingManager for gizmo, camera and viewer.</div><div class="ttdef"><b>Definition</b> <a href="Viewer_8cpp_source.html#l00074">Viewer.cpp:74</a></div></div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md83"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md61"></a>
 Callback manager</h2>
 <p>An easy way to manage action callback is to use KeyMappingCallbackManager. This manager is a class member, initialized with Context. One can register callback (std::function&lt;void(QEvent*)&gt;) that is triggered if the input event corresponds to the event binding.</p>
 <p>The callback is responsible to test if the event corresponds to an event it can handle.</p>
@@ -301,7 +301,7 @@ Callback manager</h2>
 <div class="line">    <span class="keywordflow">return</span> handled;</div>
 <div class="line">}</div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1TrackballCameraManipulator_html_a7a6555b6bf0c1ad891b915c18366fba4"><div class="ttname"><a href="classRa_1_1Gui_1_1TrackballCameraManipulator.html#a7a6555b6bf0c1ad891b915c18366fba4">Ra::Gui::TrackballCameraManipulator::handleMousePressEvent</a></div><div class="ttdeci">bool handleMousePressEvent(QMouseEvent *event, const Qt::MouseButtons &amp;buttons, const Qt::KeyboardModifiers &amp;modifiers, int key) override</div><div class="ttdef"><b>Definition</b> <a href="TrackballCameraManipulator_8cpp_source.html#l00197">TrackballCameraManipulator.cpp:197</a></div></div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md84"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md62"></a>
 Limits</h2>
 <ul>
 <li>Multiple keys/buttons are not yet implemented. </li>
@@ -312,7 +312,7 @@ Limits</h2>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="develmanual.html">Developer manual</a></li><li class="navelem"><a class="el" href="api.html">API</a></li><li class="navelem"><a class="el" href="gui.html">Gui</a></li>
+    <li class="navelem"><a class="el" href="conceptsmanual.html">Radium Concepts</a></li><li class="navelem"><a class="el" href="api.html">API</a></li><li class="navelem"><a class="el" href="gui.html">Gui</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
   </ul>
 </div>

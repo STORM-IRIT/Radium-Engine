@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.webp"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.5.23</span>
+   &#160;<span id="projectnumber">1.5.24</span>
    </div>
   </td>
  </tr>
@@ -154,12 +154,12 @@ $(function(){initNavTree('ConstrainedNumericSpinBox_8hpp_source.html',''); initR
 </div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>QValidator::State ConstrainedNumericSpinBox&lt;T&gt;::validate( QString&amp; input, <span class="keywordtype">int</span>&amp; )<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keyword">auto</span> valid = this-&gt;isValid( this-&gt;valueFromText( input ) );</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>QValidator::State ConstrainedNumericSpinBox&lt;T&gt;::validate( QString&amp;, <span class="keywordtype">int</span>&amp; )<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keyword">auto</span> valid = this-&gt;isValid( this-&gt;value() );</div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="keyword">auto</span>&amp; spin = <span class="keyword">const_cast&lt;</span>ConstrainedNumericSpinBox&amp;<span class="keyword">&gt;</span>( *this );</div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    spin.blockSignals( !valid );</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <span class="keywordflow">if</span> ( valid ) { spin.setStyleSheet( <span class="stringliteral">&quot;&quot;</span> ); }</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="keywordflow">else</span> { spin.setStyleSheet( <span class="stringliteral">&quot;background-color: #FF8080&quot;</span> ); }</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <span class="keywordflow">if</span> ( valid ) { spin.setSuffix( <span class="stringliteral">&quot;&quot;</span> ); }</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="keywordflow">else</span> { spin.setSuffix( <span class="stringliteral">&quot; *invalid*&quot;</span> ); }</div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="keywordflow">return</span> valid ? QValidator::Acceptable : QValidator::Invalid;</div>
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>}</div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
@@ -170,7 +170,7 @@ $(function(){initNavTree('ConstrainedNumericSpinBox_8hpp_source.html',''); initR
 <div class="ttc" id="aclassRa_1_1Gui_1_1Widgets_1_1ConstrainedNumericSpinBox_html_a2daaa94e913343c3be68f959d950aa4b"><div class="ttname"><a href="classRa_1_1Gui_1_1Widgets_1_1ConstrainedNumericSpinBox.html#a2daaa94e913343c3be68f959d950aa4b">Ra::Gui::Widgets::ConstrainedNumericSpinBox::isValid</a></div><div class="ttdeci">bool isValid(T s) const</div><div class="ttdoc">Validate a value.</div><div class="ttdef"><b>Definition</b> <a href="#l00033">ConstrainedNumericSpinBox.hpp:33</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1Widgets_1_1ConstrainedNumericSpinBox_html_a7cfe7440e764899cfa4d021c9b81e55e"><div class="ttname"><a href="classRa_1_1Gui_1_1Widgets_1_1ConstrainedNumericSpinBox.html#a7cfe7440e764899cfa4d021c9b81e55e">Ra::Gui::Widgets::ConstrainedNumericSpinBox::setPredicate</a></div><div class="ttdeci">void setPredicate(Predicate p)</div><div class="ttdoc">Set the predicate to evaluate.</div><div class="ttdef"><b>Definition</b> <a href="#l00027">ConstrainedNumericSpinBox.hpp:27</a></div></div>
 <div class="ttc" id="afunction_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/utility/functional/function.html">std::function&lt; bool(T)&gt;</a></div></div>
-<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">hepler function to manage enum as underlying types in VariableSet</div><div class="ttdef"><b>Definition</b> <a href="Cage_8cpp_source.html#l00003">Cage.cpp:3</a></div></div>
+<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">hepler function to manage enum as underlying types in VariableSet</div><div class="ttdef"><b>Definition</b> <a href="Cage_8cpp_source.html#l00004">Cage.cpp:4</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

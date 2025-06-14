@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.webp"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.5.23</span>
+   &#160;<span id="projectnumber">1.5.24</span>
    </div>
   </td>
  </tr>
@@ -127,23 +127,23 @@ $(function(){initNavTree('eventSystem.html',''); initResizable(true); });
 <div class="toc"><h3>Table of Contents</h3>
 <ul>
   <li class="level1">
-    <a href="#autotoc_md32">Notes for event handling the radium engine</a>
+    <a href="#autotoc_md44">Notes for event handling the radium engine</a>
     <ul>
       <li class="level2">
-        <a href="#autotoc_md33">Events identification</a>
+        <a href="#autotoc_md45">Events identification</a>
       </li>
       <li class="level2">
-        <a href="#autotoc_md34">Events registering</a>
+        <a href="#autotoc_md46">Events registering</a>
       </li>
       <li class="level2">
-        <a href="#autotoc_md35">Events queue</a>
+        <a href="#autotoc_md47">Events queue</a>
       </li>
     </ul>
   </li>
 </ul>
 </div>
 <div class="textblock"><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000004">Todo</a></b></dt><dd>check and update </dd></dl>
-<h1><a class="anchor" id="autotoc_md32"></a>
+<h1><a class="anchor" id="autotoc_md44"></a>
 Notes for event handling the radium engine</h1>
 <ul>
 <li>Basic events<ul>
@@ -154,14 +154,14 @@ Notes for event handling the radium engine</h1>
 </li>
 <li>Every plugin should be able to register his own events</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md33"></a>
+<h2><a class="anchor" id="autotoc_md45"></a>
 Events identification</h2>
 <p>Events could be identified by a name (string) and a unique ID</p>
-<h2><a class="anchor" id="autotoc_md34"></a>
+<h2><a class="anchor" id="autotoc_md46"></a>
 Events registering</h2>
 <p>When registering a new plugin, a function could be called by the engine to register new events, associating event names and ID and giving back IDs to the plugin.</p>
 <p>Any plugin could also ask the engine the ID of other plugins events, to subscribe to.</p>
-<h2><a class="anchor" id="autotoc_md35"></a>
+<h2><a class="anchor" id="autotoc_md47"></a>
 Events queue</h2>
 <p>When an event occurs, the sender adds it to engine's event queue, with associated data (<em>any</em> ftw !). Then at each frame, events could be handled this way :</p>
 <ul>

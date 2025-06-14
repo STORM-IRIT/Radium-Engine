@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.webp"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.5.23</span>
+   &#160;<span id="projectnumber">1.5.24</span>
    </div>
   </td>
  </tr>
@@ -127,16 +127,16 @@ $(function(){initNavTree('develmeshes.html',''); initResizable(true); });
 <div class="toc"><h3>Table of Contents</h3>
 <ul>
   <li class="level1">
-    <a href="#autotoc_md92">Geometry types</a>
+    <a href="#autotoc_md70">Geometry types</a>
   </li>
   <li class="level1">
-    <a href="#autotoc_md93">Colaboration between Core and Engine</a>
+    <a href="#autotoc_md71">Colaboration between Core and Engine</a>
   </li>
   <li class="level1">
-    <a href="#autotoc_md94">Data consistency</a>
+    <a href="#autotoc_md72">Data consistency</a>
   </li>
   <li class="level1">
-    <a href="#autotoc_md95">Mesh creation</a>
+    <a href="#autotoc_md73">Mesh creation</a>
     <ul>
       <li class="level2">
         <a href="#wedges">Wedges</a>
@@ -145,7 +145,7 @@ $(function(){initNavTree('develmeshes.html',''); initResizable(true); });
   </li>
 </ul>
 </div>
-<div class="textblock"><h1><a class="anchor" id="autotoc_md92"></a>
+<div class="textblock"><h1><a class="anchor" id="autotoc_md70"></a>
 Geometry types</h1>
 <p>There is three kind of geometry representation included in radium source :</p>
 <ol type="1">
@@ -175,14 +175,14 @@ Geometry types</h1>
 </li>
 </ol>
 <p><code>*</code> : the starred classes are the one you want to instanciate, the other are more for code factoring or abstraction.</p>
-<h1><a class="anchor" id="autotoc_md93"></a>
+<h1><a class="anchor" id="autotoc_md71"></a>
 Colaboration between Core and Engine</h1>
 <p>A Core Geometry can be used on its own.</p>
 <p>Engine Geometry must own a Core Geometry, either set at construction, or later with loadGeometry. The Core Geometry ownership is then transfered to the Engine Geometry, and can be accessed by reference with <a class="el" href="classRa_1_1Engine_1_1Data_1_1Displayable.html#aab6e5c5ae31f270d10115062176a82ae">Ra::Engine::Data::Displayable::getAbstractGeometry</a> or Ra::Engine::Data::CoreGeometryDisplayable::getCoreGeometry</p>
-<h1><a class="anchor" id="autotoc_md94"></a>
+<h1><a class="anchor" id="autotoc_md72"></a>
 Data consistency</h1>
 <p>As soon as a Core Geometry is owned by a Engine Geometry, each data update on the Core Geometry attribute trigger a observator method to mark the corresponding GPU data as dirty. On the next <a class="el" href="classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html#a185171226018c59fb689efcb2154619b" title="Update (i.e. send to GPU) the buffers marked as dirty.">Ra::Engine::Data::CoreGeometryDisplayable::updateGL</a>, the dirty data will be updated on the GPU.</p>
-<h1><a class="anchor" id="autotoc_md95"></a>
+<h1><a class="anchor" id="autotoc_md73"></a>
 Mesh creation</h1>
 <p><code>GeometryComponent</code> is in charge of loading a <code>GeometryData</code> and create the corresponding <code>Mesh</code>.</p>
 <p>The user can add on the fly new vertex attributes to a <a class="el" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html" title="This class represents vertex + attributes per vertex. Toplogy is handled in MultiIndexedGeometry subc...">Ra::Core::Geometry::AttribArrayGeometry</a> An attribute is defined by a unique name (<a class="elRef" target="_blank" href="http://en.cppreference.com/w/cpp/string/basic_string.html">std::string</a>) and then represented as a <a class="el" href="classRa_1_1Core_1_1Utils_1_1AttribHandle.html" title="An attrib handle basically store an Index and a name.">Ra::Core::Utils::AttribHandle</a>. The type of the attribute is defined by the caller using the template parameter of the method <a class="el" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#ae1956b0396dadd84f55a12f2160e5671">Ra::Core::Geometry::AttribArrayGeometry::addAttrib</a>. To ensure consistency, it is strongly recommended to store the handle returned by the <a class="el" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#ae1956b0396dadd84f55a12f2160e5671">Ra::Core::Geometry::AttribArrayGeometry::addAttrib</a> method:</p>
@@ -254,7 +254,7 @@ Wedge concept in a nutshell.</div></div>
     <p>Wedge are built at construction by using CoreMesh vertex index (which are supposed to represent wedges). Vertices with same (exact) position are merged topologically.</p>
 <p>The figure above show the basic concept of wedges for the example of vertex with color attribute (same works for normals, texture coordinates or any other attributes). a) A colored mesh, each vertex can have a different color depending on which face is considered. b) for rendering, vertex are duplicated the needed number of time. Here the center vertex is duplicated three time, while the top right one is duplicated two times. c) But for topological computation, one need to know these vertex are actually the same position, and are modified the same way. d) So the attributes (here color only) are represented as wedges associated with each coherent set of position+attributes. Here the center vertex has three wedges, while the top right vertex has two wedges. e) In the TopologicalMesh implementation, wedges are stored in an array, independently of the topology. Each half-edge has a wedge index. Half-edges that share the same wedge have the same index. During manipulation, if two wedges become the same (i.e. for the example on the figure, if we recolor the whole mesh using a single color), <b>they are not merged</b>. To merge wedges an explicit call to TopologicalMesh::mergeEqualWedges is needed. When a wedge is not referenced anymore (because referencing halfedges have been deleted), it is marked for deletation. When one call <a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#ad0eb9c1c7711f3aa24ad612b339942bc" title="Remove deleted element from the mesh, including wedges.">Ra::Core::Geometry::TopologicalMesh::garbage_collection()</a>, the marked wedges are eventually deleted and halfedges index are updated accordingly.</p>
 <p>During conversion from Core::Geometry::*Mesh to Core::Geometry::TopologicalMesh, non manifold mesh faces are not added but given to an optionally provided user defined functor (see <a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#ab71f7b807bf20ff4b85d03a4db6961e6">Ra::Core::Geometry::TopologicalMesh::TopologicalMesh</a> and Ra::Core::Geometry::DefaultNonManifoldFaceCommand). Some meshes have multiple times the <b>same</b> vertices with <b>different</b> values for attributes inside a <b>single</b> face. This kind of situation can either raise degenerated faces, (in case of triangle mesh) or valid faces for some cases for polymesh.</p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000008">Todo</a></b></dt><dd>will be supported when TopologicalMesh will support PolyMesh.</dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000007">Todo</a></b></dt><dd>will be supported when TopologicalMesh will support PolyMesh.</dd></dl>
 <p>In the latter case, the face is cleaned from the duplicated position and added to the TopologicalMesh, using the first encountered wedge value. The following figure illustrate this. <img src="wedge-degen.svg" alt="" style="pointer-events: none;" class="inline" title="Mesh to Topo conversion for faces with multiples times the same 3D position"/>    </p>
 <p>TopologicalMesh methods and types related to wedges:</p>
 <ul>
@@ -272,7 +272,7 @@ Wedge concept in a nutshell.</div></div>
 <li>Ra::Core::Geometry::TopologicalMesh::getWedgeIndexPph</li>
 </ul>
 <dl class="section warning"><dt>Warning</dt><dd>To delete face, one need to call <code>Ra::Core::Geometry::TopologicalMesh::delete_face</code>, not the <code>OpenMesh</code> vanilla <code>delete_face</code></dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000009">Todo</a></b></dt><dd>make OpenMesh inheritance private.</dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000008">Todo</a></b></dt><dd>make OpenMesh inheritance private.</dd></dl>
 <p>Use <code>Ra::Core::Geometry::TopologicalMesh::collapseWedge</code> to perform halfedge collapse (works on triangle only ...). The following figure show the nasty updates: <img src="wedge-collapse.svg" alt="" style="pointer-events: none;" class="inline" title="Halfedge collapse and wedge."/>     </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
@@ -280,7 +280,7 @@ Wedge concept in a nutshell.</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="develmanual.html">Developer manual</a></li><li class="navelem"><a class="el" href="api.html">API</a></li><li class="navelem"><a class="el" href="core.html">Core</a></li>
+    <li class="navelem"><a class="el" href="conceptsmanual.html">Radium Concepts</a></li><li class="navelem"><a class="el" href="api.html">API</a></li><li class="navelem"><a class="el" href="core.html">Core</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
   </ul>
 </div>

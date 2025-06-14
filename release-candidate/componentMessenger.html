@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.webp"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.5.23</span>
+   &#160;<span id="projectnumber">1.5.24</span>
    </div>
   </td>
  </tr>
@@ -127,22 +127,22 @@ $(function(){initNavTree('componentMessenger.html',''); initResizable(true); });
 <div class="toc"><h3>Table of Contents</h3>
 <ul>
   <li class="level1">
-    <a href="#autotoc_md28">Read</a>
+    <a href="#autotoc_md31">Read</a>
   </li>
   <li class="level1">
-    <a href="#autotoc_md29">Write</a>
+    <a href="#autotoc_md32">Write</a>
   </li>
   <li class="level1">
-    <a href="#autotoc_md30">Read&#39;n&#39;Write</a>
+    <a href="#autotoc_md33">Read&#39;n&#39;Write</a>
   </li>
   <li class="level1">
-    <a href="#autotoc_md31">The &lt;tt&gt;setupIO()&lt;/tt&gt; function</a>
+    <a href="#autotoc_md34">The &lt;tt&gt;setupIO()&lt;/tt&gt; function</a>
   </li>
 </ul>
 </div>
 <div class="textblock"><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000003">Todo</a></b></dt><dd>check and update </dd></dl>
 <p>This class is used to make componenent share data between each others. The whole system is based on <b>callbacks</b> registered from both parts to publish, suscribe or both to a data.</p>
-<h1><a class="anchor" id="autotoc_md28"></a>
+<h1><a class="anchor" id="autotoc_md31"></a>
 Read</h1>
 <p>The <b>suscriber</b> must define and register some <code><a class="el" href="structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes.html#a06292bfe7ce6eb822834273ae0a60fce" title="Function pointer for a setter function.">Ra::Engine::Scene::ComponentMessenger::CallbackTypes::Setter</a></code> that will be used by the <code>ComponentMessenger</code> to set the data to the former. </p><pre class="fragment">// definition of callback
 ComponentMessenger::CallbackTypes&lt;T&gt;::Setter data_in = std::bind( &amp;FooComponent::setDataIn, this, std::placeholders::_1 );
@@ -155,7 +155,7 @@ if (ComponentMessenger::getInstance()-&gt;canGet&lt;T&gt;( entity, "name") )
 {
     data = ComponentMessenger::getInstance()-&gt;get&lt;T&gt;( entity, "name");
 }
-</pre><h1><a class="anchor" id="autotoc_md29"></a>
+</pre><h1><a class="anchor" id="autotoc_md32"></a>
 Write</h1>
 <pre class="fragment">// definition of callback
 ComponentMessenger::CallbackTypes&lt;T&gt;::Getter data_out = std::bind( &amp;FooComponent::getDataOut, this );
@@ -163,7 +163,7 @@ ComponentMessenger::CallbackTypes&lt;T&gt;::Getter data_out = std::bind( &amp;Fo
 // registration
 ComponentMessenger::getInstance()-&gt;registerOutput&lt;T&gt;( entity, this, "name", data_out );
 </pre><p>The <b>publisher</b> will define and register a <code><a class="el" href="structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes.html#ad3b421fdb7fe4703e3773b622076b373" title="Function pointer for a getter function.">Ra::Engine::Scene::ComponentMessenger::CallbackTypes::Getter</a></code> that will be used by the <code>ComponentMessenger</code> to fetch data from the former.</p>
-<h1><a class="anchor" id="autotoc_md30"></a>
+<h1><a class="anchor" id="autotoc_md33"></a>
 Read'n'Write</h1>
 <pre class="fragment">// definition of callback
 ComponentMessenger::CallbackTypes&lt;T&gt;::ReadWrite data_rw = std::bind( &amp;FooComponent::getDataRw, this );
@@ -177,7 +177,7 @@ if (ComponentMessenger::getInstance()-&gt;canRw&lt;T&gt;( entity, "name"))
     T&amp; data = ComponentMessenger::getInstance()-&gt;rw&lt;T&gt;( entity, "name" );
 }
 </pre><p>Here a pointer of the data is basically shared and everyone has only to do:</p>
-<h1><a class="anchor" id="autotoc_md31"></a>
+<h1><a class="anchor" id="autotoc_md34"></a>
 The <code>setupIO()</code> function</h1>
 <p>A convention is to use the <code>setupIO()</code> function to interact with the messenger. </p>
 </div></div><!-- contents -->

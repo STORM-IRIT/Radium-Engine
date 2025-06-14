@@ -1,5 +1,8 @@
 var annotated_dup =
 [
+    [ "Customs", null, [
+      [ "FilterSelector", "classCustoms_1_1FilterSelector.html", "classCustoms_1_1FilterSelector" ]
+    ] ],
     [ "Ra", "namespaceRa.html", [
       [ "Core", "namespaceRa_1_1Core.html", [
         [ "Animation", null, [
@@ -61,6 +64,14 @@ var annotated_dup =
           [ "VolumeGrid", "classRa_1_1Core_1_1Geometry_1_1VolumeGrid.html", "classRa_1_1Core_1_1Geometry_1_1VolumeGrid" ],
           [ "VolumeSparse", "classRa_1_1Core_1_1Geometry_1_1VolumeSparse.html", "classRa_1_1Core_1_1Geometry_1_1VolumeSparse" ]
         ] ],
+        [ "Random", "namespaceRa_1_1Core_1_1Random.html", [
+          [ "FibonacciPointSet", "classRa_1_1Core_1_1Random_1_1FibonacciPointSet.html", null ],
+          [ "FibonacciSequence", "classRa_1_1Core_1_1Random_1_1FibonacciSequence.html", null ],
+          [ "HammersleyPointSet", "classRa_1_1Core_1_1Random_1_1HammersleyPointSet.html", null ],
+          [ "MersenneTwisterPointSet", "classRa_1_1Core_1_1Random_1_1MersenneTwisterPointSet.html", null ],
+          [ "SphericalPointSet", "classRa_1_1Core_1_1Random_1_1SphericalPointSet.html", null ],
+          [ "VanDerCorputSequence", "structRa_1_1Core_1_1Random_1_1VanDerCorputSequence.html", null ]
+        ] ],
         [ "Utils", null, [
           [ "TypeListInternal", null, [
             [ "TSAppendImpl", "structRa_1_1Core_1_1Utils_1_1TypeListInternal_1_1TSAppendImpl.html", null ],
@@ -86,6 +97,8 @@ var annotated_dup =
         [ "AdjacencyList", "classRa_1_1Core_1_1AdjacencyList.html", "classRa_1_1Core_1_1AdjacencyList" ],
         [ "AlignedAllocator", "classRa_1_1Core_1_1AlignedAllocator.html", null ],
         [ "DualQuaternion", "classRa_1_1Core_1_1DualQuaternion.html", "classRa_1_1Core_1_1DualQuaternion" ],
+        [ "DynamicVisitor", "classRa_1_1Core_1_1DynamicVisitor.html", "classRa_1_1Core_1_1DynamicVisitor" ],
+        [ "DynamicVisitorBase", "classRa_1_1Core_1_1DynamicVisitorBase.html", "classRa_1_1Core_1_1DynamicVisitorBase" ],
         [ "FunctionTask", "classRa_1_1Core_1_1FunctionTask.html", "classRa_1_1Core_1_1FunctionTask" ],
         [ "Grid", "classRa_1_1Core_1_1Grid.html", "classRa_1_1Core_1_1Grid" ],
         [ "Quadric", "classRa_1_1Core_1_1Quadric.html", "classRa_1_1Core_1_1Quadric" ],
@@ -96,6 +109,54 @@ var annotated_dup =
         [ "VectorArray", "classRa_1_1Core_1_1VectorArray.html", "classRa_1_1Core_1_1VectorArray" ],
         [ "VectorArrayTypeHelper", "structRa_1_1Core_1_1VectorArrayTypeHelper.html", null ],
         [ "VectorArrayTypeHelperInternal", "structRa_1_1Core_1_1VectorArrayTypeHelperInternal.html", null ]
+      ] ],
+      [ "Dataflow", null, [
+        [ "Core", null, [
+          [ "Functionals", null, [
+            [ "internal", "namespaceRa_1_1Dataflow_1_1Core_1_1Functionals_1_1internal.html", [
+              [ "ArgTypeHelper", "structRa_1_1Dataflow_1_1Core_1_1Functionals_1_1internal_1_1ArgTypeHelper.html", null ],
+              [ "ArgTypeHelperInternal", "structRa_1_1Dataflow_1_1Core_1_1Functionals_1_1internal_1_1ArgTypeHelperInternal.html", null ],
+              [ "ArgTypeHelperInternal< A, true >", "structRa_1_1Dataflow_1_1Core_1_1Functionals_1_1internal_1_1ArgTypeHelperInternal_3_01A_00_01true_01_4.html", null ],
+              [ "ExecutorHelper", "structRa_1_1Dataflow_1_1Core_1_1Functionals_1_1internal_1_1ExecutorHelper.html", null ],
+              [ "ExecutorHelper< t_a, t_b, t_out, funcType, false, false, false >", "structRa_1_1Dataflow_1_1Core_1_1Functionals_1_1internal_1_1ExecutorHelper_3_01t__a_00_01t__b_00_c0d156c2640f25a6ed3eaf0e336d996c.html", null ],
+              [ "ExecutorHelper< t_a, t_b, t_out, funcType, false, true, true >", "structRa_1_1Dataflow_1_1Core_1_1Functionals_1_1internal_1_1ExecutorHelper_3_01t__a_00_01t__b_00_37c271a29f78c9c1c6ff269324480833.html", null ],
+              [ "ExecutorHelper< t_a, t_b, t_out, funcType, true, false, true >", "structRa_1_1Dataflow_1_1Core_1_1Functionals_1_1internal_1_1ExecutorHelper_3_01t__a_00_01t__b_00_873af39f8c5d08e7c652ad0b861a3bb4.html", null ],
+              [ "ExecutorHelper< t_a, t_b, t_out, funcType, true, true, true >", "structRa_1_1Dataflow_1_1Core_1_1Functionals_1_1internal_1_1ExecutorHelper_3_01t__a_00_01t__b_00_12e523cfeed5a55d002efd024fce3105.html", null ]
+            ] ],
+            [ "BinaryOpNode", "classRa_1_1Dataflow_1_1Core_1_1Functionals_1_1BinaryOpNode.html", "classRa_1_1Dataflow_1_1Core_1_1Functionals_1_1BinaryOpNode" ],
+            [ "FilterNode", "classRa_1_1Dataflow_1_1Core_1_1Functionals_1_1FilterNode.html", "classRa_1_1Dataflow_1_1Core_1_1Functionals_1_1FilterNode" ],
+            [ "ReduceNode", "classRa_1_1Dataflow_1_1Core_1_1Functionals_1_1ReduceNode.html", "classRa_1_1Dataflow_1_1Core_1_1Functionals_1_1ReduceNode" ],
+            [ "TransformNode", "classRa_1_1Dataflow_1_1Core_1_1Functionals_1_1TransformNode.html", "classRa_1_1Dataflow_1_1Core_1_1Functionals_1_1TransformNode" ]
+          ] ],
+          [ "Sinks", null, [
+            [ "SinkNode", "classRa_1_1Dataflow_1_1Core_1_1Sinks_1_1SinkNode.html", "classRa_1_1Dataflow_1_1Core_1_1Sinks_1_1SinkNode" ]
+          ] ],
+          [ "Sources", null, [
+            [ "FunctionSourceNode", "classRa_1_1Dataflow_1_1Core_1_1Sources_1_1FunctionSourceNode.html", "classRa_1_1Dataflow_1_1Core_1_1Sources_1_1FunctionSourceNode" ],
+            [ "SingleDataSourceNode", "classRa_1_1Dataflow_1_1Core_1_1Sources_1_1SingleDataSourceNode.html", "classRa_1_1Dataflow_1_1Core_1_1Sources_1_1SingleDataSourceNode" ]
+          ] ],
+          [ "DataflowGraph", "classRa_1_1Dataflow_1_1Core_1_1DataflowGraph.html", "classRa_1_1Dataflow_1_1Core_1_1DataflowGraph" ],
+          [ "Node", "classRa_1_1Dataflow_1_1Core_1_1Node.html", "classRa_1_1Dataflow_1_1Core_1_1Node" ],
+          [ "NodeFactory", "classRa_1_1Dataflow_1_1Core_1_1NodeFactory.html", "classRa_1_1Dataflow_1_1Core_1_1NodeFactory" ],
+          [ "NodeFactorySet", "classRa_1_1Dataflow_1_1Core_1_1NodeFactorySet.html", "classRa_1_1Dataflow_1_1Core_1_1NodeFactorySet" ],
+          [ "PortBase", "classRa_1_1Dataflow_1_1Core_1_1PortBase.html", "classRa_1_1Dataflow_1_1Core_1_1PortBase" ],
+          [ "PortIn", "classRa_1_1Dataflow_1_1Core_1_1PortIn.html", "classRa_1_1Dataflow_1_1Core_1_1PortIn" ],
+          [ "PortOut", "classRa_1_1Dataflow_1_1Core_1_1PortOut.html", "classRa_1_1Dataflow_1_1Core_1_1PortOut" ]
+        ] ],
+        [ "QtGui", null, [
+          [ "GraphEditor", null, [
+            [ "GraphEditorWindow", "classRa_1_1Dataflow_1_1QtGui_1_1GraphEditor_1_1GraphEditorWindow.html", null ],
+            [ "GraphModel", "classRa_1_1Dataflow_1_1QtGui_1_1GraphEditor_1_1GraphModel.html", "classRa_1_1Dataflow_1_1QtGui_1_1GraphEditor_1_1GraphModel" ]
+          ] ]
+        ] ],
+        [ "Rendering", null, [
+          [ "Nodes", null, [
+            [ "RenderingNode", "classRa_1_1Dataflow_1_1Rendering_1_1Nodes_1_1RenderingNode.html", "classRa_1_1Dataflow_1_1Rendering_1_1Nodes_1_1RenderingNode" ]
+          ] ],
+          [ "Renderer", null, [
+            [ "DataflowRenderer", "classRa_1_1Dataflow_1_1Rendering_1_1Renderer_1_1DataflowRenderer.html", "classRa_1_1Dataflow_1_1Rendering_1_1Renderer_1_1DataflowRenderer" ]
+          ] ]
+        ] ]
       ] ],
       [ "Engine", "namespaceRa_1_1Engine.html", [
         [ "Data", "namespaceRa_1_1Engine_1_1Data.html", [
@@ -179,6 +240,9 @@ var annotated_dup =
         [ "RadiumEngine", "classRa_1_1Engine_1_1RadiumEngine.html", "classRa_1_1Engine_1_1RadiumEngine" ]
       ] ],
       [ "Gui", null, [
+        [ "internal", null, [
+          [ "RenderParameterUiBuilder", "classRa_1_1Gui_1_1internal_1_1RenderParameterUiBuilder.html", null ]
+        ] ],
         [ "Widgets", null, [
           [ "ConstrainedNumericSpinBox", "classRa_1_1Gui_1_1Widgets_1_1ConstrainedNumericSpinBox.html", "classRa_1_1Gui_1_1Widgets_1_1ConstrainedNumericSpinBox" ],
           [ "ControlPanel", "classRa_1_1Gui_1_1Widgets_1_1ControlPanel.html", "classRa_1_1Gui_1_1Widgets_1_1ControlPanel" ],
@@ -234,5 +298,8 @@ var annotated_dup =
         [ "RadiumPluginInterface", "classRa_1_1Plugins_1_1RadiumPluginInterface.html", "classRa_1_1Plugins_1_1RadiumPluginInterface" ]
       ] ],
       [ "FrameTimerData", "structRa_1_1FrameTimerData.html", null ]
-    ] ]
+    ] ],
+    [ "Dummy", "classDummy.html", "classDummy" ],
+    [ "has_ostream_operator_impl", "structhas__ostream__operator__impl.html", null ],
+    [ "PrintAllHelper", "structPrintAllHelper.html", null ]
 ];

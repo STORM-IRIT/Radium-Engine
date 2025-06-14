@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.webp"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.5.23</span>
+   &#160;<span id="projectnumber">1.5.24</span>
    </div>
   </td>
  </tr>
@@ -205,10 +205,10 @@ Public Member Functions</h2></td></tr>
 <div class="line">taskQueue.startTasks();</div>
 <div class="line">taskQueue.waitForTasks();</div>
 <div class="line">taskQueue.flushTaskQueue();</div>
-<div class="ttc" id="aclassRa_1_1Core_1_1TaskQueue_html"><div class="ttname"><a href="classRa_1_1Core_1_1TaskQueue.html">Ra::Core::TaskQueue</a></div><div class="ttdoc">This class allows tasks to be registered and then executed in parallel on separate threads.</div><div class="ttdef"><b>Definition</b> <a href="TaskQueue_8hpp_source.html#l00047">TaskQueue.hpp:48</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1TaskQueue_html"><div class="ttname"><a href="classRa_1_1Core_1_1TaskQueue.html">Ra::Core::TaskQueue</a></div><div class="ttdoc">This class allows tasks to be registered and then executed in parallel on separate threads.</div><div class="ttdef"><b>Definition</b> <a href="TaskQueue_8hpp_source.html#l00049">TaskQueue.hpp:50</a></div></div>
 <div class="ttc" id="amove_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/utility/move.html">std::move</a></div><div class="ttdeci">T move(T... args)</div></div>
 </div><!-- fragment --> 
-<p class="definition">Definition at line <a class="el" href="TaskQueue_8hpp_source.html#l00047">47</a> of file <a class="el" href="TaskQueue_8hpp_source.html">TaskQueue.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TaskQueue_8hpp_source.html#l00049">49</a> of file <a class="el" href="TaskQueue_8hpp_source.html">TaskQueue.hpp</a>.</p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
 <a id="a95e06345125fdbfe4c0960fcff50246a" name="a95e06345125fdbfe4c0960fcff50246a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a95e06345125fdbfe4c0960fcff50246a">&#9670;&#160;</a></span>TaskId</h2>
@@ -224,7 +224,7 @@ Public Member Functions</h2></td></tr>
 
 <p>Identifier for a task in the task queue. </p>
 
-<p class="definition">Definition at line <a class="el" href="TaskQueue_8hpp_source.html#l00051">51</a> of file <a class="el" href="TaskQueue_8hpp_source.html">TaskQueue.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TaskQueue_8hpp_source.html#l00053">53</a> of file <a class="el" href="TaskQueue_8hpp_source.html">TaskQueue.hpp</a>.</p>
 
 </div>
 </div>
@@ -253,7 +253,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>Constructor. Initializes the thread worker pools with numThreads threads. if numThreads == 0, its a runTasksInThisThread only task queue </p>
 
-<p class="definition">Definition at line <a class="el" href="TaskQueue_8cpp_source.html#l00014">14</a> of file <a class="el" href="TaskQueue_8cpp_source.html">TaskQueue.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TaskQueue_8cpp_source.html#l00021">21</a> of file <a class="el" href="TaskQueue_8cpp_source.html">TaskQueue.cpp</a>.</p>
 <div id="dynsection-1" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-1-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-1-summary" class="dynsummary" style="display:block;">
@@ -281,7 +281,7 @@ Public Member Functions</h2></td></tr>
 
 <p>Destructor. Waits for all the threads and safely deletes them. </p>
 
-<p class="definition">Definition at line <a class="el" href="TaskQueue_8cpp_source.html#l00022">22</a> of file <a class="el" href="TaskQueue_8cpp_source.html">TaskQueue.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TaskQueue_8cpp_source.html#l00029">29</a> of file <a class="el" href="TaskQueue_8cpp_source.html">TaskQueue.cpp</a>.</p>
 <div id="dynsection-2" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-2-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-2-summary" class="dynsummary" style="display:block;">
@@ -313,7 +313,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>Add dependency between a task and all task with a given name. Will return false if no dependency has been added. </p>
 
-<p class="definition">Definition at line <a class="el" href="TaskQueue_8cpp_source.html#l00094">94</a> of file <a class="el" href="TaskQueue_8cpp_source.html">TaskQueue.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TaskQueue_8cpp_source.html#l00101">101</a> of file <a class="el" href="TaskQueue_8cpp_source.html">TaskQueue.cpp</a>.</p>
 <div id="dynsection-3" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-3-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-3-summary" class="dynsummary" style="display:block;">
@@ -343,7 +343,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="TaskQueue_8cpp_source.html#l00106">106</a> of file <a class="el" href="TaskQueue_8cpp_source.html">TaskQueue.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TaskQueue_8cpp_source.html#l00113">113</a> of file <a class="el" href="TaskQueue_8cpp_source.html">TaskQueue.cpp</a>.</p>
 
 </div>
 </div>
@@ -367,7 +367,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>Add dependency between two tasks. The successor task will be executed only when all its predecessor completed. </p>
 
-<p class="definition">Definition at line <a class="el" href="TaskQueue_8cpp_source.html#l00077">77</a> of file <a class="el" href="TaskQueue_8cpp_source.html">TaskQueue.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TaskQueue_8cpp_source.html#l00084">84</a> of file <a class="el" href="TaskQueue_8cpp_source.html">TaskQueue.cpp</a>.</p>
 <div id="dynsection-4" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-4-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-4-summary" class="dynsummary" style="display:block;">
@@ -398,7 +398,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>Add a dependency between a task an all tasks with a given name, even if the task is not present yet, the name being resolved when task start. </p>
 
-<p class="definition">Definition at line <a class="el" href="TaskQueue_8cpp_source.html#l00117">117</a> of file <a class="el" href="TaskQueue_8cpp_source.html">TaskQueue.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TaskQueue_8cpp_source.html#l00124">124</a> of file <a class="el" href="TaskQueue_8cpp_source.html">TaskQueue.cpp</a>.</p>
 <div id="dynsection-5" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-5-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-5-summary" class="dynsummary" style="display:block;">
@@ -428,7 +428,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="TaskQueue_8cpp_source.html#l00123">123</a> of file <a class="el" href="TaskQueue_8cpp_source.html">TaskQueue.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TaskQueue_8cpp_source.html#l00130">130</a> of file <a class="el" href="TaskQueue_8cpp_source.html">TaskQueue.cpp</a>.</p>
 
 </div>
 </div>
@@ -449,7 +449,7 @@ Public Member Functions</h2></td></tr>
 
 <p>Erases all tasks. Will assert if tasks are unprocessed. </p>
 
-<p class="definition">Definition at line <a class="el" href="TaskQueue_8cpp_source.html#l00269">269</a> of file <a class="el" href="TaskQueue_8cpp_source.html">TaskQueue.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TaskQueue_8cpp_source.html#l00276">276</a> of file <a class="el" href="TaskQueue_8cpp_source.html">TaskQueue.cpp</a>.</p>
 <div id="dynsection-6" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-6-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-6-summary" class="dynsummary" style="display:block;">
@@ -475,7 +475,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="TaskQueue_8cpp_source.html#l00067">67</a> of file <a class="el" href="TaskQueue_8cpp_source.html">TaskQueue.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TaskQueue_8cpp_source.html#l00074">74</a> of file <a class="el" href="TaskQueue_8cpp_source.html">TaskQueue.cpp</a>.</p>
 
 </div>
 </div>
@@ -496,7 +496,7 @@ Public Member Functions</h2></td></tr>
 
 <p>Access the data from the last frame execution after processTaskQueue();. </p>
 
-<p class="definition">Definition at line <a class="el" href="TaskQueue_8cpp_source.html#l00265">265</a> of file <a class="el" href="TaskQueue_8cpp_source.html">TaskQueue.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TaskQueue_8cpp_source.html#l00272">272</a> of file <a class="el" href="TaskQueue_8cpp_source.html">TaskQueue.cpp</a>.</p>
 
 </div>
 </div>
@@ -517,7 +517,7 @@ Public Member Functions</h2></td></tr>
 
 <p>Prints the current task graph in dot format. </p>
 
-<p class="definition">Definition at line <a class="el" href="TaskQueue_8cpp_source.html#l00338">338</a> of file <a class="el" href="TaskQueue_8cpp_source.html">TaskQueue.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TaskQueue_8cpp_source.html#l00345">345</a> of file <a class="el" href="TaskQueue_8cpp_source.html">TaskQueue.cpp</a>.</p>
 <div id="dynsection-7" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-7-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-7-summary" class="dynsummary" style="display:block;">
@@ -544,7 +544,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>Registers a task to be executed. <a class="el" href="classRa_1_1Core_1_1Task.html">Task</a> must have been created with new and be initialized with its parameter. The task queue assumes ownership of the task. </p>
 
-<p class="definition">Definition at line <a class="el" href="TaskQueue_8cpp_source.html#l00033">33</a> of file <a class="el" href="TaskQueue_8cpp_source.html">TaskQueue.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TaskQueue_8cpp_source.html#l00040">40</a> of file <a class="el" href="TaskQueue_8cpp_source.html">TaskQueue.cpp</a>.</p>
 <div id="dynsection-8" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-8-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-8-summary" class="dynsummary" style="display:block;">
@@ -571,7 +571,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>remove a task, in fact simply replace the task by a dummy empty one. hence do not affect dependencies don't affect other task id's </p>
 
-<p class="definition">Definition at line <a class="el" href="TaskQueue_8cpp_source.html#l00050">50</a> of file <a class="el" href="TaskQueue_8cpp_source.html">TaskQueue.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TaskQueue_8cpp_source.html#l00057">57</a> of file <a class="el" href="TaskQueue_8cpp_source.html">TaskQueue.cpp</a>.</p>
 <div id="dynsection-9" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-9-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-9-summary" class="dynsummary" style="display:block;">
@@ -598,7 +598,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>Launches the execution of all task in the thread of the caller. Return when all tasks are done. Usefull for instance for opengl related tasks that must run in the context thread. Once tasks are all processed, this method call flushTasksQueue. </p><dl class="section warning"><dt>Warning</dt><dd>use either this method, either a startTasks/waitForTasks. calling runTasksInThisThead between startTasks/waitForTasks calls may produce unexpected results. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="TaskQueue_8cpp_source.html#l00214">214</a> of file <a class="el" href="TaskQueue_8cpp_source.html">TaskQueue.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TaskQueue_8cpp_source.html#l00221">221</a> of file <a class="el" href="TaskQueue_8cpp_source.html">TaskQueue.cpp</a>.</p>
 <div id="dynsection-10" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-10-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-10-summary" class="dynsummary" style="display:block;">
@@ -625,7 +625,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>Launches the execution of all the tasks in the task queue. No more tasks should be added at this point. </p>
 
-<p class="definition">Definition at line <a class="el" href="TaskQueue_8cpp_source.html#l00185">185</a> of file <a class="el" href="TaskQueue_8cpp_source.html">TaskQueue.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TaskQueue_8cpp_source.html#l00192">192</a> of file <a class="el" href="TaskQueue_8cpp_source.html">TaskQueue.cpp</a>.</p>
 <div id="dynsection-11" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-11-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-11-summary" class="dynsummary" style="display:block;">
@@ -653,7 +653,7 @@ Public Member Functions</h2></td></tr>
 
 <p>Blocks until all tasks and dependencies are finished. </p>
 
-<p class="definition">Definition at line <a class="el" href="TaskQueue_8cpp_source.html#l00259">259</a> of file <a class="el" href="TaskQueue_8cpp_source.html">TaskQueue.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TaskQueue_8cpp_source.html#l00266">266</a> of file <a class="el" href="TaskQueue_8cpp_source.html">TaskQueue.cpp</a>.</p>
 <div id="dynsection-12" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-12-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-12-summary" class="dynsummary" style="display:block;">

@@ -1,7 +1,5 @@
 var classRa_1_1Core_1_1VariableSet =
 [
-    [ "DynamicVisitor", "classRa_1_1Core_1_1VariableSet_1_1DynamicVisitor.html", "classRa_1_1Core_1_1VariableSet_1_1DynamicVisitor" ],
-    [ "DynamicVisitorBase", "classRa_1_1Core_1_1VariableSet_1_1DynamicVisitorBase.html", "classRa_1_1Core_1_1VariableSet_1_1DynamicVisitorBase" ],
     [ "StaticVisitor", "structRa_1_1Core_1_1VariableSet_1_1StaticVisitor.html", null ],
     [ "Variable", "classRa_1_1Core_1_1VariableSet.html#a709926d7e6a4184aa22606bf182296b8", null ],
     [ "VariableContainer", "classRa_1_1Core_1_1VariableSet.html#a61f36df1dda66cf204afdec4c1e17d72", null ],

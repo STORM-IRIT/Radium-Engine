@@ -1,0 +1,9 @@
+<map id="Ra::Dataflow::Core::DataflowGraph::add_input_output_nodes" name="Ra::Dataflow::Core::DataflowGraph::add_input_output_nodes">
+<area shape="rect" id="Node000001" title="Create (if not already created) input/output node of the graph, and fills graph input/output." alt="" coords="5,27,164,82"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Dataflow_1_1Core_1_1DataflowGraph.html#a16cdfd7a2236490f426551aaaa2ecc14" title="Adds a node to the graph." alt="" coords="212,5,411,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="164,42,198,37,199,43,165,47"/>
+<area shape="rect" id="Node000004" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/memory/shared_ptr/make_shared.html#" title=" " alt="" coords="243,70,380,95"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="165,62,229,70,229,75,164,67"/>
+<area shape="rect" id="Node000003" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/utility/move.html#" title=" " alt="" coords="459,13,545,38"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="411,23,445,23,445,28,411,28"/>
+</map>

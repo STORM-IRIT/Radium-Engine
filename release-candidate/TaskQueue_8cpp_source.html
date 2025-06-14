@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.webp"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.5.23</span>
+   &#160;<span id="projectnumber">1.5.24</span>
    </div>
   </td>
  </tr>
@@ -124,434 +124,441 @@ $(function(){initNavTree('TaskQueue_8cpp_source.html',''); initResizable(true); 
   <div class="headertitle"><div class="title">TaskQueue.cpp</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;Core/Tasks/Task.hpp&gt;</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#include &lt;Core/Tasks/TaskQueue.hpp&gt;</span></div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;Core/Utils/Log.hpp&gt;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;algorithm&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;iostream&gt;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;memory&gt;</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;mutex&gt;</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;stack&gt;</span></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespaceRa.html">Ra</a> {</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">namespace </span>Core {</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
-<div class="foldopen" id="foldopen00014" data-start="{" data-end="}">
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1TaskQueue.html#a1e9c7315ee7f8ba44990d2217b4b620b">   14</a></span><a class="code hl_function" href="classRa_1_1Core_1_1TaskQueue.html#a1e9c7315ee7f8ba44990d2217b4b620b">TaskQueue::TaskQueue</a>( uint numThreads ) : m_processingTasks( 0 ), m_shuttingDown( false ) {</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/thread/unique_lock.html">wlock</a> lock( m_mutex );</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    m_workerThreads.<a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector/reserve.html">reserve</a>( numThreads );</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    <span class="keywordflow">for</span> ( uint i = 0; i &lt; numThreads; ++i ) {</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>        m_workerThreads.<a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector/emplace_back.html">emplace_back</a>( &amp;TaskQueue::runThread, <span class="keyword">this</span>, i );</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    }</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>}</div>
-</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
-<div class="foldopen" id="foldopen00022" data-start="{" data-end="}">
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1TaskQueue.html#af7f1c6d7650e4b59ada2545f5829a353">   22</a></span><a class="code hl_function" href="classRa_1_1Core_1_1TaskQueue.html#af7f1c6d7650e4b59ada2545f5829a353">TaskQueue::~TaskQueue</a>() {</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    {</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>        <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/thread/unique_lock.html">wlock</a> lock( m_mutex );</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        m_shuttingDown = <span class="keyword">true</span>;</div>
+<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;Core/CoreMacros.hpp&gt;</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#include &lt;Core/Tasks/Task.hpp&gt;</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;Core/Tasks/TaskQueue.hpp&gt;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;Core/Utils/Index.hpp&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;Core/Utils/Log.hpp&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;Core/Utils/Timer.hpp&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;algorithm&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;condition_variable&gt;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;deque&gt;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;iostream&gt;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;memory&gt;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;stack&gt;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;thread&gt;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &lt;utility&gt;</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespaceRa.html">Ra</a> {</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keyword">namespace </span>Core {</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
+<div class="foldopen" id="foldopen00021" data-start="{" data-end="}">
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1TaskQueue.html#a1e9c7315ee7f8ba44990d2217b4b620b">   21</a></span><a class="code hl_function" href="classRa_1_1Core_1_1TaskQueue.html#a1e9c7315ee7f8ba44990d2217b4b620b">TaskQueue::TaskQueue</a>( uint numThreads ) : m_processingTasks( 0 ), m_shuttingDown( false ) {</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/thread/unique_lock.html">wlock</a> lock( m_mutex );</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    m_workerThreads.<a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector/reserve.html">reserve</a>( numThreads );</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="keywordflow">for</span> ( uint i = 0; i &lt; numThreads; ++i ) {</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        m_workerThreads.<a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector/emplace_back.html">emplace_back</a>( &amp;TaskQueue::runThread, <span class="keyword">this</span>, i );</div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    }</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <a class="code hl_function" href="classRa_1_1Core_1_1TaskQueue.html#a133a9b42dbb00afd3873b83a044c447f">flushTaskQueue</a>();</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <span class="keywordflow">for</span> ( <span class="keyword">auto</span>&amp; t : m_workerThreads ) {</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        t.join();</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    }</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>}</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>}</div>
 </div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
-<div class="foldopen" id="foldopen00033" data-start="{" data-end="}">
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1TaskQueue.html#ad0082015fff6570c90c7c06da147d20c">   33</a></span><a class="code hl_typedef" href="classRa_1_1Core_1_1TaskQueue.html#a95e06345125fdbfe4c0960fcff50246a">TaskQueue::TaskId</a> <a class="code hl_function" href="classRa_1_1Core_1_1TaskQueue.html#ad0082015fff6570c90c7c06da147d20c">TaskQueue::registerTask</a>( <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/memory/unique_ptr.html">std::unique_ptr&lt;Task&gt;</a> task ) {</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/thread/unique_lock.html">wlock</a> lock( m_mutex );</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <a class="code hl_struct" href="structRa_1_1Core_1_1TaskQueue_1_1TimerData.html">TimerData</a> tdata;</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <span class="comment">// init tdata with task name before moving ownership</span></div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    tdata.taskName = task-&gt;getName();</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    m_timerData.push_back( tdata );</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
+<div class="foldopen" id="foldopen00029" data-start="{" data-end="}">
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1TaskQueue.html#af7f1c6d7650e4b59ada2545f5829a353">   29</a></span><a class="code hl_function" href="classRa_1_1Core_1_1TaskQueue.html#af7f1c6d7650e4b59ada2545f5829a353">TaskQueue::~TaskQueue</a>() {</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    {</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/thread/unique_lock.html">wlock</a> lock( m_mutex );</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        m_shuttingDown = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    }</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <a class="code hl_function" href="classRa_1_1Core_1_1TaskQueue.html#a133a9b42dbb00afd3873b83a044c447f">flushTaskQueue</a>();</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <span class="keywordflow">for</span> ( <span class="keyword">auto</span>&amp; t : m_workerThreads ) {</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        t.join();</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    }</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>}</div>
+</div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    m_tasks.push_back( <a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/utility/move.html">std::move</a>( task ) );</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    m_dependencies.<a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector/push_back.html">push_back</a>( <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector.html">std::vector&lt;TaskId&gt;</a>() );</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    m_remainingDependencies.<a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector/push_back.html">push_back</a>( 0 );</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    CORE_ASSERT( m_tasks.size() == m_dependencies.<a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector/size.html">size</a>(), <span class="stringliteral">&quot;Inconsistent task list&quot;</span> );</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    CORE_ASSERT( m_tasks.size() == m_remainingDependencies.<a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector/size.html">size</a>(), <span class="stringliteral">&quot;Inconsistent task list&quot;</span> );</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    CORE_ASSERT( m_tasks.size() == m_timerData.size(), <span class="stringliteral">&quot;Inconsistent task list&quot;</span> );</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="keywordflow">return</span> <a class="code hl_typedef" href="classRa_1_1Core_1_1TaskQueue.html#a95e06345125fdbfe4c0960fcff50246a">TaskId</a> { m_tasks.size() - 1 };</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>}</div>
+<div class="foldopen" id="foldopen00040" data-start="{" data-end="}">
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1TaskQueue.html#ad0082015fff6570c90c7c06da147d20c">   40</a></span><a class="code hl_typedef" href="classRa_1_1Core_1_1TaskQueue.html#a95e06345125fdbfe4c0960fcff50246a">TaskQueue::TaskId</a> <a class="code hl_function" href="classRa_1_1Core_1_1TaskQueue.html#ad0082015fff6570c90c7c06da147d20c">TaskQueue::registerTask</a>( <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/memory/unique_ptr.html">std::unique_ptr&lt;Task&gt;</a> task ) {</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/thread/unique_lock.html">wlock</a> lock( m_mutex );</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <a class="code hl_struct" href="structRa_1_1Core_1_1TaskQueue_1_1TimerData.html">TimerData</a> tdata;</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="comment">// init tdata with task name before moving ownership</span></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    tdata.taskName = task-&gt;getName();</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    m_timerData.push_back( tdata );</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    m_tasks.push_back( <a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/utility/move.html">std::move</a>( task ) );</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    m_dependencies.<a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector/push_back.html">push_back</a>( <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector.html">std::vector&lt;TaskId&gt;</a>() );</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    m_remainingDependencies.<a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector/push_back.html">push_back</a>( 0 );</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    CORE_ASSERT( m_tasks.size() == m_dependencies.<a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector/size.html">size</a>(), <span class="stringliteral">&quot;Inconsistent task list&quot;</span> );</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    CORE_ASSERT( m_tasks.size() == m_remainingDependencies.<a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector/size.html">size</a>(), <span class="stringliteral">&quot;Inconsistent task list&quot;</span> );</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    CORE_ASSERT( m_tasks.size() == m_timerData.size(), <span class="stringliteral">&quot;Inconsistent task list&quot;</span> );</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <span class="keywordflow">return</span> <a class="code hl_typedef" href="classRa_1_1Core_1_1TaskQueue.html#a95e06345125fdbfe4c0960fcff50246a">TaskId</a> { m_tasks.size() - 1 };</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>}</div>
 </div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
-<div class="foldopen" id="foldopen00050" data-start="{" data-end="}">
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1TaskQueue.html#a7f45b01ece2a8d78b8e2788c867a5051">   50</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classRa_1_1Core_1_1TaskQueue.html#a7f45b01ece2a8d78b8e2788c867a5051">TaskQueue::removeTask</a>( <a class="code hl_typedef" href="classRa_1_1Core_1_1TaskQueue.html#a95e06345125fdbfe4c0960fcff50246a">TaskId</a> taskId ) {</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <span class="keywordflow">if</span> ( taskId.isInvalid() || taskId &gt; m_tasks.size() ) {</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        LOG( Utils::logDEBUG ) &lt;&lt; <span class="stringliteral">&quot;try to remove task &quot;</span> &lt;&lt; taskId &lt;&lt; <span class="stringliteral">&quot; which is out of bounds &quot;</span></div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>                               &lt;&lt; m_tasks.size();</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        <span class="keywordflow">return</span>;</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    }</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/thread/unique_lock.html">wlock</a> lock( m_mutex );</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
+<div class="foldopen" id="foldopen00057" data-start="{" data-end="}">
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1TaskQueue.html#a7f45b01ece2a8d78b8e2788c867a5051">   57</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classRa_1_1Core_1_1TaskQueue.html#a7f45b01ece2a8d78b8e2788c867a5051">TaskQueue::removeTask</a>( <a class="code hl_typedef" href="classRa_1_1Core_1_1TaskQueue.html#a95e06345125fdbfe4c0960fcff50246a">TaskId</a> taskId ) {</div>
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    <span class="comment">// set task as dummy noop</span></div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    m_tasks[taskId] = std::make_unique&lt;FunctionTask&gt;( []() {}, m_timerData[taskId].taskName );</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    CORE_ASSERT( m_tasks.size() == m_dependencies.<a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector/size.html">size</a>(), <span class="stringliteral">&quot;Inconsistent task list&quot;</span> );</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    CORE_ASSERT( m_tasks.size() == m_remainingDependencies.<a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector/size.html">size</a>(), <span class="stringliteral">&quot;Inconsistent task list&quot;</span> );</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    CORE_ASSERT( m_tasks.size() == m_timerData.size(), <span class="stringliteral">&quot;Inconsistent task list&quot;</span> );</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>}</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    <span class="keywordflow">if</span> ( taskId.isInvalid() || taskId &gt; m_tasks.size() ) {</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        LOG( Utils::logDEBUG ) &lt;&lt; <span class="stringliteral">&quot;try to remove task &quot;</span> &lt;&lt; taskId &lt;&lt; <span class="stringliteral">&quot; which is out of bounds &quot;</span></div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>                               &lt;&lt; m_tasks.size();</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    }</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/thread/unique_lock.html">wlock</a> lock( m_mutex );</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    <span class="comment">// set task as dummy noop</span></div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    m_tasks[taskId] = std::make_unique&lt;FunctionTask&gt;( []() {}, m_timerData[taskId].taskName );</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    CORE_ASSERT( m_tasks.size() == m_dependencies.<a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector/size.html">size</a>(), <span class="stringliteral">&quot;Inconsistent task list&quot;</span> );</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    CORE_ASSERT( m_tasks.size() == m_remainingDependencies.<a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector/size.html">size</a>(), <span class="stringliteral">&quot;Inconsistent task list&quot;</span> );</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    CORE_ASSERT( m_tasks.size() == m_timerData.size(), <span class="stringliteral">&quot;Inconsistent task list&quot;</span> );</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>}</div>
 </div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span><a class="code hl_typedef" href="classRa_1_1Core_1_1TaskQueue.html#a95e06345125fdbfe4c0960fcff50246a">TaskQueue::TaskId</a> TaskQueue::getTaskId( <span class="keyword">const</span> <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/string/basic_string.html">std::string</a>&amp; taskName )<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    rlock lock( m_mutex );</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    <span class="keyword">auto</span> itr = <a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/algorithm/find.html">std::find_if</a>( m_tasks.begin(), m_tasks.end(), [taskName]( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; task ) {</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>        return task-&gt;getName() == taskName;</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    } );</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    <span class="keywordflow">if</span> ( itr == m_tasks.end() ) <span class="keywordflow">return</span> {};</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    <span class="keywordflow">return</span> <a class="code hl_typedef" href="classRa_1_1Core_1_1TaskQueue.html#a95e06345125fdbfe4c0960fcff50246a">TaskId</a> { itr - m_tasks.begin() };</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>}</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
-<div class="foldopen" id="foldopen00077" data-start="{" data-end="}">
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1TaskQueue.html#ab15b59009ff7bd766871ac66e01c3210">   77</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classRa_1_1Core_1_1TaskQueue.html#ab15b59009ff7bd766871ac66e01c3210">TaskQueue::addDependency</a>( <a class="code hl_typedef" href="classRa_1_1Core_1_1TaskQueue.html#a95e06345125fdbfe4c0960fcff50246a">TaskQueue::TaskId</a> predecessor, <a class="code hl_typedef" href="classRa_1_1Core_1_1TaskQueue.html#a95e06345125fdbfe4c0960fcff50246a">TaskQueue::TaskId</a> successor ) {</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/thread/unique_lock.html">wlock</a> lock( m_mutex );</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span><a class="code hl_typedef" href="classRa_1_1Core_1_1TaskQueue.html#a95e06345125fdbfe4c0960fcff50246a">TaskQueue::TaskId</a> TaskQueue::getTaskId( <span class="keyword">const</span> <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/string/basic_string.html">std::string</a>&amp; taskName )<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    rlock lock( m_mutex );</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    <span class="keyword">auto</span> itr = <a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/algorithm/find.html">std::find_if</a>( m_tasks.begin(), m_tasks.end(), [taskName]( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; task ) {</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>        return task-&gt;getName() == taskName;</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    } );</div>
 <div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    CORE_ASSERT( predecessor.isValid() &amp;&amp; ( predecessor &lt; m_tasks.size() ),</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>                 <span class="stringliteral">&quot;Invalid predecessor task&quot;</span> );</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    CORE_ASSERT( successor.isValid() &amp;&amp; ( successor &lt; m_tasks.size() ), <span class="stringliteral">&quot;Invalid successor task&quot;</span> );</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    CORE_ASSERT( predecessor != successor, <span class="stringliteral">&quot;Cannot add self-dependency&quot;</span> );</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    CORE_ASSERT( <a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/algorithm/find.html">std::find</a>( m_dependencies[predecessor].begin(),</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>                            m_dependencies[predecessor].end(),</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>                            successor ) == m_dependencies[predecessor].end(),</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>                 <span class="stringliteral">&quot;Cannot add a dependency twice&quot;</span> );</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    m_dependencies[predecessor].<a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector/push_back.html">push_back</a>( successor );</div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    ++m_remainingDependencies[successor];</div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>}</div>
-</div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
-<div class="foldopen" id="foldopen00094" data-start="{" data-end="}">
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1TaskQueue.html#a8ed0cac0fb0ee0e1adcc7ec048c8585a">   94</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="classRa_1_1Core_1_1TaskQueue.html#ab15b59009ff7bd766871ac66e01c3210">TaskQueue::addDependency</a>( <span class="keyword">const</span> <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/string/basic_string.html">std::string</a>&amp; predecessor, <a class="code hl_typedef" href="classRa_1_1Core_1_1TaskQueue.html#a95e06345125fdbfe4c0960fcff50246a">TaskQueue::TaskId</a> successor ) {</div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    <span class="keywordtype">bool</span> added = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    <span class="keywordflow">if</span> ( itr == m_tasks.end() ) <span class="keywordflow">return</span> {};</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    <span class="keywordflow">return</span> <a class="code hl_typedef" href="classRa_1_1Core_1_1TaskQueue.html#a95e06345125fdbfe4c0960fcff50246a">TaskId</a> { itr - m_tasks.begin() };</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>}</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
+<div class="foldopen" id="foldopen00084" data-start="{" data-end="}">
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1TaskQueue.html#ab15b59009ff7bd766871ac66e01c3210">   84</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classRa_1_1Core_1_1TaskQueue.html#ab15b59009ff7bd766871ac66e01c3210">TaskQueue::addDependency</a>( <a class="code hl_typedef" href="classRa_1_1Core_1_1TaskQueue.html#a95e06345125fdbfe4c0960fcff50246a">TaskQueue::TaskId</a> predecessor, <a class="code hl_typedef" href="classRa_1_1Core_1_1TaskQueue.html#a95e06345125fdbfe4c0960fcff50246a">TaskQueue::TaskId</a> successor ) {</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/thread/unique_lock.html">wlock</a> lock( m_mutex );</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span> </div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    CORE_ASSERT( predecessor.isValid() &amp;&amp; ( predecessor &lt; m_tasks.size() ),</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>                 <span class="stringliteral">&quot;Invalid predecessor task&quot;</span> );</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    CORE_ASSERT( successor.isValid() &amp;&amp; ( successor &lt; m_tasks.size() ), <span class="stringliteral">&quot;Invalid successor task&quot;</span> );</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    CORE_ASSERT( predecessor != successor, <span class="stringliteral">&quot;Cannot add self-dependency&quot;</span> );</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span> </div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    CORE_ASSERT( <a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/algorithm/find.html">std::find</a>( m_dependencies[predecessor].begin(),</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>                            m_dependencies[predecessor].end(),</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>                            successor ) == m_dependencies[predecessor].end(),</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>                 <span class="stringliteral">&quot;Cannot add a dependency twice&quot;</span> );</div>
 <div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span> </div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    <span class="keyword">auto</span> predecessorId = getTaskId( predecessor );</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span> </div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    <span class="keywordflow">if</span> ( predecessorId.isValid() ) {</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>        added = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>        <a class="code hl_function" href="classRa_1_1Core_1_1TaskQueue.html#ab15b59009ff7bd766871ac66e01c3210">addDependency</a>( predecessorId, successor );</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    }</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    <span class="keywordflow">return</span> added;</div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>}</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    m_dependencies[predecessor].<a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector/push_back.html">push_back</a>( successor );</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    ++m_remainingDependencies[successor];</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>}</div>
 </div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span> </div>
+<div class="foldopen" id="foldopen00101" data-start="{" data-end="}">
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1TaskQueue.html#a8ed0cac0fb0ee0e1adcc7ec048c8585a">  101</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="classRa_1_1Core_1_1TaskQueue.html#ab15b59009ff7bd766871ac66e01c3210">TaskQueue::addDependency</a>( <span class="keyword">const</span> <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/string/basic_string.html">std::string</a>&amp; predecessor, <a class="code hl_typedef" href="classRa_1_1Core_1_1TaskQueue.html#a95e06345125fdbfe4c0960fcff50246a">TaskQueue::TaskId</a> successor ) {</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    <span class="keywordtype">bool</span> added = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span> </div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    <span class="keyword">auto</span> predecessorId = getTaskId( predecessor );</div>
 <div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span> </div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span><span class="keywordtype">bool</span> <a class="code hl_function" href="classRa_1_1Core_1_1TaskQueue.html#ab15b59009ff7bd766871ac66e01c3210">TaskQueue::addDependency</a>( <a class="code hl_typedef" href="classRa_1_1Core_1_1TaskQueue.html#a95e06345125fdbfe4c0960fcff50246a">TaskQueue::TaskId</a> predecessor, <span class="keyword">const</span> <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/string/basic_string.html">std::string</a>&amp; successor ) {</div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    <span class="keywordtype">bool</span> added = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span> </div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    <span class="keyword">auto</span> successorId = getTaskId( successor );</div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    <span class="keywordflow">if</span> ( successorId.isValid() ) {</div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>        added = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>        <a class="code hl_function" href="classRa_1_1Core_1_1TaskQueue.html#ab15b59009ff7bd766871ac66e01c3210">addDependency</a>( predecessor, successorId );</div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    }</div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    <span class="keywordflow">return</span> added;</div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>}</div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span> </div>
-<div class="foldopen" id="foldopen00117" data-start="{" data-end="}">
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1TaskQueue.html#aa4f17ab67ae942ab097ad47d6417e9be">  117</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classRa_1_1Core_1_1TaskQueue.html#aa4f17ab67ae942ab097ad47d6417e9be">TaskQueue::addPendingDependency</a>( <span class="keyword">const</span> <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/string/basic_string.html">std::string</a>&amp; predecessors,</div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>                                      <a class="code hl_typedef" href="classRa_1_1Core_1_1TaskQueue.html#a95e06345125fdbfe4c0960fcff50246a">TaskQueue::TaskId</a> successor ) {</div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>    <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/thread/unique_lock.html">wlock</a> lock( m_mutex );</div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    m_pendingDepsSucc.<a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector/emplace_back.html">emplace_back</a>( predecessors, successor );</div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>}</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    <span class="keywordflow">if</span> ( predecessorId.isValid() ) {</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>        added = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>        <a class="code hl_function" href="classRa_1_1Core_1_1TaskQueue.html#ab15b59009ff7bd766871ac66e01c3210">addDependency</a>( predecessorId, successor );</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    }</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    <span class="keywordflow">return</span> added;</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>}</div>
 </div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span> </div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span><span class="keywordtype">void</span> <a class="code hl_function" href="classRa_1_1Core_1_1TaskQueue.html#aa4f17ab67ae942ab097ad47d6417e9be">TaskQueue::addPendingDependency</a>( TaskId predecessor, <span class="keyword">const</span> <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/string/basic_string.html">std::string</a>&amp; successors ) {</div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>    wlock lock( m_mutex );</div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>    m_pendingDepsPre.<a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector/emplace_back.html">emplace_back</a>( predecessor, successors );</div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>}</div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span> </div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span><span class="keywordtype">void</span> TaskQueue::resolveDependencies() {</div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>    <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; pre : m_pendingDepsPre ) {</div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>        ON_ASSERT( <span class="keywordtype">bool</span> result = ) <a class="code hl_function" href="classRa_1_1Core_1_1TaskQueue.html#ab15b59009ff7bd766871ac66e01c3210">addDependency</a>( pre.first, pre.second );</div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>        CORE_WARN_IF( !result,</div>
-<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>                      &quot;Pending dependency unresolved : &quot; &lt;&lt; m_tasks[pre.first]-&gt;getName() &lt;&lt; &quot; -&gt; (&quot;</div>
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>                                                         &lt;&lt; pre.second &lt;&lt; &quot;)&quot; );</div>
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>    }</div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>    for ( const auto&amp; pre : m_pendingDepsSucc ) {</div>
-<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>        ON_ASSERT( <span class="keywordtype">bool</span> result = ) <a class="code hl_function" href="classRa_1_1Core_1_1TaskQueue.html#ab15b59009ff7bd766871ac66e01c3210">addDependency</a>( pre.first, pre.second );</div>
-<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>        CORE_WARN_IF( !result,</div>
-<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>                      &quot;Pending dependency unresolved : (&quot; &lt;&lt; pre.first &lt;&lt; &quot;) -&gt; &quot;</div>
-<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>                                                          &lt;&lt; m_tasks[pre.second]-&gt;getName() );</div>
-<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>    }</div>
-<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>    {</div>
-<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>        wlock lock( m_mutex );</div>
-<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>        m_pendingDepsPre.clear();</div>
-<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>        m_pendingDepsSucc.clear();</div>
-<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>    }</div>
-<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>}</div>
-<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span> </div>
-<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span><span class="comment">// queueTask is always called with m_taskQueueMutex locked</span></div>
-<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span><span class="keywordtype">void</span> TaskQueue::queueTask( <a class="code hl_typedef" href="classRa_1_1Core_1_1TaskQueue.html#a95e06345125fdbfe4c0960fcff50246a">TaskQueue::TaskId</a> task ) {</div>
-<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>    CORE_ASSERT( m_remainingDependencies[task] == 0,</div>
-<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>                 <span class="stringliteral">&quot; Task&quot;</span> &lt;&lt; m_tasks[task]-&gt;getName() &lt;&lt; <span class="stringliteral">&quot;has unmet dependencies&quot;</span> );</div>
-<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span> </div>
-<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>    m_taskQueue.<a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/deque/push_front.html">push_front</a>( task );</div>
-<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>}</div>
-<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span> </div>
-<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span><span class="keywordtype">void</span> TaskQueue::detectCycles() {</div>
-<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span><span class="preprocessor">#if defined( CORE_DEBUG )</span></div>
-<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>    <span class="comment">// Do a depth-first search of the nodes.</span></div>
-<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>    <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector.html">std::vector&lt;bool&gt;</a> visited( m_tasks.size(), <span class="keyword">false</span> );</div>
-<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>    <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/stack.html">std::stack&lt;TaskId&gt;</a> pending;</div>
-<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>    rlock <a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/thread/lock.html">lock</a>( m_mutex );</div>
-<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>    <span class="keywordflow">for</span> ( uint <span class="keywordtype">id</span> = 0; <span class="keywordtype">id</span> &lt; m_tasks.size(); ++id ) {</div>
-<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>        <span class="keywordflow">if</span> ( m_dependencies[<span class="keywordtype">id</span>].size() == 0 ) { pending.<a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/stack/push.html">push</a>( <a class="code hl_typedef" href="classRa_1_1Core_1_1TaskQueue.html#a95e06345125fdbfe4c0960fcff50246a">TaskId</a>( <span class="keywordtype">id</span> ) ); }</div>
-<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>    }</div>
-<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span> </div>
-<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>    <span class="comment">// If you hit this assert, there are tasks in the list but</span></div>
-<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>    <span class="comment">// all tasks have dependencies so no task can start.</span></div>
-<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>    CORE_ASSERT( m_tasks.empty() || !pending.<a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/stack/empty.html">empty</a>(), <span class="stringliteral">&quot;No free tasks.&quot;</span> );</div>
-<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span> </div>
-<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>    <span class="keywordflow">while</span> ( !pending.<a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/stack/empty.html">empty</a>() ) {</div>
-<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>        <a class="code hl_typedef" href="classRa_1_1Core_1_1TaskQueue.html#a95e06345125fdbfe4c0960fcff50246a">TaskId</a> <span class="keywordtype">id</span> = pending.<a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/stack/top.html">top</a>();</div>
-<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>        pending.<a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/stack/pop.html">pop</a>();</div>
-<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span> </div>
-<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>        <span class="comment">// The task has already been visited. It means there is a cycle in the task graph.</span></div>
-<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>        CORE_ASSERT( !( visited[<span class="keywordtype">id</span>] ), <span class="stringliteral">&quot;Cycle detected in tasks !&quot;</span> );</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span> </div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span><span class="keywordtype">bool</span> <a class="code hl_function" href="classRa_1_1Core_1_1TaskQueue.html#ab15b59009ff7bd766871ac66e01c3210">TaskQueue::addDependency</a>( <a class="code hl_typedef" href="classRa_1_1Core_1_1TaskQueue.html#a95e06345125fdbfe4c0960fcff50246a">TaskQueue::TaskId</a> predecessor, <span class="keyword">const</span> <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/string/basic_string.html">std::string</a>&amp; successor ) {</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    <span class="keywordtype">bool</span> added = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span> </div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    <span class="keyword">auto</span> successorId = getTaskId( successor );</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    <span class="keywordflow">if</span> ( successorId.isValid() ) {</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>        added = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>        <a class="code hl_function" href="classRa_1_1Core_1_1TaskQueue.html#ab15b59009ff7bd766871ac66e01c3210">addDependency</a>( predecessor, successorId );</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    }</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>    <span class="keywordflow">return</span> added;</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>}</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span> </div>
+<div class="foldopen" id="foldopen00124" data-start="{" data-end="}">
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1TaskQueue.html#aa4f17ab67ae942ab097ad47d6417e9be">  124</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classRa_1_1Core_1_1TaskQueue.html#aa4f17ab67ae942ab097ad47d6417e9be">TaskQueue::addPendingDependency</a>( <span class="keyword">const</span> <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/string/basic_string.html">std::string</a>&amp; predecessors,</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>                                      <a class="code hl_typedef" href="classRa_1_1Core_1_1TaskQueue.html#a95e06345125fdbfe4c0960fcff50246a">TaskQueue::TaskId</a> successor ) {</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>    <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/thread/unique_lock.html">wlock</a> lock( m_mutex );</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>    m_pendingDepsSucc.<a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector/emplace_back.html">emplace_back</a>( predecessors, successor );</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>}</div>
+</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span> </div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span><span class="keywordtype">void</span> <a class="code hl_function" href="classRa_1_1Core_1_1TaskQueue.html#aa4f17ab67ae942ab097ad47d6417e9be">TaskQueue::addPendingDependency</a>( TaskId predecessor, <span class="keyword">const</span> <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/string/basic_string.html">std::string</a>&amp; successors ) {</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>    wlock lock( m_mutex );</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>    m_pendingDepsPre.<a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector/emplace_back.html">emplace_back</a>( predecessor, successors );</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>}</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span> </div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span><span class="keywordtype">void</span> TaskQueue::resolveDependencies() {</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>    <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; pre : m_pendingDepsPre ) {</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>        ON_ASSERT( <span class="keywordtype">bool</span> result = ) <a class="code hl_function" href="classRa_1_1Core_1_1TaskQueue.html#ab15b59009ff7bd766871ac66e01c3210">addDependency</a>( pre.first, pre.second );</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>        CORE_WARN_IF( !result,</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>                      &quot;Pending dependency unresolved : &quot; &lt;&lt; m_tasks[pre.first]-&gt;getName() &lt;&lt; &quot; -&gt; (&quot;</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>                                                         &lt;&lt; pre.second &lt;&lt; &quot;)&quot; );</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>    }</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>    for ( const auto&amp; pre : m_pendingDepsSucc ) {</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>        ON_ASSERT( <span class="keywordtype">bool</span> result = ) <a class="code hl_function" href="classRa_1_1Core_1_1TaskQueue.html#ab15b59009ff7bd766871ac66e01c3210">addDependency</a>( pre.first, pre.second );</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>        CORE_WARN_IF( !result,</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>                      &quot;Pending dependency unresolved : (&quot; &lt;&lt; pre.first &lt;&lt; &quot;) -&gt; &quot;</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>                                                          &lt;&lt; m_tasks[pre.second]-&gt;getName() );</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>    }</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>    {</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>        wlock lock( m_mutex );</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>        m_pendingDepsPre.clear();</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>        m_pendingDepsSucc.clear();</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>    }</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>}</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span> </div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span><span class="comment">// queueTask is always called with m_taskQueueMutex locked</span></div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span><span class="keywordtype">void</span> TaskQueue::queueTask( <a class="code hl_typedef" href="classRa_1_1Core_1_1TaskQueue.html#a95e06345125fdbfe4c0960fcff50246a">TaskQueue::TaskId</a> task ) {</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>    CORE_ASSERT( m_remainingDependencies[task] == 0,</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>                 <span class="stringliteral">&quot; Task&quot;</span> &lt;&lt; m_tasks[task]-&gt;getName() &lt;&lt; <span class="stringliteral">&quot;has unmet dependencies&quot;</span> );</div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span> </div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>    m_taskQueue.<a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/deque/push_front.html">push_front</a>( task );</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>}</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span> </div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span><span class="keywordtype">void</span> TaskQueue::detectCycles() {</div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span><span class="preprocessor">#if defined( CORE_DEBUG )</span></div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>    <span class="comment">// Do a depth-first search of the nodes.</span></div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>    <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector.html">std::vector&lt;bool&gt;</a> visited( m_tasks.size(), <span class="keyword">false</span> );</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>    <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/stack.html">std::stack&lt;TaskId&gt;</a> pending;</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>    rlock <a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/thread/lock.html">lock</a>( m_mutex );</div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>    <span class="keywordflow">for</span> ( uint <span class="keywordtype">id</span> = 0; <span class="keywordtype">id</span> &lt; m_tasks.size(); ++id ) {</div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>        <span class="keywordflow">if</span> ( m_dependencies[<span class="keywordtype">id</span>].size() == 0 ) { pending.<a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/stack/push.html">push</a>( <a class="code hl_typedef" href="classRa_1_1Core_1_1TaskQueue.html#a95e06345125fdbfe4c0960fcff50246a">TaskId</a>( <span class="keywordtype">id</span> ) ); }</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>    }</div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span> </div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>    <span class="comment">// If you hit this assert, there are tasks in the list but</span></div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>    <span class="comment">// all tasks have dependencies so no task can start.</span></div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>    CORE_ASSERT( m_tasks.empty() || !pending.<a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/stack/empty.html">empty</a>(), <span class="stringliteral">&quot;No free tasks.&quot;</span> );</div>
 <div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span> </div>
-<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>        visited[id] = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>        <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; dep : m_dependencies[<span class="keywordtype">id</span>] ) {</div>
-<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>            pending.<a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/stack/push.html">push</a>( dep );</div>
-<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>        }</div>
-<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>    }</div>
-<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>}</div>
-<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span> </div>
-<div class="foldopen" id="foldopen00185" data-start="{" data-end="}">
-<div class="line"><a id="l00185" name="l00185"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1TaskQueue.html#a462ea1280f62fb46db3fa74b805857b0">  185</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classRa_1_1Core_1_1TaskQueue.html#a462ea1280f62fb46db3fa74b805857b0">TaskQueue::startTasks</a>() {</div>
-<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>    <span class="keyword">using namespace </span>Ra::Core::Utils;</div>
-<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>    {</div>
-<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>        <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/thread/shared_lock.html">rlock</a> lock( m_mutex );</div>
-<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>        <span class="keywordflow">if</span> ( m_workerThreads.<a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector/empty.html">empty</a>() ) {</div>
-<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>            LOG( logERROR ) &lt;&lt; <span class="stringliteral">&quot;TaskQueue as 0 threads, could not start tasks in parallel. Either &quot;</span></div>
-<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>                               <span class="stringliteral">&quot;create a task queue with more threads, or use runTasksInThisThread&quot;</span>;</div>
-<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>            <span class="keywordflow">return</span>;</div>
-<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>        }</div>
-<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>    }</div>
-<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>    <span class="comment">// Add pending dependencies.</span></div>
-<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>    resolveDependencies();</div>
-<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span> </div>
-<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>    <span class="comment">// Do a debug check</span></div>
-<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>    detectCycles();</div>
-<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span> </div>
-<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>    <span class="comment">// Enqueue all tasks with no dependencies.</span></div>
-<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>    {</div>
-<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>        <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/thread/unique_lock.html">wlock</a> lock( m_mutex );</div>
-<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>        <span class="keywordflow">for</span> ( uint t = 0; t &lt; m_tasks.size(); ++t ) {</div>
-<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>            <span class="comment">// only queue non null m_tasks</span></div>
-<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span> </div>
-<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>            <span class="keywordflow">if</span> ( m_tasks[t] &amp;&amp; m_remainingDependencies[t] == 0 ) { queueTask( <a class="code hl_typedef" href="classRa_1_1Core_1_1TaskQueue.html#a95e06345125fdbfe4c0960fcff50246a">TaskId</a> { t } ); }</div>
-<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>        }</div>
-<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>    }</div>
-<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>    <span class="comment">// Wake up all threads.</span></div>
-<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>    m_threadNotifier.<a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/thread/condition_variable_any/notify_all.html">notify_all</a>();</div>
-<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>}</div>
-</div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>    <span class="keywordflow">while</span> ( !pending.<a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/stack/empty.html">empty</a>() ) {</div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>        <a class="code hl_typedef" href="classRa_1_1Core_1_1TaskQueue.html#a95e06345125fdbfe4c0960fcff50246a">TaskId</a> <span class="keywordtype">id</span> = pending.<a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/stack/top.html">top</a>();</div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>        pending.<a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/stack/pop.html">pop</a>();</div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span> </div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>        <span class="comment">// The task has already been visited. It means there is a cycle in the task graph.</span></div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>        CORE_ASSERT( !( visited[<span class="keywordtype">id</span>] ), <span class="stringliteral">&quot;Cycle detected in tasks !&quot;</span> );</div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span> </div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>        visited[id] = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>        <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; dep : m_dependencies[<span class="keywordtype">id</span>] ) {</div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>            pending.<a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/stack/push.html">push</a>( dep );</div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>        }</div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>    }</div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>}</div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span> </div>
+<div class="foldopen" id="foldopen00192" data-start="{" data-end="}">
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1TaskQueue.html#a462ea1280f62fb46db3fa74b805857b0">  192</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classRa_1_1Core_1_1TaskQueue.html#a462ea1280f62fb46db3fa74b805857b0">TaskQueue::startTasks</a>() {</div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>    <span class="keyword">using namespace </span>Ra::Core::Utils;</div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>    {</div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>        <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/thread/shared_lock.html">rlock</a> lock( m_mutex );</div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>        <span class="keywordflow">if</span> ( m_workerThreads.<a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector/empty.html">empty</a>() ) {</div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>            LOG( logERROR ) &lt;&lt; <span class="stringliteral">&quot;TaskQueue as 0 threads, could not start tasks in parallel. Either &quot;</span></div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>                               <span class="stringliteral">&quot;create a task queue with more threads, or use runTasksInThisThread&quot;</span>;</div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>            <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>        }</div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>    }</div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>    <span class="comment">// Add pending dependencies.</span></div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>    resolveDependencies();</div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span> </div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>    <span class="comment">// Do a debug check</span></div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>    detectCycles();</div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span> </div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>    <span class="comment">// Enqueue all tasks with no dependencies.</span></div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>    {</div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>        <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/thread/unique_lock.html">wlock</a> lock( m_mutex );</div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>        <span class="keywordflow">for</span> ( uint t = 0; t &lt; m_tasks.size(); ++t ) {</div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>            <span class="comment">// only queue non null m_tasks</span></div>
 <div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span> </div>
-<div class="foldopen" id="foldopen00214" data-start="{" data-end="}">
-<div class="line"><a id="l00214" name="l00214"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1TaskQueue.html#ad00ed45893aeef3ffb2c2aa8f382dddf">  214</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classRa_1_1Core_1_1TaskQueue.html#ad00ed45893aeef3ffb2c2aa8f382dddf">TaskQueue::runTasksInThisThread</a>() {</div>
-<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>    <span class="comment">// this method should not be called between startTasks/waitForTasks, we do not lock anything</span></div>
-<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>    <span class="comment">// here.</span></div>
-<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span> </div>
-<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>    <span class="comment">// use local task queue, preventing workers to pickup jobs.</span></div>
-<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>    <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/deque.html">std::deque&lt;TaskId&gt;</a> taskQueue;</div>
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>            <span class="keywordflow">if</span> ( m_tasks[t] &amp;&amp; m_remainingDependencies[t] == 0 ) { queueTask( <a class="code hl_typedef" href="classRa_1_1Core_1_1TaskQueue.html#a95e06345125fdbfe4c0960fcff50246a">TaskId</a> { t } ); }</div>
+<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>        }</div>
+<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>    }</div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>    <span class="comment">// Wake up all threads.</span></div>
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>    m_threadNotifier.<a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/thread/condition_variable_any/notify_all.html">notify_all</a>();</div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>}</div>
+</div>
 <div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span> </div>
-<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>    <span class="comment">// Add pending dependencies.</span></div>
-<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>    resolveDependencies();</div>
-<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span> </div>
-<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>    <span class="comment">// Do a debug check</span></div>
-<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>    detectCycles();</div>
-<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>    {</div>
-<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>        <span class="comment">// Enqueue all tasks with no dependencies.</span></div>
-<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span>        <span class="keywordflow">for</span> ( uint t = 0; t &lt; m_tasks.size(); ++t ) {</div>
-<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>            <span class="comment">// only queue non null m_tasks</span></div>
-<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>            <span class="keywordflow">if</span> ( m_tasks[t] &amp;&amp; m_remainingDependencies[t] == 0 ) {</div>
-<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>                taskQueue.<a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/deque/push_front.html">push_front</a>( <a class="code hl_typedef" href="classRa_1_1Core_1_1TaskQueue.html#a95e06345125fdbfe4c0960fcff50246a">TaskId</a> { t } );</div>
-<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>            }</div>
-<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>        }</div>
-<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>    }</div>
-<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>    {</div>
-<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>        <span class="keywordflow">while</span> ( !taskQueue.<a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/deque/empty.html">empty</a>() ) {</div>
-<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>            <a class="code hl_typedef" href="classRa_1_1Core_1_1TaskQueue.html#a95e06345125fdbfe4c0960fcff50246a">TaskId</a> task;</div>
-<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>            {</div>
-<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span>                task = taskQueue.<a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/deque/back.html">back</a>();</div>
-<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>                taskQueue.<a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/deque/pop_back.html">pop_back</a>();</div>
-<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>            }</div>
-<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>            <span class="comment">// Run task</span></div>
-<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>            m_timerData[task].start    = <a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/chrono/high_resolution_clock/now.html">Utils::Clock::now</a>();</div>
-<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>            m_timerData[task].threadId = 0;</div>
-<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>            m_tasks[task]-&gt;process();</div>
-<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>            m_timerData[task].end = <a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/chrono/high_resolution_clock/now.html">Utils::Clock::now</a>();</div>
-<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span> </div>
-<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>            <span class="keywordflow">for</span> ( <span class="keyword">auto</span> t : m_dependencies[task] ) {</div>
-<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span>                uint&amp; nDepends = m_remainingDependencies[t];</div>
-<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>                CORE_ASSERT( nDepends &gt; 0, <span class="stringliteral">&quot;Inconsistency in dependencies&quot;</span> );</div>
-<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span>                --nDepends;</div>
-<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span>                <span class="keywordflow">if</span> ( nDepends == 0 ) { taskQueue.<a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/deque/push_front.html">push_front</a>( <a class="code hl_typedef" href="classRa_1_1Core_1_1TaskQueue.html#a95e06345125fdbfe4c0960fcff50246a">TaskId</a> { t } ); }</div>
-<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span>            }</div>
-<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span>        }</div>
-<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span>    }</div>
-<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span>    <a class="code hl_function" href="classRa_1_1Core_1_1TaskQueue.html#a133a9b42dbb00afd3873b83a044c447f">flushTaskQueue</a>();</div>
-<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span>}</div>
+<div class="foldopen" id="foldopen00221" data-start="{" data-end="}">
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1TaskQueue.html#ad00ed45893aeef3ffb2c2aa8f382dddf">  221</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classRa_1_1Core_1_1TaskQueue.html#ad00ed45893aeef3ffb2c2aa8f382dddf">TaskQueue::runTasksInThisThread</a>() {</div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>    <span class="comment">// this method should not be called between startTasks/waitForTasks, we do not lock anything</span></div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>    <span class="comment">// here.</span></div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span> </div>
+<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>    <span class="comment">// use local task queue, preventing workers to pickup jobs.</span></div>
+<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>    <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/deque.html">std::deque&lt;TaskId&gt;</a> taskQueue;</div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span> </div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span>    <span class="comment">// Add pending dependencies.</span></div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>    resolveDependencies();</div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span> </div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>    <span class="comment">// Do a debug check</span></div>
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>    detectCycles();</div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>    {</div>
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>        <span class="comment">// Enqueue all tasks with no dependencies.</span></div>
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>        <span class="keywordflow">for</span> ( uint t = 0; t &lt; m_tasks.size(); ++t ) {</div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>            <span class="comment">// only queue non null m_tasks</span></div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>            <span class="keywordflow">if</span> ( m_tasks[t] &amp;&amp; m_remainingDependencies[t] == 0 ) {</div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>                taskQueue.<a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/deque/push_front.html">push_front</a>( <a class="code hl_typedef" href="classRa_1_1Core_1_1TaskQueue.html#a95e06345125fdbfe4c0960fcff50246a">TaskId</a> { t } );</div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span>            }</div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>        }</div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>    }</div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>    {</div>
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>        <span class="keywordflow">while</span> ( !taskQueue.<a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/deque/empty.html">empty</a>() ) {</div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>            <a class="code hl_typedef" href="classRa_1_1Core_1_1TaskQueue.html#a95e06345125fdbfe4c0960fcff50246a">TaskId</a> task;</div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>            {</div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>                task = taskQueue.<a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/deque/back.html">back</a>();</div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span>                taskQueue.<a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/deque/pop_back.html">pop_back</a>();</div>
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>            }</div>
+<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span>            <span class="comment">// Run task</span></div>
+<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>            m_timerData[task].start    = <a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/chrono/high_resolution_clock/now.html">Utils::Clock::now</a>();</div>
+<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span>            m_timerData[task].threadId = 0;</div>
+<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span>            m_tasks[task]-&gt;process();</div>
+<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span>            m_timerData[task].end = <a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/chrono/high_resolution_clock/now.html">Utils::Clock::now</a>();</div>
+<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span> </div>
+<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span>            <span class="keywordflow">for</span> ( <span class="keyword">auto</span> t : m_dependencies[task] ) {</div>
+<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span>                uint&amp; nDepends = m_remainingDependencies[t];</div>
+<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span>                CORE_ASSERT( nDepends &gt; 0, <span class="stringliteral">&quot;Inconsistency in dependencies&quot;</span> );</div>
+<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>                --nDepends;</div>
+<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span>                <span class="keywordflow">if</span> ( nDepends == 0 ) { taskQueue.<a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/deque/push_front.html">push_front</a>( <a class="code hl_typedef" href="classRa_1_1Core_1_1TaskQueue.html#a95e06345125fdbfe4c0960fcff50246a">TaskId</a> { t } ); }</div>
+<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>            }</div>
+<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span>        }</div>
+<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span>    }</div>
+<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span>    <a class="code hl_function" href="classRa_1_1Core_1_1TaskQueue.html#a133a9b42dbb00afd3873b83a044c447f">flushTaskQueue</a>();</div>
+<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>}</div>
 </div>
-<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span> </div>
-<div class="foldopen" id="foldopen00259" data-start="{" data-end="}">
-<div class="line"><a id="l00259" name="l00259"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1TaskQueue.html#ae4263fcdad580ffb7b5f28d29d5b7805">  259</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classRa_1_1Core_1_1TaskQueue.html#ae4263fcdad580ffb7b5f28d29d5b7805">TaskQueue::waitForTasks</a>() {</div>
-<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>    <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/thread/shared_lock.html">rlock</a> lock( m_mutex );</div>
-<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span>    m_waitForTasksNotifier.<a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/thread/condition_variable_any/wait.html">wait</a>(</div>
-<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span>        lock, [<span class="keyword">this</span>]() { <span class="keywordflow">return</span> ( m_taskQueue.<a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/deque/empty.html">empty</a>() &amp;&amp; m_processingTasks == 0 ); } );</div>
-<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span>}</div>
+<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span> </div>
+<div class="foldopen" id="foldopen00266" data-start="{" data-end="}">
+<div class="line"><a id="l00266" name="l00266"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1TaskQueue.html#ae4263fcdad580ffb7b5f28d29d5b7805">  266</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classRa_1_1Core_1_1TaskQueue.html#ae4263fcdad580ffb7b5f28d29d5b7805">TaskQueue::waitForTasks</a>() {</div>
+<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span>    <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/thread/shared_lock.html">rlock</a> lock( m_mutex );</div>
+<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>    m_waitForTasksNotifier.<a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/thread/condition_variable_any/wait.html">wait</a>(</div>
+<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span>        lock, [<span class="keyword">this</span>]() { <span class="keywordflow">return</span> ( m_taskQueue.<a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/deque/empty.html">empty</a>() &amp;&amp; m_processingTasks == 0 ); } );</div>
+<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>}</div>
 </div>
-<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span> </div>
-<div class="foldopen" id="foldopen00265" data-start="{" data-end="}">
-<div class="line"><a id="l00265" name="l00265"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1TaskQueue.html#a562a8b90730b7c62791e463568516a97">  265</a></span><span class="keyword">const</span> <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector.html">std::vector&lt;TaskQueue::TimerData&gt;</a>&amp; <a class="code hl_function" href="classRa_1_1Core_1_1TaskQueue.html#a562a8b90730b7c62791e463568516a97">TaskQueue::getTimerData</a>() {</div>
-<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>    <span class="keywordflow">return</span> m_timerData;</div>
-<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span>}</div>
+<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span> </div>
+<div class="foldopen" id="foldopen00272" data-start="{" data-end="}">
+<div class="line"><a id="l00272" name="l00272"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1TaskQueue.html#a562a8b90730b7c62791e463568516a97">  272</a></span><span class="keyword">const</span> <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector.html">std::vector&lt;TaskQueue::TimerData&gt;</a>&amp; <a class="code hl_function" href="classRa_1_1Core_1_1TaskQueue.html#a562a8b90730b7c62791e463568516a97">TaskQueue::getTimerData</a>() {</div>
+<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span>    <span class="keywordflow">return</span> m_timerData;</div>
+<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span>}</div>
 </div>
-<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span> </div>
-<div class="foldopen" id="foldopen00269" data-start="{" data-end="}">
-<div class="line"><a id="l00269" name="l00269"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1TaskQueue.html#a133a9b42dbb00afd3873b83a044c447f">  269</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classRa_1_1Core_1_1TaskQueue.html#a133a9b42dbb00afd3873b83a044c447f">TaskQueue::flushTaskQueue</a>() {</div>
-<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>    m_threadNotifier.<a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/thread/condition_variable_any/notify_all.html">notify_all</a>();</div>
-<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span>    <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/thread/unique_lock.html">wlock</a> lock( m_mutex );</div>
-<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span> </div>
-<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span>    CORE_ASSERT( m_processingTasks == 0, <span class="stringliteral">&quot;You have tasks still in process&quot;</span> );</div>
-<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span>    CORE_ASSERT( m_taskQueue.<a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/deque/empty.html">empty</a>(), <span class="stringliteral">&quot; You have unprocessed tasks &quot;</span> );</div>
 <div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span> </div>
-<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span>    m_tasks.clear();</div>
-<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span>    m_dependencies.<a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector/clear.html">clear</a>();</div>
-<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span>    m_timerData.clear();</div>
-<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>    m_remainingDependencies.<a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector/clear.html">clear</a>();</div>
-<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>}</div>
+<div class="foldopen" id="foldopen00276" data-start="{" data-end="}">
+<div class="line"><a id="l00276" name="l00276"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1TaskQueue.html#a133a9b42dbb00afd3873b83a044c447f">  276</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classRa_1_1Core_1_1TaskQueue.html#a133a9b42dbb00afd3873b83a044c447f">TaskQueue::flushTaskQueue</a>() {</div>
+<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span>    m_threadNotifier.<a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/thread/condition_variable_any/notify_all.html">notify_all</a>();</div>
+<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span>    <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/thread/unique_lock.html">wlock</a> lock( m_mutex );</div>
+<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span> </div>
+<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>    CORE_ASSERT( m_processingTasks == 0, <span class="stringliteral">&quot;You have tasks still in process&quot;</span> );</div>
+<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span>    CORE_ASSERT( m_taskQueue.<a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/deque/empty.html">empty</a>(), <span class="stringliteral">&quot; You have unprocessed tasks &quot;</span> );</div>
+<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span> </div>
+<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span>    m_tasks.clear();</div>
+<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span>    m_dependencies.<a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector/clear.html">clear</a>();</div>
+<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span>    m_timerData.clear();</div>
+<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span>    m_remainingDependencies.<a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector/clear.html">clear</a>();</div>
+<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span>}</div>
 </div>
-<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span> </div>
-<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span><span class="keywordtype">void</span> TaskQueue::runThread( uint <span class="keywordtype">id</span> ) {</div>
-<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span>    <span class="keywordflow">while</span> ( <span class="keyword">true</span> ) {</div>
-<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span>        <a class="code hl_typedef" href="classRa_1_1Core_1_1TaskQueue.html#a95e06345125fdbfe4c0960fcff50246a">TaskId</a> task;</div>
-<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span> </div>
-<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span>        <span class="comment">// Acquire mutex.</span></div>
-<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span>        {</div>
-<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span>            wlock lock( m_mutex );</div>
-<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span>            <span class="comment">// Wait for a new task</span></div>
-<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span>            m_threadNotifier.<a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/thread/condition_variable_any/wait.html">wait</a>( lock,</div>
-<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span>                                   [<span class="keyword">this</span>]() { <span class="keywordflow">return</span> m_shuttingDown || !m_taskQueue.<a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/deque/empty.html">empty</a>(); } );</div>
-<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span>            <span class="comment">// If the task queue is shutting down we quit, releasing</span></div>
-<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span>            <span class="comment">// the lock.</span></div>
-<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span>            <span class="keywordflow">if</span> ( m_shuttingDown ) { <span class="keywordflow">return</span>; }</div>
-<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span> </div>
-<div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span>            <span class="comment">// If we are here it means we got a task</span></div>
-<div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span>            task = m_taskQueue.<a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/deque/back.html">back</a>();</div>
-<div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span>            m_taskQueue.<a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/deque/pop_back.html">pop_back</a>();</div>
-<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span>            ++m_processingTasks;</div>
-<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span>            CORE_ASSERT( task.isValid() &amp;&amp; task &lt; m_tasks.size(), <span class="stringliteral">&quot;Invalid task&quot;</span> );</div>
-<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span>        }</div>
-<div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span>        <span class="comment">// Release mutex.</span></div>
-<div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span> </div>
-<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span>        <span class="comment">// Run task</span></div>
-<div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span>        {</div>
-<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span>            {</div>
-<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span>                rlock <a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/thread/lock.html">lock</a>( m_mutex );</div>
-<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span>                m_timerData[task].start    = <a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/chrono/high_resolution_clock/now.html">Utils::Clock::now</a>();</div>
-<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span>                m_timerData[task].threadId = id;</div>
-<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span>            }</div>
-<div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span>            m_tasks[task]-&gt;process();</div>
-<div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span>            {</div>
-<div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span>                rlock <a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/thread/lock.html">lock</a>( m_mutex );</div>
-<div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span>                m_timerData[task].end = <a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/chrono/high_resolution_clock/now.html">Utils::Clock::now</a>();</div>
-<div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span>            }</div>
-<div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span>        }</div>
-<div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span>        <span class="comment">// Critical section : mark task as finished and en-queue dependencies.</span></div>
-<div class="line"><a id="l00318" name="l00318"></a><span class="lineno">  318</span>        uint newTasks = 0;</div>
-<div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span>        {</div>
-<div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span>            wlock <a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/thread/lock.html">lock</a>( m_mutex );</div>
-<div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span>            <span class="keywordflow">for</span> ( <span class="keyword">auto</span> t : m_dependencies[task] ) {</div>
-<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span>                uint&amp; nDepends = m_remainingDependencies[t];</div>
-<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span>                CORE_ASSERT( nDepends &gt; 0, <span class="stringliteral">&quot;Inconsistency in dependencies&quot;</span> );</div>
-<div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span>                --nDepends;</div>
-<div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span>                <span class="keywordflow">if</span> ( nDepends == 0 ) {</div>
-<div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span>                    queueTask( t );</div>
-<div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span>                    ++newTasks;</div>
-<div class="line"><a id="l00328" name="l00328"></a><span class="lineno">  328</span>                }</div>
-<div class="line"><a id="l00329" name="l00329"></a><span class="lineno">  329</span>            }</div>
-<div class="line"><a id="l00330" name="l00330"></a><span class="lineno">  330</span>            --m_processingTasks;</div>
-<div class="line"><a id="l00331" name="l00331"></a><span class="lineno">  331</span>            <span class="keywordflow">if</span> ( m_processingTasks == 0 ) { m_waitForTasksNotifier.<a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/thread/condition_variable_any/notify_one.html">notify_one</a>(); }</div>
-<div class="line"><a id="l00332" name="l00332"></a><span class="lineno">  332</span>        }</div>
-<div class="line"><a id="l00333" name="l00333"></a><span class="lineno">  333</span>        <span class="comment">// If we added new tasks, we wake up threads to execute thems.</span></div>
-<div class="line"><a id="l00334" name="l00334"></a><span class="lineno">  334</span>        <span class="keywordflow">if</span> ( newTasks &gt; 0 ) { m_threadNotifier.<a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/thread/condition_variable_any/notify_all.html">notify_all</a>(); }</div>
-<div class="line"><a id="l00335" name="l00335"></a><span class="lineno">  335</span>    } <span class="comment">// End of while(true)</span></div>
-<div class="line"><a id="l00336" name="l00336"></a><span class="lineno">  336</span>}</div>
-<div class="line"><a id="l00337" name="l00337"></a><span class="lineno">  337</span> </div>
-<div class="foldopen" id="foldopen00338" data-start="{" data-end="}">
-<div class="line"><a id="l00338" name="l00338"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1TaskQueue.html#a21add3ed1dbe9f3429508c721e0e8e5d">  338</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classRa_1_1Core_1_1TaskQueue.html#a21add3ed1dbe9f3429508c721e0e8e5d">TaskQueue::printTaskGraph</a>( <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/io/basic_ostream.html">std::ostream</a>&amp; output )<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00339" name="l00339"></a><span class="lineno">  339</span>    output &lt;&lt; <span class="stringliteral">&quot;digraph tasks {&quot;</span> &lt;&lt; <a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/io/manip/endl.html">std::endl</a>;</div>
-<div class="line"><a id="l00340" name="l00340"></a><span class="lineno">  340</span> </div>
-<div class="line"><a id="l00341" name="l00341"></a><span class="lineno">  341</span>    <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; t : m_tasks ) {</div>
-<div class="line"><a id="l00342" name="l00342"></a><span class="lineno">  342</span>        output &lt;&lt; <span class="stringliteral">&quot;\&quot;&quot;</span> &lt;&lt; t-&gt;getName() &lt;&lt; <span class="stringliteral">&quot;\&quot;&quot;</span> &lt;&lt; <a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/io/manip/endl.html">std::endl</a>;</div>
-<div class="line"><a id="l00343" name="l00343"></a><span class="lineno">  343</span>    }</div>
+<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span> </div>
+<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span><span class="keywordtype">void</span> TaskQueue::runThread( uint <span class="keywordtype">id</span> ) {</div>
+<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span>    <span class="keywordflow">while</span> ( <span class="keyword">true</span> ) {</div>
+<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span>        <a class="code hl_typedef" href="classRa_1_1Core_1_1TaskQueue.html#a95e06345125fdbfe4c0960fcff50246a">TaskId</a> task;</div>
+<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span> </div>
+<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span>        <span class="comment">// Acquire mutex.</span></div>
+<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span>        {</div>
+<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span>            wlock lock( m_mutex );</div>
+<div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span>            <span class="comment">// Wait for a new task</span></div>
+<div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span>            m_threadNotifier.<a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/thread/condition_variable_any/wait.html">wait</a>( lock,</div>
+<div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span>                                   [<span class="keyword">this</span>]() { <span class="keywordflow">return</span> m_shuttingDown || !m_taskQueue.<a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/deque/empty.html">empty</a>(); } );</div>
+<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span>            <span class="comment">// If the task queue is shutting down we quit, releasing</span></div>
+<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span>            <span class="comment">// the lock.</span></div>
+<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span>            <span class="keywordflow">if</span> ( m_shuttingDown ) { <span class="keywordflow">return</span>; }</div>
+<div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span> </div>
+<div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span>            <span class="comment">// If we are here it means we got a task</span></div>
+<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span>            task = m_taskQueue.<a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/deque/back.html">back</a>();</div>
+<div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span>            m_taskQueue.<a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/deque/pop_back.html">pop_back</a>();</div>
+<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span>            ++m_processingTasks;</div>
+<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span>            CORE_ASSERT( task.isValid() &amp;&amp; task &lt; m_tasks.size(), <span class="stringliteral">&quot;Invalid task&quot;</span> );</div>
+<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span>        }</div>
+<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span>        <span class="comment">// Release mutex.</span></div>
+<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span> </div>
+<div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span>        <span class="comment">// Run task</span></div>
+<div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span>        {</div>
+<div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span>            {</div>
+<div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span>                rlock <a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/thread/lock.html">lock</a>( m_mutex );</div>
+<div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span>                m_timerData[task].start    = <a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/chrono/high_resolution_clock/now.html">Utils::Clock::now</a>();</div>
+<div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span>                m_timerData[task].threadId = id;</div>
+<div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span>            }</div>
+<div class="line"><a id="l00318" name="l00318"></a><span class="lineno">  318</span>            m_tasks[task]-&gt;process();</div>
+<div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span>            {</div>
+<div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span>                rlock <a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/thread/lock.html">lock</a>( m_mutex );</div>
+<div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span>                m_timerData[task].end = <a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/chrono/high_resolution_clock/now.html">Utils::Clock::now</a>();</div>
+<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span>            }</div>
+<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span>        }</div>
+<div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span>        <span class="comment">// Critical section : mark task as finished and en-queue dependencies.</span></div>
+<div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span>        uint newTasks = 0;</div>
+<div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span>        {</div>
+<div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span>            wlock <a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/thread/lock.html">lock</a>( m_mutex );</div>
+<div class="line"><a id="l00328" name="l00328"></a><span class="lineno">  328</span>            <span class="keywordflow">for</span> ( <span class="keyword">auto</span> t : m_dependencies[task] ) {</div>
+<div class="line"><a id="l00329" name="l00329"></a><span class="lineno">  329</span>                uint&amp; nDepends = m_remainingDependencies[t];</div>
+<div class="line"><a id="l00330" name="l00330"></a><span class="lineno">  330</span>                CORE_ASSERT( nDepends &gt; 0, <span class="stringliteral">&quot;Inconsistency in dependencies&quot;</span> );</div>
+<div class="line"><a id="l00331" name="l00331"></a><span class="lineno">  331</span>                --nDepends;</div>
+<div class="line"><a id="l00332" name="l00332"></a><span class="lineno">  332</span>                <span class="keywordflow">if</span> ( nDepends == 0 ) {</div>
+<div class="line"><a id="l00333" name="l00333"></a><span class="lineno">  333</span>                    queueTask( t );</div>
+<div class="line"><a id="l00334" name="l00334"></a><span class="lineno">  334</span>                    ++newTasks;</div>
+<div class="line"><a id="l00335" name="l00335"></a><span class="lineno">  335</span>                }</div>
+<div class="line"><a id="l00336" name="l00336"></a><span class="lineno">  336</span>            }</div>
+<div class="line"><a id="l00337" name="l00337"></a><span class="lineno">  337</span>            --m_processingTasks;</div>
+<div class="line"><a id="l00338" name="l00338"></a><span class="lineno">  338</span>            <span class="keywordflow">if</span> ( m_processingTasks == 0 ) { m_waitForTasksNotifier.<a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/thread/condition_variable_any/notify_one.html">notify_one</a>(); }</div>
+<div class="line"><a id="l00339" name="l00339"></a><span class="lineno">  339</span>        }</div>
+<div class="line"><a id="l00340" name="l00340"></a><span class="lineno">  340</span>        <span class="comment">// If we added new tasks, we wake up threads to execute thems.</span></div>
+<div class="line"><a id="l00341" name="l00341"></a><span class="lineno">  341</span>        <span class="keywordflow">if</span> ( newTasks &gt; 0 ) { m_threadNotifier.<a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/thread/condition_variable_any/notify_all.html">notify_all</a>(); }</div>
+<div class="line"><a id="l00342" name="l00342"></a><span class="lineno">  342</span>    } <span class="comment">// End of while(true)</span></div>
+<div class="line"><a id="l00343" name="l00343"></a><span class="lineno">  343</span>}</div>
 <div class="line"><a id="l00344" name="l00344"></a><span class="lineno">  344</span> </div>
-<div class="line"><a id="l00345" name="l00345"></a><span class="lineno">  345</span>    <span class="keywordflow">for</span> ( uint i = 0; i &lt; m_dependencies.<a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector/size.html">size</a>(); ++i ) {</div>
-<div class="line"><a id="l00346" name="l00346"></a><span class="lineno">  346</span>        <span class="keyword">const</span> <span class="keyword">auto</span>&amp; task1 = m_tasks[i];</div>
-<div class="line"><a id="l00347" name="l00347"></a><span class="lineno">  347</span>        <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; dep : m_dependencies[i] ) {</div>
-<div class="line"><a id="l00348" name="l00348"></a><span class="lineno">  348</span>            <span class="keyword">const</span> <span class="keyword">auto</span>&amp; task2 = m_tasks[dep];</div>
-<div class="line"><a id="l00349" name="l00349"></a><span class="lineno">  349</span>            output &lt;&lt; <span class="stringliteral">&quot;\&quot;&quot;</span> &lt;&lt; task1-&gt;getName() &lt;&lt; <span class="stringliteral">&quot;\&quot;&quot;</span></div>
-<div class="line"><a id="l00350" name="l00350"></a><span class="lineno">  350</span>                   &lt;&lt; <span class="stringliteral">&quot; -&gt; &quot;</span>;</div>
-<div class="line"><a id="l00351" name="l00351"></a><span class="lineno">  351</span>            output &lt;&lt; <span class="stringliteral">&quot;\&quot;&quot;</span> &lt;&lt; task2-&gt;getName() &lt;&lt; <span class="stringliteral">&quot;\&quot;&quot;</span> &lt;&lt; <a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/io/manip/endl.html">std::endl</a>;</div>
-<div class="line"><a id="l00352" name="l00352"></a><span class="lineno">  352</span>        }</div>
-<div class="line"><a id="l00353" name="l00353"></a><span class="lineno">  353</span>    }</div>
-<div class="line"><a id="l00354" name="l00354"></a><span class="lineno">  354</span> </div>
-<div class="line"><a id="l00355" name="l00355"></a><span class="lineno">  355</span>    <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; preDep : m_pendingDepsPre ) {</div>
-<div class="line"><a id="l00356" name="l00356"></a><span class="lineno">  356</span>        <span class="keyword">const</span> <span class="keyword">auto</span>&amp; task1  = m_tasks[preDep.first];</div>
-<div class="line"><a id="l00357" name="l00357"></a><span class="lineno">  357</span>        <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/string/basic_string.html">std::string</a> t2name = preDep.second;</div>
-<div class="line"><a id="l00358" name="l00358"></a><span class="lineno">  358</span> </div>
-<div class="line"><a id="l00359" name="l00359"></a><span class="lineno">  359</span>        <span class="keywordflow">if</span> ( <a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/algorithm/find.html">std::find_if</a>( m_tasks.begin(), m_tasks.end(), [=]( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; task ) {</div>
-<div class="line"><a id="l00360" name="l00360"></a><span class="lineno">  360</span>                 return task-&gt;getName() == t2name;</div>
-<div class="line"><a id="l00361" name="l00361"></a><span class="lineno">  361</span>             } ) == m_tasks.end() ) {</div>
-<div class="line"><a id="l00362" name="l00362"></a><span class="lineno">  362</span>            t2name += <span class="stringliteral">&quot;?&quot;</span>;</div>
-<div class="line"><a id="l00363" name="l00363"></a><span class="lineno">  363</span>        }</div>
-<div class="line"><a id="l00364" name="l00364"></a><span class="lineno">  364</span>        output &lt;&lt; <span class="stringliteral">&quot;\&quot;&quot;</span> &lt;&lt; task1-&gt;getName() &lt;&lt; <span class="stringliteral">&quot;\&quot;&quot;</span></div>
-<div class="line"><a id="l00365" name="l00365"></a><span class="lineno">  365</span>               &lt;&lt; <span class="stringliteral">&quot; -&gt; &quot;</span>;</div>
-<div class="line"><a id="l00366" name="l00366"></a><span class="lineno">  366</span>        output &lt;&lt; <span class="stringliteral">&quot;\&quot;&quot;</span> &lt;&lt; t2name &lt;&lt; <span class="stringliteral">&quot;\&quot;&quot;</span> &lt;&lt; <a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/io/manip/endl.html">std::endl</a>;</div>
-<div class="line"><a id="l00367" name="l00367"></a><span class="lineno">  367</span>    }</div>
-<div class="line"><a id="l00368" name="l00368"></a><span class="lineno">  368</span> </div>
-<div class="line"><a id="l00369" name="l00369"></a><span class="lineno">  369</span>    <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; postDep : m_pendingDepsSucc ) {</div>
-<div class="line"><a id="l00370" name="l00370"></a><span class="lineno">  370</span>        <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/string/basic_string.html">std::string</a> t1name = postDep.first;</div>
-<div class="line"><a id="l00371" name="l00371"></a><span class="lineno">  371</span>        <span class="keyword">const</span> <span class="keyword">auto</span>&amp; t2     = m_tasks[postDep.second];</div>
-<div class="line"><a id="l00372" name="l00372"></a><span class="lineno">  372</span> </div>
-<div class="line"><a id="l00373" name="l00373"></a><span class="lineno">  373</span>        <span class="keywordflow">if</span> ( <a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/algorithm/find.html">std::find_if</a>( m_tasks.begin(), m_tasks.end(), [=]( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; task ) {</div>
-<div class="line"><a id="l00374" name="l00374"></a><span class="lineno">  374</span>                 return task-&gt;getName() == t1name;</div>
-<div class="line"><a id="l00375" name="l00375"></a><span class="lineno">  375</span>             } ) == m_tasks.end() ) {</div>
-<div class="line"><a id="l00376" name="l00376"></a><span class="lineno">  376</span>            t1name += <span class="stringliteral">&quot;?&quot;</span>;</div>
-<div class="line"><a id="l00377" name="l00377"></a><span class="lineno">  377</span>        }</div>
-<div class="line"><a id="l00378" name="l00378"></a><span class="lineno">  378</span>        output &lt;&lt; <span class="stringliteral">&quot;\&quot;&quot;</span> &lt;&lt; t1name &lt;&lt; <span class="stringliteral">&quot;\&quot;&quot;</span></div>
-<div class="line"><a id="l00379" name="l00379"></a><span class="lineno">  379</span>               &lt;&lt; <span class="stringliteral">&quot; -&gt; &quot;</span>;</div>
-<div class="line"><a id="l00380" name="l00380"></a><span class="lineno">  380</span>        output &lt;&lt; <span class="stringliteral">&quot;\&quot;&quot;</span> &lt;&lt; t2-&gt;getName() &lt;&lt; <span class="stringliteral">&quot;\&quot;&quot;</span> &lt;&lt; <a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/io/manip/endl.html">std::endl</a>;</div>
-<div class="line"><a id="l00381" name="l00381"></a><span class="lineno">  381</span>    }</div>
-<div class="line"><a id="l00382" name="l00382"></a><span class="lineno">  382</span> </div>
-<div class="line"><a id="l00383" name="l00383"></a><span class="lineno">  383</span>    output &lt;&lt; <span class="stringliteral">&quot;}&quot;</span> &lt;&lt; <a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/io/manip/endl.html">std::endl</a>;</div>
-<div class="line"><a id="l00384" name="l00384"></a><span class="lineno">  384</span>}</div>
+<div class="foldopen" id="foldopen00345" data-start="{" data-end="}">
+<div class="line"><a id="l00345" name="l00345"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1TaskQueue.html#a21add3ed1dbe9f3429508c721e0e8e5d">  345</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classRa_1_1Core_1_1TaskQueue.html#a21add3ed1dbe9f3429508c721e0e8e5d">TaskQueue::printTaskGraph</a>( <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/io/basic_ostream.html">std::ostream</a>&amp; output )<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00346" name="l00346"></a><span class="lineno">  346</span>    output &lt;&lt; <span class="stringliteral">&quot;digraph tasks {&quot;</span> &lt;&lt; <a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/io/manip/endl.html">std::endl</a>;</div>
+<div class="line"><a id="l00347" name="l00347"></a><span class="lineno">  347</span> </div>
+<div class="line"><a id="l00348" name="l00348"></a><span class="lineno">  348</span>    <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; t : m_tasks ) {</div>
+<div class="line"><a id="l00349" name="l00349"></a><span class="lineno">  349</span>        output &lt;&lt; <span class="stringliteral">&quot;\&quot;&quot;</span> &lt;&lt; t-&gt;getName() &lt;&lt; <span class="stringliteral">&quot;\&quot;&quot;</span> &lt;&lt; <a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/io/manip/endl.html">std::endl</a>;</div>
+<div class="line"><a id="l00350" name="l00350"></a><span class="lineno">  350</span>    }</div>
+<div class="line"><a id="l00351" name="l00351"></a><span class="lineno">  351</span> </div>
+<div class="line"><a id="l00352" name="l00352"></a><span class="lineno">  352</span>    <span class="keywordflow">for</span> ( uint i = 0; i &lt; m_dependencies.<a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector/size.html">size</a>(); ++i ) {</div>
+<div class="line"><a id="l00353" name="l00353"></a><span class="lineno">  353</span>        <span class="keyword">const</span> <span class="keyword">auto</span>&amp; task1 = m_tasks[i];</div>
+<div class="line"><a id="l00354" name="l00354"></a><span class="lineno">  354</span>        <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; dep : m_dependencies[i] ) {</div>
+<div class="line"><a id="l00355" name="l00355"></a><span class="lineno">  355</span>            <span class="keyword">const</span> <span class="keyword">auto</span>&amp; task2 = m_tasks[dep];</div>
+<div class="line"><a id="l00356" name="l00356"></a><span class="lineno">  356</span>            output &lt;&lt; <span class="stringliteral">&quot;\&quot;&quot;</span> &lt;&lt; task1-&gt;getName() &lt;&lt; <span class="stringliteral">&quot;\&quot;&quot;</span></div>
+<div class="line"><a id="l00357" name="l00357"></a><span class="lineno">  357</span>                   &lt;&lt; <span class="stringliteral">&quot; -&gt; &quot;</span>;</div>
+<div class="line"><a id="l00358" name="l00358"></a><span class="lineno">  358</span>            output &lt;&lt; <span class="stringliteral">&quot;\&quot;&quot;</span> &lt;&lt; task2-&gt;getName() &lt;&lt; <span class="stringliteral">&quot;\&quot;&quot;</span> &lt;&lt; <a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/io/manip/endl.html">std::endl</a>;</div>
+<div class="line"><a id="l00359" name="l00359"></a><span class="lineno">  359</span>        }</div>
+<div class="line"><a id="l00360" name="l00360"></a><span class="lineno">  360</span>    }</div>
+<div class="line"><a id="l00361" name="l00361"></a><span class="lineno">  361</span> </div>
+<div class="line"><a id="l00362" name="l00362"></a><span class="lineno">  362</span>    <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; preDep : m_pendingDepsPre ) {</div>
+<div class="line"><a id="l00363" name="l00363"></a><span class="lineno">  363</span>        <span class="keyword">const</span> <span class="keyword">auto</span>&amp; task1  = m_tasks[preDep.first];</div>
+<div class="line"><a id="l00364" name="l00364"></a><span class="lineno">  364</span>        <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/string/basic_string.html">std::string</a> t2name = preDep.second;</div>
+<div class="line"><a id="l00365" name="l00365"></a><span class="lineno">  365</span> </div>
+<div class="line"><a id="l00366" name="l00366"></a><span class="lineno">  366</span>        <span class="keywordflow">if</span> ( <a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/algorithm/find.html">std::find_if</a>( m_tasks.begin(), m_tasks.end(), [=]( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; task ) {</div>
+<div class="line"><a id="l00367" name="l00367"></a><span class="lineno">  367</span>                 return task-&gt;getName() == t2name;</div>
+<div class="line"><a id="l00368" name="l00368"></a><span class="lineno">  368</span>             } ) == m_tasks.end() ) {</div>
+<div class="line"><a id="l00369" name="l00369"></a><span class="lineno">  369</span>            t2name += <span class="stringliteral">&quot;?&quot;</span>;</div>
+<div class="line"><a id="l00370" name="l00370"></a><span class="lineno">  370</span>        }</div>
+<div class="line"><a id="l00371" name="l00371"></a><span class="lineno">  371</span>        output &lt;&lt; <span class="stringliteral">&quot;\&quot;&quot;</span> &lt;&lt; task1-&gt;getName() &lt;&lt; <span class="stringliteral">&quot;\&quot;&quot;</span></div>
+<div class="line"><a id="l00372" name="l00372"></a><span class="lineno">  372</span>               &lt;&lt; <span class="stringliteral">&quot; -&gt; &quot;</span>;</div>
+<div class="line"><a id="l00373" name="l00373"></a><span class="lineno">  373</span>        output &lt;&lt; <span class="stringliteral">&quot;\&quot;&quot;</span> &lt;&lt; t2name &lt;&lt; <span class="stringliteral">&quot;\&quot;&quot;</span> &lt;&lt; <a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/io/manip/endl.html">std::endl</a>;</div>
+<div class="line"><a id="l00374" name="l00374"></a><span class="lineno">  374</span>    }</div>
+<div class="line"><a id="l00375" name="l00375"></a><span class="lineno">  375</span> </div>
+<div class="line"><a id="l00376" name="l00376"></a><span class="lineno">  376</span>    <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; postDep : m_pendingDepsSucc ) {</div>
+<div class="line"><a id="l00377" name="l00377"></a><span class="lineno">  377</span>        <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/string/basic_string.html">std::string</a> t1name = postDep.first;</div>
+<div class="line"><a id="l00378" name="l00378"></a><span class="lineno">  378</span>        <span class="keyword">const</span> <span class="keyword">auto</span>&amp; t2     = m_tasks[postDep.second];</div>
+<div class="line"><a id="l00379" name="l00379"></a><span class="lineno">  379</span> </div>
+<div class="line"><a id="l00380" name="l00380"></a><span class="lineno">  380</span>        <span class="keywordflow">if</span> ( <a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/algorithm/find.html">std::find_if</a>( m_tasks.begin(), m_tasks.end(), [=]( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; task ) {</div>
+<div class="line"><a id="l00381" name="l00381"></a><span class="lineno">  381</span>                 return task-&gt;getName() == t1name;</div>
+<div class="line"><a id="l00382" name="l00382"></a><span class="lineno">  382</span>             } ) == m_tasks.end() ) {</div>
+<div class="line"><a id="l00383" name="l00383"></a><span class="lineno">  383</span>            t1name += <span class="stringliteral">&quot;?&quot;</span>;</div>
+<div class="line"><a id="l00384" name="l00384"></a><span class="lineno">  384</span>        }</div>
+<div class="line"><a id="l00385" name="l00385"></a><span class="lineno">  385</span>        output &lt;&lt; <span class="stringliteral">&quot;\&quot;&quot;</span> &lt;&lt; t1name &lt;&lt; <span class="stringliteral">&quot;\&quot;&quot;</span></div>
+<div class="line"><a id="l00386" name="l00386"></a><span class="lineno">  386</span>               &lt;&lt; <span class="stringliteral">&quot; -&gt; &quot;</span>;</div>
+<div class="line"><a id="l00387" name="l00387"></a><span class="lineno">  387</span>        output &lt;&lt; <span class="stringliteral">&quot;\&quot;&quot;</span> &lt;&lt; t2-&gt;getName() &lt;&lt; <span class="stringliteral">&quot;\&quot;&quot;</span> &lt;&lt; <a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/io/manip/endl.html">std::endl</a>;</div>
+<div class="line"><a id="l00388" name="l00388"></a><span class="lineno">  388</span>    }</div>
+<div class="line"><a id="l00389" name="l00389"></a><span class="lineno">  389</span> </div>
+<div class="line"><a id="l00390" name="l00390"></a><span class="lineno">  390</span>    output &lt;&lt; <span class="stringliteral">&quot;}&quot;</span> &lt;&lt; <a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/io/manip/endl.html">std::endl</a>;</div>
+<div class="line"><a id="l00391" name="l00391"></a><span class="lineno">  391</span>}</div>
 </div>
-<div class="line"><a id="l00385" name="l00385"></a><span class="lineno">  385</span>} <span class="comment">// namespace Core</span></div>
-<div class="line"><a id="l00386" name="l00386"></a><span class="lineno">  386</span>} <span class="comment">// namespace Ra</span></div>
+<div class="line"><a id="l00392" name="l00392"></a><span class="lineno">  392</span>} <span class="comment">// namespace Core</span></div>
+<div class="line"><a id="l00393" name="l00393"></a><span class="lineno">  393</span>} <span class="comment">// namespace Ra</span></div>
 <div class="ttc" id="aback_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/container/deque/back.html">std::deque::back</a></div><div class="ttdeci">T back(T... args)</div></div>
 <div class="ttc" id="abasic_ostream_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/io/basic_ostream.html">std::ostream</a></div></div>
 <div class="ttc" id="abasic_string_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/string/basic_string.html">std::string</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1TaskQueue_html_a133a9b42dbb00afd3873b83a044c447f"><div class="ttname"><a href="classRa_1_1Core_1_1TaskQueue.html#a133a9b42dbb00afd3873b83a044c447f">Ra::Core::TaskQueue::flushTaskQueue</a></div><div class="ttdeci">void flushTaskQueue()</div><div class="ttdoc">Erases all tasks. Will assert if tasks are unprocessed.</div><div class="ttdef"><b>Definition</b> <a href="#l00269">TaskQueue.cpp:269</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1TaskQueue_html_a1e9c7315ee7f8ba44990d2217b4b620b"><div class="ttname"><a href="classRa_1_1Core_1_1TaskQueue.html#a1e9c7315ee7f8ba44990d2217b4b620b">Ra::Core::TaskQueue::TaskQueue</a></div><div class="ttdeci">TaskQueue(uint numThreads)</div><div class="ttdef"><b>Definition</b> <a href="#l00014">TaskQueue.cpp:14</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1TaskQueue_html_a21add3ed1dbe9f3429508c721e0e8e5d"><div class="ttname"><a href="classRa_1_1Core_1_1TaskQueue.html#a21add3ed1dbe9f3429508c721e0e8e5d">Ra::Core::TaskQueue::printTaskGraph</a></div><div class="ttdeci">void printTaskGraph(std::ostream &amp;output) const</div><div class="ttdoc">Prints the current task graph in dot format.</div><div class="ttdef"><b>Definition</b> <a href="#l00338">TaskQueue.cpp:338</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1TaskQueue_html_a462ea1280f62fb46db3fa74b805857b0"><div class="ttname"><a href="classRa_1_1Core_1_1TaskQueue.html#a462ea1280f62fb46db3fa74b805857b0">Ra::Core::TaskQueue::startTasks</a></div><div class="ttdeci">void startTasks()</div><div class="ttdef"><b>Definition</b> <a href="#l00185">TaskQueue.cpp:185</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1TaskQueue_html_a562a8b90730b7c62791e463568516a97"><div class="ttname"><a href="classRa_1_1Core_1_1TaskQueue.html#a562a8b90730b7c62791e463568516a97">Ra::Core::TaskQueue::getTimerData</a></div><div class="ttdeci">const std::vector&lt; TimerData &gt; &amp; getTimerData()</div><div class="ttdoc">Access the data from the last frame execution after processTaskQueue();.</div><div class="ttdef"><b>Definition</b> <a href="#l00265">TaskQueue.cpp:265</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1TaskQueue_html_a7f45b01ece2a8d78b8e2788c867a5051"><div class="ttname"><a href="classRa_1_1Core_1_1TaskQueue.html#a7f45b01ece2a8d78b8e2788c867a5051">Ra::Core::TaskQueue::removeTask</a></div><div class="ttdeci">void removeTask(TaskId taskId)</div><div class="ttdef"><b>Definition</b> <a href="#l00050">TaskQueue.cpp:50</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1TaskQueue_html_a95e06345125fdbfe4c0960fcff50246a"><div class="ttname"><a href="classRa_1_1Core_1_1TaskQueue.html#a95e06345125fdbfe4c0960fcff50246a">Ra::Core::TaskQueue::TaskId</a></div><div class="ttdeci">Utils::Index TaskId</div><div class="ttdoc">Identifier for a task in the task queue.</div><div class="ttdef"><b>Definition</b> <a href="TaskQueue_8hpp_source.html#l00051">TaskQueue.hpp:51</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1TaskQueue_html_aa4f17ab67ae942ab097ad47d6417e9be"><div class="ttname"><a href="classRa_1_1Core_1_1TaskQueue.html#aa4f17ab67ae942ab097ad47d6417e9be">Ra::Core::TaskQueue::addPendingDependency</a></div><div class="ttdeci">void addPendingDependency(const std::string &amp;predecessors, TaskId successor)</div><div class="ttdef"><b>Definition</b> <a href="#l00117">TaskQueue.cpp:117</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1TaskQueue_html_ab15b59009ff7bd766871ac66e01c3210"><div class="ttname"><a href="classRa_1_1Core_1_1TaskQueue.html#ab15b59009ff7bd766871ac66e01c3210">Ra::Core::TaskQueue::addDependency</a></div><div class="ttdeci">void addDependency(TaskId predecessor, TaskId successor)</div><div class="ttdef"><b>Definition</b> <a href="#l00077">TaskQueue.cpp:77</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1TaskQueue_html_ad0082015fff6570c90c7c06da147d20c"><div class="ttname"><a href="classRa_1_1Core_1_1TaskQueue.html#ad0082015fff6570c90c7c06da147d20c">Ra::Core::TaskQueue::registerTask</a></div><div class="ttdeci">TaskId registerTask(std::unique_ptr&lt; Task &gt; task)</div><div class="ttdef"><b>Definition</b> <a href="#l00033">TaskQueue.cpp:33</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1TaskQueue_html_ad00ed45893aeef3ffb2c2aa8f382dddf"><div class="ttname"><a href="classRa_1_1Core_1_1TaskQueue.html#ad00ed45893aeef3ffb2c2aa8f382dddf">Ra::Core::TaskQueue::runTasksInThisThread</a></div><div class="ttdeci">void runTasksInThisThread()</div><div class="ttdef"><b>Definition</b> <a href="#l00214">TaskQueue.cpp:214</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1TaskQueue_html_ae4263fcdad580ffb7b5f28d29d5b7805"><div class="ttname"><a href="classRa_1_1Core_1_1TaskQueue.html#ae4263fcdad580ffb7b5f28d29d5b7805">Ra::Core::TaskQueue::waitForTasks</a></div><div class="ttdeci">void waitForTasks()</div><div class="ttdoc">Blocks until all tasks and dependencies are finished.</div><div class="ttdef"><b>Definition</b> <a href="#l00259">TaskQueue.cpp:259</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1TaskQueue_html_af7f1c6d7650e4b59ada2545f5829a353"><div class="ttname"><a href="classRa_1_1Core_1_1TaskQueue.html#af7f1c6d7650e4b59ada2545f5829a353">Ra::Core::TaskQueue::~TaskQueue</a></div><div class="ttdeci">~TaskQueue()</div><div class="ttdoc">Destructor. Waits for all the threads and safely deletes them.</div><div class="ttdef"><b>Definition</b> <a href="#l00022">TaskQueue.cpp:22</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1TaskQueue_html_a133a9b42dbb00afd3873b83a044c447f"><div class="ttname"><a href="classRa_1_1Core_1_1TaskQueue.html#a133a9b42dbb00afd3873b83a044c447f">Ra::Core::TaskQueue::flushTaskQueue</a></div><div class="ttdeci">void flushTaskQueue()</div><div class="ttdoc">Erases all tasks. Will assert if tasks are unprocessed.</div><div class="ttdef"><b>Definition</b> <a href="#l00276">TaskQueue.cpp:276</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1TaskQueue_html_a1e9c7315ee7f8ba44990d2217b4b620b"><div class="ttname"><a href="classRa_1_1Core_1_1TaskQueue.html#a1e9c7315ee7f8ba44990d2217b4b620b">Ra::Core::TaskQueue::TaskQueue</a></div><div class="ttdeci">TaskQueue(uint numThreads)</div><div class="ttdef"><b>Definition</b> <a href="#l00021">TaskQueue.cpp:21</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1TaskQueue_html_a21add3ed1dbe9f3429508c721e0e8e5d"><div class="ttname"><a href="classRa_1_1Core_1_1TaskQueue.html#a21add3ed1dbe9f3429508c721e0e8e5d">Ra::Core::TaskQueue::printTaskGraph</a></div><div class="ttdeci">void printTaskGraph(std::ostream &amp;output) const</div><div class="ttdoc">Prints the current task graph in dot format.</div><div class="ttdef"><b>Definition</b> <a href="#l00345">TaskQueue.cpp:345</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1TaskQueue_html_a462ea1280f62fb46db3fa74b805857b0"><div class="ttname"><a href="classRa_1_1Core_1_1TaskQueue.html#a462ea1280f62fb46db3fa74b805857b0">Ra::Core::TaskQueue::startTasks</a></div><div class="ttdeci">void startTasks()</div><div class="ttdef"><b>Definition</b> <a href="#l00192">TaskQueue.cpp:192</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1TaskQueue_html_a562a8b90730b7c62791e463568516a97"><div class="ttname"><a href="classRa_1_1Core_1_1TaskQueue.html#a562a8b90730b7c62791e463568516a97">Ra::Core::TaskQueue::getTimerData</a></div><div class="ttdeci">const std::vector&lt; TimerData &gt; &amp; getTimerData()</div><div class="ttdoc">Access the data from the last frame execution after processTaskQueue();.</div><div class="ttdef"><b>Definition</b> <a href="#l00272">TaskQueue.cpp:272</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1TaskQueue_html_a7f45b01ece2a8d78b8e2788c867a5051"><div class="ttname"><a href="classRa_1_1Core_1_1TaskQueue.html#a7f45b01ece2a8d78b8e2788c867a5051">Ra::Core::TaskQueue::removeTask</a></div><div class="ttdeci">void removeTask(TaskId taskId)</div><div class="ttdef"><b>Definition</b> <a href="#l00057">TaskQueue.cpp:57</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1TaskQueue_html_a95e06345125fdbfe4c0960fcff50246a"><div class="ttname"><a href="classRa_1_1Core_1_1TaskQueue.html#a95e06345125fdbfe4c0960fcff50246a">Ra::Core::TaskQueue::TaskId</a></div><div class="ttdeci">Utils::Index TaskId</div><div class="ttdoc">Identifier for a task in the task queue.</div><div class="ttdef"><b>Definition</b> <a href="TaskQueue_8hpp_source.html#l00053">TaskQueue.hpp:53</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1TaskQueue_html_aa4f17ab67ae942ab097ad47d6417e9be"><div class="ttname"><a href="classRa_1_1Core_1_1TaskQueue.html#aa4f17ab67ae942ab097ad47d6417e9be">Ra::Core::TaskQueue::addPendingDependency</a></div><div class="ttdeci">void addPendingDependency(const std::string &amp;predecessors, TaskId successor)</div><div class="ttdef"><b>Definition</b> <a href="#l00124">TaskQueue.cpp:124</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1TaskQueue_html_ab15b59009ff7bd766871ac66e01c3210"><div class="ttname"><a href="classRa_1_1Core_1_1TaskQueue.html#ab15b59009ff7bd766871ac66e01c3210">Ra::Core::TaskQueue::addDependency</a></div><div class="ttdeci">void addDependency(TaskId predecessor, TaskId successor)</div><div class="ttdef"><b>Definition</b> <a href="#l00084">TaskQueue.cpp:84</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1TaskQueue_html_ad0082015fff6570c90c7c06da147d20c"><div class="ttname"><a href="classRa_1_1Core_1_1TaskQueue.html#ad0082015fff6570c90c7c06da147d20c">Ra::Core::TaskQueue::registerTask</a></div><div class="ttdeci">TaskId registerTask(std::unique_ptr&lt; Task &gt; task)</div><div class="ttdef"><b>Definition</b> <a href="#l00040">TaskQueue.cpp:40</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1TaskQueue_html_ad00ed45893aeef3ffb2c2aa8f382dddf"><div class="ttname"><a href="classRa_1_1Core_1_1TaskQueue.html#ad00ed45893aeef3ffb2c2aa8f382dddf">Ra::Core::TaskQueue::runTasksInThisThread</a></div><div class="ttdeci">void runTasksInThisThread()</div><div class="ttdef"><b>Definition</b> <a href="#l00221">TaskQueue.cpp:221</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1TaskQueue_html_ae4263fcdad580ffb7b5f28d29d5b7805"><div class="ttname"><a href="classRa_1_1Core_1_1TaskQueue.html#ae4263fcdad580ffb7b5f28d29d5b7805">Ra::Core::TaskQueue::waitForTasks</a></div><div class="ttdeci">void waitForTasks()</div><div class="ttdoc">Blocks until all tasks and dependencies are finished.</div><div class="ttdef"><b>Definition</b> <a href="#l00266">TaskQueue.cpp:266</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1TaskQueue_html_af7f1c6d7650e4b59ada2545f5829a353"><div class="ttname"><a href="classRa_1_1Core_1_1TaskQueue.html#af7f1c6d7650e4b59ada2545f5829a353">Ra::Core::TaskQueue::~TaskQueue</a></div><div class="ttdeci">~TaskQueue()</div><div class="ttdoc">Destructor. Waits for all the threads and safely deletes them.</div><div class="ttdef"><b>Definition</b> <a href="#l00029">TaskQueue.cpp:29</a></div></div>
 <div class="ttc" id="aclear_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/container/vector/clear.html">std::vector::clear</a></div><div class="ttdeci">T clear(T... args)</div></div>
 <div class="ttc" id="adeque_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/container/deque.html">std::deque</a></div></div>
 <div class="ttc" id="aemplace_back_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/container/vector/emplace_back.html">std::vector::emplace_back</a></div><div class="ttdeci">T emplace_back(T... args)</div></div>
@@ -560,7 +567,7 @@ $(function(){initNavTree('TaskQueue_8cpp_source.html',''); initResizable(true); 
 <div class="ttc" id="afind_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/algorithm/find.html">std::find_if</a></div><div class="ttdeci">T find_if(T... args)</div></div>
 <div class="ttc" id="alock_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/thread/lock.html">std::lock</a></div><div class="ttdeci">T lock(T... args)</div></div>
 <div class="ttc" id="amove_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/utility/move.html">std::move</a></div><div class="ttdeci">T move(T... args)</div></div>
-<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">hepler function to manage enum as underlying types in VariableSet</div><div class="ttdef"><b>Definition</b> <a href="Cage_8cpp_source.html#l00003">Cage.cpp:3</a></div></div>
+<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">hepler function to manage enum as underlying types in VariableSet</div><div class="ttdef"><b>Definition</b> <a href="Cage_8cpp_source.html#l00004">Cage.cpp:4</a></div></div>
 <div class="ttc" id="anotify_all_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/thread/condition_variable_any/notify_all.html">std::condition_variable_any::notify_all</a></div><div class="ttdeci">T notify_all(T... args)</div></div>
 <div class="ttc" id="anotify_one_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/thread/condition_variable_any/notify_one.html">std::condition_variable_any::notify_one</a></div><div class="ttdeci">T notify_one(T... args)</div></div>
 <div class="ttc" id="anow_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/chrono/high_resolution_clock/now.html">std::chrono::high_resolution_clock::now</a></div><div class="ttdeci">T now(T... args)</div></div>
@@ -573,7 +580,7 @@ $(function(){initNavTree('TaskQueue_8cpp_source.html',''); initResizable(true); 
 <div class="ttc" id="ashared_lock_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/thread/shared_lock.html">std::shared_lock</a></div></div>
 <div class="ttc" id="asize_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/container/vector/size.html">std::vector::size</a></div><div class="ttdeci">T size(T... args)</div></div>
 <div class="ttc" id="astack_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/container/stack.html">std::stack</a></div></div>
-<div class="ttc" id="astructRa_1_1Core_1_1TaskQueue_1_1TimerData_html"><div class="ttname"><a href="structRa_1_1Core_1_1TaskQueue_1_1TimerData.html">Ra::Core::TaskQueue::TimerData</a></div><div class="ttdoc">Record of a task's start and end time.</div><div class="ttdef"><b>Definition</b> <a href="TaskQueue_8hpp_source.html#l00054">TaskQueue.hpp:54</a></div></div>
+<div class="ttc" id="astructRa_1_1Core_1_1TaskQueue_1_1TimerData_html"><div class="ttname"><a href="structRa_1_1Core_1_1TaskQueue_1_1TimerData.html">Ra::Core::TaskQueue::TimerData</a></div><div class="ttdoc">Record of a task's start and end time.</div><div class="ttdef"><b>Definition</b> <a href="TaskQueue_8hpp_source.html#l00056">TaskQueue.hpp:56</a></div></div>
 <div class="ttc" id="atop_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/container/stack/top.html">std::stack::top</a></div><div class="ttdeci">T top(T... args)</div></div>
 <div class="ttc" id="aunique_lock_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/thread/unique_lock.html">std::unique_lock</a></div></div>
 <div class="ttc" id="aunique_ptr_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/memory/unique_ptr.html">std::unique_ptr</a></div></div>

@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.webp"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.5.23</span>
+   &#160;<span id="projectnumber">1.5.24</span>
    </div>
   </td>
  </tr>
@@ -127,23 +127,23 @@ $(function(){initNavTree('pluginSystem.html',''); initResizable(true); });
 <div class="toc"><h3>Table of Contents</h3>
 <ul>
   <li class="level1">
-    <a href="#autotoc_md42">Basic</a>
+    <a href="#autotoc_md74">Basic</a>
   </li>
   <li class="level1">
-    <a href="#autotoc_md43">Plugin</a>
+    <a href="#autotoc_md75">Plugin</a>
   </li>
   <li class="level1">
-    <a href="#autotoc_md44">System</a>
+    <a href="#autotoc_md76">System</a>
   </li>
   <li class="level1">
-    <a href="#autotoc_md45">Component</a>
+    <a href="#autotoc_md77">Component</a>
   </li>
   <li class="level1">
-    <a href="#autotoc_md46">Task</a>
+    <a href="#autotoc_md78">Task</a>
   </li>
 </ul>
 </div>
-<div class="textblock"><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000005">Todo</a></b></dt><dd>check and update </dd></dl>
+<div class="textblock"><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000009">Todo</a></b></dt><dd>check and update </dd></dl>
 <p>The radium engine basically accept plugins to add functionnalities. An example could be a plug-in to support animation. ImGui, for instance, is implemented as a plugin.</p>
 <p>Current possibilities include:</p>
 <ul>
@@ -151,7 +151,7 @@ $(function(){initNavTree('pluginSystem.html',''); initResizable(true); });
 <li>Export RenderObjects to be rendered by the application renderer.</li>
 <li>Communicate with other plugins via the <code>ComponentMessenger</code> class.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md42"></a>
+<h1><a class="anchor" id="autotoc_md74"></a>
 Basic</h1>
 <p>A plugin is integrated by placing the corresponding <code>.so</code> into <code>./Plugins/bin</code>.</p>
 <p>A plugin generally contains the following classes:</p>
@@ -165,7 +165,7 @@ Basic</h1>
 <li><code>FooTask</code>: add some tasks (threads) to the <code>TaskManager</code>.</li>
 <li><code>FooRenderObject</code>: define a new render object that will be rendered just like any others thanks to <code>RenderObjectManager</code>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md43"></a>
+<h1><a class="anchor" id="autotoc_md75"></a>
 Plugin</h1>
 <pre class="fragment">// register the plugin to the application
 virtual void registerPlugin( Ra::Engine::RadiumEngine* engine ) override;
@@ -177,14 +177,14 @@ virtual QWidget* getWidget() override;
 // notify the need for a new menu entry
 virtual bool doAddMenu() override;
 virtual QMenu* getMenu() override;
-</pre><h1><a class="anchor" id="autotoc_md44"></a>
+</pre><h1><a class="anchor" id="autotoc_md76"></a>
 System</h1>
 <p>...</p>
-<h1><a class="anchor" id="autotoc_md45"></a>
+<h1><a class="anchor" id="autotoc_md77"></a>
 Component</h1>
 <p>Will communicate with others components through Entities.</p>
 <p>Please see <code>Entity</code>, <code>EntityManager</code>, <code>Component</code>, <code>ComponentMessenger</code>.</p>
-<h1><a class="anchor" id="autotoc_md46"></a>
+<h1><a class="anchor" id="autotoc_md78"></a>
 Task</h1>
 <p>... </p>
 </div></div><!-- contents -->

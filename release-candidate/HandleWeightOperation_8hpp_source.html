@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.webp"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.5.23</span>
+   &#160;<span id="projectnumber">1.5.24</span>
    </div>
   </td>
  </tr>
@@ -127,58 +127,62 @@ $(function(){initNavTree('HandleWeightOperation_8hpp_source.html',''); initResiz
 <div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;Core/Animation/HandleWeight.hpp&gt;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespaceRa.html">Ra</a> {</div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">namespace </span>Core {</div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span>Animation {</div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;Core/CoreMacros.hpp&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;Core/RaCore.hpp&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;Eigen/SparseCore&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="comment">/*</span></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="comment"> * Return the WeightMatrix extracted from the MeshWeight vector, for a handle with handle_size</span></div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="comment"> * transforms</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="comment"> */</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>RA_CORE_API WeightMatrix extractWeightMatrix( <span class="keyword">const</span> MeshWeight&amp; weight, <span class="keyword">const</span> uint handle_size );</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="comment">/*</span></div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="comment"> * Return the MeshWeight from the given WeightMatrix.</span></div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="comment"> */</span></div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>RA_CORE_API MeshWeight extractMeshWeight( Eigen::Ref&lt;const WeightMatrix&gt; matrix );</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="comment">/*</span></div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="comment"> * Return the WeightMatrix holding the partition of unity property.</span></div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="comment"> * This is obtained by normalizing each row by its l1-norm, assuming:</span></div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="comment"> *       weights( i, j ) &gt;= 0</span></div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="comment"> *       lpNorm1( weights.row( i ) ) &gt; 0</span></div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="comment"> */</span></div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>RA_CORE_API WeightMatrix partitionOfUnity( Eigen::Ref&lt;const WeightMatrix&gt; weights );</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="comment">/*</span></div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="comment"> * Return the index of the weight that influence the most the position of vertex at vertexId.</span></div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="comment"> */</span></div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>RA_CORE_API uint getMaxWeightIndex( Eigen::Ref&lt;const WeightMatrix&gt; weights, <span class="keyword">const</span> uint vertexID );</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="comment">/*</span></div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="comment"> * Return the vector containing the index of the handle influencing the most a vertex.</span></div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="comment"> */</span></div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>RA_CORE_API <span class="keywordtype">void</span> getMaxWeightIndex( Eigen::Ref&lt;const WeightMatrix&gt; weights,</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>                                    <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector.html">std::vector&lt;uint&gt;</a>&amp; handleID );</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="comment">/*</span></div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="comment"> * Call Math::checkInvalidNumbers and checkNoWeightVertex on the input matrix</span></div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="comment"> */</span></div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>RA_CORE_API <span class="keywordtype">bool</span> checkWeightMatrix( Eigen::Ref&lt;const WeightMatrix&gt; matrix,</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>                                    <span class="keyword">const</span> <span class="keywordtype">bool</span> FAIL_ON_ASSERT = <span class="keyword">false</span>,</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>                                    <span class="keyword">const</span> <span class="keywordtype">bool</span> MT             = <span class="keyword">false</span> );</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>RA_CORE_API <span class="keywordtype">bool</span> checkNoWeightVertex( Eigen::Ref&lt;const WeightMatrix&gt; matrix,</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>                                      <span class="keyword">const</span> <span class="keywordtype">bool</span> FAIL_ON_ASSERT = <span class="keyword">false</span>,</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>                                      <span class="keyword">const</span> <span class="keywordtype">bool</span> MT             = <span class="keyword">false</span> );</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespaceRa.html">Ra</a> {</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace </span>Core {</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">namespace </span>Animation {</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="comment">/*</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="comment"> * Return the WeightMatrix extracted from the MeshWeight vector, for a handle with handle_size</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="comment"> * transforms</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>RA_CORE_API WeightMatrix extractWeightMatrix( <span class="keyword">const</span> MeshWeight&amp; weight, <span class="keyword">const</span> uint handle_size );</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="comment">/*</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="comment"> * Return the MeshWeight from the given WeightMatrix.</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>RA_CORE_API MeshWeight extractMeshWeight( Eigen::Ref&lt;const WeightMatrix&gt; matrix );</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="comment">/*</span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="comment"> * Return the WeightMatrix holding the partition of unity property.</span></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="comment"> * This is obtained by normalizing each row by its l1-norm, assuming:</span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="comment"> *       weights( i, j ) &gt;= 0</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="comment"> *       lpNorm1( weights.row( i ) ) &gt; 0</span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>RA_CORE_API WeightMatrix partitionOfUnity( Eigen::Ref&lt;const WeightMatrix&gt; weights );</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="comment">/*</span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="comment"> * Return the index of the weight that influence the most the position of vertex at vertexId.</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>RA_CORE_API uint getMaxWeightIndex( Eigen::Ref&lt;const WeightMatrix&gt; weights, <span class="keyword">const</span> uint vertexID );</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="comment">/*</span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="comment"> * Return the vector containing the index of the handle influencing the most a vertex.</span></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>RA_CORE_API <span class="keywordtype">void</span> getMaxWeightIndex( Eigen::Ref&lt;const WeightMatrix&gt; weights,</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>                                    <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector.html">std::vector&lt;uint&gt;</a>&amp; handleID );</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="comment">/*</span></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="comment"> * Call Math::checkInvalidNumbers and checkNoWeightVertex on the input matrix</span></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>RA_CORE_API <span class="keywordtype">bool</span> checkWeightMatrix( Eigen::Ref&lt;const WeightMatrix&gt; matrix,</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>                                    <span class="keyword">const</span> <span class="keywordtype">bool</span> FAIL_ON_ASSERT = <span class="keyword">false</span>,</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>                                    <span class="keyword">const</span> <span class="keywordtype">bool</span> MT             = <span class="keyword">false</span> );</div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>RA_CORE_API <span class="keywordtype">bool</span> normalizeWeights( Eigen::Ref&lt;WeightMatrix&gt; matrix, <span class="keyword">const</span> <span class="keywordtype">bool</span> MT = <span class="keyword">false</span> );</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>} <span class="comment">// namespace Animation</span></div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>} <span class="comment">// Namespace Core</span></div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>} <span class="comment">// Namespace Ra</span></div>
-<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">hepler function to manage enum as underlying types in VariableSet</div><div class="ttdef"><b>Definition</b> <a href="Cage_8cpp_source.html#l00003">Cage.cpp:3</a></div></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>RA_CORE_API <span class="keywordtype">bool</span> checkNoWeightVertex( Eigen::Ref&lt;const WeightMatrix&gt; matrix,</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>                                      <span class="keyword">const</span> <span class="keywordtype">bool</span> FAIL_ON_ASSERT = <span class="keyword">false</span>,</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>                                      <span class="keyword">const</span> <span class="keywordtype">bool</span> MT             = <span class="keyword">false</span> );</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>RA_CORE_API <span class="keywordtype">bool</span> normalizeWeights( Eigen::Ref&lt;WeightMatrix&gt; matrix, <span class="keyword">const</span> <span class="keywordtype">bool</span> MT = <span class="keyword">false</span> );</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>} <span class="comment">// namespace Animation</span></div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>} <span class="comment">// Namespace Core</span></div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>} <span class="comment">// Namespace Ra</span></div>
+<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">hepler function to manage enum as underlying types in VariableSet</div><div class="ttdef"><b>Definition</b> <a href="Cage_8cpp_source.html#l00004">Cage.cpp:4</a></div></div>
 <div class="ttc" id="avector_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/container/vector.html">std::vector</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->

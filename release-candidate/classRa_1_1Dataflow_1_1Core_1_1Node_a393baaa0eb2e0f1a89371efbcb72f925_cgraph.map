@@ -1,0 +1,14 @@
+<map id="Ra::Dataflow::Core::Node::add_input" name="Ra::Dataflow::Core::Node::add_input">
+<area shape="rect" id="Node000001" title="Convenience alias to add_port(inputs(), in)" alt="" coords="5,134,148,174"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Dataflow_1_1Core_1_1Node.html#ab8e4e59c44028daad7958cabab720476" title="Adds a port to port collection." alt="" coords="196,105,339,145"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="148,140,182,135,183,140,148,146"/>
+<area shape="rect" id="Node000005" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/utility/move.html#" title=" " alt="" coords="415,169,501,195"/>
+<area shape="poly" id="edge6_Node000001_Node000005" title=" " alt="" coords="149,157,401,175,401,181,148,162"/>
+<area shape="rect" id="Node000003" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/iterator/distance.html#" title=" " alt="" coords="405,5,511,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="292,102,334,71,385,40,399,33,402,38,388,44,337,75,295,107"/>
+<area shape="rect" id="Node000004" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/algorithm/find.html#" title=" " alt="" coords="413,55,503,80"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="334,102,401,82,402,87,335,107"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="335,142,402,163,401,168,334,147"/>
+<area shape="rect" id="Node000006" href="$classRa_1_1Dataflow_1_1Core_1_1Node.html#a8107e0a23789840e57b98ca9f1a03c5a" title="Gets a port in a collection by its index." alt="" coords="387,105,529,145"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="339,122,373,122,373,127,339,127"/>
+</map>

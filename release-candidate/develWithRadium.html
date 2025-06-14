@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.webp"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.5.23</span>
+   &#160;<span id="projectnumber">1.5.24</span>
    </div>
   </td>
  </tr>
@@ -127,28 +127,28 @@ $(function(){initNavTree('develWithRadium.html',''); initResizable(true); });
 <div class="toc"><h3>Table of Contents</h3>
 <ul>
   <li class="level1">
-    <a href="#autotoc_md71">Radium libraries</a>
+    <a href="#autotoc_md109">Radium libraries</a>
   </li>
   <li class="level1">
     <a href="#pre_commit">Pre commit hook</a>
   </li>
   <li class="level1">
-    <a href="#autotoc_md72">Radium test suite</a>
+    <a href="#autotoc_md110">Radium test suite</a>
     <ul>
       <li class="level2">
-        <a href="#autotoc_md73">Preliminaries</a>
+        <a href="#autotoc_md111">Preliminaries</a>
       </li>
       <li class="level2">
-        <a href="#autotoc_md74">How to write tests</a>
+        <a href="#autotoc_md112">How to write tests</a>
       </li>
     </ul>
   </li>
   <li class="level1">
-    <a href="#autotoc_md75">Code coverage</a>
+    <a href="#autotoc_md113">Code coverage</a>
   </li>
 </ul>
 </div>
-<div class="textblock"><h1><a class="anchor" id="autotoc_md71"></a>
+<div class="textblock"><h1><a class="anchor" id="autotoc_md109"></a>
 Radium libraries</h1>
 <p>Direct contributions to master are closed. We defer merge to master after our radium based projects (public or private) CI tests. To this end, please select release_candidate as a base branch of your pull requests.</p>
 <h1><a class="anchor" id="pre_commit"></a>
@@ -157,9 +157,9 @@ Pre commit hook</h1>
 <div class="fragment"><div class="line">pip install pre-commit</div>
 <div class="line">pre-commit install</div>
 </div><!-- fragment --><p>This hook will check several formatting convention and cleanup your files' style on each commit. If some checks fail, it might have update automatically your code (hence just add again the modified file to your commit) or needs manual intervention. These script are also added as CI github check (to show any problems in case you have troubles to install the hook script).</p>
-<h1><a class="anchor" id="autotoc_md72"></a>
+<h1><a class="anchor" id="autotoc_md110"></a>
 Radium test suite</h1>
-<h2><a class="anchor" id="autotoc_md73"></a>
+<h2><a class="anchor" id="autotoc_md111"></a>
 Preliminaries</h2>
 <p>Radium testing is done using two tools:</p>
 <ul>
@@ -167,7 +167,7 @@ Preliminaries</h2>
 <li>Continuous Integration system: github action and codecov.io. We use these services to call CTest on several platforms (windows, ubuntu and MacOs) with several compilers, and validate any change made to the main repository.</li>
 </ul>
 <p>As a Radium contributor, and in most cases, you will have to work only with CTest, and let the CI system run your tests automatically. In this section we describe how to write a new test, how to insert it in the testing suite, and how to validate your results on your computer and the CI systems.</p>
-<h2><a class="anchor" id="autotoc_md74"></a>
+<h2><a class="anchor" id="autotoc_md112"></a>
 How to write tests</h2>
 <p>There is two kind of tests, integration test and unit test. Tests are run with the <code>check</code> target and it's variant (<code>check_verbose</code>, <code>test</code>, <code>run_unittests</code>, <code>run_unittests_verbose</code>) or directly with <code>ctest</code>. Calling <code>make test</code> or running <code>ctest</code> only perform testing, without build anything (e.g. if the code base is changed), due to CMake way of working.</p>
 <ul>
@@ -182,7 +182,7 @@ How to write tests</h2>
 <p>Here is an example:</p>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;Core/Geometry/Obb.hpp&gt;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;Core/Math/Math.hpp&gt;</span></div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="Types_8hpp.html">Core/Types.hpp</a>&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="Core_2Types_8hpp.html">Core/Types.hpp</a>&gt;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;catch2/catch_test_macros.hpp&gt;</span></div>
 <div class="line"> </div>
 <div class="line">TEST_CASE( <span class="stringliteral">&quot;Core/Geometry/Obb&quot;</span>, <span class="stringliteral">&quot;[unittests][Core][Core/Geometry][Obb]&quot;</span> ) {</div>
@@ -199,9 +199,8 @@ How to write tests</h2>
 <div class="line">        REQUIRE( obb.toAabb().isApprox( aabb ) );</div>
 <div class="line">    }</div>
 <div class="line">}</div>
-<div class="ttc" id="aTypes_8hpp_html"><div class="ttname"><a href="Types_8hpp.html">Types.hpp</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1Obb_html"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1Obb.html">Ra::Core::Geometry::Obb</a></div><div class="ttdoc">An oriented bounding box.</div><div class="ttdef"><b>Definition</b> <a href="Obb_8hpp_source.html#l00011">Obb.hpp:12</a></div></div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md75"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md113"></a>
 Code coverage</h1>
 <p>On PR, code coverage analysis is performed through a github action with help of codecov.io report.</p>
 <p>You can run such analysis on your own (on linux system, not tested on other plateform) using lcov. First install <code>lcov</code>, <code>sed</code> and <code>xmllint</code> for the tests. It's probably on your system repositories, e.g.:</p>

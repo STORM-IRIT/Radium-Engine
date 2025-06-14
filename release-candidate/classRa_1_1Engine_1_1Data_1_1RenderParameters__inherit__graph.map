@@ -1,5 +1,5 @@
 <map id="Ra::Engine::Data::RenderParameters" name="Ra::Engine::Data::RenderParameters">
-<area shape="rect" id="Node000001" title="Management of shader parameters with automatic binding of a named parameter to the corresponding glsl..." alt="" coords="25,1633,201,1793"/>
-<area shape="rect" id="Node000002" href="$classRa_1_1Core_1_1VariableSet.html" title="Heterogeneous container storing &quot;Variables&quot;, that maps a name (std::string) to a value (of any type T..." alt="" coords="5,5,221,1585"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="116,1599,116,1633,111,1633,111,1599"/>
+<area shape="rect" id="Node000001" title="Management of shader parameters with automatic binding of a named parameter to the corresponding glsl..." alt="" coords="25,1653,201,1813"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Core_1_1VariableSet.html" title="Heterogeneous container storing &quot;Variables&quot;, that maps a name (std::string) to a value (of any type T..." alt="" coords="5,5,221,1605"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="116,1619,116,1653,111,1653,111,1619"/>
 </map>

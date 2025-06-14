@@ -1,21 +1,31 @@
 <map id="Ra::Core::Utils::Observable&lt; Args &gt;" name="Ra::Core::Utils::Observable&lt; Args &gt;">
-<area shape="rect" id="Node000001" title=" " alt="" coords="783,5,972,265"/>
-<area shape="rect" id="Node000002" href="$classRa_1_1Core_1_1Utils_1_1Observable.html" title=" " alt="" coords="15,350,204,610"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="769,149,647,169,576,185,502,206,427,231,353,262,283,300,218,345,206,355,202,351,214,341,280,296,351,258,425,226,501,200,575,180,646,164,768,144"/>
-<area shape="rect" id="Node000004" href="$classRa_1_1Core_1_1Utils_1_1Observable.html" title=" " alt="" coords="228,357,439,603"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="771,177,697,207,614,246,531,292,452,345,435,359,431,355,449,341,528,287,612,241,695,202,769,172"/>
-<area shape="rect" id="Node000005" href="$classRa_1_1Core_1_1Utils_1_1Observable.html" title=" " alt="" coords="463,350,652,610"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="773,203,719,244,669,291,624,351,620,348,665,288,715,240,770,198"/>
-<area shape="rect" id="Node000006" href="$classRa_1_1Core_1_1Utils_1_1Observable.html" title=" " alt="" coords="676,343,865,617"/>
-<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="833,280,829,290,813,343,808,342,824,289,827,278"/>
-<area shape="rect" id="Node000007" href="$classRa_1_1Core_1_1Utils_1_1Observable.html" title=" " alt="" coords="889,350,1079,610"/>
-<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="953,277,957,289,972,349,967,350,952,290,948,279"/>
-<area shape="rect" id="Node000008" href="$classRa_1_1Core_1_1Utils_1_1Observable.html" title=" " alt="" coords="1103,350,1292,610"/>
-<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="986,183,1057,229,1091,257,1121,288,1142,317,1159,349,1154,351,1137,320,1117,291,1087,260,1054,233,983,188"/>
-<area shape="rect" id="Node000009" href="$classRa_1_1Core_1_1Utils_1_1Observable.html" title=" " alt="" coords="1316,350,1505,610"/>
-<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="986,167,1062,196,1146,234,1229,282,1306,341,1318,352,1314,356,1302,345,1227,287,1143,239,1060,201,984,172"/>
-<area shape="rect" id="Node000010" href="$classRa_1_1Core_1_1Utils_1_1Observable.html" title=" " alt="" coords="1529,350,1719,610"/>
-<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="986,145,1105,166,1244,202,1317,228,1388,259,1456,296,1519,341,1531,351,1527,355,1516,345,1453,301,1386,264,1315,233,1243,207,1104,171,985,150"/>
-<area shape="rect" id="Node000003" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html" title="The AttribManager provides attributes management by handles." alt="" coords="5,667,213,1692"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="112,624,112,666,107,666,107,624"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="1203,5,1392,265"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Core_1_1Utils_1_1Observable.html" title=" " alt="" coords="5,365,195,625"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1189,154,847,207,636,246,426,292,362,305,311,313,263,328,208,360,196,368,193,364,205,355,261,323,310,308,361,299,425,287,635,241,846,202,1188,148"/>
+<area shape="rect" id="Node000003" href="$classRa_1_1Core_1_1Utils_1_1Observable.html" title=" " alt="" coords="219,372,429,617"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="1189,145,1033,162,939,177,839,198,737,226,634,262,535,306,443,360,424,374,420,370,440,355,533,301,632,257,735,221,838,193,938,172,1032,156,1188,139"/>
+<area shape="rect" id="Node000004" href="$classRa_1_1Core_1_1Utils_1_1Observable.html" title=" " alt="" coords="453,365,643,625"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="1189,156,1091,176,977,204,858,242,743,292,691,325,645,368,641,364,687,321,740,287,856,237,976,199,1090,170,1188,151"/>
+<area shape="rect" id="Node000006" href="$classRa_1_1Core_1_1Utils_1_1Observable.html" title=" " alt="" coords="667,357,858,632"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="1191,176,1115,207,1031,248,948,299,872,359,860,371,856,368,869,355,945,295,1029,244,1112,202,1189,171"/>
+<area shape="rect" id="Node000008" href="$classRa_1_1Core_1_1Utils_1_1Observable.html" title=" " alt="" coords="883,365,1072,625"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="1194,231,1135,291,1073,366,1069,363,1131,288,1191,227"/>
+<area shape="rect" id="Node000009" href="$classRa_1_1Core_1_1Utils_1_1Observable.html" title=" " alt="" coords="1096,365,1285,625"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="1255,280,1252,290,1230,365,1225,363,1247,289,1250,278"/>
+<area shape="rect" id="Node000010" href="$classRa_1_1Core_1_1Utils_1_1Observable.html" title=" " alt="" coords="1309,365,1499,625"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="1373,277,1377,289,1395,364,1389,365,1372,290,1368,279"/>
+<area shape="rect" id="Node000011" href="$classRa_1_1Core_1_1Utils_1_1Observable.html" title=" " alt="" coords="1523,357,1712,632"/>
+<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="1406,183,1477,228,1511,256,1541,288,1563,320,1581,356,1576,358,1559,323,1537,291,1507,260,1474,233,1403,188"/>
+<area shape="rect" id="Node000012" href="$classRa_1_1Core_1_1Utils_1_1Observable.html" title=" " alt="" coords="1736,365,1925,625"/>
+<area shape="poly" id="edge11_Node000001_Node000012" title=" " alt="" coords="1406,156,1476,175,1553,203,1630,240,1700,287,1736,323,1767,363,1763,366,1732,326,1697,291,1627,245,1551,208,1475,181,1405,161"/>
+<area shape="rect" id="Node000013" href="$classRa_1_1Core_1_1Utils_1_1Observable.html" title=" " alt="" coords="1949,365,2139,625"/>
+<area shape="poly" id="edge12_Node000001_Node000013" title=" " alt="" coords="1406,139,1516,152,1644,178,1711,198,1777,222,1841,252,1900,287,1941,322,1975,363,1971,366,1937,326,1897,291,1838,256,1775,227,1709,203,1643,184,1515,158,1405,145"/>
+<area shape="rect" id="Node000014" href="$classRa_1_1Core_1_1Utils_1_1Observable.html" title=" " alt="" coords="2163,365,2352,625"/>
+<area shape="poly" id="edge13_Node000001_Node000014" title=" " alt="" coords="1406,146,1534,165,1692,194,1862,234,1947,259,2029,287,2095,314,2152,355,2164,366,2160,370,2149,359,2092,319,2027,292,1945,264,1861,239,1691,199,1533,170,1405,152"/>
+<area shape="rect" id="Node000015" href="$classRa_1_1Core_1_1Utils_1_1Observable.html" title=" " alt="" coords="2376,365,2565,625"/>
+<area shape="poly" id="edge14_Node000001_Node000015" title=" " alt="" coords="1406,138,1573,150,1787,176,1903,195,2021,220,2138,250,2252,287,2313,314,2366,355,2377,366,2374,370,2362,359,2310,319,2250,292,2137,255,2020,225,1902,200,1786,181,1573,156,1406,143"/>
+<area shape="rect" id="Node000005" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html" title="The AttribManager provides attributes management by handles." alt="" coords="444,681,652,1707"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="551,638,551,681,545,681,545,638"/>
+<area shape="rect" id="Node000007" href="$classRa_1_1Dataflow_1_1Core_1_1PortIn.html" title="Input port accepting data of type T." alt="" coords="684,814,841,1574"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="765,646,765,814,760,814,760,646"/>
 </map>

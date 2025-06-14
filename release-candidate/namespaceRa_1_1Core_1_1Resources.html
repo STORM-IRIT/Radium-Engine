@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.webp"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.5.23</span>
+   &#160;<span id="projectnumber">1.5.24</span>
    </div>
   </td>
  </tr>
@@ -186,7 +186,7 @@ Functions</h2></td></tr>
 <p>Get the path of the current executable.</p>
 <dl class="section return"><dt>Returns</dt><dd>the path prefix to access the current executable (always found) </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="Resources_8cpp_source.html#l00053">53</a> of file <a class="el" href="Resources_8cpp_source.html">Resources.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Resources_8cpp_source.html#l00051">51</a> of file <a class="el" href="Resources_8cpp_source.html">Resources.cpp</a>.</p>
 
 </div>
 </div>
@@ -208,7 +208,7 @@ Functions</h2></td></tr>
 <p>Get the current data path. </p>
 <p>If an application's data path was not pushed before the call of this function, the default value, corresponding to the current working directory is returned. Otherwise, the last path pushed using a call to <a class="el" href="#ad6fb8d46cb6a7f05ceae06d2498fca31" title="Push a new data path.">pushDataPath()</a> is returned. </p>
 
-<p class="definition">Definition at line <a class="el" href="Resources_8cpp_source.html#l00070">70</a> of file <a class="el" href="Resources_8cpp_source.html">Resources.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Resources_8cpp_source.html#l00068">68</a> of file <a class="el" href="Resources_8cpp_source.html">Resources.cpp</a>.</p>
 
 </div>
 </div>
@@ -231,7 +231,7 @@ Functions</h2></td></tr>
 <p>Radium embedded plugins are located in the Plugins directory, searched from Radium lib location. </p><dl class="section return"><dt>Returns</dt><dd>the path to access Radium Plugins. empty string if not found </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>the pattern searched is "Plugins/lib" since it's the basic resources dir. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="Resources_8cpp_source.html#l00044">44</a> of file <a class="el" href="Resources_8cpp_source.html">Resources.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Resources_8cpp_source.html#l00042">42</a> of file <a class="el" href="Resources_8cpp_source.html">Resources.cpp</a>.</p>
 <div id="dynsection-0" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
@@ -261,7 +261,7 @@ Functions</h2></td></tr>
 <p>Radium resources are located in the <a class="el" href="namespaceRa_1_1Core_1_1Resources.html" title="Resources paths, plugins paths and data paths management for Radium.">Resources</a> directory, searched from Radium lib location. </p><dl class="section return"><dt>Returns</dt><dd>the path to access Radium <a class="el" href="namespaceRa_1_1Core_1_1Resources.html" title="Resources paths, plugins paths and data paths management for Radium.">Resources</a> if found, otherwise !has_value </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>the pattern searched is "Resources/Radium" since it's the basic resources dir. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="Resources_8cpp_source.html#l00035">35</a> of file <a class="el" href="Resources_8cpp_source.html">Resources.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Resources_8cpp_source.html#l00033">33</a> of file <a class="el" href="Resources_8cpp_source.html">Resources.cpp</a>.</p>
 <div id="dynsection-1" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-1-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-1-summary" class="dynsummary" style="display:block;">
@@ -294,7 +294,7 @@ Functions</h2></td></tr>
 <p>Search for general resource path. </p>
 <p>Search for an accessible <a class="el" href="namespaceRa_1_1Core_1_1Resources.html" title="Resources paths, plugins paths and data paths management for Radium.">Resources</a> (or pattern if given) directory in the current executable (or symbol if != nullptr) path or its parents. </p><dl class="section return"><dt>Returns</dt><dd>the pattern path of the dynamic library or exec that contains the given symbol if found, otherwise !has_value </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="Resources_8cpp_source.html#l00057">57</a> of file <a class="el" href="Resources_8cpp_source.html">Resources.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Resources_8cpp_source.html#l00055">55</a> of file <a class="el" href="Resources_8cpp_source.html">Resources.cpp</a>.</p>
 
 </div>
 </div>
@@ -316,7 +316,7 @@ Functions</h2></td></tr>
 <p>Pop the current data path. </p>
 <p>The returned data path is removed from the data path stack and will not be available anymore for <a class="el" href="#a291182009b81d19abfa8b7fff7cbbfb7" title="Get the current data path.">getDataPath()</a>. </p><dl class="section return"><dt>Returns</dt><dd>the popped data path. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="Resources_8cpp_source.html#l00075">75</a> of file <a class="el" href="Resources_8cpp_source.html">Resources.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Resources_8cpp_source.html#l00073">73</a> of file <a class="el" href="Resources_8cpp_source.html">Resources.cpp</a>.</p>
 
 </div>
 </div>
@@ -343,7 +343,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="Resources_8cpp_source.html#l00082">82</a> of file <a class="el" href="Resources_8cpp_source.html">Resources.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Resources_8cpp_source.html#l00080">80</a> of file <a class="el" href="Resources_8cpp_source.html">Resources.cpp</a>.</p>
 <div id="dynsection-2" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-2-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-2-summary" class="dynsummary" style="display:block;">

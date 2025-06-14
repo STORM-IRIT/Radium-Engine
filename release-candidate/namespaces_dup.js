@@ -1,5 +1,6 @@
 var namespaces_dup =
 [
+    [ "globjects", "namespaceglobjects.html", null ],
     [ "Ra", "namespaceRa.html", "namespaceRa" ],
     [ "std", "namespacestd.html", [
       [ "chrono", "http://en.cppreference.com/w/namespacestd_1_1chrono.html", [

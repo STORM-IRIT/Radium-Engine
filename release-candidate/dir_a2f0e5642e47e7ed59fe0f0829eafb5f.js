@@ -5,11 +5,12 @@ var dir_a2f0e5642e47e7ed59fe0f0829eafb5f =
     [ "Containers", "dir_1456dd235032e023892318efbecb420b.html", "dir_1456dd235032e023892318efbecb420b" ],
     [ "Geometry", "dir_cb2b5dfd43482fb277f6333d539f1f06.html", "dir_cb2b5dfd43482fb277f6333d539f1f06" ],
     [ "Math", "dir_a1f42069ba95676f6b9abbd5065ccf6d.html", "dir_a1f42069ba95676f6b9abbd5065ccf6d" ],
+    [ "Random", "dir_9f96b8e783a14ee5256f260080e84570.html", "dir_9f96b8e783a14ee5256f260080e84570" ],
     [ "Resources", "dir_05ad645af30ba5694f9d87fa8078b2c2.html", "dir_05ad645af30ba5694f9d87fa8078b2c2" ],
     [ "Tasks", "dir_6e64eaae7c83dd6a6b1a1e366964c0d6.html", "dir_6e64eaae7c83dd6a6b1a1e366964c0d6" ],
     [ "Utils", "dir_ff87cf903db18af0fdb6c342683ece25.html", "dir_ff87cf903db18af0fdb6c342683ece25" ],
     [ "CoreMacros.hpp", "CoreMacros_8hpp_source.html", null ],
     [ "pch.hpp", "Core_2pch_8hpp_source.html", null ],
     [ "RaCore.hpp", "RaCore_8hpp_source.html", null ],
-    [ "Types.hpp", "Types_8hpp.html", null ]
+    [ "Types.hpp", "Core_2Types_8hpp.html", null ]
 ];

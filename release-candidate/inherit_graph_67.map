@@ -1,3 +1,31 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="Node000000" href="$classRa_1_1Core_1_1Utils_1_1Observable.html" title=" " alt="" coords="5,5,203,45"/>
+<area shape="rect" id="Node000000" href="$classRa_1_1Core_1_1Utils_1_1IndexedObject.html" title=" " alt="" coords="5,69,180,109"/>
+<area shape="rect" id="Node000001" href="$classRa_1_1Dataflow_1_1Rendering_1_1Nodes_1_1RenderingNode.html" title=" " alt="" coords="250,133,429,173"/>
+<area shape="poly" id="edge60_Node000000_Node000001" title=" " alt="" coords="184,110,262,131,261,136,183,115"/>
+<area shape="rect" id="Node000012" href="$classRa_1_1Engine_1_1Rendering_1_1RenderObject.html" title=" " alt="" coords="257,5,422,45"/>
+<area shape="poly" id="edge61_Node000000_Node000012" title=" " alt="" coords="183,63,261,43,262,48,184,68"/>
+<area shape="rect" id="Node000013" href="$classRa_1_1Engine_1_1Scene_1_1Entity.html" title="An entity is an scene element. It ties together components with a transform." alt="" coords="266,69,413,109"/>
+<area shape="poly" id="edge62_Node000000_Node000013" title=" " alt="" coords="194,87,266,87,266,92,194,92"/>
+<area shape="rect" id="Node000014" href="$classRa_1_1Engine_1_1Scene_1_1SystemEntity.html" title=" " alt="" coords="499,69,645,109"/>
+<area shape="poly" id="edge63_Node000013_Node000014" title=" " alt="" coords="427,87,498,87,498,92,427,92"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Dataflow_1_1Core_1_1Node.html" title="Base abstract class for all the nodes added and used by the node system." alt="" coords="21,437,164,477"/>
+<area shape="poly" id="edge73_Node000002_Node000001" title=" " alt="" coords="99,423,114,371,139,306,176,240,199,210,226,183,248,169,251,174,230,187,203,213,180,243,144,308,119,372,104,425"/>
+<area shape="rect" id="Node000003" href="$classCustoms_1_1FilterSelector.html" title="[Develop a custom node]" alt="" coords="234,198,445,223"/>
+<area shape="poly" id="edge64_Node000002_Node000003" title=" " alt="" coords="102,423,119,380,146,328,181,277,203,254,227,234,250,221,253,226,229,238,206,258,185,280,150,331,124,382,107,425"/>
+<area shape="rect" id="Node000004" href="$classRa_1_1Dataflow_1_1Core_1_1DataflowGraph.html" title="Represent a set of connected nodes that define a Direct Acyclic Computational Graph Ownership of node..." alt="" coords="268,248,411,288"/>
+<area shape="poly" id="edge65_Node000002_Node000004" title=" " alt="" coords="111,424,158,360,190,326,227,298,267,279,269,284,229,302,194,330,162,363,115,427"/>
+<area shape="rect" id="Node000005" href="$classRa_1_1Dataflow_1_1Core_1_1Functionals_1_1BinaryOpNode.html" title="Apply a binary operation on its input." alt="" coords="236,313,443,367"/>
+<area shape="poly" id="edge66_Node000002_Node000005" title=" " alt="" coords="134,428,227,376,253,365,255,370,229,381,137,432"/>
+<area shape="rect" id="Node000006" href="$classRa_1_1Dataflow_1_1Core_1_1Functionals_1_1FilterNode.html" title="Filter on iterable collection." alt="" coords="250,391,429,446"/>
+<area shape="poly" id="edge67_Node000002_Node000006" title=" " alt="" coords="178,441,249,430,250,435,178,447"/>
+<area shape="rect" id="Node000007" href="$classRa_1_1Dataflow_1_1Core_1_1Functionals_1_1ReduceNode.html" title="Reduce an iterable collection using a given operator." alt="" coords="242,470,437,525"/>
+<area shape="poly" id="edge68_Node000002_Node000007" title=" " alt="" coords="178,468,242,479,241,484,177,474"/>
+<area shape="rect" id="Node000008" href="$classRa_1_1Dataflow_1_1Core_1_1Functionals_1_1TransformNode.html" title="Transform an iterable collection." alt="" coords="234,549,445,603"/>
+<area shape="poly" id="edge69_Node000002_Node000008" title=" " alt="" coords="137,482,229,534,258,546,256,551,227,538,135,487"/>
+<area shape="rect" id="Node000009" href="$classRa_1_1Dataflow_1_1Core_1_1Sinks_1_1SinkNode.html" title="Base class for nodes that will store the result of a computation graph." alt="" coords="253,628,426,668"/>
+<area shape="poly" id="edge70_Node000002_Node000009" title=" " alt="" coords="115,487,162,551,194,584,229,612,255,626,252,630,227,617,190,588,158,555,111,491"/>
+<area shape="rect" id="Node000010" href="$classRa_1_1Dataflow_1_1Core_1_1Sources_1_1FunctionSourceNode.html" title="Node that deliver a std::function&lt;R( Args... )}}&gt;" alt="" coords="228,693,451,747"/>
+<area shape="poly" id="edge71_Node000002_Node000010" title=" " alt="" coords="108,490,126,532,153,583,187,634,230,678,248,690,245,695,226,682,183,637,148,585,122,535,103,492"/>
+<area shape="rect" id="Node000011" href="$classRa_1_1Dataflow_1_1Core_1_1Sources_1_1SingleDataSourceNode.html" title="Base class for nodes that will give access to some input data to the graph. This class can be used to..." alt="" coords="237,771,441,826"/>
+<area shape="poly" id="edge72_Node000002_Node000011" title=" " alt="" coords="103,490,117,547,141,619,178,693,202,727,230,757,246,769,243,773,226,761,198,730,174,695,136,621,111,549,97,491"/>
 </map>

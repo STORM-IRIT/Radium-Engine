@@ -11,7 +11,7 @@
 <!-- Node1 -->
 <g id="Node000001" class="node">
 <title>Node1</title>
-<g id="a_Node000001"><a xlink:title="Update the different UI element with the given renderParameter, using the given constraints.">
+<g id="a_Node000001"><a xlink:title="Setup UI according to params and constraints.">
 <polygon fill="#999999" stroke="#666666" points="142,-30 0,-30 0,0 142,0 142,-30"/>
 <text text-anchor="start" x="8" y="-18" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Gui::VariableSetEditor</text>
 <text text-anchor="middle" x="71" y="-7" font-family="Helvetica,sans-Serif" font-size="10.00">::setupUi</text>

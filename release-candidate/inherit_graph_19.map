@@ -1,3 +1,5 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="Node000000" href="$structRa_1_1Core_1_1Geometry_1_1deprecated_1_1TopologicalMeshTraits.html" title=" " alt="" coords="5,5,224,60"/>
+<area shape="rect" id="Node000000" href="$classRa_1_1Core_1_1DynamicVisitorBase.html" title="Base class for dynamically configurable visitors Users can implement this interface to build custom v..." alt="" coords="5,5,223,31"/>
+<area shape="rect" id="Node000001" href="$classRa_1_1Core_1_1DynamicVisitor.html" title="Base class for visitors with configurable per&#45;type callbacks. Visiting will be prepared at running ti..." alt="" coords="271,5,456,31"/>
+<area shape="poly" id="edge12_Node000000_Node000001" title=" " alt="" coords="236,15,270,15,270,21,236,21"/>
 </map>

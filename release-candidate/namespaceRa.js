@@ -1,6 +1,32 @@
 var namespaceRa =
 [
     [ "Core", "namespaceRa_1_1Core.html", "namespaceRa_1_1Core" ],
+    [ "Dataflow", null, [
+      [ "Core", null, [
+        [ "Functionals", null, [
+          [ "internal", "namespaceRa_1_1Dataflow_1_1Core_1_1Functionals_1_1internal.html", "namespaceRa_1_1Dataflow_1_1Core_1_1Functionals_1_1internal" ],
+          [ "BinaryOpNode", "classRa_1_1Dataflow_1_1Core_1_1Functionals_1_1BinaryOpNode.html", "classRa_1_1Dataflow_1_1Core_1_1Functionals_1_1BinaryOpNode" ],
+          [ "FilterNode", "classRa_1_1Dataflow_1_1Core_1_1Functionals_1_1FilterNode.html", "classRa_1_1Dataflow_1_1Core_1_1Functionals_1_1FilterNode" ],
+          [ "ReduceNode", "classRa_1_1Dataflow_1_1Core_1_1Functionals_1_1ReduceNode.html", "classRa_1_1Dataflow_1_1Core_1_1Functionals_1_1ReduceNode" ],
+          [ "TransformNode", "classRa_1_1Dataflow_1_1Core_1_1Functionals_1_1TransformNode.html", "classRa_1_1Dataflow_1_1Core_1_1Functionals_1_1TransformNode" ]
+        ] ],
+        [ "NodeFactoriesManager", "namespaceRa_1_1Dataflow_1_1Core_1_1NodeFactoriesManager.html", [
+          [ "create_factory", "namespaceRa_1_1Dataflow_1_1Core_1_1NodeFactoriesManager.html#abf16552be9484d5a9787dc02712e9003", null ],
+          [ "default_factory", "namespaceRa_1_1Dataflow_1_1Core_1_1NodeFactoriesManager.html#a7f176f2bf52134547664dff32b2201dd", null ],
+          [ "factory", "namespaceRa_1_1Dataflow_1_1Core_1_1NodeFactoriesManager.html#a078287c9105f4e3547365a7cd8c3b574", null ],
+          [ "factory_manager", "namespaceRa_1_1Dataflow_1_1Core_1_1NodeFactoriesManager.html#af56f50cbcfddb8146ebb0b721e83d2ac", null ],
+          [ "register_factory", "namespaceRa_1_1Dataflow_1_1Core_1_1NodeFactoriesManager.html#a724a4aa82ebfb560caf5405416737cf7", null ],
+          [ "unregister_factory", "namespaceRa_1_1Dataflow_1_1Core_1_1NodeFactoriesManager.html#a3c923d4a07ec9a9fc4323ad2848642cb", null ]
+        ] ],
+        [ "DataflowGraph", "classRa_1_1Dataflow_1_1Core_1_1DataflowGraph.html", "classRa_1_1Dataflow_1_1Core_1_1DataflowGraph" ],
+        [ "Node", "classRa_1_1Dataflow_1_1Core_1_1Node.html", "classRa_1_1Dataflow_1_1Core_1_1Node" ],
+        [ "NodeFactory", "classRa_1_1Dataflow_1_1Core_1_1NodeFactory.html", "classRa_1_1Dataflow_1_1Core_1_1NodeFactory" ],
+        [ "NodeFactorySet", "classRa_1_1Dataflow_1_1Core_1_1NodeFactorySet.html", "classRa_1_1Dataflow_1_1Core_1_1NodeFactorySet" ],
+        [ "PortBase", "classRa_1_1Dataflow_1_1Core_1_1PortBase.html", "classRa_1_1Dataflow_1_1Core_1_1PortBase" ],
+        [ "PortIn", "classRa_1_1Dataflow_1_1Core_1_1PortIn.html", "classRa_1_1Dataflow_1_1Core_1_1PortIn" ],
+        [ "PortOut", "classRa_1_1Dataflow_1_1Core_1_1PortOut.html", "classRa_1_1Dataflow_1_1Core_1_1PortOut" ]
+      ] ]
+    ] ],
     [ "Engine", "namespaceRa_1_1Engine.html", "namespaceRa_1_1Engine" ],
     [ "Gui", null, [
       [ "Widgets", null, [

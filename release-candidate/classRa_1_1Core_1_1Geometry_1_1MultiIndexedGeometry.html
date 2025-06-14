@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.webp"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.5.23</span>
+   &#160;<span id="projectnumber">1.5.24</span>
    </div>
   </td>
  </tr>
@@ -405,7 +405,7 @@ Protected Member Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><a class="el" href="structRa_1_1Core_1_1Geometry_1_1AbstractGeometry.html">AbstractGeometry</a> with per-vertex attributes and layers of indices. Each layer represents a different topology or indexing logic, e.g. triangle/line/quad meshes, point-clouds. </p>
 <p>Multiple layers are useful to share and maintain consistency of per-vertex attributes between different meshes representing the same geometry, e.g., a quad and triangle mesh layers connecting the same set of vertices.</p>
-<h2><a class="anchor" id="autotoc_md123"></a>
+<h2><a class="anchor" id="autotoc_md132"></a>
 Data-structure</h2>
 <p>It is designed as follow:</p><ul>
 <li>Per-vertex attributes are stored as <a class="el" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html" title="This class represents vertex + attributes per vertex. Toplogy is handled in MultiIndexedGeometry subc...">AttribArrayGeometry</a>,</li>
@@ -415,7 +415,7 @@ Data-structure</h2>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classRa_1_1Core_1_1Geometry_1_1GeometryIndexLayerBase.html" title="Base class for index collections stored in MultiIndexedGeometry.">GeometryIndexLayerBase</a> for more details about layers, semantics, and custom layers definition. </dd>
 <dd>
 <a class="el" href="structRa_1_1Core_1_1Geometry_1_1PointCloudIndexLayer.html" title="Index layer for a point cloud.">PointCloudIndexLayer</a>, <a class="el" href="structRa_1_1Core_1_1Geometry_1_1TriangleIndexLayer.html" title="Index layer for triangle mesh.">TriangleIndexLayer</a> for examples of layers</dd></dl>
-<h2><a class="anchor" id="autotoc_md124"></a>
+<h2><a class="anchor" id="autotoc_md133"></a>
 Adding new layers</h2>
 <dl class="section see"><dt>See also</dt><dd>setLayer to add or update an existing layer.</dd></dl>
 <p>Example of adding a <a class="el" href="structRa_1_1Core_1_1Geometry_1_1PointCloudIndexLayer.html" title="Index layer for a point cloud.">PointCloudIndexLayer</a> to an existing <a class="el" href="classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html" title="AbstractGeometry with per-vertex attributes and layers of indices. Each layer represents a different ...">MultiIndexedGeometry</a> <code>geo</code>: </p><div class="fragment"><div class="line">        <span class="keyword">auto</span> pil = std::make_unique&lt;PointCloudIndexLayer&gt;();</div>
@@ -425,7 +425,7 @@ Adding new layers</h2>
 <div class="line">        pilSemantics = pil-&gt;semantics();</div>
 <div class="line">        <span class="comment">// insert with default name</span></div>
 <div class="line">        <span class="keywordtype">bool</span> layerAdded = geo.addLayer( <a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/utility/move.html">std::move</a>( pil ) ).first;</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md125"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md134"></a>
 Accessing layers</h2>
 <p>Each layer is also associated with a <code>lock</code> state, used to give read-only or to lock write access.</p>
 <p>Layers can be accessed in different ways (see <a class="el" href="#a6192bea8770876bd8d0f22e56ac7799e" title="Check if at least one layer with such properties exists.">containsLayer</a>, <a class="el" href="#a39d57fddddd7dc9003f7ffcc5abe0f36" title="Count the number of layer matching the input parameters.">countLayers</a>, <a class="el" href="#a6be22f11eba7a83457e81cc50b2cae25" title="Read-only access to a layer.">getFirstLayerOccurrence</a>, and <a class="el" href="#a09ce4cede90c87b596f0a942d175697e" title="Read-only access to a layer.">getLayer</a>):</p><ul>
@@ -605,7 +605,7 @@ Accessing layers</h2>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="IndexedGeometry_8cpp_source.html#l00008">8</a> of file <a class="el" href="IndexedGeometry_8cpp_source.html">IndexedGeometry.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="IndexedGeometry_8cpp_source.html#l00012">12</a> of file <a class="el" href="IndexedGeometry_8cpp_source.html">IndexedGeometry.cpp</a>.</p>
 
 </div>
 </div>
@@ -632,7 +632,7 @@ Accessing layers</h2>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="IndexedGeometry_8cpp_source.html#l00013">13</a> of file <a class="el" href="IndexedGeometry_8cpp_source.html">IndexedGeometry.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="IndexedGeometry_8cpp_source.html#l00017">17</a> of file <a class="el" href="IndexedGeometry_8cpp_source.html">IndexedGeometry.cpp</a>.</p>
 
 </div>
 </div>
@@ -659,7 +659,7 @@ Accessing layers</h2>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="IndexedGeometry_8cpp_source.html#l00016">16</a> of file <a class="el" href="IndexedGeometry_8cpp_source.html">IndexedGeometry.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="IndexedGeometry_8cpp_source.html#l00020">20</a> of file <a class="el" href="IndexedGeometry_8cpp_source.html">IndexedGeometry.cpp</a>.</p>
 
 </div>
 </div>
@@ -686,7 +686,7 @@ Accessing layers</h2>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="IndexedGeometry_8cpp_source.html#l00019">19</a> of file <a class="el" href="IndexedGeometry_8cpp_source.html">IndexedGeometry.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="IndexedGeometry_8cpp_source.html#l00023">23</a> of file <a class="el" href="IndexedGeometry_8cpp_source.html">IndexedGeometry.cpp</a>.</p>
 
 </div>
 </div>
@@ -747,7 +747,7 @@ Accessing layers</h2>
 <dl class="section warning"><dt>Warning</dt><dd>Takes the ownership of the layer </dd></dl>
 <p>If not inserted, the pointer is deleted. So the caller must ensure this possible deletion is safe before calling this method.</p>
 
-<p class="definition">Definition at line <a class="el" href="IndexedGeometry_8cpp_source.html#l00214">214</a> of file <a class="el" href="IndexedGeometry_8cpp_source.html">IndexedGeometry.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="IndexedGeometry_8cpp_source.html#l00215">215</a> of file <a class="el" href="IndexedGeometry_8cpp_source.html">IndexedGeometry.cpp</a>.</p>
 <div id="dynsection-2" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-2-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-2-summary" class="dynsummary" style="display:block;">
@@ -774,7 +774,7 @@ Accessing layers</h2>
 </div><div class="memdoc">
 <p>Append another <a class="el" href="classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html" title="AbstractGeometry with per-vertex attributes and layers of indices. Each layer represents a different ...">MultiIndexedGeometry</a> to this one. Layers with same name/semantics are concatenated, and other layers are ignored </p><dl class="section return"><dt>Returns</dt><dd>true if all fields have been copied </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="IndexedGeometry_8cpp_source.html#l00058">58</a> of file <a class="el" href="IndexedGeometry_8cpp_source.html">IndexedGeometry.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="IndexedGeometry_8cpp_source.html#l00059">59</a> of file <a class="el" href="IndexedGeometry_8cpp_source.html">IndexedGeometry.cpp</a>.</p>
 <div id="dynsection-3" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-3-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-3-summary" class="dynsummary" style="display:block;">
@@ -804,7 +804,7 @@ Accessing layers</h2>
 <dl class="section note"><dt>Note</dt><dd>Only compiles to something when in debug mode.</dd></dl>
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000016">Todo</a></b></dt><dd>Implement <a class="el" href="#a252d9466c6cb8dba0c76f322cbe99f8b" title="Check that the MultiIndexedGeometry is well built, asserting when it is not.">MultiIndexedGeometry::checkConsistency</a> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="IndexedGeometry_8cpp_source.html#l00053">53</a> of file <a class="el" href="IndexedGeometry_8cpp_source.html">IndexedGeometry.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="IndexedGeometry_8cpp_source.html#l00057">57</a> of file <a class="el" href="IndexedGeometry_8cpp_source.html">IndexedGeometry.cpp</a>.</p>
 
 </div>
 </div>
@@ -835,7 +835,7 @@ Accessing layers</h2>
 
 <p>Reimplemented from <a class="el" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#a75f68d38992c5b5554ce6ebd852fac5f">Ra::Core::Geometry::AttribArrayGeometry</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="IndexedGeometry_8cpp_source.html#l00038">38</a> of file <a class="el" href="IndexedGeometry_8cpp_source.html">IndexedGeometry.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="IndexedGeometry_8cpp_source.html#l00042">42</a> of file <a class="el" href="IndexedGeometry_8cpp_source.html">IndexedGeometry.cpp</a>.</p>
 
 </div>
 </div>
@@ -899,7 +899,7 @@ Accessing layers</h2>
 </dl>
 <dl class="section user"><dt>Complexity:</dt><dd>\( O(n) \), with \( n \) the number of semantic names in the collection </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="IndexedGeometry_8cpp_source.html#l00089">89</a> of file <a class="el" href="IndexedGeometry_8cpp_source.html">IndexedGeometry.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="IndexedGeometry_8cpp_source.html#l00090">90</a> of file <a class="el" href="IndexedGeometry_8cpp_source.html">IndexedGeometry.cpp</a>.</p>
 
 </div>
 </div>
@@ -927,7 +927,7 @@ Accessing layers</h2>
 </dl>
 <dl class="section user"><dt>Complexity:</dt><dd>\( O(n) \), with \( n \) the number of layers in the collection </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="IndexedGeometry_8cpp_source.html#l00096">96</a> of file <a class="el" href="IndexedGeometry_8cpp_source.html">IndexedGeometry.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="IndexedGeometry_8cpp_source.html#l00097">97</a> of file <a class="el" href="IndexedGeometry_8cpp_source.html">IndexedGeometry.cpp</a>.</p>
 
 </div>
 </div>
@@ -997,7 +997,7 @@ Accessing layers</h2>
 <p>Copy geometry and indices from <code>others</code>. </p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#a1828a9428b47dc4a3f5cebec0681fc83">AttribArrayGeometry::copyBaseGeometry</a> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="IndexedGeometry_8cpp_source.html#l00045">45</a> of file <a class="el" href="IndexedGeometry_8cpp_source.html">IndexedGeometry.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="IndexedGeometry_8cpp_source.html#l00049">49</a> of file <a class="el" href="IndexedGeometry_8cpp_source.html">IndexedGeometry.cpp</a>.</p>
 
 </div>
 </div>
@@ -1061,7 +1061,7 @@ Accessing layers</h2>
 </dl>
 <dl class="section user"><dt>Complexity:</dt><dd>\( O(n) \), with \( n \) the number of semantic names in the collection </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="IndexedGeometry_8cpp_source.html#l00106">106</a> of file <a class="el" href="IndexedGeometry_8cpp_source.html">IndexedGeometry.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="IndexedGeometry_8cpp_source.html#l00107">107</a> of file <a class="el" href="IndexedGeometry_8cpp_source.html">IndexedGeometry.cpp</a>.</p>
 
 </div>
 </div>
@@ -1089,7 +1089,7 @@ Accessing layers</h2>
 </dl>
 <dl class="section user"><dt>Complexity:</dt><dd>\( O(n) \), with \( n \) the number of layers in the collection </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="IndexedGeometry_8cpp_source.html#l00114">114</a> of file <a class="el" href="IndexedGeometry_8cpp_source.html">IndexedGeometry.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="IndexedGeometry_8cpp_source.html#l00115">115</a> of file <a class="el" href="IndexedGeometry_8cpp_source.html">IndexedGeometry.cpp</a>.</p>
 
 </div>
 </div>
@@ -1172,7 +1172,7 @@ Accessing layers</h2>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="IndexedGeometry_8cpp_source.html#l00126">126</a> of file <a class="el" href="IndexedGeometry_8cpp_source.html">IndexedGeometry.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="IndexedGeometry_8cpp_source.html#l00127">127</a> of file <a class="el" href="IndexedGeometry_8cpp_source.html">IndexedGeometry.cpp</a>.</p>
 
 </div>
 </div>
@@ -1207,7 +1207,7 @@ Accessing layers</h2>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="IndexedGeometry_8cpp_source.html#l00135">135</a> of file <a class="el" href="IndexedGeometry_8cpp_source.html">IndexedGeometry.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="IndexedGeometry_8cpp_source.html#l00136">136</a> of file <a class="el" href="IndexedGeometry_8cpp_source.html">IndexedGeometry.cpp</a>.</p>
 
 </div>
 </div>
@@ -1243,7 +1243,7 @@ Accessing layers</h2>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="IndexedGeometry_8cpp_source.html#l00146">146</a> of file <a class="el" href="IndexedGeometry_8cpp_source.html">IndexedGeometry.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="IndexedGeometry_8cpp_source.html#l00147">147</a> of file <a class="el" href="IndexedGeometry_8cpp_source.html">IndexedGeometry.cpp</a>.</p>
 
 </div>
 </div>
@@ -1279,7 +1279,7 @@ Accessing layers</h2>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="IndexedGeometry_8cpp_source.html#l00158">158</a> of file <a class="el" href="IndexedGeometry_8cpp_source.html">IndexedGeometry.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="IndexedGeometry_8cpp_source.html#l00159">159</a> of file <a class="el" href="IndexedGeometry_8cpp_source.html">IndexedGeometry.cpp</a>.</p>
 
 </div>
 </div>
@@ -1401,7 +1401,7 @@ Accessing layers</h2>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="IndexedGeometry_8cpp_source.html#l00169">169</a> of file <a class="el" href="IndexedGeometry_8cpp_source.html">IndexedGeometry.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="IndexedGeometry_8cpp_source.html#l00170">170</a> of file <a class="el" href="IndexedGeometry_8cpp_source.html">IndexedGeometry.cpp</a>.</p>
 
 </div>
 </div>
@@ -1508,7 +1508,7 @@ Accessing layers</h2>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="IndexedGeometry_8cpp_source.html#l00022">22</a> of file <a class="el" href="IndexedGeometry_8cpp_source.html">IndexedGeometry.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="IndexedGeometry_8cpp_source.html#l00026">26</a> of file <a class="el" href="IndexedGeometry_8cpp_source.html">IndexedGeometry.cpp</a>.</p>
 
 </div>
 </div>
@@ -1527,7 +1527,7 @@ Accessing layers</h2>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="IndexedGeometry_8cpp_source.html#l00030">30</a> of file <a class="el" href="IndexedGeometry_8cpp_source.html">IndexedGeometry.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="IndexedGeometry_8cpp_source.html#l00034">34</a> of file <a class="el" href="IndexedGeometry_8cpp_source.html">IndexedGeometry.cpp</a>.</p>
 
 </div>
 </div>
@@ -1570,7 +1570,7 @@ Accessing layers</h2>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="IndexedGeometry_8cpp_source.html#l00179">179</a> of file <a class="el" href="IndexedGeometry_8cpp_source.html">IndexedGeometry.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="IndexedGeometry_8cpp_source.html#l00180">180</a> of file <a class="el" href="IndexedGeometry_8cpp_source.html">IndexedGeometry.cpp</a>.</p>
 
 </div>
 </div>
@@ -1613,7 +1613,7 @@ Accessing layers</h2>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="IndexedGeometry_8cpp_source.html#l00191">191</a> of file <a class="el" href="IndexedGeometry_8cpp_source.html">IndexedGeometry.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="IndexedGeometry_8cpp_source.html#l00192">192</a> of file <a class="el" href="IndexedGeometry_8cpp_source.html">IndexedGeometry.cpp</a>.</p>
 
 </div>
 </div>
@@ -1648,7 +1648,7 @@ Accessing layers</h2>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="IndexedGeometry_8cpp_source.html#l00203">203</a> of file <a class="el" href="IndexedGeometry_8cpp_source.html">IndexedGeometry.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="IndexedGeometry_8cpp_source.html#l00204">204</a> of file <a class="el" href="IndexedGeometry_8cpp_source.html">IndexedGeometry.cpp</a>.</p>
 
 </div>
 </div>

@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.webp"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.5.23</span>
+   &#160;<span id="projectnumber">1.5.24</span>
    </div>
   </td>
  </tr>
@@ -127,19 +127,19 @@ $(function(){initNavTree('develCameraManipulator.html',''); initResizable(true);
 <div class="toc"><h3>Table of Contents</h3>
 <ul>
   <li class="level1">
-    <a href="#autotoc_md50">Implementing a CameraManipulator</a>
+    <a href="#autotoc_md88">Implementing a CameraManipulator</a>
   </li>
   <li class="level1">
-    <a href="#autotoc_md51">Extending/Specializing an existing CameraManipulator</a>
+    <a href="#autotoc_md89">Extending/Specializing an existing CameraManipulator</a>
   </li>
   <li class="level1">
-    <a href="#autotoc_md52">Using a CameraManipulator</a>
+    <a href="#autotoc_md90">Using a CameraManipulator</a>
   </li>
 </ul>
 </div>
 <div class="textblock"><p>The Radium Engine provides some classes that allow to extend the way one might interact with a camera in an application.</p>
 <p>The class <code><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html" title="The CameraManipulator class is the generic class for camera manipulators.">Ra::Gui::CameraManipulator</a></code> defines the general interface for camera manipulator. All manipulators have common properties that allow to switch from one manipulator to one other without disturbing the visual and interactive behavior of the application.</p>
-<h1><a class="anchor" id="autotoc_md50"></a>
+<h1><a class="anchor" id="autotoc_md88"></a>
 Implementing a CameraManipulator</h1>
 <p>In order to extend the set of <code><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html" title="The CameraManipulator class is the generic class for camera manipulators.">Ra::Gui::CameraManipulator</a></code> available in Radium or to develop a dedicated <code><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html" title="The CameraManipulator class is the generic class for camera manipulators.">Ra::Gui::CameraManipulator</a></code> for a <code><a class="el" href="classRa_1_1Gui_1_1Viewer.html">Ra::Gui::Viewer</a></code>-based application, programmers are intended to do the following, demonstrated by the class <code>FlightCameraManipulator</code>.</p>
 <ol type="1">
@@ -219,7 +219,7 @@ Implementing a CameraManipulator</h1>
 </div><!-- fragment --></li>
 <li>Implement the inherited abstract method according to the wanted behavior of the <code><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html" title="The CameraManipulator class is the generic class for camera manipulators.">Ra::Gui::CameraManipulator</a></code></li>
 </ol>
-<h1><a class="anchor" id="autotoc_md51"></a>
+<h1><a class="anchor" id="autotoc_md89"></a>
 Extending/Specializing an existing CameraManipulator</h1>
 <p>The example application <code>CustomCameraManipulator</code> Demonstrate how to extend an existing manipulator and specialize its behavior for a given context. In the following code, the <code><a class="el" href="classRa_1_1Gui_1_1TrackballCameraManipulator.html" title="A Trackball manipulator for Cameras.">Ra::Gui::TrackballCameraManipulator</a></code> class is used to define a simple pan and zoom manipulator, simply by ignoring rotation events:</p>
 <div class="fragment"><div class="line"><span class="comment">// Add simple Camera Manipulator with only translation and zoom</span></div>
@@ -234,7 +234,7 @@ Extending/Specializing an existing CameraManipulator</h1>
 <div class="line">        m_keyMappingCallbackManager.addEventCallback( TRACKBALLCAMERA_ROTATE, []( QEvent* ) {} );</div>
 <div class="line">    }</div>
 <div class="line">};</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md52"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md90"></a>
 Using a CameraManipulator</h1>
 <p>Using a <code><a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html" title="The CameraManipulator class is the generic class for camera manipulators.">Ra::Gui::CameraManipulator</a></code> in a <code><a class="el" href="classRa_1_1Gui_1_1Viewer.html">Ra::Gui::Viewer</a></code>-based application is quite straightforward.</p>
 <p>If one wants to set a first camera manipulator to a viewer</p>
@@ -250,7 +250,7 @@ Using a CameraManipulator</h1>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="develmanual.html">Developer manual</a></li><li class="navelem"><a class="el" href="api.html">API</a></li><li class="navelem"><a class="el" href="gui.html">Gui</a></li>
+    <li class="navelem"><a class="el" href="conceptsmanual.html">Radium Concepts</a></li><li class="navelem"><a class="el" href="api.html">API</a></li><li class="navelem"><a class="el" href="gui.html">Gui</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
   </ul>
 </div>

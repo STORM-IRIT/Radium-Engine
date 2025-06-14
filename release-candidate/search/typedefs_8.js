@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['observer_0',['Observer',['../classRa_1_1Core_1_1Utils_1_1Observable.html#a5b2d48be6db6b982ac70610c526d3870',1,'Ra::Core::Utils::Observable']]],
-  ['offsetvector_1',['OffsetVector',['../classRa_1_1Core_1_1Grid.html#a8e692ae5c663d4ac79ad652b0c79caa2',1,'Ra::Core::Grid']]]
+  ['nodecreatorfunctor_0',['NodeCreatorFunctor',['../classRa_1_1Dataflow_1_1Core_1_1NodeFactory.html#a30432b27b0603486b266c89b5f99db77',1,'Ra::Dataflow::Core::NodeFactory']]]
 ];

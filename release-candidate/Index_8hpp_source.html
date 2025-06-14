@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.webp"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.5.23</span>
+   &#160;<span id="projectnumber">1.5.24</span>
    </div>
   </td>
  </tr>
@@ -280,7 +280,7 @@ $(function(){initNavTree('Index_8hpp_source.html',''); initResizable(true); });
 <div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> Integer&gt;</div>
 <div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span><span class="keyword">constexpr</span> <span class="keywordtype">bool</span> Index::operator==( <span class="keyword">const</span> Integer&amp; i ) {</div>
 <div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>    <span class="keyword">static_assert</span>( <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/types/is_integral.html">std::is_integral&lt;Integer&gt;::value</a>, <span class="stringliteral">&quot;Integral required.&quot;</span> );</div>
-<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>    <span class="keywordflow">return</span> ( *<span class="keyword">this</span> == Index( IntegerType( i ) ) );</div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>    <span class="keywordflow">return</span> ( this-&gt;<span class="keyword">operator</span>==( Index( IntegerType( i ) ) ) );</div>
 <div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>}</div>
 <div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span> </div>
 <div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span><span class="keyword">constexpr</span> <span class="keywordtype">bool</span> Index::operator!=( <span class="keyword">const</span> Index&amp; <span class="keywordtype">id</span> ) {</div>
@@ -289,7 +289,7 @@ $(function(){initNavTree('Index_8hpp_source.html',''); initResizable(true); });
 <div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> Integer&gt;</div>
 <div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span><span class="keyword">constexpr</span> <span class="keywordtype">bool</span> Index::operator!=( <span class="keyword">const</span> Integer&amp; i ) {</div>
 <div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>    <span class="keyword">static_assert</span>( <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/types/is_integral.html">std::is_integral&lt;Integer&gt;::value</a>, <span class="stringliteral">&quot;Integral required.&quot;</span> );</div>
-<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>    <span class="keywordflow">return</span> ( !( *<span class="keyword">this</span> == Index( IntegerType( i ) ) ) );</div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>    <span class="keywordflow">return</span> ( !this-&gt;<span class="keyword">operator</span>==( Index( IntegerType( i ) ) ) );</div>
 <div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>}</div>
 <div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span> </div>
 <div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span><span class="keyword">constexpr</span> <span class="keywordtype">bool</span> Index::operator&lt;( <span class="keyword">const</span> Index&amp; <span class="keywordtype">id</span> ) {</div>
@@ -336,7 +336,7 @@ $(function(){initNavTree('Index_8hpp_source.html',''); initResizable(true); });
 <div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>} <span class="comment">// namespace Ra</span></div>
 <div class="ttc" id="ais_integral_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/types/is_integral.html">std::is_integral</a></div></div>
 <div class="ttc" id="amax_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/types/numeric_limits/max.html">std::numeric_limits::max</a></div><div class="ttdeci">T max(T... args)</div></div>
-<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">hepler function to manage enum as underlying types in VariableSet</div><div class="ttdef"><b>Definition</b> <a href="Cage_8cpp_source.html#l00003">Cage.cpp:3</a></div></div>
+<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">hepler function to manage enum as underlying types in VariableSet</div><div class="ttdef"><b>Definition</b> <a href="Cage_8cpp_source.html#l00004">Cage.cpp:4</a></div></div>
 <div class="ttc" id="aoperator_cmp_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/utility/rel_ops/operator_cmp.html">std::rel_ops::operator!=</a></div><div class="ttdeci">T operator!=(T... args)</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->

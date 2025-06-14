@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.webp"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.5.23</span>
+   &#160;<span id="projectnumber">1.5.24</span>
    </div>
   </td>
  </tr>
@@ -127,23 +127,23 @@ $(function(){initNavTree('develanimation.html',''); initResizable(true); });
 <div class="toc"><h3>Table of Contents</h3>
 <ul>
   <li class="level1">
-    <a href="#autotoc_md47">Animation in Radium</a>
+    <a href="#autotoc_md28">Animation in Radium</a>
     <ul>
       <li class="level2">
-        <a href="#autotoc_md48">Using KeyFramedValue to animate data</a>
+        <a href="#autotoc_md29">Using KeyFramedValue to animate data</a>
       </li>
       <li class="level2">
-        <a href="#autotoc_md49">Character Animation</a>
+        <a href="#autotoc_md30">Character Animation</a>
       </li>
     </ul>
   </li>
 </ul>
 </div>
-<div class="textblock"><h1><a class="anchor" id="autotoc_md47"></a>
+<div class="textblock"><h1><a class="anchor" id="autotoc_md28"></a>
 Animation in Radium</h1>
 <p>The Radium Engine provides a set of classes dedicated to animation, which can be found in <code>Core/Animation</code>.</p>
 <p>In Radium, the animation of any data can be done through the <code><a class="el" href="classRa_1_1Core_1_1Animation_1_1KeyFramedValue.html">Ra::Core::Animation::KeyFramedValue</a></code> template. It stores the data keyframes, i.e. time-value couples, which are interpolated when the value for a given time is requested.</p>
-<h2><a class="anchor" id="autotoc_md48"></a>
+<h2><a class="anchor" id="autotoc_md29"></a>
 Using KeyFramedValue to animate data</h2>
 <p>There are two ways data can be animated using <code><a class="el" href="classRa_1_1Core_1_1Animation_1_1KeyFramedValue.html">Ra::Core::Animation::KeyFramedValue</a></code>:</p>
 <ul>
@@ -172,7 +172,15 @@ Using KeyFramedValue to animate data</h2>
 <div class="line">        <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/io/basic_ostream.html">std::cout</a> &lt;&lt; a.fetch( 2_ra ) &lt;&lt; <a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/io/manip/endl.html">std::endl</a>; <span class="comment">// prints: 2</span></div>
 <div class="line">        <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/io/basic_ostream.html">std::cout</a> &lt;&lt; a.fetch( 4_ra ) &lt;&lt; <a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/io/manip/endl.html">std::endl</a>; <span class="comment">// prints: 4</span></div>
 </div><!-- fragment --></li>
-<li>When the data is not specified as a <code><a class="el" href="classRa_1_1Core_1_1Animation_1_1KeyFramedValue.html">Ra::Core::Animation::KeyFramedValue</a></code> but one wants to animate it. In this case, one must use the <code><a class="el" href="classRa_1_1Core_1_1Animation_1_1KeyFramedValueController.html">Ra::Core::Animation::KeyFramedValueController</a></code> to animate the data: <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;Core/Animation/KeyFramedValueController.hpp&gt;</span></div>
+<li>When the data is not specified as a <code><a class="el" href="classRa_1_1Core_1_1Animation_1_1KeyFramedValue.html">Ra::Core::Animation::KeyFramedValue</a></code> but one wants to animate it. In this case, one must use the <code><a class="el" href="classRa_1_1Core_1_1Animation_1_1KeyFramedValueController.html">Ra::Core::Animation::KeyFramedValueController</a></code> to animate the data: <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;Core/Animation/HandleWeight.hpp&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;Core/Animation/KeyFramedValueController.hpp&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;Core/Animation/Pose.hpp&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;Core/Containers/AdjacencyList.hpp&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;Core/Containers/AlignedStdVector.hpp&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;Core/Containers/VectorArray.hpp&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;Core/CoreMacros.hpp&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;Core/Math/Math.hpp&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="Core_2Types_8hpp.html">Core/Types.hpp</a>&gt;</span></div>
 </div><!-- fragment --> <div class="fragment"><div class="line"> </div>
 <div class="line">    <span class="keyword">struct </span>MyStructAnimator {</div>
 <div class="line">        MyStructAnimator( MyStruct&amp; s ) {</div>
@@ -215,7 +223,7 @@ Using KeyFramedValue to animate data</h2>
 <div class="line"> </div>
 </div><!-- fragment --></li>
 </ul>
-<h2><a class="anchor" id="autotoc_md49"></a>
+<h2><a class="anchor" id="autotoc_md30"></a>
 Character Animation</h2>
 <h3>Character Animation Basics</h3>
 <p>In order to animate a digital character, one may choose from two main animation techniques:</p>
@@ -257,7 +265,7 @@ Character Animation</h2>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="develmanual.html">Developer manual</a></li><li class="navelem"><a class="el" href="api.html">API</a></li><li class="navelem"><a class="el" href="core.html">Core</a></li>
+    <li class="navelem"><a class="el" href="conceptsmanual.html">Radium Concepts</a></li><li class="navelem"><a class="el" href="api.html">API</a></li><li class="navelem"><a class="el" href="core.html">Core</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
   </ul>
 </div>

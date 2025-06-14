@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.webp"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.5.23</span>
+   &#160;<span id="projectnumber">1.5.24</span>
    </div>
   </td>
  </tr>
@@ -207,7 +207,7 @@ Public Member Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Defines a spherical, infinite light sources and, optionally, sky boxes. An operator to convert an <a class="el" href="classRa_1_1Engine_1_1Data_1_1EnvironmentTexture.html" title="Defines a spherical, infinite light sources and, optionally, sky boxes. An operator to convert an Env...">EnvironmentTexture</a> to SH matrices for irradiance mapping is defined. An operator to draw a textured sky box is defined. </p>
 
-<p class="definition">Definition at line <a class="el" href="EnvironmentTexture_8hpp_source.html#l00019">19</a> of file <a class="el" href="EnvironmentTexture_8hpp_source.html">EnvironmentTexture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="EnvironmentTexture_8hpp_source.html#l00020">20</a> of file <a class="el" href="EnvironmentTexture_8hpp_source.html">EnvironmentTexture.hpp</a>.</p>
 </div><h2 class="groupheader">Member Enumeration Documentation</h2>
 <a id="ae79b881460e54b289c8e54eddb4a82c8" name="ae79b881460e54b289c8e54eddb4a82c8"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae79b881460e54b289c8e54eddb4a82c8">&#9670;&#160;</a></span>EnvMapType</h2>
@@ -236,7 +236,7 @@ Public Member Functions</h2></td></tr>
 <li>ENVMAP_LATLON : equirectangular Projection of the envmap (<a href="https://en.wikipedia.org/wiki/Equirectangular_projection">https://en.wikipedia.org/wiki/Equirectangular_projection</a>) </li>
 </ul>
 
-<p class="definition">Definition at line <a class="el" href="EnvironmentTexture_8hpp_source.html#l00031">31</a> of file <a class="el" href="EnvironmentTexture_8hpp_source.html">EnvironmentTexture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="EnvironmentTexture_8hpp_source.html#l00032">32</a> of file <a class="el" href="EnvironmentTexture_8hpp_source.html">EnvironmentTexture.hpp</a>.</p>
 
 </div>
 </div>
@@ -290,7 +290,7 @@ If the cubemap is defined by a list of files, they must be named according to th
 </dl>
 <dl class="section note"><dt>Note</dt><dd>The envmap is transformed at loading/build time to the Radium global frame. </dd></dl>
 <dl class="section pre"><dt>Precondition</dt><dd>The file(s) given as mapName must exist. </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000036">Todo</a></b></dt><dd>: if the file given to the constructor does not exist, generates a white envmap ? </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000041">Todo</a></b></dt><dd>: if the file given to the constructor does not exist, generates a white envmap ? </dd></dl>
 </li>
 </ul>
 
@@ -315,9 +315,9 @@ If the cubemap is defined by a list of files, they must be named according to th
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>the prefiltered cubemap texture defining the environment </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>Prefiltering is made using standard mip-mapping. </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000037">Todo</a></b></dt><dd>Prefilter according to bsdf roughness values ? This will help for envmap lighting but might be wrong for skybox rendering </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000042">Todo</a></b></dt><dd>Prefilter according to bsdf roughness values ? This will help for envmap lighting but might be wrong for skybox rendering </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="EnvironmentTexture_8cpp_source.html#l00732">732</a> of file <a class="el" href="EnvironmentTexture_8cpp_source.html">EnvironmentTexture.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="EnvironmentTexture_8cpp_source.html#l00735">735</a> of file <a class="el" href="EnvironmentTexture_8cpp_source.html">EnvironmentTexture.cpp</a>.</p>
 
 </div>
 </div>
@@ -347,7 +347,7 @@ If the cubemap is defined by a list of files, they must be named according to th
 <p>Get the name used to construct the environment texture. </p>
 <dl class="section return"><dt>Returns</dt><dd>The file name, possibly ';' separated list of names, of the environment texture. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="EnvironmentTexture_8hpp_source.html#l00078">78</a> of file <a class="el" href="EnvironmentTexture_8hpp_source.html">EnvironmentTexture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="EnvironmentTexture_8hpp_source.html#l00079">79</a> of file <a class="el" href="EnvironmentTexture_8hpp_source.html">EnvironmentTexture.hpp</a>.</p>
 
 </div>
 </div>
@@ -378,7 +378,7 @@ If the cubemap is defined by a list of files, they must be named according to th
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="#ae79b881460e54b289c8e54eddb4a82c8" title="Environment map type inferred from file names and format. Supported environment type.">EnvMapType</a> </dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>The type of the environment texture </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="EnvironmentTexture_8hpp_source.html#l00084">84</a> of file <a class="el" href="EnvironmentTexture_8hpp_source.html">EnvironmentTexture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="EnvironmentTexture_8hpp_source.html#l00085">85</a> of file <a class="el" href="EnvironmentTexture_8hpp_source.html">EnvironmentTexture.hpp</a>.</p>
 
 </div>
 </div>
@@ -406,7 +406,7 @@ If the cubemap is defined by a list of files, they must be named according to th
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>the SH irradiance matrix for the channel </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="EnvironmentTexture_8cpp_source.html#l00649">649</a> of file <a class="el" href="EnvironmentTexture_8cpp_source.html">EnvironmentTexture.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="EnvironmentTexture_8cpp_source.html#l00652">652</a> of file <a class="el" href="EnvironmentTexture_8cpp_source.html">EnvironmentTexture.cpp</a>.</p>
 
 </div>
 </div>
@@ -428,7 +428,7 @@ If the cubemap is defined by a list of files, they must be named according to th
 <p>Get the multiplicative factor which defined the power of the light source. </p>
 <dl class="section return"><dt>Returns</dt><dd>the envmap power </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="EnvironmentTexture_8cpp_source.html#l00728">728</a> of file <a class="el" href="EnvironmentTexture_8cpp_source.html">EnvironmentTexture.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="EnvironmentTexture_8cpp_source.html#l00731">731</a> of file <a class="el" href="EnvironmentTexture_8cpp_source.html">EnvironmentTexture.cpp</a>.</p>
 
 </div>
 </div>
@@ -456,7 +456,7 @@ If the cubemap is defined by a list of files, they must be named according to th
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>true if the envmap is a skybox and might be rendered. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="EnvironmentTexture_8hpp_source.html#l00132">132</a> of file <a class="el" href="EnvironmentTexture_8hpp_source.html">EnvironmentTexture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="EnvironmentTexture_8hpp_source.html#l00133">133</a> of file <a class="el" href="EnvironmentTexture_8hpp_source.html">EnvironmentTexture.hpp</a>.</p>
 
 </div>
 </div>
@@ -483,7 +483,7 @@ If the cubemap is defined by a list of files, they must be named according to th
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="EnvironmentTexture_8cpp_source.html#l00695">695</a> of file <a class="el" href="EnvironmentTexture_8cpp_source.html">EnvironmentTexture.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="EnvironmentTexture_8cpp_source.html#l00698">698</a> of file <a class="el" href="EnvironmentTexture_8cpp_source.html">EnvironmentTexture.cpp</a>.</p>
 <div id="dynsection-1" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-1-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-1-summary" class="dynsummary" style="display:block;">
@@ -517,7 +517,7 @@ If the cubemap is defined by a list of files, they must be named according to th
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="EnvironmentTexture_8cpp_source.html#l00643">643</a> of file <a class="el" href="EnvironmentTexture_8cpp_source.html">EnvironmentTexture.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="EnvironmentTexture_8cpp_source.html#l00646">646</a> of file <a class="el" href="EnvironmentTexture_8cpp_source.html">EnvironmentTexture.cpp</a>.</p>
 
 </div>
 </div>
@@ -552,7 +552,7 @@ If the cubemap is defined by a list of files, they must be named according to th
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="EnvironmentTexture_8hpp_source.html#l00115">115</a> of file <a class="el" href="EnvironmentTexture_8hpp_source.html">EnvironmentTexture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="EnvironmentTexture_8hpp_source.html#l00116">116</a> of file <a class="el" href="EnvironmentTexture_8hpp_source.html">EnvironmentTexture.hpp</a>.</p>
 
 </div>
 </div>
@@ -579,7 +579,7 @@ If the cubemap is defined by a list of files, they must be named according to th
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="EnvironmentTexture_8cpp_source.html#l00724">724</a> of file <a class="el" href="EnvironmentTexture_8cpp_source.html">EnvironmentTexture.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="EnvironmentTexture_8cpp_source.html#l00727">727</a> of file <a class="el" href="EnvironmentTexture_8cpp_source.html">EnvironmentTexture.cpp</a>.</p>
 
 </div>
 </div>
@@ -600,7 +600,7 @@ If the cubemap is defined by a list of files, they must be named according to th
 
 <p>Update the OpenGL state of the envmap : texture, skybox and shaders if needed. </p>
 
-<p class="definition">Definition at line <a class="el" href="EnvironmentTexture_8cpp_source.html#l00653">653</a> of file <a class="el" href="EnvironmentTexture_8cpp_source.html">EnvironmentTexture.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="EnvironmentTexture_8cpp_source.html#l00656">656</a> of file <a class="el" href="EnvironmentTexture_8cpp_source.html">EnvironmentTexture.cpp</a>.</p>
 <div id="dynsection-2" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-2-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-2-summary" class="dynsummary" style="display:block;">

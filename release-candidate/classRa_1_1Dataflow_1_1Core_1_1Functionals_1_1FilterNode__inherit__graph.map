@@ -1,0 +1,5 @@
+<map id="Ra::Dataflow::Core::Functionals::FilterNode&lt; coll_t, v_t &gt;" name="Ra::Dataflow::Core::Functionals::FilterNode&lt; coll_t, v_t &gt;">
+<area shape="rect" id="Node000001" title="Filter on iterable collection." alt="" coords="5,1773,176,2028"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Dataflow_1_1Core_1_1Node.html" title="Base abstract class for all the nodes added and used by the node system." alt="" coords="8,5,173,1725"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="93,1739,93,1773,88,1773,88,1739"/>
+</map>

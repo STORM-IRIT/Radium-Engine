@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.webp"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.5.23</span>
+   &#160;<span id="projectnumber">1.5.24</span>
    </div>
   </td>
  </tr>
@@ -176,6 +176,7 @@ Configuration of Radium</h2>
 <div class="line">set(assimp_DIR &quot;/path/to/external/install/lib/cmake/assimp-5.0/&quot; CACHE PATH &quot;My assimp location&quot;)</div>
 <div class="line">set(tinyply_DIR &quot;/path/to/external/install/lib/cmake/tinyply/&quot; CACHE PATH &quot;My tinyply location&quot;)</div>
 <div class="line">set(PowerSlider_DIR &quot;/path/to/external/install/lib/cmake/PowerSlider/&quot; CACHE PATH &quot;My PowerSlider location&quot;)</div>
+<div class="line">set(QtNodes_DIR &quot;/path/to/external/install/lib/cmake/QtNodes/&quot; CACHE PATH &quot;My QtNodes location&quot;)</div>
 <div class="line">set(RADIUM_IO_ASSIMP ON CACHE BOOL &quot;Radium uses assimp io&quot;)</div>
 <div class="line">set(RADIUM_IO_TINYPLY ON CACHE BOOL &quot;Radium uses tinyply io&quot;)</div>
 </div><!-- fragment --><p>When configuring Radium cmake project, don't forget to add this file by calling <code>cmake -C /path/to/installs/radium-external-r/radium-options.cmake ...</code></p>
@@ -188,18 +189,19 @@ User provided external dependencies</h2>
 <p>You can use your own installation of a local dependency instead of letting cmake fetch and compile it. To this end, just provide the corresponding '*_DIR' to cmake at configuration time as show before (with '-D' option, configuration file or toolchain file, please refer to cmake documentation).</p>
 <p>Currently supported (note that these paths must refer to the installation directory of the corresponding library):</p>
 <ul>
-<li><code>assimp_DIR</code></li>
-<li><code>tinyply_DIR</code></li>
-<li><code>PowerSlider_DIR</code></li>
+<li><code>Eigen3_DIR</code></li>
+<li><code>OpenMesh_DIR</code></li>
+<li><code>cpplocate_DIR</code></li>
+<li><code>nlohmann_json_DIR</code></li>
 <li><code>glm_DIR</code></li>
 <li><code>glbinding_DIR</code></li>
 <li><code>globjects_DIR</code></li>
 <li><code>stb_DIR</code></li>
 <li><code>tinyEXR_DIR</code></li>
-<li><code>Eigen3_DIR</code></li>
-<li><code>OpenMesh_DIR</code></li>
-<li><code>cpplocate_DIR</code></li>
-<li><code>nlohmann_json_DIR</code></li>
+<li><code>assimp_DIR</code></li>
+<li><code>tinyply_DIR</code></li>
+<li><code>PowerSlider_DIR</code></li>
+<li><code>QtNodes_DIR</code></li>
 </ul>
 <dl class="section warning"><dt>Warning</dt><dd>You have to take care of the consistency of the external dependencies, e.g. it's not possible to use your version of globjects without providing your version of eigen, otherwise you will have mixed version in Radium.</dd></dl>
 <h1><a class="anchor" id="autotoc_md17"></a>
@@ -227,10 +229,13 @@ Folder structure</h2>
 Configure build options</h2>
 <p>Radium offers the following build options:</p>
 <div class="fragment"><div class="line">// Enable coverage, gcc only. Experimental, need ENABLE_TESTING</div>
-<div class="line">RADIUM_ENABLE_COVERAGE:BOOL=OFF</div>
+<div class="line">RADIUM_ENABLE_COVERAGE:BOOL=ON</div>
 <div class="line"> </div>
 <div class="line">// Enable examples app build. To install examples, build explicitly the target Install_RadiumExamples.</div>
-<div class="line">RADIUM_ENABLE_EXAMPLES:BOOL=OFF</div>
+<div class="line">RADIUM_ENABLE_EXAMPLES:BOOL=ON</div>
+<div class="line"> </div>
+<div class="line">// Enable testing of OpenGL functionalities. Option only available if RADIUM_ENABLE_TESTING is ON.</div>
+<div class="line">RADIUM_ENABLE_GL_TESTING:BOOL=ON</div>
 <div class="line"> </div>
 <div class="line">// Enable precompiled headers.</div>
 <div class="line">RADIUM_ENABLE_PCH:BOOL=OFF</div>
@@ -238,11 +243,11 @@ Configure build options</h2>
 <div class="line">// Enable testing. Tests are automatically built with target all, run with target check or test.</div>
 <div class="line">RADIUM_ENABLE_TESTING:BOOL=ON</div>
 <div class="line"> </div>
-<div class="line">// Enable testing of OpenGL functionalities. Option only available if RADIUM_ENABLE_TESTING is ON.</div>
-<div class="line">RADIUM_ENABLE_GL_TESTING:BOOL=OFF</div>
-<div class="line"> </div>
 <div class="line">// Include Radium::Core in CMake project.</div>
 <div class="line">RADIUM_GENERATE_LIB_CORE:BOOL=ON</div>
+<div class="line"> </div>
+<div class="line">// Include Radium::Dataflow* in CMake project.</div>
+<div class="line">RADIUM_GENERATE_LIB_DATAFLOW:BOOL=ON</div>
 <div class="line"> </div>
 <div class="line">// Include Radium::Engine in CMake project.</div>
 <div class="line">RADIUM_GENERATE_LIB_ENGINE:BOOL=ON</div>
@@ -278,20 +283,31 @@ Configure build options</h2>
 <div class="line">RADIUM_QUIET:BOOL=OFF</div>
 <div class="line"> </div>
 <div class="line">// Update version file each time the project is compiled (update compilation time in version.cpp).</div>
-<div class="line">RADIUM_UPDATE_VERSION:BOOL=ON</div>
+<div class="line">RADIUM_UPDATE_VERSION:BOOL=OFF</div>
 <div class="line"> </div>
 <div class="line">// Use double precision for Scalar.</div>
 <div class="line">RADIUM_USE_DOUBLE:BOOL=OFF</div>
+<div class="line"> </div>
+<div class="line">// Enable loading/saving files with RadiumGltf extension</div>
+<div class="line">USE_RADIUMGLTF:BOOL=OFF</div>
+<div class="line"> </div>
+<div class="line">// Use assimp data loader from Radium IO</div>
+<div class="line">USE_RADIUM_IO_ASSIMPLOADER:BOOL=ON</div>
 </div><!-- fragment --><p>All radium related cmake options (with their current values) can be printed with <code>cmake -LAH | grep -B1 RADIUM</code> (on linux like system)</p>
 <dl class="section warning"><dt>Warning</dt><dd>For computers with low RAM capacities (under 12G) we recommend to set the <code>CMAKE_BUILD_PARALLEL_LEVEL</code> environment variable to a reasonable value (i.e. 2) to prevent the computer from swapping.</dd></dl>
 <h3>Precompiled headers</h3>
 <p>Radium build can take benefit of precompiled headers. To do so, set <code>RADIUM_ENABLE_PCH=ON</code> (OFF by default) at cmake configure time. Compilation speedup depends on what files you are currently editing, and full compilation is roughly 20% less with precompiled header enabled.</p>
 <h3>Dependencies between libraries</h3>
 <p>The options <code>RADIUM_GENERATE_LIB_XXXX</code> allows to enable/disable each Radium library. The dependencies between libraries are set as follow:</p>
-<div class="fragment"><div class="line">add_dependencies (${ra_engine_target} PUBLIC Radium::Core)</div>
-<div class="line">add_dependencies (${ra_io_target} PUBLIC Radium::Core)</div>
-<div class="line">add_dependencies (${ra_pluginbase_target} Radium::Core Radium::Engine)</div>
-<div class="line">add_dependencies (${ra_gui_target} PUBLIC Radium::Core Radium::Engine Radium::PluginBase Radium::IO)</div>
+<div class="fragment"><div class="line">add_dependencies(${ra_dataflowrendering_target} DataflowCore Engine)</div>
+<div class="line">add_dependencies(${ra_headless_target} Core Engine IO)</div>
+<div class="line">add_dependencies(${ra_gui_target} Core Engine PluginBase IO)</div>
+<div class="line">add_dependencies(${ra_io_target} Core)</div>
+<div class="line">add_dependencies(${ra_pluginbase_target} Core Engine)</div>
+<div class="line">add_dependencies(${ra_engine_target} Core RadiumEngineShaders)</div>
+<div class="line">add_dependencies(${ra_dataflowcore_target} Core)</div>
+<div class="line">add_dependencies(${ra_dataflowqtgui_target} DataflowCore Gui)</div>
+<div class="line">add_dependencies(${ra_dataflow_target} DataflowCore DataflowQtGui)</div>
 </div><!-- fragment --><dl class="section warning"><dt>Warning</dt><dd>Consistency of <code>RADIUM_GENERATE_LIB_***</code> options is not checked wrt. the dependencies.</dd></dl>
 <ul>
 <li>When enabled using <code>RADIUM_GENERATE_LIB_***</code>, each library has a compilation target: <code>Core</code>, <code>Engine</code>, ... </li>
