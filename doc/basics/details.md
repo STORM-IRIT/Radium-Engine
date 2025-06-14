@@ -106,22 +106,19 @@ Bundle-*
 
 Radium offers the following build options:
 
-<!-- cmake -LAH | grep RADIUM -B1 | sed s/--//g -->
+<!-- cmake -LAH . | grep RADIUM -B1 | sed s/--//g # in build directory -->
 ~~~{.bash}
 // Enable coverage, gcc only. Experimental, need ENABLE_TESTING
 RADIUM_ENABLE_COVERAGE:BOOL=OFF
 
 // Enable examples app build. To install examples, build explicitly the target Install_RadiumExamples.
-RADIUM_ENABLE_EXAMPLES:BOOL=OFF
-
-// Enable testing of OpenGL functionalities. Option only available if RADIUM_ENABLE_TESTING is ON.
-RADIUM_ENABLE_GL_TESTING:BOOL=ON
+RADIUM_ENABLE_EXAMPLES:BOOL=ON
 
 // Enable precompiled headers.
 RADIUM_ENABLE_PCH:BOOL=OFF
 
 // Enable testing. Tests are automatically built with target all, run with target check or test.
-RADIUM_ENABLE_TESTING:BOOL=ON
+RADIUM_ENABLE_TESTING:BOOL=OFF
 
 // Include Radium::Core in CMake project.
 RADIUM_GENERATE_LIB_CORE:BOOL=ON
@@ -189,17 +186,11 @@ Compilation speedup depends on what files you are currently editing, and full co
 The options `RADIUM_GENERATE_LIB_XXXX` allows to enable/disable each Radium library.
 The dependencies between libraries are set as follow:
 
-~~~{.cmake}
-add_dependencies(${ra_dataflowrendering_target} DataflowCore Engine)
-add_dependencies(${ra_headless_target} Core Engine IO)
-add_dependencies(${ra_gui_target} Core Engine PluginBase IO)
-add_dependencies(${ra_io_target} Core)
-add_dependencies(${ra_pluginbase_target} Core Engine)
-add_dependencies(${ra_engine_target} Core RadiumEngineShaders)
-add_dependencies(${ra_dataflowcore_target} Core)
-add_dependencies(${ra_dataflowqtgui_target} DataflowCore Gui)
-add_dependencies(${ra_dataflow_target} DataflowCore DataflowQtGui)
-~~~
+<!-- cmake . --graphviz=dependencies.dot # in build directory -->
+<!-- edit dependencies.dot to remove legend -->
+<!-- dot -Tsvg -o dependencies.svg dependencies.dot -->
+<!-- copy dependencies.svg to doc/images -->
+![Dependency graph of radium libs.](dependencies.svg)
 
 \warning Consistency of `RADIUM_GENERATE_LIB_***` options is not checked wrt. the dependencies.
 
