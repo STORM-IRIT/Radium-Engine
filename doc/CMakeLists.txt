@@ -111,7 +111,7 @@ if(DOXYGEN_FOUND)
         "${CMAKE_CURRENT_SOURCE_DIR}/../src"
     )
     set(DOXYGEN_EXAMPLE_PATTERNS "*.cpp" "*.h" "*.cu")
-    set(DOXYGEN_EXCLUDE_PATTERNS "*/src/Headless/CLI/*" "*/external/*")
+    set(DOXYGEN_EXCLUDE_PATTERNS "*/src/Headless/CLI/*" "*/external/*" "*/tests/*md")
     set(DOXYGEN_EXPAND_ONLY_PREDEF "YES")
     set(DOXYGEN_EXTENSION_MAPPING "dox=C++" "inl=C++")
     set(DOXYGEN_EXTRACT_ALL "NO")
@@ -171,7 +171,8 @@ if(DOXYGEN_FOUND)
 
     doxygen_add_docs(
         RadiumDoc ${md_pages_order} ${md_files} ${CMAKE_CURRENT_SOURCE_DIR}/../src/
-        WORKING_DIRECTORY ${PROJECT_SOURCE_DIR} COMMENT "Generating API documentation with Doxygen"
+        ${CMAKE_CURRENT_SOURCE_DIR}/../tests/ WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
+        COMMENT "Generating API documentation with Doxygen"
     )
     # Where docs will be installed.
     if(RADIUM_INSTALL_DOC)
