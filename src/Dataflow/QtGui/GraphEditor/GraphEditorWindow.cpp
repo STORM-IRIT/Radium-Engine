@@ -23,13 +23,11 @@ namespace Ra {
 namespace Dataflow {
 namespace QtGui {
 namespace GraphEditor {
-
 using namespace Ra::Dataflow::Core;
 
 GraphEditorWindow::~GraphEditorWindow() {}
 
 GraphEditorWindow::GraphEditorWindow( std::shared_ptr<DataflowGraph> graph ) : m_graph { graph } {
-
     if ( !m_graph ) { m_graph = std::make_shared<DataflowGraph>( "" ); }
 
     auto central_widget = new QWidget( this );
@@ -60,7 +58,6 @@ GraphEditorWindow::GraphEditorWindow( std::shared_ptr<DataflowGraph> graph ) : m
     node_tree_widget->setHeaderLabel( "Nodes" );
 
     for ( const auto& [factory_name, factory] : NodeFactoriesManager::factory_manager() ) {
-
         std::map<std::string, std::vector<std::string>> node_list;
         for ( const auto& [model_name, creator] : factory->factory_map() ) {
             auto f              = creator.first;
@@ -116,11 +113,16 @@ class GraphEditorDialog : public QDialog
 
 void GraphEditorWindow::node_editor( std::shared_ptr<Node> node ) {
     auto g = std::dynamic_pointer_cast<DataflowGraph>( node );
-    auto w = new GraphEditorDialog( g, this );
+    //  save names given at node creation to be restored after graph edition
+    auto n  = g->instance_name();
+    auto dn = g->display_name();
+    auto w  = new GraphEditorDialog( g, this );
 
     w->setWindowModality( Qt::ApplicationModal );
     w->show();
-    connect( w, &GraphEditorDialog::finished, [this, g]( int ) {
+    connect( w, &GraphEditorDialog::finished, [this, g, n, dn]( int ) {
+        g->set_instance_name( n );
+        g->set_display_name( dn );
         g->generate_ports();
         m_graph_model->clear_node_widget( g.get() );
         m_graph_model->sync_data();
@@ -133,7 +135,6 @@ class NodeEditorDialog : public QDialog
     NodeEditorDialog( Node* node, QWidget* parent = nullptr, Qt::WindowFlags f = Qt::Dialog ) :
         QDialog( parent, f ), m_node { node } {
         ui.setupUi( this );
-
         {
             ui.node_model->setText( QString::fromStdString( node->model_name() ) );
             ui.node_instance->setText( QString::fromStdString( node->instance_name() ) );
@@ -256,7 +257,6 @@ void GraphEditorWindow::documentWasModified() {
 }
 
 void GraphEditorWindow::createActions() {
-
     auto fileMenu       = menuBar()->addMenu( tr( "&File" ) );
     auto fileToolBar    = addToolBar( tr( "File" ) );
     const QIcon newIcon = QIcon::fromTheme( "document-new", QIcon( ":/images/new.png" ) );
@@ -423,7 +423,6 @@ void GraphEditorWindow::setCurrentFile( const QString& fileName ) {
 QString GraphEditorWindow::strippedName( const QString& fullFileName ) {
     return QFileInfo( fullFileName ).fileName();
 }
-
 } // namespace GraphEditor
 } // namespace QtGui
 } // namespace Dataflow
