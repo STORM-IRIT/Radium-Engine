@@ -587,8 +587,8 @@ template <typename I>
 void IndexedAttribArrayDisplayable<I>::updateGL() {
     if ( m_isDirty ) {
         // Check that our dirty bits are consistent.
-        ON_ASSERT( bool dirtyTest = false; for ( const auto& d
-                                                 : m_dataDirty ) { dirtyTest = dirtyTest || d; } );
+        ON_ASSERT( bool dirtyTest = false;
+                   for ( const auto& d : m_dataDirty ) { dirtyTest = dirtyTest || d; } );
         CORE_ASSERT( dirtyTest == m_isDirty, "Dirty flags inconsistency" );
 
         if ( !m_indices ) {
@@ -841,8 +841,8 @@ template <typename CoreGeometry>
 void CoreGeometryDisplayable<CoreGeometry>::updateGL() {
     if ( m_isDirty ) {
         // Check that our dirty bits are consistent.
-        ON_ASSERT( bool dirtyTest = false; for ( auto d
-                                                 : m_dataDirty ) { dirtyTest = dirtyTest || d; } );
+        ON_ASSERT( bool dirtyTest = false;
+                   for ( auto d : m_dataDirty ) { dirtyTest = dirtyTest || d; } );
         CORE_ASSERT( dirtyTest == m_isDirty, "Dirty flags inconsistency" );
         CORE_ASSERT( !( m_mesh.vertices().empty() ), "No vertex." );
 

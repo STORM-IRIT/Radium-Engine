@@ -1496,7 +1496,7 @@ tuple_type_conversion( std::vector<std::string>& strings, AssignTo& output ) {
 
     std::size_t index { subtype_count_min<ConvertTo>::value };
     const std::size_t mx_count { subtype_count<ConvertTo>::value };
-    const std::size_t mx { ( std::max )( mx_count, strings.size() ) };
+    const std::size_t mx { (std::max)( mx_count, strings.size() ) };
 
     while ( index < mx ) {
         if ( is_separator( strings[index] ) ) { break; }

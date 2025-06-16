@@ -659,9 +659,9 @@ template <typename T>
 inline typename std::enable_if<std::is_signed<T>::value, T>::type overflowCheck( const T& a,
                                                                                  const T& b ) {
     if ( ( a > 0 ) == ( b > 0 ) ) {
-        return ( ( std::numeric_limits<T>::max )() / ( std::abs )( a ) < ( std::abs )( b ) );
+        return ( ( std::numeric_limits<T>::max )() / (std::abs)( a ) < (std::abs)( b ) );
     }
-    else { return ( ( std::numeric_limits<T>::min )() / ( std::abs )( a ) > -( std::abs )( b ) ); }
+    else { return ( ( std::numeric_limits<T>::min )() / (std::abs)( a ) > -(std::abs)( b ) ); }
 }
 /// Do a check for overflow on unsigned numbers
 template <typename T>
