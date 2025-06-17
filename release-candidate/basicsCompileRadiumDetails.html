@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.webp"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.5.24</span>
+   &#160;<span id="projectnumber">1.5.25</span>
    </div>
   </td>
  </tr>
@@ -229,19 +229,16 @@ Folder structure</h2>
 Configure build options</h2>
 <p>Radium offers the following build options:</p>
 <div class="fragment"><div class="line">// Enable coverage, gcc only. Experimental, need ENABLE_TESTING</div>
-<div class="line">RADIUM_ENABLE_COVERAGE:BOOL=ON</div>
+<div class="line">RADIUM_ENABLE_COVERAGE:BOOL=OFF</div>
 <div class="line"> </div>
 <div class="line">// Enable examples app build. To install examples, build explicitly the target Install_RadiumExamples.</div>
 <div class="line">RADIUM_ENABLE_EXAMPLES:BOOL=ON</div>
-<div class="line"> </div>
-<div class="line">// Enable testing of OpenGL functionalities. Option only available if RADIUM_ENABLE_TESTING is ON.</div>
-<div class="line">RADIUM_ENABLE_GL_TESTING:BOOL=ON</div>
 <div class="line"> </div>
 <div class="line">// Enable precompiled headers.</div>
 <div class="line">RADIUM_ENABLE_PCH:BOOL=OFF</div>
 <div class="line"> </div>
 <div class="line">// Enable testing. Tests are automatically built with target all, run with target check or test.</div>
-<div class="line">RADIUM_ENABLE_TESTING:BOOL=ON</div>
+<div class="line">RADIUM_ENABLE_TESTING:BOOL=OFF</div>
 <div class="line"> </div>
 <div class="line">// Include Radium::Core in CMake project.</div>
 <div class="line">RADIUM_GENERATE_LIB_CORE:BOOL=ON</div>
@@ -299,16 +296,8 @@ Configure build options</h2>
 <p>Radium build can take benefit of precompiled headers. To do so, set <code>RADIUM_ENABLE_PCH=ON</code> (OFF by default) at cmake configure time. Compilation speedup depends on what files you are currently editing, and full compilation is roughly 20% less with precompiled header enabled.</p>
 <h3>Dependencies between libraries</h3>
 <p>The options <code>RADIUM_GENERATE_LIB_XXXX</code> allows to enable/disable each Radium library. The dependencies between libraries are set as follow:</p>
-<div class="fragment"><div class="line">add_dependencies(${ra_dataflowrendering_target} DataflowCore Engine)</div>
-<div class="line">add_dependencies(${ra_headless_target} Core Engine IO)</div>
-<div class="line">add_dependencies(${ra_gui_target} Core Engine PluginBase IO)</div>
-<div class="line">add_dependencies(${ra_io_target} Core)</div>
-<div class="line">add_dependencies(${ra_pluginbase_target} Core Engine)</div>
-<div class="line">add_dependencies(${ra_engine_target} Core RadiumEngineShaders)</div>
-<div class="line">add_dependencies(${ra_dataflowcore_target} Core)</div>
-<div class="line">add_dependencies(${ra_dataflowqtgui_target} DataflowCore Gui)</div>
-<div class="line">add_dependencies(${ra_dataflow_target} DataflowCore DataflowQtGui)</div>
-</div><!-- fragment --><dl class="section warning"><dt>Warning</dt><dd>Consistency of <code>RADIUM_GENERATE_LIB_***</code> options is not checked wrt. the dependencies.</dd></dl>
+<p><img src="dependencies.svg" alt="" style="pointer-events: none;" class="inline" title="Dependency graph of radium libs."/>    </p>
+<dl class="section warning"><dt>Warning</dt><dd>Consistency of <code>RADIUM_GENERATE_LIB_***</code> options is not checked wrt. the dependencies.</dd></dl>
 <ul>
 <li>When enabled using <code>RADIUM_GENERATE_LIB_***</code>, each library has a compilation target: <code>Core</code>, <code>Engine</code>, ... </li>
 </ul>
