@@ -373,18 +373,21 @@ class MultiIndexedGeometry : public CoreGeometryDisplayable<T>
     using LayerKeyType            = std::pair<LayerSemanticCollection, std::string>;
 
     using EntryType = std::pair<bool, VaoIndices*>;
-    struct RA_CORE_API KeyHash { std::size_t operator()( const LayerKeyType& k ) const {
-        // Mix semantic collection into a single identifier string
-        std::ostringstream stream;
-    std::copy( k.first.begin(), k.first.end(), std::ostream_iterator<std::string>( stream, "" ) );
-    std::string result = stream.str();
-    std::sort( result.begin(), result.end() );
+    struct RA_CORE_API KeyHash {
+        std::size_t operator()( const LayerKeyType& k ) const {
+            // Mix semantic collection into a single identifier string
+            std::ostringstream stream;
+            std::copy(
+                k.first.begin(), k.first.end(), std::ostream_iterator<std::string>( stream, "" ) );
+            std::string result = stream.str();
+            std::sort( result.begin(), result.end() );
 
-    // Combine with layer name hash
-    return std::hash<std::string> {}( result ) ^ ( std::hash<std::string> {}( k.second ) << 1 );
-}
-}; // namespace Data
-std::unordered_map<LayerKeyType, EntryType, KeyHash> m_indices;
+            // Combine with layer name hash
+            return std::hash<std::string> {}( result ) ^
+                   ( std::hash<std::string> {}( k.second ) << 1 );
+        }
+    }; // namespace Data
+    std::unordered_map<LayerKeyType, EntryType, KeyHash> m_indices;
 }; // namespace Engine
 
 /// LineMesh, own a Core::Geometry::LineMesh
@@ -1130,6 +1133,6 @@ inline void GeneralMesh<Core::Geometry::QuadMesh>::triangulate() {
     }
 }
 
-} // namespace Ra
+} // namespace Data
 } // namespace Engine
 } // namespace Ra

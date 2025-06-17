@@ -119,7 +119,7 @@ inline void checkParentSegments( std::vector<ConfigItem>& output,
 
         if ( parents.size() > 1 ) {
             std::size_t common = 0;
-            std::size_t mpair  = ( std::min )( output.back().parents.size(), parents.size() - 1 );
+            std::size_t mpair  = (std::min)( output.back().parents.size(), parents.size() - 1 );
             for ( std::size_t ii = 0; ii < mpair; ++ii ) {
                 if ( output.back().parents[ii] != parents[ii] ) { break; }
                 ++common;
