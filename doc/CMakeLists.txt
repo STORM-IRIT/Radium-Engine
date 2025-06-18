@@ -12,12 +12,19 @@ message_prefix_push("Doc")
 
 # enable if doxygen found
 find_package(Doxygen 1.8 OPTIONAL_COMPONENTS dot)
+find_package(Python3 REQUIRED COMPONENTS Interpreter)
 
 message(NOTICE "")
 message_title(" documentation ${PROJECT_NAME} ")
-message_info("Can build doc?                            ${DOXYGEN_FOUND}")
-
-if(DOXYGEN_FOUND)
+message_setting(DOXYGEN_FOUND)
+message_setting(Python3_FOUND)
+if(DOXYGEN_FOUND AND Python3_FOUND)
+    set(CAN_BUILD_DOC TRUE)
+else()
+    set(CAN_BUILD_DOC FALSE)
+endif()
+message_setting(CAN_BUILD_DOC)
+if(CAN_BUILD_DOC)
     # Search for plantUML for creating UML diagrams from doxygen
     get_target_property(DOT_IMPORTED Doxygen::dot "IMPORTED")
     message_setting("DOT_IMPORTED")
@@ -60,8 +67,6 @@ if(DOXYGEN_FOUND)
     endif()
     message_setting("USE_AWESOME_CSS")
 
-    find_package(Python3 REQUIRED COMPONENTS Interpreter)
-
     execute_process(
         COMMAND ${Python3_EXECUTABLE} "${CMAKE_CURRENT_SOURCE_DIR}/../scripts/list_dep.py" "dep"
         WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/../external"
@@ -88,8 +93,6 @@ if(DOXYGEN_FOUND)
         configure_file(${md_file} "md/${dest_md_file}" @ONLY)
         list(APPEND md_files "${CMAKE_CURRENT_BINARY_DIR}/md/${dest_md_file}")
     endforeach()
-
-    message(STATUS "${md_files}")
 
     set(md_pages_order
         "${CMAKE_CURRENT_BINARY_DIR}/md/main.md" "${CMAKE_CURRENT_BINARY_DIR}/md/basics.md"
