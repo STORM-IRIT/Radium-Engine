@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.webp"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.5.28</span>
+   &#160;<span id="projectnumber">1.5.29</span>
    </div>
   </td>
  </tr>
@@ -158,7 +158,7 @@ Build external dependencies</h1>
 <h1><a class="anchor" id="autotoc_md24"></a>
 Build Radium</h1>
 <p>Open the Radium folder (via "File &gt; Open &gt; Folder..." or <code>devenv.exe &lt;foldername&gt;</code>). VS will run cmake, generate the target builds (Debug and Release by default). Other build types can be added by editing <code>CMakeSettings.json</code>.</p>
-<p>Configure cmake option (see official doc <a href="https://docs.microsoft.com/cpp/build/customize-cmake-settings" target="_blank">here</a>) You have to provide path to Qt installation, glfw installation (for headless support) and external dependencies configuration. In order to execute Radium demos from the buildtree (installing them takes time due to qt deployement procedure), you also need to define environment variables that point to the various dlls used by Radium components that will be used on the per-target <code>launch.vs.json</code> configuration file. Note that it is recommended to compile or install glfw as a static library, the example below assume that.</p>
+<p>Configure cmake option (see <a href="https://docs.microsoft.com/cpp/build/customize-cmake-settings" target="_blank">official documentation</a>) You have to provide path to Qt installation, glfw installation (for headless support) and external dependencies configuration. In order to execute Radium demos from the buildtree (installing them takes time due to qt deployement procedure), you also need to define environment variables that point to the various dlls used by Radium components that will be used on the per-target <code>launch.vs.json</code> configuration file. Note that it is recommended to compile or install glfw as a static library, the example below assume that.</p>
 <p>For instance, with directory structure for externals as defined above the configuration is</p>
 <div class="fragment"><div class="line">{</div>
 <div class="line">    &quot;environments&quot;: [</div>
