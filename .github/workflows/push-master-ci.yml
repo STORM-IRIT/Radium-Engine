@@ -37,7 +37,8 @@ jobs:
       macos: "false"
       build-release: "false"
       coverage: "true"
-      qt6: "false"
+    secrets:
+      CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
   call-notify:
     needs: [increase-version-number]
     uses: ./.github/workflows/notify-radium-releases.yml

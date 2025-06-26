@@ -3,12 +3,23 @@
 #include <Engine/RaEngine.hpp>
 #include <Engine/Scene/LightStorage.hpp>
 #include <Engine/Scene/System.hpp>
-
 #include <memory>
 
 namespace Ra {
+namespace Core {
+class TaskQueue;
+namespace Asset {
+class FileData;
+} // namespace Asset
+} // namespace Core
+
 namespace Engine {
+struct FrameInfo;
+
 namespace Scene {
+class Component;
+class Entity;
+class Light;
 
 /**
  * Interface providing functions to manage a group or type of lights
@@ -34,7 +45,7 @@ class RA_ENGINE_API LightManager : public System
     /** Add a light to the manager ...
      * Consider the component is already registered. The light manager will not take ownership of
      * the added light, it will just push the light on the storage ...
-     * @param li The (already registered) light to add.
+     * \param li The (already registered) light to add.
      */
     virtual void addLight( const Scene::Light* li ) = 0;
 
@@ -43,7 +54,7 @@ class RA_ENGINE_API LightManager : public System
     //
 
     /**
-     * @brief Number of lights.
+     * \brief Number of lights.
      * This is still a work in progress. The idea is to make it possible for a
      * LightManager to tell it has only one Light, for example if it wants to send
      * a lot of sources at once in a single RenderParams, let's say a texture.

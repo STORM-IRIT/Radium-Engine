@@ -1,5 +1,3 @@
-cmake_minimum_required(VERSION 3.6)
-
 project(radiumcore-external VERSION 1.0.0)
 
 include(ExternalProject)
@@ -19,7 +17,7 @@ add_custom_target(CoreExternals ALL)
 
 if(NOT DEFINED Eigen3_DIR)
     check_externals_prerequisite()
-    status_message("" "eigen3" "remote git")
+    status_message("eigen3" "remote git")
 
     ExternalProject_Add(
         Eigen3
@@ -36,12 +34,12 @@ if(NOT DEFINED Eigen3_DIR)
     add_dependencies(CoreExternals Eigen3)
     set_external_dir(Eigen3 "share/eigen3/cmake/")
 else()
-    status_message("" "eigen3" ${Eigen3_DIR})
+    status_message("eigen3" ${Eigen3_DIR})
 endif()
 
 if(NOT DEFINED OpenMesh_DIR)
     check_externals_prerequisite()
-    status_message("" "OpenMesh" "remote git")
+    status_message("OpenMesh" "remote git")
     # I found some problems when generating xcode project for OpenMesh: the libXXX.dylib link to
     # libXXX.Major.minor.dylib (eg libOpenMesh.2.1.dylib) is not generated and the script failed.
     # Need to generate this link manually. TODO, find why only OpenMesh is problematic
@@ -58,37 +56,37 @@ if(NOT DEFINED OpenMesh_DIR)
     add_dependencies(CoreExternals OpenMesh)
     set_external_dir(OpenMesh "share/OpenMesh/cmake/")
 else()
-    status_message("" "OpenMesh" ${OpenMesh_DIR})
+    status_message("OpenMesh" ${OpenMesh_DIR})
 endif()
 
 if(NOT DEFINED cpplocate_DIR OR NOT cpplocate_DIR)
     check_externals_prerequisite()
-    status_message("" "cpplocate" "remote git")
+    status_message("cpplocate" "remote git")
     ExternalProject_Add(
         cpplocate
         GIT_REPOSITORY https://github.com/cginternals/cpplocate.git
         GIT_TAG tags/v2.2.0
         GIT_SHALLOW TRUE
         GIT_PROGRESS TRUE
-        PATCH_COMMAND git reset --hard && git apply -v --ignore-whitespace
-                      "${CMAKE_CURRENT_LIST_DIR}/patches/cpplocate.patch"
-        INSTALL_DIR "${CMAKE_INSTALL_PREFIX}"
+        INSTALL_DIR "${CMAKE_INSTALL_PREFIX}/cpplocate"
         CMAKE_ARGS ${RADIUM_EXTERNAL_CMAKE_OPTIONS} -DOPTION_BUILD_TESTS=OFF
-                   -DOPTION_BUILD_DOCS=OFF -DCMAKE_MESSAGE_INDENT=${indent_string}\;
+                   -DOPTION_BUILD_DOCS=OFF -DCMAKE_INSTALL_PREFIX=<INSTALL_DIR>
+                   "-DCMAKE_MESSAGE_INDENT=${indent_string}\;"
     )
     add_dependencies(CoreExternals cpplocate)
-    set_external_dir(cpplocate "share/cpplocate/")
+    set_external_dir(cpplocate "cpplocate/")
 else()
-    status_message("" "cpplocate" ${cpplocate_DIR})
+    add_custom_target(cpplocate)
+    status_message("cpplocate" ${cpplocate_DIR})
 endif()
 
 if(NOT DEFINED nlohmann_json_DIR)
     check_externals_prerequisite()
-    status_message("" "nlohmann_json" "remote git")
+    status_message("nlohmann_json" "remote git")
     ExternalProject_Add(
         nlohmann_json
         GIT_REPOSITORY https://github.com/nlohmann/json.git
-        GIT_TAG tags/v3.10.5
+        GIT_TAG tags/v3.12.0
         GIT_SHALLOW TRUE
         GIT_PROGRESS TRUE
         INSTALL_DIR "${CMAKE_INSTALL_PREFIX}"
@@ -96,7 +94,7 @@ if(NOT DEFINED nlohmann_json_DIR)
                    "-DCMAKE_MESSAGE_INDENT=${indent_string}\;"
     )
     add_dependencies(CoreExternals nlohmann_json)
-    set_external_dir(nlohmann_json "lib/cmake/nlohmann_json/")
+    set_external_dir(nlohmann_json "share/cmake/nlohmann_json/")
 else()
-    status_message("" "nlohmann_json" ${nlohmann_json_DIR})
+    status_message("nlohmann_json" ${nlohmann_json_DIR})
 endif()

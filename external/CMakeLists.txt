@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.13)
+cmake_minimum_required(VERSION 3.18 FATAL_ERROR)
 set(RADIUM_DEPENDENCIES_PROJECT_NAME radium_externals)
 project(${RADIUM_DEPENDENCIES_PROJECT_NAME})
 
@@ -101,6 +101,8 @@ else()
     add_subdirectory(IO)
     # add Gui dependencies
     add_subdirectory(Gui)
+    # add Dataflow dependencies
+    add_subdirectory(Dataflow)
 
     # generate radium-option.cmake configuration file
     file(REMOVE "${CMAKE_INSTALL_PREFIX}/radium-options.cmake")

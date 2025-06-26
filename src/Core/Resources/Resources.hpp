@@ -1,6 +1,7 @@
 #pragma once
 #include <Core/RaCore.hpp>
 #include <Core/Utils/StdOptional.hpp>
+#include <string>
 
 namespace Ra {
 namespace Core {
@@ -25,7 +26,7 @@ using namespace Ra::Core::Utils;
 /** \name Resources path functions
  * All paths are made absolute using https://en.cppreference.com/w/cpp/filesystem/canonical
  */
-///@{
+///\{
 /// \brief Get the path of Radium internal resources.
 ///
 /// Radium resources are located in the Resources directory, searched from Radium lib location.
@@ -54,12 +55,12 @@ RA_CORE_API optional<std::string> getBasePath();
 RA_CORE_API optional<std::string> getResourcesPath( void* symbol               = nullptr,
                                                     const std::string& pattern = "Resources" );
 
-///@}
+///\}
 /** \name Data path functions
  * These functions manage a stack of paths so that applications, libraries or plugins could manage
  * paths to store their generated data in a state stack-based approach.
  */
-///@{
+///\{
 /// \brief Get the current data path.
 ///
 /// If an application's data path was not pushed before the call of this function, the default
@@ -79,7 +80,7 @@ RA_CORE_API void pushDataPath( std::string datapath );
 /// for getDataPath().
 /// \return the popped data path.
 RA_CORE_API std::string popDataPath();
-///@}
+///\}
 
 } // namespace Resources
 } // namespace Core

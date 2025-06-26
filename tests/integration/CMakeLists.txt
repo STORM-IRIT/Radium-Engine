@@ -37,16 +37,21 @@ add_test(
         "$<TARGET_FILE:integration_${INTEGRATION_TEST}> 2>&1 | cut -f4- -d: | grep -v \"Loading Time\" > ${CMAKE_CURRENT_BINARY_DIR}/output.txt"
 )
 
+set_property(TEST integration_${INTEGRATION_TEST}_save_output PROPERTY LABELS "integration")
+
 add_test(
     NAME integration_${INTEGRATION_TEST}_compare_to_ref
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/${INTEGRATION_TEST}/
     COMMAND ${CMAKE_COMMAND} -E compare_files ${CMAKE_CURRENT_BINARY_DIR}/output.txt
             ${CMAKE_CURRENT_SOURCE_DIR}/data/references/${INTEGRATION_TEST}.txt
 )
-set_tests_properties(
-    integration_${INTEGRATION_TEST}_compare_to_ref
-    PROPERTIES DEPENDS integration_${INTEGRATION_TEST}_save_output
-)
+
+set(TEST_PROPERTIES DEPENDS integration_${INTEGRATION_TEST}_save_output)
+if(DEFINED TEST_ENV_VAR)
+    set(TEST_PROPERTIES ${TEST_PROPERTIES} ENVIRONMENT ${TEST_ENV_VAR})
+endif()
+
+set_tests_properties(integration_${INTEGRATION_TEST}_compare_to_ref PROPERTIES ${TEST_PROPERTIES})
 
 add_dependencies(integration integration_${INTEGRATION_TEST})
 
@@ -79,7 +84,6 @@ if(LIBXML2_XMLLINT_EXECUTABLE AND SED_EXECUTABLE)
                 -DCXX_FILESYSTEM_NAMESPACE=${CXX_FILESYSTEM_NAMESPACE}
     )
 
-    add_custom_target(integration_${INTEGRATION_TEST}_create_ref)
     add_test(
         NAME integration_${INTEGRATION_TEST}_save_output
         WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/${INTEGRATION_TEST}/
@@ -94,6 +98,8 @@ if(LIBXML2_XMLLINT_EXECUTABLE AND SED_EXECUTABLE)
  \"${SED_EXECUTABLE}\" -i.orig '/<!--/,/-->/d' ${CMAKE_CURRENT_BINARY_DIR}/keymapping-valid-out-lint.xml; "
     )
 
+    set_property(TEST integration_${INTEGRATION_TEST}_save_output PROPERTY LABELS "integration")
+
     add_test(
         NAME integration_${INTEGRATION_TEST}_compare_to_ref
         WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/${INTEGRATION_TEST}/
@@ -101,6 +107,11 @@ if(LIBXML2_XMLLINT_EXECUTABLE AND SED_EXECUTABLE)
             ${CMAKE_COMMAND} -E compare_files
             ${CMAKE_CURRENT_BINARY_DIR}/keymapping-valid-out-lint.xml
             ${CMAKE_CURRENT_BINARY_DIR}/keymapping-valid-in-lint.xml
+    )
+
+    set_tests_properties(
+        integration_${INTEGRATION_TEST}_compare_to_ref
+        PROPERTIES DEPENDS integration_${INTEGRATION_TEST}_save_output
     )
 
     add_dependencies(integration integration_${INTEGRATION_TEST})
@@ -114,10 +125,27 @@ endif()
 # -----------------------------------------------------------------------------
 # ------------- run examples --------------------------------------------------
 # -----------------------------------------------------------------------------
-add_test(NAME integration_CoreExample WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/
-         COMMAND "$<TARGET_FILE:CoreExample>"
-)
-add_dependencies(integration CoreExample)
+foreach(INTEGRATION_TEST CoreExample FunctionalsGraph GraphAsNode GraphSerialization HelloGraph)
+    add_test(NAME integration_${INTEGRATION_TEST} WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/
+             COMMAND "$<TARGET_FILE:${INTEGRATION_TEST}>"
+    )
+
+    set(TEST_PROPERTIES LABELS "integration")
+    if(DEFINED TEST_ENV_VAR)
+        set(TEST_PROPERTIES ${TEST_PROPERTIES} ENVIRONMENT ${TEST_ENV_VAR})
+    endif()
+
+    set_tests_properties(integration_${INTEGRATION_TEST} PROPERTIES ${TEST_PROPERTIES})
+
+    set(TEST_PROPERTIES LABELS "integration")
+    if(DEFINED TEST_ENV_VAR)
+        set(TEST_PROPERTIES ${TEST_PROPERTIES} ENVIRONMENT ${TEST_ENV_VAR})
+    endif()
+
+    set_tests_properties(integration_${INTEGRATION_TEST} PROPERTIES ${TEST_PROPERTIES})
+
+    add_dependencies(integration ${INTEGRATION_TEST})
+endforeach()
 
 set(INTEGRATION_TEST "HeadlessExample")
 
@@ -164,6 +192,7 @@ if(UNIX AND TARGET ${INTEGRATION_TEST})
         )
     endif()
 endif()
+
 # -----------------------------------------------------------------------------
 # ------------- includes ------------------------------------------------------
 # -----------------------------------------------------------------------------
@@ -175,7 +204,8 @@ find_qt_package(COMPONENTS Core Widgets OpenGL Xml REQUIRED)
 
 macro(generate_includes name)
     include(${CMAKE_SOURCE_DIR}/src/${name}/filelist.cmake)
-    string(TOLOWER ${name} lowername)
+    string(REPLACE "/" "_" name_under "${name}")
+    string(TOLOWER ${name_under} lowername)
     set(filelist "${lowername}_headers")
     set(tmp ${${filelist}})
     list(TRANSFORM tmp PREPEND "#include <${name}/")
@@ -184,6 +214,8 @@ macro(generate_includes name)
 endmacro()
 
 generate_includes(Core)
+generate_includes(Dataflow/Core)
+generate_includes(Dataflow/QtGui)
 generate_includes(Engine)
 generate_includes(Gui)
 generate_includes(IO)
@@ -197,7 +229,8 @@ add_executable(integration_${INTEGRATION_TEST} "${CMAKE_CURRENT_BINARY_DIR}/incl
 target_compile_options(integration_${INTEGRATION_TEST} PUBLIC ${RA_DEFAULT_COMPILE_OPTIONS})
 
 target_link_libraries(
-    integration_${INTEGRATION_TEST} PUBLIC Core Gui Engine PRIVATE std::filesystem ${Qt_LIBRARIES}
+    integration_${INTEGRATION_TEST} PUBLIC Core Dataflow Gui Engine PRIVATE std::filesystem
+                                                                            ${Qt_LIBRARIES}
 )
 
 target_compile_definitions(

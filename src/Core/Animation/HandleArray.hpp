@@ -1,8 +1,13 @@
 #pragma once
 
 #include <Core/Animation/Pose.hpp>
+#include <Core/CoreMacros.hpp>
 #include <Core/RaCore.hpp>
 #include <Core/Types.hpp>
+#include <memory>
+#include <string>
+#include <type_traits>
+#include <vector>
 
 namespace Ra {
 namespace Core {
@@ -33,7 +38,7 @@ class RA_CORE_API HandleArray
     virtual ~HandleArray();
 
     /**
-     * @return the number of transformations
+     * \return the number of transformations
      */
     inline virtual uint size() const { return m_pose.size(); }
 
@@ -43,19 +48,19 @@ class RA_CORE_API HandleArray
     virtual void clear();
 
     /**
-     * @return the current pose in the \p MODE space.
+     * \return the current pose in the \p MODE space.
      */
     virtual const Pose& getPose( const SpaceType MODE ) const;
 
     /**
      * Set the current pose.
-     * @param pose the new pose
-     * @param MODE the space the psoe lives in
+     * \param pose the new pose
+     * \param MODE the space the psoe lives in
      */
     virtual void setPose( const Pose& pose, const SpaceType MODE );
 
     /**
-     * @return the \p i-th transformation in \p MODE space.
+     * \return the \p i-th transformation in \p MODE space.
      */
     virtual const Transform& getTransform( const uint i, const SpaceType MODE ) const;
 
@@ -65,7 +70,7 @@ class RA_CORE_API HandleArray
     virtual void setTransform( const uint i, const Transform& T, const SpaceType MODE );
 
     /**
-     * @return the Handle's name
+     * \return the Handle's name
      */
     inline Label getName() const { return m_name; }
 
@@ -75,7 +80,7 @@ class RA_CORE_API HandleArray
     inline void setName( const Label& name ) { m_name = name; }
 
     /**
-     * @return the name of the \p i-th transform.
+     * \return the name of the \p i-th transform.
      */
     inline Label getLabel( const uint i ) const;
 

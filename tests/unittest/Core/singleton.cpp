@@ -1,6 +1,6 @@
 #include <Core/Utils/Singleton.hpp>
 
-#include <catch2/catch.hpp>
+#include <catch2/catch_test_macros.hpp>
 
 class TestSingleton
 {
@@ -17,7 +17,7 @@ int TestSingleton::cpt = 0;
 
 RA_SINGLETON_IMPLEMENTATION( TestSingleton );
 
-TEST_CASE( "Core/Utils/Singleton", "[Core][Core/Utils][Singleton]" ) {
+TEST_CASE( "Core/Utils/Singleton", "[unittests][Core][Core/Utils][Singleton]" ) {
 
     REQUIRE( TestSingleton::getInstance() == nullptr );
     auto p1 = TestSingleton::createInstance();

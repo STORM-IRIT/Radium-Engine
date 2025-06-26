@@ -1,0 +1,312 @@
+{
+    "instance": "",
+    "model": {
+        "display_name": "",
+        "graph": {
+            "connections": [
+                {
+                    "in_node": "Core DataflowGraph_5",
+                    "in_port": "data",
+                    "out_node": "Source<Scalar>_7",
+                    "out_port": "to"
+                },
+                {
+                    "in_node": "Core DataflowGraph_5",
+                    "in_port": "op",
+                    "out_node": "SquareFunction_2",
+                    "out_port": "to"
+                },
+                {
+                    "in_node": "Sink<Scalar>_8",
+                    "in_port": "from",
+                    "out_node": "Core DataflowGraph_5",
+                    "out_port": "result"
+                },
+                {
+                    "in_node": "Sink<Color>_11",
+                    "in_port": "from",
+                    "out_node": "Core DataflowGraph_5",
+                    "out_port": "color"
+                }
+            ],
+            "nodes": [
+                {
+                    "instance": "SquareFunction_2",
+                    "model": {
+                        "display_name": "Squared",
+                        "inputs": [
+                            {
+                                "default_value": "Default value not saved, missing json export for function<Scalar (Scalar const&)>",
+                                "name": "from",
+                                "port_index": 0,
+                                "type": "function<Scalar (Scalar const&)>"
+                            }
+                        ],
+                        "name": "SquareFunction",
+                        "outputs": [
+                            {
+                                "name": "to",
+                                "port_index": 0,
+                                "type": "function<Scalar (Scalar const&)>"
+                            }
+                        ]
+                    },
+                    "position": {
+                        "x": -310.0,
+                        "y": -81.0
+                    }
+                },
+                {
+                    "instance": "Core DataflowGraph_5",
+                    "model": {
+                        "display_name": "InnerGraph",
+                        "graph": {
+                            "connections": [
+                                {
+                                    "in_node": "output",
+                                    "in_port": "result",
+                                    "out_node": "Function<Scalar>_9",
+                                    "out_port": "result"
+                                },
+                                {
+                                    "in_node": "output",
+                                    "in_port": "to",
+                                    "out_node": "Source<Color>_10",
+                                    "out_port": "to"
+                                },
+                                {
+                                    "in_node": "Function<Scalar>_9",
+                                    "in_port": "data",
+                                    "out_node": "input",
+                                    "out_port": "data"
+                                },
+                                {
+                                    "in_node": "Function<Scalar>_9",
+                                    "in_port": "op",
+                                    "out_node": "input",
+                                    "out_port": "op"
+                                }
+                            ],
+                            "nodes": [
+                                {
+                                    "instance": "input",
+                                    "model": {
+                                        "display_name": "input",
+                                        "inputs": [
+                                            {
+                                                "name": "data",
+                                                "port_index": 0,
+                                                "type": "Scalar"
+                                            },
+                                            {
+                                                "name": "op",
+                                                "port_index": 1,
+                                                "type": "function<Scalar (Scalar const&)>"
+                                            }
+                                        ],
+                                        "name": "GraphInputNode",
+                                        "outputs": [
+                                            {
+                                                "name": "data",
+                                                "port_index": 0,
+                                                "type": "Scalar"
+                                            },
+                                            {
+                                                "name": "op",
+                                                "port_index": 1,
+                                                "type": "function<Scalar (Scalar const&)>"
+                                            }
+                                        ]
+                                    },
+                                    "position": {
+                                        "x": -362.0,
+                                        "y": -99.0
+                                    }
+                                },
+                                {
+                                    "instance": "output",
+                                    "model": {
+                                        "display_name": "output",
+                                        "inputs": [
+                                            {
+                                                "name": "result",
+                                                "port_index": 0,
+                                                "type": "Scalar"
+                                            },
+                                            {
+                                                "name": "to",
+                                                "port_index": 1,
+                                                "type": "Color"
+                                            }
+                                        ],
+                                        "name": "GraphOutputNode",
+                                        "outputs": [
+                                            {
+                                                "name": "result",
+                                                "port_index": 0,
+                                                "type": "Scalar"
+                                            },
+                                            {
+                                                "name": "color",
+                                                "port_index": 1,
+                                                "type": "Color"
+                                            }
+                                        ]
+                                    },
+                                    "position": {
+                                        "x": 89.0,
+                                        "y": -72.0
+                                    }
+                                },
+                                {
+                                    "instance": "Function<Scalar>_9",
+                                    "model": {
+                                        "display_name": "Process",
+                                        "inputs": [
+                                            {
+                                                "name": "data",
+                                                "port_index": 0,
+                                                "type": "Scalar"
+                                            },
+                                            {
+                                                "default_value": "Default value not saved, missing json export for function<Scalar (Scalar const&)>",
+                                                "name": "op",
+                                                "port_index": 1,
+                                                "type": "function<Scalar (Scalar const&)>"
+                                            }
+                                        ],
+                                        "name": "Function<Scalar>",
+                                        "outputs": [
+                                            {
+                                                "name": "result",
+                                                "port_index": 0,
+                                                "type": "Scalar"
+                                            }
+                                        ]
+                                    },
+                                    "position": {
+                                        "x": -138.0,
+                                        "y": -116.0
+                                    }
+                                },
+                                {
+                                    "instance": "Source<Color>_10",
+                                    "model": {
+                                        "display_name": "Color",
+                                        "inputs": [
+                                            {
+                                                "default_value": [
+                                                    1.0,
+                                                    1.0,
+                                                    1.0,
+                                                    1.0
+                                                ],
+                                                "name": "from",
+                                                "port_index": 0,
+                                                "type": "Color"
+                                            }
+                                        ],
+                                        "name": "Source<Color>",
+                                        "outputs": [
+                                            {
+                                                "name": "to",
+                                                "port_index": 0,
+                                                "type": "Color"
+                                            }
+                                        ]
+                                    },
+                                    "position": {
+                                        "x": -218.0,
+                                        "y": 54.0
+                                    }
+                                }
+                            ]
+                        },
+                        "name": "Core DataflowGraph"
+                    },
+                    "position": {
+                        "x": -64.0,
+                        "y": -248.0
+                    }
+                },
+                {
+                    "instance": "Source<Scalar>_7",
+                    "model": {
+                        "display_name": "Scalar",
+                        "inputs": [
+                            {
+                                "default_value": 0.0,
+                                "name": "from",
+                                "port_index": 0,
+                                "type": "Scalar"
+                            }
+                        ],
+                        "name": "Source<Scalar>",
+                        "outputs": [
+                            {
+                                "name": "to",
+                                "port_index": 0,
+                                "type": "Scalar"
+                            }
+                        ]
+                    },
+                    "position": {
+                        "x": -473.0,
+                        "y": -272.0
+                    }
+                },
+                {
+                    "instance": "Sink<Scalar>_8",
+                    "model": {
+                        "display_name": "Result",
+                        "inputs": [
+                            {
+                                "name": "from",
+                                "port_index": 0,
+                                "type": "Scalar"
+                            }
+                        ],
+                        "name": "Sink<Scalar>",
+                        "outputs": [
+                            {
+                                "name": "data",
+                                "port_index": 0,
+                                "type": "Scalar"
+                            }
+                        ]
+                    },
+                    "position": {
+                        "x": 231.0,
+                        "y": -258.0
+                    }
+                },
+                {
+                    "instance": "Sink<Color>_11",
+                    "model": {
+                        "display_name": "Color",
+                        "inputs": [
+                            {
+                                "name": "from",
+                                "port_index": 0,
+                                "type": "Color"
+                            }
+                        ],
+                        "name": "Sink<Color>",
+                        "outputs": [
+                            {
+                                "name": "data",
+                                "port_index": 0,
+                                "type": "Color"
+                            }
+                        ]
+                    },
+                    "position": {
+                        "x": 232.0,
+                        "y": -168.0
+                    }
+                }
+            ]
+        },
+        "name": "Core DataflowGraph"
+    }
+}

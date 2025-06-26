@@ -1,11 +1,10 @@
 
-#include <ExampleLibrary.hpp>
-#include <PrivateHeader.hpp>
-
 #include <Core/Resources/Resources.hpp>
 #include <Core/Utils/Log.hpp>
-
+#include <ExampleLibrary.hpp>
+#include <PrivateHeader.hpp>
 #include <fstream>
+#include <sstream>
 #include <string>
 
 namespace ExampleLibrary {

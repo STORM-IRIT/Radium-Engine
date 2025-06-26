@@ -1,15 +1,27 @@
 #pragma once
+#include <Core/Asset/Camera.hpp>
+#include <Core/Utils/Index.hpp>
 #include <Core/Utils/Observable.hpp>
-
 #include <Engine/RaEngine.hpp>
 #include <Engine/Scene/CameraStorage.hpp>
 #include <Engine/Scene/System.hpp>
-
 #include <memory>
 
 namespace Ra {
+namespace Core {
+class TaskQueue;
+namespace Asset {
+class FileData;
+} // namespace Asset
+} // namespace Core
+
 namespace Engine {
+struct FrameInfo;
+
 namespace Scene {
+class CameraComponent;
+class Component;
+class Entity;
 
 /**
  * Interface providing functions to manage a group or type of Cameras
@@ -66,7 +78,7 @@ class RA_ENGINE_API CameraManager : public System
     //
 
     /**
-     * @brief Number of managed Cameras.
+     * \brief Number of managed Cameras.
      */
     virtual size_t count() const;
 

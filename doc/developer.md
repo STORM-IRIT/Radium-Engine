@@ -14,36 +14,7 @@ Radium offers several cmake functions to configure and build your extension.
 - \subpage apps
 - \subpage develWithRadium
 - \subpage develCodingConvention
-- \subpage api
 - \subpage develoldmanual
-
-\page api API
-
-- \subpage core
-- \subpage engine
-- \subpage gui
-- \subpage io
-
-\page core Core
-
-- \subpage develmeshes
-- \subpage develanimation
-
-\page engine Engine
-
-- \subpage develrendering
-- \subpage develmaterials
-- \subpage develLights
-- \subpage develpicking
-- \subpage develtimeline
-
-\page gui Gui
-
-- \subpage develkeymapping
-- \subpage develCameraManipulator
-
-\page io [TODO] IO
-\todo write IO doc
 
 \page apps How to write your own application
 \todo write application dev doc, merging ExampleApp and Apps docs.

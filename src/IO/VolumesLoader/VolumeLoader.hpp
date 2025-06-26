@@ -1,7 +1,10 @@
 #pragma once
 
+#include <Core/Asset/FileData.hpp>
 #include <Core/Asset/FileLoaderInterface.hpp>
 #include <IO/RaIO.hpp>
+#include <string>
+#include <vector>
 
 namespace Ra {
 namespace IO {
@@ -31,15 +34,15 @@ class RA_IO_API VolumeLoader : public Ra::Core::Asset::FileLoaderInterface
   private:
     /**
      * Load custom vol file format
-     * @param filename the file to load
-     * @return resulting file data, nullptr if the file was not loaded
+     * \param filename the file to load
+     * \return resulting file data, nullptr if the file was not loaded
      */
     Ra::Core::Asset::FileData* loadVolFile( const std::string& filename );
 
     /**
      * Load pvm file format
-     * @param filename the file to load
-     * @return resulting file data, nullptr if the file was not loaded
+     * \param filename the file to load
+     * \return resulting file data, nullptr if the file was not loaded
      */
     Ra::Core::Asset::FileData* loadPvmFile( const std::string& filename );
 };

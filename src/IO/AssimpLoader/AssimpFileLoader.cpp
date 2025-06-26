@@ -1,17 +1,17 @@
-#include <IO/AssimpLoader/AssimpFileLoader.hpp>
-
 #include <Core/Asset/FileData.hpp>
+#include <Core/CoreMacros.hpp>
+#include <Core/Utils/Log.hpp>
 #include <Core/Utils/StringUtils.hpp>
-
-#include <assimp/postprocess.h>
-#include <assimp/scene.h>
-
 #include <IO/AssimpLoader/AssimpAnimationDataLoader.hpp>
 #include <IO/AssimpLoader/AssimpCameraDataLoader.hpp>
+#include <IO/AssimpLoader/AssimpFileLoader.hpp>
 #include <IO/AssimpLoader/AssimpGeometryDataLoader.hpp>
 #include <IO/AssimpLoader/AssimpHandleDataLoader.hpp>
 #include <IO/AssimpLoader/AssimpLightDataLoader.hpp>
-
+#include <algorithm>
+#include <assimp/postprocess.h>
+#include <assimp/scene.h>
+#include <ctime>
 #include <iostream>
 
 namespace Ra {

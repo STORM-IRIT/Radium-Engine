@@ -1,11 +1,12 @@
 #pragma once
 
-#include <Gui/RaGui.hpp>
-
+#include <Core/Utils/Index.hpp>
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Scene/ItemEntry.hpp>
-
+#include <Gui/RaGui.hpp>
 #include <Gui/TreeModel/TreeModel.hpp>
+#include <string>
+
 namespace Ra {
 namespace Gui {
 

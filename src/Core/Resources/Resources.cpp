@@ -1,12 +1,10 @@
 #include <Core/Resources/Resources.hpp>
-
-#include <Core/Utils/Log.hpp>
-#include <Core/Utils/StdFilesystem.hpp>
-
-#include <algorithm>
+#include <Core/Utils/StdOptional.hpp>
 #include <cpplocate/cpplocate.h>
 #include <filesystem>
 #include <stack>
+#include <string>
+#include <utility>
 
 namespace Ra {
 namespace Core {

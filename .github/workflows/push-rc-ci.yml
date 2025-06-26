@@ -37,4 +37,5 @@ jobs:
       macos: "false"
       build-release: "false"
       coverage: "true"
-      qt6: "false"
+    secrets:
+      CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}

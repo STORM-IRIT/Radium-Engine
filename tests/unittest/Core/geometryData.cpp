@@ -1,9 +1,8 @@
 #include "Core/Geometry/StandardAttribNames.hpp"
-#include "Core/Utils/TypesUtils.hpp"
 #include <Core/Asset/GeometryData.hpp>
-#include <catch2/catch.hpp>
+#include <catch2/catch_test_macros.hpp>
 
-TEST_CASE( "Core/Asset/GeometryData", "[Core][Core/Asset][GeometryData]" ) {
+TEST_CASE( "Core/Asset/GeometryData", "[unittests][Core][Core/Asset][GeometryData]" ) {
 
     using namespace Ra::Core::Asset;
     using namespace Ra::Core::Geometry;

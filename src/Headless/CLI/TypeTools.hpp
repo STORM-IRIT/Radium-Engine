@@ -1341,7 +1341,7 @@ bool lexical_conversion( const std::vector<std ::string>& strings, AssignTo& out
     if ( strings.size() > 1 ) {
         retval = retval && lexical_assign<decltype( v2 ), decltype( v2 )>( strings[1], v2 );
     }
-    if ( retval ) { output = AssignTo { v1, v2 }; }
+    if ( retval ) { output = AssignTo { { v1, v2 } }; }
     return retval;
 }
 
@@ -1496,7 +1496,7 @@ tuple_type_conversion( std::vector<std::string>& strings, AssignTo& output ) {
 
     std::size_t index { subtype_count_min<ConvertTo>::value };
     const std::size_t mx_count { subtype_count<ConvertTo>::value };
-    const std::size_t mx { ( std::max )( mx_count, strings.size() ) };
+    const std::size_t mx { (std::max)( mx_count, strings.size() ) };
 
     while ( index < mx ) {
         if ( is_separator( strings[index] ) ) { break; }

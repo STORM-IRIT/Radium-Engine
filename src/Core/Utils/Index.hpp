@@ -32,6 +32,8 @@ class RA_CORE_API Index
     /// INVALID
     constexpr bool isInvalid() const;
     constexpr void setInvalid();
+
+    /// \brief return an invalid Index
     static constexpr Index Invalid();
     static constexpr Index Max();
 
@@ -173,7 +175,7 @@ constexpr bool Index::operator==( const Index& id ) {
 template <typename Integer>
 constexpr bool Index::operator==( const Integer& i ) {
     static_assert( std::is_integral<Integer>::value, "Integral required." );
-    return ( *this == Index( IntegerType( i ) ) );
+    return ( this->operator==( Index( IntegerType( i ) ) ) );
 }
 
 constexpr bool Index::operator!=( const Index& id ) {
@@ -182,7 +184,7 @@ constexpr bool Index::operator!=( const Index& id ) {
 template <typename Integer>
 constexpr bool Index::operator!=( const Integer& i ) {
     static_assert( std::is_integral<Integer>::value, "Integral required." );
-    return ( !( *this == Index( IntegerType( i ) ) ) );
+    return ( !this->operator==( Index( IntegerType( i ) ) ) );
 }
 
 constexpr bool Index::operator<( const Index& id ) {

@@ -155,6 +155,7 @@ Viewer::~Viewer() {
         delete m_gizmoManager;
         doneCurrent();
     }
+    delete m_pickingManager;
 }
 
 void Viewer::setCameraManipulator( CameraManipulator* ci ) {
@@ -480,6 +481,8 @@ bool Viewer::initializeGL() {
     // create default camera interface : trackball
     m_camera = std::make_unique<TrackballCameraManipulator>();
     m_camera->getCamera()->setViewport( deviceSize.x(), deviceSize.y() );
+
+    /// \todo who deletes this light ?
     auto headlight = new Engine::Scene::DirectionalLight(
         Ra::Engine::Scene::SystemEntity::getInstance(), "headlight" );
     headlight->setColor( Ra::Core::Utils::Color::Grey( 1.0_ra ) );
@@ -489,11 +492,13 @@ bool Viewer::initializeGL() {
     // Register to the camera manager active camera changes
     auto cameraManager = static_cast<Ra::Engine::Scene::CameraManager*>(
         Engine::RadiumEngine::getInstance()->getSystem( "DefaultCameraManager" ) );
-    cameraManager->activeCameraObservers().attach(
-        [this, size = deviceSize]( Core::Utils::Index /*idx*/ ) {
-            m_camera->updateCamera();
-            m_camera->getCamera()->setViewport( size.x(), size.y() );
-        } );
+
+    cameraManager->activeCameraObservers().attach( [this]( Core::Utils::Index /*idx*/ ) {
+        m_camera->updateCamera();
+        // not sure still needed on mac, if yes, use up to date size.
+        // auto size = toDevice( { width(), height() } );
+        // m_camera->getCamera()->setViewport( size.x(), size.y() );
+    } );
 
     // Initialize renderers added to the viewer before initializeGL
     for ( auto& rptr : m_pendingRenderers ) {

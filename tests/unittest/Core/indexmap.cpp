@@ -1,5 +1,5 @@
 #include <Core/Utils/IndexMap.hpp>
-#include <catch2/catch.hpp>
+#include <catch2/catch_test_macros.hpp>
 #include <unittestUtils.hpp>
 
 using Ra::Core::Utils::Index;
@@ -11,7 +11,7 @@ struct Foo {
     int value;
 };
 
-TEST_CASE( "Core/Utils/IndexMap", "[Core][Core/Utils][IndexMap]" ) {
+TEST_CASE( "Core/Utils/IndexMap", "[unittests][Core][Core/Utils][IndexMap]" ) {
 
     SECTION( "Sanity checks" ) {
         IndexMap<Foo> map1;
@@ -136,7 +136,7 @@ void testType() {
     }
 }
 
-TEST_CASE( "Core/Utils/Index/Ctor", "[Core][Core/Utils][Index]" ) {
+TEST_CASE( "Core/Utils/Index/Ctor", "[unittests][Core][Core/Utils][Index]" ) {
 
     Index idxInvalid;
     REQUIRE( idxInvalid.isInvalid() );

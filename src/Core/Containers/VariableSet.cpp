@@ -1,5 +1,9 @@
 #include <Core/Containers/VariableSet.hpp>
-#include <Core/CoreMacros.hpp>
+#include <functional>
+#include <stddef.h>
+#include <unordered_map>
+#include <utility>
+#include <vector>
 
 // inspirations :
 // Radium dataflow dynamic type management
@@ -54,14 +58,6 @@ size_t VariableSet::size() const {
         sum += m_vtable->m_sizeFunctions[index]( *this );
     }
     return sum;
-}
-
-bool VariableSet::DynamicVisitor::accept( const std::type_index& id ) const {
-    return m_visitorOperator.find( id ) != m_visitorOperator.cend();
-}
-
-void VariableSet::DynamicVisitor::operator()( std::any&& in, std::any&& userParam ) const {
-    m_visitorOperator.at( std::type_index( in.type() ) )( in, std::forward<std::any>( userParam ) );
 }
 
 } // namespace Core

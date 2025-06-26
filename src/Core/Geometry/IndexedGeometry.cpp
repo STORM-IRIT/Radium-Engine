@@ -1,5 +1,9 @@
 #include <Core/Geometry/IndexedGeometry.hpp>
+#include <Core/Geometry/TriangleMesh.hpp>
+#include <Core/Utils/Attribs.hpp>
 #include <iterator>
+#include <ostream>
+#include <stdexcept>
 
 namespace Ra {
 namespace Core {
@@ -50,10 +54,7 @@ void MultiIndexedGeometry::copy( const MultiIndexedGeometry& other ) {
 }
 
 /// \todo Implement MultiIndexedGeometry::checkConsistency
-void MultiIndexedGeometry::checkConsistency() const {
-#ifdef CORE_DEBUG
-#endif
-}
+void MultiIndexedGeometry::checkConsistency() const {}
 
 bool MultiIndexedGeometry::append( const MultiIndexedGeometry& other ) {
     bool dataHasBeenCopied = false;

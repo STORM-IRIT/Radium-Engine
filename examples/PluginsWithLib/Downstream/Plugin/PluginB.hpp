@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Core/CoreMacros.hpp>
+#include <PluginBase/RaPluginBase.hpp>
 /// Defines the correct macro to export dll symbols.
 #if defined DownstreamPlugin_EXPORTS
 #    define DownstreamPlugin_API DLL_EXPORT
@@ -9,6 +10,18 @@
 #endif
 
 #include <PluginBase/RadiumPluginInterface.hpp>
+#include <QObject>
+
+class QAction;
+class QMenu;
+class QString;
+class QWidget;
+
+namespace Ra {
+namespace Plugins {
+class Context;
+} // namespace Plugins
+} // namespace Ra
 
 namespace PluginB_NS {
 

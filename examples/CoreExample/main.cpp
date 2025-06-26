@@ -1,7 +1,14 @@
+#include <Core/Containers/AlignedStdVector.hpp>
+#include <Core/Geometry/IndexedGeometry.hpp>
 #include <Core/Geometry/MeshPrimitives.hpp>
 #include <Core/Geometry/TopologicalMesh.hpp>
 #include <Core/Resources/Resources.hpp>
 #include <Core/Utils/Log.hpp>
+#include <optional>
+#include <ostream>
+#include <set>
+#include <string>
+#include <unordered_map>
 
 int main( int /*argc*/, char** /*argv*/ ) {
     using namespace Ra::Core;

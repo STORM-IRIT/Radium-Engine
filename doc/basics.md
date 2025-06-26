@@ -3,7 +3,34 @@
 
 This part of the documentation describes how to compile Radium and use it in your own project.
 
-TL;DR; command line version.
+## Supported system and compilers
+
+The following platforms and tool chains have been tested and should work :
+
+* CMake 3.18+
+* *Windows* : IDEs: Visual Studio 2019, 2022 (2017 is not supported due to embedded cmake version), QtCreator. Command Line: cmake+ninja+MSVC(2017, 2019, 2022) .
+* *Mac OSX* : gcc 10 or higher, Apple clang, llvm clang 11 or higher
+* *Linux* : gcc 8  or higher, clang
+
+See also our Continuous Integration system at <https://github.com/STORM-IRIT/Radium-Engine/actions>.
+
+## System wide dependencies
+
+Radium expects the following dependencies to be available during compilation.
+
+* [Engine]
+  * OpenGL 4.1+ / GLSL 410+
+* [Gui]
+  * Qt Core/Widgets/OpenGL 5.15 or 6.2+
+* [Headless] One, or both of
+  * EGL
+  * glfw 3.3
+
+## External dependencies (included with radium)
+
+@RADIUM_DEPENDENCIES_VERSION@
+
+## TL;DR; command line version
 
 ```bash
 git clone --recurse-submodules https://github.com/STORM-IRIT/Radium-Engine.git
@@ -30,7 +57,8 @@ default Radium-Engine install prefix is `Radium-Engine/Bundle-${CMAKE_CXX_COMPIL
 
 More details and other systems information (including visual studio setup) are in the following pages, to be read in order.
 
-* \subpage dependenciesmanagement : Fetch and compile dependencies
-* \subpage basicsCompileRadium : Compile and install Radium
+* \subpage basicsCompileVs
+* \subpage basicsCompileCommand
 * \subpage basicsRadiumSubmodule : Link to Radium using cmake package
+* \subpage basicsCompileRadiumDetails
 * \subpage basicsTroubleshooting : Handle usual errors

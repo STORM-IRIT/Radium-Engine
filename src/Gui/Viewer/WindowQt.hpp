@@ -12,9 +12,13 @@
 #include <glbinding/ProcAddress.h>
 
 #include <atomic>
+#include <memory>
 
 class QSurfaceFormat;
 class QOpenGLContext;
+class QEvent;
+class QResizeEvent;
+class QScreen;
 
 namespace Ra {
 namespace Gui {

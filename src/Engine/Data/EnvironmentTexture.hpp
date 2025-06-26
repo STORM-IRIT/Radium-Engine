@@ -1,10 +1,11 @@
 #pragma once
-#include <Engine/RaEngine.hpp>
-
 #include <Core/Types.hpp>
 #include <Engine/Data/Mesh.hpp>
 #include <Engine/Data/Texture.hpp>
+#include <Engine/RaEngine.hpp>
 
+#include <array>
+#include <memory>
 #include <string>
 
 namespace Ra {
@@ -33,7 +34,7 @@ class RA_ENGINE_API EnvironmentTexture
      * Constructors and destructor follow the 'rule of five'
      *  https://en.cppreference.com/w/cpp/language/rule_of_three
      */
-    /** @{ */
+    /** \{ */
 
     /**
      * \brief Construct an envmap from a file.
@@ -69,7 +70,7 @@ class RA_ENGINE_API EnvironmentTexture
     EnvironmentTexture& operator=( EnvironmentTexture&& )      = default;
     /// destructor
     ~EnvironmentTexture() = default;
-    /**@}*/
+    /**\}*/
 
     /**
      * \brief Get the name used to construct the environment texture
@@ -174,7 +175,7 @@ class RA_ENGINE_API EnvironmentTexture
     EnvMapType m_type;
 
     // The raw pixel values of the envmap
-    float* m_skyData[6];
+    std::array<std::shared_ptr<float[]>, 6> m_skyData;
     size_t m_width { 0 };
     size_t m_height { 0 };
     float m_shcoefs[9][3];

@@ -1,11 +1,21 @@
 #pragma once
 
+#include <Core/Geometry/AbstractGeometry.hpp>
+#include <Core/Types.hpp>
 #include <Engine/Data/DisplayableObject.hpp>
 #include <Engine/Data/Mesh.hpp>
 #include <Engine/Data/Texture.hpp>
 #include <Engine/RaEngine.hpp>
+#include <memory>
+#include <string>
 
 namespace Ra {
+namespace Engine {
+namespace Data {
+class ShaderProgram;
+} // namespace Data
+} // namespace Engine
+
 namespace Core {
 namespace Geometry {
 class AbstractVolume;
@@ -16,7 +26,7 @@ namespace Data {
 /**
  * A class representing an openGL volume
  *
- * @todo Right now, a volumeObject define both the geometry (a parallelepiped) and the material (a
+ * \todo Right now, a volumeObject define both the geometry (a parallelepiped) and the material (a
  * density grid) This should be modified to handle density grids deleimited by a general geometry.
  */
 class RA_ENGINE_API VolumeObject : public Displayable
@@ -69,7 +79,7 @@ class RA_ENGINE_API VolumeObject : public Displayable
 
   private:
     std::unique_ptr<Core::Geometry::AbstractVolume> m_volume;
-    Texture m_tex;
+    Texture m_tex { {} };
     /// Mesh used to display the bounding box of the grid for the ray marching
     Mesh m_mesh;
 

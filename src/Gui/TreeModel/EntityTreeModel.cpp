@@ -1,13 +1,15 @@
-#include <Gui/TreeModel/EntityTreeModel.hpp>
-
-#include <stack>
-
-#include <Engine/Scene/Component.hpp>
-#include <Engine/Scene/Entity.hpp>
-
+#include <Core/CoreMacros.hpp>
 #include <Engine/Rendering/RenderObject.hpp>
 #include <Engine/Rendering/RenderObjectManager.hpp>
+#include <Engine/Scene/Component.hpp>
+#include <Engine/Scene/Entity.hpp>
 #include <Engine/Scene/EntityManager.hpp>
+#include <Gui/TreeModel/EntityTreeModel.hpp>
+#include <Gui/TreeModel/TreeModel.hpp>
+#include <algorithm>
+#include <memory>
+#include <stack>
+#include <vector>
 
 using Ra::Engine::Scene::ItemEntry;
 

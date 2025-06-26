@@ -14,7 +14,6 @@ DefaultCameraManager::DefaultCameraManager() {
 }
 
 const CameraComponent* DefaultCameraManager::getCamera( size_t cam ) const {
-    //    return ( *m_data )[cam];
     return ( *m_data )[cam];
 }
 

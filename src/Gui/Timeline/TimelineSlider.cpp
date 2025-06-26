@@ -1,5 +1,4 @@
 #include <Gui/Timeline/TimelineSlider.hpp>
-
 #include <QMouseEvent>
 
 namespace Ra::Gui {

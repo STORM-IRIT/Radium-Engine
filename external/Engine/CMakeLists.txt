@@ -1,5 +1,3 @@
-cmake_minimum_required(VERSION 3.6)
-
 project(radiumengine-external VERSION 1.0.0)
 
 include(ExternalProject)
@@ -25,7 +23,7 @@ add_custom_target(EngineExternals ALL)
 
 if(NOT DEFINED glm_DIR)
     check_externals_prerequisite()
-    status_message("" "glm" "remote git")
+    status_message("glm" "remote git")
     ExternalProject_Add(
         glm
         GIT_REPOSITORY https://github.com/g-truc/glm.git
@@ -41,12 +39,12 @@ if(NOT DEFINED glm_DIR)
 else()
     # because other might depends on it, but it's already done, define a dummy target
     add_custom_target(glm)
-    status_message("" "glm" "${glm_DIR}")
+    status_message("glm" "${glm_DIR}")
 endif()
 
 if(NOT DEFINED glbinding_DIR)
     check_externals_prerequisite()
-    status_message("" "glbinding" "remote git")
+    status_message("glbinding" "remote git")
     ExternalProject_Add(
         glbinding
         GIT_REPOSITORY https://github.com/cginternals/glbinding.git
@@ -70,7 +68,7 @@ if(NOT DEFINED glbinding_DIR)
     add_dependencies(EngineExternals glbinding)
 else()
     add_custom_target(glbinding)
-    status_message("" "glbinding" "${glbinding_DIR}")
+    status_message("glbinding" "${glbinding_DIR}")
 endif()
 
 if(NOT DEFINED Eigen3_DIR)
@@ -89,7 +87,7 @@ if(NOT DEFINED globjects_DIR)
     add_dependency_if_compiled(globjects-dep glm)
 
     check_externals_prerequisite()
-    status_message("" "globjects" "remote git")
+    status_message("globjects" "remote git")
     ExternalProject_Add(
         globjects
         GIT_REPOSITORY https://github.com/cginternals/globjects.git
@@ -111,12 +109,12 @@ if(NOT DEFINED globjects_DIR)
     set_external_dir(globjects "globjects/")
     add_dependencies(EngineExternals globjects)
 else()
-    status_message("" "globjects" "${globjects_DIR}")
+    status_message("globjects" "${globjects_DIR}")
 endif()
 
 if(NOT DEFINED stb_DIR)
     check_externals_prerequisite()
-    status_message("" "stb" "remote git")
+    status_message("stb" "remote git")
     ExternalProject_Add(
         stb
         GIT_REPOSITORY https://github.com/nothings/stb.git
@@ -137,7 +135,7 @@ if(NOT DEFINED stb_DIR)
     set_external_dir(stb_INCLUDE "include/")
     add_dependencies(EngineExternals stb)
 else()
-    status_message("" "stb" "${stb_DIR}")
+    status_message("stb" "${stb_DIR}")
     message(STATUS "Installing stb_image.h to ${CMAKE_INSTALL_PREFIX}/include")
     file(COPY ${stb_DIR}/stb_image.h DESTINATION ${CMAKE_INSTALL_PREFIX}/include/stb/)
     file(COPY ${stb_DIR}/stb_image_write.h DESTINATION ${CMAKE_INSTALL_PREFIX}/include/stb/)
@@ -145,7 +143,7 @@ endif()
 
 if(NOT DEFINED tinyEXR_DIR)
     check_externals_prerequisite()
-    status_message("" "tinyEXR" "remote git")
+    status_message("tinyEXR" "remote git")
     ExternalProject_Add(
         tinyEXR
         GIT_REPOSITORY https://github.com/MathiasPaulin/tinyexr.git
@@ -161,5 +159,5 @@ if(NOT DEFINED tinyEXR_DIR)
     set_external_dir(tinyEXR "share/tinyEXR/cmake/")
     add_dependencies(EngineExternals tinyEXR)
 else()
-    status_message("" "tinyEXR" "${tinyEXR_DIR}")
+    status_message("tinyEXR" "${tinyEXR_DIR}")
 endif()

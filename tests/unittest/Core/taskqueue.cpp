@@ -1,14 +1,46 @@
 #include <Core/Tasks/Task.hpp>
 #include <Core/Tasks/TaskQueue.hpp>
-
-#include <catch2/catch.hpp>
+#include <Core/Utils/Index.hpp>
+#include <catch2/catch_test_macros.hpp>
+#include <chrono>
 #include <memory>
+#include <sstream>
 #include <string>
+#include <thread>
+#include <utility>
 
 using namespace Ra::Core;
 using namespace Ra::Core::Utils;
 
-TEST_CASE( "Core/TaskQueue", "[Core][TaskQueue]" ) {
+// run some dummy task, to check that there is no deadlock
+TEST_CASE( "Core/TaskQueueInit", "[unittests][Core][TaskQueue]" ) {
+    for ( int i = 0; i < 5; ++i ) {
+        TaskQueue taskQueue1( 10 );
+        for ( int j = 0; j < 20; ++j ) {
+            taskQueue1.registerTask( std::make_unique<FunctionTask>(
+                []() { std::this_thread::sleep_for( std::chrono::milliseconds( 10 ) ); }, "" ) );
+        }
+        taskQueue1.startTasks();
+        taskQueue1.waitForTasks();
+        taskQueue1.flushTaskQueue();
+    }
+    for ( int i = 0; i < 50; ++i ) {
+        TaskQueue taskQueue1( 10 );
+        TaskQueue taskQueue2( 20 );
+        TaskQueue taskQueue3( 30 );
+        taskQueue1.startTasks();
+        taskQueue1.waitForTasks();
+        taskQueue1.flushTaskQueue();
+        taskQueue2.startTasks();
+        taskQueue2.waitForTasks();
+        taskQueue2.flushTaskQueue();
+        taskQueue3.startTasks();
+        taskQueue3.waitForTasks();
+        taskQueue3.flushTaskQueue();
+    }
+}
+
+TEST_CASE( "Core/TaskQueue", "[unittests][Core][TaskQueue]" ) {
     TaskQueue taskQueue( 4 );
 
     const int arraySize  = 7; // if changed, update test values also

@@ -1,6 +1,13 @@
 #pragma once
 #ifdef HEADLESS_HAS_GLFW
 #    include <Headless/OpenGLContext/OpenGLContext.hpp>
+#    include <Headless/RaHeadless.hpp>
+#    include <functional>
+#    include <string>
+
+namespace glbinding {
+class Version;
+} // namespace glbinding
 
 struct GLFWwindow;
 

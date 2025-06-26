@@ -16,16 +16,15 @@ MatrixEditor::MatrixEditor( const Ra::Core::MatrixN& matrix, int dec, QWidget* p
     QGridLayout* layout = new QGridLayout;
     layout->setContentsMargins( {} ); // margins are set to 0, see Qt documentation
     layout->setSpacing( 0 );
-
     for ( long i = 0; i < m_matrix.rows(); ++i ) {
         for ( int j = 0; j < m_matrix.cols(); ++j ) {
-            auto& elem   = m_matrix( i, j );
+            auto& elem = m_matrix( i, j );
+            ///\todo switch to more compact line edit
             auto spinbox = new QDoubleSpinBox();
             spinbox->setDecimals( dec );
-            spinbox->setValue( elem );
             spinbox->setMinimum( std::numeric_limits<Scalar>::lowest() );
             spinbox->setMaximum( std::numeric_limits<Scalar>::max() );
-
+            spinbox->setValue( elem );
             layout->addWidget( spinbox, i, j );
             auto updateMatrixOnChange = [this, &elem]( double value ) {
                 elem = value;
@@ -43,4 +42,5 @@ MatrixEditor::MatrixEditor( const Ra::Core::MatrixN& matrix, int dec, QWidget* p
 const Ra::Core::MatrixN& MatrixEditor::matrix() const {
     return m_matrix;
 }
+
 } // namespace Ra::Gui::Widgets

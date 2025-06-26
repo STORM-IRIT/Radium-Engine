@@ -1,8 +1,14 @@
 #pragma once
 
+#include <Core/CoreMacros.hpp>
 #include <Core/Geometry/deprecated/TopologicalMesh.hpp>
-
+#include <Core/RaCore.hpp>
+#include <Core/Types.hpp>
+#include <OpenMesh/Core/Mesh/PolyMeshT.hh>
+#include <OpenMesh/Core/Utils/Property.hh>
 #include <OpenMesh/Tools/Subdivider/Uniform/SubdividerT.hh>
+#include <utility>
+#include <vector>
 
 namespace Ra {
 namespace Core {

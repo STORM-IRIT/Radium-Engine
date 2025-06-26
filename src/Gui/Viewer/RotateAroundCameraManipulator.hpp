@@ -1,9 +1,19 @@
 #pragma once
 
+#include <Core/CoreMacros.hpp>
+#include <Core/Types.hpp>
+#include <Gui/RaGui.hpp>
+#include <Gui/Utils/KeyMappingManager.hpp>
 #include <Gui/Viewer/TrackballCameraManipulator.hpp>
+
+class QEvent;
+class QKeyEvent;
+class QMouseEvent;
 
 namespace Ra {
 namespace Gui {
+class CameraManipulator;
+
 class Viewer;
 
 class RA_GUI_API RotateAroundCameraManipulator
@@ -17,12 +27,12 @@ class RA_GUI_API RotateAroundCameraManipulator
     explicit RotateAroundCameraManipulator( Ra::Gui::Viewer* viewer );
     explicit RotateAroundCameraManipulator( const CameraManipulator& cm, Ra::Gui::Viewer* viewer );
 
-    /// @copydoc TrackballCameraManipulator::handleMouseMoveEvent()
+    /// \copydoc TrackballCameraManipulator::handleMouseMoveEvent()
     bool handleMouseMoveEvent( QMouseEvent* event,
                                const Qt::MouseButtons& buttons,
                                const Qt::KeyboardModifiers& modifiers,
                                int key ) override;
-    /// @copydoc TrackballCameraManipulator::handleKeyPressEvent()
+    /// \copydoc TrackballCameraManipulator::handleKeyPressEvent()
     bool handleKeyPressEvent( QKeyEvent* event,
                               const Ra::Gui::KeyMappingManager::KeyMappingAction& action ) override;
 

@@ -1,8 +1,9 @@
-#include <Engine/Data/RawShaderMaterial.hpp>
-
 #include <Engine/Data/MaterialConverters.hpp>
+#include <Engine/Data/RawShaderMaterial.hpp>
 #include <Engine/Data/ShaderConfigFactory.hpp>
 #include <Engine/Rendering/RenderTechnique.hpp>
+#include <cstddef>
+#include <optional>
 
 namespace Ra {
 namespace Engine {

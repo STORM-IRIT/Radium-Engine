@@ -1,9 +1,12 @@
 #include <Core/Geometry/DistanceQueries.hpp>
 #include <Core/Math/LinearAlgebra.hpp> // Math::getOrthogonalVectors
 #include <Core/Math/Math.hpp>          //  Math::areApproxEqual
-#include <catch2/catch.hpp>
+#include <Core/Types.hpp>
+#include <Eigen/Core>
+#include <catch2/catch_test_macros.hpp>
+#include <cmath>
 
-TEST_CASE( "Core/Geometry/DistanceQueries", "[Core][Core/Geometry][DistanceQueries]" ) {
+TEST_CASE( "Core/Geometry/DistanceQueries", "[unittests][Core][Core/Geometry][DistanceQueries]" ) {
 
     using namespace Ra::Core;
     SECTION( "Simple tests" ) {

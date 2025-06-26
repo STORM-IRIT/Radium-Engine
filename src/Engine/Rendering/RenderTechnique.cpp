@@ -1,10 +1,14 @@
-#include <Engine/Rendering/RenderTechnique.hpp>
-
+#include <Core/Utils/Log.hpp>
 #include <Engine/Data/BlinnPhongMaterial.hpp>
+#include <Engine/Data/RenderParameters.hpp>
 #include <Engine/Data/ShaderProgramManager.hpp>
 #include <Engine/RadiumEngine.hpp>
-
-#include <Core/Utils/Log.hpp>
+#include <Engine/Rendering/RenderTechnique.hpp>
+#include <algorithm>
+#include <cstddef>
+#include <map>
+#include <ostream>
+#include <type_traits>
 
 namespace Ra {
 namespace Engine {
@@ -137,7 +141,7 @@ namespace EngineRenderTechniques {
 static std::map<std::string, DefaultTechniqueBuilder> EngineTechniqueRegistry;
 
 /** register a new default builder for a technique
- *  @return true if builder added, false else (e.g, a builder with the same name exists)
+ *  \return true if builder added, false else (e.g, a builder with the same name exists)
  */
 bool registerDefaultTechnique( const std::string& name, DefaultTechniqueBuilder builder ) {
     auto result = EngineTechniqueRegistry.insert( { name, builder } );
@@ -145,7 +149,7 @@ bool registerDefaultTechnique( const std::string& name, DefaultTechniqueBuilder 
 }
 
 /** remove a default builder
- *  @return true if builder removed, false else (e.g, a builder with the same name does't exists)
+ *  \return true if builder removed, false else (e.g, a builder with the same name does't exists)
  */
 bool removeDefaultTechnique( const std::string& name ) {
     std::size_t removed = EngineTechniqueRegistry.erase( name );
@@ -153,8 +157,8 @@ bool removeDefaultTechnique( const std::string& name ) {
 }
 
 /**
- * @param name name of the technique to construct
- * @return a pair containing the search result and, if true, the functor to call to build the
+ * \param name name of the technique to construct
+ * \return a pair containing the search result and, if true, the functor to call to build the
  * technique.
  */
 std::pair<bool, DefaultTechniqueBuilder> getDefaultTechnique( const std::string& name ) {

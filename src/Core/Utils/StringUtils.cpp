@@ -1,4 +1,7 @@
 #include <Core/Utils/StringUtils.hpp>
+#include <cstddef>
+#include <string>
+#include <string_view>
 
 /*
  * NOMINMAX is already defined in CoreMacros.hpp ...
@@ -9,8 +12,6 @@
 //#define vsnprintf(buffer, count, format, argptr) vsnprintf_s(buffer, count, count, format, argptr)
 #endif
 */
-
-#include <memory>
 
 namespace Ra {
 namespace Core {

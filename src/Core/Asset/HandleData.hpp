@@ -2,13 +2,17 @@
 
 #include <Core/Asset/AssetData.hpp>
 #include <Core/Containers/AlignedStdVector.hpp>
+#include <Core/CoreMacros.hpp>
 #include <Core/RaCore.hpp>
 #include <Core/Types.hpp>
 #include <Core/Utils/Log.hpp>
-
+#include <Eigen/Geometry>
 #include <map>
+#include <memory>
+#include <ostream>
 #include <set>
 #include <string>
+#include <utility>
 #include <vector>
 
 namespace Ra {
@@ -19,7 +23,6 @@ namespace Asset {
  * A HandleComponentData stores the data of an animation Handle linked to an object.
  */
 struct RA_CORE_API HandleComponentData {
-    EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
     HandleComponentData();
 
@@ -42,8 +45,6 @@ struct RA_CORE_API HandleComponentData {
 class RA_CORE_API HandleData : public AssetData
 {
   public:
-    EIGEN_MAKE_ALIGNED_OPERATOR_NEW
-
     /**
      * The type of Handle system.
      */

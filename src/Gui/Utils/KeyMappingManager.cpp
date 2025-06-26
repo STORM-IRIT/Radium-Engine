@@ -1,10 +1,9 @@
 #include "KeyMappingManager.hpp"
 
+#include <Core/CoreMacros.hpp>
 #include <Core/Resources/Resources.hpp>
 #include <Core/Utils/Log.hpp>
-
 #include <QMessageBox>
-#include <QtGlobal> //QT_VERSION, QT_VERSION_CHECK
 
 namespace Ra::Gui {
 

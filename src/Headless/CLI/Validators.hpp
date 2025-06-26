@@ -64,14 +64,14 @@ namespace CLI {
 
 class Option;
 
-/// @defgroup validator_group Validators
+/// \defgroup validator_group Validators
 
-/// @brief Some validators that are provided
+/// \brief Some validators that are provided
 ///
 /// These are simple `std::string(const std::string&)` validators that are useful. They return
 /// a string if the validation fails. A custom struct is provided, as well, with the same user
 /// semantics, but with the ability to provide a new type name.
-/// @{
+/// \{
 
 ///
 class Validator
@@ -659,9 +659,9 @@ template <typename T>
 inline typename std::enable_if<std::is_signed<T>::value, T>::type overflowCheck( const T& a,
                                                                                  const T& b ) {
     if ( ( a > 0 ) == ( b > 0 ) ) {
-        return ( ( std::numeric_limits<T>::max )() / ( std::abs )( a ) < ( std::abs )( b ) );
+        return ( ( std::numeric_limits<T>::max )() / (std::abs)( a ) < (std::abs)( b ) );
     }
-    else { return ( ( std::numeric_limits<T>::min )() / ( std::abs )( a ) > -( std::abs )( b ) ); }
+    else { return ( ( std::numeric_limits<T>::min )() / (std::abs)( a ) > -(std::abs)( b ) ); }
 }
 /// Do a check for overflow on unsigned numbers
 template <typename T>
@@ -1167,7 +1167,7 @@ inline std::pair<std::string, std::string> split_program_name( std::string comma
 }
 
 } // namespace detail
-/// @}
+/// \}
 
 // [CLI11:validators_hpp:end]
 } // namespace CLI

@@ -1,17 +1,21 @@
 #pragma once
 
-#include <QXmlStreamWriter>
-#include <QtGui/QKeyEvent>
-#include <QtGui/QMouseEvent>
-#include <QtXml/QtXml>
-
-#include <Gui/RaGui.hpp>
-
 #include <Core/Utils/Index.hpp>
 #include <Core/Utils/Log.hpp>
 #include <Core/Utils/Observable.hpp>
 #include <Core/Utils/Singleton.hpp>
 #include <Core/Utils/StdOptional.hpp>
+#include <Gui/RaGui.hpp>
+#include <QXmlStreamWriter>
+#include <QtGui/QKeyEvent>
+#include <QtGui/QMouseEvent>
+#include <QtXml/QtXml>
+#include <functional>
+#include <map>
+#include <optional>
+#include <string>
+#include <utility>
+#include <vector>
 
 namespace Ra {
 namespace Gui {
@@ -83,8 +87,8 @@ class RA_GUI_API KeyMappingManager : public Ra::Core::Utils::ObservableVoid
     void loadConfiguration( const std::string& filename = {} );
 
     /// Save the configuration
-    /// @param filename the file to write to. It will be replaced
-    /// @return true if file was correctly saved
+    /// \param filename the file to write to. It will be replaced
+    /// \return true if file was correctly saved
     bool saveConfiguration( const std::string& filename = {} );
 
     /// reload last open file.
@@ -157,7 +161,7 @@ class RA_GUI_API KeyMappingManager : public Ra::Core::Utils::ObservableVoid
     int addListener( Observable::Observer callback );
 
     /// Remove a callback. To be called when the related Context/Actions are no more needed.
-    /// @param callbackId the Id, returned by addListener, of the Observer to be removed.
+    /// \param callbackId the Id, returned by addListener, of the Observer to be removed.
     void removeListener( int callbackId );
 
     /// Return a string corresponding to the current dom document.

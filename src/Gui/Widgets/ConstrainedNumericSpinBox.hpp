@@ -37,12 +37,12 @@ class ConstrainedNumericSpinBox : public QtSpinBox::getType<T>::Type
 };
 
 template <typename T>
-QValidator::State ConstrainedNumericSpinBox<T>::validate( QString& input, int& ) const {
-    auto valid = this->isValid( this->valueFromText( input ) );
+QValidator::State ConstrainedNumericSpinBox<T>::validate( QString&, int& ) const {
+    auto valid = this->isValid( this->value() );
     auto& spin = const_cast<ConstrainedNumericSpinBox&>( *this );
     spin.blockSignals( !valid );
-    if ( valid ) { spin.setStyleSheet( "" ); }
-    else { spin.setStyleSheet( "background-color: #FF8080" ); }
+    if ( valid ) { spin.setSuffix( "" ); }
+    else { spin.setSuffix( " *invalid*" ); }
     return valid ? QValidator::Acceptable : QValidator::Invalid;
 }
 

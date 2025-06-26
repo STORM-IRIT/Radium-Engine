@@ -1,9 +1,14 @@
 #pragma once
 
-#include <Engine/RaEngine.hpp>
-
 #include <Core/Asset/MaterialData.hpp>
 #include <Engine/Data/Material.hpp>
+#include <Engine/Data/RenderParameters.hpp>
+#include <Engine/Data/ShaderConfiguration.hpp>
+#include <Engine/RaEngine.hpp>
+#include <memory>
+#include <string>
+#include <utility>
+#include <vector>
 
 namespace Ra {
 namespace Engine {
@@ -27,10 +32,10 @@ class RA_ENGINE_API RawShaderMaterialData : public MaterialData
   public:
     /**
      * Construct a shaderMaterialData from shader source and parameter provider
-     * @param instanceName The name of the material instance
-     * @param shaders The shaders to use for each pipeline stage (only one source per stage is
+     * \param instanceName The name of the material instance
+     * \param shaders The shaders to use for each pipeline stage (only one source per stage is
      * allowed)
-     * @param paramProvider The parameter provider for the resulting program
+     * \param paramProvider The parameter provider for the resulting program
      */
     RawShaderMaterialData(
         const std::string& instanceName,
@@ -75,19 +80,16 @@ class RA_ENGINE_API RawShaderMaterial : public Material
   public:
     /**
      * Construct a named material from raw shaders
-     * @param instanceName The name of the material instance
-     * @param shaders The shaders to use for each pipeline stage (only one source per stage is
+     * \param instanceName The name of the material instance
+     * \param shaders The shaders to use for each pipeline stage (only one source per stage is
      * allowed)
-     * @param paramProvider The parameter provider for the resulting program
+     * \param paramProvider The parameter provider for the resulting program
      */
     explicit RawShaderMaterial(
         const std::string& instanceName,
         const std::vector<std::pair<Data::ShaderType, std::string>>& shaders,
         std::shared_ptr<Data::ShaderParameterProvider> paramProvider );
 
-    /**
-     * Destructor.
-     */
     ~RawShaderMaterial() override;
 
     /**
@@ -97,13 +99,13 @@ class RA_ENGINE_API RawShaderMaterial : public Material
 
     /**
      * Override of the `getParameters()` method from Material
-     * @return
+     * \return
      */
     inline Data::RenderParameters& getParameters() override;
 
     /**
      * Override of the `const getParameters() const` method from Material
-     * @return
+     * \return
      */
     inline const Data::RenderParameters& getParameters() const override;
 
@@ -114,11 +116,11 @@ class RA_ENGINE_API RawShaderMaterial : public Material
 
     /**
      * Update the shaders of the material.
-     * @note the given shaders array is considered as a remplacement of the current shader array.
-     * @param instanceName The name of the material instance
-     * @param shaders The shaders to use for each pipeline stage (only one source per stage is
+     * \note the given shaders array is considered as a remplacement of the current shader array.
+     * \param instanceName The name of the material instance
+     * \param shaders The shaders to use for each pipeline stage (only one source per stage is
      * allowed)
-     * @param paramProvider The parameter provider for the resulting program. If not given, the old
+     * \param paramProvider The parameter provider for the resulting program. If not given, the old
      * provider will be kept.
      */
     void updateShaders( const std::vector<std::pair<Data::ShaderType, std::string>>& shaders,
@@ -145,8 +147,7 @@ class RA_ENGINE_API RawShaderMaterial : public Material
 
   private:
     /**
-     * Compute the unique key that identify this material in shaders and technique factories
-     * @return
+     * \return the unique key that identify this material in shaders and technique factories
      */
     std::string computeKey();
 

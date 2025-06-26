@@ -1,6 +1,19 @@
 #include <Core/Animation/DualQuaternionSkinning.hpp>
-
+#include <Core/Animation/HandleArray.hpp>
+#include <Core/Animation/Skeleton.hpp>
 #include <Core/Animation/SkinningData.hpp>
+#include <Core/CoreMacros.hpp>
+#include <Core/Geometry/IndexedGeometry.hpp>
+#include <Core/Math/DualQuaternion.hpp>
+#include <Core/Math/Math.hpp>
+#include <Core/Types.hpp>
+#include <Eigen/Core>
+#include <Eigen/Geometry>
+#include <Eigen/SparseCore>
+#include <algorithm>
+#include <limits>
+#include <memory>
+#include <vector>
 
 namespace Ra {
 namespace Core {

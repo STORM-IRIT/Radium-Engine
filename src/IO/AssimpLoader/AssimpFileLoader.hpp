@@ -1,9 +1,11 @@
 #pragma once
 
-#include <assimp/Importer.hpp>
-
+#include <Core/Asset/FileData.hpp>
 #include <Core/Asset/FileLoaderInterface.hpp>
 #include <IO/RaIO.hpp>
+#include <assimp/Importer.hpp>
+#include <string>
+#include <vector>
 
 namespace Ra {
 namespace IO {

@@ -1,7 +1,10 @@
 
 @str_core_headers@
+@str_dataflow_core_headers@
 @str_engine_headers@
 @str_gui_headers@
+// include qtgui after engine, prevents gl namespace clash
+@str_dataflow_qtgui_headers@
 @str_io_headers@
 
 int  main() {

@@ -1,11 +1,12 @@
 #include <Core/Math/LinearAlgebra.hpp>
 #include <Core/Math/Math.hpp>
 #include <Core/Types.hpp>
-#include <catch2/catch.hpp>
 
 #include <algorithm> // clamp
+#include <catch2/catch_test_macros.hpp>
+#include <cmath>
 
-TEST_CASE( "Core/Math/Algebra", "[Core][Core/Math][Algebra]" ) {
+TEST_CASE( "Core/Math/Algebra", "[unittests][Core][Core/Math][Algebra]" ) {
     using namespace Ra::Core;
     SECTION( "Test custom vector functions" ) {
 

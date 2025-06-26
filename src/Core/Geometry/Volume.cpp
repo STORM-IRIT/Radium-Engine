@@ -1,6 +1,8 @@
 #include <Core/Geometry/Volume.hpp>
-
 #include <Core/Utils/Log.hpp>
+#include <memory>
+#include <ostream>
+#include <string>
 
 namespace Ra {
 namespace Core {
