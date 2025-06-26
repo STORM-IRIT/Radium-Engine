@@ -42,7 +42,7 @@ Open the Radium folder (via "File > Open > Folder..." or `devenv.exe <foldername
 VS will run cmake, generate the target builds (Debug and Release by default).
 Other build types can be added by editing `CMakeSettings.json`.
 
-Configure cmake option (see official doc [here](https://docs.microsoft.com/cpp/build/customize-cmake-settings))
+Configure cmake option (see [official documentation](https://docs.microsoft.com/cpp/build/customize-cmake-settings))
 You have to provide path to Qt installation, glfw installation (for headless support) and external dependencies configuration.
 In order to execute Radium demos from the buildtree (installing them takes time due to qt deployement procedure),
 you also need to define environment variables that point to the various dlls used by Radium components that will be used on the per-target `launch.vs.json` configuration file.
