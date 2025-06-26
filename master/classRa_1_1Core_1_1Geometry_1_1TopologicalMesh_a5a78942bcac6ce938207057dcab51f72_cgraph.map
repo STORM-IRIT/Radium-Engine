@@ -1,5 +1,7 @@
 <map id="Ra::Core::Geometry::TopologicalMesh::propagate_normal_to_wedges" name="Ra::Core::Geometry::TopologicalMesh::propagate_normal_to_wedges">
-<area shape="rect" id="node1" title=" " alt="" coords="5,35,217,91"/>
-<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#af04d4910fbeb0e3e13815cc36995dab7" title=" " alt="" coords="265,5,508,47"/>
-<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a2f9edf9c78cb2d1d060b8a7d99fe87e9" title=" " alt="" coords="289,71,484,127"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,34,217,89"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#af04d4910fbeb0e3e13815cc36995dab7" title=" " alt="" coords="265,5,508,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="217,45,251,40,252,46,218,50"/>
+<area shape="rect" id="Node000003" href="$classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a2f9edf9c78cb2d1d060b8a7d99fe87e9" title=" " alt="" coords="289,70,484,125"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="218,73,276,80,275,85,217,78"/>
 </map>

@@ -1,7 +1,12 @@
 <map id="Ra::Engine::Data::PointCloud" name="Ra::Engine::Data::PointCloud">
-<area shape="rect" id="node1" title="A PointCloud without indices." alt="" coords="25,1816,233,1952"/>
-<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html" title=" " alt="" coords="5,1308,252,1767"/>
-<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html" title=" " alt="" coords="13,293,234,752"/>
-<area shape="rect" id="node5" href="$classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html" title="Template class to manage the Displayable aspect of a Core Geomertry, such as TriangleMesh." alt="" coords="144,801,391,1245"/>
-<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Data_1_1Displayable.html" title=" " alt="" coords="16,5,231,244"/>
+<area shape="rect" id="Node000001" title="A PointCloud without indices." alt="" coords="25,2216,225,2361"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html" title=" " alt="" coords="5,1592,244,2167"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="127,2180,127,2216,122,2216,122,2180"/>
+<area shape="rect" id="Node000003" href="$classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html" title=" " alt="" coords="13,340,226,920"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="123,934,126,1592,121,1592,118,934"/>
+<area shape="rect" id="Node000005" href="$classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html" title="Template class to manage the Displayable aspect of a Core Geomertry, such as TriangleMesh." alt="" coords="141,969,380,1529"/>
+<area shape="poly" id="edge5_Node000005_Node000003" title=" " alt="" coords="191,933,199,969,194,970,186,934"/>
+<area shape="rect" id="Node000004" href="$classRa_1_1Engine_1_1Data_1_1Displayable.html" title=" " alt="" coords="16,5,223,291"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="122,305,122,340,117,340,117,305"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="200,1543,189,1592,184,1591,195,1542"/>
 </map>

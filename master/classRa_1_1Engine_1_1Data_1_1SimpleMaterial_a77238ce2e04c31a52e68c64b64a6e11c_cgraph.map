@@ -1,4 +1,5 @@
 <map id="Ra::Engine::Data::SimpleMaterial::setColoredByVertexAttrib" name="Ra::Engine::Data::SimpleMaterial::setColoredByVertexAttrib">
-<area shape="rect" id="node1" title="Makes the Material take its base color from the VERTEX_COLOR attribute of the rendered geometry." alt="" coords="5,5,219,61"/>
-<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Data_1_1Material.html#ac6eabe9ce20163cab8bec7a51f6e75a5" title=" " alt="" coords="267,13,459,54"/>
+<area shape="rect" id="Node000001" title="Makes the Material take its base color from the VERTEX_COLOR attribute of the rendered geometry." alt="" coords="5,5,219,60"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Engine_1_1Data_1_1Material.html#ac6eabe9ce20163cab8bec7a51f6e75a5" title="Mark the Material as needing update before the next OpenGL call." alt="" coords="267,13,459,53"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="219,30,253,30,253,35,219,35"/>
 </map>

@@ -1,0 +1,19 @@
+<map id="Ra::Gui::TrackballCameraManipulator::updatePhiTheta" name="Ra::Gui::TrackballCameraManipulator::updatePhiTheta">
+<area shape="rect" id="Node000001" title="Update the polar coordinates of the Camera w.r.t. the trackball center." alt="" coords="5,142,216,182"/>
+<area shape="rect" id="Node000002" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/numeric/math/acos.html#" title=" " alt="" coords="321,5,401,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="131,140,187,90,224,64,263,41,307,25,308,30,265,46,227,68,190,94,134,144"/>
+<area shape="rect" id="Node000003" href="$namespaceRa_1_1Core_1_1Math.html#a46540d56930b4c1ff3b115872cde4893" title="Compare two numbers such that |x&#45;y| &lt; espilon*epsilonBoostFactor." alt="" coords="264,55,457,95"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="168,139,263,106,288,97,290,102,265,111,170,144"/>
+<area shape="rect" id="Node000006" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/numeric/math/atan2.html#" title=" " alt="" coords="317,120,404,145"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="216,147,303,137,304,142,216,152"/>
+<area shape="rect" id="Node000007" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#aec6212574317a5395be2b49c19a90466" title="Return the direction the camera is looking at." alt="" coords="271,170,451,210"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="216,171,257,176,257,181,216,176"/>
+<area shape="rect" id="Node000008" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a857b2f451204f40344a4f0eb8a44c496" title="Return the up vector." alt="" coords="271,234,451,274"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="162,180,265,220,286,227,284,232,263,224,160,185"/>
+<area shape="rect" id="Node000009" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/numeric/math/isfinite.html#" title=" " alt="" coords="313,299,408,324"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="133,180,189,232,226,260,265,284,301,297,299,302,263,288,223,264,186,236,129,184"/>
+<area shape="rect" id="Node000004" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/types/numeric_limits/epsilon.html#" title=" " alt="" coords="522,27,669,67"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="457,61,508,55,508,60,458,66"/>
+<area shape="rect" id="Node000005" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/types/numeric_limits/min.html#" title=" " alt="" coords="505,92,685,117"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="458,85,492,89,491,94,457,90"/>
+</map>

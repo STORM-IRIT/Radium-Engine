@@ -1,9 +1,0 @@
-<map id="Ra::Engine::Data::RawShaderMaterial::RawShaderMaterial" name="Ra::Engine::Data::RawShaderMaterial::RawShaderMaterial">
-<area shape="rect" id="node1" title=" " alt="" coords="5,126,216,167"/>
-<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Data_1_1RawShaderMaterial.html#a4cb181d533e6f631896cc696d22bc349" title=" " alt="" coords="264,93,511,134"/>
-<area shape="rect" id="node7" href="$classRa_1_1Engine_1_1Data_1_1Material.html#a8fb4a3a438c6d84285770ab97ac2eb68" title=" " alt="" coords="291,158,483,199"/>
-<area shape="rect" id="node3" href="$namespaceRa_1_1Engine_1_1Data_1_1ShaderConfigurationFactory.html#a00918835250fbd8bbe4deae59ecd6dde" title=" " alt="" coords="595,5,778,61"/>
-<area shape="rect" id="node4" href="$namespaceRa_1_1Engine_1_1Data_1_1ShaderConfigurationFactory.html#a0ecc004c00bff945aae8b673a738909f" title=" " alt="" coords="595,85,778,141"/>
-<area shape="rect" id="node5" href="$classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a2b058b0fe2f9c2496b7805e0d5b15452" title=" " alt="" coords="559,166,815,207"/>
-<area shape="rect" id="node6" href="$classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#af3b58075507144820fe06f6a129b0107" title=" " alt="" coords="863,166,1064,207"/>
-</map>

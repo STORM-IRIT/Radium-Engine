@@ -1,4 +1,0 @@
-<map id="Ra::Core::VariableSet::DynamicVisitor" name="Ra::Core::VariableSet::DynamicVisitor">
-<area shape="rect" id="node1" title="Base class for visitors with configurable per&#45;type callbacks. Visiting will be prepared at running ti..." alt="" coords="5,175,200,355"/>
-<area shape="rect" id="node2" href="$classRa_1_1Core_1_1VariableSet_1_1DynamicVisitorBase.html" title="Base class for dynamically configurable visitors Users can implement this interface to build custom v..." alt="" coords="7,5,198,127"/>
-</map>

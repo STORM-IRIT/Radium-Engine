@@ -5,280 +5,338 @@
  -->
 <!-- Title: Ra::Engine::Data::VaoIndices Pages: 1 -->
 <!--zoomable 504 -->
+
 <svg id="main" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" onload="init(evt)">
+
 <style type="text/css"><![CDATA[
+.node, .edge {opacity: 0.7;}
+.node.selected, .edge.selected {opacity: 1;}
 .edge:hover path { stroke: red; }
 .edge:hover polygon { stroke: red; fill: red; }
 ]]></style>
-<script type="text/javascript"><![CDATA[
-var edges = document.getElementsByTagName('g');
-if (edges && edges.length) {
-  for (var i=0;i<edges.length;i++) {
-    if (edges[i].id.substr(0,4)=='edge') {
-      edges[i].setAttribute('class','edge');
-    }
-  }
-}
-]]></script>
-        <defs>
-                <circle id="rim" cx="0" cy="0" r="7"/>
-                <circle id="rim2" cx="0" cy="0" r="3.5"/>
-                <g id="zoomPlus">
-                        <use xlink:href="#rim" fill="#404040">
-                                <set attributeName="fill" to="#808080" begin="zoomplus.mouseover" end="zoomplus.mouseout"/>
-                        </use>
-                        <path d="M-4,0h8M0,-4v8" fill="none" stroke="white" stroke-width="1.5" pointer-events="none"/>
-                </g>
-                <g id="zoomMin">
-                        <use xlink:href="#rim" fill="#404040">
-                                <set attributeName="fill" to="#808080" begin="zoomminus.mouseover" end="zoomminus.mouseout"/>
-                        </use>
-                        <path d="M-4,0h8" fill="none" stroke="white" stroke-width="1.5" pointer-events="none"/>
-                </g>
-                <g id="dirArrow">
-                        <path fill="none" stroke="white" stroke-width="1.5" d="M0,-3.0v7 M-2.5,-0.5L0,-3.0L2.5,-0.5"/>
-                </g>
-               <g id="resetDef">
-                       <use xlink:href="#rim2" fill="#404040">
-                               <set attributeName="fill" to="#808080" begin="reset.mouseover" end="reset.mouseout"/>
-                       </use>
-               </g>
-        </defs>
 
-<script type="text/javascript">
-var viewWidth = 526;
+<defs>
+  <circle id="rim" cx="0" cy="0" r="7"/>
+  <circle id="rim2" cx="0" cy="0" r="3.5"/>
+  <g id="zoomPlus">
+    <use xlink:href="#rim" fill="#404040"><set attributeName="fill" to="#808080" begin="zoomplus.mouseover" end="zoomplus.mouseout"/></use>
+    <path d="M-4,0h8M0,-4v8" fill="none" stroke="white" stroke-width="1.5" pointer-events="none"/>
+  </g>
+  <g id="zoomMin">
+    <use xlink:href="#rim" fill="#404040"><set attributeName="fill" to="#808080" begin="zoomminus.mouseover" end="zoomminus.mouseout"/></use>
+    <path d="M-4,0h8" fill="none" stroke="white" stroke-width="1.5" pointer-events="none"/>
+  </g>
+  <g id="arrowUp" transform="translate(30 24)">
+    <use xlink:href="#rim"/>
+    <path pointer-events="none" fill="none" stroke="white" stroke-width="1.5" d="M0,-3.0v7 M-2.5,-0.5L0,-3.0L2.5,-0.5"/>
+  </g>
+  <g id="arrowRight" transform="rotate(90) translate(36 -43)">
+    <use xlink:href="#rim"/>
+    <path pointer-events="none" fill="none" stroke="white" stroke-width="1.5" d="M0,-3.0v7 M-2.5,-0.5L0,-3.0L2.5,-0.5"/>
+  </g>
+  <g id="arrowDown" transform="rotate(180) translate(-30 -48)">
+    <use xlink:href="#rim"/>
+    <path pointer-events="none" fill="none" stroke="white" stroke-width="1.5" d="M0,-3.0v7 M-2.5,-0.5L0,-3.0L2.5,-0.5"/>
+  </g>
+  <g id="arrowLeft" transform="rotate(270) translate(-36 17)">
+    <use xlink:href="#rim"/>
+    <path pointer-events="none" fill="none" stroke="white" stroke-width="1.5" d="M0,-3.0v7 M-2.5,-0.5L0,-3.0L2.5,-0.5"/>
+  </g>
+  <g id="resetDef">
+    <use xlink:href="#rim2" fill="#404040"><set attributeName="fill" to="#808080" begin="reset.mouseover" end="reset.mouseout"/></use>
+  </g>
+</defs>
+<script type="application/ecmascript">
+var viewWidth = 516;
 var viewHeight = 504;
 var sectionId = 'dynsection-0';
 </script>
-<script xlink:href="svgpan.js"/>
+<script type="application/ecmascript" xlink:href="svg.min.js"/>
 <svg id="graph" class="graph">
 <g id="viewport">
 <title>Ra::Engine::Data::VaoIndices</title>
-<polygon fill="white" stroke="transparent" points="-4,4 -4,-500 522,-500 522,4 -4,4"/>
 <!-- Node1 -->
-<g id="node1" class="node">
+<g id="Node000001" class="node">
 <title>Node1</title>
-<g id="a_node1"><a xlink:title="Concept class to ensure consistent naming of VaoIndices accross derived classes.">
-<polygon fill="#bfbfbf" stroke="black" points="231,-416.5 231,-495.5 387,-495.5 387,-416.5 231,-416.5"/>
-<text text-anchor="middle" x="309" y="-483.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Data::VaoIndices</text>
-<polyline fill="none" stroke="black" points="231,-476.5 387,-476.5 "/>
-<text text-anchor="start" x="239" y="-464.5" font-family="Helvetica,sans-Serif" font-size="10.00"># m_indices</text>
-<text text-anchor="start" x="239" y="-453.5" font-family="Helvetica,sans-Serif" font-size="10.00"># m_indicesDirty</text>
-<text text-anchor="start" x="239" y="-442.5" font-family="Helvetica,sans-Serif" font-size="10.00"># m_numElements</text>
-<polyline fill="none" stroke="black" points="231,-435.5 387,-435.5 "/>
-<text text-anchor="start" x="239" y="-423.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ setIndicesDirty()</text>
+<g id="a_Node000001"><a xlink:title="Concept class to ensure consistent naming of VaoIndices accross derived classes.">
+<polygon fill="#999999" stroke="transparent" points="376,-496 226,-496 226,-417 376,-417 376,-496"/>
+<text text-anchor="start" x="231" y="-483.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Data::VaoIndices</text>
+<text text-anchor="start" x="241.5" y="-468.5" font-family="Helvetica,sans-Serif" font-size="10.00">#</text>
+<text text-anchor="start" x="266" y="-468.5" font-family="Helvetica,sans-Serif" font-size="10.00">m_indices</text>
+<text text-anchor="start" x="241.5" y="-453.5" font-family="Helvetica,sans-Serif" font-size="10.00">#</text>
+<text text-anchor="start" x="266" y="-453.5" font-family="Helvetica,sans-Serif" font-size="10.00">m_indicesDirty</text>
+<text text-anchor="start" x="241.5" y="-438.5" font-family="Helvetica,sans-Serif" font-size="10.00">#</text>
+<text text-anchor="start" x="266" y="-438.5" font-family="Helvetica,sans-Serif" font-size="10.00">m_numElements</text>
+<text text-anchor="start" x="241.5" y="-423.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="266" y="-423.5" font-family="Helvetica,sans-Serif" font-size="10.00">setIndicesDirty()</text>
+<polygon fill="#666666" stroke="#666666" points="226,-478.5 226,-478.5 376,-478.5 376,-478.5 226,-478.5"/>
+<polygon fill="#666666" stroke="#666666" points="226,-433.5 226,-433.5 264,-433.5 264,-433.5 226,-433.5"/>
+<polygon fill="#666666" stroke="#666666" points="264,-433.5 264,-433.5 376,-433.5 376,-433.5 264,-433.5"/>
+<polygon fill="none" stroke="#666666" points="226,-417 226,-496 376,-496 376,-417 226,-417"/>
 </a>
 </g>
 </g>
 <!-- Node2 -->
-<g id="node2" class="node">
+<g id="Node000002" class="node">
 <title>Node2</title>
-<g id="a_node2"><a xlink:href="classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="0,-106.5 0,-218.5 154,-218.5 154,-106.5 0,-106.5"/>
-<text text-anchor="start" x="8" y="-206.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Data::Indexed</text>
-<text text-anchor="start" x="8" y="-195.5" font-family="Helvetica,sans-Serif" font-size="10.00">Geometry&lt; Core::Geometry</text>
-<text text-anchor="middle" x="77" y="-184.5" font-family="Helvetica,sans-Serif" font-size="10.00">::TriangleMesh &gt;</text>
-<polyline fill="none" stroke="black" points="0,-177.5 154,-177.5 "/>
-<text text-anchor="middle" x="77" y="-165.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<polyline fill="none" stroke="black" points="0,-158.5 154,-158.5 "/>
-<text text-anchor="start" x="8" y="-146.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ IndexedGeometry()</text>
-<text text-anchor="start" x="8" y="-135.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ render()</text>
-<text text-anchor="start" x="8" y="-124.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ loadGeometry()</text>
-<text text-anchor="start" x="8" y="-113.5" font-family="Helvetica,sans-Serif" font-size="10.00"># updateGL_specific_impl()</text>
+<g id="a_Node000002"><a xlink:href="classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="transparent" points="148,-217 0,-217 0,-101 148,-101 148,-217"/>
+<text text-anchor="start" x="5" y="-205" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Data::Indexed</text>
+<text text-anchor="start" x="5" y="-194" font-family="Helvetica,sans-Serif" font-size="10.00">Geometry&lt; Core::Geometry</text>
+<text text-anchor="start" x="42" y="-183" font-family="Helvetica,sans-Serif" font-size="10.00">::LineMesh &gt;</text>
+<text text-anchor="start" x="72" y="-168" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<text text-anchor="start" x="4.5" y="-153" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="18" y="-153" font-family="Helvetica,sans-Serif" font-size="10.00">IndexedGeometry()</text>
+<text text-anchor="start" x="4.5" y="-138" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="18" y="-138" font-family="Helvetica,sans-Serif" font-size="10.00">render()</text>
+<text text-anchor="start" x="4.5" y="-123" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="18" y="-123" font-family="Helvetica,sans-Serif" font-size="10.00">loadGeometry()</text>
+<text text-anchor="start" x="4.5" y="-108" font-family="Helvetica,sans-Serif" font-size="10.00">#</text>
+<text text-anchor="start" x="18" y="-108" font-family="Helvetica,sans-Serif" font-size="10.00">updateGL_specific_impl()</text>
+<polygon fill="#666666" stroke="#666666" points="0,-178 0,-178 148,-178 148,-178 0,-178"/>
+<polygon fill="#666666" stroke="#666666" points="0,-163 0,-163 148,-163 148,-163 0,-163"/>
+<polygon fill="none" stroke="#666666" points="0,-101 0,-217 148,-217 148,-101 0,-101"/>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node2 -->
-<g id="edge1" class="edge">
+<g id="edge1_Node000001_Node000002" class="edge">
 <title>Node1&#45;&gt;Node2</title>
-<path fill="none" stroke="midnightblue" d="M220.85,-445.59C176.71,-436.09 126.51,-417.06 97,-379 62,-333.87 61.51,-266.36 66.89,-218.95"/>
-<polygon fill="none" stroke="midnightblue" points="220.26,-449.04 230.75,-447.59 221.64,-442.18 220.26,-449.04"/>
+<g id="a_edge1_Node000001_Node000002"><a xlink:title=" ">
+<path fill="none" stroke="#63b8ff" d="M215.94,-444.3C173.83,-434.34 125.77,-415.53 96,-380 58.53,-335.28 57.8,-266.11 63.39,-217.28"/>
+<polygon fill="none" stroke="#63b8ff" points="215.41,-447.77 225.94,-446.53 216.94,-440.94 215.41,-447.77"/>
+</a>
+</g>
 </g>
 <!-- Node4 -->
-<g id="node4" class="node">
+<g id="Node000004" class="node">
 <title>Node4</title>
-<g id="a_node4"><a xlink:href="classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="364,-106.5 364,-218.5 518,-218.5 518,-106.5 364,-106.5"/>
-<text text-anchor="start" x="372" y="-206.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Data::Indexed</text>
-<text text-anchor="start" x="372" y="-195.5" font-family="Helvetica,sans-Serif" font-size="10.00">Geometry&lt; Core::Geometry</text>
-<text text-anchor="middle" x="441" y="-184.5" font-family="Helvetica,sans-Serif" font-size="10.00">::LineMesh &gt;</text>
-<polyline fill="none" stroke="black" points="364,-177.5 518,-177.5 "/>
-<text text-anchor="middle" x="441" y="-165.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<polyline fill="none" stroke="black" points="364,-158.5 518,-158.5 "/>
-<text text-anchor="start" x="372" y="-146.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ IndexedGeometry()</text>
-<text text-anchor="start" x="372" y="-135.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ render()</text>
-<text text-anchor="start" x="372" y="-124.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ loadGeometry()</text>
-<text text-anchor="start" x="372" y="-113.5" font-family="Helvetica,sans-Serif" font-size="10.00"># updateGL_specific_impl()</text>
+<g id="a_Node000004"><a xlink:href="classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="transparent" points="508,-217 360,-217 360,-101 508,-101 508,-217"/>
+<text text-anchor="start" x="365" y="-205" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Data::Indexed</text>
+<text text-anchor="start" x="365" y="-194" font-family="Helvetica,sans-Serif" font-size="10.00">Geometry&lt; Core::Geometry</text>
+<text text-anchor="start" x="393" y="-183" font-family="Helvetica,sans-Serif" font-size="10.00">::TriangleMesh &gt;</text>
+<text text-anchor="start" x="432" y="-168" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<text text-anchor="start" x="364.5" y="-153" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="378" y="-153" font-family="Helvetica,sans-Serif" font-size="10.00">IndexedGeometry()</text>
+<text text-anchor="start" x="364.5" y="-138" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="378" y="-138" font-family="Helvetica,sans-Serif" font-size="10.00">render()</text>
+<text text-anchor="start" x="364.5" y="-123" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="378" y="-123" font-family="Helvetica,sans-Serif" font-size="10.00">loadGeometry()</text>
+<text text-anchor="start" x="364.5" y="-108" font-family="Helvetica,sans-Serif" font-size="10.00">#</text>
+<text text-anchor="start" x="378" y="-108" font-family="Helvetica,sans-Serif" font-size="10.00">updateGL_specific_impl()</text>
+<polygon fill="#666666" stroke="#666666" points="360,-178 360,-178 508,-178 508,-178 360,-178"/>
+<polygon fill="#666666" stroke="#666666" points="360,-163 360,-163 508,-163 508,-163 360,-163"/>
+<polygon fill="none" stroke="#666666" points="360,-101 360,-217 508,-217 508,-101 360,-101"/>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node4 -->
-<g id="edge3" class="edge">
+<g id="edge3_Node000001_Node000004" class="edge">
 <title>Node1&#45;&gt;Node4</title>
-<path fill="none" stroke="midnightblue" d="M396,-419.98C412.61,-409.3 427.93,-395.8 438,-379 466.95,-330.7 462.9,-264.71 454.64,-218.52"/>
-<polygon fill="none" stroke="midnightblue" points="393.95,-417.13 387.22,-425.31 397.58,-423.11 393.95,-417.13"/>
+<g id="a_edge3_Node000001_Node000004"><a xlink:title=" ">
+<path fill="none" stroke="#63b8ff" d="M385.13,-419.93C400.92,-409.4 415.45,-396.22 425,-380 453.91,-330.93 452.22,-264.45 445.75,-217.45"/>
+<polygon fill="none" stroke="#63b8ff" points="382.85,-417.23 376.25,-425.51 386.58,-423.15 382.85,-417.23"/>
+</a>
+</g>
 </g>
 <!-- Node6 -->
-<g id="node6" class="node">
+<g id="Node000006" class="node">
 <title>Node6</title>
-<g id="a_node6"><a xlink:href="classRa_1_1Engine_1_1Data_1_1IndexedAttribArrayDisplayable.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="275.5,-288.5 275.5,-367.5 428.5,-367.5 428.5,-288.5 275.5,-288.5"/>
-<text text-anchor="start" x="283.5" y="-355.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Data::Indexed</text>
-<text text-anchor="middle" x="352" y="-344.5" font-family="Helvetica,sans-Serif" font-size="10.00">AttribArrayDisplayable&lt; I &gt;</text>
-<polyline fill="none" stroke="black" points="275.5,-337.5 428.5,-337.5 "/>
-<text text-anchor="start" x="283.5" y="-325.5" font-family="Helvetica,sans-Serif" font-size="10.00"># m_cpu_indices</text>
-<text text-anchor="start" x="283.5" y="-314.5" font-family="Helvetica,sans-Serif" font-size="10.00"># m_attribManager</text>
-<polyline fill="none" stroke="black" points="275.5,-307.5 428.5,-307.5 "/>
-<text text-anchor="start" x="283.5" y="-295.5" font-family="Helvetica,sans-Serif" font-size="10.00"># autoVertexAttribPointer()</text>
+<g id="a_Node000006"><a xlink:href="classRa_1_1Engine_1_1Data_1_1IndexedAttribArrayDisplayable.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="transparent" points="415.5,-365 268.5,-365 268.5,-290 415.5,-290 415.5,-365"/>
+<text text-anchor="start" x="274" y="-352.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Data::Indexed</text>
+<text text-anchor="start" x="274" y="-341.5" font-family="Helvetica,sans-Serif" font-size="10.00">AttribArrayDisplayable&lt; I &gt;</text>
+<text text-anchor="start" x="273.5" y="-326.5" font-family="Helvetica,sans-Serif" font-size="10.00">#</text>
+<text text-anchor="start" x="287" y="-326.5" font-family="Helvetica,sans-Serif" font-size="10.00">m_cpu_indices</text>
+<text text-anchor="start" x="273.5" y="-311.5" font-family="Helvetica,sans-Serif" font-size="10.00">#</text>
+<text text-anchor="start" x="287" y="-311.5" font-family="Helvetica,sans-Serif" font-size="10.00">m_attribManager</text>
+<text text-anchor="start" x="273.5" y="-296.5" font-family="Helvetica,sans-Serif" font-size="10.00">#</text>
+<text text-anchor="start" x="287" y="-296.5" font-family="Helvetica,sans-Serif" font-size="10.00">autoVertexAttribPointer()</text>
+<polygon fill="#666666" stroke="#666666" points="269,-336.5 269,-336.5 416,-336.5 416,-336.5 269,-336.5"/>
+<polygon fill="#666666" stroke="#666666" points="269,-306.5 269,-306.5 285,-306.5 285,-306.5 269,-306.5"/>
+<polygon fill="#666666" stroke="#666666" points="285,-306.5 285,-306.5 416,-306.5 416,-306.5 285,-306.5"/>
+<polygon fill="none" stroke="#666666" points="268.5,-290 268.5,-365 415.5,-365 415.5,-290 268.5,-290"/>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node6 -->
-<g id="edge5" class="edge">
+<g id="edge5_Node000001_Node000006" class="edge">
 <title>Node1&#45;&gt;Node6</title>
-<path fill="none" stroke="midnightblue" d="M325.52,-406.59C329.89,-393.79 334.55,-380.14 338.72,-367.92"/>
-<polygon fill="none" stroke="midnightblue" points="322.17,-405.57 322.25,-416.17 328.79,-407.83 322.17,-405.57"/>
+<g id="a_edge5_Node000001_Node000006"><a xlink:title=" ">
+<path fill="none" stroke="#63b8ff" d="M316.7,-406.88C321.15,-393.08 325.93,-378.29 330.11,-365.32"/>
+<polygon fill="none" stroke="#63b8ff" points="313.27,-406.11 313.52,-416.71 319.93,-408.26 313.27,-406.11"/>
+</a>
+</g>
 </g>
 <!-- Node7 -->
-<g id="node7" class="node">
+<g id="Node000007" class="node">
 <title>Node7</title>
-<g id="a_node7"><a xlink:href="classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html" target="_top" xlink:title="An engine mesh owning CoreGeometry, with indices.">
-<polygon fill="white" stroke="black" points="106.5,-277.5 106.5,-378.5 257.5,-378.5 257.5,-277.5 106.5,-277.5"/>
-<text text-anchor="start" x="114.5" y="-366.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Data::Indexed</text>
-<text text-anchor="middle" x="182" y="-355.5" font-family="Helvetica,sans-Serif" font-size="10.00">Geometry&lt; T &gt;</text>
-<polyline fill="none" stroke="black" points="106.5,-348.5 257.5,-348.5 "/>
-<text text-anchor="middle" x="182" y="-336.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<polyline fill="none" stroke="black" points="106.5,-329.5 257.5,-329.5 "/>
-<text text-anchor="start" x="114.5" y="-317.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ IndexedGeometry()</text>
-<text text-anchor="start" x="114.5" y="-306.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ render()</text>
-<text text-anchor="start" x="114.5" y="-295.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ loadGeometry()</text>
-<text text-anchor="start" x="114.5" y="-284.5" font-family="Helvetica,sans-Serif" font-size="10.00"># updateGL_specific_impl()</text>
+<g id="a_Node000007"><a xlink:href="classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html" target="_top" xlink:title="An engine mesh owning CoreGeometry, with indices.">
+<polygon fill="white" stroke="transparent" points="250.5,-380 105.5,-380 105.5,-275 250.5,-275 250.5,-380"/>
+<text text-anchor="start" x="115.5" y="-367.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Data::Indexed</text>
+<text text-anchor="start" x="139.5" y="-356.5" font-family="Helvetica,sans-Serif" font-size="10.00">Geometry&lt; T &gt;</text>
+<text text-anchor="start" x="176.5" y="-341.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<text text-anchor="start" x="110" y="-326.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="123" y="-326.5" font-family="Helvetica,sans-Serif" font-size="10.00">IndexedGeometry()</text>
+<text text-anchor="start" x="110" y="-311.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="123" y="-311.5" font-family="Helvetica,sans-Serif" font-size="10.00">render()</text>
+<text text-anchor="start" x="110" y="-296.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="123" y="-296.5" font-family="Helvetica,sans-Serif" font-size="10.00">loadGeometry()</text>
+<text text-anchor="start" x="110" y="-281.5" font-family="Helvetica,sans-Serif" font-size="10.00">#</text>
+<text text-anchor="start" x="123" y="-281.5" font-family="Helvetica,sans-Serif" font-size="10.00">updateGL_specific_impl()</text>
+<polygon fill="#666666" stroke="#666666" points="106,-351.5 106,-351.5 251,-351.5 251,-351.5 106,-351.5"/>
+<polygon fill="#666666" stroke="#666666" points="106,-336.5 106,-336.5 251,-336.5 251,-336.5 106,-336.5"/>
+<polygon fill="none" stroke="#666666" points="105.5,-275 105.5,-380 250.5,-380 250.5,-275 105.5,-275"/>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node7 -->
-<g id="edge6" class="edge">
+<g id="edge6_Node000001_Node000007" class="edge">
 <title>Node1&#45;&gt;Node7</title>
-<path fill="none" stroke="midnightblue" d="M262.72,-409.08C252.74,-399.18 242.14,-388.67 232.03,-378.63"/>
-<polygon fill="none" stroke="midnightblue" points="260.3,-411.61 269.86,-416.17 265.23,-406.64 260.3,-411.61"/>
+<g id="a_edge6_Node000001_Node000007"><a xlink:title=" ">
+<path fill="none" stroke="#63b8ff" d="M256.21,-409.26C247.06,-399.8 237.36,-389.79 228.03,-380.16"/>
+<polygon fill="none" stroke="#63b8ff" points="253.96,-411.96 263.43,-416.71 258.98,-407.09 253.96,-411.96"/>
+</a>
+</g>
 </g>
 <!-- Node3 -->
-<g id="node3" class="node">
+<g id="Node000003" class="node">
 <title>Node3</title>
-<g id="a_node3"><a xlink:href="classRa_1_1Engine_1_1Data_1_1Mesh.html" target="_top" xlink:title="Mesh, own a Core::Geometry::TriangleMesh.">
-<polygon fill="white" stroke="black" points="12,-0.5 12,-68.5 142,-68.5 142,-0.5 12,-0.5"/>
-<text text-anchor="middle" x="77" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Data::Mesh</text>
-<polyline fill="none" stroke="black" points="12,-49.5 142,-49.5 "/>
-<text text-anchor="middle" x="77" y="-37.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<polyline fill="none" stroke="black" points="12,-30.5 142,-30.5 "/>
-<text text-anchor="start" x="20" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getNumFaces()</text>
-<text text-anchor="start" x="20" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ loadGeometry()</text>
+<g id="a_Node000003"><a xlink:href="classRa_1_1Engine_1_1Data_1_1LineMesh.html" target="_top" xlink:title="LineMesh, own a Core::Geometry::LineMesh.">
+<polygon fill="white" stroke="transparent" points="146,-64 2,-64 2,0 146,0 146,-64"/>
+<text text-anchor="start" x="7" y="-52" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Data::LineMesh</text>
+<text text-anchor="start" x="72" y="-37" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<text text-anchor="start" x="23" y="-22" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="53" y="-22" font-family="Helvetica,sans-Serif" font-size="10.00">LineMesh()</text>
+<text text-anchor="start" x="23" y="-7" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="53" y="-7" font-family="Helvetica,sans-Serif" font-size="10.00">LineMesh()</text>
+<polygon fill="#666666" stroke="#666666" points="2,-47 2,-47 146,-47 146,-47 2,-47"/>
+<polygon fill="#666666" stroke="#666666" points="2,-32 2,-32 146,-32 146,-32 2,-32"/>
+<polygon fill="none" stroke="#666666" points="2,0 2,-64 146,-64 146,0 2,0"/>
 </a>
 </g>
 </g>
 <!-- Node2&#45;&gt;Node3 -->
-<g id="edge2" class="edge">
+<g id="edge2_Node000002_Node000003" class="edge">
 <title>Node2&#45;&gt;Node3</title>
-<path fill="none" stroke="midnightblue" d="M77,-95.96C77,-86.48 77,-77.08 77,-68.62"/>
-<polygon fill="none" stroke="midnightblue" points="73.5,-96.23 77,-106.23 80.5,-96.23 73.5,-96.23"/>
+<g id="a_edge2_Node000002_Node000003"><a xlink:title=" ">
+<path fill="none" stroke="#63b8ff" d="M74,-90.91C74,-81.63 74,-72.49 74,-64.3"/>
+<polygon fill="none" stroke="#63b8ff" points="70.5,-90.99 74,-100.99 77.5,-90.99 70.5,-90.99"/>
+</a>
+</g>
 </g>
 <!-- Node5 -->
-<g id="node5" class="node">
+<g id="Node000005" class="node">
 <title>Node5</title>
-<g id="a_node5"><a xlink:href="classRa_1_1Engine_1_1Data_1_1LineMesh.html" target="_top" xlink:title="LineMesh, own a Core::Geometry::LineMesh.">
-<polygon fill="white" stroke="black" points="366,-0.5 366,-68.5 516,-68.5 516,-0.5 366,-0.5"/>
-<text text-anchor="middle" x="441" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Data::LineMesh</text>
-<polyline fill="none" stroke="black" points="366,-49.5 516,-49.5 "/>
-<text text-anchor="middle" x="441" y="-37.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<polyline fill="none" stroke="black" points="366,-30.5 516,-30.5 "/>
-<text text-anchor="start" x="374" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ LineMesh()</text>
-<text text-anchor="start" x="374" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ LineMesh()</text>
+<g id="a_Node000005"><a xlink:href="classRa_1_1Engine_1_1Data_1_1Mesh.html" target="_top" xlink:title="Mesh, own a Core::Geometry::TriangleMesh.">
+<polygon fill="white" stroke="transparent" points="496,-64 372,-64 372,0 496,0 496,-64"/>
+<text text-anchor="start" x="377" y="-52" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Data::Mesh</text>
+<text text-anchor="start" x="432" y="-37" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<text text-anchor="start" x="382" y="-22" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="401" y="-22" font-family="Helvetica,sans-Serif" font-size="10.00">getNumFaces()</text>
+<text text-anchor="start" x="382" y="-7" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="401" y="-7" font-family="Helvetica,sans-Serif" font-size="10.00">loadGeometry()</text>
+<polygon fill="#666666" stroke="#666666" points="372,-47 372,-47 496,-47 496,-47 372,-47"/>
+<polygon fill="#666666" stroke="#666666" points="372,-32 372,-32 496,-32 496,-32 372,-32"/>
+<polygon fill="none" stroke="#666666" points="372,0 372,-64 496,-64 496,0 372,0"/>
 </a>
 </g>
 </g>
 <!-- Node4&#45;&gt;Node5 -->
-<g id="edge4" class="edge">
+<g id="edge4_Node000004_Node000005" class="edge">
 <title>Node4&#45;&gt;Node5</title>
-<path fill="none" stroke="midnightblue" d="M441,-95.96C441,-86.48 441,-77.08 441,-68.62"/>
-<polygon fill="none" stroke="midnightblue" points="437.5,-96.23 441,-106.23 444.5,-96.23 437.5,-96.23"/>
+<g id="a_edge4_Node000004_Node000005"><a xlink:title=" ">
+<path fill="none" stroke="#63b8ff" d="M434,-90.91C434,-81.63 434,-72.49 434,-64.3"/>
+<polygon fill="none" stroke="#63b8ff" points="430.5,-90.99 434,-100.99 437.5,-90.99 430.5,-90.99"/>
+</a>
+</g>
 </g>
 <!-- Node7&#45;&gt;Node2 -->
-<g id="edge8" class="edge">
+<g id="edge8_Node000007_Node000002" class="edge">
 <title>Node7&#45;&gt;Node2</title>
-<path fill="none" stroke="orange" d="M107.48,-269.55C104.77,-266.14 102.26,-262.62 100,-259 92.51,-246.99 87.46,-232.73 84.06,-218.94"/>
-<polygon fill="orange" stroke="orange" points="104.96,-271.98 114.12,-277.29 110.27,-267.42 104.96,-271.98"/>
-<text text-anchor="start" x="100" y="-251" font-family="Helvetica,sans-Serif" font-size="10.00"> &lt; Core::Geometry::Triangle</text>
-<text text-anchor="middle" x="168" y="-240" font-family="Helvetica,sans-Serif" font-size="10.00">Mesh &gt;</text>
+<g id="a_edge8_Node000007_Node000002"><a xlink:title=" ">
+<path fill="none" stroke="orange" d="M98.31,-272.7C94.05,-267.76 90.21,-262.53 87,-257 80.05,-245.02 76.21,-230.84 74.2,-217.07"/>
+<polygon fill="orange" stroke="orange" points="95.93,-275.28 105.32,-280.19 101.04,-270.49 95.93,-275.28"/>
+</a>
+</g>
+<text text-anchor="middle" x="164.5" y="-243.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="grey"> &lt; Core::Geometry::LineMesh &gt;</text>
 </g>
 <!-- Node7&#45;&gt;Node4 -->
-<g id="edge9" class="edge">
+<g id="edge9_Node000007_Node000004" class="edge">
 <title>Node7&#45;&gt;Node4</title>
-<path fill="none" stroke="orange" d="M244.72,-270.5C261.85,-255.82 278.33,-242.55 288,-237 308.84,-225.02 317.04,-228.78 339,-219 347.2,-215.35 355.62,-211.29 363.96,-207.08"/>
-<polygon fill="orange" stroke="orange" points="242.1,-268.13 236.82,-277.32 246.68,-273.43 242.1,-268.13"/>
-<text text-anchor="middle" x="365.5" y="-245.5" font-family="Helvetica,sans-Serif" font-size="10.00"> &lt; Core::Geometry::LineMesh &gt;</text>
+<g id="a_edge9_Node000007_Node000004"><a xlink:title=" ">
+<path fill="none" stroke="orange" d="M249.77,-268.48C270.25,-252.21 288.53,-238.09 294,-235 313.85,-223.81 321.55,-227.05 342,-217 347.9,-214.1 353.91,-210.93 359.88,-207.61"/>
+<polygon fill="orange" stroke="orange" points="247.48,-265.83 241.84,-274.8 251.84,-271.31 247.48,-265.83"/>
+</a>
+</g>
+<text text-anchor="start" x="294" y="-249" font-family="Helvetica,sans-Serif" font-size="10.00" fill="grey"> &lt; Core::Geometry::Triangle</text>
+<text text-anchor="middle" x="362" y="-238" font-family="Helvetica,sans-Serif" font-size="10.00" fill="grey">Mesh &gt;</text>
 </g>
 <!-- Node8 -->
-<g id="node8" class="node">
+<g id="Node000008" class="node">
 <title>Node8</title>
-<g id="a_node8"><a xlink:href="classRa_1_1Engine_1_1Data_1_1GeneralMesh.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="178.5,-123 178.5,-202 329.5,-202 329.5,-123 178.5,-123"/>
-<text text-anchor="start" x="186.5" y="-190" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Data::General</text>
-<text text-anchor="middle" x="254" y="-179" font-family="Helvetica,sans-Serif" font-size="10.00">Mesh&lt; T &gt;</text>
-<polyline fill="none" stroke="black" points="178.5,-172 329.5,-172 "/>
-<text text-anchor="middle" x="254" y="-160" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<polyline fill="none" stroke="black" points="178.5,-153 329.5,-153 "/>
-<text text-anchor="start" x="186.5" y="-141" font-family="Helvetica,sans-Serif" font-size="10.00">+ getNumFaces()</text>
-<text text-anchor="start" x="186.5" y="-130" font-family="Helvetica,sans-Serif" font-size="10.00"># updateGL_specific_impl()</text>
+<g id="a_Node000008"><a xlink:href="classRa_1_1Engine_1_1Data_1_1GeneralMesh.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="transparent" points="332.5,-204 187.5,-204 187.5,-114 332.5,-114 332.5,-204"/>
+<text text-anchor="start" x="197.5" y="-192" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Data::General</text>
+<text text-anchor="start" x="233" y="-181" font-family="Helvetica,sans-Serif" font-size="10.00">Mesh&lt; T &gt;</text>
+<text text-anchor="start" x="258.5" y="-166" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<text text-anchor="start" x="192" y="-151" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="205" y="-151" font-family="Helvetica,sans-Serif" font-size="10.00">getNumFaces()</text>
+<text text-anchor="start" x="192" y="-136" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="205" y="-136" font-family="Helvetica,sans-Serif" font-size="10.00">IndexedGeometry()</text>
+<text text-anchor="start" x="192" y="-121" font-family="Helvetica,sans-Serif" font-size="10.00">#</text>
+<text text-anchor="start" x="205" y="-121" font-family="Helvetica,sans-Serif" font-size="10.00">updateGL_specific_impl()</text>
+<polygon fill="#666666" stroke="#666666" points="188,-176 188,-176 333,-176 333,-176 188,-176"/>
+<polygon fill="#666666" stroke="#666666" points="188,-161 188,-161 333,-161 333,-161 188,-161"/>
+<polygon fill="none" stroke="#666666" points="187.5,-114 187.5,-204 332.5,-204 332.5,-114 187.5,-114"/>
 </a>
 </g>
 </g>
 <!-- Node7&#45;&gt;Node8 -->
-<g id="edge7" class="edge">
+<g id="edge7_Node000007_Node000008" class="edge">
 <title>Node7&#45;&gt;Node8</title>
-<path fill="none" stroke="midnightblue" d="M235.09,-268.5C236.89,-265.38 238.55,-262.21 240,-259 248.03,-241.3 251.66,-220.03 253.22,-202.06"/>
-<polygon fill="none" stroke="midnightblue" points="232.02,-266.8 229.65,-277.13 237.94,-270.54 232.02,-266.8"/>
+<g id="a_edge7_Node000007_Node000008"><a xlink:title=" ">
+<path fill="none" stroke="#63b8ff" d="M240.69,-266.42C242.64,-263.34 244.42,-260.2 246,-257 253.99,-240.83 257.76,-221.42 259.44,-204.23"/>
+<polygon fill="none" stroke="#63b8ff" points="237.64,-264.69 234.84,-274.91 243.4,-268.66 237.64,-264.69"/>
+</a>
+</g>
 </g>
 </g>
 </svg>
-        <g id="navigator" transform="translate(0 0)" fill="#404254">
-                <rect fill="#f2f5e9" fill-opacity="0.5" stroke="#606060" stroke-width=".5" x="0" y="0" width="60" height="60"/>
-                <use id="zoomplus" xlink:href="#zoomPlus" x="17" y="9" onmousedown="handleZoom(evt,'in')"/>
-                <use id="zoomminus" xlink:href="#zoomMin" x="42" y="9" onmousedown="handleZoom(evt,'out')"/>
-                <use id="reset" xlink:href="#resetDef" x="30" y="36" onmousedown="handleReset()"/>
-                <g id="arrowUp" xlink:href="#dirArrow" transform="translate(30 24)" onmousedown="handlePan(0,-1)">
-                  <use xlink:href="#rim" fill="#404040">
-                        <set attributeName="fill" to="#808080" begin="arrowUp.mouseover" end="arrowUp.mouseout"/>
-                  </use>
-                  <path fill="none" stroke="white" stroke-width="1.5" d="M0,-3.0v7 M-2.5,-0.5L0,-3.0L2.5,-0.5"/>
-                </g>
-                <g id="arrowRight" xlink:href="#dirArrow" transform="rotate(90) translate(36 -43)" onmousedown="handlePan(1,0)">
-                  <use xlink:href="#rim" fill="#404040">
-                        <set attributeName="fill" to="#808080" begin="arrowRight.mouseover" end="arrowRight.mouseout"/>
-                  </use>
-                  <path fill="none" stroke="white" stroke-width="1.5" d="M0,-3.0v7 M-2.5,-0.5L0,-3.0L2.5,-0.5"/>
-                </g>
-                <g id="arrowDown" xlink:href="#dirArrow" transform="rotate(180) translate(-30 -48)" onmousedown="handlePan(0,1)">
-                  <use xlink:href="#rim" fill="#404040">
-                        <set attributeName="fill" to="#808080" begin="arrowDown.mouseover" end="arrowDown.mouseout"/>
-                  </use>
-                  <path fill="none" stroke="white" stroke-width="1.5" d="M0,-3.0v7 M-2.5,-0.5L0,-3.0L2.5,-0.5"/>
-                </g>
-                <g id="arrowLeft" xlink:href="#dirArrow" transform="rotate(270) translate(-36 17)" onmousedown="handlePan(-1,0)">
-                  <use xlink:href="#rim" fill="#404040">
-                        <set attributeName="fill" to="#808080" begin="arrowLeft.mouseover" end="arrowLeft.mouseout"/>
-                  </use>
-                  <path fill="none" stroke="white" stroke-width="1.5" d="M0,-3.0v7 M-2.5,-0.5L0,-3.0L2.5,-0.5"/>
-                </g>
-        </g>
-        <svg viewBox="0 0 15 15" width="100%" height="30px" preserveAspectRatio="xMaxYMin meet">
-         <g id="arrow_out" transform="scale(0.3 0.3)">
-          <a xlink:href="classRa_1_1Engine_1_1Data_1_1VaoIndices__inherit__graph_org.svg" target="_base">
-           <rect id="button" ry="5" rx="5" y="6" x="6" height="38" width="38"
-                fill="#f2f5e9" fill-opacity="0.5" stroke="#606060" stroke-width="1.0"/>
-           <path id="arrow"
-             d="M 11.500037,31.436501 C 11.940474,20.09759 22.043105,11.32322 32.158766,21.979434 L 37.068811,17.246167 C 37.068811,17.246167 37.088388,32 37.088388,32 L 22.160133,31.978069 C 22.160133,31.978069 26.997745,27.140456 26.997745,27.140456 C 18.528582,18.264221 13.291696,25.230495 11.500037,31.436501 z"
-             style="fill:#404040;"/>
-          </a>
-         </g>
-        </svg>
+
+<g id="navigator" transform="translate(0 0)" fill="#404254">
+  <rect fill="#f2f5e9" fill-opacity="0.5" stroke="#606060" stroke-width=".5" x="0" y="0" width="60" height="60"/>
+  <use id="zoomplus" xlink:href="#zoomPlus" x="17" y="9" onmousedown="handleZoom(evt,'in')"/>
+  <use id="zoomminus" xlink:href="#zoomMin" x="42" y="9" onmousedown="handleZoom(evt,'out')"/>
+  <use id="reset" xlink:href="#resetDef" x="30" y="36" onmousedown="handleReset()"/>
+   <use id="arrowup" xlink:href="#arrowUp" x="0" y="0" onmousedown="handlePan(0,-1)"/>
+  <use id="arrowright" xlink:href="#arrowRight" x="0" y="0" onmousedown="handlePan(1,0)"/>
+  <use id="arrowdown" xlink:href="#arrowDown" x="0" y="0" onmousedown="handlePan(0,1)"/>
+  <use id="arrowleft" xlink:href="#arrowLeft" x="0" y="0" onmousedown="handlePan(-1,0)"/>
+</g>
+<svg viewBox="0 0 15 15" width="100%" height="30px" preserveAspectRatio="xMaxYMin meet">
+ <g id="arrow_out" transform="scale(0.3 0.3)">
+  <a xlink:href="classRa_1_1Engine_1_1Data_1_1VaoIndices__inherit__graph_org.svg" target="_base">
+   <rect id="button" ry="5" rx="5" y="6" x="6" height="38" width="38"
+        fill="#f2f5e9" fill-opacity="0.5" stroke="#606060" stroke-width="1.0"/>
+   <path id="arrow"
+     d="M 11.500037,31.436501 C 11.940474,20.09759 22.043105,11.32322 32.158766,21.979434 L 37.068811,17.246167 C 37.068811,17.246167 37.088388,32 37.088388,32 L 22.160133,31.978069 C 22.160133,31.978069 26.997745,27.140456 26.997745,27.140456 C 18.528582,18.264221 13.291696,25.230495 11.500037,31.436501 z"
+     style="fill:#404040;"/>
+  </a>
+ </g>
+</svg>
+
+<style type='text/css'>
+<![CDATA[
+[data-mouse-over-selected='false'] { opacity: 0.7; }
+[data-mouse-over-selected='true']  { opacity: 1.0; }
+]]>
+</style>
+<script type="application/ecmascript"><![CDATA[
+document.addEventListener('DOMContentLoaded', (event) => {
+  highlightEdges();
+  highlightAdjacentNodes();
+});
+]]></script>
 </svg>

@@ -1,18 +1,10 @@
 var classRa_1_1Gui_1_1TrackballCameraManipulator =
 [
-    [ "KeyMapping", "classRa_1_1Gui_1_1TrackballCameraManipulator.html#a02cc1184f6a81c2bff9f044262fbc084", null ],
     [ "TrackballCameraManipulator", "classRa_1_1Gui_1_1TrackballCameraManipulator.html#a678caf5aba198ddf7002e75aaa3d647c", null ],
     [ "TrackballCameraManipulator", "classRa_1_1Gui_1_1TrackballCameraManipulator.html#aef3ab30dad6685b802e733df269b42bb", null ],
     [ "~TrackballCameraManipulator", "classRa_1_1Gui_1_1TrackballCameraManipulator.html#a0a160af972e5593fbd69bb0622e26b29", null ],
-    [ "fitScene", "classRa_1_1Gui_1_1TrackballCameraManipulator.html#a2e0ad51d15edb28c78e5af6ef72c35fc", null ],
     [ "getTrackballCenter", "classRa_1_1Gui_1_1TrackballCameraManipulator.html#a073412555738e6128d3a557e44734f48", null ],
     [ "getTrackballRadius", "classRa_1_1Gui_1_1TrackballCameraManipulator.html#a200632859970fd7cf0288525833734d9", null ],
-    [ "handleCameraMoveForward", "classRa_1_1Gui_1_1TrackballCameraManipulator.html#a1a32a812f552b3a424539018ef3681fa", null ],
-    [ "handleCameraMoveForward", "classRa_1_1Gui_1_1TrackballCameraManipulator.html#a444c16eee68dd981e45ae60399e27c1f", null ],
-    [ "handleCameraPan", "classRa_1_1Gui_1_1TrackballCameraManipulator.html#aa9663752b1f2fbf6fd00eeffe8e9b862", null ],
-    [ "handleCameraRotate", "classRa_1_1Gui_1_1TrackballCameraManipulator.html#abb2d7eddd3a1d067d79d8963125dbb48", null ],
-    [ "handleCameraZoom", "classRa_1_1Gui_1_1TrackballCameraManipulator.html#acd8502e9842b5f79c47a6288c3f7fecd", null ],
-    [ "handleCameraZoom", "classRa_1_1Gui_1_1TrackballCameraManipulator.html#a22dba6c9099405a4b34a185e7eca56b1", null ],
     [ "handleKeyPressEvent", "classRa_1_1Gui_1_1TrackballCameraManipulator.html#a21bfdf8a04a9846e34ae3abdfb71a5ab", null ],
     [ "handleMouseMoveEvent", "classRa_1_1Gui_1_1TrackballCameraManipulator.html#ab0941443c6f16d74a9a47aea238c47be", null ],
     [ "handleMousePressEvent", "classRa_1_1Gui_1_1TrackballCameraManipulator.html#a7a6555b6bf0c1ad891b915c18366fba4", null ],
@@ -20,17 +12,11 @@ var classRa_1_1Gui_1_1TrackballCameraManipulator =
     [ "handleWheelEvent", "classRa_1_1Gui_1_1TrackballCameraManipulator.html#a19d30b9cfb4cc8dd942a40cfd689b3dd", null ],
     [ "mappingContext", "classRa_1_1Gui_1_1TrackballCameraManipulator.html#a0b0eaa22ace41441f143a871ef3b1148", null ],
     [ "resetCamera", "classRa_1_1Gui_1_1TrackballCameraManipulator.html#a8a75d252e06bcec380a3ac7354a1febd", null ],
-    [ "setCameraPosition", "classRa_1_1Gui_1_1TrackballCameraManipulator.html#a5f04b67406543e5831557ed7327aa722", null ],
-    [ "setCameraTarget", "classRa_1_1Gui_1_1TrackballCameraManipulator.html#a5842e8033069575bc57501e7d052c375", null ],
     [ "setTrackballRadius", "classRa_1_1Gui_1_1TrackballCameraManipulator.html#ac98a71dfff950f2bfe7ed218c7187e89", null ],
-    [ "toggleRotateAround", "classRa_1_1Gui_1_1TrackballCameraManipulator.html#a9e1116bd7d69c247e8621957b90119ed", null ],
     [ "updateCamera", "classRa_1_1Gui_1_1TrackballCameraManipulator.html#a2992a883ab6d27b82b32f8908743253f", null ],
     [ "updatePhiTheta", "classRa_1_1Gui_1_1TrackballCameraManipulator.html#ad7880fb45a56841fd743fb3ad80c2592", null ],
-    [ "KeyMappingManageable< TrackballCameraManipulator >", "classRa_1_1Gui_1_1TrackballCameraManipulator.html#a65bd68fb31f11b6808fb16a0602d6476", null ],
     [ "m_distFromCenter", "classRa_1_1Gui_1_1TrackballCameraManipulator.html#aec03675d675074abd0e41d3dee92d01b", null ],
-    [ "m_keyMappingCallbackManager", "classRa_1_1Gui_1_1TrackballCameraManipulator.html#ad9ae17669e4a9adb4cfe496068555956", null ],
     [ "m_phi", "classRa_1_1Gui_1_1TrackballCameraManipulator.html#a421bcdd8baa1ce2ee1238645e29a4213", null ],
     [ "m_phiDir", "classRa_1_1Gui_1_1TrackballCameraManipulator.html#a3730cd42ac7af4322a29412f8b3dee64", null ],
-    [ "m_referenceFrame", "classRa_1_1Gui_1_1TrackballCameraManipulator.html#a90a70ef24ee43f56981aea3f28d7d552", null ],
-    [ "m_theta", "classRa_1_1Gui_1_1TrackballCameraManipulator.html#a945dbcee8033e57edfbe6a778d650098", null ]
+    [ "m_referenceFrame", "classRa_1_1Gui_1_1TrackballCameraManipulator.html#a90a70ef24ee43f56981aea3f28d7d552", null ]
 ];

@@ -1,0 +1,9 @@
+<map id="Ra::Engine::Data::Texture::~Texture" name="Ra::Engine::Data::Texture::~Texture">
+<area shape="rect" id="Node000001" title="Texture destructor. Both internal data and GPU representation are deleted." alt="" coords="5,23,192,63"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Engine_1_1Data_1_1Texture.html#a68ee87f56c2c58f3e6d0954e4b55af0f" title="destroy the GPU texture representation." alt="" coords="240,23,427,63"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="192,41,226,41,226,46,192,46"/>
+<area shape="rect" id="Node000003" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/utility/move.html#" title=" " alt="" coords="511,5,598,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="426,30,497,22,498,27,427,35"/>
+<area shape="rect" id="Node000004" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/memory/unique_ptr/reset.html#" title=" " alt="" coords="475,55,635,80"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="427,51,461,55,461,60,426,56"/>
+</map>

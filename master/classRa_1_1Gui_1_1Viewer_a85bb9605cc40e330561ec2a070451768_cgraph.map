@@ -1,8 +1,17 @@
 <map id="Ra::Gui::Viewer::mousePressEvent" name="Ra::Gui::Viewer::mousePressEvent">
-<area shape="rect" id="node1" title=" " alt="" coords="5,165,215,207"/>
-<area shape="rect" id="node2" href="$classRa_1_1Gui_1_1Viewer.html#af99c80d12a451e71c935f28987d93c77" title=" " alt="" coords="263,136,480,177"/>
-<area shape="rect" id="node6" href="$classRa_1_1Gui_1_1Viewer.html#a6f709f315a47d4fc0dee01e8c80016dd" title=" " alt="" coords="545,202,733,229"/>
-<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a2bc66a85ebe6a406ac48ce578a057d9d" title=" " alt="" coords="528,5,749,47"/>
-<area shape="rect" id="node4" href="$classRa_1_1Gui_1_1Viewer.html#abfd1b41c074766822a5a0578542db00d" title="Access to gizmo manager." alt="" coords="542,71,735,112"/>
-<area shape="rect" id="node5" href="$classRa_1_1Gui_1_1GizmoManager.html#ab63207c7a3d7afb2dfd735ecf5bd3005" title="Callback when a drawable is picked." alt="" coords="551,136,727,177"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,191,215,231"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Gui_1_1Viewer.html#af99c80d12a451e71c935f28987d93c77" title=" " alt="" coords="263,133,480,173"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="201,188,266,174,267,179,202,193"/>
+<area shape="rect" id="Node000006" href="$classRa_1_1Gui_1_1Viewer.html#a6f709f315a47d4fc0dee01e8c80016dd" title=" " alt="" coords="545,198,733,223"/>
+<area shape="poly" id="edge8_Node000001_Node000006" title=" " alt="" coords="215,208,531,208,531,213,215,213"/>
+<area shape="rect" id="Node000007" href="$classRa_1_1Gui_1_1Viewer.html#a3db7ed1e5682bd84d67c22281eb53d0e" title="Event sent after a mouse press event has been processed, but before emitting needUpdate()" alt="" coords="277,248,466,288"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="202,228,267,242,266,248,201,233"/>
+<area shape="poly" id="edge4_Node000002_Node000002" title=" " alt="" coords="323,134,320,124,328,114,345,109,371,107,402,110,418,117,416,122,400,115,371,112,346,114,331,119,325,125,328,132"/>
+<area shape="rect" id="Node000003" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a2bc66a85ebe6a406ac48ce578a057d9d" title=" " alt="" coords="528,5,749,45"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="399,131,456,93,527,55,545,47,547,52,529,60,459,98,402,135"/>
+<area shape="rect" id="Node000004" href="$classRa_1_1Gui_1_1Viewer.html#abfd1b41c074766822a5a0578542db00d" title="Access to gizmo manager." alt="" coords="542,69,735,109"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="455,131,541,110,542,115,456,136"/>
+<area shape="rect" id="Node000005" href="$classRa_1_1Gui_1_1GizmoManager.html#ab63207c7a3d7afb2dfd735ecf5bd3005" title="Callback when a drawable is picked." alt="" coords="551,133,727,173"/>
+<area shape="poly" id="edge5_Node000002_Node000005" title=" " alt="" coords="480,151,537,151,537,156,480,156"/>
+<area shape="poly" id="edge6_Node000002_Node000006" title=" " alt="" coords="466,171,566,192,565,198,465,176"/>
 </map>

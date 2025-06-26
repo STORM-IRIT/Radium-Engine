@@ -1,8 +1,9 @@
 <map id="Ra::Engine::Data::EnvironmentTexture::render" name="Ra::Engine::Data::EnvironmentTexture::render">
-<area shape="rect" id="node1" title="Render the envmap as a textured cube. This method does nothing if the envmap is not a skybox." alt="" coords="5,104,227,145"/>
-<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Scene_1_1CameraManager.html#a184d260e962c99207d617faa6a79992a" title="Get the pointer on the active camera data." alt="" coords="275,5,525,47"/>
-<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a3dc967879911ed9414b04c8cacea7263" title=" " alt="" coords="310,71,490,112"/>
-<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Data_1_1ShaderProgram.html#a02b209f3800adee9a6b039dc8c8d5f62" title="Uniform setters." alt="" coords="309,136,491,177"/>
-<area shape="rect" id="node5" href="$classRa_1_1Engine_1_1Data_1_1EnvironmentTexture.html#a5e83b9459c30cfd045cf55482c0eb941" title="Update the OpenGL state of the envmap : texture, skybox and shaders if needed." alt="" coords="289,201,511,243"/>
-<area shape="rect" id="node6" href="$classRa_1_1Engine_1_1Data_1_1ShaderConfiguration.html#a817ed4e22a81e034776cc21e8cfc6b8b" title=" " alt="" coords="573,201,804,243"/>
+<area shape="rect" id="Node000001" title="Render the envmap as a textured cube. This method does nothing if the envmap is not a skybox." alt="" coords="5,37,227,77"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Engine_1_1Scene_1_1CameraManager.html#a1bdd16b8fbd255287bdd0bf5ede42816" title="Get the pointer on the active camera data." alt="" coords="275,5,525,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="227,42,261,38,261,44,227,48"/>
+<area shape="rect" id="Node000003" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a3dc967879911ed9414b04c8cacea7263" title=" " alt="" coords="310,69,490,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="227,67,296,75,296,80,227,72"/>
+<area shape="rect" id="Node000004" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/numeric/math/tan.html#" title=" " alt="" coords="573,77,644,102"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="490,87,559,87,559,92,490,92"/>
 </map>

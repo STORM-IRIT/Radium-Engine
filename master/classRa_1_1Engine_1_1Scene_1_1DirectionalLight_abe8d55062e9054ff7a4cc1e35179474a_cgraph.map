@@ -1,5 +1,9 @@
 <map id="Ra::Engine::Scene::DirectionalLight::setDirection" name="Ra::Engine::Scene::DirectionalLight::setDirection">
-<area shape="rect" id="node1" title=" " alt="" coords="5,39,217,80"/>
-<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a30608d23a6e4b4cbcfa0a0211056e04b" title="Add a parameter by value." alt="" coords="269,5,464,47"/>
-<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Scene_1_1Light.html#adde28ec5955bc60adcd2d93b5d990382" title="Gives read&#45;only access to the renderParameters of the light." alt="" coords="265,71,468,112"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,37,217,77"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Engine_1_1Scene_1_1Light.html#a51f3827111d49e5c8b0a4efed2495a69" title="Gives read&#45;only access to the renderParameters of the light." alt="" coords="265,5,468,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="217,41,252,37,252,42,218,47"/>
+<area shape="rect" id="Node000003" href="$classRa_1_1Engine_1_1Data_1_1RenderParameters.html#a1766905e90db676bdc9d804cd17e9eb4" title="overload create ref wrapper for RenderParameters variable" alt="" coords="275,69,459,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="218,68,261,73,261,79,217,73"/>
+<area shape="rect" id="Node000004" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/utility/functional/ref.html#" title=" " alt="" coords="516,77,584,102"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="459,87,502,87,502,92,459,92"/>
 </map>

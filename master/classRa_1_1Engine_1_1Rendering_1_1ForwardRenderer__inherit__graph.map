@@ -1,4 +1,5 @@
 <map id="Ra::Engine::Rendering::ForwardRenderer" name="Ra::Engine::Rendering::ForwardRenderer">
-<area shape="rect" id="node1" title=" " alt="" coords="5,937,232,1396"/>
-<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html" title=" " alt="" coords="11,5,226,889"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,1213,224,1813"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html" title=" " alt="" coords="12,5,217,1165"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="117,1179,117,1213,112,1213,112,1179"/>
 </map>

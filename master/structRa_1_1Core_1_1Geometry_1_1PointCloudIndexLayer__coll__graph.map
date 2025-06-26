@@ -1,8 +1,14 @@
 <map id="Ra::Core::Geometry::PointCloudIndexLayer" name="Ra::Core::Geometry::PointCloudIndexLayer">
-<area shape="rect" id="node1" title="Index layer for a point cloud." alt="" coords="140,1127,329,1263"/>
-<area shape="rect" id="node2" href="$structRa_1_1Core_1_1Geometry_1_1GeometryIndexLayer.html" title=" " alt="" coords="126,824,343,1077"/>
-<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Geometry_1_1GeometryIndexLayerBase.html" title="Base class for index collections stored in MultiIndexedGeometry." alt="" coords="116,279,343,473"/>
-<area shape="rect" id="node6" href="$structRa_1_1Core_1_1Geometry_1_1GeometryIndexLayer.html" title="Typed index collection." alt="" coords="251,523,469,761"/>
-<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Utils_1_1ObjectWithSemantic.html" title="Object associated with one or multiple semantic names." alt="" coords="5,5,200,229"/>
-<area shape="rect" id="node5" href="$classRa_1_1Core_1_1Utils_1_1ContainerIntrospectionInterface.html" title="This class defines the introspection interface a container need to implement." alt="" coords="224,35,488,200"/>
+<area shape="rect" id="Node000001" title="Index layer for a point cloud." alt="" coords="136,1271,317,1411"/>
+<area shape="rect" id="Node000002" href="$structRa_1_1Core_1_1Geometry_1_1GeometryIndexLayer.html" title=" " alt="" coords="122,927,331,1221"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="229,1235,229,1270,224,1270,224,1235"/>
+<area shape="rect" id="Node000003" href="$classRa_1_1Core_1_1Geometry_1_1GeometryIndexLayerBase.html" title="Base class for index collections stored in MultiIndexedGeometry." alt="" coords="112,315,331,535"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="225,548,228,926,223,926,220,548"/>
+<area shape="rect" id="Node000006" href="$structRa_1_1Core_1_1Geometry_1_1GeometryIndexLayer.html" title="Typed index collection." alt="" coords="243,584,453,864"/>
+<area shape="poly" id="edge6_Node000006_Node000003" title=" " alt="" coords="276,546,291,583,286,585,271,548"/>
+<area shape="rect" id="Node000004" href="$classRa_1_1Core_1_1Utils_1_1ObjectWithSemantic.html" title="Object associated with one or multiple semantic names." alt="" coords="5,5,192,265"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="162,277,177,313,172,315,157,279"/>
+<area shape="rect" id="Node000005" href="$classRa_1_1Core_1_1Utils_1_1ContainerIntrospectionInterface.html" title="This class defines the introspection interface a container need to implement." alt="" coords="216,45,472,225"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="303,239,270,315,266,313,298,237"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="298,878,280,927,275,925,292,876"/>
 </map>

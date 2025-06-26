@@ -1,3 +1,7 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classRa_1_1Gui_1_1TimelineScrollArea.html" title=" " alt="" coords="5,5,205,32"/>
+<area shape="rect" id="Node000000" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html" title=" " alt="" coords="5,37,171,77"/>
+<area shape="rect" id="Node000001" href="$classRa_1_1Dataflow_1_1Rendering_1_1Renderer_1_1DataflowRenderer.html" title=" " alt="" coords="219,5,433,45"/>
+<area shape="poly" id="edge111_Node000000_Node000001" title=" " alt="" coords="184,42,218,37,219,42,185,47"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Engine_1_1Rendering_1_1ForwardRenderer.html" title=" " alt="" coords="243,69,409,109"/>
+<area shape="poly" id="edge112_Node000000_Node000002" title=" " alt="" coords="185,68,244,76,243,81,184,73"/>
 </map>

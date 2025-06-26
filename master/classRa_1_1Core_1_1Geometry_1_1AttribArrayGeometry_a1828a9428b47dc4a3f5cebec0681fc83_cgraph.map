@@ -1,6 +1,13 @@
 <map id="Ra::Core::Geometry::AttribArrayGeometry::copyBaseGeometry" name="Ra::Core::Geometry::AttribArrayGeometry::copyBaseGeometry">
-<area shape="rect" id="node1" title=" " alt="" coords="5,43,172,99"/>
-<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#a75f68d38992c5b5554ce6ebd852fac5f" title="Erases all data, making the AttribArrayGeometry empty." alt="" coords="245,5,411,61"/>
-<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#ac6bb36601ef78ccc0997134b5a2df7f0" title="Base copy, does nothing." alt="" coords="220,86,436,127"/>
-<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#ae99bb77d3d29e9d99b4bcc257919ecda" title="clear all attribs, invalidate handles." alt="" coords="484,13,700,54"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,52,172,107"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#a75f68d38992c5b5554ce6ebd852fac5f" title="Erases all data, making the AttribArrayGeometry empty." alt="" coords="245,16,411,71"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="172,64,231,55,231,61,173,69"/>
+<area shape="rect" id="Node000006" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#ac6bb36601ef78ccc0997134b5a2df7f0" title="Base copy, does nothing." alt="" coords="220,95,436,135"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="173,89,207,94,206,100,172,94"/>
+<area shape="rect" id="Node000003" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#ae99bb77d3d29e9d99b4bcc257919ecda" title="clear all attribs, invalidate handles." alt="" coords="484,23,700,63"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="412,41,470,41,470,46,412,46"/>
+<area shape="rect" id="Node000004" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/map/clear.html#" title=" " alt="" coords="754,5,873,31"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="700,28,740,24,740,29,700,34"/>
+<area shape="rect" id="Node000005" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector/clear.html#" title=" " alt="" coords="748,55,879,80"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="700,52,735,56,734,61,700,58"/>
 </map>

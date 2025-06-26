@@ -1,4 +1,5 @@
 <map id="Ra::Core::Geometry::deprecated::TopologicalMesh::interpolateNormalOnFaces" name="Ra::Core::Geometry::deprecated::TopologicalMesh::interpolateNormalOnFaces">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,224,61"/>
-<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Geometry_1_1deprecated_1_1TopologicalMesh.html#aaba0897eaabd141a25000b5f8efeb14c" title=" " alt="" coords="272,5,491,61"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,224,60"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Core_1_1Geometry_1_1deprecated_1_1TopologicalMesh.html#aaba0897eaabd141a25000b5f8efeb14c" title=" " alt="" coords="272,5,491,60"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="224,30,258,30,258,35,224,35"/>
 </map>

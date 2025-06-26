@@ -1,4 +1,7 @@
 <map id="Ra::Gui::Widgets::ControlPanel::addFileInput" name="Ra::Gui::Widgets::ControlPanel::addFileInput">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,191,47"/>
-<area shape="rect" id="node2" href="$classRa_1_1Gui_1_1Widgets_1_1ControlPanel.html#a297cb95daba0ebec441b7315b9878fe1" title=" " alt="" coords="239,5,424,47"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,23,191,63"/>
+<area shape="rect" id="Node000002" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/string/basic_string/erase.html#" title=" " alt="" coords="239,5,369,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="191,29,225,25,225,30,191,35"/>
+<area shape="rect" id="Node000003" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/string/basic_string/size.html#" title=" " alt="" coords="243,55,365,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="191,51,230,56,229,61,191,57"/>
 </map>

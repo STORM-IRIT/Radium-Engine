@@ -1,11 +1,24 @@
 <map id="Ra::Core::Geometry::AttribArrayGeometry" name="Ra::Core::Geometry::AttribArrayGeometry">
-<area shape="rect" id="node1" title="This class represents vertex + attributes per vertex. Toplogy is handled in MultiIndexedGeometry subc..." alt="" coords="679,293,874,1133"/>
-<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html" title="AbstractGeometry with per&#45;vertex attributes and layers of indices. Each layer represents a different ..." alt="" coords="663,1183,890,1788"/>
-<area shape="rect" id="node2" href="$structRa_1_1Core_1_1Geometry_1_1AbstractGeometry.html" title=" " alt="" coords="688,5,865,244"/>
-<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html" title=" " alt="" coords="269,2080,506,2260"/>
-<area shape="rect" id="node5" href="$classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html" title=" " alt="" coords="5,2080,244,2260"/>
-<area shape="rect" id="node6" href="$classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html" title=" " alt="" coords="530,2080,767,2260"/>
-<area shape="rect" id="node7" href="$classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html" title=" " alt="" coords="1053,2080,1290,2260"/>
-<area shape="rect" id="node8" href="$classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html" title=" " alt="" coords="791,2080,1029,2260"/>
-<area shape="rect" id="node9" href="$classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html" title="A single layer MultiIndexedGeometry." alt="" coords="503,1837,687,2017"/>
+<area shape="rect" id="Node000001" title="This class represents vertex + attributes per vertex. Toplogy is handled in MultiIndexedGeometry subc..." alt="" coords="666,335,851,1435"/>
+<area shape="rect" id="Node000003" href="$classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html" title="AbstractGeometry with per&#45;vertex attributes and layers of indices. Each layer represents a different ..." alt="" coords="649,1484,868,2253"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="761,1448,761,1484,756,1484,756,1448"/>
+<area shape="rect" id="Node000002" href="$structRa_1_1Core_1_1Geometry_1_1AbstractGeometry.html" title=" " alt="" coords="674,5,843,285"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="761,299,761,334,756,334,756,299"/>
+<area shape="rect" id="Node000004" href="$classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html" title=" " alt="" coords="259,2565,488,2765"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="642,1987,547,2093,447,2223,400,2294,356,2370,318,2448,288,2527,285,2546,288,2565,283,2565,280,2546,283,2526,313,2446,351,2367,395,2292,443,2220,543,2090,638,1984"/>
+<area shape="rect" id="Node000005" href="$classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html" title=" " alt="" coords="5,2565,235,2765"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="640,1961,556,2030,464,2112,373,2205,291,2304,250,2369,213,2437,157,2566,152,2564,208,2435,245,2366,287,2301,369,2201,460,2109,552,2026,636,1957"/>
+<area shape="rect" id="Node000006" href="$classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html" title=" " alt="" coords="513,2565,743,2765"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="826,2267,823,2338,814,2408,798,2477,773,2543,746,2576,742,2572,768,2540,793,2475,809,2407,818,2337,820,2267"/>
+<area shape="rect" id="Node000007" href="$classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html" title=" " alt="" coords="1021,2565,1251,2765"/>
+<area shape="poly" id="edge6_Node000003_Node000007" title=" " alt="" coords="876,2111,1091,2564,1087,2566,871,2114"/>
+<area shape="rect" id="Node000008" href="$classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html" title=" " alt="" coords="768,2565,997,2765"/>
+<area shape="poly" id="edge7_Node000003_Node000008" title=" " alt="" coords="874,2233,908,2379,933,2527,932,2565,926,2565,928,2527,903,2380,869,2234"/>
+<area shape="rect" id="Node000009" href="$classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html" title="A single layer MultiIndexedGeometry." alt="" coords="488,2303,664,2503"/>
+<area shape="poly" id="edge8_Node000003_Node000009" title=" " alt="" coords="647,2202,613,2303,608,2301,642,2200"/>
+<area shape="poly" id="edge9_Node000009_Node000004" title=" " alt="" coords="480,2488,445,2528,420,2566,416,2564,441,2525,476,2485"/>
+<area shape="poly" id="edge10_Node000009_Node000005" title=" " alt="" coords="477,2449,365,2502,248,2568,236,2575,233,2571,245,2563,362,2498,474,2444"/>
+<area shape="poly" id="edge11_Node000009_Node000006" title=" " alt="" coords="545,2516,549,2541,558,2564,553,2566,544,2542,540,2517"/>
+<area shape="poly" id="edge12_Node000009_Node000007" title=" " alt="" coords="678,2429,838,2484,926,2521,1011,2563,1022,2570,1020,2574,1008,2568,924,2525,836,2489,676,2435"/>
+<area shape="poly" id="edge13_Node000009_Node000008" title=" " alt="" coords="675,2510,710,2539,732,2551,756,2563,769,2572,766,2576,753,2568,730,2556,706,2544,671,2514"/>
 </map>

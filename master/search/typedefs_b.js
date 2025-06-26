@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['uniformbindableset_3157',['UniformBindableSet',['../classRa_1_1Engine_1_1Data_1_1RenderParameters.html#ab20149b57edd3cd5f22bb398e86b2017',1,'Ra::Engine::Data::RenderParameters']]],
-  ['uniformvariable_3158',['UniformVariable',['../classRa_1_1Engine_1_1Data_1_1RenderParameters.html#ae7ce251280a424825fa633185d02bc14',1,'Ra::Engine::Data::RenderParameters']]]
+  ['semanticnamecollection_0',['SemanticNameCollection',['../classRa_1_1Core_1_1Utils_1_1ObjectWithSemantic.html#a2154019cc96a06c7b82cb9f08b2e56fc',1,'Ra::Core::Utils::ObjectWithSemantic']]],
+  ['setter_1',['Setter',['../structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes.html#a06292bfe7ce6eb822834273ae0a60fce',1,'Ra::Engine::Scene::ComponentMessenger::CallbackTypes']]]
 ];

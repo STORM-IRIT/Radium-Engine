@@ -1,9 +1,22 @@
 <map id="Ra::Engine::Data::LineMesh" name="Ra::Engine::Data::LineMesh">
-<area shape="rect" id="node1" title="LineMesh, own a Core::Geometry::LineMesh." alt="" coords="53,1693,253,1785"/>
-<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html" title=" " alt="" coords="51,1493,256,1644"/>
-<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html" title="Template class to manage the Displayable aspect of a Core Geomertry, such as TriangleMesh." alt="" coords="250,801,497,1245"/>
-<area shape="rect" id="node7" href="$classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html" title="An engine mesh owning CoreGeometry, with indices." alt="" coords="141,1295,342,1431"/>
-<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html" title=" " alt="" coords="263,293,484,752"/>
-<area shape="rect" id="node5" href="$classRa_1_1Engine_1_1Data_1_1Displayable.html" title=" " alt="" coords="266,5,481,244"/>
-<area shape="rect" id="node6" href="$classRa_1_1Engine_1_1Data_1_1VaoIndices.html" title="Concept class to ensure consistent naming of VaoIndices accross derived classes." alt="" coords="5,970,213,1077"/>
+<area shape="rect" id="Node000001" title="LineMesh, own a Core::Geometry::LineMesh." alt="" coords="191,2433,383,2519"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html" title=" " alt="" coords="188,2229,385,2384"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="289,2397,289,2433,284,2433,284,2397"/>
+<area shape="rect" id="Node000003" href="$classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html" title=" " alt="" coords="423,1592,662,2167"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="518,2180,501,2207,477,2233,449,2254,418,2271,387,2284,385,2279,416,2266,446,2249,474,2229,497,2204,513,2177"/>
+<area shape="rect" id="Node000004" href="$classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html" title=" " alt="" coords="505,340,719,920"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="725,887,747,969,780,1137,791,1206,798,1271,799,1336,792,1404,777,1481,753,1569,737,1614,715,1658,665,1739,660,1736,711,1655,732,1612,748,1567,772,1479,787,1403,793,1335,793,1271,786,1207,775,1138,741,970,720,888"/>
+<area shape="rect" id="Node000006" href="$classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html" title="Template class to manage the Displayable aspect of a Core Geomertry, such as TriangleMesh." alt="" coords="493,969,731,1529"/>
+<area shape="poly" id="edge6_Node000006_Node000004" title=" " alt="" coords="615,934,615,969,609,969,609,934"/>
+<area shape="rect" id="Node000009" href="$classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html" title="Template class to manage the Displayable aspect of a Core Geomertry, such as TriangleMesh." alt="" coords="230,969,469,1529"/>
+<area shape="poly" id="edge10_Node000009_Node000004" title=" " alt="" coords="502,896,471,970,466,968,497,894"/>
+<area shape="rect" id="Node000005" href="$classRa_1_1Engine_1_1Data_1_1Displayable.html" title=" " alt="" coords="509,5,715,291"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="615,305,615,340,609,340,609,305"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="548,1543,547,1554,543,1592,538,1592,541,1553,543,1543"/>
+<area shape="rect" id="Node000007" href="$classRa_1_1Engine_1_1Data_1_1VaoIndices.html" title="Concept class to ensure consistent naming of VaoIndices accross derived classes." alt="" coords="5,1197,205,1302"/>
+<area shape="poly" id="edge7_Node000002_Node000007" title=" " alt="" coords="101,1316,90,1472,88,1574,91,1686,99,1806,116,1928,142,2050,180,2166,196,2198,216,2228,211,2230,191,2200,175,2168,137,2051,111,1929,94,1807,85,1687,83,1574,85,1471,95,1316"/>
+<area shape="rect" id="Node000008" href="$classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html" title="An engine mesh owning CoreGeometry, with indices." alt="" coords="190,1809,383,1949"/>
+<area shape="poly" id="edge11_Node000008_Node000007" title=" " alt="" coords="127,1314,269,1808,264,1810,121,1316"/>
+<area shape="poly" id="edge8_Node000002_Node000008" title=" " alt="" coords="289,1963,289,2229,284,2229,284,1963"/>
+<area shape="poly" id="edge9_Node000008_Node000009" title=" " alt="" coords="323,1543,296,1809,291,1808,317,1543"/>
 </map>

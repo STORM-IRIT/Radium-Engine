@@ -12,7 +12,6 @@ var classRa_1_1Engine_1_1RadiumEngine =
     [ "getMesh", "classRa_1_1Engine_1_1RadiumEngine.html#aa6d84d3870c1bba037a581d86e4d2171", null ],
     [ "getOpenGLVersion", "classRa_1_1Engine_1_1RadiumEngine.html#a809e60f816e87d2ace931ab617ebed73", null ],
     [ "getRenderObjectManager", "classRa_1_1Engine_1_1RadiumEngine.html#a4b46a72f340513061b9a5219a80d9bd6", null ],
-    [ "getResourcesDir", "classRa_1_1Engine_1_1RadiumEngine.html#aa2584c15750fd8403df49d8b7fdaf902", null ],
     [ "getShaderProgramManager", "classRa_1_1Engine_1_1RadiumEngine.html#ac7c4502212c24fbbad9b41d44a654548", null ],
     [ "getSignalManager", "classRa_1_1Engine_1_1RadiumEngine.html#a5b92f48d6aa179b82c2cc00d6f9421f3", null ],
     [ "getStartTime", "classRa_1_1Engine_1_1RadiumEngine.html#a637ebc6a13e2bccf7c48061b698f5eba", null ],

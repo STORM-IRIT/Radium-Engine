@@ -1,8 +1,37 @@
 <map id="Ra::Engine::Scene::CameraComponent" name="Ra::Engine::Scene::CameraComponent">
-<area shape="rect" id="node1" title=" " alt="" coords="287,2339,471,2548"/>
-<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Scene_1_1Component.html" title="A component is an element that can be updated by a system. It is also linked to some other components..." alt="" coords="181,1933,402,2289"/>
-<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Scene_1_1System.html" title=" " alt="" coords="5,286,217,495"/>
-<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Scene_1_1Entity.html" title="An entity is an scene element. It ties together components with a transform." alt="" coords="241,205,451,576"/>
-<area shape="rect" id="node5" href="$classRa_1_1Core_1_1Utils_1_1IndexedObject.html" title=" " alt="" coords="329,5,504,156"/>
-<area shape="rect" id="node6" href="$classRa_1_1Engine_1_1Rendering_1_1RenderObject.html" title=" " alt="" coords="372,600,605,1909"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="759,4313,935,4553"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Engine_1_1Scene_1_1Component.html" title="A component is an element that can be updated by a system. It is also linked to some other components..." alt="" coords="388,3801,601,4221"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="612,4206,622,4220,690,4293,760,4358,756,4362,686,4297,618,4223,607,4210"/>
+<area shape="rect" id="Node000011" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/utility/pair.html" title=" " alt="" coords="498,4359,657,4508"/>
+<area shape="poly" id="edge12_Node000011_Node000002" title=" " alt="" coords="491,4221,503,4289,524,4343,519,4345,497,4290,485,4222"/>
+<area shape="rect" id="Node000003" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector.html" title=" " alt="" coords="97,1141,233,1861"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="149,1861,129,2396,122,2697,121,2994,127,3269,142,3504,153,3600,167,3679,185,3738,206,3776,225,3791,244,3797,263,3796,284,3792,328,3785,352,3788,376,3799,377,3799,374,3804,373,3804,350,3793,328,3790,285,3797,264,3801,243,3802,222,3795,202,3779,180,3740,162,3680,148,3601,136,3504,121,3269,116,2994,117,2696,123,2396,144,1861"/>
+<area shape="rect" id="Node000004" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector.html" title=" " alt="" coords="5,113,139,818"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="108,831,136,1140,130,1140,102,832"/>
+<area shape="rect" id="Node000010" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector.html" title=" " alt="" coords="492,4616,687,5365"/>
+<area shape="poly" id="edge14_Node000010_Node000004" title=" " alt="" coords="52,832,38,1157,32,1499,32,4435,35,4482,45,4527,61,4570,81,4611,106,4651,135,4688,202,4757,277,4817,353,4869,427,4911,493,4945,491,4950,425,4916,350,4873,273,4821,199,4761,131,4691,102,4654,77,4614,56,4572,40,4528,30,4482,27,4435,27,1499,33,1157,47,832"/>
+<area shape="rect" id="Node000005" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/string/basic_string.html" title=" " alt="" coords="259,1048,402,1953"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="337,1953,344,2428,360,2949,371,3200,385,3429,402,3625,423,3777,424,3784,419,3785,417,3778,397,3625,380,3429,366,3200,354,2949,339,2428,331,1953"/>
+<area shape="rect" id="Node000006" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/string/basic_string.html" title=" " alt="" coords="259,5,402,925"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="333,939,333,1048,328,1048,328,939"/>
+<area shape="rect" id="Node000007" href="$classRa_1_1Engine_1_1Scene_1_1Entity.html" title="An entity is an scene element. It ties together components with a transform." alt="" coords="426,1271,627,1731"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="526,1731,500,3785,495,3785,521,1731"/>
+<area shape="poly" id="edge11_Node000011_Node000007" title=" " alt="" coords="567,1731,586,1882,601,2037,618,2305,627,2533,630,2732,628,2919,620,3305,616,3801,622,4012,622,4104,616,4222,605,4290,596,4343,591,4342,600,4289,611,4221,617,4103,616,4012,611,3801,615,3305,623,2919,624,2732,621,2533,612,2306,596,2038,581,1882,561,1732"/>
+<area shape="rect" id="Node000008" href="$classRa_1_1Core_1_1Utils_1_1IndexedObject.html" title=" " alt="" coords="821,385,987,545"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="851,559,802,647,746,753,691,870,643,989,600,1130,567,1271,562,1270,594,1129,637,987,686,867,741,751,797,644,847,556"/>
+<area shape="rect" id="Node000016" href="$classRa_1_1Engine_1_1Rendering_1_1RenderObject.html" title=" " alt="" coords="929,2037,1154,3777"/>
+<area shape="poly" id="edge19_Node000016_Node000008" title=" " alt="" coords="932,558,979,755,1002,871,1019,988,1043,1250,1058,1517,1066,1782,1069,2037,1064,2037,1061,1782,1053,1517,1037,1250,1013,988,996,872,974,756,927,559"/>
+<area shape="rect" id="Node000009" href="$classRa_1_1Engine_1_1Scene_1_1System.html" title=" " alt="" coords="374,5428,578,5668"/>
+<area shape="poly" id="edge8_Node000002_Node000009" title=" " alt="" coords="473,5428,474,4941,483,4313,485,4238,490,4238,488,4313,479,4941,478,5428"/>
+<area shape="poly" id="edge9_Node000009_Node000010" title=" " alt="" coords="516,5366,506,5413,501,5411,510,5365"/>
+<area shape="poly" id="edge10_Node000010_Node000011" title=" " alt="" coords="582,4508,584,4599,578,4600,576,4508"/>
+<area shape="rect" id="Node000012" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/utility/pair.html" title=" " alt="" coords="226,3949,363,4074"/>
+<area shape="poly" id="edge13_Node000011_Node000012" title=" " alt="" coords="271,4088,260,4136,256,4188,261,4240,269,4265,281,4288,301,4314,325,4337,381,4374,441,4399,499,4416,497,4421,439,4404,378,4378,321,4341,297,4318,276,4291,264,4267,256,4241,250,4188,255,4135,265,4087"/>
+<area shape="rect" id="Node000013" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/memory/unique_ptr.html" title=" " alt="" coords="761,3861,932,4161"/>
+<area shape="poly" id="edge15_Node000001_Node000013" title=" " alt="" coords="849,4162,849,4297,844,4297,844,4162"/>
+<area shape="rect" id="Node000014" href="$classRa_1_1Core_1_1Asset_1_1Camera.html" title="Camera class storing the Camera frame and the projection properties The view direction is &#45;z in camer..." alt="" coords="826,988,1003,2013"/>
+<area shape="poly" id="edge16_Node000013_Node000014" title=" " alt="" coords="888,2014,887,2037,875,2527,873,2907,872,3288,861,3777,859,3845,853,3845,856,3777,867,3288,868,2907,869,2527,881,2037,882,2013"/>
+<area shape="rect" id="Node000015" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/memory/unique_ptr.html" title=" " alt="" coords="652,1358,801,1643"/>
+<area shape="poly" id="edge17_Node000013_Node000015" title=" " alt="" coords="720,1657,697,2119,686,2417,678,2733,677,3046,683,3338,700,3588,713,3692,729,3777,744,3823,764,3869,759,3871,739,3825,724,3778,708,3692,694,3589,678,3339,671,3046,673,2733,680,2417,691,2119,715,1657"/>
+<area shape="poly" id="edge18_Node000001_Node000016" title=" " alt="" coords="982,3778,947,4221,946,4256,940,4290,937,4299,932,4297,935,4289,941,4256,941,4221,977,3777"/>
 </map>

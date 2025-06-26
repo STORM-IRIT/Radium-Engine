@@ -1,0 +1,11 @@
+<map id="Ra::Core::DynamicVisitor::removeOperator" name="Ra::Core::DynamicVisitor::removeOperator">
+<area shape="rect" id="Node000001" title="Remove a visiting operator." alt="" coords="5,37,191,77"/>
+<area shape="rect" id="Node000002" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/unordered_map/erase.html#" title=" " alt="" coords="255,5,407,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="191,42,241,35,242,40,192,47"/>
+<area shape="rect" id="Node000003" href="$classRa_1_1Core_1_1DynamicVisitor.html#ad36500f9535a668a624540d7a7bc6f28" title="Test the existence of an operator associated with a type." alt="" coords="239,69,424,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="192,67,226,72,225,77,191,73"/>
+<area shape="rect" id="Node000004" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/unordered_map/end.html#" title=" " alt="" coords="472,47,656,73"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="424,75,458,71,459,76,425,80"/>
+<area shape="rect" id="Node000005" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/unordered_map/find.html#" title=" " alt="" coords="488,97,640,137"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="425,98,474,104,474,109,424,103"/>
+</map>

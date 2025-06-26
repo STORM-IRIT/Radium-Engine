@@ -1,71 +1,82 @@
 var annotated_dup =
 [
+    [ "Customs", null, [
+      [ "FilterSelector", "classCustoms_1_1FilterSelector.html", "classCustoms_1_1FilterSelector" ]
+    ] ],
     [ "Ra", "namespaceRa.html", [
-      [ "Core", null, [
+      [ "Core", "namespaceRa_1_1Core.html", [
         [ "Animation", null, [
           [ "Cage", "classRa_1_1Core_1_1Animation_1_1Cage.html", "classRa_1_1Core_1_1Animation_1_1Cage" ],
           [ "HandleArray", "classRa_1_1Core_1_1Animation_1_1HandleArray.html", "classRa_1_1Core_1_1Animation_1_1HandleArray" ],
-          [ "KeyFramedValueBase", "classRa_1_1Core_1_1Animation_1_1KeyFramedValueBase.html", "classRa_1_1Core_1_1Animation_1_1KeyFramedValueBase" ],
           [ "KeyFramedValue", "classRa_1_1Core_1_1Animation_1_1KeyFramedValue.html", "classRa_1_1Core_1_1Animation_1_1KeyFramedValue" ],
+          [ "KeyFramedValueBase", "classRa_1_1Core_1_1Animation_1_1KeyFramedValueBase.html", "classRa_1_1Core_1_1Animation_1_1KeyFramedValueBase" ],
           [ "KeyFramedValueController", "classRa_1_1Core_1_1Animation_1_1KeyFramedValueController.html", "classRa_1_1Core_1_1Animation_1_1KeyFramedValueController" ],
           [ "Sequence", "classRa_1_1Core_1_1Animation_1_1Sequence.html", "classRa_1_1Core_1_1Animation_1_1Sequence" ],
           [ "Skeleton", "classRa_1_1Core_1_1Animation_1_1Skeleton.html", "classRa_1_1Core_1_1Animation_1_1Skeleton" ],
-          [ "SkinningRefData", "structRa_1_1Core_1_1Animation_1_1SkinningRefData.html", "structRa_1_1Core_1_1Animation_1_1SkinningRefData" ],
-          [ "SkinningFrameData", "structRa_1_1Core_1_1Animation_1_1SkinningFrameData.html", "structRa_1_1Core_1_1Animation_1_1SkinningFrameData" ]
+          [ "SkinningFrameData", "structRa_1_1Core_1_1Animation_1_1SkinningFrameData.html", "structRa_1_1Core_1_1Animation_1_1SkinningFrameData" ],
+          [ "SkinningRefData", "structRa_1_1Core_1_1Animation_1_1SkinningRefData.html", "structRa_1_1Core_1_1Animation_1_1SkinningRefData" ]
         ] ],
         [ "Asset", null, [
-          [ "HandleAnimation", "structRa_1_1Core_1_1Asset_1_1HandleAnimation.html", "structRa_1_1Core_1_1Asset_1_1HandleAnimation" ],
           [ "AnimationData", "classRa_1_1Core_1_1Asset_1_1AnimationData.html", "classRa_1_1Core_1_1Asset_1_1AnimationData" ],
           [ "AnimationTime", "classRa_1_1Core_1_1Asset_1_1AnimationTime.html", "classRa_1_1Core_1_1Asset_1_1AnimationTime" ],
           [ "AssetData", "classRa_1_1Core_1_1Asset_1_1AssetData.html", "classRa_1_1Core_1_1Asset_1_1AssetData" ],
           [ "Camera", "classRa_1_1Core_1_1Asset_1_1Camera.html", "classRa_1_1Core_1_1Asset_1_1Camera" ],
           [ "GeometryData", "classRa_1_1Core_1_1Asset_1_1GeometryData.html", "classRa_1_1Core_1_1Asset_1_1GeometryData" ],
+          [ "HandleAnimation", "structRa_1_1Core_1_1Asset_1_1HandleAnimation.html", "structRa_1_1Core_1_1Asset_1_1HandleAnimation" ],
           [ "HandleComponentData", "structRa_1_1Core_1_1Asset_1_1HandleComponentData.html", "structRa_1_1Core_1_1Asset_1_1HandleComponentData" ],
           [ "HandleData", "classRa_1_1Core_1_1Asset_1_1HandleData.html", "classRa_1_1Core_1_1Asset_1_1HandleData" ],
           [ "LightData", "classRa_1_1Core_1_1Asset_1_1LightData.html", "classRa_1_1Core_1_1Asset_1_1LightData" ],
           [ "MaterialData", "classRa_1_1Core_1_1Asset_1_1MaterialData.html", "classRa_1_1Core_1_1Asset_1_1MaterialData" ],
-          [ "VolumeData", "structRa_1_1Core_1_1Asset_1_1VolumeData.html", "structRa_1_1Core_1_1Asset_1_1VolumeData" ],
-          [ "RawShaderMaterialData", "classRa_1_1Core_1_1Asset_1_1RawShaderMaterialData.html", "classRa_1_1Core_1_1Asset_1_1RawShaderMaterialData" ]
+          [ "RawShaderMaterialData", "classRa_1_1Core_1_1Asset_1_1RawShaderMaterialData.html", "classRa_1_1Core_1_1Asset_1_1RawShaderMaterialData" ],
+          [ "VolumeData", "structRa_1_1Core_1_1Asset_1_1VolumeData.html", "structRa_1_1Core_1_1Asset_1_1VolumeData" ]
         ] ],
         [ "Geometry", null, [
           [ "deprecated", null, [
             [ "DefaultNonManifoldFaceCommand", "structRa_1_1Core_1_1Geometry_1_1deprecated_1_1DefaultNonManifoldFaceCommand.html", "structRa_1_1Core_1_1Geometry_1_1deprecated_1_1DefaultNonManifoldFaceCommand" ],
-            [ "TopologicalMeshTraits", "structRa_1_1Core_1_1Geometry_1_1deprecated_1_1TopologicalMeshTraits.html", "structRa_1_1Core_1_1Geometry_1_1deprecated_1_1TopologicalMeshTraits" ],
-            [ "TopologicalMesh", "classRa_1_1Core_1_1Geometry_1_1deprecated_1_1TopologicalMesh.html", "classRa_1_1Core_1_1Geometry_1_1deprecated_1_1TopologicalMesh" ]
+            [ "TopologicalMesh", "classRa_1_1Core_1_1Geometry_1_1deprecated_1_1TopologicalMesh.html", "classRa_1_1Core_1_1Geometry_1_1deprecated_1_1TopologicalMesh" ],
+            [ "TopologicalMeshTraits", "structRa_1_1Core_1_1Geometry_1_1deprecated_1_1TopologicalMeshTraits.html", null ]
           ] ],
-          [ "AbstractGeometry", "structRa_1_1Core_1_1Geometry_1_1AbstractGeometry.html", "structRa_1_1Core_1_1Geometry_1_1AbstractGeometry" ],
-          [ "CatmullClarkSubdivider", "classRa_1_1Core_1_1Geometry_1_1CatmullClarkSubdivider.html", "classRa_1_1Core_1_1Geometry_1_1CatmullClarkSubdivider" ],
-          [ "PointToTriangleOutput", "structRa_1_1Core_1_1Geometry_1_1PointToTriangleOutput.html", "structRa_1_1Core_1_1Geometry_1_1PointToTriangleOutput" ],
-          [ "LineToSegmentOutput", "structRa_1_1Core_1_1Geometry_1_1LineToSegmentOutput.html", "structRa_1_1Core_1_1Geometry_1_1LineToSegmentOutput" ],
-          [ "LineToTriangleOutput", "structRa_1_1Core_1_1Geometry_1_1LineToTriangleOutput.html", "structRa_1_1Core_1_1Geometry_1_1LineToTriangleOutput" ],
-          [ "SegmentToTriangleOutput", "structRa_1_1Core_1_1Geometry_1_1SegmentToTriangleOutput.html", "structRa_1_1Core_1_1Geometry_1_1SegmentToTriangleOutput" ],
-          [ "TriangleToTriangleOutput", "structRa_1_1Core_1_1Geometry_1_1TriangleToTriangleOutput.html", "structRa_1_1Core_1_1Geometry_1_1TriangleToTriangleOutput" ],
-          [ "GeometryIndexLayerBase", "classRa_1_1Core_1_1Geometry_1_1GeometryIndexLayerBase.html", "classRa_1_1Core_1_1Geometry_1_1GeometryIndexLayerBase" ],
-          [ "GeometryIndexLayer", "structRa_1_1Core_1_1Geometry_1_1GeometryIndexLayer.html", "structRa_1_1Core_1_1Geometry_1_1GeometryIndexLayer" ],
-          [ "MultiIndexedGeometry", "classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html", "classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry" ],
-          [ "PointCloudIndexLayer", "structRa_1_1Core_1_1Geometry_1_1PointCloudIndexLayer.html", "structRa_1_1Core_1_1Geometry_1_1PointCloudIndexLayer" ],
-          [ "TriangleIndexLayer", "structRa_1_1Core_1_1Geometry_1_1TriangleIndexLayer.html", "structRa_1_1Core_1_1Geometry_1_1TriangleIndexLayer" ],
-          [ "QuadIndexLayer", "structRa_1_1Core_1_1Geometry_1_1QuadIndexLayer.html", "structRa_1_1Core_1_1Geometry_1_1QuadIndexLayer" ],
-          [ "PolyIndexLayer", "structRa_1_1Core_1_1Geometry_1_1PolyIndexLayer.html", "structRa_1_1Core_1_1Geometry_1_1PolyIndexLayer" ],
-          [ "LineIndexLayer", "structRa_1_1Core_1_1Geometry_1_1LineIndexLayer.html", "structRa_1_1Core_1_1Geometry_1_1LineIndexLayer" ],
-          [ "IndexedGeometry", "classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html", "classRa_1_1Core_1_1Geometry_1_1IndexedGeometry" ],
-          [ "LoopSubdivider", "classRa_1_1Core_1_1Geometry_1_1LoopSubdivider.html", "classRa_1_1Core_1_1Geometry_1_1LoopSubdivider" ],
-          [ "Obb", "classRa_1_1Core_1_1Geometry_1_1Obb.html", "classRa_1_1Core_1_1Geometry_1_1Obb" ],
-          [ "PolyLine", "classRa_1_1Core_1_1Geometry_1_1PolyLine.html", "classRa_1_1Core_1_1Geometry_1_1PolyLine" ],
-          [ "Spline", "classRa_1_1Core_1_1Geometry_1_1Spline.html", "classRa_1_1Core_1_1Geometry_1_1Spline" ],
-          [ "TopologicalMeshTraits", "structRa_1_1Core_1_1Geometry_1_1TopologicalMeshTraits.html", "structRa_1_1Core_1_1Geometry_1_1TopologicalMeshTraits" ],
-          [ "TopologicalMesh", "classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html", "classRa_1_1Core_1_1Geometry_1_1TopologicalMesh" ],
-          [ "AttribArrayGeometry", "classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html", "classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry" ],
-          [ "AbstractVolume", "classRa_1_1Core_1_1Geometry_1_1AbstractVolume.html", "classRa_1_1Core_1_1Geometry_1_1AbstractVolume" ],
           [ "AbstractDiscreteVolume", "classRa_1_1Core_1_1Geometry_1_1AbstractDiscreteVolume.html", "classRa_1_1Core_1_1Geometry_1_1AbstractDiscreteVolume" ],
+          [ "AbstractGeometry", "structRa_1_1Core_1_1Geometry_1_1AbstractGeometry.html", "structRa_1_1Core_1_1Geometry_1_1AbstractGeometry" ],
+          [ "AbstractVolume", "classRa_1_1Core_1_1Geometry_1_1AbstractVolume.html", "classRa_1_1Core_1_1Geometry_1_1AbstractVolume" ],
+          [ "AttribArrayGeometry", "classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html", "classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry" ],
+          [ "CatmullClarkSubdivider", "classRa_1_1Core_1_1Geometry_1_1CatmullClarkSubdivider.html", "classRa_1_1Core_1_1Geometry_1_1CatmullClarkSubdivider" ],
+          [ "GeometryIndexLayer", "structRa_1_1Core_1_1Geometry_1_1GeometryIndexLayer.html", "structRa_1_1Core_1_1Geometry_1_1GeometryIndexLayer" ],
+          [ "GeometryIndexLayerBase", "classRa_1_1Core_1_1Geometry_1_1GeometryIndexLayerBase.html", "classRa_1_1Core_1_1Geometry_1_1GeometryIndexLayerBase" ],
+          [ "IndexedGeometry", "classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html", "classRa_1_1Core_1_1Geometry_1_1IndexedGeometry" ],
+          [ "LineIndexLayer", "structRa_1_1Core_1_1Geometry_1_1LineIndexLayer.html", null ],
+          [ "LineToSegmentOutput", "structRa_1_1Core_1_1Geometry_1_1LineToSegmentOutput.html", null ],
+          [ "LineToTriangleOutput", "structRa_1_1Core_1_1Geometry_1_1LineToTriangleOutput.html", null ],
+          [ "LoopSubdivider", "classRa_1_1Core_1_1Geometry_1_1LoopSubdivider.html", "classRa_1_1Core_1_1Geometry_1_1LoopSubdivider" ],
+          [ "MultiIndexedGeometry", "classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry.html", "classRa_1_1Core_1_1Geometry_1_1MultiIndexedGeometry" ],
+          [ "Obb", "classRa_1_1Core_1_1Geometry_1_1Obb.html", "classRa_1_1Core_1_1Geometry_1_1Obb" ],
+          [ "PointCloudIndexLayer", "structRa_1_1Core_1_1Geometry_1_1PointCloudIndexLayer.html", "structRa_1_1Core_1_1Geometry_1_1PointCloudIndexLayer" ],
+          [ "PointToTriangleOutput", "structRa_1_1Core_1_1Geometry_1_1PointToTriangleOutput.html", "structRa_1_1Core_1_1Geometry_1_1PointToTriangleOutput" ],
+          [ "PolyIndexLayer", "structRa_1_1Core_1_1Geometry_1_1PolyIndexLayer.html", null ],
+          [ "PolyLine", "classRa_1_1Core_1_1Geometry_1_1PolyLine.html", "classRa_1_1Core_1_1Geometry_1_1PolyLine" ],
+          [ "QuadIndexLayer", "structRa_1_1Core_1_1Geometry_1_1QuadIndexLayer.html", null ],
+          [ "SegmentToTriangleOutput", "structRa_1_1Core_1_1Geometry_1_1SegmentToTriangleOutput.html", null ],
+          [ "Spline", "classRa_1_1Core_1_1Geometry_1_1Spline.html", "classRa_1_1Core_1_1Geometry_1_1Spline" ],
+          [ "TopologicalMesh", "classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html", "classRa_1_1Core_1_1Geometry_1_1TopologicalMesh" ],
+          [ "TopologicalMeshTraits", "structRa_1_1Core_1_1Geometry_1_1TopologicalMeshTraits.html", null ],
+          [ "TriangleIndexLayer", "structRa_1_1Core_1_1Geometry_1_1TriangleIndexLayer.html", null ],
+          [ "TriangleToTriangleOutput", "structRa_1_1Core_1_1Geometry_1_1TriangleToTriangleOutput.html", null ],
           [ "VolumeGrid", "classRa_1_1Core_1_1Geometry_1_1VolumeGrid.html", "classRa_1_1Core_1_1Geometry_1_1VolumeGrid" ],
           [ "VolumeSparse", "classRa_1_1Core_1_1Geometry_1_1VolumeSparse.html", "classRa_1_1Core_1_1Geometry_1_1VolumeSparse" ]
+        ] ],
+        [ "Random", "namespaceRa_1_1Core_1_1Random.html", [
+          [ "FibonacciPointSet", "classRa_1_1Core_1_1Random_1_1FibonacciPointSet.html", null ],
+          [ "FibonacciSequence", "classRa_1_1Core_1_1Random_1_1FibonacciSequence.html", null ],
+          [ "HammersleyPointSet", "classRa_1_1Core_1_1Random_1_1HammersleyPointSet.html", null ],
+          [ "MersenneTwisterPointSet", "classRa_1_1Core_1_1Random_1_1MersenneTwisterPointSet.html", null ],
+          [ "SphericalPointSet", "classRa_1_1Core_1_1Random_1_1SphericalPointSet.html", null ],
+          [ "VanDerCorputSequence", "structRa_1_1Core_1_1Random_1_1VanDerCorputSequence.html", null ]
         ] ],
         [ "Utils", null, [
           [ "TypeListInternal", null, [
             [ "TSAppendImpl", "structRa_1_1Core_1_1Utils_1_1TypeListInternal_1_1TSAppendImpl.html", null ],
-            [ "TSAppendImpl< TypeList< Ts... >, OtherTs... >", "structRa_1_1Core_1_1Utils_1_1TypeListInternal_1_1TSAppendImpl_3_01TypeList_3_01Ts_8_8_8_01_4_00_01OtherTs_8_8_8_01_4.html", "structRa_1_1Core_1_1Utils_1_1TypeListInternal_1_1TSAppendImpl_3_01TypeList_3_01Ts_8_8_8_01_4_00_01OtherTs_8_8_8_01_4" ],
-            [ "TSAppendImpl< TypeList< Ts... >, TypeList< OtherTs... > >", "structRa_1_1Core_1_1Utils_1_1TypeListInternal_1_1TSAppendImpl_3_01TypeList_3_01Ts_8_8_8_01_4_00_7cc1a16a68275547ec6b0d4b03dd3650.html", "structRa_1_1Core_1_1Utils_1_1TypeListInternal_1_1TSAppendImpl_3_01TypeList_3_01Ts_8_8_8_01_4_00_7cc1a16a68275547ec6b0d4b03dd3650" ]
+            [ "TSAppendImpl< TypeList< Ts... >, OtherTs... >", "structRa_1_1Core_1_1Utils_1_1TypeListInternal_1_1TSAppendImpl_3_01TypeList_3_01Ts_8_8_8_01_4_00_01OtherTs_8_8_8_01_4.html", null ],
+            [ "TSAppendImpl< TypeList< Ts... >, TypeList< OtherTs... > >", "structRa_1_1Core_1_1Utils_1_1TypeListInternal_1_1TSAppendImpl_3_01TypeList_3_01Ts_8_8_8_01_4_00_7cc1a16a68275547ec6b0d4b03dd3650.html", null ]
           ] ],
           [ "Attrib", "classRa_1_1Core_1_1Utils_1_1Attrib.html", "classRa_1_1Core_1_1Utils_1_1Attrib" ],
           [ "AttribBase", "classRa_1_1Core_1_1Utils_1_1AttribBase.html", "classRa_1_1Core_1_1Utils_1_1AttribBase" ],
@@ -78,104 +89,160 @@ var annotated_dup =
           [ "EnumConverter", "classRa_1_1Core_1_1Utils_1_1EnumConverter.html", "classRa_1_1Core_1_1Utils_1_1EnumConverter" ],
           [ "IndexedObject", "classRa_1_1Core_1_1Utils_1_1IndexedObject.html", "classRa_1_1Core_1_1Utils_1_1IndexedObject" ],
           [ "IndexMap", "classRa_1_1Core_1_1Utils_1_1IndexMap.html", "classRa_1_1Core_1_1Utils_1_1IndexMap" ],
+          [ "map_keys", "structRa_1_1Core_1_1Utils_1_1map__keys.html", null ],
+          [ "map_values", "structRa_1_1Core_1_1Utils_1_1map__values.html", null ],
           [ "ObjectWithSemantic", "classRa_1_1Core_1_1Utils_1_1ObjectWithSemantic.html", "classRa_1_1Core_1_1Utils_1_1ObjectWithSemantic" ],
-          [ "Observable", "classRa_1_1Core_1_1Utils_1_1Observable.html", "classRa_1_1Core_1_1Utils_1_1Observable" ],
-          [ "map_keys", "structRa_1_1Core_1_1Utils_1_1map__keys.html", "structRa_1_1Core_1_1Utils_1_1map__keys" ],
-          [ "map_values", "structRa_1_1Core_1_1Utils_1_1map__values.html", "structRa_1_1Core_1_1Utils_1_1map__values" ]
+          [ "Observable", "classRa_1_1Core_1_1Utils_1_1Observable.html", "classRa_1_1Core_1_1Utils_1_1Observable" ]
         ] ],
         [ "AdjacencyList", "classRa_1_1Core_1_1AdjacencyList.html", "classRa_1_1Core_1_1AdjacencyList" ],
-        [ "AlignedAllocator", "classRa_1_1Core_1_1AlignedAllocator.html", "classRa_1_1Core_1_1AlignedAllocator" ],
-        [ "Grid", "classRa_1_1Core_1_1Grid.html", "classRa_1_1Core_1_1Grid" ],
-        [ "Tex", "classRa_1_1Core_1_1Tex.html", "classRa_1_1Core_1_1Tex" ],
-        [ "VariableSet", "classRa_1_1Core_1_1VariableSet.html", "classRa_1_1Core_1_1VariableSet" ],
-        [ "VectorArrayTypeHelperInternal", "structRa_1_1Core_1_1VectorArrayTypeHelperInternal.html", null ],
-        [ "VectorArrayTypeHelper", "structRa_1_1Core_1_1VectorArrayTypeHelper.html", null ],
-        [ "VectorArray", "classRa_1_1Core_1_1VectorArray.html", "classRa_1_1Core_1_1VectorArray" ],
+        [ "AlignedAllocator", "classRa_1_1Core_1_1AlignedAllocator.html", null ],
         [ "DualQuaternion", "classRa_1_1Core_1_1DualQuaternion.html", "classRa_1_1Core_1_1DualQuaternion" ],
+        [ "DynamicVisitor", "classRa_1_1Core_1_1DynamicVisitor.html", "classRa_1_1Core_1_1DynamicVisitor" ],
+        [ "DynamicVisitorBase", "classRa_1_1Core_1_1DynamicVisitorBase.html", "classRa_1_1Core_1_1DynamicVisitorBase" ],
+        [ "FunctionTask", "classRa_1_1Core_1_1FunctionTask.html", "classRa_1_1Core_1_1FunctionTask" ],
+        [ "Grid", "classRa_1_1Core_1_1Grid.html", "classRa_1_1Core_1_1Grid" ],
         [ "Quadric", "classRa_1_1Core_1_1Quadric.html", "classRa_1_1Core_1_1Quadric" ],
         [ "Task", "classRa_1_1Core_1_1Task.html", "classRa_1_1Core_1_1Task" ],
-        [ "FunctionTask", "classRa_1_1Core_1_1FunctionTask.html", "classRa_1_1Core_1_1FunctionTask" ],
-        [ "TaskQueue", "classRa_1_1Core_1_1TaskQueue.html", "classRa_1_1Core_1_1TaskQueue" ]
+        [ "TaskQueue", "classRa_1_1Core_1_1TaskQueue.html", "classRa_1_1Core_1_1TaskQueue" ],
+        [ "Tex", "classRa_1_1Core_1_1Tex.html", "classRa_1_1Core_1_1Tex" ],
+        [ "VariableSet", "classRa_1_1Core_1_1VariableSet.html", "classRa_1_1Core_1_1VariableSet" ],
+        [ "VectorArray", "classRa_1_1Core_1_1VectorArray.html", "classRa_1_1Core_1_1VectorArray" ],
+        [ "VectorArrayTypeHelper", "structRa_1_1Core_1_1VectorArrayTypeHelper.html", null ],
+        [ "VectorArrayTypeHelperInternal", "structRa_1_1Core_1_1VectorArrayTypeHelperInternal.html", null ]
       ] ],
-      [ "Engine", null, [
-        [ "Data", null, [
+      [ "Dataflow", null, [
+        [ "Core", null, [
+          [ "Functionals", null, [
+            [ "internal", "namespaceRa_1_1Dataflow_1_1Core_1_1Functionals_1_1internal.html", [
+              [ "ArgTypeHelper", "structRa_1_1Dataflow_1_1Core_1_1Functionals_1_1internal_1_1ArgTypeHelper.html", null ],
+              [ "ArgTypeHelperInternal", "structRa_1_1Dataflow_1_1Core_1_1Functionals_1_1internal_1_1ArgTypeHelperInternal.html", null ],
+              [ "ArgTypeHelperInternal< A, true >", "structRa_1_1Dataflow_1_1Core_1_1Functionals_1_1internal_1_1ArgTypeHelperInternal_3_01A_00_01true_01_4.html", null ],
+              [ "ExecutorHelper", "structRa_1_1Dataflow_1_1Core_1_1Functionals_1_1internal_1_1ExecutorHelper.html", null ],
+              [ "ExecutorHelper< t_a, t_b, t_out, funcType, false, false, false >", "structRa_1_1Dataflow_1_1Core_1_1Functionals_1_1internal_1_1ExecutorHelper_3_01t__a_00_01t__b_00_c0d156c2640f25a6ed3eaf0e336d996c.html", null ],
+              [ "ExecutorHelper< t_a, t_b, t_out, funcType, false, true, true >", "structRa_1_1Dataflow_1_1Core_1_1Functionals_1_1internal_1_1ExecutorHelper_3_01t__a_00_01t__b_00_37c271a29f78c9c1c6ff269324480833.html", null ],
+              [ "ExecutorHelper< t_a, t_b, t_out, funcType, true, false, true >", "structRa_1_1Dataflow_1_1Core_1_1Functionals_1_1internal_1_1ExecutorHelper_3_01t__a_00_01t__b_00_873af39f8c5d08e7c652ad0b861a3bb4.html", null ],
+              [ "ExecutorHelper< t_a, t_b, t_out, funcType, true, true, true >", "structRa_1_1Dataflow_1_1Core_1_1Functionals_1_1internal_1_1ExecutorHelper_3_01t__a_00_01t__b_00_12e523cfeed5a55d002efd024fce3105.html", null ]
+            ] ],
+            [ "BinaryOpNode", "classRa_1_1Dataflow_1_1Core_1_1Functionals_1_1BinaryOpNode.html", "classRa_1_1Dataflow_1_1Core_1_1Functionals_1_1BinaryOpNode" ],
+            [ "FilterNode", "classRa_1_1Dataflow_1_1Core_1_1Functionals_1_1FilterNode.html", "classRa_1_1Dataflow_1_1Core_1_1Functionals_1_1FilterNode" ],
+            [ "ReduceNode", "classRa_1_1Dataflow_1_1Core_1_1Functionals_1_1ReduceNode.html", "classRa_1_1Dataflow_1_1Core_1_1Functionals_1_1ReduceNode" ],
+            [ "TransformNode", "classRa_1_1Dataflow_1_1Core_1_1Functionals_1_1TransformNode.html", "classRa_1_1Dataflow_1_1Core_1_1Functionals_1_1TransformNode" ]
+          ] ],
+          [ "Sinks", null, [
+            [ "SinkNode", "classRa_1_1Dataflow_1_1Core_1_1Sinks_1_1SinkNode.html", "classRa_1_1Dataflow_1_1Core_1_1Sinks_1_1SinkNode" ]
+          ] ],
+          [ "Sources", null, [
+            [ "FunctionSourceNode", "classRa_1_1Dataflow_1_1Core_1_1Sources_1_1FunctionSourceNode.html", "classRa_1_1Dataflow_1_1Core_1_1Sources_1_1FunctionSourceNode" ],
+            [ "SingleDataSourceNode", "classRa_1_1Dataflow_1_1Core_1_1Sources_1_1SingleDataSourceNode.html", "classRa_1_1Dataflow_1_1Core_1_1Sources_1_1SingleDataSourceNode" ]
+          ] ],
+          [ "DataflowGraph", "classRa_1_1Dataflow_1_1Core_1_1DataflowGraph.html", "classRa_1_1Dataflow_1_1Core_1_1DataflowGraph" ],
+          [ "Node", "classRa_1_1Dataflow_1_1Core_1_1Node.html", "classRa_1_1Dataflow_1_1Core_1_1Node" ],
+          [ "NodeFactory", "classRa_1_1Dataflow_1_1Core_1_1NodeFactory.html", "classRa_1_1Dataflow_1_1Core_1_1NodeFactory" ],
+          [ "NodeFactorySet", "classRa_1_1Dataflow_1_1Core_1_1NodeFactorySet.html", "classRa_1_1Dataflow_1_1Core_1_1NodeFactorySet" ],
+          [ "PortBase", "classRa_1_1Dataflow_1_1Core_1_1PortBase.html", "classRa_1_1Dataflow_1_1Core_1_1PortBase" ],
+          [ "PortIn", "classRa_1_1Dataflow_1_1Core_1_1PortIn.html", "classRa_1_1Dataflow_1_1Core_1_1PortIn" ],
+          [ "PortOut", "classRa_1_1Dataflow_1_1Core_1_1PortOut.html", "classRa_1_1Dataflow_1_1Core_1_1PortOut" ]
+        ] ],
+        [ "QtGui", null, [
+          [ "GraphEditor", null, [
+            [ "GraphEditorWindow", "classRa_1_1Dataflow_1_1QtGui_1_1GraphEditor_1_1GraphEditorWindow.html", null ],
+            [ "GraphModel", "classRa_1_1Dataflow_1_1QtGui_1_1GraphEditor_1_1GraphModel.html", "classRa_1_1Dataflow_1_1QtGui_1_1GraphEditor_1_1GraphModel" ]
+          ] ]
+        ] ],
+        [ "Rendering", null, [
+          [ "Nodes", null, [
+            [ "RenderingNode", "classRa_1_1Dataflow_1_1Rendering_1_1Nodes_1_1RenderingNode.html", "classRa_1_1Dataflow_1_1Rendering_1_1Nodes_1_1RenderingNode" ]
+          ] ],
+          [ "Renderer", null, [
+            [ "DataflowRenderer", "classRa_1_1Dataflow_1_1Rendering_1_1Renderer_1_1DataflowRenderer.html", "classRa_1_1Dataflow_1_1Rendering_1_1Renderer_1_1DataflowRenderer" ]
+          ] ]
+        ] ]
+      ] ],
+      [ "Engine", "namespaceRa_1_1Engine.html", [
+        [ "Data", "namespaceRa_1_1Engine_1_1Data.html", [
+          [ "AttribArrayDisplayable", "classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html", "classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable" ],
           [ "BlinnPhongMaterial", "classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial.html", "classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterial" ],
-          [ "BlinnPhongMaterialConverter", "classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterialConverter.html", "classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterialConverter" ],
+          [ "BlinnPhongMaterialConverter", "classRa_1_1Engine_1_1Data_1_1BlinnPhongMaterialConverter.html", null ],
+          [ "CoreGeometryDisplayable", "classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html", "classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable" ],
           [ "Displayable", "classRa_1_1Engine_1_1Data_1_1Displayable.html", "classRa_1_1Engine_1_1Data_1_1Displayable" ],
           [ "EnvironmentTexture", "classRa_1_1Engine_1_1Data_1_1EnvironmentTexture.html", "classRa_1_1Engine_1_1Data_1_1EnvironmentTexture" ],
-          [ "LambertianMaterial", "classRa_1_1Engine_1_1Data_1_1LambertianMaterial.html", "classRa_1_1Engine_1_1Data_1_1LambertianMaterial" ],
-          [ "Material", "classRa_1_1Engine_1_1Data_1_1Material.html", "classRa_1_1Engine_1_1Data_1_1Material" ],
-          [ "Vao", "classRa_1_1Engine_1_1Data_1_1Vao.html", null ],
-          [ "AttribArrayDisplayable", "classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html", "classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable" ],
-          [ "VaoIndices", "classRa_1_1Engine_1_1Data_1_1VaoIndices.html", "classRa_1_1Engine_1_1Data_1_1VaoIndices" ],
-          [ "IndexedAttribArrayDisplayable", "classRa_1_1Engine_1_1Data_1_1IndexedAttribArrayDisplayable.html", "classRa_1_1Engine_1_1Data_1_1IndexedAttribArrayDisplayable" ],
-          [ "CoreGeometryDisplayable", "classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html", "classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable" ],
-          [ "PointCloud", "classRa_1_1Engine_1_1Data_1_1PointCloud.html", "classRa_1_1Engine_1_1Data_1_1PointCloud" ],
-          [ "IndexedGeometry", "classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html", "classRa_1_1Engine_1_1Data_1_1IndexedGeometry" ],
-          [ "MultiIndexedGeometry", "classRa_1_1Engine_1_1Data_1_1MultiIndexedGeometry.html", "classRa_1_1Engine_1_1Data_1_1MultiIndexedGeometry" ],
-          [ "LineMesh", "classRa_1_1Engine_1_1Data_1_1LineMesh.html", "classRa_1_1Engine_1_1Data_1_1LineMesh" ],
-          [ "Mesh", "classRa_1_1Engine_1_1Data_1_1Mesh.html", "classRa_1_1Engine_1_1Data_1_1Mesh" ],
           [ "GeneralMesh", "classRa_1_1Engine_1_1Data_1_1GeneralMesh.html", "classRa_1_1Engine_1_1Data_1_1GeneralMesh" ],
-          [ "PlainMaterial", "classRa_1_1Engine_1_1Data_1_1PlainMaterial.html", "classRa_1_1Engine_1_1Data_1_1PlainMaterial" ],
-          [ "RawShaderMaterialConverter", "classRa_1_1Engine_1_1Data_1_1RawShaderMaterialConverter.html", "classRa_1_1Engine_1_1Data_1_1RawShaderMaterialConverter" ],
-          [ "RawShaderMaterial", "classRa_1_1Engine_1_1Data_1_1RawShaderMaterial.html", "classRa_1_1Engine_1_1Data_1_1RawShaderMaterial" ],
-          [ "RenderParameters", "classRa_1_1Engine_1_1Data_1_1RenderParameters.html", "classRa_1_1Engine_1_1Data_1_1RenderParameters" ],
+          [ "ImageParameters", "structRa_1_1Engine_1_1Data_1_1ImageParameters.html", "structRa_1_1Engine_1_1Data_1_1ImageParameters" ],
+          [ "IndexedAttribArrayDisplayable", "classRa_1_1Engine_1_1Data_1_1IndexedAttribArrayDisplayable.html", "classRa_1_1Engine_1_1Data_1_1IndexedAttribArrayDisplayable" ],
+          [ "IndexedGeometry", "classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html", "classRa_1_1Engine_1_1Data_1_1IndexedGeometry" ],
+          [ "LambertianMaterial", "classRa_1_1Engine_1_1Data_1_1LambertianMaterial.html", "classRa_1_1Engine_1_1Data_1_1LambertianMaterial" ],
+          [ "LineMesh", "classRa_1_1Engine_1_1Data_1_1LineMesh.html", null ],
+          [ "Material", "classRa_1_1Engine_1_1Data_1_1Material.html", "classRa_1_1Engine_1_1Data_1_1Material" ],
+          [ "MaterialTextureSet", "classRa_1_1Engine_1_1Data_1_1MaterialTextureSet.html", "classRa_1_1Engine_1_1Data_1_1MaterialTextureSet" ],
+          [ "Mesh", "classRa_1_1Engine_1_1Data_1_1Mesh.html", "classRa_1_1Engine_1_1Data_1_1Mesh" ],
+          [ "MultiIndexedGeometry", "classRa_1_1Engine_1_1Data_1_1MultiIndexedGeometry.html", "classRa_1_1Engine_1_1Data_1_1MultiIndexedGeometry" ],
           [ "ParameterSetEditingInterface", "classRa_1_1Engine_1_1Data_1_1ParameterSetEditingInterface.html", "classRa_1_1Engine_1_1Data_1_1ParameterSetEditingInterface" ],
-          [ "ShaderParameterProvider", "classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html", "classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider" ],
+          [ "PlainMaterial", "classRa_1_1Engine_1_1Data_1_1PlainMaterial.html", "classRa_1_1Engine_1_1Data_1_1PlainMaterial" ],
+          [ "PointCloud", "classRa_1_1Engine_1_1Data_1_1PointCloud.html", "classRa_1_1Engine_1_1Data_1_1PointCloud" ],
+          [ "RawShaderMaterial", "classRa_1_1Engine_1_1Data_1_1RawShaderMaterial.html", "classRa_1_1Engine_1_1Data_1_1RawShaderMaterial" ],
+          [ "RawShaderMaterialConverter", "classRa_1_1Engine_1_1Data_1_1RawShaderMaterialConverter.html", null ],
+          [ "RenderParameters", "classRa_1_1Engine_1_1Data_1_1RenderParameters.html", "classRa_1_1Engine_1_1Data_1_1RenderParameters" ],
+          [ "SamplerParameters", "structRa_1_1Engine_1_1Data_1_1SamplerParameters.html", "structRa_1_1Engine_1_1Data_1_1SamplerParameters" ],
           [ "ShaderConfiguration", "classRa_1_1Engine_1_1Data_1_1ShaderConfiguration.html", "classRa_1_1Engine_1_1Data_1_1ShaderConfiguration" ],
+          [ "ShaderParameterProvider", "classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html", "classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider" ],
           [ "ShaderProgram", "classRa_1_1Engine_1_1Data_1_1ShaderProgram.html", "classRa_1_1Engine_1_1Data_1_1ShaderProgram" ],
           [ "ShaderProgramManager", "classRa_1_1Engine_1_1Data_1_1ShaderProgramManager.html", "classRa_1_1Engine_1_1Data_1_1ShaderProgramManager" ],
           [ "SimpleMaterial", "classRa_1_1Engine_1_1Data_1_1SimpleMaterial.html", "classRa_1_1Engine_1_1Data_1_1SimpleMaterial" ],
-          [ "TextureParameters", "structRa_1_1Engine_1_1Data_1_1TextureParameters.html", "structRa_1_1Engine_1_1Data_1_1TextureParameters" ],
           [ "Texture", "classRa_1_1Engine_1_1Data_1_1Texture.html", "classRa_1_1Engine_1_1Data_1_1Texture" ],
           [ "TextureManager", "classRa_1_1Engine_1_1Data_1_1TextureManager.html", "classRa_1_1Engine_1_1Data_1_1TextureManager" ],
-          [ "ViewingParameters", "structRa_1_1Engine_1_1Data_1_1ViewingParameters.html", "structRa_1_1Engine_1_1Data_1_1ViewingParameters" ],
+          [ "TextureParameters", "structRa_1_1Engine_1_1Data_1_1TextureParameters.html", null ],
+          [ "Vao", "classRa_1_1Engine_1_1Data_1_1Vao.html", null ],
+          [ "VaoIndices", "classRa_1_1Engine_1_1Data_1_1VaoIndices.html", "classRa_1_1Engine_1_1Data_1_1VaoIndices" ],
+          [ "ViewingParameters", "structRa_1_1Engine_1_1Data_1_1ViewingParameters.html", null ],
           [ "VolumeObject", "classRa_1_1Engine_1_1Data_1_1VolumeObject.html", "classRa_1_1Engine_1_1Data_1_1VolumeObject" ],
           [ "VolumetricMaterial", "classRa_1_1Engine_1_1Data_1_1VolumetricMaterial.html", "classRa_1_1Engine_1_1Data_1_1VolumetricMaterial" ]
         ] ],
-        [ "Rendering", null, [
+        [ "Rendering", "namespaceRa_1_1Engine_1_1Rendering.html", [
           [ "DebugRender", "classRa_1_1Engine_1_1Rendering_1_1DebugRender.html", "classRa_1_1Engine_1_1Rendering_1_1DebugRender" ],
           [ "ForwardRenderer", "classRa_1_1Engine_1_1Rendering_1_1ForwardRenderer.html", "classRa_1_1Engine_1_1Rendering_1_1ForwardRenderer" ],
           [ "Renderer", "classRa_1_1Engine_1_1Rendering_1_1Renderer.html", "classRa_1_1Engine_1_1Rendering_1_1Renderer" ],
           [ "RenderObject", "classRa_1_1Engine_1_1Rendering_1_1RenderObject.html", "classRa_1_1Engine_1_1Rendering_1_1RenderObject" ],
           [ "RenderTechnique", "classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html", "classRa_1_1Engine_1_1Rendering_1_1RenderTechnique" ]
         ] ],
-        [ "Scene", null, [
+        [ "Scene", "namespaceRa_1_1Engine_1_1Scene.html", [
+          [ "BaseCouplingSystem", "classRa_1_1Engine_1_1Scene_1_1BaseCouplingSystem.html", "classRa_1_1Engine_1_1Scene_1_1BaseCouplingSystem" ],
           [ "CameraComponent", "classRa_1_1Engine_1_1Scene_1_1CameraComponent.html", "classRa_1_1Engine_1_1Scene_1_1CameraComponent" ],
           [ "CameraManager", "classRa_1_1Engine_1_1Scene_1_1CameraManager.html", "classRa_1_1Engine_1_1Scene_1_1CameraManager" ],
           [ "CameraStorage", "classRa_1_1Engine_1_1Scene_1_1CameraStorage.html", "classRa_1_1Engine_1_1Scene_1_1CameraStorage" ],
           [ "Component", "classRa_1_1Engine_1_1Scene_1_1Component.html", "classRa_1_1Engine_1_1Scene_1_1Component" ],
           [ "ComponentMessenger", "classRa_1_1Engine_1_1Scene_1_1ComponentMessenger.html", "classRa_1_1Engine_1_1Scene_1_1ComponentMessenger" ],
-          [ "BaseCouplingSystem", "classRa_1_1Engine_1_1Scene_1_1BaseCouplingSystem.html", "classRa_1_1Engine_1_1Scene_1_1BaseCouplingSystem" ],
-          [ "DefaultCameraStorage", "classRa_1_1Engine_1_1Scene_1_1DefaultCameraStorage.html", "classRa_1_1Engine_1_1Scene_1_1DefaultCameraStorage" ],
+          [ "DebugComponent", "classRa_1_1Engine_1_1Scene_1_1DebugComponent.html", "classRa_1_1Engine_1_1Scene_1_1DebugComponent" ],
           [ "DefaultCameraManager", "classRa_1_1Engine_1_1Scene_1_1DefaultCameraManager.html", "classRa_1_1Engine_1_1Scene_1_1DefaultCameraManager" ],
-          [ "DefaultLightStorage", "classRa_1_1Engine_1_1Scene_1_1DefaultLightStorage.html", "classRa_1_1Engine_1_1Scene_1_1DefaultLightStorage" ],
+          [ "DefaultCameraStorage", "classRa_1_1Engine_1_1Scene_1_1DefaultCameraStorage.html", "classRa_1_1Engine_1_1Scene_1_1DefaultCameraStorage" ],
           [ "DefaultLightManager", "classRa_1_1Engine_1_1Scene_1_1DefaultLightManager.html", "classRa_1_1Engine_1_1Scene_1_1DefaultLightManager" ],
+          [ "DefaultLightStorage", "classRa_1_1Engine_1_1Scene_1_1DefaultLightStorage.html", "classRa_1_1Engine_1_1Scene_1_1DefaultLightStorage" ],
           [ "DirectionalLight", "classRa_1_1Engine_1_1Scene_1_1DirectionalLight.html", "classRa_1_1Engine_1_1Scene_1_1DirectionalLight" ],
           [ "Entity", "classRa_1_1Engine_1_1Scene_1_1Entity.html", "classRa_1_1Engine_1_1Scene_1_1Entity" ],
           [ "GeometryComponent", "classRa_1_1Engine_1_1Scene_1_1GeometryComponent.html", "classRa_1_1Engine_1_1Scene_1_1GeometryComponent" ],
-          [ "SurfaceMeshComponent", "classRa_1_1Engine_1_1Scene_1_1SurfaceMeshComponent.html", "classRa_1_1Engine_1_1Scene_1_1SurfaceMeshComponent" ],
-          [ "PointCloudComponent", "classRa_1_1Engine_1_1Scene_1_1PointCloudComponent.html", "classRa_1_1Engine_1_1Scene_1_1PointCloudComponent" ],
-          [ "VolumeComponent", "classRa_1_1Engine_1_1Scene_1_1VolumeComponent.html", "classRa_1_1Engine_1_1Scene_1_1VolumeComponent" ],
           [ "ItemEntry", "structRa_1_1Engine_1_1Scene_1_1ItemEntry.html", "structRa_1_1Engine_1_1Scene_1_1ItemEntry" ],
           [ "Light", "classRa_1_1Engine_1_1Scene_1_1Light.html", "classRa_1_1Engine_1_1Scene_1_1Light" ],
           [ "LightManager", "classRa_1_1Engine_1_1Scene_1_1LightManager.html", "classRa_1_1Engine_1_1Scene_1_1LightManager" ],
           [ "LightStorage", "classRa_1_1Engine_1_1Scene_1_1LightStorage.html", "classRa_1_1Engine_1_1Scene_1_1LightStorage" ],
+          [ "PointCloudComponent", "classRa_1_1Engine_1_1Scene_1_1PointCloudComponent.html", "classRa_1_1Engine_1_1Scene_1_1PointCloudComponent" ],
           [ "PointLight", "classRa_1_1Engine_1_1Scene_1_1PointLight.html", "classRa_1_1Engine_1_1Scene_1_1PointLight" ],
           [ "SignalManager", "classRa_1_1Engine_1_1Scene_1_1SignalManager.html", "classRa_1_1Engine_1_1Scene_1_1SignalManager" ],
           [ "SkeletonBasedAnimationSystem", "classRa_1_1Engine_1_1Scene_1_1SkeletonBasedAnimationSystem.html", "classRa_1_1Engine_1_1Scene_1_1SkeletonBasedAnimationSystem" ],
           [ "SkeletonComponent", "classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html", "classRa_1_1Engine_1_1Scene_1_1SkeletonComponent" ],
           [ "SkinningComponent", "classRa_1_1Engine_1_1Scene_1_1SkinningComponent.html", "classRa_1_1Engine_1_1Scene_1_1SkinningComponent" ],
           [ "SpotLight", "classRa_1_1Engine_1_1Scene_1_1SpotLight.html", "classRa_1_1Engine_1_1Scene_1_1SpotLight" ],
+          [ "SurfaceMeshComponent", "classRa_1_1Engine_1_1Scene_1_1SurfaceMeshComponent.html", "classRa_1_1Engine_1_1Scene_1_1SurfaceMeshComponent" ],
           [ "System", "classRa_1_1Engine_1_1Scene_1_1System.html", "classRa_1_1Engine_1_1Scene_1_1System" ],
-          [ "DebugComponent", "classRa_1_1Engine_1_1Scene_1_1DebugComponent.html", "classRa_1_1Engine_1_1Scene_1_1DebugComponent" ],
+          [ "SystemEntity", "classRa_1_1Engine_1_1Scene_1_1SystemEntity.html", "classRa_1_1Engine_1_1Scene_1_1SystemEntity" ],
           [ "UiComponent", "classRa_1_1Engine_1_1Scene_1_1UiComponent.html", "classRa_1_1Engine_1_1Scene_1_1UiComponent" ],
-          [ "SystemEntity", "classRa_1_1Engine_1_1Scene_1_1SystemEntity.html", "classRa_1_1Engine_1_1Scene_1_1SystemEntity" ]
+          [ "VolumeComponent", "classRa_1_1Engine_1_1Scene_1_1VolumeComponent.html", "classRa_1_1Engine_1_1Scene_1_1VolumeComponent" ]
         ] ],
         [ "FrameInfo", "structRa_1_1Engine_1_1FrameInfo.html", "structRa_1_1Engine_1_1FrameInfo" ],
         [ "RadiumEngine", "classRa_1_1Engine_1_1RadiumEngine.html", "classRa_1_1Engine_1_1RadiumEngine" ]
       ] ],
       [ "Gui", null, [
+        [ "internal", null, [
+          [ "RenderParameterUiBuilder", "classRa_1_1Gui_1_1internal_1_1RenderParameterUiBuilder.html", null ]
+        ] ],
         [ "Widgets", null, [
           [ "ConstrainedNumericSpinBox", "classRa_1_1Gui_1_1Widgets_1_1ConstrainedNumericSpinBox.html", "classRa_1_1Gui_1_1Widgets_1_1ConstrainedNumericSpinBox" ],
           [ "ControlPanel", "classRa_1_1Gui_1_1Widgets_1_1ControlPanel.html", "classRa_1_1Gui_1_1Widgets_1_1ControlPanel" ],
@@ -183,53 +250,56 @@ var annotated_dup =
           [ "VectorEditor", "classRa_1_1Gui_1_1Widgets_1_1VectorEditor.html", "classRa_1_1Gui_1_1Widgets_1_1VectorEditor" ]
         ] ],
         [ "BaseApplication", "classRa_1_1Gui_1_1BaseApplication.html", "classRa_1_1Gui_1_1BaseApplication" ],
+        [ "CameraManipulator", "classRa_1_1Gui_1_1CameraManipulator.html", "classRa_1_1Gui_1_1CameraManipulator" ],
+        [ "FlightCameraManipulator", "classRa_1_1Gui_1_1FlightCameraManipulator.html", "classRa_1_1Gui_1_1FlightCameraManipulator" ],
+        [ "Gizmo", "classRa_1_1Gui_1_1Gizmo.html", "classRa_1_1Gui_1_1Gizmo" ],
+        [ "GizmoManager", "classRa_1_1Gui_1_1GizmoManager.html", "classRa_1_1Gui_1_1GizmoManager" ],
+        [ "HelpDialog", "classRa_1_1Gui_1_1HelpDialog.html", null ],
+        [ "ItemModel", "classRa_1_1Gui_1_1ItemModel.html", "classRa_1_1Gui_1_1ItemModel" ],
+        [ "KeyMappingCallbackManager", "classRa_1_1Gui_1_1KeyMappingCallbackManager.html", "classRa_1_1Gui_1_1KeyMappingCallbackManager" ],
+        [ "KeyMappingManageable", "classRa_1_1Gui_1_1KeyMappingManageable.html", "classRa_1_1Gui_1_1KeyMappingManageable" ],
+        [ "KeyMappingManager", "classRa_1_1Gui_1_1KeyMappingManager.html", "classRa_1_1Gui_1_1KeyMappingManager" ],
         [ "MainWindowInterface", "classRa_1_1Gui_1_1MainWindowInterface.html", "classRa_1_1Gui_1_1MainWindowInterface" ],
         [ "MaterialParameterEditor", "classRa_1_1Gui_1_1MaterialParameterEditor.html", "classRa_1_1Gui_1_1MaterialParameterEditor" ],
-        [ "ParameterSetEditor", "classRa_1_1Gui_1_1ParameterSetEditor.html", "classRa_1_1Gui_1_1ParameterSetEditor" ],
+        [ "RotateGizmo", "classRa_1_1Gui_1_1RotateGizmo.html", "classRa_1_1Gui_1_1RotateGizmo" ],
+        [ "ScaleGizmo", "classRa_1_1Gui_1_1ScaleGizmo.html", "classRa_1_1Gui_1_1ScaleGizmo" ],
         [ "SimpleWindow", "classRa_1_1Gui_1_1SimpleWindow.html", "classRa_1_1Gui_1_1SimpleWindow" ],
-        [ "SimpleWindowFactory", "classRa_1_1Gui_1_1SimpleWindowFactory.html", "classRa_1_1Gui_1_1SimpleWindowFactory" ],
-        [ "HelpDialog", "classRa_1_1Gui_1_1HelpDialog.html", "classRa_1_1Gui_1_1HelpDialog" ],
+        [ "SimpleWindowFactory", "classRa_1_1Gui_1_1SimpleWindowFactory.html", null ],
         [ "Timeline", "classRa_1_1Gui_1_1Timeline.html", "classRa_1_1Gui_1_1Timeline" ],
         [ "TimelineFrameSelector", "classRa_1_1Gui_1_1TimelineFrameSelector.html", "classRa_1_1Gui_1_1TimelineFrameSelector" ],
         [ "TimelineScrollArea", "classRa_1_1Gui_1_1TimelineScrollArea.html", "classRa_1_1Gui_1_1TimelineScrollArea" ],
         [ "TimelineSlider", "classRa_1_1Gui_1_1TimelineSlider.html", "classRa_1_1Gui_1_1TimelineSlider" ],
         [ "TimelineTimeScale", "classRa_1_1Gui_1_1TimelineTimeScale.html", "classRa_1_1Gui_1_1TimelineTimeScale" ],
-        [ "ItemModel", "classRa_1_1Gui_1_1ItemModel.html", "classRa_1_1Gui_1_1ItemModel" ],
+        [ "TrackballCameraManipulator", "classRa_1_1Gui_1_1TrackballCameraManipulator.html", "classRa_1_1Gui_1_1TrackballCameraManipulator" ],
+        [ "TranslateGizmo", "classRa_1_1Gui_1_1TranslateGizmo.html", "classRa_1_1Gui_1_1TranslateGizmo" ],
         [ "TreeItem", "classRa_1_1Gui_1_1TreeItem.html", "classRa_1_1Gui_1_1TreeItem" ],
         [ "TreeModel", "classRa_1_1Gui_1_1TreeModel.html", "classRa_1_1Gui_1_1TreeModel" ],
-        [ "KeyMappingManager", "classRa_1_1Gui_1_1KeyMappingManager.html", "classRa_1_1Gui_1_1KeyMappingManager" ],
-        [ "KeyMappingManageable", "classRa_1_1Gui_1_1KeyMappingManageable.html", "classRa_1_1Gui_1_1KeyMappingManageable" ],
-        [ "KeyMappingCallbackManager", "classRa_1_1Gui_1_1KeyMappingCallbackManager.html", "classRa_1_1Gui_1_1KeyMappingCallbackManager" ],
-        [ "CameraManipulator", "classRa_1_1Gui_1_1CameraManipulator.html", "classRa_1_1Gui_1_1CameraManipulator" ],
-        [ "FlightCameraManipulator", "classRa_1_1Gui_1_1FlightCameraManipulator.html", "classRa_1_1Gui_1_1FlightCameraManipulator" ],
-        [ "Gizmo", "classRa_1_1Gui_1_1Gizmo.html", "classRa_1_1Gui_1_1Gizmo" ],
-        [ "GizmoManager", "classRa_1_1Gui_1_1GizmoManager.html", "classRa_1_1Gui_1_1GizmoManager" ],
-        [ "RotateGizmo", "classRa_1_1Gui_1_1RotateGizmo.html", "classRa_1_1Gui_1_1RotateGizmo" ],
-        [ "ScaleGizmo", "classRa_1_1Gui_1_1ScaleGizmo.html", "classRa_1_1Gui_1_1ScaleGizmo" ],
-        [ "TranslateGizmo", "classRa_1_1Gui_1_1TranslateGizmo.html", "classRa_1_1Gui_1_1TranslateGizmo" ],
-        [ "TrackballCameraManipulator", "classRa_1_1Gui_1_1TrackballCameraManipulator.html", "classRa_1_1Gui_1_1TrackballCameraManipulator" ],
+        [ "VariableSetEditor", "classRa_1_1Gui_1_1VariableSetEditor.html", "classRa_1_1Gui_1_1VariableSetEditor" ],
         [ "Viewer", "classRa_1_1Gui_1_1Viewer.html", "classRa_1_1Gui_1_1Viewer" ],
         [ "WindowQt", "classRa_1_1Gui_1_1WindowQt.html", "classRa_1_1Gui_1_1WindowQt" ]
       ] ],
       [ "Headless", null, [
         [ "CLIBaseApplication", "classRa_1_1Headless_1_1CLIBaseApplication.html", "classRa_1_1Headless_1_1CLIBaseApplication" ],
-        [ "CLIViewer", "classRa_1_1Headless_1_1CLIViewer.html", "classRa_1_1Headless_1_1CLIViewer" ],
+        [ "CLIRadiumEngineApp", "classRa_1_1Headless_1_1CLIRadiumEngineApp.html", "classRa_1_1Headless_1_1CLIRadiumEngineApp" ],
         [ "OpenGLContext", "classRa_1_1Headless_1_1OpenGLContext.html", "classRa_1_1Headless_1_1OpenGLContext" ]
       ] ],
       [ "IO", null, [
         [ "AssimpAnimationDataLoader", "classRa_1_1IO_1_1AssimpAnimationDataLoader.html", "classRa_1_1IO_1_1AssimpAnimationDataLoader" ],
         [ "AssimpCameraDataLoader", "classRa_1_1IO_1_1AssimpCameraDataLoader.html", "classRa_1_1IO_1_1AssimpCameraDataLoader" ],
-        [ "AssimpFileLoader", "classRa_1_1IO_1_1AssimpFileLoader.html", "classRa_1_1IO_1_1AssimpFileLoader" ],
+        [ "AssimpFileLoader", "classRa_1_1IO_1_1AssimpFileLoader.html", null ],
         [ "AssimpGeometryDataLoader", "classRa_1_1IO_1_1AssimpGeometryDataLoader.html", "classRa_1_1IO_1_1AssimpGeometryDataLoader" ],
         [ "FileManager", "classRa_1_1IO_1_1FileManager.html", "classRa_1_1IO_1_1FileManager" ],
         [ "OBJFileManager", "classRa_1_1IO_1_1OBJFileManager.html", "classRa_1_1IO_1_1OBJFileManager" ],
         [ "OFFFileManager", "classRa_1_1IO_1_1OFFFileManager.html", "classRa_1_1IO_1_1OFFFileManager" ],
-        [ "VolumeLoader", "classRa_1_1IO_1_1VolumeLoader.html", "classRa_1_1IO_1_1VolumeLoader" ]
+        [ "VolumeLoader", "classRa_1_1IO_1_1VolumeLoader.html", null ]
       ] ],
       [ "Plugins", null, [
         [ "Context", "classRa_1_1Plugins_1_1Context.html", "classRa_1_1Plugins_1_1Context" ],
         [ "RadiumPluginInterface", "classRa_1_1Plugins_1_1RadiumPluginInterface.html", "classRa_1_1Plugins_1_1RadiumPluginInterface" ]
       ] ],
-      [ "FrameTimerData", "structRa_1_1FrameTimerData.html", "structRa_1_1FrameTimerData" ]
-    ] ]
+      [ "FrameTimerData", "structRa_1_1FrameTimerData.html", null ]
+    ] ],
+    [ "Dummy", "classDummy.html", "classDummy" ],
+    [ "has_ostream_operator_impl", "structhas__ostream__operator__impl.html", null ],
+    [ "PrintAllHelper", "structPrintAllHelper.html", null ]
 ];

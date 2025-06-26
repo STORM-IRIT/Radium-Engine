@@ -1,4 +1,5 @@
 <map id="Ra::Core::Geometry::AttribArrayGeometry" name="Ra::Core::Geometry::AttribArrayGeometry">
-<area shape="rect" id="node1" title="This class represents vertex + attributes per vertex. Toplogy is handled in MultiIndexedGeometry subc..." alt="" coords="5,292,200,1132"/>
-<area shape="rect" id="node2" href="$structRa_1_1Core_1_1Geometry_1_1AbstractGeometry.html" title=" " alt="" coords="14,5,191,244"/>
+<area shape="rect" id="Node000001" title="This class represents vertex + attributes per vertex. Toplogy is handled in MultiIndexedGeometry subc..." alt="" coords="5,333,191,1433"/>
+<area shape="rect" id="Node000002" href="$structRa_1_1Core_1_1Geometry_1_1AbstractGeometry.html" title=" " alt="" coords="13,5,183,285"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="101,299,101,333,95,333,95,299"/>
 </map>

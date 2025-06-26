@@ -1,7 +1,23 @@
 <map id="Ra::Core::Asset::HandleAnimation" name="Ra::Core::Asset::HandleAnimation">
-<area shape="rect" id="node1" title=" " alt="" coords="81,1321,324,1399"/>
-<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Asset_1_1AnimationTime.html" title=" " alt="" coords="5,756,235,1259"/>
-<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Animation_1_1KeyFramedValue.html" title=" " alt="" coords="259,778,493,1237"/>
-<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Animation_1_1KeyFramedValueBase.html" title=" " alt="" coords="243,5,442,171"/>
-<area shape="rect" id="node5" href="$classRa_1_1Core_1_1Animation_1_1KeyFramedValue.html" title=" " alt="" coords="365,220,593,693"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="187,3492,422,3557"/>
+<area shape="rect" id="Node000002" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/string/basic_string.html" title=" " alt="" coords="12,2524,155,3429"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="157,3381,182,3428,204,3457,233,3480,229,3485,201,3460,177,3431,152,3384"/>
+<area shape="rect" id="Node000003" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/string/basic_string.html" title=" " alt="" coords="5,1541,148,2461"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="83,2475,83,2524,78,2524,77,2475"/>
+<area shape="rect" id="Node000004" href="$classRa_1_1Core_1_1Animation_1_1KeyFramedValue.html" title=" " alt="" coords="191,2687,418,3267"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="307,3267,307,3475,302,3475,302,3267"/>
+<area shape="rect" id="Node000005" href="$classRa_1_1Core_1_1Animation_1_1KeyFramedValueBase.html" title=" " alt="" coords="116,1036,307,1216"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="208,1230,198,1452,191,1758,194,2107,201,2286,214,2461,227,2574,245,2686,240,2687,222,2574,209,2462,196,2286,189,2107,185,1758,192,1452,202,1230"/>
+<area shape="rect" id="Node000009" href="$classRa_1_1Core_1_1Animation_1_1KeyFramedValue.html" title=" " alt="" coords="224,1704,444,2299"/>
+<area shape="poly" id="edge9_Node000009_Node000005" title=" " alt="" coords="228,1229,295,1703,290,1704,223,1230"/>
+<area shape="rect" id="Node000006" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector.html" title=" " alt="" coords="379,773,558,1479"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="476,1479,477,1503,480,1649,488,1773,502,1985,505,2087,500,2196,486,2318,459,2462,447,2494,432,2525,386,2671,381,2670,428,2523,442,2492,454,2461,480,2318,495,2195,499,2087,497,1986,482,1774,475,1649,471,1503,471,1479"/>
+<area shape="poly" id="edge10_Node000009_Node000006" title=" " alt="" coords="382,1447,371,1503,358,1595,349,1688,344,1687,353,1594,366,1502,377,1446"/>
+<area shape="rect" id="Node000007" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/utility/pair.html" title=" " alt="" coords="320,295,457,421"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="398,420,433,757,428,757,392,421"/>
+<area shape="rect" id="Node000008" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector.html" title=" " alt="" coords="482,5,615,711"/>
+<area shape="poly" id="edge7_Node000006_Node000008" title=" " alt="" coords="517,724,514,750,511,773,506,773,509,749,511,724"/>
+<area shape="poly" id="edge8_Node000004_Node000009" title=" " alt="" coords="327,2313,316,2686,311,2686,322,2312"/>
+<area shape="rect" id="Node000010" href="$classRa_1_1Core_1_1Asset_1_1AnimationTime.html" title=" " alt="" coords="442,2654,663,3299"/>
+<area shape="poly" id="edge11_Node000001_Node000010" title=" " alt="" coords="496,3301,468,3368,432,3431,407,3460,378,3485,374,3480,403,3456,428,3428,463,3366,491,3299"/>
 </map>

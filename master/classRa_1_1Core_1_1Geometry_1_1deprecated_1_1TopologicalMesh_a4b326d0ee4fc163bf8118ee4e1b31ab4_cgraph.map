@@ -1,4 +1,6 @@
 <map id="Ra::Core::Geometry::deprecated::TopologicalMesh::normal" name="Ra::Core::Geometry::deprecated::TopologicalMesh::normal">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,224,61"/>
-<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Geometry_1_1deprecated_1_1TopologicalMesh.html#aaba0897eaabd141a25000b5f8efeb14c" title=" " alt="" coords="272,5,491,61"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,29,224,84"/>
+<area shape="poly" id="edge2_Node000001_Node000001" title=" " alt="" coords="63,29,63,19,73,10,90,5,115,3,145,6,162,14,159,18,143,11,115,8,91,10,75,15,68,21,68,29"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Core_1_1Geometry_1_1deprecated_1_1TopologicalMesh.html#aaba0897eaabd141a25000b5f8efeb14c" title=" " alt="" coords="272,29,491,84"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="224,54,258,54,258,59,224,59"/>
 </map>

@@ -1,4 +1,5 @@
 <map id="Ra::Core::Geometry::AbstractVolume" name="Ra::Core::Geometry::AbstractVolume">
-<area shape="rect" id="node1" title=" " alt="" coords="13,292,175,604"/>
-<area shape="rect" id="node2" href="$structRa_1_1Core_1_1Geometry_1_1AbstractGeometry.html" title=" " alt="" coords="5,5,183,244"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="13,333,167,713"/>
+<area shape="rect" id="Node000002" href="$structRa_1_1Core_1_1Geometry_1_1AbstractGeometry.html" title=" " alt="" coords="5,5,175,285"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="93,299,93,333,87,333,87,299"/>
 </map>

@@ -1,0 +1,7 @@
+<map id="Ra::Dataflow::Core::DataflowGraph::loadGraphFromJsonFile" name="Ra::Dataflow::Core::DataflowGraph::loadGraphFromJsonFile">
+<area shape="rect" id="Node000001" title="Load a graph from the given file." alt="" coords="5,23,208,77"/>
+<area shape="rect" id="Node000002" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/memory/shared_ptr/pointer_cast.html#" title=" " alt="" coords="256,5,449,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="208,34,242,30,243,35,208,39"/>
+<area shape="rect" id="Node000003" href="$namespaceRa_1_1Dataflow_1_1Core_1_1NodeFactoriesManager.html#af56f50cbcfddb8146ebb0b721e83d2ac" title="Allow static initialization without init order problems." alt="" coords="263,55,442,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="208,61,250,66,249,71,208,66"/>
+</map>

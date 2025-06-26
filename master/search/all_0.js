@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['3d_20objects_20_28a_2ek_2ea_2e_20meshes_29_0',['3D objects (a.k.a. Meshes)',['../develmeshes.html',1,'core']]]
+  ['1_20building_20and_20inspecting_20the_20graph_0',['1. Building and inspecting the graph',['../dataflow.html#autotoc_md38',1,'']]],
+  ['1_20depth_20ambient_20color_20and_20deferred_20info_20pass_1',['1. Depth, ambient color and &quot;deferred info&quot; pass',['../forwardRenderer.html#autotoc_md51',1,'']]]
 ];

@@ -1,16 +1,29 @@
 <map id="Ra::Engine::Scene::Component" name="Ra::Engine::Scene::Component">
-<area shape="rect" id="node1" title="A component is an element that can be updated by a system. It is also linked to some other components..." alt="" coords="721,5,943,391"/>
-<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Scene_1_1CameraComponent.html" title=" " alt="" coords="5,945,189,1169"/>
-<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Scene_1_1DebugComponent.html" title="Component for debug drawing." alt="" coords="214,996,378,1117"/>
-<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Scene_1_1GeometryComponent.html" title="Abstract interface of a geometric compoennet in the Engine." alt="" coords="402,974,601,1139"/>
-<area shape="rect" id="node7" href="$classRa_1_1Engine_1_1Scene_1_1Light.html" title=" " alt="" coords="625,930,813,1183"/>
-<area shape="rect" id="node11" href="$classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html" title=" " alt="" coords="837,439,1056,1675"/>
-<area shape="rect" id="node12" href="$classRa_1_1Engine_1_1Scene_1_1SkinningComponent.html" title="The SkinningComponent class is responsible for applying Geometric Skinning Methods on an animated obj..." alt="" coords="1081,725,1282,1389"/>
-<area shape="rect" id="node13" href="$classRa_1_1Engine_1_1Scene_1_1UiComponent.html" title="Component for UI drawing." alt="" coords="1307,1003,1453,1110"/>
-<area shape="rect" id="node14" href="$classRa_1_1Engine_1_1Scene_1_1VolumeComponent.html" title="Main class to convert Ra::Core::Asset::VolumeData to Ra::Engine::VolumeObject." alt="" coords="1477,967,1669,1147"/>
-<area shape="rect" id="node5" href="$classRa_1_1Engine_1_1Scene_1_1PointCloudComponent.html" title=" " alt="" coords="165,1767,368,1991"/>
-<area shape="rect" id="node6" href="$classRa_1_1Engine_1_1Scene_1_1SurfaceMeshComponent.html" title="Main class to convert Ra::Core::Asset::GeometryData to Ra::Engine::Mesh." alt="" coords="393,1774,610,1983"/>
-<area shape="rect" id="node8" href="$classRa_1_1Engine_1_1Scene_1_1DirectionalLight.html" title=" " alt="" coords="634,1803,795,1954"/>
-<area shape="rect" id="node9" href="$classRa_1_1Engine_1_1Scene_1_1PointLight.html" title=" " alt="" coords="820,1781,980,1976"/>
-<area shape="rect" id="node10" href="$classRa_1_1Engine_1_1Scene_1_1SpotLight.html" title=" " alt="" coords="1005,1723,1211,2035"/>
+<area shape="rect" id="Node000001" title="A component is an element that can be updated by a system. It is also linked to some other components..." alt="" coords="693,5,907,485"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Engine_1_1Scene_1_1CameraComponent.html" title=" " alt="" coords="5,1223,181,1483"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="681,270,561,302,495,326,428,354,362,389,300,431,244,479,195,535,170,574,147,616,112,704,88,796,73,890,66,983,66,1071,76,1223,71,1223,60,1071,61,982,68,890,83,795,107,702,143,613,165,572,191,532,240,475,297,426,360,385,426,350,494,321,560,297,679,265"/>
+<area shape="rect" id="Node000003" href="$classRa_1_1Engine_1_1Scene_1_1DebugComponent.html" title="Component for debug drawing." alt="" coords="206,1293,362,1413"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="682,295,602,336,518,389,478,420,440,455,406,493,377,535,351,582,329,632,296,738,275,846,264,953,261,1056,264,1149,277,1293,272,1293,258,1150,256,1056,258,953,269,845,290,736,324,631,346,580,372,532,402,490,436,452,474,416,515,385,599,331,679,291"/>
+<area shape="rect" id="Node000004" href="$classRa_1_1Engine_1_1Scene_1_1GeometryComponent.html" title="Abstract interface of a geometric compoennet in the Engine." alt="" coords="387,1263,576,1443"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="687,376,634,452,611,492,592,534,558,631,532,732,512,834,499,934,484,1119,482,1263,476,1263,479,1119,493,934,507,833,527,731,553,629,587,532,606,490,630,449,683,373"/>
+<area shape="rect" id="Node000007" href="$classRa_1_1Engine_1_1Scene_1_1Light.html" title=" " alt="" coords="601,1203,781,1503"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="778,499,708,1203,703,1203,772,499"/>
+<area shape="rect" id="Node000011" href="$classRa_1_1Engine_1_1Scene_1_1SkeletonComponent.html" title=" " alt="" coords="805,533,1014,2173"/>
+<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="828,499,831,533,826,533,822,499"/>
+<area shape="rect" id="Node000012" href="$classRa_1_1Engine_1_1Scene_1_1SkinningComponent.html" title="The SkinningComponent class is responsible for applying Geometric Skinning Methods on an animated obj..." alt="" coords="1038,923,1231,1783"/>
+<area shape="poly" id="edge11_Node000001_Node000012" title=" " alt="" coords="918,362,979,442,1006,486,1029,532,1064,626,1090,725,1110,824,1124,923,1119,923,1105,825,1085,726,1058,628,1024,534,1002,489,975,445,913,365"/>
+<area shape="rect" id="Node000013" href="$classRa_1_1Engine_1_1Scene_1_1UiComponent.html" title="Component for UI drawing." alt="" coords="1256,1303,1395,1403"/>
+<area shape="poly" id="edge12_Node000001_Node000013" title=" " alt="" coords="920,287,1005,326,1095,380,1138,412,1179,448,1215,488,1246,532,1273,581,1296,633,1314,686,1329,741,1349,853,1358,963,1359,1067,1354,1162,1337,1304,1332,1303,1348,1162,1353,1067,1353,963,1344,853,1324,742,1309,688,1291,635,1268,583,1242,535,1211,492,1175,452,1135,417,1092,385,1002,331,918,292"/>
+<area shape="rect" id="Node000014" href="$classRa_1_1Engine_1_1Scene_1_1VolumeComponent.html" title="Main class to convert Ra::Core::Asset::VolumeData to Ra::Engine::VolumeObject." alt="" coords="1419,1253,1603,1453"/>
+<area shape="poly" id="edge13_Node000001_Node000014" title=" " alt="" coords="921,265,1040,298,1107,321,1174,350,1240,385,1303,427,1360,475,1409,532,1436,574,1460,619,1497,713,1522,812,1536,912,1542,1009,1541,1101,1529,1253,1524,1253,1536,1101,1536,1010,1531,912,1517,813,1492,715,1455,621,1432,577,1405,535,1356,479,1300,431,1238,390,1172,355,1105,326,1039,303,920,270"/>
+<area shape="rect" id="Node000005" href="$classRa_1_1Engine_1_1Scene_1_1PointCloudComponent.html" title=" " alt="" coords="157,2281,352,2541"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="481,1457,473,1600,455,1781,424,1978,402,2078,376,2174,356,2229,331,2282,327,2280,351,2227,371,2173,397,2077,419,1977,450,1780,468,1600,476,1457"/>
+<area shape="rect" id="Node000006" href="$classRa_1_1Engine_1_1Scene_1_1SurfaceMeshComponent.html" title="Main class to convert Ra::Core::Asset::GeometryData to Ra::Engine::Mesh." alt="" coords="377,2284,586,2539"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="484,1457,484,2284,479,2284,479,1457"/>
+<area shape="rect" id="Node000008" href="$classRa_1_1Engine_1_1Scene_1_1DirectionalLight.html" title=" " alt="" coords="610,2331,763,2491"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="693,1517,690,2331,684,2331,687,1517"/>
+<area shape="rect" id="Node000009" href="$classRa_1_1Engine_1_1Scene_1_1PointLight.html" title=" " alt="" coords="788,2301,940,2521"/>
+<area shape="poly" id="edge8_Node000007_Node000009" title=" " alt="" coords="706,1517,739,1823,764,1999,796,2173,830,2300,825,2301,791,2174,759,2000,733,1823,700,1517"/>
+<area shape="rect" id="Node000010" href="$classRa_1_1Engine_1_1Scene_1_1SpotLight.html" title=" " alt="" coords="964,2221,1161,2601"/>
+<area shape="poly" id="edge9_Node000007_Node000010" title=" " alt="" coords="666,1517,659,1590,656,1670,657,1756,665,1844,682,1933,708,2018,745,2099,768,2136,795,2172,813,2187,831,2196,869,2199,910,2200,932,2206,954,2219,965,2229,962,2233,950,2223,929,2211,909,2205,869,2204,829,2201,810,2192,791,2175,764,2139,740,2101,703,2020,676,1934,660,1845,652,1756,650,1670,654,1590,661,1517"/>
 </map>

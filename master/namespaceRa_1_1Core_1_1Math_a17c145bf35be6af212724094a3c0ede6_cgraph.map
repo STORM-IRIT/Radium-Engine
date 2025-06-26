@@ -1,4 +1,5 @@
 <map id="Ra::Core::Math::checkRange" name="Ra::Core::Math::checkRange">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,211,32"/>
-<area shape="rect" id="node2" href="$namespaceRa_1_1Core_1_1Math.html#acc9f6f3b880b60bf0ee7723afabaf180" title="Component&#45;wise clamp() function on a floating&#45;point vector." alt="" coords="259,5,425,32"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,211,31"/>
+<area shape="rect" id="Node000002" href="$namespaceRa_1_1Core_1_1Math.html#acc9f6f3b880b60bf0ee7723afabaf180" title="Component&#45;wise clamp() function on a floating&#45;point vector." alt="" coords="259,5,425,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="211,15,245,15,245,21,211,21"/>
 </map>

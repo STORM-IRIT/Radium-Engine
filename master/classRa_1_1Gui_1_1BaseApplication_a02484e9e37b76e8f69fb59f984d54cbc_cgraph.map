@@ -1,0 +1,23 @@
+<map id="Ra::Gui::BaseApplication::addPluginDirectory" name="Ra::Gui::BaseApplication::addPluginDirectory">
+<area shape="rect" id="Node000001" title="Allow the user to register a specific plugin directory for the application." alt="" coords="5,134,188,174"/>
+<area shape="rect" id="Node000002" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/string/basic_string/c_str.html#" title=" " alt="" coords="500,5,627,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="162,131,466,41,499,32,500,37,467,46,163,137"/>
+<area shape="rect" id="Node000003" href="$classRa_1_1Gui_1_1BaseApplication.html#ade2850bde46ffa889f9ca3a4c542d2e2" title=" " alt="" coords="236,162,419,202"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="188,162,223,167,222,172,188,168"/>
+<area shape="poly" id="edge3_Node000003_Node000002" title=" " alt="" coords="347,160,465,41,486,31,488,36,468,46,350,164"/>
+<area shape="rect" id="Node000004" href="$classRa_1_1Gui_1_1WindowQt.html#acd31b9e580f049491d13c16ef954d964" title=" " alt="" coords="487,55,639,95"/>
+<area shape="poly" id="edge4_Node000003_Node000004" title=" " alt="" coords="361,160,409,132,466,105,484,98,486,102,468,110,412,137,363,164"/>
+<area shape="rect" id="Node000005" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector/empty.html#" title=" " alt="" coords="493,120,634,145"/>
+<area shape="poly" id="edge5_Node000003_Node000005" title=" " alt="" coords="418,160,488,146,489,151,419,166"/>
+<area shape="rect" id="Node000006" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/algorithm/find.html#" title=" " alt="" coords="518,169,609,195"/>
+<area shape="poly" id="edge6_Node000003_Node000006" title=" " alt="" coords="419,179,504,179,504,185,419,185"/>
+<area shape="rect" id="Node000007" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/map/insert.html#" title=" " alt="" coords="501,219,625,244"/>
+<area shape="poly" id="edge7_Node000003_Node000007" title=" " alt="" coords="419,198,489,213,488,218,418,204"/>
+<area shape="rect" id="Node000008" href="$classRa_1_1Gui_1_1WindowQt.html#a78476baacd2df24a260f604d02c8ddc4" title=" " alt="" coords="487,269,639,309"/>
+<area shape="poly" id="edge8_Node000003_Node000008" title=" " alt="" coords="364,200,468,253,488,261,486,266,466,258,362,205"/>
+<area shape="rect" id="Node000009" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector/push_back.html#" title=" " alt="" coords="708,363,876,388"/>
+<area shape="poly" id="edge9_Node000003_Node000009" title=" " alt="" coords="345,201,394,261,429,292,468,318,508,332,565,345,695,363,694,368,564,350,506,337,465,323,425,297,390,264,340,204"/>
+<area shape="rect" id="Node000010" href="$classRa_1_1Engine_1_1RadiumEngine.html#a90204861f4fe8ed044208eb05695afe0" title=" " alt="" coords="467,383,660,423"/>
+<area shape="poly" id="edge10_Node000003_Node000010" title=" " alt="" coords="341,201,390,279,426,323,468,363,487,375,485,379,465,367,422,327,386,282,337,204"/>
+<area shape="poly" id="edge11_Node000010_Node000009" title=" " alt="" coords="660,389,694,385,695,390,661,394"/>
+</map>

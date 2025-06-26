@@ -1,4 +1,7 @@
 <map id="Ra::Engine::Rendering::ForwardRenderer::buildRenderTechnique" name="Ra::Engine::Rendering::ForwardRenderer::buildRenderTechnique">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,232,61"/>
-<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Data_1_1ShaderConfiguration.html#a42ec93f4772c0455149a81e9d8502d43" title=" " alt="" coords="280,13,467,54"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,27,232,82"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Engine_1_1Data_1_1ShaderConfiguration.html#a42ec93f4772c0455149a81e9d8502d43" title=" " alt="" coords="280,5,467,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="232,39,266,35,267,40,233,44"/>
+<area shape="rect" id="Node000003" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/memory/shared_ptr/make_shared.html#" title=" " alt="" coords="305,70,442,95"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="233,65,292,71,291,76,232,70"/>
 </map>

@@ -1,0 +1,7 @@
+<map id="Dummy" name="Dummy">
+<area shape="rect" id="Node000001" title="[Declare KeyMappingManageable]" alt="" coords="93,383,184,448"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Gui_1_1KeyMappingManageable.html" title=" " alt="" coords="24,193,253,333"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="141,347,141,383,136,383,136,347"/>
+<area shape="rect" id="Node000003" href="$classRa_1_1Gui_1_1KeyMappingManageable.html" title="KeyMappingManageable decorator to use as CRTP." alt="" coords="5,5,272,131"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="141,145,141,193,136,193,136,145"/>
+</map>

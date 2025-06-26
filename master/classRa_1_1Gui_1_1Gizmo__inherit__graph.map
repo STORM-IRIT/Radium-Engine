@@ -1,6 +1,9 @@
 <map id="Ra::Gui::Gizmo" name="Ra::Gui::Gizmo">
-<area shape="rect" id="node1" title=" " alt="" coords="173,5,368,332"/>
-<area shape="rect" id="node2" href="$classRa_1_1Gui_1_1RotateGizmo.html" title="A RotateGizmo manipulates the rotational part of a transformation." alt="" coords="5,380,168,531"/>
-<area shape="rect" id="node3" href="$classRa_1_1Gui_1_1ScaleGizmo.html" title=" " alt="" coords="192,380,349,531"/>
-<area shape="rect" id="node4" href="$classRa_1_1Gui_1_1TranslateGizmo.html" title="A TranslateGizmo manipulates the translational part of a transformation." alt="" coords="373,380,552,531"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="166,5,351,411"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Gui_1_1RotateGizmo.html" title="A RotateGizmo manipulates the rotational part of a transformation." alt="" coords="5,459,160,624"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="162,397,128,460,124,457,157,395"/>
+<area shape="rect" id="Node000003" href="$classRa_1_1Gui_1_1ScaleGizmo.html" title=" " alt="" coords="184,459,333,624"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="261,424,261,459,256,459,256,424"/>
+<area shape="rect" id="Node000004" href="$classRa_1_1Gui_1_1TranslateGizmo.html" title="A TranslateGizmo manipulates the translational part of a transformation." alt="" coords="357,459,528,624"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="360,387,400,457,395,460,356,389"/>
 </map>

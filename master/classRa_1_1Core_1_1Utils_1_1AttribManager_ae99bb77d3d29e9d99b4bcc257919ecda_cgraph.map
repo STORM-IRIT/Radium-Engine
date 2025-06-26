@@ -1,0 +1,7 @@
+<map id="Ra::Core::Utils::AttribManager::clear" name="Ra::Core::Utils::AttribManager::clear">
+<area shape="rect" id="Node000001" title="clear all attribs, invalidate handles." alt="" coords="5,23,221,63"/>
+<area shape="rect" id="Node000002" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/map/clear.html#" title=" " alt="" coords="275,5,394,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="221,28,261,24,262,29,222,34"/>
+<area shape="rect" id="Node000003" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector/clear.html#" title=" " alt="" coords="269,55,400,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="222,52,256,56,255,61,221,58"/>
+</map>

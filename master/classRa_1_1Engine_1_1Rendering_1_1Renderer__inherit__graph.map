@@ -1,4 +1,7 @@
 <map id="Ra::Engine::Rendering::Renderer" name="Ra::Engine::Rendering::Renderer">
-<area shape="rect" id="node1" title=" " alt="" coords="11,5,226,889"/>
-<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Rendering_1_1ForwardRenderer.html" title=" " alt="" coords="5,937,232,1396"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="125,5,330,1165"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Dataflow_1_1Rendering_1_1Renderer_1_1DataflowRenderer.html" title=" " alt="" coords="5,1303,212,1723"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="154,1179,138,1304,133,1303,149,1179"/>
+<area shape="rect" id="Node000003" href="$classRa_1_1Engine_1_1Rendering_1_1ForwardRenderer.html" title=" " alt="" coords="237,1213,455,1813"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="306,1179,310,1213,305,1213,301,1179"/>
 </map>

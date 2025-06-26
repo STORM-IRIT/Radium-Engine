@@ -1,5 +1,9 @@
 <map id="Ra::Gui::Timeline::selectionChanged" name="Ra::Gui::Timeline::selectionChanged">
-<area shape="rect" id="node1" title=" " alt="" coords="5,43,148,84"/>
-<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Scene_1_1Component.html#aa30f6f7a3f3414c4e9c80ca89627f4b9" title="Return the component&#39;s name." alt="" coords="199,5,364,47"/>
-<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Animation_1_1KeyFramedValueBase.html#a170dcf7c25367d3922bc4335e57aef4b" title=" " alt="" coords="196,71,367,127"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,77,148,117"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Engine_1_1Scene_1_1Component.html#a1d4c8227d4c1c7dacb860e6b44f1f698" title="Return the component&#39;s name." alt="" coords="199,5,364,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="133,75,210,47,212,52,135,80"/>
+<area shape="rect" id="Node000003" href="$classRa_1_1Core_1_1Animation_1_1KeyFramedValueBase.html#a1dcd7ebad299ac63bc7af8b42dca6cae" title=" " alt="" coords="196,70,367,125"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="148,95,182,95,182,100,148,100"/>
+<area shape="rect" id="Node000004" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/string/basic_string/to_string.html#" title=" " alt="" coords="228,149,335,174"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="139,115,197,133,225,142,223,147,195,139,138,120"/>
 </map>

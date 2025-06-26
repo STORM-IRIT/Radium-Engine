@@ -1,5 +1,13 @@
 <map id="Ra::Engine::Data::DrawPrimitives::Disk" name="Ra::Engine::Data::DrawPrimitives::Disk">
-<area shape="rect" id="node1" title=" " alt="" coords="5,29,244,71"/>
-<area shape="rect" id="node2" href="$namespaceRa_1_1Core_1_1Math.html#a5f25a31a29b0688e349dc35a353b9766" title=" " alt="" coords="292,29,511,71"/>
-<area shape="rect" id="node3" href="$namespaceRa_1_1Core_1_1Math.html#a90f0fe9079f5bb86c721ea4b61738470" title="Returns the sign of any numeric type as { &#45;1, 0, 1}." alt="" coords="559,37,712,63"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,55,244,95"/>
+<area shape="rect" id="Node000002" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/numeric/math/cos.html#" title=" " alt="" coords="365,5,437,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="221,53,351,26,352,31,222,58"/>
+<area shape="rect" id="Node000003" href="$namespaceRa_1_1Core_1_1Math.html#a5f25a31a29b0688e349dc35a353b9766" title=" " alt="" coords="292,55,511,95"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="244,73,278,73,278,78,244,78"/>
+<area shape="rect" id="Node000006" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/numeric/math/sin.html#" title=" " alt="" coords="367,120,436,145"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="222,93,354,120,352,125,221,98"/>
+<area shape="rect" id="Node000004" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/numeric/math/copysign.html#" title=" " alt="" coords="581,39,689,64"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="511,61,567,56,568,61,511,67"/>
+<area shape="rect" id="Node000005" href="$namespaceRa_1_1Core_1_1Math.html#a90f0fe9079f5bb86c721ea4b61738470" title="Returns the sign of any numeric type as { &#45;1, 0, 1}." alt="" coords="559,88,712,113"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="511,85,545,88,545,94,511,90"/>
 </map>

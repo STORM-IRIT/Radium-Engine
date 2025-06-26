@@ -1,0 +1,7 @@
+<map id="Ra::Engine::Data::TextureManager::loadTextureImage" name="Ra::Engine::Data::TextureManager::loadTextureImage">
+<area shape="rect" id="Node000001" title="Load filename and fill ImageParameters according to filename content." alt="" coords="5,27,209,67"/>
+<area shape="rect" id="Node000002" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/string/basic_string/c_str.html#" title=" " alt="" coords="287,5,414,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="209,32,273,25,274,30,210,38"/>
+<area shape="rect" id="Node000003" href="$classRa_1_1Engine_1_1Data_1_1Texture.html#ab063ba8e5b755318e7ae5e2037500fc5" title="Convert a color texture from sRGB to Linear RGB spaces." alt="" coords="257,55,444,95"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="210,56,244,60,243,66,209,62"/>
+</map>

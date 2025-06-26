@@ -1,5 +1,11 @@
 <map id="Ra::Core::Asset::RawShaderMaterialData" name="Ra::Core::Asset::RawShaderMaterialData">
-<area shape="rect" id="node1" title=" " alt="" coords="5,373,221,509"/>
-<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Asset_1_1MaterialData.html" title="represent material data loaded by a file loader. Material data must be identified by a unique name...." alt="" coords="6,175,221,325"/>
-<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Asset_1_1AssetData.html" title=" " alt="" coords="15,5,211,127"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,2332,213,2472"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Core_1_1Asset_1_1MaterialData.html" title="represent material data loaded by a file loader. Material data must be identified by a unique name...." alt="" coords="6,2117,213,2283"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="112,2296,112,2332,107,2332,107,2296"/>
+<area shape="rect" id="Node000003" href="$classRa_1_1Core_1_1Asset_1_1AssetData.html" title=" " alt="" coords="15,1943,203,2068"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="112,2082,112,2117,107,2117,107,2082"/>
+<area shape="rect" id="Node000004" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/string/basic_string.html" title=" " alt="" coords="38,975,181,1880"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="112,1880,112,1926,107,1926,107,1880"/>
+<area shape="rect" id="Node000005" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/string/basic_string.html" title=" " alt="" coords="38,5,181,925"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="112,939,112,974,107,974,107,939"/>
 </map>

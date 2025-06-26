@@ -1,11 +1,9 @@
 var classRa_1_1Core_1_1Asset_1_1AnimationData =
 [
-    [ "AnimationData", "classRa_1_1Core_1_1Asset_1_1AnimationData.html#a00a1c6f6d2215c0b1c0e1b18451b4d89", null ],
-    [ "~AnimationData", "classRa_1_1Core_1_1Asset_1_1AnimationData.html#ae4c8da9704e51c9011d32a7132c589a8", null ],
     [ "displayInfo", "classRa_1_1Core_1_1Asset_1_1AnimationData.html#a2fd298ecce8aa6a3bc951b4ef2b14c36", null ],
     [ "getFramesSize", "classRa_1_1Core_1_1Asset_1_1AnimationData.html#a8b1ca0fe08602add7f09bf2eb5c511d2", null ],
-    [ "getHandleData", "classRa_1_1Core_1_1Asset_1_1AnimationData.html#a214e52fd19c0a16f0d74c89caa8e77ee", null ],
-    [ "getTime", "classRa_1_1Core_1_1Asset_1_1AnimationData.html#ac4a583a1f0efa5cb28098b82e1310f76", null ],
+    [ "getHandleData", "classRa_1_1Core_1_1Asset_1_1AnimationData.html#acfff01992de3cc946751bd8a717b85cb", null ],
+    [ "getTime", "classRa_1_1Core_1_1Asset_1_1AnimationData.html#ad5e1d378aa4ff5039b8e738651e7b79a", null ],
     [ "getTimeStep", "classRa_1_1Core_1_1Asset_1_1AnimationData.html#a858346531804acd4cd5e88cc15f8b63c", null ],
     [ "setHandleData", "classRa_1_1Core_1_1Asset_1_1AnimationData.html#a135a614f6ec89a8bf63d6496d074833a", null ],
     [ "setName", "classRa_1_1Core_1_1Asset_1_1AnimationData.html#ad73e13ac16296d39c830255b0a5888a3", null ],

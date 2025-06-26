@@ -1,4 +1,5 @@
 <map id="Ra::Core::Asset::HandleData" name="Ra::Core::Asset::HandleData">
-<area shape="rect" id="node1" title=" " alt="" coords="5,175,212,1176"/>
-<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Asset_1_1AssetData.html" title=" " alt="" coords="11,5,207,127"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,179,204,1504"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Core_1_1Asset_1_1AssetData.html" title=" " alt="" coords="11,5,199,131"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="107,145,107,178,102,178,102,145"/>
 </map>

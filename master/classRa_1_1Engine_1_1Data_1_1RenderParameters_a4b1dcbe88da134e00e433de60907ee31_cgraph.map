@@ -1,4 +1,0 @@
-<map id="Ra::Engine::Data::RenderParameters::addEnumConverter" name="Ra::Engine::Data::RenderParameters::addEnumConverter">
-<area shape="rect" id="node1" title="Associate a converter for enumerated type to the given parameter name." alt="" coords="5,5,235,47"/>
-<area shape="rect" id="node2" href="$classRa_1_1Core_1_1VariableSet.html#a2ae4889235c18238c677b007701f8db6" title="reset (or set if the variable does not exist yet) the value of the variable." alt="" coords="283,5,461,47"/>
-</map>

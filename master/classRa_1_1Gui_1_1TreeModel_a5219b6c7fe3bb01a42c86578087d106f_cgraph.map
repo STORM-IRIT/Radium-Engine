@@ -1,0 +1,35 @@
+<map id="Ra::Gui::TreeModel::setAllItemsChecked" name="Ra::Gui::TreeModel::setAllItemsChecked">
+<area shape="rect" id="Node000001" title="Set the check state of all items." alt="" coords="5,131,164,171"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Gui_1_1TreeModel.html#ae833e6cbc0023636e3cf93e828c4bdf7" title=" " alt="" coords="404,81,548,121"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="164,138,390,109,391,114,165,144"/>
+<area shape="rect" id="Node000011" href="$classRa_1_1Gui_1_1TreeModel.html#a99f086fd963e26ee8732ef0da29e52e6" title=" " alt="" coords="404,150,548,190"/>
+<area shape="poly" id="edge12_Node000001_Node000011" title=" " alt="" coords="164,152,390,163,390,169,164,158"/>
+<area shape="rect" id="Node000012" href="$classRa_1_1Gui_1_1TreeModel.html#a59633f441e1092ec6fd709d60e6ba4d3" title="Set the check state of one item and all of its children." alt="" coords="212,213,356,253"/>
+<area shape="poly" id="edge15_Node000001_Node000012" title=" " alt="" coords="136,169,223,205,221,210,134,174"/>
+<area shape="rect" id="Node000003" href="$classRa_1_1Gui_1_1TreeModel.html#a40eebac048f0264815de6a0b5f3b6f53" title="Get the tree item corresponding to the given index." alt="" coords="788,73,932,113"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="548,104,596,102,774,99,774,104,596,107,548,109"/>
+<area shape="rect" id="Node000009" href="$classRa_1_1Gui_1_1TreeModel.html#a87eb3b8df0d2bb22be5eafafa5c1a55c" title=" " alt="" coords="596,105,740,145"/>
+<area shape="poly" id="edge9_Node000002_Node000009" title=" " alt="" coords="549,107,583,111,582,117,548,112"/>
+<area shape="poly" id="edge8_Node000003_Node000002" title=" " alt="" coords="788,84,596,83,562,85,561,80,596,78,788,79"/>
+<area shape="rect" id="Node000004" href="$classRa_1_1Gui_1_1TreeModel.html#afac34989a7cc5c7107c2642629559ab8" title="Internal functions to check if an item is in the tree." alt="" coords="980,73,1124,113"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="932,90,966,90,966,95,932,95"/>
+<area shape="rect" id="Node000005" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/stack/empty.html#" title=" " alt="" coords="1172,5,1307,31"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="1098,70,1171,40,1188,33,1190,38,1173,44,1100,75"/>
+<area shape="rect" id="Node000006" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/stack/pop.html#" title=" " alt="" coords="1181,55,1298,80"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="1124,80,1166,74,1167,80,1125,86"/>
+<area shape="rect" id="Node000007" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/stack/push.html#" title=" " alt="" coords="1177,104,1301,129"/>
+<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="1125,99,1164,104,1164,110,1124,105"/>
+<area shape="rect" id="Node000008" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/stack/top.html#" title=" " alt="" coords="1182,153,1297,179"/>
+<area shape="poly" id="edge7_Node000004_Node000008" title=" " alt="" coords="1103,110,1173,138,1193,146,1191,151,1171,143,1101,115"/>
+<area shape="poly" id="edge11_Node000009_Node000003" title=" " alt="" coords="740,110,774,104,775,110,741,115"/>
+<area shape="rect" id="Node000010" href="$classRa_1_1Gui_1_1TreeItem.html#a1bb89b916eed440cb23de1bff8327e00" title=" " alt="" coords="789,137,931,177"/>
+<area shape="poly" id="edge10_Node000009_Node000010" title=" " alt="" coords="741,134,775,140,775,145,740,139"/>
+<area shape="poly" id="edge13_Node000011_Node000003" title=" " alt="" coords="548,174,641,173,691,166,739,154,763,140,787,122,798,116,800,121,789,127,766,145,741,159,692,171,641,178,548,179"/>
+<area shape="poly" id="edge14_Node000011_Node000009" title=" " alt="" coords="548,150,582,142,583,147,549,156"/>
+<area shape="poly" id="edge17_Node000012_Node000002" title=" " alt="" coords="306,210,350,174,403,136,420,125,423,129,405,140,353,178,310,215"/>
+<area shape="poly" id="edge16_Node000012_Node000003" title=" " alt="" coords="357,238,439,242,537,237,589,230,641,219,691,203,739,181,754,169,763,154,771,139,786,123,794,117,797,122,790,127,776,142,767,157,758,172,741,186,693,208,642,224,590,235,538,242,439,247,356,244"/>
+<area shape="poly" id="edge19_Node000012_Node000011" title=" " alt="" coords="345,210,400,192,402,197,347,215"/>
+<area shape="poly" id="edge20_Node000012_Node000012" title=" " alt="" coords="248,213,246,203,251,194,264,188,284,186,307,189,319,196,316,201,305,194,284,191,266,193,255,198,251,204,253,212"/>
+<area shape="rect" id="Node000013" href="$classRa_1_1Gui_1_1TreeItem.html#afe0ff956817cfda5df29260521dcce79" title="Return true if the represented object can be selected." alt="" coords="405,270,547,310"/>
+<area shape="poly" id="edge18_Node000012_Node000013" title=" " alt="" coords="352,250,396,263,394,268,351,255"/>
+</map>

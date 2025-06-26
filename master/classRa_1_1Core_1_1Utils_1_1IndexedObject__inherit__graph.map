@@ -1,6 +1,11 @@
 <map id="Ra::Core::Utils::IndexedObject" name="Ra::Core::Utils::IndexedObject">
-<area shape="rect" id="node1" title=" " alt="" coords="157,5,332,156"/>
-<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Rendering_1_1RenderObject.html" title=" " alt="" coords="5,204,239,1513"/>
-<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Scene_1_1Entity.html" title="An entity is an scene element. It ties together components with a transform." alt="" coords="263,673,474,1044"/>
-<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Scene_1_1SystemEntity.html" title=" " alt="" coords="295,1561,442,1697"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="275,5,442,165"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Dataflow_1_1Rendering_1_1Nodes_1_1RenderingNode.html" title=" " alt="" coords="5,983,221,1183"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="268,168,237,215,195,314,164,419,140,526,125,632,115,734,110,828,110,983,105,983,105,828,110,733,119,631,135,525,158,417,190,312,232,212,264,165"/>
+<area shape="rect" id="Node000003" href="$classRa_1_1Engine_1_1Rendering_1_1RenderObject.html" title=" " alt="" coords="246,213,471,1953"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="361,179,361,213,356,213,356,179"/>
+<area shape="rect" id="Node000004" href="$classRa_1_1Engine_1_1Scene_1_1Entity.html" title="An entity is an scene element. It ties together components with a transform." alt="" coords="495,853,697,1313"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="453,163,471,187,486,212,520,290,547,372,568,455,584,540,603,704,608,853,603,853,597,705,579,541,563,457,542,373,515,292,482,215,467,190,449,167"/>
+<area shape="rect" id="Node000005" href="$classRa_1_1Engine_1_1Scene_1_1SystemEntity.html" title=" " alt="" coords="527,2001,665,2141"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="599,1328,599,2001,593,2001,593,1328"/>
 </map>

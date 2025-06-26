@@ -1,6 +1,6 @@
 var classRa_1_1Core_1_1Asset_1_1LightData =
 [
-    [ "LightAttenuation", "structRa_1_1Core_1_1Asset_1_1LightData_1_1LightAttenuation.html", "structRa_1_1Core_1_1Asset_1_1LightData_1_1LightAttenuation" ],
+    [ "LightAttenuation", "structRa_1_1Core_1_1Asset_1_1LightData_1_1LightAttenuation.html", null ],
     [ "LightType", "classRa_1_1Core_1_1Asset_1_1LightData.html#a737f1c5691156e76c4aaad52b80abecc", [
       [ "UNKNOWN", "classRa_1_1Core_1_1Asset_1_1LightData.html#a737f1c5691156e76c4aaad52b80abecca3a95b4075d369f7761604ea9f7359148", null ],
       [ "POINT_LIGHT", "classRa_1_1Core_1_1Asset_1_1LightData.html#a737f1c5691156e76c4aaad52b80abecca771a9111952db0d6d1adb4c7287b91f7", null ],
@@ -24,11 +24,5 @@ var classRa_1_1Core_1_1Asset_1_1LightData =
     [ "setLight", "classRa_1_1Core_1_1Asset_1_1LightData.html#a465c45192f3c007c8e83d86f4ba257c3", null ],
     [ "setLight", "classRa_1_1Core_1_1Asset_1_1LightData.html#ac0081043c289ceee597884e585262050", null ],
     [ "setName", "classRa_1_1Core_1_1Asset_1_1LightData.html#a6174b9a46bb6f2f34c928c7dee903b32", null ],
-    [ "m_arealight", "classRa_1_1Core_1_1Asset_1_1LightData.html#a52ae51183289bbbc8cf1574b1365cd4c", null ],
-    [ "m_color", "classRa_1_1Core_1_1Asset_1_1LightData.html#a455b8d6d7581f95e1c8014dad159f3fd", null ],
-    [ "m_dirlight", "classRa_1_1Core_1_1Asset_1_1LightData.html#a9cdd2535a1fdb46426c7de0b74ee2d2a", null ],
-    [ "m_frame", "classRa_1_1Core_1_1Asset_1_1LightData.html#aabdcec9680d408926fd3d0aa01ec6ef9", null ],
-    [ "m_pointlight", "classRa_1_1Core_1_1Asset_1_1LightData.html#af579f37fbc47af3fad64a54f04de344c", null ],
-    [ "m_spotlight", "classRa_1_1Core_1_1Asset_1_1LightData.html#ab8f070b14d0c528c9f33327af63a4fce", null ],
-    [ "m_type", "classRa_1_1Core_1_1Asset_1_1LightData.html#a41eddc46bac0a6613cb82c0771c70d5b", null ]
+    [ "m_frame", "classRa_1_1Core_1_1Asset_1_1LightData.html#aabdcec9680d408926fd3d0aa01ec6ef9", null ]
 ];

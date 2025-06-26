@@ -1,9 +1,21 @@
 <map id="Ra::Engine::Data::LambertianMaterial::registerMaterial" name="Ra::Engine::Data::LambertianMaterial::registerMaterial">
-<area shape="rect" id="node1" title=" " alt="" coords="5,130,217,171"/>
-<area shape="rect" id="node2" href="$namespaceRa_1_1Engine_1_1Data_1_1ShaderConfigurationFactory.html#a00918835250fbd8bbe4deae59ecd6dde" title=" " alt="" coords="302,5,485,61"/>
-<area shape="rect" id="node3" href="$namespaceRa_1_1Engine_1_1Data_1_1ShaderConfigurationFactory.html#a0ecc004c00bff945aae8b673a738909f" title=" " alt="" coords="302,85,485,141"/>
-<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Data_1_1SimpleMaterial.html#a57837ef8f83bc884ebab36823c73f1d8" title="Load the material parameter description." alt="" coords="302,166,485,207"/>
-<area shape="rect" id="node6" href="$classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a2b058b0fe2f9c2496b7805e0d5b15452" title=" " alt="" coords="265,231,521,273"/>
-<area shape="rect" id="node5" href="$classRa_1_1Engine_1_1Data_1_1ParameterSetEditingInterface.html#a9715515de6a9ca229a6c28981d8b6724" title="Load the ParameterSet description." alt="" coords="569,166,816,207"/>
-<area shape="rect" id="node7" href="$classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#af3b58075507144820fe06f6a129b0107" title=" " alt="" coords="592,231,793,273"/>
+<area shape="rect" id="Node000001" title="Register the material in the material library." alt="" coords="5,127,217,167"/>
+<area shape="rect" id="Node000002" href="$namespaceRa_1_1Engine_1_1Data_1_1ShaderConfigurationFactory.html#a00918835250fbd8bbe4deae59ecd6dde" title=" " alt="" coords="302,5,485,60"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="148,125,202,97,264,69,288,60,290,65,266,74,204,102,150,130"/>
+<area shape="rect" id="Node000004" href="$namespaceRa_1_1Engine_1_1Data_1_1ShaderConfigurationFactory.html#a0ecc004c00bff945aae8b673a738909f" title=" " alt="" coords="302,84,485,139"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="217,131,288,122,289,127,218,136"/>
+<area shape="rect" id="Node000005" href="$classRa_1_1Engine_1_1Data_1_1SimpleMaterial.html#a57837ef8f83bc884ebab36823c73f1d8" title="Load the material parameter description." alt="" coords="302,163,485,203"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="218,158,289,167,288,173,217,163"/>
+<area shape="rect" id="Node000007" href="$classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a2b058b0fe2f9c2496b7805e0d5b15452" title=" " alt="" coords="265,251,521,291"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="159,165,266,213,335,243,333,248,264,218,157,170"/>
+<area shape="rect" id="Node000003" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/string/basic_string/empty.html#" title=" " alt="" coords="624,60,761,85"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="485,42,611,59,610,64,485,47"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="485,97,610,81,611,86,485,102"/>
+<area shape="rect" id="Node000006" href="$classRa_1_1Engine_1_1Data_1_1ParameterSetEditingInterface.html#a9715515de6a9ca229a6c28981d8b6724" title="Load the ParameterSet description." alt="" coords="569,163,816,203"/>
+<area shape="poly" id="edge6_Node000005_Node000006" title=" " alt="" coords="485,181,556,181,556,186,485,186"/>
+<area shape="poly" id="edge9_Node000007_Node000007" title=" " alt="" coords="342,252,338,242,347,232,365,227,393,225,426,227,443,235,441,240,424,233,393,230,366,232,350,237,344,243,347,250"/>
+<area shape="rect" id="Node000008" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/algorithm/max.html#" title=" " alt="" coords="653,243,732,268"/>
+<area shape="poly" id="edge8_Node000007_Node000008" title=" " alt="" coords="521,262,640,255,640,261,521,267"/>
+<area shape="rect" id="Node000009" href="$classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#af3b58075507144820fe06f6a129b0107" title=" " alt="" coords="592,293,793,333"/>
+<area shape="poly" id="edge10_Node000007_Node000009" title=" " alt="" coords="522,286,579,294,578,300,521,292"/>
 </map>

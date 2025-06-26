@@ -1,0 +1,16 @@
+<map id="/home/runner/work/Radium&#45;Engine/Radium&#45;Engine/src/Radium&#45;Engine/src/Dataflow/Core" name="/home/runner/work/Radium&#45;Engine/Radium&#45;Engine/src/Radium&#45;Engine/src/Dataflow/Core">
+<area shape="rect" id="node5" href="dir_d1b5f27620413bd2b5db4dd4cb9e15da.html" title="Core" alt="" coords="189,136,241,161"/>
+<area shape="poly" id="edge1" href="dir_000010_000009.html" alt="" coords="354,90,327,112,291,128,255,140,253,135,289,123,324,107,351,86"/>
+<area shape="rect" id="edge1-headlabel" href="dir_000010_000009.html" title="6" alt="" coords="256,137,265,152"/>
+<area shape="rect" id="node2" href="dir_122a4f992d3f2b536812c7a0a4f994e9.html" title="Functionals" alt="" coords="217,63,313,88"/>
+<area shape="poly" id="edge2" href="dir_000020_000009.html" alt="" coords="259,90,233,126,229,123,255,87"/>
+<area shape="rect" id="edge2-headlabel" href="dir_000020_000009.html" title="1" alt="" coords="236,119,245,133"/>
+<area shape="rect" id="node3" href="dir_e9aad66b13810096a7f1d8a2b65c6e04.html" title="Sinks" alt="" coords="135,63,193,88"/>
+<area shape="poly" id="edge3" href="dir_000047_000009.html" alt="" coords="175,87,201,123,196,126,170,90"/>
+<area shape="rect" id="edge3-headlabel" href="dir_000047_000009.html" title="1" alt="" coords="198,109,207,124"/>
+<area shape="rect" id="node4" href="dir_6e457370836a0b0ab28eff7b5c5e2566.html" title="Sources" alt="" coords="38,63,111,88"/>
+<area shape="poly" id="edge4" href="dir_000049_000009.html" alt="" coords="92,86,125,107,177,131,175,135,123,112,89,90"/>
+<area shape="rect" id="edge4-headlabel" href="dir_000049_000009.html" title="1" alt="" coords="170,116,179,131"/>
+<area shape="rect" id="clust2" href="dir_47be05fef9d90fea2d2455286df665d8.html" alt="" coords="27,52,401,99"/>
+<area shape="rect" id="clust1" href="dir_5eb6a3d5fb678a68c11ed5249d80a9c4.html" title="Dataflow" alt="" coords="16,16,412,109"/>
+</map>

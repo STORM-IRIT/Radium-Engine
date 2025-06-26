@@ -1,5 +1,7 @@
 <map id="Ra::Engine::Rendering::RenderTechnique::addPassProperties" name="Ra::Engine::Rendering::RenderTechnique::addPassProperties">
-<area shape="rect" id="node1" title=" " alt="" coords="5,39,273,80"/>
-<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a80ed342917f6314ebe193cd311cfc8cd" title=" " alt="" coords="321,5,580,47"/>
-<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#af3b58075507144820fe06f6a129b0107" title=" " alt="" coords="350,71,551,112"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,37,273,77"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a80ed342917f6314ebe193cd311cfc8cd" title=" " alt="" coords="321,5,580,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="273,41,307,37,308,43,274,46"/>
+<area shape="rect" id="Node000003" href="$classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#af3b58075507144820fe06f6a129b0107" title=" " alt="" coords="350,69,551,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="274,68,337,75,336,80,273,74"/>
 </map>

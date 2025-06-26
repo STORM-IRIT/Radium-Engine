@@ -1,4 +1,7 @@
 <map id="Ra::Core::Math::getOrthogonalVectors" name="Ra::Core::Math::getOrthogonalVectors">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,224,47"/>
-<area shape="rect" id="node2" href="$namespaceRa_1_1Core_1_1Math.html#a90f0fe9079f5bb86c721ea4b61738470" title="Returns the sign of any numeric type as { &#45;1, 0, 1}." alt="" coords="272,13,425,39"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,23,224,63"/>
+<area shape="rect" id="Node000002" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/numeric/math/copysign.html#" title=" " alt="" coords="295,5,403,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="224,29,280,23,281,28,225,34"/>
+<area shape="rect" id="Node000003" href="$namespaceRa_1_1Core_1_1Math.html#a90f0fe9079f5bb86c721ea4b61738470" title="Returns the sign of any numeric type as { &#45;1, 0, 1}." alt="" coords="272,55,425,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="224,52,258,55,258,61,224,57"/>
 </map>

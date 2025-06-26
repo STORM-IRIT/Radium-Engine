@@ -1,0 +1,6 @@
+<map id="Ra::Dataflow::Core::NodeFactoriesManager::factory" name="Ra::Dataflow::Core::NodeFactoriesManager::factory">
+<area shape="rect" id="Node000001" title="Gets the given factory from the manager." alt="" coords="5,29,184,84"/>
+<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="50,29,51,19,59,10,73,5,95,3,120,6,135,14,132,18,119,11,95,8,74,10,62,15,56,21,56,29"/>
+<area shape="rect" id="Node000002" href="$namespaceRa_1_1Dataflow_1_1Core_1_1NodeFactoriesManager.html#af56f50cbcfddb8146ebb0b721e83d2ac" title="Allow static initialization without init order problems." alt="" coords="232,29,411,84"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="185,54,218,54,218,59,185,59"/>
+</map>

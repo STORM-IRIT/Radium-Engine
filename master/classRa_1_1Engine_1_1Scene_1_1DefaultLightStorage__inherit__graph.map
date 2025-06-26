@@ -1,4 +1,5 @@
 <map id="Ra::Engine::Scene::DefaultLightStorage" name="Ra::Engine::Scene::DefaultLightStorage">
-<area shape="rect" id="node1" title=" " alt="" coords="5,248,183,428"/>
-<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Scene_1_1LightStorage.html" title=" " alt="" coords="21,5,167,200"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,273,175,473"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Engine_1_1Scene_1_1LightStorage.html" title=" " alt="" coords="21,5,159,225"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="93,239,93,273,87,273,87,239"/>
 </map>

@@ -1,8 +1,19 @@
 <map id="Ra::Engine::Data::VolumetricMaterial::registerMaterial" name="Ra::Engine::Data::VolumetricMaterial::registerMaterial">
-<area shape="rect" id="node1" title=" " alt="" coords="5,130,213,171"/>
-<area shape="rect" id="node2" href="$namespaceRa_1_1Engine_1_1Data_1_1ShaderConfigurationFactory.html#a00918835250fbd8bbe4deae59ecd6dde" title=" " alt="" coords="298,5,481,61"/>
-<area shape="rect" id="node3" href="$namespaceRa_1_1Engine_1_1Data_1_1ShaderConfigurationFactory.html#a0ecc004c00bff945aae8b673a738909f" title=" " alt="" coords="298,85,481,141"/>
-<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Data_1_1ParameterSetEditingInterface.html#a9715515de6a9ca229a6c28981d8b6724" title="Load the ParameterSet description." alt="" coords="266,166,513,207"/>
-<area shape="rect" id="node5" href="$classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a2b058b0fe2f9c2496b7805e0d5b15452" title=" " alt="" coords="261,231,517,273"/>
-<area shape="rect" id="node6" href="$classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#af3b58075507144820fe06f6a129b0107" title=" " alt="" coords="565,231,767,273"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,127,213,167"/>
+<area shape="rect" id="Node000002" href="$namespaceRa_1_1Engine_1_1Data_1_1ShaderConfigurationFactory.html#a00918835250fbd8bbe4deae59ecd6dde" title=" " alt="" coords="298,5,481,60"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="145,125,199,97,260,69,284,60,286,65,262,74,201,102,148,129"/>
+<area shape="rect" id="Node000004" href="$namespaceRa_1_1Engine_1_1Data_1_1ShaderConfigurationFactory.html#a0ecc004c00bff945aae8b673a738909f" title=" " alt="" coords="298,84,481,139"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="213,131,284,122,285,127,214,137"/>
+<area shape="rect" id="Node000005" href="$classRa_1_1Engine_1_1Data_1_1ParameterSetEditingInterface.html#a9715515de6a9ca229a6c28981d8b6724" title="Load the ParameterSet description." alt="" coords="266,163,513,203"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="214,158,252,163,252,168,213,163"/>
+<area shape="rect" id="Node000006" href="$classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a2b058b0fe2f9c2496b7805e0d5b15452" title=" " alt="" coords="261,251,517,291"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="156,165,262,213,331,243,329,248,260,218,154,170"/>
+<area shape="rect" id="Node000003" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/string/basic_string/empty.html#" title=" " alt="" coords="597,60,735,85"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="481,43,584,58,583,63,480,48"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="480,96,583,81,584,87,481,101"/>
+<area shape="poly" id="edge8_Node000006_Node000006" title=" " alt="" coords="339,252,335,242,344,232,362,227,389,225,421,227,438,235,436,240,420,233,389,230,363,232,346,237,341,243,344,250"/>
+<area shape="rect" id="Node000007" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/algorithm/max.html#" title=" " alt="" coords="627,229,705,255"/>
+<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="517,255,612,245,613,250,518,260"/>
+<area shape="rect" id="Node000008" href="$classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#af3b58075507144820fe06f6a129b0107" title=" " alt="" coords="565,279,767,319"/>
+<area shape="poly" id="edge9_Node000006_Node000008" title=" " alt="" coords="518,282,552,285,551,290,517,287"/>
 </map>

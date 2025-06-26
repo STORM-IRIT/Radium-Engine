@@ -1,5 +1,0 @@
-<map id="Ra::Engine::Data::RenderParameters::addParameter" name="Ra::Engine::Data::RenderParameters::addParameter">
-<area shape="rect" id="node1" title="set the value of the given parameter, according to a string representation of an enum." alt="" coords="5,39,200,80"/>
-<area shape="rect" id="node2" href="$classRa_1_1Core_1_1VariableSet.html#a48baeacd56022a902deb045d865c4605" title="test the existence of the given variable" alt="" coords="258,5,417,47"/>
-<area shape="rect" id="node3" href="$classRa_1_1Core_1_1VariableSet.html#a2ae4889235c18238c677b007701f8db6" title="reset (or set if the variable does not exist yet) the value of the variable." alt="" coords="248,71,427,112"/>
-</map>

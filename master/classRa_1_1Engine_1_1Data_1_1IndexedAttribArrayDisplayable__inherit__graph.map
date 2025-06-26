@@ -1,6 +1,9 @@
 <map id="Ra::Engine::Data::IndexedAttribArrayDisplayable&lt; I &gt;" name="Ra::Engine::Data::IndexedAttribArrayDisplayable&lt; I &gt;">
-<area shape="rect" id="node1" title=" " alt="" coords="133,799,337,905"/>
-<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html" title=" " alt="" coords="5,292,227,751"/>
-<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Data_1_1Displayable.html" title=" " alt="" coords="9,5,223,244"/>
-<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Data_1_1VaoIndices.html" title="Concept class to ensure consistent naming of VaoIndices accross derived classes." alt="" coords="251,468,459,575"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="129,967,325,1067"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html" title=" " alt="" coords="5,339,219,919"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="204,931,215,966,210,967,199,933"/>
+<area shape="rect" id="Node000003" href="$classRa_1_1Engine_1_1Data_1_1Displayable.html" title=" " alt="" coords="9,5,215,291"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="115,304,115,338,109,338,109,304"/>
+<area shape="rect" id="Node000004" href="$classRa_1_1Engine_1_1Data_1_1VaoIndices.html" title="Concept class to ensure consistent naming of VaoIndices accross derived classes." alt="" coords="243,576,443,681"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="326,695,244,967,239,966,321,694"/>
 </map>

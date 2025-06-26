@@ -1,0 +1,7 @@
+<map id="Ra::Core::Utils::BijectiveAssociation::valueIfExists" name="Ra::Core::Utils::BijectiveAssociation::valueIfExists">
+<area shape="rect" id="Node000001" title="Gets the value associated to key if it exists." alt="" coords="5,23,195,63"/>
+<area shape="rect" id="Node000002" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/map/end.html#" title=" " alt="" coords="243,5,353,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="195,29,229,24,229,29,195,34"/>
+<area shape="rect" id="Node000003" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/map/find.html#" title=" " alt="" coords="243,55,353,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="195,52,229,56,229,62,195,57"/>
+</map>

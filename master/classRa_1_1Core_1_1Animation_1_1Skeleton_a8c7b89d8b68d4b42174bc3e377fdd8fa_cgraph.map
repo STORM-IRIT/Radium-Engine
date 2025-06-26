@@ -1,5 +1,10 @@
 <map id="Ra::Core::Animation::Skeleton::getBonePoints" name="Ra::Core::Animation::Skeleton::getBonePoints">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,193,47"/>
-<area shape="rect" id="node2" href="$classRa_1_1Core_1_1AdjacencyList.html#a778181dcdae7c7a6a482401c89d75253" title="Return true if the node is a leaf node." alt="" coords="241,5,416,47"/>
-<area shape="rect" id="node3" href="$classRa_1_1Core_1_1AdjacencyList.html#a48b78362d882a41b32f0df6aa1d42855" title="Return the number of nodes in the graph." alt="" coords="464,5,639,47"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,35,193,75"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Core_1_1AdjacencyList.html#a778181dcdae7c7a6a482401c89d75253" title="Return true if the node is a leaf node." alt="" coords="241,5,416,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="193,40,228,36,228,41,194,45"/>
+<area shape="rect" id="Node000004" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector/size.html#" title=" " alt="" coords="687,42,812,67"/>
+<area shape="poly" id="edge4_Node000001_Node000004" title=" " alt="" coords="193,54,241,55,639,55,672,54,673,59,639,60,241,60,193,59"/>
+<area shape="rect" id="Node000003" href="$classRa_1_1Core_1_1AdjacencyList.html#a48b78362d882a41b32f0df6aa1d42855" title="Return the number of nodes in the graph." alt="" coords="464,5,639,45"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="416,23,450,23,450,28,416,28"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="639,36,673,41,673,46,639,41"/>
 </map>

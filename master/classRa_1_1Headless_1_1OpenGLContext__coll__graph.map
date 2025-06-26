@@ -1,7 +1,13 @@
 <map id="Ra::Headless::OpenGLContext" name="Ra::Headless::OpenGLContext">
-<area shape="rect" id="node1" title=" " alt="" coords="215,623,435,1023"/>
-<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Utils_1_1Observable.html" title=" " alt="" coords="5,307,203,531"/>
-<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Utils_1_1Observable.html" title=" " alt="" coords="227,5,424,229"/>
-<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Utils_1_1Observable.html" title=" " alt="" coords="227,307,424,531"/>
-<area shape="rect" id="node5" href="$classRa_1_1Core_1_1Utils_1_1Observable.html" title=" " alt="" coords="448,307,645,531"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="207,695,419,1360"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Core_1_1Utils_1_1Observable.html" title=" " alt="" coords="5,343,195,603"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="114,602,129,670,162,755,202,838,197,840,157,757,124,671,108,604"/>
+<area shape="rect" id="Node000003" href="$classRa_1_1Core_1_1Utils_1_1Observable.html" title=" " alt="" coords="219,5,408,265"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="226,278,184,344,180,341,222,275"/>
+<area shape="rect" id="Node000004" href="$classRa_1_1Core_1_1Utils_1_1Observable.html" title=" " alt="" coords="219,343,408,603"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="316,279,316,342,311,342,311,279"/>
+<area shape="rect" id="Node000005" href="$classRa_1_1Core_1_1Utils_1_1Observable.html" title=" " alt="" coords="432,343,621,603"/>
+<area shape="poly" id="edge6_Node000005_Node000003" title=" " alt="" coords="419,247,448,288,477,341,472,344,443,291,414,250"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="316,603,316,678,311,678,311,603"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="503,604,483,672,428,805,424,803,477,670,497,602"/>
 </map>

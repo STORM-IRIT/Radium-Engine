@@ -1,4 +1,38 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classRa_1_1Engine_1_1Scene_1_1LightStorage.html" title=" " alt="" coords="5,5,152,47"/>
-<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Scene_1_1DefaultLightStorage.html" title=" " alt="" coords="200,5,352,47"/>
+<area shape="rect" id="Node000000" href="$classRa_1_1Engine_1_1Data_1_1Displayable.html" title=" " alt="" coords="5,188,220,213"/>
+<area shape="rect" id="Node000001" href="$classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html" title=" " alt="" coords="274,149,449,189"/>
+<area shape="poly" id="edge79_Node000000_Node000001" title=" " alt="" coords="225,184,273,177,274,183,226,189"/>
+<area shape="rect" id="Node000016" href="$classRa_1_1Engine_1_1Data_1_1VolumeObject.html" title=" " alt="" coords="268,213,455,253"/>
+<area shape="poly" id="edge93_Node000000_Node000016" title=" " alt="" coords="225,212,268,218,267,223,225,218"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html" title=" " alt="" coords="503,256,736,311"/>
+<area shape="poly" id="edge80_Node000001_Node000002" title=" " alt="" coords="444,192,456,198,471,210,481,221,490,232,504,242,526,253,523,258,501,247,486,236,477,224,467,214,453,203,442,197"/>
+<area shape="rect" id="Node000008" href="$classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html" title=" " alt="" coords="503,335,736,389"/>
+<area shape="poly" id="edge83_Node000001_Node000008" title=" " alt="" coords="452,195,457,199,469,215,477,231,481,262,486,292,492,307,505,321,518,332,515,336,501,325,488,310,481,294,476,262,471,232,465,217,453,203,448,199"/>
+<area shape="rect" id="Node000014" href="$classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html" title=" " alt="" coords="503,5,736,60"/>
+<area shape="poly" id="edge86_Node000001_Node000014" title=" " alt="" coords="400,139,448,108,501,77,543,58,546,62,504,82,451,112,403,143"/>
+<area shape="rect" id="Node000012" href="$classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html" title="Template class to manage the Displayable aspect of a Core Geomertry, such as TriangleMesh." alt="" coords="503,91,736,131"/>
+<area shape="poly" id="edge88_Node000001_Node000012" title=" " alt="" coords="462,144,528,129,529,134,463,149"/>
+<area shape="rect" id="Node000009" href="$classRa_1_1Engine_1_1Data_1_1IndexedAttribArrayDisplayable.html" title=" " alt="" coords="793,191,997,231"/>
+<area shape="poly" id="edge92_Node000001_Node000009" title=" " alt="" coords="463,172,736,191,793,197,793,202,736,197,462,177"/>
+<area shape="rect" id="Node000003" href="$classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html" title=" " alt="" coords="793,256,998,311"/>
+<area shape="poly" id="edge81_Node000002_Node000003" title=" " alt="" coords="750,281,792,281,792,286,750,286"/>
+<area shape="rect" id="Node000004" href="$classRa_1_1Engine_1_1Data_1_1LineMesh.html" title="LineMesh, own a Core::Geometry::LineMesh." alt="" coords="1055,271,1255,296"/>
+<area shape="poly" id="edge82_Node000003_Node000004" title=" " alt="" coords="1012,281,1054,281,1054,286,1012,286"/>
+<area shape="rect" id="Node000006" href="$classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html" title=" " alt="" coords="793,335,998,389"/>
+<area shape="poly" id="edge84_Node000008_Node000006" title=" " alt="" coords="750,359,792,359,792,365,750,365"/>
+<area shape="rect" id="Node000007" href="$classRa_1_1Engine_1_1Data_1_1Mesh.html" title="Mesh, own a Core::Geometry::TriangleMesh." alt="" coords="1068,349,1241,375"/>
+<area shape="poly" id="edge85_Node000006_Node000007" title=" " alt="" coords="1012,359,1068,359,1068,365,1012,365"/>
+<area shape="rect" id="Node000015" href="$classRa_1_1Engine_1_1Data_1_1PointCloud.html" title="A PointCloud without indices." alt="" coords="791,13,999,39"/>
+<area shape="poly" id="edge87_Node000014_Node000015" title=" " alt="" coords="750,27,791,26,791,31,750,32"/>
+<area shape="rect" id="Node000010" href="$classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html" title="An engine mesh owning CoreGeometry, with indices." alt="" coords="801,127,990,167"/>
+<area shape="poly" id="edge89_Node000012_Node000010" title=" " alt="" coords="750,126,801,132,800,138,749,131"/>
+<area shape="rect" id="Node000013" href="$classRa_1_1Engine_1_1Data_1_1MultiIndexedGeometry.html" title=" " alt="" coords="784,63,1007,103"/>
+<area shape="poly" id="edge91_Node000012_Node000013" title=" " alt="" coords="749,95,783,92,784,97,750,101"/>
+<area shape="rect" id="Node000011" href="$classRa_1_1Engine_1_1Data_1_1GeneralMesh.html" title=" " alt="" coords="1060,127,1249,167"/>
+<area shape="poly" id="edge90_Node000010_Node000011" title=" " alt="" coords="1003,145,1060,145,1060,150,1003,150"/>
+<area shape="rect" id="Node000005" href="$classRa_1_1Engine_1_1Data_1_1VaoIndices.html" title="Concept class to ensure consistent naming of VaoIndices accross derived classes." alt="" coords="515,207,723,232"/>
+<area shape="poly" id="edge94_Node000005_Node000003" title=" " alt="" coords="694,232,737,242,793,256,792,261,735,247,693,238"/>
+<area shape="poly" id="edge95_Node000005_Node000006" title=" " alt="" coords="726,235,738,243,755,262,763,282,770,302,786,321,802,332,799,337,782,325,765,305,758,284,751,265,734,247,723,240"/>
+<area shape="poly" id="edge97_Node000005_Node000010" title=" " alt="" coords="681,201,817,165,819,170,683,206"/>
+<area shape="poly" id="edge96_Node000005_Node000009" title=" " alt="" coords="737,213,793,212,793,217,737,219"/>
 </map>

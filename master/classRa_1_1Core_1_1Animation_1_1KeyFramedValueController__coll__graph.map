@@ -1,4 +1,13 @@
 <map id="Ra::Core::Animation::KeyFramedValueController" name="Ra::Core::Animation::KeyFramedValueController">
-<area shape="rect" id="node1" title=" " alt="" coords="5,233,225,384"/>
-<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Animation_1_1KeyFramedValueBase.html" title=" " alt="" coords="16,5,215,171"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="185,1971,397,2091"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Core_1_1Animation_1_1KeyFramedValueBase.html" title=" " alt="" coords="5,1351,196,1531"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="109,1530,120,1621,140,1727,171,1839,192,1894,216,1945,223,1956,218,1959,212,1948,187,1896,166,1841,135,1728,115,1621,104,1531"/>
+<area shape="rect" id="Node000003" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/string/basic_string.html" title=" " alt="" coords="220,988,363,1893"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="294,1893,294,1954,289,1954,289,1893"/>
+<area shape="rect" id="Node000004" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/string/basic_string.html" title=" " alt="" coords="220,5,363,925"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="294,939,294,988,289,988,289,939"/>
+<area shape="rect" id="Node000005" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/utility/functional/function.html" title=" " alt="" coords="387,1321,526,1561"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="458,1561,451,1649,436,1748,411,1851,394,1900,372,1948,366,1959,362,1956,368,1945,389,1898,406,1849,431,1747,446,1648,453,1561"/>
+<area shape="rect" id="Node000006" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/utility/functional/function.html" title=" " alt="" coords="394,353,519,578"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="459,592,459,1320,454,1320,454,592"/>
 </map>

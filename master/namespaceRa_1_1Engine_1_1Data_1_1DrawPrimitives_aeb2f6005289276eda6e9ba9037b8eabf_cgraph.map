@@ -1,3 +1,6 @@
 <map id="Ra::Engine::Data::DrawPrimitives::Primitive" name="Ra::Engine::Data::DrawPrimitives::Primitive">
-<area shape="rect" id="node1" title=" " alt="" coords="5,29,244,71"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,29,244,69"/>
+<area shape="poly" id="edge2_Node000001_Node000001" title=" " alt="" coords="76,30,73,20,81,10,98,5,125,3,155,5,172,13,170,18,154,11,125,8,99,10,84,15,78,21,81,28"/>
+<area shape="rect" id="Node000002" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/memory/shared_ptr/pointer_cast.html#" title=" " alt="" coords="292,37,485,62"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="244,47,278,47,278,52,244,52"/>
 </map>

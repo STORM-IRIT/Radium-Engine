@@ -1,0 +1,17 @@
+<map id="Ra::Engine::Scene::CameraManager::handleAssetLoading" name="Ra::Engine::Scene::CameraManager::handleAssetLoading">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,62,224,117"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Engine_1_1Scene_1_1CameraManager.html#a95204c94b8c1ba855539384a20b61344" title="Number of managed Cameras." alt="" coords="316,5,491,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="224,63,302,45,303,50,225,68"/>
+<area shape="rect" id="Node000003" href="$classRa_1_1Engine_1_1Scene_1_1CameraManager.html#ac0807ce61c54b75124a0d1d3ec28ab04" title=" " alt="" coords="272,69,535,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="224,87,258,87,258,92,224,92"/>
+<area shape="rect" id="Node000008" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/string/basic_string/to_string.html#" title=" " alt="" coords="350,134,457,159"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="225,109,273,119,337,131,336,137,271,124,224,114"/>
+<area shape="rect" id="Node000004" href="$classRa_1_1Engine_1_1Scene_1_1System.html#a8d1f1cfd2c615e58b4155154206afece" title=" " alt="" coords="583,69,787,109"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="535,87,569,87,569,92,535,92"/>
+<area shape="rect" id="Node000005" href="$classRa_1_1Engine_1_1Scene_1_1Component.html#a28dba9115491fdfd4803f7f32ee53af3" title="Return the entity the component belongs to." alt="" coords="840,5,1004,45"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="759,67,834,46,835,51,760,72"/>
+<area shape="rect" id="Node000006" href="$classRa_1_1Engine_1_1Scene_1_1Component.html#a1d4c8227d4c1c7dacb860e6b44f1f698" title="Return the component&#39;s name." alt="" coords="839,69,1005,109"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="787,87,826,87,826,92,787,92"/>
+<area shape="rect" id="Node000007" href="$classRa_1_1Engine_1_1Scene_1_1Component.html#af211eaa6fd1c608ef143920678da3d52" title="Set the system to which the component belongs." alt="" coords="835,133,1009,173"/>
+<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="760,107,835,127,834,132,759,112"/>
+</map>

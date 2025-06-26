@@ -1,4 +1,11 @@
 <map id="Ra::Engine::Rendering::RenderObject::createRenderObject" name="Ra::Engine::Rendering::RenderObject::createRenderObject">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,219,61"/>
-<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Rendering_1_1RenderObject.html#ad09f179ed5641c53f3c027a94855f6ae" title=" " alt="" coords="267,13,481,54"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,44,219,99"/>
+<area shape="rect" id="Node000002" href="$namespaceRa_1_1Core.html#a51ed2a237e20a947e07bd800839876ca" title=" " alt="" coords="288,29,460,55"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="219,57,274,50,275,56,219,62"/>
+<area shape="rect" id="Node000005" href="$classRa_1_1Engine_1_1Rendering_1_1RenderObject.html#ad09f179ed5641c53f3c027a94855f6ae" title=" " alt="" coords="267,79,481,119"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="219,80,253,84,253,89,219,85"/>
+<area shape="rect" id="Node000003" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/utility/forward.html#" title=" " alt="" coords="548,5,648,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="460,30,533,22,534,27,461,35"/>
+<area shape="rect" id="Node000004" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/memory/shared_ptr/make_shared.html#" title=" " alt="" coords="529,55,667,80"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="461,49,516,55,515,61,460,54"/>
 </map>

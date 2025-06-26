@@ -1,3 +1,11 @@
 <map id="Ra::Engine::Data::TextureParameters" name="Ra::Engine::Data::TextureParameters">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,192,288"/>
+<area shape="rect" id="Node000001" title="Describes the sampler and image of a texture." alt="" coords="175,1943,354,2023"/>
+<area shape="rect" id="Node000002" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/string/basic_string.html" title=" " alt="" coords="5,975,148,1880"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="150,1853,163,1879,181,1906,203,1930,199,1933,177,1909,158,1881,146,1856"/>
+<area shape="rect" id="Node000003" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/string/basic_string.html" title=" " alt="" coords="5,5,148,925"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="79,939,79,974,74,974,74,939"/>
+<area shape="rect" id="Node000004" href="$structRa_1_1Engine_1_1Data_1_1SamplerParameters.html" title="GPU Sampler configuration." alt="" coords="173,1347,357,1507"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="267,1508,267,1926,262,1926,262,1508"/>
+<area shape="rect" id="Node000005" href="$structRa_1_1Engine_1_1Data_1_1ImageParameters.html" title=" " alt="" coords="381,1265,626,1590"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="473,1591,431,1735,403,1810,371,1881,353,1909,332,1933,328,1929,349,1905,366,1879,399,1808,426,1733,468,1589"/>
 </map>

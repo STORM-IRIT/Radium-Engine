@@ -1,0 +1,7 @@
+<map id="Ra::Dataflow::Core::Node::operator==" name="Ra::Dataflow::Core::Node::operator==">
+<area shape="rect" id="Node000001" title="Two nodes are considered equal if there model and instance names are the same." alt="" coords="5,37,155,77"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Dataflow_1_1Core_1_1Node.html#a2a7104fb37c59a4df377ae06ba8aa990" title="Gets the instance name of the node." alt="" coords="203,5,373,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="154,43,189,38,189,43,155,49"/>
+<area shape="rect" id="Node000003" href="$classRa_1_1Dataflow_1_1Core_1_1Node.html#a9ef2eb7364cfa1078e06f2a71ebf78a0" title="Gets the model (type/class) name of the node." alt="" coords="209,69,367,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="155,66,196,73,195,78,154,71"/>
+</map>

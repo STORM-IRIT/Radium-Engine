@@ -1,9 +1,6 @@
 var classRa_1_1Core_1_1Asset_1_1AnimationTime =
 [
     [ "Time", "classRa_1_1Core_1_1Asset_1_1AnimationTime.html#ae7a2e78d2ac4723a0a246a4f7a62c041", null ],
-    [ "AnimationTime", "classRa_1_1Core_1_1Asset_1_1AnimationTime.html#a066f1943f16af37317f2a9d1fe0a60b2", null ],
-    [ "AnimationTime", "classRa_1_1Core_1_1Asset_1_1AnimationTime.html#ada9ac60214fa99574fe1b092acb5b886", null ],
-    [ "~AnimationTime", "classRa_1_1Core_1_1Asset_1_1AnimationTime.html#ac7527e2dddecc0d7f39e7cffda77ba21", null ],
     [ "contains", "classRa_1_1Core_1_1Asset_1_1AnimationTime.html#afad3c6398c1ac73ce702c9050e20f930", null ],
     [ "duration", "classRa_1_1Core_1_1Asset_1_1AnimationTime.html#a1a9ccaef357dddbcdf25c4246af07eb1", null ],
     [ "extends", "classRa_1_1Core_1_1Asset_1_1AnimationTime.html#a1822822966c23643e4c746761c967050", null ],

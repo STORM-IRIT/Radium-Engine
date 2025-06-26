@@ -1,0 +1,9 @@
+<map id="Ra::Dataflow::Core::NodeFactoriesManager::default_factory" name="Ra::Dataflow::Core::NodeFactoriesManager::default_factory">
+<area shape="rect" id="Node000001" title="Gets the &quot;default&quot; factory for nodes exported by the Core dataflow library." alt="" coords="5,63,184,117"/>
+<area shape="rect" id="Node000002" href="$namespaceRa_1_1Dataflow_1_1Core_1_1NodeFactoriesManager.html#a078287c9105f4e3547365a7cd8c3b574" title="Gets the given factory from the manager." alt="" coords="232,29,411,84"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="184,74,218,69,219,74,185,79"/>
+<area shape="rect" id="Node000003" href="$namespaceRa_1_1Dataflow_1_1Core_1_1NodeFactoriesManager.html#af56f50cbcfddb8146ebb0b721e83d2ac" title="Allow static initialization without init order problems." alt="" coords="459,63,637,117"/>
+<area shape="poly" id="edge4_Node000001_Node000003" title=" " alt="" coords="184,91,232,93,411,93,445,92,445,97,411,98,232,98,184,97"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="277,29,277,19,285,10,300,5,321,3,347,6,362,14,359,18,345,11,321,8,301,10,288,15,282,21,282,29"/>
+<area shape="poly" id="edge3_Node000002_Node000003" title=" " alt="" coords="412,67,446,72,445,78,411,72"/>
+</map>

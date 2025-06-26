@@ -1,0 +1,19 @@
+<map id="Ra::Gui::Viewer::grabFrame" name="Ra::Gui::Viewer::grabFrame">
+<area shape="rect" id="Node000001" title="Write the current frame as an image. Supports either BMP or PNG file names." alt="" coords="5,95,205,120"/>
+<area shape="rect" id="Node000002" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/string/basic_string/c_str.html#" title=" " alt="" coords="273,5,400,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="132,92,252,41,277,32,279,37,254,46,134,97"/>
+<area shape="rect" id="Node000003" href="$classRa_1_1Gui_1_1WindowQt.html#acd31b9e580f049491d13c16ef954d964" title=" " alt="" coords="261,55,413,95"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="197,92,247,85,247,90,198,97"/>
+<area shape="rect" id="Node000004" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a91618e8af83863c37d30cc5274ad60c7" title=" " alt="" coords="253,119,420,159"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="198,117,240,123,240,129,197,123"/>
+<area shape="rect" id="Node000009" href="$classRa_1_1Gui_1_1WindowQt.html#a78476baacd2df24a260f604d02c8ddc4" title=" " alt="" coords="261,183,413,223"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="136,118,254,169,271,176,269,181,252,174,134,123"/>
+<area shape="rect" id="Node000005" href="$classRa_1_1Engine_1_1Data_1_1Texture.html#a04f41cf6b664f77b4077b78b2f566422" title="Bind the texture to GPU texture unit to enable its use in a shader. Need active OpenGL context." alt="" coords="482,23,669,63"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="393,117,419,105,442,89,467,73,484,66,486,71,469,78,445,93,421,110,395,122"/>
+<area shape="rect" id="Node000006" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a6d0b36b4cca4646de24d1691d929d6c0" title=" " alt="" coords="468,87,683,127"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="420,125,454,121,455,126,421,131"/>
+<area shape="rect" id="Node000007" href="$classRa_1_1Engine_1_1Data_1_1Texture.html#acf6e8b2fe3439189e1558a825e0a2ac4" title=" " alt="" coords="482,151,669,191"/>
+<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="421,148,469,154,468,160,420,153"/>
+<area shape="rect" id="Node000008" href="$classRa_1_1Engine_1_1Data_1_1Texture.html#a0f00fe910b85fa0ce9da5ede7643e08a" title=" " alt="" coords="482,215,669,255"/>
+<area shape="poly" id="edge7_Node000004_Node000008" title=" " alt="" coords="395,157,421,169,445,185,469,201,486,208,484,213,467,206,442,190,419,174,393,162"/>
+</map>

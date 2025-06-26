@@ -1,0 +1,11 @@
+<map id="Ra::Engine::Scene::ItemEntry::isSelectable" name="Ra::Engine::Scene::ItemEntry::isSelectable">
+<area shape="rect" id="Node000001" title="Returns true if the item can be selected." alt="" coords="5,37,177,77"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Engine_1_1RadiumEngine.html#a4b46a72f340513061b9a5219a80d9bd6" title="Manager getters." alt="" coords="225,5,421,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="177,43,211,38,212,43,178,48"/>
+<area shape="rect" id="Node000004" href="$structRa_1_1Engine_1_1Scene_1_1ItemEntry.html#ad2fd60408dfc75b47ff7bec306d95cc4" title="Returns true if the item represents a render object." alt="" coords="246,69,401,109"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="178,67,233,74,232,79,177,72"/>
+<area shape="rect" id="Node000003" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/memory/unique_ptr/get.html#" title=" " alt="" coords="501,13,649,38"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="422,23,487,23,487,28,422,28"/>
+<area shape="rect" id="Node000005" href="$structRa_1_1Engine_1_1Scene_1_1ItemEntry.html#a9673507f752d5efee0439afd0e52892b" title="Debug checks." alt="" coords="469,69,680,109"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="401,87,456,87,456,92,401,92"/>
+</map>

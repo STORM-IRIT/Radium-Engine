@@ -1,3 +1,7 @@
 <map id="Ra::Engine::Data::VaoIndices" name="Ra::Engine::Data::VaoIndices">
-<area shape="rect" id="node1" title="Concept class to ensure consistent naming of VaoIndices accross derived classes." alt="" coords="5,5,213,112"/>
+<area shape="rect" id="Node000001" title="Concept class to ensure consistent naming of VaoIndices accross derived classes." alt="" coords="5,716,205,801"/>
+<area shape="rect" id="Node000002" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/memory/unique_ptr.html" title=" " alt="" coords="13,353,198,653"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="108,653,108,699,103,699,103,653"/>
+<area shape="rect" id="Node000003" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/memory/unique_ptr.html" title=" " alt="" coords="31,5,180,291"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="108,304,108,353,103,353,103,304"/>
 </map>

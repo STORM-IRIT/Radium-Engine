@@ -1,5 +1,0 @@
-<map id="Ra::Engine::Data::Texture::initializeGL" name="Ra::Engine::Data::Texture::initializeGL">
-<area shape="rect" id="node1" title="Generate the OpenGL representation of the texture according to the stored TextureData." alt="" coords="5,39,192,80"/>
-<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Data_1_1Texture.html#a223eab722d3f56c1c8a50ee5cc9e959b" title=" " alt="" coords="240,5,427,47"/>
-<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Data_1_1Texture.html#ae88bb2f346291aaba4cbaebf4278095b" title=" " alt="" coords="240,71,427,112"/>
-</map>

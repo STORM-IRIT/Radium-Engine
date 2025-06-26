@@ -1,0 +1,7 @@
+<map id="Ra::Engine::Scene::SystemEntity::uiCmp" name="Ra::Engine::Scene::SystemEntity::uiCmp">
+<area shape="rect" id="Node000001" title="Access the UI Component." alt="" coords="5,5,164,45"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Engine_1_1Scene_1_1Entity.html#a3ca3bcd93a56efca0b1d2d1c1f288c23" title="Get component with a given name." alt="" coords="212,5,375,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="164,23,198,23,198,28,164,28"/>
+<area shape="rect" id="Node000003" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/algorithm/find.html#" title=" " alt="" coords="423,13,513,38"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="375,23,409,23,409,28,375,28"/>
+</map>

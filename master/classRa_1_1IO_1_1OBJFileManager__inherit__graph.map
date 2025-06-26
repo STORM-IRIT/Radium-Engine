@@ -1,5 +1,7 @@
 <map id="Ra::IO::OBJFileManager" name="Ra::IO::OBJFileManager">
-<area shape="rect" id="node1" title=" " alt="" coords="19,653,191,789"/>
-<area shape="rect" id="node2" href="$classRa_1_1IO_1_1FileManager.html" title=" " alt="" coords="5,336,204,604"/>
-<area shape="rect" id="node3" href="$classRa_1_1IO_1_1FileManager.html" title=" " alt="" coords="14,5,195,259"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="19,747,183,892"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1IO_1_1FileManager.html" title=" " alt="" coords="5,383,196,697"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="103,711,103,746,98,746,98,711"/>
+<area shape="rect" id="Node000003" href="$classRa_1_1IO_1_1FileManager.html" title=" " alt="" coords="14,5,187,305"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="103,319,103,382,98,382,98,319"/>
 </map>

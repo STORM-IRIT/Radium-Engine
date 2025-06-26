@@ -1,6 +1,0 @@
-<map id="Ra::Gui::ParameterSetEditor::setupFromParameters" name="Ra::Gui::ParameterSetEditor::setupFromParameters">
-<area shape="rect" id="node1" title="Update the different UI element with the given renderParameter, using the given constraints." alt="" coords="5,39,208,80"/>
-<area shape="rect" id="node2" href="$classRa_1_1Gui_1_1Widgets_1_1ControlPanel.html#ac0b05ce960061203216eb79d7f79d14d" title=" " alt="" coords="256,5,441,47"/>
-<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Data_1_1RenderParameters.html#af7a7544b9c818cd5d4e940fb68d9a08e" title=" " alt="" coords="257,71,441,112"/>
-<area shape="rect" id="node4" href="$classRa_1_1Core_1_1VariableSet.html#abff01d871519d7cd33380f6f8bf1899d" title="Visit the container using a user defined visitor." alt="" coords="489,71,648,112"/>
-</map>

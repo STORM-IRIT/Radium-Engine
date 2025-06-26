@@ -1,4 +1,5 @@
 <map id="Ra::Core::Task" name="Ra::Core::Task">
-<area shape="rect" id="node1" title=" " alt="" coords="33,5,147,112"/>
-<area shape="rect" id="node2" href="$classRa_1_1Core_1_1FunctionTask.html" title=" " alt="" coords="5,160,175,281"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="33,5,139,111"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Core_1_1FunctionTask.html" title=" " alt="" coords="5,159,167,284"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="89,124,89,158,83,158,83,124"/>
 </map>

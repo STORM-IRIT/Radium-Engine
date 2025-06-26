@@ -1,6 +1,5 @@
 var classRa_1_1Engine_1_1Scene_1_1DefaultLightStorage =
 [
-    [ "DefaultLightStorage", "classRa_1_1Engine_1_1Scene_1_1DefaultLightStorage.html#a833ba28877dddefb8568683aea1d84d1", null ],
     [ "add", "classRa_1_1Engine_1_1Scene_1_1DefaultLightStorage.html#a05d3c238cc09f2d4f241dd28318b10fa", null ],
     [ "clear", "classRa_1_1Engine_1_1Scene_1_1DefaultLightStorage.html#ad88d5bbdef8ca077d2394cb9465efbb4", null ],
     [ "operator[]", "classRa_1_1Engine_1_1Scene_1_1DefaultLightStorage.html#ac798e4f349738b813c2e76faf4924754", null ],

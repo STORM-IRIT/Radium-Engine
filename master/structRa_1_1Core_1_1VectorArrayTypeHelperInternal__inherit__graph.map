@@ -1,5 +1,7 @@
 <map id="Ra::Core::VectorArrayTypeHelperInternal&lt; V, isArithmetic, isEigen &gt;" name="Ra::Core::VectorArrayTypeHelperInternal&lt; V, isArithmetic, isEigen &gt;">
-<area shape="rect" id="node1" title=" " alt="" coords="18,5,249,112"/>
-<area shape="rect" id="node2" href="$structRa_1_1Core_1_1VectorArrayTypeHelperInternal.html" title=" " alt="" coords="5,233,261,384"/>
-<area shape="rect" id="node3" href="$structRa_1_1Core_1_1VectorArrayTypeHelper.html" title=" " alt="" coords="38,433,229,525"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="18,5,241,100"/>
+<area shape="rect" id="Node000002" href="$structRa_1_1Core_1_1VectorArrayTypeHelperInternal.html" title=" " alt="" coords="5,221,253,360"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="132,114,132,221,127,221,127,114"/>
+<area shape="rect" id="Node000003" href="$structRa_1_1Core_1_1VectorArrayTypeHelper.html" title=" " alt="" coords="38,409,221,489"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="132,374,132,409,127,409,127,374"/>
 </map>

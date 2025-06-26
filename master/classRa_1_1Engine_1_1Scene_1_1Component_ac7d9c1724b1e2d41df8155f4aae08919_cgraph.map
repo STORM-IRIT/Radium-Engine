@@ -1,0 +1,13 @@
+<map id="Ra::Engine::Scene::Component::removeRenderObject" name="Ra::Engine::Scene::Component::removeRenderObject">
+<area shape="rect" id="Node000001" title="Remove the render object from the component." alt="" coords="5,97,248,137"/>
+<area shape="rect" id="Node000002" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector/begin.html#" title=" " alt="" coords="309,5,451,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="168,94,295,40,317,32,318,37,297,44,170,99"/>
+<area shape="rect" id="Node000003" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector/end.html#" title=" " alt="" coords="315,55,445,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="229,94,300,80,301,85,230,99"/>
+<area shape="rect" id="Node000004" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector/erase.html#" title=" " alt="" coords="313,104,447,129"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="248,114,299,114,299,119,248,119"/>
+<area shape="rect" id="Node000005" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/algorithm/find.html#" title=" " alt="" coords="343,153,417,179"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="230,134,330,154,329,159,229,139"/>
+<area shape="rect" id="Node000006" href="$classRa_1_1Engine_1_1Scene_1_1Component.html#a32a4bfb4e9b24644d680db3852099ff3" title="Shortcut to access the render object manager." alt="" coords="296,203,464,243"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="174,134,297,188,317,196,315,201,295,192,172,139"/>
+</map>

@@ -1,0 +1,35 @@
+<map id="Ra::Engine::Data::Texture::setParameters" name="Ra::Engine::Data::Texture::setParameters">
+<area shape="rect" id="Node000001" title="set TextureParameters." alt="" coords="5,218,192,258"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Engine_1_1Data_1_1Texture.html#a6d1749892a531dfc8655e4e31aef2130" title="set TextureParameters.image" alt="" coords="240,186,427,226"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="192,223,226,218,227,223,192,228"/>
+<area shape="rect" id="Node000014" href="$classRa_1_1Engine_1_1Data_1_1Texture.html#a3a4acb7649f04da96db6f83cf5c1c0cd" title="set TerctureParameters.samples" alt="" coords="240,250,427,290"/>
+<area shape="poly" id="edge13_Node000001_Node000014" title=" " alt="" coords="192,248,227,253,226,258,192,253"/>
+<area shape="rect" id="Node000003" href="$classRa_1_1Engine_1_1Data_1_1Texture.html#a3807a53d0aba102c05bce4afcfe9e584" title="Regiter gpu task to RadiumEngine. Will call sendImageDataToGpu during next RadiumEngine::runGpuTasks(..." alt="" coords="503,186,731,226"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="427,203,489,203,489,209,427,209"/>
+<area shape="rect" id="Node000004" href="$classRa_1_1Engine_1_1Data_1_1Texture.html#a9e410de83fcf2cbb34735cb21a0e57e8" title=" " alt="" coords="828,189,1015,229"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="731,204,814,205,814,210,731,210"/>
+<area shape="rect" id="Node000005" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/utility/move.html#" title=" " alt="" coords="878,253,965,279"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="720,223,865,252,864,258,718,229"/>
+<area shape="rect" id="Node000006" href="$classRa_1_1Engine_1_1Data_1_1Texture.html#a8e1101d1adbac593576519b80ca4c64e" title="Send image data to the GPU and generate mipmap if needed." alt="" coords="828,125,1015,165"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="716,183,814,164,815,169,717,189"/>
+<area shape="rect" id="Node000007" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/iterator/begin.html#" title=" " alt="" coords="1167,5,1254,31"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="946,122,1006,80,1044,58,1083,40,1118,29,1153,21,1154,27,1119,34,1085,44,1046,63,1009,84,949,127"/>
+<area shape="rect" id="Node000008" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/iterator/end.html#" title=" " alt="" coords="1173,55,1248,80"/>
+<area shape="poly" id="edge7_Node000006_Node000008" title=" " alt="" coords="977,122,1083,89,1159,73,1160,78,1085,94,978,127"/>
+<area shape="rect" id="Node000009" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/memory/shared_ptr/get.html#" title=" " alt="" coords="1137,104,1285,129"/>
+<area shape="poly" id="edge8_Node000006_Node000009" title=" " alt="" coords="1015,133,1123,122,1123,128,1015,138"/>
+<area shape="rect" id="Node000010" href="$structRa_1_1Engine_1_1Data_1_1ImageParameters.html#a59c5dfbd96f58c7be904ac3ba028d934" title=" " alt="" coords="1084,154,1337,194"/>
+<area shape="poly" id="edge9_Node000006_Node000010" title=" " alt="" coords="1015,151,1070,157,1070,162,1015,157"/>
+<area shape="rect" id="Node000012" href="$classRa_1_1Engine_1_1Data_1_1Texture.html#ab38f11fb0bb726ce67ca44be7d8321ea" title=" " alt="" coords="1117,218,1304,258"/>
+<area shape="poly" id="edge11_Node000006_Node000012" title=" " alt="" coords="1005,162,1037,174,1061,189,1085,204,1106,211,1104,216,1083,208,1059,194,1035,179,1003,167"/>
+<area shape="rect" id="Node000013" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/algorithm/transform.html#" title=" " alt="" coords="1153,283,1268,308"/>
+<area shape="poly" id="edge12_Node000006_Node000013" title=" " alt="" coords="1016,161,1038,175,1049,186,1056,199,1062,223,1068,247,1075,257,1086,268,1112,282,1141,290,1139,295,1110,287,1082,272,1071,261,1063,249,1057,225,1051,201,1045,190,1034,179,1014,166"/>
+<area shape="rect" id="Node000011" href="$structRa_1_1Engine_1_1Data_1_1ImageParameters.html#ae22a337a6b1db115acb65741a64b73d6" title="check which type is held by texels" alt="" coords="1385,154,1639,194"/>
+<area shape="poly" id="edge10_Node000010_Node000011" title=" " alt="" coords="1337,171,1372,171,1372,177,1337,177"/>
+<area shape="rect" id="Node000015" href="$classRa_1_1Engine_1_1Data_1_1Texture.html#ac87dd0012df1520c8e915e2e96975a07" title="Regiter gpu task to RadiumEngine. Will call sendSamplerParametersToGpu during next RadiumEngine::runG..." alt="" coords="475,250,759,290"/>
+<area shape="poly" id="edge14_Node000014_Node000015" title=" " alt="" coords="427,267,461,267,461,273,427,273"/>
+<area shape="poly" id="edge15_Node000015_Node000004" title=" " alt="" coords="716,247,814,228,815,233,717,253"/>
+<area shape="poly" id="edge16_Node000015_Node000005" title=" " alt="" coords="759,265,864,264,864,269,759,271"/>
+<area shape="rect" id="Node000016" href="$classRa_1_1Engine_1_1Data_1_1Texture.html#af0eebb45ead404aaffa24020ad30bdfb" title="Send sampler parameters to the GPU." alt="" coords="807,303,1036,343"/>
+<area shape="poly" id="edge17_Node000015_Node000016" title=" " alt="" coords="732,287,794,298,793,304,731,293"/>
+</map>

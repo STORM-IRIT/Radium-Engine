@@ -1,4 +1,8 @@
 <map id="Ra::Core::Animation::Skeleton::clear" name="Ra::Core::Animation::Skeleton::clear">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,157,47"/>
-<area shape="rect" id="node2" href="$classRa_1_1Core_1_1AdjacencyList.html#a091ffa7849106832fb9ddd91626ca5ce" title="Clear the vectors." alt="" coords="205,5,380,47"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,35,157,75"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Core_1_1AdjacencyList.html#a091ffa7849106832fb9ddd91626ca5ce" title="Clear the vectors." alt="" coords="205,5,380,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="157,42,191,37,192,42,158,47"/>
+<area shape="rect" id="Node000003" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector/clear.html#" title=" " alt="" coords="428,42,559,67"/>
+<area shape="poly" id="edge3_Node000001_Node000003" title=" " alt="" coords="158,54,205,55,380,55,414,54,414,59,380,60,205,60,158,59"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="381,35,415,40,414,46,380,41"/>
 </map>

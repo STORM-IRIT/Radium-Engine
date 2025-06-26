@@ -1,0 +1,17 @@
+<map id="Ra::Engine::Data::Texture::sendImageDataToGpu" name="Ra::Engine::Data::Texture::sendImageDataToGpu">
+<area shape="rect" id="Node000001" title="Send image data to the GPU and generate mipmap if needed." alt="" coords="5,126,192,166"/>
+<area shape="rect" id="Node000002" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/iterator/begin.html#" title=" " alt="" coords="323,5,410,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="119,124,171,81,204,58,239,40,274,28,309,21,310,26,275,33,241,44,206,63,174,85,123,128"/>
+<area shape="rect" id="Node000003" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/iterator/end.html#" title=" " alt="" coords="329,55,404,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="144,123,239,89,315,72,316,77,241,94,146,128"/>
+<area shape="rect" id="Node000004" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/memory/shared_ptr/get.html#" title=" " alt="" coords="293,104,441,129"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="192,133,279,124,279,129,192,138"/>
+<area shape="rect" id="Node000005" href="$structRa_1_1Engine_1_1Data_1_1ImageParameters.html#a59c5dfbd96f58c7be904ac3ba028d934" title=" " alt="" coords="240,154,493,194"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="192,153,226,157,226,162,192,158"/>
+<area shape="rect" id="Node000007" href="$classRa_1_1Engine_1_1Data_1_1Texture.html#ab38f11fb0bb726ce67ca44be7d8321ea" title=" " alt="" coords="273,218,460,258"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="143,164,241,203,267,212,266,217,239,209,141,169"/>
+<area shape="rect" id="Node000008" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/algorithm/transform.html#" title=" " alt="" coords="309,283,424,308"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="119,164,170,217,204,245,241,268,268,278,296,285,295,291,266,283,239,272,201,249,166,221,115,168"/>
+<area shape="rect" id="Node000006" href="$structRa_1_1Engine_1_1Data_1_1ImageParameters.html#ae22a337a6b1db115acb65741a64b73d6" title="check which type is held by texels" alt="" coords="541,154,795,194"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="493,171,528,171,528,177,493,177"/>
+</map>

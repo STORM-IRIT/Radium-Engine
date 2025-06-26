@@ -1,13 +1,9 @@
 var classRa_1_1Engine_1_1Data_1_1TextureManager =
 [
-    [ "TextureManager", "classRa_1_1Engine_1_1Data_1_1TextureManager.html#affa078c0b2ca08a1fa95d3bc3f1a1c72", null ],
-    [ "~TextureManager", "classRa_1_1Engine_1_1Data_1_1TextureManager.html#aaeb5566047fbea227ae5f9df8083df0b", null ],
-    [ "addTexture", "classRa_1_1Engine_1_1Data_1_1TextureManager.html#a433fa55bb130e4423ee5ba40f3bd6937", null ],
-    [ "deleteTexture", "classRa_1_1Engine_1_1Data_1_1TextureManager.html#aa449683c1667d04ee68900a47fbce7c8", null ],
-    [ "deleteTexture", "classRa_1_1Engine_1_1Data_1_1TextureManager.html#a33a3d28a47db97b7e35f997eaa084fac", null ],
-    [ "getOrLoadTexture", "classRa_1_1Engine_1_1Data_1_1TextureManager.html#a59b5fb2a6870ae9423829a3401e4b4b6", null ],
-    [ "loadTexture", "classRa_1_1Engine_1_1Data_1_1TextureManager.html#a5680332e080cccaac9d0fe9632a8da0f", null ],
-    [ "loadTextureImage", "classRa_1_1Engine_1_1Data_1_1TextureManager.html#ab744921bc126b356965047f2d2945ee1", null ],
-    [ "updatePendingTextures", "classRa_1_1Engine_1_1Data_1_1TextureManager.html#ad923cc8938311f581488d517c913f719", null ],
-    [ "updateTextureContent", "classRa_1_1Engine_1_1Data_1_1TextureManager.html#aecfe45e96992f0e069978c564e8b0d9e", null ]
+    [ "addTexture", "classRa_1_1Engine_1_1Data_1_1TextureManager.html#ae75f5c3b31a73fde89948f82f1cbd884", null ],
+    [ "deleteTexture", "classRa_1_1Engine_1_1Data_1_1TextureManager.html#a80daa0a3a9a14ce80f84f5d5dce9f5d2", null ],
+    [ "getTexture", "classRa_1_1Engine_1_1Data_1_1TextureManager.html#a66008780cb2d2bb0d8194c914d1f617c", null ],
+    [ "getTexture", "classRa_1_1Engine_1_1Data_1_1TextureManager.html#ad4a4a5e505be06d00c26048a0ff5b6bc", null ],
+    [ "getTextureHandle", "classRa_1_1Engine_1_1Data_1_1TextureManager.html#a4b7113b8b905c4154926e1550eaf64fd", null ],
+    [ "loadTextureImage", "classRa_1_1Engine_1_1Data_1_1TextureManager.html#aca36863d46ad0b5940ca112a8996e5ff", null ]
 ];

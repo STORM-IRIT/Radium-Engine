@@ -1,4 +1,5 @@
 <map id="Ra::Core::Utils::Chrono::operator==" name="Ra::Core::Utils::Chrono::operator==">
-<area shape="rect" id="node1" title="Equal operator." alt="" coords="5,5,175,47"/>
-<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Utils_1_1Chrono.html#a6a0a4f8da02a3205e1c97d4463ad4bb0" title="Return the elapsed time for last call of run in microseconds." alt="" coords="223,5,393,47"/>
+<area shape="rect" id="Node000001" title="Equal operator." alt="" coords="5,5,175,45"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Core_1_1Utils_1_1Chrono.html#a6a0a4f8da02a3205e1c97d4463ad4bb0" title="Return the elapsed time for last call of run in microseconds." alt="" coords="223,5,393,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="175,23,209,23,209,28,175,28"/>
 </map>
