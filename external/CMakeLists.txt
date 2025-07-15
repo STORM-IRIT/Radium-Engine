@@ -28,22 +28,6 @@ else()
 
     project(${RADIUM_DEPENDENCIES_PROJECT_NAME} VERSION 1.0.0)
 
-    # Changing the default value for CMAKE_BUILD_PARALLEL_LEVEL
-    if(NOT DEFINED ENV{CMAKE_BUILD_PARALLEL_LEVEL})
-        include(ProcessorCount)
-        ProcessorCount(N)
-        if(NOT N EQUAL 0)
-            set(CTEST_BUILD_FLAGS -j${N})
-            set(ctest_test_args ${ctest_test_args} PARALLEL_LEVEL ${N})
-            set(ENV{CMAKE_BUILD_PARALLEL_LEVEL} ${N})
-        endif()
-    endif()
-
-    message(STATUS "")
-    message(STATUS "    == ${PROJECT_NAME} Project configuration ==")
-    message(STATUS "")
-    message(STATUS "Externals will be built with $ENV{CMAKE_BUILD_PARALLEL_LEVEL} core(s)")
-
     # -----------------------------------------------------------------------------
     # Set default install location to dist folder in build dir we do not want to install to /usr by
     # default
