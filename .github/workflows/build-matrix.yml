@@ -171,7 +171,7 @@ jobs:
           echo "glfw_path=-Dglfw3_DIR=$posix_path/glfw_install/lib/cmake/glfw3/" >> $GITHUB_ENV
 
           # Setting paths to dll needed by catch2 and run in build dir
-          echo "${{ github.workspace }}/glfw_install/lib/cmake/glfw3/" >> $GITHUB_PATH
+          echo "${{ github.workspace }}/glfw_install/lib/" >> $GITHUB_PATH
           echo "${{ github.workspace }}/${{ steps.paths.outputs.radium_build_dir }}/src/Core" >> $GITHUB_PATH
           echo "${{ github.workspace }}/${{ steps.paths.outputs.radium_build_dir }}/src/Engine" >> $GITHUB_PATH
           echo "${{ github.workspace }}/${{ steps.paths.outputs.radium_build_dir }}/src/Dataflow/Core" >> $GITHUB_PATH
