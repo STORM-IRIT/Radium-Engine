@@ -128,8 +128,6 @@ jobs:
           echo "external_build_dir=$external_build_dir" >> $GITHUB_OUTPUT
           echo "external_install_dir=$external_install_dir" >> $GITHUB_OUTPUT
 
-      - name: Install Ninja
-        run: ${{ runner.os == 'macOS' && 'brew install ninja' || runner.os == 'Windows' && 'choco install ninja' || 'sudo apt-get install ninja-build' }}
       - name: Add msbuild to PATH
         uses: seanmiddleditch/gha-setup-vsdevenv@master
         if: runner.os == 'Windows'
