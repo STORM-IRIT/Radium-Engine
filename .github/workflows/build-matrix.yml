@@ -213,12 +213,18 @@ jobs:
       - name: Configure and build external
         if: steps.cache-external.outputs.cache-hit != 'true'
         run: |
-          "${{ env.src_prefix }}/Radium-Engine/scripts/build.sh" -B "${{ env.build_prefix }}" -e true -r false -G Ninja --cc ${{ matrix.config.cc }} --cxx ${{ matrix.config.cxx }} -c ${{ matrix.build-type }} --install-external "${{ steps.paths.outputs.external_install_dir }}"
+          "${{ env.src_prefix }}/Radium-Engine/scripts/build.sh" -e true -r false \
+          -B "${{ env.build_prefix }}" -c ${{ matrix.build-type }} \
+          -G Ninja --cc ${{ matrix.config.cc }} --cxx ${{ matrix.config.cxx }} \
+          --install-external "${{ steps.paths.outputs.external_install_dir }}"
 
       - name: Configure and build Radium
         run: |
-          "${{ env.src_prefix }}/Radium-Engine/scripts/build.sh" -B "${{ env.build_prefix }}" -e false -r true -G Ninja --cc ${{ matrix.config.cc }} --cxx ${{ matrix.config.cxx }} \
-          -c ${{ matrix.build-type }} --install-external ${{ steps.paths.outputs.external_install_dir }} --install-radium  "${{ steps.paths.outputs.radium_install_dir }}" \
+          "${{ env.src_prefix }}/Radium-Engine/scripts/build.sh" -e false -r true \
+          -B "${{ env.build_prefix }}" -c ${{ matrix.build-type }} \
+          -G Ninja --cc ${{ matrix.config.cc }} --cxx ${{ matrix.config.cxx }} \
+          --install-external ${{ steps.paths.outputs.external_install_dir }} \
+          --install-radium  "${{ steps.paths.outputs.radium_install_dir }}" \
           -o "${{ env.glfw_path }} ${{ matrix.config.extra-flags }} ${{ matrix.coverage.extra-flags }}" \
           --use-double ${{ matrix.precision.value }} --enable-coverage ${{ matrix.coverage.value }}
 
