@@ -203,7 +203,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ${{ env.external_install_dir }}
-          key: ${{ matrix.config.name }}-${{ matrix.build-type }}-${{ matrix.qtversion.name }}-external-v1-${{ hashFiles( 'src/Radium-Engine/external/**/CMakeLists.txt') }} # no env in hashFiles
+          key: ${{ matrix.config.name }}-${{ matrix.build-type }}-${{ matrix.qtversion.name }}-external-v1-${{ hashFiles('src/Radium-Engine/external/**/CMakeLists.txt') }} # no env in hashFiles
       - name: Configure and build external
         if: steps.cache-external.outputs.cache-hit != 'true'
         run: |

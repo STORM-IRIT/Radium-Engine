@@ -1,7 +1,7 @@
 #!/bin/bash
 
 set -uoe pipefail
-set -x
+
 BLUE='\033[0;34m'
 GREEN='\033[0;32m'
 YELLOW='\033[0;33m'
@@ -10,7 +10,13 @@ COMMAND_COLOR='\033[0;90m'
 NC='\033[0m'
 
 
-JOBS=$(nproc)
+
+if [ "$(uname)" == "Darwin" ]; then
+    JOBS=$(sysctl -n hw.logicalcpu)
+else
+    JOBS=$(nproc)
+fi
+
 BUILD_TYPE=Release
 BUILD_EXT=true
 BUILD_RADIUM=true
@@ -38,6 +44,8 @@ function usage {
     echo "  -r, --build-radium BOOL Build radium (default: ${BUILD_RADIUM})"
     echo "  -G, --generator GEN     Specify CMake generator (e.g., 'Ninja')"
     echo "  -o, --options OPTS      More cmake configure options."
+    echo "            double quote if multiple OPTS, single quote if spaces"
+    echo "            as in -o \"-Da -Ddir='a b'\""
     echo "  -B, --build-prefix DIR  Set BUILD_PREFIX (Radium-Engine/build),"
     echo "            then uses BUILD_PREFIX/CONFIG/{external|Radium-Engine}"
     echo "  -i, --install DIR       Install path PREFIX"
@@ -87,7 +95,8 @@ while [[ $# -gt 0 ]]; do
             shift 2
             ;;
         -o|--options)
-            CMAKE_EXTRA_ARGS="$2"
+            eval "CMAKE_EXTRA_ARGS=($2)"
+            echo "${CMAKE_EXTRA_ARGS[@]}"
             shift 2
             ;;
         -i|--install)
@@ -210,8 +219,7 @@ if [ "${BUILD_RADIUM}" = true ]; then
           -DCMAKE_BUILD_TYPE=${BUILD_TYPE} \
           -DCMAKE_INSTALL_PREFIX=${RADIUM_INSTALL_DIR} \
           -C ${EXTERNAL_INSTALL_DIR}/radium-options.cmake \
-          ${CMAKE_ARGS:+"${CMAKE_ARGS}"}  \
-          ${CMAKE_EXTRA_ARGS:+"${CMAKE_EXTRA_ARGS}"} \
+          ${CMAKE_EXTRA_ARGS:+"${CMAKE_EXTRA_ARGS[@]}"} \
           -DRADIUM_USE_DOUBLE=${USE_DOUBLE} \
           -DRADIUM_UPDATE_VERSION=${UPDATE_VERSION} \
           -DRADIUM_ENABLE_PCH=${ENABLE_PCH} \
