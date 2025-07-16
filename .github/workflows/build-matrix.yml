@@ -163,11 +163,14 @@ jobs:
         run: |
           posix_path=$(cygpath -u "${{ github.workspace }}")
           mkdir -p "$posix_path/glfw_install/"
+          # configure glfw
           cmake -S glfw -B glfw/build-shared -G "Visual Studio 17 2022" -DBUILD_SHARED_LIBS=OFF \
           -DGLFW_BUILD_EXAMPLES=OFF -DGLFW_BUILD_TESTS=OFF -DGLFW_BUILD_DOCS=OFF \
           -DCMAKE_INSTALL_PREFIX="$posix_path/glfw_install/"
+          # build glfw
           cmake --build glfw/build-shared --parallel --config Release
           cmake --build glfw/build-shared --target install --config Release
+          # save cmake glfw opt
           echo "glfw_path=-Dglfw3_DIR=$posix_path/glfw_install/lib/cmake/glfw3/" >> $GITHUB_ENV
           # Setting paths to dll needed by catch2 and run in build dir
           echo "$posix_path/glfw_install/lib" >> $GITHUB_PATH
