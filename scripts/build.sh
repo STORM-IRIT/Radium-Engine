@@ -2,9 +2,7 @@
 
 set -uoe pipefail
 
-BLUE='\033[0;34m'
 GREEN='\033[0;32m'
-YELLOW='\033[0;33m'
 RED='\033[0;31m'
 COMMAND_COLOR='\033[0;90m'
 NC='\033[0m'
@@ -209,46 +207,46 @@ fi
 if [ "${BUILD_EXT}" = true ]; then
     echo -e "\n${GREEN}Configure externals...${NC}"
 
-    eval_verbose cmake -S ${THIS_DIR}/external -B ${EXTERNAL_BUILD_DIR} \
+    eval_verbose cmake -S "${THIS_DIR}/external" -B "${EXTERNAL_BUILD_DIR}" \
                  ${GENERATOR_ARG:+"${GENERATOR_ARG}"} \
                  ${COMPILER_ARG:+"${COMPILER_ARG}"} \
-                 -DCMAKE_BUILD_TYPE=${BUILD_TYPE} \
+                 -DCMAKE_BUILD_TYPE="${BUILD_TYPE}" \
                  -DCMAKE_EXECUTE_PROCESS_COMMAND_ECHO=NONE \
                  -DCMAKE_INSTALL_MESSAGE=LAZY \
-                 -DCMAKE_INSTALL_PREFIX=${EXTERNAL_INSTALL_DIR}
+                 -DCMAKE_INSTALL_PREFIX="${EXTERNAL_INSTALL_DIR}"
 
     echo -e "\n${GREEN}Configure externals done.${NC}"
     echo -e "\n${GREEN}Build externals...${NC}"
 
-    eval_verbose cmake --build ${EXTERNAL_BUILD_DIR} --parallel ${JOBS}\
-                 --config ${BUILD_TYPE}
+    eval_verbose cmake --build "${EXTERNAL_BUILD_DIR}" --parallel "${JOBS}" \
+                 --config "${BUILD_TYPE}"
     echo -e "\n${GREEN}Build externals done.${NC}"
 fi
 
 if [ "${BUILD_RADIUM}" = true ]; then
     echo -e "\n${GREEN}Configure Radium Engine...${NC}"
 
-    eval_verbose cmake -S ${THIS_DIR}/ -B ${RADIUM_BUILD_DIR} \
+    eval_verbose cmake -S "${THIS_DIR}/" -B "${RADIUM_BUILD_DIR}" \
                  -DCMAKE_EXECUTE_PROCESS_COMMAND_ECHO=NONE \
                  ${GENERATOR_ARG:+"${GENERATOR_ARG}"} \
                  ${COMPILER_ARG:+"${COMPILER_ARG}"} \
-                 -DCMAKE_BUILD_TYPE=${BUILD_TYPE} \
-                 -DCMAKE_INSTALL_PREFIX=${RADIUM_INSTALL_DIR} \
-                 -C ${EXTERNAL_INSTALL_DIR}/radium-options.cmake \
+                 -DCMAKE_BUILD_TYPE="${BUILD_TYPE}" \
+                 -DCMAKE_INSTALL_PREFIX="${RADIUM_INSTALL_DIR}" \
+                 -C "${EXTERNAL_INSTALL_DIR}/radium-options.cmake" \
                  ${CMAKE_EXTRA_ARGS:+"${CMAKE_EXTRA_ARGS[@]}"} \
-                 -DRADIUM_USE_DOUBLE=${USE_DOUBLE} \
-                 -DRADIUM_UPDATE_VERSION=${UPDATE_VERSION} \
-                 -DRADIUM_ENABLE_PCH=${ENABLE_PCH} \
-                 -DRADIUM_INSTALL_DOC=${INSTALL_DOC} \
-                 -DRADIUM_ENABLE_EXAMPLES=${ENABLE_EXAMPLE} \
-                 -DRADIUM_ENABLE_TESTING=${ENABLE_TESTING} \
-                 -DRADIUM_ENABLE_COVERAGE=${ENABLE_COVERAGE}
+                 -DRADIUM_USE_DOUBLE="${USE_DOUBLE}" \
+                 -DRADIUM_UPDATE_VERSION="${UPDATE_VERSION}" \
+                 -DRADIUM_ENABLE_PCH="${ENABLE_PCH}" \
+                 -DRADIUM_INSTALL_DOC="${INSTALL_DOC}" \
+                 -DRADIUM_ENABLE_EXAMPLES="${ENABLE_EXAMPLE}" \
+                 -DRADIUM_ENABLE_TESTING="${ENABLE_TESTING}" \
+                 -DRADIUM_ENABLE_COVERAGE="${ENABLE_COVERAGE}"
 
     echo -e "\n${GREEN}Configure Radium Engine done.${NC}"
     echo -e "\n${GREEN}Build Radium Engine...${NC}"
 
-    eval_verbose cmake --build ${RADIUM_BUILD_DIR} --parallel ${JOBS}\
-                 --config ${BUILD_TYPE} --target install
+    eval_verbose cmake --build "${RADIUM_BUILD_DIR}" --parallel "${JOBS}" \
+                 --config "${BUILD_TYPE}" --target install
 
     echo -e "\n${GREEN}Build Radium Engine done.${NC}"
 
