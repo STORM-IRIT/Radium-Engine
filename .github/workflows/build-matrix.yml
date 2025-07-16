@@ -127,36 +127,31 @@ jobs:
           echo "radium_install_dir=$radium_install_dir" >> $GITHUB_OUTPUT
           echo "external_build_dir=$external_build_dir" >> $GITHUB_OUTPUT
           echo "external_install_dir=$external_install_dir" >> $GITHUB_OUTPUT
-      - name: echo
-        run: |
-          echo ${{ github.workspace }}
-          echo ${{ steps.paths.outputs.radium_build_dir }}
-          echo ${{ steps.paths.outputs.radium_install_dir }}
-          echo ${{ steps.paths.outputs.external_build_dir }}
-          echo ${{ steps.paths.outputs.external_install_dir }}
-          echo ${{ env.install_prefix }}
-          echo ${{ env.build_prefix }}
-          echo ${{ env.src_prefix }}
+
       - name: Install Ninja
         run: ${{ runner.os == 'macOS' && 'brew install ninja' || runner.os == 'Windows' && 'choco install ninja' || 'sudo apt-get install ninja-build' }}
       - name: Add msbuild to PATH
         uses: seanmiddleditch/gha-setup-vsdevenv@master
         if: runner.os == 'Windows'
+
       - name: Install Qt
         uses: jurplel/install-qt-action@v4
         with:
           cache: true
           cache-key-prefix: install-qt-action-${{ matrix.config.name }}-${{ matrix.qtversion.value }}
           version: ${{ matrix.qtversion.value }}
+
       - name: Install dep Linux (normal, test, coverage)
         if: runner.os == 'Linux'
         run: |
           sudo apt-get update
           sudo apt-get install -y libglfw3-dev libxml2-utils lcov
           pip3 install fastcov
+
       - name: Install dep MacOS
         if: runner.os == 'macOS'
         run: brew install glfw
+
       - name: Install dep windows checkout
         if: runner.os == 'Windows'
         uses: actions/checkout@v2
@@ -164,6 +159,7 @@ jobs:
           repository: glfw/glfw
           ref: 3.4
           path: glfw
+
       - name: Build windows dep, config path
         if: runner.os == 'Windows'
         run: |
@@ -171,9 +167,11 @@ jobs:
           cmake -S glfw -B glfw/build-shared -G "Visual Studio 17 2022" -DBUILD_SHARED_LIBS=OFF -DGLFW_BUILD_EXAMPLES=OFF -DGLFW_BUILD_TESTS=OFF -DGLFW_BUILD_DOCS=OFF -DCMAKE_INSTALL_PREFIX=${{ github.workspace }}/glfw_install/
           cmake --build glfw/build-shared --parallel --config Release
           cmake --build glfw/build-shared --target install --config Release
-          echo "glfw-path=-Dglfw3_DIR=${{ github.workspace }}/glfw_install/lib/cmake/glfw3/" >> $GITHUB_ENV
+          posix_path=$(cygpath -u "${{ github.workspace }}")
+          echo "glfw_path=-Dglfw3_DIR=$posix_path/glfw_install/lib/cmake/glfw3/" >> $GITHUB_ENV
+
           # Setting paths to dll needed by catch2 and run in build dir
-          echo " ${{ github.workspace }}/glfw_install/lib/cmake/glfw3/" >> $GITHUB_PATH
+          echo "${{ github.workspace }}/glfw_install/lib/cmake/glfw3/" >> $GITHUB_PATH
           echo "${{ steps.paths.outputs.radium_build_dir }}/src/Core" >> $GITHUB_PATH
           echo "${{ steps.paths.outputs.radium_build_dir }}/src/Engine" >> $GITHUB_PATH
           echo "${{ steps.paths.outputs.radium_build_dir }}/src/Dataflow/Core" >> $GITHUB_PATH
@@ -186,6 +184,7 @@ jobs:
           echo "${{ steps.paths.outputs.external_install_dir }}/glbinding" >> $GITHUB_PATH
           echo "${{ steps.paths.outputs.external_install_dir }}/install_prefix/globjects" >> $GITHUB_PATH
           echo "${{ steps.paths.outputs.external_install_dir }}/install_prefix/cpplocate" >> $GITHUB_PATH
+
       - name: Prepare directories
         run: |
           mkdir -p "${{ env.src_prefix }}"
@@ -199,39 +198,46 @@ jobs:
         with:
           path: ${{ env.src_prefix }}/Radium-Engine
           submodules: 'recursive'
+
       - name: pull updated repo (e.g. with new VERSION)
         if: ${{ github.event_name == 'push' }}
         run: |
           git -C "${{ env.src_prefix }}/Radium-Engine" pull origin ${{ github.event.ref }}
           git -C "${{ env.src_prefix }}/Radium-Engine" submodule update --init --recursive
+
       - name: Cache externals
         id: cache-external
         uses: actions/cache@v4
         with:
           path: ${{ steps.paths.outputs.external_install_dir }}
           key: ${{ matrix.config.name }}-${{ matrix.build-type }}-${{ matrix.qtversion.name }}-external-v1-${{ hashFiles('src/Radium-Engine/external/**/CMakeLists.txt') }} # no env in hashFiles
+
       - name: Configure and build external
         if: steps.cache-external.outputs.cache-hit != 'true'
         run: |
           "${{ env.src_prefix }}/Radium-Engine/scripts/build.sh" -B "${{ env.build_prefix }}" -e true -r false -G Ninja --cc ${{ matrix.config.cc }} --cxx ${{ matrix.config.cxx }} -c ${{ matrix.build-type }} --install-external "${{ steps.paths.outputs.external_install_dir }}"
+
       - name: Configure and build Radium
         run: |
           "${{ env.src_prefix }}/Radium-Engine/scripts/build.sh" -B "${{ env.build_prefix }}" -e false -r true -G Ninja --cc ${{ matrix.config.cc }} --cxx ${{ matrix.config.cxx }} \
           -c ${{ matrix.build-type }} --install-external ${{ steps.paths.outputs.external_install_dir }} --install-radium  "${{ steps.paths.outputs.radium_install_dir }}" \
-          -o "${{ env.glfw-path }} ${{ matrix.config.extra-flags }} ${{ matrix.coverage.extra-flags }}" \
+          -o "${{ env.glfw_path }} ${{ matrix.config.extra-flags }} ${{ matrix.coverage.extra-flags }}" \
           --use-double ${{ matrix.precision.value }} --enable-coverage ${{ matrix.coverage.value }}
+
       - name: Run unit tests
         if: ${{ inputs.coverage == 'false' }}
         run: |
           cmake --build "${{ steps.paths.outputs.radium_build_dir }}" --parallel --config ${{ matrix.build-type }} --target check
           cmake --build "${{ steps.paths.outputs.radium_build_dir }}" --parallel --config ${{ matrix.build-type }} --target Install_CoreExample
           "${{ steps.paths.outputs.radium_install_dir }}/bin/CoreExample"
+
       - name: Extract ref for badges prefix
         if: always()
         run: |
           GITHUB_REF=${{ github.ref }}
           echo "branch=${GITHUB_REF#refs/heads/}" >> $GITHUB_OUTPUT
         id: extract-branch
+
       - name: Update badge on merge (failure)
         if: ${{ failure() && inputs.generate-badges == 'true' }}
         uses: schneegans/dynamic-badges-action@v1.0.0
@@ -244,6 +250,7 @@ jobs:
           namedLogo: ${{ matrix.config.icon }}
           logoColor: white
           color: CC1B1B
+
       - name: Update badge on merge (success)
         if: ${{ success() && inputs.generate-badges == 'true' }}
         uses: schneegans/dynamic-badges-action@v1.0.0
@@ -256,11 +263,13 @@ jobs:
           namedLogo: ${{ matrix.config.icon }}
           logoColor: white
           color: 1BCC1B
+
       - name: Create coverage report
         if: ${{ inputs.coverage == 'true' }}
         run: |
           cmake --build "${{ steps.paths.outputs.radium_build_dir }}" --config Debug --target fastcov_integration
           cmake --build "${{ steps.paths.outputs.radium_build_dir }}" --config Debug --target fastcov_unittests
+
       - name: Upload unittests coverage report
         if: ${{ inputs.coverage == 'true' }}
         uses: codecov/codecov-action@v5
@@ -271,12 +280,13 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
           verbose: true # optional (default = false)
           disable_search: true
+
       - name: Upload integration coverage report
         if: ${{ inputs.coverage == 'true' }}
         uses: codecov/codecov-action@v5
         with:
           fail_ci_if_error: true # optional (default = false)
-          files: ${{ steps.paths.outputs.radium_build_dir }}/Radium-Engine/fastcov_integration.info
+          files: ${{ steps.paths.outputs.radium_build_dir }}/fastcov_integration.info
           flags: integration
           token: ${{ secrets.CODECOV_TOKEN }}
           verbose: true # optional (default = false)
