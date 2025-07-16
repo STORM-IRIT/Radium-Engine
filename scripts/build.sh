@@ -28,6 +28,14 @@ ENABLE_EXAMPLE=ON
 ENABLE_COVERAGE=OFF
 ENABLE_TESTING=ON
 
+VERBOSE=true
+function eval_verbose {
+    if [ "$VERBOSE" = true ]; then
+        echo -e "${COMMAND_COLOR}$*${NC}"
+    fi
+    "$@"
+}
+
 # Help function
 function usage {
     echo "Usage: $0 [OPTIONS]"
@@ -96,7 +104,6 @@ while [[ $# -gt 0 ]]; do
             ;;
         -o|--options)
             eval "CMAKE_EXTRA_ARGS=($2)"
-            echo "${CMAKE_EXTRA_ARGS[@]}"
             shift 2
             ;;
         -i|--install)
@@ -200,33 +207,49 @@ if [ ! -z ${CCX+x} ]; then
 fi
 
 if [ "${BUILD_EXT}" = true ]; then
-    cmake -S ${THIS_DIR}/external -B ${EXTERNAL_BUILD_DIR} \
-          ${GENERATOR_ARG:+"${GENERATOR_ARG}"} \
-          ${COMPILER_ARG:+"${COMPILER_ARG}"} \
-          -DCMAKE_BUILD_TYPE=${BUILD_TYPE} \
-          -DCMAKE_EXECUTE_PROCESS_COMMAND_ECHO=NONE \
-          -DCMAKE_INSTALL_MESSAGE=LAZY \
-          -DCMAKE_INSTALL_PREFIX=${EXTERNAL_INSTALL_DIR}
+    echo -e "\n${GREEN}Configure externals...${NC}"
 
-    cmake --build ${EXTERNAL_BUILD_DIR} --parallel ${JOBS} --config ${BUILD_TYPE}
+    eval_verbose cmake -S ${THIS_DIR}/external -B ${EXTERNAL_BUILD_DIR} \
+                 ${GENERATOR_ARG:+"${GENERATOR_ARG}"} \
+                 ${COMPILER_ARG:+"${COMPILER_ARG}"} \
+                 -DCMAKE_BUILD_TYPE=${BUILD_TYPE} \
+                 -DCMAKE_EXECUTE_PROCESS_COMMAND_ECHO=NONE \
+                 -DCMAKE_INSTALL_MESSAGE=LAZY \
+                 -DCMAKE_INSTALL_PREFIX=${EXTERNAL_INSTALL_DIR}
+
+    echo -e "\n${GREEN}Configure externals done.${NC}"
+    echo -e "\n${GREEN}Build externals...${NC}"
+
+    eval_verbose cmake --build ${EXTERNAL_BUILD_DIR} --parallel ${JOBS}\
+                 --config ${BUILD_TYPE}
+    echo -e "\n${GREEN}Build externals done.${NC}"
 fi
 
 if [ "${BUILD_RADIUM}" = true ]; then
-    cmake -S ${THIS_DIR}/ -B ${RADIUM_BUILD_DIR} \
-          -DCMAKE_EXECUTE_PROCESS_COMMAND_ECHO=NONE \
-          ${GENERATOR_ARG:+"${GENERATOR_ARG}"} \
-          ${COMPILER_ARG:+"${COMPILER_ARG}"} \
-          -DCMAKE_BUILD_TYPE=${BUILD_TYPE} \
-          -DCMAKE_INSTALL_PREFIX=${RADIUM_INSTALL_DIR} \
-          -C ${EXTERNAL_INSTALL_DIR}/radium-options.cmake \
-          ${CMAKE_EXTRA_ARGS:+"${CMAKE_EXTRA_ARGS[@]}"} \
-          -DRADIUM_USE_DOUBLE=${USE_DOUBLE} \
-          -DRADIUM_UPDATE_VERSION=${UPDATE_VERSION} \
-          -DRADIUM_ENABLE_PCH=${ENABLE_PCH} \
-          -DRADIUM_INSTALL_DOC=${INSTALL_DOC} \
-          -DRADIUM_ENABLE_EXAMPLES=${ENABLE_EXAMPLE} \
-          -DRADIUM_ENABLE_TESTING=${ENABLE_TESTING} \
-          -DRADIUM_ENABLE_COVERAGE=${ENABLE_COVERAGE}
+    echo -e "\n${GREEN}Configure Radium Engine...${NC}"
 
-    cmake --build ${RADIUM_BUILD_DIR} --parallel ${JOBS} --config ${BUILD_TYPE} --target install
+    eval_verbose cmake -S ${THIS_DIR}/ -B ${RADIUM_BUILD_DIR} \
+                 -DCMAKE_EXECUTE_PROCESS_COMMAND_ECHO=NONE \
+                 ${GENERATOR_ARG:+"${GENERATOR_ARG}"} \
+                 ${COMPILER_ARG:+"${COMPILER_ARG}"} \
+                 -DCMAKE_BUILD_TYPE=${BUILD_TYPE} \
+                 -DCMAKE_INSTALL_PREFIX=${RADIUM_INSTALL_DIR} \
+                 -C ${EXTERNAL_INSTALL_DIR}/radium-options.cmake \
+                 ${CMAKE_EXTRA_ARGS:+"${CMAKE_EXTRA_ARGS[@]}"} \
+                 -DRADIUM_USE_DOUBLE=${USE_DOUBLE} \
+                 -DRADIUM_UPDATE_VERSION=${UPDATE_VERSION} \
+                 -DRADIUM_ENABLE_PCH=${ENABLE_PCH} \
+                 -DRADIUM_INSTALL_DOC=${INSTALL_DOC} \
+                 -DRADIUM_ENABLE_EXAMPLES=${ENABLE_EXAMPLE} \
+                 -DRADIUM_ENABLE_TESTING=${ENABLE_TESTING} \
+                 -DRADIUM_ENABLE_COVERAGE=${ENABLE_COVERAGE}
+
+    echo -e "\n${GREEN}Configure Radium Engine done.${NC}"
+    echo -e "\n${GREEN}Build Radium Engine...${NC}"
+
+    eval_verbose cmake --build ${RADIUM_BUILD_DIR} --parallel ${JOBS}\
+                 --config ${BUILD_TYPE} --target install
+
+    echo -e "\n${GREEN}Build Radium Engine done.${NC}"
+
 fi
