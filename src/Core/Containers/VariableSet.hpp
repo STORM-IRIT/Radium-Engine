@@ -7,6 +7,7 @@
 #include <Core/Utils/StdOptional.hpp>
 #include <Core/Utils/TypesUtils.hpp>
 
+#include <algorithm>
 #include <any>
 #include <functional>
 #include <map>
