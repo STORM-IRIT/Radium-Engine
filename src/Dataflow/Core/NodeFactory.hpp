@@ -70,6 +70,7 @@ class RA_DATAFLOW_CORE_API NodeFactory
      * \param nodeType the name of the concrete type
      * (the same as what is obtained by T::node_typename() on a node of type T)
      * \param nodeCreator Functor to create an node of the corresponding concrete node type.
+     * \param nodeCategory Category of the node.
      * \return true if the node creator is successfully added, false if not (e.g. due to a name
      * collision).
      */

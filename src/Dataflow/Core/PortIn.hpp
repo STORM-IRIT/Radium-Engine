@@ -87,7 +87,7 @@ class PortIn : public PortBaseIn,
     PortIn( Node* node, const std::string& name ) : PortBaseIn( node, name, typeid( T ) ) {
         add_port_type<T>();
     }
-    /// \copydoc PortIn
+    /// \copydoc PortIn( Node* node, const std::string& name )
     /// \param value default value of the port
     PortIn( Node* node, const std::string& name, const T& value ) :
         PortBaseIn( node, name, typeid( T ) ), m_defaultValue { value } {
