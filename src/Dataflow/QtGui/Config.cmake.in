@@ -34,10 +34,24 @@ if (DataflowQtGui_FOUND AND NOT TARGET DataflowQtGui)
 endif()
 
 if(Configure_DataflowQtGui)
-    set(RadiumNodeEditor_DIR "@RadiumNodeEditor_DIR@")
-    find_dependency(RadiumNodeEditor REQUIRED NO_DEFAULT_PATH)
+    include(${CMAKE_CURRENT_LIST_DIR}/../QtFunctions.cmake)
+    check_and_set_qt_version("@QT_DEFAULT_MAJOR_VERSION@")
+    find_qt_dependency(COMPONENTS Core Widgets OpenGL Xml REQUIRED)
+
+    # Theses paths reflect the paths founds in RadiumEngine/external/Gui/package
+    set(_BaseExternalDir_ "${CMAKE_CURRENT_LIST_DIR}/../../../../")
+    if("@QtNodes_DIR@" STREQUAL "")
+        set(QtNodes_DIR "${_BaseExternalDir_}/@QtNodes_sub_DIR@")
+    else()
+        set(QtNodes_DIR "@QtNodes_DIR@")
+    endif()
+    find_dependency(QtNodes REQUIRED NO_DEFAULT_PATH)
+
+
     if(MSVC OR MSVC_IDE OR MINGW)
-        add_imported_dir(FROM RadiumNodeEditor::RadiumNodeEditor TO RadiumExternalDlls_location)
+        get_target_property(QTLIB Qt::Core INTERFACE_LINK_LIBRARIES)
+        add_imported_dir(FROM ${QTLIB} TO RadiumExternalDlls_location)
+        add_imported_dir(FROM QtNodes::QtNodes TO RadiumExternalDlls_location)
     endif()
     include("${CMAKE_CURRENT_LIST_DIR}/../Dataflow/QtGui/DataflowQtGuiTargets.cmake")
 endif()
