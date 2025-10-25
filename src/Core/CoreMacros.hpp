@@ -231,7 +231,7 @@
 #   define STRONG_INLINE  inline
 #   define NO_INLINE      __attribute__((noinline))
 
-#   define DLL_EXPORT
+#   define DLL_EXPORT __attribute__((visibility("default")))
 #   define DLL_IMPORT
 
 #   define STDCALL  __attribute__((stdcall))
