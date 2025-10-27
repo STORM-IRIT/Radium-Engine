@@ -155,9 +155,8 @@ QWidget* GraphModel::getWidget( std::shared_ptr<Core::Node> node ) const {
     if ( node->parameters().size() > 0 ) {
         auto controlPanelParams = new Ra::Gui::VariableSetEditor( "Parameters", nullptr );
         controlPanelParams->setShowUnspecified( true );
-
         WidgetFactory ui_builder { node->parameters(), controlPanelParams, {} };
-        node_inputs.visit( ui_builder );
+        node->parameters().visit( ui_builder );
 
         layout->addWidget( controlPanelParams );
     }
