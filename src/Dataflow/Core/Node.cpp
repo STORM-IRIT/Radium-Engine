@@ -116,6 +116,7 @@ class NodeParameterFromJsonVisitor : public Ra::Core::DynamicVisitor
   public:
     NodeParameterFromJsonVisitor( const nlohmann::json& json ) : DynamicVisitor(), m_json { json } {
         addOperator<int>( *this );
+        addOperator<bool>( *this );
         addOperator<float>( *this );
         addOperator<std::string>( *this );
     }
