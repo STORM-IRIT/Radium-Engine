@@ -14,6 +14,10 @@ GraphModel::GraphModel( std::shared_ptr<Core::DataflowGraph> graph ) :
     m_graph { graph }, m_next_node_id { 0 } {
     fill_factory_map();
     sync_data();
+    m_widget_factory_instanciator =
+        []( Ra::Core::VariableSet& vs, Ra::Gui::VariableSetEditor* ve, const nlohmann::json& p ) {
+            return new WidgetFactory( vs, ve, p );
+        };
 }
 
 GraphModel::~GraphModel() {
@@ -145,8 +149,10 @@ QWidget* GraphModel::getWidget( std::shared_ptr<Core::Node> node ) const {
         auto controlPanelInputs = new Ra::Gui::VariableSetEditor( "Inputs default", nullptr );
         controlPanelInputs->setShowUnspecified( true );
 
-        WidgetFactory ui_builder { node_inputs, controlPanelInputs, {} };
-        node_inputs.visit( ui_builder );
+        WidgetFactory* ui_builder //{ node_inputs, controlPanelInputs, {} };
+            = m_widget_factory_instanciator( node_inputs, controlPanelInputs, {} );
+        node_inputs.visit( *ui_builder );
+        delete ui_builder;
         // empty controlPanel has 3 children, if no more, then no widget for the inputs
         if ( controlPanelInputs->children().size() > 3 )
             layout->addWidget( controlPanelInputs );
@@ -156,9 +162,10 @@ QWidget* GraphModel::getWidget( std::shared_ptr<Core::Node> node ) const {
     if ( node->parameters().size() > 0 ) {
         auto controlPanelParams = new Ra::Gui::VariableSetEditor( "Parameters", nullptr );
         controlPanelParams->setShowUnspecified( true );
-        WidgetFactory ui_builder { node->parameters(), controlPanelParams, {} };
-        node->parameters().visit( ui_builder );
-
+        WidgetFactory* ui_builder //{ node->parameters(), controlPanelParams, {} };
+            = m_widget_factory_instanciator( node->parameters(), controlPanelParams, {} );
+        node->parameters().visit( *ui_builder );
+        delete ui_builder;
         layout->addWidget( controlPanelParams );
     }
     auto g = dynamic_cast<DataflowGraph*>( node.get() );
