@@ -1,6 +1,7 @@
 #pragma once
 #include <Dataflow/RaDataflow.hpp>
 
+#include <Core/Containers/DynamicVisitor.hpp>
 #include <Core/Containers/VariableSet.hpp>
 #include <Core/Utils/Index.hpp>
 #include <Dataflow/Core/PortFactory.hpp>
@@ -17,6 +18,73 @@
 namespace Ra {
 namespace Dataflow {
 namespace Core {
+
+// -----------------------------------------------------------------
+// ---------------------- helper classes ---------------------------
+
+class NodeJsonSerializer : public Ra::Core::DynamicVisitor
+{
+  public:
+    RA_SINGLETON_INTERFACE( NodeJsonSerializer );
+
+    template <typename T>
+    void operator()( const std::string& name, T& _in, std::any&& ) {
+        nlohmann::json p;
+        p["type"]  = Ra::Core::Utils::simplifiedDemangledType<T>();
+        p["value"] = _in;
+        p["name"]  = name;
+        m_json.push_back( p );
+    }
+
+    const nlohmann::json& json() { return m_json; }
+
+  private:
+    NodeJsonSerializer() : DynamicVisitor() {
+        addOperator<bool>( *this );
+        addOperator<int>( *this );
+        addOperator<float>( *this );
+        addOperator<std::string>( *this );
+    }
+
+    nlohmann::json m_json;
+};
+
+class NodeJsonDeserializer : public Ra::Core::DynamicVisitor
+{
+  public:
+    RA_SINGLETON_INTERFACE( NodeJsonDeserializer );
+
+    template <typename T>
+    void operator()( const std::string& name, T& _in, std::any&& ) {
+        for ( const auto& p : m_json ) {
+            if ( p["name"] == name ) {
+                if ( p["type"] == Ra::Core::Utils::simplifiedDemangledType<T>() ) {
+                    p.at( "value" ).get_to( _in );
+                    return;
+                }
+                else {
+                    //                    LOG( logERROR )
+                    //                        << "Read json, bad type for parameter " << name << "
+                    //                        got " << p["type"]
+                    //                        << " instead of " <<
+                    //                        Ra::Core::Utils::simplifiedDemangledType<T>() << "\n";
+                }
+            }
+        }
+    }
+
+    void set_json( const nlohmann::json& json ) { m_json = json; }
+
+  private:
+    NodeJsonDeserializer() : DynamicVisitor() {
+        addOperator<bool>( *this );
+        addOperator<int>( *this );
+        addOperator<float>( *this );
+        addOperator<std::string>( *this );
+    }
+
+    nlohmann::json m_json;
+};
 
 /**
  * \brief Base abstract class for all the nodes added and used by the node system.
@@ -252,6 +320,7 @@ class RA_DATAFLOW_CORE_API Node
     inline bool is_input();
 
   protected:
+    virtual void add_enum_converters() {};
     /**
      * \brief Construct the base node given its name and type.
      *
@@ -498,6 +567,7 @@ inline Ra::Core::VariableSet& Node::input_variables() {
     for ( const auto& p : m_inputs ) {
         if ( p->has_default_value() ) p->insert( m_input_variables );
     }
+    add_enum_converters();
 
     return m_input_variables;
 }

@@ -1,4 +1,3 @@
-#include <Core/Containers/DynamicVisitor.hpp>
 #include <Core/Utils/Log.hpp>
 #include <Dataflow/Core/Node.hpp>
 
@@ -8,6 +7,9 @@ namespace Core {
 class PortBase;
 
 using namespace Ra::Core::Utils;
+
+RA_SINGLETON_IMPLEMENTATION( NodeJsonSerializer );
+RA_SINGLETON_IMPLEMENTATION( NodeJsonDeserializer );
 
 // display_name is instanceName unless reset afterward
 Node::Node( const std::string& instanceName, const std::string& typeName ) :
@@ -89,59 +91,6 @@ PortBase* Node::port_by_index( const std::string& type, PortIndex idx ) const {
     return port_base( m_outputs, idx );
 }
 
-class NodeParameterToJsonVisitor : public Ra::Core::DynamicVisitor
-{
-  public:
-    NodeParameterToJsonVisitor( nlohmann::json& json ) : DynamicVisitor(), m_json { json } {
-        addOperator<int>( *this );
-        addOperator<float>( *this );
-        addOperator<std::string>( *this );
-    }
-
-    template <typename T>
-    void operator()( const std::string& name, T& _in, std::any&& ) {
-        nlohmann::json p;
-        p["type"]  = Ra::Core::Utils::simplifiedDemangledType<T>();
-        p["value"] = _in;
-        p["name"]  = name;
-        m_json.push_back( p );
-    }
-
-  private:
-    nlohmann::json& m_json;
-};
-
-class NodeParameterFromJsonVisitor : public Ra::Core::DynamicVisitor
-{
-  public:
-    NodeParameterFromJsonVisitor( const nlohmann::json& json ) : DynamicVisitor(), m_json { json } {
-        addOperator<int>( *this );
-        addOperator<bool>( *this );
-        addOperator<float>( *this );
-        addOperator<std::string>( *this );
-    }
-
-    template <typename T>
-    void operator()( const std::string& name, T& _in, std::any&& ) {
-        for ( const auto& p : m_json ) {
-            if ( p["name"] == name ) {
-                if ( p["type"] == Ra::Core::Utils::simplifiedDemangledType<T>() ) {
-                    p.at( "value" ).get_to( _in );
-                    return;
-                }
-                else {
-                    LOG( logERROR )
-                        << "Read json, bad type for parameter " << name << " got " << p["type"]
-                        << " instead of " << Ra::Core::Utils::simplifiedDemangledType<T>() << "\n";
-                }
-            }
-        }
-    }
-
-  private:
-    const nlohmann::json& m_json;
-};
-
 bool Node::fromJsonInternal( const nlohmann::json& data ) {
     LOG( Ra::Core::Utils::logDEBUG )
         << "default deserialization for " << instance_name() + " " + model_name() << ".";
@@ -159,8 +108,10 @@ bool Node::fromJsonInternal( const nlohmann::json& data ) {
     }
 
     if ( const auto& params = data.find( "params" ); params != data.end() ) {
-        NodeParameterFromJsonVisitor visitor( *params );
-        m_parameters.visit( visitor );
+
+        auto visitor = NodeJsonDeserializer::getInstance();
+        visitor->set_json( *params );
+        m_parameters.visit( *visitor );
     }
     return true;
 }
@@ -186,10 +137,9 @@ void Node::toJsonInternal( nlohmann::json& data ) const {
         data["outputs"].push_back( port );
     }
 
-    nlohmann::json params;
-    NodeParameterToJsonVisitor visitor( params );
-    m_parameters.visit( visitor );
-    data["params"] = params;
+    auto visitor = NodeJsonSerializer::getInstance();
+    m_parameters.visit( *visitor );
+    data["params"] = visitor->json();
     LOG( Ra::Core::Utils::logDEBUG ) << message;
 }
 

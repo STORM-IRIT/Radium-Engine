@@ -35,6 +35,8 @@ using namespace Ra::Dataflow::Core;
 
 void CoreNodes__Initializer() {
     PortFactory::createInstance();
+    NodeJsonDeserializer::createInstance();
+    NodeJsonSerializer::createInstance();
     using namespace Ra::Dataflow::Core::NodeFactoriesManager;
     if ( factory( factory_manager().default_factory_name() ) ) { return; }
     auto factory = create_factory( factory_manager().default_factory_name() );
