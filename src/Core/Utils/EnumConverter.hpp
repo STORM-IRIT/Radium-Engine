@@ -29,8 +29,8 @@ class EnumConverter
     /// getEnumerator -> Enum
     /// After thinking, complexify management of variableset and visitor.
   public:
-    explicit EnumConverter( std::initializer_list<std::pair<EnumBaseType, std::string>> pairs ) :
-        m_valueToString { pairs } {}
+    using InitializerList = std::initializer_list<std::pair<EnumBaseType, std::string>>;
+    explicit EnumConverter( InitializerList pairs ) : m_valueToString { pairs } {}
 
     std::string getEnumerator( EnumBaseType v ) const { return m_valueToString( v ); }
     EnumBaseType getEnumerator( const std::string& v ) const { return m_valueToString.key( v ); }
