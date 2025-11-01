@@ -15,6 +15,7 @@
 #include <Core/Containers/VariableSetEnumManagement.hpp>
 #include <Gui/ParameterSetEditor/ParameterSetEditor.hpp>
 #include <Gui/Widgets/ControlPanel.hpp>
+#include <type_traits>
 
 namespace Ra {
 
@@ -77,6 +78,23 @@ class BasicUiBuilder : public Ra::Core::DynamicVisitor
         }
     }
 
+    template <typename TParam, std::enable_if_t<std::is_enum<TParam>::value, bool> = true>
+    void operator()( const std::string& name, TParam& p ) {
+        using namespace Ra::Core::VariableSetEnumManagement;
+        std::cerr << "ui builder enum " << name << "\n";
+        //        if ( getEnumConverter<TParam>( m_params, name ) ) {
+        // known enum
+        m_pse->addEnumWidget( name, p, m_params, m_constraints );
+        //        }
+        //        else {
+        //            std::cerr << "non arithmetic unknown enum\n";
+        // unknown enum, try to convert ?
+        // to be fixed
+        // m_pse->addNumberWidget<std::underlying_type_t<TParam>>( name, p, m_params,
+        // m_constraints );
+        //        }
+        std::cerr << "end ui builder enum " << name << "\n";
+    }
     template <typename TParam,
               typename TAllocator,
               std::enable_if_t<std::is_arithmetic<TParam>::value, bool> = true>
