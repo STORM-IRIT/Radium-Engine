@@ -53,7 +53,12 @@ if(Configure_IO)
         set_target_properties(
             assimp::assimp PROPERTIES MAP_IMPORTED_CONFIG_MINSIZEREL Release
                                       MAP_IMPORTED_CONFIG_RELWITHDEBINFO Release
-        )
+                                  )
+                                  set_target_properties(
+        assimp::assimp PROPERTIES MAP_IMPORTED_CONFIG_MINSIZEREL Release
+                                  MAP_IMPORTED_CONFIG_RELWITHDEBINFO Release
+                                  MAP_IMPORTED_CONFIG_DEBUG Release)
+
         if(MSVC OR MSVC_IDE OR MINGW)
             add_imported_dir(FROM assimp::assimp TO RadiumExternalDlls_location)
         endif()

@@ -25,6 +25,7 @@ endif(RADIUM_IO_TINYPLY)
 if(RADIUM_IO_ASSIMP)
     if(MSVC)
         if(${CMAKE_BUILD_TYPE} STREQUAL "Debug")
+            get_target_property(assimplib assimp::assimp IMPORTED_IMPLIB_RELEASE)
             get_target_property(assimplib assimp::assimp IMPORTED_IMPLIB_DEBUG)
         else()
             get_target_property(assimplib assimp::assimp IMPORTED_IMPLIB_RELEASE)
@@ -35,9 +36,11 @@ if(RADIUM_IO_ASSIMP)
     endif()
 
     set_target_properties(
-        assimp::assimp PROPERTIES MAP_IMPORTED_CONFIG_MINSIZEREL Release
-                                  MAP_IMPORTED_CONFIG_RELWITHDEBINFO Release
+        assimp::assimp
+        PROPERTIES MAP_IMPORTED_CONFIG_MINSIZEREL Release MAP_IMPORTED_CONFIG_RELWITHDEBINFO Release
+                   MAP_IMPORTED_CONFIG_DEBUG Release
     )
+
 endif(RADIUM_IO_ASSIMP)
 if(RADIUM_IO_TINYPLY)
     target_link_libraries(${ra_io_target} PUBLIC tinyply)
