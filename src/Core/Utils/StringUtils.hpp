@@ -48,6 +48,21 @@ replaceAllInString( std::string& inout, std::string_view what, std::string_view 
  */
 RA_CORE_API std::size_t removeAllInString( std::string& inout, std::string_view what );
 
+/**
+ * replace what open_sep xxx close_sep by with in inout
+ * e.g. what=allocator, open_sep='<'. Corresponding close_sep='>' ...
+ * skip any nested <> () ...
+ * no checks are done concerning the balancing, if not well balanced might remove all the ramaning.
+ * after remove occurs, "with" in inserted in the input.
+ */
+RA_CORE_API void replace_bracket_block( std::string& inout,
+                                        const std::string& what,
+                                        const std::string& with = "",
+                                        char open_sep           = '<' );
+
+RA_CORE_API void
+remove_bracket_block( std::string& inout, const std::string& what, char open_sep = '<' );
+
 } // namespace Utils
 } // namespace Core
 } // namespace Ra

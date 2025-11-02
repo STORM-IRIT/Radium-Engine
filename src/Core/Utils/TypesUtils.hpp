@@ -76,11 +76,15 @@ RA_CORE_API auto makeTypeReadable( const std::string& ) -> std::string;
 
 template <typename T>
 auto simplifiedDemangledType() noexcept -> std::string {
-    static auto demangled_name = []() {
-        std::string demangledType =
-            TypeInternal::makeTypeReadable( Ra::Core::Utils::demangleType<T>() );
-        return demangledType;
-    }();
+    // don't get why we need a lambda here ?
+    // static auto demangled_name = []() {
+    //     std::string demangledType =
+    //         TypeInternal::makeTypeReadable( Ra::Core::Utils::demangleType<T>() );
+    //     return demangledType;
+    // }();
+    static auto demangled_name =
+        TypeInternal::makeTypeReadable( Ra::Core::Utils::demangleType<T>() );
+
     return demangled_name;
 }
 
