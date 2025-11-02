@@ -138,6 +138,7 @@ void Node::toJsonInternal( nlohmann::json& data ) const {
     }
 
     auto visitor = NodeJsonSerializer::getInstance();
+    visitor->clear();
     m_parameters.visit( *visitor );
     data["params"] = visitor->json();
     LOG( Ra::Core::Utils::logDEBUG ) << message;
