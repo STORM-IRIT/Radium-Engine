@@ -35,7 +35,8 @@ class NodeJsonSerializer : public Ra::Core::DynamicVisitor
         p["name"]  = name;
         m_json.push_back( p );
     }
-
+    /// call clear before visit to clear json content.
+    void clear() { m_json.clear(); }
     const nlohmann::json& json() { return m_json; }
 
   private:
@@ -369,19 +370,21 @@ class RA_DATAFLOW_CORE_API Node
             /*else*/ PortOutRawPtr<T>>::type>( port_base( ports, index ) );
     }
     /**
-     *  \brief Internal json representation of the Node.
+     * \brief Internal json representation of the Node.
      *
-     *  Default implementation warn about unsupported deserialization.
-     *  Effective deserialzation must be implemented by inheriting classes.
-     *  Be careful with template specialization and function member overriding in derived classes.
+     * Default implementation warn about default serialization.
+     * Be careful with template specialization and function member overriding in derived
+     * classes.
+     * Default implementation call from_json for each input port, output port and paramteres.
      */
     virtual bool fromJsonInternal( const nlohmann::json& data );
     /**
-     *  \brief Internal json representation of the Node.
+     * \brief Internal json representation of the Node.
      *
-     *  Default implementation warn about unsupported deserialization.
-     *  Effective deserialzation must be implemented by inheriting classes.
-     *  Be careful with template specialization and function member overriding in derived classes.
+     * Default implementation warn about default deserialization.
+     * Be careful with template specialization and function member overriding in derived
+     * classes.
+     * Default implementation call to_json for each input port, output port and paramteres.
      */
     virtual void toJsonInternal( nlohmann::json& data ) const;
     /**
