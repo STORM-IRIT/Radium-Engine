@@ -27,6 +27,7 @@ class NodeJsonSerializer : public Ra::Core::DynamicVisitor
   public:
     RA_SINGLETON_INTERFACE( NodeJsonSerializer );
 
+    using DynamicVisitor::operator();
     template <typename T>
     void operator()( const std::string& name, T& _in, std::any&& ) {
         nlohmann::json p;
@@ -55,6 +56,7 @@ class NodeJsonDeserializer : public Ra::Core::DynamicVisitor
   public:
     RA_SINGLETON_INTERFACE( NodeJsonDeserializer );
 
+    using DynamicVisitor::operator();
     template <typename T>
     void operator()( const std::string& name, T& _in, std::any&& ) {
         for ( const auto& p : m_json ) {
