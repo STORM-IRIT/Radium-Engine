@@ -149,19 +149,12 @@ class PortIn : public PortBaseIn,
               std::enable_if_t<std::is_assignable<nlohmann::json, B>::value, bool> = true>
     void from_json_impl( const nlohmann::json& data ) {
         using namespace Ra::Core::Utils;
-        using json = nlohmann::json;
         if ( auto value_it = data.find( "default_value" ); value_it != data.end() ) {
             try {
                 set_default_value( ( *value_it ).template get<T>() );
             }
-            catch ( const json::type_error& e ) {
-                std::cerr << "Type error: " << e.what() << std::endl;
-            }
-            catch ( const json::exception& e ) {
-                std::cerr << "JSON exception: " << e.what() << std::endl;
-            }
-            catch ( const std::exception& e ) {
-                std::cerr << "Standard exception: " << e.what() << std::endl;
+            catch ( ... ) {
+                LOG( logERROR ) << "failed to read json default value for " << data["name"];
             }
         }
     }
