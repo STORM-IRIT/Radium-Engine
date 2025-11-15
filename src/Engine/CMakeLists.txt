@@ -30,8 +30,9 @@ target_compile_definitions(${ra_engine_target} PUBLIC GLOBJECTS_USE_EIGEN)
 target_compile_options(${ra_engine_target} PUBLIC ${RA_DEFAULT_COMPILE_OPTIONS})
 
 add_dependencies(${ra_engine_target} Core RadiumEngineShaders)
+
 target_link_libraries(
-    ${ra_engine_target} PUBLIC Core glbinding::glbinding glbinding::glbinding-aux
+    ${ra_engine_target} PUBLIC Radium::Core glbinding::glbinding glbinding::glbinding-aux
                                globjects::globjects tinyEXR::tinyEXR
 )
 

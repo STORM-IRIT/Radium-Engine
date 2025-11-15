@@ -51,7 +51,7 @@ if(RADIUM_IO_VOLUMES)
 endif()
 
 add_dependencies(${ra_io_target} Core)
-target_link_libraries(${ra_io_target} PUBLIC Core)
+target_link_libraries(${ra_io_target} PUBLIC Radium::Core)
 
 target_compile_options(${ra_io_target} PUBLIC ${RA_DEFAULT_COMPILE_OPTIONS})
 
