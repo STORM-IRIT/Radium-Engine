@@ -1,66 +1,93 @@
-cmake_policy(SET CMP0057 NEW)
-
-# Add current list dir to CMAKE_MODULE_PATH to enable find package of installed modules
-list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR})
-
-#--------------------------- Base configuration for installation and rpath settings ----------------
+cmake_minimum_required(VERSION 3.18)
+cmake_policy(SET CMP0057 NEW) # Support for IN_LIST
 
 # --------------------------------------------------------------------------------------------------
-# Load Radium rpath configuration
-include(${CMAKE_CURRENT_LIST_DIR}/RPath.cmake)
+# Project and module setup
+# --------------------------------------------------------------------------------------------------
+
+# Add current list directory to CMAKE_MODULE_PATH (so we can include local helper cmake files)
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}")
 
 # --------------------------------------------------------------------------------------------------
-# Configure components
+# Base configuration for installation and RPATH settings
+# --------------------------------------------------------------------------------------------------
+include("${CMAKE_CURRENT_LIST_DIR}/RPath.cmake")
 
-# Load Radium cmake functions
-include(${CMAKE_CURRENT_LIST_DIR}/RadiumSetupFunctions.cmake)
+# --------------------------------------------------------------------------------------------------
+# Load helper functions
+# --------------------------------------------------------------------------------------------------
+include("${CMAKE_CURRENT_LIST_DIR}/RadiumSetupFunctions.cmake")
 
 @PACKAGE_INIT@
 
-# manage components
-set(Radium_supported_components @RADIUM_COMPONENTS@)
+# --------------------------------------------------------------------------------------------------
+# Component management
+# --------------------------------------------------------------------------------------------------
+set(Radium_SUPPORTED_COMPONENTS @RADIUM_COMPONENTS@)
+
+# Default component if none is specified
+set(_Radium_DEFAULT_COMPONENT Core)
+
 if(Radium_FIND_COMPONENTS)
-    # Components are requested, fetch them and their dependencies
-    foreach(component ${Radium_FIND_COMPONENTS})
-        if(${component} IN_LIST Radium_supported_components)
-            set(${component}_FOUND True)
-            if(NOT TARGET ${component})
+    foreach(component IN LISTS Radium_FIND_COMPONENTS)
+        if(component IN_LIST Radium_SUPPORTED_COMPONENTS)
+            set("${component}_FOUND" TRUE)
+            if(NOT TARGET Radium::${component})
                 include("${CMAKE_CURRENT_LIST_DIR}/${component}/Radium${component}Config.cmake")
             endif()
         else()
-            set(Radium_FOUND False)
-            set(Radium_NOT_FOUND_MESSAGE "Unsupported component: ${component}")
+            set(Radium_FOUND FALSE)
+            set(Radium_NOT_FOUND_MESSAGE
+                "Unsupported Radium component requested: '${component}'. "
+                "Available components: ${Radium_SUPPORTED_COMPONENTS}"
+            )
         endif()
     endforeach()
 else()
-    # No component is requested, fetch only Core
-    set(Core_FOUND True)
-    if(NOT TARGET Core)
-        include("${CMAKE_CURRENT_LIST_DIR}/Core/RadiumCoreConfig.cmake")
+    # No components requested — default to Core
+    set("${_Radium_DEFAULT_COMPONENT}_FOUND" TRUE)
+    if(NOT TARGET Radium::${_Radium_DEFAULT_COMPONENT})
+        include("${CMAKE_CURRENT_LIST_DIR}/${_Radium_DEFAULT_COMPONENT}/Radium${_Radium_DEFAULT_COMPONENT}Config.cmake")
     endif()
 endif()
 
+# --------------------------------------------------------------------------------------------------
+# Root and resource directory setup
+# --------------------------------------------------------------------------------------------------
 if(NOT TARGET Radium::Core)
-    # Compute paths
-    get_filename_component(SELF_DIR "${CMAKE_CURRENT_LIST_FILE}" DIRECTORY)
-    # get up in the directories until we found a "Resources/Radium" subdir TODO : instead of
-    # 'Resources/Radium' that might not exists if Engine nor Gui are compiled, search for a file
-    # identifying Radium (a la Eigen) and that is installed at the root of the Radium Bundle
-    while(NOT EXISTS ${SELF_DIR}/Resources/Radium OR NOT ${SELF_DIR} STREQUAL "/")
-        get_filename_component(SELF_DIR "${SELF_DIR}" DIRECTORY)
+    # Compute installation root by going up until Resources/Radium exists
+    get_filename_component(_self_dir "${CMAKE_CURRENT_LIST_FILE}" DIRECTORY)
+    set(_found_root FALSE)
+
+    while(NOT "${_self_dir}" STREQUAL "/" AND NOT _found_root)
+        if(EXISTS "${_self_dir}/Resources/Radium")
+            set(RADIUM_ROOT_DIR "${_self_dir}")
+            set(_found_root TRUE)
+        else()
+            get_filename_component(_self_dir "${_self_dir}" DIRECTORY)
+        endif()
     endwhile()
 
-    if( NOT ${SELF_DIR} STREQUAL "/")
-        set(RADIUM_ROOT_DIR "${SELF_DIR}")
-    else()
-        set(RADIUM_ROOT_DIR "NOT FOUND")
+    if(NOT _found_root)
+        message(WARNING "Could not locate Radium root directory (Resources/Radium not found).")
+        set(RADIUM_ROOT_DIR "NOT_FOUND")
     endif()
 
-
-    set(RADIUM_CONFIG_DIR "${CMAKE_CURRENT_LIST_DIR}")
+    unset(_self_dir)
+    unset(_found_root)
 else()
-    set(RADIUM_CONFIG_DIR "${CMAKE_CURRENT_LIST_DIR}")
+    # Already configured as an imported target
     set(RADIUM_ROOT_DIR "${CMAKE_CURRENT_LIST_DIR}")
 endif()
+
+set(RADIUM_CONFIG_DIR "${CMAKE_CURRENT_LIST_DIR}")
 set(RADIUM_RESOURCES_DIR "${RADIUM_ROOT_DIR}/Resources/Radium")
-set(RADIUM_PLUGINS_DIR "${RADIUM_ROOT_DIR}/Plugins")
+set(RADIUM_PLUGINS_DIR   "${RADIUM_ROOT_DIR}/Plugins")
+
+# --------------------------------------------------------------------------------------------------
+# Developer feedback
+# --------------------------------------------------------------------------------------------------
+if(NOT RADIUM_ROOT_DIR STREQUAL "NOT_FOUND")
+    message(STATUS "Radium configuration loaded from: ${RADIUM_CONFIG_DIR}")
+    message(STATUS "Radium root directory: ${RADIUM_ROOT_DIR}")
+endif()
