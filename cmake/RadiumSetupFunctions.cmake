@@ -989,6 +989,24 @@ function(configure_radium_library)
 
     add_library(${ARGS_NAMESPACE}::${ARGS_TARGET} ALIAS ${ARGS_TARGET})
 
+    # -------------------------------------------------------------------------
+    # check if core has the seme use_double configuration has current build
+    get_target_property(_props Radium::Core INTERFACE_COMPILE_DEFINITIONS)
+    set(_core_use_double OFF)
+    if("CORE_USE_DOUBLE" IN_LIST _props)
+        set(_core_use_double ON)
+    endif()
+
+    if((RADIUM_USE_DOUBLE AND NOT ${_core_use_double}) OR (NOT RADIUM_USE_DOUBLE
+                                                           AND ${_core_use_double})
+    )
+        message(
+            FATAL_ERROR
+                "Mismatch RADIUM_USE_DOUBLE, ${ARS_TARGET} -> ${RADIUM_USE_DOUBLE}. Radium::Core -> ${_core_use_double}."
+        )
+    endif()
+    # -------------------------------------------------------------------------
+
     install(
         TARGETS ${ARGS_TARGET}
         EXPORT ${ARGS_TARGET}Targets
@@ -1127,6 +1145,9 @@ macro(configure_radium_target target)
     target_link_libraries(${target} PRIVATE PUBLIC ${RA_DEFAULT_LIBRARIES} INTERFACE)
 
     target_compile_definitions(${target} PRIVATE PUBLIC ${RA_DEFAULT_COMPILE_DEFINITIONS} INTERFACE)
+    if(RADIUM_USE_DOUBLE)
+        target_compile_definitions(${target} PUBLIC CORE_USE_DOUBLE)
+    endif()
 
     target_compile_options(${target} PRIVATE PUBLIC ${RA_DEFAULT_COMPILE_OPTIONS} INTERFACE)
 
