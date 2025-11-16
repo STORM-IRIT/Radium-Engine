@@ -21,7 +21,7 @@ if(NOT TARGET Radium::Core)
     set(RadiumExternalDlls_location "")
 
     find_dependency(Eigen3 REQUIRED NO_DEFAULT_PATH)
-    find_dependency(OpenMesh REQUIRED NO_DEFAULT_PATH)
+    find_dependency(OpenMesh REQUIRED COMPONENTS Core Tools NO_DEFAULT_PATH)
     find_dependency(cpplocate REQUIRED NO_DEFAULT_PATH)
     find_dependency(nlohmann_json REQUIRED NO_DEFAULT_PATH)
     find_dependency(Filesystem COMPONENTS Final Experimental REQUIRED)
