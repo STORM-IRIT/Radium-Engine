@@ -121,7 +121,6 @@ class BasicUiBuilder : public Ra::Core::DynamicVisitor
 
     template <typename T, int... dim>
     void operator()( const std::string& name, Eigen::Matrix<T, dim...>& p ) {
-        std::cerr << "ui builder matrix\n";
         m_pse->addMatrixWidget( name, p, m_params, m_constraints );
     }
 
