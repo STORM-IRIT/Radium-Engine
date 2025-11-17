@@ -1,22 +1,7 @@
 # -------------- Configuration of Radium PluginBase targets and definitions ---
 # Setup Gui and check for dependencies
-# TODO : verify if this is needed
-if(PluginBase_FOUND AND NOT TARGET PluginBase)
-    set(Configure_PluginBase ON)
-    # verify dependencies
-    if(NOT Gui_FOUND)
-        if(EXISTS "${CMAKE_CURRENT_LIST_DIR}/RadiumGuiConfig.cmake")
-            set(Gui_FOUND TRUE)
-            include(${CMAKE_CURRENT_LIST_DIR}/RadiumGuiConfig.cmake)
-        else()
-            set(Radium_FOUND False)
-            set(Radium_NOT_FOUND_MESSAGE "Radium::PluginBase: dependency Gui not found")
-            set(Configure_PluginBase OFF)
-        endif()
-    endif()
-endif()
 
-if(Configure_PluginBase)
+if(NOT TARGET Radium::PluginBase)
     include(${CMAKE_CURRENT_LIST_DIR}/../QtFunctions.cmake)
     check_and_set_qt_version("@QT_DEFAULT_MAJOR_VERSION@")
     find_qt_dependency(COMPONENTS Core REQUIRED)
@@ -25,4 +10,12 @@ if(Configure_PluginBase)
         get_target_property(QTLIB Qt::Core INTERFACE_LINK_LIBRARIES)
         add_imported_dir(FROM ${QTLIB} TO RadiumExternalDlls_location)
     endif()
+endif()
+
+if(TARGET Radium::PluginBase)
+    set(Radium_PluginBase_FOUND TRUE)
+endif()
+
+if(Radium_PluginBase_FOUND)
+    add_component_dependency(Gui)
 endif()

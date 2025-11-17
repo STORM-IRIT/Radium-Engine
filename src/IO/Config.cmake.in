@@ -1,24 +1,8 @@
 # -------------- Configuration of Radium IO targets and definitions -----------
 # Setup IO and check for dependencies
-
-# TODO: verify if this is needed
-if (IO_FOUND AND NOT TARGET IO)
-    set(Configure_IO ON)
-    # verify dependencies
-    if(NOT Core_FOUND)
-        if(EXISTS "${CMAKE_CURRENT_LIST_DIR}/RadiumCoreConfig.cmake")
-            include(${CMAKE_CURRENT_LIST_DIR}/RadiumCoreConfig.cmake)
-            set(Core_FOUND TRUE)
-        else()
-            set(Radium_FOUND False)
-            set(Radium_NOT_FOUND_MESSAGE "Radium::IO: dependency Core not found")
-            set(Configure_IO OFF)
-        endif()
-    endif()
-
-endif()
-
-if(Configure_IO)
+message("******* config io ")
+if(NOT TARGET Radium::IO)
+    message("******* not target io")
     define_property(
         TARGET PROPERTY IO_HAS_ASSIMP BRIEF_DOCS "Radium::IO has assimp support."
         FULL_DOCS "Identify if Radium::IO was compiled with assimp support."
@@ -73,5 +57,15 @@ if(Configure_IO)
         endif()
         set_target_properties(Radium::IO PROPERTIES IO_HAS_TINYPLY TRUE)
     endif()
+endif()
 
+if(TARGET Radium::IO)
+    message("******* io found")
+    set(Radium_IO_FOUND TRUE)
+endif()
+
+# Require Core
+if(Radium_IO_FOUND)
+    message("******* io found dep")
+    add_component_dependency(Core)
 endif()

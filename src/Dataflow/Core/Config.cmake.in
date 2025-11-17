@@ -1,21 +1,16 @@
 # -------------- Configuration of the Radium DataflowCore targets and definitions -----------------------
 # Setup Engine and check for dependencies
 
-if (DataflowCore_FOUND AND NOT TARGET DataflowCore)
-    set(Configure_DataflowCore ON)
+if (NOT TARGET Radium::DataflowCore)
     # verify dependencies
-    if(NOT Core_FOUND)
-        if(EXISTS "${CMAKE_CURRENT_LIST_DIR}/RadiumCoreConfig.cmake")
-            set(Core_FOUND TRUE)
-            include(${CMAKE_CURRENT_LIST_DIR}/RadiumCoreConfig.cmake)
-        else()
-            set(Radium_FOUND False)
-            set(Radium_NOT_FOUND_MESSAGE "Radium::DataflowCore: dependency Core not found")
-            set(Configure_DataflowCore OFF)
-        endif()
-    endif()
+    include("${CMAKE_CURRENT_LIST_DIR}/DataflowCoreTargets.cmake")
 endif()
 
-if(Configure_DataflowCore)
-    include("${CMAKE_CURRENT_LIST_DIR}/DataflowCoreTargets.cmake")
+if(TARGET Radium::DataflowCore)
+    set(Radium_DataflowCore_FOUND TRUE)
+endif()
+
+# Require Core
+if(Radium_DataflowCore_FOUND)
+    add_component_dependency(Core)
 endif()
