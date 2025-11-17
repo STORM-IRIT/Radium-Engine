@@ -28,12 +28,7 @@ if(NOT TARGET Radium::Gui)
     include("${CMAKE_CURRENT_LIST_DIR}/GuiTargets.cmake")
 endif()
 
-if(TARGET Radium::Gui)
-    set(Radium_Gui_FOUND TRUE)
-endif()
+check_target_set_found(Gui)
 
-# Require Core
-if(Radium_Gui_FOUND)
-    add_component_dependency(Engine)
-    add_component_dependency(IO)
-endif()
+add_component_dependency(Engine)
+add_component_dependency(IO)

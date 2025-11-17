@@ -12,10 +12,6 @@ if(NOT TARGET Radium::PluginBase)
     endif()
 endif()
 
-if(TARGET Radium::PluginBase)
-    set(Radium_PluginBase_FOUND TRUE)
-endif()
+check_target_set_found(PluginBase)
 
-if(Radium_PluginBase_FOUND)
-    add_component_dependency(Gui)
-endif()
+add_component_dependency(Gui)

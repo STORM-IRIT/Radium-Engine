@@ -1,8 +1,8 @@
 # -------------- Configuration of Radium IO targets and definitions -----------
 # Setup IO and check for dependencies
-message("******* config io ")
+
 if(NOT TARGET Radium::IO)
-    message("******* not target io")
+
     define_property(
         TARGET PROPERTY IO_HAS_ASSIMP BRIEF_DOCS "Radium::IO has assimp support."
         FULL_DOCS "Identify if Radium::IO was compiled with assimp support."
@@ -16,6 +16,7 @@ if(NOT TARGET Radium::IO)
         BRIEF_DOCS "Radium::IO has volume loader support."
         FULL_DOCS "Identify if Radium::IO was compiled with volume loader support."
     )
+
     include("${CMAKE_CURRENT_LIST_DIR}/IOTargets.cmake" )
 
     #Detect if library has been compiled with volumeIO support
@@ -25,6 +26,7 @@ if(NOT TARGET Radium::IO)
 
     # Detect if library has been compiled using assimp and tinyply
     get_target_property(deps Radium::IO INTERFACE_LINK_LIBRARIES)
+
     list(FIND deps "assimp::assimp" depAssimpFound)
     list(FIND deps "tinyply" depTinyPLYFound)
 
@@ -38,7 +40,7 @@ if(NOT TARGET Radium::IO)
             assimp::assimp PROPERTIES MAP_IMPORTED_CONFIG_MINSIZEREL Release
                                       MAP_IMPORTED_CONFIG_RELWITHDEBINFO Release
                                   )
-                                  set_target_properties(
+        set_target_properties(
         assimp::assimp PROPERTIES MAP_IMPORTED_CONFIG_MINSIZEREL Release
                                   MAP_IMPORTED_CONFIG_RELWITHDEBINFO Release
                                   MAP_IMPORTED_CONFIG_DEBUG Release)
@@ -59,13 +61,5 @@ if(NOT TARGET Radium::IO)
     endif()
 endif()
 
-if(TARGET Radium::IO)
-    message("******* io found")
-    set(Radium_IO_FOUND TRUE)
-endif()
-
-# Require Core
-if(Radium_IO_FOUND)
-    message("******* io found dep")
-    add_component_dependency(Core)
-endif()
+check_target_set_found(IO)
+add_component_dependency(Core)

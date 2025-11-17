@@ -6,11 +6,6 @@ if (NOT TARGET Radium::DataflowCore)
     include("${CMAKE_CURRENT_LIST_DIR}/DataflowCoreTargets.cmake")
 endif()
 
-if(TARGET Radium::DataflowCore)
-    set(Radium_DataflowCore_FOUND TRUE)
-endif()
+check_target_set_found(DataflowCore)
 
-# Require Core
-if(Radium_DataflowCore_FOUND)
-    add_component_dependency(Core)
-endif()
+add_component_dependency(Core)
