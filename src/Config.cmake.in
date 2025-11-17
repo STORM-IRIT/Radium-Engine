@@ -29,7 +29,6 @@ set(Radium_SUPPORTED_COMPONENTS @RADIUM_COMPONENTS@)
 set(_Radium_DEFAULT_COMPONENT Core)
 
 if(Radium_FIND_COMPONENTS)
-    set(Radium_FOUND TRUE)
     foreach(component IN LISTS Radium_FIND_COMPONENTS)
         if(component IN_LIST Radium_SUPPORTED_COMPONENTS)
             set("${component}_FOUND" TRUE)
@@ -37,7 +36,6 @@ if(Radium_FIND_COMPONENTS)
                 include("${CMAKE_CURRENT_LIST_DIR}/${component}/Radium${component}Config.cmake")
             endif()
         else()
-            set(Radium_FOUND FALSE)
             set(Radium_NOT_FOUND_MESSAGE
                 "Unsupported Radium component requested: '${component}'. "
                 "Available components: ${Radium_SUPPORTED_COMPONENTS}"
@@ -47,7 +45,6 @@ if(Radium_FIND_COMPONENTS)
 else()
     # No components requested — default to Core
     set("${_Radium_DEFAULT_COMPONENT}_FOUND" TRUE)
-    set(Radium_FOUND TRUE)
     if(NOT TARGET Radium::${_Radium_DEFAULT_COMPONENT})
         include("${CMAKE_CURRENT_LIST_DIR}/${_Radium_DEFAULT_COMPONENT}/Radium${_Radium_DEFAULT_COMPONENT}Config.cmake")
     endif()
@@ -85,6 +82,8 @@ endif()
 set(RADIUM_CONFIG_DIR "${CMAKE_CURRENT_LIST_DIR}")
 set(RADIUM_RESOURCES_DIR "${RADIUM_ROOT_DIR}/Resources/Radium")
 set(RADIUM_PLUGINS_DIR   "${RADIUM_ROOT_DIR}/Plugins")
+
+check_required_components(Radium)
 
 # --------------------------------------------------------------------------------------------------
 # Developer feedback
