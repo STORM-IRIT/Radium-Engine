@@ -59,7 +59,7 @@ configure_radium_library(
 # Generate cmake package
 configure_radium_package(
     NAME ${ra_dataflowqtgui_target} PACKAGE_CONFIG ${CMAKE_CURRENT_SOURCE_DIR}/Config.cmake.in
-    PACKAGE_DIR "lib/cmake/Radium/${ra_dataflowqtgui_target}" NAME_PREFIX "Radium"
+                                                   NAME_PREFIX "Radium"
 )
 
 set(RADIUM_COMPONENTS ${RADIUM_COMPONENTS} ${ra_dataflowqtgui_target} PARENT_SCOPE)

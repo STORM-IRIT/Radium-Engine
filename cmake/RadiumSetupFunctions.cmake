@@ -7,6 +7,7 @@
 # https://github.com/STORM-IRIT/Radium-Engine/pull/550#issuecomment-637415860
 
 cmake_minimum_required(VERSION 3.18 FATAL_ERROR)
+cmake_policy(SET CMP0177 NEW) # Support for IN_LIST
 
 if(MSVC OR MSVC_IDE OR MINGW)
     include(${CMAKE_CURRENT_LIST_DIR}/Windeployqt.cmake)
@@ -906,20 +907,20 @@ function(configure_radium_package)
     endif()
 
     configure_package_config_file(
-        ${ARGS_PACKAGE_CONFIG} "${CMAKE_CURRENT_BINARY_DIR}/${CONFIG_FILE_NAME}.cmake"
+        ${ARGS_PACKAGE_CONFIG} "${CMAKE_BINARY_DIR}/src/${CONFIG_FILE_NAME}.cmake"
         INSTALL_DESTINATION ${ARGS_PACKAGE_DIR}
     )
 
-    install(FILES "${CMAKE_CURRENT_BINARY_DIR}/${CONFIG_FILE_NAME}.cmake"
+    install(FILES "${CMAKE_BINARY_DIR}/src/${CONFIG_FILE_NAME}.cmake"
             DESTINATION ${ARGS_PACKAGE_DIR}
     )
 
     if(ARGS_PACKAGE_VERSION)
         write_basic_package_version_file(
-            "${CMAKE_CURRENT_BINARY_DIR}/${CONFIG_FILE_NAME}Version.cmake"
+            "${CMAKE_BINARY_DIR}/src/${CONFIG_FILE_NAME}Version.cmake"
             VERSION ${ARGS_PACKAGE_VERSION} COMPATIBILITY SameMajorVersion
         )
-        install(FILES "${CMAKE_CURRENT_BINARY_DIR}/${CONFIG_FILE_NAME}Version.cmake"
+        install(FILES "${CMAKE_BINARY_DIR}/src/${CONFIG_FILE_NAME}Version.cmake"
                 DESTINATION ${ARGS_PACKAGE_DIR}
         )
     endif()
@@ -1020,14 +1021,11 @@ function(configure_radium_library)
     )
     # export for build tree
     export(TARGETS ${ARGS_TARGET} NAMESPACE ${ARGS_NAMESPACE}::
-           FILE "${CMAKE_CURRENT_BINARY_DIR}/${ARGS_TARGET}Targets.cmake"
+           FILE "${CMAKE_BINARY_DIR}/src/${ARGS_TARGET}Targets.cmake"
     )
     # export for the installation tree
     if(NOT ARGS_PACKAGE_DIR)
         set(ARGS_PACKAGE_DIR lib/cmake/Radium)
-    endif()
-    if(ARGS_COMPONENT)
-        set(ARGS_PACKAGE_DIR ${ARGS_PACKAGE_DIR}/${ARGS_TARGET_DIR})
     endif()
 
     install(EXPORT ${ARGS_TARGET}Targets FILE ${ARGS_TARGET}Targets.cmake
