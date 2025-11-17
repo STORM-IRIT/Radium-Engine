@@ -7,7 +7,10 @@
 # https://github.com/STORM-IRIT/Radium-Engine/pull/550#issuecomment-637415860
 
 cmake_minimum_required(VERSION 3.18 FATAL_ERROR)
-cmake_policy(SET CMP0177 NEW) # Support for IN_LIST
+
+if(POLICY CMP0177)
+    cmake_policy(SET CMP0177 NEW) # install destination path are normalized
+endif()
 
 if(MSVC OR MSVC_IDE OR MINGW)
     include(${CMAKE_CURRENT_LIST_DIR}/Windeployqt.cmake)
