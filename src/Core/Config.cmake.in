@@ -1,5 +1,4 @@
 # -------------- Configuration of the Radium Core targets and definitions -------------------------
-include(CMakeFindDependencyMacro)
 
 if(NOT TARGET Radium::Core)
     find_dependency(Threads REQUIRED)
@@ -32,10 +31,12 @@ if(NOT TARGET Radium::Core)
     endif()
 
     include("${CMAKE_CURRENT_LIST_DIR}/CoreTargets.cmake")
+
+    define_property(
+        TARGET PROPERTY RADIUM_USE_DOUBLE BRIEF_DOCS "Radium::Core use Double as Scalar."
+        FULL_DOCS "Radium::Core use Double as Scalar. OFF -> float, ON -> double"
+    )
+    set_target_properties(Radium::Core PROPERTIES RADIUM_USE_DOUBLE @RADIUM_USE_DOUBLE@)
 endif()
 
-if(TARGET Radium::Core)
-    set(Radium_Core_FOUND TRUE)
-endif()
-# Export if radium use double or float, for client code
-set("RADIUM_USE_DOUBLE" @RADIUM_USE_DOUBLE@)
+check_target_set_found(Core)

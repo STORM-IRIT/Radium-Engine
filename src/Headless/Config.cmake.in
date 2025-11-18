@@ -1,32 +1,10 @@
 # -------------- Configuration of the Radium Engine targets and definitions ---------------------
 # Setup Headless and check for dependencies
 
-if (Headless_FOUND AND NOT TARGET Headless)
-    set(Configure_Headless ON)
-    # verify dependencies
-    if(NOT Engine_FOUND)
-        if(EXISTS "${CMAKE_CURRENT_LIST_DIR}/RadiumEngineConfig.cmake")
-            set(Engine_FOUND TRUE)
-            include(${CMAKE_CURRENT_LIST_DIR}/RadiumEngineConfig.cmake)
-        else()
-            set(Radium_FOUND False)
-            set(Radium_NOT_FOUND_MESSAGE "Radium::Headless: dependency Engine not found")
-            set(Configure_Headless OFF)
-        endif()
-    endif()
-    if(NOT IO_FOUND)
-        if(EXISTS "${CMAKE_CURRENT_LIST_DIR}/RadiumIOConfig.cmake")
-            set(IO_FOUND TRUE)
-            include(${CMAKE_CURRENT_LIST_DIR}/RadiumIOConfig.cmake)
-        else()
-            set(Radium_FOUND False)
-            set(Radium_NOT_FOUND_MESSAGE "Radium::Headless: dependency IO not found")
-            set(Configure_Headless OFF)
-        endif()
-    endif()
-endif()
+add_component_dependency(Engine)
+add_component_dependency(IO)
 
-if(Configure_Headless)
+if(NOT TARGET Radium::Headless)
     define_property(
         TARGET PROPERTY HEADLESS_HAS_GLFW BRIEF_DOCS "Radium::Headless has glfw3 support."
         FULL_DOCS "Identify if Radium::Headless was compiled with glfw3 support."
@@ -50,3 +28,5 @@ if(Configure_Headless)
         endif()
     endif()
 endif()
+
+check_target_set_found(Headless)

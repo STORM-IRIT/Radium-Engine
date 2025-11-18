@@ -2,6 +2,8 @@
 # -------------- Configuration of the Radium Engine targets and definitions -----------------------
 # Setup Engine and check for dependencies
 
+add_component_dependency(Core)
+
 # configure Engine component
 if(NOT TARGET Radium::Engine)
     set(glbinding_DIR "@glbinding_DIR@")
@@ -18,11 +20,4 @@ if(NOT TARGET Radium::Engine)
     include("${CMAKE_CURRENT_LIST_DIR}/EngineTargets.cmake")
 endif()
 
-if(TARGET Radium::Engine)
-    set(Radium_Engine_FOUND TRUE)
-endif()
-
-# Require Core
-if(Radium_Engine_FOUND)
-    add_component_dependency(Core)
-endif()
+check_target_set_found(Engine)

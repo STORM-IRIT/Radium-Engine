@@ -24,6 +24,7 @@ include("${CMAKE_CURRENT_LIST_DIR}/RadiumSetupFunctions.cmake")
 # --------------------------------------------------------------------------------------------------
 # Helper macros
 # --------------------------------------------------------------------------------------------------
+include(CMakeFindDependencyMacro)
 
 macro(add_component_dependency comp)
     if(NOT ${comp} IN_LIST Radium_FIND_COMPONENTS)

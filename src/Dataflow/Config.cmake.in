@@ -1,6 +1,8 @@
 # -------------- Configuration of the Radium Dataflow targets and definitions -----------------------
 # Setup Dataflow and check for dependencies
 
+add_component_dependency(DataflowCore)
+add_component_dependency(DataflowQtGui)
 
 # configure Dataflow component
 if(NOT TARGET Radium::Dataflow)
@@ -8,6 +10,3 @@ if(NOT TARGET Radium::Dataflow)
 endif()
 
 check_target_set_found(Dataflow)
-
-add_component_dependency(DataflowCore)
-add_component_dependency(DataflowQtGui)

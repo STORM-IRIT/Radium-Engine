@@ -1,6 +1,8 @@
 # -------------- Configuration of Radium IO targets and definitions -----------
 # Setup IO and check for dependencies
 
+add_component_dependency(Core)
+
 if(NOT TARGET Radium::IO)
 
     define_property(
@@ -62,4 +64,3 @@ if(NOT TARGET Radium::IO)
 endif()
 
 check_target_set_found(IO)
-add_component_dependency(Core)
