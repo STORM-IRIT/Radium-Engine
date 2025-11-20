@@ -21,7 +21,7 @@ if(NOT DEFINED QtNodes_DIR)
     ExternalProject_Add(
         QtNodes
         GIT_REPOSITORY https://github.com/paceholder/nodeeditor.git
-        GIT_TAG 34b6f81
+        GIT_TAG 3.0.12
         GIT_SHALLOW TRUE
         GIT_PROGRESS TRUE
         INSTALL_DIR "${CMAKE_INSTALL_PREFIX}"
