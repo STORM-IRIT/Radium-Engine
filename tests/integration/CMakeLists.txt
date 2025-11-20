@@ -25,8 +25,7 @@ add_custom_command(
         bash -c
         "$<TARGET_FILE:integration_${INTEGRATION_TEST}>  2>&1 | cut -f4- -d: | grep -v \"Loading Time\" > ${CMAKE_CURRENT_SOURCE_DIR}/data/references/${INTEGRATION_TEST}.txt"
     COMMAND_EXPAND_LISTS VERBATIM
-    COMMENT "generating references for integration_${INTEGRATION_TEST} integration test" DEPENDS
-            integration_${INTEGRATION_TEST}
+    COMMENT "generating references for integration_${INTEGRATION_TEST} integration test"
 )
 
 add_test(
@@ -167,9 +166,13 @@ if(UNIX AND TARGET ${INTEGRATION_TEST})
             COMMAND
                 bash -c "$<TARGET_FILE:${INTEGRATION_TEST}>" && cp
                 "${CMAKE_CURRENT_BINARY_DIR}/frame.png"
-                "${CMAKE_CURRENT_SOURCE_DIR}/data/references/${INTEGRATION_TEST}.png" DEPENDS
-                integration_${INTEGRATION_TEST}
+                "${CMAKE_CURRENT_SOURCE_DIR}/data/references/${INTEGRATION_TEST}.png"
         )
+        set_tests_properties(
+            integration_${INTEGRATION_TEST} PROPERTIES DEPENDS
+                                                       integration_${INTEGRATION_TEST}_create_ref
+        )
+
     else()
         message(
             STATUS
