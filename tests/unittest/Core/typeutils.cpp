@@ -37,8 +37,8 @@ TEST_CASE( "Core/Utils/TypesUtils", "[unittests][Core][Utils][TypesUtils]" ) {
                  "std::vector<float, std::allocator<float>>" );
 
         std::string string_vector_type =
-            "std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, "
-            "std::allocator<char>>, std::allocator<std::__cxx11::basic_string<char, "
+            "std::vector<std::basic_string<char, std::char_traits<char>, "
+            "std::allocator<char>>, std::allocator<std::basic_string<char, "
             "std::char_traits<char>, std::allocator<char>>>>";
         REQUIRE( demangleType( std::vector<std::string> {} ) == string_vector_type );
         REQUIRE( demangleType<std::vector<std::string>>() == string_vector_type );
@@ -53,12 +53,12 @@ TEST_CASE( "Core/Utils/TypesUtils", "[unittests][Core][Utils][TypesUtils]" ) {
                  simplified_string_vector_type );
 
         REQUIRE( demangleType<std::unordered_map<std::string, TypeTests::SimpleStruct>>() ==
-                 "std::unordered_map<std::__cxx11::basic_string<char, std::char_traits<char>, "
+                 "std::unordered_map<std::basic_string<char, std::char_traits<char>, "
                  "std::allocator<char>>, TypeTests::SimpleStruct, "
-                 "std::hash<std::__cxx11::basic_string<char, std::char_traits<char>, "
-                 "std::allocator<char>>>, std::equal_to<std::__cxx11::basic_string<char, "
+                 "std::hash<std::basic_string<char, std::char_traits<char>, "
+                 "std::allocator<char>>>, std::equal_to<std::basic_string<char, "
                  "std::char_traits<char>, std::allocator<char>>>, "
-                 "std::allocator<std::pair<std::__cxx11::basic_string<char, "
+                 "std::allocator<std::pair<std::basic_string<char, "
                  "std::char_traits<char>, "
                  "std::allocator<char>> const, TypeTests::SimpleStruct>>>" );
 
@@ -66,11 +66,11 @@ TEST_CASE( "Core/Utils/TypesUtils", "[unittests][Core][Utils][TypesUtils]" ) {
         REQUIRE( demangleType<TypeTests::SimpleStruct>() == "TypeTests::SimpleStruct" );
 
         REQUIRE( demangleType<TypeTests::PairAlias>() ==
-                 "std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, "
+                 "std::pair<std::basic_string<char, std::char_traits<char>, "
                  "std::allocator<char>>, bool>" );
         REQUIRE( demangleType<std::vector<TypeTests::PairAlias>>() ==
-                 "std::vector<std::pair<std::__cxx11::basic_string<char, std::char_traits"
-                 "<char>, std::allocator<char>>, bool>, std::allocator<std::pair<std::__cxx11::"
+                 "std::vector<std::pair<std::basic_string<char, std::char_traits"
+                 "<char>, std::allocator<char>>, bool>, std::allocator<std::pair<std::"
                  "basic_string<char, std::char_traits<char>, std::allocator<char>>, bool>>>" );
 
         REQUIRE( simplifiedDemangledType<std::vector<float>>() == "vector<Scalar>" );
