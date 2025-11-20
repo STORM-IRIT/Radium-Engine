@@ -35,7 +35,7 @@ if(NOT TARGET Radium::IO)
     if(depAssimpFound GREATER_EQUAL "0")
         set(assimp_DIR "@assimp_DIR@")
 
-        find_dependency(assimp 5.0 REQUIRED NO_DEFAULT_PATH)
+        find_dependency(assimp 6.0 REQUIRED NO_DEFAULT_PATH)
         # Assimp do not have minsizerel nor relwithdebinfo target, so map it to release (\todo deep
         # check)
         set_target_properties(

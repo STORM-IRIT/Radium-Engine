@@ -14,35 +14,19 @@ include(filelist.cmake)
 add_library(${ra_io_target} SHARED ${io_sources} ${io_headers})
 
 if(RADIUM_IO_ASSIMP)
-    find_package(assimp 5.0 REQUIRED NO_DEFAULT_PATH)
+    find_package(assimp 6.0 REQUIRED NO_DEFAULT_PATH)
     set_target_properties(${ra_io_target} PROPERTIES IO_HAS_ASSIMP ${RADIUM_IO_ASSIMP})
+    set_target_properties(
+        assimp::assimp PROPERTIES MAP_IMPORTED_CONFIG_MINSIZEREL Release
+                                  MAP_IMPORTED_CONFIG_RELWITHDEBINFO Release
+    )
+
+    target_link_libraries(${ra_io_target} PUBLIC assimp::assimp)
 endif(RADIUM_IO_ASSIMP)
+
 if(RADIUM_IO_TINYPLY)
     find_package(tinyply REQUIRED NO_DEFAULT_PATH)
     set_target_properties(${ra_io_target} PROPERTIES IO_HAS_TINYPLY ${RADIUM_IO_TINYPLY})
-endif(RADIUM_IO_TINYPLY)
-
-if(RADIUM_IO_ASSIMP)
-    if(MSVC)
-        if(${CMAKE_BUILD_TYPE} STREQUAL "Debug")
-            get_target_property(assimplib assimp::assimp IMPORTED_IMPLIB_RELEASE)
-            get_target_property(assimplib assimp::assimp IMPORTED_IMPLIB_DEBUG)
-        else()
-            get_target_property(assimplib assimp::assimp IMPORTED_IMPLIB_RELEASE)
-        endif()
-        target_link_libraries(${ra_io_target} PUBLIC ${assimplib})
-    else()
-        target_link_libraries(${ra_io_target} PUBLIC assimp::assimp)
-    endif()
-
-    set_target_properties(
-        assimp::assimp
-        PROPERTIES MAP_IMPORTED_CONFIG_MINSIZEREL Release MAP_IMPORTED_CONFIG_RELWITHDEBINFO Release
-                   MAP_IMPORTED_CONFIG_DEBUG Release
-    )
-
-endif(RADIUM_IO_ASSIMP)
-if(RADIUM_IO_TINYPLY)
     target_link_libraries(${ra_io_target} PUBLIC tinyply)
 endif(RADIUM_IO_TINYPLY)
 
