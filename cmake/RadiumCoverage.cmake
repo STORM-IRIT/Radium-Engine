@@ -42,7 +42,7 @@ function(radium_setup_coverage_targets)
             message(STATUS "add coverage flags to ${TARGET}")
             if(DEFINED LLVM_COVERAGE)
                 target_compile_options(
-                    ${TARGET} PRIVATE -fprofile-instr-generate -fcoverage-mapping
+                    ${TARGET} PRIVATE -fprofile-instr-generate -fcoverage-mapping -O0 -g
                 )
                 target_link_options(${TARGET} PRIVATE -fprofile-instr-generate -fcoverage-mapping)
                 if(NOT ${TARGET} MATCHES "unittests")
