@@ -27,7 +27,8 @@ jobs:
     with:
       windows: "false"
       macos: "false"
-      build-release: "false"
+      build-release: "true"
+      build-debug: "false"
       coverage: "true"
     secrets:
       CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
