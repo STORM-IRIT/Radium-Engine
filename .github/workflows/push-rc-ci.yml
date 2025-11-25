@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - release-candidate
+    paths-ignore:
+      - 'VERSION'
 
 jobs:
   increase-version-number:

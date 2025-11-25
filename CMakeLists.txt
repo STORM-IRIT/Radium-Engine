@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.18 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.18...3.30 FATAL_ERROR)
 
 # ------------------------------------------------------------------------------
 # Policies and global parameters for CMake
