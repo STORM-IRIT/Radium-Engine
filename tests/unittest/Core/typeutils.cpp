@@ -8,8 +8,8 @@ namespace TypeTests {
 struct TypeName_struct {};
 
 struct SimpleStruct {
-    std::vector<std::string> strings;
-    bool boolean;
+    std::vector<std::string> strings; // cppcheck-suppress unusedStructMember
+    bool boolean;                     // cppcheck-suppress unusedStructMember
 };
 using PairAlias = std::pair<std::string, bool>;
 
