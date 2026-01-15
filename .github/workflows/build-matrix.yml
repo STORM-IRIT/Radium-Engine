@@ -36,6 +36,10 @@ on:
         required: false
         type: string
         default: "true"
+      linux-clang:
+        required: false
+        type: string
+        default: "true"
       build-release:
         required: false
         type: string
@@ -74,7 +78,7 @@ jobs:
           [[ "true" == "${{ inputs.windows }}" && "true" == "${{inputs.linux}}" ]] && echo ','
           [[ "true" == "${{ inputs.linux }}" ]] && echo '{ "name": "Ubuntu gcc", "os": "ubuntu-latest", "cc": "gcc", "cxx": "g++", "icon": "Linux", "extra-flags": "-DCMAKE_CXX_FLAGS=-Wno-deprecated-declarations -DRADIUM_ENABLE_GL_TESTING=ON" }'
           [[ "true" == "${{ inputs.windows }}" || "true" == "${{inputs.linux}}" ]] && [[ "true" == "${{inputs.macos}}" ]] && echo ','
-          [[ "true" == "${{ inputs.macos }}" ]] && echo '{ "name": "MacOS clang", "os": "macos-13", "cc": "clang", "cxx": "clang++", "icon": "Apple", "extra-flags": "-DCMAKE_CXX_FLAGS=-Wno-deprecated-declarations" }'
+          [[ "true" == "${{ inputs.macos }}" ]] && echo '{ "name": "MacOS clang", "os": "macos-15", "cc": "clang", "cxx": "clang++", "icon": "Apple", "extra-flags": "-DCMAKE_CXX_FLAGS=-Wno-deprecated-declarations" }'
           echo '],'
           echo '"build-type" : ['
           [[ "true" == "${{ inputs.build-debug }}" ]] && echo '"Debug"'
@@ -219,7 +223,7 @@ jobs:
         run: |
           "${{ env.src_prefix }}/Radium-Engine/scripts/build.sh" -e true -r false \
           -B "${{ env.build_prefix }}" -c ${{ matrix.build-type }} \
-          -G Ninja --cc ${{ matrix.config.cc }} --cxx ${{ matrix.config.cxx }} \
+          -G Ninja --cc "${{ matrix.config.cc }}" --cxx "${{ matrix.config.cxx }}" \
           --install-external "${{ steps.paths.outputs.external_install_dir }}"
 
       - name: Configure and build Radium
