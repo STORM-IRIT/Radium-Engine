@@ -72,16 +72,16 @@ size_t CameraManager::count() const {
     return m_data->size();
 }
 
+class RoUpdater : public Ra::Core::Task
+{
+  public:
+    void process() override { m_camera->updateTransform(); }
+    std::string getName() const override { return "camera updater"; }
+    CameraComponent* m_camera;
+};
+
 void CameraManager::generateTasks( Core::TaskQueue* taskQueue,
                                    const Engine::FrameInfo& /*frameInfo*/ ) {
-
-    class RoUpdater : public Ra::Core::Task
-    {
-      public:
-        void process() override { m_camera->updateTransform(); }
-        std::string getName() const override { return "camera updater"; }
-        CameraComponent* m_camera;
-    };
 
     // only update visible components.
     for ( size_t i = 0; i < m_data->size(); ++i ) {
