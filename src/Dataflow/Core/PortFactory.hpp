@@ -67,8 +67,8 @@ class RA_DATAFLOW_CORE_API PortFactory
                 return &( casted->data() );
             };
             m_output_setter[type] = []( PortBaseOut* port, std::any any ) {
-                T* data     = std::any_cast<T*>( any );
-                auto casted = dynamic_cast<PortOut<T>*>( port );
+                const T* data = std::any_cast<const T*>( any );
+                auto casted   = dynamic_cast<PortOut<T>*>( port );
                 casted->set_data( data );
             };
 

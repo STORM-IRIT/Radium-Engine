@@ -45,7 +45,7 @@ class RA_DATAFLOW_CORE_API PortBaseIn : public PortBase
     void set_default_value( const T& value );
 
     template <typename T>
-    T& data();
+    const T& data();
 
   protected:
     /**
@@ -106,7 +106,7 @@ class PortIn : public PortBaseIn,
      * Fails if note link nor has a default value, check with has_data beforehand if needed.
      * \return T& The reference to the data.
      */
-    T& data();
+    const T& data();
 
     /// \name Manage the connection with a PortOut.
     /// @{
@@ -197,12 +197,12 @@ void PortBaseIn::set_default_value( const T& value ) {
 }
 
 template <typename T>
-T& PortBaseIn::data() {
+const T& PortBaseIn::data() {
     return static_cast<PortIn<T>*>( this )->data();
 }
 
 template <typename T>
-T& PortIn<T>::data() {
+const T& PortIn<T>::data() {
     if ( is_linked() ) return m_from->data();
     if ( m_defaultValue ) return *m_defaultValue;
     CORE_ASSERT( false, "should not get here" );

@@ -62,7 +62,7 @@ template <typename t_a,
           bool it_b   = Ra::Core::Utils::is_container<t_b>::value,
           bool it_out = Ra::Core::Utils::is_container<t_out>::value>
 struct ExecutorHelper {
-    static t_out executeInternal( t_a&, t_b&, funcType ) {
+    static t_out executeInternal( const t_a&, const t_b&, funcType ) {
         static_assert( ( ( it_a || it_b ) ? it_out : !it_out ), "Invalid template parameter " );
     }
 };
@@ -72,7 +72,7 @@ struct ExecutorHelper {
  */
 template <typename t_a, typename t_b, typename t_out, typename funcType>
 struct ExecutorHelper<t_a, t_b, t_out, funcType, true, true, true> {
-    static t_out executeInternal( t_a& a, t_b& b, funcType f ) {
+    static t_out executeInternal( const t_a& a, const t_b& b, funcType f ) {
         t_out res;
         std::transform( a.begin(),
                         a.end(),
@@ -90,7 +90,7 @@ struct ExecutorHelper<t_a, t_b, t_out, funcType, true, true, true> {
  */
 template <typename t_a, typename t_b, typename t_out, typename funcType>
 struct ExecutorHelper<t_a, t_b, t_out, funcType, true, false, true> {
-    static t_out executeInternal( t_a& a, t_b& b, funcType f ) {
+    static t_out executeInternal( const t_a& a, const t_b& b, funcType f ) {
         t_out res;
         std::transform( a.begin(),
                         a.end(),
@@ -106,7 +106,7 @@ struct ExecutorHelper<t_a, t_b, t_out, funcType, true, false, true> {
  */
 template <typename t_a, typename t_b, typename t_out, typename funcType>
 struct ExecutorHelper<t_a, t_b, t_out, funcType, false, true, true> {
-    static t_out executeInternal( t_a& a, t_b& b, funcType f ) {
+    static t_out executeInternal( const t_a& a, const t_b& b, funcType f ) {
         t_out res;
         std::transform( b.begin(),
                         b.end(),
@@ -122,7 +122,7 @@ struct ExecutorHelper<t_a, t_b, t_out, funcType, false, true, true> {
  */
 template <typename t_a, typename t_b, typename t_out, typename funcType>
 struct ExecutorHelper<t_a, t_b, t_out, funcType, false, false, false> {
-    static t_out executeInternal( t_a& a, t_b& b, funcType f ) { return f( a, b ); }
+    static t_out executeInternal( const t_a& a, const t_b& b, funcType f ) { return f( a, b ); }
 };
 } // namespace internal
 
