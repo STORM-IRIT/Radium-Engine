@@ -677,7 +677,7 @@ void DataflowGraph::Log::bad_port_index( const std::string& type,
 }
 
 void DataflowGraph::Log::try_to_link_input_to_output() {
-    LOG( logERROR ) << "DataflowGraph could not link input to ouput directrly";
+    LOG( logERROR ) << "DataflowGraph could not link input to ouput directly";
 }
 
 } // namespace Core
