@@ -45,7 +45,7 @@ class SingleDataSourceNode : public Node
      * \brief Get the delivered data
      * @return The non owning pointer (alias) to the delivered data.
      */
-    T* data() const;
+    const T* data() const;
 
   protected:
     bool fromJsonInternal( const nlohmann::json& data ) override {
@@ -89,7 +89,7 @@ void SingleDataSourceNode<T>::set_data( T data ) {
 }
 
 template <typename T>
-T* SingleDataSourceNode<T>::data() const {
+const T* SingleDataSourceNode<T>::data() const {
     return &( m_port_in_from->data() );
 }
 

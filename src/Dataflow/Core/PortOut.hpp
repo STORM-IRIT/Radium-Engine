@@ -30,13 +30,13 @@ class RA_DATAFLOW_CORE_API PortBaseOut : public PortBase
     /// Get data stored at this outpute port
     /// Check if this port type it the same as T
     template <typename T>
-    T& data();
+    const T& data();
 
     /// Set port data pointer.
     /// Check if this port type it the same as T
     /// @param data The pointer to the data.
     template <typename T>
-    void set_data( T* data );
+    void set_data( const T* data );
 
     // called by PortIn when connect
     virtual void increase_link_count() {
@@ -95,10 +95,10 @@ class PortOut : public PortBaseOut
     /// @}
 
     /// Gets a reference to the data this ports points to.
-    T& data() { return *m_data; }
+    const T& data() { return *m_data; }
     /// Takes a pointer to the data this port will point to.
     /// @param data The pointer to the data.
-    void set_data( T* data ) { m_data = data; }
+    void set_data( const T* data ) { m_data = data; }
     /// Returns true if the pointer to the data is not null.
     bool has_data() override { return ( m_data ); }
 
@@ -107,7 +107,7 @@ class PortOut : public PortBaseOut
      *
      * Use raw ptr since data belongs to the node and can be plain stack variable
      */
-    T* m_data { nullptr };
+    const T* m_data { nullptr };
 
 }; // class PortOut<T>
 
@@ -120,7 +120,7 @@ using PortBaseOutRawPtr = PortRawPtr<PortBaseOut>;
 using PortBaseOutPtr    = PortPtr<PortBaseOut>;
 
 template <typename T>
-T& PortBaseOut::data() {
+const T& PortBaseOut::data() {
     auto thisOut = dynamic_cast<PortOut<T>*>( this );
     if ( thisOut && thisOut->has_data() ) { return thisOut->data(); }
 
@@ -132,7 +132,7 @@ T& PortBaseOut::data() {
 }
 
 template <typename T>
-void PortBaseOut::set_data( T* data ) {
+void PortBaseOut::set_data( const T* data ) {
     auto thisOut = dynamic_cast<PortOut<T>*>( this );
     if ( thisOut ) {
         thisOut->set_data( data );
