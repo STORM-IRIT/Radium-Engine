@@ -558,8 +558,8 @@ TEST_CASE( "Core/Geometry/TopologicalMesh/EdgeSplit",
 TEST_CASE( "Core/Geometry/TopologicalMesh/Manifold",
            "[unittests][Core][Core/Geometry][TopologicalMesh]" ) {
     SECTION( "Non manifold faces" ) {
-        struct MyNonManifoldCommand {
-            explicit inline MyNonManifoldCommand( int target ) : targetNonManifoldFaces( target ) {}
+        struct NonManifoldCommand1 {
+            explicit inline NonManifoldCommand1( int target ) : targetNonManifoldFaces( target ) {}
             inline void initialize( const MultiIndexedGeometry& ) {}
             inline void process( const std::vector<TopologicalMesh::VertexHandle>& ) {
                 LOG( logINFO ) << "Non Manifold face found";
@@ -595,7 +595,7 @@ TEST_CASE( "Core/Geometry/TopologicalMesh/Manifold",
         // with and without the command.
         auto testConverter = []( const TriangleMesh& referenceMesh,
                                  const TriangleMesh& candidateMesh,
-                                 MyNonManifoldCommand command ) {
+                                 NonManifoldCommand1 command ) {
             // test with functor
             TopologicalMesh topoWithCommand { candidateMesh, command };
             auto convertedMeshWithCommand = topoWithCommand.toTriangleMesh();
@@ -648,7 +648,7 @@ TEST_CASE( "Core/Geometry/TopologicalMesh/Manifold",
         auto mesh2 = buildMesh( vertices_2, normals_2, indices_2 );
 
         testConverter(
-            mesh, mesh2, MyNonManifoldCommand( 1 ) ); // we should find 1 non-manifold face
+            mesh, mesh2, NonManifoldCommand1( 1 ) ); // we should find 1 non-manifold face
 
         // test with unsupported attribute type
         LOG( logINFO ) << "Test with unsupported attribute (all faces are manifold)";
@@ -664,7 +664,7 @@ TEST_CASE( "Core/Geometry/TopologicalMesh/Manifold",
         REQUIRE( !mesh4.vertexAttribs().hasSameAttribs( mesh3.vertexAttribs() ) );
         REQUIRE( !mesh3.vertexAttribs().hasSameAttribs( mesh4.vertexAttribs() ) );
         mesh4 = testConverter(
-            mesh, mesh3, MyNonManifoldCommand( 0 ) ); // we should find 0 non-manifold face
+            mesh, mesh3, NonManifoldCommand1( 0 ) ); // we should find 0 non-manifold face
         REQUIRE( mesh4.vertexAttribs().hasSameAttribs( mesh.vertexAttribs() ) );
         REQUIRE( mesh.vertexAttribs().hasSameAttribs( mesh4.vertexAttribs() ) );
         REQUIRE( !mesh4.vertexAttribs().hasSameAttribs( mesh3.vertexAttribs() ) );
@@ -701,8 +701,8 @@ TEST_CASE( "Core/Geometry/TopologicalMesh/Manifold",
     }
     SECTION( "Non manifold vertex : Double pyramid" ) {
 
-        struct MyNonManifoldCommand {
-            explicit inline MyNonManifoldCommand(
+        struct NonManifoldCommand2 {
+            explicit inline NonManifoldCommand2(
                 std::vector<std::vector<TopologicalMesh::VertexHandle>>& faulty ) :
                 m_faulty( faulty ) {}
             inline void initialize( const MultiIndexedGeometry& ) {}
@@ -736,7 +736,7 @@ TEST_CASE( "Core/Geometry/TopologicalMesh/Manifold",
         mesh.setIndices( std::move( indices ) );
         std::vector<std::vector<TopologicalMesh::VertexHandle>> faulty;
 
-        MyNonManifoldCommand command { faulty };
+        NonManifoldCommand2 command { faulty };
         TopologicalMesh topo { mesh, command };
 
         for ( auto itr = faulty.begin(); itr != faulty.end(); ++itr ) {
