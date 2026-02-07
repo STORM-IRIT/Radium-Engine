@@ -9,6 +9,8 @@
 #include <Dataflow/Core/Sinks/Types.hpp>
 #include <Dataflow/Core/Sources/Types.hpp>
 
+#include "tempdir.hpp"
+
 TEST_CASE( "Dataflow/Core/DataflowGraph/Serialization",
            "[unittests][Dataflow][Core][DataflowGraph]" ) {
     SECTION( "Execution and modification of a graph" ) {
@@ -50,16 +52,18 @@ TEST_CASE( "Dataflow/Core/DataflowGraph/Serialization",
         REQUIRE( z == x + y );
 
         // Save the graph
-        std::string tmpdir { "tmpDir4Tests" };
-        std::filesystem::create_directories( tmpdir );
-        g.saveToJson( tmpdir + "/GraphSerializationTest.json" );
+        // Creates a temporary directory in the system's temp folder.
+        bw::tempdir::TempDir temp_dir( bw::tempdir::Cleanup::on_success );
+        auto test_file = temp_dir.path() / "GraphSerializationTest.json";
+
+        g.saveToJson( test_file );
         g.destroy();
         // this does nothing as g was destroyed
         REQUIRE( g.execute() );
 
         // Create a new graph and load from the saved graph
         DataflowGraph g1 { "loaded graph" };
-        REQUIRE( g1.loadFromJson( tmpdir + "/GraphSerializationTest.json" ) );
+        REQUIRE( g1.loadFromJson( test_file ) );
 
         // Setting the unserializable data on nodes (functions)
         auto addition = g1.node( "addition" );
@@ -93,6 +97,5 @@ TEST_CASE( "Dataflow/Core/DataflowGraph/Serialization",
 
         REQUIRE( g1.execute() );
         REQUIRE( z_loaded == 6 );
-        std::filesystem::remove_all( tmpdir );
     }
 }
