@@ -222,13 +222,13 @@ class RA_DATAFLOW_CORE_API DataflowGraph : public Node
      * \param on true to protect, false to unprotect.
      * \todo should this be only on gui side ?
      */
-    void setNodesAndLinksProtection( bool on ) { m_nodesAndLinksProtected = on; }
+    void setNodesAndLinksProtection( bool on ) { m_nodes_and_links_protected = on; }
 
     /**
      * \brief get the protection status protect nodes and links from deletion
      * \return the protection status
      */
-    bool nodesAndLinksProtection() const { return m_nodesAndLinksProtected; }
+    bool nodesAndLinksProtection() const { return m_nodes_and_links_protected; }
 
     using Node::add_input;
     using Node::add_output;
@@ -279,19 +279,22 @@ class RA_DATAFLOW_CORE_API DataflowGraph : public Node
     bool contains_node_recursive( const Node* node ) const;
 
   private:
+    /// Node -> level, linked nodes
+    using LevelAndLinked = std::pair<int, std::vector<Node*>>;
+    using NodeInfoMap    = std::unordered_map<Node*, LevelAndLinked>;
+
     // Internal helper functions
     /// Internal compilation function that allows to go back in the render graph while filling
-    /// an information map. \param current The current node. \param infoNodes The map that
-    /// contains information about nodes.
-    void
-    backtrack_graph( Node* current,
-                     std::unordered_map<Node*, std::pair<int, std::vector<Node*>>>& infoNodes );
+    /// an information map.
+    /// \param current The current node.
+    /// \param infoNodes The map that contains information about nodes.
+    void backtrack_graph( Node* current, NodeInfoMap& nodes_info );
+
     /// Internal compilation function that allows to go through the graph, using an
     /// information map.
     /// \param current The current node.
     /// \param infoNodes The map that contains information about nodes.
-    int traverse_graph( Node* current,
-                        std::unordered_map<Node*, std::pair<int, std::vector<Node*>>>& infoNodes );
+    int traverse_graph( Node* current, NodeInfoMap& nodes_info );
 
     /// to allow dynamic creation of ports on input/output nodes, only possible new port is last
     /// port of the given node.
@@ -343,7 +346,7 @@ class RA_DATAFLOW_CORE_API DataflowGraph : public Node
     /// Two nodes at the same level have no dependency between them.
     std::vector<std::vector<Node*>> m_nodes_by_level;
 
-    bool m_nodesAndLinksProtected { false };
+    bool m_nodes_and_links_protected { false };
 };
 
 // -----------------------------------------------------------------
