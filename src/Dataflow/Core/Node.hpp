@@ -317,10 +317,10 @@ class RA_DATAFLOW_CORE_API Node
     Ra::Core::VariableSet& input_variables();
 
     /// \brief Node is output if none of the output ports is linked.
-    inline bool is_output();
+    inline bool is_output() const;
 
     /// \brief Node is input if all input ports have default values and not linked.
-    inline bool is_input();
+    inline bool is_input() const;
 
   protected:
     virtual void add_enum_converters() {};
@@ -577,7 +577,7 @@ inline Ra::Core::VariableSet& Node::input_variables() {
     return m_input_variables;
 }
 
-inline bool Node::is_output() {
+inline bool Node::is_output() const {
     bool ret = true;
     for ( const auto& p : m_outputs ) {
         ret = ret && ( p->link_count() == 0 );
@@ -585,7 +585,7 @@ inline bool Node::is_output() {
     return ret;
 }
 
-inline bool Node::is_input() {
+inline bool Node::is_input() const {
     bool ret = true;
     //
     for ( const auto& p : m_inputs ) {
