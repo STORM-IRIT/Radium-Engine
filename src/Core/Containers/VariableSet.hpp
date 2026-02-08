@@ -546,7 +546,7 @@ auto VariableSet::insertVariable( const std::string& name, const T& value )
 
 template <typename T>
 auto VariableSet::getVariable( const std::string& name ) -> T& {
-    return const_cast<T&>( const_cast<const VariableSet*>( this )->getVariable<T>( name ) );
+    return getVariableHandle<T>( name )->second;
 }
 
 template <typename T>
