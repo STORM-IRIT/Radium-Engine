@@ -25,6 +25,7 @@ class FunctionSourceNode : public Node
 
     explicit FunctionSourceNode( const std::string& name ) :
         FunctionSourceNode( name, FunctionSourceNode<R, Args...>::node_typename() ) {}
+    static const std::string& node_typename();
 
     bool execute() override;
 
@@ -39,6 +40,9 @@ class FunctionSourceNode : public Node
      */
     function_type* data() const;
 
+    RA_NODE_PORT_IN( function_type, from );
+    RA_NODE_PORT_OUT( function_type, to );
+
   protected:
     FunctionSourceNode( const std::string& instanceName, const std::string& typeName );
 
@@ -46,12 +50,6 @@ class FunctionSourceNode : public Node
         return Node::fromJsonInternal( data );
     }
     void toJsonInternal( nlohmann::json& data ) const override { Node::toJsonInternal( data ); }
-
-    RA_NODE_PORT_IN( function_type, from );
-    RA_NODE_PORT_OUT( function_type, to );
-
-  public:
-    static const std::string& node_typename();
 };
 
 // -----------------------------------------------------------------

@@ -24,13 +24,12 @@ namespace Sources {
 template <typename T>
 class SingleDataSourceNode : public Node
 {
-  protected:
-    SingleDataSourceNode( const std::string& instanceName, const std::string& typeName );
-
   public:
     // warning, hacky specialization for set editable
     explicit SingleDataSourceNode( const std::string& name ) :
         SingleDataSourceNode( name, SingleDataSourceNode<T>::node_typename() ) {}
+
+    static const std::string& node_typename();
 
     bool execute() override;
 
@@ -47,7 +46,12 @@ class SingleDataSourceNode : public Node
      */
     const T* data() const;
 
+    RA_NODE_PORT_IN( T, from );
+    RA_NODE_PORT_OUT( T, to );
+
   protected:
+    SingleDataSourceNode( const std::string& instanceName, const std::string& typeName );
+
     bool fromJsonInternal( const nlohmann::json& data ) override {
         return Node::fromJsonInternal( data );
     }
@@ -55,13 +59,6 @@ class SingleDataSourceNode : public Node
     void toJsonInternal( nlohmann::json& data ) const override {
         return Node::toJsonInternal( data );
     }
-
-  private:
-    RA_NODE_PORT_IN( T, from );
-    RA_NODE_PORT_OUT( T, to );
-
-  public:
-    static const std::string& node_typename();
 };
 
 // -----------------------------------------------------------------
