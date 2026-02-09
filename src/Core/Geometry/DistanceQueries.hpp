@@ -173,7 +173,7 @@ inline RA_CORE_API PointToTriangleOutput pointToTriSq( const Vector3& q,
                                                        const Vector3& c ) {
     /*
      *  This function projects the query point Q on the triangle plane to solve the
-     *  planar problem described by the following schema  of Voronoi zones :
+     *  planar problem described by the following schema of Voronoi zones :
      * 3     /
      * --  C
      *     |\\     6
@@ -199,13 +199,13 @@ inline RA_CORE_API PointToTriangleOutput pointToTriSq( const Vector3& q,
     const Vector3 ac = c - a;
     const Vector3 aq = q - a;
 
-    CORE_ASSERT( ab.cross( ac ).squaredNorm() > 0, "Triangle ABC is degenerate" );
+    CORE_ASSERT( ab.cross( ac ).squaredNorm() > 0_ra, "Triangle ABC is degenerate" );
 
     const Scalar d1 = ab.dot( aq );
     const Scalar d2 = ac.dot( aq );
 
     // Closest point is A. (zone 1)
-    const bool m1 = d1 <= 0 && d2 <= 0;
+    const bool m1 = d1 <= 0_ra && d2 <= 0_ra;
     if ( m1 ) {
         output.meshPoint       = a;
         output.distanceSquared = aq.squaredNorm();
@@ -218,7 +218,7 @@ inline RA_CORE_API PointToTriangleOutput pointToTriSq( const Vector3& q,
     const Scalar d4  = ac.dot( bq );
 
     // Closest point is B (zone 2)
-    const bool m2 = d3 >= 0 && d4 <= d3;
+    const bool m2 = d3 >= 0_ra && d4 <= d3;
     if ( m2 ) {
         output.meshPoint       = b;
         output.distanceSquared = bq.squaredNorm();
@@ -231,7 +231,7 @@ inline RA_CORE_API PointToTriangleOutput pointToTriSq( const Vector3& q,
     const Scalar d6  = ac.dot( cq );
 
     // Closest point is C (zone 3)
-    const bool m3 = ( d6 >= 0 && d5 <= d6 );
+    const bool m3 = ( d6 >= 0_ra && d5 <= d6 );
     if ( m3 ) {
         output.meshPoint       = c;
         output.distanceSquared = cq.squaredNorm();
@@ -243,7 +243,7 @@ inline RA_CORE_API PointToTriangleOutput pointToTriSq( const Vector3& q,
     const Scalar v1 = d1 / ( d1 - d3 );
 
     // Closest point is on AB (zone 4)
-    const bool m4 = vc <= 0 && d1 >= 0 && d3 <= 0;
+    const bool m4 = vc <= 0_ra && d1 >= 0 && d3 <= 0_ra;
     if ( m4 ) {
         output.meshPoint       = a + v1 * ab;
         output.distanceSquared = ( output.meshPoint - q ).squaredNorm();
@@ -255,7 +255,7 @@ inline RA_CORE_API PointToTriangleOutput pointToTriSq( const Vector3& q,
     const Scalar w1 = d2 / ( d2 - d6 );
 
     // Closest point is on AC (zone 5)
-    const bool m5 = vb <= 0 && d2 >= 0 && d6 <= 0;
+    const bool m5 = vb <= 0_ra && d2 >= 0_ra && d6 <= 0_ra;
     if ( m5 ) {
         output.meshPoint       = a + w1 * ac;
         output.distanceSquared = ( output.meshPoint - q ).squaredNorm();
@@ -267,7 +267,7 @@ inline RA_CORE_API PointToTriangleOutput pointToTriSq( const Vector3& q,
     const Scalar w2 = ( d4 - d3 ) / ( ( d4 - d3 ) + ( d5 - d6 ) );
 
     // Closest point is on BC (zone 6)
-    const bool m6 = va <= 0 && ( d4 - d3 ) >= 0 && ( d5 - d6 ) >= 0;
+    const bool m6 = va <= 0_ra && ( d4 - d3 ) >= 0_ra && ( d5 - d6 ) >= 0_ra;
     if ( m6 ) {
         output.meshPoint       = b + w2 * ( c - b );
         output.distanceSquared = ( output.meshPoint - q ).squaredNorm();
@@ -276,7 +276,7 @@ inline RA_CORE_API PointToTriangleOutput pointToTriSq( const Vector3& q,
     }
 
     // Closest point is on the triangle
-    const Scalar d  = Scalar( 1 ) / ( va + vb + vc );
+    const Scalar d  = 1_ra / ( va + vb + vc );
     const Scalar v2 = vb * d;
     const Scalar w3 = vc * d;
 
