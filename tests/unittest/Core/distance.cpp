@@ -117,21 +117,30 @@ TEST_CASE( "Core/Geometry/DistanceQueries", "[unittests][Core][Core/Geometry][Di
         Vector3 mac = .5_ra * ( a + c );
         Vector3 mbc = .5_ra * ( b + c );
 
+        Vector3 n   = ( b - a ).cross( c - a ).normalized();
+        Vector3 nab = ( b - a ).cross( n ).normalized();
+        Vector3 nbc = n.cross( b - c ).normalized();
+        Vector3 nca = n.cross( c - a ).normalized();
+
+        // push middle point a little bit out if triangle, if on edge could be inside triangle due
+        // to rounding.
+        Scalar push   = 0.01_ra;
+        Scalar pushSq = push * push;
         // Distance from AB midpoint to ABC
-        auto dmab = Geometry::pointToTriSq( mab, a, b, c );
-        REQUIRE( Math::areApproxEqual( dmab.distanceSquared, 0_ra ) );
+        auto dmab = Geometry::pointToTriSq( mab + push * nab, a, b, c );
+        REQUIRE( Math::areApproxEqual( dmab.distanceSquared, pushSq ) );
         REQUIRE( dmab.meshPoint.isApprox( mab ) );
         REQUIRE( dmab.flags == Geometry::FlagsInternal::HIT_AB );
 
         // Distance from AC midpoint to ABC
-        auto dmac = Geometry::pointToTriSq( mac, a, b, c );
-        REQUIRE( Math::areApproxEqual( dmac.distanceSquared, 0_ra ) );
+        auto dmac = Geometry::pointToTriSq( mac + push * nca, a, b, c );
+        REQUIRE( Math::areApproxEqual( dmac.distanceSquared, pushSq ) );
         REQUIRE( dmac.meshPoint.isApprox( mac ) );
         REQUIRE( dmac.flags == Geometry::FlagsInternal::HIT_CA );
 
         // Distance from BC midpoint to ABC
-        auto dmbc = Geometry::pointToTriSq( mbc, a, b, c );
-        REQUIRE( Math::areApproxEqual( dmbc.distanceSquared, 0_ra ) );
+        auto dmbc = Geometry::pointToTriSq( mbc + push * nbc, a, b, c );
+        REQUIRE( Math::areApproxEqual( dmbc.distanceSquared, pushSq ) );
         REQUIRE( dmbc.meshPoint.isApprox( mbc ) );
         REQUIRE( dmbc.flags == Geometry::FlagsInternal::HIT_BC );
     }
