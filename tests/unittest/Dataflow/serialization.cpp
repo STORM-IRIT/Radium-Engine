@@ -56,14 +56,14 @@ TEST_CASE( "Dataflow/Core/DataflowGraph/Serialization",
         bw::tempdir::TempDir temp_dir( bw::tempdir::Cleanup::on_success );
         auto test_file = temp_dir.path() / "GraphSerializationTest.json";
 
-        g.saveToJson( test_file );
+        g.saveToJson( test_file.string() );
         g.destroy();
         // this does nothing as g was destroyed
         REQUIRE( g.execute() );
 
         // Create a new graph and load from the saved graph
         DataflowGraph g1 { "loaded graph" };
-        REQUIRE( g1.loadFromJson( test_file ) );
+        REQUIRE( g1.loadFromJson( test_file.string() ) );
 
         // Setting the unserializable data on nodes (functions)
         auto addition = g1.node( "addition" );

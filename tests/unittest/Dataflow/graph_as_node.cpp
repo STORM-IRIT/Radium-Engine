@@ -172,14 +172,14 @@ TEST_CASE( "Dataflow/Core/GraphAsNode/Forward", "[unittests][Dataflow][Core][Gra
         auto test_file = temp_dir.path() / "graph_as_node_io.json";
 
         REQUIRE( g.shouldBeSaved() );
-        g.saveToJson( test_file );
+        g.saveToJson( test_file.string() );
 
         std::cerr << std::filesystem::current_path() << "\n";
         REQUIRE( !g.shouldBeSaved() );
 
         // Create a new graph and load from the saved graph
         DataflowGraph g1 { "loaded graph" };
-        REQUIRE( g1.loadFromJson( test_file ) );
+        REQUIRE( g1.loadFromJson( test_file.string() ) );
         {
             auto g1_sourceNodeA = std::dynamic_pointer_cast<Source>( g1.node( "s" ) );
 
