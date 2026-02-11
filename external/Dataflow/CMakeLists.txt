@@ -21,12 +21,12 @@ if(NOT DEFINED QtNodes_DIR)
     ExternalProject_Add(
         QtNodes
         GIT_REPOSITORY https://github.com/paceholder/nodeeditor.git
-        GIT_TAG 3.0.12
+        GIT_TAG 3.0.16
         GIT_SHALLOW TRUE
         GIT_PROGRESS TRUE
         INSTALL_DIR "${CMAKE_INSTALL_PREFIX}"
         CMAKE_ARGS ${RADIUM_EXTERNAL_CMAKE_OPTIONS} -DCMAKE_INSTALL_PREFIX=<INSTALL_DIR>
-                   "-DCMAKE_MESSAGE_INDENT=${indent_string}\;"
+                   -DBUILD_DOCS=OFF "-DCMAKE_MESSAGE_INDENT=${indent_string}\;"
     )
     set_external_dir(QtNodes "lib/cmake/QtNodes/")
     add_dependencies(DataflowExternals QtNodes)
