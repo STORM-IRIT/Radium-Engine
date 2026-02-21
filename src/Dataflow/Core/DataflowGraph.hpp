@@ -10,6 +10,7 @@
 #include <Core/Utils/Color.hpp>
 #include <Core/Utils/Singleton.hpp>
 
+#include <atomic>
 #include <functional>
 
 namespace Ra {
@@ -279,6 +280,8 @@ class RA_DATAFLOW_CORE_API DataflowGraph : public Node
     bool contains_node_recursive( const Node* node ) const;
 
   private:
+    bool execute2();
+
     /// Node -> level, linked nodes
     using LevelAndLinked = std::pair<int, std::vector<Node*>>;
     using NodeInfoMap    = std::unordered_map<Node*, LevelAndLinked>;
@@ -342,10 +345,17 @@ class RA_DATAFLOW_CORE_API DataflowGraph : public Node
     std::shared_ptr<GraphOutputNode> m_output_node { nullptr };
     std::shared_ptr<GraphInputNode> m_input_node { nullptr };
 
+    /// Node -> level, linked nodes
+    NodeInfoMap m_node_info_map;
+
     /// The list of nodes ordered by levels.
     /// Two nodes at the same level have no dependency between them.
     std::vector<std::vector<Node*>> m_nodes_by_level;
 
+    /// How many node to execute in the graph.
+    size_t m_active_node_count { 0 };
+    /// How many node executed in the current execution
+    std::atomic_size_t m_executed_node_count { 0 };
     bool m_nodes_and_links_protected { false };
 };
 
