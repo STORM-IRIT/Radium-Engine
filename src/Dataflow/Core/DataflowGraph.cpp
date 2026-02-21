@@ -47,6 +47,8 @@ bool DataflowGraph::execute2() {
     std::map<Node*, Ra::Core::TaskQueue::TaskId> node_to_id;
     std::atomic_bool result { true };
 
+    std::mutex log_mutex;
+
     m_executed_node_count.store( 0 );
 
     // fill task queue
@@ -54,15 +56,15 @@ bool DataflowGraph::execute2() {
         // Transform the entity
         auto n_ptr        = n.first;
         node_to_id[n_ptr] = queue.registerTask( std::make_unique<Ra::Core::FunctionTask>(
-            [this, &result, n_ptr]() {
-                std::cerr << "exec " << n_ptr->display_name() << "\n";
+            [this, &result, n_ptr, &log_mutex]() {
                 bool executed = n_ptr->execute();
                 m_executed_node_count++;
-
-                std::cerr << "progress " << m_executed_node_count.load() << "/"
-                          << m_active_node_count << "\n";
-
                 result = result.load() && executed;
+
+                {
+                    std::lock_guard<std::mutex> lock( log_mutex );
+                    m_log_callback( m_executed_node_count.load(), m_active_node_count );
+                }
             },
             n_ptr->display_name() ) );
     }
