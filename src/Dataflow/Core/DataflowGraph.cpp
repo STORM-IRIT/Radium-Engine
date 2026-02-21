@@ -1,8 +1,11 @@
 
+#include "Core/Tasks/Task.hpp"
+#include "Core/Tasks/TaskQueue.hpp"
 #include <Dataflow/Core/DataflowGraph.hpp>
 
 #include <Dataflow/Core/Port.hpp>
 
+// #include <execution> // need tbb
 #include <fstream>
 #include <map>
 
@@ -33,23 +36,77 @@ void DataflowGraph::init() {
     }
 }
 
-bool DataflowGraph::execute() {
+bool DataflowGraph::execute2() {
     if ( m_inputs.size() > 0 || m_outputs.size() > 0 ) return true;
 
     if ( !m_ready ) {
         if ( !compile() ) { return false; }
     }
-    bool result = true;
+
+    Ra::Core::TaskQueue queue( 10 );
+    std::map<Node*, Ra::Core::TaskQueue::TaskId> node_to_id;
+    std::atomic_bool result { true };
+
+    m_executed_node_count.store( 0 );
+
+    // fill task queue
+    for ( const auto& n : m_node_info_map ) {
+        // Transform the entity
+        auto n_ptr        = n.first;
+        node_to_id[n_ptr] = queue.registerTask( std::make_unique<Ra::Core::FunctionTask>(
+            [this, &result, n_ptr]() {
+                std::cerr << "exec " << n_ptr->display_name() << "\n";
+                bool executed = n_ptr->execute();
+                m_executed_node_count++;
+
+                std::cerr << "progress " << m_executed_node_count.load() << "/"
+                          << m_active_node_count << "\n";
+
+                result = result.load() && executed;
+            },
+            n_ptr->display_name() ) );
+    }
+
+    // fill dependencies
+    for ( const auto& n : m_node_info_map ) {
+        auto n_ptr = n.first;
+        for ( const auto& l : n.second.second ) {
+            queue.addDependency( node_to_id[n_ptr], node_to_id[l] );
+        }
+    }
+    queue.startTasks();
+    queue.waitForTasks();
+
+    return result;
+}
+
+bool DataflowGraph::execute() {
+    return execute2();
+    if ( m_inputs.size() > 0 || m_outputs.size() > 0 ) return true;
+
+    if ( !m_ready ) {
+        if ( !compile() ) { return false; }
+    }
+
+    m_executed_node_count.store( 0 );
+    std::atomic_bool result { true };
     std::for_each(
-        m_nodes_by_level.begin(), m_nodes_by_level.end(), [&result]( const auto& level ) {
-            std::for_each( level.begin(), level.end(), [&result]( auto node ) {
-                bool executed = node->execute();
-                if ( !executed ) {
-                    LOG( logERROR ) << "Execution failed with node " << node->instance_name()
-                                    << " (" << node->model_name() << ").";
-                }
-                result = result && executed;
-            } );
+        m_nodes_by_level.begin(), m_nodes_by_level.end(), [this, &result]( const auto& level ) {
+            std::for_each( // std::execution::par,
+                level.begin(),
+                level.end(),
+                [this, &result]( auto node ) {
+                    bool executed = node->execute();
+                    if ( !executed ) {
+                        LOG( logERROR ) << "Execution failed with node " << node->instance_name()
+                                        << " (" << node->model_name() << ").";
+                    }
+                    m_executed_node_count++;
+                    std::cerr << "progress " << m_executed_node_count.load() << "/"
+                              << m_active_node_count << "\n";
+
+                    result = result.load() && executed;
+                } );
         } );
     return result;
 }
@@ -431,11 +488,11 @@ bool DataflowGraph::compile() {
     // Find useful nodes (directly or indirectly connected to a Sink)
 
     /// Node -> level, linked nodes
-    NodeInfoMap node_info_map;
+    m_node_info_map.clear();
 
     if ( m_output_node ) {
-        backtrack_graph( m_output_node.get(), node_info_map );
-        node_info_map.emplace( m_output_node.get(), LevelAndLinked { 0, {} } );
+        backtrack_graph( m_output_node.get(), m_node_info_map );
+        m_node_info_map.emplace( m_output_node.get(), LevelAndLinked { 0, {} } );
     }
     for ( auto const& n : m_nodes ) {
         // Find all active sinks, skip m_output_node
@@ -445,9 +502,9 @@ bool DataflowGraph::compile() {
                      return p->is_linked();
                  } ) ) {
 
-                node_info_map.emplace( n.get(), LevelAndLinked { 0, {} } );
+                m_node_info_map.emplace( n.get(), LevelAndLinked { 0, {} } );
                 // recursively add the predecessors of the sink
-                backtrack_graph( n.get(), node_info_map );
+                backtrack_graph( n.get(), m_node_info_map );
             }
             else {
                 LOG( logWARNING ) << "Sink Node " << n->instance_name()
@@ -457,7 +514,7 @@ bool DataflowGraph::compile() {
     }
     // Compute the level (rank of execution) of useful nodes
     int maxLevel = 0;
-    for ( auto& level_and_linked : node_info_map ) {
+    for ( auto& level_and_linked : m_node_info_map ) {
         auto n = level_and_linked.first;
         // Compute the nodes' level starting from sources
         if ( n->is_input() || n == m_input_node.get() ) {
@@ -465,23 +522,24 @@ bool DataflowGraph::compile() {
             // set level to 0 because node is source
             level_and_linked.second.first = 0;
             // Tag successors (go through graph)
-            maxLevel = std::max( maxLevel, traverse_graph( n, node_info_map ) );
+            maxLevel = std::max( maxLevel, traverse_graph( n, m_node_info_map ) );
         }
     }
     m_nodes_by_level.clear();
-    m_nodes_by_level.resize( node_info_map.size() != 0 ? maxLevel + 1 : 0 );
-    for ( auto& level_and_linked : node_info_map ) {
+    m_nodes_by_level.resize( m_node_info_map.size() != 0 ? maxLevel + 1 : 0 );
+    for ( auto& level_and_linked : m_node_info_map ) {
         CORE_ASSERT( size_t( level_and_linked.second.first ) < m_nodes_by_level.size(),
                      std::string( "Node " ) + level_and_linked.first->instance_name() +
                          " is at level " + std::to_string( level_and_linked.second.first ) +
                          " but level max is " + std::to_string( maxLevel ) );
-
         m_nodes_by_level[level_and_linked.second.first].push_back( level_and_linked.first );
     }
 
+    m_active_node_count = 0;
     // For each level
     for ( auto& level : m_nodes_by_level ) {
         // For each node
+        m_active_node_count += level.size();
         for ( size_t j = 0; j < level.size(); j++ ) {
             if ( !level[j]->compile() ) { return m_ready = false; }
             // For each input
