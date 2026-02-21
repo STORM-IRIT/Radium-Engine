@@ -357,6 +357,9 @@ class RA_DATAFLOW_CORE_API DataflowGraph : public Node
     /// How many node executed in the current execution
     std::atomic_size_t m_executed_node_count { 0 };
     bool m_nodes_and_links_protected { false };
+
+    std::function<void( size_t, size_t )> m_log_callback {
+        []( size_t c, size_t t ) { std::cerr << "progress " << c << "/" << t << "\n"; } };
 };
 
 // -----------------------------------------------------------------
