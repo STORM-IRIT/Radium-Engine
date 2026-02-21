@@ -24,6 +24,7 @@ namespace Core {
 class RA_DATAFLOW_CORE_API DataflowGraph : public Node
 {
   public:
+    using LogCallback = std::function<void( size_t, size_t )>;
     /** The nodes pointing to external data are created here.
      * \param name The name of the render graph.
      */
@@ -256,6 +257,8 @@ class RA_DATAFLOW_CORE_API DataflowGraph : public Node
     std::shared_ptr<GraphOutputNode> output_node() { return m_output_node; }
     std::shared_ptr<GraphInputNode> input_node() { return m_input_node; }
 
+    void set_log_callback( LogCallback callback ) { m_log_callback = std::move( callback ); }
+
   protected:
     /**
      * \brief Allow derived class to construct the graph with their own static type.
@@ -357,9 +360,8 @@ class RA_DATAFLOW_CORE_API DataflowGraph : public Node
     /// How many node executed in the current execution
     std::atomic_size_t m_executed_node_count { 0 };
     bool m_nodes_and_links_protected { false };
-
-    std::function<void( size_t, size_t )> m_log_callback {
-        []( size_t c, size_t t ) { std::cerr << "progress " << c << "/" << t << "\n"; } };
+    LogCallback m_log_callback { []( size_t, size_t ) {} };
+    //        []( size_t c, size_t t ) { std::cerr << "progress " << c << "/" << t << "\n"; } };
 };
 
 // -----------------------------------------------------------------
