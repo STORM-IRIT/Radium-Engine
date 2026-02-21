@@ -979,7 +979,7 @@ TEST_CASE( "Core/Animation/Skeleton", "[unittests][Core][Core/Animation][Skeleto
 }
 
 TEST_CASE( "Core/Animation/DualQuaternionSkinning",
-           "[unitests][Core][Core/Animation][DualQuaternionSkinning]" ) {
+           "[unittests][Core][Core/Animation][DualQuaternionSkinning]" ) {
     // initialize the pose
     Ra::Core::Animation::Pose pose;
     Ra::Core::Transform t0 { Ra::Core::Transform::Identity() };
