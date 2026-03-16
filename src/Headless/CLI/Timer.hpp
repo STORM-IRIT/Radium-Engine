@@ -78,7 +78,7 @@ class Timer
 
         std::string out = make_time_str( total_time / static_cast<double>( n ) ) + " for " +
                           std::to_string( n ) + " tries";
-        start_ = start;
+        start_          = start;
         return out;
     }
 

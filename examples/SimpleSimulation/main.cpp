@@ -41,10 +41,10 @@ class SimpleSimulationSystem : public Ra::Engine::Scene::System
                 auto& cbuf    = cAttrib.getDataWithLock();
 
                 for ( size_t i = 0; i != vbuf.size(); ++i ) {
-                    auto& x = vbuf[i];
-                    x       = ( x + 0.02 * Ra::Core::Vector3::Random() )
-                            .cwiseMin( 1_ra )
-                            .cwiseMax( -1_ra );
+                    auto& x                    = vbuf[i];
+                    x                          = ( x + 0.02 * Ra::Core::Vector3::Random() )
+                                                     .cwiseMin( 1_ra )
+                                                     .cwiseMax( -1_ra );
                     cbuf[i].template head<3>() = x.array() * 0.5 + 0.5;
                 }
 
