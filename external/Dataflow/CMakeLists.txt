@@ -22,7 +22,7 @@ if(NOT DEFINED QtNodes_DIR)
         QtNodes
         GIT_REPOSITORY https://github.com/paceholder/nodeeditor.git
         GIT_TAG f84b5d8
-        GIT_SHALLOW TRUE
+        GIT_SHALLOW FALSE
         GIT_PROGRESS TRUE
         INSTALL_DIR "${CMAKE_INSTALL_PREFIX}"
         CMAKE_ARGS ${RADIUM_EXTERNAL_CMAKE_OPTIONS} -DCMAKE_INSTALL_PREFIX=<INSTALL_DIR>
