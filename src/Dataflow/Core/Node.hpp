@@ -66,11 +66,9 @@ class NodeJsonDeserializer : public Ra::Core::DynamicVisitor
                     return;
                 }
                 else {
-                    //                    LOG( logERROR )
-                    //                        << "Read json, bad type for parameter " << name << "
-                    //                        got " << p["type"]
-                    //                        << " instead of " <<
-                    //                        Ra::Core::Utils::simplifiedDemangledType<T>() << "\n";
+                    LOG( Ra::Core::Utils::logERROR )
+                        << "Read json, bad type for parameter " << name << " got " << p["type"]
+                        << " instead of " << Ra::Core::Utils::simplifiedDemangledType<T>() << "\n";
                 }
             }
         }
