@@ -22,7 +22,7 @@ jobs:
       - name: Checkout remote head
         uses: actions/checkout@master
       - name: Deploy Doc
-        uses: peaceiris/actions-gh-pages@v3
+        uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.REPO_ACCESS_TOKEN }}
           publish_dir: 'doc/index'
@@ -70,7 +70,7 @@ jobs:
       # upload doc as artifact if not deployed
       - name: Archive doc
         if: ${{ inputs.deploy-on-gh-pages == 'false' }}
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: doc
           path: build/Radium-Engine/html/
@@ -81,14 +81,10 @@ jobs:
           export GITHUB_REF="${{ steps.extract-branch.outputs.branch }}"
           cd build/Radium-Engine
           sed -i "s/\$(GITHUB_REF)/${GITHUB_REF}/g" html/index.html
-      - name: Git branch name
-        if: ${{ inputs.deploy-on-gh-pages == 'true' }}
-        id: git-branch-name
-        uses: EthanSK/git-branch-name-action@v1
       - name: Deploy Doc
         if: ${{ inputs.deploy-on-gh-pages == 'true' }}
-        uses: peaceiris/actions-gh-pages@v3
+        uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.REPO_ACCESS_TOKEN }}
           publish_dir: 'build/Radium-Engine/html'
-          destination_dir: ${{ env.GIT_BRANCH_NAME }}
+          destination_dir: ${GITHUB_REF_NAME}

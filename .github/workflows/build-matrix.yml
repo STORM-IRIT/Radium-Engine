@@ -156,7 +156,7 @@ jobs:
 
       - name: Install dep windows checkout
         if: runner.os == 'Windows'
-        uses: actions/checkout@v2
+        uses: actions/checkout@master
         with:
           repository: glfw/glfw
           ref: 3.4
@@ -213,7 +213,7 @@ jobs:
 
       - name: Cache externals
         id: cache-external
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ${{ steps.paths.outputs.external_install_dir }}
           key: ${{ matrix.config.name }}-${{ matrix.build-type }}-${{ matrix.qtversion.name }}-external-v1-${{ hashFiles('src/Radium-Engine/external/**/CMakeLists.txt') }} # no env in hashFiles
@@ -252,7 +252,7 @@ jobs:
 
       - name: Update badge on merge (failure)
         if: ${{ failure() && inputs.generate-badges == 'true' }}
-        uses: schneegans/dynamic-badges-action@v1.0.0
+        uses: schneegans/dynamic-badges-action@v1.7.0
         with:
           auth: ${{ secrets.GIST_BADGES_TOKEN }}
           gistID: ${{ secrets.GIST_BADGES_SECRET }}
@@ -265,7 +265,7 @@ jobs:
 
       - name: Update badge on merge (success)
         if: ${{ success() && inputs.generate-badges == 'true' }}
-        uses: schneegans/dynamic-badges-action@v1.0.0
+        uses: schneegans/dynamic-badges-action@v1.7.0
         with:
           auth: ${{ secrets.GIST_BADGES_TOKEN }}
           gistID: ${{ secrets.GIST_BADGES_SECRET }}
@@ -284,7 +284,7 @@ jobs:
 
       - name: Upload unittests coverage report
         if: ${{ inputs.coverage == 'true' }}
-        uses: codecov/codecov-action@v5
+        uses: codecov/codecov-action@v5.5.2
         with:
           fail_ci_if_error: true # optional (default = false)
           files: ${{ steps.paths.outputs.radium_build_dir }}/fastcov_unittests.info
@@ -295,7 +295,7 @@ jobs:
 
       - name: Upload integration coverage report
         if: ${{ inputs.coverage == 'true' }}
-        uses: codecov/codecov-action@v5
+        uses: codecov/codecov-action@v5.5.2
         with:
           fail_ci_if_error: true # optional (default = false)
           files: ${{ steps.paths.outputs.radium_build_dir }}/fastcov_integration.info
