@@ -81,6 +81,11 @@ jobs:
           export GITHUB_REF="${{ steps.extract-branch.outputs.branch }}"
           cd build/Radium-Engine
           sed -i "s/\$(GITHUB_REF)/${GITHUB_REF}/g" html/index.html
+
+      - name: Debug name
+        run: |
+          echo ${GITHUB_REF_NAME}
+
       - name: Deploy Doc
         if: ${{ inputs.deploy-on-gh-pages == 'true' }}
         uses: peaceiris/actions-gh-pages@v4
