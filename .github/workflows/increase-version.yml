@@ -33,12 +33,12 @@ jobs:
     outputs:
       new-sha: ${{ steps.commit.outputs.commit_long_sha }}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@master
         with:
           token: ${{ secrets.token }}
       - name: Read VERSION file
         id: read
-        uses: juliangruber/read-file-action@v1
+        uses: juliangruber/read-file-action@v1.1.8
         with:
           path: ./VERSION
       - name: Trim version string and set fragment name according to branch name
@@ -49,7 +49,7 @@ jobs:
           [[ "${{ github.ref_name }}" == "master" ]] && echo "fragment=feature" >> $GITHUB_OUTPUT || echo "fragment=bug" >> $GITHUB_OUTPUT
       - name: Increase version
         id: increment
-        uses: christian-draeger/increment-semantic-version@1.0.2
+        uses: christian-draeger/increment-semantic-version@1.2.3
         with:
           current-version: "${{ steps.set.outputs.version }}"
           version-fragment: "${{ steps.set.outputs.fragment }}"
@@ -57,7 +57,7 @@ jobs:
         run: |
           echo ${{ steps.increment.outputs.next-version }} > VERSION
       - name: Commit new VERSION file
-        uses: EndBug/add-and-commit@v8
+        uses: EndBug/add-and-commit@v10
         id: commit
         with:
           add: 'VERSION'
