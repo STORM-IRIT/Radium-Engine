@@ -1,26 +1,42 @@
 # -------------- Configuration of the Radium Core targets and definitions -------------------------
-if(NOT TARGET Core)
-    include(CMakeFindDependencyMacro)
+
+if(NOT TARGET Radium::Core)
     find_dependency(Threads REQUIRED)
     if(@OPENMP_FOUND@) # Indicates if OpenMP has been used when compiling the Radium libraries
         find_dependency(OpenMP REQUIRED)
     endif()
 
-    set(glm_DIR "@glm_DIR@")
-    set(Eigen3_DIR "@Eigen3_DIR@")
-    set(OpenMesh_DIR "@OpenMesh_DIR@")
-    set(cpplocate_DIR "@cpplocate_DIR@")
-    set(nlohmann_json_DIR "@nlohmann_json_DIR@")
-
+    if(NOT Eigen3_DIR)
+        set_and_check(Eigen3_DIR "@Eigen3_DIR@")
+    endif()
+    if(NOT OpenMesh_DIR)
+        set_and_check(OpenMesh_DIR "@OpenMesh_DIR@")
+    endif()
+    if(NOT cpplocate_DIR)
+        set_and_check(cpplocate_DIR "@cpplocate_DIR@")
+    endif()
+    if(NOT nlohmann_json_DIR)
+        set_and_check(nlohmann_json_DIR "@nlohmann_json_DIR@")
+    endif()
     set(RadiumExternalDlls_location "")
 
     find_dependency(Eigen3 REQUIRED NO_DEFAULT_PATH)
-    find_dependency(OpenMesh REQUIRED NO_DEFAULT_PATH)
+    find_dependency(OpenMesh REQUIRED COMPONENTS Core Tools NO_DEFAULT_PATH)
     find_dependency(cpplocate REQUIRED NO_DEFAULT_PATH)
     find_dependency(nlohmann_json REQUIRED NO_DEFAULT_PATH)
     find_dependency(Filesystem COMPONENTS Final Experimental REQUIRED)
+
     if(MSVC OR MSVC_IDE OR MINGW)
         add_imported_dir(FROM cpplocate::cpplocate TO RadiumExternalDlls_location)
     endif()
+
     include("${CMAKE_CURRENT_LIST_DIR}/CoreTargets.cmake")
-endif(NOT TARGET Core)
+
+    define_property(
+        TARGET PROPERTY RADIUM_USE_DOUBLE BRIEF_DOCS "Radium::Core use Double as Scalar."
+        FULL_DOCS "Radium::Core use Double as Scalar. OFF -> float, ON -> double"
+    )
+    set_target_properties(Radium::Core PROPERTIES RADIUM_USE_DOUBLE @RADIUM_USE_DOUBLE@)
+endif()
+
+check_target_set_found(Core)

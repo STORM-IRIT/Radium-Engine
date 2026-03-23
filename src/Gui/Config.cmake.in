@@ -1,34 +1,13 @@
 # -------------- Configuration of the Radium Gui targets and definitions -------
 # Setup Gui and check for dependencies
 
-# TODO : verify if this is needed
-if(Gui_FOUND AND NOT TARGET Gui)
-    set(Configure_Gui ON)
-    # verify dependencies
-    if(NOT Engine_FOUND)
-        if(EXISTS "${CMAKE_CURRENT_LIST_DIR}/../Engine/RadiumEngineConfig.cmake")
-            set(Engine_FOUND TRUE)
-            include(${CMAKE_CURRENT_LIST_DIR}/../Engine/RadiumEngineConfig.cmake)
-        else()
-            set(Radium_FOUND False)
-            set(Radium_NOT_FOUND_MESSAGE "Radium::Gui: dependency Engine not found")
-            set(Configure_Gui OFF)
-        endif()
-    endif()
-    if(Configure_Gui AND NOT IO_FOUND)
-        if(EXISTS "${CMAKE_CURRENT_LIST_DIR}/../IO/RadiumIOConfig.cmake")
-            set(IO_FOUND TRUE)
-            include(${CMAKE_CURRENT_LIST_DIR}/../IO/RadiumIOConfig.cmake)
-        else()
-            set(Radium_FOUND False)
-            set(Radium_NOT_FOUND_MESSAGE "Radium::Gui: dependency IO not found")
-            set(Configure_Gui OFF)
-        endif()
-    endif()
-endif()
+add_component_dependency(Core)
+add_component_dependency(Engine)
+add_component_dependency(PluginBase)
+add_component_dependency(IO)
 
-if(Configure_Gui)
-    include(${CMAKE_CURRENT_LIST_DIR}/../QtFunctions.cmake)
+if(NOT TARGET Radium::Gui)
+    include(${CMAKE_CURRENT_LIST_DIR}/QtFunctions.cmake)
     check_and_set_qt_version("@QT_DEFAULT_MAJOR_VERSION@")
     find_qt_dependency(COMPONENTS Core Widgets OpenGL Xml REQUIRED)
 
@@ -41,9 +20,9 @@ if(Configure_Gui)
     endif()
     find_dependency(PowerSlider REQUIRED NO_DEFAULT_PATH)
 
-    if(EXISTS "${CMAKE_CURRENT_LIST_DIR}/../PluginBase/RadiumPluginBaseConfig.cmake")
+    if(EXISTS "${CMAKE_CURRENT_LIST_DIR}/RadiumPluginBaseConfig.cmake")
         set(PluginBase_FOUND TRUE)
-        include(${CMAKE_CURRENT_LIST_DIR}/../PluginBase/RadiumPluginBaseConfig.cmake)
+        include(${CMAKE_CURRENT_LIST_DIR}/RadiumPluginBaseConfig.cmake)
     endif()
 
     if(MSVC OR MSVC_IDE OR MINGW)
@@ -53,3 +32,5 @@ if(Configure_Gui)
     endif()
     include("${CMAKE_CURRENT_LIST_DIR}/GuiTargets.cmake")
 endif()
+
+check_target_set_found(Gui)

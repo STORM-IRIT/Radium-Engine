@@ -8,6 +8,10 @@
 
 cmake_minimum_required(VERSION 3.18 FATAL_ERROR)
 
+if(POLICY CMP0177)
+    cmake_policy(SET CMP0177 NEW) # install destination path are normalized
+endif()
+
 if(MSVC OR MSVC_IDE OR MINGW)
     include(${CMAKE_CURRENT_LIST_DIR}/Windeployqt.cmake)
     if(MSVC OR MSVC_IDE)
@@ -906,20 +910,20 @@ function(configure_radium_package)
     endif()
 
     configure_package_config_file(
-        ${ARGS_PACKAGE_CONFIG} "${CMAKE_CURRENT_BINARY_DIR}/${CONFIG_FILE_NAME}.cmake"
+        ${ARGS_PACKAGE_CONFIG} "${CMAKE_BINARY_DIR}/src/${CONFIG_FILE_NAME}.cmake"
         INSTALL_DESTINATION ${ARGS_PACKAGE_DIR}
     )
 
-    install(FILES "${CMAKE_CURRENT_BINARY_DIR}/${CONFIG_FILE_NAME}.cmake"
+    install(FILES "${CMAKE_BINARY_DIR}/src/${CONFIG_FILE_NAME}.cmake"
             DESTINATION ${ARGS_PACKAGE_DIR}
     )
 
     if(ARGS_PACKAGE_VERSION)
         write_basic_package_version_file(
-            "${CMAKE_CURRENT_BINARY_DIR}/${CONFIG_FILE_NAME}Version.cmake"
+            "${CMAKE_BINARY_DIR}/src/${CONFIG_FILE_NAME}Version.cmake"
             VERSION ${ARGS_PACKAGE_VERSION} COMPATIBILITY SameMajorVersion
         )
-        install(FILES "${CMAKE_CURRENT_BINARY_DIR}/${CONFIG_FILE_NAME}Version.cmake"
+        install(FILES "${CMAKE_BINARY_DIR}/src/${CONFIG_FILE_NAME}Version.cmake"
                 DESTINATION ${ARGS_PACKAGE_DIR}
         )
     endif()
@@ -989,6 +993,24 @@ function(configure_radium_library)
 
     add_library(${ARGS_NAMESPACE}::${ARGS_TARGET} ALIAS ${ARGS_TARGET})
 
+    # -------------------------------------------------------------------------
+    # check if core has the seme use_double configuration has current build
+    get_target_property(_props Radium::Core INTERFACE_COMPILE_DEFINITIONS)
+    set(_core_use_double OFF)
+    if("CORE_USE_DOUBLE" IN_LIST _props)
+        set(_core_use_double ON)
+    endif()
+
+    if((RADIUM_USE_DOUBLE AND NOT ${_core_use_double}) OR (NOT RADIUM_USE_DOUBLE
+                                                           AND ${_core_use_double})
+    )
+        message(
+            FATAL_ERROR
+                "Mismatch RADIUM_USE_DOUBLE, ${ARS_TARGET} -> ${RADIUM_USE_DOUBLE}. Radium::Core -> ${_core_use_double}."
+        )
+    endif()
+    # -------------------------------------------------------------------------
+
     install(
         TARGETS ${ARGS_TARGET}
         EXPORT ${ARGS_TARGET}Targets
@@ -1002,14 +1024,11 @@ function(configure_radium_library)
     )
     # export for build tree
     export(TARGETS ${ARGS_TARGET} NAMESPACE ${ARGS_NAMESPACE}::
-           FILE "${CMAKE_CURRENT_BINARY_DIR}/${ARGS_TARGET}Targets.cmake"
+           FILE "${CMAKE_BINARY_DIR}/src/${ARGS_TARGET}Targets.cmake"
     )
     # export for the installation tree
     if(NOT ARGS_PACKAGE_DIR)
         set(ARGS_PACKAGE_DIR lib/cmake/Radium)
-    endif()
-    if(ARGS_COMPONENT)
-        set(ARGS_PACKAGE_DIR ${ARGS_PACKAGE_DIR}/${ARGS_TARGET_DIR})
     endif()
 
     install(EXPORT ${ARGS_TARGET}Targets FILE ${ARGS_TARGET}Targets.cmake
@@ -1127,6 +1146,9 @@ macro(configure_radium_target target)
     target_link_libraries(${target} PRIVATE PUBLIC ${RA_DEFAULT_LIBRARIES} INTERFACE)
 
     target_compile_definitions(${target} PRIVATE PUBLIC ${RA_DEFAULT_COMPILE_DEFINITIONS} INTERFACE)
+    if(RADIUM_USE_DOUBLE)
+        target_compile_definitions(${target} PUBLIC CORE_USE_DOUBLE)
+    endif()
 
     target_compile_options(${target} PRIVATE PUBLIC ${RA_DEFAULT_COMPILE_OPTIONS} INTERFACE)
 

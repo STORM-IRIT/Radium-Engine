@@ -2,24 +2,10 @@
 # -------------- Configuration of the Radium Engine targets and definitions -----------------------
 # Setup Engine and check for dependencies
 
-# TODO: verify if this is needed
-if (Engine_FOUND AND NOT TARGET Engine)
-    set(Configure_Engine ON)
-    # verify dependencies
-    if(NOT Core_FOUND)
-        if(EXISTS "${CMAKE_CURRENT_LIST_DIR}/../Core/RadiumCoreConfig.cmake")
-            set(Core_FOUND TRUE)
-            include(${CMAKE_CURRENT_LIST_DIR}/../Core/RadiumCoreConfig.cmake)
-        else()
-            set(Radium_FOUND False)
-            set(Radium_NOT_FOUND_MESSAGE "Radium::Engine: dependency Core not found")
-            set(Configure_Engine OFF)
-        endif()
-    endif()
-endif()
+add_component_dependency(Core)
 
 # configure Engine component
-if(Configure_Engine)
+if(NOT TARGET Radium::Engine)
     set(glbinding_DIR "@glbinding_DIR@")
     set(globjects_DIR "@globjects_DIR@")
     set(tinyEXR_DIR "@tinyEXR_DIR@")
@@ -33,3 +19,5 @@ if(Configure_Engine)
     endif()
     include("${CMAKE_CURRENT_LIST_DIR}/EngineTargets.cmake")
 endif()
+
+check_target_set_found(Engine)

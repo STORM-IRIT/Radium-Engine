@@ -136,7 +136,8 @@ bool GraphModel::nodeExists( NodeId const nodeId ) const {
 
 QWidget* GraphModel::getWidget( std::shared_ptr<Core::Node> node ) const {
     QWidget* controlPanel = new QWidget;
-    controlPanel->setStyleSheet( "background-color:transparent;" );
+    //    controlPanel->setStyleSheet( "background-color:transparent;" );
+    controlPanel->setWindowOpacity( 0.8 );
     QVBoxLayout* layout = new QVBoxLayout( controlPanel );
 
     auto node_inputs = node->input_variables();
@@ -155,9 +156,8 @@ QWidget* GraphModel::getWidget( std::shared_ptr<Core::Node> node ) const {
     if ( node->parameters().size() > 0 ) {
         auto controlPanelParams = new Ra::Gui::VariableSetEditor( "Parameters", nullptr );
         controlPanelParams->setShowUnspecified( true );
-
         WidgetFactory ui_builder { node->parameters(), controlPanelParams, {} };
-        node_inputs.visit( ui_builder );
+        node->parameters().visit( ui_builder );
 
         layout->addWidget( controlPanelParams );
     }

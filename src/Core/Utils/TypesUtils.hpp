@@ -9,6 +9,7 @@
 #    include <typeinfo>
 #endif
 
+#include <regex>
 #include <string>
 #include <typeindex>
 
@@ -76,11 +77,15 @@ RA_CORE_API auto makeTypeReadable( const std::string& ) -> std::string;
 
 template <typename T>
 auto simplifiedDemangledType() noexcept -> std::string {
-    static auto demangled_name = []() {
-        std::string demangledType =
-            TypeInternal::makeTypeReadable( Ra::Core::Utils::demangleType<T>() );
-        return demangledType;
-    }();
+    // don't get why we need a lambda here ?
+    // static auto demangled_name = []() {
+    //     std::string demangledType =
+    //         TypeInternal::makeTypeReadable( Ra::Core::Utils::demangleType<T>() );
+    //     return demangledType;
+    // }();
+    static auto demangled_name =
+        TypeInternal::makeTypeReadable( Ra::Core::Utils::demangleType<T>() );
+
     return demangled_name;
 }
 
@@ -156,26 +161,16 @@ struct TypeList {
     using Append = typename TypeListInternal::TSAppendImpl<Self, TypesToAppend...>::type;
 };
 
-#ifdef _WIN32
-// On windows (since MSVC 2019), typeid( T ).name() (and then typeIndex.name() returns the demangled
-// name
 inline std::string demangleType( const std::type_index& typeIndex ) noexcept {
-    std::string retval = typeIndex.name();
-    removeAllInString( retval, "class " );
-    removeAllInString( retval, "struct " );
-    removeAllInString( retval, "__cdecl" );
-    replaceAllInString( retval, "& __ptr64", "&" );
-    replaceAllInString( retval, ",", ", " );
-    replaceAllInString( retval, " >", ">" );
-    replaceAllInString( retval, "__int64", "long" );
-    replaceAllInString( retval, "const &", "const&" );
-    return retval;
-}
-#else
-// On Linux/macos, use the C++ ABI demangler
-inline std::string demangleType( const std::type_index& typeIndex ) noexcept {
-    int error = 0;
     std::string retval;
+
+    // On windows (since MSVC 2019), typeid( T ).name() (and then typeIndex.name() returns the
+    // demangled name
+#ifdef _WIN32
+    retval = typeIndex.name();
+    // On Linux/macos, use the C++ ABI demangler
+#else
+    int error  = 0;
     char* name = abi::__cxa_demangle( typeIndex.name(), 0, 0, &error );
     if ( error == 0 ) { retval = name; }
     else {
@@ -185,11 +180,31 @@ inline std::string demangleType( const std::type_index& typeIndex ) noexcept {
         retval = std::string( "Type demangler error : " ) + std::to_string( error );
     }
     std::free( name );
-    removeAllInString( retval, "__1::" ); // or "::__1" ?
+#endif
+    removeAllInString( retval, "class " );
+    removeAllInString( retval, "struct " );
+    removeAllInString( retval, "__cdecl" );
+    replaceAllInString( retval, "& __ptr64", "&" );
+    replaceAllInString( retval, ",", ", " );
     replaceAllInString( retval, " >", ">" );
+    replaceAllInString( retval, "__int64", "long" );
+    replaceAllInString( retval, "const &", "const&" );
+    removeAllInString( retval, "__cxx11::" ); // windows<>gnu inconsistency
+    removeAllInString( retval, "__1::" );     // or "::__1" ?
+    replaceAllInString( retval, " >", ">" );
+
+    // " ,  ,  , ,,"  -> ,
+    retval = std::regex_replace( retval, std::regex( R"(\s*,(\s*,)+)" ), "," );
+    //"  ," -> ,
+    retval = std::regex_replace( retval, std::regex( R"(\s*,)" ), "," );
+    // "  , >" -> >
+    retval = std::regex_replace( retval, std::regex( R"(\s*,\s*>)" ), ">" );
+    // "   " -> " "
+    retval = std::regex_replace( retval, std::regex( R"(\s+)" ), " " );
+
     return retval;
 }
-#endif
+
 template <typename T>
 std::string demangleType() noexcept {
     // once per one type

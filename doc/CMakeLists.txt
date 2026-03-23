@@ -25,8 +25,10 @@ else()
 endif()
 message_setting(CAN_BUILD_DOC)
 if(CAN_BUILD_DOC)
+    if(TARGET Doxygen::dot)
+        get_target_property(DOT_IMPORTED Doxygen::dot "IMPORTED")
+    endif()
     # Search for plantUML for creating UML diagrams from doxygen
-    get_target_property(DOT_IMPORTED Doxygen::dot "IMPORTED")
     message_setting("DOT_IMPORTED")
     find_file(PLANT_UML_PATH NAMES plantuml.jar plantuml PATH_SUFFIXES PlantUML plantuml Plantuml
               PATHS /usr/share /usr/local/share/ /usr/local/bin /opt/local/bin c/Program\ Files*

@@ -1,24 +1,10 @@
 # -------------- Configuration of Radium IO targets and definitions -----------
 # Setup IO and check for dependencies
 
-# TODO: verify if this is needed
-if (IO_FOUND AND NOT TARGET IO)
-    set(Configure_IO ON)
-    # verify dependencies
-    if(NOT Core_FOUND)
-        if(EXISTS "${CMAKE_CURRENT_LIST_DIR}/../Core/RadiumCoreConfig.cmake")
-            include(${CMAKE_CURRENT_LIST_DIR}/../Core/RadiumCoreConfig.cmake)
-            set(Core_FOUND TRUE)
-        else()
-            set(Radium_FOUND False)
-            set(Radium_NOT_FOUND_MESSAGE "Radium::IO: dependency Core not found")
-            set(Configure_IO OFF)
-        endif()
-    endif()
+add_component_dependency(Core)
 
-endif()
+if(NOT TARGET Radium::IO)
 
-if(Configure_IO)
     define_property(
         TARGET PROPERTY IO_HAS_ASSIMP BRIEF_DOCS "Radium::IO has assimp support."
         FULL_DOCS "Identify if Radium::IO was compiled with assimp support."
@@ -32,6 +18,7 @@ if(Configure_IO)
         BRIEF_DOCS "Radium::IO has volume loader support."
         FULL_DOCS "Identify if Radium::IO was compiled with volume loader support."
     )
+
     include("${CMAKE_CURRENT_LIST_DIR}/IOTargets.cmake" )
 
     #Detect if library has been compiled with volumeIO support
@@ -41,19 +28,20 @@ if(Configure_IO)
 
     # Detect if library has been compiled using assimp and tinyply
     get_target_property(deps Radium::IO INTERFACE_LINK_LIBRARIES)
+
     list(FIND deps "assimp::assimp" depAssimpFound)
     list(FIND deps "tinyply" depTinyPLYFound)
 
     if(depAssimpFound GREATER_EQUAL "0")
         set(assimp_DIR "@assimp_DIR@")
 
-        find_dependency(assimp 5.0 REQUIRED NO_DEFAULT_PATH)
+        find_dependency(assimp 6.0 REQUIRED NO_DEFAULT_PATH)
         # Assimp do not have minsizerel nor relwithdebinfo target, so map it to release (\todo deep
         # check)
         set_target_properties(
             assimp::assimp PROPERTIES MAP_IMPORTED_CONFIG_MINSIZEREL Release
                                       MAP_IMPORTED_CONFIG_RELWITHDEBINFO Release
-        )
+                                  )
         if(MSVC OR MSVC_IDE OR MINGW)
             add_imported_dir(FROM assimp::assimp TO RadiumExternalDlls_location)
         endif()
@@ -68,5 +56,6 @@ if(Configure_IO)
         endif()
         set_target_properties(Radium::IO PROPERTIES IO_HAS_TINYPLY TRUE)
     endif()
-
 endif()
+
+check_target_set_found(IO)

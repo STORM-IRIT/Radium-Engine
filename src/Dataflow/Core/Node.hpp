@@ -153,7 +153,7 @@ class RA_DATAFLOW_CORE_API Node
      * \brief Get a port by its index
      *
      * \param type either "in" or "out", the directional type of the port
-     * \param index Index of the port \in [0 get(Inputs|Output).size()[
+     * \param index Index of the port \f$ \in [0,  get(Inputs|Output).size()[ \f$
      * \return a raw pointer on the requested port if it exists, nullptr else
      */
     PortBaseRawPtr port_by_index( const std::string& type, PortIndex index ) const;
@@ -255,7 +255,7 @@ class RA_DATAFLOW_CORE_API Node
     /**
      * \brief Construct the base node given its name and type.
      *
-     * \param instanceName The name of the node, unique in a graph
+     * \param instance The name of the node, unique in a graph
      * \param typeName The type name of the node, from static typename() concrete node class.
      */
     Node( const std::string& instance, const std::string& typeName );
@@ -289,7 +289,7 @@ class RA_DATAFLOW_CORE_API Node
      * \tparam T The contained type.
      * \tparam PortType PortBaseIn or PortBaseOut
      * \param ports The port collection
-     * \param idx
+     * \param index The port index
      * \return auto A raw ptr to the port typed in or out.
      */
     template <typename T, typename PortType>
@@ -319,11 +319,11 @@ class RA_DATAFLOW_CORE_API Node
      * \brief Adds a port to port collection
      *
      * \param port The in port to add.
-     * \param coll Port collection (input or output)
+     * \param ports Port collection (input or output)
      * \return The index of the inserted port.
      */
     template <typename PortType>
-    PortIndex add_port( PortCollection<PortPtr<PortType>>&, PortPtr<PortType> port );
+    PortIndex add_port( PortCollection<PortPtr<PortType>>& ports, PortPtr<PortType> port );
     /// Convenience alias to add_port(inputs(), in)
     PortIndex add_input( PortBaseInPtr in );
     /// Convenience alias to add_port(outputs(), out)

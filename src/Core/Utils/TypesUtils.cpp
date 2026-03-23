@@ -1,7 +1,7 @@
 #include <Core/RaCore.hpp>
 #include <Core/Utils/StringUtils.hpp>
 #include <Core/Utils/TypesUtils.hpp>
-#include <map>
+
 #include <string>
 #include <utility>
 
@@ -11,7 +11,8 @@ namespace Utils {
 namespace TypeInternal {
 
 RA_CORE_API auto makeTypeReadable( const std::string& fullType ) -> std::string {
-    static std::map<std::string, std::string> knownTypes {
+    // use vector to have ordered replacement.
+    static std::vector<std::pair<std::string, std::string>> knownTypes {
         { "std::", "" },
         { "__cxx11::", "" },
 #ifndef CORE_USE_DOUBLE
@@ -39,13 +40,28 @@ RA_CORE_API auto makeTypeReadable( const std::string& fullType ) -> std::string 
         { "Eigen::Matrix<int, 4, 1, 0, 4, 1>", "Vector4i" },
         { "Eigen::Matrix<unsigned int, 4, 1, 0, 4, 1>", "Vector4ui" },
         // Windows (visual studio 2022) specific name fix
-        { " __ptr64", "" } };
+        { " __ptr64", "" },
+        // std::string
+        { "basic_string<char, char_traits<char>, allocator<char>>", "string" } };
 
-    auto processedType = fullType;
+    auto result = fullType;
     for ( const auto& [key, value] : knownTypes ) {
-        Ra::Core::Utils::replaceAllInString( processedType, key, value );
+        Ra::Core::Utils::replaceAllInString( result, key, value );
     }
-    return processedType;
+
+    // Common verbose STL template components to remove
+    remove_bracket_block( result, "allocator" );
+    remove_bracket_block( result, "char_traits" );
+    remove_bracket_block( result, "hash" );
+    remove_bracket_block( result, "equal_to" );
+    // redondant with above replaceAllInString
+    // replace_bracket_b-lock( result, "basic_string", "string" );
+
+    result = std::regex_replace( result, std::regex( R"(\s*,(\s*,)+)" ), "," );
+    result = std::regex_replace( result, std::regex( R"(\s*,\s*>)" ), ">" );
+    result = std::regex_replace( result, std::regex( R"(\s+)" ), " " );
+
+    return result;
 }
 
 } // namespace TypeInternal

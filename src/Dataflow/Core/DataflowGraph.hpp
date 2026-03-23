@@ -183,7 +183,7 @@ class RA_DATAFLOW_CORE_API DataflowGraph : public Node
      * This input port could then be used through setter->set_default_value( data ) to set the
      * graph input from the data.
      * \note The raw pointer is only valid as graph is valid.
-     * \param nodeNome The name of the node
+     * \param nodeName The name of the node
      * \param portName The name of the input port
      * \return the port if exists, nullptr otherwise.
      */
@@ -196,7 +196,7 @@ class RA_DATAFLOW_CORE_API DataflowGraph : public Node
      * The return port can be use as in port->data().
      * \note ownership is left to the graph, not shared. The graph must survive the returned
      * raw pointer to be able to use the dataGetter.
-     * \param nodeNome The name of the node
+     * \param nodeName The name of the node
      * \param portName The name of the output port
      * \return the port if exists, nullptr otherwise.
      */

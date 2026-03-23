@@ -532,37 +532,16 @@ This file provides components informations needed by `find_package(Radium COMPON
 Here is a simple example of `Config.cmake.in` for the NewComponent example.
 
 ~~~{.cmake}
-# Check if the component is requested for import and is not already imported
-if(NewComponent_FOUND and NOT TARGET NewComponent)
-    # This helper variable will be ON if the component targets should be imported
-    set(Configure_NewComponent ON)
-    # check for dependency on other components
-    if(NOT Core_FOUND) # The dependency on Core was not explicitely requested by the user
-        # Include the configuration script fot the dependency if it exists
-        if(EXISTS "${CMAKE_CURRENT_LIST_DIR}/../Core/RadiumCoreConfig.cmake")
-            set(Core_FOUND TRUE)
-            include(${CMAKE_CURRENT_LIST_DIR}/../Core/RadiumCoreConfig.cmake)
-        else()
-            # If the dependency is not found, generates an error with a clear error message
-            set(Radium_FOUND False)
-            set(Radium_NOT_FOUND_MESSAGE "Radium::NewComponent : dependency Core not found")
-            set(Configure_NewComponent OFF)
-        endif()
-    endif()
-    # .. Do this for all dependencies
+# first add Radium component which NewComponent depends.
+add_component_dependency(Core) # this is a macro defined in src/Config.cmake.in
+
+if(NOT TARGET Radium::NewComponent)
+ # setup component dependencies if needed
+ # include componentTagrets
+    include("${CMAKE_CURRENT_LIST_DIR}/NewComponent.cmake")
 endif()
 
-# Configure the component if needed
-if(Configure_NewComponent)
-    # manage the dependency on external libraries (e.g. to the ExternalDependency package)
-    find_dependency(ExternalDependency REQUIRED)
-    # Specific configuration for windows
-    if(MSVC OR MSVC_IDE OR MINGW)
-        add_imported_dir(FROM ExternalDependency::Target TO RadiumExternalDlls_location)
-    endif()
-    # define the imported targets for the NewComponent
-    include("${CMAKE_CURRENT_LIST_DIR}/NewComponentTargets.cmake")
-endif()
+check_target_set_found(NewComponent) # Also a macro
 ~~~
 
 You can refer to the configuration of the `Core`, `Engine`, `Gui`, `PluginBase` and `IO`components for more practical

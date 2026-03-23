@@ -384,8 +384,7 @@ TEST_CASE( "Engine/Data/RenderParameters", "[unittests][Engine][Engine/Data][Ren
             std::multiset<std::string> expected;
 
             expected.insert(
-                "\t\tVisiting with subparameters: ( basic_string<char, char_traits<char>, "
-                "allocator<char>> ) sub.string --> SubString" );
+                "\t\tVisiting with subparameters: ( string ) sub.string --> SubString" );
             expected.insert( "\t\tVisiting with subparameters: ( int ) sub.int --> 3" );
             expected.insert(
                 "\t\tVisiting with subparameters: ( unsigned int ) enum.semantic --> 20" );

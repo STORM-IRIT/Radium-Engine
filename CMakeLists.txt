@@ -47,7 +47,7 @@ option(
     "Enable examples app build. To install examples, build explicitly the target Install_RadiumExamples."
     OFF
 )
-option(RADIUM_ENABLE_COVERAGE "Enable coverage, gcc only. Experimental, need ENABLE_TESTING" OFF)
+option(RADIUM_ENABLE_COVERAGE "Enable coverage, gcc only. Experimental, sets ENABLE_TESTING ON" OFF)
 option(RADIUM_ENABLE_PCH "Enable precompiled headers." OFF)
 option(RADIUM_USE_DOUBLE "Use double precision for Scalar." OFF)
 option(RADIUM_GENERATE_LIB_CORE "Include Radium::Core in CMake project." ON)
@@ -70,9 +70,6 @@ option(
 
 set(DISPLAY_WIDTH 80)
 
-if(RADIUM_USE_DOUBLE)
-    add_definitions(-DCORE_USE_DOUBLE)
-endif()
 # Changing the default value for CMAKE_BUILD_PARALLEL_LEVEL
 if(NOT DEFINED ENV{CMAKE_BUILD_PARALLEL_LEVEL})
     include(ProcessorCount)

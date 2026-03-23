@@ -1,5 +1,6 @@
 #include <Core/Utils/StringUtils.hpp>
 #include <cstddef>
+#include <map>
 #include <string>
 #include <string_view>
 
@@ -74,6 +75,54 @@ std::size_t replaceAllInString( std::string& inout, std::string_view what, std::
 std::size_t removeAllInString( std::string& inout, std::string_view what ) {
     return replaceAllInString( inout, what, "" );
 }
+
+void remove_bracket_block( std::string& inout, const std::string& what, char open_sep ) {
+    replace_bracket_block( inout, what, "", open_sep );
+}
+
+void replace_bracket_block( std::string& inout,
+                            const std::string& what,
+                            const std::string& with,
+                            char open_sep ) {
+    const std::map<char, char> open_to_close = {
+        { '<', '>' },
+        { '(', ')' },
+        { '[', ']' },
+        { '{', '}' },
+    };
+
+    const auto it = open_to_close.find( open_sep );
+    if ( it == open_to_close.end() ) throw std::invalid_argument( "Unsupported open separator" );
+
+    const char close_sep = it->second;
+
+    std::string target = what + open_sep;
+
+    size_t i = 0;
+
+    for ( size_t pos = inout.find( target, i ); pos != std::string::npos;
+          pos        = inout.find( target, i ) ) {
+
+        size_t j  = pos + target.size();
+        int depth = 1;
+        while ( j < inout.size() && depth > 0 ) {
+            if ( inout[j] == open_sep )
+                ++depth;
+            else if ( inout[j] == close_sep )
+                --depth;
+            ++j;
+        }
+        // If unmatched open_sep, abort safely
+        if ( depth != 0 ) break;
+
+        while ( j < inout.size() && std::isspace( static_cast<unsigned char>( inout[j] ) ) ) {
+            ++j;
+        }
+        // Replace the full "what<...>" block with "with"
+        inout.replace( pos, j - pos, with );
+    }
+}
+
 } // namespace Utils
 } // namespace Core
 } // namespace Ra

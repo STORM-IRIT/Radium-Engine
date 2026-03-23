@@ -29,11 +29,11 @@ if(RADIUM_IO_ASSIMP)
         ExternalProject_Add(
             assimp
             GIT_REPOSITORY https://github.com/assimp/assimp.git
-            GIT_TAG tags/v5.0.1
+            GIT_TAG tags/v6.0.2
             GIT_SHALLOW TRUE
             GIT_PROGRESS TRUE
-            PATCH_COMMAND git reset --hard && git apply -v --ignore-whitespace
-                          "${CMAKE_CURRENT_LIST_DIR}/patches/assimp.patch"
+            # PATCH_COMMAND git reset --hard && git apply -v --ignore-whitespace
+            # "${CMAKE_CURRENT_LIST_DIR}/patches/assimp.patch"
             INSTALL_DIR "${CMAKE_INSTALL_PREFIX}"
             CMAKE_ARGS ${RADIUM_EXTERNAL_CMAKE_OPTIONS}
                        -DASSIMP_BUILD_ASSIMP_TOOLS=False
@@ -44,7 +44,7 @@ if(RADIUM_IO_ASSIMP)
                        "-DCMAKE_MESSAGE_INDENT=${indent_string}\;"
         )
 
-        set_external_dir(assimp "lib/cmake/assimp-5.0/")
+        set_external_dir(assimp "lib/cmake/assimp-6.0/")
 
         add_dependencies(IOExternals assimp)
     else()

@@ -77,7 +77,7 @@ file(
          "${CMAKE_CURRENT_SOURCE_DIR}/../cmake/QtFunctions.cmake"
          "${CMAKE_CURRENT_SOURCE_DIR}/../cmake/FindFilesystem.cmake"
          "${CMAKE_CURRENT_SOURCE_DIR}/../cmake/RPath.cmake"
-    DESTINATION ${CMAKE_CURRENT_BINARY_DIR}
+    DESTINATION ${CMAKE_BINARY_DIR}/src
 )
 
 if(MSVC OR MSVC_IDE OR MINGW)
@@ -85,7 +85,7 @@ if(MSVC OR MSVC_IDE OR MINGW)
             DESTINATION ${CONFIG_PACKAGE_LOCATION}
     )
     file(COPY "${CMAKE_CURRENT_SOURCE_DIR}/../cmake/Windeployqt.cmake"
-         DESTINATION ${CMAKE_CURRENT_BINARY_DIR}
+         DESTINATION ${CMAKE_BINARY_DIR}/src
     )
 endif()
 

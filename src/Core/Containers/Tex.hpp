@@ -58,10 +58,10 @@ template <uint N>
 struct NLinearInterpolator {
     template <typename T>
     static T interpolate(
-        const Grid<T, N>& grid,                    // grid from which values are read
-        const typename Tex<T, N>::Vector& fact,    // factors of the interpolation (between 0 and 1)
-        const typename Tex<T, N>::IdxVector& size, // size of the  dual grid
-        const typename Tex<T, N>::IdxVector& clamped_nearest ) // base indices of the cell
+        const Grid<T, N>& /*grid*/,                    // grid from which values are read
+        const typename Tex<T, N>::Vector& /*fact*/,    // factors of the interpolation \in [0,1]
+        const typename Tex<T, N>::IdxVector& /*size*/, // size of the  dual grid
+        const typename Tex<T, N>::IdxVector& /*clamped_nearest*/ ) // base indices of the cell
     {
         CORE_ERROR( "N-linear interpolation not implemented for N= " << N );
         return T();

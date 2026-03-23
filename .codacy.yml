@@ -1,0 +1,6 @@
+tools:
+  cppcheck:
+    enabled: true
+    config:
+      suppress:
+        - missingIncludeSystem

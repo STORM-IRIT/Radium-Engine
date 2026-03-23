@@ -6,24 +6,80 @@
 
 namespace TypeTests {
 struct TypeName_struct {};
+
+struct SimpleStruct {
+    std::vector<std::string> strings; // cppcheck-suppress unusedStructMember
+    bool boolean;                     // cppcheck-suppress unusedStructMember
+};
+using PairAlias = std::pair<std::string, bool>;
+
 } // namespace TypeTests
 TEST_CASE( "Core/Utils/TypesUtils", "[unittests][Core][Utils][TypesUtils]" ) {
     SECTION( "Demangle from typename" ) {
         using Ra::Core::Utils::demangleType;
+        using Ra::Core::Utils::simplifiedDemangledType;
 
         REQUIRE( demangleType<int>() == "int" );
         REQUIRE( demangleType<float>() == "float" );
         REQUIRE( demangleType<uint>() == "unsigned int" );
         REQUIRE( demangleType<size_t>() == "unsigned long" );
 
-        auto demangledName = demangleType<std::vector<int>>();
-        REQUIRE( demangledName == "std::vector<int, std::allocator<int>>" );
+        REQUIRE( demangleType( std::vector<int> {} ) == "std::vector<int, std::allocator<int>>" );
+        REQUIRE( demangleType<std::vector<int>>() == "std::vector<int, std::allocator<int>>" );
+        REQUIRE( demangleType( std::type_index( typeid( std::vector<int> ) ) ) ==
+                 "std::vector<int, std::allocator<int>>" );
 
-        demangledName = demangleType<TypeTests::TypeName_struct>();
-        REQUIRE( demangledName == "TypeTests::TypeName_struct" );
+        REQUIRE( demangleType( std::vector<float> {} ) ==
+                 "std::vector<float, std::allocator<float>>" );
+        REQUIRE( demangleType<std::vector<float>>() ==
+                 "std::vector<float, std::allocator<float>>" );
+        REQUIRE( demangleType( std::type_index( typeid( std::vector<float> ) ) ) ==
+                 "std::vector<float, std::allocator<float>>" );
 
-        demangledName = demangleType( std::type_index( typeid( std::vector<float> ) ) );
-        REQUIRE( demangledName == "std::vector<float, std::allocator<float>>" );
+        std::string string_vector_type =
+            "std::vector<std::basic_string<char, std::char_traits<char>, "
+            "std::allocator<char>>, std::allocator<std::basic_string<char, "
+            "std::char_traits<char>, std::allocator<char>>>>";
+        REQUIRE( demangleType( std::vector<std::string> {} ) == string_vector_type );
+        REQUIRE( demangleType<std::vector<std::string>>() == string_vector_type );
+        REQUIRE( demangleType( std::type_index( typeid( std::vector<std::string> ) ) ) ==
+                 string_vector_type );
+        std::string simplified_string_vector_type = "vector<string>";
+        REQUIRE( simplifiedDemangledType( std::vector<std::string> {} ) ==
+                 simplified_string_vector_type );
+        REQUIRE( simplifiedDemangledType<std::vector<std::string>>() ==
+                 simplified_string_vector_type );
+        REQUIRE( simplifiedDemangledType( std::type_index( typeid( std::vector<std::string> ) ) ) ==
+                 simplified_string_vector_type );
+
+        REQUIRE( demangleType<std::unordered_map<std::string, TypeTests::SimpleStruct>>() ==
+                 "std::unordered_map<std::basic_string<char, std::char_traits<char>, "
+                 "std::allocator<char>>, TypeTests::SimpleStruct, "
+                 "std::hash<std::basic_string<char, std::char_traits<char>, "
+                 "std::allocator<char>>>, std::equal_to<std::basic_string<char, "
+                 "std::char_traits<char>, std::allocator<char>>>, "
+                 "std::allocator<std::pair<std::basic_string<char, "
+                 "std::char_traits<char>, "
+                 "std::allocator<char>> const, TypeTests::SimpleStruct>>>" );
+
+        REQUIRE( demangleType<TypeTests::TypeName_struct>() == "TypeTests::TypeName_struct" );
+        REQUIRE( demangleType<TypeTests::SimpleStruct>() == "TypeTests::SimpleStruct" );
+
+        REQUIRE( demangleType<TypeTests::PairAlias>() ==
+                 "std::pair<std::basic_string<char, std::char_traits<char>, "
+                 "std::allocator<char>>, bool>" );
+        REQUIRE( demangleType<std::vector<TypeTests::PairAlias>>() ==
+                 "std::vector<std::pair<std::basic_string<char, std::char_traits"
+                 "<char>, std::allocator<char>>, bool>, std::allocator<std::pair<std::"
+                 "basic_string<char, std::char_traits<char>, std::allocator<char>>, bool>>>" );
+
+        REQUIRE( simplifiedDemangledType<std::vector<float>>() == "vector<Scalar>" );
+        REQUIRE(
+            simplifiedDemangledType<std::unordered_map<std::string, TypeTests::SimpleStruct>>() ==
+            "unordered_map<string, TypeTests::SimpleStruct>" );
+        REQUIRE( simplifiedDemangledType<TypeTests::PairAlias>() == "pair<string, bool>" );
+        REQUIRE( simplifiedDemangledType<std::vector<TypeTests::PairAlias>>() ==
+                 "vector<pair<string, bool>>" );
     }
 
     SECTION( "Demangle from instance" ) {

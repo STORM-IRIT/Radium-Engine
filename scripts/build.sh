@@ -8,12 +8,14 @@ COMMAND_COLOR='\033[0;90m'
 NC='\033[0m'
 
 
-
 if [ "$(uname)" == "Darwin" ]; then
     JOBS=$(sysctl -n hw.logicalcpu)
 else
     JOBS=$(nproc)
 fi
+
+# Get SDK directory (directory where this script is located)
+THIS_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}/" )/../" && pwd )"
 
 BUILD_TYPE=Release
 BUILD_EXT=true
@@ -25,6 +27,8 @@ INSTALL_DOC=OFF
 ENABLE_EXAMPLE=ON
 ENABLE_COVERAGE=OFF
 ENABLE_TESTING=ON
+
+BUILD_ROOT="${THIS_DIR}/build"
 
 VERBOSE=true
 function eval_verbose {
@@ -52,7 +56,7 @@ function usage {
     echo "  -o, --options OPTS      More cmake configure options."
     echo "            double quote if multiple OPTS, single quote if spaces"
     echo "            as in -o \"-Da -Ddir='a b'\""
-    echo "  -B, --build-prefix DIR  Set BUILD_PREFIX (Radium-Engine/build),"
+    echo "  -B, --build-prefix DIR  Set BUILD_PREFIX (default: $BUILD_ROOT),"
     echo "            then uses BUILD_PREFIX/CONFIG/{external|Radium-Engine}"
     echo "  -i, --install DIR       Install path PREFIX"
     echo "            (default: ../radium-install)"
@@ -165,13 +169,7 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 
-
-# Get SDK directory (directory where this script is located)
-THIS_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}/" )/../" && pwd )"
-
-if [ -z ${BUILD_PREFIX+x} ]; then
-    BUILD_ROOT="${THIS_DIR}/build"
-else
+if [ ! -z ${BUILD_PREFIX+x} ]; then
     BUILD_ROOT="${BUILD_PREFIX}"
 fi
 
@@ -196,12 +194,13 @@ if [ ! -z ${CMAKE_GENERATOR+x} ]; then
     GENERATOR_ARG="-G ${CMAKE_GENERATOR}"
 fi
 
-COMPILER_ARG=""
+COMPILER_ARG1=""
 if [ ! -z ${CC+x} ]; then
-    COMPILER_ARG="-DCMAKE_C_COMPILER=${CC}"
+    COMPILER_ARG1="-DCMAKE_C_COMPILER=${CC}"
 fi
-if [ ! -z ${CCX+x} ]; then
-    COMPILER_ARG="${COMPILER_ARG} -DCMAKE_C_COMPILER=${CXX}"
+COMPILER_ARG2=""
+if [ ! -z ${CXX+x} ]; then
+    COMPILER_ARG2="-DCMAKE_CXX_COMPILER=${CXX}"
 fi
 
 if [ "${BUILD_EXT}" = true ]; then
@@ -209,7 +208,8 @@ if [ "${BUILD_EXT}" = true ]; then
 
     eval_verbose cmake -S "${THIS_DIR}/external" -B "${EXTERNAL_BUILD_DIR}" \
                  ${GENERATOR_ARG:+"${GENERATOR_ARG}"} \
-                 ${COMPILER_ARG:+"${COMPILER_ARG}"} \
+                 ${COMPILER_ARG1:+"${COMPILER_ARG1}"} \
+                 ${COMPILER_ARG2:+"${COMPILER_ARG2}"} \
                  -DCMAKE_BUILD_TYPE="${BUILD_TYPE}" \
                  -DCMAKE_EXECUTE_PROCESS_COMMAND_ECHO=NONE \
                  -DCMAKE_INSTALL_MESSAGE=LAZY \
@@ -229,7 +229,8 @@ if [ "${BUILD_RADIUM}" = true ]; then
     eval_verbose cmake -S "${THIS_DIR}/" -B "${RADIUM_BUILD_DIR}" \
                  -DCMAKE_EXECUTE_PROCESS_COMMAND_ECHO=NONE \
                  ${GENERATOR_ARG:+"${GENERATOR_ARG}"} \
-                 ${COMPILER_ARG:+"${COMPILER_ARG}"} \
+                 ${COMPILER_ARG1:+"${COMPILER_ARG1}"} \
+                 ${COMPILER_ARG2:+"${COMPILER_ARG2}"} \
                  -DCMAKE_BUILD_TYPE="${BUILD_TYPE}" \
                  -DCMAKE_INSTALL_PREFIX="${RADIUM_INSTALL_DIR}" \
                  -C "${EXTERNAL_INSTALL_DIR}/radium-options.cmake" \
