@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.webp"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.7.1</span>
+   &#160;<span id="projectnumber">1.7.2</span>
    </div>
   </td>
  </tr>
@@ -286,7 +286,7 @@ $(function(){initNavTree('DistanceQueries_8hpp_source.html',''); initResizable(t
 <div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>                                                       <span class="keyword">const</span> Vector3&amp; c ) {</div>
 <div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>    <span class="comment">/*</span></div>
 <div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span><span class="comment">     *  This function projects the query point Q on the triangle plane to solve the</span></div>
-<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span><span class="comment">     *  planar problem described by the following schema  of Voronoi zones :</span></div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span><span class="comment">     *  planar problem described by the following schema of Voronoi zones :</span></div>
 <div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span><span class="comment">     * 3     /</span></div>
 <div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span><span class="comment">     * --  C</span></div>
 <div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span><span class="comment">     *     |\\     6</span></div>
@@ -312,13 +312,13 @@ $(function(){initNavTree('DistanceQueries_8hpp_source.html',''); initResizable(t
 <div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>    <span class="keyword">const</span> Vector3 ac = c - a;</div>
 <div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>    <span class="keyword">const</span> Vector3 aq = q - a;</div>
 <div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span> </div>
-<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>    CORE_ASSERT( ab.cross( ac ).squaredNorm() &gt; 0, <span class="stringliteral">&quot;Triangle ABC is degenerate&quot;</span> );</div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>    CORE_ASSERT( ab.cross( ac ).squaredNorm() &gt; 0_ra, <span class="stringliteral">&quot;Triangle ABC is degenerate&quot;</span> );</div>
 <div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span> </div>
 <div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>    <span class="keyword">const</span> Scalar d1 = ab.dot( aq );</div>
 <div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>    <span class="keyword">const</span> Scalar d2 = ac.dot( aq );</div>
 <div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span> </div>
 <div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>    <span class="comment">// Closest point is A. (zone 1)</span></div>
-<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>    <span class="keyword">const</span> <span class="keywordtype">bool</span> m1 = d1 &lt;= 0 &amp;&amp; d2 &lt;= 0;</div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>    <span class="keyword">const</span> <span class="keywordtype">bool</span> m1 = d1 &lt;= 0_ra &amp;&amp; d2 &lt;= 0_ra;</div>
 <div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>    <span class="keywordflow">if</span> ( m1 ) {</div>
 <div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>        output.meshPoint       = a;</div>
 <div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>        output.distanceSquared = aq.squaredNorm();</div>
@@ -331,7 +331,7 @@ $(function(){initNavTree('DistanceQueries_8hpp_source.html',''); initResizable(t
 <div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>    <span class="keyword">const</span> Scalar d4  = ac.dot( bq );</div>
 <div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span> </div>
 <div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>    <span class="comment">// Closest point is B (zone 2)</span></div>
-<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>    <span class="keyword">const</span> <span class="keywordtype">bool</span> m2 = d3 &gt;= 0 &amp;&amp; d4 &lt;= d3;</div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>    <span class="keyword">const</span> <span class="keywordtype">bool</span> m2 = d3 &gt;= 0_ra &amp;&amp; d4 &lt;= d3;</div>
 <div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>    <span class="keywordflow">if</span> ( m2 ) {</div>
 <div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>        output.meshPoint       = b;</div>
 <div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>        output.distanceSquared = bq.squaredNorm();</div>
@@ -344,7 +344,7 @@ $(function(){initNavTree('DistanceQueries_8hpp_source.html',''); initResizable(t
 <div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>    <span class="keyword">const</span> Scalar d6  = ac.dot( cq );</div>
 <div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span> </div>
 <div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>    <span class="comment">// Closest point is C (zone 3)</span></div>
-<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>    <span class="keyword">const</span> <span class="keywordtype">bool</span> m3 = ( d6 &gt;= 0 &amp;&amp; d5 &lt;= d6 );</div>
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>    <span class="keyword">const</span> <span class="keywordtype">bool</span> m3 = ( d6 &gt;= 0_ra &amp;&amp; d5 &lt;= d6 );</div>
 <div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>    <span class="keywordflow">if</span> ( m3 ) {</div>
 <div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>        output.meshPoint       = c;</div>
 <div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>        output.distanceSquared = cq.squaredNorm();</div>
@@ -356,7 +356,7 @@ $(function(){initNavTree('DistanceQueries_8hpp_source.html',''); initResizable(t
 <div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>    <span class="keyword">const</span> Scalar v1 = d1 / ( d1 - d3 );</div>
 <div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span> </div>
 <div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>    <span class="comment">// Closest point is on AB (zone 4)</span></div>
-<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>    <span class="keyword">const</span> <span class="keywordtype">bool</span> m4 = vc &lt;= 0 &amp;&amp; d1 &gt;= 0 &amp;&amp; d3 &lt;= 0;</div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>    <span class="keyword">const</span> <span class="keywordtype">bool</span> m4 = vc &lt;= 0_ra &amp;&amp; d1 &gt;= 0 &amp;&amp; d3 &lt;= 0_ra;</div>
 <div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span>    <span class="keywordflow">if</span> ( m4 ) {</div>
 <div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>        output.meshPoint       = a + v1 * ab;</div>
 <div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span>        output.distanceSquared = ( output.meshPoint - q ).squaredNorm();</div>
@@ -368,7 +368,7 @@ $(function(){initNavTree('DistanceQueries_8hpp_source.html',''); initResizable(t
 <div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span>    <span class="keyword">const</span> Scalar w1 = d2 / ( d2 - d6 );</div>
 <div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span> </div>
 <div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span>    <span class="comment">// Closest point is on AC (zone 5)</span></div>
-<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>    <span class="keyword">const</span> <span class="keywordtype">bool</span> m5 = vb &lt;= 0 &amp;&amp; d2 &gt;= 0 &amp;&amp; d6 &lt;= 0;</div>
+<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>    <span class="keyword">const</span> <span class="keywordtype">bool</span> m5 = vb &lt;= 0_ra &amp;&amp; d2 &gt;= 0_ra &amp;&amp; d6 &lt;= 0_ra;</div>
 <div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span>    <span class="keywordflow">if</span> ( m5 ) {</div>
 <div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>        output.meshPoint       = a + w1 * ac;</div>
 <div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span>        output.distanceSquared = ( output.meshPoint - q ).squaredNorm();</div>
@@ -380,7 +380,7 @@ $(function(){initNavTree('DistanceQueries_8hpp_source.html',''); initResizable(t
 <div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span>    <span class="keyword">const</span> Scalar w2 = ( d4 - d3 ) / ( ( d4 - d3 ) + ( d5 - d6 ) );</div>
 <div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span> </div>
 <div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span>    <span class="comment">// Closest point is on BC (zone 6)</span></div>
-<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>    <span class="keyword">const</span> <span class="keywordtype">bool</span> m6 = va &lt;= 0 &amp;&amp; ( d4 - d3 ) &gt;= 0 &amp;&amp; ( d5 - d6 ) &gt;= 0;</div>
+<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>    <span class="keyword">const</span> <span class="keywordtype">bool</span> m6 = va &lt;= 0_ra &amp;&amp; ( d4 - d3 ) &gt;= 0_ra &amp;&amp; ( d5 - d6 ) &gt;= 0_ra;</div>
 <div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span>    <span class="keywordflow">if</span> ( m6 ) {</div>
 <div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span>        output.meshPoint       = b + w2 * ( c - b );</div>
 <div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span>        output.distanceSquared = ( output.meshPoint - q ).squaredNorm();</div>
@@ -389,7 +389,7 @@ $(function(){initNavTree('DistanceQueries_8hpp_source.html',''); initResizable(t
 <div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span>    }</div>
 <div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span> </div>
 <div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span>    <span class="comment">// Closest point is on the triangle</span></div>
-<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>    <span class="keyword">const</span> Scalar d  = Scalar( 1 ) / ( va + vb + vc );</div>
+<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>    <span class="keyword">const</span> Scalar d  = 1_ra / ( va + vb + vc );</div>
 <div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>    <span class="keyword">const</span> Scalar v2 = vb * d;</div>
 <div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span>    <span class="keyword">const</span> Scalar w3 = vc * d;</div>
 <div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span> </div>

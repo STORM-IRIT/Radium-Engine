@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.webp"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.7.1</span>
+   &#160;<span id="projectnumber">1.7.2</span>
    </div>
   </td>
  </tr>
@@ -122,6 +122,7 @@ $(function(){initNavTree('classRa_1_1Core_1_1Utils_1_1EnumConverter.html',''); i
 
 <div class="header">
   <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="classRa_1_1Core_1_1Utils_1_1EnumConverter-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">Ra::Core::Utils::EnumConverter&lt; EnumBaseType &gt; Class Template Reference</div></div>
@@ -140,10 +141,15 @@ $(function(){initNavTree('classRa_1_1Core_1_1Utils_1_1EnumConverter.html',''); i
 <div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Core_1_1Utils_1_1EnumConverter__coll__graph.svg" width="227" height="151"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a71712f3be45ecaeb4f66463aedf1d7a9" id="r_a71712f3be45ecaeb4f66463aedf1d7a9"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a71712f3be45ecaeb4f66463aedf1d7a9">InitializerList</a> = <a class="elRef" target="_blank" href="http://en.cppreference.com/w/cpp/utility/initializer_list.html">std::initializer_list</a>&lt;<a class="elRef" target="_blank" href="http://en.cppreference.com/w/cpp/utility/pair.html">std::pair</a>&lt;EnumBaseType, <a class="elRef" target="_blank" href="http://en.cppreference.com/w/cpp/string/basic_string.html">std::string</a>&gt;&gt;</td></tr>
+<tr class="separator:a71712f3be45ecaeb4f66463aedf1d7a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a9b7d0e7982d14e5e0b9e5064aedb9f91" id="r_a9b7d0e7982d14e5e0b9e5064aedb9f91"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9b7d0e7982d14e5e0b9e5064aedb9f91">EnumConverter</a> (<a class="elRef" target="_blank" href="http://en.cppreference.com/w/cpp/utility/initializer_list.html">std::initializer_list</a>&lt; <a class="elRef" target="_blank" href="http://en.cppreference.com/w/cpp/utility/pair.html">std::pair</a>&lt; EnumBaseType, <a class="elRef" target="_blank" href="http://en.cppreference.com/w/cpp/string/basic_string.html">std::string</a> &gt; &gt; pairs)</td></tr>
-<tr class="separator:a9b7d0e7982d14e5e0b9e5064aedb9f91"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af130710ae59bea6f6cc11b65bbd82fe7" id="r_af130710ae59bea6f6cc11b65bbd82fe7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af130710ae59bea6f6cc11b65bbd82fe7">EnumConverter</a> (<a class="el" href="#a71712f3be45ecaeb4f66463aedf1d7a9">InitializerList</a> pairs)</td></tr>
+<tr class="separator:af130710ae59bea6f6cc11b65bbd82fe7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5a6b4b2ce9d580730fc2b0066cf59ba8" id="r_a5a6b4b2ce9d580730fc2b0066cf59ba8"><td class="memItemLeft" align="right" valign="top"><a class="elRef" target="_blank" href="http://en.cppreference.com/w/cpp/string/basic_string.html">std::string</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5a6b4b2ce9d580730fc2b0066cf59ba8">getEnumerator</a> (EnumBaseType v) const</td></tr>
 <tr class="separator:a5a6b4b2ce9d580730fc2b0066cf59ba8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad655de6e4d171248dd31f32df1d62451" id="r_ad655de6e4d171248dd31f32df1d62451"><td class="memItemLeft" align="right" valign="top">EnumBaseType&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad655de6e4d171248dd31f32df1d62451">getEnumerator</a> (const <a class="elRef" target="_blank" href="http://en.cppreference.com/w/cpp/string/basic_string.html">std::string</a> &amp;v) const</td></tr>
@@ -162,9 +168,29 @@ class Ra::Core::Utils::EnumConverter&lt; EnumBaseType &gt;</div><p>This class ma
 </dl>
 
 <p class="definition">Definition at line <a class="el" href="EnumConverter_8hpp_source.html#l00024">24</a> of file <a class="el" href="EnumConverter_8hpp_source.html">EnumConverter.hpp</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a9b7d0e7982d14e5e0b9e5064aedb9f91" name="a9b7d0e7982d14e5e0b9e5064aedb9f91"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9b7d0e7982d14e5e0b9e5064aedb9f91">&#9670;&#160;</a></span>EnumConverter()</h2>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="a71712f3be45ecaeb4f66463aedf1d7a9" name="a71712f3be45ecaeb4f66463aedf1d7a9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a71712f3be45ecaeb4f66463aedf1d7a9">&#9670;&#160;</a></span>InitializerList</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename EnumBaseType &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="classRa_1_1Core_1_1Utils_1_1EnumConverter.html">Ra::Core::Utils::EnumConverter</a>&lt; EnumBaseType &gt;::InitializerList = <a class="elRef" target="_blank" href="http://en.cppreference.com/w/cpp/utility/initializer_list.html">std::initializer_list</a>&lt;<a class="elRef" target="_blank" href="http://en.cppreference.com/w/cpp/utility/pair.html">std::pair</a>&lt;EnumBaseType, <a class="elRef" target="_blank" href="http://en.cppreference.com/w/cpp/string/basic_string.html">std::string</a>&gt;&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000029">Todo</a></b></dt><dd>think of manage both EnumType and EnumUnderlyingType Eg using EnumUnderlyingType = std::underling_type_t&lt;Enum&gt;; getEnumeratorUnderlying -&gt;EnumUnderlyingType getEnumerator -&gt; Enum After thinking, complexify management of variableset and visitor. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="EnumConverter_8hpp_source.html#l00032">32</a> of file <a class="el" href="EnumConverter_8hpp_source.html">EnumConverter.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="af130710ae59bea6f6cc11b65bbd82fe7" name="af130710ae59bea6f6cc11b65bbd82fe7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af130710ae59bea6f6cc11b65bbd82fe7">&#9670;&#160;</a></span>EnumConverter()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -177,7 +203,7 @@ template&lt;typename EnumBaseType &gt; </div>
         <tr>
           <td class="memname"><a class="el" href="classRa_1_1Core_1_1Utils_1_1EnumConverter.html">Ra::Core::Utils::EnumConverter</a>&lt; EnumBaseType &gt;::EnumConverter </td>
           <td>(</td>
-          <td class="paramtype"><a class="elRef" target="_blank" href="http://en.cppreference.com/w/cpp/utility/initializer_list.html">std::initializer_list</a>&lt; <a class="elRef" target="_blank" href="http://en.cppreference.com/w/cpp/utility/pair.html">std::pair</a>&lt; EnumBaseType, <a class="elRef" target="_blank" href="http://en.cppreference.com/w/cpp/string/basic_string.html">std::string</a> &gt; &gt;</td>          <td class="paramname"><span class="paramname"><em>pairs</em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="#a71712f3be45ecaeb4f66463aedf1d7a9">InitializerList</a></td>          <td class="paramname"><span class="paramname"><em>pairs</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -187,9 +213,8 @@ template&lt;typename EnumBaseType &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000029">Todo</a></b></dt><dd>think of manage both EnumType and EnumUnderlyingType Eg using EnumUnderlyingType = std::underling_type_t&lt;Enum&gt;; getEnumeratorUnderlying -&gt;EnumUnderlyingType getEnumerator -&gt; Enum After thinking, complexify management of variableset and visitor. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="EnumConverter_8hpp_source.html#l00032">32</a> of file <a class="el" href="EnumConverter_8hpp_source.html">EnumConverter.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="EnumConverter_8hpp_source.html#l00033">33</a> of file <a class="el" href="EnumConverter_8hpp_source.html">EnumConverter.hpp</a>.</p>
 
 </div>
 </div>

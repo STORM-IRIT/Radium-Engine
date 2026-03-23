@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.webp"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.7.1</span>
+   &#160;<span id="projectnumber">1.7.2</span>
    </div>
   </td>
  </tr>
@@ -336,10 +336,10 @@ Protected Member Functions</h2></td></tr>
 <tr class="memitem:af7dc32777b61e697d15aa0697b7d07aa" id="r_af7dc32777b61e697d15aa0697b7d07aa"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af7dc32777b61e697d15aa0697b7d07aa">toJsonInternal</a> (nlohmann::json &amp;data) const</td></tr>
 <tr class="memdesc:af7dc32777b61e697d15aa0697b7d07aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Internal json representation of the <a class="el" href="classRa_1_1Dataflow_1_1Core_1_1Node.html" title="Base abstract class for all the nodes added and used by the node system.">Node</a>.  <br /></td></tr>
 <tr class="separator:af7dc32777b61e697d15aa0697b7d07aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab8e4e59c44028daad7958cabab720476" id="r_ab8e4e59c44028daad7958cabab720476"><td class="memTemplParams" colspan="2">template&lt;typename PortType &gt; </td></tr>
-<tr class="memitem:ab8e4e59c44028daad7958cabab720476"><td class="memTemplItemLeft" align="right" valign="top">PortIndex&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#ab8e4e59c44028daad7958cabab720476">add_port</a> (<a class="elRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector.html">PortCollection</a>&lt; <a class="elRef" target="_blank" href="http://en.cppreference.com/w/cpp/memory/shared_ptr.html">PortPtr</a>&lt; PortType &gt; &gt; &amp;, <a class="elRef" target="_blank" href="http://en.cppreference.com/w/cpp/memory/shared_ptr.html">PortPtr</a>&lt; PortType &gt; <a class="el" href="#a8107e0a23789840e57b98ca9f1a03c5a">port</a>)</td></tr>
-<tr class="memdesc:ab8e4e59c44028daad7958cabab720476"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a port to port collection.  <br /></td></tr>
-<tr class="separator:ab8e4e59c44028daad7958cabab720476"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5fd2efc71dcad831c6673c9a8faee55f" id="r_a5fd2efc71dcad831c6673c9a8faee55f"><td class="memTemplParams" colspan="2">template&lt;typename PortType &gt; </td></tr>
+<tr class="memitem:a5fd2efc71dcad831c6673c9a8faee55f"><td class="memTemplItemLeft" align="right" valign="top">PortIndex&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a5fd2efc71dcad831c6673c9a8faee55f">add_port</a> (<a class="elRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector.html">PortCollection</a>&lt; <a class="elRef" target="_blank" href="http://en.cppreference.com/w/cpp/memory/shared_ptr.html">PortPtr</a>&lt; PortType &gt; &gt; &amp;ports, <a class="elRef" target="_blank" href="http://en.cppreference.com/w/cpp/memory/shared_ptr.html">PortPtr</a>&lt; PortType &gt; <a class="el" href="#a8107e0a23789840e57b98ca9f1a03c5a">port</a>)</td></tr>
+<tr class="memdesc:a5fd2efc71dcad831c6673c9a8faee55f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a port to port collection.  <br /></td></tr>
+<tr class="separator:a5fd2efc71dcad831c6673c9a8faee55f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a393baaa0eb2e0f1a89371efbcb72f925" id="r_a393baaa0eb2e0f1a89371efbcb72f925"><td class="memItemLeft" align="right" valign="top">PortIndex&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a393baaa0eb2e0f1a89371efbcb72f925">add_input</a> (<a class="elRef" target="_blank" href="http://en.cppreference.com/w/cpp/memory/shared_ptr.html">PortBaseInPtr</a> in)</td></tr>
 <tr class="memdesc:a393baaa0eb2e0f1a89371efbcb72f925"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convenience alias to add_port(inputs(), in)  <br /></td></tr>
 <tr class="separator:a393baaa0eb2e0f1a89371efbcb72f925"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -769,7 +769,7 @@ template&lt;typename Port &gt; </div>
 <p>Construct the base node given its name and type. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">instanceName</td><td>The name of the node, unique in a graph </td></tr>
+    <tr><td class="paramname">instance</td><td>The name of the node, unique in a graph </td></tr>
     <tr><td class="paramname">typeName</td><td>The type name of the node, from static typename() concrete node class. </td></tr>
   </table>
   </dd>
@@ -1014,8 +1014,8 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a id="ab8e4e59c44028daad7958cabab720476" name="ab8e4e59c44028daad7958cabab720476"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab8e4e59c44028daad7958cabab720476">&#9670;&#160;</a></span>add_port()</h2>
+<a id="a5fd2efc71dcad831c6673c9a8faee55f" name="a5fd2efc71dcad831c6673c9a8faee55f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5fd2efc71dcad831c6673c9a8faee55f">&#9670;&#160;</a></span>add_port()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1047,7 +1047,7 @@ template&lt;typename PortType &gt; </div>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">port</td><td>The in port to add. </td></tr>
-    <tr><td class="paramname">coll</td><td>Port collection (input or output) </td></tr>
+    <tr><td class="paramname">ports</td><td>Port collection (input or output) </td></tr>
   </table>
   </dd>
 </dl>
@@ -1059,7 +1059,7 @@ template&lt;typename PortType &gt; </div>
 <div id="dynsection-6-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-6-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Dataflow_1_1Core_1_1Node_ab8e4e59c44028daad7958cabab720476_cgraph.svg" width="344" height="200"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Dataflow_1_1Core_1_1Node_a5fd2efc71dcad831c6673c9a8faee55f_cgraph.svg" width="344" height="200"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -1932,7 +1932,7 @@ template&lt;typename T , typename PortType &gt; </div>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">ports</td><td>The port collection </td></tr>
-    <tr><td class="paramname">idx</td><td></td></tr>
+    <tr><td class="paramname">index</td><td>The port index </td></tr>
   </table>
   </dd>
 </dl>
@@ -2014,7 +2014,7 @@ template&lt;typename PortType &gt; </div>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">type</td><td>either "in" or "out", the directional type of the port </td></tr>
-    <tr><td class="paramname">index</td><td>Index of the port \in [0 get(Inputs|Output).size()[ </td></tr>
+    <tr><td class="paramname">index</td><td>Index of the port \( \in [0,  get(Inputs|Output).size()[ \) </td></tr>
   </table>
   </dd>
 </dl>

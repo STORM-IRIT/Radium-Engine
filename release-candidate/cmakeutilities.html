@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.webp"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.7.1</span>
+   &#160;<span id="projectnumber">1.7.2</span>
    </div>
   </td>
  </tr>
@@ -560,37 +560,16 @@ Adding a new component to the Radium package</h2>
 <h3>Configure component's cmake setup</h3>
 <p>During Radium install, cmake generates a configuration file for the component, from <code>Config.cmake.in</code> file located in the source directory of the component. The generation setup is done by <code>configure_radium_library</code>. This file provides components informations needed by <code>find_package(Radium COMPONENT NewComponent)</code></p>
 <p>Here is a simple example of <code>Config.cmake.in</code> for the NewComponent example.</p>
-<div class="fragment"><div class="line"># Check if the component is requested for import and is not already imported</div>
-<div class="line">if(NewComponent_FOUND and NOT TARGET NewComponent)</div>
-<div class="line">    # This helper variable will be ON if the component targets should be imported</div>
-<div class="line">    set(Configure_NewComponent ON)</div>
-<div class="line">    # check for dependency on other components</div>
-<div class="line">    if(NOT Core_FOUND) # The dependency on Core was not explicitely requested by the user</div>
-<div class="line">        # Include the configuration script fot the dependency if it exists</div>
-<div class="line">        if(EXISTS &quot;${CMAKE_CURRENT_LIST_DIR}/../Core/RadiumCoreConfig.cmake&quot;)</div>
-<div class="line">            set(Core_FOUND TRUE)</div>
-<div class="line">            include(${CMAKE_CURRENT_LIST_DIR}/../Core/RadiumCoreConfig.cmake)</div>
-<div class="line">        else()</div>
-<div class="line">            # If the dependency is not found, generates an error with a clear error message</div>
-<div class="line">            set(Radium_FOUND False)</div>
-<div class="line">            set(Radium_NOT_FOUND_MESSAGE &quot;Radium::NewComponent : dependency Core not found&quot;)</div>
-<div class="line">            set(Configure_NewComponent OFF)</div>
-<div class="line">        endif()</div>
-<div class="line">    endif()</div>
-<div class="line">    # .. Do this for all dependencies</div>
+<div class="fragment"><div class="line"># first add Radium component which NewComponent depends.</div>
+<div class="line">add_component_dependency(Core) # this is a macro defined in src/Config.cmake.in</div>
+<div class="line"> </div>
+<div class="line">if(NOT TARGET Radium::NewComponent)</div>
+<div class="line"> # setup component dependencies if needed</div>
+<div class="line"> # include componentTagrets</div>
+<div class="line">    include(&quot;${CMAKE_CURRENT_LIST_DIR}/NewComponent.cmake&quot;)</div>
 <div class="line">endif()</div>
 <div class="line"> </div>
-<div class="line"># Configure the component if needed</div>
-<div class="line">if(Configure_NewComponent)</div>
-<div class="line">    # manage the dependency on external libraries (e.g. to the ExternalDependency package)</div>
-<div class="line">    find_dependency(ExternalDependency REQUIRED)</div>
-<div class="line">    # Specific configuration for windows</div>
-<div class="line">    if(MSVC OR MSVC_IDE OR MINGW)</div>
-<div class="line">        add_imported_dir(FROM ExternalDependency::Target TO RadiumExternalDlls_location)</div>
-<div class="line">    endif()</div>
-<div class="line">    # define the imported targets for the NewComponent</div>
-<div class="line">    include(&quot;${CMAKE_CURRENT_LIST_DIR}/NewComponentTargets.cmake&quot;)</div>
-<div class="line">endif()</div>
+<div class="line">check_target_set_found(NewComponent) # Also a macro</div>
 </div><!-- fragment --><p>You can refer to the configuration of the <code>Core</code>, <code>Engine</code>, <code>Gui</code>, <code>PluginBase</code> and <code>IO</code>components for more practical and complete examples.</p>
 <h1><a class="anchor" id="autotoc_md97"></a>
 How to write your CMakeLists.txt</h1>
