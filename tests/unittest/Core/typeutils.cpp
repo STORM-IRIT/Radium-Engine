@@ -73,7 +73,13 @@ TEST_CASE( "Core/Utils/TypesUtils", "[unittests][Core][Utils][TypesUtils]" ) {
                  "<char>, std::allocator<char>>, bool>, std::allocator<std::pair<std::"
                  "basic_string<char, std::char_traits<char>, std::allocator<char>>, bool>>>" );
 
-        REQUIRE( simplifiedDemangledType<std::vector<float>>() == "vector<Scalar>" );
+        REQUIRE( simplifiedDemangledType<std::vector<Scalar>>() == "vector<Scalar>" );
+
+        auto vector_float_type  = simplifiedDemangledType<std::vector<float>>();
+        auto vector_double_type = simplifiedDemangledType<std::vector<double>>();
+        REQUIRE( vector_float_type == "vector<Scalar>" || vector_float_type == "vector<float>" );
+        REQUIRE( vector_double_type == "vector<Scalar>" || vector_double_type == "vector<double>" );
+        REQUIRE( vector_float_type == "vector<Scalar>" || vector_double_type == "vector<Scalar>" );
         REQUIRE(
             simplifiedDemangledType<std::unordered_map<std::string, TypeTests::SimpleStruct>>() ==
             "unordered_map<string, TypeTests::SimpleStruct>" );
