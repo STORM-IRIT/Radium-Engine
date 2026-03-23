@@ -77,9 +77,12 @@ TEST_CASE( "Core/Utils/TypesUtils", "[unittests][Core][Utils][TypesUtils]" ) {
 
         auto vector_float_type  = simplifiedDemangledType<std::vector<float>>();
         auto vector_double_type = simplifiedDemangledType<std::vector<double>>();
-        REQUIRE( vector_float_type == "vector<Scalar>" || vector_float_type == "vector<float>" );
-        REQUIRE( vector_double_type == "vector<Scalar>" || vector_double_type == "vector<double>" );
-        REQUIRE( vector_float_type == "vector<Scalar>" || vector_double_type == "vector<Scalar>" );
+        REQUIRE(
+            ( vector_float_type == "vector<Scalar>" || vector_float_type == "vector<float>" ) );
+        REQUIRE(
+            ( vector_double_type == "vector<Scalar>" || vector_double_type == "vector<double>" ) );
+        REQUIRE(
+            ( vector_float_type == "vector<Scalar>" || vector_double_type == "vector<Scalar>" ) );
         REQUIRE(
             simplifiedDemangledType<std::unordered_map<std::string, TypeTests::SimpleStruct>>() ==
             "unordered_map<string, TypeTests::SimpleStruct>" );
