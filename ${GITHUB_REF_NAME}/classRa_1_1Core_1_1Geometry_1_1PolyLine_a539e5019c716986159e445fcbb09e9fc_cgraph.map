@@ -1,0 +1,9 @@
+<map id="Ra::Core::Geometry::PolyLine::getSegmentIndex" name="Ra::Core::Geometry::PolyLine::getSegmentIndex">
+<area shape="rect" id="Node000001" title="Returns the index of the segment to which t belons." alt="" coords="5,35,213,75"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Core_1_1Geometry_1_1PolyLine.html#ad9ec64926bd98bb0417655c31e639a67" title="Get the total length of the line ." alt="" coords="276,5,427,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="213,39,262,33,262,39,214,45"/>
+<area shape="rect" id="Node000004" href="$namespaceRa_1_1Core_1_1Math.html#ac59d3507a0a632719542d21a16a11bba" title="Clamps the value between 0 and 1." alt="" coords="261,70,441,95"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="214,64,248,68,247,73,213,69"/>
+<area shape="rect" id="Node000003" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector/back.html#" title=" " alt="" coords="489,13,620,38"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="427,23,475,23,475,28,427,28"/>
+</map>

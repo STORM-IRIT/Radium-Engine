@@ -1,0 +1,11 @@
+<map id="Ra::Core::Geometry::PolyLine::setPoints" name="Ra::Core::Geometry::PolyLine::setPoints">
+<area shape="rect" id="Node000001" title="Update the points of the polyline." alt="" coords="5,47,159,87"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Core_1_1Geometry_1_1PolyLine.html#a947ec2636d3ec6f98828787645f05f05" title="Update the precomputed values after new points have been set." alt="" coords="207,47,357,87"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="159,65,193,65,193,70,159,70"/>
+<area shape="rect" id="Node000003" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector/clear.html#" title=" " alt="" coords="424,5,555,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="357,47,421,31,423,37,358,52"/>
+<area shape="rect" id="Node000004" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector/push_back.html#" title=" " alt="" coords="405,55,573,80"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="358,65,392,65,392,70,358,70"/>
+<area shape="rect" id="Node000005" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector/reserve.html#" title=" " alt="" coords="415,104,563,129"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="358,83,423,98,421,103,357,88"/>
+</map>

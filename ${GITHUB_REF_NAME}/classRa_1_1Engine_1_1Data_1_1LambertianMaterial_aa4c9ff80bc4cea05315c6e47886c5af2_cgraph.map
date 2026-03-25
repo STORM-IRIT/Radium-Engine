@@ -1,0 +1,7 @@
+<map id="Ra::Engine::Data::LambertianMaterial::updateFromParameters" name="Ra::Engine::Data::LambertianMaterial::updateFromParameters">
+<area shape="rect" id="Node000001" title="Update the attributes of the ShaderParameterProvider to their actual values stored in the renderParam..." alt="" coords="5,13,241,53"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Engine_1_1Data_1_1SimpleMaterial.html#a77238ce2e04c31a52e68c64b64a6e11c" title="Makes the Material take its base color from the VERTEX_COLOR attribute of the rendered geometry." alt="" coords="289,5,503,60"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="242,30,275,30,275,35,242,35"/>
+<area shape="rect" id="Node000003" href="$classRa_1_1Engine_1_1Data_1_1Material.html#ac6eabe9ce20163cab8bec7a51f6e75a5" title="Mark the Material as needing update before the next OpenGL call." alt="" coords="551,13,743,53"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="503,30,537,30,537,35,503,35"/>
+</map>

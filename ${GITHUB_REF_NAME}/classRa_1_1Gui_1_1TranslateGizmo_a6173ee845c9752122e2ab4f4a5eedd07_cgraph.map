@@ -1,0 +1,7 @@
+<map id="Ra::Gui::TranslateGizmo::selectConstraint" name="Ra::Gui::TranslateGizmo::selectConstraint">
+<area shape="rect" id="Node000001" title="Called when one of the drawables of the gizmo has been selected." alt="" coords="5,23,184,63"/>
+<area shape="rect" id="Node000002" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/iterator/distance.html#" title=" " alt="" coords="232,5,337,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="184,29,218,24,219,29,185,34"/>
+<area shape="rect" id="Node000003" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/algorithm/find.html#" title=" " alt="" coords="239,55,330,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="185,52,226,57,225,63,184,57"/>
+</map>

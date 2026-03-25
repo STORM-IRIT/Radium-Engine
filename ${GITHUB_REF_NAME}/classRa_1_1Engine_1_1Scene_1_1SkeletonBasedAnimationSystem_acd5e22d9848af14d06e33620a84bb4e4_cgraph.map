@@ -1,0 +1,6 @@
+<map id="Ra::Engine::Scene::SkeletonBasedAnimationSystem::SkeletonBasedAnimationSystem" name="Ra::Engine::Scene::SkeletonBasedAnimationSystem::SkeletonBasedAnimationSystem">
+<area shape="rect" id="Node000001" title="Create a new animation system." alt="" coords="5,22,248,77"/>
+<area shape="rect" id="Node000002" href="$namespaceRa_1_1Core_1_1Resources.html#af434c5b44164970395428b4a00e7729c" title="Get the path of Radium internal resources." alt="" coords="296,29,492,69"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="248,47,282,47,282,52,248,52"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="345,30,342,20,350,10,367,5,394,3,425,5,442,13,440,18,424,11,394,8,368,10,352,15,347,21,350,28"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="Ra::Dataflow::Core::Sources::FunctionSourceNode&lt; R, Args &gt;" name="Ra::Dataflow::Core::Sources::FunctionSourceNode&lt; R, Args &gt;">
+<area shape="rect" id="Node000001" title="Node that deliver a std::function&lt;R( Args... )}}&gt;" alt="" coords="5,1773,220,2048"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Dataflow_1_1Core_1_1Node.html" title="Base abstract class for all the nodes added and used by the node system." alt="" coords="30,5,195,1725"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="115,1739,115,1773,110,1773,110,1739"/>
+</map>

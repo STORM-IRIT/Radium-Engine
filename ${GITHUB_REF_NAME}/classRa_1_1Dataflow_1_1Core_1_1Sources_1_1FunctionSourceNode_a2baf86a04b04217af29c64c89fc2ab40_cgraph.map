@@ -1,0 +1,6 @@
+<map id="Ra::Dataflow::Core::Sources::FunctionSourceNode::set_data" name="Ra::Dataflow::Core::Sources::FunctionSourceNode::set_data">
+<area shape="rect" id="Node000001" title="Set the function to be delivered by the node." alt="" coords="5,29,228,84"/>
+<area shape="poly" id="edge2_Node000001_Node000001" title=" " alt="" coords="77,29,77,19,84,10,97,5,117,3,140,6,153,14,150,18,138,11,117,8,99,10,87,15,82,21,82,29"/>
+<area shape="rect" id="Node000002" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/utility/move.html#" title=" " alt="" coords="276,44,363,69"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="229,54,262,54,262,59,229,59"/>
+</map>

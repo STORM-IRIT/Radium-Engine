@@ -1,0 +1,5 @@
+<map id="Ra::Core::VariableSet::StaticVisitor&lt; TYPES &gt;" name="Ra::Core::VariableSet::StaticVisitor&lt; TYPES &gt;">
+<area shape="rect" id="Node000001" title="Base class for visitors with static supported types. Visiting will be prepared at compile time by unf..." alt="" coords="5,5,176,85"/>
+<area shape="rect" id="Node000002" href="$structRa_1_1Core_1_1VariableSet_1_1StaticVisitor.html" title=" " alt="" coords="15,148,166,228"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="93,99,93,148,88,148,88,99"/>
+</map>

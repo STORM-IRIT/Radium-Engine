@@ -1,0 +1,9 @@
+<map id="Ra::Dataflow::Core::DataflowGraph::can_link" name="Ra::Dataflow::Core::DataflowGraph::can_link">
+<area shape="rect" id="Node000001" title="Convenience alias using raw pointer." alt="" coords="5,55,195,95"/>
+<area shape="rect" id="Node000002" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/memory/shared_ptr/get.html#" title=" " alt="" coords="259,5,407,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="181,53,267,31,268,37,182,58"/>
+<area shape="rect" id="Node000003" href="$classRa_1_1Dataflow_1_1Core_1_1Node.html#a8cced6ddce4db1f8ceecbe76696e7fc4" title="Convenience alias to port_by_index(&quot;in&quot;, index)" alt="" coords="247,55,418,95"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="195,73,233,73,233,78,195,78"/>
+<area shape="rect" id="Node000004" href="$classRa_1_1Dataflow_1_1Core_1_1Node.html#aeb0bf2eebad1f96587e7a18decffefcf" title="Convenience alias to port_by_index(&quot;out&quot;, index)" alt="" coords="243,119,423,159"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="174,93,247,113,246,118,173,98"/>
+</map>

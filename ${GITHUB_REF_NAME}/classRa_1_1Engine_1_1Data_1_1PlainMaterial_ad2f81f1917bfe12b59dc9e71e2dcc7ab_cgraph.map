@@ -1,0 +1,7 @@
+<map id="Ra::Engine::Data::PlainMaterial::updateFromParameters" name="Ra::Engine::Data::PlainMaterial::updateFromParameters">
+<area shape="rect" id="Node000001" title="Update the attributes of the ShaderParameterProvider to their actual values stored in the renderParam..." alt="" coords="5,13,229,53"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Engine_1_1Data_1_1SimpleMaterial.html#a77238ce2e04c31a52e68c64b64a6e11c" title="Makes the Material take its base color from the VERTEX_COLOR attribute of the rendered geometry." alt="" coords="277,5,491,60"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="229,30,264,30,264,35,229,35"/>
+<area shape="rect" id="Node000003" href="$classRa_1_1Engine_1_1Data_1_1Material.html#ac6eabe9ce20163cab8bec7a51f6e75a5" title="Mark the Material as needing update before the next OpenGL call." alt="" coords="539,13,731,53"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="491,30,525,30,525,35,491,35"/>
+</map>

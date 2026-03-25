@@ -1,0 +1,36 @@
+<map id="Ra::Gui::TrackballCameraManipulator::TrackballCameraManipulator" name="Ra::Gui::TrackballCameraManipulator::TrackballCameraManipulator">
+<area shape="rect" id="Node000001" title="Default constructor." alt="" coords="5,198,223,252"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Gui_1_1TrackballCameraManipulator.html#a8a75d252e06bcec380a3ac7354a1febd" title=" " alt="" coords="271,205,463,245"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="223,222,257,222,257,228,223,228"/>
+<area shape="rect" id="Node000003" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#aec6212574317a5395be2b49c19a90466" title="Return the direction the camera is looking at." alt="" coords="776,122,956,162"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="373,204,391,165,420,116,459,68,483,47,509,31,566,9,614,3,663,12,722,31,757,46,788,67,839,111,836,115,785,71,754,51,720,36,662,17,614,9,567,14,512,35,486,51,463,72,424,119,396,167,378,206"/>
+<area shape="rect" id="Node000004" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a773a6d2a393cf8ec195afffe2030ed22" title="Return the position." alt="" coords="526,45,706,85"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="383,203,436,149,471,120,509,95,522,88,525,93,512,99,474,124,440,153,387,207"/>
+<area shape="rect" id="Node000005" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a67f5d41f4d6814ffd247f6975feea06e" title=" " alt="" coords="526,109,706,149"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="408,203,510,159,531,151,533,156,512,164,410,207"/>
+<area shape="rect" id="Node000006" href="$classRa_1_1Engine_1_1Scene_1_1Light.html#ae0f8f50409ee68466a207b46f6f82fb7" title=" " alt="" coords="543,173,689,213"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="463,210,528,202,529,207,463,215"/>
+<area shape="rect" id="Node000007" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#ac5e49d14a044ec5c39666cab662f3ba3" title="Set the frame of the camera to frame." alt="" coords="526,237,706,277"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="463,235,513,241,512,246,463,240"/>
+<area shape="rect" id="Node000008" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a33bf3b0da9ac280753bd8b141821fa6d" title="Set the position of the camera to position." alt="" coords="526,301,706,341"/>
+<area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="410,243,512,287,533,294,531,299,510,292,408,248"/>
+<area shape="rect" id="Node000009" href="$classRa_1_1Engine_1_1Scene_1_1Light.html#aff5fe72f3c665098c2c985a22ed46e6f" title=" " alt="" coords="543,365,689,405"/>
+<area shape="poly" id="edge8_Node000002_Node000009" title=" " alt="" coords="387,244,440,297,474,326,512,351,531,360,529,365,509,355,471,330,436,301,383,247"/>
+<area shape="rect" id="Node000010" href="$classRa_1_1Gui_1_1TrackballCameraManipulator.html#ad7880fb45a56841fd743fb3ad80c2592" title="Update the polar coordinates of the Camera w.r.t. the trackball center." alt="" coords="511,429,721,469"/>
+<area shape="poly" id="edge9_Node000002_Node000010" title=" " alt="" coords="380,244,400,281,429,327,467,374,512,415,521,420,518,425,509,419,463,378,424,330,395,283,375,247"/>
+<area shape="poly" id="edge15_Node000010_Node000003" title=" " alt="" coords="702,427,720,415,740,391,749,367,755,340,767,308,843,173,848,176,772,310,760,342,754,368,744,393,723,419,705,431"/>
+<area shape="rect" id="Node000011" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/numeric/math/acos.html#" title=" " alt="" coords="826,322,906,347"/>
+<area shape="poly" id="edge10_Node000010_Node000011" title=" " alt="" coords="698,427,720,415,734,401,743,387,752,372,768,358,789,347,812,340,813,345,791,352,771,362,756,375,747,390,739,405,723,419,700,431"/>
+<area shape="rect" id="Node000012" href="$namespaceRa_1_1Core_1_1Math.html#a46540d56930b4c1ff3b115872cde4893" title="Compare two numbers such that |x&#45;y| &lt; espilon*epsilonBoostFactor." alt="" coords="769,372,963,412"/>
+<area shape="poly" id="edge11_Node000010_Node000012" title=" " alt="" coords="703,426,764,412,766,417,704,432"/>
+<area shape="rect" id="Node000015" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/numeric/math/atan2.html#" title=" " alt="" coords="823,436,909,462"/>
+<area shape="poly" id="edge14_Node000010_Node000015" title=" " alt="" coords="722,446,809,446,809,452,722,452"/>
+<area shape="rect" id="Node000016" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a857b2f451204f40344a4f0eb8a44c496" title="Return the up vector." alt="" coords="776,486,956,526"/>
+<area shape="poly" id="edge16_Node000010_Node000016" title=" " alt="" coords="704,467,766,481,764,486,703,472"/>
+<area shape="rect" id="Node000017" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/numeric/math/isfinite.html#" title=" " alt="" coords="819,551,913,576"/>
+<area shape="poly" id="edge17_Node000010_Node000017" title=" " alt="" coords="648,467,703,502,770,536,806,548,804,553,768,541,701,507,645,472"/>
+<area shape="rect" id="Node000013" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/types/numeric_limits/epsilon.html#" title=" " alt="" coords="1027,344,1174,384"/>
+<area shape="poly" id="edge12_Node000012_Node000013" title=" " alt="" coords="962,378,1013,371,1014,377,963,383"/>
+<area shape="rect" id="Node000014" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/types/numeric_limits/min.html#" title=" " alt="" coords="1011,408,1191,434"/>
+<area shape="poly" id="edge13_Node000012_Node000014" title=" " alt="" coords="963,401,997,406,997,411,962,406"/>
+</map>

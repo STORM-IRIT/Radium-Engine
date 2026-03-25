@@ -1,0 +1,7 @@
+<map id="Ra::Dataflow::Core::Node::add_input" name="Ra::Dataflow::Core::Node::add_input">
+<area shape="rect" id="Node000001" title="Adds a typed input port." alt="" coords="5,23,148,63"/>
+<area shape="rect" id="Node000002" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/utility/forward.html#" title=" " alt="" coords="215,5,315,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="148,31,201,24,202,29,148,36"/>
+<area shape="rect" id="Node000003" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/memory/shared_ptr/make_shared.html#" title=" " alt="" coords="196,55,333,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="148,50,183,54,182,59,148,55"/>
+</map>

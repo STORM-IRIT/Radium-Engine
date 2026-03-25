@@ -1,0 +1,5 @@
+<map id="Ra::Engine::Scene::SkeletonComponent::handleSkeletonLoading" name="Ra::Engine::Scene::SkeletonComponent::handleSkeletonLoading">
+<area shape="rect" id="Node000001" title="Create the skeleton from the given data." alt="" coords="5,5,267,60"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Core_1_1Asset_1_1AssetData.html#a07b196379bf8e8bade0a29186bb9c25b" title="Acces to the name of the asset." alt="" coords="315,13,511,53"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="267,30,301,30,301,35,267,35"/>
+</map>

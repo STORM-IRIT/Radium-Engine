@@ -1,0 +1,24 @@
+<map id="Ra::IO::AssimpCameraDataLoader::loadCameraData" name="Ra::IO::AssimpCameraDataLoader::loadCameraData">
+<area shape="rect" id="Node000001" title="Fill data with the CameraData from camera." alt="" coords="5,197,204,237"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#ae2ee8411aa3a9d8ba5380b9c9ee3dfda" title=" " alt="" coords="252,5,432,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="117,196,170,128,208,89,250,55,260,49,263,54,254,60,212,93,174,131,121,199"/>
+<area shape="rect" id="Node000005" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#ac5e49d14a044ec5c39666cab662f3ba3" title="Set the frame of the camera to frame." alt="" coords="252,69,432,109"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="131,195,185,158,251,119,266,112,268,117,253,124,188,162,134,199"/>
+<area shape="rect" id="Node000006" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#ab3aba6e1ced1cc6e560c00bf9402a72c" title="Set the projection type to projectionType." alt="" coords="252,133,432,173"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="179,195,254,174,255,179,180,200"/>
+<area shape="rect" id="Node000007" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a05d8b61c4135de535eb61a6608fd33d6" title="Change the viewport size. Also compute aspectRatio." alt="" coords="252,197,432,237"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="204,215,238,215,238,220,204,220"/>
+<area shape="rect" id="Node000008" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a74ae04c9a3018609a6468eaa59928ee5" title="Set the Z Far plane distance to zFar." alt="" coords="252,261,432,301"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="180,235,255,255,254,260,179,240"/>
+<area shape="rect" id="Node000009" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a717cfcf775ed10b6f323a02434336a85" title="Set the Z Near plane distance to zNear." alt="" coords="252,325,432,365"/>
+<area shape="poly" id="edge9_Node000001_Node000009" title=" " alt="" coords="134,235,188,273,253,311,268,318,266,323,251,316,185,277,131,240"/>
+<area shape="rect" id="Node000010" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a7ceb08c02e98b235ca29ac671f263364" title="Set the zoom factor to zoomFactor." alt="" coords="252,389,432,429"/>
+<area shape="poly" id="edge11_Node000001_Node000010" title=" " alt="" coords="121,236,174,304,212,342,254,375,263,381,260,385,250,380,208,346,170,307,117,239"/>
+<area shape="rect" id="Node000003" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/numeric/math/tan.html#" title=" " alt="" coords="535,13,605,38"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="432,23,521,23,521,28,432,28"/>
+<area shape="rect" id="Node000004" href="$classRa_1_1Core_1_1Asset_1_1Camera.html#a1e1809a93475162a71da46c2816f90e7" title="Update the projection matrix according to the current parameters." alt="" coords="480,293,660,333"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="416,43,434,55,459,81,482,109,519,170,545,230,562,280,557,281,540,232,514,173,477,112,455,84,430,59,413,48"/>
+<area shape="poly" id="edge8_Node000008_Node000004" title=" " alt="" coords="433,291,467,296,466,301,432,297"/>
+<area shape="poly" id="edge10_Node000009_Node000004" title=" " alt="" coords="432,330,466,325,467,330,433,335"/>
+<area shape="poly" id="edge12_Node000010_Node000004" title=" " alt="" coords="400,387,431,375,515,337,517,342,433,380,402,392"/>
+</map>

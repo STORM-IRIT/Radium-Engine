@@ -1,0 +1,17 @@
+<map id="Ra::Core::Geometry::AttribArrayGeometry::setNormals" name="Ra::Core::Geometry::AttribArrayGeometry::setNormals">
+<area shape="rect" id="Node000001" title="Set normals." alt="" coords="5,39,172,93"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#abfd2320cb73c0cb14805c234af594b5e" title="Access the vertices normals." alt="" coords="220,5,387,60"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="172,50,206,45,207,50,173,56"/>
+<area shape="rect" id="Node000006" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#a056b7697cfbedd6b20dde6ce7955094e" title=" " alt="" coords="435,78,651,118"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="172,69,421,87,421,92,172,74"/>
+<area shape="rect" id="Node000003" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#ae0cb7281ec72606a5392602b4ea50d2c" title=" " alt="" coords="435,14,651,54"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="387,30,421,31,421,36,387,36"/>
+<area shape="rect" id="Node000004" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector/at.html#" title=" " alt="" coords="722,71,834,96"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="639,51,709,66,708,71,638,57"/>
+<area shape="rect" id="Node000005" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/memory/unique_ptr/get.html#" title=" " alt="" coords="704,21,852,47"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="651,31,690,31,690,37,651,37"/>
+<area shape="poly" id="edge6_Node000006_Node000004" title=" " alt="" coords="651,89,708,85,709,90,651,94"/>
+<area shape="poly" id="edge7_Node000006_Node000005" title=" " alt="" coords="616,75,717,48,718,53,618,80"/>
+<area shape="rect" id="Node000007" href="$classRa_1_1Core_1_1Utils_1_1Attrib.html#a1aecf7dfdda7433ca789f8880b2fdb43" title=" " alt="" coords="699,121,857,161"/>
+<area shape="poly" id="edge8_Node000006_Node000007" title=" " alt="" coords="651,115,685,121,684,126,650,120"/>
+</map>

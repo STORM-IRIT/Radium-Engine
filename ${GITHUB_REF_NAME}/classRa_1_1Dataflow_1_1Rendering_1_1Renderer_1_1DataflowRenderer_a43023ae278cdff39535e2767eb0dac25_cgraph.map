@@ -1,0 +1,15 @@
+<map id="Ra::Dataflow::Rendering::Renderer::DataflowRenderer::updateStepInternal" name="Ra::Dataflow::Rendering::Renderer::DataflowRenderer::updateStepInternal">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,126,220,181"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a7042ea2839f794059ca7a97f75118afe" title=" " alt="" coords="268,33,532,73"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="169,123,267,83,294,75,295,80,269,88,171,128"/>
+<area shape="rect" id="Node000005" href="$classRa_1_1Engine_1_1Scene_1_1LightManager.html#a1e088de2f8e0d9c8dbaea6d75709710d" title="Number of lights. This is still a work in progress. The idea is to make it possible for a LightManage..." alt="" coords="323,97,477,137"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="220,137,309,126,309,131,221,143"/>
+<area shape="rect" id="Node000006" href="$classRa_1_1Dataflow_1_1Rendering_1_1Renderer_1_1DataflowRenderer.html#af96b7fec98be29524c3e845cb0cda38b" title="Access the default light manager." alt="" coords="293,162,507,217"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="221,164,279,172,279,177,220,169"/>
+<area shape="rect" id="Node000007" href="$structRa_1_1Dataflow_1_1Rendering_1_1Renderer_1_1DataflowRenderer_1_1RenderGraphController.html#a7719464ca23f1a683f8844725cc8058b" title=" " alt="" coords="284,241,516,295"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="165,178,269,227,287,234,286,239,267,232,163,183"/>
+<area shape="rect" id="Node000003" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a6e1b35d72acf4f5a7a1ab6fa9a146a1e" title=" " alt="" coords="580,5,820,45"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="532,38,566,35,567,40,532,44"/>
+<area shape="rect" id="Node000004" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector/size.html#" title=" " alt="" coords="637,70,763,95"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="532,64,624,73,623,78,532,69"/>
+</map>

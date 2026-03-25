@@ -1,0 +1,5 @@
+<map id="Ra::Core::VariableSet" name="Ra::Core::VariableSet">
+<area shape="rect" id="Node000001" title="Heterogeneous container storing &quot;Variables&quot;, that maps a name (std::string) to a value (of any type T..." alt="" coords="5,5,221,1605"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Engine_1_1Data_1_1RenderParameters.html" title="Management of shader parameters with automatic binding of a named parameter to the corresponding glsl..." alt="" coords="25,1653,201,1813"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="116,1619,116,1653,111,1653,111,1619"/>
+</map>

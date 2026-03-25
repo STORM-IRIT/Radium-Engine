@@ -1,0 +1,13 @@
+<map id="Ra::Dataflow::Core::Sources::SingleDataSourceNode::toJsonInternal" name="Ra::Dataflow::Core::Sources::SingleDataSourceNode::toJsonInternal">
+<area shape="rect" id="Node000001" title="Internal json representation of the Node." alt="" coords="5,41,209,96"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Dataflow_1_1Core_1_1Sources_1_1SingleDataSourceNode.html#a254cd04321ce5f0eb09902f8f5f45aa9" title="Get the delivered data." alt="" coords="257,5,461,60"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="209,51,243,47,244,52,210,57"/>
+<area shape="rect" id="Node000003" href="$classRa_1_1Dataflow_1_1Core_1_1Node.html#af7dc32777b61e697d15aa0697b7d07aa" title="Internal json representation of the Node." alt="" coords="278,85,441,125"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="210,81,265,88,264,94,209,86"/>
+<area shape="rect" id="Node000004" href="$classRa_1_1Dataflow_1_1Core_1_1Node.html#a2a7104fb37c59a4df377ae06ba8aa990" title="Gets the instance name of the node." alt="" coords="509,21,680,61"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="433,82,507,62,508,67,434,87"/>
+<area shape="rect" id="Node000005" href="$classRa_1_1Dataflow_1_1Core_1_1Node.html#a9ef2eb7364cfa1078e06f2a71ebf78a0" title="Gets the model (type/class) name of the node." alt="" coords="516,85,673,125"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="441,102,502,102,502,107,441,107"/>
+<area shape="rect" id="Node000006" href="$classRa_1_1Dataflow_1_1Core_1_1Node.html#a8107e0a23789840e57b98ca9f1a03c5a" title="Gets a port in a collection by its index." alt="" coords="523,149,666,189"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="434,122,511,143,509,148,433,127"/>
+</map>

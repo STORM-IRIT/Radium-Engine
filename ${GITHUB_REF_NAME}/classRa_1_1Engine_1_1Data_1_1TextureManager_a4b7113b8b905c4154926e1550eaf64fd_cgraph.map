@@ -1,0 +1,7 @@
+<map id="Ra::Engine::Data::TextureManager::getTextureHandle" name="Ra::Engine::Data::TextureManager::getTextureHandle">
+<area shape="rect" id="Node000001" title="Get a texture handle from textue name." alt="" coords="5,23,208,63"/>
+<area shape="rect" id="Node000002" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/iterator/distance.html#" title=" " alt="" coords="256,5,361,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="208,28,242,24,243,29,209,33"/>
+<area shape="rect" id="Node000003" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/algorithm/find.html#" title=" " alt="" coords="263,55,354,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="209,53,250,58,249,63,208,58"/>
+</map>

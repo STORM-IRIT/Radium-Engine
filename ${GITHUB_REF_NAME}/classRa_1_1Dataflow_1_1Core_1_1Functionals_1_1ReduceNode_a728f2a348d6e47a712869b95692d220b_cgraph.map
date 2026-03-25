@@ -1,0 +1,5 @@
+<map id="Ra::Dataflow::Core::Functionals::ReduceNode::execute" name="Ra::Dataflow::Core::Functionals::ReduceNode::execute">
+<area shape="rect" id="Node000001" title="Executes the node." alt="" coords="5,5,200,60"/>
+<area shape="rect" id="Node000002" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/algorithm/accumulate.html#" title=" " alt="" coords="248,20,375,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="200,30,234,30,234,35,200,35"/>
+</map>

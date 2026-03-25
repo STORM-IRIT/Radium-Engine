@@ -1,0 +1,5 @@
+<map id="Ra::Gui::Viewer::mouseReleaseEvent" name="Ra::Gui::Viewer::mouseReleaseEvent">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,232,45"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Gui_1_1Viewer.html#aaa73cf0f805417d2ddf458d73b163b81" title="Event sent after a mouse release event has been processed, but before emitting needUpdate()" alt="" coords="280,5,469,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="232,23,266,23,266,28,232,28"/>
+</map>

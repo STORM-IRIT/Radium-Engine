@@ -1,0 +1,11 @@
+<map id="Ra::Core::Geometry::PointCloudIndexLayer::PointCloudIndexLayer" name="Ra::Core::Geometry::PointCloudIndexLayer::PointCloudIndexLayer">
+<area shape="rect" id="Node000001" title="Constructor of an index layer with linearly spaced indices ranging from &#160;to ." alt="" coords="5,44,177,99"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Core_1_1VectorArray.html#a22463b1396b5027c255b35f97d8dda9a" title=" " alt="" coords="225,22,387,62"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="177,57,212,52,212,57,178,62"/>
+<area shape="rect" id="Node000005" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector/resize.html#" title=" " alt="" coords="237,87,375,112"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="178,80,223,86,223,91,177,85"/>
+<area shape="rect" id="Node000003" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector/empty.html#" title=" " alt="" coords="435,5,576,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="386,30,420,26,421,31,387,35"/>
+<area shape="rect" id="Node000004" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector/size.html#" title=" " alt="" coords="443,55,568,80"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="387,50,429,55,429,60,386,55"/>
+</map>

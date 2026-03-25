@@ -1,0 +1,11 @@
+<map id="Ra::Engine::Data::Texture::setSamplerParameters" name="Ra::Engine::Data::Texture::setSamplerParameters">
+<area shape="rect" id="Node000001" title="set TerctureParameters.samples" alt="" coords="5,63,192,103"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Engine_1_1Data_1_1Texture.html#ac87dd0012df1520c8e915e2e96975a07" title="Regiter gpu task to RadiumEngine. Will call sendSamplerParametersToGpu during next RadiumEngine::runG..." alt="" coords="240,63,524,103"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="192,80,226,80,226,85,192,85"/>
+<area shape="rect" id="Node000003" href="$classRa_1_1Engine_1_1Data_1_1Texture.html#a9e410de83fcf2cbb34735cb21a0e57e8" title=" " alt="" coords="593,5,780,45"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="488,60,579,43,580,48,489,65"/>
+<area shape="rect" id="Node000004" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/utility/move.html#" title=" " alt="" coords="643,70,730,95"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="524,80,630,80,630,85,524,85"/>
+<area shape="rect" id="Node000005" href="$classRa_1_1Engine_1_1Data_1_1Texture.html#af0eebb45ead404aaffa24020ad30bdfb" title="Send sampler parameters to the GPU." alt="" coords="572,120,801,160"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="489,100,567,115,566,120,488,105"/>
+</map>

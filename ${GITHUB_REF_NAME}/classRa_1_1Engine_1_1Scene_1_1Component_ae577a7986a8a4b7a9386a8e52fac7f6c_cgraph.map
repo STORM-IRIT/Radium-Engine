@@ -1,0 +1,10 @@
+<map id="Ra::Engine::Scene::Component::addRenderObject" name="Ra::Engine::Scene::Component::addRenderObject">
+<area shape="rect" id="Node000001" title="Add a new render object to the component. This adds the RO to the manager for drawing." alt="" coords="5,55,223,95"/>
+<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="69,56,67,46,74,36,90,31,114,29,142,32,157,39,155,44,140,37,114,34,91,36,77,41,72,47,74,54"/>
+<area shape="rect" id="Node000002" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector/back.html#" title=" " alt="" coords="289,5,420,31"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="198,53,287,31,288,36,199,58"/>
+<area shape="rect" id="Node000003" href="$classRa_1_1Engine_1_1Scene_1_1Component.html#a32a4bfb4e9b24644d680db3852099ff3" title="Shortcut to access the render object manager." alt="" coords="271,55,439,95"/>
+<area shape="poly" id="edge3_Node000001_Node000003" title=" " alt="" coords="223,73,257,73,257,78,223,78"/>
+<area shape="rect" id="Node000004" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector/push_back.html#" title=" " alt="" coords="271,120,439,145"/>
+<area shape="poly" id="edge4_Node000001_Node000004" title=" " alt="" coords="199,93,288,114,287,119,198,98"/>
+</map>

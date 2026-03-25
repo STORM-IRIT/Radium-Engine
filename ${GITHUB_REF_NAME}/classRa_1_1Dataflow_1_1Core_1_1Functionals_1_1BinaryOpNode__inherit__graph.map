@@ -1,0 +1,5 @@
+<map id="Ra::Dataflow::Core::Functionals::BinaryOpNode&lt; t_a, t_b, t_result &gt;" name="Ra::Dataflow::Core::Functionals::BinaryOpNode&lt; t_a, t_b, t_result &gt;">
+<area shape="rect" id="Node000001" title="Apply a binary operation on its input." alt="" coords="5,1773,204,2008"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Dataflow_1_1Core_1_1Node.html" title="Base abstract class for all the nodes added and used by the node system." alt="" coords="22,5,187,1725"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="107,1739,107,1773,102,1773,102,1739"/>
+</map>

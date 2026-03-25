@@ -1,0 +1,5 @@
+<map id="Ra::Engine::Scene::ItemEntry::isComponentNode" name="Ra::Engine::Scene::ItemEntry::isComponentNode">
+<area shape="rect" id="Node000001" title="Returns true if the item represents a component." alt="" coords="5,5,219,45"/>
+<area shape="rect" id="Node000002" href="$structRa_1_1Engine_1_1Scene_1_1ItemEntry.html#a9673507f752d5efee0439afd0e52892b" title="Debug checks." alt="" coords="267,5,477,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="219,23,253,23,253,28,219,28"/>
+</map>

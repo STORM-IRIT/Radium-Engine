@@ -1,0 +1,5 @@
+<map id="Ra::Gui::Viewer::update" name="Ra::Gui::Viewer::update">
+<area shape="rect" id="Node000001" title="Update the internal viewer state to the (application) time dt." alt="" coords="5,13,180,38"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Gui_1_1GizmoManager.html#a2733d1f2a992c50e41b93790b5323fe1" title="Retrieve the transform from the editable and update the gizmos." alt="" coords="228,5,404,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="181,23,214,23,214,28,181,28"/>
+</map>

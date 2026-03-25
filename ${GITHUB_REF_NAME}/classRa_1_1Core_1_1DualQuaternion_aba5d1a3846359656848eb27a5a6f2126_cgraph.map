@@ -1,0 +1,9 @@
+<map id="Ra::Core::DualQuaternion::rotate" name="Ra::Core::DualQuaternion::rotate">
+<area shape="rect" id="Node000001" title="Apply only the rotational part of the dual quaternion to the given vector." alt="" coords="5,35,192,75"/>
+<area shape="rect" id="Node000002" href="$namespaceRa_1_1Core_1_1Math.html#a46540d56930b4c1ff3b115872cde4893" title="Compare two numbers such that |x&#45;y| &lt; espilon*epsilonBoostFactor." alt="" coords="240,35,433,75"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="192,52,226,52,226,57,192,57"/>
+<area shape="rect" id="Node000003" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/types/numeric_limits/epsilon.html#" title=" " alt="" coords="498,5,645,45"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="433,40,484,34,484,39,434,45"/>
+<area shape="rect" id="Node000004" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/types/numeric_limits/min.html#" title=" " alt="" coords="481,70,661,95"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="434,64,468,68,467,73,433,69"/>
+</map>

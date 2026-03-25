@@ -1,0 +1,5 @@
+<map id="Ra::Dataflow::Core::Sinks::SinkNode&lt; T &gt;" name="Ra::Dataflow::Core::Sinks::SinkNode&lt; T &gt;">
+<area shape="rect" id="Node000001" title="Base class for nodes that will store the result of a computation graph." alt="" coords="5,1773,183,2053"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Dataflow_1_1Core_1_1Node.html" title="Base abstract class for all the nodes added and used by the node system." alt="" coords="11,5,177,1725"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="97,1739,97,1773,91,1773,91,1739"/>
+</map>

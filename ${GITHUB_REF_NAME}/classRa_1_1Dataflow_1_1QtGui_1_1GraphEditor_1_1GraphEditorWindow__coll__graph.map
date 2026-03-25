@@ -1,0 +1,3 @@
+<map id="Ra::Dataflow::QtGui::GraphEditor::GraphEditorWindow" name="Ra::Dataflow::QtGui::GraphEditor::GraphEditorWindow">
+<area shape="rect" id="Node000001" title="Window widget to edit a DataflowGraph. This class wraps DataflowGraph, GraphModel,..." alt="" coords="5,5,189,180"/>
+</map>

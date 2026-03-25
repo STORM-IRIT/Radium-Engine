@@ -1,0 +1,7 @@
+<map id="Ra::Core::Asset::Camera::fitZRange" name="Ra::Core::Asset::Camera::fitZRange">
+<area shape="rect" id="Node000001" title="Fit the Z&#45;range of the camera to the scene&#39;s aabb. This will maximize z&#45;buffer precision." alt="" coords="5,23,185,63"/>
+<area shape="rect" id="Node000002" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/algorithm/max.html#" title=" " alt="" coords="233,5,312,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="185,28,219,23,220,28,186,33"/>
+<area shape="rect" id="Node000003" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/algorithm/min.html#" title=" " alt="" coords="235,55,310,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="186,53,222,58,221,63,185,58"/>
+</map>

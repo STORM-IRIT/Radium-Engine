@@ -1,0 +1,15 @@
+<map id="Ra::Gui::VariableSetEditor::addEnumWidget" name="Ra::Gui::VariableSetEditor::addEnumWidget">
+<area shape="rect" id="Node000001" title="Add a combobox allowing to chose the value of an enumerator." alt="" coords="5,111,195,151"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Gui_1_1Widgets_1_1ControlPanel.html#a67ecb805a252ac7f3edf21d0d8f07158" title=" " alt="" coords="245,47,430,87"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="174,109,249,88,250,93,176,114"/>
+<area shape="rect" id="Node000006" href="$classRa_1_1Gui_1_1VariableSetEditor.html#afb6f0852c781c75c5d028fc788ebf225" title=" " alt="" coords="243,111,432,151"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="195,129,229,129,229,134,195,134"/>
+<area shape="rect" id="Node000007" href="$classRa_1_1Core_1_1VariableSet.html#a959d89cd2c973021ec2bd50ded23f0a1" title="reset (or set if the variable does not exist yet) the value of the variable." alt="" coords="258,175,417,215"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="176,149,250,169,249,174,174,154"/>
+<area shape="rect" id="Node000003" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/string/basic_string/c_str.html#" title=" " alt="" coords="485,5,612,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="423,45,480,31,481,36,424,50"/>
+<area shape="rect" id="Node000004" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/string/basic_string/empty.html#" title=" " alt="" coords="480,55,617,80"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="430,65,466,65,466,70,430,70"/>
+<area shape="rect" id="Node000005" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/utility/move.html#" title=" " alt="" coords="505,104,592,129"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="424,85,492,101,491,106,423,90"/>
+</map>

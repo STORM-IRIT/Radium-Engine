@@ -1,0 +1,13 @@
+<map id="Ra::Dataflow::Core::Node::fromJson" name="Ra::Dataflow::Core::Node::fromJson">
+<area shape="rect" id="Node000001" title="Unserialized the content of the node." alt="" coords="5,101,148,141"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Dataflow_1_1Core_1_1Node.html#a9f03704c5c9240fba60266fcb06b02da" title="Internal json representation of the Node." alt="" coords="201,69,381,109"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="148,108,187,102,188,107,148,113"/>
+<area shape="rect" id="Node000006" href="$classRa_1_1Dataflow_1_1Core_1_1Node.html#a4a34af1106b5852724e830cc4b10ce74" title="Set the display name." alt="" coords="196,133,387,173"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="148,129,183,134,182,140,148,135"/>
+<area shape="rect" id="Node000003" href="$classRa_1_1Dataflow_1_1Core_1_1Node.html#a2a7104fb37c59a4df377ae06ba8aa990" title="Gets the instance name of the node." alt="" coords="435,5,605,45"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="363,67,434,46,436,52,364,72"/>
+<area shape="rect" id="Node000004" href="$classRa_1_1Dataflow_1_1Core_1_1Node.html#a9ef2eb7364cfa1078e06f2a71ebf78a0" title="Gets the model (type/class) name of the node." alt="" coords="441,69,599,109"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="381,87,427,87,427,92,381,92"/>
+<area shape="rect" id="Node000005" href="$classRa_1_1Dataflow_1_1Core_1_1Node.html#a8107e0a23789840e57b98ca9f1a03c5a" title="Gets a port in a collection by its index." alt="" coords="449,133,591,173"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="364,107,436,127,435,132,363,112"/>
+</map>

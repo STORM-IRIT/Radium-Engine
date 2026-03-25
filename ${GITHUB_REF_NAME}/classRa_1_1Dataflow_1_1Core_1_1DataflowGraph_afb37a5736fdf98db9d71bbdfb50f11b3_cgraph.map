@@ -1,0 +1,5 @@
+<map id="Ra::Dataflow::Core::DataflowGraph::has_node_by_name" name="Ra::Dataflow::Core::DataflowGraph::has_node_by_name">
+<area shape="rect" id="Node000001" title="Check if there node with same instance and model is in the graph." alt="" coords="5,5,164,60"/>
+<area shape="rect" id="Node000002" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/algorithm/find.html#" title=" " alt="" coords="212,20,303,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="164,30,198,30,198,35,164,35"/>
+</map>
