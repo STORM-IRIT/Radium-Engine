@@ -1,0 +1,11 @@
+name: Build double, debug (trigger manually)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  call-build:
+    uses: ./.github/workflows/build-matrix.yml
+    with:
+      use-double: "true"
+      build-debug: "true"

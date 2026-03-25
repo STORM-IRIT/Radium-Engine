@@ -10,6 +10,9 @@
 #include <Dataflow/Core/Sinks/SinkNode.hpp>
 #include <Dataflow/Core/Sinks/Types.hpp>
 #include <Dataflow/Core/Sources/Types.hpp>
+#include <filesystem>
+
+#include "tempdir.hpp"
 
 using namespace Ra::Dataflow::Core;
 using namespace Ra::Core;
@@ -165,15 +168,18 @@ TEST_CASE( "Dataflow/Core/GraphAsNode/Forward", "[unittests][Dataflow][Core][Gra
     SECTION( "Serialization" ) {
 
         ///\todo make own test with serializable nodes and checks.
-        std::string tmpdir { "tmpDir4Tests" };
-        std::filesystem::create_directories( tmpdir );
+        bw::tempdir::TempDir temp_dir( bw::tempdir::Cleanup::on_success );
+        auto test_file = temp_dir.path() / "graph_as_node_io.json";
+
         REQUIRE( g.shouldBeSaved() );
-        g.saveToJson( tmpdir + "/graph_as_node_io.json" );
+        g.saveToJson( test_file.string() );
+
+        std::cerr << std::filesystem::current_path() << "\n";
         REQUIRE( !g.shouldBeSaved() );
 
         // Create a new graph and load from the saved graph
         DataflowGraph g1 { "loaded graph" };
-        REQUIRE( g1.loadFromJson( tmpdir + "/graph_as_node_io.json" ) );
+        REQUIRE( g1.loadFromJson( test_file.string() ) );
         {
             auto g1_sourceNodeA = std::dynamic_pointer_cast<Source>( g1.node( "s" ) );
 

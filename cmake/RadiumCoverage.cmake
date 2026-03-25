@@ -101,6 +101,14 @@ function(radium_setup_coverage_targets)
                 "${CMAKE_BINARY_DIR}/*_autogen/*"
                 "/*external*/"
                 "/usr/*"
+                LCOV_ARGS
+                --ignore-errors
+                inconsistent,inconsistent
+                GENHTML_ARGS
+                --ignore-errors
+                inconsistent
+                --ignore-errors
+                corrupt
             )
 
             # Fastcov is not supported with gcov llvm: disabling for MacOS Source:

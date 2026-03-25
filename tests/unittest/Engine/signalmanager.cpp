@@ -33,8 +33,7 @@ class FooBarComponent : public Component
     void initialize() override {};
 };
 
-TEST_CASE( "Engine/Scene/SignalManager/ON",
-           "[unittests][Engine][Engine/Scene][SignalManager][ON]" ) {
+TEST_CASE( "Engine/Scene/SignalManager/ON", "[unittests][Engine][Engine/Scene][SignalManager]" ) {
 
     auto engine = Ra::Engine::RadiumEngine::createInstance();
     engine->initialize();
@@ -196,8 +195,7 @@ TEST_CASE( "Engine/Scene/SignalManager/ON",
     Ra::Engine::RadiumEngine::destroyInstance();
 }
 
-TEST_CASE( "Engine/Scene/SignalManager/OFF/",
-           "[unittests][Engine][Engine/Scene][SignalManager][OFF]" ) {
+TEST_CASE( "Engine/Scene/SignalManager/OFF/", "[unittests][Engine][Engine/Scene][SignalManager]" ) {
 
     auto engine = Ra::Engine::RadiumEngine::createInstance();
     engine->initialize();

@@ -43,6 +43,7 @@ set(test_src
     Engine/signalmanager.cpp
     Gui/keymapping.cpp
     unittestUtils.hpp
+    tempdir.hpp
 )
 
 get_target_property(HAS_VOLUMES IO RADIUM_IO_HAS_VOLUMES)
