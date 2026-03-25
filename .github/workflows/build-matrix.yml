@@ -36,10 +36,6 @@ on:
         required: false
         type: string
         default: "true"
-      linux-clang:
-        required: false
-        type: string
-        default: "true"
       build-release:
         required: false
         type: string
