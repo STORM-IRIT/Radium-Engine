@@ -47,21 +47,21 @@ void TrackballCameraManipulator::configureKeyMapping_impl() {
 void TrackballCameraManipulator::setupKeyMappingCallbacks() {
 
     m_keyMappingCallbackManager.addEventCallback(
-        TRACKBALLCAMERA_ROTATE, [=]( QEvent* event ) { rotateCallback( event ); } );
-    m_keyMappingCallbackManager.addEventCallback( TRACKBALLCAMERA_PAN,
-                                                  [=]( QEvent* event ) { panCallback( event ); } );
-    m_keyMappingCallbackManager.addEventCallback( TRACKBALLCAMERA_ZOOM,
-                                                  [=]( QEvent* event ) { zoomCallback( event ); } );
+        TRACKBALLCAMERA_ROTATE, [this]( QEvent* event ) { rotateCallback( event ); } );
     m_keyMappingCallbackManager.addEventCallback(
-        TRACKBALLCAMERA_MOVE_FORWARD, [=]( QEvent* event ) { moveForwardCallback( event ); } );
+        TRACKBALLCAMERA_PAN, [this]( QEvent* event ) { panCallback( event ); } );
+    m_keyMappingCallbackManager.addEventCallback(
+        TRACKBALLCAMERA_ZOOM, [this]( QEvent* event ) { zoomCallback( event ); } );
+    m_keyMappingCallbackManager.addEventCallback(
+        TRACKBALLCAMERA_MOVE_FORWARD, [this]( QEvent* event ) { moveForwardCallback( event ); } );
 
-    m_keyMappingCallbackManager.addEventCallback( TRACKBALLCAMERA_PROJ_MODE, [=]( QEvent* ) {
+    m_keyMappingCallbackManager.addEventCallback( TRACKBALLCAMERA_PROJ_MODE, [this]( QEvent* ) {
         using ProjType = Ra::Core::Asset::Camera::ProjType;
         m_camera->setType( m_camera->getType() == ProjType::ORTHOGRAPHIC ? ProjType::PERSPECTIVE
                                                                          : ProjType::ORTHOGRAPHIC );
     } );
 
-    m_keyMappingCallbackManager.addEventCallback( CAMERA_TOGGLE_QUICK, [=]( QEvent* ) {
+    m_keyMappingCallbackManager.addEventCallback( CAMERA_TOGGLE_QUICK, [this]( QEvent* ) {
         static bool quick = false;
         quick             = !quick;
         if ( quick ) { m_quickCameraModifier = 10.0_ra; }
