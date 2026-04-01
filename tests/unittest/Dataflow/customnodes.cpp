@@ -130,9 +130,9 @@ DataflowGraph* buildgraph( const std::string& name ) {
 
     auto coreFactory = NodeFactoriesManager::default_factory();
 
-    REGISTER_TYPE_TO_FACTORY( coreFactory, FilterCollectionType<DataType>, Functionals );
-    REGISTER_TYPE_TO_FACTORY( coreFactory, CollectionInputType<DataType>, Functionals );
-    REGISTER_TYPE_TO_FACTORY( coreFactory, CollectionOutputType<DataType>, Functionals );
+    REGISTER_TYPE_TO_FACTORY( coreFactory, FilterCollectionType<DataType>, "Functionals" );
+    REGISTER_TYPE_TO_FACTORY( coreFactory, CollectionInputType<DataType>, "Functionals" );
+    REGISTER_TYPE_TO_FACTORY( coreFactory, CollectionOutputType<DataType>, "Functionals" );
 
     REQUIRE( g->add_link( ds, "to", fl, "data" ) );
     REQUIRE( g->add_link( fl, "result", rs, "from" ) );
