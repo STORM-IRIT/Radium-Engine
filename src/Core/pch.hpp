@@ -1,5 +1,6 @@
 #pragma once
-
+// include CoreMacro first, e.g. for #define _USE_MATH_DEFINES
+#include <Core/CoreMacros.hpp>
 #include <Eigen/Geometry>
 #include <Eigen/StdVector>
 #include <algorithm>
