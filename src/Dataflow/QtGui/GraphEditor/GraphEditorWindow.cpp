@@ -10,6 +10,7 @@
 #include <functional>
 #include <map>
 #include <memory>
+#include <qtreewidget.h>
 #include <string>
 #include <type_traits>
 #include <unordered_map>
@@ -68,14 +69,46 @@ GraphEditorWindow::GraphEditorWindow( std::shared_ptr<DataflowGraph> graph ) : m
         auto factory_item =
             new QTreeWidgetItem( QStringList() << QString::fromStdString( factory_name ) );
 
+        std::map<std::string, QTreeWidgetItem*> cat_to_item;
+
         for ( auto [category, model_names] : node_list ) {
-            auto n = new QTreeWidgetItem( QStringList() << QString::fromStdString( category ) );
+            QTreeWidgetItem* parent = factory_item;
+            std::string concatenate_parts { "" };
+            // split categories at each '/'
+
+            std::size_t start = 0;
+            std::size_t stop  = category.find( '/' );
+            while ( stop != std::string::npos ) {
+                std::string part = category.substr( start, stop - start );
+                start            = stop + 1;
+                stop             = category.find( '/', start );
+                concatenate_parts += '/' + part;
+                if ( !cat_to_item.contains( concatenate_parts ) ) {
+                    auto n = new QTreeWidgetItem( QStringList() << QString::fromStdString( part ) );
+                    cat_to_item[concatenate_parts] = n;
+                    parent->addChild( n );
+                }
+                parent = cat_to_item[concatenate_parts];
+            }
+            // last item
+            {
+                stop             = category.length();
+                std::string part = category.substr( start, stop - start );
+                concatenate_parts += part;
+                if ( !cat_to_item.contains( concatenate_parts ) ) {
+                    auto n = new QTreeWidgetItem( QStringList() << QString::fromStdString( part ) );
+                    cat_to_item[concatenate_parts] = n;
+                    parent->addChild( n );
+                }
+            }
+
+            auto n = cat_to_item[concatenate_parts];
+
+            // add models to last item
             std::sort( model_names.begin(), model_names.end() );
             for ( const auto& m : model_names ) {
                 n->addChild( new QTreeWidgetItem( QStringList() << QString::fromStdString( m ) ) );
             }
-
-            factory_item->addChild( n );
         }
         node_tree_widget->addTopLevelItem( factory_item );
     }
