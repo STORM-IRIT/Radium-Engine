@@ -57,7 +57,7 @@ void MinimalApp::initialize() {
 
     m_viewer->addCustomAction( "changeCameraManipulator",
                                KeyMappingManager::createEventBindingFromStrings( "", "", "Key_N" ),
-                               [=]( QEvent* e ) {
+                               [this]( QEvent* e ) {
                                    if ( e->type() == QEvent::KeyPress ) changeCameraManipulator();
                                } );
 
