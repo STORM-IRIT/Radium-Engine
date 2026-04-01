@@ -38,7 +38,6 @@ class RA_ENGINE_API Light : public Component
         Scalar constant { 1 };
         Scalar linear { 0 };
         Scalar quadratic { 0 };
-        Attenuation() = default;
     };
 
   public:
