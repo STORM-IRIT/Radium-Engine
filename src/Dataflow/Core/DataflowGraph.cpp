@@ -63,7 +63,8 @@ bool DataflowGraph::execute2() {
 
                 {
                     std::lock_guard<std::mutex> lock( log_mutex );
-                    m_log_callback( m_executed_node_count.load(), m_active_node_count );
+                    m_log_callback(
+                        m_executed_node_count.load(), m_active_node_count, n_ptr->display_name() );
                 }
             },
             n_ptr->display_name() ) );
@@ -104,8 +105,8 @@ bool DataflowGraph::execute() {
                                         << " (" << node->model_name() << ").";
                     }
                     m_executed_node_count++;
-                    std::cerr << "progress " << m_executed_node_count.load() << "/"
-                              << m_active_node_count << "\n";
+                    m_log_callback(
+                        m_executed_node_count.load(), m_active_node_count, node->display_name() );
 
                     result = result.load() && executed;
                 } );
