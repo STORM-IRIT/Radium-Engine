@@ -4,8 +4,8 @@
 # from ./scripts directory
 # ----------------------------------------------------
 
-set(dataflow_core_sources Core.cpp DataflowGraph.cpp Node.cpp NodeFactory.cpp Port.cpp
-                          GraphNodes.cpp
+set(dataflow_core_sources Core.cpp DataflowGraph.cpp GraphNodes.cpp Node.cpp NodeFactory.cpp
+                          Port.cpp
 )
 
 set(dataflow_core_headers
