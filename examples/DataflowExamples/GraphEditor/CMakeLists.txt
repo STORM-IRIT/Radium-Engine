@@ -50,7 +50,7 @@ set(app_sources main.cpp)
 
 add_executable(${PROJECT_NAME} ${app_sources})
 
-target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)
+target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_20)
 
 target_link_libraries(${PROJECT_NAME} PUBLIC ${Qt_LIBRARIES} Radium::DataflowQtGui)
 

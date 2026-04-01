@@ -63,7 +63,7 @@ if("${CMAKE_CXX_COMPILER_ID}" MATCHES "MSVC")
     )
 endif()
 
-target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)
+target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_20)
 target_include_directories(
     ${PROJECT_NAME} PRIVATE ${RADIUM_INCLUDE_DIRS} ${CMAKE_CURRENT_BINARY_DIR} # Moc
                             ${CMAKE_CURRENT_SOURCE_DIR}
