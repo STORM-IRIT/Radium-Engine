@@ -351,12 +351,6 @@ TEST_CASE( "Dataflow/Core/Graph/Inspection of a graph", "[unittests][Dataflow][C
     using ReduceNode            = Functionals::ReduceNode<Ra::Core::VectorArray<Scalar>>;
     using TransformNode         = Functionals::TransformNode<Ra::Core::VectorArray<Scalar>>;
     using ScalarVectorSource    = Sources::SingleDataSourceNode<Ra::Core::VectorArray<Scalar>>;
-    REGISTER_TYPE_TO_FACTORY( coreFactory, ScalarVectorSource, "Sources" );
-    REGISTER_TYPE_TO_FACTORY( coreFactory, ScalarFilterSource, "Sources" );
-    REGISTER_TYPE_TO_FACTORY( coreFactory, ScalarFunctionSource, "Sources" );
-    REGISTER_TYPE_TO_FACTORY( coreFactory, ScalarPredicateSource, "Sources" );
-    REGISTER_TYPE_TO_FACTORY( coreFactory, ReduceNode, "Functionals" );
-    REGISTER_TYPE_TO_FACTORY( coreFactory, TransformNode, "Functionals" );
 
     std::cout << "Loading graph data/Dataflow/ExampleGraph.json\n";
 

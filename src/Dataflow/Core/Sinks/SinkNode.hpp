@@ -89,8 +89,8 @@ const T& SinkNode<T>::data_reference() const {
 
 template <typename T>
 const std::string& SinkNode<T>::node_typename() {
-    static std::string demangledName =
-        std::string { "Sink<" } + Ra::Core::Utils::simplifiedDemangledType<T>() + ">";
+    static std::string demangledName { std::string { "Sink<" } +
+                                       Ra::Core::Utils::simplifiedDemangledType<T>() + ">" };
     return demangledName;
 }
 
