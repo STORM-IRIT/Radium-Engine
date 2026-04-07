@@ -2,6 +2,7 @@
 
 #include <Dataflow/Core/DataflowGraph.hpp>
 #include <Dataflow/Core/Functionals/Types.hpp>
+#include <Dataflow/Core/GraphNodes.hpp>
 #include <Dataflow/Core/Node.hpp>
 #include <Dataflow/Core/NodeFactory.hpp>
 #include <Dataflow/Core/Sinks/Types.hpp>

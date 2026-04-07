@@ -7,9 +7,11 @@
 #include <Dataflow/Core/Functionals/FunctionNode.hpp>
 #include <Dataflow/Core/Functionals/ReduceNode.hpp>
 #include <Dataflow/Core/Functionals/TransformNode.hpp>
+#include <Dataflow/Core/GraphNodes.hpp>
 #include <Dataflow/Core/Sinks/SinkNode.hpp>
 #include <Dataflow/Core/Sinks/Types.hpp>
 #include <Dataflow/Core/Sources/Types.hpp>
+
 #include <filesystem>
 
 #include "tempdir.hpp"
@@ -17,7 +19,14 @@
 using namespace Ra::Dataflow::Core;
 using namespace Ra::Core;
 
+TEST_CASE( "Dataflow/Core/GraphAsNode/NodeTypename", "[unittests][Dataflow][Core][Graph]" ) {
+    REQUIRE( GraphOutputNode::node_typename() == "GraphOutputNode" );
+    REQUIRE( GraphInputNode::node_typename() == "GraphInputNode" );
+    REQUIRE( Sources::IntSource::node_typename() == "Source<int>" );
+}
+
 TEST_CASE( "Dataflow/Core/GraphAsNode/Delta", "[unittests][Dataflow][Core][Graph]" ) {
+
     auto port_fatcory = PortFactory::getInstance();
     port_fatcory->add_port_type<Scalar>();
 
@@ -105,7 +114,7 @@ using Sink         = Sinks::SinkNode<Scalar>;
 
 TEST_CASE( "Dataflow/Core/GraphAsNode/Forward", "[unittests][Dataflow][Core][Graph]" ) {
 
-    auto port_fatcory = PortFactory::createInstance();
+    auto port_fatcory = PortFactory::getInstance();
     port_fatcory->add_port_type<Scalar>();
 
     auto gAsNode = make_shared<DataflowGraph>( "graphAsNode" );

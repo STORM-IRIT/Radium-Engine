@@ -13,20 +13,16 @@ namespace Dataflow {
 namespace Core {
 
 #define BASIC_NODE_INIT( TYPE, BASE )                                                 \
-  public:                                                                             \
     explicit TYPE( const std::string& name ) : TYPE( name, TYPE::node_typename() ) {} \
-    static const std::string& node_typename() {                                       \
-        static std::string demangledName = #TYPE;                                     \
-        return demangledName;                                                         \
-    }                                                                                 \
+    static const std::string& node_typename();                                        \
     TYPE( const std::string& instanceName, const std::string& typeName ) :            \
         BASE( instanceName, typeName )
 
 class RA_DATAFLOW_CORE_API GraphNode : public Node
 {
+  public:
     BASIC_NODE_INIT( GraphNode, Node ) {}
 
-  public:
     bool execute() override {
         CORE_ASSERT( m_inputs.size() == m_outputs.size(),
                      "GraphNode input and output size differ" );
@@ -133,9 +129,9 @@ class RA_DATAFLOW_CORE_API GraphNode : public Node
 
 class RA_DATAFLOW_CORE_API GraphInputNode : public GraphNode
 {
+  public:
     BASIC_NODE_INIT( GraphInputNode, GraphNode ) {}
 
-  public:
     PortIndex add_output_port( PortBaseInRawPtr port ) {
         auto [input_idx, output_idx, in, out] = add_ports( port );
         if ( in && out ) port->connect( out.get() );
@@ -145,9 +141,9 @@ class RA_DATAFLOW_CORE_API GraphInputNode : public GraphNode
 
 class RA_DATAFLOW_CORE_API GraphOutputNode : public GraphNode
 {
+  public:
     BASIC_NODE_INIT( GraphOutputNode, GraphNode ) {}
 
-  public:
     PortIndex add_input_port( PortBaseOutRawPtr port ) {
         auto [input_idx, output_idx, in, out] = add_ports( port );
         if ( in && out ) in->connect( port );
