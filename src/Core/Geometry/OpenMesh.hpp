@@ -46,8 +46,8 @@ typename Derived::Scalar sqrnorm( Eigen::MatrixBase<Derived> const& v1 ) {
 }
 
 template <typename Derived>
-typename Derived::template cross_product_return_type<Derived>::type
-cross( Eigen::MatrixBase<Derived> const& v1, Eigen::MatrixBase<Derived> const& v2 ) {
+typename MatrixBase<Derived>::PlainObject cross( Eigen::MatrixBase<Derived> const& v1,
+                                                 Eigen::MatrixBase<Derived> const& v2 ) {
     return v1.cross( v2 );
 }
 } // namespace Eigen
