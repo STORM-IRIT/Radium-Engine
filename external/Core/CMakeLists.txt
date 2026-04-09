@@ -22,14 +22,13 @@ if(NOT DEFINED Eigen3_DIR)
     ExternalProject_Add(
         Eigen3
         GIT_REPOSITORY https://gitlab.com/libeigen/eigen.git
-        GIT_TAG tags/3.4.0
+        GIT_TAG tags/5.0.1
         GIT_SHALLOW TRUE
         GIT_PROGRESS TRUE
-        PATCH_COMMAND git reset --hard && git apply -v --ignore-whitespace
-                      "${CMAKE_CURRENT_LIST_DIR}/patches/eigen.patch"
         INSTALL_DIR "${CMAKE_INSTALL_PREFIX}"
         CMAKE_ARGS ${RADIUM_EXTERNAL_CMAKE_OPTIONS} -DEIGEN_TEST_CXX11=OFF -DBUILD_TESTING=OFF
                    -DEIGEN_BUILD_DOC=OFF "-DCMAKE_MESSAGE_INDENT=${indent_string}\;"
+                   -DEIGEN_BUILD_TESTING=OFF -DEIGEN_BUILD_BLAS=OFF -DEIGEN_BUILD_LAPACK=OFF
     )
     add_dependencies(CoreExternals Eigen3)
     set_external_dir(Eigen3 "share/eigen3/cmake/")
@@ -46,7 +45,7 @@ if(NOT DEFINED OpenMesh_DIR)
     ExternalProject_Add(
         OpenMesh
         GIT_REPOSITORY https://www.graphics.rwth-aachen.de:9000/OpenMesh/OpenMesh.git
-        GIT_TAG tags/OpenMesh-8.1
+        GIT_TAG tags/OpenMesh-11.0
         GIT_SHALLOW TRUE
         GIT_PROGRESS TRUE
         INSTALL_DIR "${CMAKE_INSTALL_PREFIX}"
@@ -65,7 +64,7 @@ if(NOT DEFINED cpplocate_DIR OR NOT cpplocate_DIR)
     ExternalProject_Add(
         cpplocate
         GIT_REPOSITORY https://github.com/cginternals/cpplocate.git
-        GIT_TAG tags/v2.2.0
+        GIT_TAG tags/v2.3.0
         GIT_SHALLOW TRUE
         GIT_PROGRESS TRUE
         INSTALL_DIR "${CMAKE_INSTALL_PREFIX}/cpplocate"

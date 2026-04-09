@@ -26,7 +26,7 @@ include(filelist.cmake)
 
 add_library(${ra_core_target} SHARED ${core_sources} ${core_headers} ${RA_VERSION_CPP})
 
-find_package(Eigen3 3.3 REQUIRED NO_DEFAULT_PATH)
+find_package(Eigen3 3.3...5 REQUIRED NO_DEFAULT_PATH)
 find_package(OpenMesh REQUIRED COMPONENTS Core Tools NO_DEFAULT_PATH)
 find_package(cpplocate REQUIRED NO_DEFAULT_PATH)
 find_package(nlohmann_json REQUIRED NO_DEFAULT_PATH)
