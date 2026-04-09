@@ -34,7 +34,7 @@ if(NOT DEFINED glm_DIR)
         CMAKE_ARGS ${RADIUM_EXTERNAL_CMAKE_OPTIONS} -DGLM_TEST_ENABLE=OFF -DBUILD_STATIC_LIBS=OFF
                    -DCMAKE_INSTALL_PREFIX=<INSTALL_DIR> "-DCMAKE_MESSAGE_INDENT=${indent_string}\;"
     )
-    set_external_dir(glm "glm/lib/cmake/glm/")
+    set_external_dir(glm "glm/share/glm/")
     add_dependencies(EngineExternals glm)
 else()
     # because other might depends on it, but it's already done, define a dummy target
