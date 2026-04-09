@@ -26,10 +26,7 @@ SelectionManager::SelectionManager( ItemModel* model, QObject* parent ) :
 
 bool SelectionManager::isSelected( const ItemEntry& ent ) const {
     QModelIndex idx = itemModel()->findEntryIndex( ent );
-    if ( idx.isValid() ) {
-        const auto& pos = std::find( selectedIndexes().begin(), selectedIndexes().end(), idx );
-        return ( pos != selectedIndexes().end() );
-    }
+    if ( idx.isValid() ) { return selectedIndexes().contains( idx ); }
     return false;
 }
 
