@@ -1,6 +1,7 @@
 /**
  * Demonstrate how to define custom nodes anduse factory to serialize graphs with custom nodes
  */
+#include "Dataflow/RaDataflow.hpp"
 #include <catch2/catch_test_macros.hpp>
 
 #include <string>
@@ -39,7 +40,8 @@ class FilterSelector final : public Node
     using function_type = std::function<bool( const T& )>;
 
     explicit FilterSelector( const std::string& name ) : FilterSelector( name, node_typename() ) {}
-
+    RA_NODE_TYPENAME( std::string { "FilterSelector<" } +
+                      Ra::Core::Utils::simplifiedDemangledType<T>() + ">" );
     bool execute() override {
         // since init with default value, always has_data
         REQUIRE( m_portName->has_data() );
@@ -61,13 +63,6 @@ class FilterSelector final : public Node
     void toJsonInternal( nlohmann::json& data ) const override {
         data["operator"]  = m_portName->data();
         data["threshold"] = m_portThreshold->data();
-    }
-
-  public:
-    static const std::string& node_typename() {
-        static std::string demangledTypeName =
-            std::string { "FilterSelector<" } + Ra::Core::Utils::simplifiedDemangledType<T>() + ">";
-        return demangledTypeName;
     }
 
   private:

@@ -5,7 +5,7 @@
 namespace Ra {
 namespace Dataflow {
 namespace Core {
-
+namespace {
 template <typename T>
 void make_port_helper(
     Node* n,
@@ -19,15 +19,12 @@ void make_port_helper(
         port_map[index]  = ctor( n, name, type );
     }
 }
+} // namespace
 
 // ---------------------------
 // GraphNode
 // ---------------------------
 
-const std::string& GraphNode::node_typename() {
-    static std ::string demangledName { "GraphNode" };
-    return demangledName;
-}
 bool GraphNode::execute() {
     CORE_ASSERT( m_inputs.size() == m_outputs.size(), "GraphNode input and output size differ" );
 
@@ -80,6 +77,7 @@ auto GraphNode::add_ports( PortBaseRawPtr port )
     }
     return std::make_tuple( PortIndex {}, PortIndex {}, in, out );
 }
+
 bool GraphNode::fromJsonInternal( const nlohmann::json& data ) {
     auto factory = PortFactory::getInstance();
     std::map<size_t, PortBaseInPtr> inputs;
@@ -114,11 +112,6 @@ bool GraphNode::fromJsonInternal( const nlohmann::json& data ) {
 // GraphInputNode
 // ---------------------------
 
-const std::string& GraphInputNode::node_typename() {
-    static std::string demangledName { "GraphInputNode" };
-    //    std::cerr << " node typename\n";
-    return demangledName;
-}
 auto GraphInputNode::add_output_port( PortBaseInRawPtr port ) -> PortIndex {
     auto [input_idx, output_idx, in, out] = add_ports( port );
     if ( in && out ) port->connect( out.get() );
@@ -129,16 +122,12 @@ auto GraphInputNode::add_output_port( PortBaseInRawPtr port ) -> PortIndex {
 // GraphOutputNode
 // ---------------------------
 
-const std::string& GraphOutputNode::node_typename() {
-    static std ::string demangledName { "GraphOutputNode" };
-    return demangledName;
-}
-
 auto GraphOutputNode::add_input_port( PortBaseOutRawPtr port ) -> PortIndex {
     auto [input_idx, output_idx, in, out] = add_ports( port );
     if ( in && out ) in->connect( port );
     return output_idx;
 }
+
 } // namespace Core
 } // namespace Dataflow
 } // namespace Ra

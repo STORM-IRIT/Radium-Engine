@@ -193,3 +193,14 @@ struct adl_serializer<Ra::Core::Utils::ColorBase<T>> {
     PortOutPtr<T> m_port_out_##name {                    \
         add_output<T>( &m_##name, std::string( #name ) ) \
     }
+
+/**
+ *
+ */
+// don't use static const to prevent initialization order fiasco.
+#define RA_NODE_TYPENAME( name )                       \
+  public:                                              \
+    inline static const std::string& node_typename() { \
+        static std::string s_typename { name };        \
+        return s_typename;                             \
+    }

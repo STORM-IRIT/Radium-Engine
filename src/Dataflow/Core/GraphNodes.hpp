@@ -5,22 +5,20 @@
 #include <Core/Types.hpp>
 #include <Dataflow/Core/Node.hpp>
 
-#include <string>
-
 namespace Ra {
 namespace Dataflow {
 namespace Core {
 
 #define BASIC_NODE_INIT( TYPE, BASE )                                                 \
     explicit TYPE( const std::string& name ) : TYPE( name, TYPE::node_typename() ) {} \
-    static const std::string& node_typename();                                        \
+    RA_NODE_TYPENAME( #TYPE )                                                         \
     TYPE( const std::string& instanceName, const std::string& typeName ) :            \
-        BASE( instanceName, typeName )
+        BASE( instanceName, typeName ) {}
 
 class RA_DATAFLOW_CORE_API GraphNode : public Node
 {
   public:
-    BASIC_NODE_INIT( GraphNode, Node ) {}
+    BASIC_NODE_INIT( GraphNode, Node );
 
     bool execute() override;
     void remove_unlinked_ports();
@@ -45,7 +43,8 @@ class RA_DATAFLOW_CORE_API GraphNode : public Node
 class RA_DATAFLOW_CORE_API GraphInputNode : public GraphNode
 {
   public:
-    BASIC_NODE_INIT( GraphInputNode, GraphNode ) {}
+    BASIC_NODE_INIT( GraphInputNode, GraphNode );
+
     /**
      * Given an input port (from another node) add an output port to this GraphInputNode and
      * connect the newly created output port to input port in argument
@@ -56,7 +55,8 @@ class RA_DATAFLOW_CORE_API GraphInputNode : public GraphNode
 class RA_DATAFLOW_CORE_API GraphOutputNode : public GraphNode
 {
   public:
-    BASIC_NODE_INIT( GraphOutputNode, GraphNode ) {}
+    BASIC_NODE_INIT( GraphOutputNode, GraphNode );
+
     /**
      * Given an output port (from another node) add an input port to this GraphOutputNode and
      * connect the newly created input port to output port in argument

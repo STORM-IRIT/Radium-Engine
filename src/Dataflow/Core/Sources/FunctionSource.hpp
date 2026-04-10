@@ -1,5 +1,6 @@
 #pragma once
 #include "Dataflow/Core/NodeFactory.hpp"
+#include "Dataflow/RaDataflow.hpp"
 #pragma once
 #include <Dataflow/Core/Node.hpp>
 
@@ -25,7 +26,8 @@ class FunctionSourceNode : public Node
 
     explicit FunctionSourceNode( const std::string& name ) :
         FunctionSourceNode( name, FunctionSourceNode<R, Args...>::node_typename() ) {}
-    static const std::string& node_typename();
+    RA_NODE_TYPENAME( std::string { "Source<" } +
+                      Ra::Core::Utils::simplifiedDemangledType<function_type>() + ">" );
 
     bool execute() override;
 
@@ -78,13 +80,6 @@ template <class R, class... Args>
 typename FunctionSourceNode<R, Args...>::function_type*
 FunctionSourceNode<R, Args...>::data() const {
     return m_port_in_from->data();
-}
-
-template <class R, class... Args>
-const std::string& FunctionSourceNode<R, Args...>::node_typename() {
-    static std::string demangledTypeName =
-        std::string { "Source<" } + Ra::Core::Utils::simplifiedDemangledType<function_type>() + ">";
-    return demangledTypeName;
 }
 
 } // namespace Sources

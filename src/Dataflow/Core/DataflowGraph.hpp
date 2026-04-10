@@ -208,7 +208,7 @@ class RA_DATAFLOW_CORE_API DataflowGraph : public Node
 
     bool shouldBeSaved() { return m_should_save; }
 
-    static const std::string& node_typename();
+    RA_NODE_TYPENAME( "Core DataflowGraph" )
 
     /**
      * \brief Load a graph from the given file.
@@ -445,11 +445,6 @@ inline void DataflowGraph::remove_unlinked_input_output_ports() {
     if ( m_input_node ) { m_input_node->remove_unlinked_ports(); }
     if ( m_output_node ) { m_output_node->remove_unlinked_ports(); }
     generate_ports();
-}
-
-inline const std::string& DataflowGraph::node_typename() {
-    static std::string demangledTypeName { "Core DataflowGraph" };
-    return demangledTypeName;
 }
 
 } // namespace Core

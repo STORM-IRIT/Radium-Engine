@@ -1,6 +1,7 @@
 #pragma once
 #include "Core/CoreMacros.hpp"
 #include "Dataflow/Core/Port.hpp"
+#include "Dataflow/RaDataflow.hpp"
 #include <Dataflow/Core/Node.hpp>
 
 #include <functional>
@@ -187,13 +188,10 @@ class BinaryOpNode : public Node
     /// \brief Sets the operator to be evaluated by the node.
     void set_operator( BinaryOperator op ) { m_port_in_op->set_default_value( op ); }
 
-    static const std::string& node_typename() {
-        static std::string demangledName =
-            std::string { "BinaryOp<" } + Ra::Core::Utils::simplifiedDemangledType<t_a>() + " x " +
-            Ra::Core::Utils::simplifiedDemangledType<t_b>() + " -> " +
-            Ra::Core::Utils::simplifiedDemangledType<t_result>() + ">";
-        return demangledName;
-    }
+    RA_NODE_TYPENAME( std::string { "BinaryOp<" } +
+                      Ra::Core::Utils::simplifiedDemangledType<t_a>() + " x " +
+                      Ra::Core::Utils::simplifiedDemangledType<t_b>() + " -> " +
+                      Ra::Core::Utils::simplifiedDemangledType<t_result>() + ">" );
 
   protected:
     BinaryOpNode( const std::string& instanceName,
