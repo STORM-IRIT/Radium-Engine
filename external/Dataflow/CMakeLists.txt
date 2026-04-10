@@ -26,7 +26,8 @@ if(NOT DEFINED QtNodes_DIR)
         GIT_PROGRESS TRUE
         INSTALL_DIR "${CMAKE_INSTALL_PREFIX}"
         CMAKE_ARGS ${RADIUM_EXTERNAL_CMAKE_OPTIONS} -DCMAKE_INSTALL_PREFIX=<INSTALL_DIR>
-                   -DBUILD_DOCS=OFF "-DCMAKE_MESSAGE_INDENT=${indent_string}\;"
+                   -DBUILD_TESTING=OFF -DBUILD_EXAMPLES=OFF -DBUILD_DOCS=OFF
+                   "-DCMAKE_MESSAGE_INDENT=${indent_string}\;"
     )
     set_external_dir(QtNodes "lib/cmake/QtNodes/")
     add_dependencies(DataflowExternals QtNodes)
