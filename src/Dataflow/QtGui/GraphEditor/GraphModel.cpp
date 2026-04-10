@@ -225,6 +225,10 @@ QVariant GraphModel::nodeData( NodeId nodeId, NodeRole role ) const {
         }
         result = QVariant::fromValue( m_node_widget[nodeId] );
         break;
+        ///\todo check if we have to handle this.
+    case QtNodes::NodeRole::ValidationState:
+    case QtNodes::NodeRole::ProcessingStatus:
+        break;
     }
 
     return result;

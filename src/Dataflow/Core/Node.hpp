@@ -90,7 +90,7 @@ class RA_DATAFLOW_CORE_API Node
     virtual ~Node() = default;
 
     /// \brief Two nodes are considered equal if there model and instance names are the same.
-    bool operator==( const Node& node );
+    bool operator==( const Node& node ) const;
 
     /// \name Function execution control
     /// @{
@@ -460,7 +460,7 @@ inline const Node::PortBaseOutCollection& Node::outputs() const {
     return m_outputs;
 }
 
-inline bool Node::operator==( const Node& node ) {
+inline bool Node::operator==( const Node& node ) const {
     return ( m_model_name == node.model_name() ) && ( m_instance_name == node.instance_name() );
 }
 

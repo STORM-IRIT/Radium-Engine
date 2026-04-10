@@ -2,6 +2,9 @@
 
 #include <Core/RaCore.hpp>
 
+#include <array>
+#include <string>
+
 namespace Ra {
 namespace Core {
 namespace Geometry {
@@ -21,14 +24,14 @@ enum MeshAttrib : uint {
 
 /// Get the name expected for a given attrib.
 inline const std::string getAttribName( MeshAttrib index ) {
-    static const std::string g_attribName[] = { "in_position",
-                                                "in_normal",
-                                                "in_tangent",
-                                                "in_bitangent",
-                                                "in_texcoord",
-                                                "in_color",
-                                                "in_weight",
-                                                "in_weight_idx" };
+    static const std::array<const char*, 8> g_attribName { { "in_position",
+                                                             "in_normal",
+                                                             "in_tangent",
+                                                             "in_bitangent",
+                                                             "in_texcoord",
+                                                             "in_color",
+                                                             "in_weight",
+                                                             "in_weight_idx" } };
     return g_attribName[index];
 }
 

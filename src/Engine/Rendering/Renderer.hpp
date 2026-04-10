@@ -145,7 +145,7 @@ class RA_ENGINE_API Renderer
         ///
         /// \note Set as mutable to be able to call removeDuplicatedIndices() in const context.
         mutable std::vector<std::tuple<int, int, int>> m_indices;
-        Scalar m_depth;
+        Scalar m_depth { 0_ra };
     };
 
   public:

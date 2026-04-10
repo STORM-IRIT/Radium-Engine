@@ -179,8 +179,8 @@ void RotateAroundCameraManipulator::alignOnClosestAxis() {
     Ra::Core::Vector3 x( 1_ra, 0_ra, 0_ra );
     Ra::Core::Vector3 y( 0_ra, 1_ra, 0_ra );
     Ra::Core::Vector3 z( 0_ra, 0_ra, 1_ra );
-    Ra::Core::Vector3 oldDirection, newDirection = m_camera->getDirection();
-    Ra::Core::Vector3 newUpVector = m_camera->getUpVector();
+    Ra::Core::Vector3 newDirection = m_camera->getDirection();
+    Ra::Core::Vector3 newUpVector  = m_camera->getUpVector();
     // getFrame().inverse() is a transform we can apply on Vector3
     Ra::Core::Vector3 pivotInCamSpace = m_camera->getFrame().inverse() * m_pivot;
 
