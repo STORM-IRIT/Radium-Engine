@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Dataflow/RaDataflow.hpp"
 #include <Core/Containers/VariableSet.hpp>
 #include <Core/Utils/TypesUtils.hpp>
 #include <Dataflow/Core/Node.hpp>
@@ -28,8 +29,8 @@ class SingleDataSourceNode : public Node
     // warning, hacky specialization for set editable
     explicit SingleDataSourceNode( const std::string& name ) :
         SingleDataSourceNode( name, SingleDataSourceNode<T>::node_typename() ) {}
-
-    static const std::string& node_typename();
+    RA_NODE_TYPENAME( std::string { "Source<" } + Ra::Core::Utils::simplifiedDemangledType<T>() +
+                      ">" );
 
     bool execute() override;
 
@@ -88,13 +89,6 @@ void SingleDataSourceNode<T>::set_data( T data ) {
 template <typename T>
 const T* SingleDataSourceNode<T>::data() const {
     return &( m_port_in_from->data() );
-}
-
-template <typename T>
-const std::string& SingleDataSourceNode<T>::node_typename() {
-    static std::string demangledTypeName =
-        std::string { "Source<" } + Ra::Core::Utils::simplifiedDemangledType<T>() + ">";
-    return demangledTypeName;
 }
 
 } // namespace Sources

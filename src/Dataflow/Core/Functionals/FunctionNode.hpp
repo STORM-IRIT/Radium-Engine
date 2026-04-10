@@ -1,4 +1,5 @@
 #pragma once
+#include "Dataflow/RaDataflow.hpp"
 #include <Dataflow/Core/Node.hpp>
 
 #include <functional>
@@ -22,7 +23,8 @@ class FunctionNode : public Node
 
     void set_function( Function function ) { m_port_in_op->set_default_value( function ); }
 
-    static const std::string& node_typename();
+    RA_NODE_TYPENAME( std::string { "Function<" } +
+                      Ra::Core::Utils::simplifiedDemangledType<Input>() + ">" );
 
   protected:
     FunctionNode( const std::string& instanceName, const std::string& typeName, Function function );
@@ -52,13 +54,6 @@ bool FunctionNode<Input, Output>::execute() {
     m_result = f( x );
 
     return true;
-}
-
-template <typename Input, typename Output>
-const std::string& FunctionNode<Input, Output>::node_typename() {
-    static std::string demangledName =
-        std::string { "Function<" } + Ra::Core::Utils::simplifiedDemangledType<Input>() + ">";
-    return demangledName;
 }
 
 template <typename Input, typename Output>

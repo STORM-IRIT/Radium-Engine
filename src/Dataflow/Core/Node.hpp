@@ -99,6 +99,7 @@ class NodeJsonDeserializer : public Ra::Core::DynamicVisitor
  * sent to their output ports.
  *
  * Derived class must implement bool execute() and static const std::string & node_typename()
+ * use `RA_NODE_TYPENAME( "node type name" );` as an helper.
  *
  * static const std::string& node_typename() returns the demangled type name of the node or any
  * human readable representation of the type name. This is a public static member each node concrete

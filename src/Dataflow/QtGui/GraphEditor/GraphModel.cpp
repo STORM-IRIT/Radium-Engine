@@ -284,6 +284,10 @@ bool GraphModel::setNodeData( NodeId nodeId, NodeRole role, QVariant value ) {
 
     case NodeRole::Widget:
         break;
+        ///\todo check if we have to handle this.
+    case QtNodes::NodeRole::ValidationState:
+    case QtNodes::NodeRole::ProcessingStatus:
+        break;
     }
 
     return result;
