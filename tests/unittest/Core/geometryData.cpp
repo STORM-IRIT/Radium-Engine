@@ -6,12 +6,18 @@ TEST_CASE( "Core/Asset/GeometryData", "[unittests][Core][Core/Asset][GeometryDat
 
     using namespace Ra::Core::Asset;
     using namespace Ra::Core::Geometry;
+    SECTION( "Attrib name" ) {
+        REQUIRE( Ra::Core::Geometry::getAttribName( MeshAttrib::VERTEX_NORMAL ) ==
+                 std::string( "in_normal" ) );
+        REQUIRE( Ra::Core::Geometry::getAttribName( MeshAttrib::VERTEX_POSITION ) ==
+                 std::string( "in_position" ) );
+    }
 
     SECTION( "Normal test" ) {
         auto geom      = new GeometryData();
         auto& coreGeom = geom->getGeometry();
         auto& normal   = coreGeom.normalsWithLock();
-        auto& name     = Ra::Core::Geometry::getAttribName( MeshAttrib::VERTEX_NORMAL );
+        auto name      = Ra::Core::Geometry::getAttribName( MeshAttrib::VERTEX_NORMAL );
 
         REQUIRE( normal.empty() );
         REQUIRE( coreGeom.vertexAttribs().getAttribBase( name )->isLocked() );
@@ -41,7 +47,7 @@ TEST_CASE( "Core/Asset/GeometryData", "[unittests][Core][Core/Asset][GeometryDat
         auto geom      = new GeometryData();
         auto& coreGeom = geom->getGeometry();
         auto& vertex   = coreGeom.verticesWithLock();
-        auto& name     = Ra::Core::Geometry::getAttribName( MeshAttrib::VERTEX_POSITION );
+        auto name      = Ra::Core::Geometry::getAttribName( MeshAttrib::VERTEX_POSITION );
 
         REQUIRE( vertex.empty() );
         REQUIRE( coreGeom.vertexAttribs().getAttribBase( name )->isLocked() );
@@ -118,7 +124,7 @@ TEST_CASE( "Core/Asset/GeometryData", "[unittests][Core][Core/Asset][GeometryDat
     SECTION( "Tangent, BiTangent, TexCoord tests" ) {
         auto geom         = new GeometryData();
         auto& coreGeom    = geom->getGeometry();
-        auto& name        = getAttribName( Ra::Core::Geometry::MeshAttrib::VERTEX_TANGENT );
+        auto name         = getAttribName( Ra::Core::Geometry::MeshAttrib::VERTEX_TANGENT );
         auto attribHandle = coreGeom.addAttrib<Ra::Core::Vector3>( name );
         auto& attribData  = coreGeom.vertexAttribs().getDataWithLock( attribHandle );
 

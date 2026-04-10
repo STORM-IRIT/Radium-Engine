@@ -20,7 +20,7 @@ enum MeshAttrib : uint {
 };
 
 /// Get the name expected for a given attrib.
-inline const std::string& getAttribName( MeshAttrib index ) {
+inline const std::string getAttribName( MeshAttrib index ) {
     static const std::string g_attribName[] = { "in_position",
                                                 "in_normal",
                                                 "in_tangent",
