@@ -398,6 +398,7 @@ MACRO_END
 #endif
 
 #ifndef eigen_assert
-#define eigen_assert(XXX) CORE_ASSERT(XXX, "Eigen Assert");
+// do not work with eigen5, since eigen_assert must be const expr.
+//#define eigen_assert(XXX) CORE_ASSERT(XXX, "Eigen Assert");
 #endif
 // clang-format on
