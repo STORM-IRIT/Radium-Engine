@@ -99,7 +99,19 @@ bool TransformNode<coll_t, v_t>::execute() {
     // m_elements.reserve( inData.size() ); // --> this is not a requirement of
     // SequenceContainer
     std::transform( inData.cbegin(), inData.cend(), std::back_inserter( m_result ), f );
-
+    // parallel version
+    ///////////////////
+    // m_result.resize( inData.size() );
+    // std::transform(  std::execution::par_unseq, inData.cbegin(), inData.cend(), m_result.begin(),
+    // f );
+    ///////////////////
+    // parallel 2nd version
+    // m_result.resize( inData.size() );
+    // #pragma omp parallel for
+    // for (int i = 0; i < inData.size()); ++i) {
+    //    m_result[i] = f(inData[i]);
+    // }
+    ///////////////////
     return true;
 }
 
