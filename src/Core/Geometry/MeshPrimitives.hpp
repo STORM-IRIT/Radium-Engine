@@ -160,8 +160,8 @@ makeParametricSphere( Scalar radius, const Utils::optional<Utils::Color>& color,
             // Regular vertices on the sphere.
             const Scalar theta = v * vFactor;
             Vector3 p          = Vector3( radius * std::cos( phi ) * std::sin( theta ),
-                                 radius * std::sin( phi ) * std::sin( theta ),
-                                 radius * std::cos( theta ) );
+                                          radius * std::sin( phi ) * std::sin( theta ),
+                                          radius * std::cos( theta ) );
             vhandles[index++]  = topoMesh.add_vertex( p );
             topoNormals.push_back( p.normalized() );
             topoTexCoords.emplace_back( 1_ra - u * du, v * dv, 0_ra );
