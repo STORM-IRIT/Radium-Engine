@@ -87,6 +87,9 @@
 #     - fix append_coverage_compiler_flags_to_target to correctly add flags
 #     - replace "-fprofile-arcs -ftest-coverage" with "--coverage" (equivalent)
 #
+# 2026-01-20, Michał Sawicz
+#     - add `-fprofile-update=atomic` flag, if supported, for concurrent test runs
+#
 # USAGE:
 #
 # 1. Copy this file into your cmake modules path.
@@ -140,19 +143,32 @@ include(CMakeParseArguments)
 option(CODE_COVERAGE_VERBOSE "Verbose information" FALSE)
 
 # Check prereqs
-find_program(GCOV_PATH gcov)
+find_program(GCOV_PATH NAMES gcov)
 find_program(LCOV_PATH NAMES lcov lcov.bat lcov.exe lcov.perl)
 find_program(FASTCOV_PATH NAMES fastcov fastcov.py)
 find_program(GENHTML_PATH NAMES genhtml genhtml.perl genhtml.bat)
-find_program(GCOVR_PATH gcovr PATHS ${CMAKE_SOURCE_DIR}/scripts/test)
+find_program(GCOVR_PATH NAMES gcovr)
 find_program(CPPFILT_PATH NAMES c++filt)
 
 if(NOT GCOV_PATH)
     message(FATAL_ERROR "gcov not found! Aborting...")
 endif() # NOT GCOV_PATH
 
+if(LCOV_PATH)
+    set(lcov_message "Found Lcov: ${LCOV_PATH}")
+    execute_process(COMMAND ${LCOV_PATH} "--version" OUTPUT_VARIABLE LCOV_VERSION_OUTPUT)
+    if("${LCOV_VERSION_OUTPUT}" MATCHES
+       "lcov: LCOV version ([0-9]+\\.[0-9]+(\\.[0-9]+)?)(-[0-9])?\n"
+    )
+        set(LCOV_VERSION "${CMAKE_MATCH_1}")
+        string(APPEND lcov_message " (found version ${LCOV_VERSION})")
+    endif()
+    message(STATUS "${lcov_message}")
+endif()
+
 # Check supported compiler (Clang, GNU and Flang)
 get_property(LANGUAGES GLOBAL PROPERTY ENABLED_LANGUAGES)
+list(REMOVE_ITEM LANGUAGES NONE)
 foreach(LANG ${LANGUAGES})
     if("${CMAKE_${LANG}_COMPILER_ID}" MATCHES "(Apple)?[Cc]lang")
         if("${CMAKE_${LANG}_COMPILER_VERSION}" VERSION_LESS 3)
@@ -165,32 +181,85 @@ foreach(LANG ${LANGUAGES})
     endif()
 endforeach()
 
-set(COVERAGE_COMPILER_FLAGS "-fno-inline" "-g" "--coverage" CACHE INTERNAL "")
-set(COVERAGE_C_COMPILER_FLAGS ${COVERAGE_COMPILER_FLAGS})
-set(COVERAGE_CXX_COMPILER_FLAGS ${COVERAGE_COMPILER_FLAGS})
+set(COVERAGE_COMPILER_FLAGS "-g --coverage" CACHE INTERNAL "")
 
+# This is necessary because older versions of ccache don't yet have these:
+# https://github.com/ccache/ccache/commit/2737d79e282de72d1b29128f437173e4892ced5e
+# https://github.com/ccache/ccache/pull/1408
+function(_coverage_atomic_update_flag out_var lang)
+    set(_atomic_update_flag "-fprofile-update=atomic")
+    set(_coverage_uses_ccache OFF)
+    foreach(_launcher IN LISTS CMAKE_${lang}_COMPILER_LAUNCHER)
+        if(_launcher MATCHES "ccache(\\.exe)?$")
+            # Check that ccache version is less than 4.10.
+            execute_process(COMMAND ${_launcher} --version OUTPUT_VARIABLE CACHE_VERSION_OUTPUT)
+            if("${CACHE_VERSION_OUTPUT}" MATCHES "ccache version ([0-9]+\\.[0-9]+\\.[0-9]+)")
+                if("${CMAKE_MATCH_1}" VERSION_LESS "4.10.0")
+                    set(_coverage_uses_ccache ON)
+                    break()
+                endif()
+            endif()
+        endif()
+    endforeach()
+    if(_coverage_uses_ccache)
+        set(_atomic_update_flag "--ccache-skip -fprofile-update=atomic")
+    endif()
+    set(${out_var} "${_atomic_update_flag}" PARENT_SCOPE)
+endfunction()
+
+set(COVERAGE_CXX_COMPILER_FLAGS ${COVERAGE_COMPILER_FLAGS})
 if(CMAKE_CXX_COMPILER_ID MATCHES "(GNU|Clang)")
     include(CheckCXXCompilerFlag)
     check_cxx_compiler_flag(-fprofile-abs-path HAVE_cxx_fprofile_abs_path)
-    if(${HAVE_cxx_fprofile_abs_path})
-        list(APPEND COVERAGE_CXX_COMPILER_FLAGS "-fprofile-abs-path")
+    if(HAVE_cxx_fprofile_abs_path)
+        set(COVERAGE_CXX_COMPILER_FLAGS "${COVERAGE_CXX_COMPILER_FLAGS} -fprofile-abs-path")
     endif()
-endif()
-if(CMAKE_C_COMPILER_ID MATCHES "(GNU|Clang)")
-    include(CheckCCompilerFlag)
-    check_c_compiler_flag(-fprofile-abs-path HAVE_c_fprofile_abs_path)
-    if(${HAVE_c_fprofile_abs_path})
-        list(APPEND COVERAGE_C_COMPILER_FLAGS "-fprofile-abs-path")
+    check_cxx_compiler_flag(-fprofile-update=atomic HAVE_cxx_fprofile_update_atomic)
+    if(HAVE_cxx_fprofile_update_atomic)
+        _coverage_atomic_update_flag(COVERAGE_ATOMIC_UPDATE_FLAG CXX)
+        set(COVERAGE_CXX_COMPILER_FLAGS
+            "${COVERAGE_CXX_COMPILER_FLAGS} ${COVERAGE_ATOMIC_UPDATE_FLAG}"
+        )
     endif()
 endif()
 
-set(CMAKE_Fortran_FLAGS_COVERAGE ${COVERAGE_COMPILER_FLAGS}
+set(COVERAGE_C_COMPILER_FLAGS ${COVERAGE_COMPILER_FLAGS})
+if(CMAKE_C_COMPILER_ID MATCHES "(GNU|Clang)")
+    include(CheckCCompilerFlag)
+    check_c_compiler_flag(-fprofile-abs-path HAVE_c_fprofile_abs_path)
+    if(HAVE_c_fprofile_abs_path)
+        set(COVERAGE_C_COMPILER_FLAGS "${COVERAGE_C_COMPILER_FLAGS} -fprofile-abs-path")
+    endif()
+    check_c_compiler_flag(-fprofile-update=atomic HAVE_c_fprofile_update_atomic)
+    if(HAVE_c_fprofile_update_atomic)
+        _coverage_atomic_update_flag(COVERAGE_ATOMIC_UPDATE_FLAG C)
+        set(COVERAGE_C_COMPILER_FLAGS "${COVERAGE_C_COMPILER_FLAGS} ${COVERAGE_ATOMIC_UPDATE_FLAG}")
+    endif()
+endif()
+
+set(COVERAGE_Fortran_COMPILER_FLAGS ${COVERAGE_COMPILER_FLAGS})
+if(CMAKE_Fortran_COMPILER_ID MATCHES "(GNU|Clang)")
+    include(CheckFortranCompilerFlag)
+    CHECK_Fortran_COMPILER_FLAG(-fprofile-abs-path HAVE_fortran_fprofile_abs_path)
+    if(HAVE_fortran_fprofile_abs_path)
+        set(COVERAGE_Fortran_COMPILER_FLAGS "${COVERAGE_Fortran_COMPILER_FLAGS} -fprofile-abs-path")
+    endif()
+    CHECK_Fortran_COMPILER_FLAG(-fprofile-update=atomic HAVE_fortran_fprofile_update_atomic)
+    if(HAVE_fortran_fprofile_update_atomic)
+        _coverage_atomic_update_flag(COVERAGE_ATOMIC_UPDATE_FLAG Fortran)
+        set(COVERAGE_Fortran_COMPILER_FLAGS
+            "${COVERAGE_Fortran_COMPILER_FLAGS} ${COVERAGE_ATOMIC_UPDATE_FLAG}"
+        )
+    endif()
+endif()
+
+set(CMAKE_Fortran_FLAGS_COVERAGE ${COVERAGE_Fortran_COMPILER_FLAGS}
     CACHE STRING "Flags used by the Fortran compiler during coverage builds." FORCE
 )
-set(CMAKE_CXX_FLAGS_COVERAGE ${COVERAGE_COMPILER_FLAGS}
+set(CMAKE_CXX_FLAGS_COVERAGE ${COVERAGE_CXX_COMPILER_FLAGS}
     CACHE STRING "Flags used by the C++ compiler during coverage builds." FORCE
 )
-set(CMAKE_C_FLAGS_COVERAGE ${COVERAGE_COMPILER_FLAGS}
+set(CMAKE_C_FLAGS_COVERAGE ${COVERAGE_C_COMPILER_FLAGS}
     CACHE STRING "Flags used by the C compiler during coverage builds." FORCE
 )
 set(CMAKE_EXE_LINKER_FLAGS_COVERAGE ""
@@ -209,10 +278,6 @@ if(NOT (CMAKE_BUILD_TYPE STREQUAL "Debug" OR GENERATOR_IS_MULTI_CONFIG))
     message(WARNING "Code coverage results with an optimised (non-Debug) build may be misleading")
 endif() # NOT (CMAKE_BUILD_TYPE STREQUAL "Debug" OR GENERATOR_IS_MULTI_CONFIG)
 
-if(CMAKE_C_COMPILER_ID STREQUAL "GNU" OR CMAKE_Fortran_COMPILER_ID STREQUAL "GNU")
-    link_libraries(gcov)
-endif()
-
 # Defines a target for running and collection code coverage information Builds dependencies, runs
 # the given executable and outputs reports. NOTE! The executable should always have a ZERO as exit
 # code otherwise the coverage generation will not complete.
@@ -220,13 +285,14 @@ endif()
 # setup_target_for_coverage_lcov( NAME testrunner_coverage                    # New target name
 # EXECUTABLE testrunner -j ${PROCESSOR_COUNT} # Executable in PROJECT_BINARY_DIR DEPENDENCIES
 # testrunner                     # Dependencies to build first BASE_DIRECTORY "../" # Base directory
-# for report #  (defaults to PROJECT_SOURCE_DIR) EXCLUDE "src/dir1/*" "src/dir2/*" # Patterns to
-# exclude (can be relative #  to BASE_DIRECTORY, with CMake 3.4+) NO_DEMANGLE # Don't demangle C++
-# symbols #  even if c++filt is found )
+# for report #  (defaults to PROJECT_SOURCE_DIR) DATA_DIRECTORY "./" # Data directory #  (defaults
+# to PROJECT_BINARY_DIR) EXCLUDE "src/dir1/*" "src/dir2/*"           # Patterns to exclude (can be
+# relative #  to BASE_DIRECTORY, with CMake 3.4+) NO_DEMANGLE # Don't demangle C++ symbols #  even
+# if c++filt is found )
 function(setup_target_for_coverage_lcov)
 
     set(options NO_DEMANGLE SONARQUBE)
-    set(oneValueArgs BASE_DIRECTORY NAME)
+    set(oneValueArgs BASE_DIRECTORY DATA_DIRECTORY NAME)
     set(multiValueArgs EXCLUDE EXECUTABLE EXECUTABLE_ARGS DEPENDENCIES LCOV_ARGS GENHTML_ARGS)
     cmake_parse_arguments(Coverage "${options}" "${oneValueArgs}" "${multiValueArgs}" ${ARGN})
 
@@ -260,6 +326,12 @@ function(setup_target_for_coverage_lcov)
         set(GENHTML_EXTRA_ARGS "--demangle-cpp")
     endif()
 
+    if(DEFINED Coverage_DATA_DIRECTORY)
+        set(LCOV_DATA_DIRECTORY ${Coverage_DATA_DIRECTORY})
+    else()
+        set(LCOV_DATA_DIRECTORY ${PROJECT_BINARY_DIR})
+    endif()
+
     # Setting up commands which will be run to generate coverage data. Cleanup lcov
     set(LCOV_CLEAN_CMD
         ${LCOV_PATH}
@@ -267,7 +339,7 @@ function(setup_target_for_coverage_lcov)
         --gcov-tool
         ${GCOV_PATH}
         --directory
-        ${CMAKE_BINARY_DIR}
+        ${LCOV_DATA_DIRECTORY}
         -b
         ${BASEDIR}
         --zerocounters
@@ -281,7 +353,7 @@ function(setup_target_for_coverage_lcov)
         -c
         -i
         -d
-        ${CMAKE_BINARY_DIR}
+        ${LCOV_DATA_DIRECTORY}
         -b
         ${BASEDIR}
         -o
@@ -296,7 +368,7 @@ function(setup_target_for_coverage_lcov)
         --gcov-tool
         ${GCOV_PATH}
         --directory
-        ${CMAKE_BINARY_DIR}
+        ${LCOV_DATA_DIRECTORY}
         -b
         ${BASEDIR}
         --capture
@@ -349,36 +421,36 @@ function(setup_target_for_coverage_lcov)
         message(STATUS "Executed command report")
         message(STATUS "Command to clean up lcov: ")
         string(REPLACE ";" " " LCOV_CLEAN_CMD_SPACED "${LCOV_CLEAN_CMD}")
-        message("${LCOV_CLEAN_CMD_SPACED}")
+        message(STATUS "${LCOV_CLEAN_CMD_SPACED}")
 
         message(STATUS "Command to create baseline: ")
         string(REPLACE ";" " " LCOV_BASELINE_CMD_SPACED "${LCOV_BASELINE_CMD}")
-        message("${LCOV_BASELINE_CMD_SPACED}")
+        message(STATUS "${LCOV_BASELINE_CMD_SPACED}")
 
         message(STATUS "Command to run the tests: ")
         string(REPLACE ";" " " LCOV_EXEC_TESTS_CMD_SPACED "${LCOV_EXEC_TESTS_CMD}")
-        message("${LCOV_EXEC_TESTS_CMD_SPACED}")
+        message(STATUS "${LCOV_EXEC_TESTS_CMD_SPACED}")
 
         message(STATUS "Command to capture counters and generate report: ")
         string(REPLACE ";" " " LCOV_CAPTURE_CMD_SPACED "${LCOV_CAPTURE_CMD}")
-        message("${LCOV_CAPTURE_CMD_SPACED}")
+        message(STATUS "${LCOV_CAPTURE_CMD_SPACED}")
 
         message(STATUS "Command to add baseline counters: ")
         string(REPLACE ";" " " LCOV_BASELINE_COUNT_CMD_SPACED "${LCOV_BASELINE_COUNT_CMD}")
-        message("${LCOV_BASELINE_COUNT_CMD_SPACED}")
+        message(STATUS "${LCOV_BASELINE_COUNT_CMD_SPACED}")
 
         message(STATUS "Command to filter collected data: ")
         string(REPLACE ";" " " LCOV_FILTER_CMD_SPACED "${LCOV_FILTER_CMD}")
-        message("${LCOV_FILTER_CMD_SPACED}")
+        message(STATUS "${LCOV_FILTER_CMD_SPACED}")
 
         message(STATUS "Command to generate lcov HTML output: ")
         string(REPLACE ";" " " LCOV_GEN_HTML_CMD_SPACED "${LCOV_GEN_HTML_CMD}")
-        message("${LCOV_GEN_HTML_CMD_SPACED}")
+        message(STATUS "${LCOV_GEN_HTML_CMD_SPACED}")
 
         if(${Coverage_SONARQUBE})
             message(STATUS "Command to generate SonarQube XML output: ")
             string(REPLACE ";" " " GCOVR_XML_CMD_SPACED "${GCOVR_XML_CMD}")
-            message("${GCOVR_XML_CMD_SPACED}")
+            message(STATUS "${GCOVR_XML_CMD_SPACED}")
         endif()
     endif()
 
@@ -399,19 +471,19 @@ function(setup_target_for_coverage_lcov)
         DEPENDS ${Coverage_DEPENDENCIES}
         VERBATIM # Protect arguments to commands
         COMMENT
-            "Resetting code coverage counters to zero.\nProcessing code coverage counters and generating report."
+            "Resetting code coverage counters to zero. Processing code coverage counters and generating report."
     )
 
     # Show where to find the lcov info report
     add_custom_command(
-        TARGET ${Coverage_NAME} POST_BUILD COMMAND ;
+        TARGET ${Coverage_NAME} POST_BUILD COMMAND true
         COMMENT "Lcov code coverage info report saved in ${Coverage_NAME}.info."
                 ${GCOVR_XML_CMD_COMMENT}
     )
 
     # Show info where to find the report
     add_custom_command(
-        TARGET ${Coverage_NAME} POST_BUILD COMMAND ;
+        TARGET ${Coverage_NAME} POST_BUILD COMMAND true
         COMMENT "Open ./${Coverage_NAME}/index.html in your browser to view the coverage report."
     )
 
@@ -475,11 +547,11 @@ function(setup_target_for_coverage_gcovr_xml)
 
         message(STATUS "Command to run tests: ")
         string(REPLACE ";" " " GCOVR_XML_EXEC_TESTS_CMD_SPACED "${GCOVR_XML_EXEC_TESTS_CMD}")
-        message("${GCOVR_XML_EXEC_TESTS_CMD_SPACED}")
+        message(STATUS "${GCOVR_XML_EXEC_TESTS_CMD_SPACED}")
 
         message(STATUS "Command to generate gcovr XML coverage data: ")
         string(REPLACE ";" " " GCOVR_XML_CMD_SPACED "${GCOVR_XML_CMD}")
-        message("${GCOVR_XML_CMD_SPACED}")
+        message(STATUS "${GCOVR_XML_CMD_SPACED}")
     endif()
 
     add_custom_target(
@@ -495,7 +567,7 @@ function(setup_target_for_coverage_gcovr_xml)
 
     # Show info where to find the report
     add_custom_command(
-        TARGET ${Coverage_NAME} POST_BUILD COMMAND ;
+        TARGET ${Coverage_NAME} POST_BUILD COMMAND true
         COMMENT "Cobertura code coverage report saved in ${Coverage_NAME}.xml."
     )
 endfunction() # setup_target_for_coverage_gcovr_xml
@@ -569,15 +641,15 @@ function(setup_target_for_coverage_gcovr_html)
 
         message(STATUS "Command to run tests: ")
         string(REPLACE ";" " " GCOVR_HTML_EXEC_TESTS_CMD_SPACED "${GCOVR_HTML_EXEC_TESTS_CMD}")
-        message("${GCOVR_HTML_EXEC_TESTS_CMD_SPACED}")
+        message(STATUS "${GCOVR_HTML_EXEC_TESTS_CMD_SPACED}")
 
         message(STATUS "Command to create a folder: ")
         string(REPLACE ";" " " GCOVR_HTML_FOLDER_CMD_SPACED "${GCOVR_HTML_FOLDER_CMD}")
-        message("${GCOVR_HTML_FOLDER_CMD_SPACED}")
+        message(STATUS "${GCOVR_HTML_FOLDER_CMD_SPACED}")
 
         message(STATUS "Command to generate gcovr HTML coverage data: ")
         string(REPLACE ";" " " GCOVR_HTML_CMD_SPACED "${GCOVR_HTML_CMD}")
-        message("${GCOVR_HTML_CMD_SPACED}")
+        message(STATUS "${GCOVR_HTML_CMD_SPACED}")
     endif()
 
     add_custom_target(
@@ -594,7 +666,7 @@ function(setup_target_for_coverage_gcovr_html)
 
     # Show info where to find the report
     add_custom_command(
-        TARGET ${Coverage_NAME} POST_BUILD COMMAND ;
+        TARGET ${Coverage_NAME} POST_BUILD COMMAND true
         COMMENT "Open ./${Coverage_NAME}/index.html in your browser to view the coverage report."
     )
 
@@ -657,7 +729,7 @@ function(setup_target_for_coverage_fastcov)
         --gcov
         ${GCOV_PATH}
         --search-directory
-        ${CMAKE_BINARY_DIR}
+        ${BASEDIR}
         --process-gcno
         --output
         ${Coverage_NAME}.json
@@ -714,7 +786,7 @@ function(setup_target_for_coverage_fastcov)
         ${Coverage_NAME}
         # Cleanup fastcov
         COMMAND ${FASTCOV_PATH} ${Coverage_FASTCOV_ARGS} --gcov ${GCOV_PATH} --search-directory
-                ${CMAKE_BINARY_DIR} --zerocounters
+                ${BASEDIR} --zerocounters
         COMMAND ${FASTCOV_EXEC_TESTS_CMD}
         COMMAND ${FASTCOV_CAPTURE_CMD}
         COMMAND ${FASTCOV_CONVERT_CMD}
@@ -748,23 +820,31 @@ function(setup_target_for_coverage_fastcov)
 endfunction() # setup_target_for_coverage_fastcov
 
 function(append_coverage_compiler_flags)
-    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${COVERAGE_COMPILER_FLAGS}" PARENT_SCOPE)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${COVERAGE_COMPILER_FLAGS}" PARENT_SCOPE)
-    set(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} ${COVERAGE_COMPILER_FLAGS}" PARENT_SCOPE)
-    message(STATUS "Appending code coverage compiler flags: ${COVERAGE_COMPILER_FLAGS}")
+    foreach(LANG ${LANGUAGES})
+        set(CMAKE_${LANG}_FLAGS "${CMAKE_${LANG}_FLAGS} ${CMAKE_${LANG}_FLAGS_COVERAGE}"
+            PARENT_SCOPE
+        )
+        message(
+            STATUS
+                "Appending code coverage compiler flags for ${LANG}: ${CMAKE_${LANG}_FLAGS_COVERAGE}"
+        )
+    endforeach()
+    if(CMAKE_C_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID STREQUAL "GNU"
+       OR CMAKE_Fortran_COMPILER_ID STREQUAL "GNU"
+    )
+        link_libraries(gcov)
+    endif()
 endfunction() # append_coverage_compiler_flags
 
 # Setup coverage for specific library
 function(append_coverage_compiler_flags_to_target name)
-    target_compile_options(
-        ${name} PRIVATE $<$<COMPILE_LANGUAGE:C>:${COVERAGE_C_COMPILER_FLAGS}>
-                        $<$<COMPILE_LANGUAGE:CXX>:${COVERAGE_CXX_COMPILER_FLAGS}>
-    )
-    target_link_options(${name} PRIVATE ${COVERAGE_COMPILER_FLAGS})
+    foreach(LANG ${LANGUAGES})
+        separate_arguments(_flag_list NATIVE_COMMAND "${CMAKE_${LANG}_FLAGS_COVERAGE}")
+        target_compile_options(${name} PRIVATE $<$<COMPILE_LANGUAGE:${LANG}>:${_flag_list}>)
+    endforeach()
     if(CMAKE_C_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID STREQUAL "GNU"
        OR CMAKE_Fortran_COMPILER_ID STREQUAL "GNU"
     )
         target_link_libraries(${name} PRIVATE gcov)
     endif()
-
 endfunction()
