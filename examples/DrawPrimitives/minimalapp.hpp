@@ -20,7 +20,7 @@ class MinimalApp : public QApplication
     MinimalApp( int& argc, char** argv );
     ~MinimalApp();
 
-    void initialize();
+    void initialize( const glbinding::Version& glVersion = { 4, 1 } );
 
   public slots:
 
@@ -39,6 +39,7 @@ class MinimalApp : public QApplication
 
     // Pointer to Qt/OpenGL Viewer widget.
     std::unique_ptr<Ra::Gui::Viewer> m_viewer { nullptr };
+    std::unique_ptr<QWidget> m_viewer_widget { nullptr };
 
     // Timer to wake us up at every frame start.
     QTimer* m_frameTimer { nullptr };
