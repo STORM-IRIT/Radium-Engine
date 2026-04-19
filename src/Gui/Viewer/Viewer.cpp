@@ -591,6 +591,11 @@ void Viewer::mousePressEvent( QMouseEvent* event ) {
     handleMousePressEvent( event, result );
     emit onMousePress( event );
     emit needUpdate();
+    // restore keyboard after focus, since QWindow in widget integration sometimes misses focusIn
+    // event see QWidget::createWindowContainer bugs, see
+    // e.g. https://forum.qt.io/topic/56536/focus-problems-when-embedding-a-native-window/5
+    // https://qt-project.atlassian.net/browse/QTBUG-80725?search_id=32a3462c-87b7-44bb-b531-4b0ec7c8cae3
+    requestActivate();
 }
 
 void Viewer::mouseReleaseEvent( QMouseEvent* event ) {
