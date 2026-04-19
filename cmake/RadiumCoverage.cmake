@@ -54,6 +54,7 @@ function(radium_setup_coverage_targets)
                 add_dependencies(llvm_coverage ${TARGET})
             else()
                 append_coverage_compiler_flags_to_target(${TARGET})
+                target_compile_options(${TARGET} PRIVATE "-fno-inline")
             endif()
         endif()
     endforeach()
@@ -91,8 +92,6 @@ function(radium_setup_coverage_targets)
                 ${CMAKE_BUILD_TYPE}
                 -j
                 $ENV{CMAKE_BUILD_PARALLEL_LEVEL}
-                BASE_DIRECTORY
-                "/"
                 DEPENDENCIES
                 RadiumLibs
                 ${LABEL}
@@ -129,8 +128,9 @@ function(radium_setup_coverage_targets)
                     DEPENDENCIES
                     RadiumLibs
                     ${LABEL}
+                    # this is actually search-directory of fastcov, where gcda files are.
                     BASE_DIRECTORY
-                    "/"
+                    ${CMAKE_BINARY_DIR}
                     EXCLUDE
                     "_deps"
                     "_autogen"
