@@ -18,6 +18,7 @@ repos:
   rev: v0.6.13
   hooks:
     - id: cmake-format
+      exclude: cmake/CodeCoverage.cmake
 - repo: https://github.com/igorshubovych/markdownlint-cli
   rev: v0.45.0
   hooks:
