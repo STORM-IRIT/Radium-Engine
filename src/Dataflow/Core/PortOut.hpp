@@ -49,7 +49,7 @@ class RA_DATAFLOW_CORE_API PortBaseOut : public PortBase
         --m_linkCount;
         CORE_ASSERT( m_linkCount >= 0, "link count error" );
     }
-    virtual int link_count() { return m_linkCount; }
+    virtual int link_count() const { return m_linkCount; }
 
   protected:
     /// Constructor.

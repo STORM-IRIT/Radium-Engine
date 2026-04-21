@@ -25,15 +25,15 @@ The cmake config file `/path/to/installs/radium-external-r/radium-options.cmake`
 ~~~{.cmake}
 set(Eigen3_DIR "/path/to/external/install/share/eigen3/cmake/" CACHE PATH "My Eigen3 location")
 set(OpenMesh_DIR "/path/to/external/install/share/OpenMesh/cmake/" CACHE PATH "My OpenMesh location")
-set(cpplocate_DIR "/path/to/external/install/share/cpplocate/" CACHE PATH "My cpplocate location")
-set(nlohmann_json_DIR "/path/to/external/install/lib/cmake/nlohmann_json/" CACHE PATH "My nlohmann_json location")
-set(glm_DIR "/path/to/external/install/glm/lib/cmake/glm/" CACHE PATH "My glm location")
+set(cpplocate_DIR "/path/to/external/install/cpplocate/" CACHE PATH "My cpplocate location")
+set(nlohmann_json_DIR "/path/to/external/install/share/cmake/nlohmann_json/" CACHE PATH "My nlohmann_json location")
+set(glm_DIR "/path/to/external/install/glm/share/glm/" CACHE PATH "My glm location")
 set(glbinding_DIR "/path/to/external/install/glbinding/" CACHE PATH "My glbinding location")
 set(globjects_DIR "/path/to/external/install/globjects/" CACHE PATH "My globjects location")
 set(stb_DIR "/path/to/external/install/include/stb/" CACHE PATH "My stb location")
 set(stb_INCLUDE_DIR "/path/to/external/install/include/" CACHE PATH "My stb_INCLUDE location")
 set(tinyEXR_DIR "/path/to/external/install/share/tinyEXR/cmake/" CACHE PATH "My tinyEXR location")
-set(assimp_DIR "/path/to/external/install/lib/cmake/assimp-5.0/" CACHE PATH "My assimp location")
+set(assimp_DIR "/path/to/external/install/lib/cmake/assimp-6.0/" CACHE PATH "My assimp location")
 set(tinyply_DIR "/path/to/external/install/lib/cmake/tinyply/" CACHE PATH "My tinyply location")
 set(PowerSlider_DIR "/path/to/external/install/lib/cmake/PowerSlider/" CACHE PATH "My PowerSlider location")
 set(QtNodes_DIR "/path/to/external/install/lib/cmake/QtNodes/" CACHE PATH "My QtNodes location")
@@ -108,11 +108,14 @@ Radium offers the following build options:
 
 <!-- cmake -LAH . | grep RADIUM -B1 | sed s/--//g # in build directory -->
 ~~~{.bash}
-// Enable coverage, gcc only. Experimental, need ENABLE_TESTING
+// Enable coverage, sets RADIUM_ENABLE_TESTING ON
 RADIUM_ENABLE_COVERAGE:BOOL=OFF
 
 // Enable examples app build. To install examples, build explicitly the target Install_RadiumExamples.
 RADIUM_ENABLE_EXAMPLES:BOOL=ON
+
+// Enable testing of OpenGL functionalities. Option only available if RADIUM_ENABLE_TESTING is ON.
+RADIUM_ENABLE_GL_TESTING:BOOL=OFF
 
 // Enable precompiled headers.
 RADIUM_ENABLE_PCH:BOOL=OFF
@@ -142,7 +145,7 @@ RADIUM_GENERATE_LIB_IO:BOOL=ON
 RADIUM_GENERATE_LIB_PLUGINBASE:BOOL=ON
 
 // Install documentation. If RadiumDoc is compiled, install documentation to bundle directory for install target.
-RADIUM_INSTALL_DOC:BOOL=ON
+RADIUM_INSTALL_DOC:BOOL=OFF
 
 // Provide loaders based on Assimp library
 RADIUM_IO_ASSIMP:BOOL=ON

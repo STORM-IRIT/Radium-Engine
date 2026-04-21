@@ -21,7 +21,7 @@ add_custom_target(RadiumEngineShaders ALL SOURCES ${engine_shaders_full})
 
 find_package(glbinding REQUIRED NO_DEFAULT_PATH)
 find_package(globjects REQUIRED NO_DEFAULT_PATH)
-find_package(Eigen3 REQUIRED NO_DEFAULT_PATH)
+find_package(Eigen3 3.3...5 REQUIRED NO_DEFAULT_PATH)
 find_package(tinyEXR REQUIRED NO_DEFAULT_PATH)
 
 # This one should be extracted directly from external project properties.

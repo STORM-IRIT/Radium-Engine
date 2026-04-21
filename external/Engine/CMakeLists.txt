@@ -27,14 +27,14 @@ if(NOT DEFINED glm_DIR)
     ExternalProject_Add(
         glm
         GIT_REPOSITORY https://github.com/g-truc/glm.git
-        GIT_TAG cc98465e3508535ba8c7f6208df934c156a018dc
-        GIT_SHALLOW FALSE
+        GIT_TAG 1.0.3
+        GIT_SHALLOW TRUE
         GIT_PROGRESS TRUE
         INSTALL_DIR "${CMAKE_INSTALL_PREFIX}/glm"
         CMAKE_ARGS ${RADIUM_EXTERNAL_CMAKE_OPTIONS} -DGLM_TEST_ENABLE=OFF -DBUILD_STATIC_LIBS=OFF
                    -DCMAKE_INSTALL_PREFIX=<INSTALL_DIR> "-DCMAKE_MESSAGE_INDENT=${indent_string}\;"
     )
-    set_external_dir(glm "glm/lib/cmake/glm/")
+    set_external_dir(glm "glm/share/glm/")
     add_dependencies(EngineExternals glm)
 else()
     # because other might depends on it, but it's already done, define a dummy target
@@ -48,8 +48,8 @@ if(NOT DEFINED glbinding_DIR)
     ExternalProject_Add(
         glbinding
         GIT_REPOSITORY https://github.com/cginternals/glbinding.git
-        GIT_TAG 758d33b4d4f1815d46d91fcf4ca4914d837267fa
-        GIT_SHALLOW FALSE
+        GIT_TAG v3.5.0
+        GIT_SHALLOW TRUE
         GIT_PROGRESS TRUE
         # PATCH_COMMAND git reset --hard && git apply -v --ignore-whitespace
         # "${CMAKE_CURRENT_LIST_DIR}/patches/glbinding.patch"
@@ -90,8 +90,8 @@ if(NOT DEFINED globjects_DIR)
     status_message("globjects" "remote git")
     ExternalProject_Add(
         globjects
-        GIT_REPOSITORY https://github.com/cginternals/globjects.git
-        GIT_TAG 4363356ae2ef5c936ab078fba48d1ea507c295c4
+        GIT_REPOSITORY https://github.com/dlyr/globjects.git
+        GIT_TAG origin/eigen5
         GIT_SHALLOW FALSE
         GIT_PROGRESS TRUE
         INSTALL_DIR "${CMAKE_INSTALL_PREFIX}/globjects"
@@ -118,7 +118,7 @@ if(NOT DEFINED stb_DIR)
     ExternalProject_Add(
         stb
         GIT_REPOSITORY https://github.com/nothings/stb.git
-        GIT_TAG 1034f5e5c4809ea0a7f4387e0cd37c5184de3cdd
+        GIT_TAG 28d546d5eb77d4585506a20480f4de2e706dff4c
         GIT_SHALLOW FALSE
         GIT_PROGRESS TRUE
         CONFIGURE_COMMAND ""

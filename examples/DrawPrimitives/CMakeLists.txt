@@ -18,7 +18,7 @@ if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
     )
     message("Set install prefix to ${CMAKE_INSTALL_PREFIX}")
 endif()
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_DISABLE_SOURCE_CHANGES ON)
 set(CMAKE_DISABLE_IN_SOURCE_BUILD ON)
@@ -70,7 +70,7 @@ if(${USE_ASSIMP})
     target_compile_definitions(${PROJECT_NAME} PRIVATE "IO_HAS_ASSIMP")
 endif()
 
-target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)
+target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_20)
 target_include_directories(
     ${PROJECT_NAME} PRIVATE ${RADIUM_INCLUDE_DIRS} ${CMAKE_CURRENT_BINARY_DIR} # Moc
                             ${CMAKE_CURRENT_SOURCE_DIR}

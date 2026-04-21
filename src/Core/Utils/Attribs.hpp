@@ -1,10 +1,12 @@
 #pragma once
-#include <Core/Containers/VectorArray.hpp>
-#include <Core/CoreMacros.hpp>
+
 #include <Core/RaCore.hpp>
+
+#include <Core/Containers/VectorArray.hpp>
 #include <Core/Utils/ContainerIntrospectionInterface.hpp>
 #include <Core/Utils/Index.hpp>
 #include <Core/Utils/Observable.hpp>
+
 #include <Eigen/Core>
 #include <iterator>
 #include <map>
@@ -49,7 +51,7 @@ class RA_CORE_API AttribBase : public ObservableVoid, public ContainerIntrospect
     virtual void resize( size_t s ) = 0;
 
     /// Return true if *this and \p rhs have the same name.
-    bool inline operator==( const AttribBase& rhs );
+    bool inline operator==( const AttribBase& rhs ) const;
 
     /// Downcast from AttribBase to Attrib<T>.
     template <typename T>
@@ -461,7 +463,7 @@ void AttribBase::setName( const std::string& name ) {
     m_name = name;
 }
 
-bool inline AttribBase::operator==( const AttribBase& rhs ) {
+bool inline AttribBase::operator==( const AttribBase& rhs ) const {
     return m_name == rhs.getName();
 }
 

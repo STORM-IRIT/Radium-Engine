@@ -1,22 +1,29 @@
 #include <Engine/RaEngine.hpp>
+#include <Engine/Scene/EntityManager.hpp>
+#include <Gui/BaseApplication.hpp>
+#include <Gui/RadiumWindow/SimpleWindowFactory.hpp>
+#include <Gui/Viewer/RotateAroundCameraManipulator.hpp>
+#include <Gui/Viewer/Viewer.hpp>
 
 #include <QApplication>
-
 #include <QOpenGLContext>
-
-#include <Engine/Scene/EntityManager.hpp>
 
 #include <AllPrimitivesComponent.hpp>
 #include <minimalapp.hpp>
 
 int main( int argc, char* argv[] ) {
-
-    // Create app and show viewer window
     MinimalApp app( argc, argv );
-    app.initialize();
+    glbinding::Version glVersion { 4, 4 };
+    app.initialize( glVersion );
 
     // process all events so that everithing is initialized
     QApplication::processEvents();
+
+    if ( glVersion != app.m_engine->getOpenGLVersion() ) {
+        LOG( Ra::Core::Utils::logWARNING )
+            << "OpenGL version mismatch : requested " << glVersion.toString() << " -- available "
+            << app.m_engine->getOpenGLVersion().toString() << std::endl;
+    }
 
     // Create and initialize entity and component
     /// \todo Create one entity per object, instead of using the big "all primitive component"
@@ -25,11 +32,8 @@ int main( int argc, char* argv[] ) {
     AllPrimitivesComponent* c = new AllPrimitivesComponent( e );
     c->initialize();
 
-    // prepare the viewer to render the scene (i.e. build RenderTechniques for the active renderer)
-    app.m_viewer->prepareDisplay();
-
-    // Start the app.
+    auto viewer = app.m_viewer.get();
+    viewer->prepareDisplay();
     app.m_frameTimer->start();
-
     return app.exec();
 }

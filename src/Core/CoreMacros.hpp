@@ -231,7 +231,7 @@
 #   define STRONG_INLINE  inline
 #   define NO_INLINE      __attribute__((noinline))
 
-#   define DLL_EXPORT
+#   define DLL_EXPORT __attribute__((visibility("default")))
 #   define DLL_IMPORT
 
 #   define STDCALL  __attribute__((stdcall))
@@ -398,6 +398,7 @@ MACRO_END
 #endif
 
 #ifndef eigen_assert
-#define eigen_assert(XXX) CORE_ASSERT(XXX, "Eigen Assert");
+// do not work with eigen5, since eigen_assert must be const expr.
+//#define eigen_assert(XXX) CORE_ASSERT(XXX, "Eigen Assert");
 #endif
 // clang-format on

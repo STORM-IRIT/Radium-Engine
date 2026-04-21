@@ -9,25 +9,6 @@ set(headless_sources CLIBaseApplication.cpp CLIViewer.cpp OpenGLContext/EglOpenG
 )
 
 set(headless_headers
-    CLI/App.hpp
-    CLI/CLI.hpp
-    CLI/Config.hpp
-    CLI/ConfigFwd.hpp
-    CLI/Error.hpp
-    CLI/Formatter.hpp
-    CLI/FormatterFwd.hpp
-    CLI/Macros.hpp
-    CLI/Option.hpp
-    CLI/Split.hpp
-    CLI/StringTools.hpp
-    CLI/Timer.hpp
-    CLI/TypeTools.hpp
-    CLI/Validators.hpp
-    CLI/Version.hpp
-    CLIBaseApplication.hpp
-    CLIViewer.hpp
-    OpenGLContext/EglOpenGLContext.hpp
-    OpenGLContext/GlfwOpenGLContext.hpp
-    OpenGLContext/OpenGLContext.hpp
-    RaHeadless.hpp
+    CLI/CLI11.hpp CLIBaseApplication.hpp CLIViewer.hpp OpenGLContext/EglOpenGLContext.hpp
+    OpenGLContext/GlfwOpenGLContext.hpp OpenGLContext/OpenGLContext.hpp RaHeadless.hpp
 )

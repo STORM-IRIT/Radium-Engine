@@ -87,13 +87,13 @@ void FlightCameraManipulator::configureKeyMapping_impl() {
 
 void FlightCameraManipulator::setupKeyMappingCallbacks() {
 
-    m_keyMappingCallbackManager.addEventCallback( FLIGHTMODECAMERA_PAN,
-                                                  [=]( QEvent* event ) { panCallback( event ); } );
     m_keyMappingCallbackManager.addEventCallback(
-        FLIGHTMODECAMERA_ROTATE, [=]( QEvent* event ) { rotateCallback( event ); } );
+        FLIGHTMODECAMERA_PAN, [this]( QEvent* event ) { panCallback( event ); } );
+    m_keyMappingCallbackManager.addEventCallback(
+        FLIGHTMODECAMERA_ROTATE, [this]( QEvent* event ) { rotateCallback( event ); } );
 
-    m_keyMappingCallbackManager.addEventCallback( FLIGHTMODECAMERA_ZOOM,
-                                                  [=]( QEvent* event ) { zoomCallback( event ); } );
+    m_keyMappingCallbackManager.addEventCallback(
+        FLIGHTMODECAMERA_ZOOM, [this]( QEvent* event ) { zoomCallback( event ); } );
 }
 
 void FlightCameraManipulator::panCallback( QEvent* event ) {

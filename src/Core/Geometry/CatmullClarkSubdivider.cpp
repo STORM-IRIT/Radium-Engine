@@ -7,7 +7,6 @@
 #include <OpenMesh/Core/Mesh/Handles.hh>
 #include <OpenMesh/Core/Mesh/IteratorsT.hh>
 #include <OpenMesh/Core/Mesh/PolyConnectivity.hh>
-#include <OpenMesh/Core/Mesh/SmartHandles.hh>
 #include <OpenMesh/Core/System/config.h>
 #include <OpenMesh/Tools/Utils/MeshCheckerT.hh>
 #include <memory>

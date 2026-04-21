@@ -9,6 +9,7 @@
 #include <Gui/Viewer/TrackballCameraManipulator.hpp>
 
 #include <QMainWindow>
+#include <QMessageBox>
 #include <QOpenGLContext>
 
 using namespace Ra;
@@ -26,14 +27,18 @@ MinimalApp::MinimalApp( int& argc, char** argv ) : QApplication( argc, argv ) {
 MinimalApp::~MinimalApp() {
     // need to clean up everithing before engine is cleaned up.
     m_taskQueue.reset( nullptr );
+    // first reparent viewer, before deleting widget, if not, qt segfault on exit.
+    m_viewer->setParent( nullptr );
     m_viewer.reset( nullptr );
+    // delete widget
+    m_viewer_widget.reset( nullptr );
     m_engine->cleanup();
     Ra::Engine::RadiumEngine::destroyInstance();
 }
 
-void MinimalApp::initialize() {
+void MinimalApp::initialize( const glbinding::Version& version ) {
     QSurfaceFormat format;
-    format.setVersion( 4, 4 );
+    format.setVersion( version.majorVersion(), version.minorVersion() );
     format.setProfile( QSurfaceFormat::CoreProfile );
     format.setDepthBufferSize( 24 );
     format.setStencilBufferSize( 8 );
@@ -50,14 +55,15 @@ void MinimalApp::initialize() {
     m_taskQueue.reset( new Core::TaskQueue( std::thread::hardware_concurrency() - 1 ) );
 
     // Initialize viewer.
-    m_viewer.reset( new Viewer );
+    m_viewer = std::make_unique<Viewer>();
     CORE_ASSERT( m_viewer != nullptr, "GUI was not initialized" );
+    m_viewer->setObjectName( QStringLiteral( "m_viewer" ) );
 
     m_viewer->setupKeyMappingCallbacks();
 
     m_viewer->addCustomAction( "changeCameraManipulator",
                                KeyMappingManager::createEventBindingFromStrings( "", "", "Key_N" ),
-                               [=]( QEvent* e ) {
+                               [this]( QEvent* e ) {
                                    if ( e->type() == QEvent::KeyPress ) changeCameraManipulator();
                                } );
 
@@ -78,10 +84,11 @@ void MinimalApp::initialize() {
     // Create a window container for the viewer.
     // using viewer directly as main windows fail to have valid glbinding context
     // on Debian bullseye, Qt version 6.2.4
-    auto viewerWidget = QWidget::createWindowContainer( m_viewer.get() );
-    viewerWidget->setAutoFillBackground( false );
-    viewerWidget->resize( 500, 500 );
-    viewerWidget->show();
+    m_viewer_widget.reset( QWidget::createWindowContainer( m_viewer.get() ) );
+    m_viewer_widget->setAutoFillBackground( false );
+    m_viewer_widget->resize( 500, 500 );
+    m_viewer_widget->show();
+    return;
 }
 
 void MinimalApp::onGLInitialized() {

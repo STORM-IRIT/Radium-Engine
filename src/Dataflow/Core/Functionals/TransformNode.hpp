@@ -99,7 +99,7 @@ bool TransformNode<coll_t, v_t>::execute() {
     m_result.clear();
     // m_elements.reserve( inData.size() ); // --> this is not a requirement of
     // SequenceContainer
-    std::transform( inData.begin(), inData.end(), std::back_inserter( m_result ), f );
+    std::transform( inData.cbegin(), inData.cend(), std::back_inserter( m_result ), f );
 
     return true;
 }

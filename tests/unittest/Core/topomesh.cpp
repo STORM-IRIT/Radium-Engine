@@ -1,7 +1,10 @@
 #include <Core/Geometry/MeshPrimitives.hpp>
+#include <Core/Geometry/OpenMesh.hpp>
 #include <Core/Geometry/StandardAttribNames.hpp>
 #include <Core/Geometry/TopologicalMesh.hpp>
 #include <Core/Geometry/TriangleMesh.hpp>
+#include <Core/Math/Math.hpp>
+#include <Core/Types.hpp>
 #include <catch2/catch_test_macros.hpp>
 
 #include <OpenMesh/Tools/Subdivider/Uniform/CatmullClarkT.hh>
@@ -239,6 +242,20 @@ TEST_CASE( "Core/Geometry/TopologicalMesh", "[unittests][Core][Core/Geometry][To
         REQUIRE( isSameMesh( mesh, newMesh ) );
         REQUIRE( topologicalMesh.checkIntegrity() );
     };
+
+    SECTION( "Test OpenMesh specialization" ) {
+        Vector3 v1 { 1_ra, 0_ra, 0_ra };
+        Vector3 v2 { 0_ra, 1_ra, 0_ra };
+        Vector3 v3 { 10_ra, 0_ra, 0_ra };
+        Vector3 v4 { 1_ra, 2_ra, 3_ra };
+        REQUIRE( Math::areApproxEqual( 0_ra, Eigen::dot( v1, v2 ) ) );
+        REQUIRE( Math::areApproxEqual( 1_ra, Eigen::norm( v1 ) ) );
+        REQUIRE( Eigen::normalize( v3 ).isApprox( Vector3 { 1_ra, 0_ra, 0_ra } ) );
+        REQUIRE( v3.isApprox( Vector3 { 1_ra, 0_ra, 0_ra } ) );
+        REQUIRE( Eigen::cross( v1, v2 ).isApprox( Vector3 { 0_ra, 0_ra, 1_ra } ) );
+        REQUIRE( Eigen::vectorize( v4, 4_ra ).isApprox( Vector3 { 4_ra, 4_ra, 4_ra } ) );
+        REQUIRE( Math::areApproxEqual( Eigen::sqrnorm( v4 ), 3_ra * 4_ra * 4_ra ) );
+    }
 
     SECTION( "Closed mesh" ) {
         testConverter( Ra::Core::Geometry::makeBox() );

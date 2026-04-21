@@ -985,7 +985,7 @@ function(configure_radium_library)
         endif()
     endif()
 
-    target_compile_features(${ARGS_TARGET} ${PropertyQualifier} cxx_std_17)
+    target_compile_features(${ARGS_TARGET} ${PropertyQualifier} cxx_std_20)
     if(OPENMP_FOUND)
         target_link_libraries(${ARGS_TARGET} ${PropertyQualifier} OpenMP::OpenMP_CXX)
     endif(OPENMP_FOUND)

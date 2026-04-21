@@ -2,6 +2,7 @@
 
 #include <Core/Containers/VectorArray.hpp>
 #include <Core/Geometry/TriangleMesh.hpp>
+#include <Core/Types.hpp>
 #include <Core/Utils/ContainerIntrospectionInterface.hpp>
 #include <Core/Utils/ObjectWithSemantic.hpp>
 #include <Core/Utils/StdMapIterators.hpp>

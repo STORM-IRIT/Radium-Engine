@@ -36,10 +36,6 @@ on:
         required: false
         type: string
         default: "true"
-      linux-clang:
-        required: false
-        type: string
-        default: "true"
       build-release:
         required: false
         type: string
@@ -89,7 +85,7 @@ jobs:
           echo '{ "name": "float", "value": "OFF"}'
           [[ "true" == "${{ inputs.use-double }}" ]] && echo ', { "name": "double", "value": "ON" }'
           echo '],'
-          echo '"qtversion" : [ { "name" : "qt6", "value" : "6.2.0"}],'
+          echo '"qtversion" : [ { "name" : "qt6", "value" : "6.8.3"}],'
           echo '"coverage" : ['
           [[ "true" == "${{ inputs.coverage }}" ]] && echo '{ "value" : "ON", "extra-flags" : "-DRADIUM_ENABLE_GL_TESTING=ON" }' || echo '{ "value" : "OFF", "extra-flags" : "" }'
           echo "]"

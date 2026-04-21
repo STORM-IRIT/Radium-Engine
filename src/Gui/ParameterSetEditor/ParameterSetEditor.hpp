@@ -137,12 +137,17 @@ void VariableSetEditor::addEnumWidget( const std::string& key,
                                        Core::VariableSet& params,
                                        const nlohmann::json& metadata ) {
     using namespace Ra::Core::VariableSetEnumManagement;
-    auto m = metadata[key];
 
-    std::string description = m.contains( "description" ) ? m["description"] : "";
-    std::string nm          = m.contains( "name" ) ? std::string { m["name"] } : key;
+    std::string description = "";
+    std::string nm          = key;
+    if ( metadata.contains( key ) ) {
+        auto m      = metadata[key];
+        description = m.contains( "description" ) ? m["description"] : "";
+        nm          = m.contains( "name" ) ? std::string { m["name"] } : key;
+    }
 
     if ( auto ec = getEnumConverter<T>( params, key ) ) {
+
         auto items                        = ( *ec )->getEnumerators();
         auto onEnumParameterStringChanged = [this, &params, &key]( const QString& value ) {
             //            params.setVariable( key, value.toStdString() );
@@ -151,25 +156,31 @@ void VariableSetEditor::addEnumWidget( const std::string& key,
         };
         addComboBox( nm,
                      onEnumParameterStringChanged,
-                     getEnumString( params, key, initial ),
+                     ( *ec )->getEnumerator( initial ),
                      items,
                      description );
     }
     else {
         LOG( Core::Utils::logWARNING )
             << "ParameterSet don't have converter for enum " << key << " use index<>int instead.";
+        if ( metadata.contains( key ) ) {
+            auto m     = metadata[key];
+            auto items = std::vector<std::string>();
+            items.reserve( m["values"].size() );
+            for ( const auto& value : m["values"] ) {
+                items.push_back( value );
+            }
 
-        auto items = std::vector<std::string>();
-        items.reserve( m["values"].size() );
-        for ( const auto& value : m["values"] ) {
-            items.push_back( value );
+            auto onEnumParameterIntChanged = [this, &params, &key]( int value ) {
+                params.setVariable( key, value );
+                emit parameterModified( key );
+            };
+            addComboBox( nm, onEnumParameterIntChanged, int( initial ), items, description );
         }
-
-        auto onEnumParameterIntChanged = [this, &params, &key]( T value ) {
-            params.setVariable( key, value );
-            emit parameterModified( key );
-        };
-        addComboBox( nm, onEnumParameterIntChanged, initial, items, description );
+        else {
+            LOG( Core::Utils::logWARNING )
+                << "Metadata missing for " << key << " no combo box added\n";
+        }
     }
 }
 

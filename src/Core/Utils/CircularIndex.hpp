@@ -105,11 +105,11 @@ inline bool CircularIndex::operator<( const CircularIndex& id ) const {
 }
 
 inline bool CircularIndex::operator==( const size_t i ) const {
-    return ( idx == CircularIndex( N, i ) );
+    return ( idx == CircularIndex( N, i ).value() );
 }
 
 inline bool CircularIndex::operator<( const size_t i ) const {
-    return ( idx < size_t( CircularIndex( N, i ) ) );
+    return ( idx < size_t( CircularIndex( N, i ).value() ) );
 }
 
 } // namespace Utils

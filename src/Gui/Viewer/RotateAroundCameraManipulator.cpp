@@ -38,18 +38,18 @@ void RotateAroundCameraManipulator::configureKeyMapping_impl() {
 void RotateAroundCameraManipulator::setupKeyMappingCallbacks() {
 
     m_keyMappingCallbackManager.addEventCallback(
-        TRACKBALLCAMERA_ROTATE, [=]( QEvent* event ) { rotateCallback( event ); } );
-    m_keyMappingCallbackManager.addEventCallback( TRACKBALLCAMERA_PAN,
-                                                  [=]( QEvent* event ) { panCallback( event ); } );
-    m_keyMappingCallbackManager.addEventCallback( TRACKBALLCAMERA_ZOOM,
-                                                  [=]( QEvent* event ) { zoomCallback( event ); } );
+        TRACKBALLCAMERA_ROTATE, [this]( QEvent* event ) { rotateCallback( event ); } );
     m_keyMappingCallbackManager.addEventCallback(
-        TRACKBALLCAMERA_MOVE_FORWARD, [=]( QEvent* event ) { moveForwardCallback( event ); } );
+        TRACKBALLCAMERA_PAN, [this]( QEvent* event ) { panCallback( event ); } );
+    m_keyMappingCallbackManager.addEventCallback(
+        TRACKBALLCAMERA_ZOOM, [this]( QEvent* event ) { zoomCallback( event ); } );
+    m_keyMappingCallbackManager.addEventCallback(
+        TRACKBALLCAMERA_MOVE_FORWARD, [this]( QEvent* event ) { moveForwardCallback( event ); } );
     m_keyMappingCallbackManager.addEventCallback(
         ROTATEAROUND_ALIGN_WITH_CLOSEST_AXIS,
-        [=]( QEvent* event ) { alignWithClosestAxisCallback( event ); } );
+        [this]( QEvent* event ) { alignWithClosestAxisCallback( event ); } );
     m_keyMappingCallbackManager.addEventCallback(
-        ROTATEAROUND_SET_PIVOT, [=]( QEvent* event ) { setPivotCallback( event ); } );
+        ROTATEAROUND_SET_PIVOT, [this]( QEvent* event ) { setPivotCallback( event ); } );
 }
 
 void RotateAroundCameraManipulator::alignWithClosestAxisCallback( QEvent* event ) {
@@ -179,8 +179,8 @@ void RotateAroundCameraManipulator::alignOnClosestAxis() {
     Ra::Core::Vector3 x( 1_ra, 0_ra, 0_ra );
     Ra::Core::Vector3 y( 0_ra, 1_ra, 0_ra );
     Ra::Core::Vector3 z( 0_ra, 0_ra, 1_ra );
-    Ra::Core::Vector3 oldDirection, newDirection = m_camera->getDirection();
-    Ra::Core::Vector3 newUpVector = m_camera->getUpVector();
+    Ra::Core::Vector3 newDirection = m_camera->getDirection();
+    Ra::Core::Vector3 newUpVector  = m_camera->getUpVector();
     // getFrame().inverse() is a transform we can apply on Vector3
     Ra::Core::Vector3 pivotInCamSpace = m_camera->getFrame().inverse() * m_pivot;
 

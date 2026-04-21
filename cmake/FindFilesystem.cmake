@@ -48,7 +48,7 @@ Imported Targets
     be defined.
 
     .. note::
-        This target has ``cxx_std_17`` as an ``INTERFACE``
+        This target has ``cxx_std_20`` as an ``INTERFACE``
         :ref:`compile language standard feature <req-lang-standards>`. Linking
         to this target will automatically enable C++17 if no later standard
         version is already required on the linking target.
@@ -125,7 +125,7 @@ cmake_push_check_state()
 set(CMAKE_REQUIRED_QUIET ${Filesystem_FIND_QUIETLY})
 
 # All of our tests required C++17 or later
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 
 # Normalize and check the component list we were given
 set(want_components ${Filesystem_FIND_COMPONENTS})
@@ -234,7 +234,7 @@ if(CXX_FILESYSTEM_HAVE_FS)
 
     if(can_link)
         add_library(std::filesystem INTERFACE IMPORTED)
-        set_property(TARGET std::filesystem APPEND PROPERTY INTERFACE_COMPILE_FEATURES cxx_std_17)
+        set_property(TARGET std::filesystem APPEND PROPERTY INTERFACE_COMPILE_FEATURES cxx_std_20)
         set(_found TRUE)
 
         if(CXX_FILESYSTEM_NO_LINK_NEEDED)
