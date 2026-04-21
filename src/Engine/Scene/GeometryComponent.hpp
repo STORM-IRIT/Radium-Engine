@@ -3,8 +3,8 @@
 #include <Core/Asset/GeometryData.hpp>
 #include <Core/Asset/VolumeData.hpp>
 #include <Core/Containers/MakeShared.hpp>
+#include <Core/Geometry/AttribArrayGeometry.hpp>
 #include <Core/Geometry/IndexedGeometry.hpp>
-#include <Core/Geometry/TriangleMesh.hpp>
 #include <Core/Geometry/Volume.hpp>
 #include <Engine/Data/BlinnPhongMaterial.hpp>
 #include <Engine/Data/Material.hpp>

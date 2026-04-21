@@ -461,5 +461,3 @@ inline void AttribArrayGeometry::append_attrib( Utils::AttribBase* attr ) {
 } // namespace Geometry
 } // namespace Core
 } // namespace Ra
-
-#include "IndexedGeometry.hpp"

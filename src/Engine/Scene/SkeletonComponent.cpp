@@ -9,7 +9,7 @@
 #include <Core/Asset/HandleToSkeleton.hpp>
 #include <Core/Containers/AlignedStdVector.hpp>
 #include <Core/Containers/MakeShared.hpp>
-#include <Core/Geometry/TriangleMesh.hpp>
+#include <Core/Geometry/AttribArrayGeometry.hpp>
 #include <Core/Math/Math.hpp> // areApproxEqual
 
 #include <Engine/Data/BlinnPhongMaterial.hpp>

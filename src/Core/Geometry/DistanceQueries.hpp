@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Core/Geometry/TriangleMesh.hpp>
+#include <Core/Geometry/AttribArrayGeometry.hpp>
 #include <Core/RaCore.hpp>
 #include <Core/Types.hpp>
 

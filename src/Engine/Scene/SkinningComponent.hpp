@@ -4,8 +4,8 @@
 #include <Core/Animation/Pose.hpp>
 #include <Core/Animation/SkinningData.hpp>
 #include <Core/Asset/HandleData.hpp>
+#include <Core/Geometry/AttribArrayGeometry.hpp>
 #include <Core/Geometry/TopologicalMesh.hpp>
-#include <Core/Geometry/TriangleMesh.hpp>
 #include <Core/Math/DualQuaternion.hpp>
 #include <Core/Utils/Index.hpp>
 

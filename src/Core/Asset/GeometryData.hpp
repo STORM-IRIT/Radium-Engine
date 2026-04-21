@@ -3,8 +3,9 @@
 #include <Core/Asset/AssetData.hpp>
 #include <Core/Asset/MaterialData.hpp>
 #include <Core/Containers/VectorArray.hpp>
+#include <Core/Geometry/AttribArrayGeometry.hpp>
+#include <Core/Geometry/IndexedGeometry.hpp>
 #include <Core/Geometry/StandardAttribNames.hpp>
-#include <Core/Geometry/TriangleMesh.hpp>
 #include <Core/RaCore.hpp>
 #include <Core/Types.hpp>
 #include <Core/Utils/Attribs.hpp>

@@ -1,5 +1,5 @@
+#include <Core/Geometry/AttribArrayGeometry.hpp>
 #include <Core/Geometry/IndexedGeometry.hpp>
-#include <Core/Geometry/TriangleMesh.hpp>
 
 #include <iterator>
 #include <ostream>

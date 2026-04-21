@@ -1,4 +1,4 @@
-﻿#include "Core/Geometry/TriangleMesh.hpp"
+﻿#include "Core/Geometry/AttribArrayGeometry.hpp"
 #include <Engine/Scene/SkinningComponent.hpp>
 
 #include <Core/Animation/PoseOperation.hpp>

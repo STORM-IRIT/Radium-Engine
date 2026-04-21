@@ -6,7 +6,7 @@
 #include <vector>
 
 #include <Core/Containers/VectorArray.hpp>
-#include <Core/Geometry/TriangleMesh.hpp>
+#include <Core/Geometry/AttribArrayGeometry.hpp>
 #include <Core/Utils/Color.hpp>
 
 namespace Ra {

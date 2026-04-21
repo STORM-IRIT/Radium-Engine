@@ -1,5 +1,5 @@
+#include <Core/Geometry/AttribArrayGeometry.hpp>
 #include <Core/Geometry/RayCast.hpp>
-#include <Core/Geometry/TriangleMesh.hpp>
 #include <Core/Math/LinearAlgebra.hpp> // Math::sign
 
 namespace Ra {

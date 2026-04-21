@@ -3,7 +3,7 @@
 #include <Core/Animation/HandleWeight.hpp>
 #include <Core/Animation/Pose.hpp>
 #include <Core/Animation/Skeleton.hpp>
-#include <Core/Geometry/TriangleMesh.hpp>
+#include <Core/Geometry/AttribArrayGeometry.hpp>
 #include <Core/RaCore.hpp>
 
 namespace Ra {

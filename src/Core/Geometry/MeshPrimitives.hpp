@@ -1,8 +1,8 @@
 #pragma once
 
+#include <Core/Geometry/AttribArrayGeometry.hpp>
 #include <Core/Geometry/IndexedGeometry.hpp>
 #include <Core/Geometry/TopologicalMesh.hpp>
-#include <Core/Geometry/TriangleMesh.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
 #include <Core/RaCore.hpp>
 #include <Core/Utils/Color.hpp>
