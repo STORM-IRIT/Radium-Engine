@@ -1,6 +1,5 @@
 var NAVTREEINDEX6 =
 {
-"classRa_1_1Core_1_1Utils_1_1Chrono.html#a8525c9322e4a7b21957a511e6a22afc0":[7,0,1,0,4,6,5],
 "classRa_1_1Core_1_1Utils_1_1Chrono.html#a8a5c64a316fdb37ff21b4ee71224f9dc":[7,0,1,0,4,6,10],
 "classRa_1_1Core_1_1Utils_1_1Chrono.html#a9814065d514aee34dfaca3d0406d0e6c":[7,0,1,0,4,6,3],
 "classRa_1_1Core_1_1Utils_1_1Chrono.html#a98293ce50691d1e2a70edc3470902d2b":[7,0,1,0,4,6,2],
@@ -249,5 +248,6 @@ var NAVTREEINDEX6 =
 "classRa_1_1Dataflow_1_1Core_1_1Functionals_1_1BinaryOpNode.html#a4522226a3f0e319adc66fa6a81361420":[6,0,1,1,0,0,1,4],
 "classRa_1_1Dataflow_1_1Core_1_1Functionals_1_1BinaryOpNode.html#a4522226a3f0e319adc66fa6a81361420":[7,0,1,1,0,0,1,4],
 "classRa_1_1Dataflow_1_1Core_1_1Functionals_1_1BinaryOpNode.html#ab14d1271ba9fc79fe1bfcaf485d6225d":[6,0,1,1,0,0,1,5],
-"classRa_1_1Dataflow_1_1Core_1_1Functionals_1_1BinaryOpNode.html#ab14d1271ba9fc79fe1bfcaf485d6225d":[7,0,1,1,0,0,1,5]
+"classRa_1_1Dataflow_1_1Core_1_1Functionals_1_1BinaryOpNode.html#ab14d1271ba9fc79fe1bfcaf485d6225d":[7,0,1,1,0,0,1,5],
+"classRa_1_1Dataflow_1_1Core_1_1Functionals_1_1BinaryOpNode.html#ae65de7b3eb68bc2c5ffa2ba818b0a759":[6,0,1,1,0,0,1,0]
 };

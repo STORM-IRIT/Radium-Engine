@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.webp"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.7.3</span>
+   &#160;<span id="projectnumber">1.7.4</span>
    </div>
   </td>
  </tr>
@@ -164,18 +164,18 @@ $(function(){initNavTree('RotateAroundCameraManipulator_8cpp_source.html',''); i
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="keywordtype">void</span> RotateAroundCameraManipulator::setupKeyMappingCallbacks() {</div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    m_keyMappingCallbackManager.<a class="code hl_function" href="classRa_1_1Gui_1_1KeyMappingCallbackManager.html#a918fd8a78af7d6b2d184e573779a5e1f">addEventCallback</a>(</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        TRACKBALLCAMERA_ROTATE, [=]( QEvent* event ) { rotateCallback( event ); } );</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    m_keyMappingCallbackManager.<a class="code hl_function" href="classRa_1_1Gui_1_1KeyMappingCallbackManager.html#a918fd8a78af7d6b2d184e573779a5e1f">addEventCallback</a>( TRACKBALLCAMERA_PAN,</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>                                                  [=]( QEvent* event ) { panCallback( event ); } );</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    m_keyMappingCallbackManager.<a class="code hl_function" href="classRa_1_1Gui_1_1KeyMappingCallbackManager.html#a918fd8a78af7d6b2d184e573779a5e1f">addEventCallback</a>( TRACKBALLCAMERA_ZOOM,</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>                                                  [=]( QEvent* event ) { zoomCallback( event ); } );</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        TRACKBALLCAMERA_ROTATE, [<span class="keyword">this</span>]( QEvent* event ) { rotateCallback( event ); } );</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    m_keyMappingCallbackManager.<a class="code hl_function" href="classRa_1_1Gui_1_1KeyMappingCallbackManager.html#a918fd8a78af7d6b2d184e573779a5e1f">addEventCallback</a>(</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        TRACKBALLCAMERA_PAN, [<span class="keyword">this</span>]( QEvent* event ) { panCallback( event ); } );</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    m_keyMappingCallbackManager.<a class="code hl_function" href="classRa_1_1Gui_1_1KeyMappingCallbackManager.html#a918fd8a78af7d6b2d184e573779a5e1f">addEventCallback</a>(</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        TRACKBALLCAMERA_ZOOM, [<span class="keyword">this</span>]( QEvent* event ) { zoomCallback( event ); } );</div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    m_keyMappingCallbackManager.<a class="code hl_function" href="classRa_1_1Gui_1_1KeyMappingCallbackManager.html#a918fd8a78af7d6b2d184e573779a5e1f">addEventCallback</a>(</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        TRACKBALLCAMERA_MOVE_FORWARD, [=]( QEvent* event ) { moveForwardCallback( event ); } );</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        TRACKBALLCAMERA_MOVE_FORWARD, [<span class="keyword">this</span>]( QEvent* event ) { moveForwardCallback( event ); } );</div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    m_keyMappingCallbackManager.<a class="code hl_function" href="classRa_1_1Gui_1_1KeyMappingCallbackManager.html#a918fd8a78af7d6b2d184e573779a5e1f">addEventCallback</a>(</div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        ROTATEAROUND_ALIGN_WITH_CLOSEST_AXIS,</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        [=]( QEvent* event ) { alignWithClosestAxisCallback( event ); } );</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        [<span class="keyword">this</span>]( QEvent* event ) { alignWithClosestAxisCallback( event ); } );</div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    m_keyMappingCallbackManager.<a class="code hl_function" href="classRa_1_1Gui_1_1KeyMappingCallbackManager.html#a918fd8a78af7d6b2d184e573779a5e1f">addEventCallback</a>(</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        ROTATEAROUND_SET_PIVOT, [=]( QEvent* event ) { setPivotCallback( event ); } );</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        ROTATEAROUND_SET_PIVOT, [<span class="keyword">this</span>]( QEvent* event ) { setPivotCallback( event ); } );</div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>}</div>
 <div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
 <div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="keywordtype">void</span> RotateAroundCameraManipulator::alignWithClosestAxisCallback( QEvent* event ) {</div>
@@ -305,8 +305,8 @@ $(function(){initNavTree('RotateAroundCameraManipulator_8cpp_source.html',''); i
 <div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>    Ra::Core::Vector3 x( 1_ra, 0_ra, 0_ra );</div>
 <div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>    Ra::Core::Vector3 y( 0_ra, 1_ra, 0_ra );</div>
 <div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>    Ra::Core::Vector3 z( 0_ra, 0_ra, 1_ra );</div>
-<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>    Ra::Core::Vector3 oldDirection, newDirection = m_camera-&gt;getDirection();</div>
-<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>    Ra::Core::Vector3 newUpVector = m_camera-&gt;getUpVector();</div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>    Ra::Core::Vector3 newDirection = m_camera-&gt;getDirection();</div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>    Ra::Core::Vector3 newUpVector  = m_camera-&gt;getUpVector();</div>
 <div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>    <span class="comment">// getFrame().inverse() is a transform we can apply on Vector3</span></div>
 <div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>    Ra::Core::Vector3 pivotInCamSpace = m_camera-&gt;getFrame().inverse() * m_pivot;</div>
 <div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span> </div>

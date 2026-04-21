@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.webp"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.7.3</span>
+   &#160;<span id="projectnumber">1.7.4</span>
    </div>
   </td>
  </tr>
@@ -211,7 +211,7 @@ $(function(){initNavTree('TransformNode_8hpp_source.html',''); initResizable(tru
 <div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    m_result.clear();</div>
 <div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    <span class="comment">// m_elements.reserve( inData.size() ); // --&gt; this is not a requirement of</span></div>
 <div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    <span class="comment">// SequenceContainer</span></div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    <a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/algorithm/transform.html">std::transform</a>( inData.begin(), inData.end(), <a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/iterator/back_inserter.html">std::back_inserter</a>( m_result ), f );</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    <a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/algorithm/transform.html">std::transform</a>( inData.cbegin(), inData.cend(), <a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/iterator/back_inserter.html">std::back_inserter</a>( m_result ), f );</div>
 <div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span> </div>
 <div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
 <div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>}</div>

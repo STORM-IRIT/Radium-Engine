@@ -1,6 +1,5 @@
 var NAVTREEINDEX2 =
 {
-"classRa_1_1Core_1_1Animation_1_1HandleArray.html#a9541ed682f7ab1ad368dd3fa953053e6":[7,0,1,0,0,1,3],
 "classRa_1_1Core_1_1Animation_1_1HandleArray.html#a9593102d9745c32e1f4e7da738a409e3":[7,0,1,0,0,1,10],
 "classRa_1_1Core_1_1Animation_1_1HandleArray.html#a9f14ce23404c285fc049b09adefac73e":[7,0,1,0,0,1,5],
 "classRa_1_1Core_1_1Animation_1_1HandleArray.html#af7303c5d5f61da6afb882a5ca50ddbc7":[7,0,1,0,0,1,6],
@@ -249,5 +248,6 @@ var NAVTREEINDEX2 =
 "classRa_1_1Core_1_1Asset_1_1LightData.html#acc3bcacb407281a332524f357427f246":[7,0,1,0,1,8,7],
 "classRa_1_1Core_1_1Asset_1_1LightData.html#ad1573fed0fa153561021e69943b72267":[7,0,1,0,1,8,12],
 "classRa_1_1Core_1_1Asset_1_1LightData.html#ad4d33642ba53fbcf7524b4ed78d81734":[7,0,1,0,1,8,13],
-"classRa_1_1Core_1_1Asset_1_1LightData.html#ae7194939e14882a4cacfbd8bab57d073":[7,0,1,0,1,8,2]
+"classRa_1_1Core_1_1Asset_1_1LightData.html#ae7194939e14882a4cacfbd8bab57d073":[7,0,1,0,1,8,2],
+"classRa_1_1Core_1_1Asset_1_1MaterialData.html":[7,0,1,0,1,9]
 };

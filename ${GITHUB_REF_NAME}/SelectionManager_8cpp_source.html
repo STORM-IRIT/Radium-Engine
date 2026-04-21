@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.webp"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.7.3</span>
+   &#160;<span id="projectnumber">1.7.4</span>
    </div>
   </td>
  </tr>
@@ -152,58 +152,54 @@ $(function(){initNavTree('SelectionManager_8cpp_source.html',''); initResizable(
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="keywordtype">bool</span> SelectionManager::isSelected( <span class="keyword">const</span> <a class="code hl_struct" href="structRa_1_1Engine_1_1Scene_1_1ItemEntry.html">ItemEntry</a>&amp; ent )<span class="keyword"> const </span>{</div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    QModelIndex idx = itemModel()-&gt;findEntryIndex( ent );</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="keywordflow">if</span> ( idx.isValid() ) {</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        <span class="keyword">const</span> <span class="keyword">auto</span>&amp; pos = <a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/algorithm/find.html">std::find</a>( selectedIndexes().begin(), selectedIndexes().end(), idx );</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        <span class="keywordflow">return</span> ( pos != selectedIndexes().end() );</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    }</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>}</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector.html">std::vector&lt;ItemEntry&gt;</a> SelectionManager::selectedEntries()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector.html">std::vector&lt;ItemEntry&gt;</a> result;</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    result.<a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector/reserve.html">reserve</a>( uint( selectedIndexes().size() ) );</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; idx : selectedIndexes() ) {</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        result.<a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector/push_back.html">push_back</a>( itemModel()-&gt;getEntry( idx ) );</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        CORE_ASSERT( result.<a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector/back.html">back</a>().isValid(), <span class="stringliteral">&quot;Invalid entry in selection&quot;</span> );</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    }</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="keywordflow">return</span> result;</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>}</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="keyword">const</span> <a class="code hl_struct" href="structRa_1_1Engine_1_1Scene_1_1ItemEntry.html">ItemEntry</a>&amp; SelectionManager::currentItem()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="comment">// getEntry returns an invalid entry when given an invalid index.</span></div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <span class="keywordflow">return</span> itemModel()-&gt;getEntry( currentIndex() );</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>}</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="keywordtype">void</span> SelectionManager::select( <span class="keyword">const</span> <a class="code hl_struct" href="structRa_1_1Engine_1_1Scene_1_1ItemEntry.html">ItemEntry</a>&amp; ent, QItemSelectionModel::SelectionFlags command ) {</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    QModelIndex idx = itemModel()-&gt;findEntryIndex( ent );</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <span class="keywordflow">if</span> ( idx.isValid() &amp;&amp; ent.<a class="code hl_function" href="structRa_1_1Engine_1_1Scene_1_1ItemEntry.html#a71fb1e1af35480f50c21edb264149929">isSelectable</a>() ) { QItemSelectionModel::select( idx, command ); }</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>}</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="keywordtype">void</span> SelectionManager::setCurrentEntry( <span class="keyword">const</span> <a class="code hl_struct" href="structRa_1_1Engine_1_1Scene_1_1ItemEntry.html">ItemEntry</a>&amp; ent,</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>                                        QItemSelectionModel::SelectionFlags command ) {</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    QModelIndex idx = itemModel()-&gt;findEntryIndex( ent );</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    <span class="keywordflow">if</span> ( idx.isValid() ) {</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        QItemSelectionModel::setCurrentIndex( idx, command );</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        emit currentChanged( idx, idx );</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    }</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>}</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="keywordtype">void</span> SelectionManager::onModelRebuilt() {</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    clear();</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>}</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span><span class="keywordtype">void</span> SelectionManager::printSelection()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    LOG( logDEBUG ) &lt;&lt; <span class="stringliteral">&quot;Selected entries : &quot;</span>;</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; ent : selectedEntries() ) {</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>        LOG( logDEBUG ) &lt;&lt; <a class="code hl_function" href="namespaceRa_1_1Engine_1_1Scene.html#a6e686b60ad6a81dde7a154411273b5f9">getEntryName</a>( Ra::Engine::RadiumEngine::getInstance(), ent );</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    }</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    LOG( logDEBUG ) &lt;&lt; <span class="stringliteral">&quot;Current : &quot;</span></div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>                    &lt;&lt; <a class="code hl_function" href="namespaceRa_1_1Engine_1_1Scene.html#a6e686b60ad6a81dde7a154411273b5f9">getEntryName</a>( Ra::Engine::RadiumEngine::getInstance(), currentItem() );</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>}</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>} <span class="comment">// namespace Gui</span></div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>} <span class="comment">// namespace Ra</span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="keywordflow">if</span> ( idx.isValid() ) { <span class="keywordflow">return</span> selectedIndexes().contains( idx ); }</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>}</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector.html">std::vector&lt;ItemEntry&gt;</a> SelectionManager::selectedEntries()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector.html">std::vector&lt;ItemEntry&gt;</a> result;</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    result.<a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector/reserve.html">reserve</a>( uint( selectedIndexes().size() ) );</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; idx : selectedIndexes() ) {</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        result.<a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector/push_back.html">push_back</a>( itemModel()-&gt;getEntry( idx ) );</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        CORE_ASSERT( result.<a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/container/vector/back.html">back</a>().isValid(), <span class="stringliteral">&quot;Invalid entry in selection&quot;</span> );</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    }</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="keywordflow">return</span> result;</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>}</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="keyword">const</span> <a class="code hl_struct" href="structRa_1_1Engine_1_1Scene_1_1ItemEntry.html">ItemEntry</a>&amp; SelectionManager::currentItem()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <span class="comment">// getEntry returns an invalid entry when given an invalid index.</span></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="keywordflow">return</span> itemModel()-&gt;getEntry( currentIndex() );</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>}</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="keywordtype">void</span> SelectionManager::select( <span class="keyword">const</span> <a class="code hl_struct" href="structRa_1_1Engine_1_1Scene_1_1ItemEntry.html">ItemEntry</a>&amp; ent, QItemSelectionModel::SelectionFlags command ) {</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    QModelIndex idx = itemModel()-&gt;findEntryIndex( ent );</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <span class="keywordflow">if</span> ( idx.isValid() &amp;&amp; ent.<a class="code hl_function" href="structRa_1_1Engine_1_1Scene_1_1ItemEntry.html#a71fb1e1af35480f50c21edb264149929">isSelectable</a>() ) { QItemSelectionModel::select( idx, command ); }</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>}</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="keywordtype">void</span> SelectionManager::setCurrentEntry( <span class="keyword">const</span> <a class="code hl_struct" href="structRa_1_1Engine_1_1Scene_1_1ItemEntry.html">ItemEntry</a>&amp; ent,</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>                                        QItemSelectionModel::SelectionFlags command ) {</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    QModelIndex idx = itemModel()-&gt;findEntryIndex( ent );</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <span class="keywordflow">if</span> ( idx.isValid() ) {</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        QItemSelectionModel::setCurrentIndex( idx, command );</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        emit currentChanged( idx, idx );</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    }</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>}</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="keywordtype">void</span> SelectionManager::onModelRebuilt() {</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    clear();</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>}</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span><span class="keywordtype">void</span> SelectionManager::printSelection()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    LOG( logDEBUG ) &lt;&lt; <span class="stringliteral">&quot;Selected entries : &quot;</span>;</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; ent : selectedEntries() ) {</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        LOG( logDEBUG ) &lt;&lt; <a class="code hl_function" href="namespaceRa_1_1Engine_1_1Scene.html#a6e686b60ad6a81dde7a154411273b5f9">getEntryName</a>( Ra::Engine::RadiumEngine::getInstance(), ent );</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    }</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    LOG( logDEBUG ) &lt;&lt; <span class="stringliteral">&quot;Current : &quot;</span></div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>                    &lt;&lt; <a class="code hl_function" href="namespaceRa_1_1Engine_1_1Scene.html#a6e686b60ad6a81dde7a154411273b5f9">getEntryName</a>( Ra::Engine::RadiumEngine::getInstance(), currentItem() );</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>}</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>} <span class="comment">// namespace Gui</span></div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>} <span class="comment">// namespace Ra</span></div>
 <div class="ttc" id="aback_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/container/vector/back.html">std::vector::back</a></div><div class="ttdeci">T back(T... args)</div></div>
-<div class="ttc" id="afind_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/algorithm/find.html">std::find</a></div><div class="ttdeci">T find(T... args)</div></div>
 <div class="ttc" id="anamespaceRa_1_1Engine_1_1Scene_html_a6e686b60ad6a81dde7a154411273b5f9"><div class="ttname"><a href="namespaceRa_1_1Engine_1_1Scene.html#a6e686b60ad6a81dde7a154411273b5f9">Ra::Engine::Scene::getEntryName</a></div><div class="ttdeci">std::string getEntryName(const Engine::RadiumEngine *engine, const ItemEntry &amp;ent)</div><div class="ttdoc">Returns the name associated to the given item.</div><div class="ttdef"><b>Definition</b> <a href="ItemEntry_8cpp_source.html#l00017">ItemEntry.cpp:17</a></div></div>
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">hepler function to manage enum as underlying types in VariableSet</div><div class="ttdef"><b>Definition</b> <a href="Cage_8cpp_source.html#l00004">Cage.cpp:4</a></div></div>
 <div class="ttc" id="apush_back_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/container/vector/push_back.html">std::vector::push_back</a></div><div class="ttdeci">T push_back(T... args)</div></div>

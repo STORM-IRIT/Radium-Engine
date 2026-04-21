@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.webp"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.7.3</span>
+   &#160;<span id="projectnumber">1.7.4</span>
    </div>
   </td>
  </tr>
@@ -165,15 +165,15 @@ Configuration of Radium</h2>
 <p>For convenience, dependencies install procedure create a configuration file, to be used with the <code>-C</code> option of cmake. The cmake config file <code>/path/to/installs/radium-external-r/radium-options.cmake</code> contains, depending on your dependency configuration:</p>
 <div class="fragment"><div class="line">set(Eigen3_DIR &quot;/path/to/external/install/share/eigen3/cmake/&quot; CACHE PATH &quot;My Eigen3 location&quot;)</div>
 <div class="line">set(OpenMesh_DIR &quot;/path/to/external/install/share/OpenMesh/cmake/&quot; CACHE PATH &quot;My OpenMesh location&quot;)</div>
-<div class="line">set(cpplocate_DIR &quot;/path/to/external/install/share/cpplocate/&quot; CACHE PATH &quot;My cpplocate location&quot;)</div>
-<div class="line">set(nlohmann_json_DIR &quot;/path/to/external/install/lib/cmake/nlohmann_json/&quot; CACHE PATH &quot;My nlohmann_json location&quot;)</div>
-<div class="line">set(glm_DIR &quot;/path/to/external/install/glm/lib/cmake/glm/&quot; CACHE PATH &quot;My glm location&quot;)</div>
+<div class="line">set(cpplocate_DIR &quot;/path/to/external/install/cpplocate/&quot; CACHE PATH &quot;My cpplocate location&quot;)</div>
+<div class="line">set(nlohmann_json_DIR &quot;/path/to/external/install/share/cmake/nlohmann_json/&quot; CACHE PATH &quot;My nlohmann_json location&quot;)</div>
+<div class="line">set(glm_DIR &quot;/path/to/external/install/glm/share/glm/&quot; CACHE PATH &quot;My glm location&quot;)</div>
 <div class="line">set(glbinding_DIR &quot;/path/to/external/install/glbinding/&quot; CACHE PATH &quot;My glbinding location&quot;)</div>
 <div class="line">set(globjects_DIR &quot;/path/to/external/install/globjects/&quot; CACHE PATH &quot;My globjects location&quot;)</div>
 <div class="line">set(stb_DIR &quot;/path/to/external/install/include/stb/&quot; CACHE PATH &quot;My stb location&quot;)</div>
 <div class="line">set(stb_INCLUDE_DIR &quot;/path/to/external/install/include/&quot; CACHE PATH &quot;My stb_INCLUDE location&quot;)</div>
 <div class="line">set(tinyEXR_DIR &quot;/path/to/external/install/share/tinyEXR/cmake/&quot; CACHE PATH &quot;My tinyEXR location&quot;)</div>
-<div class="line">set(assimp_DIR &quot;/path/to/external/install/lib/cmake/assimp-5.0/&quot; CACHE PATH &quot;My assimp location&quot;)</div>
+<div class="line">set(assimp_DIR &quot;/path/to/external/install/lib/cmake/assimp-6.0/&quot; CACHE PATH &quot;My assimp location&quot;)</div>
 <div class="line">set(tinyply_DIR &quot;/path/to/external/install/lib/cmake/tinyply/&quot; CACHE PATH &quot;My tinyply location&quot;)</div>
 <div class="line">set(PowerSlider_DIR &quot;/path/to/external/install/lib/cmake/PowerSlider/&quot; CACHE PATH &quot;My PowerSlider location&quot;)</div>
 <div class="line">set(QtNodes_DIR &quot;/path/to/external/install/lib/cmake/QtNodes/&quot; CACHE PATH &quot;My QtNodes location&quot;)</div>
@@ -228,11 +228,14 @@ Folder structure</h2>
 </div><!-- fragment --><h2><a class="anchor" id="autotoc_md19"></a>
 Configure build options</h2>
 <p>Radium offers the following build options:</p>
-<div class="fragment"><div class="line">// Enable coverage, gcc only. Experimental, need ENABLE_TESTING</div>
+<div class="fragment"><div class="line">// Enable coverage, sets RADIUM_ENABLE_TESTING ON</div>
 <div class="line">RADIUM_ENABLE_COVERAGE:BOOL=OFF</div>
 <div class="line"> </div>
 <div class="line">// Enable examples app build. To install examples, build explicitly the target Install_RadiumExamples.</div>
 <div class="line">RADIUM_ENABLE_EXAMPLES:BOOL=ON</div>
+<div class="line"> </div>
+<div class="line">// Enable testing of OpenGL functionalities. Option only available if RADIUM_ENABLE_TESTING is ON.</div>
+<div class="line">RADIUM_ENABLE_GL_TESTING:BOOL=OFF</div>
 <div class="line"> </div>
 <div class="line">// Enable precompiled headers.</div>
 <div class="line">RADIUM_ENABLE_PCH:BOOL=OFF</div>
@@ -262,7 +265,7 @@ Configure build options</h2>
 <div class="line">RADIUM_GENERATE_LIB_PLUGINBASE:BOOL=ON</div>
 <div class="line"> </div>
 <div class="line">// Install documentation. If RadiumDoc is compiled, install documentation to bundle directory for install target.</div>
-<div class="line">RADIUM_INSTALL_DOC:BOOL=ON</div>
+<div class="line">RADIUM_INSTALL_DOC:BOOL=OFF</div>
 <div class="line"> </div>
 <div class="line">// Provide loaders based on Assimp library</div>
 <div class="line">RADIUM_IO_ASSIMP:BOOL=ON</div>

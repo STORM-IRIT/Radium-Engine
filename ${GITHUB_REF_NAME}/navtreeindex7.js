@@ -1,6 +1,5 @@
 var NAVTREEINDEX7 =
 {
-"classRa_1_1Dataflow_1_1Core_1_1Functionals_1_1BinaryOpNode.html#ae65de7b3eb68bc2c5ffa2ba818b0a759":[6,0,1,1,0,0,1,0],
 "classRa_1_1Dataflow_1_1Core_1_1Functionals_1_1BinaryOpNode.html#ae65de7b3eb68bc2c5ffa2ba818b0a759":[7,0,1,1,0,0,1,0],
 "classRa_1_1Dataflow_1_1Core_1_1Functionals_1_1FilterNode.html":[6,0,1,1,0,0,2],
 "classRa_1_1Dataflow_1_1Core_1_1Functionals_1_1FilterNode.html":[7,0,1,1,0,0,2],
@@ -80,8 +79,6 @@ var NAVTREEINDEX7 =
 "classRa_1_1Dataflow_1_1Core_1_1Node.html#a2a7104fb37c59a4df377ae06ba8aa990":[7,0,1,1,0,4,21],
 "classRa_1_1Dataflow_1_1Core_1_1Node.html#a2b040ffb0c4cc6903ba0b6c9ae01bfa6":[6,0,1,1,0,3,36],
 "classRa_1_1Dataflow_1_1Core_1_1Node.html#a2b040ffb0c4cc6903ba0b6c9ae01bfa6":[7,0,1,1,0,4,36],
-"classRa_1_1Dataflow_1_1Core_1_1Node.html#a3107b8b5b7a975546dd12850ac2d553d":[6,0,1,1,0,3,26],
-"classRa_1_1Dataflow_1_1Core_1_1Node.html#a3107b8b5b7a975546dd12850ac2d553d":[7,0,1,1,0,4,26],
 "classRa_1_1Dataflow_1_1Core_1_1Node.html#a33cfc90d574f20be11699e98d8973059":[6,0,1,1,0,3,8],
 "classRa_1_1Dataflow_1_1Core_1_1Node.html#a33cfc90d574f20be11699e98d8973059":[7,0,1,1,0,4,8],
 "classRa_1_1Dataflow_1_1Core_1_1Node.html#a3858bd67b03e908becebedf1bcb3ca1b":[6,0,1,1,0,3,14],
@@ -134,6 +131,8 @@ var NAVTREEINDEX7 =
 "classRa_1_1Dataflow_1_1Core_1_1Node.html#aa2136f267f984330e68b4df970910f1f":[7,0,1,1,0,4,22],
 "classRa_1_1Dataflow_1_1Core_1_1Node.html#aadd9dbdbf9eefd550b4f5c0e0cfea2b5":[6,0,1,1,0,3,32],
 "classRa_1_1Dataflow_1_1Core_1_1Node.html#aadd9dbdbf9eefd550b4f5c0e0cfea2b5":[7,0,1,1,0,4,32],
+"classRa_1_1Dataflow_1_1Core_1_1Node.html#ab775948d0732e56e7e39ea4ecf4524ab":[6,0,1,1,0,3,26],
+"classRa_1_1Dataflow_1_1Core_1_1Node.html#ab775948d0732e56e7e39ea4ecf4524ab":[7,0,1,1,0,4,26],
 "classRa_1_1Dataflow_1_1Core_1_1Node.html#ab7d2eaad32926b7e7f31e3343568c319":[6,0,1,1,0,3,37],
 "classRa_1_1Dataflow_1_1Core_1_1Node.html#ab7d2eaad32926b7e7f31e3343568c319":[7,0,1,1,0,4,37],
 "classRa_1_1Dataflow_1_1Core_1_1Node.html#abdabd63256d7d6ae73d6db2d88f3402b":[6,0,1,1,0,3,45],
@@ -249,5 +248,6 @@ var NAVTREEINDEX7 =
 "classRa_1_1Dataflow_1_1Core_1_1Sources_1_1SingleDataSourceNode.html#a50cf3178b8ec10e721ee0041a39f1228":[7,0,1,1,0,2,1,4],
 "classRa_1_1Dataflow_1_1Core_1_1Sources_1_1SingleDataSourceNode.html#a6460585a7089517eb4fd3f87da92b72a":[7,0,1,1,0,2,1,3],
 "classRa_1_1Dataflow_1_1Core_1_1Sources_1_1SingleDataSourceNode.html#aa39022cbf8258f11c077fe007abd998c":[7,0,1,1,0,2,1,1],
-"classRa_1_1Dataflow_1_1QtGui_1_1GraphEditor_1_1GraphEditorWindow.html":[7,0,1,1,1,0,0]
+"classRa_1_1Dataflow_1_1QtGui_1_1GraphEditor_1_1GraphEditorWindow.html":[7,0,1,1,1,0,0],
+"classRa_1_1Dataflow_1_1QtGui_1_1GraphEditor_1_1GraphModel.html":[7,0,1,1,1,0,1]
 };

@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.webp"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.7.3</span>
+   &#160;<span id="projectnumber">1.7.4</span>
    </div>
   </td>
  </tr>
@@ -181,15 +181,15 @@ External dependencies (included with radium)</h2>
 <p>These dependencies are shipped with radium, fetching external git sources.</p>
 <ul>
 <li>[Core]<ul>
-<li>Eigen3: <a href="https://gitlab.com/libeigen/eigen.git">https://gitlab.com/libeigen/eigen.git</a>, [tags/3.4.0],<ul>
-<li>with options <code>-DEIGEN_TEST_CXX11=OFF -DBUILD_TESTING=OFF -DEIGEN_BUILD_DOC=OFF</code></li>
+<li>Eigen3: <a href="https://gitlab.com/libeigen/eigen.git">https://gitlab.com/libeigen/eigen.git</a>, [tags/3.4.1],<ul>
+<li>with options <code>-DEIGEN_TEST_CXX11=OFF -DBUILD_TESTING=OFF -DEIGEN_BUILD_DOC=OFF -DEIGEN_BUILD_TESTING=OFF -DEIGEN_BUILD_BLAS=OFF -DEIGEN_BUILD_LAPACK=OFF</code></li>
 </ul>
 </li>
-<li>OpenMesh: <a href="https://www.graphics.rwth-aachen.de:9000/OpenMesh/OpenMesh.git">https://www.graphics.rwth-aachen.de:9000/OpenMesh/OpenMesh.git</a>, [tags/OpenMesh-8.1],<ul>
+<li>OpenMesh: <a href="https://www.graphics.rwth-aachen.de:9000/OpenMesh/OpenMesh.git">https://www.graphics.rwth-aachen.de:9000/OpenMesh/OpenMesh.git</a>, [tags/OpenMesh-11.0],<ul>
 <li>with options <code>-DBUILD_APPS=OFF</code></li>
 </ul>
 </li>
-<li>cpplocate: <a href="https://github.com/cginternals/cpplocate.git">https://github.com/cginternals/cpplocate.git</a>, [tags/v2.2.0],<ul>
+<li>cpplocate: <a href="https://github.com/cginternals/cpplocate.git">https://github.com/cginternals/cpplocate.git</a>, [tags/v2.3.0],<ul>
 <li>with options <code>-DOPTION_BUILD_TESTS=OFF -DOPTION_BUILD_DOCS=OFF -DCMAKE_INSTALL_PREFIX=&lt;INSTALL_DIR&gt;</code></li>
 </ul>
 </li>
@@ -200,19 +200,19 @@ External dependencies (included with radium)</h2>
 </ul>
 </li>
 <li>[Engine]<ul>
-<li>glm: <a href="https://github.com/g-truc/glm.git">https://github.com/g-truc/glm.git</a>, [cc98465e3508535ba8c7f6208df934c156a018dc],<ul>
+<li>glm: <a href="https://github.com/g-truc/glm.git">https://github.com/g-truc/glm.git</a>, [1.0.3],<ul>
 <li>with options <code>-DGLM_TEST_ENABLE=OFF -DBUILD_STATIC_LIBS=OFF -DCMAKE_INSTALL_PREFIX=&lt;INSTALL_DIR&gt;</code></li>
 </ul>
 </li>
-<li>glbinding: <a href="https://github.com/cginternals/glbinding.git">https://github.com/cginternals/glbinding.git</a>, [758d33b4d4f1815d46d91fcf4ca4914d837267fa],<ul>
+<li>glbinding: <a href="https://github.com/cginternals/glbinding.git">https://github.com/cginternals/glbinding.git</a>, [v3.5.0],<ul>
 <li>with options <code>-DOPTION_BUILD_TESTS=OFF -DOPTION_BUILD_DOCS=OFF -DOPTION_BUILD_TOOLS=OFF -DOPTION_BUILD_EXAMPLES=OFF -DOPTION_BUILD_OWN_KHR_HEADERS=ON -DCMAKE_INSTALL_PREFIX=&lt;INSTALL_DIR&gt;</code></li>
 </ul>
 </li>
-<li>globjects: <a href="https://github.com/cginternals/globjects.git">https://github.com/cginternals/globjects.git</a>, [4363356ae2ef5c936ab078fba48d1ea507c295c4],<ul>
+<li>globjects: <a href="https://github.com/dlyr/globjects.git">https://github.com/dlyr/globjects.git</a>, [origin/eigen5],<ul>
 <li>with options <code>-DOPTION_BUILD_DOCS=OFF -DOPTION_BUILD_EXAMPLES=OFF -DOPTION_USE_EIGEN=ON -Dglbinding_DIR=${glbinding_DIR} -Dglm_DIR=${glm_DIR} -DEigen3_DIR=${Eigen3_DIR} -DCMAKE_INSTALL_PREFIX=&lt;INSTALL_DIR&gt;</code></li>
 </ul>
 </li>
-<li>stb: <a href="https://github.com/nothings/stb.git">https://github.com/nothings/stb.git</a>, [1034f5e5c4809ea0a7f4387e0cd37c5184de3cdd],<ul>
+<li>stb: <a href="https://github.com/nothings/stb.git">https://github.com/nothings/stb.git</a>, [28d546d5eb77d4585506a20480f4de2e706dff4c],<ul>
 <li>with options <code>None</code></li>
 </ul>
 </li>
@@ -241,8 +241,8 @@ External dependencies (included with radium)</h2>
 </ul>
 </li>
 <li>[Dataflow]<ul>
-<li>QtNodes: <a href="https://github.com/paceholder/nodeeditor.git">https://github.com/paceholder/nodeeditor.git</a>, [3.0.12],<ul>
-<li>with options <code>-DCMAKE_INSTALL_PREFIX=&lt;INSTALL_DIR&gt;</code></li>
+<li>QtNodes: <a href="https://github.com/paceholder/nodeeditor.git">https://github.com/paceholder/nodeeditor.git</a>, [f84b5d8],<ul>
+<li>with options <code>-DCMAKE_INSTALL_PREFIX=&lt;INSTALL_DIR&gt; -DBUILD_TESTING=OFF -DBUILD_EXAMPLES=OFF -DBUILD_DOCS=OFF</code></li>
 </ul>
 </li>
 </ul>

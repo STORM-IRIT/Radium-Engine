@@ -3,13 +3,12 @@ var NAVTREEINDEX1 =
 "RaGui_8hpp_source.html":[8,0,0,3,16],
 "RaHeadless_8hpp_source.html":[8,0,0,4,6],
 "RaIO_8hpp_source.html":[8,0,0,5,6],
-"RaPluginBase_8hpp_source.html":[8,0,0,6,3],
+"RaPluginBase_8hpp_source.html":[8,0,0,6,2],
 "RadiumEngine_8cpp_source.html":[8,0,0,2,6],
 "RadiumEngine_8hpp_source.html":[8,0,0,2,7],
 "RadiumHelpDialog_8cpp_source.html":[8,0,0,3,0,2],
 "RadiumHelpDialog_8hpp_source.html":[8,0,0,3,0,3],
-"RadiumPluginInterface_8cpp_source.html":[8,0,0,6,1],
-"RadiumPluginInterface_8hpp_source.html":[8,0,0,6,2],
+"RadiumPluginInterface_8hpp_source.html":[8,0,0,6,1],
 "RandomPointSet_8cpp_source.html":[8,0,0,0,5,0],
 "RandomPointSet_8hpp_source.html":[8,0,0,0,5,1],
 "RawShaderMaterial_8cpp_source.html":[8,0,0,2,0,18],
@@ -249,5 +248,6 @@ var NAVTREEINDEX1 =
 "classRa_1_1Core_1_1Animation_1_1HandleArray.html#a6a9263486984f7426d750efaeb7d3aae":[7,0,1,0,0,1,8],
 "classRa_1_1Core_1_1Animation_1_1HandleArray.html#a8d51faa3b4fa49a0056d28c830860c4d":[7,0,1,0,0,1,0],
 "classRa_1_1Core_1_1Animation_1_1HandleArray.html#a8d51faa3b4fa49a0056d28c830860c4da54b4c4075463b2e02cd69f5cd139b5b2":[7,0,1,0,0,1,0,0],
-"classRa_1_1Core_1_1Animation_1_1HandleArray.html#a8d51faa3b4fa49a0056d28c830860c4da7a03bac2692f8d17e2cda1b0721ffd0e":[7,0,1,0,0,1,0,1]
+"classRa_1_1Core_1_1Animation_1_1HandleArray.html#a8d51faa3b4fa49a0056d28c830860c4da7a03bac2692f8d17e2cda1b0721ffd0e":[7,0,1,0,0,1,0,1],
+"classRa_1_1Core_1_1Animation_1_1HandleArray.html#a9541ed682f7ab1ad368dd3fa953053e6":[7,0,1,0,0,1,3]
 };

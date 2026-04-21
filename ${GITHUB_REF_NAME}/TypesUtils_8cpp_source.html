@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.webp"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.7.3</span>
+   &#160;<span id="projectnumber">1.7.4</span>
    </div>
   </td>
  </tr>
@@ -153,47 +153,50 @@ $(function(){initNavTree('TypesUtils_8cpp_source.html',''); initResizable(true);
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        { <span class="stringliteral">&quot;Ra::Core::VectorArray&quot;</span>, <span class="stringliteral">&quot;RaVector&quot;</span> },</div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        { <span class="stringliteral">&quot;Ra::Core::Utils::ColorBase&lt;float&gt;&quot;</span>, <span class="stringliteral">&quot;Color&quot;</span> },</div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        { <span class="stringliteral">&quot;Ra::Core::Utils::ColorBase&lt;double&gt;&quot;</span>, <span class="stringliteral">&quot;Color&quot;</span> },</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        { <span class="stringliteral">&quot;Eigen::Matrix&lt;float, 2, 1, 0, 2, 1&gt;&quot;</span>, <span class="stringliteral">&quot;Vector2&quot;</span> },</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        { <span class="stringliteral">&quot;Eigen::Matrix&lt;double, 2, 1, 0, 2, 1&gt;&quot;</span>, <span class="stringliteral">&quot;Vector2d&quot;</span> },</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        { <span class="stringliteral">&quot;Eigen::Matrix&lt;int, 2, 1, 0, 2, 1&gt;&quot;</span>, <span class="stringliteral">&quot;Vector2i&quot;</span> },</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        { <span class="stringliteral">&quot;Eigen::Matrix&lt;unsigned int, 2, 1, 0, 2, 1&gt;&quot;</span>, <span class="stringliteral">&quot;Vector2ui&quot;</span> },</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        { <span class="stringliteral">&quot;Eigen::Matrix&lt;float, 3, 1, 0, 3, 1&gt;&quot;</span>, <span class="stringliteral">&quot;Vector3&quot;</span> },</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        { <span class="stringliteral">&quot;Eigen::Matrix&lt;double, 3, 1, 0, 3, 1&gt;&quot;</span>, <span class="stringliteral">&quot;Vector3d&quot;</span> },</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        { <span class="stringliteral">&quot;Eigen::Matrix&lt;int, 3, 1, 0, 3, 1&gt;&quot;</span>, <span class="stringliteral">&quot;Vector3i&quot;</span> },</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        { <span class="stringliteral">&quot;Eigen::Matrix&lt;unsigned int, 3, 1, 0, 3, 1&gt;&quot;</span>, <span class="stringliteral">&quot;Vector3ui&quot;</span> },</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        { <span class="stringliteral">&quot;Eigen::Matrix&lt;float, 4, 1, 0, 4, 1&gt;&quot;</span>, <span class="stringliteral">&quot;Vector4&quot;</span> },</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        { <span class="stringliteral">&quot;Eigen::Matrix&lt;double, 4, 1, 0, 4, 1&gt;&quot;</span>, <span class="stringliteral">&quot;Vector4d&quot;</span> },</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        { <span class="stringliteral">&quot;Eigen::Matrix&lt;int, 4, 1, 0, 4, 1&gt;&quot;</span>, <span class="stringliteral">&quot;Vector4i&quot;</span> },</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        { <span class="stringliteral">&quot;Eigen::Matrix&lt;unsigned int, 4, 1, 0, 4, 1&gt;&quot;</span>, <span class="stringliteral">&quot;Vector4ui&quot;</span> },</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        <span class="comment">// Windows (visual studio 2022) specific name fix</span></div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        { <span class="stringliteral">&quot; __ptr64&quot;</span>, <span class="stringliteral">&quot;&quot;</span> },</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        <span class="comment">// std::string</span></div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        { <span class="stringliteral">&quot;basic_string&lt;char, char_traits&lt;char&gt;, allocator&lt;char&gt;&gt;&quot;</span>, <span class="stringliteral">&quot;string&quot;</span> } };</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="keyword">auto</span> result = fullType;</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; [key, value] : knownTypes ) {</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        Ra::Core::Utils::replaceAllInString( result, key, value );</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    }</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <span class="comment">// Common verbose STL template components to remove</span></div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    remove_bracket_block( result, <span class="stringliteral">&quot;allocator&quot;</span> );</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    remove_bracket_block( result, <span class="stringliteral">&quot;char_traits&quot;</span> );</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    remove_bracket_block( result, <span class="stringliteral">&quot;hash&quot;</span> );</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    remove_bracket_block( result, <span class="stringliteral">&quot;equal_to&quot;</span> );</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <span class="comment">// redondant with above replaceAllInString</span></div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <span class="comment">// replace_bracket_b-lock( result, &quot;basic_string&quot;, &quot;string&quot; );</span></div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    result = <a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/regex/regex_replace.html">std::regex_replace</a>( result, <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/regex/basic_regex.html">std::regex</a>( R<span class="stringliteral">&quot;(\s*,(\s*,)+)&quot; ), </span><span class="stringliteral">&quot;,&quot;</span> );</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    result = <a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/regex/regex_replace.html">std::regex_replace</a>( result, <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/regex/basic_regex.html">std::regex</a>( R<span class="stringliteral">&quot;(\s*,\s*&gt;)&quot; ), </span><span class="stringliteral">&quot;&gt;&quot;</span> );</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    result = <a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/regex/regex_replace.html">std::regex_replace</a>( result, <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/regex/basic_regex.html">std::regex</a>( R<span class="stringliteral">&quot;(\s+)&quot; ), </span><span class="stringliteral">&quot; &quot;</span> );</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    <span class="keywordflow">return</span> result;</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>}</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        { <span class="stringliteral">&quot;Eigen::Matrix&lt;Scalar, 2, 1, 0, 2, 1&gt;&quot;</span>, <span class="stringliteral">&quot;Vector2&quot;</span> },</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        { <span class="stringliteral">&quot;Eigen::Matrix&lt;float, 2, 1, 0, 2, 1&gt;&quot;</span>, <span class="stringliteral">&quot;Vector2f&quot;</span> },</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        { <span class="stringliteral">&quot;Eigen::Matrix&lt;double, 2, 1, 0, 2, 1&gt;&quot;</span>, <span class="stringliteral">&quot;Vector2d&quot;</span> },</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        { <span class="stringliteral">&quot;Eigen::Matrix&lt;int, 2, 1, 0, 2, 1&gt;&quot;</span>, <span class="stringliteral">&quot;Vector2i&quot;</span> },</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        { <span class="stringliteral">&quot;Eigen::Matrix&lt;unsigned int, 2, 1, 0, 2, 1&gt;&quot;</span>, <span class="stringliteral">&quot;Vector2ui&quot;</span> },</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        { <span class="stringliteral">&quot;Eigen::Matrix&lt;Scalar, 3, 1, 0, 3, 1&gt;&quot;</span>, <span class="stringliteral">&quot;Vector3&quot;</span> },</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        { <span class="stringliteral">&quot;Eigen::Matrix&lt;float, 3, 1, 0, 3, 1&gt;&quot;</span>, <span class="stringliteral">&quot;Vector3f&quot;</span> },</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        { <span class="stringliteral">&quot;Eigen::Matrix&lt;double, 3, 1, 0, 3, 1&gt;&quot;</span>, <span class="stringliteral">&quot;Vector3d&quot;</span> },</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        { <span class="stringliteral">&quot;Eigen::Matrix&lt;int, 3, 1, 0, 3, 1&gt;&quot;</span>, <span class="stringliteral">&quot;Vector3i&quot;</span> },</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        { <span class="stringliteral">&quot;Eigen::Matrix&lt;unsigned int, 3, 1, 0, 3, 1&gt;&quot;</span>, <span class="stringliteral">&quot;Vector3ui&quot;</span> },</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        { <span class="stringliteral">&quot;Eigen::Matrix&lt;Scalar, 4, 1, 0, 4, 1&gt;&quot;</span>, <span class="stringliteral">&quot;Vector4&quot;</span> },</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        { <span class="stringliteral">&quot;Eigen::Matrix&lt;float, 4, 1, 0, 4, 1&gt;&quot;</span>, <span class="stringliteral">&quot;Vector4f&quot;</span> },</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        { <span class="stringliteral">&quot;Eigen::Matrix&lt;double, 4, 1, 0, 4, 1&gt;&quot;</span>, <span class="stringliteral">&quot;Vector4d&quot;</span> },</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        { <span class="stringliteral">&quot;Eigen::Matrix&lt;int, 4, 1, 0, 4, 1&gt;&quot;</span>, <span class="stringliteral">&quot;Vector4i&quot;</span> },</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        { <span class="stringliteral">&quot;Eigen::Matrix&lt;unsigned int, 4, 1, 0, 4, 1&gt;&quot;</span>, <span class="stringliteral">&quot;Vector4ui&quot;</span> },</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        <span class="comment">// Windows (visual studio 2022) specific name fix</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        { <span class="stringliteral">&quot; __ptr64&quot;</span>, <span class="stringliteral">&quot;&quot;</span> },</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        <span class="comment">// std::string</span></div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        { <span class="stringliteral">&quot;basic_string&lt;char, char_traits&lt;char&gt;, allocator&lt;char&gt;&gt;&quot;</span>, <span class="stringliteral">&quot;string&quot;</span> } };</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <span class="keyword">auto</span> result = fullType;</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; [key, value] : knownTypes ) {</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        Ra::Core::Utils::replaceAllInString( result, key, value );</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    }</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    <span class="comment">// Common verbose STL template components to remove</span></div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    remove_bracket_block( result, <span class="stringliteral">&quot;allocator&quot;</span> );</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    remove_bracket_block( result, <span class="stringliteral">&quot;char_traits&quot;</span> );</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    remove_bracket_block( result, <span class="stringliteral">&quot;hash&quot;</span> );</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    remove_bracket_block( result, <span class="stringliteral">&quot;equal_to&quot;</span> );</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <span class="comment">// redondant with above replaceAllInString</span></div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    <span class="comment">// replace_bracket_b-lock( result, &quot;basic_string&quot;, &quot;string&quot; );</span></div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    result = <a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/regex/regex_replace.html">std::regex_replace</a>( result, <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/regex/basic_regex.html">std::regex</a>( R<span class="stringliteral">&quot;(\s*,(\s*,)+)&quot; ), </span><span class="stringliteral">&quot;,&quot;</span> );</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    result = <a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/regex/regex_replace.html">std::regex_replace</a>( result, <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/regex/basic_regex.html">std::regex</a>( R<span class="stringliteral">&quot;(\s*,\s*&gt;)&quot; ), </span><span class="stringliteral">&quot;&gt;&quot;</span> );</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    result = <a class="code hl_functionRef" target="_blank" href="http://en.cppreference.com/w/cpp/regex/regex_replace.html">std::regex_replace</a>( result, <a class="code hl_classRef" target="_blank" href="http://en.cppreference.com/w/cpp/regex/basic_regex.html">std::regex</a>( R<span class="stringliteral">&quot;(\s+)&quot; ), </span><span class="stringliteral">&quot; &quot;</span> );</div>
 <div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>} <span class="comment">// namespace TypeInternal</span></div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>} <span class="comment">// namespace Utils</span></div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>} <span class="comment">// namespace Core</span></div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>} <span class="comment">// namespace Ra</span></div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    <span class="keywordflow">return</span> result;</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>}</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>} <span class="comment">// namespace TypeInternal</span></div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>} <span class="comment">// namespace Utils</span></div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>} <span class="comment">// namespace Core</span></div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>} <span class="comment">// namespace Ra</span></div>
 <div class="ttc" id="abasic_regex_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/regex/basic_regex.html">std::regex</a></div></div>
 <div class="ttc" id="abasic_string_html"><div class="ttname"><a href="http://en.cppreference.com/w/cpp/string/basic_string.html">std::string</a></div></div>
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">hepler function to manage enum as underlying types in VariableSet</div><div class="ttdef"><b>Definition</b> <a href="Cage_8cpp_source.html#l00004">Cage.cpp:4</a></div></div>

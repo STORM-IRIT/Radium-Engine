@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.webp"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.7.3</span>
+   &#160;<span id="projectnumber">1.7.4</span>
    </div>
   </td>
  </tr>
@@ -172,8 +172,8 @@ $(function(){initNavTree('OpenMesh_8hpp_source.html',''); initResizable(true); }
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>}</div>
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> Derived&gt;</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="keyword">typename</span> Derived::template cross_product_return_type&lt;Derived&gt;::type</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>cross( Eigen::MatrixBase&lt;Derived&gt; <span class="keyword">const</span>&amp; v1, Eigen::MatrixBase&lt;Derived&gt; <span class="keyword">const</span>&amp; v2 ) {</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="keyword">typename</span> MatrixBase&lt;Derived&gt;::PlainObject cross( Eigen::MatrixBase&lt;Derived&gt; <span class="keyword">const</span>&amp; v1,</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>                                                 Eigen::MatrixBase&lt;Derived&gt; <span class="keyword">const</span>&amp; v2 ) {</div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <span class="keywordflow">return</span> v1.cross( v2 );</div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>}</div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>} <span class="comment">// namespace Eigen</span></div>
