@@ -144,7 +144,7 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
     QuadMesh toQuadMesh() { return toIndexedMesh<QuadMesh::IndexType>(); }
     TriangleMesh toTriangleMesh() { return toIndexedMesh<TriangleMesh::IndexType>(); }
 
-    ///\todo move the who next methods as templated lambda when switch to c++20
+    ///\todo move the two next methods as templated lambda when switch to c++20
     template <typename T>
     void copyWedgeDataToAttribContainer( AlignedStdVector<typename Attrib<T>::Container>& c,
                                          const VectorArray<T>& wd ) {
