@@ -128,10 +128,8 @@ jobs:
           echo "external_build_dir=$external_build_dir" >> $GITHUB_OUTPUT
           echo "external_install_dir=$external_install_dir" >> $GITHUB_OUTPUT
 
-#      - name: Add msbuild to PATH
-#        uses: seanmiddleditch/gha-setup-vsdevenv@master
-#        if: runner.os == 'Windows'
-#
+      - name: Add msbuild to PATH
+        uses: ilammy/msvc-dev-cmd@138b1c783b65ec697d8342918306b7b2db4e88f1
       - name: Install Qt
         uses: jurplel/install-qt-action@v4
         with:
