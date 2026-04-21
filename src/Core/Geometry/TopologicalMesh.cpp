@@ -186,24 +186,6 @@ TopologicalMesh::TopologicalMesh() {
     add_property( m_wedgeIndexPph );
 }
 
-template <typename T>
-void copyWedgeDataToAttribContainer( AlignedStdVector<typename Attrib<T>::Container>& c,
-                                     const VectorArray<T>& wd ) {
-    for ( size_t i = 0; i < wd.size(); ++i ) {
-        c[i].push_back( wd[i] );
-    }
-}
-
-template <typename T>
-void moveContainerToMesh( Ra::Core::Geometry::MultiIndexedGeometry& out,
-                          const std::vector<std::string>& names,
-                          AlignedStdVector<typename Attrib<T>::Container>& wedgeAttribData ) {
-    for ( size_t i = 0; i < wedgeAttribData.size(); ++i ) {
-        auto attrHandle = out.template addAttrib<T>( names[i] );
-        out.getAttrib( attrHandle ).setData( std::move( wedgeAttribData[i] ) );
-    }
-}
-
 void TopologicalMesh::updateTriangleMesh( Ra::Core::Geometry::MultiIndexedGeometry& out ) {
     TriangleMesh::PointAttribHandle::Container wedgePosition;
     AlignedStdVector<Attrib<Scalar>::Container> wedgeFloatAttribData(

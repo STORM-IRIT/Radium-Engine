@@ -144,25 +144,6 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
     QuadMesh toQuadMesh() { return toIndexedMesh<QuadMesh::IndexType>(); }
     TriangleMesh toTriangleMesh() { return toIndexedMesh<TriangleMesh::IndexType>(); }
 
-    ///\todo move the two next methods as templated lambda when switch to c++20
-    template <typename T>
-    void copyWedgeDataToAttribContainer( AlignedStdVector<typename Attrib<T>::Container>& c,
-                                         const VectorArray<T>& wd ) {
-        for ( size_t i = 0; i < wd.size(); ++i ) {
-            c[i].push_back( wd[i] );
-        }
-    }
-
-    template <typename T>
-    void moveContainerToMesh( Ra::Core::Geometry::MultiIndexedGeometry& out,
-                              const std::vector<std::string>& names,
-                              AlignedStdVector<typename Attrib<T>::Container>& wedgeAttribData ) {
-        for ( size_t i = 0; i < wedgeAttribData.size(); ++i ) {
-            auto attrHandle = out.template addAttrib<T>( names[i] );
-            out.getAttrib( attrHandle ).setData( std::move( wedgeAttribData[i] ) );
-        }
-    }
-
     /**
      * Update triangle mesh data, assuming the mesh and this topo mesh has the
      * same topology.
@@ -412,6 +393,26 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
     };
 
   private:
+    ///\todo move the two next methods as templated lambda when switch to c++20 (infact does not
+    /// work ... need investigation)
+    template <typename T>
+    void copyWedgeDataToAttribContainer( AlignedStdVector<typename Attrib<T>::Container>& c,
+                                         const VectorArray<T>& wd ) {
+        for ( size_t i = 0; i < wd.size(); ++i ) {
+            c[i].push_back( wd[i] );
+        }
+    }
+
+    template <typename T>
+    void moveContainerToMesh( Ra::Core::Geometry::MultiIndexedGeometry& out,
+                              const std::vector<std::string>& names,
+                              AlignedStdVector<typename Attrib<T>::Container>& wedgeAttribData ) {
+        for ( size_t i = 0; i < wedgeAttribData.size(); ++i ) {
+            auto attrHandle = out.template addAttrib<T>( names[i] );
+            out.getAttrib( attrHandle ).setData( std::move( wedgeAttribData[i] ) );
+        }
+    }
+
     // base on openmesh version
     void collapse_edge( HalfedgeHandle, bool );
     void collapse_loop( HalfedgeHandle );
@@ -1469,8 +1470,9 @@ TopologicalMesh::getWedgeIndexPph() const {
 }
 
 template <typename IndexType>
-IndexedGeometry<IndexType> TopologicalMesh::toIndexedMesh() { // first cleanup deleted element
+IndexedGeometry<IndexType> TopologicalMesh::toIndexedMesh() {
 
+    // first cleanup deleted element
     garbage_collection();
 
     IndexedGeometry<IndexType> out;
