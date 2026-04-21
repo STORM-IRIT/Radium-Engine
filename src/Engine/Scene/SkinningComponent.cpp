@@ -1,4 +1,5 @@
 ﻿#include "Core/Geometry/AttribArrayGeometry.hpp"
+#include "Core/Geometry/IndexedGeometry.hpp"
 #include <Engine/Scene/SkinningComponent.hpp>
 
 #include <Core/Animation/PoseOperation.hpp>
@@ -47,7 +48,10 @@ void SkinningComponent::initialize() {
         m_renderObjectReader = compMsg->getterCallback<Index>( getEntity(), m_meshName );
         m_skeletonGetter     = compMsg->getterCallback<Skeleton>( getEntity(), m_skelName );
 
-        m_geomWriter = compMsg->rwCallback<AttribArrayGeometry>( getEntity(), m_meshName );
+        //        m_geomWriter = compMsg->rwCallback<AttribArrayGeometry>( getEntity(), m_meshName
+        //        );
+        m_geomWriter =
+            compMsg->rwCallback<Geometry::MultiIndexedGeometry>( getEntity(), m_meshName );
 
         // copy mesh triangles and find duplicates for normal computation.
         m_refData.m_referenceMesh = *m_geomWriter();
