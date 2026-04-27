@@ -339,9 +339,9 @@ TEST_CASE( "Engine/Data/RenderParameters", "[unittests][Engine][Engine/Data][Ren
         enum Values : unsigned int { VALUE_0 = 10, VALUE_1 = 20, VALUE_2 = 30 };
         using ValuesType = typename std::underlying_type<Values>::type;
 
-        auto vnc                 = new EnumConverter<ValuesType>( { { Values::VALUE_0, "VALUE_0" },
-                                                                    { Values::VALUE_1, "VALUE_1" },
-                                                                    { Values::VALUE_2, "VALUE_2" } } );
+        auto vnc = new EnumConverter<ValuesType>( { { Values::VALUE_0, "VALUE_0" },
+                                                    { Values::VALUE_1, "VALUE_1" },
+                                                    { Values::VALUE_2, "VALUE_2" } } );
         auto valuesEnumConverter = std::shared_ptr<EnumConverter<ValuesType>>( vnc );
         addEnumConverter( paramsToVisit, "enum.semantic", valuesEnumConverter );
         setEnumVariable( paramsToVisit, "enum.semantic", "VALUE_0" );

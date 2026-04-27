@@ -23,9 +23,7 @@
     TYPE( const TYPE& )           = delete;                                            \
     void operator=( const TYPE& ) = delete;                                            \
     struct Deleter {                                                                   \
-        void operator()( TYPE* p ) const {                                             \
-            delete p;                                                                  \
-        }                                                                              \
+        void operator()( TYPE* p ) const { delete p; }                                 \
     };                                                                                 \
     static std::unique_ptr<TYPE, Deleter> s_instance;                                  \
                                                                                        \

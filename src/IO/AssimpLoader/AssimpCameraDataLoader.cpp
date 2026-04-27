@@ -102,7 +102,7 @@ Core::Matrix4 AssimpCameraDataLoader::loadCameraFrame( const aiScene* scene,
         frame = Core::Matrix4::NullaryExpr(
                     [&node]( int i, int j ) { return node->mTransformation[i][j]; } ) *
                 frame;
-        node = node->mParent;
+        node  = node->mParent;
     }
     return frame;
 }
