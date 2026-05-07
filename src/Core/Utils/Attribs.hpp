@@ -36,30 +36,30 @@ class Attrib;
 class RA_CORE_API AttribBase : public ObservableVoid, public ContainerIntrospectionInterface
 {
   public:
-    inline explicit AttribBase( const std::string& name );
+    explicit AttribBase( const std::string& name );
     virtual ~AttribBase();
     AttribBase( const AttribBase& )            = delete;
     AttribBase& operator=( const AttribBase& ) = delete;
 
     /// Return the attribute's name.
-    inline std::string getName() const;
+    std::string getName() const;
 
     ///    Set the attribute's name.
-    inline void setName( const std::string& name );
+    void setName( const std::string& name );
 
     /// Resize the attribute's array.
     virtual void resize( size_t s ) = 0;
 
     /// Return true if *this and \p rhs have the same name.
-    bool inline operator==( const AttribBase& rhs ) const;
+    bool operator==( const AttribBase& rhs ) const;
 
     /// Downcast from AttribBase to Attrib<T>.
     template <typename T>
-    inline Attrib<T>& cast();
+    Attrib<T>& cast();
 
     /// Downcast from AttribBase to Attrib<T>.
     template <typename T>
-    inline const Attrib<T>& cast() const;
+    const Attrib<T>& cast() const;
 
     /// Return true if the attribute content is of Scalar type, false otherwise.
     virtual bool isFloat() const = 0;
@@ -76,15 +76,15 @@ class RA_CORE_API AttribBase : public ObservableVoid, public ContainerIntrospect
     /// Return true if data is locked, i.e. has been locked for write access with
     /// getDataWithlock() (defined in subclass Attrib). Double lock is prohebited, so when finished,
     /// call unlock();
-    bool inline isLocked() const;
+    bool isLocked() const;
 
     /// Unlock data so another one can gain write access.
-    void inline unlock();
+    void unlock();
 
     virtual std::unique_ptr<AttribBase> clone() = 0;
 
   protected:
-    void inline lock( bool isLocked = true );
+    void lock( bool isLocked = true );
 
   private:
     /// The attribute's name.
@@ -112,7 +112,7 @@ class Attrib : public AttribBase
 
     /// Read-write access to the attribute content.
     /// lock the content, when done call unlock()
-    inline Container& getDataWithLock();
+    Container& getDataWithLock();
 
     /// \{
     /// ContainerIntrosectionInterface implementation
@@ -130,7 +130,7 @@ class Attrib : public AttribBase
     ///\}
 
     /// Read-only acccess to the attribute content.
-    inline const Container& data() const;
+    const Container& data() const;
     bool isFloat() const override;
     bool isVector2() const override;
     bool isVector3() const override;
@@ -218,19 +218,19 @@ class RA_CORE_API AttribManager : public Observable<const std::string&>
     using smart_pointer_type = std::unique_ptr<value_type>;
     using Container          = std::vector<smart_pointer_type>;
 
-    inline AttribManager();
+    AttribManager();
 
     /// Copy constructor and assignment operator are forbidden.
     AttribManager( const AttribManager& m )            = delete;
     AttribManager& operator=( const AttribManager& m ) = delete;
 
-    inline AttribManager( AttribManager&& m );
+    AttribManager( AttribManager&& m );
 
-    inline AttribManager& operator=( AttribManager&& m );
+    AttribManager& operator=( AttribManager&& m );
     ~AttribManager() override;
 
     /// Base copy, does nothing.
-    inline void copyAttributes( const AttribManager& m );
+    void copyAttributes( const AttribManager& m );
 
     /// Copy the given attributes from \p m.
     /// \note If some attrib already exists, it will be replaced.
@@ -256,7 +256,7 @@ class RA_CORE_API AttribManager : public Observable<const std::string&>
      * \warning There is no error check on the attribute type.
      * \complexity \f$ O(\log(n)) \f$
      */
-    inline bool contains( const std::string& name ) const;
+    bool contains( const std::string& name ) const;
 
     /*!
      * \brief findAttrib Grab an attribute handler by \p name.
@@ -266,7 +266,7 @@ class RA_CORE_API AttribManager : public Observable<const std::string&>
      * \complexity \f$ O(\log(n)) \f$
      */
     template <typename T>
-    inline AttribHandle<T> findAttrib( const std::string& name ) const;
+    AttribHandle<T> findAttrib( const std::string& name ) const;
 
     /*!
      * \brief Get the locked data container from the attrib handle
@@ -301,13 +301,13 @@ class RA_CORE_API AttribManager : public Observable<const std::string&>
     /// other checks.
     ///
     template <typename T>
-    inline Attrib<T>& getAttrib( const AttribHandle<T>& h );
+    Attrib<T>& getAttrib( const AttribHandle<T>& h );
     template <typename T>
-    inline const Attrib<T>& getAttrib( const AttribHandle<T>& h ) const;
+    const Attrib<T>& getAttrib( const AttribHandle<T>& h ) const;
     template <typename T>
-    inline Attrib<T>* getAttribPtr( const AttribHandle<T>& h );
+    Attrib<T>* getAttribPtr( const AttribHandle<T>& h );
     template <typename T>
-    inline const Attrib<T>* getAttribPtr( const AttribHandle<T>& h ) const;
+    const Attrib<T>* getAttribPtr( const AttribHandle<T>& h ) const;
     ///\}
 
     ///\{
@@ -316,31 +316,30 @@ class RA_CORE_API AttribManager : public Observable<const std::string&>
     /// \warning There is no check on the name validity. Attrib is statically cast to T without
     /// other checks.
     template <typename T>
-    inline Attrib<T>& getAttrib( const std::string& name );
+    Attrib<T>& getAttrib( const std::string& name );
     template <typename T>
-    inline const Attrib<T>& getAttrib( const std::string& name ) const;
+    const Attrib<T>& getAttrib( const std::string& name ) const;
     ///\}
 
     ///\{
     /// Return a AttribBase ptr to the attrib identified by name.
     /// to give access to AttribBase method, regardless of the type of element
     /// stored in the attrib.
-    inline AttribBase* getAttribBase( const std::string& name );
-    inline const AttribBase* getAttribBase( const std::string& name ) const;
-    inline AttribBase* getAttribBase( const Index& idx );
-    inline const AttribBase* getAttribBase( const Index& idx ) const;
+    AttribBase* getAttribBase( const std::string& name );
+    const AttribBase* getAttribBase( const std::string& name ) const;
+    AttribBase* getAttribBase( const Index& idx );
+    const AttribBase* getAttribBase( const Index& idx ) const;
     ///\}
 
     ///\{
     /// Set the data of the attrib h.
     /// \warning \p h has to be a valid attrib handle, this is not checked.
     template <typename T>
-    inline void setAttrib( const AttribHandle<T>& h,
-                           const typename AttribHandle<T>::Container& data );
+    void setAttrib( const AttribHandle<T>& h, const typename AttribHandle<T>::Container& data );
 
     /// \see #setAttrib
     template <typename T>
-    inline void setAttrib( const AttribHandle<T>& h, typename AttribHandle<T>::Container&& data );
+    void setAttrib( const AttribHandle<T>& h, typename AttribHandle<T>::Container&& data );
     ///\}
 
     /// Add attribute by name.
@@ -376,7 +375,7 @@ class RA_CORE_API AttribManager : public Observable<const std::string&>
     ///\}
 
     /// Return the number of attributes
-    inline int getNumAttribs() const;
+    int getNumAttribs() const;
 
     /**
      * \brief Scope lock state management for attributes.
@@ -453,17 +452,17 @@ class RA_CORE_API AttribManager : public Observable<const std::string&>
     int m_numAttribs { 0 };
 };
 
-AttribBase::AttribBase( const std::string& name ) : m_name { name } {}
+inline AttribBase::AttribBase( const std::string& name ) : m_name { name } {}
 
-std::string AttribBase::getName() const {
+inline std::string AttribBase::getName() const {
     return m_name;
 }
 
-void AttribBase::setName( const std::string& name ) {
+inline void AttribBase::setName( const std::string& name ) {
     m_name = name;
 }
 
-bool inline AttribBase::operator==( const AttribBase & rhs ) const {
+inline bool AttribBase::operator==( const AttribBase& rhs ) const {
     return m_name == rhs.getName();
 }
 
@@ -477,15 +476,15 @@ const Attrib<T>& AttribBase::cast() const {
     return static_cast<const Attrib<T>&>( *this );
 }
 
-bool AttribBase::isLocked() const {
+inline bool AttribBase::isLocked() const {
     return m_isLocked;
 }
 
-void AttribBase::unlock() {
+inline void AttribBase::unlock() {
     lock( false );
 }
 
-void AttribBase::lock( bool isLocked ) {
+inline void AttribBase::lock( bool isLocked ) {
     CORE_ASSERT( isLocked != m_isLocked, "double (un)lock" );
     m_isLocked = isLocked;
     if ( !m_isLocked ) notify();
@@ -584,21 +583,21 @@ size_t Attrib<T>::getNumberOfComponents() const {
 
 /////////////////// AttribManager ///////////////////
 
-AttribManager::AttribManager() {}
+inline AttribManager::AttribManager() {}
 
-AttribManager::AttribManager( AttribManager&& m ) :
+inline AttribManager::AttribManager( AttribManager&& m ) :
     m_attribs( std::move( m.m_attribs ) ),
     m_attribsIndex( std::move( m.m_attribsIndex ) ),
     m_numAttribs( std::move( m.m_numAttribs ) ) {}
 
-AttribManager& AttribManager::operator=( AttribManager&& m ) {
+inline AttribManager& AttribManager::operator=( AttribManager&& m ) {
     m_attribs      = std::move( m.m_attribs );
     m_attribsIndex = std::move( m.m_attribsIndex );
     m_numAttribs   = std::move( m.m_numAttribs );
     return *this;
 }
 
-void AttribManager::copyAttributes( const AttribManager& m ) {
+inline void AttribManager::copyAttributes( const AttribManager& m ) {
     m_numAttribs = m.m_numAttribs;
 }
 
@@ -629,7 +628,7 @@ inline bool AttribManager::contains( const std::string& name ) const {
 }
 
 template <typename T>
-inline AttribHandle<T> AttribManager::findAttrib( const std::string& name ) const {
+AttribHandle<T> AttribManager::findAttrib( const std::string& name ) const {
     auto c = m_attribsIndex.find( name );
     AttribHandle<T> handle;
     if ( c != m_attribsIndex.end() ) {
@@ -655,43 +654,43 @@ void AttribManager::unlock( const AttribHandle<T>& h ) {
 }
 
 template <typename T>
-inline Attrib<T>& AttribManager::getAttrib( const AttribHandle<T>& h ) {
+Attrib<T>& AttribManager::getAttrib( const AttribHandle<T>& h ) {
     return *static_cast<Attrib<T>*>( m_attribs.at( h.m_idx ).get() );
 }
 
 template <typename T>
-inline const Attrib<T>& AttribManager::getAttrib( const AttribHandle<T>& h ) const {
+const Attrib<T>& AttribManager::getAttrib( const AttribHandle<T>& h ) const {
     return *static_cast<Attrib<T>*>( m_attribs.at( h.m_idx ).get() );
 }
 template <typename T>
-inline Attrib<T>& AttribManager::getAttrib( const std::string& name ) {
+Attrib<T>& AttribManager::getAttrib( const std::string& name ) {
     return getAttrib( findAttrib<T>( name ) );
 }
 
 template <typename T>
-inline const Attrib<T>& AttribManager::getAttrib( const std::string& name ) const {
+const Attrib<T>& AttribManager::getAttrib( const std::string& name ) const {
     return getAttrib( findAttrib<T>( name ) );
 }
 
 template <typename T>
-inline Attrib<T>* AttribManager::getAttribPtr( const AttribHandle<T>& h ) {
+Attrib<T>* AttribManager::getAttribPtr( const AttribHandle<T>& h ) {
     return static_cast<Attrib<T>*>( m_attribs.at( h.m_idx ).get() );
 }
 
 template <typename T>
-inline const Attrib<T>* AttribManager::getAttribPtr( const AttribHandle<T>& h ) const {
+const Attrib<T>* AttribManager::getAttribPtr( const AttribHandle<T>& h ) const {
     return static_cast<Attrib<T>*>( m_attribs.at( h.m_idx ).get() );
 }
 
 template <typename T>
-inline void AttribManager::setAttrib( const AttribHandle<T>& h,
-                                      const typename AttribHandle<T>::Container& data ) {
+void AttribManager::setAttrib( const AttribHandle<T>& h,
+                               const typename AttribHandle<T>::Container& data ) {
     static_cast<Attrib<T>*>( m_attribs.at( h.m_idx ).get() )->setData( data );
 }
 
 template <typename T>
-inline void AttribManager::setAttrib( const AttribHandle<T>& h,
-                                      typename AttribHandle<T>::Container&& data ) {
+void AttribManager::setAttrib( const AttribHandle<T>& h,
+                               typename AttribHandle<T>::Container&& data ) {
     static_cast<Attrib<T>*>( m_attribs.at( h.m_idx ).get() )->setData( data );
 }
 
@@ -772,7 +771,7 @@ void AttribManager::for_each_attrib( const F& func ) {
         if ( attr != nullptr ) func( attr.get() );
 }
 
-int AttribManager::getNumAttribs() const {
+inline int AttribManager::getNumAttribs() const {
     return m_numAttribs;
 }
 
