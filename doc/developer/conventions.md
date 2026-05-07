@@ -29,6 +29,7 @@ We also provide a pre-commit hook that checks the committed files are correctly 
 * Every .cpp must have an associated .hpp file
 * oneline inline can be defined in class
 * complex inline methods are defined out of class in .hpp
+  * inline keyword in definition only (not in class decl), following [isocpp recommendation](https://isocpp.org/wiki/faq/inline-functions\#where-to-put-inline-keyword).
 * Two types of include guards are accepted (modern is preferred):
   * Modern: `#pragma once`
   * Legacy: `#ifndef HEADER_NAME_HPP_`
