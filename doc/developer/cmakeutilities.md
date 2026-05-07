@@ -280,12 +280,12 @@ installs the required resources.
 
 This function takes the following parameters:
 
-*Parameter name*                     | *Parameter description*
--------------------------------------|--------------------
- `<TARGET> targetName`               | The name of the target to configure.
- `<RESOURCES_DIR> resourceDirectory` | The directory in the source tree that contains the resource to install.
+*Parameter name*                             | *Parameter description*
+---------------------------------------------|--------------------
+ `<TARGET> targetName`                       | The name of the target to configure.
+ `<RESOURCES_DIR> resourceDirectory`         | The directory in the source tree that contains the resource to install.
  `<RESOURCES_INSTALL_DIR> baseDirectory`     | If given, the resources will be installed into the directory `<install_prefix>/Resources/<RESOURCES_INSTALL_DIR>/`. If not, the resources will be installed into the directory `<install_prefix>/Resources/` where `<install_prefix>` is the installation directory of the target or the current binary dir of the build tree.
-  `<FILES> file1 file2 ...`           | If given, this allow to install only the given files from `<DIRECTORY>`. If not, all the files from `<DIRECTORY>` will be installed.
+  `<FILES> file1 file2 ...`                  | If given, this allow to install only the given files from `<DIRECTORY>`. If not, all the files from `<DIRECTORY>` will be installed.
 
 For a Radium-based software component, resources can be of several types:
 
@@ -455,12 +455,12 @@ If the plugin is installed in the Radium distribution bundle, it will be embedde
 
 This function takes the following parameters:
 
-*Parameter name*        | *Parameter description*
-------------------------|--------------------
-`NAME pluginName`               | Name of the target to be linked and installed as a plugin
+*Parameter name*                             | *Parameter description*
+---------------------------------------------|--------------------
+`NAME pluginName`                            | Name of the target to be linked and installed as a plugin
 `[RESOURCES ResourceDir1 [ResourceDir2 ...]` | Optional. List of directories, in the source tree, containing the plugin own resources.
-`[HELPER_LIBS helperlib1 [helperlib2 ...]]` | List of libraries the plugin depends on.
-`[INSTALL_IN_RADIUM_BUNDLE]` | Optional. If given, the plugin is installed in the Radium general bundle (`${RADIUM_ROOT_DIR}/Plugins`) instead of being installed in the `${CMAKE_INSTALL_PREFIX}`
+`[HELPER_LIBS helperlib1 [helperlib2 ...]]`  | List of libraries the plugin depends on.
+`[INSTALL_IN_RADIUM_BUNDLE]`                 | Optional. If given, the plugin is installed in the Radium general bundle (`${RADIUM_ROOT_DIR}/Plugins`) instead of being installed in the `${CMAKE_INSTALL_PREFIX}`
 
 The `pluginName` target must be a dynamic library that exports a class inheriting from `QObject` and Ra::Plugins::RadiumPluginInterface.
 The optional resources associated with the plugin are own resources that the plugin needs to be functional and will be installed as described below.
