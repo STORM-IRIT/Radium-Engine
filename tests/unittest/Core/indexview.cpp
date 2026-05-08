@@ -48,6 +48,11 @@ TEST_CASE( "Core/Geometry/MultiIndexedGeometry",
 
         REQUIRE( geo.default_layer_key().first.contains( TriangleIndexLayer::staticSemanticName ) );
     }
+    MultiIndexedGeometry geo2 { geo };
+    REQUIRE( geo2.default_layer_key().second != "invalid" );
+    REQUIRE( geo2.default_layer_key().first.contains( TriangleIndexLayer::staticSemanticName ) );
+    REQUIRE( geo2.getLayer( geo2.default_layer_key() )
+                 .hasSemantic( TriangleIndexLayer::staticSemanticName ) );
 }
 
 TEST_CASE( "Core/Geometry/IndexedGeometry", "[unittests][Core][Core/Geometry][IndexedGeometry]" ) {
