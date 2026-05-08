@@ -11,7 +11,7 @@ set(core_sources
     Animation/HandleWeightOperation.cpp
     Animation/LinearBlendSkinning.cpp
     Animation/PoseOperation.cpp
-    # Animation/RotationCenterSkinning.cpp
+    Animation/RotationCenterSkinning.cpp
     Animation/Sequence.cpp
     Animation/Skeleton.cpp
     Asset/AnimationData.cpp
@@ -60,7 +60,7 @@ set(core_headers
     Animation/LinearBlendSkinning.hpp
     Animation/Pose.hpp
     Animation/PoseOperation.hpp
-    # Animation/RotationCenterSkinning.hpp
+    Animation/RotationCenterSkinning.hpp
     Animation/Sequence.hpp
     Animation/Skeleton.hpp
     Animation/SkinningData.hpp
@@ -106,7 +106,6 @@ set(core_headers
     Geometry/Spline.hpp
     Geometry/StandardAttribNames.hpp
     Geometry/TopologicalMesh.hpp
-    Geometry/TriangleMesh.hpp
     Geometry/Volume.hpp
     Geometry/deprecated/TopologicalMesh.hpp
     Math/DualQuaternion.hpp
