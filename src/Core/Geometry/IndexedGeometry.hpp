@@ -123,6 +123,32 @@ struct GeometryIndexLayer : public GeometryIndexLayerBase {
     IndexContainerType m_collection;
 };
 
+#define INDEX_LAYER_CLONE_IMPLEMENTATION( TYPE )                      \
+    inline std::unique_ptr<GeometryIndexLayerBase> clone() override { \
+        auto copy          = std::make_unique<TYPE>( *this );         \
+        copy->collection() = collection();                            \
+        return copy;                                                  \
+    }
+
+#define OPEN_DECLARATION_INDEX_LAYER( NAME, TYPE )                        \
+    struct RA_CORE_API NAME : public GeometryIndexLayer<TYPE> {           \
+        inline NAME() : GeometryIndexLayer( NAME::staticSemanticName ) {} \
+        static constexpr const char* staticSemanticName = #NAME;          \
+        INDEX_LAYER_CLONE_IMPLEMENTATION( NAME )                          \
+      protected:                                                          \
+        template <class... SemanticNames>                                 \
+        inline explicit NAME( SemanticNames... names ) :                  \
+            GeometryIndexLayer( NAME::staticSemanticName, names... ) {}   \
+                                                                          \
+      public:
+
+#define DECLARE_INDEX_LAYER( NAME, TYPE )      \
+    OPEN_DECLARATION_INDEX_LAYER( NAME, TYPE ) \
+    }                                          \
+    ;
+
+DECLARE_INDEX_LAYER( InvalidIndexLayer, Vector1ui );
+
 /// \brief AbstractGeometry with per-vertex attributes and layers of indices.
 /// Each layer represents a different topology or indexing logic, e.g. triangle/line/quad
 /// meshes, point-clouds.
@@ -400,7 +426,12 @@ class RA_CORE_API MultiIndexedGeometry : public AttribArrayGeometry, public Util
   public:
     /// \brief Add layer
     ///
+    /// If not inserted, the pointer is deleted. So the caller must ensure this possible
+    /// deletion is safe before calling this method.
+    ///
     /// Notify observers of the update.
+    /// If first added layer, default layer key is set to this layer.
+    ///
     /// \return false if a layer with same semantics and name already exists.
     ///
     /// \warning Takes the ownership of the layer
@@ -414,6 +445,15 @@ class RA_CORE_API MultiIndexedGeometry : public AttribArrayGeometry, public Util
     /// Usage:
     /// \snippet tests/unittest/Core/indexview.cpp Iterating over layer keys
     [[nodiscard]] inline auto layerKeys() const;
+
+    /// returs default layer key, initialized to InvalidLayerKey,
+    const LayerKeyType& default_layer_key() const { return m_default_layer_key; }
+
+    /// Set default layer key, the indexed geometry must contains the key, otherwith default key is
+    /// not modifiend
+    void set_default_layer_key( const LayerKeyType& layer_key ) {
+        if ( containsLayer( layer_key ) ) m_default_layer_key = layer_key;
+    }
 
   private:
     /// \brief Duplicate attributes stored as pointers
@@ -438,31 +478,10 @@ class RA_CORE_API MultiIndexedGeometry : public AttribArrayGeometry, public Util
     /// require c++20, so we need to implement them explicitely here
     /// https://en.cppreference.com/w/cpp/container/unordered_map/find
     std::unordered_map<LayerKeyType, LayerEntryType, LayerKeyHash> m_indices;
+    LayerKeyType m_default_layer_key = std::make_pair<LayerSemanticCollection, std::string>(
+        { InvalidIndexLayer::staticSemanticName },
+        "invalid" );
 };
-
-#define INDEX_LAYER_CLONE_IMPLEMENTATION( TYPE )                      \
-    inline std::unique_ptr<GeometryIndexLayerBase> clone() override { \
-        auto copy          = std::make_unique<TYPE>( *this );         \
-        copy->collection() = collection();                            \
-        return copy;                                                  \
-    }
-
-#define OPEN_DECLARATION_INDEX_LAYER( NAME, TYPE )                        \
-    struct RA_CORE_API NAME : public GeometryIndexLayer<TYPE> {           \
-        inline NAME() : GeometryIndexLayer( NAME::staticSemanticName ) {} \
-        static constexpr const char* staticSemanticName = #NAME;          \
-        INDEX_LAYER_CLONE_IMPLEMENTATION( NAME )                          \
-      protected:                                                          \
-        template <class... SemanticNames>                                 \
-        inline explicit NAME( SemanticNames... names ) :                  \
-            GeometryIndexLayer( NAME::staticSemanticName, names... ) {}   \
-                                                                          \
-      public:
-
-#define DECLARE_INDEX_LAYER( NAME, TYPE )      \
-    OPEN_DECLARATION_INDEX_LAYER( NAME, TYPE ) \
-    }                                          \
-    ;
 
 /// \name Predefined index layers
 /// The use of these layers helps in generic management of geometries
@@ -583,9 +602,6 @@ class IndexedGeometry : public MultiIndexedGeometry
     inline void setIndices( IndexContainerType&& indices );
     inline void setIndices( const IndexContainerType& indices );
     inline const LayerKeyType& getLayerKey() const;
-
-  private:
-    LayerKeyType m_mainIndexLayerKey;
 };
 
 class RA_CORE_API IndexedPointCloud : public IndexedGeometry<Vector1ui>
@@ -753,32 +769,32 @@ MultiIndexedGeometry::unlockLayer( const MultiIndexedGeometry::LayerSemanticColl
 // PointCloudIndexLayer
 template <typename T>
 inline IndexedGeometry<T>::IndexedGeometry() {
-    auto layer          = std::make_unique<DefaultLayerType>();
-    m_mainIndexLayerKey = { layer->semantics(), "" };
-    addLayer( std::move( layer ) );
+    auto layer = std::make_unique<DefaultLayerType>();
+    auto added = addLayer( std::move( layer ) );
+    if ( added.first ) { set_default_layer_key( added.second ); }
 }
 
 template <typename T>
 
 inline const typename IndexedGeometry<T>::IndexContainerType&
 IndexedGeometry<T>::getIndices() const {
-    const auto& abstractLayer = getLayer( m_mainIndexLayerKey );
+    const auto& abstractLayer = getLayer( default_layer_key() );
     return static_cast<const IndexedGeometry<T>::DefaultLayerType&>( abstractLayer ).collection();
 }
 template <typename T>
 inline typename IndexedGeometry<T>::IndexContainerType& IndexedGeometry<T>::getIndicesWithLock() {
-    auto& abstractLayer = getLayerWithLock( m_mainIndexLayerKey );
+    auto& abstractLayer = getLayerWithLock( default_layer_key() );
     return static_cast<IndexedGeometry<T>::DefaultLayerType&>( abstractLayer ).collection();
 }
 
 template <typename T>
 inline void IndexedGeometry<T>::indicesUnlock() {
-    unlockLayer( m_mainIndexLayerKey );
+    unlockLayer( default_layer_key() );
 }
 
 template <typename T>
 inline void IndexedGeometry<T>::setIndices( IndexContainerType&& indices ) {
-    auto& abstractLayer = getLayerWithLock( m_mainIndexLayerKey );
+    auto& abstractLayer = getLayerWithLock( default_layer_key() );
     static_cast<IndexedGeometry<T>::DefaultLayerType&>( abstractLayer ).collection() =
         std::move( indices );
     indicesUnlock();
@@ -787,7 +803,7 @@ inline void IndexedGeometry<T>::setIndices( IndexContainerType&& indices ) {
 
 template <typename T>
 inline void IndexedGeometry<T>::setIndices( const IndexContainerType& indices ) {
-    auto& abstractLayer = getLayerWithLock( m_mainIndexLayerKey );
+    auto& abstractLayer = getLayerWithLock( default_layer_key() );
     static_cast<IndexedGeometry<T>::DefaultLayerType&>( abstractLayer ).collection() = indices;
     indicesUnlock();
     notify();
@@ -795,7 +811,7 @@ inline void IndexedGeometry<T>::setIndices( const IndexContainerType& indices ) 
 
 template <typename T>
 inline const typename IndexedGeometry<T>::LayerKeyType& IndexedGeometry<T>::getLayerKey() const {
-    return m_mainIndexLayerKey;
+    return default_layer_key();
 }
 
 } // namespace Geometry

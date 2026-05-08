@@ -228,6 +228,10 @@ auto MultiIndexedGeometry::addLayer( std::unique_ptr<GeometryIndexLayerBase>&& l
     LayerKeyType key { layer->semantics(), layerName };
     auto elt             = std::make_pair( key, std::make_pair( false, std::move( layer ) ) );
     auto [pos, inserted] = m_indices.insert( std::move( elt ) );
+
+    // set default layer if its the first insterted layer
+    if ( inserted && m_indices.size() == 1 ) m_default_layer_key = key;
+
     notify();
 
     if ( withLock ) {
@@ -247,6 +251,7 @@ void MultiIndexedGeometry::deepCopy( const MultiIndexedGeometry& other ) {
         m_indices[key] = std::make_pair(
             value.first, std::unique_ptr<GeometryIndexLayerBase> { value.second->clone() } );
     }
+    set_default_layer_key( other.default_layer_key() );
 }
 
 void MultiIndexedGeometry::deepClear() {
