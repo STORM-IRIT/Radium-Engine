@@ -9,6 +9,47 @@ struct CustomTriangleIndexLayer : public Ra::Core::Geometry::TriangleIndexLayer 
     static constexpr const char* staticSemanticName = "CustomSemantic";
 };
 
+TEST_CASE( "Core/Geometry/MultiIndexedGeometry",
+           "[unittests][Core][Core/Geometry][MultiIndexedGeometry]" ) {
+    using namespace Ra::Core::Geometry;
+
+    MultiIndexedGeometry geo;
+    REQUIRE( geo.default_layer_key().second == "invalid" );
+    REQUIRE( geo.default_layer_key().first.contains( InvalidIndexLayer::staticSemanticName ) );
+    geo.setVertices( { { 0, 0, 0 }, { 1, 0, 0 }, { 0, 1, 0 }, { 1, 1, 1 } } );
+    geo.setNormals( { { 0, 0, 1 }, { 0, 0, 1 }, { 0, 0, 1 }, { 0, 0, 1 } } );
+
+    {
+        std::unique_ptr<QuadIndexLayer> layer = std::make_unique<QuadIndexLayer>();
+
+        auto& indices = layer->collection();
+        indices.push_back( { 0, 1, 2, 3 } );
+        auto added = geo.addLayer( std::move( layer ) );
+
+        REQUIRE( added.first == true );
+        REQUIRE( added.second.first.contains( QuadIndexLayer::staticSemanticName ) );
+        REQUIRE( geo.default_layer_key().second == "" );
+        REQUIRE( geo.default_layer_key().first.contains( QuadIndexLayer::staticSemanticName ) );
+    }
+    {
+        std::unique_ptr<TriangleIndexLayer> layer = std::make_unique<TriangleIndexLayer>();
+
+        auto& indices = layer->collection();
+        indices.push_back( { 0, 1, 2 } );
+        indices.push_back( { 1, 2, 3 } );
+        auto added = geo.addLayer( std::move( layer ) );
+
+        REQUIRE( added.first == true );
+        REQUIRE( added.second.first.contains( TriangleIndexLayer::staticSemanticName ) );
+        REQUIRE( geo.default_layer_key().second == "" );
+        REQUIRE( geo.default_layer_key().first.contains( QuadIndexLayer::staticSemanticName ) );
+
+        geo.set_default_layer_key( added.second );
+
+        REQUIRE( geo.default_layer_key().first.contains( TriangleIndexLayer::staticSemanticName ) );
+    }
+}
+
 TEST_CASE( "Core/Geometry/IndexedGeometry", "[unittests][Core][Core/Geometry][IndexedGeometry]" ) {
     using Ra::Core::Vector3;
     using namespace Ra::Core::Geometry;
