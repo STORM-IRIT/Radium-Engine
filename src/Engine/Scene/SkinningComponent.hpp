@@ -199,8 +199,6 @@ class RA_ENGINE_API SkinningComponent : public Component
     Getter<Core::Utils::Index> m_renderObjectReader;
 
     /// Getter/Setter to the skinned geom
-    //    ReadWrite<Core::Geometry::AttribArrayGeometry> m_geomWriter;
-    //    ReadWrite<Core::Geometry::AttribArrayGeometry> m_geomWriter;
     ReadWrite<Core::Geometry::MultiIndexedGeometry> m_geomWriter;
 
     /// The per-bone skinning weights.

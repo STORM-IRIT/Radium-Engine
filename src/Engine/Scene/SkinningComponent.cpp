@@ -1,16 +1,15 @@
-﻿#include "Core/Geometry/AttribArrayGeometry.hpp"
-#include "Core/Geometry/IndexedGeometry.hpp"
-#include <Engine/Scene/SkinningComponent.hpp>
-
-#include <Core/Animation/PoseOperation.hpp>
+﻿#include <Engine/Scene/SkinningComponent.hpp>
 
 #include <Core/Animation/DualQuaternionSkinning.hpp>
 #include <Core/Animation/HandleWeightOperation.hpp>
 #include <Core/Animation/LinearBlendSkinning.hpp>
+#include <Core/Animation/PoseOperation.hpp>
+#include <Core/Animation/RotationCenterSkinning.hpp>
+#include <Core/Geometry/AttribArrayGeometry.hpp>
 #include <Core/Geometry/DistanceQueries.hpp>
+#include <Core/Geometry/IndexedGeometry.hpp>
 #include <Core/Utils/Color.hpp>
 #include <Core/Utils/Log.hpp>
-
 #include <Engine/Data/BlinnPhongMaterial.hpp>
 #include <Engine/Data/Mesh.hpp>
 #include <Engine/Data/ShaderConfigFactory.hpp>
@@ -48,8 +47,6 @@ void SkinningComponent::initialize() {
         m_renderObjectReader = compMsg->getterCallback<Index>( getEntity(), m_meshName );
         m_skeletonGetter     = compMsg->getterCallback<Skeleton>( getEntity(), m_skelName );
 
-        //        m_geomWriter = compMsg->rwCallback<AttribArrayGeometry>( getEntity(), m_meshName
-        //        );
         m_geomWriter =
             compMsg->rwCallback<Geometry::MultiIndexedGeometry>( getEntity(), m_meshName );
 
@@ -176,8 +173,7 @@ void SkinningComponent::skin() {
             break;
         }
         case COR: {
-            ///\todo            centerOfRotationSkinning( m_refData, tangents, bitangents,
-            /// m_frameData );
+            centerOfRotationSkinning( m_refData, tangents, bitangents, m_frameData );
             break;
         }
         case LBS:
