@@ -411,6 +411,11 @@ class RA_ENGINE_API GeometryDisplayable : public AttribArrayDisplayable
     /// Update (i.e. send to GPU) the buffers marked as dirty
     void updateGL() override;
 
+    /// Helper function that calls Ra::Core::CoreGeometry::addAttrib()
+    template <typename A>
+    inline Ra::Core::Utils::AttribHandle<A> addAttrib( const std::string& name,
+                                                       const typename Core::VectorArray<A>& data );
+
     inline size_t getNumVertices() const override { return m_geom.vertices().size(); }
 
     void set_active_layer_key( LayerKeyType layer_key ) {
@@ -801,6 +806,14 @@ void CoreGeometryDisplayable<T>::setupCoreMeshObservers() {
     m_mesh.vertexAttribs().attachMember(
         this, &CoreGeometryDisplayable<CoreGeometry>::addAttribObserver );
     m_isDirty = true;
+}
+
+/// Helper function that calls Ra::Core::CoreGeometry::addAttrib()
+template <typename A>
+Ra::Core::Utils::AttribHandle<A>
+GeometryDisplayable::addAttrib( const std::string& name,
+                                const typename Core::VectorArray<A>& data ) {
+    return m_geom.addAttrib( name, data );
 }
 
 /// Helper function that calls Ra::Core::CoreGeometry::addAttrib()

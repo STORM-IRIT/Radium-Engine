@@ -198,8 +198,8 @@ void EnvironmentTexture::initializeTexture() {
     if ( m_isSkyBox ) {
         // make the skybox geometry
         Aabb aabb( Vector3 { -1_ra, -1_ra, -1_ra }, Vector3 { 1_ra, 1_ra, 1_ra } );
-        Geometry::TriangleMesh skyMesh = Geometry::makeSharpBox( aabb );
-        m_displayMesh                  = std::make_unique<Ra::Engine::Data::Mesh>( "skyBox" );
+        auto skyMesh  = Geometry::makeSharpBox( aabb );
+        m_displayMesh = std::make_unique<Ra::Engine::Data::Mesh>( "skyBox" );
         m_displayMesh->loadGeometry( std::move( skyMesh ) );
     }
 }
