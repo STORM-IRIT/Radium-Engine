@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.webp"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.7.5</span>
+   &#160;<span id="projectnumber">1.7.6</span>
    </div>
   </td>
  </tr>
@@ -176,7 +176,10 @@ Headers</h1>
 <ul>
 <li>Every .cpp must have an associated .hpp file</li>
 <li>oneline inline can be defined in class</li>
-<li>complex inline methods are defined out of class in .hpp</li>
+<li>complex inline methods are defined out of class in .hpp<ul>
+<li>inline keyword in definition only (not in class decl), following <a href="https://isocpp.org/wiki/faq/inline-functions\#where-to-put-inline-keyword" target="_blank">isocpp recommendation</a>.</li>
+</ul>
+</li>
 <li>Two types of include guards are accepted (modern is preferred):<ul>
 <li>Modern: <code>#pragma once</code></li>
 <li>Legacy: <code>#ifndef HEADER_NAME_HPP_</code></li>
