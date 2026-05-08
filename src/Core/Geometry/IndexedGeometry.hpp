@@ -487,9 +487,7 @@ class RA_CORE_API MultiIndexedGeometry : public AttribArrayGeometry, public Util
     std::unordered_map<LayerKeyType, LayerEntryType, LayerKeyHash> m_indices;
 
     /// Default layer key, initialized as invalid, set to first added Layer Key.
-    LayerKeyType m_default_layer_key = std::make_pair<LayerSemanticCollection, std::string>(
-        { InvalidIndexLayer::staticSemanticName },
-        "invalid" );
+    LayerKeyType m_default_layer_key { { InvalidIndexLayer::staticSemanticName }, "invalid" };
 };
 
 /**
@@ -499,6 +497,7 @@ class RA_CORE_API MultiIndexedGeometry : public AttribArrayGeometry, public Util
  */
 /// \brief Index layer for a point cloud
 OPEN_DECLARATION_INDEX_LAYER( PointCloudIndexLayer, Vector1ui )
+
 /// \brief Constructor of an index layer with linearly spaced indices ranging from \f$0\f$ to
 /// \f$n-1\f$
 inline explicit PointCloudIndexLayer( size_t n ) :
@@ -810,6 +809,7 @@ const typename IndexedGeometry<T>::IndexContainerType& IndexedGeometry<T>::getIn
     const auto& abstractLayer = getLayer( default_layer_key() );
     return static_cast<const IndexedGeometry<T>::DefaultLayerType&>( abstractLayer ).collection();
 }
+
 template <typename T>
 typename IndexedGeometry<T>::IndexContainerType& IndexedGeometry<T>::getIndicesWithLock() {
     auto& abstractLayer = getLayerWithLock( default_layer_key() );

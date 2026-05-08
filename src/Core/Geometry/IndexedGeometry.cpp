@@ -256,6 +256,7 @@ void MultiIndexedGeometry::deepCopy( const MultiIndexedGeometry& other ) {
 
 void MultiIndexedGeometry::deepClear() {
     m_indices.clear();
+    m_default_layer_key = { { InvalidIndexLayer::staticSemanticName }, "invalid" };
 }
 
 //////////////////////////////////////////////////////////////////////
