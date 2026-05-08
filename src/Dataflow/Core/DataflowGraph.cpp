@@ -529,7 +529,7 @@ void DataflowGraph::backtrack_graph(
                     // If the previous node is already in the map,
                     // find if the current node is already a successor node
                     auto& previousSuccessors = previousInInfoNodes->second.second;
-                    bool foundCurrent        = std::any_of( previousSuccessors.begin(),
+                    bool foundCurrent = std::any_of( previousSuccessors.begin(),
                                                      previousSuccessors.end(),
                                                      [current]( auto c ) { return c == current; } );
                     if ( !foundCurrent ) {

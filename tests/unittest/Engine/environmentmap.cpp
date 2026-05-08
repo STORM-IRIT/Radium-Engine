@@ -31,7 +31,7 @@ TEST_CASE( "Engine/Data/EnvironmentTexture/Equirectangular",
                                        -1.16553,
                                        2.17916 )
                                          .finished();
-        auto diff = redShCoefs - refCoefs;
+        auto diff                  = redShCoefs - refCoefs;
         REQUIRE( diff.norm() <= 1e-3 );
     }
 }
@@ -62,7 +62,7 @@ TEST_CASE( "Engine/Data/EnvironmentTexture/PFM",
                                        0.0441319_ra,
                                        2.90152_ra )
                                          .finished();
-        auto diff = greenShCoefs - refCoefs;
+        auto diff                  = greenShCoefs - refCoefs;
         REQUIRE( diff.norm() <= 1e-3 );
     }
 }
@@ -94,7 +94,7 @@ TEST_CASE( "Engine/Data/EnvironmentTexture/CubeMap",
                                        -0.0119704_ra,
                                        0.585438_ra )
                                          .finished();
-        auto diff = blueShCoefs - refCoefs;
+        auto diff                  = blueShCoefs - refCoefs;
         REQUIRE( diff.norm() <= 1e-3 );
     }
 }
