@@ -9,6 +9,7 @@
 #include <Core/Utils/Color.hpp>
 #include <Core/Utils/Log.hpp>
 #include <Core/Utils/ObjectWithSemantic.hpp>
+#include <Core/Utils/StdUtils.hpp>
 #include <Engine/Data/DisplayableObject.hpp>
 #include <Engine/Data/ShaderProgram.hpp>
 #include <Engine/RaEngine.hpp>
@@ -385,6 +386,7 @@ class RA_ENGINE_API GeometryDisplayable : public AttribArrayDisplayable
     /// \param r is a collection of keys and renderMode, e.g. { {key1, RM_TRIANGLES}, {key2,
     /// RM_LINES} }
     /// \todo c++20 switch to range concept
+
     template <typename RangeOfLayerKeys>
     inline void loadGeometry( Core::Geometry::MultiIndexedGeometry&& mesh,
                               const RangeOfLayerKeys& r ) {
@@ -392,9 +394,12 @@ class RA_ENGINE_API GeometryDisplayable : public AttribArrayDisplayable
         m_geom = std::move( mesh );
         setupCoreMeshObservers();
 
-        for ( const auto& k : r )
-            addRenderLayer( k.first, k.second );
-
+        for ( const auto& k : r ) {
+            auto check = addRenderLayer( k.first, k.second );
+            if ( !check ) {
+                LOG( logERROR ) << "failed to load " << k.first.first << " " << k.first.second;
+            }
+        }
         set_active_layer_key( r[0].first );
     }
     inline void loadGeometry( Core::Geometry::MultiIndexedGeometry&& mesh,
