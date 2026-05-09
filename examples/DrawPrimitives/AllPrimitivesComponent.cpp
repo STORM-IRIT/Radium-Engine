@@ -44,6 +44,7 @@ const bool ENABLE_LOGO      = true;
 const bool ENABLE_COLLAPSE  = true;
 const bool ENABLE_SPLIT     = true;
 const bool ENABLE_TORUS     = true;
+const bool ENABLE_QUADSTRIP = true;
 
 using namespace Ra;
 using namespace Ra::Core;
@@ -1080,6 +1081,30 @@ void AllPrimitivesComponent::initialize() {
 
                 addRenderObject( texTorus );
             }
+        }
+    }
+    if ( ENABLE_QUADSTRIP ) {
+        updateCellCorner( cellCorner, cellSize, nCellX, nCellY );
+        updateCellCorner( cellCorner, cellSize, nCellX, nCellY );
+
+        {
+            using Ra::Engine::Data::Mesh;
+            {
+                auto strip = RenderObject::createRenderObject(
+                    "test_quadstrip",
+                    this,
+                    RenderObjectType::Geometry,
+                    DrawPrimitives::QuadStrip( cellCorner + Vector3 { 0_ra, 2_ra * offset, 0_ra },
+                                               { .1_ra, 0_ra, 0_ra },
+                                               { 0_ra, .1_ra / 4, 0_ra },
+                                               8,
+                                               colorBoost * Color::Cyan() ),
+                    {} );
+                strip->setMaterial( blinnPhongMaterial );
+                addRenderObject( strip );
+            }
+
+            {}
         }
     }
 }
