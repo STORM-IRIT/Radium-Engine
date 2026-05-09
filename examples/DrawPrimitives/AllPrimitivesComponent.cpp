@@ -1094,7 +1094,7 @@ void AllPrimitivesComponent::initialize() {
                     "test_quadstrip",
                     this,
                     RenderObjectType::Geometry,
-                    DrawPrimitives::QuadStrip( cellCorner + Vector3 { 0_ra, 2_ra * offset, 0_ra },
+                    DrawPrimitives::QuadStrip( cellCorner + offsetVec,
                                                { .1_ra, 0_ra, 0_ra },
                                                { 0_ra, .1_ra / 4, 0_ra },
                                                8,
@@ -1104,7 +1104,20 @@ void AllPrimitivesComponent::initialize() {
                 addRenderObject( strip );
             }
 
-            {}
+            {
+                auto strip = RenderObject::createRenderObject(
+                    "test_quadstrip",
+                    this,
+                    RenderObjectType::Geometry,
+                    DrawPrimitives::QuadStrip( cellCorner + 2_ra * offsetVec,
+                                               { .1_ra, 0_ra, 0_ra },
+                                               { 0_ra, .1_ra / 4, 0_ra },
+                                               8,
+                                               colorBoost * Color::Cyan() ),
+                    {} );
+                strip->setMaterial( blinnPhongTexturedMaterial );
+                addRenderObject( strip );
+            }
         }
     }
 }
