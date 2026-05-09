@@ -71,12 +71,12 @@ RA_ENGINE_API GeometryDisplayablePtr Triangle( const Core::Vector3& a,
                                                const Core::Utils::Color& color,
                                                bool fill = false );
 
-/// Displays a strip of n quads, starting at A and with directions X and Y.
-RA_ENGINE_API MeshPtr QuadStrip( const Core::Vector3& a,
-                                 const Core::Vector3& x,
-                                 const Core::Vector3& y,
-                                 uint quads,
-                                 const Core::Utils::Color& color );
+/// Displays a strip of n quads (in Y), starting at A and with directions X and Y.
+RA_ENGINE_API GeometryDisplayablePtr QuadStrip( const Core::Vector3& a,
+                                                const Core::Vector3& x,
+                                                const Core::Vector3& y,
+                                                uint quads,
+                                                const Core::Utils::Color& color );
 
 /// Displays circle computed with given center and radius,
 /// in plane normal to given vector in wireframe

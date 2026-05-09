@@ -151,34 +151,44 @@ GeometryDisplayablePtr Triangle( const Core::Vector3& a,
     return ret;
 }
 
-/// \todo continue to convert mesh creation and remove call to deprecated Mesh::loadGeometry
-MeshPtr QuadStrip( const Core::Vector3& a,
-                   const Core::Vector3& x,
-                   const Core::Vector3& y,
-                   uint quads,
-                   const Core::Utils::Color& color ) {
-    Core::Vector3Array vertices( quads * 2 + 2 );
-    std::vector<uint> indices( quads * 2 + 2 );
+GeometryDisplayablePtr QuadStrip( const Core::Vector3& a,
+                                  const Core::Vector3& x,
+                                  const Core::Vector3& y,
+                                  uint quads,
+                                  const Core::Utils::Color& color ) {
 
-    Core::Vector3 B = a;
-    vertices[0]     = B;
-    vertices[1]     = B + x;
-    indices[0]      = 0;
-    indices[1]      = 1;
-    for ( uint i = 0; i < quads; ++i ) {
-        B += y;
-        vertices[2 * i + 2] = B;
-        vertices[2 * i + 3] = B + x;
-        indices[2 * i + 2]  = 2 * i + 2;
-        indices[2 * i + 3]  = 2 * i + 3;
-    }
+    const Core::Vector3 trans = a + .5_ra * ( x + quads * y );
+    using namespace Ra::Core::Geometry;
 
-    Core::Vector4Array colors( vertices.size(), color );
+    Core::Transform t   = Core::Transform::Identity();
+    t.linear().col( 0 ) = x.normalized();
+    t.linear().col( 1 ) = y.normalized();
+    t.linear().col( 2 ) = x.cross( y ).normalized();
 
-    MeshPtr mesh( new Mesh( "Quad Strip Primitive", Mesh::RM_TRIANGLE_STRIP ) );
-    mesh->loadGeometry( vertices, indices );
-    mesh->getCoreGeometry().addAttrib(
-        Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::MeshAttrib::VERTEX_COLOR ), colors );
+    t.pretranslate( trans );
+
+    Vector2 halfExts = Vector2( x.norm() / 2_ra, quads * y.norm() / 2_ra );
+    auto geom        = makePlaneGrid( quads, 1, halfExts, t, color, true );
+
+    auto vertHandle = geom.getAttribHandle<TriangleMesh::Point>( getAttribName( VERTEX_POSITION ) );
+    auto& vertAttrib = geom.getAttrib<TriangleMesh::Point>( vertHandle );
+
+    Core::Vector4Array colors( vertAttrib.getSize(), color );
+    geom.addAttrib( getAttribName( MeshAttrib::VERTEX_COLOR ), colors );
+
+    auto mesh        = make_shared<GeometryDisplayable>( "Quad Strip Primitive" );
+    auto strip_layer = std::make_unique<StripOrFanIndexLayer>();
+    strip_layer->collection().push_back( StripOrFanIndexLayer::IndexType::LinSpaced(
+        vertAttrib.getSize(), 0, vertAttrib.getSize() - 1 ) );
+    auto [strip_check, strip_key] = geom.addLayer( std::move( strip_layer ) );
+
+    auto default_layer = geom.default_layer_key();
+    geom.set_default_layer_key( strip_key );
+
+    mesh->loadGeometry(
+        std::move( geom ),
+        GeometryDisplayable::ArrayOfLayerKeys<2> {
+            { { strip_key, Mesh::RM_TRIANGLE_STRIP }, { default_layer, Mesh::RM_QUADS } } } );
     return mesh;
 }
 
@@ -430,6 +440,7 @@ GeometryDisplayablePtr Normal( const Core::Vector3& point,
     return make_shared<GeometryDisplayable>( "Normal Primitive", std::move( geom ) );
 }
 
+/// \todo continue to convert mesh creation and remove call to deprecated Mesh::loadGeometry
 MeshPtr Frame( const Core::Transform& frameFromEntity, Scalar scale ) {
     // Frame is a bit different from the others
     // since there are 3 lines of different colors.
