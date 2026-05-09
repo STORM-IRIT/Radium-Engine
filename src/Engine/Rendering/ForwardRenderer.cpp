@@ -404,6 +404,7 @@ void ForwardRenderer::renderInternal( const Data::ViewingParameters& renderData 
             auto displayable = ro->getMesh();
             using dispmesh   = Ra::Engine::Data::GeometryDisplayable;
             auto td          = std::dynamic_pointer_cast<dispmesh>( displayable );
+
             if ( td ) {
                 using namespace Core::Geometry;
                 using LayerKeyType   = Core::Geometry::MultiIndexedGeometry::LayerKeyType;
@@ -432,12 +433,10 @@ void ForwardRenderer::renderInternal( const Data::ViewingParameters& renderData 
                 else if ( hasQuadLayer && !coreGeom.containsLayer( lineKey2 ) ) {
                     setupLineMesh<QuadIndexLayer>( *td, "wireframe main" );
                 }
+                auto shader = m_shaderProgramManager->getShaderProgram( "Wireframe" );
+                if ( ( hasQuadLayer || hasPolyLayer || hasTriangleLayer ) && shader &&
+                     ro->isVisible() ) {
 
-                const Data::ShaderProgram* shader =
-                    m_shaderProgramManager->getShaderProgram( "Wireframe" );
-
-                if ( hasTriangleLayer && shader && ro->isVisible() ) {
-                    GL_CHECK_ERROR;
                     td->updateGL();
                     GL_CHECK_ERROR;
                     shader->bind();
@@ -448,16 +447,18 @@ void ForwardRenderer::renderInternal( const Data::ViewingParameters& renderData 
                     shader->setUniform( "transform.view", renderData.viewMatrix );
                     shader->setUniform( "transform.model", modelMatrix );
                     shader->setUniform( "viewport", Core::Vector2 { m_width, m_height } );
-                    if ( hasTriangleLayer && ( hasQuadLayer || hasPolyLayer ) )
-                        shader->setUniform( "pixelWidth", 1.5f );
-                    else
-                        shader->setUniform( "pixelWidth", 1.8f );
 
-                    GL_CHECK_ERROR;
-                    td->render( shader, lineKey );
+                    if ( hasTriangleLayer ) {
+                        if ( hasQuadLayer || hasPolyLayer ) {
+                            shader->setUniform( "pixelWidth", 1.2f );
+                        }
+                        else { shader->setUniform( "pixelWidth", 2.4f ); }
+                        GL_CHECK_ERROR;
+                        td->render( shader, lineKey );
+                    }
 
                     if ( ( hasQuadLayer || hasPolyLayer ) ) {
-                        shader->setUniform( "pixelWidth", 2.1f );
+                        shader->setUniform( "pixelWidth", 2.4f );
                         GL_CHECK_ERROR;
                         td->render( shader, lineKey2 );
                     }
