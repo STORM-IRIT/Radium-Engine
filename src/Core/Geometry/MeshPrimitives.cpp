@@ -910,7 +910,7 @@ LineMesh makeGrid( const Core::Vector3& center,
 QuadMesh makePlaneGrid( const uint rows,
                         const uint cols,
                         const Vector2& halfExts,
-                        const Transform& T,
+                        const Transform& transform,
                         const Utils::optional<Utils::Color>& color,
                         bool generateTexCoord ) {
     QuadMesh result;
@@ -922,32 +922,41 @@ QuadMesh makePlaneGrid( const uint rows,
     const uint R      = ( rows + 1 );
     const uint C      = ( cols + 1 );
     const uint v_size = C * R;
-    const uint t_size = cols * rows;
+    const uint f_size = cols * rows;
 
     vertices.resize( v_size );
     normals.resize( v_size );
-    texCoords.reserve( v_size );
+    texCoords.resize( v_size );
 
-    const Vector3 X = T.linear().col( 0 ).normalized();
-    const Vector3 Y = T.linear().col( 1 ).normalized();
-    const Vector3 Z = T.linear().col( 2 ).normalized();
+    const Vector3 X = transform.linear().col( 0 ).normalized();
+    const Vector3 Y = transform.linear().col( 1 ).normalized();
+    const Vector3 Z = transform.linear().col( 2 ).normalized();
 
-    const Vector3 x = ( 2_ra * halfExts[0] * X ) / Scalar( cols );
-    const Vector3 y = ( 2_ra * halfExts[1] * Y ) / Scalar( rows );
-    const Vector3 o = T.translation() - ( halfExts[0] * X ) - ( halfExts[1] * Y );
+    const Vector3 x      = ( 2_ra * halfExts[0] * X ) / Scalar( cols );
+    const Vector3 y      = ( 2_ra * halfExts[1] * Y ) / Scalar( rows );
+    const Vector3 origin = transform.translation() - ( halfExts[0] * X ) - ( halfExts[1] * Y );
 
-    const Scalar du = 1_ra / rows;
-    const Scalar dv = 1_ra / cols;
+    const Scalar du = 1_ra / cols;
+    const Scalar dv = 1_ra / rows;
 
     Grid<uint, 2> v( { R, C } );
+    Scalar cv           = 0;
+    Vector3 current_row = origin;
+    uint id             = 0;
     for ( uint i = 0; i < R; ++i ) {
+        Scalar cu             = 0;
+        Vector3 current_point = current_row;
         for ( uint j = 0; j < C; ++j ) {
-            const uint id    = ( i * C ) + j;
             v.at( { i, j } ) = id;
-            vertices[id]     = o + ( i * y ) + ( j * x );
+            vertices[id]     = current_point;
             normals[id]      = Z;
-            texCoords.emplace_back( i * du, j * dv, 0_ra );
+            texCoords[id]    = Vector3( cu, cv, 0_ra );
+            current_point += x;
+            cu += du;
+            ++id;
         }
+        cv += dv;
+        current_row += y;
     }
 
     result.setVertices( std::move( vertices ) );
@@ -957,7 +966,7 @@ QuadMesh makePlaneGrid( const uint rows,
     if ( bool( color ) ) result.colorize( *color );
 
     auto& face_layer = result.getIndicesWithLock();
-    face_layer.reserve( t_size );
+    face_layer.reserve( f_size );
 
     for ( uint i = 0; i < rows; ++i ) {
         for ( uint j = 0; j < cols; ++j ) {

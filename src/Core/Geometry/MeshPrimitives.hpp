@@ -16,8 +16,8 @@ namespace Geometry {
 //
 
 /// Create a 2D grid mesh with given number of row and columns
-/// \param rows: number of rows
-/// \param cols: number of columns
+/// \param rows: number of rows (y direction)
+/// \param cols: number of columns (x direction)
 /// \param halfExts: from center of the grid to each corner, in 2D, before applying T
 /// \param T: apply T to the generated vertices
 /// \param color: if set, colorize vertices
