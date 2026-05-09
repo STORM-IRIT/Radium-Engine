@@ -30,6 +30,8 @@ RA_CORE_API QuadMesh makePlaneGrid( const uint rows         = 1,
                                     const Utils::optional<Utils::Color>& color = {},
                                     bool generateTexCoord                      = false );
 
+/// Create a 2D grid, with only outer points, connected as lines, inner line intersctions are not
+/// present in verstices.
 RA_CORE_API LineMesh makeGrid( const Core::Vector3& center,
                                const Core::Vector3& x,
                                const Core::Vector3& y,
