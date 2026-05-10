@@ -15,6 +15,7 @@
 #include <Engine/Rendering/RenderTechnique.hpp>
 
 #include <algorithm>
+#include <memory>
 #include <numeric>
 
 namespace Ra {
@@ -441,7 +442,7 @@ GeometryDisplayablePtr Normal( const Core::Vector3& point,
 }
 
 /// \todo continue to convert mesh creation and remove call to deprecated Mesh::loadGeometry
-MeshPtr Frame( const Core::Transform& frameFromEntity, Scalar scale ) {
+GeometryDisplayablePtr Frame( const Core::Transform& frameFromEntity, Scalar scale ) {
     // Frame is a bit different from the others
     // since there are 3 lines of different colors.
     Core::Vector3 pos = frameFromEntity.translation();
@@ -449,8 +450,10 @@ MeshPtr Frame( const Core::Transform& frameFromEntity, Scalar scale ) {
     Core::Vector3 y   = frameFromEntity.linear() * Core::Vector3::UnitY();
     Core::Vector3 z   = frameFromEntity.linear() * Core::Vector3::UnitZ();
 
-    Core::Vector3Array vertices = {
-        pos, pos + scale * x, pos, pos + scale * y, pos, pos + scale * z };
+    Geometry::LineMesh geom;
+    geom.setVertices( { { pos, pos + scale * x, pos, pos + scale * y, pos, pos + scale * z } } );
+
+    geom.setIndices( { { 0, 1 }, { 2, 3 }, { 4, 5 } } );
 
     Core::Vector4Array colors = {
         Core::Utils::Color::Red(),
@@ -461,14 +464,10 @@ MeshPtr Frame( const Core::Transform& frameFromEntity, Scalar scale ) {
         Core::Utils::Color::Blue(),
     };
 
-    std::vector<uint> indices = { 0, 1, 2, 3, 4, 5 };
-    MeshPtr mesh( new Mesh( "Frame Primitive", Mesh::RM_LINES ) );
-
-    mesh->loadGeometry( vertices, indices );
-    mesh->getCoreGeometry().addAttrib(
+    geom.addAttrib(
         Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::MeshAttrib::VERTEX_COLOR ), colors );
 
-    return mesh;
+    return make_shared<GeometryDisplayable>( "Frame Primitive", std::move( geom ) );
 }
 
 GeometryDisplayablePtr Grid( const Core::Vector3& center,
@@ -482,27 +481,17 @@ GeometryDisplayablePtr Grid( const Core::Vector3& center,
     return mesh;
 }
 
-MeshPtr AABB( const Core::Aabb& aabb, const Core::Utils::Color& color ) {
-    Core::Vector3Array vertices( 8 );
+GeometryDisplayablePtr AABB( const Core::Aabb& aabb, const Core::Utils::Color& color ) {
+    auto geom         = makeSharpBox2( aabb, color );
+    auto ret          = make_shared<GeometryDisplayable>( "AABB Primitive", std::move( geom ) );
+    auto [key, layer] = ret->getCoreGeometry().getFirstLayerOccurrence(
+        Core::Geometry::LineIndexLayer::staticSemanticName );
 
-    for ( uint i = 0; i < 8; ++i ) {
-        vertices[i] = aabb.corner( static_cast<Core::Aabb::CornerType>( i ) );
-    }
+    std::cerr << "aabb check " << key.first << " " << key.second << "\n";
 
-    std::vector<uint> indices = {
-        0, 1, 1, 3, 3, 2, 2, 0, // Floor
-        0, 4, 1, 5, 2, 6, 3, 7, // Links
-        4, 5, 5, 7, 7, 6, 6, 4, // Ceil
-    };
-
-    Core::Vector4Array colors( vertices.size(), color );
-
-    MeshPtr mesh( new Mesh( "AABB Primitive", Mesh::RM_LINES ) );
-    mesh->loadGeometry( vertices, indices );
-    mesh->getCoreGeometry().addAttrib(
-        Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::MeshAttrib::VERTEX_COLOR ), colors );
-
-    return mesh;
+    ret->addRenderLayer( key, AttribArrayDisplayable::MeshRenderMode::RM_LINES );
+    ret->set_active_layer_key( key );
+    return ret;
 }
 
 MeshPtr OBB( const Obb& obb, const Core::Utils::Color& color ) {

@@ -198,19 +198,32 @@ MultiIndexedGeometry makeSharpBox2( const Aabb& aabb,
 
         result.addAttrib( "in_texcoord", std::move( texCoords ) );
     }
+    {
+        auto layer          = std::make_unique<QuadIndexLayer>();
+        layer->collection() = {
+            Vector4ui( 0, 1, 2, 3 ),     // Floor
+            Vector4ui( 4, 5, 6, 7 ),     // Ceil
+            Vector4ui( 8, 9, 10, 11 ),   // Left
+            Vector4ui( 12, 13, 14, 15 ), // Right
+            Vector4ui( 16, 17, 18, 19 ), // Bottom
+            Vector4ui( 20, 21, 22, 23 )  // Top
+        };
 
-    auto layer = std::make_unique<QuadIndexLayer>();
+        result.addLayer( std::move( layer ) );
+    }
+    {
+        auto layer          = std::make_unique<LineIndexLayer>();
+        layer->collection() = {
+            { 0, 1 },   { 1, 2 },   { 2, 3 },   { 3, 0 },   // Floor
+            { 4, 5 },   { 5, 6 },   { 6, 7 },   { 7, 4 },   // Ceil
+            { 8, 9 },   { 9, 10 },  { 10, 11 }, { 11, 8 },  // Left
+            { 12, 13 }, { 13, 14 }, { 14, 15 }, { 15, 12 }, // Right
+            { 16, 17 }, { 17, 18 }, { 18, 19 }, { 19, 16 }, // Bottom
+            { 20, 21 }, { 21, 22 }, { 22, 23 }, { 23, 20 }  // Top
+        };
+        result.addLayer( std::move( layer ), false, "aabb" );
+    }
 
-    layer->collection() = {
-        Vector4ui( 0, 1, 2, 3 ),     // Floor
-        Vector4ui( 4, 5, 6, 7 ),     // Ceil
-        Vector4ui( 8, 9, 10, 11 ),   // Left
-        Vector4ui( 12, 13, 14, 15 ), // Right
-        Vector4ui( 16, 17, 18, 19 ), // Bottom
-        Vector4ui( 20, 21, 22, 23 )  // Top
-    };
-
-    result.addLayer( std::move( layer ) );
     if ( bool( color ) ) result.colorize( *color );
     result.checkConsistency();
     return MultiIndexedGeometry { std::move( result ) };

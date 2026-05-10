@@ -590,7 +590,7 @@ void AllPrimitivesComponent::initialize() {
                    DrawPrimitives::Grid( const Core::Vector3& center,
                                                    const Core::Vector3& x,
                                                    const Core::Vector3& y,
-                              k                     const Core::Color& color,
+                                                   const Core::Color& color,
                                                    Scalar cellSize = 1.f,
                                                    uint res        = 10 );
 
@@ -740,6 +740,15 @@ void AllPrimitivesComponent::initialize() {
                 renderObject->setMaterial( roMaterial );
 
                 addRenderObject( renderObject );
+
+                auto aabb =
+                    DrawPrimitives::AABB( renderObject->computeAabb(), Utils::Color::Red() );
+
+                auto renderObject1 = RenderObject::createRenderObject(
+                    "AABB", this, RenderObjectType::Geometry, aabb, {} );
+
+                renderObject1->setMaterial( plainMaterial );
+                addRenderObject( renderObject1 );
             }
         }
     }
