@@ -84,6 +84,67 @@ TriangleMesh makeBox( const Aabb& aabb, const Utils::optional<Utils::Color>& col
     return result;
 }
 
+MultiIndexedGeometry makeBox2( const Vector3& halfExts,
+                               const Utils::optional<Utils::Color>& color ) {
+    return makeBox2( -halfExts,
+                     Vector3 { 2_ra * halfExts.x(), 0, 0 },
+                     Vector3 { 0, 2_ra * halfExts.y(), 0 },
+                     Vector3 { 0, 0, 2_ra * halfExts.z() },
+                     color );
+}
+
+MultiIndexedGeometry makeBox2( const Aabb& aabb, const Utils::optional<Utils::Color>& color ) {
+
+    return makeBox2( aabb.corner( Aabb::BottomLeftFloor ),
+                     aabb.corner( Aabb::BottomRightFloor ) - aabb.corner( Aabb::BottomLeftFloor ),
+                     aabb.corner( Aabb::BottomLeftCeil ) - aabb.corner( Aabb::BottomLeftFloor ),
+                     aabb.corner( Aabb::TopLeftFloor ) - aabb.corner( Aabb::BottomLeftFloor ),
+                     color );
+}
+
+MultiIndexedGeometry makeBox2( const Vector3& corner,
+                               const Vector3& x,
+                               const Vector3& y,
+                               const Vector3& z,
+                               const Utils::optional<Utils::Color>& color ) {
+    MultiIndexedGeometry result;
+    result.setVertices( { corner,
+                          corner + x,
+                          corner + x + y,
+                          corner + y,
+                          corner + z,
+                          corner + x + z,
+                          corner + x + y + z,
+                          corner + y + z } );
+    const auto& v = result.vertices();
+
+    Vector3 center = corner + .5_ra * ( x + y + z );
+
+    result.setNormals( {
+        v[0] - center,
+        v[1] - center,
+        v[2] - center,
+        v[3] - center,
+        v[4] - center,
+        v[5] - center,
+        v[6] - center,
+        v[7] - center,
+    } );
+
+    auto layer          = std::make_unique<QuadIndexLayer>();
+    layer->collection() = { Vector4ui( 0, 3, 2, 1 ),
+                            Vector4ui( 4, 5, 6, 7 ),
+                            Vector4ui( 0, 1, 5, 4 ),
+                            Vector4ui( 0, 4, 7, 3 ),
+                            Vector4ui( 1, 2, 6, 5 ),
+                            Vector4ui( 2, 3, 7, 6 ) };
+    if ( bool( color ) ) result.colorize( *color );
+
+    result.addLayer( std::move( layer ) );
+
+    return MultiIndexedGeometry { std::move( result ) };
+}
+
 TriangleMesh makeSharpBox( const Vector3& halfExts,
                            const Utils::optional<Utils::Color>& color,
                            bool generateTexCoord ) {

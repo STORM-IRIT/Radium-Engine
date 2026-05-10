@@ -66,6 +66,20 @@ RA_CORE_API TriangleMesh makeBox( const Aabb& aabb,
                                   const Utils::optional<Utils::Color>& color = {} );
 
 /// Create an axis-aligned cubic mesh with the given half extents, centered on the origin.
+RA_CORE_API MultiIndexedGeometry makeBox2( const Vector3& halfExts = Vector3( .5_ra, .5_ra, .5_ra ),
+                                           const Utils::optional<Utils::Color>& color = {} );
+
+/// Create an axis-aligned cubic mesh
+RA_CORE_API MultiIndexedGeometry makeBox2( const Aabb& aabb,
+                                           const Utils::optional<Utils::Color>& color = {} );
+
+RA_CORE_API MultiIndexedGeometry makeBox2( const Vector3& corner,
+                                           const Vector3& x,
+                                           const Vector3& y,
+                                           const Vector3& z,
+                                           const Utils::optional<Utils::Color>& color );
+
+/// Create an axis-aligned cubic mesh with the given half extents, centered on the origin.
 RA_CORE_API TriangleMesh makeSharpBox( const Vector3& halfExts = Vector3( .5_ra, .5_ra, .5_ra ),
                                        const Utils::optional<Utils::Color>& color = {},
                                        bool generateTexCoord                      = false );

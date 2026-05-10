@@ -88,6 +88,7 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
     explicit TopologicalMesh(
         const Ra::Core::Geometry::MultiIndexedGeometry& mesh,
         const Ra::Core::Geometry::MultiIndexedGeometry::LayerKeyType& layerKey );
+    explicit TopologicalMesh( const Ra::Core::Geometry::MultiIndexedGeometry& mesh );
 
     /**
      * Construct a topological mesh from a triangle mesh.
@@ -123,6 +124,9 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
         const Ra::Core::Geometry::MultiIndexedGeometry& mesh,
         const Ra::Core::Geometry::MultiIndexedGeometry::LayerKeyType& layerKey,
         NonManifoldFaceCommand command );
+    template <typename NonManifoldFaceCommand>
+    explicit TopologicalMesh( const Ra::Core::Geometry::MultiIndexedGeometry& mesh,
+                              NonManifoldFaceCommand command );
 
     inline void
     initWithWedge( const Ra::Core::Geometry::MultiIndexedGeometry& mesh,
@@ -1061,6 +1065,16 @@ inline TopologicalMesh::TopologicalMesh(
     const Ra::Core::Geometry::MultiIndexedGeometry& mesh,
     const Ra::Core::Geometry::MultiIndexedGeometry::LayerKeyType& layerKey ) :
     TopologicalMesh( mesh, layerKey, DefaultNonManifoldFaceCommand( "[default ctor]" ) ) {}
+
+inline TopologicalMesh::TopologicalMesh( const Ra::Core::Geometry::MultiIndexedGeometry& mesh ) :
+    TopologicalMesh( mesh,
+                     mesh.default_layer_key(),
+                     DefaultNonManifoldFaceCommand( "[default ctor]" ) ) {}
+
+template <typename NonManifoldFaceCommand>
+inline TopologicalMesh::TopologicalMesh( const Ra::Core::Geometry::MultiIndexedGeometry& mesh,
+                                         NonManifoldFaceCommand command ) :
+    TopologicalMesh( mesh, mesh.default_layer_key(), command ) {}
 
 template <typename NonManifoldFaceCommand>
 TopologicalMesh::TopologicalMesh(
