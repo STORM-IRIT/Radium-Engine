@@ -136,43 +136,62 @@ void AllPrimitivesComponent::initialize() {
     if ( ENABLE_CUBES ) {
         std::shared_ptr<GeometryDisplayable> cube1( new GeometryDisplayable( "Cube" ) );
         auto coord = cellSize / 16_ra;
-        cube1->loadGeometry(
-            Geometry::makeSharpBox2( Vector3 { coord, coord, coord }, Color::Green() ) );
-        auto renderObject1 = RenderObject::createRenderObject(
-            "Cube1", this, RenderObjectType::Geometry, cube1, {} );
-        renderObject1->setLocalTransform( Transform { Translation( cellCorner ) } );
-        renderObject1->setMaterial( blinnPhongMaterial );
-        addRenderObject( renderObject1 );
+        {
+            cube1->loadGeometry(
+                Geometry::makeSharpBox2( Vector3 { coord, coord, coord }, Color::Green() ) );
+            auto renderObject1 = RenderObject::createRenderObject(
+                "Cube1", this, RenderObjectType::Geometry, cube1, {} );
+            renderObject1->setLocalTransform( Transform { Translation( cellCorner ) } );
+            renderObject1->setMaterial( blinnPhongMaterial );
+            addRenderObject( renderObject1 );
+        }
+        {
+            std::shared_ptr<GeometryDisplayable> texCube( new GeometryDisplayable( "Cube" ) );
+            texCube->loadGeometry(
+                Geometry::makeSharpBox2( Vector3 { 1.2_ra * coord, 1.2_ra * coord, 1.2_ra * coord },
+                                         Color::White(),
+                                         true ) );
+            auto renderObjectTexCube = RenderObject::createRenderObject(
+                "TexCube", this, RenderObjectType::Geometry, texCube, {} );
+            renderObjectTexCube->setLocalTransform(
+                Transform { Translation( cellCorner + Vector3 { 0_ra, coord * 3.5_ra, 0_ra } ) } );
+            renderObjectTexCube->setMaterial( blinnPhongTexturedMaterial );
 
-        std::shared_ptr<GeometryDisplayable> texCube( new GeometryDisplayable( "Cube" ) );
-        texCube->loadGeometry( Geometry::makeSharpBox2(
-            Vector3 { 1.2_ra * coord, 1.2_ra * coord, 1.2_ra * coord }, Color::White(), true ) );
-        auto renderObjectTexCube = RenderObject::createRenderObject(
-            "TexCube", this, RenderObjectType::Geometry, texCube, {} );
-        renderObjectTexCube->setLocalTransform(
-            Transform { Translation( cellCorner + Vector3 { 0_ra, coord * 3.5_ra, 0_ra } ) } );
-        renderObjectTexCube->setMaterial( blinnPhongTexturedMaterial );
+            addRenderObject( renderObjectTexCube );
+        }
+        {
+            // another cube
+            std::shared_ptr<GeometryDisplayable> cube2( new GeometryDisplayable( "Cube" ) );
+            coord = cellSize / 4_ra;
+            cube2->loadGeometry( Geometry::makeSharpBox2( Vector3 { coord, coord, coord } ) );
 
-        addRenderObject( renderObjectTexCube );
+            const std::string myColourName { "colour" };
+            cube2->getCoreGeometry().addAttrib(
+                myColourName, Vector4Array { cube2->getNumVertices(), Color::Red() } );
 
-        // another cube
-        std::shared_ptr<GeometryDisplayable> cube2( new GeometryDisplayable( "Cube" ) );
-        coord = cellSize / 4_ra;
-        cube2->loadGeometry( Geometry::makeSharpBox2( Vector3 { coord, coord, coord } ) );
-
-        const std::string myColourName { "colour" };
-        cube2->getCoreGeometry().addAttrib(
-            myColourName, Vector4Array { cube2->getNumVertices(), Color::Red() } );
-
-        cube2->setAttribNameMatching(
-            myColourName, Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::VERTEX_COLOR ) );
-        auto renderObject2 = RenderObject::createRenderObject(
-            "CubeRO_2", this, RenderObjectType::Geometry, cube2, {} );
-        coord = cellSize / 2_ra;
-        renderObject2->setLocalTransform(
-            Transform { Translation( cellCorner + Vector3 { coord, coord, coord } ) } );
-        renderObject2->setMaterial( lambertianMaterial );
-        addRenderObject( renderObject2 );
+            cube2->setAttribNameMatching(
+                myColourName,
+                Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::VERTEX_COLOR ) );
+            auto renderObject2 = RenderObject::createRenderObject(
+                "CubeRO_2", this, RenderObjectType::Geometry, cube2, {} );
+            coord = cellSize / 2_ra;
+            renderObject2->setLocalTransform(
+                Transform { Translation( cellCorner + Vector3 { coord, coord, coord } ) } );
+            renderObject2->setMaterial( lambertianMaterial );
+            addRenderObject( renderObject2 );
+        }
+        {
+            std::shared_ptr<GeometryDisplayable> cube3( new GeometryDisplayable( "Cube" ) );
+            auto c = cellCorner + Vector3 { coord, coord, coord } + Vector3 { coord, 0, 0 };
+            auto x = Vector3 { coord, coord, 0 };
+            auto y = Vector3 { -coord, coord, 0 };
+            cube3->loadGeometry(
+                Geometry::makeBox2( c, x, y, x.cross( y ) / x.norm(), Color::Yellow() ) );
+            auto renderObject3 = RenderObject::createRenderObject(
+                "Cube3", this, RenderObjectType::Geometry, cube3, {} );
+            renderObject3->setMaterial( blinnPhongMaterial );
+            addRenderObject( renderObject3 );
+        }
     }
     //// POINTS ////
     if ( ENABLE_POINTS ) {
@@ -318,7 +337,7 @@ void AllPrimitivesComponent::initialize() {
         triangle2->setMaterial( plainMaterial );
         addRenderObject( triangle2 );
 
-        for ( int i = 0; i < 10; ++i ) {
+        for ( int i = 1; i < 11; ++i ) {
             auto triwire = RenderObject::createRenderObject(
                 "test_triangle_wire",
                 this,
