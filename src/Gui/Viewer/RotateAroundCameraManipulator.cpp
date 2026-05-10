@@ -77,7 +77,9 @@ void RotateAroundCameraManipulator::rotateCallback( QEvent* event ) {
     }
 }
 void RotateAroundCameraManipulator::setPivotCallback( QEvent* event ) {
-    if ( event->type() == QEvent::KeyPress ) { setPivotFromPixel( m_lastMouseX, m_lastMouseY ); }
+    //    if ( event->type() == QEvent::KeyPress ) {
+    setPivotFromPixel( m_lastMouseX, m_lastMouseY );
+    //    }
 }
 void RotateAroundCameraManipulator::zoomCallback( QEvent* event ) {
     if ( event->type() == QEvent::MouseMove ) {
@@ -132,6 +134,25 @@ bool RotateAroundCameraManipulator::handleMouseMoveEvent(
 
     m_lastMouseX = event->pos().x();
     m_lastMouseY = event->pos().y();
+
+    if ( m_light != nullptr ) {
+        m_light->setPosition( m_camera->getPosition() );
+        m_light->setDirection( m_camera->getDirection() );
+    }
+
+    return handled;
+}
+
+bool RotateAroundCameraManipulator::handleMousePressEvent(
+    QMouseEvent* event,
+    const Qt::MouseButtons& /*buttons*/,
+    const Qt::KeyboardModifiers& /* modifiers*/,
+    int key ) {
+
+    m_lastMouseX = event->pos().x();
+    m_lastMouseY = event->pos().y();
+
+    bool handled = m_keyMappingCallbackManager.triggerEventCallback( event, key );
 
     if ( m_light != nullptr ) {
         m_light->setPosition( m_camera->getPosition() );
