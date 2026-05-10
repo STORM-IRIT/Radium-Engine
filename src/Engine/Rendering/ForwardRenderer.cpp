@@ -406,6 +406,7 @@ void ForwardRenderer::renderInternal( const Data::ViewingParameters& renderData 
             auto td          = std::dynamic_pointer_cast<dispmesh>( displayable );
 
             if ( td ) {
+                if ( td->active_layer_key().first.contains( "LineIndexLayer" ) ) return;
                 using namespace Core::Geometry;
                 using LayerKeyType   = Core::Geometry::MultiIndexedGeometry::LayerKeyType;
                 using LineIndexLayer = Core::Geometry::LineIndexLayer;
