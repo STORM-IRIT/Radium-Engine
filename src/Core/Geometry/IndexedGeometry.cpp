@@ -187,30 +187,6 @@ GeometryIndexLayerBase& MultiIndexedGeometry::getLayerWithLock( const LayerKeyTy
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 
-void MultiIndexedGeometry::unlockFirstLayerOccurrence( const LayerSemantic& semanticName ) {
-    for ( auto& [key, value] : m_indices ) {
-        if ( key.first.find( semanticName ) != key.first.end() ) {
-            CORE_ASSERT( value.first, "try to release unlocked layer" );
-            value.first = false;
-            notify();
-            return;
-        }
-    }
-    throw std::out_of_range( "Layer entry not found" );
-}
-
-void MultiIndexedGeometry::unlockFirstLayerOccurrence( const LayerSemanticCollection& semantics ) {
-    for ( auto& [key, value] : m_indices ) {
-        if ( key.first == semantics ) {
-            CORE_ASSERT( value.first, "try to release unlocked layer" );
-            value.first = false;
-            notify();
-            return;
-        }
-    }
-    throw std::out_of_range( "Layer entry not found" );
-}
-
 void MultiIndexedGeometry::unlockLayer( const LayerKeyType& layerKey ) {
     auto& p = m_indices.at( layerKey );
     CORE_ASSERT( p.first, "try to release unlocked layer" );

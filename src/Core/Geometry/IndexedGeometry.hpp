@@ -69,7 +69,7 @@ class RA_CORE_API GeometryIndexLayerBase : public Utils::ObservableVoid,
     /// \brief Move assignment operator
     /// \copydetails GeometryIndexLayerBase(const GeometryIndexLayerBase&)
     inline GeometryIndexLayerBase& operator=( GeometryIndexLayerBase&& other );
-    virtual ~GeometryIndexLayerBase();
+    virtual ~GeometryIndexLayerBase() {}
 
     /// \brief Create new layer with duplicated content
     virtual std::unique_ptr<GeometryIndexLayerBase> clone() = 0;
@@ -80,7 +80,7 @@ class RA_CORE_API GeometryIndexLayerBase : public Utils::ObservableVoid,
     virtual void offset( int offset, uint start_index = 0 )                    = 0;
 
     /// \brief Compare if two layers have the same content
-    virtual inline bool operator==( const GeometryIndexLayerBase& other ) const;
+    virtual inline bool operator==( const GeometryIndexLayerBase& ) const { return false; }
 
   protected:
     /// \brief Hidden constructor that must be called by inheriting classes to define the object
@@ -97,15 +97,15 @@ struct GeometryIndexLayer : public GeometryIndexLayerBase {
     using IndexType          = T;
     using IndexContainerType = VectorArray<IndexType>;
 
-    inline IndexContainerType& collection();
-    const IndexContainerType& collection() const;
+    inline IndexContainerType& collection() { return m_collection; }
+    const IndexContainerType& collection() const { return m_collection; }
 
     inline bool append( const GeometryIndexLayerBase& other, int offset = 0 ) final;
     inline void offset( int offset, uint start_index = 0 ) final;
     /// \warning Does not account for elements permutations
     inline bool operator==( const GeometryIndexLayerBase& other ) const final;
 
-    inline size_t getSize() const override final;
+    inline size_t getSize() const override final { return m_collection.size(); }
 
     inline std::unique_ptr<GeometryIndexLayerBase> clone() override;
 
@@ -405,28 +405,62 @@ class RA_CORE_API MultiIndexedGeometry : public AttribArrayGeometry, public Util
     /// \throws std::out_of_range
     void unlockLayer( const LayerSemanticCollection& semantics, const std::string& layerName );
 
-    // The following methods are only mean to be used by PredifinedIndexGeometry and should not be
-    // part of the final API
+    template <typename IndexLayer>
+    void set_indices( const typename IndexLayer::IndexContainerType& indices ) {
+        auto own_indices = indices;
+        set_indices<IndexLayer>( std::move( own_indices ) );
+    }
+
+    template <typename IndexLayer>
+    void set_indices( LayerKeyType layer_key,
+                      const typename IndexLayer::IndexContainerType& indices ) {
+        auto own_indices = indices;
+        set_indices<IndexLayer>( layer_key, std::move( own_indices ) );
+    }
+
+    template <typename IndexLayer>
+    void set_indices( typename IndexLayer::IndexContainerType&& indices ) {
+        auto result        = getFirstLayerOccurrenceWithLock( IndexLayer::staticSemanticName );
+        auto layer_key     = result.first;
+        auto& locked_layer = result.second;
+        set_indices<IndexLayer>( layer_key, locked_layer, std::move( indices ) );
+    }
+
+    template <typename IndexLayer>
+    void set_indices( LayerKeyType layer_key, typename IndexLayer::IndexContainerType&& indices ) {
+        auto& locked_layer = getLayerWithLock( layer_key );
+        set_indices<IndexLayer>( layer_key, locked_layer, std::move( indices ) );
+    }
+
+    template <typename IndexLayer>
+    const typename IndexLayer::IndexContainerType& indices() const {
+        auto result = getFirstLayerOccurrence( IndexLayer::staticSemanticName );
+        return static_cast<const IndexLayer&>( result.second ).collection();
+    }
+
+    template <typename IndexLayer>
+    typename IndexLayer::IndexContainerType& indices_with_lock() {
+        auto result = getFirstLayerOccurrenceWithLock( IndexLayer::staticSemanticName );
+        return static_cast<IndexLayer&>( result.second ).collection();
+    }
+
+    template <typename IndexLayer>
+    void unlock_indices() {
+        auto result = getFirstLayerOccurrence( IndexLayer::staticSemanticName );
+        unlockLayer( result.first );
+    }
+
   protected:
-    /// \copybrief unlockLayer( const LayerKeyType& )
-    ///
-    /// Convenience function.
-    /// \see getLayerWithLock( const LayerKeyType& ) for details about locks
-    /// \param semantics collection of semantics associated with the layer (they should all match)
-    /// \complexity \f$ O(n) \f$, with \f$ n \f$ the number of layers in the collection
-    /// \throws std::out_of_range
-    void unlockFirstLayerOccurrence( const LayerSemanticCollection& semantics );
-
-    /// \copybrief unlockLayer( const LayerKeyType& )
-    ///
-    /// Convenience function.
-    /// \see getLayerWithLock( const LayerKeyType& ) for details about locks
-    /// \param semanticName layer one semantic associated with the layer
-    /// \complexity \f$ O(n) \f$, with \f$ n \f$ the number of semantic names in the collection
-    /// \throws std::out_of_range
-    void unlockFirstLayerOccurrence( const LayerSemantic& semanticName );
-
     //////////////////////////////////////////////////////////////////////
+    template <typename IndexLayer>
+    void set_indices( LayerKeyType layer_key,
+                      GeometryIndexLayerBase& locked_layer,
+                      IndexLayer::IndexContainerType&& indices ) {
+        static_cast<IndexLayer&>( locked_layer ).collection() = std::move( indices );
+        unlockLayer( layer_key );
+        notify();
+    }
+
     //////////////////////////////////////////////////////////////////////
   public:
     /// \brief Add layer
@@ -624,25 +658,8 @@ inline GeometryIndexLayerBase& GeometryIndexLayerBase::operator=( GeometryIndexL
     return *this;
 }
 
-inline GeometryIndexLayerBase::~GeometryIndexLayerBase() {}
-
-inline bool GeometryIndexLayerBase::operator==( const GeometryIndexLayerBase& ) const {
-    return false;
-}
-
 //-----------------------------------------------------------------------------
 //- GeometryIndexLayer --------------------------------------------------------
-template <typename T>
-typename GeometryIndexLayer<T>::IndexContainerType& GeometryIndexLayer<T>::collection() {
-    return m_collection;
-}
-
-template <typename T>
-const typename GeometryIndexLayer<T>::IndexContainerType&
-GeometryIndexLayer<T>::collection() const {
-    return m_collection;
-}
-
 template <typename T>
 bool GeometryIndexLayer<T>::append( const GeometryIndexLayerBase& other, int offset ) {
     if ( shareSemantic( other ) ) {
@@ -676,11 +693,6 @@ bool GeometryIndexLayer<T>::operator==( const GeometryIndexLayerBase& other ) co
         return othercasted.collection() == m_collection;
     }
     return false;
-}
-
-template <typename T>
-size_t GeometryIndexLayer<T>::getSize() const {
-    return m_collection.size();
 }
 
 template <typename T>
@@ -771,36 +783,27 @@ IndexedGeometry<T>::IndexedGeometry() {
 
 template <typename T>
 const typename IndexedGeometry<T>::IndexContainerType& IndexedGeometry<T>::getIndices() const {
-    const auto& abstractLayer = getLayer( default_layer_key() );
-    return static_cast<const IndexedGeometry<T>::DefaultLayerType&>( abstractLayer ).collection();
+    return indices<T>();
 }
 
 template <typename T>
 typename IndexedGeometry<T>::IndexContainerType& IndexedGeometry<T>::getIndicesWithLock() {
-    auto& abstractLayer = getLayerWithLock( default_layer_key() );
-    return static_cast<IndexedGeometry<T>::DefaultLayerType&>( abstractLayer ).collection();
+    return indices_with_lock<T>();
 }
 
 template <typename T>
 void IndexedGeometry<T>::indicesUnlock() {
-    unlockLayer( default_layer_key() );
+    unlock_indices<T>();
 }
 
 template <typename T>
 void IndexedGeometry<T>::setIndices( IndexContainerType&& indices ) {
-    auto& abstractLayer = getLayerWithLock( default_layer_key() );
-    static_cast<IndexedGeometry<T>::DefaultLayerType&>( abstractLayer ).collection() =
-        std::move( indices );
-    indicesUnlock();
-    notify();
+    set_indices<T>( default_layer_key(), std::move( indices ) );
 }
 
 template <typename T>
 void IndexedGeometry<T>::setIndices( const IndexContainerType& indices ) {
-    auto& abstractLayer = getLayerWithLock( default_layer_key() );
-    static_cast<IndexedGeometry<T>::DefaultLayerType&>( abstractLayer ).collection() = indices;
-    indicesUnlock();
-    notify();
+    set_indices<T>( default_layer_key(), indices );
 }
 
 template <typename T>
