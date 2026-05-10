@@ -555,39 +555,6 @@ DECLARE_INDEX_LAYER( LineIndexLayer, Vector2ui )
 #undef OPEN_DECLARATION_INDEX_LAYER
 #undef DECLARE_INDEX_LAYER
 
-/// Temporary class providing the old API for TriangleMesh, LineMesh and PolyMesh
-/// This class will be marked as deprecated soon.
-namespace IndexLayerType {
-template <class IndexT>
-struct getType {};
-
-template <>
-struct getType<Vector2ui> {
-    using Type = Ra::Core::Geometry::LineIndexLayer;
-};
-
-template <>
-struct getType<Vector3ui> {
-    using Type = Ra::Core::Geometry::TriangleIndexLayer;
-};
-
-template <>
-struct getType<Vector4ui> {
-    using Type = Ra::Core::Geometry::QuadIndexLayer;
-};
-
-template <>
-struct getType<VectorNui> {
-    using Type = Ra::Core::Geometry::PolyIndexLayer;
-};
-
-template <>
-struct getType<Vector1ui> {
-    using Type = Ra::Core::Geometry::PointCloudIndexLayer;
-};
-
-} // namespace IndexLayerType
-
 /**
  * \brief A single layer MultiIndexedGeometry.
  *
@@ -602,11 +569,9 @@ template <typename T>
 class IndexedGeometry : public MultiIndexedGeometry
 {
   public:
-    using IndexType          = T;
-    using IndexContainerType = VectorArray<IndexType>;
-
-  private:
-    using DefaultLayerType = typename IndexLayerType::getType<IndexType>::Type;
+    using DefaultLayerType   = T;
+    using IndexType          = T::IndexType;
+    using IndexContainerType = T::IndexContainerType;
 
   public:
     IndexedGeometry();
@@ -627,13 +592,13 @@ class IndexedGeometry : public MultiIndexedGeometry
     const LayerKeyType& getLayerKey() const;
 };
 
-class RA_CORE_API IndexedPointCloud : public IndexedGeometry<Vector1ui>
+class RA_CORE_API IndexedPointCloud : public IndexedGeometry<PointCloudIndexLayer>
 {};
 
-using TriangleMesh = IndexedGeometry<Vector3ui>;
-using QuadMesh     = IndexedGeometry<Vector4ui>;
-using PolyMesh     = IndexedGeometry<VectorNui>;
-using LineMesh     = IndexedGeometry<Vector2ui>;
+using TriangleMesh = IndexedGeometry<TriangleIndexLayer>;
+using QuadMesh     = IndexedGeometry<QuadIndexLayer>;
+using PolyMesh     = IndexedGeometry<PolyIndexLayer>;
+using LineMesh     = IndexedGeometry<LineIndexLayer>;
 
 //-----------------------------------------------------------------------------
 //- Implementation ------------------------------------------------------------

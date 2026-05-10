@@ -143,10 +143,10 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
      */
     template <typename IndexType>
     IndexedGeometry<IndexType> toIndexedMesh();
-    PolyMesh toPolyMesh() { return toIndexedMesh<PolyMesh::IndexType>(); }
-    LineMesh toLineMesh() { return toIndexedMesh<LineMesh::IndexType>(); }
-    QuadMesh toQuadMesh() { return toIndexedMesh<QuadMesh::IndexType>(); }
-    TriangleMesh toTriangleMesh() { return toIndexedMesh<TriangleMesh::IndexType>(); }
+    PolyMesh toPolyMesh() { return toIndexedMesh<PolyMesh::DefaultLayerType>(); }
+    LineMesh toLineMesh() { return toIndexedMesh<LineMesh::DefaultLayerType>(); }
+    QuadMesh toQuadMesh() { return toIndexedMesh<QuadMesh::DefaultLayerType>(); }
+    TriangleMesh toTriangleMesh() { return toIndexedMesh<TriangleMesh::DefaultLayerType>(); }
 
     /**
      * Update triangle mesh data, assuming the mesh and this topo mesh has the
@@ -1483,14 +1483,14 @@ TopologicalMesh::getWedgeIndexPph() const {
     return m_wedgeIndexPph;
 }
 
-template <typename IndexType>
-IndexedGeometry<IndexType> TopologicalMesh::toIndexedMesh() {
+template <typename LayerType>
+IndexedGeometry<LayerType> TopologicalMesh::toIndexedMesh() {
 
     // first cleanup deleted element
     garbage_collection();
 
-    IndexedGeometry<IndexType> out;
-    typename IndexedGeometry<IndexType>::IndexContainerType indices;
+    IndexedGeometry<LayerType> out;
+    typename IndexedGeometry<LayerType>::IndexContainerType indices;
 
     /// add attribs to out
     std::vector<AttribHandle<Scalar>> wedgeFloatAttribHandles;
@@ -1526,7 +1526,7 @@ IndexedGeometry<IndexType> TopologicalMesh::toIndexedMesh() {
 
     for ( TopologicalMesh::FaceIter f_it = faces_sbegin(); f_it != faces_end(); ++f_it ) {
         int i = 0;
-        IndexType faceIndices( valence( *f_it ) );
+        typename LayerType::IndexType faceIndices( valence( *f_it ) );
         CORE_ASSERT( faceIndices.size() == valence( *f_it ), "Invalid face size." );
 
         // iterator over vertex (through halfedge to get access to halfedge normals)
