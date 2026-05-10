@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Core/RaCore.hpp>
+#include <Core/Types.hpp>
 #include <Eigen/Core>
 #include <Eigen/Geometry>
 
@@ -12,7 +13,6 @@ class Obb
 {
   public:
     using Transform = Eigen::Transform<Scalar, 3, Eigen::Affine>;
-    using Aabb      = Eigen::AlignedBox<Scalar, 3>;
 
     /// Constructors and destructor.
 
