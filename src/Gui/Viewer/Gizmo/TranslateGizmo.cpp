@@ -28,18 +28,17 @@ TranslateGizmo::TranslateGizmo( Engine::Scene::Component* c,
     constexpr Scalar arrowFrac  = .15_ra;
 
     for ( uint i = 0; i < 3; ++i ) {
-        Core::Vector3 cylinderEnd             = Core::Vector3::Zero();
-        cylinderEnd[i]                        = ( 1_ra - arrowFrac );
-        Core::Vector3 arrowEnd                = Core::Vector3::Zero();
-        arrowEnd[i]                           = 1_ra;
-        Core::Geometry::TriangleMesh cylinder = Core::Geometry::makeCylinder(
+        Core::Vector3 cylinderEnd = Core::Vector3::Zero();
+        cylinderEnd[i]            = ( 1_ra - arrowFrac );
+        Core::Vector3 arrowEnd    = Core::Vector3::Zero();
+        arrowEnd[i]               = 1_ra;
+        auto cylinder             = Core::Geometry::makeCylinder(
             Core::Vector3::Zero(), arrowScale * cylinderEnd, arrowScale * axisWidth / 2_ra, 32 );
-        Core::Geometry::TriangleMesh cone = Core::Geometry::makeCone(
+        auto cone = Core::Geometry::makeCone(
             arrowScale * cylinderEnd, arrowScale * arrowEnd, arrowScale * arrowFrac / 2_ra, 32 );
         cylinder.append( cone );
 
-        std::shared_ptr<Engine::Data::Mesh> mesh(
-            new Engine::Data::Mesh( "Translate Gizmo Arrow" ) );
+        auto mesh = std::make_shared<Engine::Data::GeometryDisplayable>( "Translate Gizmo Arrow" );
         mesh->loadGeometry( std::move( cylinder ) );
 
         Engine::Rendering::RenderObject* arrowDrawable = new Engine::Rendering::RenderObject(

@@ -32,9 +32,9 @@ ScaleGizmo::ScaleGizmo( Engine::Scene::Component* c,
     constexpr Scalar radius     = arrowScale * axisWidth / 2_ra;
 
     for ( uint i = 0; i < 3; ++i ) {
-        Core::Vector3 cylinderEnd             = Core::Vector3::Zero();
-        cylinderEnd[i]                        = ( 1_ra - arrowFrac );
-        Core::Geometry::TriangleMesh cylinder = Core::Geometry::makeCylinder(
+        Core::Vector3 cylinderEnd = Core::Vector3::Zero();
+        cylinderEnd[i]            = ( 1_ra - arrowFrac );
+        auto cylinder             = Core::Geometry::makeCylinder(
             Core::Vector3::Zero(), arrowScale * cylinderEnd, radius, 32 );
         Core::Aabb boxBounds;
         boxBounds.extend( Core::Vector3( -radius * 2_ra, -radius * 2_ra, -radius * 2_ra ) );
@@ -43,7 +43,8 @@ ScaleGizmo::ScaleGizmo( Engine::Scene::Component* c,
         auto box = Core::Geometry::makeSharpBox( boxBounds );
         cylinder.append( box );
 
-        std::shared_ptr<Engine::Data::Mesh> mesh( new Engine::Data::Mesh( "Scale Gizmo Arrow" ) );
+        std::shared_ptr<Engine::Data::GeometryDisplayable> mesh(
+            new Engine::Data::GeometryDisplayable( "Scale Gizmo Arrow" ) );
         mesh->loadGeometry( std::move( cylinder ) );
 
         Engine::Rendering::RenderObject* arrowDrawable = new Engine::Rendering::RenderObject(
