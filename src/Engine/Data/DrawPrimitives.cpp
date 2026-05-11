@@ -1,3 +1,4 @@
+#include "Core/Containers/VectorArray.hpp"
 #include <Engine/Data/DrawPrimitives.hpp>
 
 #include <Core/Containers/MakeShared.hpp>
@@ -55,14 +56,14 @@ Rendering::RenderObject* Primitive( Scene::Component* component,
 GeometryDisplayablePtr
 Point( const Core::Vector3& point, const Core::Utils::Color& color, Scalar scale ) {
 
-    Geometry::LineMesh geom;
+    Geometry::MultiIndexedGeometry geom;
     geom.setVertices( { ( point + ( scale * Core::Vector3::UnitX() ) ),
                         ( point - ( scale * Core::Vector3::UnitX() ) ),
                         ( point + ( scale * Core::Vector3::UnitY() ) ),
                         ( point - ( scale * Core::Vector3::UnitY() ) ),
                         ( point + ( scale * Core::Vector3::UnitZ() ) ),
                         ( point - ( scale * Core::Vector3::UnitZ() ) ) } );
-    geom.setIndices( { { 0, 1 }, { 2, 3 }, { 4, 5 } } );
+    geom.set_indices<LineIndexLayer>( { { 0, 1 }, { 2, 3 }, { 4, 5 } } );
     geom.addAttrib(
         Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::MeshAttrib::VERTEX_COLOR ),
         Core::Vector4Array { geom.vertices().size(), color } );
@@ -72,9 +73,9 @@ Point( const Core::Vector3& point, const Core::Utils::Color& color, Scalar scale
 
 GeometryDisplayablePtr
 Line( const Core::Vector3& a, const Core::Vector3& b, const Core::Utils::Color& color ) {
-    Geometry::LineMesh geom;
+    Geometry::MultiIndexedGeometry geom;
     geom.setVertices( { a, b } );
-    geom.setIndices( { { 0, 1 } } );
+    geom.set_indices<LineIndexLayer>( { { 0, 1 } } );
     geom.addAttrib(
         Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::MeshAttrib::VERTEX_COLOR ),
         Core::Vector4Array { geom.vertices().size(), color } );
@@ -342,8 +343,6 @@ GeometryDisplayablePtr Disk( const Core::Vector3& center,
                              uint segments,
                              const Core::Utils::Color& color ) {
     CORE_ASSERT( segments > 2, "Cannot draw a circle with less than 3 points" );
-    // MultiIndexedGeometry geom;
-    // GeometryIndexLayer<Vector1ui> fan_indices;
 
     uint seg = segments + 1;
     Core::Vector3Array vertices( seg );
@@ -410,7 +409,7 @@ GeometryDisplayablePtr Normal( const Core::Vector3& point,
 
     const Scalar arrowFract = 0.1f;
 
-    Geometry::LineMesh geom;
+    Geometry::MultiIndexedGeometry geom;
 
     Core::Vector3Array vertices = {
         point,
@@ -425,15 +424,15 @@ GeometryDisplayablePtr Normal( const Core::Vector3& point,
     };
 
     geom.setVertices( vertices );
-    geom.setIndices( { { 0, 1 },
-                       { 1, 2 },
-                       { 1, 3 },
-                       { 4, 5 },
-                       { 5, 6 },
-                       { 6, 7 },
-                       { 7, 4 },
-                       { 4, 6 },
-                       { 5, 7 } } );
+    geom.set_indices<LineIndexLayer>( { { 0, 1 },
+                                        { 1, 2 },
+                                        { 1, 3 },
+                                        { 4, 5 },
+                                        { 5, 6 },
+                                        { 6, 7 },
+                                        { 7, 4 },
+                                        { 4, 6 },
+                                        { 5, 7 } } );
     geom.addAttrib(
         Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::MeshAttrib::VERTEX_COLOR ),
         Core::Vector4Array { geom.vertices().size(), color } );
@@ -441,7 +440,6 @@ GeometryDisplayablePtr Normal( const Core::Vector3& point,
     return make_shared<GeometryDisplayable>( "Normal Primitive", std::move( geom ) );
 }
 
-/// \todo continue to convert mesh creation and remove call to deprecated Mesh::loadGeometry
 GeometryDisplayablePtr Frame( const Core::Transform& frameFromEntity, Scalar scale ) {
     // Frame is a bit different from the others
     // since there are 3 lines of different colors.
@@ -487,45 +485,37 @@ GeometryDisplayablePtr AABB( const Core::Aabb& aabb, const Core::Utils::Color& c
     auto [key, layer] = ret->getCoreGeometry().getFirstLayerOccurrence(
         Core::Geometry::LineIndexLayer::staticSemanticName );
 
-    std::cerr << "aabb check " << key.first << " " << key.second << "\n";
+    ret->addRenderLayer( key, AttribArrayDisplayable::MeshRenderMode::RM_LINES );
+    ret->set_active_layer_key( key );
+    return ret;
+}
+
+GeometryDisplayablePtr OBB( const Obb& obb, const Core::Utils::Color& color ) {
+
+    auto geom =
+        makeBox2( obb.corner( Aabb::BottomLeftFloor ),
+                  obb.corner( Aabb::BottomRightFloor ) - obb.corner( Aabb::BottomLeftFloor ),
+                  obb.corner( Aabb::BottomLeftCeil ) - obb.corner( Aabb::BottomLeftFloor ),
+                  obb.corner( Aabb::TopLeftFloor ) - obb.corner( Aabb::BottomLeftFloor ),
+                  color );
+    auto ret          = make_shared<GeometryDisplayable>( "AABB Primitive", std::move( geom ) );
+    auto [key, layer] = ret->getCoreGeometry().getFirstLayerOccurrence(
+        Core::Geometry::LineIndexLayer::staticSemanticName );
 
     ret->addRenderLayer( key, AttribArrayDisplayable::MeshRenderMode::RM_LINES );
     ret->set_active_layer_key( key );
     return ret;
 }
 
-MeshPtr OBB( const Obb& obb, const Core::Utils::Color& color ) {
-    Core::Vector3Array vertices( 8 );
-
-    for ( uint i = 0; i < 8; ++i ) {
-        vertices[i] = obb.worldCorner( i );
-    }
-
-    std::vector<uint> indices = {
-        0, 1, 1, 3, 3, 2, 2, 0, // Floor
-        4, 5, 5, 7, 7, 6, 6, 4, // Ceil
-        0, 4, 1, 5, 2, 6, 3, 7, // Links
-    };
-
-    Core::Vector4Array colors( vertices.size(), color );
-
-    MeshPtr mesh( new Mesh( "OBB Primitive", Mesh::RM_LINES ) );
-    mesh->loadGeometry( vertices, indices );
-    mesh->getCoreGeometry().addAttrib(
-        Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::MeshAttrib::VERTEX_COLOR ), colors );
-
-    return mesh;
-}
-
-MeshPtr Spline( const Core::Geometry::Spline<3, 3>& spline,
-                uint pointCount,
-                const Core::Utils::Color& color,
-                Scalar /*scale*/ ) {
+GeometryDisplayablePtr Spline( const Core::Geometry::Spline<3, 3>& spline,
+                               uint pointCount,
+                               const Core::Utils::Color& color,
+                               Scalar /*scale*/ ) {
     Core::Vector3Array vertices;
     vertices.reserve( pointCount );
 
-    std::vector<uint> indices;
-    indices.reserve( pointCount * 2 - 2 );
+    Vector2uArray indices;
+    indices.reserve( pointCount - 1 );
 
     Scalar dt = Scalar( 1 ) / Scalar( pointCount - 1 );
     for ( uint i = 0; i < pointCount; ++i ) {
@@ -534,38 +524,43 @@ MeshPtr Spline( const Core::Geometry::Spline<3, 3>& spline,
     }
 
     for ( uint i = 0; i < pointCount - 1; ++i ) {
-        indices.push_back( i );
-        indices.push_back( i + 1 );
+        indices.emplace_back( i, i + 1 );
     }
 
     Core::Vector4Array colors( vertices.size(), color );
 
-    MeshPtr mesh( new Mesh( "Spline Primitive", Mesh::RM_LINES ) );
-    mesh->loadGeometry( vertices, indices );
-    mesh->getCoreGeometry().addAttrib(
+    Geometry::MultiIndexedGeometry geom;
+
+    auto line_layer = geom.set_indices<LineIndexLayer>( std::move( indices ) );
+    geom.setVertices( std::move( vertices ) );
+    geom.addAttrib(
+        Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::MeshAttrib::VERTEX_COLOR ),
+        Core::Vector4Array { geom.vertices().size(), color } );
+
+    return make_shared<GeometryDisplayable>( "Spline Primitive", std::move( geom ) );
+}
+
+GeometryDisplayablePtr LineStrip( const Core::Vector3Array& vertices,
+                                  const Core::Vector4Array& colors ) {
+    VectorArray<VectorNui> indices( 1 );
+
+    indices[0] = VectorNui::LinSpaced( vertices.size(), 0, vertices.size() - 1 );
+
+    Geometry::MultiIndexedGeometry geom;
+    geom.setVertices( vertices );
+
+    auto strip_key = geom.set_indices<StripOrFanIndexLayer>( std::move( indices ) );
+    geom.addAttrib(
         Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::MeshAttrib::VERTEX_COLOR ), colors );
 
+    auto mesh = make_shared<GeometryDisplayable>( "Line Strip Primitive" );
+    mesh->loadGeometry(
+        std::move( geom ),
+        GeometryDisplayable::ArrayOfLayerKeys<1> { { { strip_key, Mesh::RM_LINE_STRIP } } } );
+
     return mesh;
 }
 
-MeshPtr LineStrip( const Core::Vector3Array& vertices, const Core::Vector4Array& colors ) {
-    std::vector<uint> indices( vertices.size() );
-    std::iota( indices.begin(), indices.end(), 0 );
-    auto r = ( vertices.size() % 3 );
-    if ( r != 0 ) {
-        for ( ; r < 3; ++r ) {
-            indices.push_back( vertices.size() - 1 );
-        }
-    }
-    MeshPtr mesh( new Mesh( "Line Strip Primitive", Mesh::RM_LINE_STRIP ) );
-    mesh->loadGeometry( vertices, indices );
-    if ( colors.size() > 0 ) {
-        mesh->getCoreGeometry().addAttrib(
-            Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::MeshAttrib::VERTEX_COLOR ),
-            colors );
-    }
-    return mesh;
-}
 } // namespace DrawPrimitives
 } // namespace Data
 } // namespace Engine

@@ -153,16 +153,17 @@ RA_ENGINE_API GeometryDisplayablePtr AABB( const Core::Aabb& aabb,
                                            const Core::Utils::Color& color );
 
 /// Display a wireframe OBB
-RA_ENGINE_API MeshPtr OBB( const Core::Geometry::Obb& obb, const Core::Utils::Color& color );
+RA_ENGINE_API GeometryDisplayablePtr OBB( const Core::Geometry::Obb& obb,
+                                          const Core::Utils::Color& color );
 
-RA_ENGINE_API MeshPtr Spline( const Core::Geometry::Spline<3, 3>& spline,
-                              uint pointCount,
-                              const Core::Utils::Color& color,
-                              Scalar scale = 1.0f );
+RA_ENGINE_API GeometryDisplayablePtr Spline( const Core::Geometry::Spline<3, 3>& spline,
+                                             uint pointCount,
+                                             const Core::Utils::Color& color,
+                                             Scalar scale = 1.0f );
 
 /// Display a line strip.
-RA_ENGINE_API MeshPtr LineStrip( const Core::Vector3Array& vertices,
-                                 const Core::Vector4Array& colors );
+RA_ENGINE_API GeometryDisplayablePtr LineStrip( const Core::Vector3Array& vertices,
+                                                const Core::Vector4Array& colors );
 
 } // namespace DrawPrimitives
 } // namespace Data
