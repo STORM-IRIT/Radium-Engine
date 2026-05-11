@@ -28,10 +28,6 @@ namespace Engine {
 namespace Data {
 namespace DrawPrimitives {
 
-Rendering::RenderObject* Primitive( Scene::Component* component, const MeshPtr& mesh ) {
-    return Primitive( component, std::dynamic_pointer_cast<Data::AttribArrayDisplayable>( mesh ) );
-}
-
 Rendering::RenderObject* Primitive( Scene::Component* component,
                                     const GeometryDisplayablePtr& mesh ) {
     return Primitive( component, std::dynamic_pointer_cast<Data::AttribArrayDisplayable>( mesh ) );
@@ -93,12 +89,12 @@ Vector( const Core::Vector3& start, const Core::Vector3& v, const Core::Utils::C
 
     const Scalar arrowFract = 0.1f;
 
-    Geometry::LineMesh geom;
+    Geometry::MultiIndexedGeometry geom;
     geom.setVertices( { start,
                         end,
                         start + ( ( 1.f - arrowFract ) * v ) + ( ( arrowFract * l ) * a ),
                         start + ( ( 1.f - arrowFract ) * v ) - ( ( arrowFract * l ) * a ) } );
-    geom.setIndices( { { 0, 1 }, { 1, 2 }, { 1, 3 } } );
+    geom.set_indices<LineIndexLayer>( { { 0, 1 }, { 1, 2 }, { 1, 3 } } );
     geom.addAttrib(
         Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::MeshAttrib::VERTEX_COLOR ),
         Core::Vector4Array { geom.vertices().size(), color } );
@@ -107,10 +103,10 @@ Vector( const Core::Vector3& start, const Core::Vector3& v, const Core::Utils::C
 }
 
 GeometryDisplayablePtr Ray( const Core::Ray& ray, const Core::Utils::Color& color, Scalar len ) {
-    Geometry::LineMesh geom;
+    Geometry::MultiIndexedGeometry geom;
     Core::Vector3 end = ray.pointAt( len );
     geom.setVertices( { ray.origin(), end } );
-    geom.setIndices( { { 0, 1 } } );
+    geom.set_indices<LineIndexLayer>( { { 0, 1 } } );
     geom.addAttrib(
         Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::MeshAttrib::VERTEX_COLOR ),
         Core::Vector4Array { geom.vertices().size(), color } );
@@ -201,7 +197,7 @@ GeometryDisplayablePtr Circle( const Core::Vector3& center,
                                const Core::Utils::Color& color ) {
     CORE_ASSERT( segments >= 2, "Cannot draw a circle with less than 3 points" );
 
-    Geometry::LineMesh geom;
+    Geometry::MultiIndexedGeometry geom;
     ///\todo refer to class typedef instaed of core types/
     Core::Vector3Array vertices( segments + 1 );
     Geometry::LineMesh::IndexContainerType indices;
@@ -224,7 +220,7 @@ GeometryDisplayablePtr Circle( const Core::Vector3& center,
     }
 
     geom.setVertices( std::move( vertices ) );
-    geom.setIndices( std::move( indices ) );
+    geom.set_indices<LineIndexLayer>( std::move( indices ) );
     geom.addAttrib(
         Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::MeshAttrib::VERTEX_COLOR ),
         Core::Vector4Array { geom.vertices().size(), color } );
@@ -238,7 +234,7 @@ GeometryDisplayablePtr CircleArc( const Core::Vector3& center,
                                   Scalar angle,
                                   uint segments,
                                   const Core::Utils::Color& color ) {
-    Geometry::LineMesh geom;
+    Geometry::MultiIndexedGeometry geom;
     Core::Vector3Array vertices( segments + 1 );
     Geometry::LineMesh::IndexContainerType indices;
     indices.resize( segments );
@@ -261,7 +257,7 @@ GeometryDisplayablePtr CircleArc( const Core::Vector3& center,
     }
 
     geom.setVertices( std::move( vertices ) );
-    geom.setIndices( std::move( indices ) );
+    geom.set_indices<LineIndexLayer>( std::move( indices ) );
     geom.addAttrib(
         Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::MeshAttrib::VERTEX_COLOR ),
         Core::Vector4Array { geom.vertices().size(), color } );
@@ -448,10 +444,10 @@ GeometryDisplayablePtr Frame( const Core::Transform& frameFromEntity, Scalar sca
     Core::Vector3 y   = frameFromEntity.linear() * Core::Vector3::UnitY();
     Core::Vector3 z   = frameFromEntity.linear() * Core::Vector3::UnitZ();
 
-    Geometry::LineMesh geom;
+    Geometry::MultiIndexedGeometry geom;
     geom.setVertices( { { pos, pos + scale * x, pos, pos + scale * y, pos, pos + scale * z } } );
 
-    geom.setIndices( { { 0, 1 }, { 2, 3 }, { 4, 5 } } );
+    geom.set_indices<LineIndexLayer>( { { 0, 1 }, { 2, 3 }, { 4, 5 } } );
 
     Core::Vector4Array colors = {
         Core::Utils::Color::Red(),

@@ -29,18 +29,15 @@ class GeometryDisplayable;
 /// note that objects will be drawn in their entity's local frame.
 /// For "instant" debug drawing, \see DebugDisplay.
 namespace DrawPrimitives {
-using MeshPtr                   = std::shared_ptr<Mesh>;
 using AttribArrayDisplayablePtr = std::shared_ptr<AttribArrayDisplayable>;
 using GeometryDisplayablePtr    = std::shared_ptr<GeometryDisplayable>;
 
 ///\{
 /// Renturn a render object to display the given geometry
-RA_ENGINE_API Rendering::RenderObject* Primitive( Scene::Component* comp, const MeshPtr& mesh );
 RA_ENGINE_API Rendering::RenderObject* Primitive( Scene::Component* comp,
                                                   const GeometryDisplayablePtr& mesh );
 RA_ENGINE_API Rendering::RenderObject* Primitive( Scene::Component* comp,
                                                   const AttribArrayDisplayablePtr& mesh );
-
 ///\}
 
 /// Displays given point shown as the crossing of 3 lines of length 'scale'
