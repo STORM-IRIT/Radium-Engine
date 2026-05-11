@@ -465,15 +465,21 @@ class RA_CORE_API MultiIndexedGeometry : public AttribArrayGeometry, public Util
     }
 
     template <typename IndexLayer>
-    typename IndexLayer::IndexContainerType& indices_with_lock() {
-        auto result = getFirstLayerOccurrenceWithLock( IndexLayer::staticSemanticName );
-        return static_cast<IndexLayer&>( result.second ).collection();
-    }
-
-    template <typename IndexLayer>
-    void unlock_indices() {
-        auto result = getFirstLayerOccurrence( IndexLayer::staticSemanticName );
-        unlockLayer( result.first );
+    auto indices_with_lock() {
+        auto itr = getFirstLayerIteratorWithLock( IndexLayer::staticSemanticName );
+        LayerKeyType layer_key;
+        GeometryIndexLayerBase* locked_layer = nullptr;
+        if ( itr == m_indices.end() ) {
+            auto added   = addLayer( std::move( std::make_unique<IndexLayer>() ) );
+            layer_key    = added.second;
+            locked_layer = &getLayerWithLock( layer_key );
+        }
+        else {
+            layer_key    = itr->first;
+            locked_layer = itr->second.second.get();
+        }
+        return std::pair<LayerKeyType, typename IndexLayer::IndexContainerType&>(
+            layer_key, static_cast<IndexLayer&>( *locked_layer ).collection() );
     }
 
   protected:
@@ -805,12 +811,12 @@ const typename IndexedGeometry<T>::IndexContainerType& IndexedGeometry<T>::getIn
 
 template <typename T>
 typename IndexedGeometry<T>::IndexContainerType& IndexedGeometry<T>::getIndicesWithLock() {
-    return indices_with_lock<T>();
+    return indices_with_lock<T>().second;
 }
 
 template <typename T>
 void IndexedGeometry<T>::indicesUnlock() {
-    unlock_indices<T>();
+    unlockLayer( default_layer_key() );
 }
 
 template <typename T>
