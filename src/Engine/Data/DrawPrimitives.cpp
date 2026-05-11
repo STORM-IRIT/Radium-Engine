@@ -301,7 +301,7 @@ GeometryDisplayablePtr Capsule( const Core::Vector3& p1,
                                 const Core::Utils::Color& color ) {
     const Scalar l = ( p2 - p1 ).norm();
 
-    TriangleMesh geom = makeCapsule( l, radius, 32, color );
+    auto geom = makeCapsule( l, radius, 32, color );
     // Compute the transform so that
     // (0,0,-l/2) maps to p1 and (0,0,l/2) maps to p2
 
