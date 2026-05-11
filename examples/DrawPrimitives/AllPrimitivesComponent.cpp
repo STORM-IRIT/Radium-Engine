@@ -1,4 +1,5 @@
 
+#include "Engine/Data/DrawPrimitives.hpp"
 #include <AllPrimitivesComponent.hpp>
 
 #include <Core/Asset/FileData.hpp>
@@ -26,25 +27,27 @@
 
 #include <random>
 
-const bool ENABLE_GRID      = true;
-const bool ENABLE_CUBES     = true;
-const bool ENABLE_POINTS    = true;
-const bool ENABLE_LINES     = true;
-const bool ENABLE_VECTORS   = true;
-const bool ENABLE_RAYS      = true;
-const bool ENABLE_TRIANGLES = true;
-const bool ENABLE_CIRCLES   = true;
-const bool ENABLE_ARCS      = true;
-const bool ENABLE_SPHERES   = true;
-const bool ENABLE_CAPSULES  = true;
-const bool ENABLE_DISKS     = true;
-const bool ENABLE_NORMALS   = true;
-const bool ENABLE_POLYS     = true;
-const bool ENABLE_LOGO      = true;
-const bool ENABLE_COLLAPSE  = true;
-const bool ENABLE_SPLIT     = true;
-const bool ENABLE_TORUS     = true;
-const bool ENABLE_QUADSTRIP = true;
+const bool ENABLE_GRID        = true;
+const bool ENABLE_CUBES       = true;
+const bool ENABLE_POINTS      = true;
+const bool ENABLE_LINES       = true;
+const bool ENABLE_VECTORS     = true;
+const bool ENABLE_RAYS        = true;
+const bool ENABLE_TRIANGLES   = true;
+const bool ENABLE_CIRCLES     = true;
+const bool ENABLE_ARCS        = true;
+const bool ENABLE_SPHERES     = true;
+const bool ENABLE_CAPSULES    = true;
+const bool ENABLE_DISKS       = true;
+const bool ENABLE_NORMALS     = true;
+const bool ENABLE_POLYS       = true;
+const bool ENABLE_LOGO        = true;
+const bool ENABLE_COLLAPSE    = true;
+const bool ENABLE_SPLIT       = true;
+const bool ENABLE_TORUS       = true;
+const bool ENABLE_QUADSTRIPS  = true;
+const bool ENABLE_SPLINES     = true;
+const bool ENABLE_LINE_STRIPS = true;
 
 using namespace Ra;
 using namespace Ra::Core;
@@ -594,6 +597,7 @@ void AllPrimitivesComponent::initialize() {
         normal->setMaterial( plainMaterial );
         addRenderObject( normal );
     }
+
     /*
         addRenderObject( RenderObject::createRenderObject(
         "test_ray",
@@ -1111,7 +1115,7 @@ void AllPrimitivesComponent::initialize() {
             }
         }
     }
-    if ( ENABLE_QUADSTRIP ) {
+    if ( ENABLE_QUADSTRIPS ) {
         updateCellCorner( cellCorner, cellSize, nCellX, nCellY );
         updateCellCorner( cellCorner, cellSize, nCellX, nCellY );
 
@@ -1147,5 +1151,42 @@ void AllPrimitivesComponent::initialize() {
                 addRenderObject( strip );
             }
         }
+    }
+
+    if ( ENABLE_SPLINES ) {
+        updateCellCorner( cellCorner, cellSize, nCellX, nCellY );
+        updateCellCorner( cellCorner, cellSize, nCellX, nCellY );
+        Core::Geometry::Spline<3, 3> s;
+        auto c = cellCorner + 2_ra * offsetVec;
+        s.setCtrlPoints( { c + Vector3( 0, 0, 0 ),
+                           c + Vector3( .15 * cellSize, .5 * cellSize, .4 * cellSize ),
+                           c + Vector3( .35 * cellSize, -.5 * cellSize, .2 * cellSize ),
+                           c + Vector3( .4 * cellSize, 0, 0 ) } );
+        auto spline = RenderObject::createRenderObject(
+            "test_spline",
+            this,
+            RenderObjectType::Geometry,
+            DrawPrimitives::Spline( s, 32, colorBoost * Color::Cyan() ),
+            {} );
+        spline->setMaterial( plainMaterial );
+        addRenderObject( spline );
+    }
+    if ( ENABLE_LINE_STRIPS ) {
+        //        updateCellCorner( cellCorner, cellSize, nCellX, nCellY );
+        //       updateCellCorner( cellCorner, cellSize, nCellX, nCellY );
+        auto c     = cellCorner + 2_ra * offsetVec;
+        auto strip = RenderObject::createRenderObject(
+            "test_linestrip",
+            this,
+            RenderObjectType::Geometry,
+            DrawPrimitives::LineStrip(
+                { c + Vector3( 0, 0, 0 ),
+                  c + Vector3( .15 * cellSize, .5 * cellSize, .4 * cellSize ),
+                  c + Vector3( .35 * cellSize, -.5 * cellSize, .2 * cellSize ),
+                  c + Vector3( .4 * cellSize, 0, 0 ) },
+                { Color::Cyan(), Color::Red(), Color::Yellow(), Color::Magenta() } ),
+            {} );
+        strip->setMaterial( plainMaterial );
+        addRenderObject( strip );
     }
 }
