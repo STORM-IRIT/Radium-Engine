@@ -207,6 +207,14 @@ class RA_CORE_API MultiIndexedGeometry : public AttribArrayGeometry, public Util
     using LayerSemantic           = Utils::ObjectWithSemantic::SemanticName;
     using LayerKeyType            = std::pair<LayerSemanticCollection, std::string>;
 
+    /// Hash function for layer keys
+    struct RA_CORE_API LayerKeyHash {
+        std::size_t operator()( const LayerKeyType& k ) const;
+    };
+    /// bool -> locked, ptr -> actual data
+    using LayerEntryType  = std::pair<bool, std::unique_ptr<GeometryIndexLayerBase>>;
+    using IndexCollection = std::unordered_map<LayerKeyType, LayerEntryType, LayerKeyHash>;
+
     using PointAttribHandle  = AttribArrayGeometry::PointAttribHandle;
     using NormalAttribHandle = AttribArrayGeometry::NormalAttribHandle;
     using FloatAttribHandle  = AttribArrayGeometry::FloatAttribHandle;
@@ -383,6 +391,14 @@ class RA_CORE_API MultiIndexedGeometry : public AttribArrayGeometry, public Util
     /// \throws std::out_of_range
     std::pair<LayerKeyType, GeometryIndexLayerBase&>
     getFirstLayerOccurrenceWithLock( const LayerSemantic& semanticName );
+    auto getFirstLayerIteratorWithLock( const LayerSemantic& semanticName )
+        -> IndexCollection::iterator {
+        return std::find_if( m_indices.begin(),
+                             m_indices.end(),
+                             [&semanticName]( const IndexCollection::value_type& v ) {
+                                 return Utils::hasSemantic( v.first.first, semanticName );
+                             } );
+    }
 
     //////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////
@@ -406,9 +422,9 @@ class RA_CORE_API MultiIndexedGeometry : public AttribArrayGeometry, public Util
     void unlockLayer( const LayerSemanticCollection& semantics, const std::string& layerName );
 
     template <typename IndexLayer>
-    void set_indices( const typename IndexLayer::IndexContainerType& indices ) {
+    LayerKeyType set_indices( const typename IndexLayer::IndexContainerType& indices ) {
         auto own_indices = indices;
-        set_indices<IndexLayer>( std::move( own_indices ) );
+        return set_indices<IndexLayer>( std::move( own_indices ) );
     }
 
     template <typename IndexLayer>
@@ -419,11 +435,21 @@ class RA_CORE_API MultiIndexedGeometry : public AttribArrayGeometry, public Util
     }
 
     template <typename IndexLayer>
-    void set_indices( typename IndexLayer::IndexContainerType&& indices ) {
-        auto result        = getFirstLayerOccurrenceWithLock( IndexLayer::staticSemanticName );
-        auto layer_key     = result.first;
-        auto& locked_layer = result.second;
-        set_indices<IndexLayer>( layer_key, locked_layer, std::move( indices ) );
+    LayerKeyType set_indices( typename IndexLayer::IndexContainerType&& indices ) {
+        auto itr = getFirstLayerIteratorWithLock( IndexLayer::staticSemanticName );
+        LayerKeyType layer_key;
+        GeometryIndexLayerBase* locked_layer = nullptr;
+        if ( itr == m_indices.end() ) {
+            auto added   = addLayer( std::move( std::make_unique<IndexLayer>() ) );
+            layer_key    = added.second;
+            locked_layer = &getLayerWithLock( layer_key );
+        }
+        else {
+            layer_key    = itr->first;
+            locked_layer = itr->second.second.get();
+        }
+        set_indices<IndexLayer>( layer_key, *locked_layer, std::move( indices ) );
+        return layer_key;
     }
 
     template <typename IndexLayer>
@@ -501,15 +527,6 @@ class RA_CORE_API MultiIndexedGeometry : public AttribArrayGeometry, public Util
     /// \brief Clear attributes stored as pointers
     void deepClear();
 
-    /// bool -> locked, ptr -> actual data
-    using LayerEntryType = std::pair<bool, std::unique_ptr<GeometryIndexLayerBase>>;
-
-  public:
-    /// Hash function for layer keys
-    struct RA_CORE_API LayerKeyHash {
-        std::size_t operator()( const LayerKeyType& k ) const;
-    };
-
   private:
     /**
      * Collection of pairs <lockStatus, Indices>
@@ -518,7 +535,7 @@ class RA_CORE_API MultiIndexedGeometry : public AttribArrayGeometry, public Util
      * contrast to map, transparent hashing require c++20, so we need to implement them explicitely
      * here https://en.cppreference.com/w/cpp/container/unordered_map/find
      */
-    std::unordered_map<LayerKeyType, LayerEntryType, LayerKeyHash> m_indices;
+    IndexCollection m_indices;
 
     /// Default layer key, initialized as invalid, set to first added Layer Key.
     LayerKeyType m_default_layer_key { { InvalidIndexLayer::staticSemanticName }, "invalid" };

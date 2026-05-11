@@ -20,7 +20,8 @@ class RA_CORE_API ObjectWithSemantic
   public:
     using SemanticName = std::string;
 
-    /// Store in set to allow for logarithmic search
+    /// Store in set to allow for logarithmic search,
+    /// \todo move out of class ? extends set to add helper functions ?
     using SemanticNameCollection = std::set<SemanticName>;
 
     inline explicit ObjectWithSemantic( const ObjectWithSemantic& other ) :
@@ -65,6 +66,16 @@ class RA_CORE_API ObjectWithSemantic
   private:
     SemanticNameCollection m_names;
 };
+
+inline bool hasSemantic( const ObjectWithSemantic::SemanticNameCollection& a,
+                         const ObjectWithSemantic::SemanticName& name ) {
+    return a.contains( name );
+}
+
+inline bool shareSemantic( const ObjectWithSemantic::SemanticNameCollection& a,
+                           const ObjectWithSemantic::SemanticNameCollection& b ) {
+    return std::any_of( a.begin(), a.end(), [&b]( const auto& s ) { return hasSemantic( b, s ); } );
+}
 
 } // namespace Utils
 } // namespace Core
