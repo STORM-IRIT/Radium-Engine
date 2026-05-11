@@ -223,10 +223,10 @@ class RA_CORE_API MultiIndexedGeometry : public AttribArrayGeometry, public Util
     using Vec4AttribHandle   = AttribArrayGeometry::Vec4AttribHandle;
 
     MultiIndexedGeometry() = default;
-    explicit MultiIndexedGeometry( const MultiIndexedGeometry& other );
-    explicit MultiIndexedGeometry( MultiIndexedGeometry&& other );
-    explicit MultiIndexedGeometry( const AttribArrayGeometry& other );
-    explicit MultiIndexedGeometry( AttribArrayGeometry&& other );
+    MultiIndexedGeometry( const MultiIndexedGeometry& other );
+    MultiIndexedGeometry( MultiIndexedGeometry&& other );
+    MultiIndexedGeometry( const AttribArrayGeometry& other );
+    MultiIndexedGeometry( AttribArrayGeometry&& other );
     MultiIndexedGeometry& operator=( const MultiIndexedGeometry& other );
     MultiIndexedGeometry& operator=( MultiIndexedGeometry&& other );
 
