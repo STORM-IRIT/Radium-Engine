@@ -142,7 +142,7 @@ MultiIndexedGeometry makeBox2( const Vector3& corner,
 
     result.addLayer( std::move( layer ) );
 
-    return MultiIndexedGeometry { std::move( result ) };
+    return result;
 }
 
 TriangleMesh makeSharpBox( const Vector3& halfExts,
@@ -287,7 +287,7 @@ MultiIndexedGeometry makeSharpBox2( const Aabb& aabb,
 
     if ( bool( color ) ) result.colorize( *color );
     result.checkConsistency();
-    return MultiIndexedGeometry { std::move( result ) };
+    return result;
 }
 
 MultiIndexedGeometry makeSharpBox2( const Vector3& halfExts,
