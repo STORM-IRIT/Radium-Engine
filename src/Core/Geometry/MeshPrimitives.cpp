@@ -427,9 +427,9 @@ TriangleMesh makeSharpBox( const Aabb& aabb,
     return result;
 }
 
-TriangleMesh
+MultiIndexedGeometry
 makeGeodesicSphere( Scalar radius, uint numSubdiv, const Utils::optional<Utils::Color>& color ) {
-    TriangleMesh result;
+    MultiIndexedGeometry result;
     uint faceCount = uint( std::pow( 4, numSubdiv ) ) * 20;
 
     TriangleMesh::PointAttribHandle::Container vertices;
@@ -507,24 +507,24 @@ makeGeodesicSphere( Scalar radius, uint numSubdiv, const Utils::optional<Utils::
 
     result.setVertices( std::move( vertices ) );
     result.setNormals( std::move( normals ) );
-    result.setIndices( std::move( indices ) );
+    result.set_indices<TriangleIndexLayer>( std::move( indices ) );
     if ( bool( color ) ) result.colorize( *color );
     result.checkConsistency();
 
     return result;
 }
 
-TriangleMesh makeCylinder( const Vector3& a,
-                           const Vector3& b,
-                           Scalar radius,
-                           uint sideSegments,
-                           uint fillSegments,
-                           const Utils::optional<Utils::Color>& color ) {
-    TriangleMesh result;
+MultiIndexedGeometry makeCylinder( const Vector3& a,
+                                   const Vector3& b,
+                                   Scalar radius,
+                                   uint sideSegments,
+                                   uint fillSegments,
+                                   const Utils::optional<Utils::Color>& color ) {
+    MultiIndexedGeometry result;
 
-    TriangleMesh::PointAttribHandle::Container vertices;
-    TriangleMesh::NormalAttribHandle::Container normals;
-    TriangleMesh::IndexContainerType indices;
+    MultiIndexedGeometry::PointAttribHandle::Container vertices;
+    MultiIndexedGeometry::NormalAttribHandle::Container normals;
+    TriangleIndexLayer::IndexContainerType indices;
 
     const Vector3 ab  = b - a;
     const Vector3 dir = ab.normalized();
@@ -593,18 +593,18 @@ TriangleMesh makeCylinder( const Vector3& a,
 
     result.setVertices( std::move( vertices ) );
     result.setNormals( std::move( normals ) );
-    result.setIndices( std::move( indices ) );
+    result.set_indices<TriangleIndexLayer>( std::move( indices ) );
     if ( bool( color ) ) result.colorize( *color );
     result.checkConsistency();
 
     return result;
 }
 
-TriangleMesh makeCapsule( Scalar length,
-                          Scalar radius,
-                          uint nFaces,
-                          const Utils::optional<Utils::Color>& color ) {
-    TriangleMesh result;
+MultiIndexedGeometry makeCapsule( Scalar length,
+                                  Scalar radius,
+                                  uint nFaces,
+                                  const Utils::optional<Utils::Color>& color ) {
+    MultiIndexedGeometry result;
 
     TriangleMesh::PointAttribHandle::Container vertices;
     TriangleMesh::NormalAttribHandle::Container normals;
@@ -775,26 +775,26 @@ TriangleMesh makeCapsule( Scalar length,
     }
     result.setVertices( std::move( vertices ) );
     result.setNormals( std::move( normals ) );
-    result.setIndices( std::move( indices ) );
+    result.set_indices<TriangleIndexLayer>( std::move( indices ) );
     if ( bool( color ) ) result.colorize( *color );
     result.checkConsistency();
 
     return result;
 }
 
-TriangleMesh makeTube( const Vector3& a,
-                       const Vector3& b,
-                       Scalar outerRadius,
-                       Scalar innerRadius,
-                       uint nFaces,
-                       const Utils::optional<Utils::Color>& color ) {
+MultiIndexedGeometry makeTube( const Vector3& a,
+                               const Vector3& b,
+                               Scalar outerRadius,
+                               Scalar innerRadius,
+                               uint nFaces,
+                               const Utils::optional<Utils::Color>& color ) {
 
     CORE_ASSERT( outerRadius > innerRadius, "Outer radius must be bigger than inner." );
 
-    TriangleMesh result;
-    TriangleMesh::PointAttribHandle::Container vertices;
-    TriangleMesh::NormalAttribHandle::Container normals;
-    TriangleMesh::IndexContainerType indices;
+    MultiIndexedGeometry result;
+    MultiIndexedGeometry::PointAttribHandle::Container vertices;
+    MultiIndexedGeometry::NormalAttribHandle::Container normals;
+    TriangleIndexLayer::IndexContainerType indices;
     vertices.reserve( 6 * nFaces );
     normals.reserve( 6 * nFaces );
     indices.reserve( 12 * nFaces );
@@ -876,7 +876,7 @@ TriangleMesh makeTube( const Vector3& a,
     }
     result.setVertices( std::move( vertices ) );
     result.setNormals( std::move( normals ) );
-    result.setIndices( std::move( indices ) );
+    result.set_indices<TriangleIndexLayer>( std::move( indices ) );
     if ( bool( color ) ) result.colorize( *color );
     result.checkConsistency();
 

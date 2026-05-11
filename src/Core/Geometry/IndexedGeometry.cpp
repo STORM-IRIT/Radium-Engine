@@ -72,7 +72,7 @@ bool MultiIndexedGeometry::append( const MultiIndexedGeometry& other ) {
                 value.first, std::unique_ptr<GeometryIndexLayerBase> { value.second->clone() } );
             dataHasBeenCopied = true;
             m_indices[key].second->offset( offset );
-            ///\todo offest indices.
+            ///\todo offest indices. (done ?)
         }
         else {
             // try to append to an existing layer: should always work

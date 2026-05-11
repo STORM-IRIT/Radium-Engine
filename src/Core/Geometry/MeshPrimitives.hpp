@@ -104,9 +104,9 @@ RA_CORE_API MultiIndexedGeometry makeSharpBox2( const Aabb& aabb,
 /// Create a parametric spherical mesh of given radius. Template parameters set the resolution.
 /// \param generateTexCoord: maps parametric (u,v) to texture corrdinates [0,1]^2
 template <uint U = 16, uint V = U>
-TriangleMesh makeParametricSphere( Scalar radius                              = 1_ra,
-                                   const Utils::optional<Utils::Color>& color = {},
-                                   bool generateTexCoord                      = false );
+MultiIndexedGeometry makeParametricSphere( Scalar radius                              = 1_ra,
+                                           const Utils::optional<Utils::Color>& color = {},
+                                           bool generateTexCoord                      = false );
 
 /// Create a parametric torus mesh. The minor radius is the radius of the inside of the tube and
 /// the major radius is the radius of the whole torus. The torus will be centered at the origin
@@ -125,36 +125,38 @@ QuadMesh makeParametricTorus( Scalar majorRadius,
 //                               const Utils::optional<Utils::Color>& color = {},
 //                               bool generateTexCoord                      = false );
 /// Create a spherical mesh by subdivision of an icosahedron.
-RA_CORE_API TriangleMesh makeGeodesicSphere( Scalar radius                              = 1_ra,
-                                             uint numSubdiv                             = 3,
-                                             const Utils::optional<Utils::Color>& color = {} );
+RA_CORE_API MultiIndexedGeometry
+makeGeodesicSphere( Scalar radius                              = 1_ra,
+                    uint numSubdiv                             = 3,
+                    const Utils::optional<Utils::Color>& color = {} );
 
 /// Create a cylinder approximation (sideSegments-faced prism) with base faces centered on a and
 /// b with given radius. Fill (the tube part) is split into equally sapced fill segments. Side
 /// and fill make a sharp edge.
-RA_CORE_API TriangleMesh makeCylinder( const Vector3& a,
-                                       const Vector3& b,
-                                       Scalar radius,
-                                       uint sideSegments                          = 32,
-                                       uint fillSegments                          = 2,
-                                       const Utils::optional<Utils::Color>& color = {} );
+RA_CORE_API
+MultiIndexedGeometry makeCylinder( const Vector3& a,
+                                   const Vector3& b,
+                                   Scalar radius,
+                                   uint sideSegments                          = 32,
+                                   uint fillSegments                          = 2,
+                                   const Utils::optional<Utils::Color>& color = {} );
 
 /// Create a capsule with given cylinder length and radius.
 /// Total length is length + 2*radius
 /// The capsule is along z axis
-RA_CORE_API TriangleMesh makeCapsule( Scalar length,
-                                      Scalar radius,
-                                      uint nFaces                                = 32,
-                                      const Utils::optional<Utils::Color>& color = {} );
+RA_CORE_API MultiIndexedGeometry makeCapsule( Scalar length,
+                                              Scalar radius,
+                                              uint nFaces                                = 32,
+                                              const Utils::optional<Utils::Color>& color = {} );
 
 /// Create a tube (empty cylinder) delimited by two radii, with bases centered on A and B.
 /// Outer radius must be larger than inner radius.
-RA_CORE_API TriangleMesh makeTube( const Vector3& a,
-                                   const Vector3& b,
-                                   Scalar outerRadius,
-                                   Scalar InnerRadius,
-                                   uint nFaces                                = 32,
-                                   const Utils::optional<Utils::Color>& color = {} );
+RA_CORE_API MultiIndexedGeometry makeTube( const Vector3& a,
+                                           const Vector3& b,
+                                           Scalar outerRadius,
+                                           Scalar InnerRadius,
+                                           uint nFaces                                = 32,
+                                           const Utils::optional<Utils::Color>& color = {} );
 
 /// Create a cone approximation (n-faced pyramid) with base face centered on base, pointing
 /// towards tip with given base radius.
@@ -165,7 +167,7 @@ RA_CORE_API TriangleMesh makeCone( const Vector3& base,
                                    const Utils::optional<Utils::Color>& color = {} );
 
 template <uint SLICES, uint STACKS>
-TriangleMesh
+MultiIndexedGeometry
 makeParametricSphere( Scalar radius, const Utils::optional<Utils::Color>& color, bool gtc ) {
 
     const Scalar du = 1_ra / SLICES;
@@ -301,7 +303,7 @@ makeParametricSphere( Scalar radius, const Utils::optional<Utils::Color>& color,
 
     topoMesh.mergeEqualWedges();
     topoMesh.garbage_collection();
-    TriangleMesh result = topoMesh.toTriangleMesh();
+    auto result = topoMesh.toTriangleMesh();
     result.checkConsistency();
     return result;
 }

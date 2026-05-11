@@ -142,11 +142,11 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
      * \warning It uses the attributes defined on wedges
      */
     template <typename IndexType>
-    IndexedGeometry<IndexType> toIndexedMesh();
-    PolyMesh toPolyMesh() { return toIndexedMesh<PolyMesh::DefaultLayerType>(); }
-    LineMesh toLineMesh() { return toIndexedMesh<LineMesh::DefaultLayerType>(); }
-    QuadMesh toQuadMesh() { return toIndexedMesh<QuadMesh::DefaultLayerType>(); }
-    TriangleMesh toTriangleMesh() { return toIndexedMesh<TriangleMesh::DefaultLayerType>(); }
+    MultiIndexedGeometry toIndexedMesh();
+    MultiIndexedGeometry toPolyMesh() { return toIndexedMesh<PolyIndexLayer>(); }
+    MultiIndexedGeometry toLineMesh() { return toIndexedMesh<LineIndexLayer>(); }
+    MultiIndexedGeometry toQuadMesh() { return toIndexedMesh<QuadIndexLayer>(); }
+    MultiIndexedGeometry toTriangleMesh() { return toIndexedMesh<TriangleIndexLayer>(); }
 
     /**
      * Update triangle mesh data, assuming the mesh and this topo mesh has the
@@ -1151,15 +1151,15 @@ void TopologicalMesh::initWithWedge(
     command.initialize( mesh );
 
     auto processFaces = [&mesh, &vertexHandles, this, hasNormals, &command]( const auto& faces ) {
-        size_t num_triangles = faces.size();
-        for ( unsigned int i = 0; i < num_triangles; i++ ) {
-            const auto& face      = faces[i];
-            const size_t num_vert = face.size();
-            std::vector<TopologicalMesh::VertexHandle> face_vhandles( num_vert );
-            std::vector<TopologicalMesh::Normal> face_normals( num_vert );
-            std::vector<WedgeIndex> face_wedges( num_vert );
+        size_t face_count = faces.size();
+        for ( unsigned int i = 0; i < face_count; i++ ) {
+            const auto& face          = faces[i];
+            const size_t vertex_count = face.size();
+            std::vector<TopologicalMesh::VertexHandle> face_vhandles( vertex_count );
+            std::vector<TopologicalMesh::Normal> face_normals( vertex_count );
+            std::vector<WedgeIndex> face_wedges( vertex_count );
 
-            for ( size_t j = 0; j < num_vert; ++j ) {
+            for ( size_t j = 0; j < vertex_count; ++j ) {
                 unsigned int inMeshVertexIndex = face[j];
                 const Vector3& p               = mesh.vertices()[inMeshVertexIndex];
 
@@ -1484,13 +1484,13 @@ TopologicalMesh::getWedgeIndexPph() const {
 }
 
 template <typename LayerType>
-IndexedGeometry<LayerType> TopologicalMesh::toIndexedMesh() {
+MultiIndexedGeometry TopologicalMesh::toIndexedMesh() {
 
     // first cleanup deleted element
     garbage_collection();
 
-    IndexedGeometry<LayerType> out;
-    typename IndexedGeometry<LayerType>::IndexContainerType indices;
+    MultiIndexedGeometry out;
+    typename LayerType::IndexContainerType indices;
 
     /// add attribs to out
     std::vector<AttribHandle<Scalar>> wedgeFloatAttribHandles;
@@ -1539,7 +1539,7 @@ IndexedGeometry<LayerType> TopologicalMesh::toIndexedMesh() {
         indices.push_back( faceIndices );
     }
 
-    out.setIndices( std::move( indices ) );
+    out.set_indices<LayerType>( std::move( indices ) );
 
     return out;
 }
