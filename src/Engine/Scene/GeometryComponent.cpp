@@ -30,7 +30,7 @@ namespace Engine {
 namespace Scene {
 
 template <>
-SurfaceMeshComponent<Ra::Core::Geometry::MultiIndexedGeometry>::SurfaceMeshComponent(
+SurfaceMeshComponentBase<Ra::Core::Geometry::MultiIndexedGeometry>::SurfaceMeshComponentBase(
     const std::string& name,
     Entity* entity,
     Ra::Core::Geometry::MultiIndexedGeometry&& mesh,
@@ -52,7 +52,7 @@ const Index* GeometryComponent::roIndexRead() const {
 }
 
 template <>
-void SurfaceMeshComponent<Ra::Core::Geometry::MultiIndexedGeometry>::generateMesh(
+void SurfaceMeshComponentBase<Ra::Core::Geometry::MultiIndexedGeometry>::generateMesh(
     const Ra::Core::Asset::GeometryData* data ) {
     m_contentName      = data->getName();
     m_displayMesh      = Ra::Core::make_shared<RenderMeshType>( m_contentName );

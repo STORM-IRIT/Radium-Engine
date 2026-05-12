@@ -62,33 +62,33 @@ class RA_ENGINE_API GeometryComponent : public Component
  *  - triangles: rw (if deformable)
  */
 template <typename CoreMeshType>
-class SurfaceMeshComponent : public GeometryComponent
+class SurfaceMeshComponentBase : public GeometryComponent
 {
     using base = GeometryComponent;
 
   public:
     using RenderMeshType = typename Data::RenderMeshType::getType<CoreMeshType>::Type;
 
-    inline SurfaceMeshComponent( const std::string& name,
-                                 Entity* entity,
-                                 const Ra::Core::Asset::GeometryData* data );
-    inline SurfaceMeshComponent( const std::string& name,
-                                 Entity* entity,
-                                 std::shared_ptr<RenderMeshType> data );
+    inline SurfaceMeshComponentBase( const std::string& name,
+                                     Entity* entity,
+                                     const Ra::Core::Asset::GeometryData* data );
+    inline SurfaceMeshComponentBase( const std::string& name,
+                                     Entity* entity,
+                                     std::shared_ptr<RenderMeshType> data );
 
     /*!
      * Constructor from an existing mesh
      * \warning Moves the mesh and takes its ownership
      */
-    inline SurfaceMeshComponent( const std::string& name,
-                                 Entity* entity,
-                                 CoreMeshType&& mesh,
-                                 Core::Asset::MaterialData* mat = nullptr );
-    inline SurfaceMeshComponent( const std::string& name,
-                                 Entity* entity,
-                                 CoreMeshType&& mesh,
-                                 std::shared_ptr<Data::Material> mat );
-    ~SurfaceMeshComponent() override = default;
+    inline SurfaceMeshComponentBase( const std::string& name,
+                                     Entity* entity,
+                                     CoreMeshType&& mesh,
+                                     Core::Asset::MaterialData* mat = nullptr );
+    inline SurfaceMeshComponentBase( const std::string& name,
+                                     Entity* entity,
+                                     CoreMeshType&& mesh,
+                                     std::shared_ptr<Data::Material> mat );
+    ~SurfaceMeshComponentBase() override = default;
 
     /// Returns the current display geometry.
     inline const CoreMeshType& getCoreGeometry() const;
@@ -116,10 +116,7 @@ class SurfaceMeshComponent : public GeometryComponent
     std::shared_ptr<RenderMeshType> m_displayMesh { nullptr };
 };
 
-using TriangleMeshComponent        = SurfaceMeshComponent<Ra::Core::Geometry::MultiIndexedGeometry>;
-using GeometryDisplayableComponent = SurfaceMeshComponent<Ra::Core::Geometry::MultiIndexedGeometry>;
-using QuadMeshComponent            = SurfaceMeshComponent<Ra::Core::Geometry::MultiIndexedGeometry>;
-using PolyMeshComponent            = SurfaceMeshComponent<Ra::Core::Geometry::MultiIndexedGeometry>;
+using SurfaceMeshComponent = SurfaceMeshComponentBase<Ra::Core::Geometry::MultiIndexedGeometry>;
 
 /// \warning, WIP
 /// \todo doc.
@@ -218,7 +215,7 @@ class RA_ENGINE_API VolumeComponent : public Component
 };
 
 template <typename CoreMeshType>
-SurfaceMeshComponent<CoreMeshType>::SurfaceMeshComponent(
+SurfaceMeshComponentBase<CoreMeshType>::SurfaceMeshComponentBase(
     const std::string& name,
     Entity* entity,
     const Ra::Core::Asset::GeometryData* data ) :
@@ -227,25 +224,27 @@ SurfaceMeshComponent<CoreMeshType>::SurfaceMeshComponent(
 }
 
 template <>
-RA_ENGINE_API SurfaceMeshComponent<Ra::Core::Geometry::MultiIndexedGeometry>::SurfaceMeshComponent(
+RA_ENGINE_API
+SurfaceMeshComponentBase<Ra::Core::Geometry::MultiIndexedGeometry>::SurfaceMeshComponentBase(
     const std::string& name,
     Entity* entity,
     Ra::Core::Geometry::MultiIndexedGeometry&& mesh,
     Core::Asset::MaterialData* mat );
 
 template <typename CoreMeshType>
-SurfaceMeshComponent<CoreMeshType>::SurfaceMeshComponent( const std::string& name,
-                                                          Entity* entity,
-                                                          std::shared_ptr<RenderMeshType> data ) :
+SurfaceMeshComponentBase<CoreMeshType>::SurfaceMeshComponentBase(
+    const std::string& name,
+    Entity* entity,
+    std::shared_ptr<RenderMeshType> data ) :
     GeometryComponent( name, entity ), m_displayMesh( data ) {
     finalizeROFromGeometry( convertMatdataToMaterial( nullptr ), Core::Transform::Identity() );
 }
 
 template <typename CoreMeshType>
-SurfaceMeshComponent<CoreMeshType>::SurfaceMeshComponent( const std::string& name,
-                                                          Entity* entity,
-                                                          CoreMeshType&& mesh,
-                                                          Core::Asset::MaterialData* mat ) :
+SurfaceMeshComponentBase<CoreMeshType>::SurfaceMeshComponentBase( const std::string& name,
+                                                                  Entity* entity,
+                                                                  CoreMeshType&& mesh,
+                                                                  Core::Asset::MaterialData* mat ) :
     GeometryComponent( name, entity ),
     m_displayMesh( new RenderMeshType( name, std::move( mesh ) ) ) {
     setContentName( name );
@@ -253,7 +252,7 @@ SurfaceMeshComponent<CoreMeshType>::SurfaceMeshComponent( const std::string& nam
 }
 
 template <typename CoreMeshType>
-SurfaceMeshComponent<CoreMeshType>::SurfaceMeshComponent(
+SurfaceMeshComponentBase<CoreMeshType>::SurfaceMeshComponentBase(
     const std::string& name,
     Entity* entity,
     CoreMeshType&& mesh,
@@ -264,7 +263,8 @@ SurfaceMeshComponent<CoreMeshType>::SurfaceMeshComponent(
     finalizeROFromGeometry( mat, Core::Transform::Identity() );
 }
 template <typename CoreMeshType>
-void SurfaceMeshComponent<CoreMeshType>::generateMesh( const Ra::Core::Asset::GeometryData* data ) {
+void SurfaceMeshComponentBase<CoreMeshType>::generateMesh(
+    const Ra::Core::Asset::GeometryData* data ) {
     m_contentName     = data->getName();
     m_displayMesh     = Ra::Core::make_shared<RenderMeshType>( m_contentName );
     CoreMeshType mesh = Data::createCoreMeshFromGeometryData<CoreMeshType>( data );
@@ -277,11 +277,11 @@ void SurfaceMeshComponent<CoreMeshType>::generateMesh( const Ra::Core::Asset::Ge
 }
 
 template <>
-RA_ENGINE_API void SurfaceMeshComponent<Ra::Core::Geometry::MultiIndexedGeometry>::generateMesh(
+RA_ENGINE_API void SurfaceMeshComponentBase<Ra::Core::Geometry::MultiIndexedGeometry>::generateMesh(
     const Ra::Core::Asset::GeometryData* data );
 
 template <typename CoreMeshType>
-std::shared_ptr<Data::Material> SurfaceMeshComponent<CoreMeshType>::convertMatdataToMaterial(
+std::shared_ptr<Data::Material> SurfaceMeshComponentBase<CoreMeshType>::convertMatdataToMaterial(
     const Core::Asset::MaterialData* data ) {
     // The technique for rendering this component
     std::shared_ptr<Data::Material> roMaterial;
@@ -302,7 +302,7 @@ std::shared_ptr<Data::Material> SurfaceMeshComponent<CoreMeshType>::convertMatda
 }
 
 template <typename CoreMeshType>
-void SurfaceMeshComponent<CoreMeshType>::finalizeROFromGeometry(
+void SurfaceMeshComponentBase<CoreMeshType>::finalizeROFromGeometry(
     std::shared_ptr<Data::Material> roMaterial,
     Core::Transform transform ) {
 
@@ -329,25 +329,25 @@ void SurfaceMeshComponent<CoreMeshType>::finalizeROFromGeometry(
 #endif
 
 template <typename CoreMeshType>
-const CoreMeshType& SurfaceMeshComponent<CoreMeshType>::getCoreGeometry() const {
+const CoreMeshType& SurfaceMeshComponentBase<CoreMeshType>::getCoreGeometry() const {
     CHECK_MESH_NOT_NULL;
     return m_displayMesh->getCoreGeometry();
 }
 
 template <typename CoreMeshType>
-typename SurfaceMeshComponent<CoreMeshType>::RenderMeshType*
-SurfaceMeshComponent<CoreMeshType>::getDisplayable() {
+typename SurfaceMeshComponentBase<CoreMeshType>::RenderMeshType*
+SurfaceMeshComponentBase<CoreMeshType>::getDisplayable() {
     CHECK_MESH_NOT_NULL;
     return m_displayMesh.get();
 }
 
 template <typename CoreMeshType>
-void SurfaceMeshComponent<CoreMeshType>::setupIO( const std::string& id ) {
+void SurfaceMeshComponentBase<CoreMeshType>::setupIO( const std::string& id ) {
     CHECK_MESH_NOT_NULL;
 
     const auto& cm = ComponentMessenger::getInstance();
-    auto cbOut     = std::bind( &SurfaceMeshComponent<CoreMeshType>::getMeshOutput, this );
-    auto cbRw      = std::bind( &SurfaceMeshComponent<CoreMeshType>::getMeshRw, this );
+    auto cbOut     = std::bind( &SurfaceMeshComponentBase<CoreMeshType>::getMeshOutput, this );
+    auto cbRw      = std::bind( &SurfaceMeshComponentBase<CoreMeshType>::getMeshRw, this );
 
     cm->registerOutput<CoreMeshType>( getEntity(), this, id, cbOut );
     cm->registerReadWrite<CoreMeshType>( getEntity(), this, id, cbRw );
@@ -362,13 +362,13 @@ void SurfaceMeshComponent<CoreMeshType>::setupIO( const std::string& id ) {
 }
 
 template <typename CoreMeshType>
-const CoreMeshType* SurfaceMeshComponent<CoreMeshType>::getMeshOutput() const {
+const CoreMeshType* SurfaceMeshComponentBase<CoreMeshType>::getMeshOutput() const {
     CHECK_MESH_NOT_NULL;
     return &m_displayMesh->getCoreGeometry();
 }
 
 template <typename CoreMeshType>
-CoreMeshType* SurfaceMeshComponent<CoreMeshType>::getMeshRw() {
+CoreMeshType* SurfaceMeshComponentBase<CoreMeshType>::getMeshRw() {
     CHECK_MESH_NOT_NULL;
     return &( m_displayMesh->getCoreGeometry() );
 }

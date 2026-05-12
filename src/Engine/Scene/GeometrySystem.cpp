@@ -33,7 +33,7 @@ void GeometrySystem::handleAssetLoading( Entity* entity,
         case Ra::Core::Asset::GeometryData::QUAD_MESH:
         case Ra::Core::Asset::GeometryData::TRI_MESH:
         case Ra::Core::Asset::GeometryData::POLY_MESH:
-            comp = new GeometryDisplayableComponent( componentName, entity, data );
+            comp = new SurfaceMeshComponent( componentName, entity, data );
             break;
         case Ra::Core::Asset::GeometryData::TETRA_MESH:
         case Ra::Core::Asset::GeometryData::HEX_MESH:
