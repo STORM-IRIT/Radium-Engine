@@ -41,6 +41,7 @@ ScaleGizmo::ScaleGizmo( Engine::Scene::Component* c,
         boxBounds.extend( Core::Vector3( radius * 2_ra, radius * 2_ra, radius * 2_ra ) );
         boxBounds.translate( arrowScale * cylinderEnd );
         auto box = Core::Geometry::makeSharpBox( boxBounds );
+
         cylinder.append( box );
 
         std::shared_ptr<Engine::Data::GeometryDisplayable> mesh(
