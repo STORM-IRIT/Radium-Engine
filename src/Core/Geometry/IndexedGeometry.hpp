@@ -154,6 +154,71 @@ struct GeometryIndexLayer : public GeometryIndexLayerBase {
 DECLARE_INDEX_LAYER( InvalidIndexLayer, Vector1ui );
 
 /**
+ * \name Predefined index layers
+ * The use of these layers helps in generic management of geometries
+ * \{
+ */
+/// \brief Index layer for a point cloud
+OPEN_DECLARATION_INDEX_LAYER( PointCloudIndexLayer, Vector1ui )
+
+/// \brief Constructor of an index layer with linearly spaced indices ranging from \f$0\f$ to
+/// \f$n-1\f$
+inline explicit PointCloudIndexLayer( size_t n ) :
+    GeometryIndexLayer( PointCloudIndexLayer::staticSemanticName ) {
+    collection().resize( n );
+    collection().getMap() = IndexContainerType::Matrix::LinSpaced( n, 0, n - 1 );
+}
+
+/// \brief Generate linearly spaced indices with same size as \p attr vertex buffer
+void linearIndices( const AttribArrayGeometry& attr ) {
+    auto nbVert = attr.vertices().size();
+    collection().resize( nbVert );
+    collection().getMap() = IndexContainerType::Matrix::LinSpaced( nbVert, 0, nbVert - 1 );
+}
+
+};
+
+/**
+ * \brief Index layer for triangle mesh.
+ *
+ * \note, This layer ensures that all faces have exactly 3 vertices.
+ */
+DECLARE_INDEX_LAYER( TriangleIndexLayer, Vector3ui )
+
+/**
+ * \brief Index layer for quadrilateral mesh.
+ *
+ * \note, This layer ensures that all faces have exactly 4 vertices
+ */
+DECLARE_INDEX_LAYER( QuadIndexLayer, Vector4ui )
+
+/**
+ * \brief Index layer for polygonal mesh.
+ *
+ * \note, Using this layer, all faces might have more than 4 vertices or have different number of
+ * vertices.
+ */
+DECLARE_INDEX_LAYER( PolyIndexLayer, VectorNui )
+
+/** one Ni index -> one strip */
+DECLARE_INDEX_LAYER( StripOrFanIndexLayer, VectorNui )
+
+/**
+ * \brief Index layer for line mesh.
+ *
+ * \note, This layer ensures that all faces have exactly 2 vertices
+ */
+DECLARE_INDEX_LAYER( LineIndexLayer, Vector2ui )
+
+/**
+ * \}
+ */
+
+#undef INDEX_LAYER_CLONE_IMPLEMENTATION
+#undef OPEN_DECLARATION_INDEX_LAYER
+#undef DECLARE_INDEX_LAYER
+
+/**
  * \brief AbstractGeometry with per-vertex attributes and layers of indices.
  * Each layer represents a different topology or indexing logic, e.g. triangle/line/quad
  * meshes, point-clouds.
@@ -465,6 +530,19 @@ class RA_CORE_API MultiIndexedGeometry : public AttribArrayGeometry, public Util
     }
 
     template <typename IndexLayer>
+    LayerKeyType triangulate() {
+        if ( !containsLayer( TriangleIndexLayer::staticSemanticName ) ) {
+            auto result = getFirstLayerOccurrence( IndexLayer::staticSemanticName );
+            auto& layer = static_cast<const IndexLayer&>( result.second ).collection();
+
+            auto triangle_layer          = std::make_unique<TriangleIndexLayer>();
+            triangle_layer->collection() = Helper::triangulate( layer );
+            return addLayer( std::move( triangle_layer ) ).second;
+        }
+        return getFirstLayerOccurrence( TriangleIndexLayer::staticSemanticName ).first;
+    }
+
+    template <typename IndexLayer>
     auto indices_with_lock() {
         auto itr = getFirstLayerIteratorWithLock( IndexLayer::staticSemanticName );
         LayerKeyType layer_key;
@@ -546,71 +624,6 @@ class RA_CORE_API MultiIndexedGeometry : public AttribArrayGeometry, public Util
     /// Default layer key, initialized as invalid, set to first added Layer Key.
     LayerKeyType m_default_layer_key { { InvalidIndexLayer::staticSemanticName }, "invalid" };
 };
-
-/**
- * \name Predefined index layers
- * The use of these layers helps in generic management of geometries
- * \{
- */
-/// \brief Index layer for a point cloud
-OPEN_DECLARATION_INDEX_LAYER( PointCloudIndexLayer, Vector1ui )
-
-/// \brief Constructor of an index layer with linearly spaced indices ranging from \f$0\f$ to
-/// \f$n-1\f$
-inline explicit PointCloudIndexLayer( size_t n ) :
-    GeometryIndexLayer( PointCloudIndexLayer::staticSemanticName ) {
-    collection().resize( n );
-    collection().getMap() = IndexContainerType::Matrix::LinSpaced( n, 0, n - 1 );
-}
-
-/// \brief Generate linearly spaced indices with same size as \p attr vertex buffer
-void linearIndices( const AttribArrayGeometry& attr ) {
-    auto nbVert = attr.vertices().size();
-    collection().resize( nbVert );
-    collection().getMap() = IndexContainerType::Matrix::LinSpaced( nbVert, 0, nbVert - 1 );
-}
-
-};
-
-/**
- * \brief Index layer for triangle mesh.
- *
- * \note, This layer ensures that all faces have exactly 3 vertices.
- */
-DECLARE_INDEX_LAYER( TriangleIndexLayer, Vector3ui )
-
-/**
- * \brief Index layer for quadrilateral mesh.
- *
- * \note, This layer ensures that all faces have exactly 4 vertices
- */
-DECLARE_INDEX_LAYER( QuadIndexLayer, Vector4ui )
-
-/**
- * \brief Index layer for polygonal mesh.
- *
- * \note, Using this layer, all faces might have more than 4 vertices or have different number of
- * vertices.
- */
-DECLARE_INDEX_LAYER( PolyIndexLayer, VectorNui )
-
-/** one Ni index -> one strip */
-DECLARE_INDEX_LAYER( StripOrFanIndexLayer, VectorNui )
-
-/**
- * \brief Index layer for line mesh.
- *
- * \note, This layer ensures that all faces have exactly 2 vertices
- */
-DECLARE_INDEX_LAYER( LineIndexLayer, Vector2ui )
-
-/**
- * \}
- */
-
-#undef INDEX_LAYER_CLONE_IMPLEMENTATION
-#undef OPEN_DECLARATION_INDEX_LAYER
-#undef DECLARE_INDEX_LAYER
 
 /**
  * \brief A single layer MultiIndexedGeometry.
