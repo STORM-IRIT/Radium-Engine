@@ -152,9 +152,10 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
      * Update triangle mesh data, assuming the mesh and this topo mesh has the
      * same topology.
      */
-    void updateTriangleMesh( Ra::Core::Geometry::MultiIndexedGeometry& mesh );
-    void updateTriangleMeshNormals( Ra::Core::Geometry::MultiIndexedGeometry& mesh );
-    void updateTriangleMeshNormals( AttribArrayGeometry::NormalAttribHandle::Container& normals );
+    void updateTriangleMesh( Ra::Core::Geometry::MultiIndexedGeometry& mesh ) const;
+    void updateTriangleMeshNormals( Ra::Core::Geometry::MultiIndexedGeometry& mesh ) const;
+    void
+    updateTriangleMeshNormals( AttribArrayGeometry::NormalAttribHandle::Container& normals ) const;
 
     void update( const Ra::Core::Geometry::MultiIndexedGeometry& mesh );
     void updateNormals( const Ra::Core::Geometry::MultiIndexedGeometry& mesh );
@@ -401,16 +402,17 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
     /// work ... need investigation)
     template <typename T>
     void copyWedgeDataToAttribContainer( AlignedStdVector<typename Attrib<T>::Container>& c,
-                                         const VectorArray<T>& wd ) {
+                                         const VectorArray<T>& wd ) const {
         for ( size_t i = 0; i < wd.size(); ++i ) {
             c[i].push_back( wd[i] );
         }
     }
 
     template <typename T>
-    void moveContainerToMesh( Ra::Core::Geometry::MultiIndexedGeometry& out,
-                              const std::vector<std::string>& names,
-                              AlignedStdVector<typename Attrib<T>::Container>& wedgeAttribData ) {
+    void
+    moveContainerToMesh( Ra::Core::Geometry::MultiIndexedGeometry& out,
+                         const std::vector<std::string>& names,
+                         AlignedStdVector<typename Attrib<T>::Container>& wedgeAttribData ) const {
         for ( size_t i = 0; i < wedgeAttribData.size(); ++i ) {
             auto attrHandle = out.template addAttrib<T>( names[i] );
             out.getAttrib( attrHandle ).setData( std::move( wedgeAttribData[i] ) );
@@ -496,9 +498,13 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
         template <typename T>
         inline T& getWedgeData( const WedgeIndex& idx, int attribIndex );
         template <typename T>
+        inline const T& getWedgeData( const WedgeIndex& idx, int attribIndex ) const;
+        template <typename T>
         inline const T& getWedgeAttrib( const WedgeIndex& idx, const std::string& name ) const;
         template <typename T>
         inline T& getWedgeAttrib( const WedgeIndex& idx, int attribIndex );
+        template <typename T>
+        inline const T& getWedgeAttrib( const WedgeIndex& idx, int attribIndex ) const;
 
         unsigned int getWedgeRefCount( const WedgeIndex& idx ) const;
 
@@ -809,10 +815,22 @@ inline T& TopologicalMesh::WedgeCollection::getWedgeData( const TopologicalMesh:
                                                           int attribIndex ) {
     return getWedgeAttrib<T>( idx, attribIndex );
 }
+template <typename T>
+inline const T&
+TopologicalMesh::WedgeCollection::getWedgeData( const TopologicalMesh::WedgeIndex& idx,
+                                                int attribIndex ) const {
+    return getWedgeAttrib<T>( idx, attribIndex );
+}
 
 template <typename T>
 inline T& TopologicalMesh::WedgeCollection::getWedgeAttrib( const TopologicalMesh::WedgeIndex& idx,
                                                             int attribIndex ) {
+    return m_data[idx].getWedgeData().getAttribArray<T>()[attribIndex];
+}
+template <typename T>
+inline const T&
+TopologicalMesh::WedgeCollection::getWedgeAttrib( const TopologicalMesh::WedgeIndex& idx,
+                                                  int attribIndex ) const {
     return m_data[idx].getWedgeData().getAttribArray<T>()[attribIndex];
 }
 

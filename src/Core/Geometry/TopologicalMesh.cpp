@@ -186,7 +186,7 @@ TopologicalMesh::TopologicalMesh() {
     add_property( m_wedgeIndexPph );
 }
 
-void TopologicalMesh::updateTriangleMesh( Ra::Core::Geometry::MultiIndexedGeometry& out ) {
+void TopologicalMesh::updateTriangleMesh( Ra::Core::Geometry::MultiIndexedGeometry& out ) const {
     TriangleMesh::PointAttribHandle::Container wedgePosition;
     AlignedStdVector<Attrib<Scalar>::Container> wedgeFloatAttribData(
         m_wedges.m_floatAttribNames.size() );
@@ -215,7 +215,7 @@ void TopologicalMesh::updateTriangleMesh( Ra::Core::Geometry::MultiIndexedGeomet
 }
 
 void TopologicalMesh::updateTriangleMeshNormals(
-    AttribArrayGeometry::NormalAttribHandle::Container& normals ) {
+    AttribArrayGeometry::NormalAttribHandle::Container& normals ) const {
     if ( !has_halfedge_normals() ) {
         LOG( logERROR ) << "TopologicalMesh has no normals, nothing set";
         return;
@@ -226,7 +226,8 @@ void TopologicalMesh::updateTriangleMeshNormals(
     }
 }
 
-void TopologicalMesh::updateTriangleMeshNormals( Ra::Core::Geometry::MultiIndexedGeometry& out ) {
+void TopologicalMesh::updateTriangleMeshNormals(
+    Ra::Core::Geometry::MultiIndexedGeometry& out ) const {
     auto& normals = out.normalsWithLock();
     updateTriangleMeshNormals( normals );
     out.normalsUnlock();
