@@ -66,7 +66,7 @@ ScaleGizmo::ScaleGizmo( Engine::Scene::Component* c,
         auto plane = Core::Geometry::makePlaneGrid(
             1, 1, Core::Vector2( arrowFrac * arrowScale, arrowFrac * arrowScale ), T );
 
-        // \FIXME this hack is here to be sure the plane will be selected (see shader)
+        ///\todo \FIXME this hack is here to be sure the plane will be selected (see shader)
         auto& normals = plane.normalsWithLock();
         normals.getMap().fill( 0_ra );
         plane.normalsUnlock();
