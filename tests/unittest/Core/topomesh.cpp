@@ -299,13 +299,14 @@ TEST_CASE( "Core/Geometry/TopologicalMesh", "[unittests][Core][Core/Geometry][To
                                       { 0_ra, 1_ra },
                                       { 0_ra, 0_ra } };
 
-        auto mesh     = Ra::Core::Geometry::makeBox();
-        auto handle2  = mesh.addAttrib<Vector2>( "vector2_attrib" );
-        auto handle4  = mesh.addAttrib<Vector4>( "vector4_attrib" );
-        auto handle5  = mesh.addAttrib<Vector5>( "vector5_attrib" );
-        auto ehandle2 = mesh.addAttrib<Vector2>( "evector2_attrib" );
-        auto ehandle4 = mesh.addAttrib<Vector4>( "evector4_attrib" );
-        auto ehandle5 = mesh.addAttrib<Vector5>( "evector5_attrib" );
+        auto mesh      = Ra::Core::Geometry::makeBox2();
+        auto layer_key = mesh.triangulate<QuadIndexLayer>();
+        auto handle2   = mesh.addAttrib<Vector2>( "vector2_attrib" );
+        auto handle4   = mesh.addAttrib<Vector4>( "vector4_attrib" );
+        auto handle5   = mesh.addAttrib<Vector5>( "vector5_attrib" );
+        auto ehandle2  = mesh.addAttrib<Vector2>( "evector2_attrib" );
+        auto ehandle4  = mesh.addAttrib<Vector4>( "evector4_attrib" );
+        auto ehandle5  = mesh.addAttrib<Vector5>( "evector5_attrib" );
 
         auto& attrib2 = mesh.getAttrib( handle2 );
         auto& attrib4 = mesh.getAttrib( handle4 );
@@ -320,7 +321,7 @@ TEST_CASE( "Core/Geometry/TopologicalMesh", "[unittests][Core][Core/Geometry][To
         attrib4.unlock();
         attrib5.unlock();
 
-        auto topologicalMesh = TopologicalMesh( mesh );
+        auto topologicalMesh = TopologicalMesh( mesh, layer_key );
         auto newMesh         = topologicalMesh.toTriangleMesh();
         REQUIRE( isSameMesh( mesh,
                              mesh.indices<TriangleIndexLayer>(),
@@ -369,7 +370,7 @@ TEST_CASE( "Core/Geometry/TopologicalMesh", "[unittests][Core][Core/Geometry][To
     }
 
     SECTION( "Test normals" ) {
-        auto mesh            = Ra::Core::Geometry::makeBox();
+        auto mesh            = Ra::Core::Geometry::makeBox2();
         auto topologicalMesh = TopologicalMesh( mesh );
 
         for ( TopologicalMesh::ConstVertexIter v_it = topologicalMesh.vertices_begin();
@@ -385,7 +386,7 @@ TEST_CASE( "Core/Geometry/TopologicalMesh", "[unittests][Core][Core/Geometry][To
             topologicalMesh.propagate_normal_to_wedges( *v_it );
         }
 
-        auto newMesh = topologicalMesh.toTriangleMesh();
+        auto newMesh = topologicalMesh.toQuadMesh();
         bool check1  = true;
         bool check2  = true;
         for ( auto n : newMesh.normals() ) {
@@ -1300,12 +1301,12 @@ TEST_CASE( "Core/TopologicalMesh/CollapseWedge", "[unittests]" ) {
         addSplitScene( points2, colors2, indices4, points1[5], points1[2] );
     }
 }
-template <typename IndexType>
-void testConverter( IndexedGeometry<IndexType>&& mesh ) {
+
+void testConverter( MultiIndexedGeometry&& mesh ) {
     auto topologicalMesh = TopologicalMesh { mesh };
     auto& vertices       = mesh.verticesWithLock();
     for ( auto& v : vertices ) {
-        v = TriangleMesh::Point( 0_ra, 1_ra, 2_ra );
+        v = MultiIndexedGeometry::Point( 0_ra, 1_ra, 2_ra );
     }
     mesh.verticesUnlock();
 
@@ -1314,8 +1315,8 @@ void testConverter( IndexedGeometry<IndexType>&& mesh ) {
 
     for ( auto itr = topologicalMesh.vertices_begin(); itr != topologicalMesh.vertices_end();
           ++itr ) {
-        REQUIRE(
-            topologicalMesh.point( *itr ).isApprox( TriangleMesh::Point( 0_ra, 1_ra, 2_ra ) ) );
+        REQUIRE( topologicalMesh.point( *itr ).isApprox(
+            MultiIndexedGeometry::Point( 0_ra, 1_ra, 2_ra ) ) );
         // modify for next test.
         topologicalMesh.point( *itr ) = TopologicalMesh::Point( 3_ra, 4_ra, 5_ra );
     }
@@ -1325,7 +1326,7 @@ void testConverter( IndexedGeometry<IndexType>&& mesh ) {
 
     // not update since wedges are not updated yet
     for ( auto itr = mesh.vertices().begin(); itr != mesh.vertices().end(); ++itr ) {
-        REQUIRE( itr->isApprox( TriangleMesh::Point( 0_ra, 1_ra, 2_ra ) ) );
+        REQUIRE( itr->isApprox( MultiIndexedGeometry::Point( 0_ra, 1_ra, 2_ra ) ) );
     }
 
     topologicalMesh.copyPointsPositionToWedges();
@@ -1333,7 +1334,7 @@ void testConverter( IndexedGeometry<IndexType>&& mesh ) {
 
     // not update since wedges are not updated yet
     for ( auto itr = mesh.vertices().begin(); itr != mesh.vertices().end(); ++itr ) {
-        REQUIRE( itr->isApprox( TriangleMesh::Point( 3_ra, 4_ra, 5_ra ) ) );
+        REQUIRE( itr->isApprox( MultiIndexedGeometry::Point( 3_ra, 4_ra, 5_ra ) ) );
     }
 };
 
@@ -1344,8 +1345,8 @@ TEST_CASE( "Core/Geometry/TopologicalMesh/Updates",
     using Ra::Core::Geometry::TriangleMesh;
 
     SECTION( "Closed mesh" ) {
-        testConverter( Ra::Core::Geometry::makeBox() );
-        testConverter( Ra::Core::Geometry::makeSharpBox() );
+        testConverter( Ra::Core::Geometry::makeBox2() );
+        testConverter( Ra::Core::Geometry::makeSharpBox2() );
     }
 
     SECTION( "Mesh with boundaries" ) {
