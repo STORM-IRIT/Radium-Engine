@@ -194,7 +194,7 @@ void GeometryDisplayable::loadGeometry( Core::Geometry::MultiIndexedGeometry&& m
         const auto& quadLayer = dynamic_cast<const Core::Geometry::QuadIndexLayer&>( layer );
 
         auto triangleLayer          = std::make_unique<Core::Geometry::TriangleIndexLayer>();
-        triangleLayer->collection() = Core::Geometry::triangulate( quadLayer.collection() );
+        triangleLayer->collection() = Core::Geometry::Helper::triangulate( quadLayer.collection() );
 
         LayerKeyType triangleKey = { triangleLayer->semantics(), "triangulation" };
         auto layerAdded = m_geom.addLayer( std::move( triangleLayer ), false, "triangulation" );
@@ -213,7 +213,7 @@ void GeometryDisplayable::loadGeometry( Core::Geometry::MultiIndexedGeometry&& m
             dynamic_cast<const Core::Geometry::PolyIndexLayer&>( m_geom.getLayer( key ) );
 
         auto triangleLayer          = std::make_unique<Core::Geometry::TriangleIndexLayer>();
-        triangleLayer->collection() = Core::Geometry::triangulate( polyLayer.collection() );
+        triangleLayer->collection() = Core::Geometry::Helper::triangulate( polyLayer.collection() );
         LayerKeyType triangleKey    = { triangleLayer->semantics(), "triangulation" };
         auto layerAdded = m_geom.addLayer( std::move( triangleLayer ), false, "triangulation" );
         if ( !layerAdded.first ) { LOG( logERROR ) << "failed to add triangleLayer"; }

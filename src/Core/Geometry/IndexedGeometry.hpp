@@ -13,7 +13,7 @@
 namespace Ra {
 namespace Core {
 namespace Geometry {
-
+namespace Helper {
 template <typename T>
 VectorArray<Vector3ui> triangulate( const VectorArray<T>& in ) {
     VectorArray<Vector3ui> out;
@@ -51,7 +51,7 @@ inline VectorArray<Vector3ui> triangulate( const VectorArray<Vector4ui>& in ) {
     }
     return out;
 }
-
+}
 /**
  * \brief Base class for index collections stored in MultiIndexedGeometry.
  */

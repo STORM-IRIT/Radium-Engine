@@ -1002,7 +1002,7 @@ void GeneralMesh<T>::updateGL_specific_impl() {
         this->m_indicesDirty = true;
     }
     if ( this->m_indicesDirty ) {
-        m_triangleIndices = Core::Geometry::triangulate( this->m_mesh.getIndices() );
+        m_triangleIndices = Core::Geometry::Helper::triangulate( this->m_mesh.getIndices() );
 
         /// this one do not work since m_indices is not a std::vector
         // m_indices->setData( m_mesh.m_indices, GL_DYNAMIC_DRAW );
