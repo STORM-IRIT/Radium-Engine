@@ -74,19 +74,19 @@ class DemoWindow : public Ra::Gui::SimpleWindow
     //! [Manage KeyEvent reaching the window]
     /// Custom Key event management method
     void colorup() {
-        auto& mesh = dynamic_cast<Ra::Core::Geometry::TriangleMesh&>(
+        auto& mesh = dynamic_cast<Ra::Core::Geometry::MultiIndexedGeometry&>(
             m_obj->getMesh()->getAbstractGeometry() );
         m_colIdx = ( m_colIdx + 1 ) % 10;
         mesh.colorize( m_colors[m_colIdx] );
     }
     void colordown() {
-        auto& mesh = dynamic_cast<Ra::Core::Geometry::TriangleMesh&>(
+        auto& mesh = dynamic_cast<Ra::Core::Geometry::MultiIndexedGeometry&>(
             m_obj->getMesh()->getAbstractGeometry() );
         m_colIdx = ( m_colIdx + 9 ) % 10;
         mesh.colorize( m_colors[m_colIdx] );
     }
     void colorreset() {
-        auto& mesh = dynamic_cast<Ra::Core::Geometry::TriangleMesh&>(
+        auto& mesh = dynamic_cast<Ra::Core::Geometry::MultiIndexedGeometry&>(
             m_obj->getMesh()->getAbstractGeometry() );
         m_colIdx = 0;
         mesh.colorize( m_colors[m_colIdx] );
@@ -150,7 +150,7 @@ int main( int argc, char* argv[] ) {
 
     //! [Create a geometry component with the cube]
     auto c =
-        new Ra::Engine::Scene::TriangleMeshComponent( "Cube Mesh", e, std::move( cube ), nullptr );
+        new Ra::Engine::Scene::SurfaceMeshComponent( "Cube Mesh", e, std::move( cube ), nullptr );
     //! [Create a geometry component with the cube]
 
     //! [Register the entity/component association to the geometry system ]

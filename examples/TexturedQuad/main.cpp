@@ -53,7 +53,7 @@ int main( int argc, char* argv[] ) {
                           textureHandle );
 
     // the entity get's this new component ownership. A bit wired since hidden in ctor.
-    new Ra::Engine::Scene::TriangleMeshComponent( "Quad Mesh", e, std::move( quad ), material );
+    new Ra::Engine::Scene::SurfaceMeshComponent( "Quad Mesh", e, std::move( quad ), material );
     //! [Create an entity and component to draw or data]
 
     app.m_mainWindow->prepareDisplay();

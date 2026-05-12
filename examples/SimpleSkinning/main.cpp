@@ -91,7 +91,7 @@ void setupScene( Ra::Engine::RadiumEngine* engine ) {
 
     // component ownership is transfered to entity in component ctor
     auto meshComponent =
-        new TriangleMeshComponent( "Cylinder", entity, std::move( cylinder ), nullptr );
+        new SurfaceMeshComponent( "Cylinder", entity, std::move( cylinder ), nullptr );
 
     // create a squeleton with three bones.
     std::map<std::string, Core::Transform> boneMatrices;

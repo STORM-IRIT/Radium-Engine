@@ -1102,6 +1102,7 @@ void AllPrimitivesComponent::initialize() {
 
             {
                 auto geom = makeParametricTorus<32, 12>( .1_ra, .05_ra, Color::White(), true );
+
                 auto texTorusMesh =
                     make_shared<GeometryDisplayable>( "Textured Torus", std::move( geom ) );
                 auto texTorus = RenderObject::createRenderObject(
@@ -1188,5 +1189,43 @@ void AllPrimitivesComponent::initialize() {
             {} );
         strip->setMaterial( plainMaterial );
         addRenderObject( strip );
+    }
+    {
+        updateCellCorner( cellCorner, cellSize, nCellX, nCellY );
+        updateCellCorner( cellCorner, cellSize, nCellX, nCellY );
+
+        constexpr Scalar arrowScale = .1_ra;
+        constexpr Scalar axisWidth  = .05_ra;
+        constexpr Scalar arrowFrac  = .125_ra;
+        constexpr Scalar radius     = arrowScale * axisWidth / 2_ra;
+
+        Core::Vector3 cylinderEnd = Core::Vector3::Zero();
+        cylinderEnd[1]            = ( 1_ra - arrowFrac );
+
+        auto startPoint = cellCorner + offsetVec;
+
+        auto cylinder = Core::Geometry::makeCylinder( Core::Vector3::Zero() + startPoint,
+                                                      arrowScale * cylinderEnd + startPoint,
+                                                      radius,
+                                                      4,
+                                                      4,
+                                                      Color::Magenta() );
+
+        Core::Aabb boxBounds;
+        boxBounds.extend( Core::Vector3( -radius * 2_ra, -radius * 2_ra, -radius * 2_ra ) );
+        boxBounds.extend( Core::Vector3( radius * 2_ra, radius * 2_ra, radius * 2_ra ) );
+        boxBounds.translate( arrowScale * cylinderEnd + startPoint );
+        auto box = Core::Geometry::makeSharpBox( boxBounds, Color::Yellow() );
+
+        cylinder.append( box );
+
+        std::shared_ptr<Engine::Data::GeometryDisplayable> mesh(
+            new Engine::Data::GeometryDisplayable( "Scale Gizmo Arrow" ) );
+        mesh->loadGeometry( std::move( cylinder ) );
+
+        auto arrowDrawable = RenderObject::createRenderObject(
+            "Scale Gizmo Arrow", this, Engine::Rendering::RenderObjectType::Geometry, mesh, {} );
+        arrowDrawable->setMaterial( plainMaterial );
+        addRenderObject( arrowDrawable );
     }
 }
