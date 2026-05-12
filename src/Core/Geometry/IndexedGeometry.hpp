@@ -688,10 +688,6 @@ bool GeometryIndexLayer<T>::append( const GeometryIndexLayerBase& other, int off
     if ( shareSemantic( other ) ) {
         const auto& othercasted = static_cast<const GeometryIndexLayer<T>&>( other );
 
-        // m_collection.insert(
-        //     m_collection.end(), othercasted.collection().begin(), othercasted.collection().end()
-        //     );
-
         std::transform( othercasted.collection().cbegin(),
                         othercasted.collection().cend(),
                         std::back_inserter( m_collection ),

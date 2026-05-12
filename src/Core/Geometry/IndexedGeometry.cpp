@@ -58,7 +58,7 @@ void MultiIndexedGeometry::checkConsistency() const {}
 
 bool MultiIndexedGeometry::append( const MultiIndexedGeometry& other ) {
 
-    int offset = other.vertices().size();
+    int offset = vertices().size();
     // first append attribs
     AttribArrayGeometry::append( other );
 
@@ -72,7 +72,6 @@ bool MultiIndexedGeometry::append( const MultiIndexedGeometry& other ) {
                 value.first, std::unique_ptr<GeometryIndexLayerBase> { value.second->clone() } );
             dataHasBeenCopied = true;
             m_indices[key].second->offset( offset );
-            ///\todo offest indices. (done ?)
         }
         else {
             // try to append to an existing layer: should always work
@@ -91,7 +90,7 @@ bool MultiIndexedGeometry::append( const MultiIndexedGeometry& other ) {
         invalidateAabb();
         notify();
     }
-    return true;
+    return dataHasBeenCopied;
 }
 
 //////////////////////////////////////////////////////////////////////
