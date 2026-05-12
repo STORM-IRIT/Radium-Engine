@@ -3,6 +3,7 @@
 
 # Geometry types
 
+(todo update according to MultiIndexedGeometry)
 There is three kind of geometry representation included in radium source :
 
 1. Ra::Core::Geometry::*, which handles geometry data and connectivity as a indexed vertex array.
@@ -10,6 +11,7 @@ Each vertex is a unique set of position, normal, and other attributes.
 If indexed, faces are defined with VectorXui, where X is 1 for point, 2 for lines, 3 for triangles, and N for polygons.
 See inheritance diagram of Ra::Core::Geometry::AbstractGeometry :
     - Ra::Core::Geometry::AttribArrayGeometry
+    - Ra::Core::Geometry::MultiIndexedGeometry*
     - Ra::Core::Geometry::IndexedGeometry
     - Ra::Core::Geometry::LineStrip *
     - Ra::Core::Geometry::PointCloud *
@@ -20,14 +22,12 @@ See inheritance diagram of Ra::Core::Geometry::AbstractGeometry :
 2. Ra::Core::Geometry::TopologicalMesh, which is an half-edge data structure.
 A converter allows to go back and forth to `TriangleMesh`
 without loss of data, but during the conversion, vertices with the same position represents the same topological point (and are hence merged).
-**Soon deprecated:** The other vertex attributes are stored on half-edges (to manage multiple normals per 3D positions
-for instance).
-**New:** The other vertex attributes are stored on wedges. Each half-edge has one wedge index. If multiple half-edge have the same set of attributes (including vertex position) they have the same wedge index at construction. See section [wedges](#wedges) below.
+The other vertex attributes are stored on wedges. Each half-edge has one wedge index. If multiple half-edge have the same set of attributes (including vertex position) they have the same wedge index at construction. See section [wedges](#wedges) below.
 3. Ra::Engine::Data::*, which stores a Core Geometry to handle 3D data, and manages the rendering aspect of it (VAO, VBO, draw call).
 See inheritance diagram of Ra::Engine::Data::AttribArrayDisplayable
     - Ra::Engine::Data::Displayable
     - Ra::Engine::Data::AttribArrayDisplayable
-    - Ra::Engine::Data::CoreGeometryDisplayable
+    - Ra::Engine::Data::GeometryDisplayable *
     - Ra::Engine::Data::PointCloud *
     - Ra::Engine::Data::IndexedGeometry
     - Ra::Engine::Data::IndexedAttribArrayDisplayable
