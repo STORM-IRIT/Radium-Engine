@@ -506,6 +506,14 @@ bool Viewer::initializeGL() {
     }
     m_pendingRenderers.clear();
 
+    /*
+     * \todo FIXME : Mathias -- Creating gizmos by default is not a good idea.
+     * implies that all applications developped on top of the engine will have them.
+     * This is not a good idea. Applications must be able to define and
+     * create their own gizmos
+     *
+     * \see issue #194
+     */
     // create the gizmo manager (Ui)
     createGizmoManager();
 
