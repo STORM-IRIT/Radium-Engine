@@ -836,7 +836,7 @@ TEST_CASE( "Core/Geometry/TopologicalMesh/Initialization",
 TEST_CASE( "Core/Geometry/TopologicalMesh/MergeWedges",
            "[unittests][Core][Core/Geometry][TopologicalMesh]" ) {
 
-    auto mesh = Ra::Core::Geometry::makeSharpBox();
+    auto mesh = Ra::Core::Geometry::makeSharpBox2();
     auto topo = TopologicalMesh { mesh };
 
     std::set<TopologicalMesh::WedgeIndex> wedgesIndices;
