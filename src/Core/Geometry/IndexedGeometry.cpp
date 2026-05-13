@@ -68,8 +68,9 @@ bool MultiIndexedGeometry::append( const MultiIndexedGeometry& other ) {
         auto it = m_indices.find( key );
         if ( it == m_indices.end() ) // copy entire layer
         {
+            // lock status of copied data is false.
             m_indices[key] = std::make_pair(
-                value.first, std::unique_ptr<GeometryIndexLayerBase> { value.second->clone() } );
+                false, std::unique_ptr<GeometryIndexLayerBase> { value.second->clone() } );
             dataHasBeenCopied = true;
             m_indices[key].second->offset( offset );
         }
