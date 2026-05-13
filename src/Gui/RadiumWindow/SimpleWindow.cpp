@@ -5,6 +5,7 @@
 #include <Gui/TreeModel/EntityTreeModel.hpp>
 #include <Gui/Viewer/CameraManipulator.hpp>
 #include <Gui/Viewer/Viewer.hpp>
+#include <QKeySequence>
 
 namespace Ra {
 using namespace Gui;
@@ -31,6 +32,11 @@ SimpleWindow::SimpleWindow( uint w, uint h, QWidget* parent ) : MainWindowInterf
     viewerWidget->setAutoFillBackground( false );
     setCentralWidget( viewerWidget );
     setWindowTitle( QString( "Radium player" ) );
+
+    quit_action = new QAction( this );
+    quit_action->setShortcuts( { QKeySequence::Close, QKeySequence::Quit } );
+    connect( quit_action, &QAction::triggered, this, &QApplication::quit );
+    addAction( quit_action );
 
     createConnections();
 }
