@@ -46,9 +46,10 @@ class KeyFramedGeometryComponent : public Ra::Engine::Scene::SurfaceMeshComponen
      * Constructor from an existing core mesh
      * \warning Moves the mesh and takes its ownership
      */
-    inline KeyFramedGeometryComponent( const std::string& name,
-                                       Ra::Engine::Scene::Entity* entity,
-                                       Ra::Core::Geometry::TriangleMesh&& mesh ) :
+    inline KeyFramedGeometryComponent(
+        const std::string& name,
+        Ra::Engine::Scene::Entity* entity,
+        Ra::Engine::Scene::SurfaceMeshComponent::CoreMeshType&& mesh ) :
         Ra::Engine::Scene::SurfaceMeshComponent( name,
                                                  entity,
                                                  std::move( mesh ),
@@ -139,7 +140,7 @@ int main( int argc, char* argv[] ) {
 
     //! [Create the demo animated component]
     //! [Creating the cube]
-    auto cube = Ra::Core::Geometry::makeSharpBox( { 0.1f, 0.1f, 0.1f } );
+    auto cube = Ra::Core::Geometry::makeSharpBox2( { 0.1f, 0.1f, 0.1f } );
     //! [Creating the cube]
 
     //! [Create the engine entity for the cube]

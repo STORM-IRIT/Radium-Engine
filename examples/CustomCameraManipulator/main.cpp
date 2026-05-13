@@ -37,7 +37,7 @@ int main( int argc, char* argv[] ) {
     //! [Creating the application]
 
     //! [Creating the cube]
-    auto cube = Ra::Core::Geometry::makeSharpBox( { 0.1f, 0.1f, 0.1f } );
+    auto cube = Ra::Core::Geometry::makeSharpBox2( { 0.1f, 0.1f, 0.1f } );
     //! [Creating the cube]
 
     //! [Colorize the Cube]

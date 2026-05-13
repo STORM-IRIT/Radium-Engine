@@ -24,6 +24,8 @@
 /**
  * Simple custom windows for custom KeyEvent demonstration
  */
+using Ra::Core::Geometry::makeSharpBox2;
+
 class DemoWindow : public Ra::Gui::SimpleWindow
 {
     Q_OBJECT
@@ -135,7 +137,7 @@ int main( int argc, char* argv[] ) {
     //! [Creating the application]
 
     //! [Creating the cube]
-    auto cube = Ra::Core::Geometry::makeSharpBox( { 0.1f, 0.1f, 0.1f } );
+    auto cube = makeSharpBox2( { 0.1f, 0.1f, 0.1f } );
     //! [Creating the cube]
 
     //! [Colorize the Cube]

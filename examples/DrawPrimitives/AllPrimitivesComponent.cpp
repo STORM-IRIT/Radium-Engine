@@ -1194,8 +1194,8 @@ void AllPrimitivesComponent::initialize() {
         updateCellCorner( cellCorner, cellSize, nCellX, nCellY );
         updateCellCorner( cellCorner, cellSize, nCellX, nCellY );
 
-        constexpr Scalar arrowScale = .1_ra;
-        constexpr Scalar axisWidth  = .05_ra;
+        constexpr Scalar arrowScale = .3_ra;
+        constexpr Scalar axisWidth  = .2_ra;
         constexpr Scalar arrowFrac  = .125_ra;
         constexpr Scalar radius     = arrowScale * axisWidth / 2_ra;
 
@@ -1215,7 +1215,9 @@ void AllPrimitivesComponent::initialize() {
         boxBounds.extend( Core::Vector3( -radius * 2_ra, -radius * 2_ra, -radius * 2_ra ) );
         boxBounds.extend( Core::Vector3( radius * 2_ra, radius * 2_ra, radius * 2_ra ) );
         boxBounds.translate( arrowScale * cylinderEnd + startPoint );
-        auto box = Core::Geometry::makeSharpBox( boxBounds, Color::Yellow() );
+        auto box = Core::Geometry::makeSharpBox2( boxBounds, Color::Yellow() );
+        // box is quads, need triangulate before append
+        box.triangulate<QuadIndexLayer>();
 
         cylinder.append( box );
 

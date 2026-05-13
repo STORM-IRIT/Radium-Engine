@@ -10,7 +10,7 @@
 int main( int /*argc*/, char** /*argv*/ ) {
     using namespace Ra::Core;
 
-    auto box  = Geometry::makeSharpBox( { 1., 1., 1. } );
+    auto box  = Geometry::makeSharpBox2( { 1., 1., 1. } );
     auto topo = Geometry::TopologicalMesh( box );
 
     auto resourcesPaths { Resources::getBasePath() };

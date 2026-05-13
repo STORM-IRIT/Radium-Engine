@@ -114,7 +114,7 @@ int main( int argc, char* argv[] ) {
         //! [Create the engine entity for the fixed component]
 
         //! [Creating the cube]
-        auto cube = Geometry::makeSharpBox( { 0.5f, 0.5f, 0.5f }, Utils::Color::Green() );
+        auto cube = Geometry::makeSharpBox2( { 0.5f, 0.5f, 0.5f }, Utils::Color::Green() );
         //! [Creating the Cube]
 
         //! [Create a geometry component with the cube]
@@ -140,7 +140,7 @@ int main( int argc, char* argv[] ) {
         //! [attach components to the animated entity ]
         // an animated yellow cube
         auto cube =
-            Geometry::makeSharpBox( { 0.1f, 0.1f, 0.1f }, Ra::Core::Utils::Color::Yellow() );
+            Geometry::makeSharpBox2( { 0.1f, 0.1f, 0.1f }, Ra::Core::Utils::Color::Yellow() );
         new Scene::SurfaceMeshComponent( "Fixed cube geometry", e, std::move( cube ), nullptr );
 
         // an animated camera, thay is not the one active at startup. Use key '0' to activate
