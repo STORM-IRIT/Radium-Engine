@@ -61,12 +61,13 @@ class RA_ENGINE_API GeometryComponent : public Component
  *  - normals: rw (if deformable)
  *  - triangles: rw (if deformable)
  */
-template <typename CoreMeshType>
+template <typename T>
 class SurfaceMeshComponentBase : public GeometryComponent
 {
     using base = GeometryComponent;
 
   public:
+    using CoreMeshType   = T;
     using RenderMeshType = typename Data::RenderMeshType::getType<CoreMeshType>::Type;
 
     inline SurfaceMeshComponentBase( const std::string& name,
