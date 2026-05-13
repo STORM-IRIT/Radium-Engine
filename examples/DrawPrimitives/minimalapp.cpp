@@ -88,6 +88,12 @@ void MinimalApp::initialize( const glbinding::Version& version ) {
     m_viewer_widget->setAutoFillBackground( false );
     m_viewer_widget->resize( 500, 500 );
     m_viewer_widget->show();
+
+    auto quit_action = new QAction( this );
+    quit_action->setShortcuts( { QKeySequence::Close, QKeySequence::Quit } );
+    connect( quit_action, &QAction::triggered, this, &QApplication::quit );
+    m_viewer_widget->addAction( quit_action );
+
     return;
 }
 
