@@ -307,7 +307,7 @@ class RA_CORE_API MultiIndexedGeometry : public AttribArrayGeometry, public Util
     void checkConsistency() const;
 
     /// Append another MultiIndexedGeometry to this one. Layers with same
-    /// name/semantics are concatenated, and other layers are ignored
+    /// name/semantics are concatenated, and other layers are merged.
     /// \return true if all fields have been copied
     bool append( const MultiIndexedGeometry& other );
 
@@ -529,6 +529,21 @@ class RA_CORE_API MultiIndexedGeometry : public AttribArrayGeometry, public Util
         return static_cast<const IndexLayer&>( result.second ).collection();
     }
 
+    /// Call triangulate, if there isn't any triangle index, on the first found index between quad
+    /// and poly.
+    /// \return the layer key of the triangle layer (old or new)
+    LayerKeyType triangulate_any() {
+        if ( !containsLayer( TriangleIndexLayer::staticSemanticName ) ) {
+            if ( containsLayer( QuadIndexLayer::staticSemanticName ) )
+                return triangulate<QuadIndexLayer>();
+            if ( containsLayer( PolyIndexLayer::staticSemanticName ) )
+                return triangulate<PolyIndexLayer>();
+        }
+        return getFirstLayerOccurrence( TriangleIndexLayer::staticSemanticName ).first;
+    }
+
+    /// triangulate IndexLayer if there isn't any triangle index yet.
+    /// \return the layer key of the triangle layer (old or new)
     template <typename IndexLayer>
     LayerKeyType triangulate() {
         if ( !containsLayer( TriangleIndexLayer::staticSemanticName ) ) {
