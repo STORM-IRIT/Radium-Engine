@@ -34,8 +34,10 @@ TranslateGizmo::TranslateGizmo( Engine::Scene::Component* c,
         arrowEnd[i]               = 1_ra;
         auto cylinder             = Core::Geometry::makeCylinder(
             Core::Vector3::Zero(), arrowScale * cylinderEnd, arrowScale * axisWidth / 2_ra, 32 );
+        cylinder.triangulate_any();
         auto cone = Core::Geometry::makeCone(
             arrowScale * cylinderEnd, arrowScale * arrowEnd, arrowScale * arrowFrac / 2_ra, 32 );
+        cone.triangulate_any();
         cylinder.append( cone );
 
         auto mesh = std::make_shared<Engine::Data::GeometryDisplayable>( "Translate Gizmo Arrow" );

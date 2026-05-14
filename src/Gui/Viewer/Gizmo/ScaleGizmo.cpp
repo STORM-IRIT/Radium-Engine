@@ -36,13 +36,14 @@ ScaleGizmo::ScaleGizmo( Engine::Scene::Component* c,
         cylinderEnd[i]            = ( 1_ra - arrowFrac );
         auto cylinder             = Core::Geometry::makeCylinder(
             Core::Vector3::Zero(), arrowScale * cylinderEnd, radius, 32 );
+        cylinder.triangulate_any();
         Core::Aabb boxBounds;
         boxBounds.extend( Core::Vector3( -radius * 2_ra, -radius * 2_ra, -radius * 2_ra ) );
         boxBounds.extend( Core::Vector3( radius * 2_ra, radius * 2_ra, radius * 2_ra ) );
         boxBounds.translate( arrowScale * cylinderEnd );
         auto box = Core::Geometry::makeSharpBox2( boxBounds );
         // box is quads, need triangulate before append
-        box.triangulate<Core::Geometry::QuadIndexLayer>();
+        box.triangulate_any();
 
         cylinder.append( box );
 
