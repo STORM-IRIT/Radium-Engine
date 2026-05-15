@@ -119,7 +119,7 @@ class DemoWindowFactory : public Ra::Gui::BaseApplication::WindowFactory
 };
 
 void addDummyScene( Ra::Gui::BaseApplication& app ) {
-    auto cube = Ra::Core::Geometry::makeSharpBox( { 0.1f, 0.1f, 0.1f } );
+    auto cube = Ra::Core::Geometry::makeSharpBox2( { 0.1f, 0.1f, 0.1f } );
     auto e    = app.m_engine->getEntityManager()->createEntity( "Cube" );
     auto c =
         new Ra::Engine::Scene::SurfaceMeshComponent( "Cube Mesh", e, std::move( cube ), nullptr );
