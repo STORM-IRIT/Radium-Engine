@@ -20,7 +20,7 @@ TEST_CASE( "Core/Geometry/MultiIndexedGeometry",
     geo.setNormals( { { 0, 0, 1 }, { 0, 0, 1 }, { 0, 0, 1 }, { 0, 0, 1 } } );
 
     {
-        std::unique_ptr<QuadIndexLayer> layer = std::make_unique<QuadIndexLayer>();
+        auto layer = std::make_unique<QuadIndexLayer>();
 
         auto& indices = layer->collection();
         indices.push_back( { 0, 1, 2, 3 } );
@@ -32,7 +32,7 @@ TEST_CASE( "Core/Geometry/MultiIndexedGeometry",
         REQUIRE( geo.default_layer_key().first.contains( QuadIndexLayer::staticSemanticName ) );
     }
     {
-        std::unique_ptr<TriangleIndexLayer> layer = std::make_unique<TriangleIndexLayer>();
+        auto layer = std::make_unique<TriangleIndexLayer>();
 
         auto& indices = layer->collection();
         indices.push_back( { 0, 1, 2 } );
@@ -63,77 +63,70 @@ TEST_CASE( "Core/Geometry/IndexedGeometry", "[unittests][Core][Core/Geometry][In
     // Store keys of the layers that should be in the geometry
     std::set<MultiIndexedGeometry::LayerKeyType> keys;
 
-    TriangleMesh mesh = Ra::Core::Geometry::makeBox();
-
     // copy AttribArrayGeometry;
-    MultiIndexedGeometry geo( mesh );
+    MultiIndexedGeometry geom { Ra::Core::Geometry::makeBox2() };
+    // makeBox create quads, now get triangles
+    geom.triangulate_any();
 
-    // Create triangle Layer
-    ObjectWithSemantic::SemanticNameCollection tilSemantics;
-    {
-        // TriangleMesh is a MultiIndexedGeometry, so the layer has already
-        // been added
-        REQUIRE( geo.containsLayer( TriangleIndexLayer::staticSemanticName ) );
-        auto [key, layer] = geo.getFirstLayerOccurrence( TriangleIndexLayer::staticSemanticName );
-        keys.insert( key );
-        tilSemantics = layer.semantics();
-    }
+    REQUIRE( geom.containsLayer( QuadIndexLayer::staticSemanticName ) );
+    keys.insert( geom.getFirstLayerOccurrence( QuadIndexLayer::staticSemanticName ).first );
 
-    ObjectWithSemantic::SemanticNameCollection pilSemantics;
-    {
-        //! [Creating and adding pointcloud layer]
-        auto pil = std::make_unique<PointCloudIndexLayer>();
-        // fill indices as linspace
-        pil->linearIndices( geo );
-        // optional: save semantics for later
-        pilSemantics = pil->semantics();
-        // insert with default name
-        bool layerAdded = geo.addLayer( std::move( pil ) ).first;
-        //! [Creating and adding pointcloud layer]
-        REQUIRE( layerAdded );
+    REQUIRE( geom.containsLayer( TriangleIndexLayer::staticSemanticName ) );
+    auto [triangle_key, triangle_layer] =
+        geom.getFirstLayerOccurrence( TriangleIndexLayer::staticSemanticName );
+    keys.insert( triangle_key );
+    auto triangle_semantics = triangle_layer.semantics();
 
-        keys.insert( { pilSemantics, "" } );
-    }
+    //! [Creating and adding pointcloud layer]
+    auto point_layer = std::make_unique<PointCloudIndexLayer>();
+    // fill indices as linspace
+    point_layer->linearIndices( geom );
+    // optional: save semantics for later
+    auto point_semantics = point_layer->semantics();
+    // insert with default name
+    auto [point_index_added, point_index_key] = geom.addLayer( std::move( point_layer ) );
+    //! [Creating and adding pointcloud layer]
+    REQUIRE( point_index_added );
+    keys.insert( point_index_key );
 
-    REQUIRE( geo.containsLayer( tilSemantics ) );
-    REQUIRE( geo.containsLayer( pilSemantics ) );
-    REQUIRE( geo.containsLayer( TriangleIndexLayer::staticSemanticName ) );
-    REQUIRE( geo.containsLayer( PointCloudIndexLayer::staticSemanticName ) );
+    REQUIRE( geom.containsLayer( triangle_semantics ) );
+    REQUIRE( geom.containsLayer( point_semantics ) );
+    REQUIRE( geom.containsLayer( TriangleIndexLayer::staticSemanticName ) );
+    REQUIRE( geom.containsLayer( PointCloudIndexLayer::staticSemanticName ) );
 
-    REQUIRE( geo.countLayers( tilSemantics ) == 1 );
-    REQUIRE( geo.countLayers( pilSemantics ) == 1 );
-    REQUIRE( geo.countLayers( TriangleIndexLayer::staticSemanticName ) == 1 );
-    REQUIRE( geo.countLayers( PointCloudIndexLayer::staticSemanticName ) == 1 );
+    REQUIRE( geom.countLayers( triangle_semantics ) == 1 );
+    REQUIRE( geom.countLayers( point_semantics ) == 1 );
+    REQUIRE( geom.countLayers( TriangleIndexLayer::staticSemanticName ) == 1 );
+    REQUIRE( geom.countLayers( PointCloudIndexLayer::staticSemanticName ) == 1 );
 
-    ObjectWithSemantic::SemanticNameCollection cilSemantics;
-    auto cil          = std::make_unique<CustomTriangleIndexLayer>();
-    cil->collection() = mesh.getIndices();
-    cilSemantics      = cil->semantics();
+    auto custom_layer          = std::make_unique<CustomTriangleIndexLayer>();
+    custom_layer->collection() = geom.indices<TriangleIndexLayer>();
+    auto custom_semantics      = custom_layer->semantics();
 
-    REQUIRE( !geo.containsLayer( cilSemantics ) );
-    REQUIRE( geo.countLayers( cilSemantics ) == 0 );
+    REQUIRE( !geom.containsLayer( custom_semantics ) );
+    REQUIRE( geom.countLayers( custom_semantics ) == 0 );
 
-    REQUIRE( geo.addLayer( std::move( cil ) ).first );
-    keys.insert( { cilSemantics, "" } );
+    REQUIRE( geom.addLayer( std::move( custom_layer ) ).first );
+    keys.insert( { custom_semantics, "" } );
 
-    REQUIRE( geo.containsLayer( cilSemantics ) );
-    REQUIRE( geo.containsLayer( TriangleIndexLayer::staticSemanticName ) );
-    REQUIRE( geo.containsLayer( PointCloudIndexLayer::staticSemanticName ) );
-    REQUIRE( geo.containsLayer( CustomTriangleIndexLayer::staticSemanticName ) );
+    REQUIRE( geom.containsLayer( custom_semantics ) );
+    REQUIRE( geom.containsLayer( TriangleIndexLayer::staticSemanticName ) );
+    REQUIRE( geom.containsLayer( PointCloudIndexLayer::staticSemanticName ) );
+    REQUIRE( geom.containsLayer( CustomTriangleIndexLayer::staticSemanticName ) );
 
-    REQUIRE( geo.countLayers( tilSemantics ) == 1 );
-    REQUIRE( geo.countLayers( pilSemantics ) == 1 );
-    REQUIRE( geo.countLayers( cilSemantics ) == 1 );
-    REQUIRE( geo.countLayers( TriangleIndexLayer::staticSemanticName ) == 2 );
-    REQUIRE( geo.countLayers( PointCloudIndexLayer::staticSemanticName ) == 1 );
-    REQUIRE( geo.countLayers( CustomTriangleIndexLayer::staticSemanticName ) == 1 );
+    REQUIRE( geom.countLayers( triangle_semantics ) == 1 );
+    REQUIRE( geom.countLayers( point_semantics ) == 1 );
+    REQUIRE( geom.countLayers( custom_semantics ) == 1 );
+    REQUIRE( geom.countLayers( TriangleIndexLayer::staticSemanticName ) == 2 );
+    REQUIRE( geom.countLayers( PointCloudIndexLayer::staticSemanticName ) == 1 );
+    REQUIRE( geom.countLayers( CustomTriangleIndexLayer::staticSemanticName ) == 1 );
 
     // Check layer keys iterator: we should traverse all keys
     REQUIRE( keys.size() != 0 );
     //! [Iterating over layer keys]
-    for ( const auto& k : geo.layerKeys() ) {
+    for ( const auto& k : geom.layerKeys() ) {
         REQUIRE( keys.erase( k ) == 1 );
-        REQUIRE( geo.countLayers( k ) == 1 );
+        REQUIRE( geom.countLayers( k ) == 1 );
     }
     //! [Iterating over layer keys]
     REQUIRE( keys.size() == 0 );
@@ -146,7 +139,7 @@ TEST_CASE( "Core/Geometry/IndexedGeometry/Attributes",
     using Ra::Core::Utils::ObjectWithSemantic;
     using Vec3AttribHandle = AttribArrayGeometry::Vec3AttribHandle;
 
-    MultiIndexedGeometry mesh( Ra::Core::Geometry::makeBox() );
+    MultiIndexedGeometry mesh( Ra::Core::Geometry::makeBox2() );
 
     // base attributes are automatically added
     auto h_pos = mesh.getAttribHandle<Vector3>( getAttribName( VERTEX_POSITION ) );
@@ -197,20 +190,17 @@ TEST_CASE( "Core/Geometry/IndexedGeometry/Attributes",
 
     // Test attribute copy
     const auto v0 = mesh.vertices()[0];
-    TriangleMesh meshCopy;
+    MultiIndexedGeometry meshCopy;
     meshCopy.copy( mesh );
     REQUIRE( mesh.vertices()[0].isApprox( v0 ) );
     meshCopy.verticesWithLock()[0] += Ra::Core::Vector3( 0.5, 0.5, 0.5 );
     meshCopy.verticesUnlock();
     REQUIRE( !meshCopy.vertices()[0].isApprox( v0 ) );
 
-    // For the documentation in doc/developer/mesh.md
-    //! [create TriangleMesh]
-    using Ra::Core::Geometry::TriangleMesh;
-    TriangleMesh m;
-    TriangleMesh::PointAttribHandle::Container vertices;
-    TriangleMesh::NormalAttribHandle::Container normals;
-    TriangleMesh::IndexContainerType indices;
+    MultiIndexedGeometry m;
+    MultiIndexedGeometry::PointAttribHandle::Container vertices;
+    MultiIndexedGeometry::NormalAttribHandle::Container normals;
+    TriangleIndexLayer::IndexContainerType indices;
 
     vertices.push_back( { 0, 0, 0 } );
     vertices.push_back( { 1, 0, 0 } );
@@ -222,7 +212,7 @@ TEST_CASE( "Core/Geometry/IndexedGeometry/Attributes",
     m.setVertices( std::move( vertices ) );
     m.setNormals( std::move( normals ) );
 
-    m.setIndices( { { 0, 1, 2 } } );
+    m.set_indices<TriangleIndexLayer>( { { 0, 1, 2 } } );
 
     auto handle1  = m.addAttrib<Vector3>( "vector3_attrib" );
     auto& attrib1 = m.getAttrib( handle1 );
@@ -238,11 +228,9 @@ TEST_CASE( "Core/Geometry/IndexedGeometry/Attributes",
     auto& attrib2 = m.getAttrib( handle2 );
     attrib2.setData( { 1.f, 2.f, 3.f } );
 
-    TriangleMesh m2;
+    MultiIndexedGeometry m2;
     m2.copyBaseGeometry( m );
     m2.copyAttributes( m, handle1 );
-    //! [create TriangleMesh]
-
     m2.copyAttributes( m, handle2 );
 
     auto& attribM2_1 = m2.getAttrib( handle1 );
@@ -296,10 +284,10 @@ TEST_CASE( "Core/Geometry/IndexedGeometry/CopyAllAttributes",
     using namespace Ra::Core::Geometry;
     using Ra::Core::Geometry::TriangleMesh;
 
-    TriangleMesh m;
-    TriangleMesh::PointAttribHandle::Container vertices;
-    TriangleMesh::NormalAttribHandle::Container normals;
-    TriangleMesh::IndexContainerType indices;
+    MultiIndexedGeometry m;
+    MultiIndexedGeometry::PointAttribHandle::Container vertices;
+    MultiIndexedGeometry::NormalAttribHandle::Container normals;
+    TriangleIndexLayer::IndexContainerType indices;
 
     vertices.push_back( { 0, 0, 0 } );
     vertices.push_back( { 1, 0, 0 } );
@@ -311,7 +299,7 @@ TEST_CASE( "Core/Geometry/IndexedGeometry/CopyAllAttributes",
     m.setVertices( std::move( vertices ) );
     m.setNormals( std::move( normals ) );
 
-    m.setIndices( { { 0, 1, 2 } } );
+    m.set_indices<TriangleIndexLayer>( { { 0, 1, 2 } } );
 
     auto handle1  = m.addAttrib<Vector2>( "vector2_attrib" );
     auto& attrib1 = m.getAttrib( handle1 );
@@ -340,7 +328,7 @@ TEST_CASE( "Core/Geometry/IndexedGeometry/CopyAllAttributes",
     }
     attrib3.unlock();
 
-    TriangleMesh m3;
+    MultiIndexedGeometry m3;
 
     m3.copyBaseGeometry( m );
 
