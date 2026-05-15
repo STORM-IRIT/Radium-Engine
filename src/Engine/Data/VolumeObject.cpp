@@ -18,36 +18,7 @@ VolumeObject::~VolumeObject() {}
 void VolumeObject::loadGeometry( Core::Geometry::AbstractVolume* volume, const Core::Aabb& aabb ) {
     if ( volume != nullptr && volume->isDense() ) {
 
-        m_mesh.loadGeometry( Core::Geometry::makeSharpBox( aabb ) );
-
-        Core::Vector3Array tex_coords;
-        tex_coords.resize( 24 );
-        tex_coords.getMap() <<
-            // R
-            Scalar( 1 ),
-            Scalar( 1 ), Scalar( 0 ), Scalar( 0 ),              // Bottom
-            Scalar( 1 ), Scalar( 0 ), Scalar( 0 ), Scalar( 1 ), // Top
-            Scalar( 1 ), Scalar( 1 ), Scalar( 1 ), Scalar( 1 ), // Right
-            Scalar( 0 ), Scalar( 0 ), Scalar( 0 ), Scalar( 0 ), // Left
-            Scalar( 1 ), Scalar( 0 ), Scalar( 0 ), Scalar( 1 ), // Floor
-            Scalar( 1 ), Scalar( 1 ), Scalar( 0 ), Scalar( 0 ), // Ceil
-            // G
-            Scalar( 0 ), Scalar( 1 ), Scalar( 1 ), Scalar( 0 ), // Bottom
-            Scalar( 0 ), Scalar( 0 ), Scalar( 1 ), Scalar( 1 ), // Top
-            Scalar( 1 ), Scalar( 0 ), Scalar( 0 ), Scalar( 1 ), // Right
-            Scalar( 0 ), Scalar( 1 ), Scalar( 1 ), Scalar( 0 ), // Left
-            Scalar( 0 ), Scalar( 0 ), Scalar( 0 ), Scalar( 0 ), // Floor
-            Scalar( 1 ), Scalar( 1 ), Scalar( 1 ), Scalar( 1 ), // Ceil
-            // B
-            Scalar( 0 ), Scalar( 0 ), Scalar( 0 ), Scalar( 0 ), // Bottom
-            Scalar( 1 ), Scalar( 1 ), Scalar( 1 ), Scalar( 1 ), // Top
-            Scalar( 0 ), Scalar( 0 ), Scalar( 1 ), Scalar( 1 ), // Right
-            Scalar( 0 ), Scalar( 0 ), Scalar( 1 ), Scalar( 1 ), // Left
-            Scalar( 0 ), Scalar( 0 ), Scalar( 1 ), Scalar( 1 ), // Floor
-            Scalar( 0 ), Scalar( 1 ), Scalar( 1 ), Scalar( 0 ); // Ceil
-        m_mesh.addAttrib( Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::VERTEX_TEXCOORD ),
-                          tex_coords );
-
+        m_mesh.loadGeometry( Core::Geometry::makeSharpBox2( aabb ) );
         Core::Geometry::VolumeGrid* grid = static_cast<Core::Geometry::VolumeGrid*>( volume );
         m_volume = std::unique_ptr<Core::Geometry::AbstractVolume>( volume );
 
