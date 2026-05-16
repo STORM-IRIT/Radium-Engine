@@ -28,15 +28,6 @@ RA_CORE_API QuadMesh makePlaneGrid( const uint rows         = 1,
                                     const Utils::optional<Utils::Color>& color = {},
                                     bool generateTexCoord                      = false );
 
-/// Create a 2D grid, with only outer points, connected as lines, inner line intersctions are not
-/// present in verstices.
-RA_CORE_API MultiIndexedGeometry makeGrid( const Core::Vector3& center,
-                                           const Core::Vector3& x,
-                                           const Core::Vector3& y,
-                                           const Core::Utils::Color& color,
-                                           Scalar cell_size,
-                                           uint res );
-
 /// Create a 2D quad mesh given half extents, centered on the origin with x axis as normal
 /// \see makePlaneGrid
 RA_CORE_API QuadMesh makeXNormalQuad( const Vector2& halfExts = Vector2( .5_ra, .5_ra ),
@@ -55,13 +46,14 @@ RA_CORE_API QuadMesh makeZNormalQuad( const Vector2& halfExts = Vector2( .5_ra, 
                                       const Utils::optional<Utils::Color>& color = {},
                                       bool generateTexCoord                      = false );
 
-/// Create an axis-aligned cubic mesh with the given half extents, centered on the origin.
-RA_CORE_API TriangleMesh makeBox( const Vector3& halfExts = Vector3( .5_ra, .5_ra, .5_ra ),
-                                  const Utils::optional<Utils::Color>& color = {} );
-
-/// Create an axis-aligned cubic mesh
-RA_CORE_API TriangleMesh makeBox( const Aabb& aabb,
-                                  const Utils::optional<Utils::Color>& color = {} );
+/// Create a 2D grid, with only outer points, connected as lines, inner line intersctions are not
+/// present in verstices.
+RA_CORE_API MultiIndexedGeometry makeGrid( const Core::Vector3& center,
+                                           const Core::Vector3& x,
+                                           const Core::Vector3& y,
+                                           const Core::Utils::Color& color,
+                                           Scalar cell_size,
+                                           uint res );
 
 /// Create an axis-aligned cubic mesh with the given half extents, centered on the origin.
 RA_CORE_API MultiIndexedGeometry makeBox2( const Vector3& halfExts = Vector3( .5_ra, .5_ra, .5_ra ),
@@ -76,16 +68,6 @@ RA_CORE_API MultiIndexedGeometry makeBox2( const Vector3& corner,
                                            const Vector3& y,
                                            const Vector3& z,
                                            const Utils::optional<Utils::Color>& color );
-
-/// Create an axis-aligned cubic mesh with the given half extents, centered on the origin.
-RA_CORE_API TriangleMesh makeSharpBox( const Vector3& halfExts = Vector3( .5_ra, .5_ra, .5_ra ),
-                                       const Utils::optional<Utils::Color>& color = {},
-                                       bool generateTexCoord                      = false );
-
-/// Create an axis-aligned cubic mesh
-RA_CORE_API TriangleMesh makeSharpBox( const Aabb& aabb,
-                                       const Utils::optional<Utils::Color>& color = {},
-                                       bool generateTexCoord                      = false );
 
 /// Create an axis-aligned cubic mesh with the given half extents, centered on the origin.
 RA_CORE_API MultiIndexedGeometry makeSharpBox2( const Vector3& halfExts = Vector3( .5_ra,

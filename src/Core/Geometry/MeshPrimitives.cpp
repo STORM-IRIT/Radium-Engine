@@ -38,54 +38,6 @@ QuadMesh makeZNormalQuad( const Vector2& halfExts,
     return makePlaneGrid( 1, 1, halfExts, Transform::Identity(), color, generateTexCoord );
 }
 
-TriangleMesh makeBox( const Vector3& halfExts, const Utils::optional<Utils::Color>& color ) {
-    Aabb aabb( -halfExts, halfExts );
-    return makeBox( aabb, color );
-}
-
-TriangleMesh makeBox( const Aabb& aabb, const Utils::optional<Utils::Color>& color ) {
-    TriangleMesh result;
-    result.setVertices( { aabb.corner( Aabb::BottomLeftFloor ),
-                          aabb.corner( Aabb::BottomRightFloor ),
-                          aabb.corner( Aabb::TopLeftFloor ),
-                          aabb.corner( Aabb::TopRightFloor ),
-                          aabb.corner( Aabb::BottomLeftCeil ),
-                          aabb.corner( Aabb::BottomRightCeil ),
-                          aabb.corner( Aabb::TopLeftCeil ),
-                          aabb.corner( Aabb::TopRightCeil ) } );
-
-    static const Scalar a = 1_ra / std::sqrt( 3_ra );
-
-    result.setNormals( { Vector3( -a, -a, -a ),
-                         Vector3( +a, -a, -a ),
-                         Vector3( -a, +a, -a ),
-                         Vector3( +a, +a, -a ),
-                         Vector3( -a, -a, +a ),
-                         Vector3( +a, -a, +a ),
-                         Vector3( -a, +a, +a ),
-                         Vector3( +a, +a, +a ) } );
-
-    result.setIndices( {
-        Vector3ui( 0, 2, 1 ),
-        Vector3ui( 1, 2, 3 ), // Floor
-        Vector3ui( 0, 1, 4 ),
-        Vector3ui( 4, 1, 5 ), // Front
-        Vector3ui( 3, 2, 6 ),
-        Vector3ui( 3, 6, 7 ), // Back
-        Vector3ui( 5, 1, 3 ),
-        Vector3ui( 5, 3, 7 ), // Right
-        Vector3ui( 2, 0, 4 ),
-        Vector3ui( 2, 4, 6 ), // Left
-        Vector3ui( 4, 5, 6 ),
-        Vector3ui( 6, 5, 7 ) // Top
-    } );
-
-    if ( bool( color ) ) result.colorize( *color );
-    result.checkConsistency();
-
-    return result;
-}
-
 MultiIndexedGeometry makeBox2( const Vector3& halfExts,
                                const Utils::optional<Utils::Color>& color ) {
     return makeBox2( -halfExts,
@@ -145,13 +97,6 @@ MultiIndexedGeometry makeBox2( const Vector3& corner,
     result.addLayer( std::move( layer ) );
 
     return result;
-}
-
-TriangleMesh makeSharpBox( const Vector3& halfExts,
-                           const Utils::optional<Utils::Color>& color,
-                           bool generateTexCoord ) {
-    Aabb aabb( -halfExts, halfExts );
-    return makeSharpBox( aabb, color, generateTexCoord );
 }
 
 MultiIndexedGeometry makeSharpBox2( const Aabb& aabb,
@@ -297,136 +242,6 @@ MultiIndexedGeometry makeSharpBox2( const Vector3& halfExts,
                                     bool generateTexCoord ) {
     Aabb aabb( -halfExts, halfExts );
     return makeSharpBox2( aabb, color, generateTexCoord );
-}
-
-TriangleMesh makeSharpBox( const Aabb& aabb,
-                           const Utils::optional<Utils::Color>& color,
-                           bool generateTexCoord ) {
-    TriangleMesh result;
-    result.setVertices( { // Floor Face
-                          aabb.corner( Aabb::BottomLeftFloor ),
-                          aabb.corner( Aabb::TopLeftFloor ),
-                          aabb.corner( Aabb::TopRightFloor ),
-                          aabb.corner( Aabb::BottomRightFloor ),
-
-                          // Ceil Face
-                          aabb.corner( Aabb::BottomLeftCeil ),
-                          aabb.corner( Aabb::BottomRightCeil ),
-                          aabb.corner( Aabb::TopRightCeil ),
-                          aabb.corner( Aabb::TopLeftCeil ),
-
-                          // Left Face
-                          aabb.corner( Aabb::TopLeftFloor ),
-                          aabb.corner( Aabb::BottomLeftFloor ),
-                          aabb.corner( Aabb::BottomLeftCeil ),
-                          aabb.corner( Aabb::TopLeftCeil ),
-
-                          // Right Face
-                          aabb.corner( Aabb::BottomRightFloor ),
-                          aabb.corner( Aabb::TopRightFloor ),
-                          aabb.corner( Aabb::TopRightCeil ),
-                          aabb.corner( Aabb::BottomRightCeil ),
-
-                          // Bottom Face
-                          aabb.corner( Aabb::BottomLeftFloor ),
-                          aabb.corner( Aabb::BottomRightFloor ),
-                          aabb.corner( Aabb::BottomRightCeil ),
-                          aabb.corner( Aabb::BottomLeftCeil ),
-
-                          // Top face
-                          aabb.corner( Aabb::TopLeftFloor ),
-                          aabb.corner( Aabb::TopLeftCeil ),
-                          aabb.corner( Aabb::TopRightCeil ),
-                          aabb.corner( Aabb::TopRightFloor ) } );
-
-    result.setNormals( { // Floor face
-                         Vector3( 0, 0, -1 ),
-                         Vector3( 0, 0, -1 ),
-                         Vector3( 0, 0, -1 ),
-                         Vector3( 0, 0, -1 ),
-                         // Ceil Face
-                         Vector3( 0, 0, +1 ),
-                         Vector3( 0, 0, +1 ),
-                         Vector3( 0, 0, +1 ),
-                         Vector3( 0, 0, +1 ),
-                         // Left Face
-                         Vector3( -1, 0, 0 ),
-                         Vector3( -1, 0, 0 ),
-                         Vector3( -1, 0, 0 ),
-                         Vector3( -1, 0, 0 ),
-                         // Right Face
-                         Vector3( +1, 0, 0 ),
-                         Vector3( +1, 0, 0 ),
-                         Vector3( +1, 0, 0 ),
-                         Vector3( +1, 0, 0 ),
-                         // Bottom Face
-                         Vector3( 0, -1, 0 ),
-                         Vector3( 0, -1, 0 ),
-                         Vector3( 0, -1, 0 ),
-                         Vector3( 0, -1, 0 ),
-                         // Top Face
-                         Vector3( 0, +1, 0 ),
-                         Vector3( 0, +1, 0 ),
-                         Vector3( 0, +1, 0 ),
-                         Vector3( 0, +1, 0 ) } );
-
-    if ( generateTexCoord ) {
-        Vector3Array texCoords {
-            // Floor face
-            Vector3( 0, 0, 0 ),
-            Vector3( 1, 0, 0 ),
-            Vector3( 1, 1, 0 ),
-            Vector3( 0, 1, 0 ),
-            // Ceil Face
-            Vector3( 0, 0, 0 ),
-            Vector3( 1, 0, 0 ),
-            Vector3( 1, 1, 0 ),
-            Vector3( 0, 1, 0 ),
-            // Left Face
-            Vector3( 0, 0, 0 ),
-            Vector3( 1, 0, 0 ),
-            Vector3( 1, 1, 0 ),
-            Vector3( 0, 1, 0 ),
-            // Right Face
-            Vector3( 0, 0, 0 ),
-            Vector3( 1, 0, 0 ),
-            Vector3( 1, 1, 0 ),
-            Vector3( 0, 1, 0 ),
-            // Bottom Face
-            Vector3( 0, 0, 0 ),
-            Vector3( 1, 0, 0 ),
-            Vector3( 1, 1, 0 ),
-            Vector3( 0, 1, 0 ),
-            // Top Face
-            Vector3( 0, 0, 0 ),
-            Vector3( 1, 0, 0 ),
-            Vector3( 1, 1, 0 ),
-            Vector3( 0, 1, 0 ),
-        };
-
-        result.addAttrib( "in_texcoord", std::move( texCoords ) );
-    }
-
-    result.setIndices( {
-
-        Vector3ui( 0, 1, 2 ),
-        Vector3ui( 0, 2, 3 ), // Floor
-        Vector3ui( 4, 5, 6 ),
-        Vector3ui( 4, 6, 7 ), // Ceil
-        Vector3ui( 8, 9, 10 ),
-        Vector3ui( 8, 10, 11 ), // Left
-        Vector3ui( 12, 13, 14 ),
-        Vector3ui( 12, 14, 15 ), // Right
-        Vector3ui( 16, 17, 18 ),
-        Vector3ui( 16, 18, 19 ), // Bottom
-        Vector3ui( 20, 21, 22 ),
-        Vector3ui( 20, 22, 23 ) // Top
-    } );
-
-    if ( bool( color ) ) result.colorize( *color );
-    result.checkConsistency();
-
-    return result;
 }
 
 MultiIndexedGeometry
