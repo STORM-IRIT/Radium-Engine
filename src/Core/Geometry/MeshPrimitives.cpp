@@ -883,15 +883,15 @@ MultiIndexedGeometry makeTube( const Vector3& a,
     return result;
 }
 
-TriangleMesh makeCone( const Vector3& base,
-                       const Vector3& tip,
-                       Scalar radius,
-                       uint nFaces,
-                       const Utils::optional<Utils::Color>& color ) {
-    TriangleMesh result;
-    TriangleMesh::PointAttribHandle::Container vertices;
-    TriangleMesh::NormalAttribHandle::Container normals;
-    TriangleMesh::IndexContainerType indices;
+MultiIndexedGeometry makeCone( const Vector3& base,
+                               const Vector3& tip,
+                               Scalar radius,
+                               uint nFaces,
+                               const Utils::optional<Utils::Color>& color ) {
+    MultiIndexedGeometry result;
+    MultiIndexedGeometry::PointAttribHandle::Container vertices;
+    MultiIndexedGeometry::NormalAttribHandle::Container normals;
+    TriangleIndexLayer::IndexContainerType indices;
     vertices.reserve( 2 + nFaces );
     normals.reserve( 2 + nFaces );
     indices.reserve( 2 * nFaces );
@@ -928,7 +928,7 @@ TriangleMesh makeCone( const Vector3& base,
     }
     result.setVertices( std::move( vertices ) );
     result.setNormals( std::move( normals ) );
-    result.setIndices( std::move( indices ) );
+    result.set_indices<TriangleIndexLayer>( std::move( indices ) );
     if ( bool( color ) ) result.colorize( *color );
     result.checkConsistency();
 

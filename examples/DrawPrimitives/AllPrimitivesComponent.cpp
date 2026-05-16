@@ -1089,7 +1089,7 @@ void AllPrimitivesComponent::initialize() {
         {
             using Ra::Engine::Data::Mesh;
             {
-                auto geom      = makeParametricTorus<16, 8>( .04_ra, .01_ra, Color::White() );
+                auto geom      = makeParametricTorus( .04_ra, .01_ra, Color::White(), 16, 8 );
                 auto torusMesh = make_shared<GeometryDisplayable>( "Torus", std::move( geom ) );
                 auto torus     = RenderObject::createRenderObject(
                     "test_torus", this, RenderObjectType::Geometry, torusMesh, {} );
@@ -1101,7 +1101,7 @@ void AllPrimitivesComponent::initialize() {
             }
 
             {
-                auto geom = makeParametricTorus<32, 12>( .1_ra, .05_ra, Color::White(), true );
+                auto geom = makeParametricTorus( .1_ra, .05_ra, Color::White(), true, 32, 12 );
 
                 auto texTorusMesh =
                     make_shared<GeometryDisplayable>( "Textured Torus", std::move( geom ) );

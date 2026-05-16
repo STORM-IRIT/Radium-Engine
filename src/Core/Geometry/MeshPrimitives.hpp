@@ -103,27 +103,25 @@ RA_CORE_API MultiIndexedGeometry makeSharpBox2( const Aabb& aabb,
 
 /// Create a parametric spherical mesh of given radius. Template parameters set the resolution.
 /// \param generateTexCoord: maps parametric (u,v) to texture corrdinates [0,1]^2
-template <uint U = 16, uint V = U>
-MultiIndexedGeometry makeParametricSphere( Scalar radius                              = 1_ra,
-                                           const Utils::optional<Utils::Color>& color = {},
-                                           bool generateTexCoord                      = false );
+RA_CORE_API MultiIndexedGeometry
+makeParametricSphere( Scalar radius                              = 1_ra,
+                      const Utils::optional<Utils::Color>& color = {},
+                      bool generateTexCoord                      = false,
+                      const uint SLICES                          = 16,
+                      const uint STACK                           = 16 );
 
 /// Create a parametric torus mesh. The minor radius is the radius of the inside of the tube and
 /// the major radius is the radius of the whole torus. The torus will be centered at the origin
 /// and have Z as rotation axis. Template parameters set the resolution of the mesh. \param
 /// generateTexCoord: maps parametric (u,v) to texture corrdinates [0,1]^2
-template <uint U = 16, uint V = U>
-QuadMesh makeParametricTorus( Scalar majorRadius,
-                              Scalar minorRadius,
-                              const Utils::optional<Utils::Color>& color = {},
-                              bool generateTexCoord                      = false );
+RA_CORE_API MultiIndexedGeometry
+makeParametricTorus( Scalar majorRadius,
+                     Scalar minorRadius,
+                     const Utils::optional<Utils::Color>& color = {},
+                     bool generateTexCoord                      = false,
+                     const uint U                               = 16,
+                     const uint V                               = 16 );
 
-// QuadMesh makeParametricTorus( Scalar majorRadius,
-//                               Scalar minorRadius,
-//                               int U                                      = 16,
-//                               int V                                      = 16,
-//                               const Utils::optional<Utils::Color>& color = {},
-//                               bool generateTexCoord                      = false );
 /// Create a spherical mesh by subdivision of an icosahedron.
 RA_CORE_API MultiIndexedGeometry
 makeGeodesicSphere( Scalar radius                              = 1_ra,
@@ -160,15 +158,17 @@ RA_CORE_API MultiIndexedGeometry makeTube( const Vector3& a,
 
 /// Create a cone approximation (n-faced pyramid) with base face centered on base, pointing
 /// towards tip with given base radius.
-RA_CORE_API TriangleMesh makeCone( const Vector3& base,
-                                   const Vector3& tip,
-                                   Scalar radius,
-                                   uint nFaces                                = 32,
-                                   const Utils::optional<Utils::Color>& color = {} );
+RA_CORE_API MultiIndexedGeometry makeCone( const Vector3& base,
+                                           const Vector3& tip,
+                                           Scalar radius,
+                                           uint nFaces                                = 32,
+                                           const Utils::optional<Utils::Color>& color = {} );
 
-template <uint SLICES, uint STACKS>
-MultiIndexedGeometry
-makeParametricSphere( Scalar radius, const Utils::optional<Utils::Color>& color, bool gtc ) {
+inline MultiIndexedGeometry makeParametricSphere( Scalar radius,
+                                                  const Utils::optional<Utils::Color>& color,
+                                                  bool gtc,
+                                                  const uint SLICES,
+                                                  const uint STACKS ) {
 
     const Scalar du = 1_ra / SLICES;
     const Scalar dv = 1_ra / STACKS;
@@ -183,7 +183,8 @@ makeParametricSphere( Scalar radius, const Utils::optional<Utils::Color>& color,
         gtc ? topoMesh.addWedgeAttrib<Vector3>( getAttribName( MeshAttrib::VERTEX_TEXCOORD ) )
             : WAI::Invalid();
 
-    TopologicalMesh::VertexHandle vhandles[( STACKS - 1 ) * SLICES + 2];
+    std::vector<TopologicalMesh::VertexHandle> vhandles;
+    vhandles.resize( ( STACKS - 1 ) * SLICES + 2 );
     Vector3Array topoTexCoords;
     topoTexCoords.reserve( ( STACKS - 1 ) * SLICES + 2 + 2 * SLICES );
     Vector3Array topoNormals;
@@ -193,7 +194,7 @@ makeParametricSphere( Scalar radius, const Utils::optional<Utils::Color>& color,
     // check https://en.wikipedia.org/wiki/Spherical_coordinate_system
     // theta \in [0, pi]
     // phi \in [0, 2pi]
-    const Scalar uFactor = 2_ra / Scalar { SLICES } * Core::Math::Pi;
+    const Scalar uFactor = 2_ra / static_cast<Scalar>( SLICES ) * Core::Math::Pi;
     const Scalar vFactor = Core::Math::Pi / STACKS;
     for ( uint u = 0; u < SLICES; ++u ) {
         const Scalar phi = u * uFactor;
@@ -233,27 +234,28 @@ makeParametricSphere( Scalar radius, const Utils::optional<Utils::Color>& color,
     };
 
     // take seams into account when u =1
-    auto wedgeSetterSeam = [wedgeSetter, &topoTexCoords, &topoNormals, whNormal, whTexCoord](
-                               int u, int vhIndex, TopologicalMesh::FaceHandle fh ) {
-        Vector3 t = topoTexCoords[vhIndex];
-        if ( u == SLICES - 1 ) t[0] = 0_ra;
-        wedgeSetter( vhIndex, fh, topoNormals[vhIndex], t );
-    };
+    auto wedgeSetterSeam =
+        [wedgeSetter, &topoTexCoords, &topoNormals, whNormal, whTexCoord, SLICES](
+            uint u, int vhIndex, TopologicalMesh::FaceHandle fh ) {
+            Vector3 t = topoTexCoords[vhIndex];
+            if ( u == SLICES - 1 ) t[0] = 0_ra;
+            wedgeSetter( vhIndex, fh, topoNormals[vhIndex], t );
+        };
 
     // special for poles
-    auto wedgeSetterPole =
-        [wedgeSetter, &topoTexCoords, whNormal, whTexCoord]( bool north,
-                                                             int id,
-                                                             int baseSlice,
-                                                             int nextSlice,
-                                                             int u,
-                                                             TopologicalMesh::FaceHandle fh ) {
-            // pole vertex use "midpoint" texCoord
-            Scalar bu = topoTexCoords[baseSlice][0];
-            Scalar nu = ( u == SLICES - 1 ) ? 0_ra : topoTexCoords[nextSlice][0];
-            Scalar tu = ( bu + nu ) * .5_ra;
-            wedgeSetter( id, fh, Vector3( 0, 0, north ? 1 : -1 ), Vector3( tu, north ? 0 : 1, 0 ) );
-        };
+    auto wedgeSetterPole = [wedgeSetter, &topoTexCoords, whNormal, whTexCoord, SLICES](
+                               bool north,
+                               int id,
+                               int baseSlice,
+                               int nextSlice,
+                               uint u,
+                               TopologicalMesh::FaceHandle fh ) {
+        // pole vertex use "midpoint" texCoord
+        Scalar bu = topoTexCoords[baseSlice][0];
+        Scalar nu = ( u == SLICES - 1 ) ? 0_ra : topoTexCoords[nextSlice][0];
+        Scalar tu = ( bu + nu ) * .5_ra;
+        wedgeSetter( id, fh, Vector3( 0, 0, north ? 1 : -1 ), Vector3( tu, north ? 0 : 1, 0 ) );
+    };
 
     for ( uint u = 0; u < SLICES; ++u ) {
         for ( uint v = 2; v < STACKS; ++v ) {
@@ -308,15 +310,16 @@ makeParametricSphere( Scalar radius, const Utils::optional<Utils::Color>& color,
     return result;
 }
 
-template <uint U, uint V>
-QuadMesh makeParametricTorus( Scalar majorRadius,
-                              Scalar minorRadius,
-                              const Utils::optional<Utils::Color>& color,
-                              bool generateTexCoord ) {
-    QuadMesh result;
-    QuadMesh::PointAttribHandle::Container vertices;
-    QuadMesh::NormalAttribHandle::Container normals;
-    QuadMesh::IndexContainerType indices;
+inline MultiIndexedGeometry makeParametricTorus( Scalar majorRadius,
+                                                 Scalar minorRadius,
+                                                 const Utils::optional<Utils::Color>& color,
+                                                 bool generateTexCoord,
+                                                 const uint U,
+                                                 const uint V ) {
+    MultiIndexedGeometry result;
+    MultiIndexedGeometry::PointAttribHandle::Container vertices;
+    MultiIndexedGeometry::NormalAttribHandle::Container normals;
+    QuadIndexLayer::IndexContainerType indices;
     Ra::Core::Vector3Array texCoords;
 
     vertices.reserve( ( U + 1 ) * ( V + 1 ) );
@@ -353,7 +356,7 @@ QuadMesh makeParametricTorus( Scalar majorRadius,
 
     result.setVertices( std::move( vertices ) );
     result.setNormals( std::move( normals ) );
-    result.setIndices( std::move( indices ) );
+    result.set_indices<QuadIndexLayer>( std::move( indices ) );
     if ( generateTexCoord )
         result.addAttrib( getAttribName( MeshAttrib::VERTEX_TEXCOORD ), std::move( texCoords ) );
     if ( color ) result.colorize( *color );

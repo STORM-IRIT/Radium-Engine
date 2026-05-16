@@ -24,8 +24,8 @@ RotateGizmo::RotateGizmo( Engine::Scene::Component* c,
     constexpr Scalar torusAspectRatio = .08_ra;
     // For x,y,z
     for ( uint i = 0; i < 3; ++i ) {
-        auto torus = Core::Geometry::makeParametricTorus<32>( torusOutRadius,
-                                                              torusAspectRatio * torusOutRadius );
+        auto torus = Core::Geometry::makeParametricTorus(
+            torusOutRadius, torusAspectRatio * torusOutRadius, {}, false, 32, 32 );
         // Transform the torus from z-axis to axis i.
         auto& data = torus.verticesWithLock();
         for ( auto& v : data ) {

@@ -283,7 +283,7 @@ GeometryDisplayablePtr ParametricSphere( const Core::Vector3& center,
                                          Scalar radius,
                                          const Core::Utils::Color& color,
                                          bool generateTexCoord ) {
-    auto geom   = makeParametricSphere<32, 32>( radius, color, generateTexCoord );
+    auto geom   = makeParametricSphere( radius, color, generateTexCoord, 32, 32 );
     auto handle = geom.getAttribHandle<TriangleMesh::Point>(
         Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::MeshAttrib::VERTEX_POSITION ) );
     auto& vertices = geom.getAttrib<TriangleMesh::Point>( handle );
