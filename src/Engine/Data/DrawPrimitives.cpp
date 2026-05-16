@@ -169,8 +169,9 @@ GeometryDisplayablePtr QuadStrip( const Core::Vector3& a,
     Vector2 halfExts = Vector2( x.norm() / 2_ra, quads * y.norm() / 2_ra );
     auto geom        = makePlaneGrid( quads, 1, halfExts, t, color, true );
 
-    auto vertHandle = geom.getAttribHandle<TriangleMesh::Point>( getAttribName( VERTEX_POSITION ) );
-    auto& vertAttrib = geom.getAttrib<TriangleMesh::Point>( vertHandle );
+    auto vertHandle =
+        geom.getAttribHandle<AttribArrayGeometry::Point>( getAttribName( VERTEX_POSITION ) );
+    auto& vertAttrib = geom.getAttrib<AttribArrayGeometry::Point>( vertHandle );
 
     Core::Vector4Array colors( vertAttrib.getSize(), color );
     geom.addAttrib( getAttribName( MeshAttrib::VERTEX_COLOR ), colors );
@@ -184,10 +185,10 @@ GeometryDisplayablePtr QuadStrip( const Core::Vector3& a,
     auto default_layer = geom.default_layer_key();
     geom.set_default_layer_key( strip_key );
 
-    mesh->loadGeometry(
-        std::move( geom ),
-        GeometryDisplayable::ArrayOfLayerKeys<2> {
-            { { strip_key, Mesh::RM_TRIANGLE_STRIP }, { default_layer, Mesh::RM_QUADS } } } );
+    mesh->loadGeometry( std::move( geom ),
+                        GeometryDisplayable::ArrayOfLayerKeys<2> {
+                            { { strip_key, AttribArrayDisplayable::RM_TRIANGLE_STRIP },
+                              { default_layer, AttribArrayDisplayable::RM_QUADS } } } );
     return mesh;
 }
 
@@ -201,7 +202,7 @@ GeometryDisplayablePtr Circle( const Core::Vector3& center,
     Geometry::MultiIndexedGeometry geom;
     ///\todo refer to class typedef instaed of core types/
     Core::Vector3Array vertices( segments + 1 );
-    Geometry::LineMesh::IndexContainerType indices;
+    Geometry::LineIndexLayer::IndexContainerType indices;
     indices.resize( segments );
 
     Core::Vector3 xPlane, yPlane;
@@ -237,7 +238,7 @@ GeometryDisplayablePtr CircleArc( const Core::Vector3& center,
                                   const Core::Utils::Color& color ) {
     Geometry::MultiIndexedGeometry geom;
     Core::Vector3Array vertices( segments + 1 );
-    Geometry::LineMesh::IndexContainerType indices;
+    Geometry::LineIndexLayer::IndexContainerType indices;
     indices.resize( segments );
 
     Core::Vector3 xPlane, yPlane;
@@ -269,9 +270,9 @@ GeometryDisplayablePtr CircleArc( const Core::Vector3& center,
 GeometryDisplayablePtr
 Sphere( const Core::Vector3& center, Scalar radius, const Core::Utils::Color& color ) {
     auto geom   = makeGeodesicSphere( radius, 2, color );
-    auto handle = geom.getAttribHandle<TriangleMesh::Point>(
+    auto handle = geom.getAttribHandle<AttribArrayGeometry::Point>(
         Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::MeshAttrib::VERTEX_POSITION ) );
-    auto& vertices = geom.getAttrib<TriangleMesh::Point>( handle );
+    auto& vertices = geom.getAttrib<AttribArrayGeometry::Point>( handle );
     auto& data     = vertices.getDataWithLock();
 
     std::for_each( data.begin(), data.end(), [center]( Core::Vector3& v ) { v += center; } );
@@ -285,9 +286,9 @@ GeometryDisplayablePtr ParametricSphere( const Core::Vector3& center,
                                          const Core::Utils::Color& color,
                                          bool generateTexCoord ) {
     auto geom   = makeParametricSphere( radius, color, generateTexCoord, 32, 32 );
-    auto handle = geom.getAttribHandle<TriangleMesh::Point>(
+    auto handle = geom.getAttribHandle<AttribArrayGeometry::Point>(
         Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::MeshAttrib::VERTEX_POSITION ) );
-    auto& vertices = geom.getAttrib<TriangleMesh::Point>( handle );
+    auto& vertices = geom.getAttrib<AttribArrayGeometry::Point>( handle );
     auto& data     = vertices.getDataWithLock();
 
     std::for_each( data.begin(), data.end(), [center]( Core::Vector3& v ) { v += center; } );
@@ -315,16 +316,16 @@ GeometryDisplayablePtr Capsule( const Core::Vector3& p1,
     t.pretranslate( trans );
     Matrix3 normalMatrix = t.linear().inverse().transpose();
 
-    auto vertHandle = geom.getAttribHandle<TriangleMesh::Point>(
+    auto vertHandle = geom.getAttribHandle<AttribArrayGeometry::Point>(
         Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::VERTEX_POSITION ) );
-    auto& vertAttrib = geom.getAttrib<TriangleMesh::Point>( vertHandle );
+    auto& vertAttrib = geom.getAttrib<AttribArrayGeometry::Point>( vertHandle );
     auto& vertData   = vertAttrib.getDataWithLock();
     std::for_each( vertData.begin(), vertData.end(), [t]( Core::Vector3& v ) { v = t * v; } );
     vertAttrib.unlock();
 
-    auto normalHandle = geom.getAttribHandle<TriangleMesh::Point>(
+    auto normalHandle = geom.getAttribHandle<AttribArrayGeometry::Point>(
         Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::VERTEX_NORMAL ) );
-    auto& normalAttrib = geom.getAttrib<TriangleMesh::Point>( normalHandle );
+    auto& normalAttrib = geom.getAttrib<AttribArrayGeometry::Point>( normalHandle );
     auto& normalData   = normalAttrib.getDataWithLock();
     std::for_each( normalData.begin(), normalData.end(), [normalMatrix]( Core::Vector3& n ) {
         n = normalMatrix * n;
@@ -381,10 +382,10 @@ GeometryDisplayablePtr Disk( const Core::Vector3& center,
         Core::Vector4Array { geom.vertices().size(), color } );
 
     auto mesh = make_shared<GeometryDisplayable>( "Disk Primitive" );
-    mesh->loadGeometry(
-        std::move( geom ),
-        GeometryDisplayable::ArrayOfLayerKeys<2> {
-            { { fan_key, Mesh::RM_TRIANGLE_FAN }, { face_key, Mesh::RM_TRIANGLES } } } );
+    mesh->loadGeometry( std::move( geom ),
+                        GeometryDisplayable::ArrayOfLayerKeys<2> {
+                            { { fan_key, AttribArrayDisplayable::RM_TRIANGLE_FAN },
+                              { face_key, AttribArrayDisplayable::RM_TRIANGLES } } } );
     mesh->set_active_layer_key( fan_key );
     return mesh;
 }
@@ -550,9 +551,9 @@ GeometryDisplayablePtr LineStrip( const Core::Vector3Array& vertices,
         Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::MeshAttrib::VERTEX_COLOR ), colors );
 
     auto mesh = make_shared<GeometryDisplayable>( "Line Strip Primitive" );
-    mesh->loadGeometry(
-        std::move( geom ),
-        GeometryDisplayable::ArrayOfLayerKeys<1> { { { strip_key, Mesh::RM_LINE_STRIP } } } );
+    mesh->loadGeometry( std::move( geom ),
+                        GeometryDisplayable::ArrayOfLayerKeys<1> {
+                            { { strip_key, AttribArrayDisplayable::RM_LINE_STRIP } } } );
 
     return mesh;
 }

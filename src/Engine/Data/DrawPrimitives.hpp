@@ -21,7 +21,6 @@ class Component;
 }
 
 namespace Data {
-class Mesh;
 class AttribArrayDisplayable;
 class GeometryDisplayable;
 
