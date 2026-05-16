@@ -1,3 +1,4 @@
+#include "Core/Geometry/IndexedGeometry.hpp"
 #include <Engine/Rendering/DebugRender.hpp>
 
 #include <Engine/Data/DrawPrimitives.hpp>
@@ -140,7 +141,7 @@ void DebugRender::renderLines( const Core::Matrix4f& viewMatrix,
                                const Core::Matrix4f& projMatrix ) {
     Core::Vector3Array vertices;
     Core::Vector4Array colors;
-    Core::Geometry::LineMesh::IndexContainerType indices;
+    Core::Geometry::LineIndexLayer::IndexContainerType indices;
     unsigned int indexI = 0;
     for ( const auto& l : m_lines ) {
         vertices.push_back( l.a );
@@ -161,9 +162,9 @@ void DebugRender::renderLines( const Core::Matrix4f& viewMatrix,
         m_lineProg->setUniform( "view", viewMatrix );
         m_lineProg->setUniform( "proj", projMatrix );
 
-        Core::Geometry::LineMesh geom;
+        Core::Geometry::MultiIndexedGeometry geom;
         geom.setVertices( vertices );
-        geom.setIndices( std::move( indices ) );
+        geom.set_indices<Core::Geometry::LineIndexLayer>( std::move( indices ) );
         geom.addAttrib( Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::VERTEX_COLOR ),
                         colors );
 
