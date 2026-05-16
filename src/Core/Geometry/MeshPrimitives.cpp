@@ -38,29 +38,29 @@ QuadMesh makeZNormalQuad( const Vector2& halfExts,
     return makePlaneGrid( 1, 1, halfExts, Transform::Identity(), color, generateTexCoord );
 }
 
-MultiIndexedGeometry makeBox2( const Vector3& halfExts,
-                               const Utils::optional<Utils::Color>& color ) {
-    return makeBox2( -halfExts,
-                     Vector3 { 2_ra * halfExts.x(), 0, 0 },
-                     Vector3 { 0, 2_ra * halfExts.y(), 0 },
-                     Vector3 { 0, 0, 2_ra * halfExts.z() },
-                     color );
+MultiIndexedGeometry makeBox( const Vector3& halfExts,
+                              const Utils::optional<Utils::Color>& color ) {
+    return makeBox( -halfExts,
+                    Vector3 { 2_ra * halfExts.x(), 0, 0 },
+                    Vector3 { 0, 2_ra * halfExts.y(), 0 },
+                    Vector3 { 0, 0, 2_ra * halfExts.z() },
+                    color );
 }
 
-MultiIndexedGeometry makeBox2( const Aabb& aabb, const Utils::optional<Utils::Color>& color ) {
+MultiIndexedGeometry makeBox( const Aabb& aabb, const Utils::optional<Utils::Color>& color ) {
 
-    return makeBox2( aabb.corner( Aabb::BottomLeftFloor ),
-                     aabb.corner( Aabb::BottomRightFloor ) - aabb.corner( Aabb::BottomLeftFloor ),
-                     aabb.corner( Aabb::BottomLeftCeil ) - aabb.corner( Aabb::BottomLeftFloor ),
-                     aabb.corner( Aabb::TopLeftFloor ) - aabb.corner( Aabb::BottomLeftFloor ),
-                     color );
+    return makeBox( aabb.corner( Aabb::BottomLeftFloor ),
+                    aabb.corner( Aabb::BottomRightFloor ) - aabb.corner( Aabb::BottomLeftFloor ),
+                    aabb.corner( Aabb::BottomLeftCeil ) - aabb.corner( Aabb::BottomLeftFloor ),
+                    aabb.corner( Aabb::TopLeftFloor ) - aabb.corner( Aabb::BottomLeftFloor ),
+                    color );
 }
 
-MultiIndexedGeometry makeBox2( const Vector3& corner,
-                               const Vector3& x,
-                               const Vector3& y,
-                               const Vector3& z,
-                               const Utils::optional<Utils::Color>& color ) {
+MultiIndexedGeometry makeBox( const Vector3& corner,
+                              const Vector3& x,
+                              const Vector3& y,
+                              const Vector3& z,
+                              const Utils::optional<Utils::Color>& color ) {
     MultiIndexedGeometry result;
     result.setVertices( { corner,
                           corner + x,
@@ -99,9 +99,9 @@ MultiIndexedGeometry makeBox2( const Vector3& corner,
     return result;
 }
 
-MultiIndexedGeometry makeSharpBox2( const Aabb& aabb,
-                                    const Utils::optional<Utils::Color>& color,
-                                    bool generateTexCoord ) {
+MultiIndexedGeometry makeSharpBox( const Aabb& aabb,
+                                   const Utils::optional<Utils::Color>& color,
+                                   bool generateTexCoord ) {
     MultiIndexedGeometry result;
     result.setVertices( { // Floor Face
                           aabb.corner( Aabb::BottomLeftFloor ),
@@ -237,11 +237,11 @@ MultiIndexedGeometry makeSharpBox2( const Aabb& aabb,
     return result;
 }
 
-MultiIndexedGeometry makeSharpBox2( const Vector3& halfExts,
-                                    const Utils::optional<Utils::Color>& color,
-                                    bool generateTexCoord ) {
+MultiIndexedGeometry makeSharpBox( const Vector3& halfExts,
+                                   const Utils::optional<Utils::Color>& color,
+                                   bool generateTexCoord ) {
     Aabb aabb( -halfExts, halfExts );
-    return makeSharpBox2( aabb, color, generateTexCoord );
+    return makeSharpBox( aabb, color, generateTexCoord );
 }
 
 MultiIndexedGeometry
