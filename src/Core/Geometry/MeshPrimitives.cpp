@@ -937,18 +937,18 @@ MultiIndexedGeometry makeCone( const Vector3& base,
     return result;
 }
 
-LineMesh makeGrid( const Core::Vector3& center,
-                   const Core::Vector3& x,
-                   const Core::Vector3& y,
-                   const Core::Utils::Color& color,
-                   Scalar cell_size,
-                   uint res ) {
+MultiIndexedGeometry makeGrid( const Core::Vector3& center,
+                               const Core::Vector3& x,
+                               const Core::Vector3& y,
+                               const Core::Utils::Color& color,
+                               Scalar cell_size,
+                               uint res ) {
 
     CORE_ASSERT( res > 1, "Grid has to be at least a 2x2 grid." );
 
-    LineMesh result;
-    TriangleMesh::PointAttribHandle::Container vertices;
-    auto indices = LineMesh::IndexContainerType {};
+    MultiIndexedGeometry result;
+    MultiIndexedGeometry::PointAttribHandle::Container vertices;
+    auto indices = LineIndexLayer::IndexContainerType {};
 
     vertices.reserve( 4 * ( res + 1 ) );
     indices.reserve( 2 * ( res + 1 ) );
@@ -977,7 +977,7 @@ LineMesh makeGrid( const Core::Vector3& center,
     }
 
     result.setVertices( std::move( vertices ) );
-    result.setIndices( std::move( indices ) );
+    result.set_indices<LineIndexLayer>( std::move( indices ) );
 
     result.colorize( color );
     return result;
