@@ -184,8 +184,8 @@ void computeIndices2( Core::Geometry::LineIndexLayer::IndexContainerType& indice
 
     std::sort( indices.begin(),
                indices.end(),
-               []( const Core::Geometry::LineMesh::IndexType& a,
-                   const Core::Geometry::LineMesh::IndexType& b ) {
+               []( const Core::Geometry::LineIndexLayer::IndexType& a,
+                   const Core::Geometry::LineIndexLayer::IndexType& b ) {
                    return a[0] < b[0] || ( a[0] == b[0] && a[1] < b[1] );
                } );
     indices.erase( std::unique( indices.begin(), indices.end() ), indices.end() );

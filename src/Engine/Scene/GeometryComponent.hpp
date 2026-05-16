@@ -24,7 +24,7 @@ class VolumeObject;
 
 namespace Scene {
 
-/// Abstract interface of a geometric compoennet in the Engine.
+/// Abstract interface of a geometric component in the Engine.
 class RA_ENGINE_API GeometryComponent : public Component
 {
   public:
@@ -34,14 +34,10 @@ class RA_ENGINE_API GeometryComponent : public Component
 
     void initialize() override {}
 
-    //  public:
     // Component communication management
     virtual void setupIO( const std::string& id );
     void setContentName( const std::string& name ) { m_contentName = name; }
-    //    void setDeformable( bool b );
 
-    /// Returns the index of the associated RO (the display mesh)
-    //    Ra::Core::Utils::Index getRenderObjectIndex() const;
   protected:
   private:
     const Ra::Core::Utils::Index* roIndexRead() const;

@@ -495,17 +495,6 @@ class RA_ENGINE_API Mesh : public IndexedGeometry<Core::Geometry::TriangleMesh>
     using base::IndexedGeometry;
     size_t getNumFaces() const override;
 
-    /**
-     * Use the given vertices and indices to build a display mesh according to
-     * the MeshRenderMode.
-     * \note This has to be used for non RM_TRIANGLES meshes only.
-     * \note Also removes all vertex attributes.
-     * \warning This will disappear as soon as old code will be removed.
-     */
-    using base::loadGeometry;
-    [[deprecated]] void loadGeometry( const Core::Vector3Array& vertices,
-                                      const std::vector<uint>& indices );
-
   protected:
   private:
 };
@@ -623,7 +612,12 @@ createMeshFromGeometryData2( const std::string& name, const Ra::Core::Asset::Geo
     return ret;
 }
 
-////////////////  AttribArrayDisplayable ///////////////////////////////
+//-----------------------------------------------------------------------------
+//- Implementation ------------------------------------------------------------
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+//- AttribArrayDisplayable ----------------------------------------------------
 
 void AttribArrayDisplayable::setRenderMode( MeshRenderMode mode ) {
     m_renderMode = mode;
