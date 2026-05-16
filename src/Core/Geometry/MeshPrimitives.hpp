@@ -21,30 +21,30 @@ namespace Geometry {
 /// \param color: if set, colorize vertices
 /// \param generateTexCoord: create uv tex coordinates on the grid, -halfExts have uv = (0,0),
 /// +halfExts have uv=(1,1)
-RA_CORE_API QuadMesh makePlaneGrid( const uint rows         = 1,
-                                    const uint cols         = 1,
-                                    const Vector2& halfExts = Vector2( .5_ra, .5_ra ),
-                                    const Transform& T      = Transform::Identity(),
-                                    const Utils::optional<Utils::Color>& color = {},
-                                    bool generateTexCoord                      = false );
+RA_CORE_API MultiIndexedGeometry makePlaneGrid( const uint rows         = 1,
+                                                const uint cols         = 1,
+                                                const Vector2& halfExts = Vector2( .5_ra, .5_ra ),
+                                                const Transform& T      = Transform::Identity(),
+                                                const Utils::optional<Utils::Color>& color = {},
+                                                bool generateTexCoord = false );
 
 /// Create a 2D quad mesh given half extents, centered on the origin with x axis as normal
 /// \see makePlaneGrid
-RA_CORE_API QuadMesh makeXNormalQuad( const Vector2& halfExts = Vector2( .5_ra, .5_ra ),
-                                      const Utils::optional<Utils::Color>& color = {},
-                                      bool generateTexCoord                      = false );
+RA_CORE_API MultiIndexedGeometry makeXNormalQuad( const Vector2& halfExts = Vector2( .5_ra, .5_ra ),
+                                                  const Utils::optional<Utils::Color>& color = {},
+                                                  bool generateTexCoord = false );
 
 /// Create a 2D quad mesh given half extents, centered on the origin with y axis as normal
 /// \see makePlaneGrid
-RA_CORE_API QuadMesh makeYNormalQuad( const Vector2& halfExts = Vector2( .5_ra, .5_ra ),
-                                      const Utils::optional<Utils::Color>& color = {},
-                                      bool generateTexCoord                      = false );
+RA_CORE_API MultiIndexedGeometry makeYNormalQuad( const Vector2& halfExts = Vector2( .5_ra, .5_ra ),
+                                                  const Utils::optional<Utils::Color>& color = {},
+                                                  bool generateTexCoord = false );
 
 /// Create a 2D quad mesh given half extents, centered on the origin with z axis as normal
 /// \see makePlaneGrid
-RA_CORE_API QuadMesh makeZNormalQuad( const Vector2& halfExts = Vector2( .5_ra, .5_ra ),
-                                      const Utils::optional<Utils::Color>& color = {},
-                                      bool generateTexCoord                      = false );
+RA_CORE_API MultiIndexedGeometry makeZNormalQuad( const Vector2& halfExts = Vector2( .5_ra, .5_ra ),
+                                                  const Utils::optional<Utils::Color>& color = {},
+                                                  bool generateTexCoord = false );
 
 /// Create a 2D grid, with only outer points, connected as lines, inner line intersctions are not
 /// present in verstices.

@@ -14,27 +14,27 @@ namespace Ra {
 namespace Core {
 namespace Geometry {
 
-QuadMesh makeXNormalQuad( const Vector2& halfExts,
-                          const Utils::optional<Utils::Color>& color,
-                          bool generateTexCoord ) {
+MultiIndexedGeometry makeXNormalQuad( const Vector2& halfExts,
+                                      const Utils::optional<Utils::Color>& color,
+                                      bool generateTexCoord ) {
     Transform T = Transform::Identity();
     T.linear().col( 0 ).swap( T.linear().col( 1 ) );
     T.linear().col( 1 ).swap( T.linear().col( 2 ) );
     return makePlaneGrid( 1, 1, halfExts, T, color, generateTexCoord );
 }
 
-QuadMesh makeYNormalQuad( const Vector2& halfExts,
-                          const Utils::optional<Utils::Color>& color,
-                          bool generateTexCoord ) {
+MultiIndexedGeometry makeYNormalQuad( const Vector2& halfExts,
+                                      const Utils::optional<Utils::Color>& color,
+                                      bool generateTexCoord ) {
     Transform T = Transform::Identity();
     T.linear().col( 1 ).swap( T.linear().col( 2 ) );
     T.linear().col( 0 ).swap( T.linear().col( 1 ) );
     return makePlaneGrid( 1, 1, halfExts, T, color, generateTexCoord );
 }
 
-QuadMesh makeZNormalQuad( const Vector2& halfExts,
-                          const Utils::optional<Utils::Color>& color,
-                          bool generateTexCoord ) {
+MultiIndexedGeometry makeZNormalQuad( const Vector2& halfExts,
+                                      const Utils::optional<Utils::Color>& color,
+                                      bool generateTexCoord ) {
     return makePlaneGrid( 1, 1, halfExts, Transform::Identity(), color, generateTexCoord );
 }
 
@@ -798,16 +798,16 @@ MultiIndexedGeometry makeGrid( const Core::Vector3& center,
     return result;
 }
 
-QuadMesh makePlaneGrid( const uint rows,
-                        const uint cols,
-                        const Vector2& halfExts,
-                        const Transform& transform,
-                        const Utils::optional<Utils::Color>& color,
-                        bool generateTexCoord ) {
-    QuadMesh result;
+MultiIndexedGeometry makePlaneGrid( const uint rows,
+                                    const uint cols,
+                                    const Vector2& halfExts,
+                                    const Transform& transform,
+                                    const Utils::optional<Utils::Color>& color,
+                                    bool generateTexCoord ) {
+    MultiIndexedGeometry result;
 
-    QuadMesh::PointAttribHandle::Container vertices;
-    QuadMesh::NormalAttribHandle::Container normals;
+    MultiIndexedGeometry::PointAttribHandle::Container vertices;
+    MultiIndexedGeometry::NormalAttribHandle::Container normals;
     Ra::Core::Vector3Array texCoords;
 
     const uint R      = ( rows + 1 );
@@ -852,23 +852,27 @@ QuadMesh makePlaneGrid( const uint rows,
 
     result.setVertices( std::move( vertices ) );
     result.setNormals( std::move( normals ) );
+
     if ( generateTexCoord )
         result.addAttrib( getAttribName( MeshAttrib::VERTEX_TEXCOORD ), std::move( texCoords ) );
+
     if ( bool( color ) ) result.colorize( *color );
 
-    auto& face_layer = result.getIndicesWithLock();
-    face_layer.reserve( f_size );
+    auto face_layer = std::make_unique<QuadIndexLayer>();
+
+    auto& indices = face_layer->collection();
+    indices.reserve( f_size );
 
     for ( uint i = 0; i < rows; ++i ) {
         for ( uint j = 0; j < cols; ++j ) {
-            face_layer.emplace_back( v.at( { i, j } ),
-                                     v.at( { i, j + 1 } ),
-                                     v.at( { i + 1, j + 1 } ),
-                                     v.at( { i + 1, j } ) );
+            indices.emplace_back( v.at( { i, j } ),
+                                  v.at( { i, j + 1 } ),
+                                  v.at( { i + 1, j + 1 } ),
+                                  v.at( { i + 1, j } ) );
         }
     }
 
-    result.indicesUnlock();
+    result.addLayer( std::move( face_layer ) );
     result.checkConsistency();
 
     return result;
