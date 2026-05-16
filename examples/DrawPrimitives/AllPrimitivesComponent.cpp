@@ -1,4 +1,5 @@
 
+#include "Core/Geometry/IndexedGeometry.hpp"
 #include "Engine/Data/DrawPrimitives.hpp"
 #include <AllPrimitivesComponent.hpp>
 
@@ -922,7 +923,7 @@ void AllPrimitivesComponent::initialize() {
                 const Vector3uArray& indices,
                 Vector3 from,
                 Vector3 to ) {
-                TriangleMesh mesh;
+                MultiIndexedGeometry mesh;
                 TopologicalMesh topo;
                 optional<TopologicalMesh::HalfedgeHandle> optHe;
                 Vector3 up { 0_ra, .05_ra, 0_ra };
@@ -931,7 +932,7 @@ void AllPrimitivesComponent::initialize() {
                 mesh.addAttrib( Ra::Core::Geometry::getAttribName(
                                     Ra::Core::Geometry::MeshAttrib::VERTEX_COLOR ),
                                 Vector4Array { colors.begin(), colors.begin() + points.size() } );
-                mesh.setIndices( indices );
+                mesh.set_indices<TriangleIndexLayer>( indices );
                 topo = TopologicalMesh { mesh };
                 topo.mergeEqualWedges();
                 topo.garbage_collection();
@@ -1016,7 +1017,7 @@ void AllPrimitivesComponent::initialize() {
                 const Vector3uArray& indices,
                 Vector3 from,
                 Vector3 to ) {
-                TriangleMesh mesh;
+                MultiIndexedGeometry mesh;
                 TopologicalMesh topo;
                 optional<TopologicalMesh::HalfedgeHandle> optHe;
                 Vector3 up { 0_ra, .05_ra, 0_ra };
@@ -1025,7 +1026,7 @@ void AllPrimitivesComponent::initialize() {
                 mesh.addAttrib( Ra::Core::Geometry::getAttribName(
                                     Ra::Core::Geometry::MeshAttrib::VERTEX_COLOR ),
                                 Vector4Array { colors.begin(), colors.begin() + points.size() } );
-                mesh.setIndices( indices );
+                mesh.set_indices<TriangleIndexLayer>( indices );
 
                 topo = TopologicalMesh { mesh };
                 topo.mergeEqualWedges();
