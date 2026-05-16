@@ -1,11 +1,12 @@
-#include "Core/Containers/VectorArray.hpp"
 #include <Engine/Data/DrawPrimitives.hpp>
 
 #include <Core/Containers/MakeShared.hpp>
+#include <Core/Containers/VectorArray.hpp>
 #include <Core/CoreMacros.hpp>
 #include <Core/Geometry/IndexedGeometry.hpp>
 #include <Core/Geometry/MeshPrimitives.hpp>
 #include <Core/Geometry/StandardAttribNames.hpp>
+#include <Core/Math/LinearAlgebra.hpp>
 #include <Core/Types.hpp>
 #include <Core/Utils/Color.hpp>
 
