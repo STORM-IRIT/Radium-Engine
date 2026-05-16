@@ -71,7 +71,7 @@ int main( int argc, char* argv[] ) {
     geometrySystem->addComponent( e, c );
     //! [Register the entity/component association to the geometry system ]
     //! [Creating the cube]
-    auto cube = Ra::Core::Geometry::makeSharpBox2( { 0.5f, 0.5f, 1.f } );
+    auto cube = Ra::Core::Geometry::makeSharpBox( { 0.5f, 0.5f, 1.f } );
     //! [Creating the cube]
 
     //! [Colorize the Cube]
@@ -110,7 +110,7 @@ int main( int argc, char* argv[] ) {
 
     auto geometrySystem = app.m_engine->getSystem( "GeometrySystem" );
     //! [Creating the cube]
-    auto cube = Ra::Core::Geometry::makeSharpBox2( { 0.5_ra, 0.05_ra, 0.5_ra } );
+    auto cube = Ra::Core::Geometry::makeSharpBox( { 0.5_ra, 0.05_ra, 0.5_ra } );
     //! [Creating the cube]
 
     //! [Colorize the Cube]

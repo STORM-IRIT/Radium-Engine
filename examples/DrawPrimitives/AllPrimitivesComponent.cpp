@@ -141,7 +141,7 @@ void AllPrimitivesComponent::initialize() {
         auto coord = cellSize / 16_ra;
         {
             cube1->loadGeometry(
-                Geometry::makeSharpBox2( Vector3 { coord, coord, coord }, Color::Green() ) );
+                Geometry::makeSharpBox( Vector3 { coord, coord, coord }, Color::Green() ) );
             auto renderObject1 = RenderObject::createRenderObject(
                 "Cube1", this, RenderObjectType::Geometry, cube1, {} );
             renderObject1->setLocalTransform( Transform { Translation( cellCorner ) } );
@@ -151,9 +151,9 @@ void AllPrimitivesComponent::initialize() {
         {
             std::shared_ptr<GeometryDisplayable> texCube( new GeometryDisplayable( "Cube" ) );
             texCube->loadGeometry(
-                Geometry::makeSharpBox2( Vector3 { 1.2_ra * coord, 1.2_ra * coord, 1.2_ra * coord },
-                                         Color::White(),
-                                         true ) );
+                Geometry::makeSharpBox( Vector3 { 1.2_ra * coord, 1.2_ra * coord, 1.2_ra * coord },
+                                        Color::White(),
+                                        true ) );
             auto renderObjectTexCube = RenderObject::createRenderObject(
                 "TexCube", this, RenderObjectType::Geometry, texCube, {} );
             renderObjectTexCube->setLocalTransform(
@@ -166,7 +166,7 @@ void AllPrimitivesComponent::initialize() {
             // another cube
             std::shared_ptr<GeometryDisplayable> cube2( new GeometryDisplayable( "Cube" ) );
             coord = cellSize / 4_ra;
-            cube2->loadGeometry( Geometry::makeSharpBox2( Vector3 { coord, coord, coord } ) );
+            cube2->loadGeometry( Geometry::makeSharpBox( Vector3 { coord, coord, coord } ) );
 
             const std::string myColourName { "colour" };
             cube2->getCoreGeometry().addAttrib(
@@ -189,7 +189,7 @@ void AllPrimitivesComponent::initialize() {
             auto x = Vector3 { coord, coord, 0 };
             auto y = Vector3 { -coord, coord, 0 };
             cube3->loadGeometry(
-                Geometry::makeBox2( c, x, y, x.cross( y ) / x.norm(), Color::Yellow() ) );
+                Geometry::makeBox( c, x, y, x.cross( y ) / x.norm(), Color::Yellow() ) );
             auto renderObject3 = RenderObject::createRenderObject(
                 "Cube3", this, RenderObjectType::Geometry, cube3, {} );
             renderObject3->setMaterial( blinnPhongMaterial );
@@ -1215,7 +1215,7 @@ void AllPrimitivesComponent::initialize() {
         boxBounds.extend( Core::Vector3( -radius * 2_ra, -radius * 2_ra, -radius * 2_ra ) );
         boxBounds.extend( Core::Vector3( radius * 2_ra, radius * 2_ra, radius * 2_ra ) );
         boxBounds.translate( arrowScale * cylinderEnd + startPoint );
-        auto box = Core::Geometry::makeSharpBox2( boxBounds, Color::Yellow() );
+        auto box = Core::Geometry::makeSharpBox( boxBounds, Color::Yellow() );
         // box is quads, need triangulate before append
         box.triangulate<QuadIndexLayer>();
 

@@ -477,7 +477,7 @@ GeometryDisplayablePtr Grid( const Core::Vector3& center,
 }
 
 GeometryDisplayablePtr AABB( const Core::Aabb& aabb, const Core::Utils::Color& color ) {
-    auto geom         = makeSharpBox2( aabb, color );
+    auto geom         = makeSharpBox( aabb, color );
     auto ret          = make_shared<GeometryDisplayable>( "AABB Primitive", std::move( geom ) );
     auto [key, layer] = ret->getCoreGeometry().getFirstLayerOccurrence(
         Core::Geometry::LineIndexLayer::staticSemanticName );
@@ -489,13 +489,12 @@ GeometryDisplayablePtr AABB( const Core::Aabb& aabb, const Core::Utils::Color& c
 
 GeometryDisplayablePtr OBB( const Obb& obb, const Core::Utils::Color& color ) {
 
-    auto geom =
-        makeBox2( obb.corner( Aabb::BottomLeftFloor ),
-                  obb.corner( Aabb::BottomRightFloor ) - obb.corner( Aabb::BottomLeftFloor ),
-                  obb.corner( Aabb::BottomLeftCeil ) - obb.corner( Aabb::BottomLeftFloor ),
-                  obb.corner( Aabb::TopLeftFloor ) - obb.corner( Aabb::BottomLeftFloor ),
-                  color );
-    auto ret          = make_shared<GeometryDisplayable>( "AABB Primitive", std::move( geom ) );
+    auto geom = makeBox( obb.corner( Aabb::BottomLeftFloor ),
+                         obb.corner( Aabb::BottomRightFloor ) - obb.corner( Aabb::BottomLeftFloor ),
+                         obb.corner( Aabb::BottomLeftCeil ) - obb.corner( Aabb::BottomLeftFloor ),
+                         obb.corner( Aabb::TopLeftFloor ) - obb.corner( Aabb::BottomLeftFloor ),
+                         color );
+    auto ret  = make_shared<GeometryDisplayable>( "AABB Primitive", std::move( geom ) );
     auto [key, layer] = ret->getCoreGeometry().getFirstLayerOccurrence(
         Core::Geometry::LineIndexLayer::staticSemanticName );
 

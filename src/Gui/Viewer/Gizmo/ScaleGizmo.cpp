@@ -41,7 +41,7 @@ ScaleGizmo::ScaleGizmo( Engine::Scene::Component* c,
         boxBounds.extend( Core::Vector3( -radius * 2_ra, -radius * 2_ra, -radius * 2_ra ) );
         boxBounds.extend( Core::Vector3( radius * 2_ra, radius * 2_ra, radius * 2_ra ) );
         boxBounds.translate( arrowScale * cylinderEnd );
-        auto box = Core::Geometry::makeSharpBox2( boxBounds );
+        auto box = Core::Geometry::makeSharpBox( boxBounds );
         // box is quads, need triangulate before append
         box.triangulate_any();
 

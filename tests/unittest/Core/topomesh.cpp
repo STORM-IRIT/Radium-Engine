@@ -264,8 +264,8 @@ TEST_CASE( "Core/Geometry/TopologicalMesh", "[unittests][Core][Core/Geometry][To
     }
 
     SECTION( "Closed mesh" ) {
-        testConverter1<QuadIndexLayer>( Ra::Core::Geometry::makeBox2() );
-        testConverter1<QuadIndexLayer>( Ra::Core::Geometry::makeSharpBox2() );
+        testConverter1<QuadIndexLayer>( Ra::Core::Geometry::makeBox() );
+        testConverter1<QuadIndexLayer>( Ra::Core::Geometry::makeSharpBox() );
     }
 
     SECTION( "Mesh with boundaries" ) {
@@ -299,7 +299,7 @@ TEST_CASE( "Core/Geometry/TopologicalMesh", "[unittests][Core][Core/Geometry][To
                                       { 0_ra, 1_ra },
                                       { 0_ra, 0_ra } };
 
-        auto mesh      = Ra::Core::Geometry::makeBox2();
+        auto mesh      = Ra::Core::Geometry::makeBox();
         auto layer_key = mesh.triangulate<QuadIndexLayer>();
         auto handle2   = mesh.addAttrib<Vector2>( "vector2_attrib" );
         auto handle4   = mesh.addAttrib<Vector4>( "vector4_attrib" );
@@ -370,7 +370,7 @@ TEST_CASE( "Core/Geometry/TopologicalMesh", "[unittests][Core][Core/Geometry][To
     }
 
     SECTION( "Test normals" ) {
-        auto mesh            = Ra::Core::Geometry::makeBox2();
+        auto mesh            = Ra::Core::Geometry::makeBox();
         auto topologicalMesh = TopologicalMesh( mesh );
 
         for ( TopologicalMesh::ConstVertexIter v_it = topologicalMesh.vertices_begin();
@@ -836,7 +836,7 @@ TEST_CASE( "Core/Geometry/TopologicalMesh/Initialization",
 TEST_CASE( "Core/Geometry/TopologicalMesh/MergeWedges",
            "[unittests][Core][Core/Geometry][TopologicalMesh]" ) {
 
-    auto mesh = Ra::Core::Geometry::makeSharpBox2();
+    auto mesh = Ra::Core::Geometry::makeSharpBox();
     auto topo = TopologicalMesh { mesh };
 
     std::set<TopologicalMesh::WedgeIndex> wedgesIndices;
@@ -1345,8 +1345,8 @@ TEST_CASE( "Core/Geometry/TopologicalMesh/Updates",
     using Ra::Core::Geometry::TriangleMesh;
 
     SECTION( "Closed mesh" ) {
-        testConverter( Ra::Core::Geometry::makeBox2() );
-        testConverter( Ra::Core::Geometry::makeSharpBox2() );
+        testConverter( Ra::Core::Geometry::makeBox() );
+        testConverter( Ra::Core::Geometry::makeSharpBox() );
     }
 
     SECTION( "Mesh with boundaries" ) {

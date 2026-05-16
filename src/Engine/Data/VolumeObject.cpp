@@ -18,7 +18,7 @@ VolumeObject::~VolumeObject() {}
 void VolumeObject::loadGeometry( Core::Geometry::AbstractVolume* volume, const Core::Aabb& aabb ) {
     if ( volume != nullptr && volume->isDense() ) {
 
-        m_mesh.loadGeometry( Core::Geometry::makeSharpBox2( aabb ) );
+        m_mesh.loadGeometry( Core::Geometry::makeSharpBox( aabb ) );
         Core::Geometry::VolumeGrid* grid = static_cast<Core::Geometry::VolumeGrid*>( volume );
         m_volume = std::unique_ptr<Core::Geometry::AbstractVolume>( volume );
 

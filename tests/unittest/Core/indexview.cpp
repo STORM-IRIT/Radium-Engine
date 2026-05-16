@@ -64,7 +64,7 @@ TEST_CASE( "Core/Geometry/IndexedGeometry", "[unittests][Core][Core/Geometry][In
     std::set<MultiIndexedGeometry::LayerKeyType> keys;
 
     // copy AttribArrayGeometry;
-    MultiIndexedGeometry geom { Ra::Core::Geometry::makeBox2() };
+    MultiIndexedGeometry geom { Ra::Core::Geometry::makeBox() };
     // makeBox create quads, now get triangles
     geom.triangulate_any();
 
@@ -139,7 +139,7 @@ TEST_CASE( "Core/Geometry/IndexedGeometry/Attributes",
     using Ra::Core::Utils::ObjectWithSemantic;
     using Vec3AttribHandle = AttribArrayGeometry::Vec3AttribHandle;
 
-    MultiIndexedGeometry mesh( Ra::Core::Geometry::makeBox2() );
+    MultiIndexedGeometry mesh( Ra::Core::Geometry::makeBox() );
 
     // base attributes are automatically added
     auto h_pos = mesh.getAttribHandle<Vector3>( getAttribName( VERTEX_POSITION ) );
