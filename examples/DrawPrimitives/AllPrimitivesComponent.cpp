@@ -646,7 +646,7 @@ void AllPrimitivesComponent::initialize() {
         updateCellCorner( cellCorner, cellSize, nCellX, nCellY );
         updateCellCorner( cellCorner, cellSize, nCellX, nCellY );
 
-        Geometry::PolyMesh polyMesh;
+        MultiIndexedGeometry polyMesh;
         polyMesh.setVertices( {
             // quad
             { -1.1_ra, -0_ra, 0_ra },
@@ -674,7 +674,7 @@ void AllPrimitivesComponent::initialize() {
         quad << 0, 1, 2, 3;
         auto hepta = VectorNui( 7 );
         hepta << 3, 2, 4, 5, 6, 7, 8;
-        polyMesh.setIndices( { quad, hepta } );
+        polyMesh.set_indices<PolyIndexLayer>( { quad, hepta } );
         auto poly1 = make_shared<GeometryDisplayable>( "Poly", std::move( polyMesh ) );
 
         poly1->getCoreGeometry().addAttrib(
@@ -1088,7 +1088,6 @@ void AllPrimitivesComponent::initialize() {
         updateCellCorner( cellCorner, cellSize, nCellX, nCellY );
 
         {
-            using Ra::Engine::Data::Mesh;
             {
                 auto geom      = makeParametricTorus( .04_ra, .01_ra, Color::White(), 16, 8 );
                 auto torusMesh = make_shared<GeometryDisplayable>( "Torus", std::move( geom ) );
@@ -1122,7 +1121,6 @@ void AllPrimitivesComponent::initialize() {
         updateCellCorner( cellCorner, cellSize, nCellX, nCellY );
 
         {
-            using Ra::Engine::Data::Mesh;
             {
                 auto strip = RenderObject::createRenderObject(
                     "test_quadstrip",
