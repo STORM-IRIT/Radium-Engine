@@ -724,20 +724,9 @@ void AllPrimitivesComponent::initialize() {
             auto geomData = data->getGeometryData();
 
             for ( const auto& gd : geomData ) {
-                std::shared_ptr<GeometryDisplayable> mesh { nullptr };
-                switch ( gd->getType() ) {
-                case Ra::Core::Asset::GeometryData::TRI_MESH:
-                    mesh = createMeshFromGeometryData2<Geometry::TriangleMesh>( "logo", gd );
-                    break;
-                case Ra::Core::Asset::GeometryData::QUAD_MESH:
-                    mesh = createMeshFromGeometryData2<Geometry::QuadMesh>( "logo", gd );
-                    break;
-                case Ra::Core::Asset::GeometryData::POLY_MESH:
-                    mesh = createMeshFromGeometryData2<Geometry::PolyMesh>( "logo", gd );
-                    break;
-                default:
-                    break;
-                }
+
+                auto geom { gd->getGeometry() };
+                auto mesh = std::make_shared<GeometryDisplayable>( "logo", std::move( geom ) );
 
                 std::shared_ptr<Data::Material> roMaterial;
                 const Core::Asset::MaterialData* md =
