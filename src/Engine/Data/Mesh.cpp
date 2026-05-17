@@ -33,20 +33,6 @@ AttribArrayDisplayable::AttribArrayDisplayable( const std::string& name,
     updatePickingRenderMode();
 }
 
-size_t Mesh::getNumFaces() const {
-    ///\todo fix this once we have explicit triangle fan and strip management.
-    switch ( getRenderMode() ) {
-    case MeshRenderMode::RM_TRIANGLE_STRIP:
-        [[fallthrough]];
-    case MeshRenderMode::RM_TRIANGLE_FAN:
-        return ( getCoreGeometry().getIndices().size() - 1 ) * 3 + 1;
-    case MeshRenderMode::RM_TRIANGLES:
-        return getCoreGeometry().getIndices().size();
-    default:
-        return size_t( 0 );
-    }
-}
-
 void AttribArrayDisplayable::updatePickingRenderMode() {
     switch ( getRenderMode() ) {
     case AttribArrayDisplayable::RM_POINTS: {

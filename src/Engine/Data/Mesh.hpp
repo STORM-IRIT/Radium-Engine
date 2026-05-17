@@ -493,19 +493,6 @@ class RA_ENGINE_API GeometryDisplayable : public AttribArrayDisplayable
     BijectiveAssociation<std::string, std::string> m_translationTable {};
 };
 
-/// Mesh, own a Core::Geometry::TriangleMesh
-class RA_ENGINE_API Mesh : public IndexedGeometry<Core::Geometry::TriangleMesh>
-{
-    using base = IndexedGeometry<Core::Geometry::TriangleMesh>;
-
-  public:
-    using base::IndexedGeometry;
-    size_t getNumFaces() const override;
-
-  protected:
-  private:
-};
-
 //-------------------------------------------------------------------------------------------------
 //- Implementation --------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
