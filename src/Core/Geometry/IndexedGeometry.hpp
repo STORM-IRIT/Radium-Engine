@@ -682,9 +682,6 @@ class RA_CORE_API IndexedPointCloud : public IndexedGeometry<PointCloudIndexLaye
 {};
 
 using TriangleMesh = IndexedGeometry<TriangleIndexLayer>;
-using QuadMesh     = IndexedGeometry<QuadIndexLayer>;
-using PolyMesh     = IndexedGeometry<PolyIndexLayer>;
-using LineMesh     = IndexedGeometry<LineIndexLayer>;
 
 //-----------------------------------------------------------------------------
 //- Implementation ------------------------------------------------------------

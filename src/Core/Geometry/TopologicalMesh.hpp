@@ -1508,7 +1508,7 @@ MultiIndexedGeometry TopologicalMesh::toIndexedMesh() {
     std::vector<AttribHandle<Vector3>> wedgeVector3AttribHandles;
     std::vector<AttribHandle<Vector4>> wedgeVector4AttribHandles;
 
-    TriangleMesh::PointAttribHandle::Container wedgePosition;
+    MultiIndexedGeometry::PointAttribHandle::Container wedgePosition;
     AlignedStdVector<Attrib<Scalar>::Container> wedgeFloatAttribData(
         m_wedges.m_floatAttribNames.size() );
     AlignedStdVector<Attrib<Vector2>::Container> wedgeVector2AttribData(
