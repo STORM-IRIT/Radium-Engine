@@ -249,9 +249,9 @@ makeGeodesicSphere( Scalar radius, uint numSubdiv, const Utils::optional<Utils::
     MultiIndexedGeometry result;
     uint faceCount = uint( std::pow( 4, numSubdiv ) ) * 20;
 
-    TriangleMesh::PointAttribHandle::Container vertices;
-    TriangleMesh::NormalAttribHandle::Container normals;
-    TriangleMesh::IndexContainerType indices;
+    MultiIndexedGeometry::PointAttribHandle::Container vertices;
+    MultiIndexedGeometry::NormalAttribHandle::Container normals;
+    TriangleIndexLayer::IndexContainerType indices;
     vertices.reserve( faceCount - 8 );
     normals.reserve( faceCount - 8 );
     indices.reserve( faceCount );
@@ -423,9 +423,9 @@ MultiIndexedGeometry makeCapsule( Scalar length,
                                   const Utils::optional<Utils::Color>& color ) {
     MultiIndexedGeometry result;
 
-    TriangleMesh::PointAttribHandle::Container vertices;
-    TriangleMesh::NormalAttribHandle::Container normals;
-    TriangleMesh::IndexContainerType indices;
+    MultiIndexedGeometry::PointAttribHandle::Container vertices;
+    MultiIndexedGeometry::NormalAttribHandle::Container normals;
+    TriangleIndexLayer::IndexContainerType indices;
 
     vertices.reserve( nFaces * nFaces + nFaces + 2 );
     normals.reserve( nFaces * nFaces + nFaces + 2 );
