@@ -49,7 +49,8 @@ class RA_ENGINE_API GeometryComponent : public Component
 };
 
 /*!
- * \brief Main class to convert Ra::Core::Asset::GeometryData to Ra::Engine::Mesh
+ * \brief Component class for surface mesh ( Engine::Data::GeometryDisplayable /
+ * Core::Geometry::MultiIndexedGeometry )
  *
  * Exports access to the mesh geometry:
  *  - SurfaceMeshComponent: get, rw (set vertices, normals and triangles dirty)

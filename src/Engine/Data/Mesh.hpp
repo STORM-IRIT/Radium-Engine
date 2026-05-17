@@ -88,9 +88,9 @@ class RA_ENGINE_API AttribArrayDisplayable : public Displayable
     using Displayable::getName;
 
     /// Set the render mode.
-    inline void setRenderMode( MeshRenderMode mode );
+    void setRenderMode( MeshRenderMode mode );
     /// Get the render mode.
-    inline MeshRenderMode getRenderMode() const;
+    MeshRenderMode getRenderMode() const { return m_renderMode; }
 
     /// \name
     /// Mark attrib data as dirty, forcing an update of the OpenGL buffer.
@@ -179,7 +179,7 @@ class RA_ENGINE_API VaoIndices
 {
   public:
     /// Tag the indices as dirty, asking for a update to gpu.
-    inline void setIndicesDirty();
+    void setIndicesDirty() { m_indicesDirty = true; }
 
     ///\todo Add test for Indices observer
     class IndicesObserver
@@ -220,21 +220,23 @@ class CoreGeometryDisplayable : public AttribArrayDisplayable
     /// \name
     /// Core::Geometry getters
     ///\{
-    inline const Core::Geometry::AbstractGeometry& getAbstractGeometry() const override;
-    inline Core::Geometry::AbstractGeometry& getAbstractGeometry() override;
+    const Core::Geometry::AbstractGeometry& getAbstractGeometry() const override { return m_mesh; }
+    Core::Geometry::AbstractGeometry& getAbstractGeometry() override { return m_mesh; }
 
-    inline const Core::Geometry::AttribArrayGeometry& getAttribArrayGeometry() const override;
-    inline Core::Geometry::AttribArrayGeometry& getAttribArrayGeometry() override;
+    const Core::Geometry::AttribArrayGeometry& getAttribArrayGeometry() const override {
+        return m_mesh;
+    }
+    Core::Geometry::AttribArrayGeometry& getAttribArrayGeometry() override { return m_mesh; }
 
-    inline const CoreGeometry& getCoreGeometry() const;
-    inline CoreGeometry& getCoreGeometry();
+    const CoreGeometry& getCoreGeometry() const { return m_mesh; }
+    CoreGeometry& getCoreGeometry() { return m_mesh; }
     ///\}
 
     /// Helper function that calls Ra::Core::CoreGeometry::addAttrib()
     template <typename A>
-    inline Ra::Core::Utils::AttribHandle<A> addAttrib( const std::string& name,
-                                                       const typename Core::VectorArray<A>& data );
-    inline size_t getNumVertices() const override;
+    Ra::Core::Utils::AttribHandle<A> addAttrib( const std::string& name,
+                                                const typename Core::VectorArray<A>& data );
+    size_t getNumVertices() const override { return m_mesh.vertices().size(); }
 
     /// Use the given geometry as base for a display mesh.
     /// This will move \p mesh and *this will take the ownership
@@ -279,7 +281,9 @@ class CoreGeometryDisplayable : public AttribArrayDisplayable
     /// it adds an observer to the new attrib.
     void addAttribObserver( const std::string& name );
 
-    void addToTranslationTable( const std::string& name );
+    void addToTranslationTable( const std::string& name ) {
+        m_translationTable.insert( name, name );
+    }
 
     /// Core::Mesh attrib name to Render::Mesh attrib name
     /// key: core mesh name, value: shader name
@@ -295,12 +299,12 @@ class RA_ENGINE_API PointCloud : public CoreGeometryDisplayable<Core::Geometry::
 
   public:
     using base::CoreGeometryDisplayable;
-    inline explicit PointCloud(
+    explicit PointCloud(
         const std::string& name,
         typename base::CoreGeometry&& geom,
         typename base::MeshRenderMode renderMode = base::MeshRenderMode::RM_POINTS );
 
-    inline explicit PointCloud( const std::string& name, MeshRenderMode renderMode = RM_POINTS );
+    explicit PointCloud( const std::string& name, MeshRenderMode renderMode = RM_POINTS );
 
     /// use glDrawArrays to draw all the points in the point cloud
     void render( const ShaderProgram* prog ) override;
@@ -355,18 +359,16 @@ class RA_ENGINE_API GeometryDisplayable : public AttribArrayDisplayable
 
     ///@{
     /**  Returns the underlying CoreGeometry as an Core::Geometry::AbstractGeometry */
-    inline const Core::Geometry::AbstractGeometry& getAbstractGeometry() const override {
-        return m_geom;
-    }
-    inline Core::Geometry::AbstractGeometry& getAbstractGeometry() override { return m_geom; }
+    const Core::Geometry::AbstractGeometry& getAbstractGeometry() const override { return m_geom; }
+    Core::Geometry::AbstractGeometry& getAbstractGeometry() override { return m_geom; }
     ///@}
-    inline const Core::Geometry::AttribArrayGeometry& getAttribArrayGeometry() const override {
+    const Core::Geometry::AttribArrayGeometry& getAttribArrayGeometry() const override {
         return m_geom;
     }
-    inline Core::Geometry::AttribArrayGeometry& getAttribArrayGeometry() override { return m_geom; }
+    Core::Geometry::AttribArrayGeometry& getAttribArrayGeometry() override { return m_geom; }
 
-    inline Core::Geometry::MultiIndexedGeometry& getCoreGeometry() { return m_geom; }
-    inline const Core::Geometry::MultiIndexedGeometry& getCoreGeometry() const { return m_geom; }
+    Core::Geometry::MultiIndexedGeometry& getCoreGeometry() { return m_geom; }
+    const Core::Geometry::MultiIndexedGeometry& getCoreGeometry() const { return m_geom; }
 
     /// Bind meshAttribName to shaderAttribName.
     /// meshAttribName is a vertex attrib added to the underlying CoreGeometry
@@ -388,8 +390,7 @@ class RA_ENGINE_API GeometryDisplayable : public AttribArrayDisplayable
     /// \todo c++20 switch to range concept
 
     template <typename RangeOfLayerKeys>
-    inline void loadGeometry( Core::Geometry::MultiIndexedGeometry&& mesh,
-                              const RangeOfLayerKeys& r ) {
+    void loadGeometry( Core::Geometry::MultiIndexedGeometry&& mesh, const RangeOfLayerKeys& r ) {
         m_geomLayers.clear();
         m_geom = std::move( mesh );
         setupCoreMeshObservers();
@@ -402,9 +403,9 @@ class RA_ENGINE_API GeometryDisplayable : public AttribArrayDisplayable
         }
         set_active_layer_key( r[0].first );
     }
-    inline void loadGeometry( Core::Geometry::MultiIndexedGeometry&& mesh,
-                              LayerKeyType key,
-                              base::MeshRenderMode renderMode ) {
+    void loadGeometry( Core::Geometry::MultiIndexedGeometry&& mesh,
+                       LayerKeyType key,
+                       base::MeshRenderMode renderMode ) {
         loadGeometry( std::move( mesh ), ArrayOfLayerKeys<1> { { { key, renderMode } } } );
     }
 
@@ -418,10 +419,10 @@ class RA_ENGINE_API GeometryDisplayable : public AttribArrayDisplayable
 
     /// Helper function that calls Ra::Core::CoreGeometry::addAttrib()
     template <typename A>
-    inline Ra::Core::Utils::AttribHandle<A> addAttrib( const std::string& name,
-                                                       const typename Core::VectorArray<A>& data );
+    Ra::Core::Utils::AttribHandle<A> addAttrib( const std::string& name,
+                                                const typename Core::VectorArray<A>& data );
 
-    inline size_t getNumVertices() const override { return m_geom.vertices().size(); }
+    size_t getNumVertices() const override { return m_geom.vertices().size(); }
 
     void set_active_layer_key( LayerKeyType layer_key ) {
         m_activeLayerKey = layer_key;
@@ -473,7 +474,7 @@ class RA_ENGINE_API GeometryDisplayable : public AttribArrayDisplayable
         static const uint no_restart = 0;
         uint restart { 0 };
 
-        inline LayerEntryType() = default;
+        LayerEntryType() = default;
     };
 
     /// The collection of indices layer we can use for rendering
@@ -505,127 +506,24 @@ class RA_ENGINE_API Mesh : public IndexedGeometry<Core::Geometry::TriangleMesh>
   private:
 };
 
-/// create a TriangleMesh, PolyMesh or other Core::*Mesh from GeometryData
-/// \todo replace the copy of all geometry data by reference to original data.
-template <typename CoreMeshType>
-CoreMeshType createCoreMeshFromGeometryData( const Ra::Core::Asset::GeometryData* data ) {
-    CoreMeshType mesh;
-    typename CoreMeshType::IndexContainerType indices;
+//-------------------------------------------------------------------------------------------------
+//- Implementation --------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
 
-    if ( !data->isLineMesh() ) {
-        auto& geo = data->getGeometry();
-        const auto& [layerKeyType, layerBase] =
-            geo.getFirstLayerOccurrence( mesh.getLayerKey().first );
-        const auto& layer = static_cast<
-            const Core::Geometry::GeometryIndexLayer<typename CoreMeshType::IndexType>&>(
-            layerBase );
-        const auto& faces = layer.collection();
-        indices.reserve( faces.size() );
-        std::copy( faces.begin(), faces.end(), std::back_inserter( indices ) );
-    }
-#if 0
-    // TODO manage line meshes in a "usual" way, i.e. as an indexed geometry with specific
-    //  rendering properties (i.e. shader, as it is the case for point clouds)
-    // Create a degenerated triangle to handle edges case.
-    else {
-        const auto& edges = ... access the LineIndexLayer
-        indices.reserve( edges.size() );
-        std::transform(
-            edges.begin(), edges.end(), std::back_inserter( indices ), []( Ra::Core::Vector2ui v ) {
-                return ( Ra::Core::Vector3ui { v( 0 ), v( 1 ), v( 1 ) } );
-            } );
-    }
-#endif
-
-    mesh.setIndices( std::move( indices ) );
-
-    // This copy only "usual" attributes. See Core::Geometry::AttribManager::copyAllAttributes
-    mesh.vertexAttribs().copyAllAttributes( data->getGeometry().vertexAttribs() );
-
-    return mesh;
-}
-
-/// Helpers to get RenderMesh type from CoreMesh Type
-namespace RenderMeshType {
-template <class CoreMeshT>
-struct getType {
-    static_assert( false );
-};
-
-template <>
-struct getType<Ra::Core::Geometry::MultiIndexedGeometry> {
-    using Type = Ra::Engine::Data::GeometryDisplayable;
-};
-
-} // namespace RenderMeshType
-
-//-----------------------------------------------------------------------------
-//- Implementation ------------------------------------------------------------
-//-----------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------
-//- AttribArrayDisplayable ----------------------------------------------------
-
-void AttribArrayDisplayable::setRenderMode( MeshRenderMode mode ) {
+//-------------------------------------------------------------------------------------------------
+//- AttribArrayDisplayable ------------------------------------------------------------------------
+inline void AttribArrayDisplayable::setRenderMode( MeshRenderMode mode ) {
     m_renderMode = mode;
     updatePickingRenderMode();
 }
 
-AttribArrayDisplayable::MeshRenderMode AttribArrayDisplayable::getRenderMode() const {
-    return m_renderMode;
-}
-
-///////////////// VaoIndices  ///////////////////////
-
-void VaoIndices::setIndicesDirty() {
-    m_indicesDirty = true;
-}
-
-////////////////  CoreGeometryDisplayable ///////////////////////////////
-
+//-------------------------------------------------------------------------------------------------
+//- CoreGeometryDisplayable -----------------------------------------------------------------------
 template <typename CoreGeometry>
 CoreGeometryDisplayable<CoreGeometry>::CoreGeometryDisplayable( const std::string& name,
                                                                 MeshRenderMode renderMode ) :
     base( name, renderMode ) {
     setupCoreMeshObservers();
-}
-
-template <typename CoreGeometry>
-const Ra::Core::Geometry::AbstractGeometry&
-CoreGeometryDisplayable<CoreGeometry>::getAbstractGeometry() const {
-    return m_mesh;
-}
-
-template <typename CoreGeometry>
-Ra::Core::Geometry::AbstractGeometry& CoreGeometryDisplayable<CoreGeometry>::getAbstractGeometry() {
-    return m_mesh;
-}
-
-template <typename CoreGeometry>
-const Ra::Core::Geometry::AttribArrayGeometry&
-CoreGeometryDisplayable<CoreGeometry>::getAttribArrayGeometry() const {
-    return m_mesh;
-}
-
-template <typename CoreGeometry>
-Ra::Core::Geometry::AttribArrayGeometry&
-CoreGeometryDisplayable<CoreGeometry>::getAttribArrayGeometry() {
-    return m_mesh;
-}
-
-template <typename CoreGeometry>
-const CoreGeometry& CoreGeometryDisplayable<CoreGeometry>::getCoreGeometry() const {
-    return m_mesh;
-}
-
-template <typename CoreGeometry>
-CoreGeometry& CoreGeometryDisplayable<CoreGeometry>::getCoreGeometry() {
-    return m_mesh;
-}
-
-template <typename CoreGeometry>
-void CoreGeometryDisplayable<CoreGeometry>::addToTranslationTable( const std::string& name ) {
-    m_translationTable.insert( name, name );
 }
 
 template <typename CoreGeometry>
@@ -730,7 +628,6 @@ void CoreGeometryDisplayable<T>::loadGeometry_common( T&& mesh ) {
 }
 
 template <typename T>
-
 void CoreGeometryDisplayable<T>::setupCoreMeshObservers() {
     int idx = 0;
     m_dataDirty.resize( m_mesh.vertexAttribs().getNumAttribs() );
@@ -769,11 +666,6 @@ Ra::Core::Utils::AttribHandle<A>
 CoreGeometryDisplayable<CoreGeometry>::addAttrib( const std::string& name,
                                                   const typename Core::VectorArray<A>& data ) {
     return m_mesh.addAttrib( name, data );
-}
-
-template <typename CoreGeometry>
-size_t CoreGeometryDisplayable<CoreGeometry>::getNumVertices() const {
-    return m_mesh.vertices().size();
 }
 
 template <typename CoreGeometry>
@@ -856,8 +748,8 @@ void CoreGeometryDisplayable<CoreGeometry>::setAttribNameMatching(
     m_translationTable.replace( meshAttribName, shaderAttribName );
 }
 
-////////////////  IndexedGeometry  ///////////////////////////////
-
+//-------------------------------------------------------------------------------------------------
+//- IndexedGeometry -------------------------------------------------------------------------------
 template <typename T>
 IndexedGeometry<T>::IndexedGeometry( const std::string& name,
                                      typename base::CoreGeometry&& geom,
@@ -917,16 +809,16 @@ void IndexedGeometry<T>::render( const ShaderProgram* prog ) {
     }
 }
 
-///////// PointCloud //////////
-
-PointCloud::PointCloud( const std::string& name,
-                        typename base::CoreGeometry&& geom,
-                        typename base::MeshRenderMode renderMode ) :
+//-------------------------------------------------------------------------------------------------
+//- PointCloud ------------------------------------------------------------------------------------
+inline PointCloud::PointCloud( const std::string& name,
+                               typename base::CoreGeometry&& geom,
+                               typename base::MeshRenderMode renderMode ) :
     base( name, renderMode ) {
     loadGeometry( std::move( geom ) );
 }
 
-PointCloud::PointCloud( const std::string& name, typename base::MeshRenderMode renderMode ) :
+inline PointCloud::PointCloud( const std::string& name, typename base::MeshRenderMode renderMode ) :
     base( name, renderMode ) {}
 
 } // namespace Data
