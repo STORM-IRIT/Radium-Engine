@@ -29,16 +29,14 @@ namespace Ra {
 namespace Engine {
 namespace Scene {
 
-template <>
-SurfaceMeshComponentBase<Ra::Core::Geometry::MultiIndexedGeometry>::SurfaceMeshComponentBase(
-    const std::string& name,
-    Entity* entity,
-    Ra::Core::Geometry::MultiIndexedGeometry&& mesh,
-    Core::Asset::MaterialData* mat ) :
+SurfaceMeshComponent::SurfaceMeshComponent( const std::string& name,
+                                            Entity* entity,
+                                            CoreMeshType&& mesh,
+                                            std::shared_ptr<Ra::Engine::Data::Material> mat ) :
     GeometryComponent( name, entity ),
-    m_displayMesh( new Data::GeometryDisplayable( name, std::move( mesh ) ) ) {
+    m_displayMesh( new RenderMeshType( name, std::move( mesh ) ) ) {
     setContentName( name );
-    finalizeROFromGeometry( convertMatdataToMaterial( mat ), Core::Transform::Identity() );
+    finalizeROFromGeometry( mat, Core::Transform::Identity() );
 }
 
 void GeometryComponent::setupIO( const std::string& id ) {
@@ -51,9 +49,7 @@ const Index* GeometryComponent::roIndexRead() const {
     return &m_roIndex;
 }
 
-template <>
-void SurfaceMeshComponentBase<Ra::Core::Geometry::MultiIndexedGeometry>::generateMesh(
-    const Ra::Core::Asset::GeometryData* data ) {
+void SurfaceMeshComponent::generateMesh( const Ra::Core::Asset::GeometryData* data ) {
     m_contentName = data->getName();
     m_displayMesh = Ra::Core::make_shared<RenderMeshType>( m_contentName );
     CoreMeshType mesh { data->getGeometry() };
