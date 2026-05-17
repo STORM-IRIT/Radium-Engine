@@ -427,7 +427,13 @@ class RA_ENGINE_API GeometryDisplayable : public AttribArrayDisplayable
         m_activeLayerKey = layer_key;
         setRenderMode( m_geomLayers[layer_key].renderMode );
     }
-    LayerKeyType active_layer_key() { return m_activeLayerKey; }
+    const LayerKeyType& active_layer_key() const { return m_activeLayerKey; }
+
+    size_t getNumFaces() const override {
+        ///\todo for strips and fan.
+        m_geom.getLayer( active_layer_key() ).getSize();
+        return 0;
+    }
 
   protected:
     void setupCoreMeshObservers();
@@ -499,30 +505,6 @@ class RA_ENGINE_API Mesh : public IndexedGeometry<Core::Geometry::TriangleMesh>
   private:
 };
 
-/// GeneralMesh, own a Mesh of type T ( e.g. Core::Geometry::PolyMesh or Core::Geometry::QuadMesh)
-/// This class handle the GPU representation of a polyhedron mesh.
-/// Each face of the polyhedron (typically quads) are assume to be planar and convex.
-/// Simple triangulation is performed on the fly before sending data to the GPU.
-template <typename T>
-class GeneralMesh : public IndexedGeometry<T>
-{
-    using base      = IndexedGeometry<T>;
-    using IndexType = Core::Vector3ui;
-
-  public:
-    using base::IndexedGeometry;
-    inline size_t getNumFaces() const override;
-
-  protected:
-    inline void updateGL_specific_impl() override;
-
-  private:
-    Core::VectorArray<IndexType> m_triangleIndices;
-};
-
-using PolyMesh = GeneralMesh<Core::Geometry::PolyMesh>;
-using QuadMesh = GeneralMesh<Core::Geometry::QuadMesh>;
-
 /// create a TriangleMesh, PolyMesh or other Core::*Mesh from GeometryData
 /// \todo replace the copy of all geometry data by reference to original data.
 template <typename CoreMeshType>
@@ -566,21 +548,8 @@ CoreMeshType createCoreMeshFromGeometryData( const Ra::Core::Asset::GeometryData
 /// Helpers to get RenderMesh type from CoreMesh Type
 namespace RenderMeshType {
 template <class CoreMeshT>
-struct getType {};
-
-template <>
-struct getType<Ra::Core::Geometry::TriangleMesh> {
-    using Type = Ra::Engine::Data::Mesh;
-};
-
-template <>
-struct getType<Ra::Core::Geometry::QuadMesh> {
-    using Type = Ra::Engine::Data::QuadMesh;
-};
-
-template <>
-struct getType<Ra::Core::Geometry::PolyMesh> {
-    using Type = Ra::Engine::Data::PolyMesh;
+struct getType {
+    static_assert( false );
 };
 
 template <>
@@ -589,28 +558,6 @@ struct getType<Ra::Core::Geometry::MultiIndexedGeometry> {
 };
 
 } // namespace RenderMeshType
-
-/// create Mesh, PolyMesh Engine::Data::*Mesh * from GeometryData
-template <typename CoreMeshType>
-typename RenderMeshType::getType<CoreMeshType>::Type*
-createMeshFromGeometryData( const std::string& name, const Ra::Core::Asset::GeometryData* data ) {
-    using MeshType = typename RenderMeshType::getType<CoreMeshType>::Type;
-
-    auto mesh = createCoreMeshFromGeometryData<CoreMeshType>( data );
-
-    MeshType* ret = new MeshType { name };
-    ret->loadGeometry( std::move( mesh ) );
-
-    return ret;
-}
-
-template <typename CoreMeshType>
-std::shared_ptr<GeometryDisplayable>
-createMeshFromGeometryData2( const std::string& name, const Ra::Core::Asset::GeometryData* data ) {
-    auto mesh = createCoreMeshFromGeometryData<CoreMeshType>( data );
-    auto ret  = std::make_shared<GeometryDisplayable>( name, std::move( mesh ) );
-    return ret;
-}
 
 //-----------------------------------------------------------------------------
 //- Implementation ------------------------------------------------------------
@@ -981,38 +928,6 @@ PointCloud::PointCloud( const std::string& name,
 
 PointCloud::PointCloud( const std::string& name, typename base::MeshRenderMode renderMode ) :
     base( name, renderMode ) {}
-
-/////////  PolyMesh ///////////
-
-template <typename T>
-size_t GeneralMesh<T>::getNumFaces() const {
-    return this->getCoreGeometry().getIndices().size();
-}
-
-template <typename T>
-void GeneralMesh<T>::updateGL_specific_impl() {
-    if ( !this->m_indices ) {
-        this->m_indices      = globjects::Buffer::create();
-        this->m_indicesDirty = true;
-    }
-    if ( this->m_indicesDirty ) {
-        m_triangleIndices = Core::Geometry::Helper::triangulate( this->m_mesh.getIndices() );
-
-        /// this one do not work since m_indices is not a std::vector
-        // m_indices->setData( m_mesh.m_indices, GL_DYNAMIC_DRAW );
-        this->m_numElements = m_triangleIndices.size() * GeneralMesh::IndexType::RowsAtCompileTime;
-
-        this->m_indices->setData( static_cast<gl::GLsizeiptr>( m_triangleIndices.size() *
-                                                               sizeof( GeneralMesh::IndexType ) ),
-                                  m_triangleIndices.data(),
-                                  GL_STATIC_DRAW );
-        this->m_indicesDirty = false;
-    }
-    if ( !base::m_vao ) { base::m_vao = globjects::VertexArray::create(); }
-    base::m_vao->bind();
-    base::m_vao->bindElementBuffer( this->m_indices.get() );
-    base::m_vao->unbind();
-}
 
 } // namespace Data
 } // namespace Engine
