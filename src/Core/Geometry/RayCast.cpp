@@ -1,3 +1,5 @@
+#include "Core/Geometry/IndexedGeometry.hpp"
+#include "Core/Utils/ObjectWithSemantic.hpp"
 #include <Core/Geometry/AttribArrayGeometry.hpp>
 #include <Core/Geometry/RayCast.hpp>
 #include <Core/Math/LinearAlgebra.hpp> // Math::sign
@@ -319,11 +321,24 @@ bool RayCastTriangle( const Ray& ray,
 }
 
 bool RayCastTriangleMesh( const Ray& r,
-                          const TriangleMesh& mesh,
+                          const MultiIndexedGeometry& mesh,
                           std::vector<Scalar>& hitsOut,
                           std::vector<Vector3ui>& trianglesIdxOut ) {
-    bool hit             = false;
-    const auto& indices  = mesh.getIndices();
+    bool hit = false;
+
+    auto triangle_layer = mesh.default_layer_key();
+    if ( !Utils::hasSemantic( triangle_layer.first, TriangleIndexLayer::staticSemanticName ) ) {
+        if ( mesh.containsLayer( TriangleIndexLayer::staticSemanticName ) ) {
+            auto found     = mesh.getFirstLayerOccurrence( TriangleIndexLayer::staticSemanticName );
+            triangle_layer = found.first;
+        }
+        else {
+            LOG( Utils::logINFO ) << "Ray cast only on triangle";
+            return false;
+        }
+    }
+
+    const auto& indices  = mesh.indices<TriangleIndexLayer>( triangle_layer );
     const auto& vertices = mesh.vertices();
     for ( size_t i = 0; i < indices.size(); ++i ) {
         const auto& t = indices[i];

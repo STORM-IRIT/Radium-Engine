@@ -210,6 +210,7 @@ DECLARE_INDEX_LAYER( StripOrFanIndexLayer, VectorNui )
  * \note, This layer ensures that all faces have exactly 2 vertices
  */
 DECLARE_INDEX_LAYER( LineIndexLayer, Vector2ui )
+///\todo add primitive restart index ? or leave it to the engine ?
 
 /**
  * \}
@@ -529,7 +530,11 @@ class RA_CORE_API MultiIndexedGeometry : public AttribArrayGeometry, public Util
         auto result = getFirstLayerOccurrence( IndexLayer::staticSemanticName );
         return static_cast<const IndexLayer&>( result.second ).collection();
     }
-
+    template <typename IndexLayer>
+    const typename IndexLayer::IndexContainerType& indices( LayerKeyType layer_key ) const {
+        auto& result = getLayer( layer_key );
+        return static_cast<const IndexLayer&>( result ).collection();
+    }
     /// Call triangulate, if there isn't any triangle index, on the first found index between quad
     /// and poly.
     /// \return the layer key of the triangle layer (old or new)
@@ -681,6 +686,8 @@ class IndexedGeometry : public MultiIndexedGeometry
 class RA_CORE_API IndexedPointCloud : public IndexedGeometry<PointCloudIndexLayer>
 {};
 
+// only used it deprecated / outdated code. \todo remove when deprecated/TopologicalMesh and
+// IO/deprecated has been deleted.
 using TriangleMesh = IndexedGeometry<TriangleIndexLayer>;
 
 //-----------------------------------------------------------------------------

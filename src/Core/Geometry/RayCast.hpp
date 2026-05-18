@@ -49,7 +49,7 @@ bool RA_CORE_API RayCastTriangle( const Ray& r,
                                   std::vector<Scalar>& hitsOut );
 
 bool RA_CORE_API RayCastTriangleMesh( const Ray& r,
-                                      const TriangleMesh& mesh,
+                                      const MultiIndexedGeometry& mesh,
                                       std::vector<Scalar>& hitsOut,
                                       std::vector<Vector3ui>& trianglesIdxOut );
 } // namespace Geometry
