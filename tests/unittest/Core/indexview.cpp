@@ -282,7 +282,6 @@ TEST_CASE( "Core/Geometry/IndexedGeometry/CopyAllAttributes",
     using Ra::Core::Vector2;
     using Ra::Core::Vector3;
     using namespace Ra::Core::Geometry;
-    using Ra::Core::Geometry::TriangleMesh;
 
     MultiIndexedGeometry m;
     MultiIndexedGeometry::PointAttribHandle::Container vertices;

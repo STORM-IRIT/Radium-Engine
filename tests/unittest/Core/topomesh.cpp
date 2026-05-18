@@ -247,7 +247,6 @@ void testConverter1( const MultiIndexedGeometry& mesh ) {
 TEST_CASE( "Core/Geometry/TopologicalMesh", "[unittests][Core][Core/Geometry][TopologicalMesh]" ) {
     using Ra::Core::Vector3;
     using Ra::Core::Geometry::TopologicalMesh;
-    using Ra::Core::Geometry::TriangleMesh;
 
     SECTION( "Test OpenMesh specialization" ) {
         Vector3 v1 { 1_ra, 0_ra, 0_ra };
@@ -412,9 +411,9 @@ TEST_CASE( "Core/Geometry/TopologicalMesh", "[unittests][Core][Core/Geometry][To
         VectorArray<Vector3ui> indices { { 0, 2, 1 }, { 0, 3, 2 } };
         // well formed mesh
 
-        TriangleMesh mesh;
+        MultiIndexedGeometry mesh;
         mesh.setVertices( std::move( vertices ) );
-        mesh.setIndices( std::move( indices ) );
+        mesh.set_indices<TriangleIndexLayer>( std::move( indices ) );
         TopologicalMesh topo1 { mesh };
         REQUIRE( topo1.checkIntegrity() );
         auto mesh1 = topo1.toTriangleMesh();
@@ -556,13 +555,12 @@ TEST_CASE( "Core/Geometry/TopologicalMesh/EdgeSplit",
            "[unittests][Core][Core/Geometry][TopologicalMesh]" ) {
     using Ra::Core::Vector3;
     using Ra::Core::Geometry::TopologicalMesh;
-    using Ra::Core::Geometry::TriangleMesh;
 
     // create a triangle mesh with 4 vertices
-    TriangleMesh meshSplit;
+    MultiIndexedGeometry meshSplit;
     meshSplit.setVertices( { { 0, 0, 0 }, { 1, 0, 0 }, { 1, 1, 0 }, { 0, 1, 0 } } );
     meshSplit.setNormals( { { -1, -1, 1 }, { 1, -1, 1 }, { 1, 1, 1 }, { -1, 1, 1 } } );
-    meshSplit.setIndices( { Vector3ui( 0, 1, 2 ), Vector3ui( 0, 2, 3 ) } );
+    meshSplit.set_indices<TriangleIndexLayer>( { Vector3ui( 0, 1, 2 ), Vector3ui( 0, 2, 3 ) } );
     // add a float attrib
     auto handle = meshSplit.addAttrib<Scalar>( "test", { 0_ra, 1_ra, 2_ra, 3_ra } );
     CORE_UNUSED( handle ); // until unit test is finished.
@@ -724,10 +722,10 @@ TEST_CASE( "Core/Geometry/TopologicalMesh/Manifold",
         };
 
         VectorArray<Vector3ui> indices { { 0, 2, 1 }, { 2, 3, 4 } };
-        TriangleMesh mesh;
+        MultiIndexedGeometry mesh;
         // do not move vertices, we need to compare afterward
         mesh.setVertices( vertices );
-        mesh.setIndices( std::move( indices ) );
+        mesh.set_indices<TriangleIndexLayer>( std::move( indices ) );
 
         TopologicalMesh topo { mesh };
 
@@ -771,9 +769,9 @@ TEST_CASE( "Core/Geometry/TopologicalMesh/Manifold",
                                          { 4, 6, 3 },
                                          { 6, 5, 3 } };
 
-        TriangleMesh mesh;
+        MultiIndexedGeometry mesh;
         mesh.setVertices( std::move( vertices ) );
-        mesh.setIndices( std::move( indices ) );
+        mesh.set_indices<TriangleIndexLayer>( std::move( indices ) );
         std::vector<std::vector<TopologicalMesh::VertexHandle>> faulty;
 
         NonManifoldCommand2 command { faulty };
@@ -1116,13 +1114,13 @@ TEST_CASE( "Core/TopologicalMesh/CollapseWedge", "[unittests]" ) {
                                          const Vector3& inTo ) {
         Vector3 from { inFrom };
         Vector3 to { inTo };
-        TriangleMesh mesh1;
+        MultiIndexedGeometry mesh1;
         TopologicalMesh topo1;
         optional<TopologicalMesh::HalfedgeHandle> optHe;
 
         mesh1.setVertices( points );
         mesh1.addAttrib( "color", Vector4Array { colors.begin(), colors.begin() + points.size() } );
-        mesh1.setIndices( indices );
+        mesh1.set_indices<TriangleIndexLayer>( indices );
 
         topo1 = TopologicalMesh { mesh1 };
         topo1.mergeEqualWedges();
@@ -1193,13 +1191,13 @@ TEST_CASE( "Core/TopologicalMesh/CollapseWedge", "[unittests]" ) {
                                          const Vector3uArray& indices,
                                          Vector3 from,
                                          Vector3 to ) {
-        TriangleMesh mesh;
+        MultiIndexedGeometry mesh;
         TopologicalMesh topo;
         optional<TopologicalMesh::HalfedgeHandle> optHe;
 
         mesh.setVertices( points );
         mesh.addAttrib( "color", Vector4Array { colors.begin(), colors.begin() + points.size() } );
-        mesh.setIndices( indices );
+        mesh.set_indices<TriangleIndexLayer>( indices );
 
         topo = TopologicalMesh { mesh };
         topo.mergeEqualWedges();
@@ -1340,9 +1338,6 @@ void testConverter( MultiIndexedGeometry&& mesh ) {
 
 TEST_CASE( "Core/Geometry/TopologicalMesh/Updates",
            "[unittests][Core][Core/Geometry][TopologicalMesh]" ) {
-    using Ra::Core::Vector3;
-    using Ra::Core::Geometry::TopologicalMesh;
-    using Ra::Core::Geometry::TriangleMesh;
 
     SECTION( "Closed mesh" ) {
         testConverter( Ra::Core::Geometry::makeBox() );
