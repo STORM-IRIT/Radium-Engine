@@ -537,7 +537,8 @@ class RA_CORE_API MultiIndexedGeometry : public AttribArrayGeometry, public Util
     }
     /// Call triangulate, if there isn't any triangle index, on the first found index between quad
     /// and poly.
-    /// \return the layer key of the triangle layer (old or new)
+    /// \todo triangulate strip or fan...
+    /// \return the layer key of the triangle layer (existing or newly added)
     LayerKeyType triangulate_any() {
         if ( !containsLayer( TriangleIndexLayer::staticSemanticName ) ) {
             if ( containsLayer( QuadIndexLayer::staticSemanticName ) )
@@ -682,9 +683,6 @@ class IndexedGeometry : public MultiIndexedGeometry
     void setIndices( const IndexContainerType& indices );
     const LayerKeyType& getLayerKey() const;
 };
-
-class RA_CORE_API IndexedPointCloud : public IndexedGeometry<PointCloudIndexLayer>
-{};
 
 // only used it deprecated / outdated code. \todo remove when deprecated/TopologicalMesh and
 // IO/deprecated has been deleted.

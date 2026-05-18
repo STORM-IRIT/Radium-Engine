@@ -42,7 +42,7 @@
 class KeyFramedGeometryComponent : public Ra::Engine::Scene::SurfaceMeshComponent
 {
   public:
-    /*!
+    /**
      * Constructor from an existing core mesh
      * \warning Moves the mesh and takes its ownership
      */

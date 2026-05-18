@@ -140,6 +140,7 @@ class RA_CORE_API GeometryData : public AssetData
     GeometryType m_type;
 
     /// Named attributes
+    /// \todo switch to shared ptr ?
     Core::Geometry::MultiIndexedGeometry m_geometry;
 
     /// Simple tracking of geometric primitive number

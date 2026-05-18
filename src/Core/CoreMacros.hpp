@@ -259,7 +259,7 @@ using Scalar = float;
 using Scalar = double;
 #endif
 
-/*!
+/**
  * User litteral for Radium's Scalar type for floating point numbers
  * \see https://en.cppreference.com/w/cpp/language/user_literal
  * To create a Scalar from a litteral float, do:
@@ -272,7 +272,7 @@ constexpr Scalar operator"" _ra ( long double n )
     return Scalar( n );
 }
 
-/*!
+/**
  * \brief User litteral for Radium's Scalar type for floating point numbers
  * \see https://en.cppreference.com/w/cpp/language/user_literal
  * To create a Scalar from a litteral, do:

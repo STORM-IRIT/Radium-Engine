@@ -20,7 +20,7 @@ namespace Utils {
  */
 uint32_t RA_CORE_API getNamedColorCode( std::string_view name );
 
-/*!
+/**
  * Colors are defined as vector4, i.e. 4 Scalars in RGBA order.
  * displayable colors should have all their coordinates between 0 and 1.
  *

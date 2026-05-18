@@ -23,7 +23,7 @@ class QScreen;
 namespace Ra {
 namespace Gui {
 
-/*!
+/**
  * \brief Base class for OpenGL widgets, compatble with Qt and globjects/glbindings.
  * \note This class has been extracted from globjects example
  * https://github.com/cginternals/globjects/blob/master/source/examples/qtexample/WindowQt.h

@@ -48,7 +48,7 @@ class RA_ENGINE_API GeometryComponent : public Component
     std::string m_contentName {};
 };
 
-/*!
+/**
  * \brief Component class for surface mesh ( Engine::Data::GeometryDisplayable /
  * Core::Geometry::MultiIndexedGeometry )
  *
@@ -73,7 +73,7 @@ class SurfaceMeshComponent : public GeometryComponent
                           Entity* entity,
                           std::shared_ptr<RenderMeshType> data );
 
-    /*!
+    /**
      * Constructor from an existing mesh
      * \warning Moves the mesh and takes its ownership
      */
@@ -124,7 +124,7 @@ class RA_ENGINE_API PointCloudComponent : public GeometryComponent
                          Entity* entity,
                          const Ra::Core::Asset::GeometryData* data );
 
-    /*!
+    /**
      * Constructor from an existing mesh
      * \warning Moves the mesh and takes its ownership
      */
@@ -170,7 +170,7 @@ class RA_ENGINE_API PointCloudComponent : public GeometryComponent
 
 //-------------------------------------------------------------------------------------------------
 
-/*!
+/**
  * \brief Main class to convert Ra::Core::Asset::VolumeData to Ra::Engine::VolumeObject
  *
  * Exports access to the volume:
