@@ -16,7 +16,7 @@ namespace Core {
 namespace Geometry {
 namespace Helper {
 template <typename T>
-VectorArray<Vector3ui> triangulate( const VectorArray<T>& in ) {
+inline VectorArray<Vector3ui> triangulate( const VectorArray<T>& in ) {
     VectorArray<Vector3ui> out;
 
     out.reserve( in.size() );
@@ -52,7 +52,8 @@ inline VectorArray<Vector3ui> triangulate( const VectorArray<Vector4ui>& in ) {
     }
     return out;
 }
-}
+} // namespace Helper
+
 /**
  * \brief Base class for index collections stored in MultiIndexedGeometry.
  */
@@ -63,13 +64,13 @@ class RA_CORE_API GeometryIndexLayerBase : public Utils::ObservableVoid,
   public:
     /// \brief Copy constructor
     /// \note Do not copy observers
-    inline explicit GeometryIndexLayerBase( const GeometryIndexLayerBase& other );
+    explicit GeometryIndexLayerBase( const GeometryIndexLayerBase& other );
     /// \brief Assignment operator
     /// \copydetails GeometryIndexLayerBase(const GeometryIndexLayerBase&)
-    inline GeometryIndexLayerBase& operator=( const GeometryIndexLayerBase& other );
+    GeometryIndexLayerBase& operator=( const GeometryIndexLayerBase& other );
     /// \brief Move assignment operator
     /// \copydetails GeometryIndexLayerBase(const GeometryIndexLayerBase&)
-    inline GeometryIndexLayerBase& operator=( GeometryIndexLayerBase&& other );
+    GeometryIndexLayerBase& operator=( GeometryIndexLayerBase&& other );
     virtual ~GeometryIndexLayerBase() {}
 
     /// \brief Create new layer with duplicated content
@@ -81,13 +82,13 @@ class RA_CORE_API GeometryIndexLayerBase : public Utils::ObservableVoid,
     virtual void offset( int offset, uint start_index = 0 )                    = 0;
 
     /// \brief Compare if two layers have the same content
-    virtual inline bool operator==( const GeometryIndexLayerBase& ) const { return false; }
+    virtual bool operator==( const GeometryIndexLayerBase& ) const { return false; }
 
   protected:
     /// \brief Hidden constructor that must be called by inheriting classes to define the object
     ///        semantics.
     template <class... SemanticNames>
-    inline GeometryIndexLayerBase( SemanticNames... names ) : ObjectWithSemantic( names... ) {}
+    GeometryIndexLayerBase( SemanticNames... names ) : ObjectWithSemantic( names... ) {}
 };
 
 /**
@@ -98,53 +99,53 @@ struct GeometryIndexLayer : public GeometryIndexLayerBase {
     using IndexType          = T;
     using IndexContainerType = VectorArray<IndexType>;
 
-    inline IndexContainerType& collection() { return m_collection; }
+    IndexContainerType& collection() { return m_collection; }
     const IndexContainerType& collection() const { return m_collection; }
 
-    inline bool append( const GeometryIndexLayerBase& other, int offset = 0 ) final;
-    inline void offset( int offset, uint start_index = 0 ) final;
+    bool append( const GeometryIndexLayerBase& other, int offset = 0 ) final;
+    void offset( int offset, uint start_index = 0 ) final;
     /// \warning Does not account for elements permutations
-    inline bool operator==( const GeometryIndexLayerBase& other ) const final;
+    bool operator==( const GeometryIndexLayerBase& other ) const final;
 
-    inline size_t getSize() const override final { return m_collection.size(); }
+    size_t getSize() const override final { return m_collection.size(); }
 
-    inline std::unique_ptr<GeometryIndexLayerBase> clone() override;
+    std::unique_ptr<GeometryIndexLayerBase> clone() override;
 
-    inline size_t getNumberOfComponents() const override final;
+    size_t getNumberOfComponents() const override final;
 
-    inline size_t getBufferSize() const override final;
+    size_t getBufferSize() const override final;
 
     /// \warning it's meaningful only if the attrib do not contain heap
     /// allocated data.
-    inline int getStride() const override final;
+    int getStride() const override final;
 
-    inline const void* dataPtr() const override final;
+    const void* dataPtr() const override final;
 
   protected:
     template <class... SemanticNames>
-    inline GeometryIndexLayer( SemanticNames... names ) : GeometryIndexLayerBase( names... ) {}
+    GeometryIndexLayer( SemanticNames... names ) : GeometryIndexLayerBase( names... ) {}
 
   private:
     IndexContainerType m_collection;
 };
 
-#define INDEX_LAYER_CLONE_IMPLEMENTATION( TYPE )                      \
-    inline std::unique_ptr<GeometryIndexLayerBase> clone() override { \
-        auto copy          = std::make_unique<TYPE>( *this );         \
-        copy->collection() = collection();                            \
-        return copy;                                                  \
+#define INDEX_LAYER_CLONE_IMPLEMENTATION( TYPE )               \
+    std::unique_ptr<GeometryIndexLayerBase> clone() override { \
+        auto copy          = std::make_unique<TYPE>( *this );  \
+        copy->collection() = collection();                     \
+        return copy;                                           \
     }
 
-#define OPEN_DECLARATION_INDEX_LAYER( NAME, TYPE )                        \
-    struct RA_CORE_API NAME : public GeometryIndexLayer<TYPE> {           \
-        inline NAME() : GeometryIndexLayer( NAME::staticSemanticName ) {} \
-        static constexpr const char* staticSemanticName = #NAME;          \
-        INDEX_LAYER_CLONE_IMPLEMENTATION( NAME )                          \
-      protected:                                                          \
-        template <class... SemanticNames>                                 \
-        inline explicit NAME( SemanticNames... names ) :                  \
-            GeometryIndexLayer( NAME::staticSemanticName, names... ) {}   \
-                                                                          \
+#define OPEN_DECLARATION_INDEX_LAYER( NAME, TYPE )                      \
+    struct RA_CORE_API NAME : public GeometryIndexLayer<TYPE> {         \
+        NAME() : GeometryIndexLayer( NAME::staticSemanticName ) {}      \
+        static constexpr const char* staticSemanticName = #NAME;        \
+        INDEX_LAYER_CLONE_IMPLEMENTATION( NAME )                        \
+      protected:                                                        \
+        template <class... SemanticNames>                               \
+        explicit NAME( SemanticNames... names ) :                       \
+            GeometryIndexLayer( NAME::staticSemanticName, names... ) {} \
+                                                                        \
       public:
 
 #define DECLARE_INDEX_LAYER( NAME, TYPE )      \
@@ -164,7 +165,7 @@ OPEN_DECLARATION_INDEX_LAYER( PointCloudIndexLayer, Vector1ui )
 
 /// \brief Constructor of an index layer with linearly spaced indices ranging from \f$0\f$ to
 /// \f$n-1\f$
-inline explicit PointCloudIndexLayer( size_t n ) :
+explicit PointCloudIndexLayer( size_t n ) :
     GeometryIndexLayer( PointCloudIndexLayer::staticSemanticName ) {
     collection().resize( n );
     collection().getMap() = IndexContainerType::Matrix::LinSpaced( n, 0, n - 1 );
