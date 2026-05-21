@@ -58,7 +58,7 @@ class RA_ENGINE_API GeometryComponent : public Component
  *  - normals: rw (if deformable)
  *  - triangles: rw (if deformable)
  */
-class SurfaceMeshComponent : public GeometryComponent
+class RA_ENGINE_API SurfaceMeshComponent : public GeometryComponent
 {
     using base = GeometryComponent;
 
