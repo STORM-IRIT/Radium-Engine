@@ -282,13 +282,6 @@ class RA_CORE_API MultiIndexedGeometry : public AttribArrayGeometry, public Util
     using LayerEntryType  = std::pair<bool, std::unique_ptr<GeometryIndexLayerBase>>;
     using IndexCollection = std::unordered_map<LayerKeyType, LayerEntryType, LayerKeyHash>;
 
-    using PointAttribHandle  = AttribArrayGeometry::PointAttribHandle;
-    using NormalAttribHandle = AttribArrayGeometry::NormalAttribHandle;
-    using FloatAttribHandle  = AttribArrayGeometry::FloatAttribHandle;
-    using Vec2AttribHandle   = AttribArrayGeometry::Vec2AttribHandle;
-    using Vec3AttribHandle   = AttribArrayGeometry::Vec3AttribHandle;
-    using Vec4AttribHandle   = AttribArrayGeometry::Vec4AttribHandle;
-
     MultiIndexedGeometry() = default;
     MultiIndexedGeometry( const MultiIndexedGeometry& other );
     MultiIndexedGeometry( MultiIndexedGeometry&& other );
