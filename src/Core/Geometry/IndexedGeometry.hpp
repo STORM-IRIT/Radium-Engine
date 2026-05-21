@@ -292,8 +292,6 @@ class RA_CORE_API MultiIndexedGeometry : public AttribArrayGeometry, public Util
     MultiIndexedGeometry() = default;
     MultiIndexedGeometry( const MultiIndexedGeometry& other );
     MultiIndexedGeometry( MultiIndexedGeometry&& other );
-    MultiIndexedGeometry( const AttribArrayGeometry& other );
-    MultiIndexedGeometry( AttribArrayGeometry&& other );
     MultiIndexedGeometry& operator=( const MultiIndexedGeometry& other );
     MultiIndexedGeometry& operator=( MultiIndexedGeometry&& other );
 

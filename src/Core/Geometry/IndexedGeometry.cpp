@@ -18,12 +18,6 @@ MultiIndexedGeometry::MultiIndexedGeometry( const MultiIndexedGeometry& other ) 
 MultiIndexedGeometry::MultiIndexedGeometry( MultiIndexedGeometry&& other ) :
     AttribArrayGeometry( std::move( other ) ), m_indices( std::move( other.m_indices ) ) {}
 
-MultiIndexedGeometry::MultiIndexedGeometry( const AttribArrayGeometry& other ) :
-    AttribArrayGeometry( other ) {}
-
-MultiIndexedGeometry::MultiIndexedGeometry( AttribArrayGeometry&& other ) :
-    AttribArrayGeometry( std::move( other ) ) {}
-
 MultiIndexedGeometry& MultiIndexedGeometry::operator=( const MultiIndexedGeometry& other ) {
     invalidateAabb();
     AttribArrayGeometry::operator=( other );

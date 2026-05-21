@@ -350,9 +350,10 @@ class RA_ENGINE_API GeometryDisplayable : public AttribArrayDisplayable
     using ArrayOfLayerKeys = std::array<
         std::pair<GeometryDisplayable::LayerKeyType, AttribArrayDisplayable::MeshRenderMode>,
         N>;
+
     explicit GeometryDisplayable( const std::string& name );
     explicit GeometryDisplayable( const std::string& name,
-                                  typename Core::Geometry::MultiIndexedGeometry&& geom );
+                                  Core::Geometry::MultiIndexedGeometry&& geom );
     virtual ~GeometryDisplayable();
     void render( const ShaderProgram* prog ) override;
     void render( const ShaderProgram* prog, const LayerKeyType& key );
