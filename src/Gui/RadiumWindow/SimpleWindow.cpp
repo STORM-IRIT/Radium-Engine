@@ -5,6 +5,7 @@
 #include <Gui/TreeModel/EntityTreeModel.hpp>
 #include <Gui/Viewer/CameraManipulator.hpp>
 #include <Gui/Viewer/Viewer.hpp>
+#include <QApplication>
 #include <QKeySequence>
 
 namespace Ra {
