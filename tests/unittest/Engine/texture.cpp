@@ -157,8 +157,8 @@ TEST_CASE( "Engine/Data/Texture", "[unittests][Engine][Engine/Data][Textures]" )
         std::array<std::shared_ptr<void>, 6> data2void {
             { data2[0], data2[1], data2[2], data2[3], data2[4], data2[5] } };
 
-        TextureParameters params1 = { {}, {} };
-        TextureParameters params2 = { {}, {} };
+        TextureParameters params1 = { { "tex1" }, {}, {} };
+        TextureParameters params2 = { {}, {}, {} };
 
         params1.image.texels = data1;
         params2.image.target = GL_TEXTURE_CUBE_MAP;
@@ -166,6 +166,19 @@ TEST_CASE( "Engine/Data/Texture", "[unittests][Engine][Engine/Data][Textures]" )
 
         Texture texture1( params1 );
         Texture texture2( params2 );
+
+        REQUIRE( texture1.getName() == params1.name );
+        REQUIRE( texture1.getWidth() == 1 );
+        REQUIRE( texture1.getHeight() == 1 );
+        REQUIRE( texture1.getDepth() == 1 );
+        REQUIRE( texture1.getFormat() == GL_RGB );
+
+        // no border color by default
+        REQUIRE( !texture1.getParameters().sampler.borderColor.has_value() );
+
+        // setting a border color makes the optional borderColor has value
+        texture1.getParameters().sampler.borderColor = Ra::Core::Utils::Color::White();
+        REQUIRE( texture1.getParameters().sampler.borderColor.has_value() );
 
         texture1.initialize();
         texture2.initialize();
@@ -215,6 +228,11 @@ TEST_CASE( "Engine/Data/Texture", "[unittests][Engine][Engine/Data][Textures]" )
         for ( uchar i = 0; i < 3 * 4; ++i )
             data1Resized[i] = i;
         texture1.resize( 2, 2, 1, data1Resized );
+
+        REQUIRE( texture1.getWidth() == 2 );
+        REQUIRE( texture1.getHeight() == 2 );
+        REQUIRE( texture1.getDepth() == 1 );
+
         readData1 = gpuTexture1->getImage( 0, params1.image.format, params1.image.type );
         // see  GL_PACK_ROW_LENGTH
         // https://registry.khronos.org/OpenGL-Refpages/gl4/html/glPixelStore.xhtml
