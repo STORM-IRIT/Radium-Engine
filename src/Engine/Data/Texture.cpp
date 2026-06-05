@@ -16,6 +16,8 @@
 #include <ostream>
 #include <utility>
 
+#include <glm/vec4.hpp>
+
 namespace Ra {
 namespace Engine {
 namespace Data {
@@ -342,6 +344,11 @@ void Texture::sendSamplerParametersToGpu() {
     GL_CHECK_ERROR;
     m_texture->setParameter( GL_TEXTURE_MAG_FILTER, m_textureParameters.sampler.magFilter );
     GL_CHECK_ERROR;
+    if ( m_textureParameters.sampler.borderColor ) {
+        auto bc     = *( m_textureParameters.sampler.borderColor );
+        auto border = glm::vec4 { bc[0], bc[1], bc[2], bc[3] };
+        m_texture->setParameter( GL_TEXTURE_BORDER_COLOR, border );
+    }
 }
 
 /// \todo template by texels type

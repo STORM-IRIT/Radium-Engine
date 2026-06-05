@@ -7,6 +7,7 @@
 
 #include <memory>
 #include <mutex>
+#include <optional>
 #include <string>
 #include <variant>
 
@@ -30,6 +31,8 @@ struct SamplerParameters {
     GLenum minFilter { GL_LINEAR };
     /// OpenGL magnification filter ( GL_LINEAR or GL_NEAREST )
     GLenum magFilter { GL_LINEAR };
+    /// Border color, if used
+    std::optional<Core::Utils::Color> borderColor { std::nullopt };
 };
 
 /// ImageParameters stores the infomation needed to upload a image to the GPU as a texture.
