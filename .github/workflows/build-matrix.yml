@@ -162,7 +162,7 @@ jobs:
           posix_path=$(cygpath -u "${{ github.workspace }}")
           mkdir -p "$posix_path/glfw_install/"
           # configure glfw
-          cmake -S glfw -B glfw/build-shared -G "Visual Studio 17 2022" -DBUILD_SHARED_LIBS=OFF \
+          cmake -S glfw -B glfw/build-shared -G "Visual Studio 18 2026" -DBUILD_SHARED_LIBS=OFF \
           -DGLFW_BUILD_EXAMPLES=OFF -DGLFW_BUILD_TESTS=OFF -DGLFW_BUILD_DOCS=OFF \
           -DCMAKE_INSTALL_PREFIX="$posix_path/glfw_install/"
           # build glfw
