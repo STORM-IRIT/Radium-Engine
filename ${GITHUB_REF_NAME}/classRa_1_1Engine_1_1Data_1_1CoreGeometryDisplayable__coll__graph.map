@@ -1,7 +1,7 @@
 <map id="Ra::Engine::Data::CoreGeometryDisplayable&lt; T &gt;" name="Ra::Engine::Data::CoreGeometryDisplayable&lt; T &gt;">
-<area shape="rect" id="Node000001" title="Template class to manage the Displayable aspect of a Core Geomertry, such as TriangleMesh." alt="" coords="524,3601,763,4141"/>
+<area shape="rect" id="Node000001" title="Template class to manage the Displayable aspect of a Core Geomertry, such as TriangleMesh." alt="" coords="524,3601,763,4161"/>
 <area shape="rect" id="Node000002" href="$classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html" title=" " alt="" coords="429,3039,642,3539"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="587,3552,596,3601,591,3602,582,3553"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="586,3552,595,3601,590,3602,581,3553"/>
 <area shape="rect" id="Node000003" href="$classRa_1_1Engine_1_1Data_1_1Displayable.html" title=" " alt="" coords="5,2459,212,2744"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="142,2757,159,2820,182,2886,210,2952,244,3013,285,3069,332,3121,382,3168,430,3208,427,3212,378,3172,328,3125,281,3072,240,3016,205,2954,177,2888,154,2822,136,2758"/>
 <area shape="rect" id="Node000004" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/memory/unique_ptr.html" title=" " alt="" coords="140,1917,325,2217"/>
@@ -27,7 +27,7 @@
 <area shape="rect" id="Node000013" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/map.html" title=" " alt="" coords="839,1108,965,1773"/>
 <area shape="poly" id="edge14_Node000010_Node000013" title=" " alt="" coords="875,1787,834,2271,829,2271,870,1787"/>
 <area shape="rect" id="Node000014" href="$classRa_1_1Core_1_1Utils_1_1BijectiveAssociation.html" title=" " alt="" coords="797,3071,970,3506"/>
-<area shape="poly" id="edge15_Node000001_Node000014" title=" " alt="" coords="799,3501,763,3587,758,3585,794,3499"/>
+<area shape="poly" id="edge15_Node000001_Node000014" title=" " alt="" coords="799,3504,765,3587,760,3585,794,3502"/>
 <area shape="rect" id="Node000015" href="$classRa_1_1Core_1_1Utils_1_1BijectiveAssociation.html" title="Bijective association between two sets {keys} and {values} having the same cardinality...." alt="" coords="905,2391,1077,2811"/>
 <area shape="poly" id="edge16_Node000014_Node000015" title=" " alt="" coords="959,2825,920,3071,915,3070,954,2825"/>
 </map>

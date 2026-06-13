@@ -34,63 +34,65 @@
 <g id="Node000002" class="node">
 <title>Node2</title>
 <g id="a_Node000002"><a xlink:href="classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html" target="_top" xlink:title="Template class to manage the Displayable aspect of a Core Geomertry, such as TriangleMesh.">
-<polygon fill="white" stroke="transparent" points="727,-652.5 548,-652.5 548,-247.5 727,-247.5 727,-652.5"/>
-<text text-anchor="start" x="558.5" y="-640" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Data::CoreGeometry</text>
-<text text-anchor="start" x="594.5" y="-629" font-family="Helvetica,sans-Serif" font-size="10.00">Displayable&lt; T &gt;</text>
-<text text-anchor="start" x="552.5" y="-614" font-family="Helvetica,sans-Serif" font-size="10.00">#</text>
-<text text-anchor="start" x="565.5" y="-614" font-family="Helvetica,sans-Serif" font-size="10.00">m_mesh</text>
-<text text-anchor="start" x="552.5" y="-599" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="565.5" y="-599" font-family="Helvetica,sans-Serif" font-size="10.00">CoreGeometryDisplayable()</text>
-<text text-anchor="start" x="552.5" y="-584" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="565.5" y="-584" font-family="Helvetica,sans-Serif" font-size="10.00">addAttrib()</text>
-<text text-anchor="start" x="552.5" y="-569" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="565.5" y="-569" font-family="Helvetica,sans-Serif" font-size="10.00">getNumVertices()</text>
-<text text-anchor="start" x="552.5" y="-554" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="565.5" y="-554" font-family="Helvetica,sans-Serif" font-size="10.00">loadGeometry()</text>
-<text text-anchor="start" x="552.5" y="-539" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="565.5" y="-539" font-family="Helvetica,sans-Serif" font-size="10.00">updateGL()</text>
-<text text-anchor="start" x="552.5" y="-524" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="565.5" y="-524" font-family="Helvetica,sans-Serif" font-size="10.00">setAttribNameCorrespondance()</text>
-<text text-anchor="start" x="552.5" y="-509" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="565.5" y="-509" font-family="Helvetica,sans-Serif" font-size="10.00">getAbstractGeometry()</text>
-<text text-anchor="start" x="552.5" y="-494" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="565.5" y="-494" font-family="Helvetica,sans-Serif" font-size="10.00">getAbstractGeometry()</text>
-<text text-anchor="start" x="552.5" y="-479" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="565.5" y="-479" font-family="Helvetica,sans-Serif" font-size="10.00">getAttribArrayGeometry()</text>
-<text text-anchor="start" x="552.5" y="-464" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="565.5" y="-464" font-family="Helvetica,sans-Serif" font-size="10.00">getAttribArrayGeometry()</text>
-<text text-anchor="start" x="552.5" y="-449" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="565.5" y="-449" font-family="Helvetica,sans-Serif" font-size="10.00">getCoreGeometry()</text>
-<text text-anchor="start" x="552.5" y="-434" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="565.5" y="-434" font-family="Helvetica,sans-Serif" font-size="10.00">getCoreGeometry()</text>
-<text text-anchor="start" x="552.5" y="-419" font-family="Helvetica,sans-Serif" font-size="10.00">#</text>
-<text text-anchor="start" x="565.5" y="-419" font-family="Helvetica,sans-Serif" font-size="10.00">updateGL_specific_impl()</text>
-<text text-anchor="start" x="552.5" y="-404" font-family="Helvetica,sans-Serif" font-size="10.00">#</text>
-<text text-anchor="start" x="565.5" y="-404" font-family="Helvetica,sans-Serif" font-size="10.00">loadGeometry_common()</text>
-<text text-anchor="start" x="552.5" y="-389" font-family="Helvetica,sans-Serif" font-size="10.00">#</text>
-<text text-anchor="start" x="565.5" y="-389" font-family="Helvetica,sans-Serif" font-size="10.00">setupCoreMeshObservers()</text>
-<text text-anchor="start" x="552.5" y="-374" font-family="Helvetica,sans-Serif" font-size="10.00">#</text>
-<text text-anchor="start" x="565.5" y="-374" font-family="Helvetica,sans-Serif" font-size="10.00">autoVertexAttribPointer()</text>
-<text text-anchor="start" x="552.5" y="-359" font-family="Helvetica,sans-Serif" font-size="10.00">#</text>
-<text text-anchor="start" x="565.5" y="-359" font-family="Helvetica,sans-Serif" font-size="10.00">addAttribObserver()</text>
-<text text-anchor="start" x="552.5" y="-344" font-family="Helvetica,sans-Serif" font-size="10.00">#</text>
-<text text-anchor="start" x="565.5" y="-344" font-family="Helvetica,sans-Serif" font-size="10.00">addToTranslationTable()</text>
-<text text-anchor="start" x="554" y="-329" font-family="Helvetica,sans-Serif" font-size="10.00">*</text>
-<text text-anchor="start" x="565.5" y="-329" font-family="Helvetica,sans-Serif" font-size="10.00">getAbstractGeometry()</text>
-<text text-anchor="start" x="554" y="-314" font-family="Helvetica,sans-Serif" font-size="10.00">*</text>
-<text text-anchor="start" x="565.5" y="-314" font-family="Helvetica,sans-Serif" font-size="10.00">getAbstractGeometry()</text>
-<text text-anchor="start" x="554" y="-299" font-family="Helvetica,sans-Serif" font-size="10.00">*</text>
-<text text-anchor="start" x="565.5" y="-299" font-family="Helvetica,sans-Serif" font-size="10.00">getAttribArrayGeometry()</text>
-<text text-anchor="start" x="554" y="-284" font-family="Helvetica,sans-Serif" font-size="10.00">*</text>
-<text text-anchor="start" x="565.5" y="-284" font-family="Helvetica,sans-Serif" font-size="10.00">getAttribArrayGeometry()</text>
-<text text-anchor="start" x="554" y="-269" font-family="Helvetica,sans-Serif" font-size="10.00">*</text>
-<text text-anchor="start" x="565.5" y="-269" font-family="Helvetica,sans-Serif" font-size="10.00">getCoreGeometry()</text>
-<text text-anchor="start" x="554" y="-254" font-family="Helvetica,sans-Serif" font-size="10.00">*</text>
-<text text-anchor="start" x="565.5" y="-254" font-family="Helvetica,sans-Serif" font-size="10.00">getCoreGeometry()</text>
-<polygon fill="#666666" stroke="#666666" points="548.5,-624 548.5,-624 727.5,-624 727.5,-624 548.5,-624"/>
-<polygon fill="#666666" stroke="#666666" points="548.5,-609 548.5,-609 563.5,-609 563.5,-609 548.5,-609"/>
-<polygon fill="#666666" stroke="#666666" points="563.5,-609 563.5,-609 727.5,-609 727.5,-609 563.5,-609"/>
-<polygon fill="none" stroke="#666666" points="548,-247.5 548,-652.5 727,-652.5 727,-247.5 548,-247.5"/>
+<polygon fill="white" stroke="transparent" points="727,-660 548,-660 548,-240 727,-240 727,-660"/>
+<text text-anchor="start" x="558.5" y="-648" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Data::CoreGeometry</text>
+<text text-anchor="start" x="594.5" y="-637" font-family="Helvetica,sans-Serif" font-size="10.00">Displayable&lt; T &gt;</text>
+<text text-anchor="start" x="552.5" y="-622" font-family="Helvetica,sans-Serif" font-size="10.00">#</text>
+<text text-anchor="start" x="565.5" y="-622" font-family="Helvetica,sans-Serif" font-size="10.00">m_mesh</text>
+<text text-anchor="start" x="552.5" y="-607" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="565.5" y="-607" font-family="Helvetica,sans-Serif" font-size="10.00">CoreGeometryDisplayable()</text>
+<text text-anchor="start" x="552.5" y="-592" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="565.5" y="-592" font-family="Helvetica,sans-Serif" font-size="10.00">addAttrib()</text>
+<text text-anchor="start" x="552.5" y="-577" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="565.5" y="-577" font-family="Helvetica,sans-Serif" font-size="10.00">getNumVertices()</text>
+<text text-anchor="start" x="552.5" y="-562" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="565.5" y="-562" font-family="Helvetica,sans-Serif" font-size="10.00">loadGeometry()</text>
+<text text-anchor="start" x="552.5" y="-547" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="565.5" y="-547" font-family="Helvetica,sans-Serif" font-size="10.00">updateGL()</text>
+<text text-anchor="start" x="552.5" y="-532" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="565.5" y="-532" font-family="Helvetica,sans-Serif" font-size="10.00">setAttribNameCorrespondance()</text>
+<text text-anchor="start" x="552.5" y="-517" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="565.5" y="-517" font-family="Helvetica,sans-Serif" font-size="10.00">autoVertexAttribCheck()</text>
+<text text-anchor="start" x="552.5" y="-502" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="565.5" y="-502" font-family="Helvetica,sans-Serif" font-size="10.00">getAbstractGeometry()</text>
+<text text-anchor="start" x="552.5" y="-487" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="565.5" y="-487" font-family="Helvetica,sans-Serif" font-size="10.00">getAbstractGeometry()</text>
+<text text-anchor="start" x="552.5" y="-472" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="565.5" y="-472" font-family="Helvetica,sans-Serif" font-size="10.00">getAttribArrayGeometry()</text>
+<text text-anchor="start" x="552.5" y="-457" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="565.5" y="-457" font-family="Helvetica,sans-Serif" font-size="10.00">getAttribArrayGeometry()</text>
+<text text-anchor="start" x="552.5" y="-442" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="565.5" y="-442" font-family="Helvetica,sans-Serif" font-size="10.00">getCoreGeometry()</text>
+<text text-anchor="start" x="552.5" y="-427" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="565.5" y="-427" font-family="Helvetica,sans-Serif" font-size="10.00">getCoreGeometry()</text>
+<text text-anchor="start" x="552.5" y="-412" font-family="Helvetica,sans-Serif" font-size="10.00">#</text>
+<text text-anchor="start" x="565.5" y="-412" font-family="Helvetica,sans-Serif" font-size="10.00">updateGL_specific_impl()</text>
+<text text-anchor="start" x="552.5" y="-397" font-family="Helvetica,sans-Serif" font-size="10.00">#</text>
+<text text-anchor="start" x="565.5" y="-397" font-family="Helvetica,sans-Serif" font-size="10.00">loadGeometry_common()</text>
+<text text-anchor="start" x="552.5" y="-382" font-family="Helvetica,sans-Serif" font-size="10.00">#</text>
+<text text-anchor="start" x="565.5" y="-382" font-family="Helvetica,sans-Serif" font-size="10.00">setupCoreMeshObservers()</text>
+<text text-anchor="start" x="552.5" y="-367" font-family="Helvetica,sans-Serif" font-size="10.00">#</text>
+<text text-anchor="start" x="565.5" y="-367" font-family="Helvetica,sans-Serif" font-size="10.00">autoVertexAttribPointer()</text>
+<text text-anchor="start" x="552.5" y="-352" font-family="Helvetica,sans-Serif" font-size="10.00">#</text>
+<text text-anchor="start" x="565.5" y="-352" font-family="Helvetica,sans-Serif" font-size="10.00">addAttribObserver()</text>
+<text text-anchor="start" x="552.5" y="-337" font-family="Helvetica,sans-Serif" font-size="10.00">#</text>
+<text text-anchor="start" x="565.5" y="-337" font-family="Helvetica,sans-Serif" font-size="10.00">addToTranslationTable()</text>
+<text text-anchor="start" x="554" y="-322" font-family="Helvetica,sans-Serif" font-size="10.00">*</text>
+<text text-anchor="start" x="565.5" y="-322" font-family="Helvetica,sans-Serif" font-size="10.00">getAbstractGeometry()</text>
+<text text-anchor="start" x="554" y="-307" font-family="Helvetica,sans-Serif" font-size="10.00">*</text>
+<text text-anchor="start" x="565.5" y="-307" font-family="Helvetica,sans-Serif" font-size="10.00">getAbstractGeometry()</text>
+<text text-anchor="start" x="554" y="-292" font-family="Helvetica,sans-Serif" font-size="10.00">*</text>
+<text text-anchor="start" x="565.5" y="-292" font-family="Helvetica,sans-Serif" font-size="10.00">getAttribArrayGeometry()</text>
+<text text-anchor="start" x="554" y="-277" font-family="Helvetica,sans-Serif" font-size="10.00">*</text>
+<text text-anchor="start" x="565.5" y="-277" font-family="Helvetica,sans-Serif" font-size="10.00">getAttribArrayGeometry()</text>
+<text text-anchor="start" x="554" y="-262" font-family="Helvetica,sans-Serif" font-size="10.00">*</text>
+<text text-anchor="start" x="565.5" y="-262" font-family="Helvetica,sans-Serif" font-size="10.00">getCoreGeometry()</text>
+<text text-anchor="start" x="554" y="-247" font-family="Helvetica,sans-Serif" font-size="10.00">*</text>
+<text text-anchor="start" x="565.5" y="-247" font-family="Helvetica,sans-Serif" font-size="10.00">getCoreGeometry()</text>
+<polygon fill="#666666" stroke="#666666" points="548.5,-632 548.5,-632 727.5,-632 727.5,-632 548.5,-632"/>
+<polygon fill="#666666" stroke="#666666" points="548.5,-617 548.5,-617 563.5,-617 563.5,-617 548.5,-617"/>
+<polygon fill="#666666" stroke="#666666" points="563.5,-617 563.5,-617 727.5,-617 727.5,-617 563.5,-617"/>
+<polygon fill="none" stroke="#666666" points="548,-240 548,-660 727,-660 727,-240 548,-240"/>
 </a>
 </g>
 </g>
@@ -98,8 +100,8 @@
 <g id="edge1_Node000001_Node000002" class="edge">
 <title>Node2&#45;&gt;Node1</title>
 <g id="a_edge1_Node000001_Node000002"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M681.87,-237.59C692.24,-188.18 702.36,-139.92 709.65,-105.21"/>
-<polygon fill="none" stroke="#63b8ff" points="678.42,-236.98 679.79,-247.48 685.27,-238.42 678.42,-236.98"/>
+<path fill="none" stroke="#63b8ff" d="M683.47,-229.96C693.28,-183.21 702.75,-138.06 709.66,-105.13"/>
+<polygon fill="none" stroke="#63b8ff" points="680,-229.45 681.37,-239.96 686.85,-230.89 680,-229.45"/>
 </a>
 </g>
 </g>
@@ -167,7 +169,7 @@
 <g id="edge2_Node000002_Node000003" class="edge">
 <title>Node3&#45;&gt;Node2</title>
 <g id="a_edge2_Node000002_Node000003"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M469.55,-908.66C499.24,-827.77 533.61,-734.1 563.5,-652.66"/>
+<path fill="none" stroke="#63b8ff" d="M469.44,-908.96C498.24,-830.48 531.46,-739.95 560.73,-660.21"/>
 <polygon fill="none" stroke="#63b8ff" points="466.11,-907.87 465.95,-918.47 472.68,-910.28 466.11,-907.87"/>
 </a>
 </g>
@@ -1109,8 +1111,8 @@
 <g id="edge16_Node000002_Node000015" class="edge">
 <title>Node15&#45;&gt;Node2</title>
 <g id="a_edge16_Node000002_Node000015"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M653.3,-942.92C650.6,-858.93 647.27,-755.27 644.37,-664.81"/>
-<polygon fill="none" stroke="#63b8ff" points="644.36,-664.7 640.17,-658.83 643.98,-652.7 648.17,-658.57 644.36,-664.7"/>
+<path fill="none" stroke="#63b8ff" d="M653.3,-942.92C650.67,-861.27 647.46,-761.05 644.61,-672.42"/>
+<polygon fill="none" stroke="#63b8ff" points="644.6,-672.27 640.41,-666.4 644.22,-660.27 648.41,-666.14 644.6,-672.27"/>
 </a>
 </g>
 <text text-anchor="middle" x="701" y="-774.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="grey"> #m_translationTable</text>

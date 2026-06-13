@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.webp"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.7.6</span>
+   &#160;<span id="projectnumber">1.7.8</span>
    </div>
   </td>
  </tr>
@@ -240,7 +240,7 @@ Static Public Member Functions</h2></td></tr>
 <p>The <a class="el" href="classRa_1_1Engine_1_1Data_1_1Texture.html" title="Represent a Texture of the engine.">Texture</a> creation could be done either using the <a class="el" href="classRa_1_1Engine_1_1Data_1_1TextureManager.html" title="Manage Texture loading and registration.">TextureManager</a> or directly on the client class/function.</p>
 <p>When a texture is created, no GPU initialisation is realized. The user must first call either <a class="el" href="#a625ea5525d61513c55850164b687b330" title="Generate the OpenGL representation of the texture according to the stored TextureData (delayed).">initialize()</a> to register delayed initialisation by <a class="el" href="classRa_1_1Engine_1_1RadiumEngine.html">RadiumEngine</a> using <a class="el" href="classRa_1_1Engine_1_1RadiumEngine.html#a64e514bd01c52fe4b8a67c570615ff06">RadiumEngine::runGpuTasks()</a> or intializeNow() to peform GPU initialization directly, with an active bound context. See <a class="el" href="classRa_1_1Engine_1_1Data_1_1TextureManager.html" title="Manage Texture loading and registration.">TextureManager</a> for information about how unique texture are defined. </p>
 
-<p class="definition">Definition at line <a class="el" href="Texture_8hpp_source.html#l00119">119</a> of file <a class="el" href="Texture_8hpp_source.html">Texture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Texture_8hpp_source.html#l00122">122</a> of file <a class="el" href="Texture_8hpp_source.html">Texture.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="aa52e3ad4b818a82c9899da7c32dad059" name="aa52e3ad4b818a82c9899da7c32dad059"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa52e3ad4b818a82c9899da7c32dad059">&#9670;&#160;</a></span>Texture()</h2>
@@ -273,7 +273,7 @@ Static Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="Texture_8cpp_source.html#l00024">24</a> of file <a class="el" href="Texture_8cpp_source.html">Texture.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Texture_8cpp_source.html#l00026">26</a> of file <a class="el" href="Texture_8cpp_source.html">Texture.cpp</a>.</p>
 
 </div>
 </div>
@@ -294,7 +294,7 @@ Static Public Member Functions</h2></td></tr>
 
 <p><a class="el" href="classRa_1_1Engine_1_1Data_1_1Texture.html" title="Represent a Texture of the engine.">Texture</a> destructor. Both internal data and GPU representation are deleted. </p>
 
-<p class="definition">Definition at line <a class="el" href="Texture_8cpp_source.html#l00046">46</a> of file <a class="el" href="Texture_8cpp_source.html">Texture.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Texture_8cpp_source.html#l00048">48</a> of file <a class="el" href="Texture_8cpp_source.html">Texture.cpp</a>.</p>
 <div id="dynsection-1" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-1-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-1-summary" class="dynsummary" style="display:block;">
@@ -329,7 +329,7 @@ Static Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="Texture_8cpp_source.html#l00135">135</a> of file <a class="el" href="Texture_8cpp_source.html">Texture.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Texture_8cpp_source.html#l00137">137</a> of file <a class="el" href="Texture_8cpp_source.html">Texture.cpp</a>.</p>
 
 </div>
 </div>
@@ -370,7 +370,7 @@ Static Public Member Functions</h2></td></tr>
 <p>Bind the texture to an image unit for the purpose of reading and writing it from shaders. Need active OpenGL context. </p>
 <dl class="section note"><dt>Note</dt><dd>, only available since openGL 4.2, not available on MacOs uses m_parameters.internalFormat as format. see <a href="https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/glBindImageTexture.xhtml">https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/glBindImageTexture.xhtml</a> for documentation </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="Texture_8cpp_source.html#l00140">140</a> of file <a class="el" href="Texture_8cpp_source.html">Texture.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Texture_8cpp_source.html#l00142">142</a> of file <a class="el" href="Texture_8cpp_source.html">Texture.cpp</a>.</p>
 
 </div>
 </div>
@@ -392,7 +392,7 @@ Static Public Member Functions</h2></td></tr>
 <p>destroy the GPU texture representation. </p>
 <p>It creates gpu tasks the engine will run during next draw call, so it can be called without active opengl context. </p>
 
-<p class="definition">Definition at line <a class="el" href="Texture_8cpp_source.html#l00081">81</a> of file <a class="el" href="Texture_8cpp_source.html">Texture.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Texture_8cpp_source.html#l00083">83</a> of file <a class="el" href="Texture_8cpp_source.html">Texture.cpp</a>.</p>
 <div id="dynsection-2" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-2-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-2-summary" class="dynsummary" style="display:block;">
@@ -421,7 +421,7 @@ Static Public Member Functions</h2></td></tr>
 <p>Generate the GPU representation of the texture <b>right now</b>. Need an active OpenGL context. </p>
 <p>see <a class="el" href="#a68ee87f56c2c58f3e6d0954e4b55af0f" title="destroy the GPU texture representation.">destroy()</a> which is the same method, but delay gpu stuff to engine gpu tasks. </p>
 
-<p class="definition">Definition at line <a class="el" href="Texture_8cpp_source.html#l00093">93</a> of file <a class="el" href="Texture_8cpp_source.html">Texture.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Texture_8cpp_source.html#l00095">95</a> of file <a class="el" href="Texture_8cpp_source.html">Texture.cpp</a>.</p>
 <div id="dynsection-3" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-3-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-3-summary" class="dynsummary" style="display:block;">
@@ -456,7 +456,7 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>the depth of the texture </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="Texture_8hpp_source.html#l00185">185</a> of file <a class="el" href="Texture_8hpp_source.html">Texture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Texture_8hpp_source.html#l00188">188</a> of file <a class="el" href="Texture_8hpp_source.html">Texture.hpp</a>.</p>
 
 </div>
 </div>
@@ -484,7 +484,7 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>the pixel format of the texture </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="Texture_8hpp_source.html#l00176">176</a> of file <a class="el" href="Texture_8hpp_source.html">Texture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Texture_8hpp_source.html#l00179">179</a> of file <a class="el" href="Texture_8hpp_source.html">Texture.hpp</a>.</p>
 
 </div>
 </div>
@@ -514,7 +514,7 @@ Static Public Member Functions</h2></td></tr>
 <p>Get ptr to the managed globjects::Texture. </p>
 <p>Please unsure do keep data consistent between <a class="el" href="classRa_1_1Engine_1_1Data_1_1Texture.html" title="Represent a Texture of the engine.">Texture</a>'s <a class="el" href="structRa_1_1Engine_1_1Data_1_1TextureParameters.html" title="Describes the sampler and image of a texture.">TextureParameters</a> and the globjects::Texture and prefer using Textue methods to change texture representation if avaiable. </p><dl class="section return"><dt>Returns</dt><dd>ptr to globjects::Texture associated with the <a class="el" href="classRa_1_1Engine_1_1Data_1_1Texture.html" title="Represent a Texture of the engine.">Texture</a>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="Texture_8hpp_source.html#l00197">197</a> of file <a class="el" href="Texture_8hpp_source.html">Texture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Texture_8hpp_source.html#l00200">200</a> of file <a class="el" href="Texture_8hpp_source.html">Texture.hpp</a>.</p>
 
 </div>
 </div>
@@ -542,7 +542,7 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>the height of the texture </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="Texture_8hpp_source.html#l00182">182</a> of file <a class="el" href="Texture_8hpp_source.html">Texture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Texture_8hpp_source.html#l00185">185</a> of file <a class="el" href="Texture_8hpp_source.html">Texture.hpp</a>.</p>
 
 </div>
 </div>
@@ -570,7 +570,7 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>Name of the texture. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="Texture_8hpp_source.html#l00171">171</a> of file <a class="el" href="Texture_8hpp_source.html">Texture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Texture_8hpp_source.html#l00174">174</a> of file <a class="el" href="Texture_8hpp_source.html">Texture.hpp</a>.</p>
 
 </div>
 </div>
@@ -599,7 +599,7 @@ Static Public Member Functions</h2></td></tr>
 
 <p>read/write access to texture parameters </p>
 
-<p class="definition">Definition at line <a class="el" href="Texture_8hpp_source.html#l00202">202</a> of file <a class="el" href="Texture_8hpp_source.html">Texture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Texture_8hpp_source.html#l00205">205</a> of file <a class="el" href="Texture_8hpp_source.html">Texture.hpp</a>.</p>
 
 </div>
 </div>
@@ -628,7 +628,7 @@ Static Public Member Functions</h2></td></tr>
 
 <p>get read access to texture parameters </p>
 
-<p class="definition">Definition at line <a class="el" href="Texture_8hpp_source.html#l00200">200</a> of file <a class="el" href="Texture_8hpp_source.html">Texture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Texture_8hpp_source.html#l00203">203</a> of file <a class="el" href="Texture_8hpp_source.html">Texture.hpp</a>.</p>
 
 </div>
 </div>
@@ -656,7 +656,7 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>raw pointer to texels (or nullptr if cubeMap or no cpu side representation). </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="Texture_8hpp_source.html#l00188">188</a> of file <a class="el" href="Texture_8hpp_source.html">Texture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Texture_8hpp_source.html#l00191">191</a> of file <a class="el" href="Texture_8hpp_source.html">Texture.hpp</a>.</p>
 
 </div>
 </div>
@@ -684,7 +684,7 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>the width of the texture </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="Texture_8hpp_source.html#l00179">179</a> of file <a class="el" href="Texture_8hpp_source.html">Texture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Texture_8hpp_source.html#l00182">182</a> of file <a class="el" href="Texture_8hpp_source.html">Texture.hpp</a>.</p>
 
 </div>
 </div>
@@ -706,7 +706,7 @@ Static Public Member Functions</h2></td></tr>
 <p>Generate the OpenGL representation of the texture according to the stored TextureData (delayed). </p>
 <p>This method use the stored <a class="el" href="structRa_1_1Engine_1_1Data_1_1TextureParameters.html" title="Describes the sampler and image of a texture.">TextureParameters</a> to generate and configure OpenGL texture. It creates gpu tasks the engine will run during next draw call, so it can be called without active opengl context. </p>
 
-<p class="definition">Definition at line <a class="el" href="Texture_8cpp_source.html#l00059">59</a> of file <a class="el" href="Texture_8cpp_source.html">Texture.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Texture_8cpp_source.html#l00061">61</a> of file <a class="el" href="Texture_8cpp_source.html">Texture.cpp</a>.</p>
 <div id="dynsection-4" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-4-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-4-summary" class="dynsummary" style="display:block;">
@@ -735,7 +735,7 @@ Static Public Member Functions</h2></td></tr>
 <p>Generate the GPU representation of the texture <b>right now</b>. Need an active OpenGL context. </p>
 <p>see initialze() which is the same method, but delay gpu stuff to engine gpu tasks. </p>
 
-<p class="definition">Definition at line <a class="el" href="Texture_8cpp_source.html#l00072">72</a> of file <a class="el" href="Texture_8cpp_source.html">Texture.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Texture_8cpp_source.html#l00074">74</a> of file <a class="el" href="Texture_8cpp_source.html">Texture.cpp</a>.</p>
 <div id="dynsection-5" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-5-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-5-summary" class="dynsummary" style="display:block;">
@@ -772,7 +772,7 @@ Static Public Member Functions</h2></td></tr>
 <p>Convert a color texture from sRGB to Linear RGB spaces. </p>
 <p>This will transform the internal representation of the texture to GL_SCALAR (GL_FLOAT). Only GL_RGB[8, 16, 16F, 32F] and GL_RGBA[8, 16, 16F, 32F] are managed. Full transformation as described at <a href="https://en.wikipedia.org/wiki/SRGB">https://en.wikipedia.org/wiki/SRGB</a> </p>
 
-<p class="definition">Definition at line <a class="el" href="Texture_8cpp_source.html#l00149">149</a> of file <a class="el" href="Texture_8cpp_source.html">Texture.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Texture_8cpp_source.html#l00151">151</a> of file <a class="el" href="Texture_8cpp_source.html">Texture.cpp</a>.</p>
 
 </div>
 </div>
@@ -791,7 +791,7 @@ Static Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Texture_8cpp_source.html#l00308">308</a> of file <a class="el" href="Texture_8cpp_source.html">Texture.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Texture_8cpp_source.html#l00310">310</a> of file <a class="el" href="Texture_8cpp_source.html">Texture.cpp</a>.</p>
 
 </div>
 </div>
@@ -812,7 +812,7 @@ Static Public Member Functions</h2></td></tr>
 
 <p>Regiter gpu task to <a class="el" href="classRa_1_1Engine_1_1RadiumEngine.html">RadiumEngine</a>. Will call sendImageDataToGpu during next <a class="el" href="classRa_1_1Engine_1_1RadiumEngine.html#a64e514bd01c52fe4b8a67c570615ff06">RadiumEngine::runGpuTasks()</a> call. </p>
 
-<p class="definition">Definition at line <a class="el" href="Texture_8cpp_source.html#l00211">211</a> of file <a class="el" href="Texture_8cpp_source.html">Texture.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Texture_8cpp_source.html#l00213">213</a> of file <a class="el" href="Texture_8cpp_source.html">Texture.cpp</a>.</p>
 <div id="dynsection-6" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-6-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-6-summary" class="dynsummary" style="display:block;">
@@ -840,7 +840,7 @@ Static Public Member Functions</h2></td></tr>
 
 <p>Regiter gpu task to <a class="el" href="classRa_1_1Engine_1_1RadiumEngine.html">RadiumEngine</a>. Will call sendSamplerParametersToGpu during next <a class="el" href="classRa_1_1Engine_1_1RadiumEngine.html#a64e514bd01c52fe4b8a67c570615ff06">RadiumEngine::runGpuTasks()</a> call. </p>
 
-<p class="definition">Definition at line <a class="el" href="Texture_8cpp_source.html#l00226">226</a> of file <a class="el" href="Texture_8cpp_source.html">Texture.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Texture_8cpp_source.html#l00228">228</a> of file <a class="el" href="Texture_8cpp_source.html">Texture.cpp</a>.</p>
 <div id="dynsection-7" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-7-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-7-summary" class="dynsummary" style="display:block;">
@@ -892,7 +892,7 @@ Static Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="Texture_8cpp_source.html#l00105">105</a> of file <a class="el" href="Texture_8cpp_source.html">Texture.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Texture_8cpp_source.html#l00107">107</a> of file <a class="el" href="Texture_8cpp_source.html">Texture.cpp</a>.</p>
 <div id="dynsection-8" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-8-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-8-summary" class="dynsummary" style="display:block;">
@@ -920,7 +920,7 @@ Static Public Member Functions</h2></td></tr>
 
 <p>Send image data to the GPU and generate mipmap if needed. </p>
 
-<p class="definition">Definition at line <a class="el" href="Texture_8cpp_source.html#l00240">240</a> of file <a class="el" href="Texture_8cpp_source.html">Texture.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Texture_8cpp_source.html#l00242">242</a> of file <a class="el" href="Texture_8cpp_source.html">Texture.cpp</a>.</p>
 <div id="dynsection-9" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-9-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-9-summary" class="dynsummary" style="display:block;">
@@ -948,7 +948,7 @@ Static Public Member Functions</h2></td></tr>
 
 <p>Send sampler parameters to the GPU. </p>
 
-<p class="definition">Definition at line <a class="el" href="Texture_8cpp_source.html#l00322">322</a> of file <a class="el" href="Texture_8cpp_source.html">Texture.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Texture_8cpp_source.html#l00324">324</a> of file <a class="el" href="Texture_8cpp_source.html">Texture.cpp</a>.</p>
 
 </div>
 </div>
@@ -969,7 +969,7 @@ Static Public Member Functions</h2></td></tr>
 
 <p>set TextureParameters.image </p>
 
-<p class="definition">Definition at line <a class="el" href="Texture_8cpp_source.html#l00123">123</a> of file <a class="el" href="Texture_8cpp_source.html">Texture.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Texture_8cpp_source.html#l00125">125</a> of file <a class="el" href="Texture_8cpp_source.html">Texture.cpp</a>.</p>
 <div id="dynsection-10" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-10-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-10-summary" class="dynsummary" style="display:block;">
@@ -1004,7 +1004,7 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>Sets the name of the texture. </p>
 
-<p class="definition">Definition at line <a class="el" href="Texture_8hpp_source.html#l00173">173</a> of file <a class="el" href="Texture_8hpp_source.html">Texture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Texture_8hpp_source.html#l00176">176</a> of file <a class="el" href="Texture_8hpp_source.html">Texture.hpp</a>.</p>
 
 </div>
 </div>
@@ -1026,7 +1026,7 @@ Static Public Member Functions</h2></td></tr>
 <p>set <a class="el" href="structRa_1_1Engine_1_1Data_1_1TextureParameters.html" title="Describes the sampler and image of a texture.">TextureParameters</a>. </p>
 <p>Call <a class="el" href="#a6d1749892a531dfc8655e4e31aef2130" title="set TextureParameters.image">setImageParameters()</a> and <a class="el" href="#a3a4acb7649f04da96db6f83cf5c1c0cd" title="set TerctureParameters.samples">setSamplerParameters()</a> to register update GPU sample task. No check is peformed to see if data need to be updated, gpu update is triggered inconditionnally. </p>
 
-<p class="definition">Definition at line <a class="el" href="Texture_8cpp_source.html#l00118">118</a> of file <a class="el" href="Texture_8cpp_source.html">Texture.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Texture_8cpp_source.html#l00120">120</a> of file <a class="el" href="Texture_8cpp_source.html">Texture.cpp</a>.</p>
 <div id="dynsection-11" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-11-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-11-summary" class="dynsummary" style="display:block;">
@@ -1054,7 +1054,7 @@ Static Public Member Functions</h2></td></tr>
 
 <p>set TerctureParameters.samples </p>
 
-<p class="definition">Definition at line <a class="el" href="Texture_8cpp_source.html#l00129">129</a> of file <a class="el" href="Texture_8cpp_source.html">Texture.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Texture_8cpp_source.html#l00131">131</a> of file <a class="el" href="Texture_8cpp_source.html">Texture.cpp</a>.</p>
 <div id="dynsection-12" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-12-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-12-summary" class="dynsummary" style="display:block;">
@@ -1088,7 +1088,7 @@ Static Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="Texture_8cpp_source.html#l00098">98</a> of file <a class="el" href="Texture_8cpp_source.html">Texture.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Texture_8cpp_source.html#l00100">100</a> of file <a class="el" href="Texture_8cpp_source.html">Texture.cpp</a>.</p>
 <div id="dynsection-13" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-13-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-13-summary" class="dynsummary" style="display:block;">

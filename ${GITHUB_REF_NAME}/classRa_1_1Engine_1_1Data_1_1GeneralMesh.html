@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.webp"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.7.6</span>
+   &#160;<span id="projectnumber">1.7.8</span>
    </div>
   </td>
  </tr>
@@ -172,6 +172,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a185171226018c59fb689efcb2154619b inherit pub_methods_classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a71ab62e2623c184497ef04b59c7ce5f8 inherit pub_methods_classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable" id="r_a71ab62e2623c184497ef04b59c7ce5f8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html#a71ab62e2623c184497ef04b59c7ce5f8">setAttribNameCorrespondance</a> (const <a class="elRef" target="_blank" href="http://en.cppreference.com/w/cpp/string/basic_string.html">std::string</a> &amp;meshAttribName, const <a class="elRef" target="_blank" href="http://en.cppreference.com/w/cpp/string/basic_string.html">std::string</a> &amp;shaderAttribName)</td></tr>
 <tr class="separator:a71ab62e2623c184497ef04b59c7ce5f8 inherit pub_methods_classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3260a6abe27584c7c7ef6fd2f6d6e8b8 inherit pub_methods_classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable" id="r_a3260a6abe27584c7c7ef6fd2f6d6e8b8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html#a3260a6abe27584c7c7ef6fd2f6d6e8b8">autoVertexAttribCheck</a> (const <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderProgram.html">ShaderProgram</a> *prog)</td></tr>
+<tr class="separator:a3260a6abe27584c7c7ef6fd2f6d6e8b8 inherit pub_methods_classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af1f10b415b271357c9ee8827da8d9d1d inherit pub_methods_classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable" id="r_af1f10b415b271357c9ee8827da8d9d1d"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="structRa_1_1Core_1_1Geometry_1_1AbstractGeometry.html">Core::Geometry::AbstractGeometry</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html#af1f10b415b271357c9ee8827da8d9d1d">getAbstractGeometry</a> () const override</td></tr>
 <tr class="separator:af1f10b415b271357c9ee8827da8d9d1d inherit pub_methods_classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a48cee6037800183cfa7a8be69cbcb072 inherit pub_methods_classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable" id="r_a48cee6037800183cfa7a8be69cbcb072"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structRa_1_1Core_1_1Geometry_1_1AbstractGeometry.html">Core::Geometry::AbstractGeometry</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html#a48cee6037800183cfa7a8be69cbcb072">getAbstractGeometry</a> () override</td></tr>
@@ -336,7 +338,7 @@ Additional Inherited Members</h2></td></tr>
 <div class="textblock"><div class="compoundTemplParams">template&lt;typename T&gt;<br />
 class Ra::Engine::Data::GeneralMesh&lt; T &gt;</div><p><a class="el" href="classRa_1_1Engine_1_1Data_1_1GeneralMesh.html">GeneralMesh</a>, own a <a class="el" href="classRa_1_1Engine_1_1Data_1_1Mesh.html" title="Mesh, own a Core::Geometry::TriangleMesh.">Mesh</a> of type T ( e.g. Core::Geometry::PolyMesh or Core::Geometry::QuadMesh) This class handle the GPU representation of a polyhedron mesh. Each face of the polyhedron (typically quads) are assume to be planar and convex. Simple triangulation is performed on the fly before sending data to the GPU. </p>
 
-<p class="definition">Definition at line <a class="el" href="Mesh_8hpp_source.html#l00441">441</a> of file <a class="el" href="Mesh_8hpp_source.html">Mesh.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Mesh_8hpp_source.html#l00443">443</a> of file <a class="el" href="Mesh_8hpp_source.html">Mesh.hpp</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a7ec6f76f1155970c6561268b1f53187c" name="a7ec6f76f1155970c6561268b1f53187c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7ec6f76f1155970c6561268b1f53187c">&#9670;&#160;</a></span>getNumFaces()</h2>
@@ -365,7 +367,7 @@ template&lt;typename T &gt; </div>
 
 <p>Reimplemented from <a class="el" href="classRa_1_1Engine_1_1Data_1_1Displayable.html">Ra::Engine::Data::Displayable</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="Mesh_8hpp_source.html#l01073">1073</a> of file <a class="el" href="Mesh_8hpp_source.html">Mesh.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Mesh_8hpp_source.html#l01106">1106</a> of file <a class="el" href="Mesh_8hpp_source.html">Mesh.hpp</a>.</p>
 
 </div>
 </div>
@@ -403,7 +405,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Mesh_8hpp_source.html#l00339">339</a> of file <a class="el" href="Mesh_8hpp_source.html">Mesh.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Mesh_8hpp_source.html#l00341">341</a> of file <a class="el" href="Mesh_8hpp_source.html">Mesh.hpp</a>.</p>
 
 </div>
 </div>
@@ -435,7 +437,7 @@ template&lt;typename T &gt; </div>
 
 <p>Reimplemented from <a class="el" href="classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html">Ra::Engine::Data::CoreGeometryDisplayable&lt; T &gt;</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="Mesh_8hpp_source.html#l01078">1078</a> of file <a class="el" href="Mesh_8hpp_source.html">Mesh.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Mesh_8hpp_source.html#l01111">1111</a> of file <a class="el" href="Mesh_8hpp_source.html">Mesh.hpp</a>.</p>
 
 </div>
 </div>

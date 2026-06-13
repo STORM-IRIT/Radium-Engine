@@ -1,14 +1,14 @@
 <map id="Ra::Engine::Data::LineMesh" name="Ra::Engine::Data::LineMesh">
-<area shape="rect" id="Node000001" title="LineMesh, own a Core::Geometry::LineMesh." alt="" coords="461,5025,653,5111"/>
-<area shape="rect" id="Node000002" href="$classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html" title=" " alt="" coords="458,4821,655,4976"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="559,4989,559,5025,554,5025,554,4989"/>
-<area shape="rect" id="Node000003" href="$classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html" title=" " alt="" coords="769,4204,1008,4759"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="793,4772,771,4799,745,4822,717,4842,657,4871,655,4866,714,4837,742,4818,767,4796,789,4769"/>
+<area shape="rect" id="Node000001" title="LineMesh, own a Core::Geometry::LineMesh." alt="" coords="461,5065,653,5151"/>
+<area shape="rect" id="Node000002" href="$classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html" title=" " alt="" coords="458,4861,655,5016"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="559,5029,559,5065,554,5065,554,5029"/>
+<area shape="rect" id="Node000003" href="$classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html" title=" " alt="" coords="769,4224,1008,4799"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="793,4812,771,4839,745,4862,717,4882,657,4911,654,4907,714,4877,742,4858,767,4836,789,4809"/>
 <area shape="rect" id="Node000004" href="$classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html" title=" " alt="" coords="641,3039,854,3539"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="639,3529,619,3602,588,3754,577,3816,572,3875,572,3933,579,3994,594,4062,619,4140,771,4330,767,4334,614,4143,589,4063,574,3995,567,3933,566,3875,572,3816,583,3753,614,3601,634,3527"/>
-<area shape="rect" id="Node000018" href="$classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html" title="Template class to manage the Displayable aspect of a Core Geomertry, such as TriangleMesh." alt="" coords="891,3601,1129,4141"/>
-<area shape="poly" id="edge20_Node000018_Node000004" title=" " alt="" coords="864,3421,911,3489,950,3562,965,3600,960,3602,945,3564,906,3492,860,3424"/>
-<area shape="rect" id="Node000021" href="$classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html" title="Template class to manage the Displayable aspect of a Core Geomertry, such as TriangleMesh." alt="" coords="628,3601,867,4141"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="639,3529,619,3602,587,3759,576,3824,570,3885,571,3945,578,4008,594,4079,619,4160,628,4180,639,4193,668,4222,771,4355,767,4358,664,4226,636,4197,624,4183,614,4162,589,4080,573,4009,565,3945,565,3885,571,3823,582,3758,614,3601,634,3527"/>
+<area shape="rect" id="Node000018" href="$classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html" title="Template class to manage the Displayable aspect of a Core Geomertry, such as TriangleMesh." alt="" coords="891,3601,1129,4161"/>
+<area shape="poly" id="edge20_Node000018_Node000004" title=" " alt="" coords="864,3421,911,3489,950,3562,965,3600,960,3602,945,3564,906,3491,860,3424"/>
+<area shape="rect" id="Node000021" href="$classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html" title="Template class to manage the Displayable aspect of a Core Geomertry, such as TriangleMesh." alt="" coords="628,3601,867,4161"/>
 <area shape="poly" id="edge26_Node000021_Node000004" title=" " alt="" coords="750,3552,750,3601,745,3601,745,3552"/>
 <area shape="rect" id="Node000005" href="$classRa_1_1Engine_1_1Data_1_1Displayable.html" title=" " alt="" coords="445,2459,652,2744"/>
 <area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="596,2756,678,3038,673,3039,591,2758"/>
@@ -21,8 +21,8 @@
 <area shape="rect" id="Node000008" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector.html" title=" " alt="" coords="843,2241,1033,2961"/>
 <area shape="poly" id="edge7_Node000004_Node000008" title=" " alt="" coords="867,2962,853,3015,850,3024,845,3022,847,3014,862,2961"/>
 <area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="770,1591,803,1881,826,2050,853,2217,854,2225,849,2226,847,2218,821,2051,798,1882,765,1591"/>
-<area shape="rect" id="Node000019" href="$classRa_1_1Engine_1_1Data_1_1VaoIndices.html" title="Concept class to ensure consistent naming of VaoIndices accross derived classes." alt="" coords="322,3829,522,3914"/>
-<area shape="poly" id="edge23_Node000019_Node000009" title=" " alt="" coords="677,1592,613,1726,545,1887,483,2062,457,2152,437,2242,426,2308,418,2388,407,2582,403,2808,403,3048,412,3504,422,3812,417,3813,406,3504,397,3049,397,2808,402,2582,413,2387,421,2307,431,2241,452,2151,478,2061,540,1885,608,1724,672,1590"/>
+<area shape="rect" id="Node000019" href="$classRa_1_1Engine_1_1Data_1_1VaoIndices.html" title="Concept class to ensure consistent naming of VaoIndices accross derived classes." alt="" coords="322,3839,522,3924"/>
+<area shape="poly" id="edge23_Node000019_Node000009" title=" " alt="" coords="677,1592,613,1726,545,1887,483,2062,457,2152,437,2242,426,2308,418,2389,407,2584,402,2812,403,3053,412,3512,422,3822,417,3822,406,3512,397,3054,397,2812,402,2584,413,2388,421,2307,431,2241,452,2151,478,2061,540,1885,608,1724,672,1590"/>
 <area shape="rect" id="Node000010" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector.html" title=" " alt="" coords="871,1088,1005,1793"/>
 <area shape="poly" id="edge10_Node000008_Node000010" title=" " alt="" coords="937,1807,937,2217,937,2241,931,2241,931,2217,932,1807"/>
 <area shape="rect" id="Node000011" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/vector.html" title=" " alt="" coords="677,2249,818,2954"/>
@@ -37,15 +37,15 @@
 <area shape="rect" id="Node000015" href="/home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/doc/cppreference-doxygen-web.tag.xml$cpp/container/map.html" title=" " alt="" coords="172,1108,299,1773"/>
 <area shape="poly" id="edge16_Node000012_Node000015" title=" " alt="" coords="238,1787,238,2271,233,2271,233,1787"/>
 <area shape="rect" id="Node000016" href="$classRa_1_1Core_1_1Utils_1_1BijectiveAssociation.html" title=" " alt="" coords="1011,3071,1185,3506"/>
-<area shape="poly" id="edge17_Node000003_Node000016" title=" " alt="" coords="1165,3506,1195,3658,1206,3743,1212,3831,1212,3920,1204,4009,1188,4097,1162,4181,1135,4236,1101,4287,1063,4334,1022,4376,1018,4372,1059,4330,1097,4284,1131,4233,1157,4179,1183,4095,1199,4008,1206,3920,1206,3831,1201,3743,1190,3659,1160,3507"/>
+<area shape="poly" id="edge17_Node000003_Node000016" title=" " alt="" coords="1164,3506,1195,3662,1206,3749,1212,3839,1212,3931,1204,4023,1188,4114,1162,4201,1135,4257,1101,4310,1062,4358,1022,4402,1018,4398,1058,4355,1097,4307,1131,4254,1157,4199,1183,4113,1199,4023,1206,3931,1206,3839,1200,3749,1189,3663,1159,3507"/>
 <area shape="poly" id="edge21_Node000018_Node000016" title=" " alt="" coords="1033,3507,1022,3563,1019,3585,1014,3584,1017,3562,1028,3506"/>
-<area shape="poly" id="edge27_Node000021_Node000016" title=" " alt="" coords="1013,3382,942,3468,875,3564,861,3588,857,3585,870,3561,937,3465,1009,3379"/>
+<area shape="poly" id="edge27_Node000021_Node000016" title=" " alt="" coords="1013,3382,941,3468,875,3564,862,3588,857,3585,870,3561,937,3464,1009,3379"/>
 <area shape="rect" id="Node000017" href="$classRa_1_1Core_1_1Utils_1_1BijectiveAssociation.html" title="Bijective association between two sets {keys} and {values} having the same cardinality...." alt="" coords="1167,2391,1339,2811"/>
 <area shape="poly" id="edge18_Node000016_Node000017" title=" " alt="" coords="1205,2825,1149,3071,1144,3070,1200,2824"/>
-<area shape="poly" id="edge19_Node000003_Node000018" title=" " alt="" coords="956,4155,946,4204,941,4203,951,4154"/>
-<area shape="poly" id="edge22_Node000002_Node000019" title=" " alt="" coords="415,3928,396,4076,388,4175,384,4285,387,4402,397,4523,418,4643,451,4758,466,4790,486,4820,482,4823,462,4792,446,4760,413,4644,392,4524,381,4402,379,4285,383,4174,390,4075,410,3927"/>
-<area shape="rect" id="Node000020" href="$classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html" title="An engine mesh owning CoreGeometry, with indices." alt="" coords="460,4411,653,4551"/>
-<area shape="poly" id="edge28_Node000020_Node000019" title=" " alt="" coords="437,3927,544,4410,539,4411,432,3928"/>
-<area shape="poly" id="edge24_Node000002_Node000020" title=" " alt="" coords="559,4565,559,4821,554,4821,554,4565"/>
-<area shape="poly" id="edge25_Node000020_Node000021" title=" " alt="" coords="661,4155,581,4412,576,4410,656,4154"/>
+<area shape="poly" id="edge19_Node000003_Node000018" title=" " alt="" coords="956,4176,947,4224,941,4223,951,4175"/>
+<area shape="poly" id="edge22_Node000002_Node000019" title=" " alt="" coords="415,3938,395,4090,387,4192,382,4307,385,4428,395,4554,417,4678,432,4739,451,4798,466,4830,486,4860,482,4863,462,4832,446,4800,427,4740,412,4679,390,4554,379,4429,377,4307,381,4192,390,4089,410,3937"/>
+<area shape="rect" id="Node000020" href="$classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html" title="An engine mesh owning CoreGeometry, with indices." alt="" coords="460,4441,653,4581"/>
+<area shape="poly" id="edge28_Node000020_Node000019" title=" " alt="" coords="436,3937,545,4441,539,4442,431,3938"/>
+<area shape="poly" id="edge24_Node000002_Node000020" title=" " alt="" coords="559,4595,559,4861,554,4861,554,4595"/>
+<area shape="poly" id="edge25_Node000020_Node000021" title=" " alt="" coords="661,4176,580,4441,575,4440,656,4174"/>
 </map>

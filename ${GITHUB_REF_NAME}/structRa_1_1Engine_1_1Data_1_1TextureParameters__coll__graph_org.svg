@@ -245,24 +245,26 @@
 <g id="Node000004" class="node">
 <title>Node4</title>
 <g id="a_Node000004"><a xlink:href="structRa_1_1Engine_1_1Data_1_1SamplerParameters.html" target="_top" xlink:title="GPU Sampler configuration.">
-<polygon fill="white" stroke="transparent" points="263.5,-506.5 125.5,-506.5 125.5,-386.5 263.5,-386.5 263.5,-506.5"/>
-<text text-anchor="start" x="130.5" y="-494.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Data::Sampler</text>
-<text text-anchor="start" x="166.5" y="-483.5" font-family="Helvetica,sans-Serif" font-size="10.00">Parameters</text>
-<text text-anchor="start" x="147" y="-468.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="177.5" y="-468.5" font-family="Helvetica,sans-Serif" font-size="10.00">wrapS</text>
-<text text-anchor="start" x="147" y="-453.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="177.5" y="-453.5" font-family="Helvetica,sans-Serif" font-size="10.00">wrapT</text>
-<text text-anchor="start" x="147" y="-438.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="177.5" y="-438.5" font-family="Helvetica,sans-Serif" font-size="10.00">wrapR</text>
-<text text-anchor="start" x="147" y="-423.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="177.5" y="-423.5" font-family="Helvetica,sans-Serif" font-size="10.00">minFilter</text>
-<text text-anchor="start" x="147" y="-408.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="177.5" y="-408.5" font-family="Helvetica,sans-Serif" font-size="10.00">magFilter</text>
-<text text-anchor="start" x="192.5" y="-393.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<polygon fill="#666666" stroke="#666666" points="125.5,-478.5 125.5,-478.5 263.5,-478.5 263.5,-478.5 125.5,-478.5"/>
-<polygon fill="#666666" stroke="#666666" points="125.5,-403.5 125.5,-403.5 175.5,-403.5 175.5,-403.5 125.5,-403.5"/>
-<polygon fill="#666666" stroke="#666666" points="175.5,-403.5 175.5,-403.5 263.5,-403.5 263.5,-403.5 175.5,-403.5"/>
-<polygon fill="none" stroke="#666666" points="125.5,-386.5 125.5,-506.5 263.5,-506.5 263.5,-386.5 125.5,-386.5"/>
+<polygon fill="white" stroke="transparent" points="263.5,-514 125.5,-514 125.5,-379 263.5,-379 263.5,-514"/>
+<text text-anchor="start" x="130.5" y="-501.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Data::Sampler</text>
+<text text-anchor="start" x="166.5" y="-490.5" font-family="Helvetica,sans-Serif" font-size="10.00">Parameters</text>
+<text text-anchor="start" x="144" y="-475.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="171.5" y="-475.5" font-family="Helvetica,sans-Serif" font-size="10.00">wrapS</text>
+<text text-anchor="start" x="144" y="-460.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="171.5" y="-460.5" font-family="Helvetica,sans-Serif" font-size="10.00">wrapT</text>
+<text text-anchor="start" x="144" y="-445.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="171.5" y="-445.5" font-family="Helvetica,sans-Serif" font-size="10.00">wrapR</text>
+<text text-anchor="start" x="144" y="-430.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="171.5" y="-430.5" font-family="Helvetica,sans-Serif" font-size="10.00">minFilter</text>
+<text text-anchor="start" x="144" y="-415.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="171.5" y="-415.5" font-family="Helvetica,sans-Serif" font-size="10.00">magFilter</text>
+<text text-anchor="start" x="144" y="-400.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text text-anchor="start" x="171.5" y="-400.5" font-family="Helvetica,sans-Serif" font-size="10.00">borderColor</text>
+<text text-anchor="start" x="192.5" y="-385.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polygon fill="#666666" stroke="#666666" points="125.5,-485.5 125.5,-485.5 263.5,-485.5 263.5,-485.5 125.5,-485.5"/>
+<polygon fill="#666666" stroke="#666666" points="125.5,-395.5 125.5,-395.5 169.5,-395.5 169.5,-395.5 125.5,-395.5"/>
+<polygon fill="#666666" stroke="#666666" points="169.5,-395.5 169.5,-395.5 263.5,-395.5 263.5,-395.5 169.5,-395.5"/>
+<polygon fill="none" stroke="#666666" points="125.5,-379 125.5,-514 263.5,-514 263.5,-379 125.5,-379"/>
 </a>
 </g>
 </g>
@@ -270,8 +272,8 @@
 <g id="edge3_Node000001_Node000004" class="edge">
 <title>Node4&#45;&gt;Node1</title>
 <g id="a_edge3_Node000001_Node000004"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M194.5,-386.11C194.5,-301.01 194.5,-146.5 194.5,-72.58"/>
-<polygon fill="none" stroke="#63b8ff" points="194.5,-72.16 190.5,-66.16 194.5,-60.16 198.5,-66.16 194.5,-72.16"/>
+<path fill="none" stroke="#63b8ff" d="M194.5,-378.9C194.5,-292.33 194.5,-143.77 194.5,-72.08"/>
+<polygon fill="none" stroke="#63b8ff" points="194.5,-72.03 190.5,-66.03 194.5,-60.03 198.5,-66.03 194.5,-72.03"/>
 </a>
 </g>
 <text text-anchor="middle" x="220.5" y="-81" font-family="Helvetica,sans-Serif" font-size="10.00" fill="grey"> +sampler</text>

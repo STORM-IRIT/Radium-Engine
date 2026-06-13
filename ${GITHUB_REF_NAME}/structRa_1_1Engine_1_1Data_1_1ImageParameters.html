@@ -52,7 +52,7 @@ MathJax.Hub.Config({
   <td id="projectlogo"><img alt="Logo" src="radium-logo.webp"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">1.7.6</span>
+   &#160;<span id="projectnumber">1.7.8</span>
    </div>
   </td>
  </tr>
@@ -190,7 +190,7 @@ Public Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><a class="el" href="structRa_1_1Engine_1_1Data_1_1ImageParameters.html">ImageParameters</a> stores the infomation needed to upload a image to the GPU as a texture. The actual data is stored as a std::variant, so this image parameter can store either a single image or a cube map as an array of 6 images. The stored shared_ptr is void, and must correspond to the format described by the other <a class="el" href="structRa_1_1Engine_1_1Data_1_1ImageParameters.html">ImageParameters</a> data member. Its perfectly fine to have nullptr texels to represent GPU only texture. </p>
 
-<p class="definition">Definition at line <a class="el" href="Texture_8hpp_source.html#l00040">40</a> of file <a class="el" href="Texture_8hpp_source.html">Texture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Texture_8hpp_source.html#l00043">43</a> of file <a class="el" href="Texture_8hpp_source.html">Texture.hpp</a>.</p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
 <a id="a5312209d7dab76c728565dae17fcc27d" name="a5312209d7dab76c728565dae17fcc27d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5312209d7dab76c728565dae17fcc27d">&#9670;&#160;</a></span>CubeMapType</h2>
@@ -204,7 +204,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Texture_8hpp_source.html#l00043">43</a> of file <a class="el" href="Texture_8hpp_source.html">Texture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Texture_8hpp_source.html#l00046">46</a> of file <a class="el" href="Texture_8hpp_source.html">Texture.hpp</a>.</p>
 
 </div>
 </div>
@@ -222,7 +222,7 @@ Public Attributes</h2></td></tr>
 
 <p>Types for texels variant. </p>
 
-<p class="definition">Definition at line <a class="el" href="Texture_8hpp_source.html#l00042">42</a> of file <a class="el" href="Texture_8hpp_source.html">Texture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Texture_8hpp_source.html#l00045">45</a> of file <a class="el" href="Texture_8hpp_source.html">Texture.hpp</a>.</p>
 
 </div>
 </div>
@@ -251,7 +251,7 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>get cube map array of shared ptr throws std::bad_variant_access if !isTexelOfType&lt;CubeMapType&gt;() see std::get </p>
 
-<p class="definition">Definition at line <a class="el" href="Texture_8hpp_source.html#l00065">65</a> of file <a class="el" href="Texture_8hpp_source.html">Texture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Texture_8hpp_source.html#l00068">68</a> of file <a class="el" href="Texture_8hpp_source.html">Texture.hpp</a>.</p>
 <div id="dynsection-1" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-1-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-1-summary" class="dynsummary" style="display:block;">
@@ -285,7 +285,7 @@ Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Texture_8hpp_source.html#l00051">51</a> of file <a class="el" href="Texture_8hpp_source.html">Texture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Texture_8hpp_source.html#l00054">54</a> of file <a class="el" href="Texture_8hpp_source.html">Texture.hpp</a>.</p>
 
 </div>
 </div>
@@ -313,7 +313,7 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>get texels raw pointer throws std::bad_variant_access if !isTexelOfType&lt;ImageType&gt;() see std::get </p>
 
-<p class="definition">Definition at line <a class="el" href="Texture_8hpp_source.html#l00060">60</a> of file <a class="el" href="Texture_8hpp_source.html">Texture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Texture_8hpp_source.html#l00063">63</a> of file <a class="el" href="Texture_8hpp_source.html">Texture.hpp</a>.</p>
 <div id="dynsection-2" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-2-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-2-summary" class="dynsummary" style="display:block;">
@@ -351,7 +351,7 @@ template&lt;typename TexelType &gt; </div>
 
 <p>check which type is held by texels </p>
 
-<p class="definition">Definition at line <a class="el" href="Texture_8hpp_source.html#l00047">47</a> of file <a class="el" href="Texture_8hpp_source.html">Texture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Texture_8hpp_source.html#l00050">50</a> of file <a class="el" href="Texture_8hpp_source.html">Texture.hpp</a>.</p>
 
 </div>
 </div>
@@ -378,7 +378,7 @@ template&lt;typename TexelType &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Texture_8hpp_source.html#l00069">69</a> of file <a class="el" href="Texture_8hpp_source.html">Texture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Texture_8hpp_source.html#l00072">72</a> of file <a class="el" href="Texture_8hpp_source.html">Texture.hpp</a>.</p>
 
 </div>
 </div>
@@ -405,7 +405,7 @@ template&lt;typename TexelType &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Texture_8hpp_source.html#l00055">55</a> of file <a class="el" href="Texture_8hpp_source.html">Texture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Texture_8hpp_source.html#l00058">58</a> of file <a class="el" href="Texture_8hpp_source.html">Texture.hpp</a>.</p>
 
 </div>
 </div>
@@ -422,7 +422,7 @@ template&lt;typename TexelType &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Texture_8hpp_source.html#l00074">74</a> of file <a class="el" href="Texture_8hpp_source.html">Texture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Texture_8hpp_source.html#l00077">77</a> of file <a class="el" href="Texture_8hpp_source.html">Texture.hpp</a>.</p>
 
 </div>
 </div>
@@ -438,7 +438,7 @@ template&lt;typename TexelType &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Texture_8hpp_source.html#l00075">75</a> of file <a class="el" href="Texture_8hpp_source.html">Texture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Texture_8hpp_source.html#l00078">78</a> of file <a class="el" href="Texture_8hpp_source.html">Texture.hpp</a>.</p>
 
 </div>
 </div>
@@ -454,7 +454,7 @@ template&lt;typename TexelType &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Texture_8hpp_source.html#l00073">73</a> of file <a class="el" href="Texture_8hpp_source.html">Texture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Texture_8hpp_source.html#l00076">76</a> of file <a class="el" href="Texture_8hpp_source.html">Texture.hpp</a>.</p>
 
 </div>
 </div>
@@ -472,7 +472,7 @@ template&lt;typename TexelType &gt; </div>
 
 <p>OpenGL internal format (WARNING, for Integer textures, must be GL_XXX_INTEGER) </p>
 
-<p class="definition">Definition at line <a class="el" href="Texture_8hpp_source.html#l00077">77</a> of file <a class="el" href="Texture_8hpp_source.html">Texture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Texture_8hpp_source.html#l00080">80</a> of file <a class="el" href="Texture_8hpp_source.html">Texture.hpp</a>.</p>
 
 </div>
 </div>
@@ -490,7 +490,7 @@ template&lt;typename TexelType &gt; </div>
 
 <p>set to true when linearize texture rgb component. If true, linearize has no effect. </p>
 
-<p class="definition">Definition at line <a class="el" href="Texture_8hpp_source.html#l00080">80</a> of file <a class="el" href="Texture_8hpp_source.html">Texture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Texture_8hpp_source.html#l00083">83</a> of file <a class="el" href="Texture_8hpp_source.html">Texture.hpp</a>.</p>
 
 </div>
 </div>
@@ -506,7 +506,7 @@ template&lt;typename TexelType &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Texture_8hpp_source.html#l00071">71</a> of file <a class="el" href="Texture_8hpp_source.html">Texture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Texture_8hpp_source.html#l00074">74</a> of file <a class="el" href="Texture_8hpp_source.html">Texture.hpp</a>.</p>
 
 </div>
 </div>
@@ -522,7 +522,7 @@ template&lt;typename TexelType &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Texture_8hpp_source.html#l00081">81</a> of file <a class="el" href="Texture_8hpp_source.html">Texture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Texture_8hpp_source.html#l00084">84</a> of file <a class="el" href="Texture_8hpp_source.html">Texture.hpp</a>.</p>
 
 </div>
 </div>
@@ -538,7 +538,7 @@ template&lt;typename TexelType &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Texture_8hpp_source.html#l00078">78</a> of file <a class="el" href="Texture_8hpp_source.html">Texture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Texture_8hpp_source.html#l00081">81</a> of file <a class="el" href="Texture_8hpp_source.html">Texture.hpp</a>.</p>
 
 </div>
 </div>
@@ -554,7 +554,7 @@ template&lt;typename TexelType &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Texture_8hpp_source.html#l00072">72</a> of file <a class="el" href="Texture_8hpp_source.html">Texture.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Texture_8hpp_source.html#l00075">75</a> of file <a class="el" href="Texture_8hpp_source.html">Texture.hpp</a>.</p>
 
 </div>
 </div>

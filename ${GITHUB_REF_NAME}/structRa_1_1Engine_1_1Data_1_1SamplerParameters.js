@@ -1,5 +1,6 @@
 var structRa_1_1Engine_1_1Data_1_1SamplerParameters =
 [
+    [ "borderColor", "structRa_1_1Engine_1_1Data_1_1SamplerParameters.html#a5c3e60df5ff62266913caec35439cf3a", null ],
     [ "magFilter", "structRa_1_1Engine_1_1Data_1_1SamplerParameters.html#aff7e4b419c59edf33f2f7bc71bd95488", null ],
     [ "minFilter", "structRa_1_1Engine_1_1Data_1_1SamplerParameters.html#a5fb0ae7e407242adbdc38ca92e69971e", null ],
     [ "wrapR", "structRa_1_1Engine_1_1Data_1_1SamplerParameters.html#aa3642393279bb091491c5a40d60ffc34", null ],
