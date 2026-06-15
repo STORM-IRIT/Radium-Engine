@@ -30,14 +30,16 @@ auto NodeFactory::create_node( const std::string& nodeType,
 auto NodeFactory::register_node_creator( const std::string& nodeType,
                                          NodeCreatorFunctor nodeCreator,
                                          const std::string& nodeCategory ) -> bool {
-
-    if ( auto itr = m_nodesCreators.find( nodeType ); itr == m_nodesCreators.end() ) {
+    auto itr = m_nodesCreators.find( nodeType );
+    if ( itr == m_nodesCreators.end() ) {
         m_nodesCreators[nodeType] = { std::move( nodeCreator ), nodeCategory };
         return true;
     }
     LOG( Ra::Core::Utils::logWARNING )
         << "NodeFactory (" << name()
-        << ") : trying to add an already existing node creator for type " << nodeType << ".";
+        << ") : trying to add an already existing node creator for type " << nodeType << " ["
+        << nodeCategory << "].\n"
+        << "Previous category " << itr->second.second;
     return false;
 }
 

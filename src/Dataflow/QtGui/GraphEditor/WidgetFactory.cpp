@@ -6,11 +6,17 @@ namespace QtGui {
 namespace GraphEditor {
 
 void WidgetFactory::operator()( const std::string& name, std::string& p ) {
-    auto line = new QLineEdit();
+    auto frame  = new QFrame();
+    auto layout = new QHBoxLayout();
+    frame->setLayout( layout );
+    auto line  = new QLineEdit( frame );
+    auto label = new QLabel( QString::fromStdString( name ), frame );
     line->setObjectName( QString::fromStdString( name ) );
     QLineEdit::connect(
         line, &QLineEdit::textEdited, [&p]( const QString& string ) { p = string.toStdString(); } );
-    variable_set_editor()->addWidget( line );
+    layout->addWidget( label );
+    layout->addWidget( line );
+    variable_set_editor()->addWidget( frame );
 }
 
 #if HAS_TRANSFER_FUNCTION

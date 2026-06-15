@@ -10,12 +10,12 @@
 #include <functional>
 #include <map>
 #include <memory>
+#include <qtreewidget.h>
 #include <string>
-#include <type_traits>
-#include <unordered_map>
 #include <utility>
 #include <vector>
 
+#include "Core/Utils/Log.hpp"
 #include "GraphEditor/GraphModel.hpp"
 #include "ui_NodeEditor.h"
 
@@ -26,6 +26,44 @@ namespace GraphEditor {
 using namespace Ra::Dataflow::Core;
 
 GraphEditorWindow::~GraphEditorWindow() {}
+
+void add_qtree_widget( std::string& concatenate_parts,
+                       const std::string part,
+                       std::map<std::string, QTreeWidgetItem*>& cat_to_item,
+                       QTreeWidgetItem** parent ) {
+    if ( !concatenate_parts.empty() ) concatenate_parts += '/';
+    concatenate_parts += part;
+    if ( !cat_to_item.contains( concatenate_parts ) ) {
+        auto n = new QTreeWidgetItem( QStringList() << QString::fromStdString( part ) );
+        cat_to_item[concatenate_parts] = n;
+        ( *parent )->addChild( n );
+    }
+    *parent = cat_to_item[concatenate_parts];
+}
+
+void add_qtree_category( QTreeWidgetItem* factory_item,
+                         std::string category,
+                         std::map<std::string, QTreeWidgetItem*>& cat_to_item ) {
+
+    QTreeWidgetItem* parent = factory_item;
+    std::string concatenate_parts { "" };
+
+    // split categories at each '/'
+    std::size_t start = 0;
+    std::size_t stop  = category.find( '/' );
+    while ( stop != std::string::npos ) {
+        std::string part = category.substr( start, stop - start );
+        add_qtree_widget( concatenate_parts, part, cat_to_item, &parent );
+        start = stop + 1;
+        stop  = category.find( '/', start );
+    }
+    // last item
+    {
+        stop             = category.length();
+        std::string part = category.substr( start, stop - start );
+        add_qtree_widget( concatenate_parts, part, cat_to_item, &parent );
+    }
+}
 
 GraphEditorWindow::GraphEditorWindow( std::shared_ptr<DataflowGraph> graph ) : m_graph { graph } {
     if ( !m_graph ) { m_graph = std::make_shared<DataflowGraph>( "" ); }
@@ -68,14 +106,26 @@ GraphEditorWindow::GraphEditorWindow( std::shared_ptr<DataflowGraph> graph ) : m
         auto factory_item =
             new QTreeWidgetItem( QStringList() << QString::fromStdString( factory_name ) );
 
-        for ( auto [category, model_names] : node_list ) {
-            auto n = new QTreeWidgetItem( QStringList() << QString::fromStdString( category ) );
-            std::sort( model_names.begin(), model_names.end() );
-            for ( const auto& m : model_names ) {
-                n->addChild( new QTreeWidgetItem( QStringList() << QString::fromStdString( m ) ) );
-            }
+        std::map<std::string, QTreeWidgetItem*> cat_to_item;
 
-            factory_item->addChild( n );
+        for ( auto [category, model_names] : node_list ) {
+
+            // add category and subcategory to TreeWidget
+            add_qtree_category( factory_item, category, cat_to_item );
+
+            // get category item
+            if ( auto n = cat_to_item.find( category ); n != cat_to_item.end() ) {
+                // add models to category item
+                std::sort( model_names.begin(), model_names.end() );
+                for ( const auto& m : model_names ) {
+                    n->second->addChild(
+                        new QTreeWidgetItem( QStringList() << QString::fromStdString( m ) ) );
+                }
+            }
+            else {
+                LOG( Ra::Core::Utils::logERROR )
+                    << "Tree widget failed " << category << "not found\n";
+            }
         }
         node_tree_widget->addTopLevelItem( factory_item );
     }

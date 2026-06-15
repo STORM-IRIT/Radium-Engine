@@ -1,3 +1,4 @@
+#include "Dataflow/RaDataflow.hpp"
 #include <QApplication>
 #include <QCommandLineOption>
 #include <QCommandLineParser>
@@ -17,10 +18,7 @@ class StringInput : public Ra::Dataflow::Core::Sources::SingleDataSourceNode<std
   public:
     using base = Ra::Dataflow::Core::Sources::SingleDataSourceNode<std::string>;
     explicit StringInput( const std::string& name ) : base( name, node_typename() ) {}
-    static const std::string& node_typename() {
-        static std::string n { "StringInput" };
-        return n;
-    }
+    RA_NODE_TYPENAME( "StringInput" );
 };
 
 class SquareFunction : public Ra::Dataflow::Core::Sources::FunctionSourceNode<Scalar, const Scalar&>
@@ -30,10 +28,7 @@ class SquareFunction : public Ra::Dataflow::Core::Sources::FunctionSourceNode<Sc
     explicit SquareFunction( const std::string& name ) : base( name, node_typename() ) {
         set_data( []( const Scalar& b ) { return b * b; } );
     }
-    static const std::string& node_typename() {
-        static std::string n { "SquareFunction" };
-        return n;
-    }
+    RA_NODE_TYPENAME( "SquareFunction" );
 };
 
 int main( int argc, char* argv[] ) {
@@ -45,8 +40,8 @@ int main( int argc, char* argv[] ) {
 
     auto coreFactory = Ra::Dataflow::Core::NodeFactoriesManager::default_factory();
     // add node creators to the factory
-    REGISTER_TYPE_TO_FACTORY( coreFactory, SquareFunction, Sources );
-    REGISTER_TYPE_TO_FACTORY( coreFactory, StringInput, Sources );
+    REGISTER_TYPE_TO_FACTORY( coreFactory, SquareFunction, "Sources" );
+    REGISTER_TYPE_TO_FACTORY( coreFactory, StringInput, "Sources" );
 
     QCoreApplication::setOrganizationName( "STORM-IRIT" );
     QCoreApplication::setApplicationName( "Radium NodeGraph Editor" );

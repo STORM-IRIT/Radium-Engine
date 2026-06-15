@@ -1,6 +1,7 @@
 #pragma once
 #include <Dataflow/RaDataflow.hpp>
 
+#include <Core/Containers/DynamicVisitor.hpp>
 #include <Core/Containers/VariableSet.hpp>
 #include <Core/Utils/Index.hpp>
 #include <Dataflow/Core/PortFactory.hpp>
@@ -18,6 +19,74 @@ namespace Ra {
 namespace Dataflow {
 namespace Core {
 
+// -----------------------------------------------------------------
+// ---------------------- helper classes ---------------------------
+
+class NodeJsonSerializer : public Ra::Core::DynamicVisitor
+{
+  public:
+    RA_SINGLETON_INTERFACE( NodeJsonSerializer );
+
+    using DynamicVisitor::operator();
+    template <typename T>
+    void operator()( const std::string& name, T& _in, std::any&& ) {
+        nlohmann::json p;
+        p["type"]  = Ra::Core::Utils::simplifiedDemangledType<T>();
+        p["value"] = _in;
+        p["name"]  = name;
+        m_json.push_back( p );
+    }
+    /// call clear before visit to clear json content.
+    void clear() { m_json.clear(); }
+    const nlohmann::json& json() { return m_json; }
+
+  private:
+    NodeJsonSerializer() : DynamicVisitor() {
+        addOperator<bool>( *this );
+        addOperator<int>( *this );
+        addOperator<float>( *this );
+        addOperator<std::string>( *this );
+    }
+
+    nlohmann::json m_json;
+};
+
+class NodeJsonDeserializer : public Ra::Core::DynamicVisitor
+{
+  public:
+    RA_SINGLETON_INTERFACE( NodeJsonDeserializer );
+
+    using DynamicVisitor::operator();
+    template <typename T>
+    void operator()( const std::string& name, T& _in, std::any&& ) {
+        for ( const auto& p : m_json ) {
+            if ( p["name"] == name ) {
+                if ( p["type"] == Ra::Core::Utils::simplifiedDemangledType<T>() ) {
+                    p.at( "value" ).get_to( _in );
+                    return;
+                }
+                else {
+                    LOG( Ra::Core::Utils::logERROR )
+                        << "Read json, bad type for parameter " << name << " got " << p["type"]
+                        << " instead of " << Ra::Core::Utils::simplifiedDemangledType<T>() << "\n";
+                }
+            }
+        }
+    }
+
+    void set_json( const nlohmann::json& json ) { m_json = json; }
+
+  private:
+    NodeJsonDeserializer() : DynamicVisitor() {
+        addOperator<bool>( *this );
+        addOperator<int>( *this );
+        addOperator<float>( *this );
+        addOperator<std::string>( *this );
+    }
+
+    nlohmann::json m_json;
+};
+
 /**
  * \brief Base abstract class for all the nodes added and used by the node system.
  *
@@ -30,6 +99,7 @@ namespace Core {
  * sent to their output ports.
  *
  * Derived class must implement bool execute() and static const std::string & node_typename()
+ * use `RA_NODE_TYPENAME( "node type name" );` as an helper.
  *
  * static const std::string& node_typename() returns the demangled type name of the node or any
  * human readable representation of the type name. This is a public static member each node concrete
@@ -246,12 +316,13 @@ class RA_DATAFLOW_CORE_API Node
     Ra::Core::VariableSet& input_variables();
 
     /// \brief Node is output if none of the output ports is linked.
-    inline bool is_output();
+    inline bool is_output() const;
 
     /// \brief Node is input if all input ports have default values and not linked.
-    inline bool is_input();
+    inline bool is_input() const;
 
   protected:
+    virtual void add_enum_converters() {};
     /**
      * \brief Construct the base node given its name and type.
      *
@@ -300,19 +371,21 @@ class RA_DATAFLOW_CORE_API Node
             /*else*/ PortOutRawPtr<T>>::type>( port_base( ports, index ) );
     }
     /**
-     *  \brief Internal json representation of the Node.
+     * \brief Internal json representation of the Node.
      *
-     *  Default implementation warn about unsupported deserialization.
-     *  Effective deserialzation must be implemented by inheriting classes.
-     *  Be careful with template specialization and function member overriding in derived classes.
+     * Default implementation warn about default serialization.
+     * Be careful with template specialization and function member overriding in derived
+     * classes.
+     * Default implementation call from_json for each input port, output port and paramteres.
      */
     virtual bool fromJsonInternal( const nlohmann::json& data );
     /**
-     *  \brief Internal json representation of the Node.
+     * \brief Internal json representation of the Node.
      *
-     *  Default implementation warn about unsupported deserialization.
-     *  Effective deserialzation must be implemented by inheriting classes.
-     *  Be careful with template specialization and function member overriding in derived classes.
+     * Default implementation warn about default deserialization.
+     * Be careful with template specialization and function member overriding in derived
+     * classes.
+     * Default implementation call to_json for each input port, output port and paramteres.
      */
     virtual void toJsonInternal( nlohmann::json& data ) const;
     /**
@@ -498,11 +571,12 @@ inline Ra::Core::VariableSet& Node::input_variables() {
     for ( const auto& p : m_inputs ) {
         if ( p->has_default_value() ) p->insert( m_input_variables );
     }
+    add_enum_converters();
 
     return m_input_variables;
 }
 
-inline bool Node::is_output() {
+inline bool Node::is_output() const {
     bool ret = true;
     for ( const auto& p : m_outputs ) {
         ret = ret && ( p->link_count() == 0 );
@@ -510,7 +584,7 @@ inline bool Node::is_output() {
     return ret;
 }
 
-inline bool Node::is_input() {
+inline bool Node::is_input() const {
     bool ret = true;
     //
     for ( const auto& p : m_inputs ) {
