@@ -1,8 +1,8 @@
 #pragma once
-#include "Core/CoreMacros.hpp"
-#include "Dataflow/Core/Port.hpp"
-#include "Dataflow/RaDataflow.hpp"
+#include <Core/CoreMacros.hpp>
 #include <Dataflow/Core/Node.hpp>
+#include <Dataflow/Core/Port.hpp>
+#include <Dataflow/RaDataflow.hpp>
 
 #include <functional>
 

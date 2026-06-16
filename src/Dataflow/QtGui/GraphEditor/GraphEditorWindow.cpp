@@ -15,9 +15,9 @@
 #include <utility>
 #include <vector>
 
-#include "Core/Utils/Log.hpp"
-#include "GraphEditor/GraphModel.hpp"
 #include "ui_NodeEditor.h"
+#include <Core/Utils/Log.hpp>
+#include <GraphEditor/GraphModel.hpp>
 
 namespace Ra {
 namespace Dataflow {

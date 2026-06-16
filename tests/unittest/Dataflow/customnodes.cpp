@@ -1,7 +1,7 @@
 /**
  * Demonstrate how to define custom nodes anduse factory to serialize graphs with custom nodes
  */
-#include "Dataflow/RaDataflow.hpp"
+#include <Dataflow/RaDataflow.hpp>
 #include <catch2/catch_test_macros.hpp>
 
 #include <string>

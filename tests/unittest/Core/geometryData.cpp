@@ -1,5 +1,5 @@
-#include "Core/Geometry/StandardAttribNames.hpp"
 #include <Core/Asset/GeometryData.hpp>
+#include <Core/Geometry/StandardAttribNames.hpp>
 #include <catch2/catch_test_macros.hpp>
 
 TEST_CASE( "Core/Asset/GeometryData", "[unittests][Core][Core/Asset][GeometryData]" ) {

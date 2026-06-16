@@ -1,6 +1,6 @@
 
-#include "Core/Tasks/Task.hpp"
-#include "Core/Tasks/TaskQueue.hpp"
+#include <Core/Tasks/Task.hpp>
+#include <Core/Tasks/TaskQueue.hpp>
 #include <Dataflow/Core/DataflowGraph.hpp>
 
 #include <Dataflow/Core/Port.hpp>

@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Core/Utils/Color.hpp"
 #include <Core/Types.hpp>
+#include <Core/Utils/Color.hpp>
 #include <Dataflow/RaDataflow.hpp>
 
 #include <Core/Utils/TypesUtils.hpp>
