@@ -26,10 +26,8 @@ class DummyNode : public Node
     DummyNode& operator=( const DummyNode& ) = delete;
     DummyNode& operator=( DummyNode&& )      = delete;
     explicit DummyNode( const std::string& name ) : DummyNode( name, DummyNode::node_typename() ) {}
-    static const std::string& node_typename() {
-        static std::string name = string { "DummyNode" };
-        return name;
-    }
+    RA_NODE_TYPENAME( "DummyNode" );
+
     bool execute() override { return is_initialized(); }
 
     void remove_in_0() { remove_input( 0 ); }
@@ -43,6 +41,8 @@ class DummyNode : public Node
     RA_NODE_PORT_OUT( Scalar, port0 );
     RA_NODE_PORT_OUT_WITH_DATA( Scalar, port1 );
     RA_NODE_PARAMETER( int, param0, 21 );
+    // unsupported by default serializer
+    RA_NODE_PARAMETER( double, param1, 21.0 );
 };
 
 TEST_CASE( "Dataflow/Core/DummyNode", "[unittests][Dataflow][Core]" ) {
@@ -161,7 +161,7 @@ TEST_CASE( "Dataflow/Core/DummyNode", "[unittests][Dataflow][Core]" ) {
     }
     SECTION( "Node's parameters is accessible and editable with handle" ) {
         auto& parameters = dummy.parameters();
-        REQUIRE( parameters.size() == 1 );
+        REQUIRE( parameters.size() == 2 );
         //        auto& param0 = parameters.getVariable<int>( "param0" );
         auto handle0 = parameters.getVariableHandle<int>( "param0" );
         REQUIRE( handle0->second == 21 );
@@ -198,6 +198,31 @@ TEST_CASE( "Dataflow/Core/DummyNode", "[unittests][Dataflow][Core]" ) {
             { "model", { { "name", "DummyNode" }, { "display_name", "foo" } } } };
         REQUIRE( dummy.fromJson( json ) );
         REQUIRE( dummy.display_name() == "foo" );
+    }
+    SECTION( "Serialize sets supported parameters" ) {
+        nlohmann::json json;
+        dummy.toJson( json );
+        REQUIRE( json.contains( "/model"_json_pointer ) );
+        REQUIRE( json.contains( "/model/params"_json_pointer ) );
+        REQUIRE( json.contains( "/model/params/0"_json_pointer ) );
+        REQUIRE( json.contains( "/model/params/0/name"_json_pointer ) );
+        if ( json.contains( "/model/params/0/name"_json_pointer ) )
+            REQUIRE( json["/model/params/0/name"_json_pointer] == "param0" );
+        REQUIRE( !json.contains( "/model/params/1"_json_pointer ) );
+    }
+    SECTION( "Valid json sets supported parameters" ) {
+        nlohmann::json json = {
+            { "instance", "DummyNode" },
+            { "model",
+              { { "name", "DummyNode" },
+                { "params",
+                  { { { "name", "param0" }, { "value", 42 }, { "type", "int" } },
+                    { { "name", "param1" }, { "value", 42.0 }, { "type", "double" } } } } } } };
+        REQUIRE( dummy.fromJson( json ) );
+        // param0 got new value from json
+        REQUIRE( dummy.param_param0() == 42 );
+        // param1 is not set, so keep default values.
+        REQUIRE( dummy.param_param1() == 21.0 );
     }
     SECTION( "Valid json sets metadata" ) {
         nlohmann::json json = { { "instance", "DummyNode" },

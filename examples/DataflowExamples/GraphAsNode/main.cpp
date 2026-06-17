@@ -19,7 +19,6 @@ int main( int argc, char* argv[] ) {
     port_fatcory->add_port_type<Scalar>();
 
     auto gAsNode = Ra::Core::make_shared<DataflowGraph>( "graphAsNode" );
-
     // compute delta = b2 - 4ac;
 
     auto b2 = gAsNode->add_node<Functionals::FunctionNode<Scalar>>( "b2" );
@@ -56,6 +55,7 @@ int main( int argc, char* argv[] ) {
     gAsNode->add_link( fourAC->port_out_result(), b2minus4ac->port_in_b() );
 
     gAsNode->compile();
+
     std::cout << "== Graph as node ==\n";
     std::cout << "inputs\n";
     for ( const auto& n : gAsNode->inputs() ) {
@@ -70,6 +70,11 @@ int main( int argc, char* argv[] ) {
     }
 
     DataflowGraph g { "mainGraph" };
+    auto log = []( size_t c, size_t t, const std::string& name ) {
+        std::cerr << "progress " << c << "/" << t << " [" << name << "]\n";
+    };
+
+    g.set_log_callback( log );
     auto sourceNodeA = g.add_node<Sources::SingleDataSourceNode<Scalar>>( "sa" );
     auto sourceNodeB = g.add_node<Sources::SingleDataSourceNode<Scalar>>( "sb" );
     auto sourceNodeC = g.add_node<Sources::SingleDataSourceNode<Scalar>>( "sc" );

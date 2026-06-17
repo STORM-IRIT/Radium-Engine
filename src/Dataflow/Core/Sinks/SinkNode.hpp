@@ -1,6 +1,7 @@
 #pragma once
 #include <Core/Utils/TypesUtils.hpp>
 #include <Dataflow/Core/Node.hpp>
+#include <Dataflow/RaDataflow.hpp>
 #include <stdexcept>
 
 namespace Ra {
@@ -20,7 +21,8 @@ class SinkNode : public Node
 
   public:
     explicit SinkNode( const std::string& name ) : SinkNode( name, SinkNode<T>::node_typename() ) {}
-
+    RA_NODE_TYPENAME( std::string { "Sink<" } + Ra::Core::Utils::simplifiedDemangledType<T>() +
+                      ">" );
     /**
      * \brief initialize the interface port data pointer
      */
@@ -50,8 +52,6 @@ class SinkNode : public Node
     RA_NODE_PORT_IN( T, from );
     RA_NODE_PORT_OUT( T, data );
     /// @}
-  public:
-    static const std::string& node_typename();
 };
 
 // -----------------------------------------------------------------
@@ -85,13 +85,6 @@ template <typename T>
 const T& SinkNode<T>::data_reference() const {
     if ( m_port_out_data->has_data() ) return m_port_out_data->data();
     throw std::runtime_error( "Sink out port hasn't data" );
-}
-
-template <typename T>
-const std::string& SinkNode<T>::node_typename() {
-    static std::string demangledName =
-        std::string { "Sink<" } + Ra::Core::Utils::simplifiedDemangledType<T>() + ">";
-    return demangledName;
 }
 
 } // namespace Sinks

@@ -3,8 +3,8 @@
 #include <Core/Containers/VariableSet.hpp>
 #include <Core/Utils/TypesUtils.hpp>
 #include <Dataflow/Core/Node.hpp>
+#include <Dataflow/RaDataflow.hpp>
 
-#include <iostream>
 #include <nlohmann/json.hpp>
 #include <utility>
 
@@ -25,13 +25,12 @@ namespace Sources {
 template <typename T>
 class SingleDataSourceNode : public Node
 {
-  protected:
-    SingleDataSourceNode( const std::string& instanceName, const std::string& typeName );
-
   public:
     // warning, hacky specialization for set editable
     explicit SingleDataSourceNode( const std::string& name ) :
         SingleDataSourceNode( name, SingleDataSourceNode<T>::node_typename() ) {}
+    RA_NODE_TYPENAME( std::string { "Source<" } + Ra::Core::Utils::simplifiedDemangledType<T>() +
+                      ">" );
 
     bool execute() override;
 
@@ -46,9 +45,14 @@ class SingleDataSourceNode : public Node
      * \brief Get the delivered data
      * @return The non owning pointer (alias) to the delivered data.
      */
-    T* data() const;
+    const T* data() const;
+
+    RA_NODE_PORT_IN( T, from );
+    RA_NODE_PORT_OUT( T, to );
 
   protected:
+    SingleDataSourceNode( const std::string& instanceName, const std::string& typeName );
+
     bool fromJsonInternal( const nlohmann::json& data ) override {
         return Node::fromJsonInternal( data );
     }
@@ -56,13 +60,6 @@ class SingleDataSourceNode : public Node
     void toJsonInternal( nlohmann::json& data ) const override {
         return Node::toJsonInternal( data );
     }
-
-  private:
-    RA_NODE_PORT_IN( T, from );
-    RA_NODE_PORT_OUT( T, to );
-
-  public:
-    static const std::string& node_typename();
 };
 
 // -----------------------------------------------------------------
@@ -90,15 +87,8 @@ void SingleDataSourceNode<T>::set_data( T data ) {
 }
 
 template <typename T>
-T* SingleDataSourceNode<T>::data() const {
+const T* SingleDataSourceNode<T>::data() const {
     return &( m_port_in_from->data() );
-}
-
-template <typename T>
-const std::string& SingleDataSourceNode<T>::node_typename() {
-    static std::string demangledTypeName =
-        std::string { "Source<" } + Ra::Core::Utils::simplifiedDemangledType<T>() + ">";
-    return demangledTypeName;
 }
 
 } // namespace Sources

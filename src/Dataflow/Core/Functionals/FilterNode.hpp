@@ -1,5 +1,6 @@
 #pragma once
 #include <Dataflow/Core/Node.hpp>
+#include <Dataflow/RaDataflow.hpp>
 
 #include <functional>
 
@@ -46,7 +47,8 @@ class FilterNode : public Node
      * \param predicate
      */
     FilterNode( const std::string& instanceName, UnaryPredicate predicate );
-
+    RA_NODE_TYPENAME( std::string { "Filter<" } +
+                      Ra::Core::Utils::simplifiedDemangledType<coll_t>() + ">" );
     void init() override;
     bool execute() override;
 
@@ -67,9 +69,6 @@ class FilterNode : public Node
     RA_NODE_PORT_IN( coll_t, data );
     RA_NODE_PORT_IN( UnaryPredicate, predicate );
     RA_NODE_PORT_OUT_WITH_DATA( coll_t, result );
-
-  public:
-    static const std::string& node_typename();
 };
 
 // -----------------------------------------------------------------
@@ -103,13 +102,6 @@ bool FilterNode<coll_t, v_t>::execute() {
     std::copy_if( inData.begin(), inData.end(), std::back_inserter( m_result ), f );
 
     return true;
-}
-
-template <typename coll_t, typename v_t>
-const std::string& FilterNode<coll_t, v_t>::node_typename() {
-    static std::string demangledName =
-        std::string { "Filter<" } + Ra::Core::Utils::simplifiedDemangledType<coll_t>() + ">";
-    return demangledName;
 }
 
 template <typename coll_t, typename v_t>

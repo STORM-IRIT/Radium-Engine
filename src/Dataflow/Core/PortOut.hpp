@@ -36,7 +36,7 @@ class RA_DATAFLOW_CORE_API PortBaseOut : public PortBase
     /// Check if this port type it the same as T
     /// @param data The pointer to the data.
     template <typename T>
-    void set_data( T* data );
+    void set_data( const T* data );
 
     // called by PortIn when connect
     virtual void increase_link_count() {
@@ -132,7 +132,7 @@ T& PortBaseOut::data() {
 }
 
 template <typename T>
-void PortBaseOut::set_data( T* data ) {
+void PortBaseOut::set_data( const T* data ) {
     auto thisOut = dynamic_cast<PortOut<T>*>( this );
     if ( thisOut ) {
         thisOut->set_data( data );

@@ -150,7 +150,12 @@ class PortIn : public PortBaseIn,
     void from_json_impl( const nlohmann::json& data ) {
         using namespace Ra::Core::Utils;
         if ( auto value_it = data.find( "default_value" ); value_it != data.end() ) {
-            set_default_value( ( *value_it ).template get<T>() );
+            try {
+                set_default_value( ( *value_it ).template get<T>() );
+            }
+            catch ( ... ) {
+                LOG( logERROR ) << "failed to read json default value for " << data["name"];
+            }
         }
     }
     template <typename B                                                           = T,

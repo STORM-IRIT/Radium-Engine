@@ -8,6 +8,9 @@ class PortBase;
 
 using namespace Ra::Core::Utils;
 
+RA_SINGLETON_IMPLEMENTATION( NodeJsonSerializer );
+RA_SINGLETON_IMPLEMENTATION( NodeJsonDeserializer );
+
 // display_name is instanceName unless reset afterward
 Node::Node( const std::string& instanceName, const std::string& typeName ) :
     m_model_name { typeName }, m_instance_name { instanceName }, m_display_name { instanceName } {}
@@ -103,6 +106,13 @@ bool Node::fromJsonInternal( const nlohmann::json& data ) {
             m_outputs[index]->from_json( port );
         }
     }
+
+    if ( const auto& params = data.find( "params" ); params != data.end() ) {
+
+        auto visitor = NodeJsonDeserializer::getInstance();
+        visitor->set_json( *params );
+        m_parameters.visit( *visitor );
+    }
     return true;
 }
 
@@ -126,6 +136,11 @@ void Node::toJsonInternal( nlohmann::json& data ) const {
         port["type"]       = Ra::Core::Utils::simplifiedDemangledType( p->type() );
         data["outputs"].push_back( port );
     }
+
+    auto visitor = NodeJsonSerializer::getInstance();
+    visitor->clear();
+    m_parameters.visit( *visitor );
+    data["params"] = visitor->json();
     LOG( Ra::Core::Utils::logDEBUG ) << message;
 }
 

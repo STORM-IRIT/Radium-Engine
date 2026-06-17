@@ -1,6 +1,7 @@
 #pragma once
 #include <Core/Utils/TypesUtils.hpp>
 #include <Dataflow/Core/Node.hpp>
+#include <Dataflow/RaDataflow.hpp>
 
 #include <functional>
 
@@ -37,7 +38,8 @@ class TransformNode : public Node
      * \param instanceName
      */
     explicit TransformNode( const std::string& instanceName );
-
+    RA_NODE_TYPENAME( std::string { "Transform<" } +
+                      Ra::Core::Utils::simplifiedDemangledType<coll_t>() + ">" );
     /**
      * \brief Construct a transformer with the given operator
      * \param instanceName
@@ -65,9 +67,6 @@ class TransformNode : public Node
     RA_NODE_PORT_IN( coll_t, data );
     RA_NODE_PORT_IN( TransformOperator, op );
     RA_NODE_PORT_OUT_WITH_DATA( coll_t, result );
-
-  public:
-    static const std::string& node_typename();
 };
 
 // -----------------------------------------------------------------
@@ -100,15 +99,20 @@ bool TransformNode<coll_t, v_t>::execute() {
     // m_elements.reserve( inData.size() ); // --> this is not a requirement of
     // SequenceContainer
     std::transform( inData.cbegin(), inData.cend(), std::back_inserter( m_result ), f );
-
+    // parallel version
+    ///////////////////
+    // m_result.resize( inData.size() );
+    // std::transform(  std::execution::par_unseq, inData.cbegin(), inData.cend(), m_result.begin(),
+    // f );
+    ///////////////////
+    // parallel 2nd version
+    // m_result.resize( inData.size() );
+    // #pragma omp parallel for
+    // for (int i = 0; i < inData.size()); ++i) {
+    //    m_result[i] = f(inData[i]);
+    // }
+    ///////////////////
     return true;
-}
-
-template <typename coll_t, typename v_t>
-const std::string& TransformNode<coll_t, v_t>::node_typename() {
-    static std::string demangledName =
-        std::string { "Transform<" } + Ra::Core::Utils::simplifiedDemangledType<coll_t>() + ">";
-    return demangledName;
 }
 
 template <typename coll_t, typename v_t>

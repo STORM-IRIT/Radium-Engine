@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Engine/Data/TextureManager.hpp"
+#include <Engine/Data/TextureManager.hpp>
 #include <Engine/Scene/ItemEntry.hpp>
 #include <Engine/Scene/System.hpp>
 

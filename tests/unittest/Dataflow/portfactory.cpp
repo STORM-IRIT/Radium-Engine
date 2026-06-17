@@ -1,4 +1,4 @@
-#include "Dataflow/Core/Sources/SingleDataSourceNode.hpp"
+#include <Dataflow/Core/Sources/SingleDataSourceNode.hpp>
 #include <Dataflow/RaDataflow.hpp>
 #include <catch2/catch_test_macros.hpp>
 

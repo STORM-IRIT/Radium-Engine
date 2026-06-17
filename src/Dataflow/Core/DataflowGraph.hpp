@@ -10,6 +10,7 @@
 #include <Core/Utils/Color.hpp>
 #include <Core/Utils/Singleton.hpp>
 
+#include <atomic>
 #include <functional>
 
 namespace Ra {
@@ -23,6 +24,17 @@ namespace Core {
 class RA_DATAFLOW_CORE_API DataflowGraph : public Node
 {
   public:
+    /**
+     * \brief LogCallback function to print message during execution.
+     *
+     * The callback is called after each node execution.
+     * \param executed_node_count The number of already executed nodes
+     * \param active_node_count The total active node count
+     * \param node_display_name The name of the last executed node.
+     */
+    using LogCallback = std::function<void( size_t executed_node_count,
+                                            size_t active_node_count,
+                                            const std::string& node_display_name )>;
     /** The nodes pointing to external data are created here.
      * \param name The name of the render graph.
      */
@@ -205,7 +217,7 @@ class RA_DATAFLOW_CORE_API DataflowGraph : public Node
 
     bool shouldBeSaved() { return m_should_save; }
 
-    static const std::string& node_typename();
+    RA_NODE_TYPENAME( "Core DataflowGraph" )
 
     /**
      * \brief Load a graph from the given file.
@@ -222,13 +234,13 @@ class RA_DATAFLOW_CORE_API DataflowGraph : public Node
      * \param on true to protect, false to unprotect.
      * \todo should this be only on gui side ?
      */
-    void setNodesAndLinksProtection( bool on ) { m_nodesAndLinksProtected = on; }
+    void setNodesAndLinksProtection( bool on ) { m_nodes_and_links_protected = on; }
 
     /**
      * \brief get the protection status protect nodes and links from deletion
      * \return the protection status
      */
-    bool nodesAndLinksProtection() const { return m_nodesAndLinksProtected; }
+    bool nodesAndLinksProtection() const { return m_nodes_and_links_protected; }
 
     using Node::add_input;
     using Node::add_output;
@@ -255,6 +267,49 @@ class RA_DATAFLOW_CORE_API DataflowGraph : public Node
     std::shared_ptr<GraphOutputNode> output_node() { return m_output_node; }
     std::shared_ptr<GraphInputNode> input_node() { return m_input_node; }
 
+    /**
+     * \brief Set log callback to print messages during execution.
+     * \sa LogCallback
+     */
+    void set_log_callback( LogCallback callback ) { m_log_callback = std::move( callback ); }
+
+    /**
+     * Wheter to run with multiple threads, or in one thread only (i.e the caller thread).
+     */
+    void set_run_in_this_thread( bool b ) { m_run_in_this_thread = b; }
+
+    /**
+     * Compute the number of threads for parallel execution.
+     *
+     * Uses hardware info and maximum node by level.
+     */
+    unsigned int compute_thread_count_advice() {
+        size_t max_level = 0;
+        std::for_each(
+            m_nodes_by_level.begin(), m_nodes_by_level.end(), [&max_level]( const auto& level ) {
+                max_level = std::max( max_level, level.size() );
+            } );
+        return std::min( (unsigned int)( max_level ),
+                         std::max( std::thread::hardware_concurrency(), 4u ) );
+    }
+
+    /**
+     * Sets the number of thread for parallel execution.
+     *
+     * \sa compute_thread_count_advice() to get a proposed value
+     * \sa set_thread_count_use_advice() to dynamically compute thread count during execution.
+     */
+    void set_thread_count( unsigned int t ) {
+        m_thread_count            = t;
+        m_thread_count_use_advice = false;
+    }
+
+    /**
+     * If true use compute_thread_count_advice during execution, else use thread count set
+     * with set_thread_count()
+     */
+    void set_thread_count_use_advice( bool b ) { m_thread_count_use_advice = b; }
+
   protected:
     /**
      * \brief Allow derived class to construct the graph with their own static type.
@@ -279,19 +334,22 @@ class RA_DATAFLOW_CORE_API DataflowGraph : public Node
     bool contains_node_recursive( const Node* node ) const;
 
   private:
+    /// Node -> level, linked nodes
+    using LevelAndLinked = std::pair<int, std::vector<Node*>>;
+    using NodeInfoMap    = std::unordered_map<Node*, LevelAndLinked>;
+
     // Internal helper functions
     /// Internal compilation function that allows to go back in the render graph while filling
-    /// an information map. \param current The current node. \param infoNodes The map that
-    /// contains information about nodes.
-    void
-    backtrack_graph( Node* current,
-                     std::unordered_map<Node*, std::pair<int, std::vector<Node*>>>& infoNodes );
+    /// an information map.
+    /// \param current The current node.
+    /// \param infoNodes The map that contains information about nodes.
+    void backtrack_graph( Node* current, NodeInfoMap& nodes_info );
+
     /// Internal compilation function that allows to go through the graph, using an
     /// information map.
     /// \param current The current node.
     /// \param infoNodes The map that contains information about nodes.
-    int traverse_graph( Node* current,
-                        std::unordered_map<Node*, std::pair<int, std::vector<Node*>>>& infoNodes );
+    int traverse_graph( Node* current, NodeInfoMap& nodes_info );
 
     /// to allow dynamic creation of ports on input/output nodes, only possible new port is last
     /// port of the given node.
@@ -339,11 +397,30 @@ class RA_DATAFLOW_CORE_API DataflowGraph : public Node
     std::shared_ptr<GraphOutputNode> m_output_node { nullptr };
     std::shared_ptr<GraphInputNode> m_input_node { nullptr };
 
+    /// Node -> level, linked nodes
+    NodeInfoMap m_node_info_map;
+
     /// The list of nodes ordered by levels.
     /// Two nodes at the same level have no dependency between them.
     std::vector<std::vector<Node*>> m_nodes_by_level;
 
-    bool m_nodesAndLinksProtected { false };
+    /// How many node to execute in the graph.
+    size_t m_active_node_count { 0 };
+    /// How many node executed in the current execution
+    std::atomic_size_t m_executed_node_count { 0 };
+    bool m_nodes_and_links_protected { false };
+    LogCallback m_log_callback { []( size_t, size_t, std::string ) {} };
+    //        []( size_t c, size_t t, std::string name ) { std::cerr << "progress " << c << "/" << t
+    //        << "\n"; } };
+
+    /// Single thread execution ?
+    bool m_run_in_this_thread { false };
+
+    /// How many threads for parallel execution
+    unsigned int m_thread_count { 4 };
+
+    /// Use thread count advice to update thread count in each execute.
+    bool m_thread_count_use_advice { true };
 };
 
 // -----------------------------------------------------------------
@@ -425,11 +502,6 @@ inline void DataflowGraph::remove_unlinked_input_output_ports() {
     if ( m_input_node ) { m_input_node->remove_unlinked_ports(); }
     if ( m_output_node ) { m_output_node->remove_unlinked_ports(); }
     generate_ports();
-}
-
-inline const std::string& DataflowGraph::node_typename() {
-    static std::string demangledTypeName { "Core DataflowGraph" };
-    return demangledTypeName;
 }
 
 } // namespace Core
