@@ -36,14 +36,16 @@ void DataflowGraph::init() {
     }
 }
 
-bool DataflowGraph::execute2() {
+bool DataflowGraph::execute() {
     if ( m_inputs.size() > 0 || m_outputs.size() > 0 ) return true;
 
     if ( !m_ready ) {
         if ( !compile() ) { return false; }
     }
 
-    Ra::Core::TaskQueue queue( 10 );
+    Ra::Core::TaskQueue queue( m_thread_count_use_advice ? compute_thread_count_advice()
+                                                         : m_thread_count );
+
     std::map<Node*, Ra::Core::TaskQueue::TaskId> node_to_id;
     std::atomic_bool result { true };
 
@@ -77,43 +79,44 @@ bool DataflowGraph::execute2() {
             queue.addDependency( node_to_id[n_ptr], node_to_id[l] );
         }
     }
-    queue.startTasks();
-    queue.waitForTasks();
-
-    return result;
-}
-
-bool DataflowGraph::execute() {
-    return execute2();
-    if ( m_inputs.size() > 0 || m_outputs.size() > 0 ) return true;
-
-    if ( !m_ready ) {
-        if ( !compile() ) { return false; }
+    if ( m_run_in_this_thread ) { queue.runTasksInThisThread(); }
+    else {
+        queue.startTasks();
+        queue.waitForTasks();
     }
-
-    m_executed_node_count.store( 0 );
-    std::atomic_bool result { true };
-    std::for_each(
-        m_nodes_by_level.begin(), m_nodes_by_level.end(), [this, &result]( const auto& level ) {
-            std::for_each( // std::execution::par,
-                level.begin(),
-                level.end(),
-                [this, &result]( auto node ) {
-                    bool executed = node->execute();
-                    if ( !executed ) {
-                        LOG( logERROR ) << "Execution failed with node " << node->instance_name()
-                                        << " (" << node->model_name() << ").";
-                    }
-                    m_executed_node_count++;
-                    m_log_callback(
-                        m_executed_node_count.load(), m_active_node_count, node->display_name() );
-
-                    result = result.load() && executed;
-                } );
-        } );
     return result;
 }
+/* old implementation, for the record
+bool DataflowGraph::execute() {
+  if ( m_inputs.size() > 0 || m_outputs.size() > 0 ) return true;
 
+  if ( !m_ready ) {
+      if ( !compile() ) { return false; }
+  }
+
+  m_executed_node_count.store( 0 );
+  std::atomic_bool result { true };
+  std::for_each(
+      m_nodes_by_level.begin(), m_nodes_by_level.end(), [this, &result]( const auto& level ) {
+          std::for_each( // std::execution::par,
+              level.begin(),
+              level.end(),
+              [this, &result]( auto node ) {
+                  bool executed = node->execute();
+                  if ( !executed ) {
+                      LOG( logERROR ) << "Execution failed with node " << node->instance_name()
+                                      << " (" << node->model_name() << ").";
+                  }
+                  m_executed_node_count++;
+                  m_log_callback(
+                      m_executed_node_count.load(), m_active_node_count, node->display_name() );
+
+                  result = result.load() && executed;
+              } );
+      } );
+  return result;
+}
+*/
 void DataflowGraph::destroy() {
     std::for_each(
         m_nodes_by_level.begin(), m_nodes_by_level.end(), []( auto& level ) { level.clear(); } );
