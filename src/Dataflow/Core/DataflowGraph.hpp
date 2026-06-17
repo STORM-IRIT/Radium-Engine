@@ -24,8 +24,17 @@ namespace Core {
 class RA_DATAFLOW_CORE_API DataflowGraph : public Node
 {
   public:
-    // total node executed, total node count, last executed node name
-    using LogCallback = std::function<void( size_t, size_t, std::string )>;
+    /**
+     * \brief LogCallback function to print message during execution.
+     *
+     * The callback is called after each node execution.
+     * \param executed_node_count The number of already executed nodes
+     * \param active_node_count The total active node count
+     * \param node_display_name The name of the last executed node.
+     */
+    using LogCallback = std::function<void( size_t executed_node_count,
+                                            size_t active_node_count,
+                                            const std::string& node_display_name )>;
     /** The nodes pointing to external data are created here.
      * \param name The name of the render graph.
      */
@@ -258,6 +267,10 @@ class RA_DATAFLOW_CORE_API DataflowGraph : public Node
     std::shared_ptr<GraphOutputNode> output_node() { return m_output_node; }
     std::shared_ptr<GraphInputNode> input_node() { return m_input_node; }
 
+    /**
+     * \brief Set log callback to print messages during execution.
+     * \sa LogCallback
+     */
     void set_log_callback( LogCallback callback ) { m_log_callback = std::move( callback ); }
 
   protected:

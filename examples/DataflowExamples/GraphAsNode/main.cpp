@@ -70,7 +70,7 @@ int main( int argc, char* argv[] ) {
     }
 
     DataflowGraph g { "mainGraph" };
-    auto log = []( size_t c, size_t t, std::string name ) {
+    auto log = []( size_t c, size_t t, const std::string& name ) {
         std::cerr << "progress " << c << "/" << t << " [" << name << "]\n";
     };
 
