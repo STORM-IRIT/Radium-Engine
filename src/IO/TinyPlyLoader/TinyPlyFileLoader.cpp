@@ -98,6 +98,44 @@ void copyArrayToContainer( const uint8_t* buffer,
     }
 }
 
+template <typename S>
+void r( S* data, size_t count ) {
+    using V = Eigen::Matrix<S, 3, 1>;
+    V min   = { data[0], data[1], data[2] };
+    V max   = { data[0], data[1], data[2] };
+    for ( size_t i = 0; i < count; ++i ) {
+        V v = { data[i * 3 + 0], data[i * 3 + 1], data[i * 3 + 2] };
+        min = min.cwiseMin( v );
+        max = max.cwiseMax( v );
+    }
+    V mid = (S).5 * ( min + max );
+    for ( size_t i = 0; i < count; ++i ) {
+        data[i * 3 + 0] -= mid[0];
+        data[i * 3 + 1] -= mid[1];
+        data[i * 3 + 2] -= mid[2];
+    }
+}
+
+void recenterVertices( std::shared_ptr<tinyply::PlyData>& buffer ) {
+
+    if ( buffer && buffer->count != 0 ) {
+        switch ( buffer->t ) {
+        case tinyply::Type::FLOAT32: {
+            auto data  = reinterpret_cast<float*>( buffer->buffer.get() );
+            auto count = buffer->count;
+            r( data, count );
+        } break;
+        case tinyply::Type::FLOAT64: {
+            auto data  = reinterpret_cast<double*>( buffer->buffer.get() );
+            auto count = buffer->count;
+            r( data, count );
+        } break;
+        default:
+            break;
+        }
+    }
+}
+
 template <typename ContainerType>
 void copyBufferToContainer( const std::shared_ptr<tinyply::PlyData>& buffer,
                             ContainerType& container ) {
@@ -204,7 +242,8 @@ FileData* TinyPlyFileLoader::loadFile( const std::string& filename ) {
         return nullptr;
     }
     /// request for standard vertex attributes
-    /// \todo merge with non standard attributes when all will be stored as Attribs in GeometryData
+    /// \todo merge with non standard attributes when all will be stored as Attribs in
+    /// GeometryData
     auto normalBuffer { initBuffer( "vertex", { "nx", "ny", "nz" } ) };
     auto alphaBuffer { initBuffer( "vertex", { "alpha" } ) };
     auto colorBuffer { initBuffer( "vertex", { "red", "green", "blue" } ) };
@@ -229,6 +268,7 @@ FileData* TinyPlyFileLoader::loadFile( const std::string& filename ) {
     file.read( *file_stream );
     {
         auto unlocker = geomData->getGeometry().vertexAttribs().getScopedLockState();
+        recenterVertices( vertBuffer );
         copyBufferToContainer( vertBuffer, geomData->getGeometry().verticesWithLock() );
         copyBufferToContainer( normalBuffer, geomData->getGeometry().normalsWithLock() );
     }
