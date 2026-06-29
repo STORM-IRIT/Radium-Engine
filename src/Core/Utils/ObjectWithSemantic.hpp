@@ -2,6 +2,7 @@
 
 #include <Core/RaCore.hpp>
 
+#include <algorithm>
 #include <cstdarg>
 #include <set>
 
@@ -19,51 +20,70 @@ class RA_CORE_API ObjectWithSemantic
   public:
     using SemanticName = std::string;
 
-    /// Store in set to allow for logarithmic search
+    /// Store in set to allow for logarithmic search,
+    /// \todo move out of class ? extends set to add helper functions ?
     using SemanticNameCollection = std::set<SemanticName>;
 
-    inline explicit ObjectWithSemantic( const ObjectWithSemantic& other ) :
-        m_names { other.m_names } {}
+    explicit ObjectWithSemantic( const ObjectWithSemantic& other ) : m_names { other.m_names } {}
 
-    virtual inline ~ObjectWithSemantic() = default;
+    virtual ~ObjectWithSemantic() = default;
 
-    inline bool hasSemantic( const SemanticName& name ) const {
-        return m_names.find( name ) != m_names.end();
-    }
+    bool hasSemantic( const SemanticName& name ) const;
 
-    inline const SemanticNameCollection& semantics() const { return m_names; }
+    const SemanticNameCollection& semantics() const { return m_names; }
 
-    inline ObjectWithSemantic& operator=( const ObjectWithSemantic& other ) {
+    ObjectWithSemantic& operator=( const ObjectWithSemantic& other ) {
         CORE_UNUSED( other );
         CORE_ASSERT( m_names == other.m_names, "Try to assign object with different semantics" );
         return *this;
     }
-    inline ObjectWithSemantic& operator=( ObjectWithSemantic&& other ) {
+    ObjectWithSemantic& operator=( ObjectWithSemantic&& other ) {
         CORE_UNUSED( other );
         CORE_ASSERT( m_names == other.m_names, "Try to assign object with different semantics" );
         return *this;
     }
 
-    inline bool shareSemantic( const ObjectWithSemantic& other ) const {
-        return std::any_of( m_names.begin(), m_names.end(), [&other]( const auto& s ) {
-            return other.hasSemantic( s );
-        } );
-    }
+    bool shareSemantic( const ObjectWithSemantic& other ) const;
 
-    inline bool sameSemantics( const ObjectWithSemantic& other ) const {
-        return m_names == other.m_names;
-    }
+    bool sameSemantics( const ObjectWithSemantic& other ) const;
 
   protected:
     template <class... SemanticNames>
-    inline explicit ObjectWithSemantic( SemanticNames... names ) : m_names { names... } {}
+    explicit ObjectWithSemantic( SemanticNames... names ) : m_names { names... } {}
 
-    inline explicit ObjectWithSemantic( const SemanticNameCollection& otherNames ) :
+    explicit ObjectWithSemantic( const SemanticNameCollection& otherNames ) :
         m_names { otherNames } {}
 
   private:
     SemanticNameCollection m_names;
 };
+
+inline bool hasSemantic( const ObjectWithSemantic::SemanticNameCollection& a,
+                         const ObjectWithSemantic::SemanticName& name ) {
+    return a.contains( name );
+}
+
+inline bool shareSemantic( const ObjectWithSemantic::SemanticNameCollection& a,
+                           const ObjectWithSemantic::SemanticNameCollection& b ) {
+    return std::any_of( a.begin(), a.end(), [&b]( const auto& s ) { return hasSemantic( b, s ); } );
+}
+
+inline bool sameSemantics( const ObjectWithSemantic::SemanticNameCollection& a,
+                           const ObjectWithSemantic::SemanticNameCollection& b ) {
+    return a == b;
+}
+
+inline bool ObjectWithSemantic::hasSemantic( const SemanticName& name ) const {
+    return ::Ra::Core::Utils::hasSemantic( m_names, name );
+}
+
+inline bool ObjectWithSemantic::shareSemantic( const ObjectWithSemantic& other ) const {
+    return ::Ra::Core::Utils::shareSemantic( m_names, other.semantics() );
+}
+
+inline bool ObjectWithSemantic::sameSemantics( const ObjectWithSemantic& other ) const {
+    return ::Ra::Core::Utils::sameSemantics( m_names, other.m_names );
+}
 
 } // namespace Utils
 } // namespace Core

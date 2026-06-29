@@ -29,6 +29,16 @@ namespace Ra {
 namespace Engine {
 namespace Scene {
 
+SurfaceMeshComponent::SurfaceMeshComponent( const std::string& name,
+                                            Entity* entity,
+                                            CoreMeshType&& mesh,
+                                            std::shared_ptr<Ra::Engine::Data::Material> mat ) :
+    GeometryComponent( name, entity ),
+    m_displayMesh( new RenderMeshType( name, std::move( mesh ) ) ) {
+    setContentName( name );
+    finalizeROFromGeometry( mat, Core::Transform::Identity() );
+}
+
 void GeometryComponent::setupIO( const std::string& id ) {
     const auto& cm = ComponentMessenger::getInstance();
     auto roOut     = std::bind( &GeometryComponent::roIndexRead, this );
@@ -37,6 +47,18 @@ void GeometryComponent::setupIO( const std::string& id ) {
 
 const Index* GeometryComponent::roIndexRead() const {
     return &m_roIndex;
+}
+
+void SurfaceMeshComponent::generateMesh( const Ra::Core::Asset::GeometryData* data ) {
+    m_contentName = data->getName();
+    m_displayMesh = Ra::Core::make_shared<RenderMeshType>( m_contentName );
+    CoreMeshType mesh { data->getGeometry() };
+
+    m_displayMesh->loadGeometry( std::move( mesh ) );
+
+    finalizeROFromGeometry(
+        convertMatdataToMaterial( data->hasMaterial() ? &( data->getMaterial() ) : nullptr ),
+        data->getFrame() );
 }
 
 /*-----------------------------------------------------------------------------------------------*/

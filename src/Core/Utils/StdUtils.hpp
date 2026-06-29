@@ -2,7 +2,9 @@
 
 #include <Core/RaCore.hpp>
 
+#include <algorithm>
 #include <functional>
+#include <set>
 
 /// This file contains utilities and wrapper to the standard library
 /// that didn't fit into any other category (see Containers)
@@ -26,6 +28,18 @@ inline std::size_t hash( const std::pair<T1, T2>& p ) {
     hash_combine( result, p.second );
     return result;
 }
+
+/// output content of std::set
+template <typename T>
+std::ostream& operator<<( std::ostream& out, const std::set<T>& set ) {
+    if ( set.empty() ) return out << "{}";
+    out << "{ " << *set.begin();
+    std::for_each( std::next( set.begin() ), set.end(), [&out]( const T& element ) {
+        out << ", " << element;
+    } );
+    return out << " }";
+}
+
 } // namespace Utils
 } // namespace Core
 } // namespace Ra

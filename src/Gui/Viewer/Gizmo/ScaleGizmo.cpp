@@ -1,10 +1,11 @@
 #include <Gui/Viewer/Gizmo/ScaleGizmo.hpp>
 
+#include <Core/Asset/Camera.hpp>
+#include <Core/Containers/MakeShared.hpp>
 #include <Core/Containers/VectorArray.hpp>
 #include <Core/Geometry/MeshPrimitives.hpp>
 #include <Core/Utils/Color.hpp>
 
-#include <Core/Asset/Camera.hpp>
 #include <Engine/Data/Mesh.hpp>
 #include <Engine/Rendering/RenderObject.hpp>
 #include <Engine/Rendering/RenderTechnique.hpp>
@@ -31,18 +32,23 @@ ScaleGizmo::ScaleGizmo( Engine::Scene::Component* c,
     constexpr Scalar radius     = arrowScale * axisWidth / 2_ra;
 
     for ( uint i = 0; i < 3; ++i ) {
-        Core::Vector3 cylinderEnd             = Core::Vector3::Zero();
-        cylinderEnd[i]                        = ( 1_ra - arrowFrac );
-        Core::Geometry::TriangleMesh cylinder = Core::Geometry::makeCylinder(
+        Core::Vector3 cylinderEnd = Core::Vector3::Zero();
+        cylinderEnd[i]            = ( 1_ra - arrowFrac );
+        auto cylinder             = Core::Geometry::makeCylinder(
             Core::Vector3::Zero(), arrowScale * cylinderEnd, radius, 32 );
+        cylinder.triangulate_any();
         Core::Aabb boxBounds;
         boxBounds.extend( Core::Vector3( -radius * 2_ra, -radius * 2_ra, -radius * 2_ra ) );
         boxBounds.extend( Core::Vector3( radius * 2_ra, radius * 2_ra, radius * 2_ra ) );
         boxBounds.translate( arrowScale * cylinderEnd );
-        Core::Geometry::TriangleMesh box = Core::Geometry::makeSharpBox( boxBounds );
+        auto box = Core::Geometry::makeSharpBox( boxBounds );
+        // box is quads, need triangulate before append
+        box.triangulate_any();
+
         cylinder.append( box );
 
-        std::shared_ptr<Engine::Data::Mesh> mesh( new Engine::Data::Mesh( "Scale Gizmo Arrow" ) );
+        std::shared_ptr<Engine::Data::GeometryDisplayable> mesh(
+            new Engine::Data::GeometryDisplayable( "Scale Gizmo Arrow" ) );
         mesh->loadGeometry( std::move( cylinder ) );
 
         Engine::Rendering::RenderObject* arrowDrawable = new Engine::Rendering::RenderObject(
@@ -61,15 +67,15 @@ ScaleGizmo::ScaleGizmo( Engine::Scene::Component* c,
         T.translation()[( i + 1 ) % 3] += arrowFrac * arrowScale * 3;
         T.translation()[( i + 2 ) % 3] += arrowFrac * arrowScale * 3;
 
-        Core::Geometry::TriangleMesh plane = Core::Geometry::makePlaneGrid(
+        auto plane = Core::Geometry::makePlaneGrid(
             1, 1, Core::Vector2( arrowFrac * arrowScale, arrowFrac * arrowScale ), T );
 
-        // \FIXME this hack is here to be sure the plane will be selected (see shader)
+        ///\todo \FIXME this hack is here to be sure the plane will be selected (see shader)
         auto& normals = plane.normalsWithLock();
         normals.getMap().fill( 0_ra );
         plane.normalsUnlock();
 
-        std::shared_ptr<Engine::Data::Mesh> mesh( new Engine::Data::Mesh( "Gizmo Plane" ) );
+        auto mesh = std::make_shared<Engine::Data::GeometryDisplayable>( "Gizmo Plane" );
         mesh->loadGeometry( std::move( plane ) );
 
         Engine::Rendering::RenderObject* planeDrawable = new Engine::Rendering::RenderObject(

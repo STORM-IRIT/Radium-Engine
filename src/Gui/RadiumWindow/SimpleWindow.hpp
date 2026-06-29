@@ -65,6 +65,10 @@ class RA_GUI_API SimpleWindow : public Ra::Gui::MainWindowInterface
     /// Emitted when frame must be updated
     void frameUpdate();
 
+  protected:
+    /// to add quit shortcut, might be added as a menu.
+    QAction* quit_action { nullptr };
+
   private:
     /// create the UI connections
     void createConnections();

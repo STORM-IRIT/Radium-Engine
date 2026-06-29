@@ -6,7 +6,7 @@
 #include <vector>
 
 #include <Core/Containers/VectorArray.hpp>
-#include <Core/Geometry/TriangleMesh.hpp>
+#include <Core/Geometry/AttribArrayGeometry.hpp>
 #include <Core/Utils/Color.hpp>
 
 namespace Ra {
@@ -41,8 +41,7 @@ class RA_ENGINE_API Displayable
     /// Returns the name of the mesh.
     inline const std::string& getName() const { return m_name; }
 
-    /// Returns the underlying AbstractGeometry, which is in fact a TriangleMesh
-    /// \see getTriangleMesh
+    /// Returns the underlying AbstractGeometry
     /// \todo not sure the displayable must have an abstract geometry ...
     virtual const Core::Geometry::AbstractGeometry& getAbstractGeometry() const = 0;
     virtual Core::Geometry::AbstractGeometry& getAbstractGeometry()             = 0;

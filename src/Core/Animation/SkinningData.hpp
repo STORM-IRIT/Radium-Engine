@@ -3,7 +3,8 @@
 #include <Core/Animation/HandleWeight.hpp>
 #include <Core/Animation/Pose.hpp>
 #include <Core/Animation/Skeleton.hpp>
-#include <Core/Geometry/TriangleMesh.hpp>
+#include <Core/Geometry/AttribArrayGeometry.hpp>
+#include <Core/Geometry/IndexedGeometry.hpp>
 #include <Core/RaCore.hpp>
 
 namespace Ra {
@@ -13,7 +14,7 @@ namespace Animation {
 /// \brief Skinning data that get set at startup including the "reference state".
 struct SkinningRefData {
     /// The mesh in reference position.
-    Geometry::TriangleMesh m_referenceMesh;
+    Core::Geometry::MultiIndexedGeometry m_referenceMesh;
 
     /// The inverse of the mesh's transform.
     Transform m_meshTransformInverse;

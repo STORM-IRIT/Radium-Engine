@@ -1,6 +1,7 @@
+#include "Core/Utils/ObjectWithSemantic.hpp"
+#include <Core/Geometry/AttribArrayGeometry.hpp>
 #include <Core/Geometry/IndexedGeometry.hpp>
-#include <Core/Geometry/TriangleMesh.hpp>
-#include <Core/Utils/Attribs.hpp>
+
 #include <iterator>
 #include <ostream>
 #include <stdexcept>
@@ -16,12 +17,6 @@ MultiIndexedGeometry::MultiIndexedGeometry( const MultiIndexedGeometry& other ) 
 
 MultiIndexedGeometry::MultiIndexedGeometry( MultiIndexedGeometry&& other ) :
     AttribArrayGeometry( std::move( other ) ), m_indices( std::move( other.m_indices ) ) {}
-
-MultiIndexedGeometry::MultiIndexedGeometry( const AttribArrayGeometry& other ) :
-    AttribArrayGeometry( other ) {}
-
-MultiIndexedGeometry::MultiIndexedGeometry( AttribArrayGeometry&& other ) :
-    AttribArrayGeometry( std::move( other ) ) {}
 
 MultiIndexedGeometry& MultiIndexedGeometry::operator=( const MultiIndexedGeometry& other ) {
     invalidateAabb();
@@ -57,23 +52,34 @@ void MultiIndexedGeometry::copy( const MultiIndexedGeometry& other ) {
 void MultiIndexedGeometry::checkConsistency() const {}
 
 bool MultiIndexedGeometry::append( const MultiIndexedGeometry& other ) {
+
+    int offset = vertices().size();
+    // first append attribs
+    AttribArrayGeometry::append( other );
+
+    // then indices, and offset.
     bool dataHasBeenCopied = false;
     for ( const auto& [key, value] : other.m_indices ) {
         auto it = m_indices.find( key );
         if ( it == m_indices.end() ) // copy entire layer
         {
-            m_indices[key] = std::make_pair(
-                value.first, std::unique_ptr<GeometryIndexLayerBase> { value.second->clone() } );
 
+            m_indices[key] =
+                std::make_pair( false, // copied data are unlocked (since its a clone).
+                                std::unique_ptr<GeometryIndexLayerBase> { value.second->clone() } );
             dataHasBeenCopied = true;
+            m_indices[key].second->offset( offset );
         }
         else {
             // try to append to an existing layer: should always work
-            if ( it->second.second->append( *( value.second ) ) ) { dataHasBeenCopied = true; }
+            if ( it->second.second->append( *( value.second ), offset ) ) {
+                dataHasBeenCopied = true;
+            }
             else {
                 CORE_ASSERT( false,
                              "Inconsistency: layers with different semantics shares the same key" );
             }
+            ///\todo offest indices.
         }
     }
 
@@ -81,7 +87,7 @@ bool MultiIndexedGeometry::append( const MultiIndexedGeometry& other ) {
         invalidateAabb();
         notify();
     }
-    return true;
+    return dataHasBeenCopied;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -89,14 +95,14 @@ bool MultiIndexedGeometry::append( const MultiIndexedGeometry& other ) {
 
 bool MultiIndexedGeometry::containsLayer( const LayerSemantic& semanticName ) const {
     for ( const auto& [key, value] : m_indices ) {
-        if ( key.first.find( semanticName ) != key.first.end() ) return true;
+        if ( Utils::hasSemantic( key.first, semanticName ) ) return true;
     }
     return false;
 }
 
 bool MultiIndexedGeometry::containsLayer( const LayerSemanticCollection& semantics ) const {
     for ( const auto& [key, value] : m_indices ) {
-        if ( key.first == semantics ) return true;
+        if ( Utils::sameSemantics( key.first, semantics ) ) return true;
     }
     return false;
 }
@@ -105,19 +111,15 @@ bool MultiIndexedGeometry::containsLayer( const LayerSemanticCollection& semanti
 //////////////////////////////////////////////////////////////////////
 
 size_t MultiIndexedGeometry::countLayers( const LayerSemantic& semanticName ) const {
-    size_t c = 0;
-    for ( const auto& [key, value] : m_indices ) {
-        if ( key.first.find( semanticName ) != key.first.end() ) ++c;
-    }
-    return c;
+    return std::count_if( m_indices.cbegin(), m_indices.cend(), [&semanticName]( const auto& l ) {
+        return Utils::hasSemantic( l.first.first, semanticName );
+    } );
 }
 
 size_t MultiIndexedGeometry::countLayers( const LayerSemanticCollection& semantics ) const {
-    size_t c = 0;
-    for ( const auto& [key, value] : m_indices ) {
-        if ( key.first == semantics ) ++c;
-    }
-    return c;
+    return std::count_if( m_indices.cbegin(), m_indices.cend(), [&semantics]( const auto& l ) {
+        return Utils::sameSemantics( l.first.first, semantics );
+    } );
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -125,18 +127,19 @@ size_t MultiIndexedGeometry::countLayers( const LayerSemanticCollection& semanti
 
 std::pair<MultiIndexedGeometry::LayerKeyType, const GeometryIndexLayerBase&>
 MultiIndexedGeometry::getFirstLayerOccurrence( const LayerSemantic& semanticName ) const {
-    for ( const auto& [key, value] : m_indices ) {
-        if ( key.first.find( semanticName ) != key.first.end() )
-            return { key, *( value.second.get() ) };
-    }
+    auto itr = std::find_if( m_indices.cbegin(), m_indices.cend(), [&]( const auto& entry ) {
+        return Utils::hasSemantic( entry.first.first, semanticName );
+    } );
+    if ( itr != m_indices.cend() ) { return { itr->first, *( itr->second.second.get() ) }; }
     throw std::out_of_range( "Layer entry not found" );
 }
 
 std::pair<MultiIndexedGeometry::LayerKeyType, const GeometryIndexLayerBase&>
 MultiIndexedGeometry::getFirstLayerOccurrence( const LayerSemanticCollection& semantics ) const {
-    for ( const auto& [key, value] : m_indices ) {
-        if ( key.first == semantics ) return { key, *( value.second.get() ) };
-    }
+    auto itr = std::find_if( m_indices.cbegin(), m_indices.cend(), [&]( const auto& entry ) {
+        return Utils::sameSemantics( entry.first.first, semantics );
+    } );
+    if ( itr != m_indices.cend() ) { return { itr->first, *( itr->second.second.get() ) }; }
     throw std::out_of_range( "Layer entry not found" );
 }
 
@@ -177,30 +180,6 @@ GeometryIndexLayerBase& MultiIndexedGeometry::getLayerWithLock( const LayerKeyTy
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 
-void MultiIndexedGeometry::unlockFirstLayerOccurrence( const LayerSemantic& semanticName ) {
-    for ( auto& [key, value] : m_indices ) {
-        if ( key.first.find( semanticName ) != key.first.end() ) {
-            CORE_ASSERT( value.first, "try to release unlocked layer" );
-            value.first = false;
-            notify();
-            return;
-        }
-    }
-    throw std::out_of_range( "Layer entry not found" );
-}
-
-void MultiIndexedGeometry::unlockFirstLayerOccurrence( const LayerSemanticCollection& semantics ) {
-    for ( auto& [key, value] : m_indices ) {
-        if ( key.first == semantics ) {
-            CORE_ASSERT( value.first, "try to release unlocked layer" );
-            value.first = false;
-            notify();
-            return;
-        }
-    }
-    throw std::out_of_range( "Layer entry not found" );
-}
-
 void MultiIndexedGeometry::unlockLayer( const LayerKeyType& layerKey ) {
     auto& p = m_indices.at( layerKey );
     CORE_ASSERT( p.first, "try to release unlocked layer" );
@@ -211,23 +190,27 @@ void MultiIndexedGeometry::unlockLayer( const LayerKeyType& layerKey ) {
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 
-std::pair<bool, GeometryIndexLayerBase&>
-MultiIndexedGeometry::addLayer( std::unique_ptr<GeometryIndexLayerBase>&& layer,
-                                const bool withLock,
-                                const std::string& layerName ) {
+auto MultiIndexedGeometry::addLayer( std::unique_ptr<GeometryIndexLayerBase>&& layer,
+                                     const bool withLock,
+                                     const std::string& layerName )
+    -> std::pair<bool, LayerKeyType> {
     LayerKeyType key { layer->semantics(), layerName };
-    std::pair<LayerKeyType, EntryType> elt { key, std::make_pair( false, std::move( layer ) ) };
+    auto elt             = std::make_pair( key, std::make_pair( false, std::move( layer ) ) );
     auto [pos, inserted] = m_indices.insert( std::move( elt ) );
+
+    // set default layer if its the first insterted layer
+    if ( inserted && m_indices.size() == 1 ) m_default_layer_key = key;
+
     notify();
 
     if ( withLock ) {
         CORE_ASSERT( !pos->second.first, "try to get already locked layer" );
         pos->second.first = true;
     }
-    /// If not inserted, the pointer is deleted. So the caller must ensure this possible deletion
-    /// is safe before calling this method.
+    /// If not inserted, the pointer is deleted. So the caller must ensure this possible
+    /// deletion is safe before calling this method.
 
-    return { inserted, *( pos->second.second ) };
+    return { inserted, key };
 }
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
@@ -237,16 +220,18 @@ void MultiIndexedGeometry::deepCopy( const MultiIndexedGeometry& other ) {
         m_indices[key] = std::make_pair(
             value.first, std::unique_ptr<GeometryIndexLayerBase> { value.second->clone() } );
     }
+    set_default_layer_key( other.default_layer_key() );
 }
 
 void MultiIndexedGeometry::deepClear() {
     m_indices.clear();
+    m_default_layer_key = { { InvalidIndexLayer::staticSemanticName }, "invalid" };
 }
 
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 
-std::size_t MultiIndexedGeometry::KeyHash::operator()( const LayerKeyType& k ) const {
+std::size_t MultiIndexedGeometry::LayerKeyHash::operator()( const LayerKeyType& k ) const {
     // Mix semantic collection into a single identifier string
     std::ostringstream stream;
     std::copy( k.first.begin(), k.first.end(), std::ostream_iterator<std::string>( stream, "" ) );
@@ -255,15 +240,6 @@ std::size_t MultiIndexedGeometry::KeyHash::operator()( const LayerKeyType& k ) c
 
     // Combine with layer name hash
     return std::hash<std::string> {}( result ) ^ ( std::hash<std::string> {}( k.second ) << 1 );
-}
-
-//////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////
-
-void PointCloudIndexLayer::linearIndices( const AttribArrayGeometry& attr ) {
-    auto nbVert = attr.vertices().size();
-    collection().resize( nbVert );
-    collection().getMap() = IndexContainerType::Matrix::LinSpaced( nbVert, 0, nbVert - 1 );
 }
 
 } // namespace Geometry

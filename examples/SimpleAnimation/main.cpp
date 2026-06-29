@@ -39,20 +39,21 @@
  *      - Add the animation component to the animation system
  *
  */
-class KeyFramedGeometryComponent : public Ra::Engine::Scene::TriangleMeshComponent
+class KeyFramedGeometryComponent : public Ra::Engine::Scene::SurfaceMeshComponent
 {
   public:
-    /*!
+    /**
      * Constructor from an existing core mesh
      * \warning Moves the mesh and takes its ownership
      */
-    inline KeyFramedGeometryComponent( const std::string& name,
-                                       Ra::Engine::Scene::Entity* entity,
-                                       Ra::Core::Geometry::TriangleMesh&& mesh ) :
-        Ra::Engine::Scene::TriangleMeshComponent( name,
-                                                  entity,
-                                                  std::move( mesh ),
-                                                  new Ra::Core::Asset::BlinnPhongMaterialData {} ),
+    inline KeyFramedGeometryComponent(
+        const std::string& name,
+        Ra::Engine::Scene::Entity* entity,
+        Ra::Engine::Scene::SurfaceMeshComponent::CoreMeshType&& mesh ) :
+        Ra::Engine::Scene::SurfaceMeshComponent( name,
+                                                 entity,
+                                                 std::move( mesh ),
+                                                 new Ra::Core::Asset::BlinnPhongMaterialData {} ),
         m_transform( 0_ra, Ra::Core::Transform::Identity() ) {
         //! [Creating the transform KeyFrames]
         Ra::Core::Transform T = Ra::Core::Transform::Identity();

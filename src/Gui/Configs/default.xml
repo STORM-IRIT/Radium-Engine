@@ -12,7 +12,7 @@
   <keymap context="CameraContext" action="TRACKBALLCAMERA_MOVE_FORWARD" key="" modifiers="" buttons="" wheel="true"/>
   <keymap context="CameraContext" action="TRACKBALLCAMERA_PROJ_MODE" key="Key_T" modifiers="AltModifier" buttons=""/>
   <keymap context="CameraContext" action="ROTATEAROUND_ALIGN_WITH_CLOSEST_AXIS" key="Key_B" modifiers="AltModifier" buttons=""/>
-  <keymap context="CameraContext" action="ROTATEAROUND_SET_PIVOT" key="Key_V" modifiers="AltModifier" buttons=""/>
+  <keymap context="CameraContext" action="ROTATEAROUND_SET_PIVOT" key="" modifiers="AltModifier" buttons="RightButton"/>
   <keymap context="CameraContext" action="CAMERA_TOGGLE_QUICK" key="Key_S" modifiers="AltModifier" buttons=""/>
   <keymap context="FlightManipulatorContext" action="FLIGHTMODECAMERA_ROTATE" key="" modifiers="" buttons="LeftButton"/>
   <keymap context="FlightManipulatorContext" action="FLIGHTMODECAMERA_PAN" key="" modifiers="ShiftModifier" buttons="LeftButton"/>

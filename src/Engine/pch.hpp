@@ -7,8 +7,8 @@
 #include <Core/Containers/MakeShared.hpp>
 #include <Core/Containers/VectorArray.hpp>
 #include <Core/CoreMacros.hpp>
+#include <Core/Geometry/AttribArrayGeometry.hpp>
 #include <Core/Geometry/MeshPrimitives.hpp>
-#include <Core/Geometry/TriangleMesh.hpp>
 #include <Core/Math/Math.hpp>
 #include <Core/Resources/Resources.hpp>
 #include <Core/Tasks/Task.hpp>

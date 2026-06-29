@@ -105,8 +105,7 @@ std::shared_ptr<Ra::Engine::Rendering::RenderObject> initQuad( Ra::Gui::BaseAppl
     Ra::Core::Asset::RawShaderMaterialData mat { "Quad Material", _config1, paramProvider };
 
     //! [Create a geometry component using the custom material]
-    auto c =
-        new Ra::Engine::Scene::TriangleMeshComponent( "Quad Mesh", e, std::move( quad ), &mat );
+    auto c = new Ra::Engine::Scene::SurfaceMeshComponent( "Quad Mesh", e, std::move( quad ), &mat );
 
     //! [Register the entity/component association to the geometry system ]
     auto system = app.m_engine->getSystem( "GeometrySystem" );

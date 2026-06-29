@@ -34,7 +34,7 @@ class RA_PLUGINBASE_API Context : public QObject
     std::string m_exportDir { "." };
 
   signals:
-    /*!
+    /**
      * \brief enable continuous rendering update
      * \see BaseApplication::setContinuousUpdate
      *

@@ -1,7 +1,8 @@
-#include <Core/Asset/Camera.hpp>
 #include <Engine/Scene/CameraComponent.hpp>
 
+#include <Core/Asset/Camera.hpp>
 #include <Core/Containers/MakeShared.hpp>
+#include <Core/Geometry/IndexedGeometry.hpp>
 #include <Core/Math/Math.hpp>
 #include <Engine/Data/Mesh.hpp>
 #include <Engine/Data/PlainMaterial.hpp>
@@ -28,34 +29,32 @@ CameraComponent::CameraComponent( Entity* entity,
 CameraComponent::~CameraComponent() = default;
 
 void CameraComponent::initialize() {
-    using Data::Material;
-    using Data::Mesh;
     using Data::PlainMaterial;
     if ( !m_renderObjects.empty() ) return;
     // Create the render mesh for the camera
 
-    Ra::Core::Geometry::LineMesh triMesh;
-    triMesh.setVertices( { { 0_ra, 0_ra, 0_ra },
-                           { -.5_ra, -.5_ra, -1_ra },
-                           { -.5_ra, .5_ra, -1_ra },
-                           { .5_ra, .5_ra, -1_ra },
-                           { .5_ra, -.5_ra, -1_ra },
-                           { -.3_ra, .5_ra, -1_ra },
-                           { 0_ra, .7_ra, -1_ra },
-                           { .3_ra, .5_ra, -1_ra } } );
-    triMesh.setIndices( { { 0, 1 },
-                          { 0, 2 },
-                          { 0, 3 },
-                          { 0, 4 },
-                          { 1, 2 },
-                          { 1, 4 },
-                          { 2, 3 },
-                          { 3, 4 },
-                          { 5, 6 },
-                          { 6, 7 } } );
+    Ra::Core::Geometry::MultiIndexedGeometry geom;
+    geom.setVertices( { { 0_ra, 0_ra, 0_ra },
+                        { -.5_ra, -.5_ra, -1_ra },
+                        { -.5_ra, .5_ra, -1_ra },
+                        { .5_ra, .5_ra, -1_ra },
+                        { .5_ra, -.5_ra, -1_ra },
+                        { -.3_ra, .5_ra, -1_ra },
+                        { 0_ra, .7_ra, -1_ra },
+                        { .3_ra, .5_ra, -1_ra } } );
+    geom.set_indices<Core::Geometry::LineIndexLayer>( { { 0, 1 },
+                                                        { 0, 2 },
+                                                        { 0, 3 },
+                                                        { 0, 4 },
+                                                        { 1, 2 },
+                                                        { 1, 4 },
+                                                        { 2, 3 },
+                                                        { 3, 4 },
+                                                        { 5, 6 },
+                                                        { 6, 7 } } );
 
-    auto m = std::make_shared<Data::LineMesh>( m_name + "_mesh" );
-    m->loadGeometry( std::move( triMesh ) );
+    auto m = std::make_shared<Data::GeometryDisplayable>( m_name + "_mesh" );
+    m->loadGeometry( std::move( geom ) );
 
     // Create the RO
     auto mat = Core::make_shared<PlainMaterial>( m_name + "_Material" );

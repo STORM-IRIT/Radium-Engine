@@ -13,7 +13,7 @@ namespace Asset {
  * Material data must be identified by a unique name.
  * Radium Engine reserves the following names
  *  "AbstractMaterial"  --> unknown material, might serve for error management
- *  "BlinnPhong"        --> standar Blinn-Phong Material
+ *  "BlinnPhong"        --> standard Blinn-Phong Material
  *
  *  When extending the material system with a loader plugin (or something similar) :
  *      Define your own "Asset" class derived from Ra::Core::Asset::MaterialData with the "type"

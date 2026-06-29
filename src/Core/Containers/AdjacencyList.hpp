@@ -56,7 +56,7 @@ class RA_CORE_API AdjacencyList
     void pruneLeaves( std::vector<uint>& pruned, std::vector<bool>& delete_flag );
     /// Prune the leaves of the graph.
     void pruneLeaves();
-    /*!
+    /**
      * Return the edge list built from the given adjacency list.
      * If include_leaf is true, the list will contain the pairs:
      *       ...

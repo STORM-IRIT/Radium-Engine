@@ -1,4 +1,6 @@
 
+#include "Core/Geometry/IndexedGeometry.hpp"
+#include "Engine/Data/DrawPrimitives.hpp"
 #include <AllPrimitivesComponent.hpp>
 
 #include <Core/Asset/FileData.hpp>
@@ -26,24 +28,27 @@
 
 #include <random>
 
-const bool ENABLE_GRID      = true;
-const bool ENABLE_CUBES     = true;
-const bool ENABLE_POINTS    = true;
-const bool ENABLE_LINES     = true;
-const bool ENABLE_VECTORS   = true;
-const bool ENABLE_RAYS      = true;
-const bool ENABLE_TRIANGLES = true;
-const bool ENABLE_CIRCLES   = true;
-const bool ENABLE_ARCS      = true;
-const bool ENABLE_SPHERES   = true;
-const bool ENABLE_CAPSULES  = true;
-const bool ENABLE_DISKS     = true;
-const bool ENABLE_NORMALS   = true;
-const bool ENABLE_POLYS     = true;
-const bool ENABLE_LOGO      = true;
-const bool ENABLE_COLLAPSE  = true;
-const bool ENABLE_SPLIT     = true;
-const bool ENABLE_TORUS     = true;
+const bool ENABLE_GRID        = true;
+const bool ENABLE_CUBES       = true;
+const bool ENABLE_POINTS      = true;
+const bool ENABLE_LINES       = true;
+const bool ENABLE_VECTORS     = true;
+const bool ENABLE_RAYS        = true;
+const bool ENABLE_TRIANGLES   = true;
+const bool ENABLE_CIRCLES     = true;
+const bool ENABLE_ARCS        = true;
+const bool ENABLE_SPHERES     = true;
+const bool ENABLE_CAPSULES    = true;
+const bool ENABLE_DISKS       = true;
+const bool ENABLE_NORMALS     = true;
+const bool ENABLE_POLYS       = true;
+const bool ENABLE_LOGO        = true;
+const bool ENABLE_COLLAPSE    = true;
+const bool ENABLE_SPLIT       = true;
+const bool ENABLE_TORUS       = true;
+const bool ENABLE_QUADSTRIPS  = true;
+const bool ENABLE_SPLINES     = true;
+const bool ENABLE_LINE_STRIPS = true;
 
 using namespace Ra;
 using namespace Ra::Core;
@@ -133,44 +138,64 @@ void AllPrimitivesComponent::initialize() {
 
     //// CUBES ////
     if ( ENABLE_CUBES ) {
-        std::shared_ptr<Mesh> cube1( new Mesh( "Cube" ) );
+        std::shared_ptr<GeometryDisplayable> cube1( new GeometryDisplayable( "Cube" ) );
         auto coord = cellSize / 16_ra;
-        cube1->loadGeometry(
-            Geometry::makeSharpBox( Vector3 { coord, coord, coord }, Color::Green() ) );
-        auto renderObject1 = RenderObject::createRenderObject(
-            "Cube1", this, RenderObjectType::Geometry, cube1, {} );
-        renderObject1->setLocalTransform( Transform { Translation( cellCorner ) } );
-        renderObject1->setMaterial( blinnPhongMaterial );
-        addRenderObject( renderObject1 );
+        {
+            cube1->loadGeometry(
+                Geometry::makeSharpBox( Vector3 { coord, coord, coord }, Color::Green() ) );
+            auto renderObject1 = RenderObject::createRenderObject(
+                "Cube1", this, RenderObjectType::Geometry, cube1, {} );
+            renderObject1->setLocalTransform( Transform { Translation( cellCorner ) } );
+            renderObject1->setMaterial( blinnPhongMaterial );
+            addRenderObject( renderObject1 );
+        }
+        {
+            std::shared_ptr<GeometryDisplayable> texCube( new GeometryDisplayable( "Cube" ) );
+            texCube->loadGeometry(
+                Geometry::makeSharpBox( Vector3 { 1.2_ra * coord, 1.2_ra * coord, 1.2_ra * coord },
+                                        Color::White(),
+                                        true ) );
+            auto renderObjectTexCube = RenderObject::createRenderObject(
+                "TexCube", this, RenderObjectType::Geometry, texCube, {} );
+            renderObjectTexCube->setLocalTransform(
+                Transform { Translation( cellCorner + Vector3 { 0_ra, coord * 3.5_ra, 0_ra } ) } );
+            renderObjectTexCube->setMaterial( blinnPhongTexturedMaterial );
 
-        std::shared_ptr<Mesh> texCube( new Mesh( "Cube" ) );
-        texCube->loadGeometry( Geometry::makeSharpBox(
-            Vector3 { 1.2_ra * coord, 1.2_ra * coord, 1.2_ra * coord }, Color::White(), true ) );
-        auto renderObjectTexCube = RenderObject::createRenderObject(
-            "TexCube", this, RenderObjectType::Geometry, texCube, {} );
-        renderObjectTexCube->setLocalTransform(
-            Transform { Translation( cellCorner + Vector3 { 0_ra, coord * 3.5_ra, 0_ra } ) } );
-        renderObjectTexCube->setMaterial( blinnPhongTexturedMaterial );
+            addRenderObject( renderObjectTexCube );
+        }
+        {
+            // another cube
+            std::shared_ptr<GeometryDisplayable> cube2( new GeometryDisplayable( "Cube" ) );
+            coord = cellSize / 4_ra;
+            cube2->loadGeometry( Geometry::makeSharpBox( Vector3 { coord, coord, coord } ) );
 
-        addRenderObject( renderObjectTexCube );
+            const std::string myColourName { "colour" };
+            cube2->getCoreGeometry().addAttrib(
+                myColourName, Vector4Array { cube2->getNumVertices(), Color::Red() } );
 
-        // another cube
-        std::shared_ptr<Mesh> cube2( new Mesh( "Cube" ) );
-        coord = cellSize / 4_ra;
-        cube2->loadGeometry( Geometry::makeSharpBox( Vector3 { coord, coord, coord } ) );
-        const std::string myColourName { "colour" };
-        cube2->getCoreGeometry().addAttrib(
-            myColourName, Vector4Array { cube2->getNumVertices(), Color::Red() } );
-
-        cube2->setAttribNameCorrespondance(
-            myColourName, Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::VERTEX_COLOR ) );
-        auto renderObject2 = RenderObject::createRenderObject(
-            "CubeRO_2", this, RenderObjectType::Geometry, cube2, {} );
-        coord = cellSize / 2_ra;
-        renderObject2->setLocalTransform(
-            Transform { Translation( cellCorner + Vector3 { coord, coord, coord } ) } );
-        renderObject2->setMaterial( lambertianMaterial );
-        addRenderObject( renderObject2 );
+            cube2->setAttribNameMatching(
+                myColourName,
+                Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::VERTEX_COLOR ) );
+            auto renderObject2 = RenderObject::createRenderObject(
+                "CubeRO_2", this, RenderObjectType::Geometry, cube2, {} );
+            coord = cellSize / 2_ra;
+            renderObject2->setLocalTransform(
+                Transform { Translation( cellCorner + Vector3 { coord, coord, coord } ) } );
+            renderObject2->setMaterial( lambertianMaterial );
+            addRenderObject( renderObject2 );
+        }
+        {
+            std::shared_ptr<GeometryDisplayable> cube3( new GeometryDisplayable( "Cube" ) );
+            auto c = cellCorner + Vector3 { coord, coord, coord } + Vector3 { coord, 0, 0 };
+            auto x = Vector3 { coord, coord, 0 };
+            auto y = Vector3 { -coord, coord, 0 };
+            cube3->loadGeometry(
+                Geometry::makeBox( c, x, y, x.cross( y ) / x.norm(), Color::Yellow() ) );
+            auto renderObject3 = RenderObject::createRenderObject(
+                "Cube3", this, RenderObjectType::Geometry, cube3, {} );
+            renderObject3->setMaterial( blinnPhongMaterial );
+            addRenderObject( renderObject3 );
+        }
     }
     //// POINTS ////
     if ( ENABLE_POINTS ) {
@@ -316,7 +341,7 @@ void AllPrimitivesComponent::initialize() {
         triangle2->setMaterial( plainMaterial );
         addRenderObject( triangle2 );
 
-        for ( int i = 0; i < 10; ++i ) {
+        for ( int i = 1; i < 11; ++i ) {
             auto triwire = RenderObject::createRenderObject(
                 "test_triangle_wire",
                 this,
@@ -573,6 +598,7 @@ void AllPrimitivesComponent::initialize() {
         normal->setMaterial( plainMaterial );
         addRenderObject( normal );
     }
+
     /*
         addRenderObject( RenderObject::createRenderObject(
         "test_ray",
@@ -588,7 +614,7 @@ void AllPrimitivesComponent::initialize() {
                    DrawPrimitives::Grid( const Core::Vector3& center,
                                                    const Core::Vector3& x,
                                                    const Core::Vector3& y,
-                              k                     const Core::Color& color,
+                                                   const Core::Color& color,
                                                    Scalar cellSize = 1.f,
                                                    uint res        = 10 );
 
@@ -620,7 +646,7 @@ void AllPrimitivesComponent::initialize() {
         updateCellCorner( cellCorner, cellSize, nCellX, nCellY );
         updateCellCorner( cellCorner, cellSize, nCellX, nCellY );
 
-        Geometry::PolyMesh polyMesh;
+        MultiIndexedGeometry polyMesh;
         polyMesh.setVertices( {
             // quad
             { -1.1_ra, -0_ra, 0_ra },
@@ -648,10 +674,9 @@ void AllPrimitivesComponent::initialize() {
         quad << 0, 1, 2, 3;
         auto hepta = VectorNui( 7 );
         hepta << 3, 2, 4, 5, 6, 7, 8;
-        polyMesh.setIndices( { quad, hepta } );
+        polyMesh.set_indices<PolyIndexLayer>( { quad, hepta } );
+        auto poly1 = make_shared<GeometryDisplayable>( "Poly", std::move( polyMesh ) );
 
-        std::shared_ptr<Data::PolyMesh> poly1(
-            new Data::PolyMesh( "Poly", std::move( polyMesh ) ) );
         poly1->getCoreGeometry().addAttrib(
             Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::VERTEX_COLOR ),
             Vector4Array { poly1->getNumVertices(), colorBoost * Color { 1_ra, 0.6_ra, 0.1_ra } } );
@@ -664,11 +689,12 @@ void AllPrimitivesComponent::initialize() {
 
         addRenderObject( renderObject1 );
 
-        Ra::Core::Geometry::TopologicalMesh topo { poly1->getCoreGeometry() };
+        Ra::Core::Geometry::TopologicalMesh topo { poly1->getCoreGeometry(),
+                                                   poly1->active_layer_key() };
         topo.triangulate();
         topo.checkIntegrity();
         auto triangulated = topo.toTriangleMesh();
-        std::shared_ptr<Mesh> poly2( new Mesh( "Poly", std::move( triangulated ) ) );
+        auto poly2        = make_shared<GeometryDisplayable>( "Poly", std::move( triangulated ) );
         poly2->getCoreGeometry().addAttrib(
             Ra::Core::Geometry::getAttribName( Ra::Core::Geometry::VERTEX_COLOR ),
             Vector4Array { poly2->getNumVertices(), colorBoost * Color { 0_ra, 0.6_ra, 0.1_ra } } );
@@ -698,23 +724,9 @@ void AllPrimitivesComponent::initialize() {
             auto geomData = data->getGeometryData();
 
             for ( const auto& gd : geomData ) {
-                std::shared_ptr<AttribArrayDisplayable> mesh { nullptr };
-                switch ( gd->getType() ) {
-                case Ra::Core::Asset::GeometryData::TRI_MESH:
-                    mesh = std::shared_ptr<Mesh> {
-                        createMeshFromGeometryData<Geometry::TriangleMesh>( "logo", gd ) };
-                    break;
-                case Ra::Core::Asset::GeometryData::QUAD_MESH:
-                    mesh = std::shared_ptr<Data::QuadMesh> {
-                        createMeshFromGeometryData<Geometry::QuadMesh>( "logo", gd ) };
-                    break;
-                case Ra::Core::Asset::GeometryData::POLY_MESH:
-                    mesh = std::shared_ptr<Data::PolyMesh> {
-                        createMeshFromGeometryData<Geometry::PolyMesh>( "logo", gd ) };
-                    break;
-                default:
-                    break;
-                }
+
+                auto geom { gd->getGeometry() };
+                auto mesh = std::make_shared<GeometryDisplayable>( "logo", std::move( geom ) );
 
                 std::shared_ptr<Data::Material> roMaterial;
                 const Core::Asset::MaterialData* md =
@@ -741,6 +753,15 @@ void AllPrimitivesComponent::initialize() {
                 renderObject->setMaterial( roMaterial );
 
                 addRenderObject( renderObject );
+
+                auto aabb =
+                    DrawPrimitives::AABB( renderObject->computeAabb(), Utils::Color::Red() );
+
+                auto renderObject1 = RenderObject::createRenderObject(
+                    "AABB", this, RenderObjectType::Geometry, aabb, {} );
+
+                renderObject1->setMaterial( plainMaterial );
+                addRenderObject( renderObject1 );
             }
         }
     }
@@ -868,7 +889,7 @@ void AllPrimitivesComponent::initialize() {
     auto addMesh = [this, colorBoost, plainMaterial]( Vector3 pos, TopologicalMesh topo1 ) {
         topo1.checkIntegrity();
         auto mesh1 = topo1.toTriangleMesh();
-        std::shared_ptr<Mesh> poly( new Mesh( "TEST", std::move( mesh1 ) ) );
+        auto poly  = make_shared<GeometryDisplayable>( "topo mesh", std::move( mesh1 ) );
 
         auto renderObject2 =
             RenderObject::createRenderObject( "TEST", this, RenderObjectType::Geometry, poly, {} );
@@ -891,7 +912,7 @@ void AllPrimitivesComponent::initialize() {
                 const Vector3uArray& indices,
                 Vector3 from,
                 Vector3 to ) {
-                TriangleMesh mesh;
+                MultiIndexedGeometry mesh;
                 TopologicalMesh topo;
                 optional<TopologicalMesh::HalfedgeHandle> optHe;
                 Vector3 up { 0_ra, .05_ra, 0_ra };
@@ -900,7 +921,7 @@ void AllPrimitivesComponent::initialize() {
                 mesh.addAttrib( Ra::Core::Geometry::getAttribName(
                                     Ra::Core::Geometry::MeshAttrib::VERTEX_COLOR ),
                                 Vector4Array { colors.begin(), colors.begin() + points.size() } );
-                mesh.setIndices( indices );
+                mesh.set_indices<TriangleIndexLayer>( indices );
                 topo = TopologicalMesh { mesh };
                 topo.mergeEqualWedges();
                 topo.garbage_collection();
@@ -985,7 +1006,7 @@ void AllPrimitivesComponent::initialize() {
                 const Vector3uArray& indices,
                 Vector3 from,
                 Vector3 to ) {
-                TriangleMesh mesh;
+                MultiIndexedGeometry mesh;
                 TopologicalMesh topo;
                 optional<TopologicalMesh::HalfedgeHandle> optHe;
                 Vector3 up { 0_ra, .05_ra, 0_ra };
@@ -994,7 +1015,7 @@ void AllPrimitivesComponent::initialize() {
                 mesh.addAttrib( Ra::Core::Geometry::getAttribName(
                                     Ra::Core::Geometry::MeshAttrib::VERTEX_COLOR ),
                                 Vector4Array { colors.begin(), colors.begin() + points.size() } );
-                mesh.setIndices( indices );
+                mesh.set_indices<TriangleIndexLayer>( indices );
 
                 topo = TopologicalMesh { mesh };
                 topo.mergeEqualWedges();
@@ -1056,10 +1077,9 @@ void AllPrimitivesComponent::initialize() {
         updateCellCorner( cellCorner, cellSize, nCellX, nCellY );
 
         {
-            using Ra::Engine::Data::Mesh;
             {
-                auto torusGeom = makeParametricTorus<32, 16>( .04_ra, .01_ra, Color::White() );
-                auto torusMesh = make_shared<Mesh>( "Torus", std::move( torusGeom ) );
+                auto geom      = makeParametricTorus( .04_ra, .01_ra, Color::White(), 16, 8 );
+                auto torusMesh = make_shared<GeometryDisplayable>( "Torus", std::move( geom ) );
                 auto torus     = RenderObject::createRenderObject(
                     "test_torus", this, RenderObjectType::Geometry, torusMesh, {} );
                 torus->setMaterial( blinnPhongMaterial );
@@ -1070,10 +1090,10 @@ void AllPrimitivesComponent::initialize() {
             }
 
             {
-                auto texTorusGeom =
-                    makeParametricTorus<64, 16>( .1_ra, .05_ra, Color::White(), true );
+                auto geom = makeParametricTorus( .1_ra, .05_ra, Color::White(), true, 32, 12 );
+
                 auto texTorusMesh =
-                    make_shared<Mesh>( "Textured Torus", std::move( texTorusGeom ) );
+                    make_shared<GeometryDisplayable>( "Textured Torus", std::move( geom ) );
                 auto texTorus = RenderObject::createRenderObject(
                     "test_tex_torus", this, RenderObjectType::Geometry, texTorusMesh, {} );
                 texTorus->setMaterial( blinnPhongTexturedMaterial );
@@ -1084,5 +1104,118 @@ void AllPrimitivesComponent::initialize() {
                 addRenderObject( texTorus );
             }
         }
+    }
+    if ( ENABLE_QUADSTRIPS ) {
+        updateCellCorner( cellCorner, cellSize, nCellX, nCellY );
+        updateCellCorner( cellCorner, cellSize, nCellX, nCellY );
+
+        {
+            {
+                auto strip = RenderObject::createRenderObject(
+                    "test_quadstrip",
+                    this,
+                    RenderObjectType::Geometry,
+                    DrawPrimitives::QuadStrip( cellCorner + offsetVec,
+                                               { .1_ra, 0_ra, 0_ra },
+                                               { 0_ra, .1_ra / 4, 0_ra },
+                                               8,
+                                               colorBoost * Color::Cyan() ),
+                    {} );
+                strip->setMaterial( blinnPhongMaterial );
+                addRenderObject( strip );
+            }
+
+            {
+                auto strip = RenderObject::createRenderObject(
+                    "test_quadstrip",
+                    this,
+                    RenderObjectType::Geometry,
+                    DrawPrimitives::QuadStrip( cellCorner + 2_ra * offsetVec,
+                                               { .1_ra, 0_ra, 0_ra },
+                                               { 0_ra, .1_ra / 4, 0_ra },
+                                               8,
+                                               colorBoost * Color::Cyan() ),
+                    {} );
+                strip->setMaterial( blinnPhongTexturedMaterial );
+                addRenderObject( strip );
+            }
+        }
+    }
+
+    if ( ENABLE_SPLINES ) {
+        updateCellCorner( cellCorner, cellSize, nCellX, nCellY );
+        updateCellCorner( cellCorner, cellSize, nCellX, nCellY );
+        Core::Geometry::Spline<3, 3> s;
+        auto c = cellCorner + 2_ra * offsetVec;
+        s.setCtrlPoints( { c + Vector3( 0, 0, 0 ),
+                           c + Vector3( .15 * cellSize, .5 * cellSize, .4 * cellSize ),
+                           c + Vector3( .35 * cellSize, -.5 * cellSize, .2 * cellSize ),
+                           c + Vector3( .4 * cellSize, 0, 0 ) } );
+        auto spline = RenderObject::createRenderObject(
+            "test_spline",
+            this,
+            RenderObjectType::Geometry,
+            DrawPrimitives::Spline( s, 32, colorBoost * Color::Cyan() ),
+            {} );
+        spline->setMaterial( plainMaterial );
+        addRenderObject( spline );
+    }
+    if ( ENABLE_LINE_STRIPS ) {
+        //        updateCellCorner( cellCorner, cellSize, nCellX, nCellY );
+        //       updateCellCorner( cellCorner, cellSize, nCellX, nCellY );
+        auto c     = cellCorner + 2_ra * offsetVec;
+        auto strip = RenderObject::createRenderObject(
+            "test_linestrip",
+            this,
+            RenderObjectType::Geometry,
+            DrawPrimitives::LineStrip(
+                { c + Vector3( 0, 0, 0 ),
+                  c + Vector3( .15 * cellSize, .5 * cellSize, .4 * cellSize ),
+                  c + Vector3( .35 * cellSize, -.5 * cellSize, .2 * cellSize ),
+                  c + Vector3( .4 * cellSize, 0, 0 ) },
+                { Color::Cyan(), Color::Red(), Color::Yellow(), Color::Magenta() } ),
+            {} );
+        strip->setMaterial( plainMaterial );
+        addRenderObject( strip );
+    }
+    {
+        updateCellCorner( cellCorner, cellSize, nCellX, nCellY );
+        updateCellCorner( cellCorner, cellSize, nCellX, nCellY );
+
+        constexpr Scalar arrowScale = .3_ra;
+        constexpr Scalar axisWidth  = .2_ra;
+        constexpr Scalar arrowFrac  = .125_ra;
+        constexpr Scalar radius     = arrowScale * axisWidth / 2_ra;
+
+        Core::Vector3 cylinderEnd = Core::Vector3::Zero();
+        cylinderEnd[1]            = ( 1_ra - arrowFrac );
+
+        auto startPoint = cellCorner + offsetVec;
+
+        auto cylinder = Core::Geometry::makeCylinder( Core::Vector3::Zero() + startPoint,
+                                                      arrowScale * cylinderEnd + startPoint,
+                                                      radius,
+                                                      4,
+                                                      4,
+                                                      Color::Magenta() );
+
+        Core::Aabb boxBounds;
+        boxBounds.extend( Core::Vector3( -radius * 2_ra, -radius * 2_ra, -radius * 2_ra ) );
+        boxBounds.extend( Core::Vector3( radius * 2_ra, radius * 2_ra, radius * 2_ra ) );
+        boxBounds.translate( arrowScale * cylinderEnd + startPoint );
+        auto box = Core::Geometry::makeSharpBox( boxBounds, Color::Yellow() );
+        // box is quads, need triangulate before append
+        box.triangulate<QuadIndexLayer>();
+
+        cylinder.append( box );
+
+        std::shared_ptr<Engine::Data::GeometryDisplayable> mesh(
+            new Engine::Data::GeometryDisplayable( "Scale Gizmo Arrow" ) );
+        mesh->loadGeometry( std::move( cylinder ) );
+
+        auto arrowDrawable = RenderObject::createRenderObject(
+            "Scale Gizmo Arrow", this, Engine::Rendering::RenderObjectType::Geometry, mesh, {} );
+        arrowDrawable->setMaterial( plainMaterial );
+        addRenderObject( arrowDrawable );
     }
 }

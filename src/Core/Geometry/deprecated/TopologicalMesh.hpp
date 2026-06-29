@@ -3,9 +3,10 @@
 #include <Core/RaCore.hpp>
 
 #include <Core/Containers/VectorArray.hpp>
+#include <Core/Geometry/AttribArrayGeometry.hpp>
+#include <Core/Geometry/IndexedGeometry.hpp>
 #include <Core/Geometry/OpenMesh.hpp>
 #include <Core/Geometry/StandardAttribNames.hpp>
-#include <Core/Geometry/TriangleMesh.hpp>
 #include <Core/Types.hpp>
 #include <Core/Utils/Index.hpp>
 #include <Core/Utils/StdOptional.hpp>
@@ -19,8 +20,6 @@
 #include <Eigen/Core>
 #include <Eigen/Geometry>
 
-#include <set>
-#include <typeinfo>
 #include <unordered_map>
 
 namespace Ra {

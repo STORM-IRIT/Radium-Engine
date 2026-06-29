@@ -1,5 +1,7 @@
+#include "Core/Geometry/IndexedGeometry.hpp"
+#include "Core/Utils/ObjectWithSemantic.hpp"
+#include <Core/Geometry/AttribArrayGeometry.hpp>
 #include <Core/Geometry/RayCast.hpp>
-#include <Core/Geometry/TriangleMesh.hpp>
 #include <Core/Math/LinearAlgebra.hpp> // Math::sign
 
 namespace Ra {
@@ -319,15 +321,31 @@ bool RayCastTriangle( const Ray& ray,
 }
 
 bool RayCastTriangleMesh( const Ray& r,
-                          const TriangleMesh& mesh,
+                          const MultiIndexedGeometry& mesh,
                           std::vector<Scalar>& hitsOut,
                           std::vector<Vector3ui>& trianglesIdxOut ) {
     bool hit = false;
-    for ( size_t i = 0; i < mesh.getIndices().size(); ++i ) {
-        const auto& t    = mesh.getIndices()[i];
-        const Vector3& a = mesh.vertices()[t[0]];
-        const Vector3& b = mesh.vertices()[t[1]];
-        const Vector3& c = mesh.vertices()[t[2]];
+
+    auto triangle_layer = mesh.default_layer_key();
+    if ( !Utils::hasSemantic( triangle_layer.first, TriangleIndexLayer::staticSemanticName ) ) {
+        if ( mesh.containsLayer( TriangleIndexLayer::staticSemanticName ) ) {
+            auto found     = mesh.getFirstLayerOccurrence( TriangleIndexLayer::staticSemanticName );
+            triangle_layer = found.first;
+        }
+        else {
+            LOG( Utils::logINFO ) << "Ray cast only on triangle";
+            return false;
+        }
+    }
+
+    const auto& indices  = mesh.indices<TriangleIndexLayer>( triangle_layer );
+    const auto& vertices = mesh.vertices();
+    for ( size_t i = 0; i < indices.size(); ++i ) {
+        const auto& t = indices[i];
+        CORE_ASSERT( indices.getNumberOfComponents() == 3, "Ray cast only on triangle" );
+        const auto& a = vertices[t[0]];
+        const auto& b = vertices[t[1]];
+        const auto& c = vertices[t[2]];
         if ( RayCastTriangle( r, a, b, c, hitsOut ) ) {
             trianglesIdxOut.push_back( t );
             hit = true;

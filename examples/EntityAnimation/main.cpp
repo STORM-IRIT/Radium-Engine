@@ -119,7 +119,7 @@ int main( int argc, char* argv[] ) {
 
         //! [Create a geometry component with the cube]
         // component ownership is transfered to entity in component ctor
-        new Scene::TriangleMeshComponent( "Fixed cube geometry", e, std::move( cube ), nullptr );
+        new Scene::SurfaceMeshComponent( "Fixed cube geometry", e, std::move( cube ), nullptr );
         //! [Create a geometry component with the cube]
     }
     //! [Create the demo fixed entity/component]
@@ -141,7 +141,7 @@ int main( int argc, char* argv[] ) {
         // an animated yellow cube
         auto cube =
             Geometry::makeSharpBox( { 0.1f, 0.1f, 0.1f }, Ra::Core::Utils::Color::Yellow() );
-        new Scene::TriangleMeshComponent( "Fixed cube geometry", e, std::move( cube ), nullptr );
+        new Scene::SurfaceMeshComponent( "Fixed cube geometry", e, std::move( cube ), nullptr );
 
         // an animated camera, thay is not the one active at startup. Use key '0' to activate
         auto camera = new Scene::CameraComponent( e, "Animated Camera" );

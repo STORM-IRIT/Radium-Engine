@@ -1,3 +1,4 @@
+#include "Core/Geometry/IndexedGeometry.hpp"
 #include <Core/Animation/RotationCenterSkinning.hpp>
 
 #include <array>
@@ -52,9 +53,9 @@ void computeCoR( SkinningRefData& dataInOut, Scalar sigma, Scalar weightEpsilon 
     //
 
     // convert the mesh to TopologicalMesh for easy processing.
-    Geometry::TriangleMesh triMesh;
+    Geometry::MultiIndexedGeometry triMesh;
     triMesh.copy( dataInOut.m_referenceMesh );
-    Geometry::TopologicalMesh topoMesh( triMesh );
+    Geometry::TopologicalMesh topoMesh( triMesh, triMesh.default_layer_key() );
 
     // hashing function for Vector3
     struct hash_vec {

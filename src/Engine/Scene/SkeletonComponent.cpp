@@ -1,3 +1,4 @@
+#include "Core/Geometry/IndexedGeometry.hpp"
 #include <Engine/Scene/SkeletonComponent.hpp>
 
 #include <fstream>
@@ -9,7 +10,7 @@
 #include <Core/Asset/HandleToSkeleton.hpp>
 #include <Core/Containers/AlignedStdVector.hpp>
 #include <Core/Containers/MakeShared.hpp>
-#include <Core/Geometry/TriangleMesh.hpp>
+#include <Core/Geometry/AttribArrayGeometry.hpp>
 #include <Core/Math/Math.hpp> // areApproxEqual
 
 #include <Engine/Data/BlinnPhongMaterial.hpp>
@@ -34,7 +35,7 @@ namespace Ra {
 namespace Engine {
 namespace Scene {
 
-std::shared_ptr<Data::Mesh> SkeletonComponent::s_boneMesh { nullptr };
+std::shared_ptr<Data::GeometryDisplayable> SkeletonComponent::s_boneMesh { nullptr };
 std::shared_ptr<Data::BlinnPhongMaterial> SkeletonComponent::s_boneMaterial { nullptr };
 std::shared_ptr<Rendering::RenderTechnique> SkeletonComponent::s_boneRenderTechnique { nullptr };
 
@@ -262,9 +263,9 @@ bool SkeletonComponent::isShowingSkeleton() const {
     return m_boneDrawables.front()->isVisible();
 }
 
-Core::Geometry::TriangleMesh makeBoneShape() {
+Core::Geometry::MultiIndexedGeometry makeBoneShape() {
     // Bone along Z axis.
-    Core::Geometry::TriangleMesh mesh;
+    Core::Geometry::MultiIndexedGeometry mesh;
     const Scalar l = 0.1_ra;
     const Scalar w = 0.1_ra;
     mesh.setVertices( { Core::Vector3( 0, 0, 0 ),
@@ -281,14 +282,14 @@ Core::Geometry::TriangleMesh makeBoneShape() {
                        Core::Vector3( 0, -1, 0 ),
                        Core::Vector3( -1, 0, 0 ) } );
 
-    mesh.setIndices( { Core::Vector3ui( 0, 2, 3 ),
-                       Core::Vector3ui( 0, 5, 2 ),
-                       Core::Vector3ui( 0, 3, 4 ),
-                       Core::Vector3ui( 0, 4, 5 ),
-                       Core::Vector3ui( 1, 3, 2 ),
-                       Core::Vector3ui( 1, 2, 5 ),
-                       Core::Vector3ui( 1, 4, 3 ),
-                       Core::Vector3ui( 1, 5, 4 ) } );
+    mesh.set_indices<Core::Geometry::TriangleIndexLayer>( { Core::Vector3ui( 0, 2, 3 ),
+                                                            Core::Vector3ui( 0, 5, 2 ),
+                                                            Core::Vector3ui( 0, 3, 4 ),
+                                                            Core::Vector3ui( 0, 4, 5 ),
+                                                            Core::Vector3ui( 1, 3, 2 ),
+                                                            Core::Vector3ui( 1, 2, 5 ),
+                                                            Core::Vector3ui( 1, 4, 3 ),
+                                                            Core::Vector3ui( 1, 5, 4 ) } );
     return mesh;
 }
 
@@ -296,7 +297,7 @@ void SkeletonComponent::setupSkeletonDisplay() {
     m_renderObjects.clear();
     m_boneDrawables.clear();
     if ( !s_boneMesh ) {
-        s_boneMesh = std::make_shared<Data::Mesh>( "Bone Mesh" );
+        s_boneMesh = std::make_shared<Data::GeometryDisplayable>( "Bone Mesh" );
         s_boneMesh->loadGeometry( makeBoneShape() );
         s_boneMaterial.reset( new Data::BlinnPhongMaterial( "Bone Material" ) );
         s_boneMaterial->setDiffuseColor( Color::Grey( 0.4_ra ) );

@@ -58,7 +58,7 @@ int main( int argc, char* argv[] ) {
     material->setSpecularColor( Ra::Core::Utils::Color::Black() );
 
     // the entity get's this new component ownership. a bit wired since hidden in ctor.
-    new Ra::Engine::Scene::TriangleMeshComponent( "Quad Mesh", e, std::move( quad ), material );
+    new Ra::Engine::Scene::SurfaceMeshComponent( "Quad Mesh", e, std::move( quad ), material );
     //! [Create an entity and component to draw or data]
 
     //! [Tell the window that something is to be displayed]

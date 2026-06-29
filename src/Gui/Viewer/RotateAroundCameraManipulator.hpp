@@ -32,6 +32,11 @@ class RA_GUI_API RotateAroundCameraManipulator
                                const Qt::MouseButtons& buttons,
                                const Qt::KeyboardModifiers& modifiers,
                                int key ) override;
+    bool handleMousePressEvent( QMouseEvent* event,
+                                const Qt::MouseButtons& buttons,
+                                const Qt::KeyboardModifiers& modifiers,
+                                int key ) override;
+
     /// \copydoc TrackballCameraManipulator::handleKeyPressEvent()
     bool handleKeyPressEvent( QKeyEvent* event,
                               const Ra::Gui::KeyMappingManager::KeyMappingAction& action ) override;

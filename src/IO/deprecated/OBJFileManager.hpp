@@ -1,5 +1,5 @@
 #pragma once
-#include <Core/Geometry/TriangleMesh.hpp>
+#include <Core/Geometry/AttribArrayGeometry.hpp>
 #include <IO/RaIO.hpp>
 #include <IO/deprecated/FileManager.hpp>
 

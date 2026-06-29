@@ -27,6 +27,7 @@ set(core_sources
     Containers/DynamicVisitor.cpp
     Containers/VariableSet.cpp
     Containers/VariableSetEnumManagement.cpp
+    Geometry/AttribArrayGeometry.cpp
     Geometry/CatmullClarkSubdivider.cpp
     Geometry/IndexedGeometry.cpp
     Geometry/LoopSubdivider.cpp
@@ -34,7 +35,6 @@ set(core_sources
     Geometry/PolyLine.cpp
     Geometry/RayCast.cpp
     Geometry/TopologicalMesh.cpp
-    Geometry/TriangleMesh.cpp
     Geometry/Volume.cpp
     Geometry/deprecated/TopologicalMesh.cpp
     Random/RandomPointSet.cpp
@@ -92,6 +92,7 @@ set(core_headers
     Containers/VectorArray.hpp
     CoreMacros.hpp
     Geometry/AbstractGeometry.hpp
+    Geometry/AttribArrayGeometry.hpp
     Geometry/CatmullClarkSubdivider.hpp
     Geometry/Curve2D.hpp
     Geometry/DistanceQueries.hpp
@@ -105,7 +106,6 @@ set(core_headers
     Geometry/Spline.hpp
     Geometry/StandardAttribNames.hpp
     Geometry/TopologicalMesh.hpp
-    Geometry/TriangleMesh.hpp
     Geometry/Volume.hpp
     Geometry/deprecated/TopologicalMesh.hpp
     Math/DualQuaternion.hpp

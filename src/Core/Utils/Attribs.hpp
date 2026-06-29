@@ -179,7 +179,7 @@ class AttribHandle
     friend class AttribManager;
 };
 
-/*!
+/**
  * \brief The AttribManager provides attributes management by handles.
  *
  * The AttribManager stores a container of AttribBase *, which can
@@ -250,7 +250,7 @@ class RA_CORE_API AttribManager : public Observable<const std::string&>
     template <typename T>
     bool isValid( const AttribHandle<T>& h ) const;
 
-    /*!
+    /**
      * \brief contains Check if an attribute with the given \p name exists.
      * \param name Name of the attribute.
      * \warning There is no error check on the attribute type.
@@ -258,7 +258,7 @@ class RA_CORE_API AttribManager : public Observable<const std::string&>
      */
     bool contains( const std::string& name ) const;
 
-    /*!
+    /**
      * \brief findAttrib Grab an attribute handler by \p name.
      * \param name Name of the attribute.
      * \return Attribute handler if found, an invalid handler otherwise.
@@ -268,7 +268,7 @@ class RA_CORE_API AttribManager : public Observable<const std::string&>
     template <typename T>
     AttribHandle<T> findAttrib( const std::string& name ) const;
 
-    /*!
+    /**
      * \brief Get the locked data container from the attrib handle
      * \tparam T The type of the attribute data
      * \param h the attribute handle
@@ -277,7 +277,7 @@ class RA_CORE_API AttribManager : public Observable<const std::string&>
     template <typename T>
     typename Attrib<T>::Container& getDataWithLock( const AttribHandle<T>& h );
 
-    /*!
+    /**
      * \brief Get read access to the data container from the attrib handle
      * \tparam T The type of the attribute data
      * \param h the attribute handle
@@ -286,7 +286,7 @@ class RA_CORE_API AttribManager : public Observable<const std::string&>
     template <typename T>
     const typename Attrib<T>::Container& getData( const AttribHandle<T>& h );
 
-    /*!
+    /**
      * \brief Unlock the handle data
      * \tparam T
      * \param h

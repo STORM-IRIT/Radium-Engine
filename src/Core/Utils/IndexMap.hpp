@@ -12,7 +12,7 @@ namespace Ra {
 namespace Core {
 namespace Utils {
 
-/*!
+/**
  * The class IndexMap define a map where a object is coupled with a index.
  * The index is unique, it is assigned to a object when it's inserted and is kept until the object
  * is removed. After a removal, the index becomes free again. A object will be given the first free

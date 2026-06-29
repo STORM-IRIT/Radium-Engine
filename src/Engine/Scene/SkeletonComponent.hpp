@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Engine/Data/Mesh.hpp"
 #include <Core/Animation/HandleWeight.hpp>
 #include <Core/Animation/KeyFramedValue.hpp>
 #include <Core/Animation/Skeleton.hpp>
@@ -12,7 +13,6 @@ namespace Ra {
 namespace Engine {
 namespace Data {
 class BlinnPhongMaterial;
-class Mesh;
 } // namespace Data
 namespace Rendering {
 class RenderObject;
@@ -236,7 +236,7 @@ class RA_ENGINE_API SkeletonComponent : public Component
     std::map<Core::Utils::Index, uint> m_boneMap;
 
     /// Mesh for bone display.
-    static std::shared_ptr<Data::Mesh> s_boneMesh;
+    static std::shared_ptr<Data::GeometryDisplayable> s_boneMesh;
 
     /// Material for bone display.
     static std::shared_ptr<Data::BlinnPhongMaterial> s_boneMaterial;

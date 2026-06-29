@@ -184,7 +184,7 @@ class RA_ENGINE_API EnvironmentTexture
     /// Is the envmap a Skybox ?
     bool m_isSkyBox { false };
     /// The mesh of the skybox
-    std::unique_ptr<Ra::Engine::Data::Mesh> m_displayMesh { nullptr };
+    std::unique_ptr<Ra::Engine::Data::GeometryDisplayable> m_displayMesh { nullptr };
     /// The texture of the skybox
     std::unique_ptr<Ra::Engine::Data::Texture> m_skyTexture { nullptr };
     /// The Lod to use for the skybox

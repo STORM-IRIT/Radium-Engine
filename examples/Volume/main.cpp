@@ -86,7 +86,7 @@ int main( int argc, char* argv[] ) {
 
     //! [Create a geometry component with the cube]
     auto cc =
-        new Ra::Engine::Scene::TriangleMeshComponent( "Cube Mesh", ce, std::move( cube ), nullptr );
+        new Ra::Engine::Scene::SurfaceMeshComponent( "Cube Mesh", ce, std::move( cube ), nullptr );
     //! [Create a geometry component with the cube]
 
     //! [Register the entity/component association to the geometry system ]
@@ -125,7 +125,7 @@ int main( int argc, char* argv[] ) {
 
     //! [Create a geometry component with the cube]
     auto cc =
-        new Ra::Engine::Scene::TriangleMeshComponent( "Cube Mesh", ce, std::move( cube ), nullptr );
+        new Ra::Engine::Scene::SurfaceMeshComponent( "Cube Mesh", ce, std::move( cube ), nullptr );
     //! [Create a geometry component with the cube]
 
     //! [Register the entity/component association to the geometry system ]

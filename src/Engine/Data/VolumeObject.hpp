@@ -81,7 +81,7 @@ class RA_ENGINE_API VolumeObject : public Displayable
     std::unique_ptr<Core::Geometry::AbstractVolume> m_volume;
     Texture m_tex { {} };
     /// Mesh used to display the bounding box of the grid for the ray marching
-    Mesh m_mesh;
+    GeometryDisplayable m_mesh;
 
     /// General dirty bit of the mesh. An empty volume is not dirty
     bool m_isDirty { false };
