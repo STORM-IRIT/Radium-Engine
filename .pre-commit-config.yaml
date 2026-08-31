@@ -20,12 +20,12 @@ repos:
     - id: cmake-format
       exclude: cmake/CodeCoverage.cmake
 - repo: https://github.com/igorshubovych/markdownlint-cli
-  rev: v0.48.0
+  rev: v0.49.1
   hooks:
   - id: markdownlint
     args: [-f]
 - repo: https://github.com/pre-commit/mirrors-clang-format
-  rev: v22.1.4
+  rev: v23.1.0
   hooks:
   - id: clang-format
     types_or: [c++, c, cuda]
