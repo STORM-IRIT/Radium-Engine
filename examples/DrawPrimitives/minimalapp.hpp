@@ -45,9 +45,9 @@ class MinimalApp : public QApplication
     QTimer* m_frameTimer { nullptr };
 
     // Our framerate
-    uint m_targetFps { 60 };
+    Ra::uint m_targetFps { 60 };
 
-    uint m_manipulatorIndex { 0 };
+    Ra::uint m_manipulatorIndex { 0 };
 
     void changeCameraManipulator();
 

@@ -8,6 +8,7 @@
 
 #include "../unittestUtils.hpp"
 
+using namespace Ra;
 using namespace Ra::Core;
 
 struct PrintThemAll

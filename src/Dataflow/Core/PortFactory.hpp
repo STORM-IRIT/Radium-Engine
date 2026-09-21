@@ -20,7 +20,7 @@ class RA_DATAFLOW_CORE_API PortFactory
     using PortOutSetter      = std::function<void( PortBaseOut*, std::any )>;
     using PortInGetter       = std::function<std::any( PortBaseIn* )>;
 
-    PortBaseInPtr make_input_port( Node* node, const std::string& name, std::type_index type ) {
+    PortBaseInPtr make_input_port( Node* node, const std::string& name, std::string type ) {
         if ( auto itr = m_input_ctor.find( type ); itr != m_input_ctor.end() ) {
             return itr->second( node, name );
         }
@@ -28,7 +28,7 @@ class RA_DATAFLOW_CORE_API PortFactory
             << "input ctor type not found " << Ra::Core::Utils::simplifiedDemangledType( type );
         return {};
     }
-    PortBaseOutPtr make_output_port( Node* node, const std::string& name, std::type_index type ) {
+    PortBaseOutPtr make_output_port( Node* node, const std::string& name, std::string type ) {
         if ( auto itr = m_output_ctor.find( type ); itr != m_output_ctor.end() ) {
             return itr->second( node, name );
         }
@@ -37,23 +37,14 @@ class RA_DATAFLOW_CORE_API PortFactory
         return {};
     }
 
-    PortBaseInPtr
-    make_input_port_from_name( Node* node, const std::string& name, std::string type ) {
-        return make_input_port( node, name, m_type_to_string.key( type ) );
-    }
-    PortBaseOutPtr
-    make_output_port_from_name( Node* node, const std::string& name, std::string type ) {
-        return make_output_port( node, name, m_type_to_string.key( type ) );
-    }
-
-    PortOutSetter output_setter( std::type_index type ) { return m_output_setter.at( type ); }
-    PortInGetter input_getter( std::type_index type ) { return m_input_getter.at( type ); }
+    PortOutSetter output_setter( std::string type ) { return m_output_setter.at( type ); }
+    PortInGetter input_getter( std::string type ) { return m_input_getter.at( type ); }
 
     template <typename T>
     void add_port_type() {
 
-        auto type = std::type_index( typeid( T ) );
-        if ( !m_type_to_string.valueIfExists( type ) ) {
+        auto type = Ra::Core::Utils::simplifiedDemangledType<T>();
+        if ( !m_input_ctor.contains( type ) ) {
             m_input_ctor[type] = []( Node* node, const std::string& name ) {
                 return std::make_shared<PortIn<T>>( node, name );
             };
@@ -71,8 +62,6 @@ class RA_DATAFLOW_CORE_API PortFactory
                 auto casted = dynamic_cast<PortOut<T>*>( port );
                 casted->set_data( data );
             };
-
-            m_type_to_string.insert( type, Ra::Core::Utils::simplifiedDemangledType( type ) );
         }
     }
 
@@ -92,12 +81,10 @@ class RA_DATAFLOW_CORE_API PortFactory
         add_port_type<std::function<float( const float& )>>();
     }
 
-    std::unordered_map<std::type_index, PortInCtorFunctor> m_input_ctor;
-    std::unordered_map<std::type_index, PortInGetter> m_input_getter;
-    std::unordered_map<std::type_index, PortOutCtorFunctor> m_output_ctor;
-    std::unordered_map<std::type_index, PortOutSetter> m_output_setter;
-
-    Ra::Core::Utils::BijectiveAssociation<std::type_index, std::string> m_type_to_string;
+    std::unordered_map<std::string, PortInCtorFunctor> m_input_ctor;
+    std::unordered_map<std::string, PortInGetter> m_input_getter;
+    std::unordered_map<std::string, PortOutCtorFunctor> m_output_ctor;
+    std::unordered_map<std::string, PortOutSetter> m_output_setter;
 };
 template <typename T>
 void add_port_type() {

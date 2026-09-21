@@ -10,7 +10,7 @@
 #include <unordered_map>
 
 #define REGISTER_TYPE_TO_FACTORY( FACTORY, TYPE, NAMESPACE ) \
-    FACTORY->register_node_creator<TYPE>( TYPE::node_typename() + "_", #NAMESPACE )
+    FACTORY->register_node_creator<TYPE>( TYPE::node_typename() + "_", NAMESPACE )
 
 namespace Ra {
 namespace Dataflow {

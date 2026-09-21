@@ -1,8 +1,11 @@
 
+#include "Core/Tasks/Task.hpp"
+#include "Core/Tasks/TaskQueue.hpp"
 #include <Dataflow/Core/DataflowGraph.hpp>
 
 #include <Dataflow/Core/Port.hpp>
 
+// #include <execution> // need tbb
 #include <fstream>
 #include <map>
 
@@ -33,23 +36,80 @@ void DataflowGraph::init() {
     }
 }
 
-bool DataflowGraph::execute() {
+bool DataflowGraph::execute2() {
     if ( m_inputs.size() > 0 || m_outputs.size() > 0 ) return true;
 
     if ( !m_ready ) {
         if ( !compile() ) { return false; }
     }
-    bool result = true;
-    std::for_each(
-        m_nodes_by_level.begin(), m_nodes_by_level.end(), [&result]( const auto& level ) {
-            std::for_each( level.begin(), level.end(), [&result]( auto node ) {
-                bool executed = node->execute();
-                if ( !executed ) {
-                    LOG( logERROR ) << "Execution failed with node " << node->instance_name()
-                                    << " (" << node->model_name() << ").";
+
+    Ra::Core::TaskQueue queue( 10 );
+    std::map<Node*, Ra::Core::TaskQueue::TaskId> node_to_id;
+    std::atomic_bool result { true };
+
+    std::mutex log_mutex;
+
+    m_executed_node_count.store( 0 );
+
+    // fill task queue
+    for ( const auto& n : m_node_info_map ) {
+        // Transform the entity
+        auto n_ptr        = n.first;
+        node_to_id[n_ptr] = queue.registerTask( std::make_unique<Ra::Core::FunctionTask>(
+            [this, &result, n_ptr, &log_mutex]() {
+                bool executed = n_ptr->execute();
+                m_executed_node_count++;
+                result = result.load() && executed;
+
+                {
+                    std::lock_guard<std::mutex> lock( log_mutex );
+                    m_log_callback(
+                        m_executed_node_count.load(), m_active_node_count, n_ptr->display_name() );
                 }
-                result = result && executed;
-            } );
+            },
+            n_ptr->display_name() ) );
+    }
+
+    // fill dependencies
+    for ( const auto& n : m_node_info_map ) {
+        auto n_ptr = n.first;
+        for ( const auto& l : n.second.second ) {
+            queue.addDependency( node_to_id[n_ptr], node_to_id[l] );
+        }
+    }
+    queue.startTasks();
+    queue.waitForTasks();
+
+    return result;
+}
+
+bool DataflowGraph::execute() {
+    return execute2();
+    if ( m_inputs.size() > 0 || m_outputs.size() > 0 ) return true;
+
+    if ( !m_ready ) {
+        if ( !compile() ) { return false; }
+    }
+
+    m_executed_node_count.store( 0 );
+    std::atomic_bool result { true };
+    std::for_each(
+        m_nodes_by_level.begin(), m_nodes_by_level.end(), [this, &result]( const auto& level ) {
+            std::for_each( // std::execution::par,
+                level.begin(),
+                level.end(),
+                [this, &result]( auto node ) {
+                    bool executed = node->execute();
+                    if ( !executed ) {
+                        LOG( logERROR ) << "Execution failed with node " << node->instance_name()
+                                        << " (" << node->model_name() << ").";
+                    }
+                    m_executed_node_count++;
+                    m_log_callback(
+                        m_executed_node_count.load(), m_active_node_count, node->display_name() );
+
+                    result = result.load() && executed;
+                } );
         } );
     return result;
 }
@@ -268,7 +328,7 @@ bool DataflowGraph::add_node( std::shared_ptr<Node> newNode ) {
 
 bool DataflowGraph::remove_node( std::shared_ptr<Node> node ) {
     // This is to prevent graph destruction from the graph editor, depending on how it is used
-    if ( m_nodesAndLinksProtected ) { return false; }
+    if ( m_nodes_and_links_protected ) { return false; }
 
     if ( auto itr = std::find( m_nodes.begin(), m_nodes.end(), node ); itr != m_nodes.end() ) {
         m_nodes.erase( itr );
@@ -296,7 +356,7 @@ bool DataflowGraph::are_ports_compatible( const Node* nodeFrom,
     return true;
 }
 
-void nodeNotFoundMessage( const std::string& type, const std::string& name, const Node* node ) {
+void node_not_found_message( const std::string& type, const std::string& name, const Node* node ) {
     LOG( logERROR ) << "DataflowGraph::add_link Unable to find " << type << "input port " << name
                     << " from destination node " << node->instance_name() << " ("
                     << node->model_name() << ")";
@@ -310,12 +370,12 @@ bool DataflowGraph::add_link( const std::shared_ptr<Node>& nodeFrom,
 
     auto [inputIdx, inputPort] = nodeTo->input_by_name( nodeToInputName );
     if ( !inputPort ) {
-        nodeNotFoundMessage( "input", nodeToInputName, nodeTo.get() );
+        node_not_found_message( "input", nodeToInputName, nodeTo.get() );
         return false;
     }
     auto [outputIdx, outputPort] = nodeFrom->output_by_name( nodeFromOutputName );
     if ( !outputPort ) {
-        nodeNotFoundMessage( "output", nodeFromOutputName, nodeFrom.get() );
+        node_not_found_message( "output", nodeFromOutputName, nodeFrom.get() );
         return false;
     }
 
@@ -386,7 +446,7 @@ bool DataflowGraph::remove_link( std::shared_ptr<Node> node, const std::string& 
 
 bool DataflowGraph::remove_link( std::shared_ptr<Node> node, const PortIndex& in_port_index ) {
     // This is to prevent graph destruction from the graph editor, depending on how it is used
-    if ( m_nodesAndLinksProtected ) { return false; }
+    if ( m_nodes_and_links_protected ) { return false; }
 
     // Check node's existence in the graph
     bool ret = false;
@@ -431,11 +491,11 @@ bool DataflowGraph::compile() {
     // Find useful nodes (directly or indirectly connected to a Sink)
 
     /// Node -> level, linked nodes
-    std::unordered_map<Node*, std::pair<int, std::vector<Node*>>> infoNodes;
+    m_node_info_map.clear();
 
     if ( m_output_node ) {
-        backtrack_graph( m_output_node.get(), infoNodes );
-        infoNodes.emplace( m_output_node.get(), std::pair<int, std::vector<Node*>>( 0, {} ) );
+        backtrack_graph( m_output_node.get(), m_node_info_map );
+        m_node_info_map.emplace( m_output_node.get(), LevelAndLinked { 0, {} } );
     }
     for ( auto const& n : m_nodes ) {
         // Find all active sinks, skip m_output_node
@@ -445,9 +505,9 @@ bool DataflowGraph::compile() {
                      return p->is_linked();
                  } ) ) {
 
-                infoNodes.emplace( n.get(), std::pair<int, std::vector<Node*>>( 0, {} ) );
+                m_node_info_map.emplace( n.get(), LevelAndLinked { 0, {} } );
                 // recursively add the predecessors of the sink
-                backtrack_graph( n.get(), infoNodes );
+                backtrack_graph( n.get(), m_node_info_map );
             }
             else {
                 LOG( logWARNING ) << "Sink Node " << n->instance_name()
@@ -457,39 +517,40 @@ bool DataflowGraph::compile() {
     }
     // Compute the level (rank of execution) of useful nodes
     int maxLevel = 0;
-    for ( auto& infNode : infoNodes ) {
-        auto n = infNode.first;
+    for ( auto& level_and_linked : m_node_info_map ) {
+        auto n = level_and_linked.first;
         // Compute the nodes' level starting from sources
         if ( n->is_input() || n == m_input_node.get() ) {
 
             // set level to 0 because node is source
-            infNode.second.first = 0;
+            level_and_linked.second.first = 0;
             // Tag successors (go through graph)
-            maxLevel = std::max( maxLevel, traverse_graph( n, infoNodes ) );
+            maxLevel = std::max( maxLevel, traverse_graph( n, m_node_info_map ) );
         }
     }
     m_nodes_by_level.clear();
-    m_nodes_by_level.resize( infoNodes.size() != 0 ? maxLevel + 1 : 0 );
-    for ( auto& infNode : infoNodes ) {
-        CORE_ASSERT( size_t( infNode.second.first ) < m_nodes_by_level.size(),
-                     std::string( "Node " ) + infNode.first->instance_name() + " is at level " +
-                         std::to_string( infNode.second.first ) + " but level max is " +
-                         std::to_string( maxLevel ) );
-
-        m_nodes_by_level[infNode.second.first].push_back( infNode.first );
+    m_nodes_by_level.resize( m_node_info_map.size() != 0 ? maxLevel + 1 : 0 );
+    for ( auto& level_and_linked : m_node_info_map ) {
+        CORE_ASSERT( size_t( level_and_linked.second.first ) < m_nodes_by_level.size(),
+                     std::string( "Node " ) + level_and_linked.first->instance_name() +
+                         " is at level " + std::to_string( level_and_linked.second.first ) +
+                         " but level max is " + std::to_string( maxLevel ) );
+        m_nodes_by_level[level_and_linked.second.first].push_back( level_and_linked.first );
     }
 
+    m_active_node_count = 0;
     // For each level
-    for ( auto& lvl : m_nodes_by_level ) {
+    for ( auto& level : m_nodes_by_level ) {
         // For each node
-        for ( size_t j = 0; j < lvl.size(); j++ ) {
-            if ( !lvl[j]->compile() ) { return m_ready = false; }
+        m_active_node_count += level.size();
+        for ( size_t j = 0; j < level.size(); j++ ) {
+            if ( !level[j]->compile() ) { return m_ready = false; }
             // For each input
-            for ( size_t k = 0; k < lvl[j]->inputs().size(); k++ ) {
-                if ( lvl[j] != m_input_node.get() && lvl[j]->inputs()[k]->is_link_mandatory() &&
-                     !lvl[j]->inputs()[k]->is_linked() ) {
+            for ( size_t k = 0; k < level[j]->inputs().size(); k++ ) {
+                if ( level[j] != m_input_node.get() && level[j]->inputs()[k]->is_link_mandatory() &&
+                     !level[j]->inputs()[k]->is_linked() ) {
                     LOG( logERROR )
-                        << "Node <" << lvl[j]->instance_name() << "> is not ready" << std::endl;
+                        << "Node <" << level[j]->instance_name() << "> is not ready" << std::endl;
                     return m_ready = false;
                 }
             }
@@ -517,54 +578,47 @@ void DataflowGraph::clear_nodes() {
     m_should_save = true;
 }
 
-void DataflowGraph::backtrack_graph(
-    Node* current,
-    std::unordered_map<Node*, std::pair<int, std::vector<Node*>>>& infoNodes ) {
+void DataflowGraph::backtrack_graph( Node* current, NodeInfoMap& nodes_info ) {
+    // loop over current node linked inputs
     for ( auto& input : current->inputs() ) {
         if ( input->link() ) {
-            Node* previous = input->link()->node();
-            if ( previous && previous != m_input_node.get() ) {
-                auto previousInInfoNodes = infoNodes.find( previous );
-                if ( previousInInfoNodes != infoNodes.end() ) {
-                    // If the previous node is already in the map,
-                    // find if the current node is already a successor node
-                    auto& previousSuccessors = previousInInfoNodes->second.second;
-                    bool foundCurrent = std::any_of( previousSuccessors.begin(),
-                                                     previousSuccessors.end(),
-                                                     [current]( auto c ) { return c == current; } );
-                    if ( !foundCurrent ) {
+            if ( auto previous = input->link()->node();
+                 previous && previous != m_input_node.get() ) {
+                // if the previous node is already in the map,
+                // find if the current node is already a successor node
+                if ( auto linked = nodes_info.find( previous ); linked != nodes_info.end() ) {
+                    auto& successors = linked->second.second;
+                    if ( !std::any_of( successors.begin(), successors.end(), [current]( auto c ) {
+                             return c == current;
+                         } ) ) {
                         // If the current node is not a successor node, add it to the list
-                        previousSuccessors.push_back( current );
+                        successors.push_back( current );
                     }
                 }
+                // else add node and linked to nodes_infos and recurse.
                 else {
-                    // Add node to info nodes
                     std::vector<Node*> successors;
                     successors.push_back( current );
-                    infoNodes.emplace(
-                        previous,
-                        std::pair<int, std::vector<Node*>>( 0, std::move( successors ) ) );
-                    backtrack_graph( previous, infoNodes );
+                    nodes_info.emplace( previous, LevelAndLinked { 0, std::move( successors ) } );
+                    backtrack_graph( previous, nodes_info );
                 }
             }
         }
     }
 }
 
-int DataflowGraph::traverse_graph(
-    Node* current,
-    std::unordered_map<Node*, std::pair<int, std::vector<Node*>>>& infoNodes ) {
+int DataflowGraph::traverse_graph( Node* current, NodeInfoMap& nodes_info ) {
 
     int maxLevel = 0;
-    if ( infoNodes.find( current ) != infoNodes.end() ) {
+    if ( nodes_info.find( current ) != nodes_info.end() ) {
 
-        for ( auto const& successor : infoNodes[current].second ) {
+        for ( auto const& successor : nodes_info[current].second ) {
             // Successors is a least +1 level
-            infoNodes[successor].first =
-                std::max( infoNodes[successor].first, infoNodes[current].first + 1 );
+            nodes_info[successor].first =
+                std::max( nodes_info[successor].first, nodes_info[current].first + 1 );
             maxLevel = std::max(
                 maxLevel,
-                std::max( infoNodes[successor].first, traverse_graph( successor, infoNodes ) ) );
+                std::max( nodes_info[successor].first, traverse_graph( successor, nodes_info ) ) );
         }
     }
 
@@ -677,7 +731,7 @@ void DataflowGraph::Log::bad_port_index( const std::string& type,
 }
 
 void DataflowGraph::Log::try_to_link_input_to_output() {
-    LOG( logERROR ) << "DataflowGraph could not link input to ouput directrly";
+    LOG( logERROR ) << "DataflowGraph could not link input to ouput directly";
 }
 
 } // namespace Core

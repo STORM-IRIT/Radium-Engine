@@ -4,6 +4,7 @@
 
 #include <catch2/catch_test_macros.hpp>
 
+using namespace Ra;
 using namespace Ra::Core;
 using namespace Ra::Core::Utils;
 using namespace Ra::Core::Asset;

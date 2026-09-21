@@ -27,6 +27,7 @@
 #include <stb/stb_image_write.h>
 
 using namespace Ra::Headless;
+using namespace Ra;
 int main( int argc, const char* argv[] ) {
     //! [Creating the viewer with custom parameters]
     bool showWindow { false };

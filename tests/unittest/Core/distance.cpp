@@ -6,6 +6,8 @@
 #include <catch2/catch_test_macros.hpp>
 #include <cmath>
 
+using namespace Ra;
+
 TEST_CASE( "Core/Geometry/DistanceQueries", "[unittests][Core][Core/Geometry][DistanceQueries]" ) {
 
     using namespace Ra::Core;

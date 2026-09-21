@@ -412,19 +412,20 @@ bool allClose( const Eigen::DenseBase<DerivedA>& a,
 // See
 
 namespace Eigen {
-inline Quaternion<Scalar> operator*( Scalar k, const Quaternion<Scalar>& q ) {
+inline Quaternion<Ra::Scalar> operator*( Ra::Scalar k, const Quaternion<Ra::Scalar>& q ) {
     return Ra::Core::Math::scale( q, k );
 }
 
-inline Quaternion<Scalar> operator*( const Quaternion<Scalar>& q, Scalar k ) {
+inline Quaternion<Ra::Scalar> operator*( const Quaternion<Ra::Scalar>& q, Ra::Scalar k ) {
     return Ra::Core::Math::scale( q, k );
 }
 
-inline Quaternion<Scalar> operator+( const Quaternion<Scalar>& q1, const Quaternion<Scalar>& q2 ) {
+inline Quaternion<Ra::Scalar> operator+( const Quaternion<Ra::Scalar>& q1,
+                                         const Quaternion<Ra::Scalar>& q2 ) {
     return Ra::Core::Math::add( q1, q2 );
 }
 
-inline Quaternion<Scalar> operator/( const Quaternion<Scalar>& q, Scalar k ) {
-    return Ra::Core::Math::scale( q, Scalar( 1 ) / k );
+inline Quaternion<Ra::Scalar> operator/( const Quaternion<Ra::Scalar>& q, Ra::Scalar k ) {
+    return Ra::Core::Math::scale( q, Ra::Scalar( 1 ) / k );
 }
 } // namespace Eigen

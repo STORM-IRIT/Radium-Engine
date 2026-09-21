@@ -11,6 +11,8 @@
 
 #include "tempdir.hpp"
 
+using namespace Ra;
+
 TEST_CASE( "Dataflow/Core/DataflowGraph/Serialization",
            "[unittests][Dataflow][Core][DataflowGraph]" ) {
     SECTION( "Execution and modification of a graph" ) {

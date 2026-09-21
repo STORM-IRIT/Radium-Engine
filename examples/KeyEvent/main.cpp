@@ -21,6 +21,8 @@
 
 #include <Gui/Viewer/Viewer.hpp>
 
+using namespace Ra;
+
 /**
  * Simple custom windows for custom KeyEvent demonstration
  */

@@ -5,6 +5,7 @@
 #include <string>
 #include <type_traits>
 
+using namespace Ra;
 using namespace Ra::Core;
 
 TEST_CASE( "Core/Container/VectorArray", "[unittests][Core][Container][VectorArray]" ) {

@@ -18,6 +18,8 @@
 // Qt
 #include <QTimer>
 
+using namespace Ra;
+
 /**
  * Demonstrate the usage of RawShaderMaterial functionalities
  */

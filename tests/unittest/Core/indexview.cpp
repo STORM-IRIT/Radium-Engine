@@ -3,6 +3,8 @@
 #include <Core/Geometry/StandardAttribNames.hpp>
 #include <catch2/catch_test_macros.hpp>
 
+using namespace Ra;
+
 struct CustomTriangleIndexLayer : public Ra::Core::Geometry::TriangleIndexLayer {
     inline CustomTriangleIndexLayer() :
         Ra::Core::Geometry::TriangleIndexLayer( staticSemanticName ) {}

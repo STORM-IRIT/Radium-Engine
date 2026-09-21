@@ -6,6 +6,8 @@
 #include <catch2/catch_test_macros.hpp>
 #include <cmath>
 
+using namespace Ra;
+
 TEST_CASE( "Core/Math/Algebra", "[unittests][Core][Core/Math][Algebra]" ) {
     using namespace Ra::Core;
     SECTION( "Test custom vector functions" ) {

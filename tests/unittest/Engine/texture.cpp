@@ -20,6 +20,7 @@
 #    include <Headless/OpenGLContext/GlfwOpenGLContext.hpp>
 #endif
 
+using namespace Ra;
 using namespace Ra::Headless;
 using namespace Ra::Engine::Data;
 using namespace Ra::Core::Utils;

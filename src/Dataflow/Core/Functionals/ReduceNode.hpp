@@ -1,4 +1,5 @@
 #pragma once
+#include "Dataflow/RaDataflow.hpp"
 #include <Dataflow/Core/Node.hpp>
 
 #include <functional>
@@ -52,6 +53,9 @@ class ReduceNode : public Node
      */
     ReduceNode( const std::string& instanceName, ReduceOperator op, v_t initialValue = v_t {} );
 
+    RA_NODE_TYPENAME( std::string { "Reduce<" } +
+                      Ra::Core::Utils::simplifiedDemangledType<coll_t>() + ">" );
+
     void init() override;
     bool execute() override;
 
@@ -74,9 +78,6 @@ class ReduceNode : public Node
     RA_NODE_PORT_IN( coll_t, data );
     RA_NODE_PORT_IN( ReduceOperator, op );
     RA_NODE_PORT_OUT_WITH_DATA( v_t, result );
-
-  public:
-    static const std::string& node_typename();
 };
 
 // -----------------------------------------------------------------
@@ -116,13 +117,6 @@ bool ReduceNode<coll_t, v_t>::execute() {
     m_result = std::accumulate( in.begin(), in.end(), m_port_in_init->data(), f );
 
     return true;
-}
-
-template <typename coll_t, typename v_t>
-const std::string& ReduceNode<coll_t, v_t>::node_typename() {
-    static std::string demangledName =
-        std::string { "Reduce<" } + Ra::Core::Utils::simplifiedDemangledType<coll_t>() + ">";
-    return demangledName;
 }
 
 template <typename coll_t, typename v_t>

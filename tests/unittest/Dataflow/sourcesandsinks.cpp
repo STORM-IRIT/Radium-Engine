@@ -8,6 +8,7 @@
 #include <iostream>
 #include <string>
 
+using namespace Ra;
 using namespace Ra::Dataflow::Core;
 using namespace Ra::Core::Utils;
 

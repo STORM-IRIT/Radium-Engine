@@ -10,6 +10,7 @@
 #include <Engine/RadiumEngine.hpp>
 #include <sstream>
 
+using namespace Ra;
 using namespace Ra::Core;
 using namespace Ra::Core::Utils;
 using namespace Ra::Engine::Data;

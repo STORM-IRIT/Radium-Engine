@@ -42,7 +42,9 @@ class RA_DATAFLOW_CORE_API PortBase
      * \param node The pointer to the node associated with the port.
      */
     PortBase( const std::string& name, std::type_index type, Node* node ) :
-        m_name( name ), m_type( type ), m_node( node ) {}
+        m_name( name ),
+        m_type( Ra::Core::Utils::simplifiedDemangledType( type ) ),
+        m_node( node ) {}
     /// @}
 
     /// \brief Make PortBase a base abstract class
@@ -52,14 +54,15 @@ class RA_DATAFLOW_CORE_API PortBase
     const std::string& name() const { return m_name; }
     /// \brief Set's port name
     void set_name( const std::string& name ) { m_name = name; }
-    /// \brief Gets the type of the data (efficient for comparisons).
-    std::type_index type() const { return m_type; }
+    /// \brief Gets data's type (as string since type_info isn't consistent across dll made with
+    /// different compilers.
+    std::string type() const { return m_type; }
     /// \brief Gets a pointer to the node this port belongs to.
     Node* node() const { return m_node; }
 
     /// \brief Gets the human readable type of the port object.
     /// \return The simplified demangled type.
-    std::string port_typename() const { return Ra::Core::Utils::simplifiedDemangledType( m_type ); }
+    std::string port_typename() const { return m_type; }
 
     /// can we get data from the port ?
     virtual bool has_data() = 0;
@@ -70,9 +73,9 @@ class RA_DATAFLOW_CORE_API PortBase
     }
 
   private:
-    std::string m_name { "" }; ///< The name of the port.
-    std::type_index m_type;    ///< The port's data's type's index.
-    Node* m_node { nullptr };  ///< A pointer to the node this port belongs to.
+    std::string m_name { "" };      ///< The name of the port.
+    std::string m_type { "unset" }; ///< The port's data's type's as srting.
+    Node* m_node { nullptr };       ///< A pointer to the node this port belongs to.
     /// \todo switch to shared_ptr ?
 };
 

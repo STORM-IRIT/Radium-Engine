@@ -9,6 +9,7 @@
 
 #include <OpenMesh/Tools/Subdivider/Uniform/CatmullClarkT.hh>
 
+using namespace Ra;
 using namespace Ra::Core;
 using namespace Ra::Core::Utils;
 using namespace Ra::Core::Geometry;

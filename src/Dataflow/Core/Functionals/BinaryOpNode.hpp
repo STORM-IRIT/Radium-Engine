@@ -1,6 +1,7 @@
 #pragma once
 #include "Core/CoreMacros.hpp"
 #include "Dataflow/Core/Port.hpp"
+#include "Dataflow/RaDataflow.hpp"
 #include <Dataflow/Core/Node.hpp>
 
 #include <functional>
@@ -62,7 +63,7 @@ template <typename t_a,
           bool it_b   = Ra::Core::Utils::is_container<t_b>::value,
           bool it_out = Ra::Core::Utils::is_container<t_out>::value>
 struct ExecutorHelper {
-    static t_out executeInternal( t_a&, t_b&, funcType ) {
+    static t_out executeInternal( const t_a&, const t_b&, funcType ) {
         static_assert( ( ( it_a || it_b ) ? it_out : !it_out ), "Invalid template parameter " );
     }
 };
@@ -72,7 +73,7 @@ struct ExecutorHelper {
  */
 template <typename t_a, typename t_b, typename t_out, typename funcType>
 struct ExecutorHelper<t_a, t_b, t_out, funcType, true, true, true> {
-    static t_out executeInternal( t_a& a, t_b& b, funcType f ) {
+    static t_out executeInternal( const t_a& a, const t_b& b, funcType f ) {
         t_out res;
         std::transform( a.begin(),
                         a.end(),
@@ -90,7 +91,7 @@ struct ExecutorHelper<t_a, t_b, t_out, funcType, true, true, true> {
  */
 template <typename t_a, typename t_b, typename t_out, typename funcType>
 struct ExecutorHelper<t_a, t_b, t_out, funcType, true, false, true> {
-    static t_out executeInternal( t_a& a, t_b& b, funcType f ) {
+    static t_out executeInternal( const t_a& a, const t_b& b, funcType f ) {
         t_out res;
         std::transform( a.begin(),
                         a.end(),
@@ -106,7 +107,7 @@ struct ExecutorHelper<t_a, t_b, t_out, funcType, true, false, true> {
  */
 template <typename t_a, typename t_b, typename t_out, typename funcType>
 struct ExecutorHelper<t_a, t_b, t_out, funcType, false, true, true> {
-    static t_out executeInternal( t_a& a, t_b& b, funcType f ) {
+    static t_out executeInternal( const t_a& a, const t_b& b, funcType f ) {
         t_out res;
         std::transform( b.begin(),
                         b.end(),
@@ -122,7 +123,7 @@ struct ExecutorHelper<t_a, t_b, t_out, funcType, false, true, true> {
  */
 template <typename t_a, typename t_b, typename t_out, typename funcType>
 struct ExecutorHelper<t_a, t_b, t_out, funcType, false, false, false> {
-    static t_out executeInternal( t_a& a, t_b& b, funcType f ) { return f( a, b ); }
+    static t_out executeInternal( const t_a& a, const t_b& b, funcType f ) { return f( a, b ); }
 };
 } // namespace internal
 
@@ -187,13 +188,10 @@ class BinaryOpNode : public Node
     /// \brief Sets the operator to be evaluated by the node.
     void set_operator( BinaryOperator op ) { m_port_in_op->set_default_value( op ); }
 
-    static const std::string& node_typename() {
-        static std::string demangledName =
-            std::string { "BinaryOp<" } + Ra::Core::Utils::simplifiedDemangledType<t_a>() + " x " +
-            Ra::Core::Utils::simplifiedDemangledType<t_b>() + " -> " +
-            Ra::Core::Utils::simplifiedDemangledType<t_result>() + ">";
-        return demangledName;
-    }
+    RA_NODE_TYPENAME( std::string { "BinaryOp<" } +
+                      Ra::Core::Utils::simplifiedDemangledType<t_a>() + " x " +
+                      Ra::Core::Utils::simplifiedDemangledType<t_b>() + " -> " +
+                      Ra::Core::Utils::simplifiedDemangledType<t_result>() + ">" );
 
   protected:
     BinaryOpNode( const std::string& instanceName,

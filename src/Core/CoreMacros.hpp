@@ -245,6 +245,7 @@
 // ----------------------------------------------------------------------------
 // Useful aliases
 // ----------------------------------------------------------------------------
+namespace Ra{
 
 using uchar  = unsigned char;
 using ushort = unsigned short;
@@ -259,6 +260,9 @@ using Scalar = float;
 using Scalar = double;
 #endif
 
+}
+
+
 /*!
  * User litteral for Radium's Scalar type for floating point numbers
  * \see https://en.cppreference.com/w/cpp/language/user_literal
@@ -267,9 +271,9 @@ using Scalar = double;
  * auto s = 10.5_ra; // s is a Scalar
  * \endcode
  */
-constexpr Scalar operator"" _ra ( long double n )
+constexpr Ra::Scalar operator"" _ra ( long double n )
 {
-    return Scalar( n );
+    return Ra::Scalar( n );
 }
 
 /*!
@@ -280,9 +284,9 @@ constexpr Scalar operator"" _ra ( long double n )
  * auto s = 1_ra; // s is a Scalar
  * \endcode
  */
-constexpr Scalar operator"" _ra ( unsigned long long n )
+constexpr Ra::Scalar operator"" _ra ( unsigned long long n )
 {
-    return Scalar( n );
+  return Ra::Scalar( n );
 }
 
 // ----------------------------------------------------------------------------

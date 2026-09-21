@@ -14,6 +14,7 @@
 #include <string>
 #include <vector>
 
+using namespace Ra;
 using namespace Ra::Dataflow::Core;
 
 /* ----------------------------------------------------------------------------------- */

@@ -35,7 +35,7 @@ Eigen::MatrixBase<Derived>& normalize( Eigen::MatrixBase<Derived>& v1 ) {
 }
 
 template <typename Derived>
-Eigen::MatrixBase<Derived>& vectorize( Eigen::MatrixBase<Derived>& v1, Scalar a ) {
+Eigen::MatrixBase<Derived>& vectorize( Eigen::MatrixBase<Derived>& v1, Ra::Scalar a ) {
     v1.setConstant( a );
     return v1;
 }
@@ -56,7 +56,7 @@ namespace OpenMesh {
 template <>
 struct vector_traits<Ra::Core::Vector3> {
     using vector_type         = Ra::Core::Vector3;
-    using value_type          = Scalar;
+    using value_type          = Ra::Scalar;
     static const size_t size_ = 3;
     static size_t size() { return 3; }
 };

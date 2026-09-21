@@ -13,6 +13,7 @@
 
 using std::string;
 
+using namespace Ra;
 using namespace Ra::Dataflow::Core;
 
 class DummyNode : public Node
@@ -26,10 +27,8 @@ class DummyNode : public Node
     DummyNode& operator=( const DummyNode& ) = delete;
     DummyNode& operator=( DummyNode&& )      = delete;
     explicit DummyNode( const std::string& name ) : DummyNode( name, DummyNode::node_typename() ) {}
-    static const std::string& node_typename() {
-        static std::string name = string { "DummyNode" };
-        return name;
-    }
+    RA_NODE_TYPENAME( "DummyNode" );
+
     bool execute() override { return is_initialized(); }
 
     void remove_in_0() { remove_input( 0 ); }

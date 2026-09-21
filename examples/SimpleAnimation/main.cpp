@@ -23,6 +23,8 @@
 // To terminate the demo after 4 seconds
 #include <QTimer>
 
+using namespace Ra;
+
 //! [Define a key-framed geometry component]
 /**
  * KeyFramedGeometryComponent : example on extending a geometry component to animate its

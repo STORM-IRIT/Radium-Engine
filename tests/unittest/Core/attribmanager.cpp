@@ -8,6 +8,7 @@
 
 #include <string>
 
+using namespace Ra;
 using namespace Ra::Core;
 using namespace Ra::Core::Utils;
 

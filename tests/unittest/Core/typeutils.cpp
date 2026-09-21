@@ -4,6 +4,8 @@
 #include <Core/Utils/TypesUtils.hpp>
 #include <catch2/catch_test_macros.hpp>
 
+using namespace Ra;
+
 namespace TypeTests {
 struct TypeName_struct {};
 

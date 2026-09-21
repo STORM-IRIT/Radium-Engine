@@ -2,6 +2,8 @@
 #include <Eigen/Core>
 #include <catch2/catch_test_macros.hpp>
 
+using namespace Ra;
+
 TEST_CASE( "Core/Utils/Color", "[unittests][Core][Core/Utils][Color]" ) {
     using namespace Ra::Core::Utils;
 

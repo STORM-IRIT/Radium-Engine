@@ -7,6 +7,7 @@
 
 #include <random>
 
+using namespace Ra;
 using namespace Ra::Dataflow::Core;
 
 /* ----------------------------------------------------------------------------------- */

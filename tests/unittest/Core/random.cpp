@@ -16,6 +16,8 @@ using namespace Ra::Core::Random;
         REQUIRE( isApprox( v[1], seq_verif[i].second ) ); \
     }
 
+using namespace Ra;
+
 TEST_CASE( "Core/Random/RandomPointSet", "[unittests][Core][Core/Random][PointSet]" ) {
     SECTION( "Fibonacci sequence" ) {
         std::array<Scalar, 5> seq_verif { 0_ra,

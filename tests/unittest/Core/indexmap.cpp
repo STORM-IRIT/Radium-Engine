@@ -2,6 +2,7 @@
 #include <catch2/catch_test_macros.hpp>
 #include <unittestUtils.hpp>
 
+using namespace Ra;
 using Ra::Core::Utils::Index;
 using Ra::Core::Utils::IndexMap;
 

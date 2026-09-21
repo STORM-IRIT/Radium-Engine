@@ -2,6 +2,8 @@
 #include <Core/Math/Math.hpp>
 #include <catch2/catch_test_macros.hpp>
 
+using namespace Ra;
+
 TEST_CASE( "Core/Geometry/RayCast", "[unittests][Core][Core/Geometry][RayCast]" ) {
     using namespace Ra::Core;
     Aabb ones( -Vector3::Ones(), Vector3::Ones() );

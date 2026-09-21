@@ -20,6 +20,7 @@
 
 #include <sstream>
 
+using namespace Ra;
 using namespace Ra::Core::Utils; // log
 
 /**

@@ -15,6 +15,7 @@
 
 #include "../unittestUtils.hpp"
 
+using namespace Ra;
 using namespace Ra::Headless;
 using namespace Ra::Engine::Data;
 

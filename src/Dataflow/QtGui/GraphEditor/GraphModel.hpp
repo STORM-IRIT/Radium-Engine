@@ -6,6 +6,8 @@
 
 #include <Dataflow/Core/DataflowGraph.hpp>
 #include <Dataflow/Core/Node.hpp>
+#include <Dataflow/QtGui/GraphEditor/WidgetFactory.hpp>
+#include <Gui/ParameterSetEditor/ParameterSetEditor.hpp>
 
 #include <QWidget>
 
@@ -105,7 +107,12 @@ class RA_DATAFLOW_GUI_API GraphModel : public QtNodes::AbstractGraphModel
     auto node_ptr( NodeId node_id ) -> std::shared_ptr<Core::Node> {
         return m_node_id_to_ptr.at( node_id );
     }
-
+    using WidgetFactoryInstanciator = std::function<WidgetFactory*( Ra::Core::VariableSet&,
+                                                                    Ra::Gui::VariableSetEditor*,
+                                                                    const nlohmann::json& )>;
+    void set_widget_factory_instanciator( WidgetFactoryInstanciator widget_factory_instanciator ) {
+        m_widget_factory_instanciator = widget_factory_instanciator;
+    }
   signals:
     void node_edited( std::shared_ptr<Core::Node> node );
 
@@ -126,6 +133,8 @@ class RA_DATAFLOW_GUI_API GraphModel : public QtNodes::AbstractGraphModel
 
     void fill_factory_map();
     std::map<std::string, Core::NodeFactory::NodeCreatorFunctor> m_model_name_to_factory;
+
+    WidgetFactoryInstanciator m_widget_factory_instanciator;
 };
 } // namespace GraphEditor
 } // namespace QtGui

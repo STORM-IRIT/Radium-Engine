@@ -17,6 +17,7 @@
 #include <memory>
 #include <string>
 
+using namespace Ra;
 using namespace Ra::Dataflow::Core;
 
 /* ----------------------------------------------------------------------------------- */

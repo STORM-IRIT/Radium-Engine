@@ -2,10 +2,10 @@
 
 #include <Core/RaCore.hpp>
 #include <ctime>
+#include <iostream>
 #include <sstream>
 #include <stdio.h>
 #include <string>
-
 namespace Ra {
 namespace Core {
 namespace Utils {

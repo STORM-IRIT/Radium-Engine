@@ -21,6 +21,7 @@
 #include <string>
 #include <vector>
 
+using namespace Ra;
 using namespace Ra::Dataflow::Core;
 
 void inspectGraph( const DataflowGraph& g ) {
@@ -345,18 +346,13 @@ TEST_CASE( "Dataflow/Core/Graph/Inspection of a graph", "[unittests][Dataflow][C
     using namespace Ra::Dataflow::Core;
 
     // add some nodes to factory
-    using ScalarFilterSource    = Sources::FunctionSourceNode<Scalar, const Scalar&>;
-    using ScalarFunctionSource  = Sources::FunctionSourceNode<Scalar, const Scalar&, const Scalar&>;
-    using ScalarPredicateSource = Sources::FunctionSourceNode<bool, const Scalar&, const Scalar&>;
-    using ReduceNode            = Functionals::ReduceNode<Ra::Core::VectorArray<Scalar>>;
-    using TransformNode         = Functionals::TransformNode<Ra::Core::VectorArray<Scalar>>;
-    using ScalarVectorSource    = Sources::SingleDataSourceNode<Ra::Core::VectorArray<Scalar>>;
-    REGISTER_TYPE_TO_FACTORY( coreFactory, ScalarVectorSource, Sources );
-    REGISTER_TYPE_TO_FACTORY( coreFactory, ScalarFilterSource, Sources );
-    REGISTER_TYPE_TO_FACTORY( coreFactory, ScalarFunctionSource, Sources );
-    REGISTER_TYPE_TO_FACTORY( coreFactory, ScalarPredicateSource, Sources );
-    REGISTER_TYPE_TO_FACTORY( coreFactory, ReduceNode, Functionals );
-    REGISTER_TYPE_TO_FACTORY( coreFactory, TransformNode, Functionals );
+    //    using ScalarFilterSource    = Sources::FunctionSourceNode<Scalar, const Scalar&>;
+    //    using ScalarFunctionSource  = Sources::FunctionSourceNode<Scalar, const Scalar&, const
+    //    Scalar&>; using ScalarPredicateSource = Sources::FunctionSourceNode<bool, const Scalar&,
+    //    const Scalar&>; using ReduceNode            =
+    //    Functionals::ReduceNode<Ra::Core::VectorArray<Scalar>>; using TransformNode         =
+    //    Functionals::TransformNode<Ra::Core::VectorArray<Scalar>>; using ScalarVectorSource    =
+    //    Sources::SingleDataSourceNode<Ra::Core::VectorArray<Scalar>>;
 
     std::cout << "Loading graph data/Dataflow/ExampleGraph.json\n";
 
