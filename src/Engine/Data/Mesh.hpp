@@ -211,7 +211,7 @@ class IndexedAttribArrayDisplayable : public AttribArrayDisplayable, public VaoI
                            const typename Ra::Core::Utils::Attrib<T>::Container& data );
     template <typename T>
     inline void addAttrib( const std::string& name,
-                           const typename Ra::Core ::Utils::Attrib<T>::Container&& data );
+                           const typename Ra::Core::Utils::Attrib<T>::Container&& data );
     inline void updateGL() override;
 
     inline void render( const ShaderProgram* prog ) override;
@@ -576,7 +576,7 @@ template <typename I>
 template <typename T>
 void IndexedAttribArrayDisplayable<I>::addAttrib(
     const std::string& name,
-    const typename Ra::Core ::Utils::Attrib<T>::Container&& data ) {
+    const typename Ra::Core::Utils::Attrib<T>::Container&& data ) {
     auto handle = m_attribManager.addAttrib<T>( name );
     m_attribManager.getAttrib( handle ).setData( std::move( data ) );
     m_handleToBuffer[name] = m_dataDirty.size();
