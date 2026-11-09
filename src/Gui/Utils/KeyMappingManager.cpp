@@ -150,7 +150,7 @@ std::string KeyMappingManager::getContextName( const Context& context ) {
     auto contextFindItr = std::find_if(
         std::begin( m_contextNameToIndex ),
         std::end( m_contextNameToIndex ),
-        [&]( const ContextNameMap ::value_type& pair ) { return pair.second == context; } );
+        [&]( const ContextNameMap::value_type& pair ) { return pair.second == context; } );
 
     if ( contextFindItr != std::end( m_contextNameToIndex ) ) { return contextFindItr->first; }
     return "Invalid";

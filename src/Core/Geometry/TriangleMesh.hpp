@@ -232,7 +232,7 @@ class RA_CORE_API PointCloud : public AttribArrayGeometry
 class RA_CORE_API LineStrip : public AttribArrayGeometry
 {};
 
-inline AttribArrayGeometry ::AttribArrayGeometry( const AttribArrayGeometry& other ) :
+inline AttribArrayGeometry::AttribArrayGeometry( const AttribArrayGeometry& other ) :
     AbstractGeometry( other ) {
     m_vertexAttribs.copyAllAttributes( other.m_vertexAttribs );
     m_verticesHandle = other.m_verticesHandle;
